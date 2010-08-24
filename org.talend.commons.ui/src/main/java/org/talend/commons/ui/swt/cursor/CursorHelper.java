@@ -13,7 +13,6 @@
 package org.talend.commons.ui.swt.cursor;
 
 import org.eclipse.swt.graphics.Cursor;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
 /**

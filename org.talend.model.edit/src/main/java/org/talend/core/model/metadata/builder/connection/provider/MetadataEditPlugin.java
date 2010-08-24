@@ -6,9 +6,7 @@
 package org.talend.core.model.metadata.builder.connection.provider;
 
 import org.eclipse.emf.common.EMFPlugin;
-
 import org.eclipse.emf.common.util.ResourceLocator;
-
 import orgomg.cwm.objectmodel.core.provider.Cwm_mipEditPlugin;
 
 /**

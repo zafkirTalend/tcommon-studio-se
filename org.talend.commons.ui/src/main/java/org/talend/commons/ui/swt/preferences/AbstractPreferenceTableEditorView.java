@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.commons.ui.swt.preferences;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.jface.preference.FieldEditor;

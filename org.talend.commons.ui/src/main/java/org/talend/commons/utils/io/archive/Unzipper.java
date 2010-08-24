@@ -20,9 +20,6 @@ import java.io.IOException;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
-import org.talend.commons.ui.utils.PathUtils;
 import org.talend.commons.utils.io.FilesUtils;
 
 /**

@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.commons.ui.swt.tableviewer.behavior;
 
-import org.eclipse.swt.graphics.Image;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>

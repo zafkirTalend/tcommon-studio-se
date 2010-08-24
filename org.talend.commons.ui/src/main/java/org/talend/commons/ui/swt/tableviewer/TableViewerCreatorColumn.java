@@ -15,8 +15,6 @@ package org.talend.commons.ui.swt.tableviewer;
 import java.util.Comparator;
 
 import org.eclipse.jface.viewers.CellEditor;
-import org.eclipse.jface.viewers.ITableLabelProvider;
-import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.TableColumn;

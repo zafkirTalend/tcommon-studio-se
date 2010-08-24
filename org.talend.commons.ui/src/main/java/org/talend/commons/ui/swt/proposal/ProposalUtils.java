@@ -12,20 +12,6 @@
 // ============================================================================
 package org.talend.commons.ui.swt.proposal;
 
-import java.io.File;
-
-import org.eclipse.jdt.core.CompletionContext;
-import org.eclipse.jdt.core.ICompilationUnit;
-import org.eclipse.jdt.core.IJavaElement;
-import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jdt.core.eval.IEvaluationContext;
-import org.eclipse.jdt.debug.eval.EvaluationManager;
-import org.eclipse.jdt.debug.eval.IClassFileEvaluationEngine;
-import org.eclipse.jdt.debug.eval.IEvaluationEngine;
-import org.eclipse.jdt.internal.debug.eval.LocalEvaluationEngine;
-import org.eclipse.jdt.ui.text.java.CompletionProposalCollector;
-import org.eclipse.jdt.ui.text.java.JavaContentAssistInvocationContext;
 import org.eclipse.jface.bindings.keys.KeyStroke;
 import org.eclipse.jface.bindings.keys.ParseException;
 import org.eclipse.jface.fieldassist.IContentProposalProvider;
@@ -36,7 +22,6 @@ import org.eclipse.swt.custom.VerifyKeyListener;
 import org.eclipse.swt.events.VerifyEvent;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Text;
-import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.ui.i18n.Messages;
 
 /**
@@ -125,60 +110,6 @@ public final class ProposalUtils {
      * 
      * @param compilationUnit
      */
-    public static void initializeJavaProposal(ICompilationUnit compilationUnit) {
-
-        IJavaProject javaProject = compilationUnit != null ? ((IJavaElement) compilationUnit).getJavaProject() : null;
-        IEvaluationContext evaluationContext = javaProject.newEvaluationContext();
-
-        IClassFileEvaluationEngine classFileEvaluationEngine = EvaluationManager.newClassFileEvaluationEngine(javaProject, null,
-                new File("")); //$NON-NLS-1$
-
-        LocalEvaluationEngine localEvaluationEngine = (LocalEvaluationEngine) classFileEvaluationEngine;
-
-        IEvaluationEngine astEvaluationEngine = EvaluationManager.newAstEvaluationEngine(javaProject, null);
-
-        String code = null;
-        try {
-            code = compilationUnit.getBuffer().getContents();
-        } catch (JavaModelException e1) {
-            // TODO Auto-generated catch block
-            // e1.printStackTrace();
-            ExceptionHandler.process(e1);
-        }
-        // try {
-        // evaluationContext.evaluateCodeSnippet(code , localEvaluationEngine, null);
-        // } catch (JavaModelException e) {
-        // // TODO Auto-generated catch block
-        // e.printStackTrace();
-        // }
-
-        CompletionProposalCollector completionProposalCollector = new CompletionProposalCollector(compilationUnit);
-        JavaContentAssistInvocationContext contentAssistInvocationContext = new JavaContentAssistInvocationContext(
-                compilationUnit);
-        completionProposalCollector.setInvocationContext(contentAssistInvocationContext);
-
-        // CompletionProposal completionProposal = CompletionProposal.create(CompletionProposal.FIELD_REF,
-        // completionOffset);
-        // completionProposalCollector.accept(proposal)
-
-        CompletionContext completionContext = new CompletionContext();
-        completionProposalCollector.acceptContext(completionContext);
-
-        IJavaElement[] javaElements = null;
-        try {
-            javaElements = evaluationContext.codeSelect(code, 9265, code.length());
-            evaluationContext.codeComplete(code, 9265, completionProposalCollector);
-        } catch (JavaModelException e) {
-            // TODO Auto-generated catch block
-            // e.printStackTrace();
-            ExceptionHandler.process(e);
-        }
-
-        // System.out.println();
-        // CompletionEngine name = new CompletionEngine();
-
-        // System.out.println();
-    }
 
 }
 // backup do not remove, it will be removed later

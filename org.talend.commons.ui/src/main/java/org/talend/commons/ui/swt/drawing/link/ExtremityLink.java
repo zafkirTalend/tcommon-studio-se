@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.commons.ui.swt.drawing.link;
 
-import org.talend.commons.ui.swt.drawing.link.IExtremityLink;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>

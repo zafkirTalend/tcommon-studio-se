@@ -13,7 +13,6 @@
 package org.talend.commons.ui.swt.tableviewer.tableeditor;
 
 import org.eclipse.swt.custom.TableEditor;
-import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Table;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;

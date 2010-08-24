@@ -13,7 +13,6 @@
 package org.talend.commons.ui.swt.tableviewer.behavior;
 
 import org.eclipse.jface.viewers.CellEditor;
-import org.eclipse.jface.viewers.ComboBoxCellEditor;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>

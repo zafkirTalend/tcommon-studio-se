@@ -10,11 +10,8 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.common.util.ResourceLocator;
-
 import org.eclipse.emf.ecore.EStructuralFeature;
-
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -24,21 +21,14 @@ import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
-
 import org.talend.core.model.metadata.builder.connection.provider.MetadataEditPlugin;
-
 import org.talend.cwm.relational.RelationalFactory;
-
 import org.talend.cwm.softwaredeployment.SoftwaredeploymentFactory;
-
 import org.talend.cwm.xml.TdXmlElementType;
 import org.talend.cwm.xml.XmlFactory;
 import org.talend.cwm.xml.XmlPackage;
-
 import orgomg.cwm.objectmodel.core.CorePackage;
-
 import orgomg.cwm.resource.xml.provider.ElementTypeItemProvider;
 
 /**
