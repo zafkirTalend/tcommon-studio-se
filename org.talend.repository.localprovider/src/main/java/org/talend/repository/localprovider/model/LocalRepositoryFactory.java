@@ -412,8 +412,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             if (currentFolderItem != null) {
                 for (Item curItem : (List<Item>) currentFolderItem.getChildren()) {
                     if (curItem instanceof FolderItem && searchInChildren) {
-                        toReturn
-                                .addAll(getSerializableFromFolder(project, curItem, id, type, allVersion, true, withDeleted, true));
+                        toReturn.addAll(getSerializableFromFolder(project, curItem, id, type, allVersion, true, withDeleted, true));
                     } else if (!(curItem instanceof FolderItem)) {
                         Property property = curItem.getProperty();
                         if (property != null) {
@@ -896,8 +895,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         for (int i = 0; i < childrens.length; i++) {
             if (childrens[i] instanceof FolderItem) {
                 FolderItem children = (FolderItem) childrens[i];
-                moveFolder(type, sourcePath.append(children.getProperty().getLabel()), targetPath.append(emfFolder.getProperty()
-                        .getLabel()));
+                moveFolder(type, sourcePath.append(children.getProperty().getLabel()),
+                        targetPath.append(emfFolder.getProperty().getLabel()));
             } else {
                 emfFolder.getChildren().remove(childrens[i]);
                 newFolder.getChildren().add(childrens[i]);
@@ -910,8 +909,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         for (IRepositoryViewObject object : serializableFromFolder) {
             List<Resource> affectedResources = xmiResourceManager.getAffectedResources(object.getProperty());
             for (Resource resource : affectedResources) {
-                IPath path = getPhysicalProject(project).getFullPath().append(completeNewPath).append(
-                        resource.getURI().lastSegment());
+                IPath path = getPhysicalProject(project).getFullPath().append(completeNewPath)
+                        .append(resource.getURI().lastSegment());
                 xmiResourceManager.moveResource(resource, path);
             }
         }
@@ -1054,6 +1053,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             state.setPath(newPath.toString());
             xmiResourceManager.saveResource(state.eResource());
 
+            // all resources attached must be saved before move the resources
             List<Resource> affectedResources = xmiResourceManager.getAffectedResources(obj.getProperty());
             for (Resource resource : affectedResources) {
                 xmiResourceManager.saveResource(resource);
@@ -1061,6 +1061,12 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             for (Resource resource : affectedResources) {
                 IPath path = folder.getFullPath().append(resource.getURI().lastSegment());
                 xmiResourceManager.moveResource(resource, path);
+            }
+            // all resources attached must be saved again after move the resources, or author will link to wrong path
+            // for project file
+            affectedResources = xmiResourceManager.getAffectedResources(obj.getProperty());
+            for (Resource resource : affectedResources) {
+                xmiResourceManager.saveResource(resource);
             }
         }
         saveProject(project);
