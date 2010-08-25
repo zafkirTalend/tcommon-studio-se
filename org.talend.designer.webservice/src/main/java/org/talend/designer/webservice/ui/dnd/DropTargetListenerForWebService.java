@@ -27,7 +27,6 @@ import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.commons.ui.swt.linking.TableToTablesLinker;
 import org.talend.commons.ui.utils.TableUtils;
 import org.talend.core.model.metadata.IMetadataColumn;
-import org.talend.core.model.process.IConnection;
 import org.talend.designer.webservice.WebServiceComponent;
 import org.talend.designer.webservice.data.InputMappingData;
 import org.talend.designer.webservice.data.OutPutMappingData;
@@ -54,25 +53,6 @@ public class DropTargetListenerForWebService implements TransferDropTargetListen
         this.draggableControl = draggableControlView.getTable();
         this.tabTotabLink = (WebServiceTableLiner) tabTotabLink;
         this.connector = connector;
-    }
-
-    private String initInRoWName() {
-        String inRowName = new String();
-        List<? extends IConnection> inConnList = connector.getIncomingConnections();
-        // List<IMetadataTable> metaList = connector.getMetadataList();
-        if (!inConnList.isEmpty()) {
-            for (int i = 0; i < inConnList.size(); i++) {
-                IConnection conn = inConnList.get(i);
-                if (conn == null) {
-                    continue;
-                }
-                inRowName = conn.getUniqueName();
-            }
-            return inRowName;
-        } else {
-            inRowName = "input";
-            return inRowName;
-        }
     }
 
     /*
@@ -224,10 +204,10 @@ public class DropTargetListenerForWebService implements TransferDropTargetListen
                         inputColumn = (IMetadataColumn) tabitem.getData();
                         List<IMetadataColumn> columnList = inData.getMetadataColumnList();
                         if (inData.getInputColumnValue() == null || "".equals(inData.getInputColumnValue())) {
-                            inData.setInputColumnValue(initInRoWName() + "." + inputColumn.getLabel());
+                            inData.setInputColumnValue(connector.initInRoWName() + "." + inputColumn.getLabel());
                             columnList.add(inputColumn);
                         } else {
-                            inData.setInputColumnValue(inData.getInputColumnValue() + " " + initInRoWName() + "."
+                            inData.setInputColumnValue(inData.getInputColumnValue() + " " + connector.initInRoWName() + "."
                                     + inputColumn.getLabel());
                             columnList.add(inputColumn);
                         }

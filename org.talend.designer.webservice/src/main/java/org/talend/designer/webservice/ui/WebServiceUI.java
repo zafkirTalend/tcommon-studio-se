@@ -1780,6 +1780,20 @@ public class WebServiceUI extends AbstractWebService {
         if (connection == null) {
             inputschemaButton.setEnabled(true);
         }
+
+        GridData gd = new GridData(GridData.FILL_HORIZONTAL);
+        gd.horizontalAlignment = SWT.END;
+        Button autoMapButton = new Button(buttonCompsoite, SWT.PUSH);
+        autoMapButton.setLayoutData(gd);
+        autoMapButton.setText("Auto Map");
+        autoMapButton.addSelectionListener(new SelectionAdapter() {
+
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                autoMapForInput();
+            }
+        });
+
         Composite viewComposite = new Composite(columnComposite, SWT.NONE);
         viewComposite.setLayout(new FillLayout());
         viewComposite.setLayoutData(new GridData(GridData.FILL_BOTH));
@@ -2014,6 +2028,139 @@ public class WebServiceUI extends AbstractWebService {
         initLinksForIn();
         inputComposite.setWeights(new int[] { 5, 2, 5 });
         return inputComposite;
+    }
+
+    private void autoMapForInput() {
+        TableItem[] inputItems = columnInPutTableView.getTable().getItems();
+        TableItem[] expressItems = expressinPutTableView.getTable().getItems();
+        tabTotabLinkForin.clearLinks();
+        for (TableItem inputItem : inputItems) {
+            Object inputData = inputItem.getData();
+            if (inputData instanceof IMetadataColumn) {
+                IMetadataColumn inputColumn = (IMetadataColumn) inputData;
+                String inputlabel = inputColumn.getLabel();
+                for (TableItem expressItem : expressItems) {
+                    Object expressData = expressItem.getData();
+                    if (expressData instanceof InputMappingData) {
+                        InputMappingData imData = (InputMappingData) expressData;
+                        ParameterInfo parameter = imData.getParameter();
+                        if (parameter.getParent() != null) {
+                            String columnValue = imData.getInputColumnValue();
+                            if (columnValue == null || "".equals(columnValue)) {
+                                String paraName = parameter.getName();
+                                if (paraName.equals(inputlabel)) {
+                                    imData.setInputColumnValue(connector.initInRoWName() + "." + paraName);
+                                    if (!imData.getMetadataColumnList().contains(inputColumn)) {
+                                        imData.getMetadataColumnList().add(inputColumn);
+                                    }
+                                    tabTotabLinkForin.addLinks(inputItem, inputData, expressItem.getParent(), expressData,
+                                            "INPUTMAPPING");
+                                }
+                            } else {
+                                if (columnValue.contains(".")) {
+                                    String originalValue = columnValue.substring(columnValue.lastIndexOf(".") + 1);
+                                    if (originalValue.equals(inputlabel)) {
+                                        tabTotabLinkForin.addLinks(inputItem, inputData, expressItem.getParent(), expressData,
+                                                "INPUTMAPPING");
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        tabTotabLinkForin.updateLinksStyleAndControlsSelection(expressinPutTableView.getTable(), true);
+        columnInPutTableView.getTableViewerCreator().getTableViewer().refresh();
+        expressinPutTableView.getTableViewerCreator().getTableViewer().refresh();
+    }
+
+    private void autoMapForOutput() {
+        TableItem[] outputItems = rowoutPutTableView.getTable().getItems();
+        TableItem[] expressItems = expressoutPutTableView.getTable().getItems();
+        tabTotabLinkForout.clearLinks();
+        for (TableItem expressItem : expressItems) {
+            Object expressData = expressItem.getData();
+            if (expressData instanceof OutPutMappingData) {
+                OutPutMappingData omData = (OutPutMappingData) expressData;
+                String outputColumnValue = omData.getOutputColumnValue();
+                String parameterName = omData.getParameterName();
+                for (TableItem outputItem : outputItems) {
+                    Object outputData = outputItem.getData();
+                    if (outputData instanceof OutPutMappingData) {
+                        OutPutMappingData opData = (OutPutMappingData) outputData;
+                        ParameterInfo parameter = opData.getParameter();
+                        String sourceParameterName = opData.getParameterName();
+                        if (parameter.getParent() != null) {
+                            if (parameterName == null || "".equals(parameterName)) {
+                                String value = "";
+                                if (parameter.getName().contains(".")) {
+                                    value = parameter.getName().substring(parameter.getName().lastIndexOf(".") + 1);
+                                } else {
+                                    value = parameter.getName();
+                                }
+                                if (value.equals(outputColumnValue)) {
+                                    String str = "";
+                                    if (opData.getParameterName() != null) {
+                                        str = opData.getParameterName();
+                                    } else {
+                                        str = new ParameterInfoUtil().getParentName(parameter);
+                                    }
+                                    omData.setParameterName(str);
+                                    if (!omData.getParameterList().contains(parameter)) {
+                                        omData.getParameterList().add(parameter);
+                                    }
+                                    tabTotabLinkForout.addLinks(outputItem, outputData, expressItem.getParent(), expressData,
+                                            "OUTPUTMAPPING");
+                                }
+                            } else {
+                                if (parameterName.equals(sourceParameterName)) {
+                                    tabTotabLinkForout.addLinks(outputItem, outputData, expressItem.getParent(), expressData,
+                                            "OUTPUTMAPPING");
+                                }
+                            }
+                        }
+                    } else if (outputData instanceof ParameterInfo) {
+                        ParameterInfo paraData = (ParameterInfo) outputData;
+                        if (paraData.getParent() != null && paraData.getName().equals(outputColumnValue)) {
+                            if (parameterName == null || "".equals(parameterName)) {
+                                String value = "";
+                                if (paraData.getName().contains(".")) {
+                                    value = paraData.getName().substring(paraData.getName().lastIndexOf(".") + 1);
+                                } else {
+                                    value = paraData.getName();
+                                }
+                                if (value.equals(outputColumnValue)) {
+                                    String name = new ParameterInfoUtil().getParentName(paraData);
+                                    omData.setParameterName(name);
+                                    if (!omData.getParameterList().contains(paraData)) {
+                                        omData.getParameterList().add(paraData);
+                                    }
+                                    tabTotabLinkForout.addLinks(outputItem, outputData, expressItem.getParent(), expressData,
+                                            "OUTPUTMAPPING");
+                                }
+                            } else {
+                                String value = "";
+                                if (parameterName.contains(".")) {
+                                    value = parameterName.substring(parameterName.lastIndexOf(".") + 1);
+                                } else {
+                                    value = parameterName;
+                                }
+                                if (value.equals(paraData.getName())) {
+                                    tabTotabLinkForout.addLinks(outputItem, outputData, expressItem.getParent(), expressData,
+                                            "OUTPUTMAPPING");
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+        tabTotabLinkForout.updateLinksStyleAndControlsSelection(expressoutPutTableView.getTable(), true);
+        rowoutPutTableView.getTableViewerCreator().getTableViewer().refresh();
+        expressoutPutTableView.getTableViewerCreator().getTableViewer().refresh();
+
     }
 
     private void addListenerForInputCom() {
@@ -2364,6 +2511,19 @@ public class WebServiceUI extends AbstractWebService {
         removeButForout.setToolTipText(Messages.getString("WebServiceUI.Remove_element")); //$NON-NLS-1$
         removeButForout.setLayoutData(butComData);
         removeButForout.pack();
+
+        GridData gd = new GridData(GridData.FILL_HORIZONTAL);
+        gd.horizontalAlignment = SWT.END;
+        Button autoMapButton = new Button(butComRow, SWT.PUSH);
+        autoMapButton.setLayoutData(gd);
+        autoMapButton.setText("Auto Map");
+        autoMapButton.addSelectionListener(new SelectionAdapter() {
+
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                autoMapForOutput();
+            }
+        });
 
         SashForm safhExRow = new SashForm(comforRow, SWT.NONE);
         safhExRow.pack();
