@@ -1,0 +1,6 @@
+Patch 1.0
+
+/h2-2010-05-24/src/main/org/h2/jdbc/JdbcDatabaseMetaData.java
+=> compiled with jdk 1.5
+
+
