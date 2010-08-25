@@ -36,8 +36,4 @@ Export-Package: org.h2,
  org.h2.tools,
  org.h2.util,
  org.h2.value
-Require-Bundle: com.atl.common,
- org.apache.lucene,
- org.apache.directory.studio.jars,
- javax.servlet
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
