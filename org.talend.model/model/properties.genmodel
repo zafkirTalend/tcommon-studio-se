@@ -351,6 +351,7 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//ExecutionTaskJobPrm/executionTask"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTaskJobPrm/originalValue"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTaskJobPrm/defaultValue"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTaskJobPrm/itemType"/>
     </genClasses>
     <genClasses ecoreClass="properties.ecore#//TaskExecutionHistory">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TaskExecutionHistory/id"/>
@@ -563,17 +564,6 @@
     <genClasses ecoreClass="properties.ecore#//SVGBusinessProcessItem">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//SVGBusinessProcessItem/businessProcessItem"/>
     </genClasses>
-    <genClasses ecoreClass="properties.ecore#//TDQItem">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TDQItem/filename"/>
-    </genClasses>
-    <genClasses ecoreClass="properties.ecore#//TDQAnalysisItem"/>
-    <genClasses ecoreClass="properties.ecore#//TDQReportItem"/>
-    <genClasses ecoreClass="properties.ecore#//TDQDBConnectionItem"/>
-    <genClasses ecoreClass="properties.ecore#//TDQMDMConnectionItem"/>
-    <genClasses ecoreClass="properties.ecore#//TDQIndicatorItem"/>
-    <genClasses ecoreClass="properties.ecore#//TDQBusinessRuleItem"/>
-    <genClasses ecoreClass="properties.ecore#//TDQPatternItem"/>
-    <genClasses ecoreClass="properties.ecore#//TDQJrxmlItem"/>
     <genClasses ecoreClass="properties.ecore#//LinkRulesItem">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//LinkRulesItem/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//LinkRulesItem/extension"/>
@@ -604,6 +594,9 @@
     <genClasses ecoreClass="properties.ecore#//CustomComponentSetting">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//CustomComponentSetting/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//CustomComponentSetting/share"/>
+    </genClasses>
+    <genClasses ecoreClass="properties.ecore#//TDQItem">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TDQItem/filename"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

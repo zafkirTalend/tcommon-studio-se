@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.ExecutionTaskJobPrm#getExecutionTask <em>Execution Task</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTaskJobPrm#getOriginalValue <em>Original Value</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTaskJobPrm#getDefaultValue <em>Default Value</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTaskJobPrm#getItemType <em>Item Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -187,5 +188,31 @@ public interface ExecutionTaskJobPrm extends EObject {
      * @generated
      */
     void setDefaultValue(String value);
+
+    /**
+     * Returns the value of the '<em><b>Item Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Item Type</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Item Type</em>' attribute.
+     * @see #setItemType(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTaskJobPrm_ItemType()
+     * @model
+     * @generated
+     */
+    String getItemType();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTaskJobPrm#getItemType <em>Item Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Item Type</em>' attribute.
+     * @see #getItemType()
+     * @generated
+     */
+    void setItemType(String value);
 
 } // ExecutionTaskJobPrm

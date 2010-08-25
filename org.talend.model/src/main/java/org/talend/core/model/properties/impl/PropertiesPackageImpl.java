@@ -2832,6 +2832,15 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExecutionTaskJobPrm_ItemType() {
+        return (EAttribute)executionTaskJobPrmEClass.getEStructuralFeatures().get(6);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -5197,6 +5206,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEReference(executionTaskJobPrmEClass, EXECUTION_TASK_JOB_PRM__EXECUTION_TASK);
         createEAttribute(executionTaskJobPrmEClass, EXECUTION_TASK_JOB_PRM__ORIGINAL_VALUE);
         createEAttribute(executionTaskJobPrmEClass, EXECUTION_TASK_JOB_PRM__DEFAULT_VALUE);
+        createEAttribute(executionTaskJobPrmEClass, EXECUTION_TASK_JOB_PRM__ITEM_TYPE);
 
         taskExecutionHistoryEClass = createEClass(TASK_EXECUTION_HISTORY);
         createEAttribute(taskExecutionHistoryEClass, TASK_EXECUTION_HISTORY__ID);
@@ -5873,6 +5883,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEReference(getExecutionTaskJobPrm_ExecutionTask(), this.getExecutionTask(), this.getExecutionTask_JobPrms(), "executionTask", null, 0, 1, ExecutionTaskJobPrm.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getExecutionTaskJobPrm_OriginalValue(), theEcorePackage.getEString(), "originalValue", null, 0, 1, ExecutionTaskJobPrm.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getExecutionTaskJobPrm_DefaultValue(), theEcorePackage.getEString(), "defaultValue", null, 0, 1, ExecutionTaskJobPrm.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionTaskJobPrm_ItemType(), theEcorePackage.getEString(), "itemType", null, 0, 1, ExecutionTaskJobPrm.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(taskExecutionHistoryEClass, TaskExecutionHistory.class, "TaskExecutionHistory", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getTaskExecutionHistory_Id(), ecorePackage.getEInt(), "id", null, 1, 1, TaskExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

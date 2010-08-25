@@ -4140,13 +4140,22 @@ public interface PropertiesPackage extends EPackage {
     int EXECUTION_TASK_JOB_PRM__DEFAULT_VALUE = 5;
 
     /**
+     * The feature id for the '<em><b>Item Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK_JOB_PRM__ITEM_TYPE = 6;
+
+    /**
      * The number of structural features of the '<em>Execution Task Job Prm</em>' class.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK_JOB_PRM_FEATURE_COUNT = 6;
+    int EXECUTION_TASK_JOB_PRM_FEATURE_COUNT = 7;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -10068,6 +10077,17 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getExecutionTaskJobPrm_DefaultValue();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTaskJobPrm#getItemType <em>Item Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Item Type</em>'.
+     * @see org.talend.core.model.properties.ExecutionTaskJobPrm#getItemType()
+     * @see #getExecutionTaskJobPrm()
+     * @generated
+     */
+    EAttribute getExecutionTaskJobPrm_ItemType();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.TalendTrigger <em>Talend Trigger</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Talend Trigger</em>'.
@@ -14793,6 +14813,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute EXECUTION_TASK_JOB_PRM__DEFAULT_VALUE = eINSTANCE.getExecutionTaskJobPrm_DefaultValue();
+
+        /**
+         * The meta object literal for the '<em><b>Item Type</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_TASK_JOB_PRM__ITEM_TYPE = eINSTANCE.getExecutionTaskJobPrm_ItemType();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.TalendTriggerImpl <em>Talend Trigger</em>}' class.

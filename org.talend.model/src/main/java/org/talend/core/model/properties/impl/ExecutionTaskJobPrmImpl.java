@@ -33,6 +33,7 @@ import org.talend.core.model.properties.PropertiesPackage;
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskJobPrmImpl#getExecutionTask <em>Execution Task</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskJobPrmImpl#getOriginalValue <em>Original Value</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskJobPrmImpl#getDefaultValue <em>Default Value</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskJobPrmImpl#getItemType <em>Item Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -138,6 +139,26 @@ public class ExecutionTaskJobPrmImpl extends EObjectImpl implements ExecutionTas
      * @ordered
      */
     protected String defaultValue = DEFAULT_VALUE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getItemType() <em>Item Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getItemType()
+     * @generated
+     * @ordered
+     */
+    protected static final String ITEM_TYPE_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getItemType() <em>Item Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getItemType()
+     * @generated
+     * @ordered
+     */
+    protected String itemType = ITEM_TYPE_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -308,6 +329,27 @@ public class ExecutionTaskJobPrmImpl extends EObjectImpl implements ExecutionTas
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getItemType() {
+        return itemType;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setItemType(String newItemType) {
+        String oldItemType = itemType;
+        itemType = newItemType;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK_JOB_PRM__ITEM_TYPE, oldItemType, itemType));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case PropertiesPackage.EXECUTION_TASK_JOB_PRM__EXECUTION_TASK:
@@ -363,6 +405,8 @@ public class ExecutionTaskJobPrmImpl extends EObjectImpl implements ExecutionTas
                 return getOriginalValue();
             case PropertiesPackage.EXECUTION_TASK_JOB_PRM__DEFAULT_VALUE:
                 return getDefaultValue();
+            case PropertiesPackage.EXECUTION_TASK_JOB_PRM__ITEM_TYPE:
+                return getItemType();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -391,6 +435,9 @@ public class ExecutionTaskJobPrmImpl extends EObjectImpl implements ExecutionTas
                 return;
             case PropertiesPackage.EXECUTION_TASK_JOB_PRM__DEFAULT_VALUE:
                 setDefaultValue((String)newValue);
+                return;
+            case PropertiesPackage.EXECUTION_TASK_JOB_PRM__ITEM_TYPE:
+                setItemType((String)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -421,6 +468,9 @@ public class ExecutionTaskJobPrmImpl extends EObjectImpl implements ExecutionTas
             case PropertiesPackage.EXECUTION_TASK_JOB_PRM__DEFAULT_VALUE:
                 setDefaultValue(DEFAULT_VALUE_EDEFAULT);
                 return;
+            case PropertiesPackage.EXECUTION_TASK_JOB_PRM__ITEM_TYPE:
+                setItemType(ITEM_TYPE_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -444,6 +494,8 @@ public class ExecutionTaskJobPrmImpl extends EObjectImpl implements ExecutionTas
                 return ORIGINAL_VALUE_EDEFAULT == null ? originalValue != null : !ORIGINAL_VALUE_EDEFAULT.equals(originalValue);
             case PropertiesPackage.EXECUTION_TASK_JOB_PRM__DEFAULT_VALUE:
                 return DEFAULT_VALUE_EDEFAULT == null ? defaultValue != null : !DEFAULT_VALUE_EDEFAULT.equals(defaultValue);
+            case PropertiesPackage.EXECUTION_TASK_JOB_PRM__ITEM_TYPE:
+                return ITEM_TYPE_EDEFAULT == null ? itemType != null : !ITEM_TYPE_EDEFAULT.equals(itemType);
         }
         return super.eIsSet(featureID);
     }
@@ -467,6 +519,8 @@ public class ExecutionTaskJobPrmImpl extends EObjectImpl implements ExecutionTas
         result.append(originalValue);
         result.append(", defaultValue: ");
         result.append(defaultValue);
+        result.append(", itemType: ");
+        result.append(itemType);
         result.append(')');
         return result.toString();
     }
