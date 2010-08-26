@@ -34,6 +34,7 @@ import org.talend.core.prefs.PreferenceManipulator;
 import org.talend.migrationtool.i18n.Messages;
 import org.talend.migrationtool.model.GetTasksHelper;
 import org.talend.migrationtool.model.summary.AlertUserOnLogin;
+import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryService;
 
@@ -61,15 +62,13 @@ public class MigrationToolService implements IMigrationToolService {
      * org.talend.core.model.migration.IMigrationToolService#executeProjectTasks(org.talend.core.model.general.Project,
      * boolean, org.eclipse.core.runtime.IProgressMonitor)
      */
-    public void executeProjectTasks(Project project, boolean beforeLogon, IProgressMonitor monitorWrap) {
+    public void executeProjectTasks(final Project project, boolean beforeLogon, final IProgressMonitor monitorWrap) {
 
         String taskDesc = "Migration tool: project [" + project.getLabel() + "] tasks"; //$NON-NLS-1$ //$NON-NLS-2$
         log.trace(taskDesc); //$NON-NLS-1$ //$NON-NLS-2$ 
 
-        List<IProjectMigrationTask> toExecute = GetTasksHelper.getProjectTasks(beforeLogon);
-        List<String> done = new ArrayList<String>(project.getEmfProject().getMigrationTasks());
-
-        boolean needSave = false;
+        final List<IProjectMigrationTask> toExecute = GetTasksHelper.getProjectTasks(beforeLogon);
+        final List<String> done = new ArrayList<String>(project.getEmfProject().getMigrationTasks());
 
         Collections.sort(toExecute, new Comparator<IProjectMigrationTask>() {
 
@@ -78,44 +77,57 @@ public class MigrationToolService implements IMigrationToolService {
             }
         });
 
-        SubProgressMonitor subProgressMonitor = new SubProgressMonitor(monitorWrap, toExecute.size());
+        final SubProgressMonitor subProgressMonitor = new SubProgressMonitor(monitorWrap, toExecute.size());
 
-        for (IProjectMigrationTask task : toExecute) {
-            if (monitorWrap.isCanceled()) {
-                throw new OperationCanceledException(Messages.getString("MigrationToolService.migrationCancel", task.getName())); //$NON-NLS-1$
-            }
-            if (!done.contains(task.getId())) {
-                monitorWrap.setTaskName(Messages.getString("MigrationToolService.taskInProgress", task.getName())); //$NON-NLS-1$
-                subProgressMonitor.worked(1);
-                try {
-                    switch (task.execute(project)) {
-                    case SUCCESS_WITH_ALERT:
-                        doneThisSession.add(task);
-                    case SUCCESS_NO_ALERT:
-                        log.debug("Task \"" + task.getName() + "\" done"); //$NON-NLS-1$ //$NON-NLS-2$
-                    case NOTHING_TO_DO:
-                        done.add(task.getId());
-                        needSave = true;
-                        break;
-                    case SKIPPED:
-                        log.debug("Task \"" + task.getName() + "\" skipped"); //$NON-NLS-1$ //$NON-NLS-2$
-                        break;
-                    case FAILURE:
-                    default:
-                        log.debug("Task \"" + task.getName() + "\" failed"); //$NON-NLS-1$ //$NON-NLS-2$
-                        break;
+        RepositoryWorkUnit repositoryWorkUnit = new RepositoryWorkUnit(project, taskDesc) {
+
+            public void run() throws PersistenceException {
+                boolean needSave = false;
+                for (IProjectMigrationTask task : toExecute) {
+                    if (monitorWrap.isCanceled()) {
+                        throw new OperationCanceledException(Messages.getString(
+                                "MigrationToolService.migrationCancel", task.getName())); //$NON-NLS-1$
                     }
-                } catch (Exception e) {
-                    ExceptionHandler.process(e);
-                    log.debug("Task \"" + task.getName() + "\" failed"); //$NON-NLS-1$ //$NON-NLS-2$
+                    if (!done.contains(task.getId())) {
+                        monitorWrap.setTaskName(Messages.getString("MigrationToolService.taskInProgress", task.getName())); //$NON-NLS-1$
+                        subProgressMonitor.worked(1);
+                        try {
+                            switch (task.execute(project)) {
+                            case SUCCESS_WITH_ALERT:
+                                doneThisSession.add(task);
+                            case SUCCESS_NO_ALERT:
+                                log.debug("Task \"" + task.getName() + "\" done"); //$NON-NLS-1$ //$NON-NLS-2$
+                            case NOTHING_TO_DO:
+                                done.add(task.getId());
+                                needSave = true;
+                                break;
+                            case SKIPPED:
+                                log.debug("Task \"" + task.getName() + "\" skipped"); //$NON-NLS-1$ //$NON-NLS-2$
+                                break;
+                            case FAILURE:
+                            default:
+                                log.debug("Task \"" + task.getName() + "\" failed"); //$NON-NLS-1$ //$NON-NLS-2$
+                                break;
+                            }
+                        } catch (Exception e) {
+                            ExceptionHandler.process(e);
+                            log.debug("Task \"" + task.getName() + "\" failed"); //$NON-NLS-1$ //$NON-NLS-2$
+                        }
+                        monitorWrap.setTaskName("");
+                    }
                 }
+
+                if (needSave) {
+                    saveProjectMigrationTasksDone(project, done);
+                }
+
             }
-        }
-
-        if (needSave) {
-            saveProjectMigrationTasksDone(project, done);
-        }
-
+        };
+        repositoryWorkUnit.setAvoidUnloadResources(true);
+        IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
+        IProxyRepositoryFactory repFactory = service.getProxyRepositoryFactory();
+        repFactory.executeRepositoryWorkUnit(repositoryWorkUnit);
+        // repositoryWorkUnit.throwPersistenceExceptionIfAny();
     }
 
     /*
