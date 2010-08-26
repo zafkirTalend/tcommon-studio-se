@@ -17,7 +17,7 @@ import org.talend.commons.exception.ExceptionHandler;
 /**
  * Definition of a column in the Meta Data. <br/>
  * 
- * $Id$
+ * $Id: MetadataColumn.java 38013 2010-03-05 14:21:59Z mhirt $
  * 
  */
 public class MetadataColumn implements IMetadataColumn, Cloneable {

@@ -14,6 +14,8 @@ package org.talend.core.model.migration;
 
 import org.talend.core.model.general.Project;
 import org.talend.core.model.properties.Item;
+import org.talend.migration.AbstractMigrationTask;
+import org.talend.migration.IProjectMigrationTask;
 
 /**
  * DOC stephane class global comment. Detailled comment

@@ -21,7 +21,7 @@ import org.talend.core.model.repository.RepositoryObject;
 /**
  * DOC cantoine Meta Data Connection. Contains info of conncection. <br/>
  * 
- * $Id$
+ * $Id: MetadataConnection.java 38013 2010-03-05 14:21:59Z mhirt $
  * 
  */
 public class MetadataConnection extends RepositoryObject implements IMetadataConnection {

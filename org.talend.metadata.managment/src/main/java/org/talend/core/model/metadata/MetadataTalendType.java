@@ -39,7 +39,6 @@ import org.eclipse.core.runtime.Platform;
 import org.osgi.framework.Bundle;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.SystemException;
-import org.talend.core.CorePlugin;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.i18n.Messages;
 import org.talend.core.language.ECodeLanguage;
@@ -57,7 +56,7 @@ import org.xml.sax.SAXException;
  * Load Metadata Talend Type from mappingMetadataTypes.xml. Talend Types available in the application
  * 
  * 
- * $Id$
+ * $Id: MetadataTalendType.java 38013 2010-03-05 14:21:59Z mhirt $
  * 
  */
 public final class MetadataTalendType {
@@ -210,7 +209,7 @@ public final class MetadataTalendType {
             DocumentBuilderFactory fabrique = DocumentBuilderFactory.newInstance();
             DocumentBuilder analyseur = fabrique.newDocumentBuilder();
 
-            Bundle b = Platform.getBundle(CorePlugin.PLUGIN_ID);
+            Bundle b = Platform.getBundle("org.talend.core");
             URL url = FileLocator.toFileURL(FileLocator.find(b, new Path(MAPPING_METADATA_TYPES_XML), null));
             File dir = new File(url.getPath());
             Document document = analyseur.parse(dir);
@@ -441,7 +440,7 @@ public final class MetadataTalendType {
 
         Path filePath = new Path(dirPath);
 
-        Bundle b = Platform.getBundle(CorePlugin.PLUGIN_ID);
+        Bundle b = Platform.getBundle("org.talend.core");
         URL url;
         try {
             if (b != null) {

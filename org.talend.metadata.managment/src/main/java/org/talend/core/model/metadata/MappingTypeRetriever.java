@@ -258,7 +258,7 @@ public class MappingTypeRetriever {
                 }
             }
         }
-        
+
         return mappingTypeOrigin.getTalendType();
 
     }

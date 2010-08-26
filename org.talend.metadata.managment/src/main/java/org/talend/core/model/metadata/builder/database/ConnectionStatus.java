@@ -15,7 +15,7 @@ package org.talend.core.model.metadata.builder.database;
 /**
  * Object who is traduce the result of the Connection Test. <br/>
  * 
- * $Id$
+ * $Id: ConnectionStatus.java 38013 2010-03-05 14:21:59Z mhirt $
  * 
  */
 public class ConnectionStatus {

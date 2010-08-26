@@ -32,10 +32,12 @@ import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.talend.commons.exception.ExceptionHandler;
-import org.talend.core.CorePlugin;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ICoreService;
 import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.template.EDatabaseConnTemplate;
+import org.talend.core.database.utils.ManagementTextUtils;
 import org.talend.core.i18n.Messages;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
@@ -44,22 +46,22 @@ import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.MappingTypeRetriever;
 import org.talend.core.model.metadata.MetadataTable;
 import org.talend.core.model.metadata.MetadataTalendType;
-import org.talend.core.model.metadata.MetadataTool;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.types.JavaTypesManager;
-import org.talend.core.model.utils.TalendTextUtils;
-import org.talend.core.utils.KeywordsValidator;
+import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.repository.model.IRepositoryService;
 
 /**
  * DOC cantoine. Extract Meta Data Table. Contains all the Table and Metadata about a DB Connection. <br/>
  * 
- * $Id$
+ * $Id: ExtractMetaDataFromDataBase.java 44018 2010-06-12 02:22:29Z zli $
  * 
  */
 public class ExtractMetaDataFromDataBase {
+
+    private static ICoreService coreService = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
 
     /**
      * 
@@ -497,16 +499,16 @@ public class ExtractMetaDataFromDataBase {
                     columns = dbMetaData.getColumns(null, null, tableName, null);
                 }
             }
-            IRepositoryService repositoryService = CorePlugin.getDefault().getRepositoryService();
+            IRepositoryService repositoryService = CoreRuntimePlugin.getInstance().getRepositoryService();
             boolean isMSSQL = EDatabaseTypeName.MSSQL.getDisplayName().equals(metadataConnection.getDbType());
             while (columns.next()) {
                 Boolean b = false;
                 String fetchTableName = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "TABLE_NAME", null); //$NON-NLS-1$
-                fetchTableName = TalendTextUtils.filterSpecialChar(fetchTableName); // for 8115
+                fetchTableName = ManagementTextUtils.filterSpecialChar(fetchTableName); // for 8115
                 if (fetchTableName.equals(tableName) || databaseType.equals(EDatabaseTypeName.SQLITE.getDisplayName())) {
                     MetadataColumn metadataColumn = ConnectionFactory.eINSTANCE.createMetadataColumn();
                     String label = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "COLUMN_NAME", null); //$NON-NLS-1$
-                    label = TalendTextUtils.filterSpecialChar(label);
+                    label = ManagementTextUtils.filterSpecialChar(label);
                     String sub = ""; //$NON-NLS-1$
                     String sub2 = ""; //$NON-NLS-1$
                     if (label != null && label.length() > 0 && label.startsWith("_")) { //$NON-NLS-1$
@@ -515,8 +517,7 @@ public class ExtractMetaDataFromDataBase {
                             sub2 = sub.substring(1);
                         }
                     }
-                    if (KeywordsValidator.isKeyword(label) || KeywordsValidator.isKeyword(sub)
-                            || KeywordsValidator.isKeyword(sub2)) {
+                    if (coreService.isKeyword(label) || coreService.isKeyword(sub) || coreService.isKeyword(sub2)) {
                         label = "_" + label; //$NON-NLS-1$
                         b = true;
                     }
@@ -526,8 +527,7 @@ public class ExtractMetaDataFromDataBase {
                         String substring = label2.substring(1);
                         if (b
                                 && label2.startsWith("_") //$NON-NLS-1$
-                                && (KeywordsValidator.isKeyword(substring) || KeywordsValidator.isKeyword(sub) || KeywordsValidator
-                                        .isKeyword(sub2))) {
+                                && (coreService.isKeyword(substring) || coreService.isKeyword(sub) || coreService.isKeyword(sub2))) {
                             label2 = substring;
                         }
                     }
@@ -554,7 +554,7 @@ public class ExtractMetaDataFromDataBase {
                         typeName = "DATA_TYPE"; //$NON-NLS-1$
                     }
                     String dbType = ExtractMetaDataUtils.getStringMetaDataInfo(columns, typeName, null).toUpperCase(); //$NON-NLS-1$
-                    dbType = TalendTextUtils.filterSpecialChar(dbType);
+                    dbType = ManagementTextUtils.filterSpecialChar(dbType);
                     dbType = handleDBtype(dbType);
                     metadataColumn.setSourceType(dbType);
 
@@ -570,7 +570,7 @@ public class ExtractMetaDataFromDataBase {
                     talendType = mappingTypeRetriever.getDefaultSelectedTalendType(dbType, ExtractMetaDataUtils
                             .getIntMetaDataInfo(columns, "COLUMN_SIZE"), ExtractMetaDataUtils.getIntMetaDataInfo(columns, //$NON-NLS-1$
                             "DECIMAL_DIGITS")); //$NON-NLS-1$
-                    talendType = TalendTextUtils.filterSpecialChar(talendType);
+                    talendType = ManagementTextUtils.filterSpecialChar(talendType);
                     if (talendType == null) {
                         if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
                             talendType = JavaTypesManager.getDefaultJavaType().getId();
@@ -630,7 +630,7 @@ public class ExtractMetaDataFromDataBase {
                     // }
                     // }
                     if (commentInfo != null && commentInfo.length() > 0) {
-                        commentInfo = TalendTextUtils.filterSpecialChar(commentInfo);
+                        commentInfo = ManagementTextUtils.filterSpecialChar(commentInfo);
                     }
                     // gcui:if not oracle database use "REMARKS" select comments
                     metadataColumn.setComment(commentInfo); //$NON-NLS-1$
@@ -642,7 +642,7 @@ public class ExtractMetaDataFromDataBase {
                     if (stringMetaDataInfo != null && stringMetaDataInfo.length() > 0 && stringMetaDataInfo.charAt(0) == 0x0) {
                         stringMetaDataInfo = "\\0"; //$NON-NLS-1$
                     }
-                    stringMetaDataInfo = TalendTextUtils.filterSpecialChar(stringMetaDataInfo);
+                    stringMetaDataInfo = ManagementTextUtils.filterSpecialChar(stringMetaDataInfo);
                     metadataColumn.setDefaultValue(stringMetaDataInfo);
 
                     // for bug 6919, oracle driver doesn't give correctly the length for timestamp
@@ -672,7 +672,7 @@ public class ExtractMetaDataFromDataBase {
                         int i = 0;
                         while (keys.next()) {
                             MetadataColumn metadataColumn = (MetadataColumn) metadataColumns.get(i++);
-                            metadataColumn.setComment(TalendTextUtils.filterSpecialChar(keys.getString("COMMENTS"))); //$NON-NLS-1$
+                            metadataColumn.setComment(ManagementTextUtils.filterSpecialChar(keys.getString("COMMENTS"))); //$NON-NLS-1$
                         }
                     }
                     keys.close();
@@ -1161,7 +1161,7 @@ public class ExtractMetaDataFromDataBase {
         if (dbtype.startsWith("TIMESTAMP(") && dbtype.endsWith(")")) { //$NON-NLS-1$ //$NON-NLS-2$
             dbtype = "TIMESTAMP"; //$NON-NLS-1$
         }
-        return MetadataTool.validateValueForDBType(dbtype);
+        return coreService.validateValueForDBType(dbtype);
     }
 
     /**

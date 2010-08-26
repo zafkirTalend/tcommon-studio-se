@@ -15,7 +15,8 @@ package org.talend.core.model.metadata.builder;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.talend.core.CorePlugin;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ICoreService;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.IMetadataTable;
@@ -24,12 +25,14 @@ import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
-import org.talend.core.utils.KeywordsValidator;
+import org.talend.core.runtime.CoreRuntimePlugin;
 
 /**
  * 
  */
 public final class ConvertionHelper {
+
+    private static ICoreService coreService = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
 
     /**
      * This method doesn't perform a deep copy. DOC tguiu Comment method "convert".
@@ -43,8 +46,8 @@ public final class ConvertionHelper {
         }
         // if sourceConnection is not context mode, will be same as before.
         DatabaseConnection connection = null;
-        DatabaseConnection originalValueConnection = CorePlugin.getDefault().getRepositoryService().cloneOriginalValueConnection(
-                sourceConnection);
+        DatabaseConnection originalValueConnection = CoreRuntimePlugin.getInstance().getRepositoryService()
+                .cloneOriginalValueConnection(sourceConnection);
         if (originalValueConnection == null) {
             connection = sourceConnection;
         } else {
@@ -103,8 +106,10 @@ public final class ConvertionHelper {
             newColumn.setDefault(column.getDefaultValue());
             newColumn.setKey(column.isKey());
             String label2 = column.getLabel();
-            if (KeywordsValidator.isKeyword(label2)) {
-                label2 = "_" + label2; //$NON-NLS-1$
+            if (coreService != null) {
+                if (coreService.isKeyword(label2)) {
+                    label2 = "_" + label2; //$NON-NLS-1$
+                }
             }
             newColumn.setLabel(label2);
             newColumn.setPattern(column.getPattern());
@@ -125,8 +130,10 @@ public final class ConvertionHelper {
                 String label = label2;
                 if (label != null && label.length() > 0) {
                     String substring = label.substring(1);
-                    if (label.startsWith("_") && KeywordsValidator.isKeyword(substring)) { //$NON-NLS-1$
-                        label = substring;
+                    if (coreService != null) {
+                        if (label.startsWith("_") && coreService.isKeyword(substring)) { //$NON-NLS-1$
+                            label = substring;
+                        }
                     }
                 }
                 newColumn.setOriginalDbColumnName(label);

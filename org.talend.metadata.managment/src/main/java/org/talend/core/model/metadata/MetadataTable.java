@@ -16,14 +16,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.talend.commons.exception.ExceptionHandler;
-import org.talend.commons.ui.swt.tableviewer.behavior.DefaultTableLabelProvider;
 import org.talend.core.model.components.EReadOnlyComlumnPosition;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.RepositoryObject;
 
 /**
  * Meta Data Table. Contains all the columns. <br/>
- * $Id$
+ * $Id: MetadataTable.java 46622 2010-08-11 10:04:57Z wliu $
  */
 public class MetadataTable extends RepositoryObject implements IMetadataTable, Cloneable {
 
@@ -32,8 +31,6 @@ public class MetadataTable extends RepositoryObject implements IMetadataTable, C
     private List<IMetadataColumn> listColumns = new ArrayList<IMetadataColumn>();
 
     private IMetadataConnection parent;
-
-    DefaultTableLabelProvider a;
 
     private boolean readOnly = false;
 

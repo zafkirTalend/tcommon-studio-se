@@ -33,20 +33,20 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.database.DB2ForZosDataBaseMetadata;
 import org.talend.commons.utils.database.TeradataDataBaseMetadata;
-import org.talend.core.CorePlugin;
+import org.talend.core.IManagementService;
 import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
+import org.talend.core.database.utils.ManagementTextUtils;
 import org.talend.core.i18n.Messages;
 import org.talend.core.model.metadata.IMetadataConnection;
-import org.talend.core.model.utils.TalendTextUtils;
 import org.talend.core.prefs.ITalendCorePrefConstants;
-import org.talend.designer.core.IDesignerCoreService;
+import org.talend.core.runtime.CoreRuntimePlugin;
 
 /**
  * DOC cantoine. Extract Meta Data Table. Contains all the Table and Metadata about a DB Connection. <br/>
  * 
- * $Id$
+ * $Id: ExtractMetaDataUtils.java 38999 2010-03-24 03:33:58Z cli $
  * 
  */
 public class ExtractMetaDataUtils {
@@ -158,7 +158,7 @@ public class ExtractMetaDataUtils {
             List<String> funcions = getAllDBFuctions(dbMetaData);
             if (metaDataInfo != null) {
                 if ((dbMetaData != null && funcions != null && !funcions.contains(metaDataInfo))) {
-                    metaDataInfo = TalendTextUtils.QUOTATION_MARK + metaDataInfo + TalendTextUtils.QUOTATION_MARK;
+                    metaDataInfo = ManagementTextUtils.QUOTATION_MARK + metaDataInfo + ManagementTextUtils.QUOTATION_MARK;
                 }
             }
             // Replace ALL ' in the retrieveSchema, cause PB for Default Value.
@@ -490,8 +490,8 @@ public class ExtractMetaDataUtils {
     }
 
     private static int getDBConnectionTimeout() {
-        IDesignerCoreService designerCoreService = CorePlugin.getDefault().getDesignerCoreService();
-        IPreferenceStore preferenceStore = designerCoreService.getDesignerCorePreferenceStore();
+        IManagementService managementSerivce = CoreRuntimePlugin.getInstance().getManagementService();
+        IPreferenceStore preferenceStore = managementSerivce.getDesignerCorePreferenceStore();
         if (preferenceStore != null && preferenceStore.getBoolean(ITalendCorePrefConstants.DB_CONNECTION_TIMEOUT_ACTIVED)) {
             return preferenceStore.getInt(ITalendCorePrefConstants.DB_CONNECTION_TIMEOUT);
         }
@@ -629,7 +629,7 @@ public class ExtractMetaDataUtils {
      */
     public static String getJavaLibPath() {
         String separator = "/"; //$NON-NLS-1$
-        String javaLibPath = CorePlugin.getDefault().getLibrariesService().getJavaLibrariesPath();
+        String javaLibPath = CoreRuntimePlugin.getInstance().getLibrariesService().getJavaLibrariesPath();
         return javaLibPath + separator;
     }
 

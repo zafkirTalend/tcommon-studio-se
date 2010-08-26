@@ -39,8 +39,11 @@ import org.talend.core.model.routines.RoutineLibraryMananger;
 import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.model.utils.JavaResourcesHelper;
 import org.talend.core.model.utils.PerlResourcesHelper;
+import org.talend.core.model.utils.TalendTextUtils;
+import org.talend.core.prefs.PreferenceManipulator;
 import org.talend.core.ui.IRulesProviderService;
 import org.talend.core.ui.images.OverlayImageProvider;
+import org.talend.core.utils.KeywordsValidator;
 import org.talend.designer.codegen.ICodeGeneratorService;
 import org.talend.designer.codegen.ITalendSynchronizer;
 import org.talend.designer.core.IDesignerCoreService;
@@ -249,6 +252,33 @@ public class CoreService implements ICoreService {
         IRunProcessService runProcessService = (IRunProcessService) GlobalServiceRegister.getDefault().getService(
                 IRunProcessService.class);
         runProcessService.deleteAllJobs(false);
+    }
+
+    public void addWorkspaceTaskDone(String task) {
+        PreferenceManipulator prefManipulator = new PreferenceManipulator(CorePlugin.getDefault().getPreferenceStore());
+        prefManipulator.addWorkspaceTaskDone(task);
+    }
+
+    public String filterSpecialChar(String input) {
+        return TalendTextUtils.filterSpecialChar(input);
+    }
+
+    public String getLastUser() {
+        PreferenceManipulator prefManipulator = new PreferenceManipulator(CorePlugin.getDefault().getPreferenceStore());
+        return prefManipulator.getLastUser();
+    }
+
+    public boolean isKeyword(String word) {
+        return KeywordsValidator.isKeyword(word);
+    }
+
+    public List<String> readWorkspaceTasksDone() {
+        PreferenceManipulator prefManipulator = new PreferenceManipulator(CorePlugin.getDefault().getPreferenceStore());
+        return prefManipulator.readWorkspaceTasksDone();
+    }
+
+    public String validateValueForDBType(String columnName) {
+        return MetadataTool.validateValueForDBType(columnName);
     }
 
 }
