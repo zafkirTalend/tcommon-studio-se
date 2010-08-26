@@ -9,10 +9,15 @@
 	<!-- Variables used in the project -->
 	<properties>
 		<tac.webapp>org.talend.administrator.war</tac.webapp>
-		<tomcat.file>file://c:/apache-tomcat-6.0.28-windows-x86.zip</tomcat.file>
-		<war.file>file://c:/org.talend.administrator.war</war.file>
+		<tomcat.file>file:/c:/apache-tomcat-6.0.28-windows-x86.zip</tomcat.file>
+		<war.file>org.talend.administrator.war</war.file>
+		<webapp.url>http://localhost:8080/org.talend.administrator</webapp.url>
+		<webapp.timeout>240000</webapp.timeout>
+		<tomcat.home>target/tomcat6x</tomcat.home>
+		<container.id>tomcat6x</container.id>
+		<container.type>standalone</container.type>
 	</properties>
-
+	
 	<build>
 		<plugins>
 			<!-- Tomcat container management -->
@@ -21,32 +26,30 @@
 				<artifactId>cargo-maven2-plugin</artifactId>
 				<configuration>
 					<container>
-						<containerId>tomcat6x</containerId>
-						<zipUrlInstaller>
+						<containerId>${container.id}</containerId>	
+						<zipUrlInstaller>						
 							<url>${tomcat.file}</url>
-							<installDir>${project.build.directory}</installDir>
 						</zipUrlInstaller>
 					</container>
 
-					<!-- Configuration to use with the Container -->
+					<!-- Configuration to use with the Container -->					
 					<configuration>
-						<type>existing</type>
-						<!--
-							<home>${project.build.directory}/apache-tomcat-6.0.28-windows-x86/apache-tomcat-6.0.28</home>
-						-->
+						<type>${container.type}</type>
+						<home>${tomcat.home}</home>							
 					</configuration>
-
+					
+					<!-- Deployment of war file in standalone Tomcat -->
 					<deployer>
 						<deployables>
 							<deployable>
 								<type>war</type>
 								<location>${war.file}</location>
+								<pingURL>${webapp.url}</pingURL>
+								<pingTimeout>${webapp.timeout}</pingTimeout>
 							</deployable>
 						</deployables>
 					</deployer>
-
 				</configuration>
-
 			</plugin>
 		</plugins>
 	</build>
