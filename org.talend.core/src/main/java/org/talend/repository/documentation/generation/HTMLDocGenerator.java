@@ -406,6 +406,7 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
         if (innerContent != null) {
             String picName = jobName + "_" + version + IHTMLDocConstants.JOB_PREVIEW_PIC_SUFFIX; //$NON-NLS-1$
             ImageUtils.save(innerContent, picFolderPath + File.separatorChar + picName, SWT.IMAGE_PNG);
+            picList.add(new File(picFolderPath + File.separatorChar + picName).toURL());
         }
         for (NodeType node : (List<NodeType>) processType.getNode()) {
             if (node.getScreenshot() != null && node.getScreenshot().length != 0) {
@@ -420,6 +421,7 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
                 }
                 String picName = uniqueName + IHTMLDocConstants.JOB_PREVIEW_PIC_SUFFIX;
                 ImageUtils.save(screenshot, picFolderPath + File.separatorChar + picName, SWT.IMAGE_PNG);
+                picList.add(new File(picFolderPath + File.separatorChar + picName).toURL());
             }
         }
 
