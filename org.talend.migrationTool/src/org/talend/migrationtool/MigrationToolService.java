@@ -24,13 +24,12 @@ import org.eclipse.core.runtime.SubProgressMonitor;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.MessageBoxExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
-import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ICoreService;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.migration.IMigrationToolService;
-import org.talend.core.model.migration.IProjectMigrationTask;
-import org.talend.core.model.migration.IWorkspaceMigrationTask;
-import org.talend.core.prefs.PreferenceManipulator;
+import org.talend.migration.IProjectMigrationTask;
+import org.talend.migration.IWorkspaceMigrationTask;
 import org.talend.migrationtool.i18n.Messages;
 import org.talend.migrationtool.model.GetTasksHelper;
 import org.talend.migrationtool.model.summary.AlertUserOnLogin;
@@ -45,6 +44,8 @@ import org.talend.repository.model.IRepositoryService;
  * 
  */
 public class MigrationToolService implements IMigrationToolService {
+
+    private static ICoreService coreService = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
 
     private static Logger log = Logger.getLogger(MigrationToolService.class);
 
@@ -171,19 +172,24 @@ public class MigrationToolService implements IMigrationToolService {
     public void executeWorspaceTasks() {
         log.trace("Migration tool: workspace tasks"); //$NON-NLS-1$
 
-        PreferenceManipulator prefManipulator = new PreferenceManipulator(CorePlugin.getDefault().getPreferenceStore());
+        // PreferenceManipulator prefManipulator = new
+        // PreferenceManipulator(CorePlugin.getDefault().getPreferenceStore());
         List<IWorkspaceMigrationTask> toExecute = GetTasksHelper.getWorkspaceTasks();
-        List<String> done = prefManipulator.readWorkspaceTasksDone();
+
+        // List<String> done = prefManipulator.readWorkspaceTasksDone();
+        List<String> done = coreService.readWorkspaceTasksDone();
 
         // --------------------------------------------------------------------------------------------------
         // This code part aim is to know if we have a new workspace or one from an old Talend version:
         // --------------------------------------------------------------------------------------------------
-        String lastUser = prefManipulator.getLastUser();
+        // String lastUser = prefManipulator.getLastUser();
+        String lastUser = coreService.getLastUser();
         if (lastUser == null || lastUser.length() == 0) {
             if (done.isEmpty()) {
                 // We are sure on a initialized or new workspace:
                 initNewWorkspaceTasks();
-                done = prefManipulator.readWorkspaceTasksDone();
+                // done = prefManipulator.readWorkspaceTasksDone();
+                done = coreService.readWorkspaceTasksDone();
             }
         }
         // --------------------------------------------------------------------------------------------------
@@ -198,7 +204,8 @@ public class MigrationToolService implements IMigrationToolService {
         for (IWorkspaceMigrationTask task : toExecute) {
             if (!done.contains(task.getId())) {
                 if (task.execute()) {
-                    prefManipulator.addWorkspaceTaskDone(task.getId());
+                    // prefManipulator.addWorkspaceTaskDone(task.getId());
+                    coreService.addWorkspaceTaskDone(task.getId());
                     log.debug("Task \"" + task.getName() + "\" done"); //$NON-NLS-1$ //$NON-NLS-2$
                 } else {
                     log.debug("Task \"" + task.getName() + "\" failed"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -214,9 +221,11 @@ public class MigrationToolService implements IMigrationToolService {
      */
     public void initNewWorkspaceTasks() {
         List<IWorkspaceMigrationTask> toExecute = GetTasksHelper.getWorkspaceTasks();
-        PreferenceManipulator prefManipulator = new PreferenceManipulator(CorePlugin.getDefault().getPreferenceStore());
+        // PreferenceManipulator prefManipulator = new
+        // PreferenceManipulator(CorePlugin.getDefault().getPreferenceStore());
         for (IWorkspaceMigrationTask task : toExecute) {
-            prefManipulator.addWorkspaceTaskDone(task.getId());
+            // prefManipulator.addWorkspaceTaskDone(task.getId());
+            coreService.addWorkspaceTaskDone(task.getId());
         }
     }
 

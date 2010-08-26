@@ -17,9 +17,9 @@ import org.eclipse.ui.IStartup;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
-import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.migration.IMigrationToolService;
+import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.migrationtool.MigrationToolService;
 
 /**
@@ -38,7 +38,7 @@ public class AlertUserOnLogin implements IStartup {
     }
 
     public void earlyStartup() {
-        if (!startUnderPluginModel && !CorePlugin.getDefault().getRepositoryService().isRCPMode()) {
+        if (!startUnderPluginModel && !CoreRuntimePlugin.getInstance().getRepositoryService().isRCPMode()) {
             return;
         }
         final IWorkbench workbench = PlatformUI.getWorkbench();

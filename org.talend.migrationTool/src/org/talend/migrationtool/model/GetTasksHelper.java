@@ -21,8 +21,8 @@ import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.workbench.extensions.ExtensionImplementationProvider;
 import org.talend.commons.utils.workbench.extensions.ExtensionPointLimiterImpl;
 import org.talend.commons.utils.workbench.extensions.IExtensionPointLimiter;
-import org.talend.core.model.migration.IProjectMigrationTask;
-import org.talend.core.model.migration.IWorkspaceMigrationTask;
+import org.talend.migration.IProjectMigrationTask;
+import org.talend.migration.IWorkspaceMigrationTask;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -42,8 +42,9 @@ public class GetTasksHelper {
             /*
              * (non-Javadoc)
              * 
-             * @see org.talend.commons.utils.workbench.extensions.ExtensionImplementationProvider#createImplementation(org.eclipse.core.runtime.IExtension,
-             * org.talend.commons.utils.workbench.extensions.IExtensionPointLimiter)
+             * @see
+             * org.talend.commons.utils.workbench.extensions.ExtensionImplementationProvider#createImplementation(org
+             * .eclipse.core.runtime.IExtension, org.talend.commons.utils.workbench.extensions.IExtensionPointLimiter)
              */
             @Override
             protected IProjectMigrationTask createImplementation(IExtension extension,
@@ -83,8 +84,9 @@ public class GetTasksHelper {
             /*
              * (non-Javadoc)
              * 
-             * @see org.talend.commons.utils.workbench.extensions.ExtensionImplementationProvider#createImplementation(org.eclipse.core.runtime.IExtension,
-             * org.talend.commons.utils.workbench.extensions.IExtensionPointLimiter)
+             * @see
+             * org.talend.commons.utils.workbench.extensions.ExtensionImplementationProvider#createImplementation(org
+             * .eclipse.core.runtime.IExtension, org.talend.commons.utils.workbench.extensions.IExtensionPointLimiter)
              */
             @Override
             protected IProjectMigrationTask createImplementation(IExtension extension,
@@ -119,8 +121,9 @@ public class GetTasksHelper {
             /*
              * (non-Javadoc)
              * 
-             * @see org.talend.commons.utils.workbench.extensions.ExtensionImplementationProvider#createImplementation(org.eclipse.core.runtime.IExtension,
-             * org.talend.commons.utils.workbench.extensions.IExtensionPointLimiter)
+             * @see
+             * org.talend.commons.utils.workbench.extensions.ExtensionImplementationProvider#createImplementation(org
+             * .eclipse.core.runtime.IExtension, org.talend.commons.utils.workbench.extensions.IExtensionPointLimiter)
              */
             @Override
             protected IWorkspaceMigrationTask createImplementation(IExtension extension,

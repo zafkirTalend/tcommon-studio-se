@@ -28,8 +28,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.talend.commons.ui.image.ImageProvider;
-import org.talend.core.model.migration.IProjectMigrationTask;
 import org.talend.core.ui.images.ECoreImage;
+import org.talend.migration.IProjectMigrationTask;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>

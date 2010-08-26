@@ -34,7 +34,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.repository.model.IRepositoryNode;
 
 /**
- * DOC Administrator class global comment. Detailled comment
+ * DOC hywang class global comment. Detailled comment
  */
 public interface ICoreService extends IService {
 
@@ -103,5 +103,17 @@ public interface ICoreService extends IService {
     public void createStatsLogAndImplicitParamter(Project project);
 
     public void deleteAllJobs(boolean fromPluginModel);
+
+    public List<String> readWorkspaceTasksDone();
+
+    public String getLastUser();
+
+    public void addWorkspaceTaskDone(String task);
+
+    public boolean isKeyword(String word);
+
+    public String filterSpecialChar(String input);
+
+    public String validateValueForDBType(String columnName);
 
 }

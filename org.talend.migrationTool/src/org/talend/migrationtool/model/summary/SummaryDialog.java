@@ -20,7 +20,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
-import org.talend.core.model.migration.IProjectMigrationTask;
+import org.talend.migration.IProjectMigrationTask;
 import org.talend.migrationtool.i18n.Messages;
 
 /**

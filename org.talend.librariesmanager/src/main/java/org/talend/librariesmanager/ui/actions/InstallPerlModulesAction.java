@@ -41,8 +41,7 @@ public class InstallPerlModulesAction extends Action {
         super();
         setText(Messages.getString("InstallPerlModulesAction.InstallBtn.Text")); //$NON-NLS-1$
         setToolTipText(Messages.getString("InstallPerlModulesAction.InstallBtn.Text")); //$NON-NLS-1$
-        setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(
-                ISharedImages.IMG_TOOL_NEW_WIZARD));
+        setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_TOOL_NEW_WIZARD));
         init();
     }
 
@@ -122,8 +121,7 @@ public class InstallPerlModulesAction extends Action {
                 // process = runTime.exec("cmd /c start /D" + path + "\\" + " ppm install " + modulename);
                 List<String> InstallModuleAll = module.getInstallURL();
                 if (InstallModuleAll != null) {
-                    if (InstallModuleAll.size() != 0
-                            && System.getProperty("os.name").toUpperCase().indexOf("WINDOWS") >= 0) { //$NON-NLS-1$ //$NON-NLS-2$
+                    if (InstallModuleAll.size() != 0 && System.getProperty("os.name").toUpperCase().indexOf("WINDOWS") >= 0) { //$NON-NLS-1$ //$NON-NLS-2$
                         for (String installModule : InstallModuleAll) {
                             execSpecialInstall(installModule);
                         }
@@ -145,8 +143,7 @@ public class InstallPerlModulesAction extends Action {
         Process process = null;
         try {
             if (System.getProperty("os.name").toUpperCase().indexOf("WINDOWS") >= 0) { //$NON-NLS-1$ //$NON-NLS-2$
-                String path = CorePlugin.getDefault().getPreferenceStore().getString(
-                        ITalendCorePrefConstants.PERL_INTERPRETER);
+                String path = CorePlugin.getDefault().getPreferenceStore().getString(ITalendCorePrefConstants.PERL_INTERPRETER);
                 path = path.substring(0, path.lastIndexOf("\\")); //$NON-NLS-1$
                 process = runTime.exec("cmd /c start /D" + path + "\\" + " ppm install " + installModule); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
             }
@@ -166,8 +163,7 @@ public class InstallPerlModulesAction extends Action {
         try {
             if (System.getProperty("os.name").toUpperCase().indexOf("WINDOWS") >= 0) { //$NON-NLS-1$ //$NON-NLS-2$
                 modulename = modulename.replaceAll("::", "-"); //$NON-NLS-1$ //$NON-NLS-2$
-                String path = CorePlugin.getDefault().getPreferenceStore().getString(
-                        ITalendCorePrefConstants.PERL_INTERPRETER);
+                String path = CorePlugin.getDefault().getPreferenceStore().getString(ITalendCorePrefConstants.PERL_INTERPRETER);
                 path = path.substring(0, path.lastIndexOf("\\")); //$NON-NLS-1$
                 process = runTime.exec("cmd /c start /D" + path + "\\" + " ppm install " + modulename); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
             } else if (System.getProperty("os.name").toUpperCase().indexOf("LINUX") >= 0) { //$NON-NLS-1$ //$NON-NLS-2$

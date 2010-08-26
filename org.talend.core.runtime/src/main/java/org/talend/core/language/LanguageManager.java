@@ -27,7 +27,7 @@ import org.talend.core.runtime.CoreRuntimePlugin;
  */
 public class LanguageManager {
 
-    private static ICoreService coreSerivce = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
+    private static ICoreService coreService = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
 
     private static ECodeLanguage currentLanguage;
 
@@ -37,10 +37,10 @@ public class LanguageManager {
 
     public static ECodeLanguage getCurrentLanguage() {
         if (CoreRuntimePlugin.getInstance().getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY) == null) {
-            if (coreSerivce != null) {
+            if (coreService != null) {
 
-                coreSerivce.initializeForTalendStartupJob();
-                String lanType = coreSerivce.getLanTypeString();
+                coreService.initializeForTalendStartupJob();
+                String lanType = coreService.getLanTypeString();
 
                 for (ECodeLanguage language : ECodeLanguage.values()) {
                     if (language.getName().equals(lanType)) {
