@@ -336,34 +336,36 @@ public class RelationshipItemBuilder {
                 addRelationShip(item, itemInfor.getIdOrName(), ItemCacheManager.LATEST_VERSION, ROUTINE_RELATION, itemInfor
                         .isSystem());
             }
-            for (Object o : processType.getParameters().getElementParameter()) {
-                if (o instanceof ElementParameterType) {
-                    ElementParameterType param = (ElementParameterType) o;
-                    if (param.getName().startsWith("SCHEMA:")) { //$NON-NLS-1$ 
-                        relationType = SCHEMA_RELATION;
-                    } else if (param.getName().startsWith("PROPERTY:")) { //$NON-NLS-1$ 
-                        relationType = PROPERTY_RELATION;
-                    } else { // if no relation parameter, reset variables in case.
-                        builtIn = null;
-                        currentValue = null;
-                    }
-                    if (param.getName().endsWith(":PROPERTY_TYPE") || param.getName().endsWith(":SCHEMA_TYPE")) {//$NON-NLS-1$  //$NON-NLS-2$
-                        builtIn = true;
-                        if (param.getValue().equals("REPOSITORY")) { //$NON-NLS-1$
-                            builtIn = false;
+            if (processType.getParameters() != null) {
+                for (Object o : processType.getParameters().getElementParameter()) {
+                    if (o instanceof ElementParameterType) {
+                        ElementParameterType param = (ElementParameterType) o;
+                        if (param.getName().startsWith("SCHEMA:")) { //$NON-NLS-1$ 
+                            relationType = SCHEMA_RELATION;
+                        } else if (param.getName().startsWith("PROPERTY:")) { //$NON-NLS-1$ 
+                            relationType = PROPERTY_RELATION;
+                        } else { // if no relation parameter, reset variables in case.
+                            builtIn = null;
+                            currentValue = null;
                         }
-                    }
-                    if (param.getName().endsWith(":REPOSITORY_PROPERTY_TYPE") || //$NON-NLS-1$
-                            param.getName().endsWith(":REPOSITORY_SCHEMA_TYPE")) { //$NON-NLS-1$
-                        currentValue = param.getValue();
-                    }
+                        if (param.getName().endsWith(":PROPERTY_TYPE") || param.getName().endsWith(":SCHEMA_TYPE")) {//$NON-NLS-1$  //$NON-NLS-2$
+                            builtIn = true;
+                            if (param.getValue().equals("REPOSITORY")) { //$NON-NLS-1$
+                                builtIn = false;
+                            }
+                        }
+                        if (param.getName().endsWith(":REPOSITORY_PROPERTY_TYPE") || //$NON-NLS-1$
+                                param.getName().endsWith(":REPOSITORY_SCHEMA_TYPE")) { //$NON-NLS-1$
+                            currentValue = param.getValue();
+                        }
 
-                    if (builtIn != null && currentValue != null) { //$NON-NLS-1$
-                        if (!builtIn) {
-                            addRelationShip(item, currentValue, ItemCacheManager.LATEST_VERSION, relationType);
+                        if (builtIn != null && currentValue != null) { //$NON-NLS-1$
+                            if (!builtIn) {
+                                addRelationShip(item, currentValue, ItemCacheManager.LATEST_VERSION, relationType);
+                            }
+                            builtIn = null;
+                            currentValue = null;
                         }
-                        builtIn = null;
-                        currentValue = null;
                     }
                 }
             }
