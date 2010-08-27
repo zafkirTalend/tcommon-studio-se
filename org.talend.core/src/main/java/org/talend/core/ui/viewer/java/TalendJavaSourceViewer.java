@@ -203,7 +203,7 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
 
         IDocument document = new Document();
         document.set(buff.toString());
-        boolean checkCode = true;
+        boolean checkCode = false;
         int styles = SWT.BORDER | SWT.MULTI | SWT.V_SCROLL | SWT.H_SCROLL | SWT.WRAP;
         return initializeViewer(composite, styles, checkCode, document, documentOffset);
     }
@@ -392,7 +392,7 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
 
                     imports += "import routines." + routine.getLabel() + ";\n"; //$NON-NLS-1$ //$NON-NLS-2$
                 } else {
-                    imports += "import routines." + project.getTechnicalLabel().toLowerCase() + "." + routine.getLabel() + ";\n"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                    imports += "import routines." + routine.getLabel() + ";\n"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                 }
             }
         } catch (PersistenceException e) {
