@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.repository.ui.wizards;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -250,7 +251,14 @@ public abstract class PropertiesWizardPage extends WizardPage {
      * @return the destinationPath
      */
     public IPath getDestinationPath() {
-        return new Path(pathText.getText());
+        String pathStr = pathText.getText();
+        if (pathStr.contains("(default)")) {//$NON-NLS-1$
+            int index = pathStr.indexOf(")");//$NON-NLS-1$
+            if (pathStr.length() > index + 1) {
+                pathStr = pathStr.substring(pathStr.indexOf(")") + 1);//$NON-NLS-1$
+            }
+        }
+        return new Path(pathStr);
     }
 
     /*
@@ -700,16 +708,35 @@ public abstract class PropertiesWizardPage extends WizardPage {
         if (dialog.open() == Window.OK) {
             if (dialog.getResult().length > 0) {
                 Folder folder = (Folder) dialog.getResult()[0];
-                String pathString = folder.getPath();
-                if (pathString == null) {
+                if (folder.getPath() == null) {
                     pathText.setText(""); //$NON-NLS-1$
                 } else {
+                    String pathString = "";
+                    if (folder != null) {
+                        pathString = getFolderPath(getParentsFolder(folder));// folder.getPath();
+                    }
                     pathText.setText(pathString);
                     this.path = pathString;
                 }
             }
         }
+    }
 
+    private List<Folder> getParentsFolder(Folder folder) {
+        List<Folder> list = new ArrayList<Folder>();
+        list.add(folder);
+        if (folder.getParent() != null) {
+            list.addAll(getParentsFolder(folder.getParent()));
+        }
+        return list;
+    }
+
+    private String getFolderPath(List<Folder> list) {
+        String path = "";
+        for (Folder folder : list) {
+            path = File.separator + folder.getName() + path;
+        }
+        return path;
     }
 
     /**
