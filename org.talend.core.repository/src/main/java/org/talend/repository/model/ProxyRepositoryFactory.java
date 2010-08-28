@@ -32,6 +32,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -105,7 +106,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
 
     private static ICoreService coreService = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
 
-    private static final int MAX_TASKS = 7;
+    private static final int MAX_TASKS = 9;
 
     private static Logger log = Logger.getLogger(ProxyRepositoryFactory.class);
 
@@ -241,8 +242,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
 
             MessageBox box = new MessageBox(Display.getCurrent().getActiveShell(), SWT.ICON_ERROR | SWT.OK | SWT.CANCEL);
             box.setText(Messages.getString("ProxyRepositoryFactory.JobNameErroe")); //$NON-NLS-1$
-            box
-                    .setMessage(Messages.getString("ProxyRepositoryFactory.Label") + fileName + Messages.getString("ProxyRepositoryFactory.ReplaceJob")); //$NON-NLS-1$ //$NON-NLS-2$
+            box.setMessage(Messages.getString("ProxyRepositoryFactory.Label") + fileName + Messages.getString("ProxyRepositoryFactory.ReplaceJob")); //$NON-NLS-1$ //$NON-NLS-2$
             if (box.open() == SWT.OK) {
                 return true;
             } else {
@@ -1494,16 +1494,16 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
     private IResource getContextResource(IProcess process, IContext context) throws Exception {
         switch (ProjectManager.getInstance().getCurrentProject().getLanguage()) {
         case JAVA:
-            IPath path = new Path(JavaUtils.JAVA_SRC_DIRECTORY).append(
-                    coreService.getJavaProjectFolderName(process.getProperty().getItem())).append(
-                    coreService.getJavaJobFolderName(process.getName(), process.getVersion())).append(JOB_CONTEXT_FOLDER).append(
-                    context.getName() + JavaUtils.JAVA_CONTEXT_EXTENSION);
+            IPath path = new Path(JavaUtils.JAVA_SRC_DIRECTORY)
+                    .append(coreService.getJavaProjectFolderName(process.getProperty().getItem()))
+                    .append(coreService.getJavaJobFolderName(process.getName(), process.getVersion())).append(JOB_CONTEXT_FOLDER)
+                    .append(context.getName() + JavaUtils.JAVA_CONTEXT_EXTENSION);
 
             return coreService.getSpecificResourceInJavaProject(path);
         case PERL:
             String rootProjectName = coreService.getRootProjectNameForPerl(process.getProperty().getItem());
-            String contextFullName = coreService.getContextFileNameForPerl(rootProjectName, process.getName(), process
-                    .getVersion(), context.getName());
+            String contextFullName = coreService.getContextFileNameForPerl(rootProjectName, process.getName(),
+                    process.getVersion(), context.getName());
 
             return coreService.getSpecificResourceInPerlProject(new Path(contextFullName));
         }
@@ -1552,26 +1552,32 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * @throws PersistenceException
      * @throws LoginException
      */
-    public void logOnProject(Project project, IProgressMonitor monitorWrap) throws LoginException, PersistenceException {
+    public void logOnProject(Project project, IProgressMonitor monitor) throws LoginException, PersistenceException {
         try {
             fullLogonFinished = false;
-            monitorWrap.beginTask(Messages.getString("ProxyRepositoryFactory.logonInProgress"), MAX_TASKS); //$NON-NLS-1$
+            SubMonitor subMonitor = SubMonitor.convert(monitor, MAX_TASKS);
+            SubMonitor currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
+
+            currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.logonInProgress"), 1); //$NON-NLS-1$
             LanguageManager.reset();
             getRepositoryContext().setProject(project);
 
-            monitorWrap.subTask(Messages.getString("ProxyRepositoryFactory.initializeProjectConnection")); //$NON-NLS-1$
+            currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
+            currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.initializeProjectConnection"), 1); //$NON-NLS-1$
             this.repositoryFactoryFromProvider.beforeLogon(project);
-            monitorWrap.worked(1);
+            // monitorWrap.worked(1);
 
-            monitorWrap.subTask("Execute before logon migrations tasks"); //$NON-NLS-1$
+            currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
+            currentMonitor.beginTask("Execute before logon migrations tasks", 1); //$NON-NLS-1$
             IMigrationToolService service = (IMigrationToolService) GlobalServiceRegister.getDefault().getService(
                     IMigrationToolService.class);
-            service.executeProjectTasks(project, true, monitorWrap);
-            monitorWrap.worked(1);
+            service.executeProjectTasks(project, true, currentMonitor);
+            // monitorWrap.worked(1);
 
-            monitorWrap.subTask(Messages.getString("ProxyRepositoryFactory.logonInProgress")); //$NON-NLS-1$
+            currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
+            currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.logonInProgress"), 1); //$NON-NLS-1$
             this.repositoryFactoryFromProvider.logOnProject(project);
-            monitorWrap.worked(1);
+            // monitorWrap.worked(1);
 
             emptyTempFolder(project);
 
@@ -1580,23 +1586,27 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
             String str[] = new String[] { getRepositoryContext().getUser() + "", projectManager.getCurrentProject() + "" }; //$NON-NLS-1$ //$NON-NLS-2$        
             log.info(Messages.getString("ProxyRepositoryFactory.log.loggedOn", str)); //$NON-NLS-1$
 
-            monitorWrap.subTask("Load Components..."); //$NON-NLS-1$
+            currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
+            currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.load.componnents"), 1); //$NON-NLS-1$
             coreService.componentsReset();
-            coreService.initializeComponents(monitorWrap);
-            monitorWrap.worked(1);
+            coreService.initializeComponents(currentMonitor);
+            // monitorWrap.worked(1);
 
-            monitorWrap.subTask("Execute migrations tasks"); //$NON-NLS-1$
-            service.executeProjectTasks(project, false, monitorWrap);
-            monitorWrap.worked(1);
+            currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
+            currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.exec.migration.tasks"), 1); //$NON-NLS-1$
+            service.executeProjectTasks(project, false, currentMonitor);
+            // monitorWrap.worked(1);
 
             // clean workspace
             coreService.deleteAllJobs(false);
 
-            monitorWrap.subTask(Messages.getString("ProxyRepositoryFactory.synchronizeLibraries")); //$NON-NLS-1$
-            coreService.syncLibraries(monitorWrap);
-            monitorWrap.worked(1);
+            currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
+            currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.synchronizeLibraries"), 1); //$NON-NLS-1$
+            coreService.syncLibraries(currentMonitor);
+            // monitorWrap.worked(1);
 
-            monitorWrap.subTask("Synchronize repository items"); //$NON-NLS-1$
+            currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
+            currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.synch.repo.items"), 1);  //$NON-NLS-1$
             try {
                 coreService.syncAllRoutines();
             } catch (SystemException e1) {
@@ -1606,7 +1616,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
             if (PluginChecker.isRulesPluginLoaded()) {
                 coreService.syncAllRules();
             }
-            monitorWrap.worked(1);
+            // monitorWrap.worked(1);
             if (!CommonsPlugin.isHeadless()) {
                 coreService.initializeTemplates();
             }

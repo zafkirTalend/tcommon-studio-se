@@ -629,7 +629,7 @@ public class ComponentUtilities {
     }
 
     private static String getComponentFamily(String componentName) {
-        List<IComponent> components = ComponentsFactoryProvider.getInstance().getComponents();
+        Set<IComponent> components = ComponentsFactoryProvider.getInstance().getComponents();
         for (IComponent component : components) {
             if (component.getName().equals(componentName)) {
                 return component.getOriginalFamilyName();

@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -40,7 +41,7 @@ public interface IComponentsFactory {
 
     public int size();
 
-    public List<IComponent> getComponents();
+    public Set<IComponent> getComponents();
 
     public List<IComponent> getCustomComponents();
 

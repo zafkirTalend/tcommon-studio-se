@@ -12,7 +12,7 @@
 // ============================================================================
 package org.talend.repository.model;
 
-import java.util.List;
+import java.util.Set;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.gef.palette.PaletteDrawer;
@@ -82,7 +82,7 @@ public class ComponentsFactoryProvider {
     public static void saveComponentVisibilityStatus(boolean reset, boolean persist) {
         boolean modified = false;
         IComponentsFactory componentsFactory = ComponentsFactoryProvider.getInstance();
-        List<IComponent> components = componentsFactory.getComponents();
+        Set<IComponent> components = componentsFactory.getComponents();
 
         RepositoryContext repositoryContext = (RepositoryContext) CorePlugin.getContext().getProperty(
                 Context.REPOSITORY_CONTEXT_KEY);

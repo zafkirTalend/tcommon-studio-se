@@ -8,7 +8,7 @@
 // You should have received a copy of the agreement
 // along with this program; if not, write to Talend SA
 // 9 rue Pages 92150 Suresnes, France
-//   
+//
 // ============================================================================
 package org.talend.librariesmanager.model;
 
@@ -32,8 +32,8 @@ import org.talend.core.language.LanguageManager;
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.components.IComponentsFactory;
 import org.talend.core.model.general.ModuleNeeded;
-import org.talend.core.model.general.Project;
 import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
+import org.talend.core.model.general.Project;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ProcessItem;
@@ -109,8 +109,8 @@ public class ModulesNeededProvider {
          * 
          * TimeMeasure.end("ModulesNeededProvider.getModulesNeededForJobs");
          */// TimeMeasure.measureActive = false;
-        // TimeMeasure.display = false;
-        //        TimeMeasure.end("ModulesNeededProvider.getAllMoudlesNeeded"); //$NON-NLS-1$
+           // TimeMeasure.display = false;
+           //        TimeMeasure.end("ModulesNeededProvider.getAllMoudlesNeeded"); //$NON-NLS-1$
         return componentImportNeedsList;
     }
 
@@ -127,7 +127,7 @@ public class ModulesNeededProvider {
     }
 
     /**
-     *ftang Comment method "resetCurrentJobNeededModuleList".
+     * ftang Comment method "resetCurrentJobNeededModuleList".
      * 
      * @param process
      */
@@ -177,9 +177,9 @@ public class ModulesNeededProvider {
     private static List<ModuleNeeded> getModulesNeededForComponents() {
         List<ModuleNeeded> importNeedsList = new ArrayList<ModuleNeeded>();
         IComponentsFactory compFac = ComponentsFactoryProvider.getInstance();
-        List<IComponent> componentList = compFac.getComponents();
-        for (int i = 0; i < componentList.size(); i++) {
-            importNeedsList.addAll(componentList.get(i).getModulesNeeded());
+        Set<IComponent> componentList = compFac.getComponents();
+        for (IComponent comp : componentList) {
+            importNeedsList.addAll(comp.getModulesNeeded());
         }
         return importNeedsList;
     }
