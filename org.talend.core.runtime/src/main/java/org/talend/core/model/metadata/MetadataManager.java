@@ -26,6 +26,7 @@ import org.talend.core.model.repository.EPackageType;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.xml.TdXmlSchema;
 import orgomg.cwm.foundation.softwaredeployment.Component;
+import orgomg.cwm.objectmodel.core.Dependency;
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.resource.record.RecordFile;
 
@@ -34,20 +35,22 @@ import orgomg.cwm.resource.record.RecordFile;
  */
 public class MetadataManager {
 
-    public static void addPackges(ConnectionItem item, Resource itemResource) {
+    public static void addContents(ConnectionItem item, Resource itemResource) {
         List recordfiles = new ArrayList();
         List generics = new ArrayList();
         List xmlSchemas = new ArrayList();
         List catalogsorSchemas = new ArrayList();
         // MOD zshen for feature 14891 use same repository API with TOS to persistent metadata.
         List components = new ArrayList();
+        // MOD mzhao handle dependencies.
+        List<Dependency> dependencies = new ArrayList<Dependency>();
 
         getTypedPackges(item, recordfiles, EPackageType.RecordFile);
         getTypedPackges(item, generics, EPackageType.Generic);
         getTypedPackges(item, xmlSchemas, EPackageType.XML_Schema);
         getTypedPackges(item, catalogsorSchemas, EPackageType.DB_Schema);
         getTypedPackges(item, components, EPackageType.TDQ_compont);
-
+        getTypedPackges(item, dependencies, EPackageType.Dependency);
         itemResource.getContents().add(item.getConnection());
         if (!recordfiles.isEmpty()) {
             itemResource.getContents().addAll(recordfiles); // 13221
@@ -63,6 +66,9 @@ public class MetadataManager {
         }
         if (!components.isEmpty()) {
             itemResource.getContents().addAll(components);
+        }
+        if(!dependencies.isEmpty()){
+            itemResource.getContents().addAll(dependencies);
         }
     }
 
@@ -134,6 +140,10 @@ public class MetadataManager {
                 Component component = item.getConnection().getComponent();
                 returnlist.add(component);
             }
+            break;
+        case Dependency:
+                List<Dependency> dependencies = item.getConnection().getSupplierDependency();
+                returnlist.addAll(dependencies);
             break;
         default:
         }

@@ -6,5 +6,6 @@ public enum EPackageType {
     DB_Schema(),
     Generic(),
     XML_Schema(),
-    TDQ_compont();
+    TDQ_compont(),
+    Dependency();
 }

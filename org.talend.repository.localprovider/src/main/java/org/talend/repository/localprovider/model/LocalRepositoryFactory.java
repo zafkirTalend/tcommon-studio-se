@@ -1188,7 +1188,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         Resource itemResource = xmiResourceManager.createItemResource(project, item, path, type, false);
 
         // itemResource.getContents().add(item.getConnection());
-        MetadataManager.addPackges(item, itemResource); // hywang 13221
+        MetadataManager.addContents(item, itemResource); // hywang 13221
 
         return itemResource;
     }
@@ -1216,7 +1216,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     private Resource save(ConnectionItem item) {
         Resource itemResource = xmiResourceManager.getItemResource(item);
         itemResource.getContents().clear();
-        MetadataManager.addPackges(item, itemResource); // 13221
+        MetadataManager.addContents(item, itemResource); // 13221
 
         // add to the current resource all Document and Description instances because they are not reference in
         // containment references.
