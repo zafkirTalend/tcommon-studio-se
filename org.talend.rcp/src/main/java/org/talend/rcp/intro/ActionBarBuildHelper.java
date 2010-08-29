@@ -158,10 +158,12 @@ public class ActionBarBuildHelper implements IActionBarHelper {
 
         fileMenu.add(ActionFactory.SAVE.create(window));
 
+        fileMenu.add(ActionFactory.SAVE_AS.create(window));
+
         IWorkbenchAction saveAllAction = ActionFactory.SAVE_ALL.create(window);
         fileMenu.add(saveAllAction);
         actionBarConfigurer.registerGlobalAction(saveAllAction);
-        // fileMenu.add(ActionFactory.SAVE_AS.create(window));
+
         fileMenu.add(new Separator());
         fileMenu.add(ActionFactory.PRINT.create(window));
         fileMenu.add(new Separator());
