@@ -74,6 +74,9 @@ public final class JavaUtils {
     /** Java Source Directory. */
     public static final String JAVA_SRC_DIRECTORY = "src"; //$NON-NLS-1$
 
+    /** Java DB Mapping Directory */
+    public static final String JAVA_XML_MAPPING = "xmlMappings"; //$NON-NLS-1$
+
     /** Java Rules Directory. */
     public static final String JAVA_RULES_DIRECTORY = "rules"; //$NON-NLS-1$
 

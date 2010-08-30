@@ -242,7 +242,8 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
 
             MessageBox box = new MessageBox(Display.getCurrent().getActiveShell(), SWT.ICON_ERROR | SWT.OK | SWT.CANCEL);
             box.setText(Messages.getString("ProxyRepositoryFactory.JobNameErroe")); //$NON-NLS-1$
-            box.setMessage(Messages.getString("ProxyRepositoryFactory.Label") + fileName + Messages.getString("ProxyRepositoryFactory.ReplaceJob")); //$NON-NLS-1$ //$NON-NLS-2$
+            box
+                    .setMessage(Messages.getString("ProxyRepositoryFactory.Label") + fileName + Messages.getString("ProxyRepositoryFactory.ReplaceJob")); //$NON-NLS-1$ //$NON-NLS-2$
             if (box.open() == SWT.OK) {
                 return true;
             } else {
@@ -1494,16 +1495,16 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
     private IResource getContextResource(IProcess process, IContext context) throws Exception {
         switch (ProjectManager.getInstance().getCurrentProject().getLanguage()) {
         case JAVA:
-            IPath path = new Path(JavaUtils.JAVA_SRC_DIRECTORY)
-                    .append(coreService.getJavaProjectFolderName(process.getProperty().getItem()))
-                    .append(coreService.getJavaJobFolderName(process.getName(), process.getVersion())).append(JOB_CONTEXT_FOLDER)
-                    .append(context.getName() + JavaUtils.JAVA_CONTEXT_EXTENSION);
+            IPath path = new Path(JavaUtils.JAVA_SRC_DIRECTORY).append(
+                    coreService.getJavaProjectFolderName(process.getProperty().getItem())).append(
+                    coreService.getJavaJobFolderName(process.getName(), process.getVersion())).append(JOB_CONTEXT_FOLDER).append(
+                    context.getName() + JavaUtils.JAVA_CONTEXT_EXTENSION);
 
             return coreService.getSpecificResourceInJavaProject(path);
         case PERL:
             String rootProjectName = coreService.getRootProjectNameForPerl(process.getProperty().getItem());
-            String contextFullName = coreService.getContextFileNameForPerl(rootProjectName, process.getName(),
-                    process.getVersion(), context.getName());
+            String contextFullName = coreService.getContextFileNameForPerl(rootProjectName, process.getName(), process
+                    .getVersion(), context.getName());
 
             return coreService.getSpecificResourceInPerlProject(new Path(contextFullName));
         }
@@ -1606,7 +1607,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
             // monitorWrap.worked(1);
 
             currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
-            currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.synch.repo.items"), 1);  //$NON-NLS-1$
+            currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.synch.repo.items"), 1); //$NON-NLS-1$
             try {
                 coreService.syncAllRoutines();
             } catch (SystemException e1) {
@@ -1631,6 +1632,9 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                 // do nothing
             }
             coreService.createStatsLogAndImplicitParamter(project);
+
+            coreService.synchronizeMapptingXML();
+
             fullLogonFinished = true;
 
         } catch (LoginException e) {

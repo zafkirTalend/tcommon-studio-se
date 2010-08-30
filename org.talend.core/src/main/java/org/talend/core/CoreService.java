@@ -12,22 +12,38 @@
 // ============================================================================
 package org.talend.core;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FilenameFilter;
+import java.io.IOException;
 import java.net.URI;
+import java.net.URL;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
+import org.osgi.framework.Bundle;
 import org.talend.commons.exception.BusinessException;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.SystemException;
+import org.talend.commons.utils.generation.JavaUtils;
+import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.ColumnNameChanged;
 import org.talend.core.model.metadata.IMetadataTable;
+import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.MetadataTool;
 import org.talend.core.model.metadata.QueryUtil;
 import org.talend.core.model.process.ElementParameterParser;
@@ -279,6 +295,75 @@ public class CoreService implements ICoreService {
 
     public String validateValueForDBType(String columnName) {
         return MetadataTool.validateValueForDBType(columnName);
+    }
+
+    public void synchronizeMapptingXML() {
+        String dirPath = "/" + "mappings"; //$NON-NLS-1$
+        Path filePath = new Path(dirPath);
+        Bundle b = Platform.getBundle("org.talend.core");//$NON-NLS-1$
+        URL url = null;
+        try {
+            if (b != null) {
+                url = FileLocator.toFileURL(FileLocator.find(b, filePath, null));
+            } else {
+                url = MetadataTalendType.class.getResource(dirPath);
+                IPath path = new Path(url.getPath());
+                path = path.removeLastSegments(2);
+                url = new URL("file:/" + path.toPortableString() + dirPath); //$NON-NLS-1$
+            }
+        } catch (IOException e) {
+            ExceptionHandler.process(e);
+        }
+        if (url != null) {
+            try {
+                IRunProcessService runProcessService = (IRunProcessService) GlobalServiceRegister.getDefault().getService(
+                        IRunProcessService.class);
+                if (runProcessService != null) {
+                    IProject project = runProcessService.getProject(ECodeLanguage.JAVA);
+                    if (project != null) {
+                        // create xmlmapping folder in .Java/src
+                        IFolder rep = project.getFolder(JavaUtils.JAVA_SRC_DIRECTORY + File.separator
+                                + JavaUtils.JAVA_XML_MAPPING);
+                        if (!rep.exists()) {
+                            rep.create(true, true, null);
+                        }
+
+                        File mappingSource = new File(url.getPath());
+                        FilenameFilter filter = new FilenameFilter() {
+
+                            public boolean accept(File dir, String name) {
+                                if (name.endsWith(".xml")) {
+                                    return true;
+                                }
+                                return false;
+                            }
+                        };
+
+                        for (File file : mappingSource.listFiles(filter)) {
+                            IFile targetFile = project.getFile(JavaUtils.JAVA_SRC_DIRECTORY + File.separator
+                                    + JavaUtils.JAVA_XML_MAPPING + File.separator + file.getName());
+                            copyFile(file, targetFile);
+                        }
+
+                    }
+                }
+            } catch (CoreException e) {
+                ExceptionHandler.process(e);
+            } catch (IOException e) {
+                ExceptionHandler.process(e);
+            }
+        }
+    }
+
+    public void copyFile(File in, IFile out) throws CoreException, IOException {
+        if (out.exists()) {
+            out.delete(true, null);
+        }
+        FileInputStream fis = new FileInputStream(in);
+        if (!out.exists()) {
+            out.create(fis, true, null);
+        }
+        fis.close();
     }
 
 }

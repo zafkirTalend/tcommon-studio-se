@@ -116,4 +116,6 @@ public interface ICoreService extends IService {
 
     public String validateValueForDBType(String columnName);
 
+    public void synchronizeMapptingXML();
+
 }
