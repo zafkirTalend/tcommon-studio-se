@@ -59,7 +59,6 @@ import org.talend.commons.utils.data.container.RootContainer;
 import org.talend.commons.utils.image.ImageUtils;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
-import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.general.TalendNature;
 import org.talend.core.model.metadata.MetadataManager;
@@ -412,7 +411,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             if (currentFolderItem != null) {
                 for (Item curItem : (List<Item>) currentFolderItem.getChildren()) {
                     if (curItem instanceof FolderItem && searchInChildren) {
-                        toReturn.addAll(getSerializableFromFolder(project, curItem, id, type, allVersion, true, withDeleted, true));
+                        toReturn
+                                .addAll(getSerializableFromFolder(project, curItem, id, type, allVersion, true, withDeleted, true));
                     } else if (!(curItem instanceof FolderItem)) {
                         Property property = curItem.getProperty();
                         if (property != null) {
@@ -498,17 +498,16 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         ConnectionPackage.eINSTANCE.getClass();
     }
 
-    public Project createProject(String label, String description, ECodeLanguage language, User author)
-            throws PersistenceException {
+    public Project createProject(Project projectInfor) throws PersistenceException {
         IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
 
-        String technicalLabel = Project.createTechnicalName(label);
+        String technicalLabel = Project.createTechnicalName(projectInfor.getLabel());
         IProject prj = root.getProject(technicalLabel);
 
         final IWorkspace workspace = ResourcesPlugin.getWorkspace();
-        final IProjectDescription desc = workspace.newProjectDescription(label);
+        final IProjectDescription desc = workspace.newProjectDescription(projectInfor.getLabel());
         desc.setNatureIds(new String[] { TalendNature.ID });
-        desc.setComment(description);
+        desc.setComment(projectInfor.getDescription());
 
         try {
             prj.create(desc, null);
@@ -520,10 +519,10 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
         Project project = new Project();
         // Fill project object
-        project.setLabel(label);
-        project.setDescription(description);
-        project.setLanguage(language);
-        project.setAuthor(author);
+        project.setLabel(projectInfor.getLabel());
+        project.setDescription(projectInfor.getDescription());
+        project.setLanguage(projectInfor.getLanguage());
+        project.setAuthor(projectInfor.getAuthor());
         project.setLocal(true);
         project.setTechnicalLabel(technicalLabel);
 
@@ -895,8 +894,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         for (int i = 0; i < childrens.length; i++) {
             if (childrens[i] instanceof FolderItem) {
                 FolderItem children = (FolderItem) childrens[i];
-                moveFolder(type, sourcePath.append(children.getProperty().getLabel()),
-                        targetPath.append(emfFolder.getProperty().getLabel()));
+                moveFolder(type, sourcePath.append(children.getProperty().getLabel()), targetPath.append(emfFolder.getProperty()
+                        .getLabel()));
             } else {
                 emfFolder.getChildren().remove(childrens[i]);
                 newFolder.getChildren().add(childrens[i]);
@@ -909,8 +908,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         for (IRepositoryViewObject object : serializableFromFolder) {
             List<Resource> affectedResources = xmiResourceManager.getAffectedResources(object.getProperty());
             for (Resource resource : affectedResources) {
-                IPath path = getPhysicalProject(project).getFullPath().append(completeNewPath)
-                        .append(resource.getURI().lastSegment());
+                IPath path = getPhysicalProject(project).getFullPath().append(completeNewPath).append(
+                        resource.getURI().lastSegment());
                 xmiResourceManager.moveResource(resource, path);
             }
         }
@@ -1960,11 +1959,10 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     /*
      * (non-Javadoc)
      * 
-     * @see org.talend.repository.model.IRepositoryFactory#createSandboxProject(org.talend.core.model.general.Project)
+     * @see org.talend.repository.model.IRepositoryFactory#isLocalConnectionProvider()
      */
-    public boolean createSandboxProject(Project newProject) throws PersistenceException {
-        // don't support in local model
-        throw new UnsupportedOperationException();
+    public boolean isLocalConnectionProvider() throws PersistenceException {
+        return true;
     }
 
 }

@@ -19,7 +19,6 @@ import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.data.container.RootContainer;
-import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.properties.ConnectionItem;
@@ -29,7 +28,6 @@ import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.SpagoBiServer;
 import org.talend.core.model.properties.Status;
-import org.talend.core.model.properties.User;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.Folder;
 import org.talend.core.model.repository.IRepositoryViewObject;
@@ -70,8 +68,7 @@ public interface IRepositoryFactory {
 
     public String getNextId();
 
-    public Project createProject(String label, String description, ECodeLanguage language, User author)
-            throws PersistenceException;
+    public Project createProject(Project projectInfor) throws PersistenceException;
 
     public void saveProject(Project project) throws PersistenceException;
 
@@ -389,7 +386,8 @@ public interface IRepositoryFactory {
 
     public void reloadProject(Project project) throws PersistenceException;
 
+    public boolean isLocalConnectionProvider() throws PersistenceException;
+
     public boolean enableSandboxProject() throws PersistenceException;
 
-    public boolean createSandboxProject(Project newProject) throws PersistenceException;
 }

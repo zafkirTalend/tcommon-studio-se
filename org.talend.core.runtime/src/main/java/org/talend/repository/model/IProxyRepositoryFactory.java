@@ -20,7 +20,6 @@ import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.data.container.RootContainer;
 import org.talend.core.context.RepositoryContext;
-import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
@@ -34,7 +33,6 @@ import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.SpagoBiServer;
 import org.talend.core.model.properties.Status;
-import org.talend.core.model.properties.User;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.Folder;
 import org.talend.core.model.repository.IRepositoryViewObject;
@@ -96,11 +94,9 @@ public interface IProxyRepositoryFactory {
      * @param author
      * @return
      * @throws PersistenceException
-     * @see org.talend.core.model.repository.factories.IRepositoryFactory#createProject(java.lang.String,
-     * java.lang.String, java.lang.String, org.talend.core.model.general.User)
+     * @see org.talend.core.model.repository.factories.IRepositoryFactory#createProject(Project projectInfor)
      */
-    public abstract Project createProject(String label, String description, ECodeLanguage language, User author)
-            throws PersistenceException;
+    public abstract Project createProject(Project projectInfor) throws PersistenceException;
 
     public abstract void saveProject(Project project) throws PersistenceException;
 
@@ -727,5 +723,5 @@ public interface IProxyRepositoryFactory {
 
     public boolean enableSandboxProject() throws PersistenceException;
 
-    public boolean createSandboxProject(Project newProject) throws PersistenceException;
+    public boolean isLocalConnectionProvider() throws PersistenceException;
 }

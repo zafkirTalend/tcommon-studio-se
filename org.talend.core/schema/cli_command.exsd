@@ -88,6 +88,26 @@
                </documentation>
             </annotation>
          </attribute>
+         <attribute name="enable">
+            <annotation>
+               <documentation>
+                  if empty, will same as ALL
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="identifier"/>
+               </appInfo>
+            </annotation>
+            <simpleType>
+               <restriction base="string">
+                  <enumeration value="REMOTE">
+                  </enumeration>
+                  <enumeration value="LOCAL">
+                  </enumeration>
+                  <enumeration value="ALL">
+                  </enumeration>
+               </restriction>
+            </simpleType>
+         </attribute>
       </complexType>
    </element>
 
@@ -123,6 +143,26 @@
                   
                </documentation>
             </annotation>
+         </attribute>
+         <attribute name="enable">
+            <annotation>
+               <documentation>
+                  if empty, will same as ALL
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="identifier"/>
+               </appInfo>
+            </annotation>
+            <simpleType>
+               <restriction base="string">
+                  <enumeration value="REMOTE">
+                  </enumeration>
+                  <enumeration value="LOCAL">
+                  </enumeration>
+                  <enumeration value="ALL">
+                  </enumeration>
+               </restriction>
+            </simpleType>
          </attribute>
       </complexType>
    </element>

@@ -54,7 +54,6 @@ import org.talend.core.ICoreService;
 import org.talend.core.PluginChecker;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
-import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.Project;
@@ -76,7 +75,6 @@ import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.SpagoBiServer;
 import org.talend.core.model.properties.Status;
-import org.talend.core.model.properties.User;
 import org.talend.core.model.properties.impl.FolderItemImpl;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.Folder;
@@ -331,10 +329,9 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * @see org.talend.repository.model.IProxyRepositoryFactory#createProject(java.lang.String, java.lang.String,
      * org.talend.core.model.temp.ECodeLanguage, org.talend.core.model.properties.User)
      */
-    public Project createProject(String label, String description, ECodeLanguage language, User author)
-            throws PersistenceException {
-        checkFileName(label, RepositoryConstants.PROJECT_PATTERN);
-        Project toReturn = this.repositoryFactoryFromProvider.createProject(label, description, language, author);
+    public Project createProject(Project projectInfor) throws PersistenceException {
+        checkFileName(projectInfor.getLabel(), RepositoryConstants.PROJECT_PATTERN);
+        Project toReturn = this.repositoryFactoryFromProvider.createProject(projectInfor);
 
         IMigrationToolService service = (IMigrationToolService) GlobalServiceRegister.getDefault().getService(
                 IMigrationToolService.class);
@@ -2128,12 +2125,10 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
     /*
      * (non-Javadoc)
      * 
-     * @see
-     * org.talend.repository.model.IProxyRepositoryFactory#createSandboxProject(org.talend.core.model.general.Project)
+     * @see org.talend.repository.model.IProxyRepositoryFactory#isLocalConnectionProvider()
      */
-    public boolean createSandboxProject(Project newProject) throws PersistenceException {
-        return repositoryFactoryFromProvider.createSandboxProject(newProject);
-
+    public boolean isLocalConnectionProvider() throws PersistenceException {
+        return repositoryFactoryFromProvider.isLocalConnectionProvider();
     }
 
 }
