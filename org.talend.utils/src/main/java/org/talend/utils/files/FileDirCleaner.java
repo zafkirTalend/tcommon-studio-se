@@ -189,6 +189,15 @@ public class FileDirCleaner {
         return clean(pathFolder, filesRegExpPattern, null);
     }
 
+    /**
+     * 
+     * DOC amaumont Comment method "clean".
+     * 
+     * @param pathFolder, required
+     * @param filesRegExpPattern, optional
+     * @param directoriesRegExpPattern, optional
+     * @return
+     */
     public int clean(String pathFolder, String filesRegExpPattern, String directoriesRegExpPattern) {
         if (pathFolder == null) {
             throw new IllegalArgumentException("pathFolder can't be null");
