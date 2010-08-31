@@ -16,7 +16,7 @@ import org.apache.ws.commons.schema.XmlSchema;
 import org.apache.ws.commons.schema.XmlSchemaCollection;
 import org.talend.designer.webservice.ws.wsdlinfo.Function;
 import org.talend.designer.webservice.ws.wsdlinfo.ParameterInfo;
-import org.talend.ws.helper.ServiceDiscoveryHelper;
+import org.talend.designer.webservice.ws.wsdlutil.ServiceDiscoveryHelper;
 import org.talend.ws.helper.ServiceInvokerHelper;
 
 /**
@@ -40,7 +40,7 @@ public class WSDLDiscoveryHelper2 extends ServiceInvokerHelper {
      * @throws URISyntaxException
      * @throws TransformerException
      */
-    public static List<Function> getFunctionsAvailable(String wsdlURI) throws TransformerException, URISyntaxException {
+    public static List<Function> getFunctionsAvailable(String wsdlURI) {
         functionsAvailable = new ArrayList();
         ServiceDiscoveryHelper sdh;
         try {
@@ -83,7 +83,7 @@ public class WSDLDiscoveryHelper2 extends ServiceInvokerHelper {
         return functionsAvailable;
     }
 
-    public static void main(String[] args) throws TransformerException, URISyntaxException {
+    public static void main(String[] args) {
 
         List<Function> test = new ArrayList<Function>();
         test = getFunctionsAvailable("C:/Documents and Settings/Administrator/桌面/myServiceTest.wsdl");

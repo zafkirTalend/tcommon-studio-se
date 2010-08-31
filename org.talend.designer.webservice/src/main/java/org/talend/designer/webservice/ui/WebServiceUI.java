@@ -12,9 +12,7 @@
 // ============================================================================
 package org.talend.designer.webservice.ui;
 
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -1004,60 +1002,12 @@ public class WebServiceUI extends AbstractWebService {
 
         }
 
-        // System.setProperty("javax.net.ssl.trustStoreType", trustStore);
+        System.setProperty("javax.net.ssl.trustStoreType", trustStore);
 
-        System.clearProperty("javax.net.ssl.trustStore");
+        // System.clearProperty("javax.net.ssl.trustStore");
         System.setProperty("javax.net.ssl.trustStore", trustStoreFile);
-        // System.setProperty("javax.net.ssl.trustStorePassword", trustStorePassword);
-        boolean useClience = webServiceManager.getWebServiceComponent().getElementParameter("NEED_CLIENT_AUTH").getValue()
-                .toString().equals("true");
-        if (useClience) {
-            String keyStore = "";
-            String keyPasswd = "";
-            String clienceTruststore = "";
-            IElementParameter clienceKeyStoreFileParameter = webServiceManager.getWebServiceComponent().getElementParameter(
-                    "SSL_KEYSTORE");
+        System.setProperty("javax.net.ssl.trustStorePassword", trustStorePassword);
 
-            IElementParameter clienceKeyStorePasswdParameter = webServiceManager.getWebServiceComponent().getElementParameter(
-                    "SSL_KEYSTORE_PASSWORD");
-
-            IElementParameter clienceKeyStoreTypeParameter = webServiceManager.getWebServiceComponent().getElementParameter(
-                    "KEYSTORE_TYPE");
-            if (clienceKeyStoreFileParameter.getValue() != null) {
-                keyStore = clienceKeyStoreFileParameter.getValue().toString();
-                keyStore = TalendTextUtils.removeQuotes(keyStore);
-            }
-
-            if (clienceKeyStorePasswdParameter.getValue() != null) {
-                keyPasswd = clienceKeyStorePasswdParameter.getValue().toString();
-                keyPasswd = TalendTextUtils.removeQuotes(keyPasswd);
-            }
-            clienceTruststore = clienceKeyStoreTypeParameter.getValue().toString();
-            System.setProperty("javax.net.ssl.keyStore", keyStore);
-            System.setProperty("javax.net.ssl.keyStoreType", clienceTruststore);
-            System.setProperty("javax.net.ssl.keyStorePassword", keyPasswd);
-
-            String wsdlUrl = (String) connector.getElementParameter("ENDPOINT").getValue();
-            java.net.URL url = null;
-            try {
-                url = new java.net.URL(wsdlUrl.replaceAll("\"", ""));
-
-                javax.net.ssl.HttpsURLConnection httpsCon = null;
-                httpsCon = (javax.net.ssl.HttpsURLConnection) url.openConnection();
-
-                httpsCon.setHostnameVerifier(new javax.net.ssl.HostnameVerifier() {
-
-                    public boolean verify(String arg0, javax.net.ssl.SSLSession arg1) {
-                        return true;
-                    }
-                });
-                httpsCon.connect();
-            } catch (MalformedURLException e1) {
-                ExceptionHandler.process(e1);
-            } catch (IOException e) {
-                ExceptionHandler.process(e);
-            }
-        }
     }
 
     /**
@@ -3607,9 +3557,9 @@ public class WebServiceUI extends AbstractWebService {
                 currentPortName = allPortNames.get(0);
                 connection.setPortName(currentPortName.getPortName());
             }
+
         }
         EList inputValue = connection.getParameterValue();
-
         List<ParameterInfo> ls = new ArrayList();
         IElementParameter INPUT_PARAMSPara = connector.getElementParameter("INPUT_PARAMS");
         List<Map<String, String>> inputparaValue = (List<Map<String, String>>) INPUT_PARAMSPara.getValue();
@@ -3653,7 +3603,6 @@ public class WebServiceUI extends AbstractWebService {
                                 parameter.setParameterInfoParent(element.getParent().getName());
                             }
                             inputValue.add(parameter);
-                            // System.out.println(element.getParent() + " ppp");
                             mark = false;
                             if (!element.getParameterInfos().isEmpty()) {
                                 ls.addAll(new ParameterInfoUtil().getAllChildren(element));
@@ -3697,7 +3646,7 @@ public class WebServiceUI extends AbstractWebService {
         List<ParameterInfo> ls = new ArrayList();
         IElementParameter OUTPUT_PARAMSPara = connector.getElementParameter("OUTPUT_PARAMS");
         List<Map<String, String>> outputMap = (List<Map<String, String>>) OUTPUT_PARAMSPara.getValue();
-        if (outputMap != null) {
+        if (outputMap != null && !outputMap.isEmpty()) {
             outPutValue.clear();
             for (OutPutMappingData outData : getOutputElement()) {
                 WSDLParameter parameter = ConnectionFactory.eINSTANCE.createWSDLParameter();
