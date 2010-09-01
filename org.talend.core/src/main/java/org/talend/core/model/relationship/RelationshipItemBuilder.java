@@ -24,6 +24,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.i18n.Messages;
 import org.talend.core.model.components.EComponentType;
@@ -125,6 +126,30 @@ public class RelationshipItemBuilder {
         }
 
         return relations;
+    }
+
+    public List<Relation> getItemsJobRelatedTo(String itemId, String version, String relationType) {
+        if (!loaded) {
+            loadRelations(ProjectManager.getInstance().getCurrentProject());
+        }
+
+        Relation itemToTest = new Relation();
+        List<Relation> jobRelations = new ArrayList<Relation>();
+
+        itemToTest.setId(itemId);
+        itemToTest.setType(relationType);
+        itemToTest.setVersion(version);
+        if (itemsRelations.containsKey(itemToTest)) {
+            List<Relation> relations = itemsRelations.get(itemToTest);
+            for (Relation relatedItem : relations) {
+                if (relatedItem.getType().equals(relationType)) {
+                    jobRelations.add(relatedItem);
+                }
+            }
+            return jobRelations;
+        }
+
+        return jobRelations;
     }
 
     private void loadRelations(Project project) {
@@ -298,6 +323,59 @@ public class RelationshipItemBuilder {
         toReturn.add(ERepositoryObjectType.PROCESS);
         toReturn.add(ERepositoryObjectType.JOBLET);
         return toReturn;
+    }
+
+    public void updateItemVersion(Item item7, IProxyRepositoryFactory reFactory, String oldVersion, String id)
+            throws PersistenceException {
+        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
+        IRepositoryViewObject obj = factory.getSpecificVersion(id, oldVersion);
+        Item item = obj.getProperty().getItem();
+        // String itemVersion = item.getProperty().getVersion();
+        if (!loaded) {
+            loadRelations(ProjectManager.getInstance().getCurrentProject());
+        }
+        ProcessType processType = null;
+        if (item instanceof ProcessItem) {
+            processType = ((ProcessItem) item).getProcess();
+        }
+        if (item instanceof JobletProcessItem) {
+            processType = ((JobletProcessItem) item).getJobletProcess();
+        }
+        for (Object o : processType.getNode()) {
+            if (o instanceof NodeType) {
+                NodeType currentNode = (NodeType) o;
+                if ("tRunJob".equals(currentNode.getComponentName())) { //$NON-NLS-1$
+                    // in case of tRunJob
+                    String jobId = null;
+                    String jobVersion = ItemCacheManager.LATEST_VERSION;
+                    String nowVersion = "";
+                    for (Object o2 : currentNode.getElementParameter()) {
+                        if (o2 instanceof ElementParameterType) {
+                            ElementParameterType param = (ElementParameterType) o2;
+                            if (param.getName().equals("PROCESS:PROCESS_TYPE_PROCESS") //$NON-NLS-1$
+                                    || param.getName().equals("PROCESS_TYPE_PROCESS")) { //$NON-NLS-1$
+                                jobId = param.getValue();
+                            }
+                            if (param.getName().equals("PROCESS:PROCESS_TYPE_VERSION") //$NON-NLS-1$
+                                    || param.getName().equals("PROCESS_TYPE_VERSION")) { //$NON-NLS-1$
+                                jobVersion = param.getValue();
+                                if (jobVersion.equals(ItemCacheManager.LATEST_VERSION)) {
+                                    IRepositoryViewObject itemobj = factory.getLastVersion(jobId);
+                                    nowVersion = itemobj.getVersion();
+                                    param.setValue(itemobj.getVersion());
+                                }
+                            }
+                        }
+                    }
+                    if (jobId != null) {
+                        addRelationShip(item, jobId, nowVersion, JOB_RELATION);
+                        reFactory.save(project, item.getProperty());
+                        reFactory.save(item);
+                    }
+                }
+            }
+        }
+        saveRelations();
     }
 
     public void addOrUpdateItem(Item item, boolean... fromMigration) {
