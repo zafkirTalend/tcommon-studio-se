@@ -9,8 +9,9 @@ public class Dynamic {
 
     private List<Object> values = new ArrayList<Object>(30);
 
-    private static String[][] dbMapping = { { "VARCHAR", "id_String" }, { "BIGINT", "id_Long" }, { "INTEGER", "id_Integer" },
-            { "DOUBLE", "id_Double" }, { "DATETIME", "id_Date" } };
+    // private static String[][] dbMapping = { { "VARCHAR", "id_String" }, { "BIGINT", "id_Long" }, { "INTEGER",
+    // "id_Integer" },
+    // { "DOUBLE", "id_Double" }, { "DATETIME", "id_Date" } };
 
     // private constructor for internal/static use only
     public Dynamic() {
@@ -67,11 +68,13 @@ public class Dynamic {
 
     public static String getTalendTypeFromDBType(String dbName, String dbType, int length, int precision) {
         // TODO:: replace this fucntion with full implementation with XML mappings
-        String talendType = "id_String";
-        for (int i = 0; i < Dynamic.dbMapping.length; i++) {
-            if (dbType.contains(Dynamic.dbMapping[i][0]))
-                return Dynamic.dbMapping[i][1];
+        String talendType = null;
+
+        talendType = MetadataTalendType.getDefaultSelectedTalendType(dbName, dbType, length, precision);
+        if (talendType == null) {
+            talendType = "id_String";
         }
+
         return talendType;
     }
 
