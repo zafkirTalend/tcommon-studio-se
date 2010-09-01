@@ -39,6 +39,12 @@ public class ProjectHelper {
         return newProject;
     }
 
+    public static Project createProject(String projectName, String projectDescription, ECodeLanguage language, User authoer) {
+        Project newProject = createProject(projectName, projectDescription, language);
+        newProject.setAuthor(authoer); // set in project to record
+        return newProject;
+    }
+
     public static Project createProject(String projectName, String projectDescription, String projectLanguage,
             String projectAuthor, String projectAuthorPass, String projectAuthorFirstname, String projectAuthorLastname) {
 
@@ -50,14 +56,18 @@ public class ProjectHelper {
         return newProject;
     }
 
-    private static Project createProject(String projectName, String projectDescription, String projectLanguage) {
+    private static Project createProject(String projectName, String projectDescription, ECodeLanguage language) {
         Project newProject = new Project();
         newProject.setLabel(projectName);
         newProject.setTechnicalLabel(Project.createTechnicalName(newProject.getLabel()));
-        newProject.setLanguage(ECodeLanguage.getCodeLanguage(projectLanguage));
+        newProject.setLanguage(language);
         newProject.setDescription(projectDescription);
 
         return newProject;
+    }
+
+    private static Project createProject(String projectName, String projectDescription, String projectLanguage) {
+        return createProject(projectName, projectDescription, ECodeLanguage.getCodeLanguage(projectLanguage));
     }
 
     private static User createUser(String projectAuthor, String projectAuthorPass, String projectAuthorFirstname,
