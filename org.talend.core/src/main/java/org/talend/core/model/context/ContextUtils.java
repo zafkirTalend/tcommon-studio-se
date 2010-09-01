@@ -526,9 +526,19 @@ public class ContextUtils {
             }
             if (foundParam != null) {
                 JobContextParameter jobParam = createJobContextParameter(contextItem, foundParam);
-                context.getContextParameterList().add(jobParam);
+                IContextParameter existedContextParameter = getExistedContextParameter(manager, foundParam.getName(), context);
+                if (existedContextParameter == null) {
+                    context.getContextParameterList().add(jobParam);
+                }
             }
         }
+    }
+
+    public static IContextParameter getExistedContextParameter(IContextManager manager, String paramName, IContext context) {
+        if (context == null) {
+            context = manager.getDefaultContext();
+        }
+        return context.getContextParameter(paramName);
     }
 
     @SuppressWarnings("unchecked")

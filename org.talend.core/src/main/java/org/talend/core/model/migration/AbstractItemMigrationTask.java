@@ -23,8 +23,10 @@ import org.talend.core.GlobalServiceRegister;
 import org.talend.core.i18n.Messages;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.core.model.repository.RepositoryObject;
 import org.talend.migration.AbstractMigrationTask;
 import org.talend.migration.IProjectMigrationTask;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -46,7 +48,9 @@ public abstract class AbstractItemMigrationTask extends AbstractMigrationTask im
         List<IRepositoryViewObject> list = new ArrayList<IRepositoryViewObject>();
         try {
             for (ERepositoryObjectType curTyp : getTypes()) {
-                list.addAll(factory.getAll(curTyp, true, true));
+                if (curTyp.isResourceItem()) {
+                    list.addAll(factory.getAll(curTyp, true, true));
+                }
             }
 
             if (list.isEmpty()) {
@@ -55,6 +59,13 @@ public abstract class AbstractItemMigrationTask extends AbstractMigrationTask im
 
             for (IRepositoryViewObject object : list) {
                 ExecutionResult execute = null;
+                // in case the resource has been modified (see MergeTosMetadataMigrationTask for example)
+                if ((object.getProperty().eResource() == null || object.getProperty().getItem().eResource() == null)
+                        && (object instanceof RepositoryObject)) {
+                    Property updatedProperty = factory.reload(object.getProperty());
+                    ((RepositoryObject) object).setProperty(updatedProperty);
+                }
+
                 Item item = object.getProperty().getItem();
                 execute = execute(item);
                 if (execute == ExecutionResult.FAILURE) {

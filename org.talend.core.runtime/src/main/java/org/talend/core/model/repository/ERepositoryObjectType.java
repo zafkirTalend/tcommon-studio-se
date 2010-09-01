@@ -547,7 +547,7 @@ public enum ERepositoryObjectType {
                 && !this.equals(ERepositoryObjectType.SNIPPETS) && !this.equals(ERepositoryObjectType.GENERATED)
                 && !this.equals(ERepositoryObjectType.JOBS) && !this.equals(ERepositoryObjectType.JOB_DOC)
                 && !this.equals(ERepositoryObjectType.JOBLETS) && !this.equals(ERepositoryObjectType.JOBLET_DOC)
-                && !this.equals(ERepositoryObjectType.METADATA);
+                && !this.equals(ERepositoryObjectType.METADATA) && !this.equals(ERepositoryObjectType.SVN_ROOT);
     }
 
     /**
