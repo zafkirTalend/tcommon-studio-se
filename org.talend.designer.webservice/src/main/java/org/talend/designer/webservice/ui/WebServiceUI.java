@@ -981,14 +981,11 @@ public class WebServiceUI extends AbstractWebService {
      */
     private void useSSL() {
         String trustStoreFile = "";
-
         String trustStorePassword = "";
-        String trustStore = "";
         IElementParameter trustserverFileParameter = webServiceManager.getWebServiceComponent().getElementParameter(
                 "SSL_TRUSTSERVER_TRUSTSTORE");
         IElementParameter trustserverPasswordParameter = webServiceManager.getWebServiceComponent().getElementParameter(
                 "SSL_TRUSTSERVER_PASSWORD");
-        IElementParameter truststoreParameter = webServiceManager.getWebServiceComponent().getElementParameter("TRUSTSTORE_TYPE");
         if (trustserverFileParameter.getValue() != null) {
             trustStoreFile = trustserverFileParameter.getValue().toString();
             trustStoreFile = TalendTextUtils.removeQuotes(trustStoreFile);
@@ -997,17 +994,10 @@ public class WebServiceUI extends AbstractWebService {
             trustStorePassword = trustserverPasswordParameter.getValue().toString();
             trustStorePassword = TalendTextUtils.removeQuotes(trustStorePassword);
         }
-        if (truststoreParameter.getValue() != null) {
-            trustStore = truststoreParameter.getValue().toString();
-
-        }
-
-        System.setProperty("javax.net.ssl.trustStoreType", trustStore);
 
         // System.clearProperty("javax.net.ssl.trustStore");
         System.setProperty("javax.net.ssl.trustStore", trustStoreFile);
         System.setProperty("javax.net.ssl.trustStorePassword", trustStorePassword);
-
     }
 
     /**
