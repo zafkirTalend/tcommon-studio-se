@@ -30,4 +30,8 @@ public abstract class AbstractBrandingService implements IBrandingService {
                 this.getFullProductName(), version);
         return contents;
     }
+
+    public boolean isPoweredbyTalend() {
+        return false;
+    }
 }

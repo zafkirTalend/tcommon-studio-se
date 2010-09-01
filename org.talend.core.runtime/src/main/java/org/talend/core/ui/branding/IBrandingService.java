@@ -40,4 +40,5 @@ public interface IBrandingService extends IService {
 
     public IBrandingConfiguration getBrandingConfiguration();
 
+    public boolean isPoweredbyTalend();
 }

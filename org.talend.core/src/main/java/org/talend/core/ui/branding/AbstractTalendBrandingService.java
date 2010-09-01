@@ -17,4 +17,7 @@ package org.talend.core.ui.branding;
  */
 public abstract class AbstractTalendBrandingService extends AbstractBrandingService {
 
+    public boolean isPoweredbyTalend() {
+        return true;
+    }
 }
