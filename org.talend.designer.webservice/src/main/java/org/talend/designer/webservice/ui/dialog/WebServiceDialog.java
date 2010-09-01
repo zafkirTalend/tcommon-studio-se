@@ -2,6 +2,7 @@ package org.talend.designer.webservice.ui.dialog;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -317,7 +318,40 @@ public class WebServiceDialog extends Dialog implements WebServiceEventListener 
             sourceMap.put("SOURCE", insource);
             inputparaValue.add(sourceMap);
         }
-
+        List<ParameterInfo> ls = new ArrayList();
+        if (function != null) {
+            List inputParameter = function.getInputParameters();
+            if (inputParameter != null) {
+                for (int i = 0; i < inputParameter.size(); i++) {
+                    boolean mark = true;
+                    goin: for (Iterator iterator2 = inputParameter.iterator(); iterator2.hasNext();) {
+                        ParameterInfo element = (ParameterInfo) iterator2.next();
+                        Map<String, String> sourceMap = new HashMap<String, String>(2);
+                        sourceMap.put("PARAMETERINFO", element.getName());
+                        if (element.getParent() == null) {
+                            sourceMap.put("PARAPARENT", "");
+                        } else {
+                            sourceMap.put("PARAPARENT", element.getParent().getName());
+                        }
+                        inputparaValue.add(sourceMap);
+                        // System.out.println(element.getParent() + " ppp");
+                        mark = false;
+                        if (!element.getParameterInfos().isEmpty()) {
+                            ls.addAll(new ParameterInfoUtil().getAllChildren(element));
+                        }
+                        break goin;
+                    }
+                    if (!mark) {
+                        for (ParameterInfo para : ls) {
+                            Map<String, String> sourceMap = new HashMap<String, String>(2);
+                            sourceMap.put("PARAMETERINFO", para.getName());
+                            sourceMap.put("PARAPARENT", para.getParent().getName());
+                            inputparaValue.add(sourceMap);
+                        }
+                    }
+                }
+            }
+        }
         // save output
         IElementParameter OUTPUT_PARAMSPara = wenCom.getElementParameter("OUTPUT_PARAMS");
         List<Map<String, String>> outputMap = (List<Map<String, String>>) OUTPUT_PARAMSPara.getValue();
@@ -385,7 +419,39 @@ public class WebServiceDialog extends Dialog implements WebServiceEventListener 
             sourceMap.put("SOURCE", outsource);
             outputMap.add(sourceMap);
         }
-
+        if (function != null) {
+            List inputParameter = function.getOutputParameters();
+            if (inputParameter != null) {
+                for (int i = 0; i < inputParameter.size(); i++) {
+                    boolean mark = true;
+                    goin: for (Iterator iterator2 = inputParameter.iterator(); iterator2.hasNext();) {
+                        ParameterInfo element = (ParameterInfo) iterator2.next();
+                        Map<String, String> sourceMap = new HashMap<String, String>(1);
+                        sourceMap.put("PARAMETERINFO", element.getName());
+                        if (element.getParent() == null) {
+                            sourceMap.put("PARAPARENT", "");
+                        } else {
+                            sourceMap.put("PARAPARENT", element.getParent().getName());
+                        }
+                        outputMap.add(sourceMap);
+                        // System.out.println(element.getParent() + " ppp");
+                        mark = false;
+                        if (!element.getParameterInfos().isEmpty()) {
+                            ls.addAll(new ParameterInfoUtil().getAllChildren(element));
+                        }
+                        break goin;
+                    }
+                    if (!mark) {
+                        for (ParameterInfo para : ls) {
+                            Map<String, String> sourceMap = new HashMap<String, String>(2);
+                            sourceMap.put("PARAMETERINFO", para.getName());
+                            sourceMap.put("PARAPARENT", para.getParent().getName());
+                            outputMap.add(sourceMap);
+                        }
+                    }
+                }
+            }
+        }
         super.okPressed();
 
     }
