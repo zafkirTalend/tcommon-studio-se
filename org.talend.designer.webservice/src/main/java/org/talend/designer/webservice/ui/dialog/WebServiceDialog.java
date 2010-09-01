@@ -219,19 +219,19 @@ public class WebServiceDialog extends Dialog implements WebServiceEventListener 
         WebServiceComponent wenCom = webServiceComponentMain.getWebServiceComponent();
 
         // save schema.
-        if (outputMetaCopy != null) {
-            if (!outputMetaCopy.sameMetadataAs(outputMetadata, IMetadataColumn.OPTIONS_NONE)) {
-                outputMetadata.getListColumns().clear();
-                outputMetadata.getListColumns().addAll(outputMetaCopy.getListColumns());
-            }
-        }
-        if (inputMetadata != null) {
-            wenCom.setInputMetadata(inputMetaCopy);
-            if (!inputMetaCopy.sameMetadataAs(inputMetadata, IMetadataColumn.OPTIONS_NONE)) {
-                inputMetadata.getListColumns().clear();
-                inputMetadata.getListColumns().addAll(inputMetaCopy.getListColumns());
-            }
-        }
+        // if (outputMetaCopy != null) {
+        // if (!outputMetaCopy.sameMetadataAs(outputMetadata, IMetadataColumn.OPTIONS_NONE)) {
+        // outputMetadata.getListColumns().clear();
+        // outputMetadata.getListColumns().addAll(outputMetaCopy.getListColumns());
+        // }
+        // }
+        // if (inputMetadata != null) {
+        // wenCom.setInputMetadata(inputMetaCopy);
+        // if (!inputMetaCopy.sameMetadataAs(inputMetadata, IMetadataColumn.OPTIONS_NONE)) {
+        // inputMetadata.getListColumns().clear();
+        // inputMetadata.getListColumns().addAll(inputMetaCopy.getListColumns());
+        // }
+        // }
 
         if (!"".equals(currentURL) && currentURL != null) {
             IElementParameter ENDPOINTPara = wenCom.getElementParameter("ENDPOINT");
@@ -318,38 +318,38 @@ public class WebServiceDialog extends Dialog implements WebServiceEventListener 
             sourceMap.put("SOURCE", insource);
             inputparaValue.add(sourceMap);
         }
-        List<ParameterInfo> ls = new ArrayList();
+        List<ParameterInfo> listParamter = new ArrayList();
         if (function != null) {
             List inputParameter = function.getInputParameters();
             if (inputParameter != null) {
-                for (int i = 0; i < inputParameter.size(); i++) {
-                    boolean mark = true;
-                    goin: for (Iterator iterator2 = inputParameter.iterator(); iterator2.hasNext();) {
-                        ParameterInfo element = (ParameterInfo) iterator2.next();
-                        Map<String, String> sourceMap = new HashMap<String, String>(2);
-                        sourceMap.put("PARAMETERINFO", element.getName());
-                        if (element.getParent() == null) {
-                            sourceMap.put("PARAPARENT", "");
-                        } else {
-                            sourceMap.put("PARAPARENT", element.getParent().getName());
-                        }
-                        inputparaValue.add(sourceMap);
-                        // System.out.println(element.getParent() + " ppp");
-                        mark = false;
-                        if (!element.getParameterInfos().isEmpty()) {
-                            ls.addAll(new ParameterInfoUtil().getAllChildren(element));
-                        }
-                        break goin;
+                // for (int i = 0; i < inputParameter.size(); i++) {
+                boolean mark = true;
+                goin: for (Iterator iterator2 = inputParameter.iterator(); iterator2.hasNext();) {
+                    ParameterInfo element = (ParameterInfo) iterator2.next();
+                    Map<String, String> sourceMap = new HashMap<String, String>(2);
+                    sourceMap.put("PARAMETERINFO", element.getName());
+                    if (element.getParent() == null) {
+                        sourceMap.put("PARAPARENT", "");
+                    } else {
+                        sourceMap.put("PARAPARENT", element.getParent().getName());
                     }
-                    if (!mark) {
-                        for (ParameterInfo para : ls) {
-                            Map<String, String> sourceMap = new HashMap<String, String>(2);
-                            sourceMap.put("PARAMETERINFO", para.getName());
-                            sourceMap.put("PARAPARENT", para.getParent().getName());
-                            inputparaValue.add(sourceMap);
-                        }
+                    inputparaValue.add(sourceMap);
+                    // System.out.println(element.getParent() + " ppp");
+                    mark = false;
+                    if (!element.getParameterInfos().isEmpty()) {
+                        listParamter.addAll(new ParameterInfoUtil().getAllChildren(element));
+                    }
+                    break goin;
+                }
+                if (!mark) {
+                    for (ParameterInfo para : listParamter) {
+                        Map<String, String> sourceMap = new HashMap<String, String>(2);
+                        sourceMap.put("PARAMETERINFO", para.getName());
+                        sourceMap.put("PARAPARENT", para.getParent().getName());
+                        inputparaValue.add(sourceMap);
                     }
                 }
+                // }
             }
         }
         // save output
@@ -419,37 +419,38 @@ public class WebServiceDialog extends Dialog implements WebServiceEventListener 
             sourceMap.put("SOURCE", outsource);
             outputMap.add(sourceMap);
         }
+        List<ParameterInfo> ls = new ArrayList();
         if (function != null) {
             List inputParameter = function.getOutputParameters();
             if (inputParameter != null) {
-                for (int i = 0; i < inputParameter.size(); i++) {
-                    boolean mark = true;
-                    goin: for (Iterator iterator2 = inputParameter.iterator(); iterator2.hasNext();) {
-                        ParameterInfo element = (ParameterInfo) iterator2.next();
-                        Map<String, String> sourceMap = new HashMap<String, String>(1);
-                        sourceMap.put("PARAMETERINFO", element.getName());
-                        if (element.getParent() == null) {
-                            sourceMap.put("PARAPARENT", "");
-                        } else {
-                            sourceMap.put("PARAPARENT", element.getParent().getName());
-                        }
-                        outputMap.add(sourceMap);
-                        // System.out.println(element.getParent() + " ppp");
-                        mark = false;
-                        if (!element.getParameterInfos().isEmpty()) {
-                            ls.addAll(new ParameterInfoUtil().getAllChildren(element));
-                        }
-                        break goin;
+                // for (int i = 0; i < inputParameter.size(); i++) {
+                boolean mark = true;
+                goin: for (Iterator iterator2 = inputParameter.iterator(); iterator2.hasNext();) {
+                    ParameterInfo element = (ParameterInfo) iterator2.next();
+                    Map<String, String> sourceMap = new HashMap<String, String>(1);
+                    sourceMap.put("PARAMETERINFO", element.getName());
+                    if (element.getParent() == null) {
+                        sourceMap.put("PARAPARENT", "");
+                    } else {
+                        sourceMap.put("PARAPARENT", element.getParent().getName());
                     }
-                    if (!mark) {
-                        for (ParameterInfo para : ls) {
-                            Map<String, String> sourceMap = new HashMap<String, String>(2);
-                            sourceMap.put("PARAMETERINFO", para.getName());
-                            sourceMap.put("PARAPARENT", para.getParent().getName());
-                            outputMap.add(sourceMap);
-                        }
+                    outputMap.add(sourceMap);
+                    // System.out.println(element.getParent() + " ppp");
+                    mark = false;
+                    if (!element.getParameterInfos().isEmpty()) {
+                        ls.addAll(new ParameterInfoUtil().getAllChildren(element));
+                    }
+                    break goin;
+                }
+                if (!mark) {
+                    for (ParameterInfo para : ls) {
+                        Map<String, String> sourceMap = new HashMap<String, String>(2);
+                        sourceMap.put("PARAMETERINFO", para.getName());
+                        sourceMap.put("PARAPARENT", para.getParent().getName());
+                        outputMap.add(sourceMap);
                     }
                 }
+                // }
             }
         }
         super.okPressed();

@@ -397,7 +397,7 @@ public class WebServiceUI extends AbstractWebService {
                     }
                 }
             }
-            fun.setInputParameters(paraoutList);
+            fun.setOutputParameters(paraoutList);
             for (Map<String, String> map : outputMap) {
                 if (map.get("ELEMENT") != null && map.get("ELEMENT") instanceof String) {
                     String ele = (String) map.get("ELEMENT"); //$NON-NLS-1$
@@ -464,7 +464,7 @@ public class WebServiceUI extends AbstractWebService {
                     }
                 }
             }
-            fun.setOutputParameters(paraList);
+            fun.setInputParameters(paraList);
             for (Map<String, String> map : inputparaValue) {
                 InputMappingData data = new InputMappingData();
                 if (map.get("EXPRESSION") != null && map.get("EXPRESSION") instanceof String) {
