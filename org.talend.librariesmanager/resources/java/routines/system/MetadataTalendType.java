@@ -1,8 +1,6 @@
 package routines.system;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -20,10 +18,12 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 public class MetadataTalendType {
-	
-	private static String MAPPING_FOLDER="xmlMappings";
-	private static Map<String, Map<String,String>> DB_TO_TALEND_TYPES = Collections.synchronizedMap(new HashMap<String,Map<String,String>>());
-	
+
+    private static String MAPPING_FOLDER = "xmlMappings";
+
+    private static Map<String, Map<String, String>> DB_TO_TALEND_TYPES = Collections
+            .synchronizedMap(new HashMap<String, Map<String, String>>());
+
     /**
      * Get children of type ELEMENT_NODE from parent <code>parentNode</code>.
      * 
@@ -41,41 +41,42 @@ public class MetadataTalendType {
         }
         return list;
     }
-    
-	private static void load(File file) throws Exception{
+
+    private static void load(java.io.InputStream file) throws Exception {
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder analyser;
-		try {
-			analyser = documentBuilderFactory.newDocumentBuilder();
-		
-			Document document = analyser.parse(file);
+        try {
+            analyser = documentBuilderFactory.newDocumentBuilder();
 
-	        NodeList dbmsNodes = document.getElementsByTagName("dbms"); //$NON-NLS-1$
+            Document document = analyser.parse(file);
+
+            NodeList dbmsNodes = document.getElementsByTagName("dbms"); //$NON-NLS-1$
             for (int iDbms = 0; iDbms < dbmsNodes.getLength(); iDbms++) {
                 Node dbmsNode = dbmsNodes.item(iDbms);
                 NamedNodeMap dbmsAttributes = dbmsNode.getAttributes();
 
                 String dbmsIdValue = dbmsAttributes.getNamedItem("id").getNodeValue(); //$NON-NLS-1$
-                
-                if(DB_TO_TALEND_TYPES.containsKey(dbmsIdValue)){// the corresponding mapping file is already loaded.
-                	break;
+
+                if (DB_TO_TALEND_TYPES.containsKey(dbmsIdValue)) {// the corresponding mapping file is already loaded.
+                    break;
                 }
-                Map<String , String> map = Collections.synchronizedMap(new HashMap<String,String>());// use to store--DBType:TalendType
+                Map<String, String> map = Collections.synchronizedMap(new HashMap<String, String>());// use to
+                // store--DBType:TalendType
                 DB_TO_TALEND_TYPES.put(dbmsIdValue, map);// store
-                
-                List<Node> childrens=getChildElementNodes(dbmsNode);
-                childrens=childrens.subList(1, childrens.size());// get all the language nodes
+
+                List<Node> childrens = getChildElementNodes(dbmsNode);
+                childrens = childrens.subList(1, childrens.size());// get all the language nodes
                 // find the java language node
-                for(int i=0;i<childrens.size();i++){
-                	if(!("java").equals(childrens.get(i).getAttributes().getNamedItem("name").getNodeValue())){
-                		continue;
-                	}
-                	
-                	Node javaNode=childrens.get(i);
-                	List<Node> mappingDirections = getChildElementNodes(javaNode);
-                	Node dbToTalendTypes = mappingDirections.get(1);// the element:dbToTalendTypes
-                	List<Node> dbTypeSourcesList = getChildElementNodes(dbToTalendTypes);
-                	
+                for (int i = 0; i < childrens.size(); i++) {
+                    if (!("java").equals(childrens.get(i).getAttributes().getNamedItem("name").getNodeValue())) {
+                        continue;
+                    }
+
+                    Node javaNode = childrens.get(i);
+                    List<Node> mappingDirections = getChildElementNodes(javaNode);
+                    Node dbToTalendTypes = mappingDirections.get(1);// the element:dbToTalendTypes
+                    List<Node> dbTypeSourcesList = getChildElementNodes(dbToTalendTypes);
+
                     int dbTypeSourcesListListSize = dbTypeSourcesList.size();
                     for (int iDbTypeSource = 0; iDbTypeSource < dbTypeSourcesListListSize; iDbTypeSource++) {
                         Node dbTypeSource = dbTypeSourcesList.get(iDbTypeSource);
@@ -86,9 +87,9 @@ public class MetadataTalendType {
                             continue;
                         }
                         String dbType = dbTypeItem.getNodeValue();
-                        
+
                         List<Node> languageTypesNodes = getChildElementNodes(dbTypeSource);
-                        
+
                         boolean defaultSelected = false;
 
                         for (int j = 0; j < languageTypesNodes.size(); j++) {
@@ -107,75 +108,66 @@ public class MetadataTalendType {
 
                             defaultSelected = defaultSelectedItem != null
                                     && defaultSelectedItem.getNodeValue().equalsIgnoreCase("true") ? true : false; //$NON-NLS-1$
-                            if(defaultSelected==true){// store the default talendType for the DB type.
-                            	map.put(dbType, talendType);
-                            	break;
+                            if (defaultSelected == true) {// store the default talendType for the DB type.
+                                map.put(dbType, talendType);
+                                break;
                             }
                         }
                         // no default value, then use the first one as the talend type
-                        if(!defaultSelected){
-                        	if(languageTypesNodes.size()>0){
-                        		Node talendTypeItem=languageTypesNodes.get(0).getAttributes().getNamedItem("type");
-                        		if(talendTypeItem!=null){
-                        			map.put(dbType, talendTypeItem.getNodeValue());
-                        		}
-                        	}else{// there is no talend type
-                        		map.put(dbType, "id_String");
-                        	}
+                        if (!defaultSelected) {
+                            if (languageTypesNodes.size() > 0) {
+                                Node talendTypeItem = languageTypesNodes.get(0).getAttributes().getNamedItem("type");
+                                if (talendTypeItem != null) {
+                                    map.put(dbType, talendTypeItem.getNodeValue());
+                                }
+                            } else {// there is no talend type
+                                map.put(dbType, "id_String");
+                            }
                         }
                     }
-                	                	
+
                 }
-                
+
             }
-	        
-		} catch (ParserConfigurationException e) {
-			throw new Exception(e); 
-		} catch (SAXException e) {
-			throw new Exception(e); 
-		} catch (IOException e) {
-			throw new Exception(e); 
-		}
 
+        } catch (ParserConfigurationException e) {
+            throw new Exception(e);
+        } catch (SAXException e) {
+            throw new Exception(e);
+        } catch (IOException e) {
+            throw new Exception(e);
+        }
 
-	}
-	
-	public static String getDefaultSelectedTalendType(String dbmsId, String dbmsType, int length, int precison) {
-		if(dbmsId==null || "".equals(dbmsId) || dbmsType==null || "".equals(dbmsType)){
-			return "id_String";
-		}
-		
-		if(DB_TO_TALEND_TYPES.get(dbmsId)==null){
+    }
 
-			URL url=MetadataTalendType.class.getResource("/"+MAPPING_FOLDER);
-			File dir = new File(url.getPath());
-			
-			if(dir.isDirectory()){
-				String dbms= dbmsId.substring(0, dbmsId.indexOf("_"));
-				File[] listFiles = dir.listFiles();
-				for(File file: listFiles){
-					
-					if (file.getName().toLowerCase().matches("^mapping_"+dbms+"\\.xml$")) { //$NON-NLS-1$
+    public static String getDefaultSelectedTalendType(String dbmsId, String dbmsType, int length, int precison) {
+        if (dbmsId == null || "".equals(dbmsId) || dbmsType == null || "".equals(dbmsType)) {
+            return "id_String";
+        }
 
-						try{
-							load(file);
-							break;
-						}catch(Exception e){
-							System.out.println(e.getMessage());
-							return null;
-						}
-						
-					}
-				}
-			}
-			
-		}
-		
-		if(DB_TO_TALEND_TYPES.get(dbmsId)!=null){
-			return DB_TO_TALEND_TYPES.get(dbmsId).get(dbmsType);
-		}
-		
-		return "id_String";
-	}
-	
+        if (DB_TO_TALEND_TYPES.get(dbmsId) == null) {
+            String dbms = dbmsId.substring(0, dbmsId.indexOf("_"));
+
+            java.io.InputStream is = MetadataTalendType.class.getResourceAsStream("/" + MAPPING_FOLDER + "/mapping_" + dbms
+                    + ".xml");
+            if (is != null) {
+
+                try {
+                    load(is);
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                    return null;
+                }
+            } else {
+                // the destination file doesn't find
+            }
+
+        }
+
+        if (DB_TO_TALEND_TYPES.get(dbmsId) != null) {
+            return DB_TO_TALEND_TYPES.get(dbmsId).get(dbmsType);
+        }
+
+        return "id_String";
+    }
 }
