@@ -21,6 +21,10 @@ import java.net.URL;
 import java.util.List;
 import java.util.Map;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
@@ -68,6 +72,11 @@ import org.talend.designer.joblet.ui.IJobCheckService;
 import org.talend.designer.runprocess.IRunProcessService;
 import org.talend.repository.model.ComponentsFactoryProvider;
 import org.talend.repository.model.IRepositoryNode;
+import org.w3c.dom.Document;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 /**
  * DOC Administrator class global comment. Detailled comment
@@ -340,8 +349,9 @@ public class CoreService implements ICoreService {
                         };
 
                         for (File file : mappingSource.listFiles(filter)) {
+                            String targetName = getTargetName(file);
                             IFile targetFile = project.getFile(JavaUtils.JAVA_SRC_DIRECTORY + File.separator
-                                    + JavaUtils.JAVA_XML_MAPPING + File.separator + file.getName());
+                                    + JavaUtils.JAVA_XML_MAPPING + File.separator + targetName);
                             copyFile(file, targetFile);
                         }
 
@@ -353,6 +363,50 @@ public class CoreService implements ICoreService {
                 ExceptionHandler.process(e);
             }
         }
+    }
+
+    private String getTargetName(File file) {
+        String targetName = file.getName();
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder analyser;
+        try {
+            analyser = documentBuilderFactory.newDocumentBuilder();
+            Document document = analyser.parse(file);
+            NodeList dbmsNodes = document.getElementsByTagName("dbms"); //$NON-NLS-1$
+            String dbmsIdValue = "";
+            for (int iDbms = 0; iDbms < dbmsNodes.getLength(); iDbms++) {
+                Node dbmsNode = dbmsNodes.item(iDbms);
+                NamedNodeMap dbmsAttributes = dbmsNode.getAttributes();
+                dbmsIdValue = dbmsAttributes.getNamedItem("id").getNodeValue(); //$NON-NLS-1$
+
+            }
+            if (dbmsIdValue != null && !"".equals(dbmsIdValue)) {
+                final String[] fileNameSplit = targetName.split("_");
+                String idA = "_id";
+                String idB = "id_";
+                final int indexA = dbmsIdValue.indexOf(idA);
+                final int indexB = dbmsIdValue.indexOf(idB);
+                String secondeName = "";
+                if (indexA > 0) {
+                    secondeName = dbmsIdValue.substring(0, dbmsIdValue.length() - idA.length());
+                } else if (indexB == 0) {
+                    secondeName = dbmsIdValue.substring(idB.length(), dbmsIdValue.length());
+                } else if (indexA == -1 && indexB == -1) {
+                    secondeName = dbmsIdValue;
+                }
+                if (secondeName != null && !"".equals(secondeName)) {
+                    targetName = fileNameSplit[0] + "_" + secondeName.toLowerCase() + ".xml";
+                }
+
+            }
+        } catch (ParserConfigurationException e) {
+            ExceptionHandler.process(e);
+        } catch (SAXException e) {
+            ExceptionHandler.process(e);
+        } catch (IOException e) {
+            ExceptionHandler.process(e);
+        }
+        return targetName;
     }
 
     public void copyFile(File in, IFile out) throws CoreException, IOException {
