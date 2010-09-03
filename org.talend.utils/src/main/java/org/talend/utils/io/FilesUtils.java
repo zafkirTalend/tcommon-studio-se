@@ -579,8 +579,10 @@ public final class FilesUtils {
                 // System.out.println(base);
                 out.putNextEntry(new ZipEntry(base));
                 in = new FileInputStream(f);
-                int b;
-                while ((b = in.read()) != -1) {
+                int bufferSize = 64 * 1024;
+                byte[] b = new byte[bufferSize];
+                int readBytes = 0;
+                while ((readBytes = in.read(b, 0, bufferSize)) != -1) {
                     out.write(b);
                 }
                 out.flush();
