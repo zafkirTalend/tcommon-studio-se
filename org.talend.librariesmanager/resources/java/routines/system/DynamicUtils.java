@@ -68,7 +68,7 @@ public class DynamicUtils {
         }
     }
 
-    public static void writeColumnsToDatabse(Dynamic column, java.sql.PreparedStatement pstmt, int fixedColumnCount)
+    public static int writeColumnsToDatabse(Dynamic column, java.sql.PreparedStatement pstmt, int fixedColumnCount)
             throws Exception {
 
         for (int i = 0; i < column.getColumnCount(); i++) {
@@ -82,6 +82,7 @@ public class DynamicUtils {
                 pstmt.setString((fixedColumnCount + i + 1), String.valueOf(value));
             // }
         }
+		return column.getColumnCount();
     }
 
     public static String getCreateTableSQL(Dynamic column, String database) {
@@ -131,5 +132,15 @@ public class DynamicUtils {
                 list.append("?");
         }
         return list.toString();
+    }
+	
+	public static String getUpdateSet(Dynamic column) {
+    	StringBuilder set=new StringBuilder();
+    	for (int i = 0; i < column.getColumnCount(); i++) {
+    		if(i!=0)
+    			set.append(", ");
+    		set.append(column.getColumnMetadata(i).getName()+" = ?");
+    	}
+    	return set.toString();
     }
 }
