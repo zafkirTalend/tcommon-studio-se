@@ -325,8 +325,7 @@ public class RelationshipItemBuilder {
         return toReturn;
     }
 
-    public void updateItemVersion(Item item7, IProxyRepositoryFactory reFactory, String oldVersion, String id)
-            throws PersistenceException {
+    public void updateItemVersion(Item item7, String oldVersion, String id) throws PersistenceException {
         IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
         IRepositoryViewObject obj = factory.getSpecificVersion(id, oldVersion);
         Item item = obj.getProperty().getItem();
@@ -369,8 +368,8 @@ public class RelationshipItemBuilder {
                     }
                     if (jobId != null) {
                         addRelationShip(item, jobId, nowVersion, JOB_RELATION);
-                        reFactory.save(project, item.getProperty());
-                        reFactory.save(item);
+                        factory.save(project, item.getProperty());
+                        factory.save(item);
                     }
                 }
             }
@@ -378,7 +377,11 @@ public class RelationshipItemBuilder {
         saveRelations();
     }
 
-    public void addOrUpdateItem(Item item, boolean... fromMigration) {
+    public void addOrUpdateItem(Item item) {
+        addOrUpdateItem(item, false);
+    }
+
+    public void addOrUpdateItem(Item item, boolean fromMigration) {
         if (!loaded) {
             loadRelations(ProjectManager.getInstance().getCurrentProject());
         }
@@ -543,7 +546,7 @@ public class RelationshipItemBuilder {
                 }
             }
         }
-        if (fromMigration.length == 0) {
+        if (!fromMigration) {
             saveRelations();
         }
     }
