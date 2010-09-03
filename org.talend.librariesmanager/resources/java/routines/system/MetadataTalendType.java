@@ -55,7 +55,10 @@ public class MetadataTalendType {
                 Node dbmsNode = dbmsNodes.item(iDbms);
                 NamedNodeMap dbmsAttributes = dbmsNode.getAttributes();
 
-                String dbmsIdValue = dbmsAttributes.getNamedItem("id").getNodeValue(); //$NON-NLS-1$
+                String dbmsIdValue = dbmsAttributes.getNamedItem("id").getNodeValue().toLowerCase(); //$NON-NLS-1$
+                if (dbmsIdValue.startsWith("id_")) {// special case for MSSQL
+                    dbmsIdValue = dbmsIdValue.substring(3) + "_id";
+                }
 
                 if (DB_TO_TALEND_TYPES.containsKey(dbmsIdValue)) {// the corresponding mapping file is already loaded.
                     break;
