@@ -45,6 +45,7 @@ import org.talend.utils.sugars.ReturnCode;
  */
 public final class FilesUtils {
 
+    private static final int BUFFER_SIZE = 64 * 1024;
     public static final String SVN_FOLDER_NAMES[] = new String[] { ".svn", "_svn" }; //$NON-NLS-1$  //$NON-NLS-2$
 
     public static boolean isSVNFolder(String name) {
@@ -579,9 +580,10 @@ public final class FilesUtils {
                 // System.out.println(base);
                 out.putNextEntry(new ZipEntry(base));
                 in = new FileInputStream(f);
-                int b;
-                while ((b = in.read()) != -1) {
-                    out.write(b);
+                byte[] b = new byte[BUFFER_SIZE];
+                int readBytes = 0;
+                while ((readBytes = in.read(b, 0, BUFFER_SIZE)) != -1) {
+                    out.write(b, 0, readBytes);
                 }
                 out.flush();
                 return;
