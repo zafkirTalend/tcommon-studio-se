@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: org.talend.metalanguage.job
-Bundle-Vendor: My Company
+Bundle-Vendor: Talend
 Bundle-Version: 1.0.0
 Bundle-SymbolicName: org.talend.metalanguage.job; singleton:=true
 Bundle-ActivationPolicy: lazy
