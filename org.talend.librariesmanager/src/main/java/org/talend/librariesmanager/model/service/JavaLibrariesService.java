@@ -236,7 +236,9 @@ public class JavaLibrariesService extends AbstractLibrariesService {
         List<IClasspathEntry> projectLibraries = new ArrayList<IClasspathEntry>();
 
         try {
-            IClasspathEntry[] resolvedClasspath = project.getResolvedClasspath(true);
+            // fix for 15295 , derby data viewer will change classpath in current system
+            // IClasspathEntry[] resolvedClasspath = project.getResolvedClasspath(true);
+            IClasspathEntry[] resolvedClasspath = project.getRawClasspath();
             List<String> librariesString = new ArrayList<String>();
             for (IClasspathEntry entry : resolvedClasspath) {
                 IPath path = entry.getPath();
