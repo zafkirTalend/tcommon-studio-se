@@ -23,14 +23,27 @@
 
    <requires>
       <import plugin="org.eclipse.xtext"/>
-      <import plugin="org.talend.model"/>
+      <import plugin="org.eclipse.xtext.util"/>
+      <import plugin="org.eclipse.emf.ecore"/>
+      <import plugin="org.eclipse.emf.common"/>
       <import plugin="org.talend.core" version="2.2.0" match="greaterOrEqual"/>
-      <import plugin="org.talend.commons" version="2.2.0" match="greaterOrEqual"/>
-      <import plugin="org.talend.commons.ui" version="2.2.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.core.runtime" version="3.5.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.xtext.ui.shared"/>
-      <import plugin="org.eclipse.xtext.builder"/>
+      <import plugin="org.talend.designer.core"/>
+      <import plugin="org.talend.model"/>
+      <import plugin="org.talend.designer.mapper"/>
+      <import plugin="org.talend.designer.dbmap"/>
+      <import plugin="org.talend.designer.rowgenerator"/>
       <import plugin="org.apache.log4j"/>
+      <import feature="org.eclipse.xtext.ui" version="1.0.0.v201006161118"/>
+      <import plugin="org.eclipse.ui.editors" version="3.5.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.ui.ide" version="3.5.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.xtext.ui.shared"/>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.xtext.builder"/>
+      <import feature="org.eclipse.xtext.ui" version="1.0.0.v201006161118"/>
+      <import feature="org.eclipse.xtext.ui" version="1.0.0.v201006161118"/>
+      <import feature="org.eclipse.xtext.ui" version="1.0.0.v201006161118"/>
+      <import feature="org.eclipse.xtext.ui" version="1.0.0.v201006161118"/>
+      <import feature="org.eclipse.xtext.ui" version="1.0.0.v201006161118"/>
       <import feature="org.eclipse.xtext.runtime" version="1.0.0.v201006161118"/>
       <import feature="org.eclipse.xtext.ui" version="1.0.0.v201006161118"/>
       <import feature="org.eclipse.xtext.xbase" version="1.0.0.v201006161118"/>
