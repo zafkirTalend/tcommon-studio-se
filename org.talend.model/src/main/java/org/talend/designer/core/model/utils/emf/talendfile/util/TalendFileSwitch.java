@@ -222,6 +222,12 @@ public class TalendFileSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case TalendFilePackage.ABSTRACT_EXTERNAL_DATA: {
+                AbstractExternalData abstractExternalData = (AbstractExternalData)theEObject;
+                Object result = caseAbstractExternalData(abstractExternalData);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             default: return defaultCase(theEObject);
         }
     }
@@ -523,6 +529,21 @@ public class TalendFileSwitch {
      * @generated
      */
     public Object caseItemInforType(ItemInforType object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Abstract External Data</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Abstract External Data</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseAbstractExternalData(AbstractExternalData object) {
         return null;
     }
 

@@ -12,11 +12,13 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.talend.designer.core.model.utils.emf.talendfile.AbstractExternalData;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.MetadataType;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
@@ -42,6 +44,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.NodeTypeImpl#getSizeX <em>Size X</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.NodeTypeImpl#getSizeY <em>Size Y</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.NodeTypeImpl#getScreenshot <em>Screenshot</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.NodeTypeImpl#getNodeData <em>Node Data</em>}</li>
  * </ul>
  * </p>
  *
@@ -341,6 +344,16 @@ public class NodeTypeImpl extends EObjectImpl implements NodeType {
      * @ordered
      */
     protected byte[] screenshot = SCREENSHOT_EDEFAULT;
+
+    /**
+     * The cached value of the '{@link #getNodeData() <em>Node Data</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getNodeData()
+     * @generated
+     * @ordered
+     */
+    protected AbstractExternalData nodeData;
 
     /**
      * <!-- begin-user-doc -->
@@ -770,12 +783,57 @@ public class NodeTypeImpl extends EObjectImpl implements NodeType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public AbstractExternalData getNodeData() {
+        return nodeData;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain basicSetNodeData(AbstractExternalData newNodeData, NotificationChain msgs) {
+        AbstractExternalData oldNodeData = nodeData;
+        nodeData = newNodeData;
+        if (eNotificationRequired()) {
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, TalendFilePackage.NODE_TYPE__NODE_DATA, oldNodeData, newNodeData);
+            if (msgs == null) msgs = notification; else msgs.add(notification);
+        }
+        return msgs;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setNodeData(AbstractExternalData newNodeData) {
+        if (newNodeData != nodeData) {
+            NotificationChain msgs = null;
+            if (nodeData != null)
+                msgs = ((InternalEObject)nodeData).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - TalendFilePackage.NODE_TYPE__NODE_DATA, null, msgs);
+            if (newNodeData != null)
+                msgs = ((InternalEObject)newNodeData).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - TalendFilePackage.NODE_TYPE__NODE_DATA, null, msgs);
+            msgs = basicSetNodeData(newNodeData, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.NODE_TYPE__NODE_DATA, newNodeData, newNodeData));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case TalendFilePackage.NODE_TYPE__ELEMENT_PARAMETER:
                 return ((InternalEList)getElementParameter()).basicRemove(otherEnd, msgs);
             case TalendFilePackage.NODE_TYPE__METADATA:
                 return ((InternalEList)getMetadata()).basicRemove(otherEnd, msgs);
+            case TalendFilePackage.NODE_TYPE__NODE_DATA:
+                return basicSetNodeData(null, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -813,6 +871,8 @@ public class NodeTypeImpl extends EObjectImpl implements NodeType {
                 return new Integer(getSizeY());
             case TalendFilePackage.NODE_TYPE__SCREENSHOT:
                 return getScreenshot();
+            case TalendFilePackage.NODE_TYPE__NODE_DATA:
+                return getNodeData();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -865,6 +925,9 @@ public class NodeTypeImpl extends EObjectImpl implements NodeType {
             case TalendFilePackage.NODE_TYPE__SCREENSHOT:
                 setScreenshot((byte[])newValue);
                 return;
+            case TalendFilePackage.NODE_TYPE__NODE_DATA:
+                setNodeData((AbstractExternalData)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -915,6 +978,9 @@ public class NodeTypeImpl extends EObjectImpl implements NodeType {
             case TalendFilePackage.NODE_TYPE__SCREENSHOT:
                 setScreenshot(SCREENSHOT_EDEFAULT);
                 return;
+            case TalendFilePackage.NODE_TYPE__NODE_DATA:
+                setNodeData((AbstractExternalData)null);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -952,6 +1018,8 @@ public class NodeTypeImpl extends EObjectImpl implements NodeType {
                 return isSetSizeY();
             case TalendFilePackage.NODE_TYPE__SCREENSHOT:
                 return SCREENSHOT_EDEFAULT == null ? screenshot != null : !SCREENSHOT_EDEFAULT.equals(screenshot);
+            case TalendFilePackage.NODE_TYPE__NODE_DATA:
+                return nodeData != null;
         }
         return super.eIsSet(featureID);
     }

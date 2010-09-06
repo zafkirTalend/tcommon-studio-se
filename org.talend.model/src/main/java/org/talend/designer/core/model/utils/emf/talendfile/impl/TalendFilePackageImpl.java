@@ -12,6 +12,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
+import org.talend.designer.core.model.utils.emf.talendfile.AbstractExternalData;
 import org.talend.designer.core.model.utils.emf.talendfile.ColumnType;
 import org.talend.designer.core.model.utils.emf.talendfile.ConnectionType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
@@ -181,6 +182,13 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * @generated
      */
     private EClass itemInforTypeEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass abstractExternalDataEClass = null;
 
     /**
      * Creates an instance of the model <b>Package</b>, registered with
@@ -1133,6 +1141,15 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * <!-- end-user-doc -->
      * @generated
      */
+    public EReference getNodeType_NodeData() {
+        return (EReference)nodeTypeEClass.getEStructuralFeatures().get(13);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getNoteType() {
         return noteTypeEClass;
     }
@@ -1466,6 +1483,15 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * <!-- end-user-doc -->
      * @generated
      */
+    public EClass getAbstractExternalData() {
+        return abstractExternalDataEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public TalendFileFactory getTalendFileFactory() {
         return (TalendFileFactory)getEFactoryInstance();
     }
@@ -1600,6 +1626,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
         createEAttribute(nodeTypeEClass, NODE_TYPE__SIZE_X);
         createEAttribute(nodeTypeEClass, NODE_TYPE__SIZE_Y);
         createEAttribute(nodeTypeEClass, NODE_TYPE__SCREENSHOT);
+        createEReference(nodeTypeEClass, NODE_TYPE__NODE_DATA);
 
         noteTypeEClass = createEClass(NOTE_TYPE);
         createEAttribute(noteTypeEClass, NOTE_TYPE__OPAQUE);
@@ -1643,6 +1670,8 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
         itemInforTypeEClass = createEClass(ITEM_INFOR_TYPE);
         createEAttribute(itemInforTypeEClass, ITEM_INFOR_TYPE__ID_OR_NAME);
         createEAttribute(itemInforTypeEClass, ITEM_INFOR_TYPE__SYSTEM);
+
+        abstractExternalDataEClass = createEClass(ABSTRACT_EXTERNAL_DATA);
     }
 
     /**
@@ -1785,6 +1814,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
         initEAttribute(getNodeType_SizeX(), theXMLTypePackage.getInt(), "sizeX", null, 0, 1, NodeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getNodeType_SizeY(), theXMLTypePackage.getInt(), "sizeY", null, 0, 1, NodeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getNodeType_Screenshot(), theXMLTypePackage.getBase64Binary(), "screenshot", null, 0, 1, NodeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getNodeType_NodeData(), this.getAbstractExternalData(), null, "nodeData", null, 0, 1, NodeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
         initEClass(noteTypeEClass, NoteType.class, "NoteType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getNoteType_Opaque(), theXMLTypePackage.getBoolean(), "opaque", null, 0, 1, NoteType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1828,6 +1858,8 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
         initEClass(itemInforTypeEClass, ItemInforType.class, "ItemInforType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getItemInforType_IdOrName(), ecorePackage.getEString(), "idOrName", null, 0, 1, ItemInforType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getItemInforType_System(), ecorePackage.getEBoolean(), "system", null, 0, 1, ItemInforType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(abstractExternalDataEClass, AbstractExternalData.class, "AbstractExternalData", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         // Create resource
         createResource(eNS_URI);

@@ -117,6 +117,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//NodeType/sizeX"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//NodeType/sizeY"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//NodeType/screenshot"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference TalendFile.ecore#//NodeType/nodeData"/>
     </genClasses>
     <genClasses ecoreClass="TalendFile.ecore#//NoteType">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//NoteType/opaque"/>

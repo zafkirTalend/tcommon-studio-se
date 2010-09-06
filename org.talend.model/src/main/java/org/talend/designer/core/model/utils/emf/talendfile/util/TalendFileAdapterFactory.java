@@ -143,6 +143,9 @@ public class TalendFileAdapterFactory extends AdapterFactoryImpl {
             public Object caseItemInforType(ItemInforType object) {
                 return createItemInforTypeAdapter();
             }
+            public Object caseAbstractExternalData(AbstractExternalData object) {
+                return createAbstractExternalDataAdapter();
+            }
             public Object defaultCase(EObject object) {
                 return createEObjectAdapter();
             }
@@ -438,6 +441,20 @@ public class TalendFileAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createItemInforTypeAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.designer.core.model.utils.emf.talendfile.AbstractExternalData <em>Abstract External Data</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.AbstractExternalData
+     * @generated
+     */
+    public Adapter createAbstractExternalDataAdapter() {
         return null;
     }
 

@@ -30,6 +30,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.NodeType#getSizeX <em>Size X</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.NodeType#getSizeY <em>Size Y</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.NodeType#getScreenshot <em>Screenshot</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.NodeType#getNodeData <em>Node Data</em>}</li>
  * </ul>
  * </p>
  *
@@ -529,5 +530,31 @@ public interface NodeType extends EObject {
      * @generated
      */
     void setScreenshot(byte[] value);
+
+    /**
+     * Returns the value of the '<em><b>Node Data</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Node Data</em>' reference isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Node Data</em>' containment reference.
+     * @see #setNodeData(AbstractExternalData)
+     * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getNodeType_NodeData()
+     * @model containment="true" derived="true"
+     * @generated
+     */
+    AbstractExternalData getNodeData();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.talendfile.NodeType#getNodeData <em>Node Data</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Node Data</em>' containment reference.
+     * @see #getNodeData()
+     * @generated
+     */
+    void setNodeData(AbstractExternalData value);
 
 } // NodeType

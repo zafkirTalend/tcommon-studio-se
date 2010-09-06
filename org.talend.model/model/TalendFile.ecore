@@ -716,6 +716,8 @@
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="screenshot" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Base64Binary"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="nodeData" eType="#//AbstractExternalData"
+        derived="true" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NoteType">
     <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
@@ -960,4 +962,5 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="idOrName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="system" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractExternalData" abstract="true"/>
 </ecore:EPackage>

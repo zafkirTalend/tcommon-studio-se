@@ -1074,13 +1074,22 @@ public interface TalendFilePackage extends EPackage {
     int NODE_TYPE__SCREENSHOT = 12;
 
     /**
+     * The feature id for the '<em><b>Node Data</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int NODE_TYPE__NODE_DATA = 13;
+
+    /**
      * The number of structural features of the '<em>Node Type</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int NODE_TYPE_FEATURE_COUNT = 13;
+    int NODE_TYPE_FEATURE_COUNT = 14;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.NoteTypeImpl <em>Note Type</em>}' class.
@@ -1477,6 +1486,26 @@ public interface TalendFilePackage extends EPackage {
      * @ordered
      */
     int ITEM_INFOR_TYPE_FEATURE_COUNT = 2;
+
+
+    /**
+     * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.AbstractExternalDataImpl <em>Abstract External Data</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.designer.core.model.utils.emf.talendfile.impl.AbstractExternalDataImpl
+     * @see org.talend.designer.core.model.utils.emf.talendfile.impl.TalendFilePackageImpl#getAbstractExternalData()
+     * @generated
+     */
+    int ABSTRACT_EXTERNAL_DATA = 20;
+
+    /**
+     * The number of structural features of the '<em>Abstract External Data</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ABSTRACT_EXTERNAL_DATA_FEATURE_COUNT = 0;
 
 
     /**
@@ -2544,6 +2573,17 @@ public interface TalendFilePackage extends EPackage {
     EAttribute getNodeType_Screenshot();
 
     /**
+     * Returns the meta object for the containment reference '{@link org.talend.designer.core.model.utils.emf.talendfile.NodeType#getNodeData <em>Node Data</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>Node Data</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.NodeType#getNodeData()
+     * @see #getNodeType()
+     * @generated
+     */
+    EReference getNodeType_NodeData();
+
+    /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.talendfile.NoteType <em>Note Type</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2943,6 +2983,16 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      */
     EAttribute getItemInforType_System();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.talendfile.AbstractExternalData <em>Abstract External Data</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Abstract External Data</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.AbstractExternalData
+     * @generated
+     */
+    EClass getAbstractExternalData();
 
     /**
      * Returns the factory that creates the instances of the model.
@@ -3779,6 +3829,14 @@ public interface TalendFilePackage extends EPackage {
         EAttribute NODE_TYPE__SCREENSHOT = eINSTANCE.getNodeType_Screenshot();
 
         /**
+         * The meta object literal for the '<em><b>Node Data</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference NODE_TYPE__NODE_DATA = eINSTANCE.getNodeType_NodeData();
+
+        /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.NoteTypeImpl <em>Note Type</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -4085,6 +4143,16 @@ public interface TalendFilePackage extends EPackage {
          * @generated
          */
         EAttribute ITEM_INFOR_TYPE__SYSTEM = eINSTANCE.getItemInforType_System();
+
+        /**
+         * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.AbstractExternalDataImpl <em>Abstract External Data</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.designer.core.model.utils.emf.talendfile.impl.AbstractExternalDataImpl
+         * @see org.talend.designer.core.model.utils.emf.talendfile.impl.TalendFilePackageImpl#getAbstractExternalData()
+         * @generated
+         */
+        EClass ABSTRACT_EXTERNAL_DATA = eINSTANCE.getAbstractExternalData();
 
     }
 
