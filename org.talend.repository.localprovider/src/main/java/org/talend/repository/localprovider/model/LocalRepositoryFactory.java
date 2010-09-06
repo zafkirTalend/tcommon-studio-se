@@ -568,7 +568,12 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         // + IPath.SEPARATOR + RepositoryConstants.SYSTEM_DIRECTORY, false);
         // ResourceUtils.deleteResource(f1);
 
-        createSystemRoutines();
+        // MOD mzhao 15422: Unable to open the MDM workspace
+        try {
+            createSystemRoutines();
+        } catch (Exception e) {
+            log.error(e, e);
+        }
     }
 
     public void synchronizeSqlpatterns(IProject prj) throws PersistenceException {
