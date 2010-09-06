@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<plugin>
+
+  <extension point="org.eclipse.emf.ecore.generated_package">
+    <package 
+       uri = "http://www.talend.org/metalanguage/job/Job" 
+       class = "org.talend.metalanguage.job.job.JobPackage"
+       genModel = "org/talend/metalanguage/job/Job.genmodel" /> 
+	
+  </extension>
+  <extension
+         point="org.talend.core.runtime.service">
+      <Service
+            class="org.talend.metalanguage.job.CreateXtextProcessService"
+            serviceId="ICreateXtextProcessService">
+      </Service>
+   </extension>
+  <extension
+        point="org.talend.core.cli_command">
+     <Command
+           description="create job from script file"
+           id="120"
+           name="createJob">
+        <Argument
+              max="1"
+              min="1"
+              name="job name">
+        </Argument>
+        <Group>
+           <Option
+                 description="job of script file"
+                 longName="script_file"
+                 name="SCRIPT_FILE"
+                 shortName="sf">
+              <Argument
+                    max="1"
+                    min="1"
+                    name="file path">
+              </Argument>
+           </Option>
+        </Group>
+     </Command>
+  </extension>
+
+
+
+
+</plugin>
