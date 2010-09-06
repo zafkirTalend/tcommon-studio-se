@@ -50,7 +50,7 @@ public class RepositoryConstants {
 
     //    public static final String SCHEMA_NAME_PATTERN = "^[a-zA-Z0-9\\_]*$";; //$NON-NLS-1$
 
-    //    public static final String SCHEMA_NAME_VALIDATED = "^[a-zA-Z_][a-zA-Z_0-9]*$"; //$NON-NLS-1$
+    public static final String COLUMN_NAME_PATTERN = "^[a-zA-Z_][a-zA-Z_0-9]*$"; //$NON-NLS-1$
 
     //    public static final String REPOSITORY_SCHEMA_PATTERN = "^[a-zA-Z0-9\\_]+$"; //$NON-NLS-1$
 

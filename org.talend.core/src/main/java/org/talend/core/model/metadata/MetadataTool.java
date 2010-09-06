@@ -18,6 +18,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.Vector;
+import java.util.regex.Pattern;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -57,6 +58,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.MetadataType;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFileFactory;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
+import org.talend.repository.model.RepositoryConstants;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
@@ -606,12 +608,13 @@ public class MetadataTool {
         if (!isKeyword) {
             boolean isAllowSpecific = isAllowSpecificCharacters();
 
+            // match RepositoryConstants.COLUMN_NAME_VALIDATED
             for (int i = 0; i < originalColumnName.length(); i++) {
                 Character car = originalColumnName.charAt(i);
                 if (car.toString().getBytes().length == 1 || !isAllowSpecific) {
-                    // first character should have only a-z or A-Z
-                    // other characters should have only a-z or A-Z or 0-9
-                    if (((car >= 'a') && (car <= 'z')) || ((car >= 'A') && (car <= 'Z'))
+                    // first character should have only a-z or A-Z or _
+                    // other characters should have only a-z or A-Z or _ or 0-9
+                    if (((car >= 'a') && (car <= 'z')) || ((car >= 'A') && (car <= 'Z')) || car == '_'
                             || ((car >= '0') && (car <= '9') && (i != 0))) {
                         columnName += car;
                     } else {
@@ -639,31 +642,11 @@ public class MetadataTool {
     }
 
     public static boolean isValidColumnName(String name) {
-        String originalColumnName = new String(name);
-        name = "";
-
-        if (KeywordsValidator.isKeyword(name)) {
+        if (name == null || KeywordsValidator.isKeyword(name)) {
             return false;
         }
 
-        boolean isAllowSpecific = isAllowSpecificCharacters();
-
-        for (int i = 0; i < originalColumnName.length(); i++) {
-            Character car = originalColumnName.charAt(i);
-            if (car.toString().getBytes().length == 1 || !isAllowSpecific) {
-                // first character should have only a-z or A-Z
-                // other characters should have only a-z or A-Z or 0-9
-                if (((car >= 'a') && (car <= 'z')) || ((car >= 'A') && (car <= 'Z'))
-                        || ((car >= '0') && (car <= '9') && (i != 0))) {
-                    name += car;
-                } else {
-                    return false;
-                }
-            } else {
-                name += car;
-            }
-        }
-        return true;
+        return isAllowSpecificCharacters() || Pattern.matches(RepositoryConstants.COLUMN_NAME_PATTERN, name);
     }
 
     /**
