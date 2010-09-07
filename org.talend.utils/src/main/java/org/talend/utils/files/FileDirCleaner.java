@@ -46,8 +46,6 @@ public class FileDirCleaner {
 
     private boolean doAction = false;
 
-    boolean isCleanLibs;
-
     /**
      * 
      * DOC amaumont FileDirCleaner class global comment. Detailled comment
@@ -150,18 +148,6 @@ public class FileDirCleaner {
         this.recursively = strategy.isRecursively();
     }
 
-    public FileDirCleaner(boolean doAction, STRATEGY strategy, int maxEntriesByDirectory, long cleanAfterThisDuration,
-            boolean isCleanLibs) {
-        super();
-        this.doAction = doAction;
-        this.maxEntriesByDirectoryAndByType = maxEntriesByDirectory;
-        this.maxDurationBeforeCleaning = cleanAfterThisDuration;
-        this.cleanDirectories = strategy.isCleanDirectories();
-        this.cleanFiles = strategy.isCleanFiles();
-        this.recursively = strategy.isRecursively();
-        this.isCleanLibs = isCleanLibs;
-    }
-
     final Comparator<File> datComparatorFiles = new Comparator<File>() {
 
         public int compare(File o1, File o2) {
@@ -257,10 +243,7 @@ public class FileDirCleaner {
                 try {
                     if (timeExceeded || tooManyDirs || tooManyFiles) {
                         if (isDirectory) {
-                            if (isCleanLibs)
-                                dirMatches = !fileDirName.matches(directoriesRegExpPattern);
-                            else
-                                dirMatches = directoriesRegExpPattern == null || fileDirName.matches(directoriesRegExpPattern);
+                            dirMatches = directoriesRegExpPattern == null || fileDirName.matches(directoriesRegExpPattern);
                         } else {
                             fileMatches = filesRegExpPattern == null || fileDirName.matches(filesRegExpPattern);
                         }
