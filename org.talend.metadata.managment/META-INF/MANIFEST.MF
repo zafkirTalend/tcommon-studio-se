@@ -8,7 +8,8 @@ Require-Bundle: org.eclipse.ui,
  org.talend.core.runtime,
  org.talend.common.ui.runtime,
  org.talend.model,
- org.talend.core.repository
+ org.talend.core.repository,
+ org.talend.utils
 Bundle-ActivationPolicy: lazy
 Export-Package: org.talend.core.database,
  org.talend.core.database.conn,
@@ -16,8 +17,10 @@ Export-Package: org.talend.core.database,
  org.talend.core.database.conn.version,
  org.talend.core.database.utils,
  org.talend.core.model.components,
+ org.talend.core.model.general,
  org.talend.core.model.metadata,
  org.talend.core.model.metadata.builder,
  org.talend.core.model.metadata.builder.database,
  org.talend.core.model.metadata.types,
- org.talend.core.prefs
+ org.talend.core.prefs,
+ org.talend.repository.ui.login.connections

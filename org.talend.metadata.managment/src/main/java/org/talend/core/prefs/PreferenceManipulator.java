@@ -25,7 +25,7 @@ import org.talend.core.model.general.ConnectionBean;
 /**
  * DOC chuger class global comment. Detailled comment <br/>
  * 
- * $Id$
+ * $Id: PreferenceManipulator.java 44184 2010-06-17 04:01:35Z cli $
  * 
  */
 public final class PreferenceManipulator implements ITalendCorePrefConstants {
