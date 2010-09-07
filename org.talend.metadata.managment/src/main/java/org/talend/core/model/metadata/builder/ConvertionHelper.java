@@ -41,13 +41,18 @@ public final class ConvertionHelper {
      * @return
      */
     public static IMetadataConnection convert(DatabaseConnection sourceConnection) {
+        return convert(sourceConnection, false);
+    }
+
+    public static IMetadataConnection convert(DatabaseConnection sourceConnection, boolean defaultContext) {
+
         if (sourceConnection == null) {
             return null;
         }
         // if sourceConnection is not context mode, will be same as before.
         DatabaseConnection connection = null;
         DatabaseConnection originalValueConnection = CoreRuntimePlugin.getInstance().getRepositoryService()
-                .cloneOriginalValueConnection(sourceConnection);
+                .cloneOriginalValueConnection(sourceConnection, defaultContext);
         if (originalValueConnection == null) {
             connection = sourceConnection;
         } else {
@@ -85,6 +90,7 @@ public final class ConvertionHelper {
         result.setDbRootPath(connection.getDBRootPath());
         result.setSqlMode(connection.isSQLMode());
         return result;
+
     }
 
     public static IMetadataTable convert(MetadataTable old) {
