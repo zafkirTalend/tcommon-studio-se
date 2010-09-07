@@ -21,18 +21,29 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.osgi.service.datalocation.Location;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
+import org.talend.commons.exception.BusinessException;
+import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.migration.IMigrationToolService;
+import org.talend.core.ui.branding.IBrandingService;
 import org.talend.rcp.i18n.Messages;
+import org.talend.repository.RegistrationPlugin;
+import org.talend.repository.license.LicenseManagement;
 import org.talend.repository.model.IRepositoryService;
+import org.talend.repository.registeruser.RegisterManagement;
 import org.talend.repository.ui.login.LoginComposite;
 import org.talend.repository.ui.login.connections.ConnectionUserPerReader;
+import org.talend.repository.ui.wizards.license.LicenseWizard;
+import org.talend.repository.ui.wizards.license.LicenseWizardDialog;
+import org.talend.repository.ui.wizards.register.RegisterWizard;
+import org.talend.repository.ui.wizards.register.RegisterWizardPage1;
 
 /**
  * This class controls all aspects of the application's execution.
@@ -60,8 +71,13 @@ public class Application implements IApplication {
                     IMigrationToolService.class);
             service.executeWorspaceTasks();
 
+            openLicenseAndRegister(shell);
+
+            // saveConnectionBean(email);
+
+            boolean logUserOnProject = logUserOnProject(display.getActiveShell(), inuse);
             try {
-                if (!logUserOnProject(display.getActiveShell(), inuse)) {
+                if (!logUserOnProject) {
                     Platform.endSplash();
                     return EXIT_OK;
                 }
@@ -83,6 +99,37 @@ public class Application implements IApplication {
             display.dispose();
             // release workspace lock
             releaseWorkspaceLock();
+        }
+
+    }
+
+    private void openLicenseAndRegister(Shell shell) {
+        IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
+                IBrandingService.class);
+        if (!LicenseManagement.isLicenseValidated()) {
+            LicenseWizard licenseWizard = new LicenseWizard();
+            LicenseWizardDialog dialog = new LicenseWizardDialog(shell, licenseWizard);
+            dialog.setTitle(Messages.getString("LicenseWizard.windowTitle")); //$NON-NLS-1$
+            if (dialog.open() == WizardDialog.OK) {
+                try {
+                    LicenseManagement.acceptLicense();
+                } catch (BusinessException e) {
+                    ErrorDialogWidthDetailArea errorDialog = new ErrorDialogWidthDetailArea(shell, RegistrationPlugin.PLUGIN_ID,
+                            Messages.getString("RegisterWizardPage.serverCommunicationProblem"), e.getMessage()); //$NON-NLS-1$
+                    System.exit(0);
+                }
+
+            } else {
+                System.exit(0);
+            }
+        }
+
+        if (brandingService.getBrandingConfiguration().isUseProductRegistration()) {
+            if (!RegisterManagement.isProductRegistered()) {
+                RegisterWizard registerWizard = new RegisterWizard();
+                RegisterWizardPage1 dialog = new RegisterWizardPage1(shell, registerWizard);
+                dialog.open();
+            }
         }
 
     }

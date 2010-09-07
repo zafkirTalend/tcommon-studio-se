@@ -1,10 +1,26 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Registration Plug-in
-Bundle-SymbolicName: org.talend.registration
+Bundle-SymbolicName: org.talend.registration;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: .Talend SA.
 Require-Bundle: org.apache.axis,
- javax.xml.rpc
-Export-Package: org.talend.repository.registeruser.proxy
-Bundle-ClassPath: .
+ javax.xml.rpc,
+ org.eclipse.ui,
+ org.eclipse.update.core,
+ org.talend.commons,
+ org.talend.core.runtime,
+ org.talend.common.ui.runtime
+Export-Package: org.talend.repository,
+ org.talend.repository.license,
+ org.talend.repository.registeruser,
+ org.talend.repository.registeruser.proxy,
+ org.talend.repository.ui.wizards.license,
+ org.talend.repository.ui.wizards.register
+Bundle-ClassPath: .,
+ lib/talendregister.jar
+Import-Package: org.eclipse.jface.preference,
+ org.talend.commons.exception,
+ org.talend.core
+Bundle-Activator: org.talend.repository.RegistrationPlugin
+Bundle-ActivationPolicy: lazy

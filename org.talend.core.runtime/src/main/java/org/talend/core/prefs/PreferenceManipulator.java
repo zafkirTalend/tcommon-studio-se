@@ -20,10 +20,11 @@ import java.util.StringTokenizer;
 
 import org.eclipse.jface.preference.IPersistentPreferenceStore;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.ui.PlatformUI;
 import org.talend.core.model.general.ConnectionBean;
 
 /**
- * DOC chuger class global comment. Detailled comment <br/>
+ * Used to store connections / users for the login dialog <br/>
  * 
  * $Id: PreferenceManipulator.java 44184 2010-06-17 04:01:35Z cli $
  * 
@@ -39,11 +40,24 @@ public final class PreferenceManipulator implements ITalendCorePrefConstants {
      * Constructs a new PreferenceManipulator.
      * 
      * @param store The preference store manipulated.
+     * @deprecated The preferences are only used to store specific connections, so will be forced to a specific
+     * preference store, no matter the parameter
      */
     public PreferenceManipulator(IPreferenceStore store) {
         super();
 
-        this.store = store;
+        this.store = PlatformUI.getPreferenceStore();
+    }
+
+    /**
+     * Constructs a new PreferenceManipulator.
+     * 
+     * @param store The preference store manipulated.
+     */
+    public PreferenceManipulator() {
+        super();
+
+        this.store = PlatformUI.getPreferenceStore();
     }
 
     /**
