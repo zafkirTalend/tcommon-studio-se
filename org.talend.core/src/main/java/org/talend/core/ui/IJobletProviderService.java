@@ -35,6 +35,8 @@ public interface IJobletProviderService extends IService {
 
     public Property getJobletComponentItem(INode node);
 
+    public Property getJobletComponentItem(IComponent component);
+
     public void reloadJobletProcess(INode node);
 
     public boolean isTriggerNode(INode node);

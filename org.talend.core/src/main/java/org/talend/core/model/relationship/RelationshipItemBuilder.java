@@ -26,6 +26,7 @@ import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.PluginChecker;
 import org.talend.core.i18n.Messages;
 import org.talend.core.model.components.EComponentType;
 import org.talend.core.model.components.IComponent;
@@ -36,8 +37,10 @@ import org.talend.core.model.properties.ItemRelations;
 import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.PropertiesFactory;
+import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.core.ui.IJobletProviderService;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
@@ -392,7 +395,6 @@ public class RelationshipItemBuilder {
         if (item instanceof JobletProcessItem) {
             processType = ((JobletProcessItem) item).getJobletProcess();
         }
-
         if (processType != null) {
             clearItemsRelations(item);
 
@@ -520,7 +522,16 @@ public class RelationshipItemBuilder {
                                 }
                             }
                         }
-                        addRelationShip(item, currentNode.getComponentName(), version, JOBLET_RELATION);
+                        IComponent cc = ComponentsFactoryProvider.getInstance().get(currentNode.getComponentName());
+                        IJobletProviderService service = null;
+                        if (PluginChecker.isJobLetPluginLoaded()) {
+                            service = (IJobletProviderService) GlobalServiceRegister.getDefault().getService(
+                                    IJobletProviderService.class);
+                        }
+
+                        Property property = service.getJobletComponentItem(cc);
+                        if (property != null)
+                            addRelationShip(item, property.getId(), version, JOBLET_RELATION);
                     }
                     if ("tRunJob".equals(currentNode.getComponentName())) { //$NON-NLS-1$
                         // in case of tRunJob
