@@ -163,7 +163,7 @@ public class RegisterWizardPage2 extends AbstractBasicWizardDialog {
         data = new GridData();
         data.widthHint = 200;
         passwordText.setLayoutData(data);
-        passwordText.setEchoChar('●');
+        passwordText.setEchoChar('*');
         if (alreadyRegistered) {
             passwordText.setText(this.password);
         }
@@ -182,7 +182,7 @@ public class RegisterWizardPage2 extends AbstractBasicWizardDialog {
         data = new GridData();
         data.widthHint = 200;
         passwordText2.setLayoutData(data);
-        passwordText2.setEchoChar('●');
+        passwordText2.setEchoChar('*');
         if (alreadyRegistered) {
             passwordText2.setText(this.password);
         }
