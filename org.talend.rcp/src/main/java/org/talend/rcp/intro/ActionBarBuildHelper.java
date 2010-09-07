@@ -48,11 +48,13 @@ import org.eclipse.ui.internal.registry.ViewRegistry;
 import org.eclipse.ui.views.IViewDescriptor;
 import org.talend.commons.utils.workbench.extensions.ExtensionPointLimiterImpl;
 import org.talend.commons.utils.workbench.extensions.IExtensionPointLimiter;
+import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
 import org.talend.core.i18n.Messages;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
+import org.talend.core.ui.IOpenJobScriptActionService;
 import org.talend.core.ui.IReferencedProjectService;
 import org.talend.core.ui.branding.IActionBarHelper;
 import org.talend.core.ui.perspective.PerspectiveMenuManager;
@@ -184,6 +186,11 @@ public class ActionBarBuildHelper implements IActionBarHelper {
         openLocalFileAction.init(window);
         openLocalFileAction.setText("Open Files");
         fileMenu.add(openLocalFileAction);
+
+        if (PluginChecker.isMetalanguagePluginLocaed()) {
+            IOpenJobScriptActionService openJobScriptActionService = CorePlugin.getDefault().getOpenJobScriptActionService();
+            fileMenu.add(openJobScriptActionService.getOpenJobScriptAction(window));
+        }
 
         editMenu = new MenuManager(
                 Messages.getString("ApplicationActionBarAdvisor.menuEditLabel"), IWorkbenchActionConstants.M_EDIT); //$NON-NLS-1$

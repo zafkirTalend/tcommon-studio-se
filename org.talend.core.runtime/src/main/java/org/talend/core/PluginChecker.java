@@ -61,6 +61,8 @@ public class PluginChecker {
 
     private static final String WEBSERVICE_PLUGIN_ID = "org.talend.designer.webservice";
 
+    private static final String METALANGUAGE_PLUGIN_ID = "org.talend.metalanguage.jobscript";
+
     /**
      * Check if specific plug-in is loaded.
      * 
@@ -178,4 +180,9 @@ public class PluginChecker {
     public static boolean isWebServicePluginLocaed() {
         return isPluginLoaded(WEBSERVICE_PLUGIN_ID);
     }
+
+    public static boolean isMetalanguagePluginLocaed() {
+        return isPluginLoaded(METALANGUAGE_PLUGIN_ID);
+    }
+
 }
