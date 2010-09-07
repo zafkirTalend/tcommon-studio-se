@@ -270,8 +270,23 @@ public class JobGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cTableNameEStringParserRuleCall_5_1_0 = (RuleCall)cTableNameAssignment_5_1.eContents().get(0);
 		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
 		private final Keyword cJOINTYPEKeyword_6_0 = (Keyword)cGroup_6.eContents().get(0);
-		private final Assignment cJoinTypeAssignment_6_1 = (Assignment)cGroup_6.eContents().get(1);
-		private final RuleCall cJoinTypeEStringParserRuleCall_6_1_0 = (RuleCall)cJoinTypeAssignment_6_1.eContents().get(0);
+		private final Alternatives cAlternatives_6_1 = (Alternatives)cGroup_6.eContents().get(1);
+		private final Assignment cJoinTypeAssignment_6_1_0 = (Assignment)cAlternatives_6_1.eContents().get(0);
+		private final Keyword cJoinTypeNO_JOINKeyword_6_1_0_0 = (Keyword)cJoinTypeAssignment_6_1_0.eContents().get(0);
+		private final Assignment cJoinTypeAssignment_6_1_1 = (Assignment)cAlternatives_6_1.eContents().get(1);
+		private final Keyword cJoinTypeINNER_JOINKeyword_6_1_1_0 = (Keyword)cJoinTypeAssignment_6_1_1.eContents().get(0);
+		private final Assignment cJoinTypeAssignment_6_1_2 = (Assignment)cAlternatives_6_1.eContents().get(2);
+		private final Keyword cJoinTypeLEFT_OUTER_JOINKeyword_6_1_2_0 = (Keyword)cJoinTypeAssignment_6_1_2.eContents().get(0);
+		private final Assignment cJoinTypeAssignment_6_1_3 = (Assignment)cAlternatives_6_1.eContents().get(3);
+		private final Keyword cJoinTypeRIGHT_OUTER_JOINKeyword_6_1_3_0 = (Keyword)cJoinTypeAssignment_6_1_3.eContents().get(0);
+		private final Assignment cJoinTypeAssignment_6_1_4 = (Assignment)cAlternatives_6_1.eContents().get(4);
+		private final Keyword cJoinTypeFULL_OUTER_JOINKeyword_6_1_4_0 = (Keyword)cJoinTypeAssignment_6_1_4.eContents().get(0);
+		private final Assignment cJoinTypeAssignment_6_1_5 = (Assignment)cAlternatives_6_1.eContents().get(5);
+		private final Keyword cJoinTypeCROSS_JOINKeyword_6_1_5_0 = (Keyword)cJoinTypeAssignment_6_1_5.eContents().get(0);
+		private final Assignment cJoinTypeAssignment_6_1_6 = (Assignment)cAlternatives_6_1.eContents().get(6);
+		private final Keyword cJoinTypeLEFT_OUTER_JOIN_ORACLEKeyword_6_1_6_0 = (Keyword)cJoinTypeAssignment_6_1_6.eContents().get(0);
+		private final Assignment cJoinTypeAssignment_6_1_7 = (Assignment)cAlternatives_6_1.eContents().get(7);
+		private final Keyword cJoinTypeRIGHT_OUTER_JOIN_ORACLEKeyword_6_1_7_0 = (Keyword)cJoinTypeAssignment_6_1_7.eContents().get(0);
 		private final Group cGroup_7 = (Group)cGroup.eContents().get(7);
 		private final Keyword cALIASKeyword_7_0 = (Keyword)cGroup_7.eContents().get(0);
 		private final Assignment cAliasAssignment_7_1 = (Assignment)cGroup_7.eContents().get(1);
@@ -281,13 +296,16 @@ public class JobGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//DBInputTable returns dbmapFile::InputTable:
 		//	{dbmapFile::InputTable} "NAME:" name=EString ("MINIMIZED:" minimized=EBoolean)? ("READONLY:" readonly=EBoolean)?
-		//	("TABLENAME:" tableName=EString)? ("JOINTYPE:" joinType=EString)? ("ALIAS:" alias=EString)?
+		//	("TABLENAME:" tableName=EString)? ("JOINTYPE:" (joinType="NO_JOIN" | joinType="INNER_JOIN" |
+		//	joinType="LEFT_OUTER_JOIN" | joinType="RIGHT_OUTER_JOIN" | joinType="FULL_OUTER_JOIN" | joinType="CROSS_JOIN" |
+		//	joinType="LEFT_OUTER_JOIN_ORACLE" | joinType="RIGHT_OUTER_JOIN_ORACLE"))? ("ALIAS:" alias=EString)?
 		//	DBMapperTableEntries+=DBMapperTableEntry*;
 		public ParserRule getRule() { return rule; }
 
 		//{dbmapFile::InputTable} "NAME:" name=EString ("MINIMIZED:" minimized=EBoolean)? ("READONLY:" readonly=EBoolean)?
-		//("TABLENAME:" tableName=EString)? ("JOINTYPE:" joinType=EString)? ("ALIAS:" alias=EString)?
-		//DBMapperTableEntries+=DBMapperTableEntry*
+		//("TABLENAME:" tableName=EString)? ("JOINTYPE:" (joinType="NO_JOIN" | joinType="INNER_JOIN" | joinType="LEFT_OUTER_JOIN"
+		//| joinType="RIGHT_OUTER_JOIN" | joinType="FULL_OUTER_JOIN" | joinType="CROSS_JOIN" | joinType="LEFT_OUTER_JOIN_ORACLE"
+		//| joinType="RIGHT_OUTER_JOIN_ORACLE"))? ("ALIAS:" alias=EString)? DBMapperTableEntries+=DBMapperTableEntry*
 		public Group getGroup() { return cGroup; }
 
 		//{dbmapFile::InputTable}
@@ -338,17 +356,66 @@ public class JobGrammarAccess extends AbstractGrammarElementFinder {
 		//EString
 		public RuleCall getTableNameEStringParserRuleCall_5_1_0() { return cTableNameEStringParserRuleCall_5_1_0; }
 
-		//("JOINTYPE:" joinType=EString)?
+		//("JOINTYPE:" (joinType="NO_JOIN" | joinType="INNER_JOIN" | joinType="LEFT_OUTER_JOIN" | joinType="RIGHT_OUTER_JOIN" |
+		//joinType="FULL_OUTER_JOIN" | joinType="CROSS_JOIN" | joinType="LEFT_OUTER_JOIN_ORACLE" |
+		//joinType="RIGHT_OUTER_JOIN_ORACLE"))?
 		public Group getGroup_6() { return cGroup_6; }
 
 		//"JOINTYPE:"
 		public Keyword getJOINTYPEKeyword_6_0() { return cJOINTYPEKeyword_6_0; }
 
-		//joinType=EString
-		public Assignment getJoinTypeAssignment_6_1() { return cJoinTypeAssignment_6_1; }
+		//joinType="NO_JOIN" | joinType="INNER_JOIN" | joinType="LEFT_OUTER_JOIN" | joinType="RIGHT_OUTER_JOIN" |
+		//joinType="FULL_OUTER_JOIN" | joinType="CROSS_JOIN" | joinType="LEFT_OUTER_JOIN_ORACLE" |
+		//joinType="RIGHT_OUTER_JOIN_ORACLE"
+		public Alternatives getAlternatives_6_1() { return cAlternatives_6_1; }
 
-		//EString
-		public RuleCall getJoinTypeEStringParserRuleCall_6_1_0() { return cJoinTypeEStringParserRuleCall_6_1_0; }
+		//joinType="NO_JOIN"
+		public Assignment getJoinTypeAssignment_6_1_0() { return cJoinTypeAssignment_6_1_0; }
+
+		//"NO_JOIN"
+		public Keyword getJoinTypeNO_JOINKeyword_6_1_0_0() { return cJoinTypeNO_JOINKeyword_6_1_0_0; }
+
+		//joinType="INNER_JOIN"
+		public Assignment getJoinTypeAssignment_6_1_1() { return cJoinTypeAssignment_6_1_1; }
+
+		//"INNER_JOIN"
+		public Keyword getJoinTypeINNER_JOINKeyword_6_1_1_0() { return cJoinTypeINNER_JOINKeyword_6_1_1_0; }
+
+		//joinType="LEFT_OUTER_JOIN"
+		public Assignment getJoinTypeAssignment_6_1_2() { return cJoinTypeAssignment_6_1_2; }
+
+		//"LEFT_OUTER_JOIN"
+		public Keyword getJoinTypeLEFT_OUTER_JOINKeyword_6_1_2_0() { return cJoinTypeLEFT_OUTER_JOINKeyword_6_1_2_0; }
+
+		//joinType="RIGHT_OUTER_JOIN"
+		public Assignment getJoinTypeAssignment_6_1_3() { return cJoinTypeAssignment_6_1_3; }
+
+		//"RIGHT_OUTER_JOIN"
+		public Keyword getJoinTypeRIGHT_OUTER_JOINKeyword_6_1_3_0() { return cJoinTypeRIGHT_OUTER_JOINKeyword_6_1_3_0; }
+
+		//joinType="FULL_OUTER_JOIN"
+		public Assignment getJoinTypeAssignment_6_1_4() { return cJoinTypeAssignment_6_1_4; }
+
+		//"FULL_OUTER_JOIN"
+		public Keyword getJoinTypeFULL_OUTER_JOINKeyword_6_1_4_0() { return cJoinTypeFULL_OUTER_JOINKeyword_6_1_4_0; }
+
+		//joinType="CROSS_JOIN"
+		public Assignment getJoinTypeAssignment_6_1_5() { return cJoinTypeAssignment_6_1_5; }
+
+		//"CROSS_JOIN"
+		public Keyword getJoinTypeCROSS_JOINKeyword_6_1_5_0() { return cJoinTypeCROSS_JOINKeyword_6_1_5_0; }
+
+		//joinType="LEFT_OUTER_JOIN_ORACLE"
+		public Assignment getJoinTypeAssignment_6_1_6() { return cJoinTypeAssignment_6_1_6; }
+
+		//"LEFT_OUTER_JOIN_ORACLE"
+		public Keyword getJoinTypeLEFT_OUTER_JOIN_ORACLEKeyword_6_1_6_0() { return cJoinTypeLEFT_OUTER_JOIN_ORACLEKeyword_6_1_6_0; }
+
+		//joinType="RIGHT_OUTER_JOIN_ORACLE"
+		public Assignment getJoinTypeAssignment_6_1_7() { return cJoinTypeAssignment_6_1_7; }
+
+		//"RIGHT_OUTER_JOIN_ORACLE"
+		public Keyword getJoinTypeRIGHT_OUTER_JOIN_ORACLEKeyword_6_1_7_0() { return cJoinTypeRIGHT_OUTER_JOIN_ORACLEKeyword_6_1_7_0; }
 
 		//("ALIAS:" alias=EString)?
 		public Group getGroup_7() { return cGroup_7; }
@@ -882,8 +949,13 @@ public class JobGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cMinimizedEBooleanParserRuleCall_3_1_0 = (RuleCall)cMinimizedAssignment_3_1.eContents().get(0);
 		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
 		private final Keyword cSIZESTATEKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
-		private final Assignment cSizeStateAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
-		private final RuleCall cSizeStateEStringParserRuleCall_4_1_0 = (RuleCall)cSizeStateAssignment_4_1.eContents().get(0);
+		private final Alternatives cAlternatives_4_1 = (Alternatives)cGroup_4.eContents().get(1);
+		private final Assignment cSizeStateAssignment_4_1_0 = (Assignment)cAlternatives_4_1.eContents().get(0);
+		private final Keyword cSizeStateMINIMIZEDKeyword_4_1_0_0 = (Keyword)cSizeStateAssignment_4_1_0.eContents().get(0);
+		private final Assignment cSizeStateAssignment_4_1_1 = (Assignment)cAlternatives_4_1.eContents().get(1);
+		private final Keyword cSizeStateINTERMEDIATEKeyword_4_1_1_0 = (Keyword)cSizeStateAssignment_4_1_1.eContents().get(0);
+		private final Assignment cSizeStateAssignment_4_1_2 = (Assignment)cAlternatives_4_1.eContents().get(2);
+		private final Keyword cSizeStateMAXIMIZEDKeyword_4_1_2_0 = (Keyword)cSizeStateAssignment_4_1_2.eContents().get(0);
 		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
 		private final Keyword cEXPRESSIONFILTERKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
 		private final Assignment cExpressionFilterAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
@@ -908,16 +980,18 @@ public class JobGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cMapperTableEntriesMapperTableEntryParserRuleCall_10_0 = (RuleCall)cMapperTableEntriesAssignment_10.eContents().get(0);
 		
 		//InputTable returns mapperFile::InputTable:
-		//	{mapperFile::InputTable} "NAME:" name=EString ("MINIMIZED:" minimized=EBoolean)? ("SIZESTATE:" sizeState=EString)?
-		//	("EXPRESSIONFILTER:" expressionFilter=EString)? ("ACTIVATEEXPRESSIONFILTER:" activateExpressionFilter=EBoolean)?
-		//	("ACTIVATECONDENSEDTOOL:" activateCondensedTool=EBoolean)? ("MATCHINGMODE:" matchingMode=EString)? ("LOOKUPMODE:"
-		//	lookupMode=EString)? mapperTableEntries+=MapperTableEntry*;
+		//	{mapperFile::InputTable} "NAME:" name=EString ("MINIMIZED:" minimized=EBoolean)? ("SIZESTATE:" (sizeState="MINIMIZED"
+		//	| sizeState="INTERMEDIATE" | sizeState="MAXIMIZED"))? ("EXPRESSIONFILTER:" expressionFilter=EString)?
+		//	("ACTIVATEEXPRESSIONFILTER:" activateExpressionFilter=EBoolean)? ("ACTIVATECONDENSEDTOOL:"
+		//	activateCondensedTool=EBoolean)? ("MATCHINGMODE:" matchingMode=EString)? ("LOOKUPMODE:" lookupMode=EString)?
+		//	mapperTableEntries+=MapperTableEntry*;
 		public ParserRule getRule() { return rule; }
 
-		//{mapperFile::InputTable} "NAME:" name=EString ("MINIMIZED:" minimized=EBoolean)? ("SIZESTATE:" sizeState=EString)?
-		//("EXPRESSIONFILTER:" expressionFilter=EString)? ("ACTIVATEEXPRESSIONFILTER:" activateExpressionFilter=EBoolean)?
-		//("ACTIVATECONDENSEDTOOL:" activateCondensedTool=EBoolean)? ("MATCHINGMODE:" matchingMode=EString)? ("LOOKUPMODE:"
-		//lookupMode=EString)? mapperTableEntries+=MapperTableEntry*
+		//{mapperFile::InputTable} "NAME:" name=EString ("MINIMIZED:" minimized=EBoolean)? ("SIZESTATE:" (sizeState="MINIMIZED" |
+		//sizeState="INTERMEDIATE" | sizeState="MAXIMIZED"))? ("EXPRESSIONFILTER:" expressionFilter=EString)?
+		//("ACTIVATEEXPRESSIONFILTER:" activateExpressionFilter=EBoolean)? ("ACTIVATECONDENSEDTOOL:"
+		//activateCondensedTool=EBoolean)? ("MATCHINGMODE:" matchingMode=EString)? ("LOOKUPMODE:" lookupMode=EString)?
+		//mapperTableEntries+=MapperTableEntry*
 		public Group getGroup() { return cGroup; }
 
 		//{mapperFile::InputTable}
@@ -944,17 +1018,32 @@ public class JobGrammarAccess extends AbstractGrammarElementFinder {
 		//EBoolean
 		public RuleCall getMinimizedEBooleanParserRuleCall_3_1_0() { return cMinimizedEBooleanParserRuleCall_3_1_0; }
 
-		//("SIZESTATE:" sizeState=EString)?
+		//("SIZESTATE:" (sizeState="MINIMIZED" | sizeState="INTERMEDIATE" | sizeState="MAXIMIZED"))?
 		public Group getGroup_4() { return cGroup_4; }
 
 		//"SIZESTATE:"
 		public Keyword getSIZESTATEKeyword_4_0() { return cSIZESTATEKeyword_4_0; }
 
-		//sizeState=EString
-		public Assignment getSizeStateAssignment_4_1() { return cSizeStateAssignment_4_1; }
+		//sizeState="MINIMIZED" | sizeState="INTERMEDIATE" | sizeState="MAXIMIZED"
+		public Alternatives getAlternatives_4_1() { return cAlternatives_4_1; }
 
-		//EString
-		public RuleCall getSizeStateEStringParserRuleCall_4_1_0() { return cSizeStateEStringParserRuleCall_4_1_0; }
+		//sizeState="MINIMIZED"
+		public Assignment getSizeStateAssignment_4_1_0() { return cSizeStateAssignment_4_1_0; }
+
+		//"MINIMIZED"
+		public Keyword getSizeStateMINIMIZEDKeyword_4_1_0_0() { return cSizeStateMINIMIZEDKeyword_4_1_0_0; }
+
+		//sizeState="INTERMEDIATE"
+		public Assignment getSizeStateAssignment_4_1_1() { return cSizeStateAssignment_4_1_1; }
+
+		//"INTERMEDIATE"
+		public Keyword getSizeStateINTERMEDIATEKeyword_4_1_1_0() { return cSizeStateINTERMEDIATEKeyword_4_1_1_0; }
+
+		//sizeState="MAXIMIZED"
+		public Assignment getSizeStateAssignment_4_1_2() { return cSizeStateAssignment_4_1_2; }
+
+		//"MAXIMIZED"
+		public Keyword getSizeStateMAXIMIZEDKeyword_4_1_2_0() { return cSizeStateMAXIMIZEDKeyword_4_1_2_0; }
 
 		//("EXPRESSIONFILTER:" expressionFilter=EString)?
 		public Group getGroup_5() { return cGroup_5; }
@@ -1036,18 +1125,23 @@ public class JobGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cMinimizedEBooleanParserRuleCall_3_1_0 = (RuleCall)cMinimizedAssignment_3_1.eContents().get(0);
 		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
 		private final Keyword cSIZESTATEKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
-		private final Assignment cSizeStateAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
-		private final RuleCall cSizeStateEStringParserRuleCall_4_1_0 = (RuleCall)cSizeStateAssignment_4_1.eContents().get(0);
+		private final Alternatives cAlternatives_4_1 = (Alternatives)cGroup_4.eContents().get(1);
+		private final Assignment cSizeStateAssignment_4_1_0 = (Assignment)cAlternatives_4_1.eContents().get(0);
+		private final Keyword cSizeStateMINIMIZEDKeyword_4_1_0_0 = (Keyword)cSizeStateAssignment_4_1_0.eContents().get(0);
+		private final Assignment cSizeStateAssignment_4_1_1 = (Assignment)cAlternatives_4_1.eContents().get(1);
+		private final Keyword cSizeStateINTERMEDIATEKeyword_4_1_1_0 = (Keyword)cSizeStateAssignment_4_1_1.eContents().get(0);
+		private final Assignment cSizeStateAssignment_4_1_2 = (Assignment)cAlternatives_4_1.eContents().get(2);
+		private final Keyword cSizeStateMAXIMIZEDKeyword_4_1_2_0 = (Keyword)cSizeStateAssignment_4_1_2.eContents().get(0);
 		private final Assignment cMapperTableEntriesAssignment_5 = (Assignment)cGroup.eContents().get(5);
 		private final RuleCall cMapperTableEntriesMapperTableEntryParserRuleCall_5_0 = (RuleCall)cMapperTableEntriesAssignment_5.eContents().get(0);
 		
 		//VarTable returns mapperFile::VarTable:
-		//	{mapperFile::VarTable} "NAME:" name=EString ("MINIMIZED:" minimized=EBoolean)? ("SIZESTATE:" sizeState=EString)?
-		//	mapperTableEntries+=MapperTableEntry*;
+		//	{mapperFile::VarTable} "NAME:" name=EString ("MINIMIZED:" minimized=EBoolean)? ("SIZESTATE:" (sizeState="MINIMIZED" |
+		//	sizeState="INTERMEDIATE" | sizeState="MAXIMIZED"))? mapperTableEntries+=MapperTableEntry*;
 		public ParserRule getRule() { return rule; }
 
-		//{mapperFile::VarTable} "NAME:" name=EString ("MINIMIZED:" minimized=EBoolean)? ("SIZESTATE:" sizeState=EString)?
-		//mapperTableEntries+=MapperTableEntry*
+		//{mapperFile::VarTable} "NAME:" name=EString ("MINIMIZED:" minimized=EBoolean)? ("SIZESTATE:" (sizeState="MINIMIZED" |
+		//sizeState="INTERMEDIATE" | sizeState="MAXIMIZED"))? mapperTableEntries+=MapperTableEntry*
 		public Group getGroup() { return cGroup; }
 
 		//{mapperFile::VarTable}
@@ -1074,17 +1168,32 @@ public class JobGrammarAccess extends AbstractGrammarElementFinder {
 		//EBoolean
 		public RuleCall getMinimizedEBooleanParserRuleCall_3_1_0() { return cMinimizedEBooleanParserRuleCall_3_1_0; }
 
-		//("SIZESTATE:" sizeState=EString)?
+		//("SIZESTATE:" (sizeState="MINIMIZED" | sizeState="INTERMEDIATE" | sizeState="MAXIMIZED"))?
 		public Group getGroup_4() { return cGroup_4; }
 
 		//"SIZESTATE:"
 		public Keyword getSIZESTATEKeyword_4_0() { return cSIZESTATEKeyword_4_0; }
 
-		//sizeState=EString
-		public Assignment getSizeStateAssignment_4_1() { return cSizeStateAssignment_4_1; }
+		//sizeState="MINIMIZED" | sizeState="INTERMEDIATE" | sizeState="MAXIMIZED"
+		public Alternatives getAlternatives_4_1() { return cAlternatives_4_1; }
 
-		//EString
-		public RuleCall getSizeStateEStringParserRuleCall_4_1_0() { return cSizeStateEStringParserRuleCall_4_1_0; }
+		//sizeState="MINIMIZED"
+		public Assignment getSizeStateAssignment_4_1_0() { return cSizeStateAssignment_4_1_0; }
+
+		//"MINIMIZED"
+		public Keyword getSizeStateMINIMIZEDKeyword_4_1_0_0() { return cSizeStateMINIMIZEDKeyword_4_1_0_0; }
+
+		//sizeState="INTERMEDIATE"
+		public Assignment getSizeStateAssignment_4_1_1() { return cSizeStateAssignment_4_1_1; }
+
+		//"INTERMEDIATE"
+		public Keyword getSizeStateINTERMEDIATEKeyword_4_1_1_0() { return cSizeStateINTERMEDIATEKeyword_4_1_1_0; }
+
+		//sizeState="MAXIMIZED"
+		public Assignment getSizeStateAssignment_4_1_2() { return cSizeStateAssignment_4_1_2; }
+
+		//"MAXIMIZED"
+		public Keyword getSizeStateMAXIMIZEDKeyword_4_1_2_0() { return cSizeStateMAXIMIZEDKeyword_4_1_2_0; }
 
 		//mapperTableEntries+=MapperTableEntry*
 		public Assignment getMapperTableEntriesAssignment_5() { return cMapperTableEntriesAssignment_5; }
@@ -1106,8 +1215,13 @@ public class JobGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cMinimizedEBooleanParserRuleCall_3_1_0 = (RuleCall)cMinimizedAssignment_3_1.eContents().get(0);
 		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
 		private final Keyword cSIZESTATEKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
-		private final Assignment cSizeStateAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
-		private final RuleCall cSizeStateEStringParserRuleCall_4_1_0 = (RuleCall)cSizeStateAssignment_4_1.eContents().get(0);
+		private final Alternatives cAlternatives_4_1 = (Alternatives)cGroup_4.eContents().get(1);
+		private final Assignment cSizeStateAssignment_4_1_0 = (Assignment)cAlternatives_4_1.eContents().get(0);
+		private final Keyword cSizeStateMINIMIZEDKeyword_4_1_0_0 = (Keyword)cSizeStateAssignment_4_1_0.eContents().get(0);
+		private final Assignment cSizeStateAssignment_4_1_1 = (Assignment)cAlternatives_4_1.eContents().get(1);
+		private final Keyword cSizeStateINTERMEDIATEKeyword_4_1_1_0 = (Keyword)cSizeStateAssignment_4_1_1.eContents().get(0);
+		private final Assignment cSizeStateAssignment_4_1_2 = (Assignment)cAlternatives_4_1.eContents().get(2);
+		private final Keyword cSizeStateMAXIMIZEDKeyword_4_1_2_0 = (Keyword)cSizeStateAssignment_4_1_2.eContents().get(0);
 		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
 		private final Keyword cEXPRESSIONFILTERKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
 		private final Assignment cExpressionFilterAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
@@ -1140,18 +1254,20 @@ public class JobGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cMapperTableEntriesMapperTableEntryParserRuleCall_12_0 = (RuleCall)cMapperTableEntriesAssignment_12.eContents().get(0);
 		
 		//OutputTable returns mapperFile::OutputTable:
-		//	{mapperFile::OutputTable} "NAME:" name=EString ("MINIMIZED:" minimized=EBoolean)? ("SIZESTATE:" sizeState=EString)?
-		//	("EXPRESSIONFILTER:" expressionFilter=EString)? ("ACTIVATEEXPRESSIONFILTER:" activateExpressionFilter=EBoolean)?
-		//	("ACTIVATECONDENSEDTOOL:" activateCondensedTool=EBoolean)? ("REJECT:" reject=EBoolean)? ("REJECTINNERJOIN:"
-		//	rejectInnerJoin=EBoolean)? ("ISERRORREJECTTABLE:" isErrorRejectTable=EBoolean)? ("ISJOINTABLEOF:"
-		//	isJoinTableOf=EString)? mapperTableEntries+=MapperTableEntry*;
+		//	{mapperFile::OutputTable} "NAME:" name=EString ("MINIMIZED:" minimized=EBoolean)? ("SIZESTATE:" (sizeState="MINIMIZED"
+		//	| sizeState="INTERMEDIATE" | sizeState="MAXIMIZED"))? ("EXPRESSIONFILTER:" expressionFilter=EString)?
+		//	("ACTIVATEEXPRESSIONFILTER:" activateExpressionFilter=EBoolean)? ("ACTIVATECONDENSEDTOOL:"
+		//	activateCondensedTool=EBoolean)? ("REJECT:" reject=EBoolean)? ("REJECTINNERJOIN:" rejectInnerJoin=EBoolean)?
+		//	("ISERRORREJECTTABLE:" isErrorRejectTable=EBoolean)? ("ISJOINTABLEOF:" isJoinTableOf=EString)?
+		//	mapperTableEntries+=MapperTableEntry*;
 		public ParserRule getRule() { return rule; }
 
-		//{mapperFile::OutputTable} "NAME:" name=EString ("MINIMIZED:" minimized=EBoolean)? ("SIZESTATE:" sizeState=EString)?
-		//("EXPRESSIONFILTER:" expressionFilter=EString)? ("ACTIVATEEXPRESSIONFILTER:" activateExpressionFilter=EBoolean)?
-		//("ACTIVATECONDENSEDTOOL:" activateCondensedTool=EBoolean)? ("REJECT:" reject=EBoolean)? ("REJECTINNERJOIN:"
-		//rejectInnerJoin=EBoolean)? ("ISERRORREJECTTABLE:" isErrorRejectTable=EBoolean)? ("ISJOINTABLEOF:"
-		//isJoinTableOf=EString)? mapperTableEntries+=MapperTableEntry*
+		//{mapperFile::OutputTable} "NAME:" name=EString ("MINIMIZED:" minimized=EBoolean)? ("SIZESTATE:" (sizeState="MINIMIZED" |
+		//sizeState="INTERMEDIATE" | sizeState="MAXIMIZED"))? ("EXPRESSIONFILTER:" expressionFilter=EString)?
+		//("ACTIVATEEXPRESSIONFILTER:" activateExpressionFilter=EBoolean)? ("ACTIVATECONDENSEDTOOL:"
+		//activateCondensedTool=EBoolean)? ("REJECT:" reject=EBoolean)? ("REJECTINNERJOIN:" rejectInnerJoin=EBoolean)?
+		//("ISERRORREJECTTABLE:" isErrorRejectTable=EBoolean)? ("ISJOINTABLEOF:" isJoinTableOf=EString)?
+		//mapperTableEntries+=MapperTableEntry*
 		public Group getGroup() { return cGroup; }
 
 		//{mapperFile::OutputTable}
@@ -1178,17 +1294,32 @@ public class JobGrammarAccess extends AbstractGrammarElementFinder {
 		//EBoolean
 		public RuleCall getMinimizedEBooleanParserRuleCall_3_1_0() { return cMinimizedEBooleanParserRuleCall_3_1_0; }
 
-		//("SIZESTATE:" sizeState=EString)?
+		//("SIZESTATE:" (sizeState="MINIMIZED" | sizeState="INTERMEDIATE" | sizeState="MAXIMIZED"))?
 		public Group getGroup_4() { return cGroup_4; }
 
 		//"SIZESTATE:"
 		public Keyword getSIZESTATEKeyword_4_0() { return cSIZESTATEKeyword_4_0; }
 
-		//sizeState=EString
-		public Assignment getSizeStateAssignment_4_1() { return cSizeStateAssignment_4_1; }
+		//sizeState="MINIMIZED" | sizeState="INTERMEDIATE" | sizeState="MAXIMIZED"
+		public Alternatives getAlternatives_4_1() { return cAlternatives_4_1; }
 
-		//EString
-		public RuleCall getSizeStateEStringParserRuleCall_4_1_0() { return cSizeStateEStringParserRuleCall_4_1_0; }
+		//sizeState="MINIMIZED"
+		public Assignment getSizeStateAssignment_4_1_0() { return cSizeStateAssignment_4_1_0; }
+
+		//"MINIMIZED"
+		public Keyword getSizeStateMINIMIZEDKeyword_4_1_0_0() { return cSizeStateMINIMIZEDKeyword_4_1_0_0; }
+
+		//sizeState="INTERMEDIATE"
+		public Assignment getSizeStateAssignment_4_1_1() { return cSizeStateAssignment_4_1_1; }
+
+		//"INTERMEDIATE"
+		public Keyword getSizeStateINTERMEDIATEKeyword_4_1_1_0() { return cSizeStateINTERMEDIATEKeyword_4_1_1_0; }
+
+		//sizeState="MAXIMIZED"
+		public Assignment getSizeStateAssignment_4_1_2() { return cSizeStateAssignment_4_1_2; }
+
+		//"MAXIMIZED"
+		public Keyword getSizeStateMAXIMIZEDKeyword_4_1_2_0() { return cSizeStateMAXIMIZEDKeyword_4_1_2_0; }
 
 		//("EXPRESSIONFILTER:" expressionFilter=EString)?
 		public Group getGroup_5() { return cGroup_5; }
@@ -2843,7 +2974,9 @@ public class JobGrammarAccess extends AbstractGrammarElementFinder {
 
 	//DBInputTable returns dbmapFile::InputTable:
 	//	{dbmapFile::InputTable} "NAME:" name=EString ("MINIMIZED:" minimized=EBoolean)? ("READONLY:" readonly=EBoolean)?
-	//	("TABLENAME:" tableName=EString)? ("JOINTYPE:" joinType=EString)? ("ALIAS:" alias=EString)?
+	//	("TABLENAME:" tableName=EString)? ("JOINTYPE:" (joinType="NO_JOIN" | joinType="INNER_JOIN" |
+	//	joinType="LEFT_OUTER_JOIN" | joinType="RIGHT_OUTER_JOIN" | joinType="FULL_OUTER_JOIN" | joinType="CROSS_JOIN" |
+	//	joinType="LEFT_OUTER_JOIN_ORACLE" | joinType="RIGHT_OUTER_JOIN_ORACLE"))? ("ALIAS:" alias=EString)?
 	//	DBMapperTableEntries+=DBMapperTableEntry*;
 	public DBInputTableElements getDBInputTableAccess() {
 		return (pDBInputTable != null) ? pDBInputTable : (pDBInputTable = new DBInputTableElements());
@@ -2920,10 +3053,11 @@ public class JobGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//InputTable returns mapperFile::InputTable:
-	//	{mapperFile::InputTable} "NAME:" name=EString ("MINIMIZED:" minimized=EBoolean)? ("SIZESTATE:" sizeState=EString)?
-	//	("EXPRESSIONFILTER:" expressionFilter=EString)? ("ACTIVATEEXPRESSIONFILTER:" activateExpressionFilter=EBoolean)?
-	//	("ACTIVATECONDENSEDTOOL:" activateCondensedTool=EBoolean)? ("MATCHINGMODE:" matchingMode=EString)? ("LOOKUPMODE:"
-	//	lookupMode=EString)? mapperTableEntries+=MapperTableEntry*;
+	//	{mapperFile::InputTable} "NAME:" name=EString ("MINIMIZED:" minimized=EBoolean)? ("SIZESTATE:" (sizeState="MINIMIZED"
+	//	| sizeState="INTERMEDIATE" | sizeState="MAXIMIZED"))? ("EXPRESSIONFILTER:" expressionFilter=EString)?
+	//	("ACTIVATEEXPRESSIONFILTER:" activateExpressionFilter=EBoolean)? ("ACTIVATECONDENSEDTOOL:"
+	//	activateCondensedTool=EBoolean)? ("MATCHINGMODE:" matchingMode=EString)? ("LOOKUPMODE:" lookupMode=EString)?
+	//	mapperTableEntries+=MapperTableEntry*;
 	public InputTableElements getInputTableAccess() {
 		return (pInputTable != null) ? pInputTable : (pInputTable = new InputTableElements());
 	}
@@ -2933,8 +3067,8 @@ public class JobGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//VarTable returns mapperFile::VarTable:
-	//	{mapperFile::VarTable} "NAME:" name=EString ("MINIMIZED:" minimized=EBoolean)? ("SIZESTATE:" sizeState=EString)?
-	//	mapperTableEntries+=MapperTableEntry*;
+	//	{mapperFile::VarTable} "NAME:" name=EString ("MINIMIZED:" minimized=EBoolean)? ("SIZESTATE:" (sizeState="MINIMIZED" |
+	//	sizeState="INTERMEDIATE" | sizeState="MAXIMIZED"))? mapperTableEntries+=MapperTableEntry*;
 	public VarTableElements getVarTableAccess() {
 		return (pVarTable != null) ? pVarTable : (pVarTable = new VarTableElements());
 	}
@@ -2944,11 +3078,12 @@ public class JobGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//OutputTable returns mapperFile::OutputTable:
-	//	{mapperFile::OutputTable} "NAME:" name=EString ("MINIMIZED:" minimized=EBoolean)? ("SIZESTATE:" sizeState=EString)?
-	//	("EXPRESSIONFILTER:" expressionFilter=EString)? ("ACTIVATEEXPRESSIONFILTER:" activateExpressionFilter=EBoolean)?
-	//	("ACTIVATECONDENSEDTOOL:" activateCondensedTool=EBoolean)? ("REJECT:" reject=EBoolean)? ("REJECTINNERJOIN:"
-	//	rejectInnerJoin=EBoolean)? ("ISERRORREJECTTABLE:" isErrorRejectTable=EBoolean)? ("ISJOINTABLEOF:"
-	//	isJoinTableOf=EString)? mapperTableEntries+=MapperTableEntry*;
+	//	{mapperFile::OutputTable} "NAME:" name=EString ("MINIMIZED:" minimized=EBoolean)? ("SIZESTATE:" (sizeState="MINIMIZED"
+	//	| sizeState="INTERMEDIATE" | sizeState="MAXIMIZED"))? ("EXPRESSIONFILTER:" expressionFilter=EString)?
+	//	("ACTIVATEEXPRESSIONFILTER:" activateExpressionFilter=EBoolean)? ("ACTIVATECONDENSEDTOOL:"
+	//	activateCondensedTool=EBoolean)? ("REJECT:" reject=EBoolean)? ("REJECTINNERJOIN:" rejectInnerJoin=EBoolean)?
+	//	("ISERRORREJECTTABLE:" isErrorRejectTable=EBoolean)? ("ISJOINTABLEOF:" isJoinTableOf=EString)?
+	//	mapperTableEntries+=MapperTableEntry*;
 	public OutputTableElements getOutputTableAccess() {
 		return (pOutputTable != null) ? pOutputTable : (pOutputTable = new OutputTableElements());
 	}

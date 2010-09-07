@@ -1313,14 +1313,17 @@ protected class DBMapperData_RightCurlyBracketKeyword_6 extends KeywordToken  {
  *
  * DBInputTable returns dbmapFile::InputTable:
  * 	{dbmapFile::InputTable} "NAME:" name=EString ("MINIMIZED:" minimized=EBoolean)? ("READONLY:" readonly=EBoolean)?
- * 	("TABLENAME:" tableName=EString)? ("JOINTYPE:" joinType=EString)? ("ALIAS:" alias=EString)?
+ * 	("TABLENAME:" tableName=EString)? ("JOINTYPE:" (joinType="NO_JOIN" | joinType="INNER_JOIN" |
+ * 	joinType="LEFT_OUTER_JOIN" | joinType="RIGHT_OUTER_JOIN" | joinType="FULL_OUTER_JOIN" | joinType="CROSS_JOIN" |
+ * 	joinType="LEFT_OUTER_JOIN_ORACLE" | joinType="RIGHT_OUTER_JOIN_ORACLE"))? ("ALIAS:" alias=EString)?
  * 	DBMapperTableEntries+=DBMapperTableEntry*;
  *
  **/
 
 // {dbmapFile::InputTable} "NAME:" name=EString ("MINIMIZED:" minimized=EBoolean)? ("READONLY:" readonly=EBoolean)?
-// ("TABLENAME:" tableName=EString)? ("JOINTYPE:" joinType=EString)? ("ALIAS:" alias=EString)?
-// DBMapperTableEntries+=DBMapperTableEntry*
+// ("TABLENAME:" tableName=EString)? ("JOINTYPE:" (joinType="NO_JOIN" | joinType="INNER_JOIN" | joinType="LEFT_OUTER_JOIN"
+// | joinType="RIGHT_OUTER_JOIN" | joinType="FULL_OUTER_JOIN" | joinType="CROSS_JOIN" | joinType="LEFT_OUTER_JOIN_ORACLE"
+// | joinType="RIGHT_OUTER_JOIN_ORACLE"))? ("ALIAS:" alias=EString)? DBMapperTableEntries+=DBMapperTableEntry*
 protected class DBInputTable_Group extends GroupToken {
 	
 	public DBInputTable_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -1677,7 +1680,9 @@ protected class DBInputTable_TableNameAssignment_5_1 extends AssignmentToken  {
 }
 
 
-// ("JOINTYPE:" joinType=EString)?
+// ("JOINTYPE:" (joinType="NO_JOIN" | joinType="INNER_JOIN" | joinType="LEFT_OUTER_JOIN" | joinType="RIGHT_OUTER_JOIN" |
+// joinType="FULL_OUTER_JOIN" | joinType="CROSS_JOIN" | joinType="LEFT_OUTER_JOIN_ORACLE" |
+// joinType="RIGHT_OUTER_JOIN_ORACLE"))?
 protected class DBInputTable_Group_6 extends GroupToken {
 	
 	public DBInputTable_Group_6(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -1692,7 +1697,7 @@ protected class DBInputTable_Group_6 extends GroupToken {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new DBInputTable_JoinTypeAssignment_6_1(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new DBInputTable_Alternatives_6_1(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -1724,16 +1729,47 @@ protected class DBInputTable_JOINTYPEKeyword_6_0 extends KeywordToken  {
 
 }
 
-// joinType=EString
-protected class DBInputTable_JoinTypeAssignment_6_1 extends AssignmentToken  {
+// joinType="NO_JOIN" | joinType="INNER_JOIN" | joinType="LEFT_OUTER_JOIN" | joinType="RIGHT_OUTER_JOIN" |
+// joinType="FULL_OUTER_JOIN" | joinType="CROSS_JOIN" | joinType="LEFT_OUTER_JOIN_ORACLE" |
+// joinType="RIGHT_OUTER_JOIN_ORACLE"
+protected class DBInputTable_Alternatives_6_1 extends AlternativesToken {
+
+	public DBInputTable_Alternatives_6_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
 	
-	public DBInputTable_JoinTypeAssignment_6_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	@Override
+	public Alternatives getGrammarElement() {
+		return grammarAccess.getDBInputTableAccess().getAlternatives_6_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new DBInputTable_JoinTypeAssignment_6_1_0(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new DBInputTable_JoinTypeAssignment_6_1_1(lastRuleCallOrigin, this, 1, inst);
+			case 2: return new DBInputTable_JoinTypeAssignment_6_1_2(lastRuleCallOrigin, this, 2, inst);
+			case 3: return new DBInputTable_JoinTypeAssignment_6_1_3(lastRuleCallOrigin, this, 3, inst);
+			case 4: return new DBInputTable_JoinTypeAssignment_6_1_4(lastRuleCallOrigin, this, 4, inst);
+			case 5: return new DBInputTable_JoinTypeAssignment_6_1_5(lastRuleCallOrigin, this, 5, inst);
+			case 6: return new DBInputTable_JoinTypeAssignment_6_1_6(lastRuleCallOrigin, this, 6, inst);
+			case 7: return new DBInputTable_JoinTypeAssignment_6_1_7(lastRuleCallOrigin, this, 7, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// joinType="NO_JOIN"
+protected class DBInputTable_JoinTypeAssignment_6_1_0 extends AssignmentToken  {
+	
+	public DBInputTable_JoinTypeAssignment_6_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getDBInputTableAccess().getJoinTypeAssignment_6_1();
+		return grammarAccess.getDBInputTableAccess().getJoinTypeAssignment_6_1_0();
 	}
 
     @Override
@@ -1746,17 +1782,256 @@ protected class DBInputTable_JoinTypeAssignment_6_1 extends AssignmentToken  {
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("joinType",false)) == null) return null;
+		if((value = eObjectConsumer.getConsumable("joinType",true)) == null) return null;
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("joinType");
-		if(valueSerializer.isValid(obj.getEObject(), grammarAccess.getDBInputTableAccess().getJoinTypeEStringParserRuleCall_6_1_0(), value, null)) {
-			type = AssignmentType.DATATYPE_RULE_CALL;
-			element = grammarAccess.getDBInputTableAccess().getJoinTypeEStringParserRuleCall_6_1_0();
+		if(keywordSerializer.isValid(obj.getEObject(), grammarAccess.getDBInputTableAccess().getJoinTypeNO_JOINKeyword_6_1_0_0(), value, null)) {
+			type = AssignmentType.KEYWORD;
+			element = grammarAccess.getDBInputTableAccess().getJoinTypeNO_JOINKeyword_6_1_0_0();
 			return obj;
 		}
 		return null;
 	}
 
 }
+
+// joinType="INNER_JOIN"
+protected class DBInputTable_JoinTypeAssignment_6_1_1 extends AssignmentToken  {
+	
+	public DBInputTable_JoinTypeAssignment_6_1_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getDBInputTableAccess().getJoinTypeAssignment_6_1_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new DBInputTable_JOINTYPEKeyword_6_0(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("joinType",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("joinType");
+		if(keywordSerializer.isValid(obj.getEObject(), grammarAccess.getDBInputTableAccess().getJoinTypeINNER_JOINKeyword_6_1_1_0(), value, null)) {
+			type = AssignmentType.KEYWORD;
+			element = grammarAccess.getDBInputTableAccess().getJoinTypeINNER_JOINKeyword_6_1_1_0();
+			return obj;
+		}
+		return null;
+	}
+
+}
+
+// joinType="LEFT_OUTER_JOIN"
+protected class DBInputTable_JoinTypeAssignment_6_1_2 extends AssignmentToken  {
+	
+	public DBInputTable_JoinTypeAssignment_6_1_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getDBInputTableAccess().getJoinTypeAssignment_6_1_2();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new DBInputTable_JOINTYPEKeyword_6_0(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("joinType",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("joinType");
+		if(keywordSerializer.isValid(obj.getEObject(), grammarAccess.getDBInputTableAccess().getJoinTypeLEFT_OUTER_JOINKeyword_6_1_2_0(), value, null)) {
+			type = AssignmentType.KEYWORD;
+			element = grammarAccess.getDBInputTableAccess().getJoinTypeLEFT_OUTER_JOINKeyword_6_1_2_0();
+			return obj;
+		}
+		return null;
+	}
+
+}
+
+// joinType="RIGHT_OUTER_JOIN"
+protected class DBInputTable_JoinTypeAssignment_6_1_3 extends AssignmentToken  {
+	
+	public DBInputTable_JoinTypeAssignment_6_1_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getDBInputTableAccess().getJoinTypeAssignment_6_1_3();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new DBInputTable_JOINTYPEKeyword_6_0(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("joinType",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("joinType");
+		if(keywordSerializer.isValid(obj.getEObject(), grammarAccess.getDBInputTableAccess().getJoinTypeRIGHT_OUTER_JOINKeyword_6_1_3_0(), value, null)) {
+			type = AssignmentType.KEYWORD;
+			element = grammarAccess.getDBInputTableAccess().getJoinTypeRIGHT_OUTER_JOINKeyword_6_1_3_0();
+			return obj;
+		}
+		return null;
+	}
+
+}
+
+// joinType="FULL_OUTER_JOIN"
+protected class DBInputTable_JoinTypeAssignment_6_1_4 extends AssignmentToken  {
+	
+	public DBInputTable_JoinTypeAssignment_6_1_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getDBInputTableAccess().getJoinTypeAssignment_6_1_4();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new DBInputTable_JOINTYPEKeyword_6_0(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("joinType",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("joinType");
+		if(keywordSerializer.isValid(obj.getEObject(), grammarAccess.getDBInputTableAccess().getJoinTypeFULL_OUTER_JOINKeyword_6_1_4_0(), value, null)) {
+			type = AssignmentType.KEYWORD;
+			element = grammarAccess.getDBInputTableAccess().getJoinTypeFULL_OUTER_JOINKeyword_6_1_4_0();
+			return obj;
+		}
+		return null;
+	}
+
+}
+
+// joinType="CROSS_JOIN"
+protected class DBInputTable_JoinTypeAssignment_6_1_5 extends AssignmentToken  {
+	
+	public DBInputTable_JoinTypeAssignment_6_1_5(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getDBInputTableAccess().getJoinTypeAssignment_6_1_5();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new DBInputTable_JOINTYPEKeyword_6_0(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("joinType",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("joinType");
+		if(keywordSerializer.isValid(obj.getEObject(), grammarAccess.getDBInputTableAccess().getJoinTypeCROSS_JOINKeyword_6_1_5_0(), value, null)) {
+			type = AssignmentType.KEYWORD;
+			element = grammarAccess.getDBInputTableAccess().getJoinTypeCROSS_JOINKeyword_6_1_5_0();
+			return obj;
+		}
+		return null;
+	}
+
+}
+
+// joinType="LEFT_OUTER_JOIN_ORACLE"
+protected class DBInputTable_JoinTypeAssignment_6_1_6 extends AssignmentToken  {
+	
+	public DBInputTable_JoinTypeAssignment_6_1_6(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getDBInputTableAccess().getJoinTypeAssignment_6_1_6();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new DBInputTable_JOINTYPEKeyword_6_0(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("joinType",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("joinType");
+		if(keywordSerializer.isValid(obj.getEObject(), grammarAccess.getDBInputTableAccess().getJoinTypeLEFT_OUTER_JOIN_ORACLEKeyword_6_1_6_0(), value, null)) {
+			type = AssignmentType.KEYWORD;
+			element = grammarAccess.getDBInputTableAccess().getJoinTypeLEFT_OUTER_JOIN_ORACLEKeyword_6_1_6_0();
+			return obj;
+		}
+		return null;
+	}
+
+}
+
+// joinType="RIGHT_OUTER_JOIN_ORACLE"
+protected class DBInputTable_JoinTypeAssignment_6_1_7 extends AssignmentToken  {
+	
+	public DBInputTable_JoinTypeAssignment_6_1_7(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getDBInputTableAccess().getJoinTypeAssignment_6_1_7();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new DBInputTable_JOINTYPEKeyword_6_0(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("joinType",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("joinType");
+		if(keywordSerializer.isValid(obj.getEObject(), grammarAccess.getDBInputTableAccess().getJoinTypeRIGHT_OUTER_JOIN_ORACLEKeyword_6_1_7_0(), value, null)) {
+			type = AssignmentType.KEYWORD;
+			element = grammarAccess.getDBInputTableAccess().getJoinTypeRIGHT_OUTER_JOIN_ORACLEKeyword_6_1_7_0();
+			return obj;
+		}
+		return null;
+	}
+
+}
+
 
 
 // ("ALIAS:" alias=EString)?
@@ -4384,17 +4659,19 @@ protected class UiProperties_ShellMaximizedAssignment_2 extends AssignmentToken 
 /************ begin Rule InputTable ****************
  *
  * InputTable returns mapperFile::InputTable:
- * 	{mapperFile::InputTable} "NAME:" name=EString ("MINIMIZED:" minimized=EBoolean)? ("SIZESTATE:" sizeState=EString)?
- * 	("EXPRESSIONFILTER:" expressionFilter=EString)? ("ACTIVATEEXPRESSIONFILTER:" activateExpressionFilter=EBoolean)?
- * 	("ACTIVATECONDENSEDTOOL:" activateCondensedTool=EBoolean)? ("MATCHINGMODE:" matchingMode=EString)? ("LOOKUPMODE:"
- * 	lookupMode=EString)? mapperTableEntries+=MapperTableEntry*;
+ * 	{mapperFile::InputTable} "NAME:" name=EString ("MINIMIZED:" minimized=EBoolean)? ("SIZESTATE:" (sizeState="MINIMIZED"
+ * 	| sizeState="INTERMEDIATE" | sizeState="MAXIMIZED"))? ("EXPRESSIONFILTER:" expressionFilter=EString)?
+ * 	("ACTIVATEEXPRESSIONFILTER:" activateExpressionFilter=EBoolean)? ("ACTIVATECONDENSEDTOOL:"
+ * 	activateCondensedTool=EBoolean)? ("MATCHINGMODE:" matchingMode=EString)? ("LOOKUPMODE:" lookupMode=EString)?
+ * 	mapperTableEntries+=MapperTableEntry*;
  *
  **/
 
-// {mapperFile::InputTable} "NAME:" name=EString ("MINIMIZED:" minimized=EBoolean)? ("SIZESTATE:" sizeState=EString)?
-// ("EXPRESSIONFILTER:" expressionFilter=EString)? ("ACTIVATEEXPRESSIONFILTER:" activateExpressionFilter=EBoolean)?
-// ("ACTIVATECONDENSEDTOOL:" activateCondensedTool=EBoolean)? ("MATCHINGMODE:" matchingMode=EString)? ("LOOKUPMODE:"
-// lookupMode=EString)? mapperTableEntries+=MapperTableEntry*
+// {mapperFile::InputTable} "NAME:" name=EString ("MINIMIZED:" minimized=EBoolean)? ("SIZESTATE:" (sizeState="MINIMIZED" |
+// sizeState="INTERMEDIATE" | sizeState="MAXIMIZED"))? ("EXPRESSIONFILTER:" expressionFilter=EString)?
+// ("ACTIVATEEXPRESSIONFILTER:" activateExpressionFilter=EBoolean)? ("ACTIVATECONDENSEDTOOL:"
+// activateCondensedTool=EBoolean)? ("MATCHINGMODE:" matchingMode=EString)? ("LOOKUPMODE:" lookupMode=EString)?
+// mapperTableEntries+=MapperTableEntry*
 protected class InputTable_Group extends GroupToken {
 	
 	public InputTable_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -4592,7 +4869,7 @@ protected class InputTable_MinimizedAssignment_3_1 extends AssignmentToken  {
 }
 
 
-// ("SIZESTATE:" sizeState=EString)?
+// ("SIZESTATE:" (sizeState="MINIMIZED" | sizeState="INTERMEDIATE" | sizeState="MAXIMIZED"))?
 protected class InputTable_Group_4 extends GroupToken {
 	
 	public InputTable_Group_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -4607,7 +4884,7 @@ protected class InputTable_Group_4 extends GroupToken {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new InputTable_SizeStateAssignment_4_1(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new InputTable_Alternatives_4_1(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -4637,16 +4914,40 @@ protected class InputTable_SIZESTATEKeyword_4_0 extends KeywordToken  {
 
 }
 
-// sizeState=EString
-protected class InputTable_SizeStateAssignment_4_1 extends AssignmentToken  {
+// sizeState="MINIMIZED" | sizeState="INTERMEDIATE" | sizeState="MAXIMIZED"
+protected class InputTable_Alternatives_4_1 extends AlternativesToken {
+
+	public InputTable_Alternatives_4_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
 	
-	public InputTable_SizeStateAssignment_4_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	@Override
+	public Alternatives getGrammarElement() {
+		return grammarAccess.getInputTableAccess().getAlternatives_4_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new InputTable_SizeStateAssignment_4_1_0(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new InputTable_SizeStateAssignment_4_1_1(lastRuleCallOrigin, this, 1, inst);
+			case 2: return new InputTable_SizeStateAssignment_4_1_2(lastRuleCallOrigin, this, 2, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// sizeState="MINIMIZED"
+protected class InputTable_SizeStateAssignment_4_1_0 extends AssignmentToken  {
+	
+	public InputTable_SizeStateAssignment_4_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getInputTableAccess().getSizeStateAssignment_4_1();
+		return grammarAccess.getInputTableAccess().getSizeStateAssignment_4_1_0();
 	}
 
     @Override
@@ -4659,17 +4960,86 @@ protected class InputTable_SizeStateAssignment_4_1 extends AssignmentToken  {
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("sizeState",false)) == null) return null;
+		if((value = eObjectConsumer.getConsumable("sizeState",true)) == null) return null;
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("sizeState");
-		if(valueSerializer.isValid(obj.getEObject(), grammarAccess.getInputTableAccess().getSizeStateEStringParserRuleCall_4_1_0(), value, null)) {
-			type = AssignmentType.DATATYPE_RULE_CALL;
-			element = grammarAccess.getInputTableAccess().getSizeStateEStringParserRuleCall_4_1_0();
+		if(keywordSerializer.isValid(obj.getEObject(), grammarAccess.getInputTableAccess().getSizeStateMINIMIZEDKeyword_4_1_0_0(), value, null)) {
+			type = AssignmentType.KEYWORD;
+			element = grammarAccess.getInputTableAccess().getSizeStateMINIMIZEDKeyword_4_1_0_0();
 			return obj;
 		}
 		return null;
 	}
 
 }
+
+// sizeState="INTERMEDIATE"
+protected class InputTable_SizeStateAssignment_4_1_1 extends AssignmentToken  {
+	
+	public InputTable_SizeStateAssignment_4_1_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getInputTableAccess().getSizeStateAssignment_4_1_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new InputTable_SIZESTATEKeyword_4_0(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("sizeState",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("sizeState");
+		if(keywordSerializer.isValid(obj.getEObject(), grammarAccess.getInputTableAccess().getSizeStateINTERMEDIATEKeyword_4_1_1_0(), value, null)) {
+			type = AssignmentType.KEYWORD;
+			element = grammarAccess.getInputTableAccess().getSizeStateINTERMEDIATEKeyword_4_1_1_0();
+			return obj;
+		}
+		return null;
+	}
+
+}
+
+// sizeState="MAXIMIZED"
+protected class InputTable_SizeStateAssignment_4_1_2 extends AssignmentToken  {
+	
+	public InputTable_SizeStateAssignment_4_1_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getInputTableAccess().getSizeStateAssignment_4_1_2();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new InputTable_SIZESTATEKeyword_4_0(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("sizeState",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("sizeState");
+		if(keywordSerializer.isValid(obj.getEObject(), grammarAccess.getInputTableAccess().getSizeStateMAXIMIZEDKeyword_4_1_2_0(), value, null)) {
+			type = AssignmentType.KEYWORD;
+			element = grammarAccess.getInputTableAccess().getSizeStateMAXIMIZEDKeyword_4_1_2_0();
+			return obj;
+		}
+		return null;
+	}
+
+}
+
 
 
 // ("EXPRESSIONFILTER:" expressionFilter=EString)?
@@ -5148,13 +5518,13 @@ protected class InputTable_MapperTableEntriesAssignment_10 extends AssignmentTok
 /************ begin Rule VarTable ****************
  *
  * VarTable returns mapperFile::VarTable:
- * 	{mapperFile::VarTable} "NAME:" name=EString ("MINIMIZED:" minimized=EBoolean)? ("SIZESTATE:" sizeState=EString)?
- * 	mapperTableEntries+=MapperTableEntry*;
+ * 	{mapperFile::VarTable} "NAME:" name=EString ("MINIMIZED:" minimized=EBoolean)? ("SIZESTATE:" (sizeState="MINIMIZED" |
+ * 	sizeState="INTERMEDIATE" | sizeState="MAXIMIZED"))? mapperTableEntries+=MapperTableEntry*;
  *
  **/
 
-// {mapperFile::VarTable} "NAME:" name=EString ("MINIMIZED:" minimized=EBoolean)? ("SIZESTATE:" sizeState=EString)?
-// mapperTableEntries+=MapperTableEntry*
+// {mapperFile::VarTable} "NAME:" name=EString ("MINIMIZED:" minimized=EBoolean)? ("SIZESTATE:" (sizeState="MINIMIZED" |
+// sizeState="INTERMEDIATE" | sizeState="MAXIMIZED"))? mapperTableEntries+=MapperTableEntry*
 protected class VarTable_Group extends GroupToken {
 	
 	public VarTable_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -5347,7 +5717,7 @@ protected class VarTable_MinimizedAssignment_3_1 extends AssignmentToken  {
 }
 
 
-// ("SIZESTATE:" sizeState=EString)?
+// ("SIZESTATE:" (sizeState="MINIMIZED" | sizeState="INTERMEDIATE" | sizeState="MAXIMIZED"))?
 protected class VarTable_Group_4 extends GroupToken {
 	
 	public VarTable_Group_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -5362,7 +5732,7 @@ protected class VarTable_Group_4 extends GroupToken {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new VarTable_SizeStateAssignment_4_1(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new VarTable_Alternatives_4_1(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -5392,16 +5762,40 @@ protected class VarTable_SIZESTATEKeyword_4_0 extends KeywordToken  {
 
 }
 
-// sizeState=EString
-protected class VarTable_SizeStateAssignment_4_1 extends AssignmentToken  {
+// sizeState="MINIMIZED" | sizeState="INTERMEDIATE" | sizeState="MAXIMIZED"
+protected class VarTable_Alternatives_4_1 extends AlternativesToken {
+
+	public VarTable_Alternatives_4_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
 	
-	public VarTable_SizeStateAssignment_4_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	@Override
+	public Alternatives getGrammarElement() {
+		return grammarAccess.getVarTableAccess().getAlternatives_4_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new VarTable_SizeStateAssignment_4_1_0(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new VarTable_SizeStateAssignment_4_1_1(lastRuleCallOrigin, this, 1, inst);
+			case 2: return new VarTable_SizeStateAssignment_4_1_2(lastRuleCallOrigin, this, 2, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// sizeState="MINIMIZED"
+protected class VarTable_SizeStateAssignment_4_1_0 extends AssignmentToken  {
+	
+	public VarTable_SizeStateAssignment_4_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getVarTableAccess().getSizeStateAssignment_4_1();
+		return grammarAccess.getVarTableAccess().getSizeStateAssignment_4_1_0();
 	}
 
     @Override
@@ -5414,17 +5808,86 @@ protected class VarTable_SizeStateAssignment_4_1 extends AssignmentToken  {
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("sizeState",false)) == null) return null;
+		if((value = eObjectConsumer.getConsumable("sizeState",true)) == null) return null;
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("sizeState");
-		if(valueSerializer.isValid(obj.getEObject(), grammarAccess.getVarTableAccess().getSizeStateEStringParserRuleCall_4_1_0(), value, null)) {
-			type = AssignmentType.DATATYPE_RULE_CALL;
-			element = grammarAccess.getVarTableAccess().getSizeStateEStringParserRuleCall_4_1_0();
+		if(keywordSerializer.isValid(obj.getEObject(), grammarAccess.getVarTableAccess().getSizeStateMINIMIZEDKeyword_4_1_0_0(), value, null)) {
+			type = AssignmentType.KEYWORD;
+			element = grammarAccess.getVarTableAccess().getSizeStateMINIMIZEDKeyword_4_1_0_0();
 			return obj;
 		}
 		return null;
 	}
 
 }
+
+// sizeState="INTERMEDIATE"
+protected class VarTable_SizeStateAssignment_4_1_1 extends AssignmentToken  {
+	
+	public VarTable_SizeStateAssignment_4_1_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getVarTableAccess().getSizeStateAssignment_4_1_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new VarTable_SIZESTATEKeyword_4_0(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("sizeState",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("sizeState");
+		if(keywordSerializer.isValid(obj.getEObject(), grammarAccess.getVarTableAccess().getSizeStateINTERMEDIATEKeyword_4_1_1_0(), value, null)) {
+			type = AssignmentType.KEYWORD;
+			element = grammarAccess.getVarTableAccess().getSizeStateINTERMEDIATEKeyword_4_1_1_0();
+			return obj;
+		}
+		return null;
+	}
+
+}
+
+// sizeState="MAXIMIZED"
+protected class VarTable_SizeStateAssignment_4_1_2 extends AssignmentToken  {
+	
+	public VarTable_SizeStateAssignment_4_1_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getVarTableAccess().getSizeStateAssignment_4_1_2();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new VarTable_SIZESTATEKeyword_4_0(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("sizeState",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("sizeState");
+		if(keywordSerializer.isValid(obj.getEObject(), grammarAccess.getVarTableAccess().getSizeStateMAXIMIZEDKeyword_4_1_2_0(), value, null)) {
+			type = AssignmentType.KEYWORD;
+			element = grammarAccess.getVarTableAccess().getSizeStateMAXIMIZEDKeyword_4_1_2_0();
+			return obj;
+		}
+		return null;
+	}
+
+}
+
 
 
 // mapperTableEntries+=MapperTableEntry*
@@ -5483,19 +5946,21 @@ protected class VarTable_MapperTableEntriesAssignment_5 extends AssignmentToken 
 /************ begin Rule OutputTable ****************
  *
  * OutputTable returns mapperFile::OutputTable:
- * 	{mapperFile::OutputTable} "NAME:" name=EString ("MINIMIZED:" minimized=EBoolean)? ("SIZESTATE:" sizeState=EString)?
- * 	("EXPRESSIONFILTER:" expressionFilter=EString)? ("ACTIVATEEXPRESSIONFILTER:" activateExpressionFilter=EBoolean)?
- * 	("ACTIVATECONDENSEDTOOL:" activateCondensedTool=EBoolean)? ("REJECT:" reject=EBoolean)? ("REJECTINNERJOIN:"
- * 	rejectInnerJoin=EBoolean)? ("ISERRORREJECTTABLE:" isErrorRejectTable=EBoolean)? ("ISJOINTABLEOF:"
- * 	isJoinTableOf=EString)? mapperTableEntries+=MapperTableEntry*;
+ * 	{mapperFile::OutputTable} "NAME:" name=EString ("MINIMIZED:" minimized=EBoolean)? ("SIZESTATE:" (sizeState="MINIMIZED"
+ * 	| sizeState="INTERMEDIATE" | sizeState="MAXIMIZED"))? ("EXPRESSIONFILTER:" expressionFilter=EString)?
+ * 	("ACTIVATEEXPRESSIONFILTER:" activateExpressionFilter=EBoolean)? ("ACTIVATECONDENSEDTOOL:"
+ * 	activateCondensedTool=EBoolean)? ("REJECT:" reject=EBoolean)? ("REJECTINNERJOIN:" rejectInnerJoin=EBoolean)?
+ * 	("ISERRORREJECTTABLE:" isErrorRejectTable=EBoolean)? ("ISJOINTABLEOF:" isJoinTableOf=EString)?
+ * 	mapperTableEntries+=MapperTableEntry*;
  *
  **/
 
-// {mapperFile::OutputTable} "NAME:" name=EString ("MINIMIZED:" minimized=EBoolean)? ("SIZESTATE:" sizeState=EString)?
-// ("EXPRESSIONFILTER:" expressionFilter=EString)? ("ACTIVATEEXPRESSIONFILTER:" activateExpressionFilter=EBoolean)?
-// ("ACTIVATECONDENSEDTOOL:" activateCondensedTool=EBoolean)? ("REJECT:" reject=EBoolean)? ("REJECTINNERJOIN:"
-// rejectInnerJoin=EBoolean)? ("ISERRORREJECTTABLE:" isErrorRejectTable=EBoolean)? ("ISJOINTABLEOF:"
-// isJoinTableOf=EString)? mapperTableEntries+=MapperTableEntry*
+// {mapperFile::OutputTable} "NAME:" name=EString ("MINIMIZED:" minimized=EBoolean)? ("SIZESTATE:" (sizeState="MINIMIZED" |
+// sizeState="INTERMEDIATE" | sizeState="MAXIMIZED"))? ("EXPRESSIONFILTER:" expressionFilter=EString)?
+// ("ACTIVATEEXPRESSIONFILTER:" activateExpressionFilter=EBoolean)? ("ACTIVATECONDENSEDTOOL:"
+// activateCondensedTool=EBoolean)? ("REJECT:" reject=EBoolean)? ("REJECTINNERJOIN:" rejectInnerJoin=EBoolean)?
+// ("ISERRORREJECTTABLE:" isErrorRejectTable=EBoolean)? ("ISJOINTABLEOF:" isJoinTableOf=EString)?
+// mapperTableEntries+=MapperTableEntry*
 protected class OutputTable_Group extends GroupToken {
 	
 	public OutputTable_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -5695,7 +6160,7 @@ protected class OutputTable_MinimizedAssignment_3_1 extends AssignmentToken  {
 }
 
 
-// ("SIZESTATE:" sizeState=EString)?
+// ("SIZESTATE:" (sizeState="MINIMIZED" | sizeState="INTERMEDIATE" | sizeState="MAXIMIZED"))?
 protected class OutputTable_Group_4 extends GroupToken {
 	
 	public OutputTable_Group_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -5710,7 +6175,7 @@ protected class OutputTable_Group_4 extends GroupToken {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new OutputTable_SizeStateAssignment_4_1(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new OutputTable_Alternatives_4_1(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -5740,16 +6205,40 @@ protected class OutputTable_SIZESTATEKeyword_4_0 extends KeywordToken  {
 
 }
 
-// sizeState=EString
-protected class OutputTable_SizeStateAssignment_4_1 extends AssignmentToken  {
+// sizeState="MINIMIZED" | sizeState="INTERMEDIATE" | sizeState="MAXIMIZED"
+protected class OutputTable_Alternatives_4_1 extends AlternativesToken {
+
+	public OutputTable_Alternatives_4_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
 	
-	public OutputTable_SizeStateAssignment_4_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	@Override
+	public Alternatives getGrammarElement() {
+		return grammarAccess.getOutputTableAccess().getAlternatives_4_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new OutputTable_SizeStateAssignment_4_1_0(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new OutputTable_SizeStateAssignment_4_1_1(lastRuleCallOrigin, this, 1, inst);
+			case 2: return new OutputTable_SizeStateAssignment_4_1_2(lastRuleCallOrigin, this, 2, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// sizeState="MINIMIZED"
+protected class OutputTable_SizeStateAssignment_4_1_0 extends AssignmentToken  {
+	
+	public OutputTable_SizeStateAssignment_4_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getOutputTableAccess().getSizeStateAssignment_4_1();
+		return grammarAccess.getOutputTableAccess().getSizeStateAssignment_4_1_0();
 	}
 
     @Override
@@ -5762,17 +6251,86 @@ protected class OutputTable_SizeStateAssignment_4_1 extends AssignmentToken  {
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("sizeState",false)) == null) return null;
+		if((value = eObjectConsumer.getConsumable("sizeState",true)) == null) return null;
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("sizeState");
-		if(valueSerializer.isValid(obj.getEObject(), grammarAccess.getOutputTableAccess().getSizeStateEStringParserRuleCall_4_1_0(), value, null)) {
-			type = AssignmentType.DATATYPE_RULE_CALL;
-			element = grammarAccess.getOutputTableAccess().getSizeStateEStringParserRuleCall_4_1_0();
+		if(keywordSerializer.isValid(obj.getEObject(), grammarAccess.getOutputTableAccess().getSizeStateMINIMIZEDKeyword_4_1_0_0(), value, null)) {
+			type = AssignmentType.KEYWORD;
+			element = grammarAccess.getOutputTableAccess().getSizeStateMINIMIZEDKeyword_4_1_0_0();
 			return obj;
 		}
 		return null;
 	}
 
 }
+
+// sizeState="INTERMEDIATE"
+protected class OutputTable_SizeStateAssignment_4_1_1 extends AssignmentToken  {
+	
+	public OutputTable_SizeStateAssignment_4_1_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getOutputTableAccess().getSizeStateAssignment_4_1_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new OutputTable_SIZESTATEKeyword_4_0(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("sizeState",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("sizeState");
+		if(keywordSerializer.isValid(obj.getEObject(), grammarAccess.getOutputTableAccess().getSizeStateINTERMEDIATEKeyword_4_1_1_0(), value, null)) {
+			type = AssignmentType.KEYWORD;
+			element = grammarAccess.getOutputTableAccess().getSizeStateINTERMEDIATEKeyword_4_1_1_0();
+			return obj;
+		}
+		return null;
+	}
+
+}
+
+// sizeState="MAXIMIZED"
+protected class OutputTable_SizeStateAssignment_4_1_2 extends AssignmentToken  {
+	
+	public OutputTable_SizeStateAssignment_4_1_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getOutputTableAccess().getSizeStateAssignment_4_1_2();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new OutputTable_SIZESTATEKeyword_4_0(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("sizeState",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("sizeState");
+		if(keywordSerializer.isValid(obj.getEObject(), grammarAccess.getOutputTableAccess().getSizeStateMAXIMIZEDKeyword_4_1_2_0(), value, null)) {
+			type = AssignmentType.KEYWORD;
+			element = grammarAccess.getOutputTableAccess().getSizeStateMAXIMIZEDKeyword_4_1_2_0();
+			return obj;
+		}
+		return null;
+	}
+
+}
+
 
 
 // ("EXPRESSIONFILTER:" expressionFilter=EString)?

@@ -38,6 +38,10 @@ public class JobParser extends AbstractContentAssistParser {
 				private static final long serialVersionUID = 1L;
 				{
 					put(grammarAccess.getExternalDataAccess().getAlternatives(), "rule__ExternalData__Alternatives");
+					put(grammarAccess.getDBInputTableAccess().getAlternatives_6_1(), "rule__DBInputTable__Alternatives_6_1");
+					put(grammarAccess.getInputTableAccess().getAlternatives_4_1(), "rule__InputTable__Alternatives_4_1");
+					put(grammarAccess.getVarTableAccess().getAlternatives_4_1(), "rule__VarTable__Alternatives_4_1");
+					put(grammarAccess.getOutputTableAccess().getAlternatives_4_1(), "rule__OutputTable__Alternatives_4_1");
 					put(grammarAccess.getNodeTypeAccess().getElementParameterAlternatives_11_0(), "rule__NodeType__ElementParameterAlternatives_11_0");
 					put(grammarAccess.getNodeTypeAccess().getElementParameterAlternatives_12_1_0(), "rule__NodeType__ElementParameterAlternatives_12_1_0");
 					put(grammarAccess.getEStringAccess().getAlternatives(), "rule__EString__Alternatives");
@@ -176,7 +180,14 @@ public class JobParser extends AbstractContentAssistParser {
 					put(grammarAccess.getDBInputTableAccess().getMinimizedAssignment_3_1(), "rule__DBInputTable__MinimizedAssignment_3_1");
 					put(grammarAccess.getDBInputTableAccess().getReadonlyAssignment_4_1(), "rule__DBInputTable__ReadonlyAssignment_4_1");
 					put(grammarAccess.getDBInputTableAccess().getTableNameAssignment_5_1(), "rule__DBInputTable__TableNameAssignment_5_1");
-					put(grammarAccess.getDBInputTableAccess().getJoinTypeAssignment_6_1(), "rule__DBInputTable__JoinTypeAssignment_6_1");
+					put(grammarAccess.getDBInputTableAccess().getJoinTypeAssignment_6_1_0(), "rule__DBInputTable__JoinTypeAssignment_6_1_0");
+					put(grammarAccess.getDBInputTableAccess().getJoinTypeAssignment_6_1_1(), "rule__DBInputTable__JoinTypeAssignment_6_1_1");
+					put(grammarAccess.getDBInputTableAccess().getJoinTypeAssignment_6_1_2(), "rule__DBInputTable__JoinTypeAssignment_6_1_2");
+					put(grammarAccess.getDBInputTableAccess().getJoinTypeAssignment_6_1_3(), "rule__DBInputTable__JoinTypeAssignment_6_1_3");
+					put(grammarAccess.getDBInputTableAccess().getJoinTypeAssignment_6_1_4(), "rule__DBInputTable__JoinTypeAssignment_6_1_4");
+					put(grammarAccess.getDBInputTableAccess().getJoinTypeAssignment_6_1_5(), "rule__DBInputTable__JoinTypeAssignment_6_1_5");
+					put(grammarAccess.getDBInputTableAccess().getJoinTypeAssignment_6_1_6(), "rule__DBInputTable__JoinTypeAssignment_6_1_6");
+					put(grammarAccess.getDBInputTableAccess().getJoinTypeAssignment_6_1_7(), "rule__DBInputTable__JoinTypeAssignment_6_1_7");
 					put(grammarAccess.getDBInputTableAccess().getAliasAssignment_7_1(), "rule__DBInputTable__AliasAssignment_7_1");
 					put(grammarAccess.getDBInputTableAccess().getDBMapperTableEntriesAssignment_8(), "rule__DBInputTable__DBMapperTableEntriesAssignment_8");
 					put(grammarAccess.getDBVarTableAccess().getNameAssignment_2(), "rule__DBVarTable__NameAssignment_2");
@@ -203,7 +214,9 @@ public class JobParser extends AbstractContentAssistParser {
 					put(grammarAccess.getUiPropertiesAccess().getShellMaximizedAssignment_2(), "rule__UiProperties__ShellMaximizedAssignment_2");
 					put(grammarAccess.getInputTableAccess().getNameAssignment_2(), "rule__InputTable__NameAssignment_2");
 					put(grammarAccess.getInputTableAccess().getMinimizedAssignment_3_1(), "rule__InputTable__MinimizedAssignment_3_1");
-					put(grammarAccess.getInputTableAccess().getSizeStateAssignment_4_1(), "rule__InputTable__SizeStateAssignment_4_1");
+					put(grammarAccess.getInputTableAccess().getSizeStateAssignment_4_1_0(), "rule__InputTable__SizeStateAssignment_4_1_0");
+					put(grammarAccess.getInputTableAccess().getSizeStateAssignment_4_1_1(), "rule__InputTable__SizeStateAssignment_4_1_1");
+					put(grammarAccess.getInputTableAccess().getSizeStateAssignment_4_1_2(), "rule__InputTable__SizeStateAssignment_4_1_2");
 					put(grammarAccess.getInputTableAccess().getExpressionFilterAssignment_5_1(), "rule__InputTable__ExpressionFilterAssignment_5_1");
 					put(grammarAccess.getInputTableAccess().getActivateExpressionFilterAssignment_6_1(), "rule__InputTable__ActivateExpressionFilterAssignment_6_1");
 					put(grammarAccess.getInputTableAccess().getActivateCondensedToolAssignment_7_1(), "rule__InputTable__ActivateCondensedToolAssignment_7_1");
@@ -212,11 +225,15 @@ public class JobParser extends AbstractContentAssistParser {
 					put(grammarAccess.getInputTableAccess().getMapperTableEntriesAssignment_10(), "rule__InputTable__MapperTableEntriesAssignment_10");
 					put(grammarAccess.getVarTableAccess().getNameAssignment_2(), "rule__VarTable__NameAssignment_2");
 					put(grammarAccess.getVarTableAccess().getMinimizedAssignment_3_1(), "rule__VarTable__MinimizedAssignment_3_1");
-					put(grammarAccess.getVarTableAccess().getSizeStateAssignment_4_1(), "rule__VarTable__SizeStateAssignment_4_1");
+					put(grammarAccess.getVarTableAccess().getSizeStateAssignment_4_1_0(), "rule__VarTable__SizeStateAssignment_4_1_0");
+					put(grammarAccess.getVarTableAccess().getSizeStateAssignment_4_1_1(), "rule__VarTable__SizeStateAssignment_4_1_1");
+					put(grammarAccess.getVarTableAccess().getSizeStateAssignment_4_1_2(), "rule__VarTable__SizeStateAssignment_4_1_2");
 					put(grammarAccess.getVarTableAccess().getMapperTableEntriesAssignment_5(), "rule__VarTable__MapperTableEntriesAssignment_5");
 					put(grammarAccess.getOutputTableAccess().getNameAssignment_2(), "rule__OutputTable__NameAssignment_2");
 					put(grammarAccess.getOutputTableAccess().getMinimizedAssignment_3_1(), "rule__OutputTable__MinimizedAssignment_3_1");
-					put(grammarAccess.getOutputTableAccess().getSizeStateAssignment_4_1(), "rule__OutputTable__SizeStateAssignment_4_1");
+					put(grammarAccess.getOutputTableAccess().getSizeStateAssignment_4_1_0(), "rule__OutputTable__SizeStateAssignment_4_1_0");
+					put(grammarAccess.getOutputTableAccess().getSizeStateAssignment_4_1_1(), "rule__OutputTable__SizeStateAssignment_4_1_1");
+					put(grammarAccess.getOutputTableAccess().getSizeStateAssignment_4_1_2(), "rule__OutputTable__SizeStateAssignment_4_1_2");
 					put(grammarAccess.getOutputTableAccess().getExpressionFilterAssignment_5_1(), "rule__OutputTable__ExpressionFilterAssignment_5_1");
 					put(grammarAccess.getOutputTableAccess().getActivateExpressionFilterAssignment_6_1(), "rule__OutputTable__ActivateExpressionFilterAssignment_6_1");
 					put(grammarAccess.getOutputTableAccess().getActivateCondensedToolAssignment_7_1(), "rule__OutputTable__ActivateCondensedToolAssignment_7_1");

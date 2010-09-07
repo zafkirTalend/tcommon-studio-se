@@ -20,84 +20,95 @@ T20 : 'MINIMIZED:' ;
 T21 : 'READONLY:' ;
 T22 : 'TABLENAME:' ;
 T23 : 'JOINTYPE:' ;
-T24 : 'ALIAS:' ;
-T25 : 'addColumn' ;
-T26 : 'TYPE:' ;
-T27 : 'NULLABLE:' ;
-T28 : 'EXPRESSION:' ;
-T29 : 'JOIN:' ;
-T30 : 'OPERATOR:' ;
-T31 : 'addFilter' ;
-T32 : 'addMapperData' ;
-T33 : 'addUiProperties' ;
-T34 : 'SHELLMAXIMIZED:' ;
-T35 : 'SIZESTATE:' ;
-T36 : 'EXPRESSIONFILTER:' ;
-T37 : 'ACTIVATEEXPRESSIONFILTER:' ;
-T38 : 'ACTIVATECONDENSEDTOOL:' ;
-T39 : 'MATCHINGMODE:' ;
-T40 : 'LOOKUPMODE:' ;
-T41 : 'REJECT:' ;
-T42 : 'REJECTINNERJOIN:' ;
-T43 : 'ISERRORREJECTTABLE:' ;
-T44 : 'ISJOINTABLEOF:' ;
-T45 : 'addComponent' ;
-T46 : 'setComponentDefinition' ;
-T47 : 'POSITION:' ;
-T48 : 'setSettings' ;
-T49 : 'ContextType' ;
-T50 : 'CONFIRMATIONNEED:' ;
-T51 : 'addContextParameter' ;
-T52 : 'VALUE:' ;
-T53 : 'COMMENT:' ;
-T54 : 'PROMPT:' ;
-T55 : 'PROMPTNEEDED:' ;
-T56 : 'REPOSITORYCONTEXTID:' ;
-T57 : 'addConnection' ;
-T58 : 'LINESTYLE:' ;
-T59 : 'MERGEORDER:' ;
-T60 : 'METANAME:' ;
-T61 : 'OUTPUTID:' ;
-T62 : 'SOURCE:' ;
-T63 : 'TARGET:' ;
-T64 : 'addNote' ;
-T65 : 'opaque' ;
-T66 : 'POSITION' ;
-T67 : '"' ;
-T68 : 'text' ;
-T69 : ':' ;
-T70 : 'addSchema' ;
-T71 : 'LABEL:' ;
-T72 : 'KEY:' ;
-T73 : 'DEFAULTVALUE:' ;
-T74 : 'LENGTH:' ;
-T75 : 'ORIGINALDBCOLUMNNAME' ;
-T76 : 'PATTREN:' ;
-T77 : 'PRECISION:' ;
-T78 : 'SOURCETYPE:' ;
-T79 : '-' ;
-T80 : 'true' ;
-T81 : 'false' ;
+T24 : 'NO_JOIN' ;
+T25 : 'INNER_JOIN' ;
+T26 : 'LEFT_OUTER_JOIN' ;
+T27 : 'RIGHT_OUTER_JOIN' ;
+T28 : 'FULL_OUTER_JOIN' ;
+T29 : 'CROSS_JOIN' ;
+T30 : 'LEFT_OUTER_JOIN_ORACLE' ;
+T31 : 'RIGHT_OUTER_JOIN_ORACLE' ;
+T32 : 'ALIAS:' ;
+T33 : 'addColumn' ;
+T34 : 'TYPE:' ;
+T35 : 'NULLABLE:' ;
+T36 : 'EXPRESSION:' ;
+T37 : 'JOIN:' ;
+T38 : 'OPERATOR:' ;
+T39 : 'addFilter' ;
+T40 : 'addMapperData' ;
+T41 : 'addUiProperties' ;
+T42 : 'SHELLMAXIMIZED:' ;
+T43 : 'SIZESTATE:' ;
+T44 : 'MINIMIZED' ;
+T45 : 'INTERMEDIATE' ;
+T46 : 'MAXIMIZED' ;
+T47 : 'EXPRESSIONFILTER:' ;
+T48 : 'ACTIVATEEXPRESSIONFILTER:' ;
+T49 : 'ACTIVATECONDENSEDTOOL:' ;
+T50 : 'MATCHINGMODE:' ;
+T51 : 'LOOKUPMODE:' ;
+T52 : 'REJECT:' ;
+T53 : 'REJECTINNERJOIN:' ;
+T54 : 'ISERRORREJECTTABLE:' ;
+T55 : 'ISJOINTABLEOF:' ;
+T56 : 'addComponent' ;
+T57 : 'setComponentDefinition' ;
+T58 : 'POSITION:' ;
+T59 : 'setSettings' ;
+T60 : 'ContextType' ;
+T61 : 'CONFIRMATIONNEED:' ;
+T62 : 'addContextParameter' ;
+T63 : 'VALUE:' ;
+T64 : 'COMMENT:' ;
+T65 : 'PROMPT:' ;
+T66 : 'PROMPTNEEDED:' ;
+T67 : 'REPOSITORYCONTEXTID:' ;
+T68 : 'addConnection' ;
+T69 : 'LINESTYLE:' ;
+T70 : 'MERGEORDER:' ;
+T71 : 'METANAME:' ;
+T72 : 'OUTPUTID:' ;
+T73 : 'SOURCE:' ;
+T74 : 'TARGET:' ;
+T75 : 'addNote' ;
+T76 : 'opaque' ;
+T77 : 'POSITION' ;
+T78 : '"' ;
+T79 : 'text' ;
+T80 : ':' ;
+T81 : 'addSchema' ;
+T82 : 'LABEL:' ;
+T83 : 'KEY:' ;
+T84 : 'DEFAULTVALUE:' ;
+T85 : 'LENGTH:' ;
+T86 : 'ORIGINALDBCOLUMNNAME' ;
+T87 : 'PATTREN:' ;
+T88 : 'PRECISION:' ;
+T89 : 'SOURCETYPE:' ;
+T90 : '-' ;
+T91 : 'true' ;
+T92 : 'false' ;
 
-// $ANTLR src "../org.talend.metalanguage.job/src-gen/org/talend/metalanguage/job/parser/antlr/internal/InternalJob.g" 4931
+// $ANTLR src "../org.talend.metalanguage.job/src-gen/org/talend/metalanguage/job/parser/antlr/internal/InternalJob.g" 5205
 RULE_ID : '^'? ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*;
 
-// $ANTLR src "../org.talend.metalanguage.job/src-gen/org/talend/metalanguage/job/parser/antlr/internal/InternalJob.g" 4933
+// $ANTLR src "../org.talend.metalanguage.job/src-gen/org/talend/metalanguage/job/parser/antlr/internal/InternalJob.g" 5207
 RULE_INT : ('0'..'9')+;
 
-// $ANTLR src "../org.talend.metalanguage.job/src-gen/org/talend/metalanguage/job/parser/antlr/internal/InternalJob.g" 4935
+// $ANTLR src "../org.talend.metalanguage.job/src-gen/org/talend/metalanguage/job/parser/antlr/internal/InternalJob.g" 5209
 RULE_STRING : ('"' ('\\' ('b'|'t'|'n'|'f'|'r'|'"'|'\''|'\\')|~(('\\'|'"')))* '"'|'\'' ('\\' ('b'|'t'|'n'|'f'|'r'|'"'|'\''|'\\')|~(('\\'|'\'')))* '\'');
 
-// $ANTLR src "../org.talend.metalanguage.job/src-gen/org/talend/metalanguage/job/parser/antlr/internal/InternalJob.g" 4937
+// $ANTLR src "../org.talend.metalanguage.job/src-gen/org/talend/metalanguage/job/parser/antlr/internal/InternalJob.g" 5211
 RULE_ML_COMMENT : '/*' ( options {greedy=false;} : . )*'*/';
 
-// $ANTLR src "../org.talend.metalanguage.job/src-gen/org/talend/metalanguage/job/parser/antlr/internal/InternalJob.g" 4939
+// $ANTLR src "../org.talend.metalanguage.job/src-gen/org/talend/metalanguage/job/parser/antlr/internal/InternalJob.g" 5213
 RULE_SL_COMMENT : '//' ~(('\n'|'\r'))* ('\r'? '\n')?;
 
-// $ANTLR src "../org.talend.metalanguage.job/src-gen/org/talend/metalanguage/job/parser/antlr/internal/InternalJob.g" 4941
+// $ANTLR src "../org.talend.metalanguage.job/src-gen/org/talend/metalanguage/job/parser/antlr/internal/InternalJob.g" 5215
 RULE_WS : (' '|'\t'|'\r'|'\n')+;
 
-// $ANTLR src "../org.talend.metalanguage.job/src-gen/org/talend/metalanguage/job/parser/antlr/internal/InternalJob.g" 4943
+// $ANTLR src "../org.talend.metalanguage.job/src-gen/org/talend/metalanguage/job/parser/antlr/internal/InternalJob.g" 5217
 RULE_ANY_OTHER : .;
 
 

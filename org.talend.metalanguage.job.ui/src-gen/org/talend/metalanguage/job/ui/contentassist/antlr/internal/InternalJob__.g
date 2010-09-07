@@ -78,26 +78,37 @@ T78 : 'PATTREN:' ;
 T79 : 'PRECISION:' ;
 T80 : 'SOURCETYPE:' ;
 T81 : '-' ;
+T82 : 'NO_JOIN' ;
+T83 : 'INNER_JOIN' ;
+T84 : 'LEFT_OUTER_JOIN' ;
+T85 : 'RIGHT_OUTER_JOIN' ;
+T86 : 'FULL_OUTER_JOIN' ;
+T87 : 'CROSS_JOIN' ;
+T88 : 'LEFT_OUTER_JOIN_ORACLE' ;
+T89 : 'RIGHT_OUTER_JOIN_ORACLE' ;
+T90 : 'MINIMIZED' ;
+T91 : 'INTERMEDIATE' ;
+T92 : 'MAXIMIZED' ;
 
-// $ANTLR src "../org.talend.metalanguage.job.ui/src-gen/org/talend/metalanguage/job/ui/contentassist/antlr/internal/InternalJob.g" 16840
+// $ANTLR src "../org.talend.metalanguage.job.ui/src-gen/org/talend/metalanguage/job/ui/contentassist/antlr/internal/InternalJob.g" 17313
 RULE_ID : '^'? ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*;
 
-// $ANTLR src "../org.talend.metalanguage.job.ui/src-gen/org/talend/metalanguage/job/ui/contentassist/antlr/internal/InternalJob.g" 16842
+// $ANTLR src "../org.talend.metalanguage.job.ui/src-gen/org/talend/metalanguage/job/ui/contentassist/antlr/internal/InternalJob.g" 17315
 RULE_INT : ('0'..'9')+;
 
-// $ANTLR src "../org.talend.metalanguage.job.ui/src-gen/org/talend/metalanguage/job/ui/contentassist/antlr/internal/InternalJob.g" 16844
+// $ANTLR src "../org.talend.metalanguage.job.ui/src-gen/org/talend/metalanguage/job/ui/contentassist/antlr/internal/InternalJob.g" 17317
 RULE_STRING : ('"' ('\\' ('b'|'t'|'n'|'f'|'r'|'"'|'\''|'\\')|~(('\\'|'"')))* '"'|'\'' ('\\' ('b'|'t'|'n'|'f'|'r'|'"'|'\''|'\\')|~(('\\'|'\'')))* '\'');
 
-// $ANTLR src "../org.talend.metalanguage.job.ui/src-gen/org/talend/metalanguage/job/ui/contentassist/antlr/internal/InternalJob.g" 16846
+// $ANTLR src "../org.talend.metalanguage.job.ui/src-gen/org/talend/metalanguage/job/ui/contentassist/antlr/internal/InternalJob.g" 17319
 RULE_ML_COMMENT : '/*' ( options {greedy=false;} : . )*'*/';
 
-// $ANTLR src "../org.talend.metalanguage.job.ui/src-gen/org/talend/metalanguage/job/ui/contentassist/antlr/internal/InternalJob.g" 16848
+// $ANTLR src "../org.talend.metalanguage.job.ui/src-gen/org/talend/metalanguage/job/ui/contentassist/antlr/internal/InternalJob.g" 17321
 RULE_SL_COMMENT : '//' ~(('\n'|'\r'))* ('\r'? '\n')?;
 
-// $ANTLR src "../org.talend.metalanguage.job.ui/src-gen/org/talend/metalanguage/job/ui/contentassist/antlr/internal/InternalJob.g" 16850
+// $ANTLR src "../org.talend.metalanguage.job.ui/src-gen/org/talend/metalanguage/job/ui/contentassist/antlr/internal/InternalJob.g" 17323
 RULE_WS : (' '|'\t'|'\r'|'\n')+;
 
-// $ANTLR src "../org.talend.metalanguage.job.ui/src-gen/org/talend/metalanguage/job/ui/contentassist/antlr/internal/InternalJob.g" 16852
+// $ANTLR src "../org.talend.metalanguage.job.ui/src-gen/org/talend/metalanguage/job/ui/contentassist/antlr/internal/InternalJob.g" 17325
 RULE_ANY_OTHER : .;
 
 

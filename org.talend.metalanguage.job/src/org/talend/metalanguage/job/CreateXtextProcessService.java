@@ -362,7 +362,7 @@ public class CreateXtextProcessService implements ICreateXtextProcessService {
             ExceptionHandler.process(e);
         }
         externalNode.setMetadataList(source.getMetadataList());
-        ExternalNodeChangeCommand cmd = new ExternalNodeChangeCommand(source, externalNode);
+        ExternalNodeChangeCommand cmd = new ExternalNodeChangeCommand(source, externalNode, true);
         CommandStack cmdStack = process.getCommandStack();
         cmdStack.execute(cmd);
         return writer.toString();
@@ -390,8 +390,8 @@ public class CreateXtextProcessService implements ICreateXtextProcessService {
                     externalInputMapperTable.setSizeState(inputTable.getSizeState());
                     List<ExternalMapperTableEntry> entryList = new ArrayList<ExternalMapperTableEntry>();
                     for (MapperTableEntry mapperTableEntry : inputTable.getMapperTableEntries()) {
-                        ExternalMapperTableEntry entry = new ExternalMapperTableEntry(mapperTableEntry.getName(),
-                                TalendTextUtils.removeQuotes(mapperTableEntry.getExpression()));
+                        ExternalMapperTableEntry entry = new ExternalMapperTableEntry(mapperTableEntry.getName(), TalendTextUtils
+                                .removeQuotes(mapperTableEntry.getExpression()));
                         entry.setType(mapperTableEntry.getType());
                         entry.setNullable(mapperTableEntry.isNullable());
                         entryList.add(entry);
@@ -428,8 +428,8 @@ public class CreateXtextProcessService implements ICreateXtextProcessService {
 
                     List<ExternalMapperTableEntry> entryList = new ArrayList<ExternalMapperTableEntry>();
                     for (MapperTableEntry mapperTableEntry : outputTable.getMapperTableEntries()) {
-                        ExternalMapperTableEntry entry = new ExternalMapperTableEntry(mapperTableEntry.getName(),
-                                TalendTextUtils.removeQuotes(mapperTableEntry.getExpression()));
+                        ExternalMapperTableEntry entry = new ExternalMapperTableEntry(mapperTableEntry.getName(), TalendTextUtils
+                                .removeQuotes(mapperTableEntry.getExpression()));
                         entry.setType(mapperTableEntry.getType());
                         entry.setNullable(mapperTableEntry.isNullable());
                         entryList.add(entry);
@@ -476,8 +476,8 @@ public class CreateXtextProcessService implements ICreateXtextProcessService {
             externalVarMapperTable.setSizeState(mapperData.getVarTables().get(0).getSizeState());
             List<ExternalMapperTableEntry> entryList = new ArrayList<ExternalMapperTableEntry>();
             for (MapperTableEntry mapperTableEntry : mapperData.getVarTables().get(0).getMapperTableEntries()) {
-                ExternalMapperTableEntry entry = new ExternalMapperTableEntry(mapperTableEntry.getName(),
-                        TalendTextUtils.removeQuotes(mapperTableEntry.getExpression()));
+                ExternalMapperTableEntry entry = new ExternalMapperTableEntry(mapperTableEntry.getName(), TalendTextUtils
+                        .removeQuotes(mapperTableEntry.getExpression()));
                 entry.setType(mapperTableEntry.getType());
                 entry.setNullable(mapperTableEntry.isNullable());
                 entryList.add(entry);
@@ -504,7 +504,7 @@ public class CreateXtextProcessService implements ICreateXtextProcessService {
 
         externalNode.setMetadataList(source.getMetadataList());
 
-        ExternalNodeChangeCommand cmd = new ExternalNodeChangeCommand(source, externalNode);
+        ExternalNodeChangeCommand cmd = new ExternalNodeChangeCommand(source, externalNode, true);
         CommandStack cmdStack = process.getCommandStack();
         cmdStack.execute(cmd);
         return writer.toString();

@@ -43,7 +43,7 @@ DBInputTable returns dbmapFile::InputTable:
 	('MINIMIZED:' minimized=EBoolean)?
 	('READONLY:' readonly=EBoolean)?
 	('TABLENAME:' tableName=EString)?
-	('JOINTYPE:' joinType=EString)?
+	('JOINTYPE:' ((joinType='NO_JOIN') |(joinType='INNER_JOIN') | (joinType='LEFT_OUTER_JOIN')|(joinType='RIGHT_OUTER_JOIN') | (joinType='FULL_OUTER_JOIN')| (joinType='CROSS_JOIN')|(joinType='LEFT_OUTER_JOIN_ORACLE') | (joinType='RIGHT_OUTER_JOIN_ORACLE')))?
 	('ALIAS:' alias=EString)?
 	(DBMapperTableEntries+=DBMapperTableEntry)*
 ;
@@ -107,7 +107,7 @@ InputTable returns mapperFile::InputTable:
 	{mapperFile::InputTable}
 	'NAME:' name=EString
 	('MINIMIZED:' minimized=EBoolean)?
-	('SIZESTATE:' sizeState=EString)?
+	('SIZESTATE:' ((sizeState='MINIMIZED') |(sizeState='INTERMEDIATE') | (sizeState='MAXIMIZED')))?
 	('EXPRESSIONFILTER:' expressionFilter=EString)?
 	('ACTIVATEEXPRESSIONFILTER:' activateExpressionFilter=EBoolean)?
 	('ACTIVATECONDENSEDTOOL:' activateCondensedTool=EBoolean)?
@@ -120,7 +120,7 @@ VarTable returns mapperFile::VarTable:
 	{mapperFile::VarTable}
 	'NAME:' name=EString
 	('MINIMIZED:' minimized=EBoolean)?
-	('SIZESTATE:' sizeState=EString)?
+	('SIZESTATE:' ((sizeState='MINIMIZED') |(sizeState='INTERMEDIATE') | (sizeState='MAXIMIZED')))?
 	(mapperTableEntries+=MapperTableEntry)*
 ;
 
@@ -129,7 +129,7 @@ OutputTable returns mapperFile::OutputTable:
 	{mapperFile::OutputTable}
 	'NAME:' name=EString
 	('MINIMIZED:' minimized=EBoolean)?
-	('SIZESTATE:' sizeState=EString)?
+	('SIZESTATE:' ((sizeState='MINIMIZED') |(sizeState='INTERMEDIATE') | (sizeState='MAXIMIZED')))?
 	('EXPRESSIONFILTER:' expressionFilter=EString)?
 	('ACTIVATEEXPRESSIONFILTER:' activateExpressionFilter=EBoolean)?
 	('ACTIVATECONDENSEDTOOL:' activateCondensedTool=EBoolean)?

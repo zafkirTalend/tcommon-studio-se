@@ -2,14 +2,6 @@
 <?eclipse version="3.0"?>
 
 <plugin>
-
-  <extension point="org.eclipse.emf.ecore.generated_package">
-    <package 
-       uri = "http://www.talend.org/metalanguage/job/Job" 
-       class = "org.talend.metalanguage.job.job.JobPackage"
-       genModel = "org/talend/metalanguage/job/Job.genmodel" /> 
-	
-  </extension>
   <extension
          point="org.talend.core.runtime.service">
       <Service
