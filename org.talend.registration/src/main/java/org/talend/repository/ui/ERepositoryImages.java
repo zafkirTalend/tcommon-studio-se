@@ -23,8 +23,7 @@ import org.talend.repository.RegistrationPlugin;
  */
 public enum ERepositoryImages implements IImage {
 
-    REGISTER_ICO("/icons/register3.png"), //$NON-NLS-1$ //tux_large140_155.jpg  tux_large280_310.jpg  tux_large210_232.jpg
-    // tux_large210_230.jpg tux_large190_220.jpg
+    REGISTER_ICO("/icons/register_icon.png"), //$NON-NLS-1$ 
     //    REGISTER_ICO("/icons/login_v.png"), //$NON-NLS-1$
     LICENSE_WIZ("/icons/license_wiz.png"), //$NON-NLS-1$
     REGISTER_WIZ("/icons/register_wiz.png"); //$NON-NLS-1$
