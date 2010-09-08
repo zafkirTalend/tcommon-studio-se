@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.repository.ui.wizards.register;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.Locale;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -33,9 +35,12 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.forms.events.HyperlinkAdapter;
+import org.eclipse.ui.forms.events.HyperlinkEvent;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Hyperlink;
 import org.talend.commons.exception.BusinessException;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ui.branding.IBrandingService;
 import org.talend.repository.RegistrationPlugin;
@@ -116,6 +121,21 @@ public class RegisterWizardPage1 extends AbstractBasicWizardDialog {
                 SWT.NONE);
         hyperlink.setBackground(linkComposite.getBackground());
         hyperlink.setLayoutData(new GridData());
+        hyperlink.addHyperlinkListener(new HyperlinkAdapter() {
+
+            @Override
+            public void linkActivated(HyperlinkEvent e) {
+                URL url;
+                try {
+                    // url = new URL("http://www.talend.com/communitybenefits.php");
+                    // PlatformUI.getWorkbench().getBrowserSupport().getExternalBrowser().openURL(url);
+                    Runtime.getRuntime().exec("explorer http://www.talend.com/communitybenefits.php");
+                } catch (IOException e2) {
+                    ExceptionHandler.process(e2);
+                }
+            }
+        });
+
         new Label(composite, SWT.NONE);
         new Label(composite, SWT.NONE);
         setContactInformationComposite(composite, SWT.NONE);
