@@ -70,6 +70,12 @@ public class RepositoryConstants {
 
     public static final String NOT_SET_STATUS = "not_set_status";
 
+    public static final String REPOSITORY_LOCAL_ID = "local"; //$NON-NLS-1$
+
+    public static final String REPOSITORY_REMOTE_ID = "remote"; //$NON-NLS-1$
+
+    public static final String REPOSITORY_URL = "url"; //$NON-NLS-1$
+
     public static String getPattern(ERepositoryObjectType type) {
         switch (type) {
         case FOLDER:
