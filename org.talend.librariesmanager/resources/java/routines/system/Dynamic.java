@@ -78,12 +78,49 @@ public class Dynamic {
         return talendType;
     }
 
-    public static String getDBTypeFromTalendType(String dbVender, String talendType, int length, int precision) {
-        // TODO :: implement correct type creation based on the DB system
-        if (length > 0)
-            return "VARCHAR(" + String.valueOf(length) + ")";
-        else
-            return "VARCHAR(100)";
+    /**
+     * Comment method "getDBTypeFromTalendType"<br>
+     * generate and return a string composed of DB type, length and precision, such
+     * as:int(4),String(200),DATE,DECIMAL(20,4) .
+     * 
+     * @author talend
+     * @param dbmsId
+     * @param talendType
+     * @param length
+     * @param precision
+     * @return
+     */
+    public static String getDBTypeFromTalendType(String dbmsId, String talendType, int length, int precision) {
+
+        String dbmsType = MetadataTalendType.getDefaultSelectedDbType(dbmsId, talendType, length, precision);
+
+        StringBuilder returnResult = new StringBuilder(dbmsType);
+
+        boolean isIgnoreLen = ("true").equals(MetadataTalendType.getDefaultDBTypes(dbmsId, dbmsType,
+                MetadataTalendType.IGNORE_LEN));
+        // generate a string like this:(100,3)
+        if (!isIgnoreLen) {
+            returnResult.append("(");
+            if (length > 0) {
+                returnResult.append(length);
+            } else {// use the default length of the DB type
+                returnResult.append(MetadataTalendType.getDefaultDBTypes(dbmsId, dbmsType, MetadataTalendType.DEFAULT_LENGTH));
+            }
+            boolean isIgnorePre = ("true").equals(MetadataTalendType.getDefaultDBTypes(dbmsId, dbmsType,
+                    MetadataTalendType.IGNORE_PRE));
+            if (!isIgnorePre) {
+                returnResult.append(",");
+                if (precision > 0) {
+                    returnResult.append(precision);
+                } else {// use the default precision of the db type
+                    returnResult.append(MetadataTalendType.getDefaultDBTypes(dbmsId, dbmsType,
+                            MetadataTalendType.DEFAULT_PRECISION));
+                }
+            }
+            returnResult.append(")");
+        }
+        return returnResult.toString();
+
     }
 
     public String toString() {
