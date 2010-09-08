@@ -278,7 +278,7 @@ public class RegisterWizardPage1 extends AbstractBasicWizardDialog {
 
             try {
                 String userInfos = RegisterManagement.checkUser(emailStr, isProxyEnable, proxyHost, proxyPort);
-                if (userInfos != null) {
+                if (userInfos != null && !"".equals(userInfos)) {
                     alreadyRegistered = true;
                     String[] split = userInfos.split(",");//$NON-NLS-N$
                     if (split.length > 3) {

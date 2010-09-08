@@ -264,22 +264,25 @@ public class RegisterWizardPage2 extends AbstractBasicWizardDialog {
     protected void buttonPressed(int buttonId) {
         if (IDialogConstants.NEXT_ID == buttonId) {
             boolean updateOrCreateSuccess = false;
+            boolean success = false;
             try {
                 if (alreadyRegistered) {
-                    RegisterManagement.updateUser(email, pseudonym, password, firstname, lastname, country, isProxyEnable,
-                            proxyHost, proxyPort);
+                    success = RegisterManagement.updateUser(email, pseudonym, password, firstname, lastname, country,
+                            isProxyEnable, proxyHost, proxyPort);
                 } else {
-                    RegisterManagement.createUser(email, pseudonym, password, firstname, lastname, country, isProxyEnable,
-                            proxyHost, proxyPort);
+                    success = RegisterManagement.createUser(email, pseudonym, password, firstname, lastname, country,
+                            isProxyEnable, proxyHost, proxyPort);
                 }
-                updateOrCreateSuccess = true;
+                if (success) {
+                    updateOrCreateSuccess = true;
+                }
             } catch (BusinessException e) {
                 MessageBoxExceptionHandler.process(e);
                 updateOrCreateSuccess = false;
             } finally {
+
                 close();
                 RegisterWizard registerWizard = new RegisterWizard();
-
                 if (!updateOrCreateSuccess) {
                     email = null;
                 }
