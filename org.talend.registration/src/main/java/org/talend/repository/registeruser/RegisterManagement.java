@@ -12,13 +12,17 @@
 // ============================================================================
 package org.talend.repository.registeruser;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.management.ManagementFactory;
 import java.math.BigInteger;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.util.Properties;
 
+import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.adaptor.LocationManager;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
@@ -32,6 +36,7 @@ import org.talend.core.prefs.PreferenceManipulator;
 import org.talend.core.ui.branding.IBrandingService;
 import org.talend.repository.RegistrationPlugin;
 import org.talend.repository.registeruser.proxy.RegisterUserPortTypeProxy;
+import org.talend.repository.ui.login.connections.ConnectionUserPerReader;
 
 /**
  * DOC mhirt class global comment. Detailled comment <br/>
@@ -46,10 +51,27 @@ public class RegisterManagement {
     // REGISTRATION_DONE = 1 : registration OK
     private static final int REGISTRATION_DONE = 2;
 
+    private static RegisterManagement instance = null;
+
     private static Long registNumber = null;
 
+    private static String perfileName = "connection_user.properties"; //$NON-NLS-1$
+
+    private static String path = null;
+
+    private static File perfile = null;
+
+    private static Properties proper = null;
+
+    public static RegisterManagement getInstance() {
+        if (instance == null) {
+            instance = new RegisterManagement();
+        }
+        return instance;
+    }
+
     @Deprecated
-    public static boolean register(String email, String country, boolean isProxyEnabled, String proxyHost, String proxyPort,
+    public boolean register(String email, String country, boolean isProxyEnabled, String proxyHost, String proxyPort,
             String designerVersion, String projectLanguage, String osName, String osVersion, String javaVersion,
             long totalMemory, Long memRAM, int nbProc) throws BusinessException {
         registNumber = null;
@@ -100,8 +122,8 @@ public class RegisterManagement {
         return result.signum() > 0;
     }
 
-    public static boolean updateUser(String email, String pseudo, String password, String firstname, String lastname,
-            String country, boolean isProxyEnabled, String proxyHost, String proxyPort) throws BusinessException {
+    public boolean updateUser(String email, String pseudo, String password, String firstname, String lastname, String country,
+            boolean isProxyEnabled, String proxyHost, String proxyPort) throws BusinessException {
         BigInteger result = BigInteger.valueOf(-1);
         registNumber = null;
         // if proxy is enabled
@@ -150,6 +172,7 @@ public class RegisterManagement {
                     + "", nbProc + ""); //$NON-NLS-1$ //$NON-NLS-2$
             if (result != null && result.signum() > 0) {
                 PlatformUI.getPreferenceStore().setValue("REGISTRATION_DONE", 1); //$NON-NLS-1$
+                saveRegistoryBean();
                 registNumber = result.longValue();
                 // validateRegistration(brandingService.getAcronym(), result.longValue());
                 PreferenceManipulator prefManipulator = new PreferenceManipulator();
@@ -175,8 +198,8 @@ public class RegisterManagement {
         }
     }
 
-    public static boolean createUser(String email, String pseudo, String password, String firstname, String lastname,
-            String country, boolean isProxyEnabled, String proxyHost, String proxyPort) throws BusinessException {
+    public boolean createUser(String email, String pseudo, String password, String firstname, String lastname, String country,
+            boolean isProxyEnabled, String proxyHost, String proxyPort) throws BusinessException {
         BigInteger result = BigInteger.valueOf(-1);
         registNumber = null;
         // if proxy is enabled
@@ -225,6 +248,7 @@ public class RegisterManagement {
                     + "", nbProc + ""); //$NON-NLS-1$ //$NON-NLS-2$
             if (result.signum() > 0) {
                 PlatformUI.getPreferenceStore().setValue("REGISTRATION_DONE", 1); //$NON-NLS-1$
+                saveRegistoryBean();
                 registNumber = result.longValue();
                 // validateRegistration(brandingService.getAcronym(), result.longValue());
                 PreferenceManipulator prefManipulator = new PreferenceManipulator();
@@ -246,8 +270,7 @@ public class RegisterManagement {
         return result.signum() > 0;
     }
 
-    public static String checkUser(String email, boolean isProxyEnabled, String proxyHost, String proxyPort)
-            throws BusinessException {
+    public String checkUser(String email, boolean isProxyEnabled, String proxyHost, String proxyPort) throws BusinessException {
 
         // if proxy is enabled
         if (isProxyEnabled) {
@@ -271,7 +294,7 @@ public class RegisterManagement {
         }
     }
 
-    public static void validateRegistration() {
+    public void validateRegistration() {
         if (registNumber == null) {
             // PTODO
             // if did not register this time.
@@ -311,10 +334,16 @@ public class RegisterManagement {
      * 
      * @return
      */
-    public static boolean isProductRegistered() {
+    public boolean isProductRegistered() {
         initPreferenceStore();
         IPreferenceStore prefStore = PlatformUI.getPreferenceStore();
-        if ((prefStore.getInt("REGISTRATION_TRIES") > 1) && ((prefStore.getInt("REGISTRATION_DONE") != 1))) { //$NON-NLS-1$ //$NON-NLS-2$
+        //        if ((prefStore.getInt("REGISTRATION_TRIES") > 1) && ((prefStore.getInt("REGISTRATION_DONE") != 1))) { //$NON-NLS-1$ //$NON-NLS-2$
+        // return false;
+        // }
+        ConnectionUserPerReader read = ConnectionUserPerReader.getInstance();
+        String registration = read.readRegitration();
+        String regidtration_done = read.readRegitrationDone();
+        if (!registration.equals("2") && !regidtration_done.equals("1")) {
             return false;
         }
         return true;
@@ -325,14 +354,17 @@ public class RegisterManagement {
      * 
      * @return
      */
-    private static void initPreferenceStore() {
-        IPreferenceStore prefStore = PlatformUI.getPreferenceStore();
-        if (prefStore.getDefaultInt("REGISTRATION_TRIES") == 0) { //$NON-NLS-1$
-            prefStore.setDefault("REGISTRATION_TRIES", REGISTRATION_MAX_TRIES); //$NON-NLS-1$
-        }
-        if (prefStore.getDefaultInt("REGISTRATION_DONE") == 0) { //$NON-NLS-1$
-            prefStore.setDefault("REGISTRATION_DONE", REGISTRATION_DONE); //$NON-NLS-1$
-        }
+    private void initPreferenceStore() {
+        String tmp = LocationManager.getConfigurationLocation().getURL().getPath();
+        String s = new Path(LocationManager.getConfigurationLocation().getURL().getPath()).toFile().getPath();
+        path = tmp.substring(tmp.indexOf("/") + 1, tmp.length());//$NON-NLS-1$
+
+    }
+
+    public void saveRegistoryBean() {
+        ConnectionUserPerReader read = ConnectionUserPerReader.getInstance();
+        read.saveRegistoryBean();
+
     }
 
     /**
