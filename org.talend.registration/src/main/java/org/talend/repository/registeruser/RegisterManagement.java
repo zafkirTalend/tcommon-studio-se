@@ -336,14 +336,10 @@ public class RegisterManagement {
      */
     public boolean isProductRegistered() {
         initPreferenceStore();
-        IPreferenceStore prefStore = PlatformUI.getPreferenceStore();
-        //        if ((prefStore.getInt("REGISTRATION_TRIES") > 1) && ((prefStore.getInt("REGISTRATION_DONE") != 1))) { //$NON-NLS-1$ //$NON-NLS-2$
-        // return false;
-        // }
         ConnectionUserPerReader read = ConnectionUserPerReader.getInstance();
-        String registration = read.readRegitration();
-        String regidtration_done = read.readRegitrationDone();
-        if (!registration.equals("2") && !regidtration_done.equals("1")) {
+        String registration = read.readRegistration();
+        String registration_done = read.readRegistrationDone();
+        if (!registration.equals("2") && !registration_done.equals("1")) {
             return false;
         }
         return true;
@@ -364,7 +360,6 @@ public class RegisterManagement {
     public void saveRegistoryBean() {
         ConnectionUserPerReader read = ConnectionUserPerReader.getInstance();
         read.saveRegistoryBean();
-
     }
 
     /**

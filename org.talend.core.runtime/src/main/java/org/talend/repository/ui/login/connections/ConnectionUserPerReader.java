@@ -21,9 +21,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import org.dom4j.DocumentException;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.adaptor.LocationManager;
+import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.ui.PlatformUI;
 import org.talend.core.model.general.ConnectionBean;
 
 /**
@@ -214,4 +215,41 @@ public class ConnectionUserPerReader {
     public boolean isHaveUserPer() {
         return perfile.exists();
     }
+
+	public String readRegistration() {
+        if (!isRead)
+            this.readProperties();
+        String tmp = proper.getProperty("connection.readRegistration"); //$NON-NLS-1$
+        if (tmp == null) {
+            tmp = "";//$NON-NLS-1$
+        }
+        return tmp;
+	}
+
+	public String readRegistrationDone() {
+        if (!isRead)
+            this.readProperties();
+        String tmp = proper.getProperty("connection.readRegistrationDone"); //$NON-NLS-1$
+        if (tmp == null) {
+            tmp = "";//$NON-NLS-1$
+        }
+        return tmp;
+	}
+
+	public void saveRegistoryBean() {
+        if (!isHaveUserPer())
+            createPropertyFile();
+        if (!isRead)
+            this.readProperties();
+        IPreferenceStore prefStore = PlatformUI.getPreferenceStore();
+        proper.setProperty("connection.readRegistration", Integer.toString(prefStore.getInt("REGISTRATION_TRIES")));
+        proper.setProperty("connection.readRegistrationDone", Integer.toString(prefStore.getInt("REGISTRATION_DONE")));
+        try {
+
+            FileOutputStream out = new FileOutputStream(perfile);
+            proper.store(out, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+	}
 }
