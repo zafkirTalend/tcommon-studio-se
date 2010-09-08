@@ -125,7 +125,7 @@ public class Application implements IApplication {
         }
 
         if (brandingService.getBrandingConfiguration().isUseProductRegistration()) {
-            if (!RegisterManagement.isProductRegistered()) {
+            if (!RegisterManagement.getInstance().isProductRegistered()) {
                 RegisterWizard registerWizard = new RegisterWizard();
                 RegisterWizardPage1 dialog = new RegisterWizardPage1(shell, registerWizard);
                 dialog.open();

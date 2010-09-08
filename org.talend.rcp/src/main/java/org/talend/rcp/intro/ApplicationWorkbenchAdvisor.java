@@ -101,7 +101,7 @@ public class ApplicationWorkbenchAdvisor extends IDEWorkbenchAdvisor {
 
         // add feature:15174
         createLinksToolbarItem();
-        RegisterManagement.validateRegistration();
+        RegisterManagement.getInstance().validateRegistration();
         if (!CommonsPlugin.isHeadless()) {
             CorePlugin.getDefault().getCodeGeneratorService().initializeTemplates();
         }
