@@ -18,7 +18,7 @@
 	String mergeOnStr = "";
 	for(int i=0; i < __MERGE_ON_SRC_COLUMN__.length; i++){
 		if (flag) {
-			mergeOnStr += ",";
+			mergeOnStr += " AND ";
 		} else {
 			flag = true;
 		}
@@ -90,10 +90,14 @@
 	String mergeString = "";
 	
 	if (dbType.equals("DBORACLE")) {
-		mergeString = "MERGE INTO " + __TARGET_TABLE__ + " USING " + __SOURCE_TABLE__ +
-		              " ON (" + mergeOnStr + ")" +
-					  (hasUpdateClause ? (" WHEN MATCHED THEN UPDATE SET " + updateStr + (hasUpdateWhereClause ? (" WHERE " + updateWhereStr) : "")) : "") + 
-					  (hasInsertClause ? (" WHEN NOT MATCHED THEN INSERT " + insertStr + (hasInsertWhereClause ? (" WHERE " + insertWhereStr) : "")) : "");
+		if (hasInsertClause || hasUpdateClause) {
+			mergeString = "MERGE INTO " + __TARGET_TABLE__ + " USING " + __SOURCE_TABLE__ +
+						  " ON (" + mergeOnStr + ")" +
+						  (hasUpdateClause ? (" WHEN MATCHED THEN UPDATE SET " + updateStr + (hasUpdateWhereClause ? (" WHERE " + updateWhereStr) : "")) : "") + 
+						  (hasInsertClause ? (" WHEN NOT MATCHED THEN INSERT " + insertStr + (hasInsertWhereClause ? (" WHERE " + insertWhereStr) : "")) : "");
+		} else {
+			mergeString = "DELETE FROM " + __TARGET_TABLE__ + " WHERE 1=0";
+		}
 	}
 %>
 <%=mergeString%>;
