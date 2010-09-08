@@ -83,7 +83,7 @@ public class RegisterWizardPage3 extends AbstractBasicWizardDialog {
                 IBrandingService.class);
         String thanks1 = Messages.getString("RegisterWizardPage.legalthanks1", brandingService.getCorporationName());
         String thanks2 = Messages.getString("RegisterWizardPage.legalthanks2", brandingService.getCorporationName());
-        Font font2 = new Font(null, "Arial", 10, SWT.BOLD);// Arial courier
+        Font font2 = new Font(null, "Arial", 10, SWT.BOLD);//$NON-NLS-N$
 
         Composite c1 = new Composite(centerComposite, SWT.NONE);
         c1.setLayout(new GridLayout());
@@ -134,7 +134,7 @@ public class RegisterWizardPage3 extends AbstractBasicWizardDialog {
         ConnectionUserPerReader perReader = ConnectionUserPerReader.getInstance();
         List<ConnectionBean> cons = new ArrayList<ConnectionBean>();
         ConnectionBean bean = new ConnectionBean();
-        bean.setName("Local");
+        bean.setName("Local");//$NON-NLS-N$
         bean.setWorkSpace(new Path(Platform.getInstanceLocation().getURL().getPath()).toFile().getPath());
         bean.setUser(email);
         String repositroyId = "local"; //$NON-NLS-1$
@@ -147,7 +147,7 @@ public class RegisterWizardPage3 extends AbstractBasicWizardDialog {
         // }
         // }
         bean.setRepositoryId(repositroyId);
-        bean.setDescription("Default connection");
+        bean.setDescription("Default connection");//$NON-NLS-N$
         cons.add(bean);
         perReader.saveConnections(cons);
     }

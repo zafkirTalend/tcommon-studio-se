@@ -113,7 +113,7 @@ public class RegisterWizardPage2 extends AbstractBasicWizardDialog {
 
         // email
         Label emailLable = new Label(c, SWT.NONE);
-        emailLable.setText("Email");
+        emailLable.setText(Messages.getString("RegisterWizardPage.email"));
         data = new GridData(GridData.HORIZONTAL_ALIGN_CENTER);
         data.widthHint = 100;
         data.horizontalIndent = 50;
@@ -134,7 +134,7 @@ public class RegisterWizardPage2 extends AbstractBasicWizardDialog {
         data.widthHint = 100;
         data.horizontalIndent = 50;
         countryLable.setLayoutData(data);
-        countryLable.setText("Country");
+        countryLable.setText(Messages.getString("RegisterWizardPage.country"));
         Combo countryCombo = new Combo(c, SWT.BORDER | SWT.READ_ONLY);
         data = new GridData();
         data.widthHint = 200 - 22;
@@ -158,12 +158,12 @@ public class RegisterWizardPage2 extends AbstractBasicWizardDialog {
         data.widthHint = 100;
         data.horizontalIndent = 50;
         password.setLayoutData(data);
-        password.setText("Password");
+        password.setText(Messages.getString("RegisterWizardPage.password"));
         Text passwordText = new Text(c, SWT.BORDER);
         data = new GridData();
         data.widthHint = 200;
         passwordText.setLayoutData(data);
-        passwordText.setEchoChar('*');
+        passwordText.setEchoChar('*');//$NON-NLS-N$
         if (alreadyRegistered) {
             passwordText.setText(this.password);
         }
@@ -177,12 +177,12 @@ public class RegisterWizardPage2 extends AbstractBasicWizardDialog {
         data.widthHint = 100;
         data.horizontalIndent = 50;
         password2.setLayoutData(data);
-        password2.setText("Password");
+        password2.setText(Messages.getString("RegisterWizardPage.password"));
         Text passwordText2 = new Text(c, SWT.BORDER);
         data = new GridData();
         data.widthHint = 200;
         passwordText2.setLayoutData(data);
-        passwordText2.setEchoChar('*');
+        passwordText2.setEchoChar('*');//$NON-NLS-N$
         if (alreadyRegistered) {
             passwordText2.setText(this.password);
         }
@@ -194,7 +194,7 @@ public class RegisterWizardPage2 extends AbstractBasicWizardDialog {
         data.widthHint = 100;
         data.horizontalIndent = 50;
         firstName.setLayoutData(data);
-        firstName.setText("First name");
+        firstName.setText(Messages.getString("RegisterWizardPage.firstName"));
         Text firstNameText = new Text(c, SWT.BORDER);
         data = new GridData();
         data.widthHint = 200;
@@ -210,7 +210,7 @@ public class RegisterWizardPage2 extends AbstractBasicWizardDialog {
         data.widthHint = 100;
         data.horizontalIndent = 50;
         surName.setLayoutData(data);
-        surName.setText("Surname");
+        surName.setText(Messages.getString("RegisterWizardPage.surName"));
         Text surNameText = new Text(c, SWT.BORDER);
         data = new GridData();
         data.widthHint = 200;
@@ -226,12 +226,11 @@ public class RegisterWizardPage2 extends AbstractBasicWizardDialog {
         data.widthHint = 100;
         data.horizontalIndent = 50;
         pseudonym.setLayoutData(data);
-        pseudonym.setText("Pseudonym");
+        pseudonym.setText(Messages.getString("RegisterWizardPage.pseudonym"));
         Text pseudonymText = new Text(c, SWT.BORDER);
         data = new GridData();
         data.widthHint = 200;
         pseudonymText.setLayoutData(data);
-        // pseudonymText.setEchoChar('*');
         if (alreadyRegistered) {
             pseudonymText.setText(this.pseudonym);
         }

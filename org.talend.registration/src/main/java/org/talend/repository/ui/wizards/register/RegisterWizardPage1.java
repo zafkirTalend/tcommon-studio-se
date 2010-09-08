@@ -111,7 +111,8 @@ public class RegisterWizardPage1 extends AbstractBasicWizardDialog {
         linkComposite.setLayout(new GridLayout());
         linkComposite.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_END));
         FormToolkit toolkit = new FormToolkit(this.getShell().getDisplay());
-        Hyperlink hyperlink = toolkit.createHyperlink(linkComposite, "you want to know more", SWT.NONE);
+        Hyperlink hyperlink = toolkit.createHyperlink(linkComposite, Messages.getString("RegisterWizardPage.moreInforms"),
+                SWT.NONE);
         hyperlink.setBackground(linkComposite.getBackground());
         hyperlink.setLayoutData(new GridData());
         new Label(composite, SWT.NONE);
@@ -129,10 +130,10 @@ public class RegisterWizardPage1 extends AbstractBasicWizardDialog {
         Label informationLabel = new Label(informationsComposite, SWT.NONE);
         layoutData = new GridData(GridData.HORIZONTAL_ALIGN_CENTER);
         informationLabel.setLayoutData(layoutData);
-        informationLabel.setText("Your contact information: ");
+        informationLabel.setText(Messages.getString("RegisterWizardPage.contactInforms"));
 
         Label emailLabel = new Label(informationsComposite, SWT.NONE);
-        emailLabel.setText("Email");
+        emailLabel.setText(Messages.getString("RegisterWizardPage.email"));
         emailText = new Text(informationsComposite, SWT.BORDER);
         emailText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
         if (oldEmail != null) {
@@ -143,7 +144,7 @@ public class RegisterWizardPage1 extends AbstractBasicWizardDialog {
         new Label(informationsComposite, SWT.NONE);
 
         Label countryLable = new Label(informationsComposite, SWT.NONE);
-        countryLable.setText("Country");
+        countryLable.setText(Messages.getString("RegisterWizardPage.country"));
         countryCombo = new Combo(informationsComposite, SWT.BORDER | SWT.READ_ONLY);
         countryCombo.setItems(initiateCountryList());
         countryCombo.select(countryToSelect);
@@ -270,29 +271,29 @@ public class RegisterWizardPage1 extends AbstractBasicWizardDialog {
             setEmailStr(emailStr);
             countryStr = getCountry();
             boolean alreadyRegistered = false;
-            String firstname = "";
-            String lastname = "";
-            String pseudonym = "";
-            String password = "";
+            String firstname = "";//$NON-NLS-N$
+            String lastname = "";//$NON-NLS-N$
+            String pseudonym = "";//$NON-NLS-N$
+            String password = "";//$NON-NLS-N$
 
             try {
                 String userInfos = RegisterManagement.checkUser(emailStr, isProxyEnable, proxyHost, proxyPort);
                 if (userInfos != null) {
                     alreadyRegistered = true;
-                    String[] split = userInfos.split(",");
+                    String[] split = userInfos.split(",");//$NON-NLS-N$
                     if (split.length > 3) {
 
                         firstname = split[0];
-                        if (split[0] != null && split[0].length() > 1 && split[0].startsWith("\"") && split[0].endsWith("\"")) {
+                        if (split[0] != null && split[0].length() > 1 && split[0].startsWith("\"") && split[0].endsWith("\"")) {//$NON-NLS-N$//$NON-NLS-N$
                             firstname = split[0].substring(1, split[0].length() - 1);
                         }
-                        if (split[1] != null && split[1].length() > 1 && split[1].startsWith("\"") && split[1].endsWith("\"")) {
+                        if (split[1] != null && split[1].length() > 1 && split[1].startsWith("\"") && split[1].endsWith("\"")) {//$NON-NLS-N$//$NON-NLS-N$
                             lastname = split[1].substring(1, split[1].length() - 1);
                         }
-                        if (split[2] != null && split[2].length() > 1 && split[2].startsWith("\"") && split[2].endsWith("\"")) {
+                        if (split[2] != null && split[2].length() > 1 && split[2].startsWith("\"") && split[2].endsWith("\"")) {//$NON-NLS-N$//$NON-NLS-N$
                             pseudonym = split[2].substring(1, split[2].length() - 1);
                         }
-                        if (split[3] != null && split[3].length() > 1 && split[3].startsWith("\"") && split[3].endsWith("\"")) {
+                        if (split[3] != null && split[3].length() > 1 && split[3].startsWith("\"") && split[3].endsWith("\"")) {//$NON-NLS-N$//$NON-NLS-N$
                             password = split[3].substring(1, split[3].length() - 1);
                         }
                     }
@@ -318,7 +319,7 @@ public class RegisterWizardPage1 extends AbstractBasicWizardDialog {
                 String[] proxyString = netSettingDialog.getProxyString();
                 proxyHost = proxyString[0];
                 proxyPort = proxyString[1];
-                if (proxyHost != null && !"".equals(proxyHost)) {
+                if (proxyHost != null && !"".equals(proxyHost)) {//$NON-NLS-N$
                     isProxyEnable = true;
                 }
             } else {
@@ -331,9 +332,9 @@ public class RegisterWizardPage1 extends AbstractBasicWizardDialog {
 
     @Override
     protected void createButtonsForButtonBar(Composite parent) {
-        createButton(parent, IDialogConstants.HELP_ID, "Network setting", true);
+        createButton(parent, IDialogConstants.HELP_ID, Messages.getString("RegisterWizardPage.netWorkSetting"), true);
         new Label(parent, SWT.NONE);
-        createButton(parent, IDialogConstants.CANCEL_ID, "Register later", true);
+        createButton(parent, IDialogConstants.CANCEL_ID, Messages.getString("RegisterWizardPage.registerLater"), true);
         new Label(parent, SWT.NONE);
         new Label(parent, SWT.NONE);
         createButton(parent, IDialogConstants.NEXT_ID, IDialogConstants.NEXT_LABEL, true);
@@ -393,7 +394,7 @@ public class RegisterWizardPage1 extends AbstractBasicWizardDialog {
             super.configureShell(newShell);
             newShell.setModified(true);
             newShell.setSize(350, 300);
-            newShell.setText("Network setting"); //$NON-NLS-1$
+            newShell.setText(Messages.getString("RegisterWizardPage.netWorkSetting")); //$NON-NLS-1$
         }
 
         @Override
@@ -409,17 +410,23 @@ public class RegisterWizardPage1 extends AbstractBasicWizardDialog {
 
             center.setLayoutData(layoutData);
 
-            Label proxyHost = new Label(center, SWT.NONE);
-            proxyHost.setText("Proxy Host");
+            Label proxyHostLabel = new Label(center, SWT.NONE);
+            proxyHostLabel.setText(Messages.getString("RegisterWizardPage.proxyHost"));
             proxyHostText = new Text(center, SWT.BORDER);
             layoutData = new GridData(GridData.FILL_HORIZONTAL);
             proxyHostText.setLayoutData(layoutData);
+            if (proxyHost != null) {
+                proxyHostText.setText(proxyHost);
+            }
 
-            Label proxyPort = new Label(center, SWT.NONE);
-            proxyPort.setText("Proxy Port");
+            Label proxyPortLabel = new Label(center, SWT.NONE);
+            proxyPortLabel.setText(Messages.getString("RegisterWizardPage.proxyPort"));
             proxyPortText = new Text(center, SWT.BORDER);
             layoutData = new GridData(GridData.FILL_HORIZONTAL);
             proxyPortText.setLayoutData(layoutData);
+            if (proxyPort != null) {
+                proxyPortText.setText(proxyPort);
+            }
 
             return center;
 
