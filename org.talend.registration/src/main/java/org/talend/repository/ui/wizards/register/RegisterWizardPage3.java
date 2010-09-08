@@ -77,7 +77,7 @@ public class RegisterWizardPage3 extends AbstractBasicWizardDialog {
         // GridData(GridData.HORIZONTAL_ALIGN_CENTER));
         centerComposite.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_CENTER));
 
-        createSpacer(centerComposite, SWT.NONE);
+        // createSpacer(centerComposite, SWT.NONE);
 
         IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
                 IBrandingService.class);
@@ -99,7 +99,7 @@ public class RegisterWizardPage3 extends AbstractBasicWizardDialog {
         label2.setText(thanks2);
         label2.setFont(font2);
 
-        createSpacer(centerComposite, SWT.NONE);
+        // createSpacer(centerComposite, SWT.NONE);
         createSpacer(centerComposite, SWT.NONE);
 
         String string = Messages.getString("RegisterWizardPage.legalconfirm", brandingService.getCorporationName());
@@ -115,6 +115,7 @@ public class RegisterWizardPage3 extends AbstractBasicWizardDialog {
 
         Composite bottomComposite = new Composite(container, SWT.NONE);
         bottomComposite.setLayout(new GridLayout(3, true));
+
         bottomComposite.setLayoutData(new GridData());
 
         new Label(bottomComposite, SWT.NONE);

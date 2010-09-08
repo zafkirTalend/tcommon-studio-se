@@ -95,6 +95,7 @@ public class RegisterWizardPage1 extends AbstractBasicWizardDialog {
                 IBrandingService.class);
         String string = Messages.getString("RegisterWizardPage.legalbottominformations", brandingService.getCorporationName());
         createLegalInfos(composite, 1, string);
+        createSpacer(composite, 1);
     }
 
     @Override

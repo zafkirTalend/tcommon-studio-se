@@ -240,6 +240,19 @@ public class RegisterWizardPage2 extends AbstractBasicWizardDialog {
         createSpacer(c, 2);
     }
 
+    protected void createBottomComposite(Composite composite, int style) {
+        Composite bottom = new Composite(composite, SWT.NONE);
+        GridLayout gd = new GridLayout();
+        bottom.setLayout(gd);
+
+        String string = Messages.getString("RegisterWizardPage.registration_not_effective");
+        Label label = new Label(bottom, SWT.NONE);
+        GridData lgd = new GridData(GridData.FILL_BOTH);
+        label.setLayoutData(lgd);
+        label.setForeground(new Color(null, new RGB(240, 0, 0)));
+        label.setText(string);
+    }
+
     private String[] initiateCountryList() {
         SortedSet<String> countryList = new TreeSet<String>();
         for (Locale locale : Locale.getAvailableLocales()) {

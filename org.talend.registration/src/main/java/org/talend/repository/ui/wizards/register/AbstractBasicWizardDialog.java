@@ -79,7 +79,7 @@ public class AbstractBasicWizardDialog extends Dialog {
     protected void configureShell(final Shell newShell) {
         super.configureShell(newShell);
         newShell.setModified(true);
-        newShell.setSize(720, 540);
+        newShell.setSize(680, 500);
         IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
                 IBrandingService.class);
         newShell.setText(Messages.getString("RegisterWizard.windowTitle", brandingService.getFullProductName())); //$NON-NLS-1$
