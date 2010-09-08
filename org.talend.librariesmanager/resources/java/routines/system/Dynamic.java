@@ -98,23 +98,24 @@ public class Dynamic {
 
         boolean isIgnoreLen = ("true").equals(MetadataTalendType.getDefaultDBTypes(dbmsId, dbmsType,
                 MetadataTalendType.IGNORE_LEN));
+        String defaultLength = MetadataTalendType.getDefaultDBTypes(dbmsId, dbmsType, MetadataTalendType.DEFAULT_LENGTH);
         // generate a string like this:(100,3)
-        if (!isIgnoreLen) {
+        if (!isIgnoreLen && defaultLength != null) {
             returnResult.append("(");
             if (length > 0) {
                 returnResult.append(length);
             } else {// use the default length of the DB type
-                returnResult.append(MetadataTalendType.getDefaultDBTypes(dbmsId, dbmsType, MetadataTalendType.DEFAULT_LENGTH));
+                returnResult.append(defaultLength);
             }
             boolean isIgnorePre = ("true").equals(MetadataTalendType.getDefaultDBTypes(dbmsId, dbmsType,
                     MetadataTalendType.IGNORE_PRE));
-            if (!isIgnorePre) {
+            String defaultPre = MetadataTalendType.getDefaultDBTypes(dbmsId, dbmsType, MetadataTalendType.DEFAULT_PRECISION);
+            if (!isIgnorePre && defaultPre != null) {
                 returnResult.append(",");
                 if (precision > 0) {
                     returnResult.append(precision);
                 } else {// use the default precision of the db type
-                    returnResult.append(MetadataTalendType.getDefaultDBTypes(dbmsId, dbmsType,
-                            MetadataTalendType.DEFAULT_PRECISION));
+                    returnResult.append(defaultPre);
                 }
             }
             returnResult.append(")");
