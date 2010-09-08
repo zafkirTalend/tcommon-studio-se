@@ -29,6 +29,7 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -74,6 +75,8 @@ public class RegisterWizardPage1 extends AbstractBasicWizardDialog {
     private String proxyPort = null;
 
     private boolean isProxyEnable = false;
+
+    private Button nextButton;
 
     /**
      * DOC zli RegisterWizardPage1 constructor comment.
@@ -178,7 +181,15 @@ public class RegisterWizardPage1 extends AbstractBasicWizardDialog {
         emailText.addModifyListener(new ModifyListener() {
 
             public void modifyText(ModifyEvent e) {
-                checkFieldsValue();
+                // checkFieldsValue();
+                String email = emailText.getText();
+                if (email != null && !"".equals(email)) {
+                    if (!Pattern.matches(RepositoryConstants.MAIL_PATTERN, email)) {
+                        nextButton.setEnabled(false);
+                    } else {
+                        nextButton.setEnabled(true);
+                    }
+                }
             }
         });
     }
@@ -358,7 +369,12 @@ public class RegisterWizardPage1 extends AbstractBasicWizardDialog {
         createButton(parent, IDialogConstants.CANCEL_ID, Messages.getString("RegisterWizardPage.registerLater"), true);
         new Label(parent, SWT.NONE);
         new Label(parent, SWT.NONE);
-        createButton(parent, IDialogConstants.NEXT_ID, IDialogConstants.NEXT_LABEL, true);
+        nextButton = createButton(parent, IDialogConstants.NEXT_ID, IDialogConstants.NEXT_LABEL, true);
+        if (emailText.getText() != null && !"".equals(emailText.getText())) {
+            nextButton.setEnabled(true);
+        } else {
+            nextButton.setEnabled(false);
+        }
     }
 
     public String getEmailStr() {

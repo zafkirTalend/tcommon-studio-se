@@ -23,6 +23,7 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Canvas;
@@ -98,6 +99,10 @@ public class AbstractBasicWizardDialog extends Dialog {
 
     @Override
     protected Control createDialogArea(Composite parent) {
+        // set the whole page white
+        parent.setBackground(new Color(null, new RGB(255, 255, 255)));
+        parent.setBackgroundMode(SWT.INHERIT_FORCE);
+
         Composite container = new Composite(parent, SWT.NONE);
         GridLayout layout = new GridLayout();
         container.setLayout(layout);

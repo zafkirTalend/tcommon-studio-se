@@ -69,9 +69,17 @@ public class RegisterWizardPage2 extends AbstractBasicWizardDialog {
 
     private boolean isProxyEnable;
 
-    Text passwordText;
+    private Text passwordText;
 
-    Text pseudonymText;
+    private Text passwordText2;
+
+    private Text pseudonymText;
+
+    private Label password2ValidateLabel;
+
+    private String validateStr = "*";
+
+    private String notValidateStr = Messages.getString("RegisterWizardPage.notValid");
 
     private Button nextButton;
 
@@ -187,7 +195,7 @@ public class RegisterWizardPage2 extends AbstractBasicWizardDialog {
         data.horizontalIndent = 50;
         password2.setLayoutData(data);
         password2.setText(Messages.getString("RegisterWizardPage.password"));
-        Text passwordText2 = new Text(c, SWT.BORDER);
+        passwordText2 = new Text(c, SWT.BORDER);
         data = new GridData();
         data.widthHint = 200;
         passwordText2.setLayoutData(data);
@@ -195,7 +203,12 @@ public class RegisterWizardPage2 extends AbstractBasicWizardDialog {
         if (alreadyRegistered) {
             passwordText2.setText(this.password);
         }
-        new Label(c, SWT.NONE);
+        password2ValidateLabel = new Label(c, SWT.NONE);
+        password2ValidateLabel.setText(validateStr);
+        data = new GridData();
+        data.widthHint = 80;
+        password2ValidateLabel.setLayoutData(data);
+        password2ValidateLabel.setForeground(new Color(null, new RGB(255, 0, 0)));
 
         // firstName
         Label firstName = new Label(c, SWT.NONE);
@@ -243,9 +256,9 @@ public class RegisterWizardPage2 extends AbstractBasicWizardDialog {
         if (alreadyRegistered) {
             pseudonymText.setText(this.pseudonym);
         }
-        Label b = new Label(c, SWT.NONE);
-        b.setText("*");
-        b.setForeground(new Color(null, new RGB(255, 0, 0)));
+        Label d = new Label(c, SWT.NONE);
+        d.setText("*");
+        d.setForeground(new Color(null, new RGB(255, 0, 0)));
         createSpacer(c, 2);
 
         addListener();
@@ -255,12 +268,43 @@ public class RegisterWizardPage2 extends AbstractBasicWizardDialog {
         passwordText.addModifyListener(new ModifyListener() {
 
             public void modifyText(ModifyEvent e) {
+
                 String password = passwordText.getText();
+                String password2 = passwordText2.getText();
                 String pseudonym = pseudonymText.getText();
-                if (password != null && !"".equals(password) && pseudonym != null && !"".equals(pseudonym)) {//$NON-NLS-N$//$NON-NLS-N$
-                    nextButton.setEnabled(true);
+                if (password != null && !"".equals(password) && password2 != null && !"".equals(password2)
+                        && password.equals(password2)) {
+                    password2ValidateLabel.setText(validateStr);
+                    if (pseudonym != null && !"".equals(pseudonym)) {//$NON-NLS-N$//$NON-NLS-N$//$NON-NLS-N$
+                        nextButton.setEnabled(true);
+                    } else {
+                        nextButton.setEnabled(false);
+                    }
                 } else {
                     nextButton.setEnabled(false);
+                    password2ValidateLabel.setText(notValidateStr);
+                }
+            }
+        });
+
+        passwordText2.addModifyListener(new ModifyListener() {
+
+            public void modifyText(ModifyEvent e) {
+                String password = passwordText.getText();
+                String password2 = passwordText2.getText();
+                String pseudonym = pseudonymText.getText();
+
+                if (password != null && !"".equals(password) && password2 != null && !"".equals(password2)
+                        && password.equals(password2)) {
+                    password2ValidateLabel.setText(validateStr);
+                    if (pseudonym != null && !"".equals(pseudonym)) {//$NON-NLS-N$//$NON-NLS-N$//$NON-NLS-N$
+                        nextButton.setEnabled(true);
+                    } else {
+                        nextButton.setEnabled(false);
+                    }
+                } else {
+                    nextButton.setEnabled(false);
+                    password2ValidateLabel.setText(notValidateStr);
                 }
             }
         });
@@ -268,8 +312,10 @@ public class RegisterWizardPage2 extends AbstractBasicWizardDialog {
 
             public void modifyText(ModifyEvent e) {
                 String password = passwordText.getText();
+                String password2 = passwordText2.getText();
                 String pseudonym = pseudonymText.getText();
-                if (password != null && !"".equals(password) && pseudonym != null && !"".equals(pseudonym)) {//$NON-NLS-N$//$NON-NLS-N$
+                if (password != null
+                        && !"".equals(password) && password2 != null && !"".equals(password2) && password.equals(password2) && pseudonym != null && !"".equals(pseudonym)) {//$NON-NLS-N$//$NON-NLS-N$//$NON-NLS-N$
                     nextButton.setEnabled(true);
                 } else {
                     nextButton.setEnabled(false);
@@ -285,10 +331,13 @@ public class RegisterWizardPage2 extends AbstractBasicWizardDialog {
 
         String string = Messages.getString("RegisterWizardPage.registration_not_effective");
         Label label = new Label(bottom, SWT.NONE);
+
         GridData lgd = new GridData(GridData.FILL_BOTH);
         label.setLayoutData(lgd);
         label.setForeground(new Color(null, new RGB(240, 0, 0)));
         label.setText(string);
+        new Label(bottom, SWT.NONE);
+        new Label(bottom, SWT.NONE);
     }
 
     private String[] initiateCountryList() {
