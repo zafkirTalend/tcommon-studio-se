@@ -19,10 +19,13 @@ import java.util.TreeSet;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
@@ -65,6 +68,12 @@ public class RegisterWizardPage2 extends AbstractBasicWizardDialog {
     private String proxyPort;
 
     private boolean isProxyEnable;
+
+    Text passwordText;
+
+    Text pseudonymText;
+
+    private Button nextButton;
 
     /**
      * DOC zli RegisterWizardPage1 constructor comment.
@@ -159,7 +168,7 @@ public class RegisterWizardPage2 extends AbstractBasicWizardDialog {
         data.horizontalIndent = 50;
         password.setLayoutData(data);
         password.setText(Messages.getString("RegisterWizardPage.password"));
-        Text passwordText = new Text(c, SWT.BORDER);
+        passwordText = new Text(c, SWT.BORDER);
         data = new GridData();
         data.widthHint = 200;
         passwordText.setLayoutData(data);
@@ -227,7 +236,7 @@ public class RegisterWizardPage2 extends AbstractBasicWizardDialog {
         data.horizontalIndent = 50;
         pseudonym.setLayoutData(data);
         pseudonym.setText(Messages.getString("RegisterWizardPage.pseudonym"));
-        Text pseudonymText = new Text(c, SWT.BORDER);
+        pseudonymText = new Text(c, SWT.BORDER);
         data = new GridData();
         data.widthHint = 200;
         pseudonymText.setLayoutData(data);
@@ -238,6 +247,35 @@ public class RegisterWizardPage2 extends AbstractBasicWizardDialog {
         b.setText("*");
         b.setForeground(new Color(null, new RGB(255, 0, 0)));
         createSpacer(c, 2);
+
+        addListener();
+    }
+
+    private void addListener() {
+        passwordText.addModifyListener(new ModifyListener() {
+
+            public void modifyText(ModifyEvent e) {
+                String password = passwordText.getText();
+                String pseudonym = pseudonymText.getText();
+                if (password != null && !"".equals(password) && pseudonym != null && !"".equals(pseudonym)) {//$NON-NLS-N$//$NON-NLS-N$
+                    nextButton.setEnabled(true);
+                } else {
+                    nextButton.setEnabled(false);
+                }
+            }
+        });
+        pseudonymText.addModifyListener(new ModifyListener() {
+
+            public void modifyText(ModifyEvent e) {
+                String password = passwordText.getText();
+                String pseudonym = pseudonymText.getText();
+                if (password != null && !"".equals(password) && pseudonym != null && !"".equals(pseudonym)) {//$NON-NLS-N$//$NON-NLS-N$
+                    nextButton.setEnabled(true);
+                } else {
+                    nextButton.setEnabled(false);
+                }
+            }
+        });
     }
 
     protected void createBottomComposite(Composite composite, int style) {
@@ -271,6 +309,13 @@ public class RegisterWizardPage2 extends AbstractBasicWizardDialog {
             i++;
         }
         return countryList.toArray(new String[] {});
+    }
+
+    @Override
+    protected void createButtonsForButtonBar(Composite parent) {
+        createButton(parent, IDialogConstants.BACK_ID, IDialogConstants.BACK_LABEL, false);
+        nextButton = createButton(parent, IDialogConstants.NEXT_ID, IDialogConstants.NEXT_LABEL, true);
+        nextButton.setEnabled(false);
     }
 
     @Override
@@ -310,4 +355,5 @@ public class RegisterWizardPage2 extends AbstractBasicWizardDialog {
             dialog.open();
         }
     }
+
 }
