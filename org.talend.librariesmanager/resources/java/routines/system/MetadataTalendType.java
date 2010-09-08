@@ -125,14 +125,14 @@ public class MetadataTalendType {
 
                     Node dbIgnoreLength = dbTypeAttributes.getNamedItem(IGNORE_PRE);
                     String dbIgnoreLengthValue = null;
-                    if (dbIgnoreLength == null) {
+                    if (dbIgnoreLength != null) {
                         dbIgnoreLengthValue = dbIgnoreLength.getNodeValue();
                     }
                     dbTypeMap.put(IGNORE_PRE, dbIgnoreLengthValue);
 
                     Node dbIgnoreLen = dbTypeAttributes.getNamedItem(IGNORE_LEN);
                     String dbIgnoreLenValue = null;
-                    if (dbIgnoreLen == null) {
+                    if (dbIgnoreLen != null) {
                         dbIgnoreLenValue = dbIgnoreLen.getNodeValue();
                     }
                     dbTypeMap.put(IGNORE_LEN, dbIgnoreLenValue);
