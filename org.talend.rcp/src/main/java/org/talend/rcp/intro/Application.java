@@ -67,11 +67,11 @@ public class Application implements IApplication {
                     IRepositoryService.class);
             repositoryService.setRCPMode();
 
+            openLicenseAndRegister(shell);
+
             IMigrationToolService service = (IMigrationToolService) GlobalServiceRegister.getDefault().getService(
                     IMigrationToolService.class);
             service.executeWorspaceTasks();
-
-            openLicenseAndRegister(shell);
 
             // saveConnectionBean(email);
 
