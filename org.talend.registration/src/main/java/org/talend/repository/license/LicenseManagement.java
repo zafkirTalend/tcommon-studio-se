@@ -12,9 +12,9 @@
 // ============================================================================
 package org.talend.repository.license;
 
-import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.PlatformUI;
 import org.talend.commons.exception.BusinessException;
+import org.talend.repository.ui.login.connections.ConnectionUserPerReader;
 
 /**
  * DOC mhirt class global comment. Detailled comment <br/>
@@ -29,6 +29,9 @@ public class LicenseManagement {
 
     public static void acceptLicense() throws BusinessException {
         PlatformUI.getPreferenceStore().setValue("LICENSE_VALIDATION_DONE", 1); //$NON-NLS-1$
+        ConnectionUserPerReader read = ConnectionUserPerReader.getInstance();
+        read.saveLiscenseManagement();
+
     }
 
     /**
@@ -38,8 +41,8 @@ public class LicenseManagement {
      */
     public static boolean isLicenseValidated() {
         initPreferenceStore();
-        IPreferenceStore prefStore = PlatformUI.getPreferenceStore();
-        if (prefStore.getInt("LICENSE_VALIDATION_DONE") != 1) { //$NON-NLS-1$
+        ConnectionUserPerReader read = ConnectionUserPerReader.getInstance();
+        if (!read.readLicenseManagement().equals("1")) { //$NON-NLS-1$
             return false;
         }
         return true;
@@ -51,9 +54,9 @@ public class LicenseManagement {
      * @return
      */
     private static void initPreferenceStore() {
-        IPreferenceStore prefStore = PlatformUI.getPreferenceStore();
-        if (prefStore.getDefaultInt("LICENSE_VALIDATION_DONE") == 0) { //$NON-NLS-1$
-            prefStore.setDefault("LICENSE_VALIDATION_DONE", LICENSE_VALIDATION_DONE); //$NON-NLS-1$
-        }
+        // IPreferenceStore prefStore = PlatformUI.getPreferenceStore();
+        //        if (prefStore.getDefaultInt("LICENSE_VALIDATION_DONE") == 0) { //$NON-NLS-1$
+        //            prefStore.setDefault("LICENSE_VALIDATION_DONE", LICENSE_VALIDATION_DONE); //$NON-NLS-1$
+        // }
     }
 }

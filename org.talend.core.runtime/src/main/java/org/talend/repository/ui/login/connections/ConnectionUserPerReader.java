@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import org.dom4j.DocumentException;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.adaptor.LocationManager;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -96,6 +97,8 @@ public class ConnectionUserPerReader {
     }
 
     private ConnectionUserPerReader readProperties() {
+        if (!isHaveUserPer())
+            createPropertyFile();
         try {
             proper.load(new FileInputStream(perfile));
             isRead = true;
@@ -216,7 +219,7 @@ public class ConnectionUserPerReader {
         return perfile.exists();
     }
 
-	public String readRegistration() {
+    public String readRegistration() {
         if (!isRead)
             this.readProperties();
         String tmp = proper.getProperty("connection.readRegistration"); //$NON-NLS-1$
@@ -224,9 +227,9 @@ public class ConnectionUserPerReader {
             tmp = "";//$NON-NLS-1$
         }
         return tmp;
-	}
+    }
 
-	public String readRegistrationDone() {
+    public String readRegistrationDone() {
         if (!isRead)
             this.readProperties();
         String tmp = proper.getProperty("connection.readRegistrationDone"); //$NON-NLS-1$
@@ -234,9 +237,19 @@ public class ConnectionUserPerReader {
             tmp = "";//$NON-NLS-1$
         }
         return tmp;
-	}
+    }
 
-	public void saveRegistoryBean() {
+    public String readLicenseManagement() {
+        if (!isRead)
+            this.readProperties();
+        String tmp = proper.getProperty("connection.licenseManagement"); //$NON-NLS-1$
+        if (tmp == null) {
+            tmp = "";//$NON-NLS-1$
+        }
+        return tmp;
+    }
+
+    public void saveRegistoryBean() {
         if (!isHaveUserPer())
             createPropertyFile();
         if (!isRead)
@@ -251,5 +264,21 @@ public class ConnectionUserPerReader {
         } catch (Exception e) {
             e.printStackTrace();
         }
-	}
+    }
+
+    public void saveLiscenseManagement() {
+        if (!isHaveUserPer())
+            createPropertyFile();
+        if (!isRead)
+            this.readProperties();
+        IPreferenceStore prefStore = PlatformUI.getPreferenceStore();
+        proper.setProperty("connection.licenseManagement", Integer.toString(prefStore.getInt("LICENSE_VALIDATION_DONE")));
+        try {
+
+            FileOutputStream out = new FileOutputStream(perfile);
+            proper.store(out, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
