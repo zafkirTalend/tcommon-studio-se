@@ -364,7 +364,18 @@ public class RegisterWizardPage2 extends AbstractBasicWizardDialog {
     protected void createButtonsForButtonBar(Composite parent) {
         createButton(parent, IDialogConstants.BACK_ID, IDialogConstants.BACK_LABEL, false);
         nextButton = createButton(parent, IDialogConstants.NEXT_ID, IDialogConstants.NEXT_LABEL, true);
-        nextButton.setEnabled(false);
+
+        String password = passwordText.getText();
+        String password2 = passwordText2.getText();
+        String pseudonym = pseudonymText.getText();
+
+        if (password != null && !"".equals(password) && password2 != null && !"".equals(password2) && password.equals(password2)
+                && pseudonym != null && !"".equals(pseudonym)) {
+            nextButton.setEnabled(true);
+        } else {
+            nextButton.setEnabled(false);
+        }
+
     }
 
     @Override
