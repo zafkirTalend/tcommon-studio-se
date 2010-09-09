@@ -364,6 +364,7 @@ public class RegisterWizardPage1 extends AbstractBasicWizardDialog {
 
     @Override
     protected void createButtonsForButtonBar(Composite parent) {
+
         createButton(parent, IDialogConstants.HELP_ID, Messages.getString("RegisterWizardPage.netWorkSetting"), true);
         new Label(parent, SWT.NONE);
         createButton(parent, IDialogConstants.CANCEL_ID, Messages.getString("RegisterWizardPage.registerLater"), true);
@@ -388,7 +389,7 @@ public class RegisterWizardPage1 extends AbstractBasicWizardDialog {
     @Override
     protected Control createButtonBar(Composite parent) {
         Composite composite = new Composite(parent, SWT.NONE);
-        GridLayout layout = new GridLayout(6, true);
+        GridLayout layout = new GridLayout(3, true);
         // layout.numColumns = 0; // this is incremented by createButton
         layout.makeColumnsEqualWidth = true;
         layout.marginWidth = convertHorizontalDLUsToPixels(IDialogConstants.HORIZONTAL_MARGIN);
@@ -396,7 +397,7 @@ public class RegisterWizardPage1 extends AbstractBasicWizardDialog {
         layout.horizontalSpacing = convertHorizontalDLUsToPixels(IDialogConstants.HORIZONTAL_SPACING);
         layout.verticalSpacing = convertVerticalDLUsToPixels(IDialogConstants.VERTICAL_SPACING);
         composite.setLayout(layout);
-        GridData data = new GridData(GridData.VERTICAL_ALIGN_CENTER | GridData.HORIZONTAL_ALIGN_END);
+        GridData data = new GridData();// GridData.VERTICAL_ALIGN_CENTER | GridData.HORIZONTAL_ALIGN_END
         composite.setLayoutData(data);
         composite.setFont(parent.getFont());
 
