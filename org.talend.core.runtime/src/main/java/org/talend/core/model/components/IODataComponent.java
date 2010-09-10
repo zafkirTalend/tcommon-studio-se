@@ -101,7 +101,7 @@ public class IODataComponent {
     }
 
     public boolean hasChanged() {
-        return !newMetadataTable.sameMetadataAs(connection.getMetadataTable(), getColumnOption());
+        return newMetadataTable != null && !newMetadataTable.sameMetadataAs(connection.getMetadataTable(), getColumnOption());
     }
 
     public List<ColumnNameChanged> getColumnNameChanged() {
