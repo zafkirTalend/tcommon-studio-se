@@ -219,12 +219,12 @@ public class WebServiceDialog extends Dialog implements WebServiceEventListener 
         WebServiceComponent wenCom = webServiceComponentMain.getWebServiceComponent();
 
         // save schema.
-        // if (outputMetaCopy != null) {
-        // if (!outputMetaCopy.sameMetadataAs(outputMetadata, IMetadataColumn.OPTIONS_NONE)) {
-        // outputMetadata.getListColumns().clear();
-        // outputMetadata.getListColumns().addAll(outputMetaCopy.getListColumns());
-        // }
-        // }
+        if (outputMetaCopy != null) {
+            if (!outputMetaCopy.sameMetadataAs(outputMetadata, IMetadataColumn.OPTIONS_NONE)) {
+                outputMetadata.getListColumns().clear();
+                outputMetadata.getListColumns().addAll(outputMetaCopy.getListColumns());
+            }
+        }
         // if (inputMetadata != null) {
         // wenCom.setInputMetadata(inputMetaCopy);
         // if (!inputMetaCopy.sameMetadataAs(inputMetadata, IMetadataColumn.OPTIONS_NONE)) {

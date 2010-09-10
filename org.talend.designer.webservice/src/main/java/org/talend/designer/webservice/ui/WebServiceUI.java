@@ -872,6 +872,7 @@ public class WebServiceUI extends AbstractWebService {
                 }
 
             }
+
             if (map.get("COLUMN") != null && map.get("COLUMN") instanceof String) {
                 String columnName = map.get("COLUMN");
                 org.talend.core.model.metadata.MetadataColumn column = new org.talend.core.model.metadata.MetadataColumn();
@@ -2178,9 +2179,19 @@ public class WebServiceUI extends AbstractWebService {
                 Shell shell = uiParent.getShell();
                 MetadataTable inmetadataTable = null;
                 if (connection != null) {
-                    inmetadataTable = ConnectionHelper.getTables(connection).toArray(new MetadataTable[0])[1];
+                    Set<org.talend.core.model.metadata.builder.connection.MetadataTable> tables = ConnectionHelper
+                            .getTables(connection);
+                    Iterator it = tables.iterator();
+                    while (it.hasNext()) {
+                        org.talend.core.model.metadata.builder.connection.MetadataTable metadatatable = (org.talend.core.model.metadata.builder.connection.MetadataTable) it
+                                .next();
+                        if (metadatatable.getLabel().equals("Input")) {
+                            inmetadataTable = metadatatable;
+                        }
+                    }
                 } else {
                     inmetadataTable = ConnectionFactory.eINSTANCE.createMetadataTable();
+                    inmetadataTable.setLabel("Input");
                     EList schemaMetadataColumn = inmetadataTable.getColumns();
                     for (int i = 0; i < inPutcolumnList.size(); i++) {
                         org.talend.core.model.metadata.MetadataColumn metadatacolumn = (org.talend.core.model.metadata.MetadataColumn) inPutcolumnList
@@ -2957,8 +2968,8 @@ public class WebServiceUI extends AbstractWebService {
             public void widgetSelected(SelectionEvent e) {
                 // create the Schema MetadataDialog
                 MetadataDialog metaDialog = null;
-
-                if (inputMetaCopy != null && inputNode != null) {
+                List outPutConnections = outputNode.getOutgoingConnections();
+                if (inputMetaCopy != null && inputNode != null && outPutConnections != null && !outPutConnections.isEmpty()) {
                     metaDialog = new MetadataDialog(uiParent.getShell(), inputMetaCopy, inputNode, outputMetaCopy, outputNode,
                             null);
                 } else {
@@ -2972,7 +2983,8 @@ public class WebServiceUI extends AbstractWebService {
                     outputMetaCopy = metaDialog.getOutputMetaData();
                     // save modify input schema to inout column.
                     if (inputMetadata != null) {
-                        if (!inputMetaCopy.sameMetadataAs(temInputMetadata, IMetadataColumn.OPTIONS_NONE)) {
+                        if (inputMetaCopy != null
+                                && !inputMetaCopy.sameMetadataAs(temInputMetadata, IMetadataColumn.OPTIONS_NONE)) {
                             List<IMetadataColumn> inNewColumn = inputMetaCopy.getListColumns();
                             inPutcolumnList.clear();
                             inPutcolumnList.addAll(inNewColumn);
@@ -2990,8 +3002,16 @@ public class WebServiceUI extends AbstractWebService {
                         } else {
                             EList schemaMetadataColumn = null;
                             if (connection != null) {
-                                schemaMetadataColumn = ConnectionHelper.getTables(connection).toArray(new MetadataTable[0])[0]
-                                        .getColumns();
+                                Set<org.talend.core.model.metadata.builder.connection.MetadataTable> tables = ConnectionHelper
+                                        .getTables(connection);
+                                Iterator it = tables.iterator();
+                                while (it.hasNext()) {
+                                    org.talend.core.model.metadata.builder.connection.MetadataTable metadatatable = (org.talend.core.model.metadata.builder.connection.MetadataTable) it
+                                            .next();
+                                    if (metadatatable.getLabel().equals("Output")) {
+                                        schemaMetadataColumn = metadatatable.getColumns();
+                                    }
+                                }
                             }
                             // modify schema name.
                             for (int i = 0; i < outPutcolumnList.size(); i++) {
@@ -3145,7 +3165,7 @@ public class WebServiceUI extends AbstractWebService {
             outputNode.setComponent(this.getWebServiceManager().getWebServiceComponent().getComponent());
         }
         if (this.getWebServiceManager().getWebServiceComponent().getMetadataList().size() > 1) {
-            outputMetadata = this.connector.getMetadataFromConnector("OUTPUT");// this.getWebServiceManager().getWebServiceComponent().getMetadataList().get(0);
+            outputMetadata = this.connector.getMetadataFromConnector("OUTPUT");
             outputMetaCopy = outputMetadata.clone();
             temOutputMetadata = outputMetadata.clone();
         }
@@ -3550,7 +3570,7 @@ public class WebServiceUI extends AbstractWebService {
 
         }
         EList inputValue = connection.getParameterValue();
-        List<ParameterInfo> ls = new ArrayList();
+
         IElementParameter INPUT_PARAMSPara = connector.getElementParameter("INPUT_PARAMS");
         List<Map<String, String>> inputparaValue = (List<Map<String, String>>) INPUT_PARAMSPara.getValue();
         if (inputparaValue != null) {
@@ -3581,33 +3601,34 @@ public class WebServiceUI extends AbstractWebService {
             if (currentFunction != null) {
                 List inputParameter = currentFunction.getInputParameters();
                 if (inputParameter != null) {
-                    for (int i = 0; i < inputParameter.size(); i++) {
-                        boolean mark = true;
-                        goin: for (Iterator iterator2 = inputParameter.iterator(); iterator2.hasNext();) {
-                            ParameterInfo element = (ParameterInfo) iterator2.next();
-                            WSDLParameter parameter = ConnectionFactory.eINSTANCE.createWSDLParameter();
-                            parameter.setParameterInfo(element.getName());
-                            if (element.getParent() == null) {
-                                parameter.setParameterInfoParent("");
-                            } else {
-                                parameter.setParameterInfoParent(element.getParent().getName());
-                            }
-                            inputValue.add(parameter);
-                            mark = false;
-                            if (!element.getParameterInfos().isEmpty()) {
-                                ls.addAll(new ParameterInfoUtil().getAllChildren(element));
-                            }
-                            break goin;
+
+                    boolean mark = true;
+                    List<ParameterInfo> ls = new ArrayList();
+                    goin: for (Iterator iterator2 = inputParameter.iterator(); iterator2.hasNext();) {
+                        ParameterInfo element = (ParameterInfo) iterator2.next();
+                        WSDLParameter parameter = ConnectionFactory.eINSTANCE.createWSDLParameter();
+                        parameter.setParameterInfo(element.getName());
+                        if (element.getParent() == null) {
+                            parameter.setParameterInfoParent("");
+                        } else {
+                            parameter.setParameterInfoParent(element.getParent().getName());
                         }
-                        if (!mark) {
-                            for (ParameterInfo para : ls) {
-                                WSDLParameter parameter = ConnectionFactory.eINSTANCE.createWSDLParameter();
-                                parameter.setParameterInfo(para.getName());
-                                parameter.setParameterInfoParent(para.getParent().getName());
-                                inputValue.add(parameter);
-                            }
+                        inputValue.add(parameter);
+                        mark = false;
+                        if (!element.getParameterInfos().isEmpty()) {
+                            ls.addAll(new ParameterInfoUtil().getAllChildren(element));
+                        }
+                        break goin;
+                    }
+                    if (!mark) {
+                        for (ParameterInfo para : ls) {
+                            WSDLParameter parameter = ConnectionFactory.eINSTANCE.createWSDLParameter();
+                            parameter.setParameterInfo(para.getName());
+                            parameter.setParameterInfoParent(para.getParent().getName());
+                            inputValue.add(parameter);
                         }
                     }
+
                 }
             }
             for (IMetadataColumn column : getInputValue()) {
@@ -3636,7 +3657,7 @@ public class WebServiceUI extends AbstractWebService {
         List<ParameterInfo> ls = new ArrayList();
         IElementParameter OUTPUT_PARAMSPara = connector.getElementParameter("OUTPUT_PARAMS");
         List<Map<String, String>> outputMap = (List<Map<String, String>>) OUTPUT_PARAMSPara.getValue();
-        if (outputMap != null && !outputMap.isEmpty()) {
+        if (outputMap != null) {
             outPutValue.clear();
             for (OutPutMappingData outData : getOutputElement()) {
                 WSDLParameter parameter = ConnectionFactory.eINSTANCE.createWSDLParameter();
@@ -3658,34 +3679,34 @@ public class WebServiceUI extends AbstractWebService {
             if (currentFunction != null) {
                 List inputParameter = currentFunction.getOutputParameters();
                 if (inputParameter != null) {
-                    for (int i = 0; i < inputParameter.size(); i++) {
-                        boolean mark = true;
-                        goin: for (Iterator iterator2 = inputParameter.iterator(); iterator2.hasNext();) {
-                            ParameterInfo element = (ParameterInfo) iterator2.next();
-                            WSDLParameter parameter = ConnectionFactory.eINSTANCE.createWSDLParameter();
-                            parameter.setParameterInfo(element.getName());
-                            if (element.getParent() == null) {
-                                parameter.setParameterInfoParent("");
-                            } else {
-                                parameter.setParameterInfoParent(element.getParent().getName());
-                            }
-                            outPutValue.add(parameter);
-                            // System.out.println(element.getParent() + " ppp");
-                            mark = false;
-                            if (!element.getParameterInfos().isEmpty()) {
-                                ls.addAll(new ParameterInfoUtil().getAllChildren(element));
-                            }
-                            break goin;
+                    // for (int i = 0; i < inputParameter.size(); i++) {
+                    boolean mark = true;
+                    goin: for (Iterator iterator2 = inputParameter.iterator(); iterator2.hasNext();) {
+                        ParameterInfo element = (ParameterInfo) iterator2.next();
+                        WSDLParameter parameter = ConnectionFactory.eINSTANCE.createWSDLParameter();
+                        parameter.setParameterInfo(element.getName());
+                        if (element.getParent() == null) {
+                            parameter.setParameterInfoParent("");
+                        } else {
+                            parameter.setParameterInfoParent(element.getParent().getName());
                         }
-                        if (!mark) {
-                            for (ParameterInfo para : ls) {
-                                WSDLParameter parameter = ConnectionFactory.eINSTANCE.createWSDLParameter();
-                                parameter.setParameterInfo(para.getName());
-                                parameter.setParameterInfoParent(para.getParent().getName());
-                                outPutValue.add(parameter);
-                            }
+                        outPutValue.add(parameter);
+                        // System.out.println(element.getParent() + " ppp");
+                        mark = false;
+                        if (!element.getParameterInfos().isEmpty()) {
+                            ls.addAll(new ParameterInfoUtil().getAllChildren(element));
+                        }
+                        break goin;
+                    }
+                    if (!mark) {
+                        for (ParameterInfo para : ls) {
+                            WSDLParameter parameter = ConnectionFactory.eINSTANCE.createWSDLParameter();
+                            parameter.setParameterInfo(para.getName());
+                            parameter.setParameterInfoParent(para.getParent().getName());
+                            outPutValue.add(parameter);
                         }
                     }
+                    // }
                 }
             }
             for (OutPutMappingData data : getOutputParams()) {

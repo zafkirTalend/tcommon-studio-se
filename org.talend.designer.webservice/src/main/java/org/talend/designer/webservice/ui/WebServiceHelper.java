@@ -166,12 +166,14 @@ public class WebServiceHelper implements IWebService {
         }
         MetadataTable inputMetadata = new MetadataTable();
         inputMetadata.setAttachedConnector("FLOW");
+        inputMetadata.setLabel("Input");
         MetadataTable outputMetadaTable = null;
         List<org.talend.core.model.metadata.IMetadataColumn> newColumnList = new ArrayList<org.talend.core.model.metadata.IMetadataColumn>();
         List<org.talend.core.model.metadata.IMetadataColumn> newInputColumnList = new ArrayList<org.talend.core.model.metadata.IMetadataColumn>();
         if (connectionItem.getState() != null) {
             outputMetadaTable = new MetadataTable();
             outputMetadaTable.setAttachedConnector("OUTPUT");
+            outputMetadaTable.setLabel("Output");
             WSDLSchemaConnection connection = (WSDLSchemaConnection) connectionItem.getConnection();
             Set<org.talend.core.model.metadata.builder.connection.MetadataTable> tables = ConnectionHelper.getTables(connection);
             //
