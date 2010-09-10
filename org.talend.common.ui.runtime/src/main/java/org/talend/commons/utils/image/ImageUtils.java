@@ -24,6 +24,7 @@ import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.ImageLoader;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Transform;
 import org.talend.commons.exception.ExceptionHandler;
 
@@ -244,4 +245,39 @@ public class ImageUtils {
 
     }
 
+    /**
+     * 
+     * ggu Comment method "AdjustSize".
+     * 
+     * do the better size of image, when scale.
+     */
+    public static Point AdjustSize(final Point originalSize, final Point requiredSize) {
+        Point newSize = new Point(originalSize.x, originalSize.y);
+
+        // if the originalSize less than requiredSize, will keep
+        if (originalSize.x <= requiredSize.x && originalSize.y <= requiredSize.y) {
+            newSize.x = originalSize.x;
+            newSize.y = originalSize.y;
+        } else {
+            // get the percent for width and height
+            float w = originalSize.x / (float) requiredSize.x;
+            float h = originalSize.y / (float) requiredSize.y;
+            // if width is mort than height.
+            if (w > h) {
+                newSize.x = requiredSize.x;
+                newSize.y = (int) (w >= 1 ? Math.round(originalSize.y / w) : Math.round(originalSize.y * w));
+            }
+            // if width is less than height.
+            else if (w < h) {
+                newSize.x = (int) (h >= 1 ? Math.round(originalSize.x / h) : Math.round(originalSize.x * h));
+                newSize.y = requiredSize.y;
+            }
+            // if equal
+            else {
+                newSize.x = requiredSize.x;
+                newSize.y = requiredSize.y;
+            }
+        }
+        return newSize;
+    }
 }
