@@ -51,8 +51,11 @@ public final class ResourceHelper {
         if (o1 == null || o2 == null) {
             return false;
         }
-        if (o1.equals(o2) || StringUtils.equals(ResourceHelper.getUUID(o1), ResourceHelper.getUUID(o2))) {
+        if (o1.equals(o2)) {
             return true;
+        }
+        if (o1.eResource() != null && o2.eResource() != null) {
+            return StringUtils.equals(ResourceHelper.getUUID(o1), ResourceHelper.getUUID(o2));
         }
         // else
         return false;

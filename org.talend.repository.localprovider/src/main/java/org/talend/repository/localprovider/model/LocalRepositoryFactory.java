@@ -112,6 +112,8 @@ import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryConstants;
 import org.talend.repository.model.ResourceModelUtils;
 import org.talend.repository.model.VersionList;
+import org.talend.repository.utils.AbstractResourceChangesService;
+import org.talend.repository.utils.ResourceChangesServiceRegister;
 import org.talend.repository.utils.RoutineUtils;
 import org.talend.repository.utils.URIHelper;
 import org.talend.repository.utils.XmiResourceManager;
@@ -1076,7 +1078,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         saveProject(project);
     }
 
-    public XmiResourceManager xmiResourceManager = new XmiResourceManager();
+    public XmiResourceManager xmiResourceManager = XmiResourceManager.getInstance();
 
     public void lock(Item item) throws PersistenceException {
         if (getStatus(item) == ERepositoryStatus.DEFAULT) {
@@ -1748,8 +1750,14 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             }
         }
 
+        // MOD mzhao resource change listener so that TOP can react the changes.
+        AbstractResourceChangesService resChangeService = ResourceChangesServiceRegister.getInstance().getResourceChangeService(
+                AbstractResourceChangesService.class);
         for (Resource resource : resourceToUnload) {
             if (resource.isLoaded()) {
+                if (resChangeService != null) {
+                    resChangeService.handleUnload(resource);
+                }
                 resource.unload();
                 // xmiResourceManager.resourceSet.getResources().remove(resource);
             }
