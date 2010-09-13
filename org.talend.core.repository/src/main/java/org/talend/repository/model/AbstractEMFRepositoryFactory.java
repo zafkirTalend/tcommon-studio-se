@@ -997,4 +997,19 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
         // TODO Auto-generated method stub
 
     }
+
+    /**
+     * 
+     * DOC zshen Comment method "getMetadataByFolder".
+     * 
+     * @param itemType
+     * @param path
+     * @return all of object under path.
+     */
+    public List<IRepositoryViewObject> getMetadataByFolder(Project project, ERepositoryObjectType itemType, IPath path) {
+        return getMetadatasByFolder(project, itemType, path);
+    }
+
+    protected abstract <K, T> List<T> getMetadatasByFolder(Project project, ERepositoryObjectType type, IPath path);
+
 }

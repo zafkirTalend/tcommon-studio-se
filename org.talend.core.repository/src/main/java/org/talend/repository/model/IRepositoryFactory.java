@@ -390,4 +390,14 @@ public interface IRepositoryFactory {
 
     public boolean enableSandboxProject() throws PersistenceException;
 
+    /**
+     * 
+     * DOC zshen Comment method "getMetadataByFolder".
+     * 
+     * @param itemType
+     * @param path
+     * @return all of object under path.
+     */
+    public List<IRepositoryViewObject> getMetadataByFolder(Project project, ERepositoryObjectType itemType, IPath path);
+
 }

@@ -2144,4 +2144,25 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         return repositoryFactoryFromProvider.isLocalConnectionProvider();
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.talend.repository.model.IProxyRepositoryFactory#getMetadataByFolder(org.talend.core.model.general.Project,
+     * org.talend.core.model.repository.ERepositoryObjectType, org.eclipse.core.runtime.IPath)
+     */
+    public List<IRepositoryViewObject> getMetadataByFolder(Project project, ERepositoryObjectType itemType, IPath path) {
+        return repositoryFactoryFromProvider.getMetadataByFolder(project, itemType, path);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @seeorg.talend.repository.model.IProxyRepositoryFactory#getMetadataByFolder(org.talend.core.model.repository.
+     * ERepositoryObjectType, org.eclipse.core.runtime.IPath)
+     */
+    public List<IRepositoryViewObject> getMetadataByFolder(ERepositoryObjectType itemType, IPath path) {
+        return repositoryFactoryFromProvider.getMetadataByFolder(projectManager.getCurrentProject(), itemType, path);
+    }
+
 }
