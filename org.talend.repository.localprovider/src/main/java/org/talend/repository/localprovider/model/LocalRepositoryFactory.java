@@ -1078,7 +1078,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         saveProject(project);
     }
 
-    public XmiResourceManager xmiResourceManager = XmiResourceManager.getInstance();
+    public XmiResourceManager xmiResourceManager = new XmiResourceManager();
 
     public void lock(Item item) throws PersistenceException {
         if (getStatus(item) == ERepositoryStatus.DEFAULT) {
