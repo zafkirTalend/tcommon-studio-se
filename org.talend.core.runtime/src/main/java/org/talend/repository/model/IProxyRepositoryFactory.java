@@ -202,6 +202,16 @@ public interface IProxyRepositoryFactory {
      */
     public abstract RootContainer<String, IRepositoryViewObject> getMetadataConnection() throws PersistenceException;
 
+    // /**
+    // * @return all of the object which under the one folder.
+    // * @throws PersistenceException
+    // * @see
+    // org.talend.core.model.repository.factories.IMetadataFactory#getMetadataConnection(org.talend.core.model.general.Project)
+    // * @author zshen
+    // *
+    // */
+    // public abstract RootContainer<String, IRepositoryViewObject> getElementByFolder() throws PersistenceException;
+
     /**
      * @param project
      * @return
@@ -724,4 +734,17 @@ public interface IProxyRepositoryFactory {
     public boolean enableSandboxProject() throws PersistenceException;
 
     public boolean isLocalConnectionProvider() throws PersistenceException;
+
+    /**
+     * 
+     * DOC zshen Comment method "getMetadataByFolder".
+     * 
+     * @param project
+     * @param itemType
+     * @param path
+     * @return all of object under path.
+     */
+    public List<IRepositoryViewObject> getMetadataByFolder(Project project, ERepositoryObjectType itemType, IPath path);
+
+    public List<IRepositoryViewObject> getMetadataByFolder(ERepositoryObjectType itemType, IPath path);
 }
