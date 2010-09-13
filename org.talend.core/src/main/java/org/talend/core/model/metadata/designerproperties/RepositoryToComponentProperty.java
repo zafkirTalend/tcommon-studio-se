@@ -762,8 +762,8 @@ public class RepositoryToComponentProperty {
         if (value.equals("DB_VERSION")) { //$NON-NLS-1$
             String dbVersionString = connection.getDbVersionString();
             if (EDatabaseConnTemplate.ACCESS.getDBDisplayName().equals(databaseType)) {
-                // see bug 7262
-                return dbVersionString.toUpperCase();
+                // @Deprecated: see bug 7262 this bug is Deprecated
+                return dbVersionString;
             } else {
                 String driverValue = EDatabaseVersion4Drivers.getDriversStr(databaseType, dbVersionString);
                 if (isContextMode(connection, dbVersionString)) {
@@ -1711,12 +1711,12 @@ public class RepositoryToComponentProperty {
             }
         }
         if (value.equals("PORT")) { //$NON-NLS-1$
-        	return connection.getPort(); // no quote in component
-//            if (isContextMode(connection, connection.getPort())) {
-//                return connection.getPort();
-//            } else {
-//                return TalendTextUtils.addQuotes(connection.getPort());
-//            }
+            return connection.getPort(); // no quote in component
+            // if (isContextMode(connection, connection.getPort())) {
+            // return connection.getPort();
+            // } else {
+            // return TalendTextUtils.addQuotes(connection.getPort());
+            // }
         }
         if (value.equals("USERNAME")) { //$NON-NLS-1$
             if (isContextMode(connection, connection.getUsername())) {
