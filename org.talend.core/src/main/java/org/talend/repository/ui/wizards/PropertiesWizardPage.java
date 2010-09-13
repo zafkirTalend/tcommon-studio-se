@@ -390,8 +390,6 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
         }
 
-        // for "save as" to check name
-        setNameModifiedByUser(true);
     }
 
     /**
