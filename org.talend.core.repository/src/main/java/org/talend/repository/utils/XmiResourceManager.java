@@ -62,25 +62,17 @@ public class XmiResourceManager {
 
     // PTODO mhelleboid should use a custom ResourceFactory
     // PTODO mhelleboid test duplicate resourcesUri in resourceSet !
-    public ResourceSet resourceSet = null;
 
-    private static XmiResourceManager instance = null;
+    public ResourceSet resourceSet = new ResourceSetImpl();
+
     private boolean useOldProjectFile;
 
-    private XmiResourceManager() {
-        resourceSet = new ResourceSetImpl();
+    public XmiResourceManager() {
         setUseOldProjectFile(false);
         resourceSet.getLoadOptions().put("OPTION_DEFER_IDREF_RESOLUTION", Boolean.TRUE);
         resourceSet.getLoadOptions().put("OPTION_USE_PARSER_POOL", Boolean.TRUE);
     }
 
-    public static XmiResourceManager getInstance() {
-        if (instance == null) {
-            instance = new XmiResourceManager();
-        }
-        return instance;
-
-    }
 
     public void resetResourceSet() {
         resourceSet = new ResourceSetImpl();
