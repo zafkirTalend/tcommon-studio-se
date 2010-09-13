@@ -1978,4 +1978,38 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         return true;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @seeorg.talend.repository.model.IRepositoryFactory#getMetadataByFolder(org.talend.core.model.repository.
+     * ERepositoryObjectType, org.eclipse.core.runtime.IPath)
+     */
+    public <K, T> List<T> getMetadatasByFolder(Project project, ERepositoryObjectType itemType, IPath path) {
+        FolderItem currentFolderItem = this.getFolderItem(project, itemType, path);
+        List<Item> invalidItems = new ArrayList<Item>();
+        RootContainer<K, T> toReturn = new RootContainer<K, T>();
+        for (Item curItem : (List<Item>) currentFolderItem.getChildren()) {
+            if (curItem instanceof FolderItem) {
+                //
+            } else {
+                Property property = curItem.getProperty();
+                if (property != null) {
+                    property.getItem().setParent(currentFolderItem);
+                    IRepositoryViewObject currentObject;
+                    currentObject = new RepositoryViewObject(property);
+                    try {
+                        addItemToContainer(toReturn, currentObject, true);
+                    } catch (PersistenceException e) {
+                        log.error(e, e);
+                    }
+                    addToHistory(property.getId(), itemType, property.getItem().getState().getPath());
+                } else {
+                    invalidItems.add(curItem);
+                    projectModified = true;
+                }
+            }
+        }
+        currentFolderItem.getChildren().removeAll(invalidItems);
+        return toReturn.getMembers();
+    }
 }
