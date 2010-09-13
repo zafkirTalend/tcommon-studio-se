@@ -36,6 +36,7 @@ public enum ERepositoryCategoryType {
     RULE,
     CDC(DATABASE),
     HEADERFOOTER,
+    WEBSERVICE,
     //
     ;
 
