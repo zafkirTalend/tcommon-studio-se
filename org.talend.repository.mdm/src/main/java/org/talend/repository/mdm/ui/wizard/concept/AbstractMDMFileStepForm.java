@@ -222,4 +222,40 @@ public abstract class AbstractMDMFileStepForm extends AbstractXmlStepForm {
 
     }
 
+    @Override
+    public MetadataTable getMetadataOutputTable() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected void adaptFormToReadOnly() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    protected void addFields() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    protected void addFieldsListeners() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    protected void addUtilsButtonListeners() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    protected boolean checkFieldsValue() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
 }

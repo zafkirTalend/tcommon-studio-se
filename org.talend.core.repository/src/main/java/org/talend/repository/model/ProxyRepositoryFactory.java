@@ -2129,6 +2129,26 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
     /*
      * (non-Javadoc)
      * 
+     * @see org.talend.repository.model.IProxyRepositoryFactory#getMetadataBRMS(org.talend.core.model.general.Project,
+     * boolean[])
+     */
+    public RootContainer<String, IRepositoryViewObject> getMetadataBRMS(Project project, boolean... options)
+            throws PersistenceException {
+        return repositoryFactoryFromProvider.getMetadataBRMS(project, options);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.repository.model.IProxyRepositoryFactory#getMetadataBRMS()
+     */
+    public RootContainer<String, IRepositoryViewObject> getMetadataBRMS() throws PersistenceException {
+        return getMetadataBRMS(projectManager.getCurrentProject());
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.repository.model.IProxyRepositoryFactory#enableSandboxProject()
      */
     public boolean enableSandboxProject() throws PersistenceException {

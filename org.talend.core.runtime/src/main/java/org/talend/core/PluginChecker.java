@@ -57,6 +57,8 @@ public class PluginChecker {
 
     private static final String HL7_PLUGIN_ID = "org.talend.repository.hl7"; //$NON-NLS-1$
 
+    private static final String BRMS_ID = "org.talend.repository.brms"; //$NON-NLS-1$
+
     private static final String DEBUG_PLUGIN_ID = "org.talend.designer.runprocess.debug";
 
     private static final String WEBSERVICE_PLUGIN_ID = "org.talend.designer.webservice";
@@ -147,6 +149,10 @@ public class PluginChecker {
 
     public static boolean isHL7PluginLoaded() {
         return isPluginLoaded(HL7_PLUGIN_ID);
+    }
+
+    public static boolean isBRMSPluginLoaded() {
+        return isPluginLoaded(BRMS_ID);
     }
 
     public static boolean isMDMPluginLoaded() {

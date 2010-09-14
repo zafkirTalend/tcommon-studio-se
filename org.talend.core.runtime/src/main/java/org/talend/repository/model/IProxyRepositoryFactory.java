@@ -241,11 +241,16 @@ public interface IProxyRepositoryFactory {
     public abstract RootContainer<String, IRepositoryViewObject> getMetadataFTP(Project project, boolean... options)
             throws PersistenceException;
 
+    public abstract RootContainer<String, IRepositoryViewObject> getMetadataBRMS(Project project, boolean... options)
+            throws PersistenceException;
+
     public abstract RootContainer<String, IRepositoryViewObject> getMetadataEBCDIC() throws PersistenceException;
 
     public abstract RootContainer<String, IRepositoryViewObject> getMetadataHL7() throws PersistenceException;
 
     public abstract RootContainer<String, IRepositoryViewObject> getMetadataFTP() throws PersistenceException;
+
+    public abstract RootContainer<String, IRepositoryViewObject> getMetadataBRMS() throws PersistenceException;
 
     public abstract RootContainer<String, IRepositoryViewObject> getMetadataMDM() throws PersistenceException;
 

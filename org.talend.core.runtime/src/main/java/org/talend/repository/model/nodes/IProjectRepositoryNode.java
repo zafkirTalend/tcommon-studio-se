@@ -135,6 +135,8 @@ public interface IProjectRepositoryNode {
 
     public IRepositoryNode getMetadataFTPConnectionNode();
 
+    public IRepositoryNode getMetadataBRMSConnectionNode();
+
     public IRepositoryNode getMetadataMDMConnectionNode();
 
     public IRepositoryNode getMetadataRulesNode();

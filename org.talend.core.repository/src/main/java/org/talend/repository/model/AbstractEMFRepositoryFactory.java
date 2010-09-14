@@ -227,6 +227,11 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
         return getObjectFromFolder(project, ERepositoryObjectType.METADATA_FILE_FTP, true, options);
     }
 
+    public RootContainer<String, IRepositoryViewObject> getMetadataBRMS(Project project, boolean... options)
+            throws PersistenceException {
+        return getObjectFromFolder(project, ERepositoryObjectType.METADATA_FILE_BRMS, true, options);
+    }
+
     /*
      * (non-Javadoc)
      * 
@@ -252,7 +257,8 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
             ERepositoryObjectType.METADATA_FILE_RULES, ERepositoryObjectType.METADATA_MDMCONNECTION,
             ERepositoryObjectType.BUSINESS_PROCESS, ERepositoryObjectType.SVG_BUSINESS_PROCESS,
             ERepositoryObjectType.DOCUMENTATION, ERepositoryObjectType.SNIPPETS, ERepositoryObjectType.METADATA_FILE_HL7,
-            ERepositoryObjectType.METADATA_FILE_FTP, ERepositoryObjectType.METADATA_HEADER_FOOTER };
+            ERepositoryObjectType.METADATA_FILE_FTP, ERepositoryObjectType.METADATA_FILE_BRMS,
+            ERepositoryObjectType.METADATA_HEADER_FOOTER };
 
     /*
      * (non-Javadoc)
@@ -271,8 +277,8 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
                 ERepositoryObjectType.METADATA_WSDL_SCHEMA, ERepositoryObjectType.METADATA_SALESFORCE_SCHEMA,
                 ERepositoryObjectType.JOBLET, ERepositoryObjectType.METADATA_FILE_EBCDIC,
                 ERepositoryObjectType.METADATA_FILE_RULES, ERepositoryObjectType.METADATA_FILE_HL7,
-                ERepositoryObjectType.METADATA_FILE_FTP, ERepositoryObjectType.METADATA_MDMCONNECTION,
-                ERepositoryObjectType.METADATA_HEADER_FOOTER };
+                ERepositoryObjectType.METADATA_FILE_FTP, ERepositoryObjectType.METADATA_FILE_BRMS,
+                ERepositoryObjectType.METADATA_MDMCONNECTION, ERepositoryObjectType.METADATA_HEADER_FOOTER };
 
         List<IRepositoryViewObject> deletedItems = new ArrayList<IRepositoryViewObject>();
         for (int i = 0; i < types.length; i++) {

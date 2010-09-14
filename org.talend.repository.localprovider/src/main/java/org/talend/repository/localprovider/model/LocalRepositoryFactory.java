@@ -63,6 +63,7 @@ import org.talend.core.model.general.Project;
 import org.talend.core.model.general.TalendNature;
 import org.talend.core.model.metadata.MetadataManager;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
+import org.talend.core.model.properties.BRMSConnectionItem;
 import org.talend.core.model.properties.BusinessProcessItem;
 import org.talend.core.model.properties.ByteArray;
 import org.talend.core.model.properties.ConnectionItem;
@@ -165,7 +166,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     protected <K, T> RootContainer<K, T> getObjectFromFolder(Project project, ERepositoryObjectType type,
             boolean onlyLastVersion, boolean... options) throws PersistenceException {
         long currentTime = System.currentTimeMillis();
-
+        // if (type.equals(ERepositoryObjectType.METADATA_CONNECTIONS)) {
+        // System.out.println("dfdfdfdfdfdf");
+        // }
         RootContainer<K, T> toReturn = new RootContainer<K, T>();
 
         IProject fsProject = ResourceModelUtils.getProject(project);
@@ -1392,6 +1395,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             case PropertiesPackage.MDM_CONNECTION_ITEM:
             case PropertiesPackage.HL7_CONNECTION_ITEM:
             case PropertiesPackage.FTP_CONNECTION_ITEM:
+            case PropertiesPackage.BRMS_CONNECTION_ITEM:
             case PropertiesPackage.EBCDIC_CONNECTION_ITEM:
                 // not really usefull for ConnectionItem : it's not copied to
                 // another resource for edition
@@ -1552,6 +1556,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 break;
             case PropertiesPackage.FTP_CONNECTION_ITEM:
                 itemResource = create(project2, (FTPConnectionItem) item, ERepositoryObjectType.METADATA_FILE_FTP, path);
+                break;
+            case PropertiesPackage.BRMS_CONNECTION_ITEM:
+                itemResource = create(project2, (BRMSConnectionItem) item, ERepositoryObjectType.METADATA_FILE_BRMS, path);
                 break;
             case PropertiesPackage.DELIMITED_FILE_CONNECTION_ITEM:
                 itemResource = create(project2, (ConnectionItem) item, ERepositoryObjectType.METADATA_FILE_DELIMITED, path);

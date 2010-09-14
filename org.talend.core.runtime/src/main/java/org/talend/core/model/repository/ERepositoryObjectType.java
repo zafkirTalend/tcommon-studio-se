@@ -17,6 +17,7 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
 import org.talend.core.PluginChecker;
+import org.talend.core.model.properties.BRMSConnectionItem;
 import org.talend.core.model.properties.BusinessProcessItem;
 import org.talend.core.model.properties.CSVFileConnectionItem;
 import org.talend.core.model.properties.ContextItem;
@@ -98,6 +99,8 @@ public enum ERepositoryObjectType {
     METADATA_FILE_EBCDIC("repository.metadataFileEDCDIC", "repository.metadataFileEDCDIC.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     METADATA_FILE_HL7("repository.metadataFileHL7", "repository.metadataFileHL7.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     METADATA_FILE_FTP("repository.metadataFileFTP", "repository.metadataFileFTP.alias"), //$NON-NLS-1$ //$NON-NLS-2$
+    // 0015169 added
+    METADATA_FILE_BRMS("repository.metadataFileBRMS", "repository.metadataFileBRMS.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     METADATA_MDMCONNECTION("repository.metadataMDMConnections", "repository.metadataMDMConnections.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     METADATA_FILE_DELIMITED("repository.metadataFileDelimited", "repository.metadataFileDelimited.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     METADATA_FILE_POSITIONAL("repository.metadataFilePositional", "repository.metadataFilePositional.alias"), //$NON-NLS-1$ //$NON-NLS-2$
@@ -237,6 +240,8 @@ public enum ERepositoryObjectType {
             return "metadata/fileHL7"; //$NON-NLS-1$
         case METADATA_FILE_FTP:
             return "metadata/FTPconnections"; //$NON-NLS-1$
+        case METADATA_FILE_BRMS:
+            return "metadata/BRMSconnections"; //$NON-NLS-1$
         case METADATA_MDMCONNECTION:
             return "metadata/MDMconnections"; //$NON-NLS-1$
         case METADATA_FILE_DELIMITED:
@@ -470,6 +475,11 @@ public enum ERepositoryObjectType {
 
             public Object caseFTPConnectionItem(FTPConnectionItem object) {
                 return METADATA_FILE_FTP;
+            }
+
+            @Override
+            public Object caseBRMSConnectionItem(BRMSConnectionItem object) {
+                return METADATA_FILE_BRMS;
             }
 
             public Object caseMDMConnectionItem(MDMConnectionItem object) {

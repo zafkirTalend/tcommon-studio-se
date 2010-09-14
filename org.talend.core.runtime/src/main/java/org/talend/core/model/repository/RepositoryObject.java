@@ -29,6 +29,7 @@ import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.QueriesConnection;
 import org.talend.core.model.metadata.builder.connection.Query;
+import org.talend.core.model.properties.BRMSConnectionItem;
 import org.talend.core.model.properties.BusinessProcessItem;
 import org.talend.core.model.properties.CSVFileConnectionItem;
 import org.talend.core.model.properties.ContextItem;
@@ -269,6 +270,11 @@ public class RepositoryObject implements IRepositoryObject, IAdaptable {
 
             public Object caseFTPConnectionItem(FTPConnectionItem object) {
                 return ERepositoryObjectType.METADATA_FILE_FTP;
+            }
+
+            @Override
+            public Object caseBRMSConnectionItem(BRMSConnectionItem object) {
+                return ERepositoryObjectType.METADATA_FILE_BRMS;
             }
 
             public Object caseMDMConnectionItem(MDMConnectionItem object) {
