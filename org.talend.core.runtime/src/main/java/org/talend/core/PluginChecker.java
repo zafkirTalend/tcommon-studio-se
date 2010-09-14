@@ -187,7 +187,7 @@ public class PluginChecker {
         return isPluginLoaded(WEBSERVICE_PLUGIN_ID);
     }
 
-    public static boolean isMetalanguagePluginLocaed() {
+    public static boolean isMetalanguagePluginLoaded() {
         return isPluginLoaded(METALANGUAGE_PLUGIN_ID);
     }
 
