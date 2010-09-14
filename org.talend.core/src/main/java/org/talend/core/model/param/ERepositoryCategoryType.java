@@ -32,6 +32,7 @@ public enum ERepositoryCategoryType {
     EBCDIC,
     HL7,
     FTP,
+    BRMS,
     MDM,
     RULE,
     CDC(DATABASE),

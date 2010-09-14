@@ -359,6 +359,15 @@ public interface ConnectionFactory extends EFactory {
     FTPConnection createFTPConnection();
 
     /**
+     * Returns a new object of class '<em>BRMS Connection</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>BRMS Connection</em>'.
+     * @generated
+     */
+    BRMSConnection createBRMSConnection();
+
+    /**
      * Returns the package supported by this factory.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the package supported by this factory.

@@ -7363,6 +7363,61 @@ public interface PropertiesPackage extends EPackage {
     int TDQ_ITEM_FEATURE_COUNT = ITEM_FEATURE_COUNT + 1;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.BRMSConnectionItemImpl <em>BRMS Connection Item</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.BRMSConnectionItemImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getBRMSConnectionItem()
+     * @generated
+     */
+    int BRMS_CONNECTION_ITEM = 89;
+
+    /**
+     * The feature id for the '<em><b>Property</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int BRMS_CONNECTION_ITEM__PROPERTY = CONNECTION_ITEM__PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>State</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int BRMS_CONNECTION_ITEM__STATE = CONNECTION_ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int BRMS_CONNECTION_ITEM__PARENT = CONNECTION_ITEM__PARENT;
+
+    /**
+     * The feature id for the '<em><b>Connection</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int BRMS_CONNECTION_ITEM__CONNECTION = CONNECTION_ITEM__CONNECTION;
+
+    /**
+     * The number of structural features of the '<em>BRMS Connection Item</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int BRMS_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum. <!--
      * begin-user-doc --> <!-- end-user-doc -->
      * 
@@ -7370,7 +7425,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFolderType()
      * @generated
      */
-    int FOLDER_TYPE = 89;
+    int FOLDER_TYPE = 90;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserProjectAuthorizationType <em>User Project Authorization Type</em>}' enum.
@@ -7379,7 +7434,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserProjectAuthorizationType()
      * @generated
      */
-    int USER_PROJECT_AUTHORIZATION_TYPE = 90;
+    int USER_PROJECT_AUTHORIZATION_TYPE = 91;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserModuleAuthorizationType <em>User Module Authorization Type</em>}' enum.
@@ -7388,7 +7443,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserModuleAuthorizationType()
      * @generated
      */
-    int USER_MODULE_AUTHORIZATION_TYPE = 91;
+    int USER_MODULE_AUTHORIZATION_TYPE = 92;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.InformationLevel <em>Information Level</em>}' enum.
@@ -7397,7 +7452,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getInformationLevel()
      * @generated
      */
-    int INFORMATION_LEVEL = 92;
+    int INFORMATION_LEVEL = 93;
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.Status <em>Status</em>}'. <!--
@@ -11680,6 +11735,16 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EAttribute getTDQItem_Filename();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.BRMSConnectionItem <em>BRMS Connection Item</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>BRMS Connection Item</em>'.
+     * @see org.talend.core.model.properties.BRMSConnectionItem
+     * @generated
+     */
+    EClass getBRMSConnectionItem();
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.ExecutionPlan <em>Execution Plan</em>}'.
@@ -16100,6 +16165,16 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute TDQ_ITEM__FILENAME = eINSTANCE.getTDQItem_Filename();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.BRMSConnectionItemImpl <em>BRMS Connection Item</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.BRMSConnectionItemImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getBRMSConnectionItem()
+         * @generated
+         */
+        EClass BRMS_CONNECTION_ITEM = eINSTANCE.getBRMSConnectionItem();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.ExecutionPlanImpl <em>Execution Plan</em>}' class.

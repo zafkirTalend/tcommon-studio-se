@@ -769,6 +769,14 @@ public class PropertiesSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case PropertiesPackage.BRMS_CONNECTION_ITEM: {
+                BRMSConnectionItem brmsConnectionItem = (BRMSConnectionItem)theEObject;
+                Object result = caseBRMSConnectionItem(brmsConnectionItem);
+                if (result == null) result = caseConnectionItem(brmsConnectionItem);
+                if (result == null) result = caseItem(brmsConnectionItem);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             default: return defaultCase(theEObject);
         }
     }
@@ -1897,6 +1905,21 @@ public class PropertiesSwitch {
      * @generated
      */
     public Object caseTDQItem(TDQItem object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>BRMS Connection Item</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>BRMS Connection Item</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseBRMSConnectionItem(BRMSConnectionItem object) {
         return null;
     }
 

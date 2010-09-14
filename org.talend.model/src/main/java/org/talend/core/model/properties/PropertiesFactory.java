@@ -662,6 +662,15 @@ public interface PropertiesFactory extends EFactory {
     TDQItem createTDQItem();
 
     /**
+     * Returns a new object of class '<em>BRMS Connection Item</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>BRMS Connection Item</em>'.
+     * @generated
+     */
+    BRMSConnectionItem createBRMSConnectionItem();
+
+    /**
      * Returns a new object of class '<em>Execution Plan</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

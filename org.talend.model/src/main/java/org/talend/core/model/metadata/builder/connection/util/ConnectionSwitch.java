@@ -931,6 +931,31 @@ public class ConnectionSwitch<T> {
                 result = defaultCase(theEObject);
             return result;
         }
+        case ConnectionPackage.BRMS_CONNECTION: {
+            BRMSConnection brmsConnection = (BRMSConnection) theEObject;
+            T result = caseBRMSConnection(brmsConnection);
+            if (result == null)
+                result = caseConnection(brmsConnection);
+            if (result == null)
+                result = caseAbstractMetadataObject(brmsConnection);
+            if (result == null)
+                result = caseDataProvider(brmsConnection);
+            if (result == null)
+                result = caseDataManager(brmsConnection);
+            if (result == null)
+                result = caseElement(brmsConnection);
+            if (result == null)
+                result = caseDeployedComponent(brmsConnection);
+            if (result == null)
+                result = casePackage(brmsConnection);
+            if (result == null)
+                result = caseNamespace(brmsConnection);
+            if (result == null)
+                result = caseModelElement(brmsConnection);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
         default:
             return defaultCase(theEObject);
         }
@@ -1484,6 +1509,21 @@ public class ConnectionSwitch<T> {
      * @generated
      */
     public T caseFTPConnection(FTPConnection object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>BRMS Connection</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>BRMS Connection</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseBRMSConnection(BRMSConnection object) {
         return null;
     }
 

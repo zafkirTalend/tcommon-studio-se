@@ -411,6 +411,15 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//FTPConnection/Proxypassword"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//FTPConnection/CustomEncode"/>
     </genClasses>
+    <genClasses ecoreClass="metadata.ecore#//BRMSConnection">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//BRMSConnection/xmlField"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//BRMSConnection/urlName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//BRMSConnection/className"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//BRMSConnection/moduleUsed"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//BRMSConnection/root"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//BRMSConnection/group"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//BRMSConnection/loop"/>
+    </genClasses>
     <nestedGenPackages prefix="cwm" basePackage="org.talend" disposableProviderFactory="true"
         ecorePackage="metadata.ecore#//cwm">
       <nestedGenPackages prefix="Relational" basePackage="org.talend.cwm" disposableProviderFactory="true"

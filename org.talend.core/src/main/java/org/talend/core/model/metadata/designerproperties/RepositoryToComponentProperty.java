@@ -38,6 +38,7 @@ import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.MultiSchemasUtil;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
+import org.talend.core.model.metadata.builder.connection.BRMSConnection;
 import org.talend.core.model.metadata.builder.connection.Concept;
 import org.talend.core.model.metadata.builder.connection.ConceptTarget;
 import org.talend.core.model.metadata.builder.connection.Connection;
@@ -98,6 +99,10 @@ public class RepositoryToComponentProperty {
 
         if (connection instanceof FTPConnection) {
             return getFTPValue((FTPConnection) connection, value);
+        }
+
+        if (connection instanceof BRMSConnection) {
+            return getBRMSValue((BRMSConnection) connection, value);
         }
 
         if (connection instanceof LDAPSchemaConnection) {
@@ -1812,6 +1817,22 @@ public class RepositoryToComponentProperty {
             } else {
                 return TalendTextUtils.addQuotes(connection.getProxypassword());
             }
+        }
+        return null;
+    }
+
+    private static Object getBRMSValue(BRMSConnection connection, String value) {
+        if (value.equals("XML_FIELD")) {
+            return connection.getXmlField();
+        }
+        if (value.equals("GUVNOR_URL")) {
+            return connection.getUrlName();
+        }
+        if (value.equals("CLASS_NAME")) {
+            return connection.getClassName();
+        }
+        if (value.equals("MODULE_USED")) {
+            return connection.getModuleUsed();
         }
         return null;
     }

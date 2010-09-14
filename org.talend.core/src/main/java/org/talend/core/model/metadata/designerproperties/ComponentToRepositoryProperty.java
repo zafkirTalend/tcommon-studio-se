@@ -29,6 +29,7 @@ import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 import org.talend.core.i18n.Messages;
 import org.talend.core.model.PasswordEncryptUtil;
 import org.talend.core.model.metadata.MetadataTalendType;
+import org.talend.core.model.metadata.builder.connection.BRMSConnection;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
@@ -145,6 +146,8 @@ public class ComponentToRepositoryProperty {
             setSalesforceSchema((SalesforceSchemaConnection) connection, node, repositoryValue);
         } else if (connection instanceof MDMConnection) {
             setMDMValue((MDMConnection) connection, node, repositoryValue);
+        } else if (connection instanceof BRMSConnection) {
+            setBRMSValue((BRMSConnection) connection, node, repositoryValue);
         }
     }
 
@@ -1074,6 +1077,36 @@ public class ComponentToRepositoryProperty {
             String value = getParameterValue(node, "DATACLUSTER"); //$NON-NLS-1$
             if (value != null) {
                 connection.setDatacluster(value);
+            }
+        }
+    }
+
+    private static void setBRMSValue(BRMSConnection connection, INode node, String repositoryValue) {
+        if ("XML_FIELD".equals(repositoryValue)) {//$NON-NLS-1$
+            String value = getParameterValue(node, "XMLFIELD"); //$NON-NLS-1$
+            if (value != null) {
+                connection.setXmlField(value);
+            }
+        }
+
+        if ("GUVNOR_URL".equals(repositoryValue)) {//$NON-NLS-1$
+            String value = getParameterValue(node, "GUVNOR_URL"); //$NON-NLS-1$
+            if (value != null) {
+                connection.setUrlName(value);
+            }
+        }
+
+        if ("CLASS_NAME".equals(repositoryValue)) {//$NON-NLS-1$
+            String value = getParameterValue(node, "CLASS_NAME"); //$NON-NLS-1$
+            if (value != null) {
+                connection.setClassName(value);
+            }
+        }
+
+        if ("MODULE_USED".equals(repositoryValue)) {//$NON-NLS-1$
+            String value = getParameterValue(node, "LIBRARY"); //$NON-NLS-1$
+            if (value != null) {
+                connection.setModuleUsed(value);
             }
         }
     }

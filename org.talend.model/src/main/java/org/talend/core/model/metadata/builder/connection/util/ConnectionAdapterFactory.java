@@ -337,6 +337,11 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
         }
 
         @Override
+        public Adapter caseBRMSConnection(BRMSConnection object) {
+            return createBRMSConnectionAdapter();
+        }
+
+        @Override
         public Adapter caseElement(Element object) {
             return createElementAdapter();
         }
@@ -1013,6 +1018,20 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createFTPConnectionAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.BRMSConnection <em>BRMS Connection</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.metadata.builder.connection.BRMSConnection
+     * @generated
+     */
+    public Adapter createBRMSConnectionAdapter() {
         return null;
     }
 

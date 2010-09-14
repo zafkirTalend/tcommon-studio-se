@@ -104,6 +104,8 @@ public class CoreImageProvider {
             return ECoreImage.METADATA_EBCDIC_CONNECTION_ICON;
         case METADATA_FILE_HL7:
             return ECoreImage.METADATA_HL7_CONNECTION_ICON;
+        case METADATA_FILE_BRMS:
+            return ECoreImage.METADATA_BRMS_CONNECTION_ICON;
         case METADATA_MDMCONNECTION:
             return ECoreImage.METADATA_MDM_CONNECTION_ICON;
         case METADATA_FILE_RULES:

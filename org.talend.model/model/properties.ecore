@@ -755,4 +755,5 @@
   <eClassifiers xsi:type="ecore:EClass" name="TDQItem" eSuperTypes="#//Item">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="filename" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BRMSConnectionItem" eSuperTypes="#//ConnectionItem"/>
 </ecore:EPackage>

@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.talend.core.model.metadata.builder.connection.AbstractMetadataObject;
+import org.talend.core.model.metadata.builder.connection.BRMSConnection;
 import org.talend.core.model.metadata.builder.connection.CDCConnection;
 import org.talend.core.model.metadata.builder.connection.CDCType;
 import org.talend.core.model.metadata.builder.connection.Concept;
@@ -371,6 +372,13 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     private EClass ftpConnectionEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass brmsConnectionEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -3148,6 +3156,78 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getBRMSConnection() {
+        return brmsConnectionEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getBRMSConnection_XmlField() {
+        return (EAttribute) brmsConnectionEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getBRMSConnection_UrlName() {
+        return (EAttribute) brmsConnectionEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getBRMSConnection_ClassName() {
+        return (EAttribute) brmsConnectionEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getBRMSConnection_ModuleUsed() {
+        return (EAttribute) brmsConnectionEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getBRMSConnection_Root() {
+        return (EReference) brmsConnectionEClass.getEStructuralFeatures().get(4);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getBRMSConnection_Group() {
+        return (EReference) brmsConnectionEClass.getEStructuralFeatures().get(5);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getBRMSConnection_Loop() {
+        return (EReference) brmsConnectionEClass.getEStructuralFeatures().get(6);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -3596,6 +3676,15 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEAttribute(ftpConnectionEClass, FTP_CONNECTION__PROXYPASSWORD);
         createEAttribute(ftpConnectionEClass, FTP_CONNECTION__CUSTOM_ENCODE);
 
+        brmsConnectionEClass = createEClass(BRMS_CONNECTION);
+        createEAttribute(brmsConnectionEClass, BRMS_CONNECTION__XML_FIELD);
+        createEAttribute(brmsConnectionEClass, BRMS_CONNECTION__URL_NAME);
+        createEAttribute(brmsConnectionEClass, BRMS_CONNECTION__CLASS_NAME);
+        createEAttribute(brmsConnectionEClass, BRMS_CONNECTION__MODULE_USED);
+        createEReference(brmsConnectionEClass, BRMS_CONNECTION__ROOT);
+        createEReference(brmsConnectionEClass, BRMS_CONNECTION__GROUP);
+        createEReference(brmsConnectionEClass, BRMS_CONNECTION__LOOP);
+
         // Create enums
         fileFormatEEnum = createEEnum(FILE_FORMAT);
         fieldSeparatorEEnum = createEEnum(FIELD_SEPARATOR);
@@ -3693,6 +3782,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         headerFooterConnectionEClass.getESuperTypes().add(this.getConnection());
         genericPackageEClass.getESuperTypes().add(theCorePackage.getPackage());
         ftpConnectionEClass.getESuperTypes().add(this.getConnection());
+        brmsConnectionEClass.getESuperTypes().add(this.getConnection());
 
         // Initialize classes and features; add operations and parameters
         initEClass(metadataEClass, Metadata.class, "Metadata", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -4582,6 +4672,26 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEAttribute(getFTPConnection_CustomEncode(), ecorePackage.getEString(), "CustomEncode", null, 0, 1,
                 FTPConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
                 IS_ORDERED);
+
+        initEClass(brmsConnectionEClass, BRMSConnection.class, "BRMSConnection", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getBRMSConnection_XmlField(), ecorePackage.getEString(), "xmlField", null, 0, 1, BRMSConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getBRMSConnection_UrlName(), ecorePackage.getEString(), "urlName", null, 0, 1, BRMSConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getBRMSConnection_ClassName(), ecorePackage.getEString(), "className", null, 0, 1, BRMSConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getBRMSConnection_ModuleUsed(), ecorePackage.getEString(), "moduleUsed", null, 0, 1, BRMSConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getBRMSConnection_Root(), this.getXMLFileNode(), null, "root", null, 0, -1, BRMSConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEReference(getBRMSConnection_Group(), this.getXMLFileNode(), null, "group", null, 0, -1, BRMSConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEReference(getBRMSConnection_Loop(), this.getXMLFileNode(), null, "loop", null, 0, -1, BRMSConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
 
         // Initialize enums and add enum literals
         initEEnum(fileFormatEEnum, FileFormat.class, "FileFormat");

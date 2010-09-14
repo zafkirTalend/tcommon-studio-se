@@ -527,6 +527,15 @@ public class ConnectionHelper {
         return result;
     }
 
+    public static List<MetadataTable> getTablesWithOrders(Connection connection) {
+        ArrayList<MetadataTable> result = new ArrayList<MetadataTable>();
+        EList<Package> packages = connection.getDataPackage();
+        for (Package pack : packages) {
+            PackageHelper.getAllTablesWithOrders(pack, result);
+        }
+        return result;
+    }
+
     /**
      * return the list of schemas related to a Connectio, it is look for direct Schema and all the potential Schema
      * owned by a Schema.

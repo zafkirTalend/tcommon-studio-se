@@ -187,6 +187,25 @@ public final class PackageHelper {
     }
 
     /**
+     * Change return type from "Set" to"List" to keep the order of tables. Should notice that we can only use this
+     * method if there is only one datapackage in the connection.
+     * 
+     * @param pack the package to look for table and sub packages (never null)
+     * @param resultSet the set filled with the Table found (never null)
+     */
+    public static void getAllTablesWithOrders(Package pack, List<MetadataTable> resultList) {
+        assert pack != null;
+        assert resultList != null;
+        // add owned table
+        resultList.addAll(getOwnedElements(pack, MetadataTable.class));
+        // add sub packge tables by recursing
+        List<Package> ownedPackages = getOwnedElements(pack, Package.class);
+        for (Package aPackage : ownedPackages) {
+            getAllTablesWithOrders(aPackage, resultList);
+        }
+    }
+
+    /**
      * adds package to package
      * 
      * @param packAdded the added package (never null)

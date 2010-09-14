@@ -138,6 +138,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.FTP_CONNECTION_ITEM: return createFTPConnectionItem();
             case PropertiesPackage.CUSTOM_COMPONENT_SETTING: return createCustomComponentSetting();
             case PropertiesPackage.TDQ_ITEM: return createTDQItem();
+            case PropertiesPackage.BRMS_CONNECTION_ITEM: return createBRMSConnectionItem();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -888,6 +889,16 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     public TDQItem createTDQItem() {
         TDQItemImpl tdqItem = new TDQItemImpl();
         return tdqItem;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public BRMSConnectionItem createBRMSConnectionItem() {
+        BRMSConnectionItemImpl brmsConnectionItem = new BRMSConnectionItemImpl();
+        return brmsConnectionItem;
     }
 
     /**
