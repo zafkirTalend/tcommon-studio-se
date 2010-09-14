@@ -32,6 +32,9 @@ public class Project {
 
     private IElement initialContextLoad;
 
+    // used for create project or sandbox project in remote
+    private boolean isSandboxProject;
+
     // end
     /**
      * DOC smallet Project constructor comment.
@@ -255,6 +258,14 @@ public class Project {
 
     public void setInitialContextLoad(IElement initialContextLoad) {
         this.initialContextLoad = initialContextLoad;
+    }
+
+    public boolean isSandboxProject() {
+        return this.isSandboxProject;
+    }
+
+    public void setSandboxProject(boolean isSandboxProject) {
+        this.isSandboxProject = isSandboxProject;
     }
 
 }

@@ -17,6 +17,7 @@ import java.util.Map;
 
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.runtime.i18n.Messages;
+import org.talend.repository.model.RepositoryConstants;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -57,7 +58,7 @@ public class ConnectionBean implements Cloneable {
         ConnectionBean newConnection = new ConnectionBean();
         newConnection.setName(Messages.getString("ConnectionBean.Local")); //$NON-NLS-1$
         newConnection.setDescription(Messages.getString("ConnectionBean.DefaultConnection")); //$NON-NLS-1$
-        newConnection.setRepositoryId("local");//$NON-NLS-1$
+        newConnection.setRepositoryId(RepositoryConstants.REPOSITORY_LOCAL_ID);
         newConnection.setPassword(""); //$NON-NLS-1$
         // newConnection.setUser("your@userName.here"); //$NON-NLS-1$
         return newConnection;

@@ -70,7 +70,7 @@ public class ProjectHelper {
         return createProject(projectName, projectDescription, ECodeLanguage.getCodeLanguage(projectLanguage));
     }
 
-    private static User createUser(String projectAuthor, String projectAuthorPass, String projectAuthorFirstname,
+    public static User createUser(String projectAuthor, String projectAuthorPass, String projectAuthorFirstname,
             String projectAuthorLastname) {
         User newUser = PropertiesFactory.eINSTANCE.createUser();
         newUser.setLogin(projectAuthor);
@@ -89,7 +89,7 @@ public class ProjectHelper {
 
     public static String generateSandbocProjectName(String login) {
 
-        if (Pattern.matches(RepositoryConstants.MAIL_PATTERN, login)) {
+        if (login != null && Pattern.matches(RepositoryConstants.MAIL_PATTERN, login.trim())) {
             int at = login.indexOf('@');
             if (at > -1) {
                 String mailName = login.substring(0, at);

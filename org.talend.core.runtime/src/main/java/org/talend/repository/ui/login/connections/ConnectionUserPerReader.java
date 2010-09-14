@@ -68,6 +68,11 @@ public class ConnectionUserPerReader {
         }
     }
 
+    public List<ConnectionBean> forceReadConnections() {
+        isRead = false;
+        return readConnections();
+    }
+
     /**
      * connetion.users=user1|user2|user3|user4 user1=local#Local#Default connection####false
      * 
