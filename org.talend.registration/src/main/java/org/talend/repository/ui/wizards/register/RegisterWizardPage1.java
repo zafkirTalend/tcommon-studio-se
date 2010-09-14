@@ -132,7 +132,7 @@ public class RegisterWizardPage1 extends AbstractBasicWizardDialog {
                 try {
                     // url = new URL("http://www.talend.com/communitybenefits.php");
                     // PlatformUI.getWorkbench().getBrowserSupport().getExternalBrowser().openURL(url);
-                    Runtime.getRuntime().exec("explorer http://www.talend.com/communitybenefits.php");
+                    Runtime.getRuntime().exec("explorer http://www.talend.com/community/communityMember.php"); // http://www.talend.com/communitybenefits.php
                 } catch (IOException e2) {
                     ExceptionHandler.process(e2);
                 }
