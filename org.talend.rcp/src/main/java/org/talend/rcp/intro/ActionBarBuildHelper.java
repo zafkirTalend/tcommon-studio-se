@@ -187,7 +187,7 @@ public class ActionBarBuildHelper implements IActionBarHelper {
         openLocalFileAction.setText("Open Files");
         fileMenu.add(openLocalFileAction);
 
-        if (PluginChecker.isMetalanguagePluginLocaed()) {
+        if (PluginChecker.isMetalanguagePluginLoaded()) {
             IOpenJobScriptActionService openJobScriptActionService = CorePlugin.getDefault().getOpenJobScriptActionService();
             fileMenu.add(openJobScriptActionService.getOpenJobScriptAction(window));
         }
