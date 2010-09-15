@@ -46,6 +46,7 @@ import org.talend.core.model.properties.InformationLevel;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ItemState;
 import org.talend.core.model.properties.JobDocumentationItem;
+import org.talend.core.model.properties.JobScriptItem;
 import org.talend.core.model.properties.JobletDocumentationItem;
 import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.LDAPSchemaConnectionItem;
@@ -209,6 +210,10 @@ public class RepositoryObject implements IRepositoryObject, IAdaptable {
 
             public Object caseRoutineItem(RoutineItem object) {
                 return ERepositoryObjectType.ROUTINES;
+            }
+
+            public Object caseJobScriptItem(JobScriptItem object) {
+                return ERepositoryObjectType.JOB_SCRIPT;
             }
 
             public Object caseContextItem(ContextItem object) {

@@ -1594,6 +1594,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             case PropertiesPackage.ROUTINE_ITEM:
                 itemResource = create(project2, (FileItem) item, path, ERepositoryObjectType.ROUTINES);
                 break;
+            case PropertiesPackage.JOB_SCRIPT_ITEM:
+                itemResource = create(project2, (FileItem) item, path, ERepositoryObjectType.JOB_SCRIPT);
+                break;
             case PropertiesPackage.SQL_PATTERN_ITEM:
                 itemResource = create(project2, (FileItem) item, path, ERepositoryObjectType.SQLPATTERNS);
                 break;

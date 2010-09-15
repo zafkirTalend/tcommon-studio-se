@@ -87,6 +87,7 @@ public class StatusHelper {
             case PropertiesPackage.FTP_CONNECTION_ITEM:
             case PropertiesPackage.BRMS_CONNECTION_ITEM:
             case PropertiesPackage.MDM_CONNECTION_ITEM:
+            case PropertiesPackage.JOB_SCRIPT_ITEM:
                 status = repositoryFactory.getTechnicalStatus();
                 break;
             case PropertiesPackage.RULES_ITEM:

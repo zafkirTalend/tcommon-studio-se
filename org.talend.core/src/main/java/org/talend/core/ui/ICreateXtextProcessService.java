@@ -13,7 +13,6 @@
 package org.talend.core.ui;
 
 import org.talend.core.IService;
-import org.talend.core.model.properties.ProcessItem;
 
 /**
  * DOC nma class global comment. Detailled comment
@@ -28,5 +27,4 @@ public interface ICreateXtextProcessService extends IService {
     // create the processType with a .job file created by metalanguage.
     public void addProcess(String path);
 
-    public ProcessItem getProcessItem();
 }

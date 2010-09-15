@@ -253,6 +253,9 @@ public interface IRepositoryFactory {
     public RootContainer<String, IRepositoryViewObject> getRoutine(Project project, boolean... options)
             throws PersistenceException;
 
+    public RootContainer<String, IRepositoryViewObject> getJobScripts(Project project, boolean... options)
+            throws PersistenceException;
+
     public RootContainer<String, IRepositoryViewObject> getMetadataConnection(Project project, boolean... options)
             throws PersistenceException;
 

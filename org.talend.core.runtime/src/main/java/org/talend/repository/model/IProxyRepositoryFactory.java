@@ -740,6 +740,11 @@ public interface IProxyRepositoryFactory {
 
     public boolean isLocalConnectionProvider() throws PersistenceException;
 
+
+    public abstract RootContainer<String, IRepositoryViewObject> getJobScripts(Project project, boolean... options)
+            throws PersistenceException;
+
+
     /**
      * 
      * DOC zshen Comment method "getMetadataByFolder".
@@ -752,4 +757,5 @@ public interface IProxyRepositoryFactory {
     public List<IRepositoryViewObject> getMetadataByFolder(Project project, ERepositoryObjectType itemType, IPath path);
 
     public List<IRepositoryViewObject> getMetadataByFolder(ERepositoryObjectType itemType, IPath path);
+
 }

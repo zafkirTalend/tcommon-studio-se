@@ -563,7 +563,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
 
         // TODO this need to be refactered after M2.
         if (object.getType() == ERepositoryObjectType.PROCESS || object.getType() == ERepositoryObjectType.JOBLET
-                || object.getType() == ERepositoryObjectType.ROUTINES) {
+                || object.getType() == ERepositoryObjectType.ROUTINES || object.getType() == ERepositoryObjectType.JOB_SCRIPT) {
             fireRepositoryPropertyChange(ERepositoryActionName.JOB_DELETE_TO_RECYCLE_BIN.getName(), null, object);
         }
 
@@ -1882,6 +1882,11 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
     public RootContainer<String, IRepositoryViewObject> getRoutine(Project project, boolean... options)
             throws PersistenceException {
         return this.repositoryFactoryFromProvider.getRoutine(project, options);
+    }
+
+    public RootContainer<String, IRepositoryViewObject> getJobScripts(Project project, boolean... options)
+            throws PersistenceException {
+        return this.repositoryFactoryFromProvider.getJobScripts(project, options);
     }
 
     /*

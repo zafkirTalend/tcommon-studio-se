@@ -157,6 +157,11 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
         return getObjectFromFolder(project, ERepositoryObjectType.ROUTINES, true, options);
     }
 
+    public RootContainer<String, IRepositoryViewObject> getJobScripts(Project project, boolean... options)
+            throws PersistenceException {
+        return getObjectFromFolder(project, ERepositoryObjectType.JOB_SCRIPT, true, options);
+    }
+
     public RootContainer<String, IRepositoryViewObject> getMetadataSQLPattern(Project project, boolean... options)
             throws PersistenceException {
         return getObjectFromFolder(project, ERepositoryObjectType.SQLPATTERNS, true, options);
@@ -278,7 +283,8 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
                 ERepositoryObjectType.JOBLET, ERepositoryObjectType.METADATA_FILE_EBCDIC,
                 ERepositoryObjectType.METADATA_FILE_RULES, ERepositoryObjectType.METADATA_FILE_HL7,
                 ERepositoryObjectType.METADATA_FILE_FTP, ERepositoryObjectType.METADATA_FILE_BRMS,
-                ERepositoryObjectType.METADATA_MDMCONNECTION, ERepositoryObjectType.METADATA_HEADER_FOOTER };
+                ERepositoryObjectType.METADATA_MDMCONNECTION, ERepositoryObjectType.METADATA_HEADER_FOOTER,
+                ERepositoryObjectType.JOB_SCRIPT };
 
         List<IRepositoryViewObject> deletedItems = new ArrayList<IRepositoryViewObject>();
         for (int i = 0; i < types.length; i++) {
@@ -803,7 +809,8 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
                 for (NodeType node : nodes) {
                     List<ElementParameterType> elementParameter = node.getElementParameter();
                     for (ElementParameterType elementParam : elementParameter) {
-                        if (elementParam.getField().equals(EParameterFieldType.MODULE_LIST.getName())) {
+                        if (elementParam.getField() != null
+                                && elementParam.getField().equals(EParameterFieldType.MODULE_LIST.getName())) {
                             String uniquename = coreSerivce.getParameterUNIQUENAME(node);
                             ModuleNeeded toAdd = new ModuleNeeded(
                                     Messages.getString("AbstractEMFRepositoryFactory.job") + item.getProperty().getLabel(), //$NON-NLS-1$

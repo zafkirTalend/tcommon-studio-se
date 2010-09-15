@@ -33,6 +33,7 @@ import org.talend.core.model.properties.HL7ConnectionItem;
 import org.talend.core.model.properties.HeaderFooterConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.JobDocumentationItem;
+import org.talend.core.model.properties.JobScriptItem;
 import org.talend.core.model.properties.JobletDocumentationItem;
 import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.LDAPSchemaConnectionItem;
@@ -77,6 +78,7 @@ public enum ERepositoryObjectType {
     PROCESS("repository.process"), //$NON-NLS-1$
     CONTEXT("repository.context"), //$NON-NLS-1$
     ROUTINES("repository.routines"), //$NON-NLS-1$
+    JOB_SCRIPT("repository.jobscript"),
     SNIPPETS("repository.snippets"), //$NON-NLS-1$
     DOCUMENTATION("repository.documentation"), //$NON-NLS-1$
     METADATA("repository.metadata"), //$NON-NLS-1$
@@ -222,6 +224,8 @@ public enum ERepositoryObjectType {
             return "context"; //$NON-NLS-1$
         case ROUTINES:
             return "code/routines"; //$NON-NLS-1$
+        case JOB_SCRIPT:
+            return "code/jobscripts"; //$NON-NLS-1$
         case SNIPPETS:
             return "code/snippets"; //$NON-NLS-1$
         case DOCUMENTATION:
@@ -367,6 +371,10 @@ public enum ERepositoryObjectType {
 
             public Object caseRoutineItem(RoutineItem object) {
                 return ROUTINES;
+            }
+
+            public Object caseJobScriptItem(JobScriptItem object) {
+                return JOB_SCRIPT;
             }
 
             /*
