@@ -599,5 +599,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TDQItem/filename"/>
     </genClasses>
     <genClasses ecoreClass="properties.ecore#//BRMSConnectionItem"/>
+    <genClasses ecoreClass="properties.ecore#//JobScriptItem"/>
   </genPackages>
 </genmodel:GenModel>

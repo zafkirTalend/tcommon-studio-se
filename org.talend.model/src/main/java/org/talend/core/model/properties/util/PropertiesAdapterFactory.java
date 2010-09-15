@@ -420,6 +420,9 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
             public Object caseBRMSConnectionItem(BRMSConnectionItem object) {
                 return createBRMSConnectionItemAdapter();
             }
+            public Object caseJobScriptItem(JobScriptItem object) {
+                return createJobScriptItemAdapter();
+            }
             public Object defaultCase(EObject object) {
                 return createEObjectAdapter();
             }
@@ -1534,6 +1537,20 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createBRMSConnectionItemAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.JobScriptItem <em>Job Script Item</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.properties.JobScriptItem
+     * @generated
+     */
+    public Adapter createJobScriptItemAdapter() {
         return null;
     }
 

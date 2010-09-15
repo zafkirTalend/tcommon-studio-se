@@ -60,6 +60,7 @@ import org.talend.core.model.properties.ItemRelation;
 import org.talend.core.model.properties.ItemRelations;
 import org.talend.core.model.properties.ItemState;
 import org.talend.core.model.properties.JobDocumentationItem;
+import org.talend.core.model.properties.JobScriptItem;
 import org.talend.core.model.properties.JobletDocumentationItem;
 import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.LDAPSchemaConnectionItem;
@@ -618,6 +619,13 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     private EClass brmsConnectionItemEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass jobScriptItemEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -4057,6 +4065,15 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getJobScriptItem() {
+        return jobScriptItemEClass;
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -5479,6 +5496,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
 
         brmsConnectionItemEClass = createEClass(BRMS_CONNECTION_ITEM);
 
+        jobScriptItemEClass = createEClass(JOB_SCRIPT_ITEM);
+
         // Create enums
         folderTypeEEnum = createEEnum(FOLDER_TYPE);
         userProjectAuthorizationTypeEEnum = createEEnum(USER_PROJECT_AUTHORIZATION_TYPE);
@@ -5562,6 +5581,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         ftpConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
         tdqItemEClass.getESuperTypes().add(this.getItem());
         brmsConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
+        jobScriptItemEClass.getESuperTypes().add(this.getFileItem());
 
         // Initialize classes and features; add operations and parameters
         initEClass(projectEClass, Project.class, "Project", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -6158,6 +6178,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getTDQItem_Filename(), theEcorePackage.getEString(), "filename", null, 0, 1, TDQItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(brmsConnectionItemEClass, BRMSConnectionItem.class, "BRMSConnectionItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+        initEClass(jobScriptItemEClass, JobScriptItem.class, "JobScriptItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         // Initialize enums and add enum literals
         initEEnum(folderTypeEEnum, FolderType.class, "FolderType");

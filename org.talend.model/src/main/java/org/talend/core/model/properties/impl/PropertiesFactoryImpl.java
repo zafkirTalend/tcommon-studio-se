@@ -139,6 +139,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.CUSTOM_COMPONENT_SETTING: return createCustomComponentSetting();
             case PropertiesPackage.TDQ_ITEM: return createTDQItem();
             case PropertiesPackage.BRMS_CONNECTION_ITEM: return createBRMSConnectionItem();
+            case PropertiesPackage.JOB_SCRIPT_ITEM: return createJobScriptItem();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -899,6 +900,16 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     public BRMSConnectionItem createBRMSConnectionItem() {
         BRMSConnectionItemImpl brmsConnectionItem = new BRMSConnectionItemImpl();
         return brmsConnectionItem;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public JobScriptItem createJobScriptItem() {
+        JobScriptItemImpl jobScriptItem = new JobScriptItemImpl();
+        return jobScriptItem;
     }
 
     /**

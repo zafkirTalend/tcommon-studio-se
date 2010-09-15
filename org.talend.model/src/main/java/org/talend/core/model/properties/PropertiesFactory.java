@@ -671,6 +671,15 @@ public interface PropertiesFactory extends EFactory {
     BRMSConnectionItem createBRMSConnectionItem();
 
     /**
+     * Returns a new object of class '<em>Job Script Item</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Job Script Item</em>'.
+     * @generated
+     */
+    JobScriptItem createJobScriptItem();
+
+    /**
      * Returns a new object of class '<em>Execution Plan</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
