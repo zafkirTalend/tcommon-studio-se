@@ -149,68 +149,56 @@ public class MetadataTable extends RepositoryObject implements IMetadataTable, C
 
     /**
      * Note: for a table with custom columns, the order for the test is really important. It should be
-     * currentComponentMetadata.sameMetadataAs (other).
+     * outputMetadata.sameMetadataAs (inputMetadata).
      */
-    public boolean sameMetadataAs(IMetadataTable other, int options) {
-        if (this == other) {
+    public boolean sameMetadataAs(IMetadataTable input, int options) {
+        if (this == input) {
             return true;
         }
-        if (other == null) {
+        if (input == null) {
             return false;
         }
-        if (!(other instanceof IMetadataTable)) {
+        if (!(input instanceof IMetadataTable)) {
             return false;
         }
 
         if (this.listColumns == null) {
-            if (other.getListColumns() != null) {
+            if (input.getListColumns() != null) {
                 return false;
             }
         } else {
-            if (listColumns.size() == other.getListColumns().size()) { // test if standard columns (no custom, or same
+            if (listColumns.size() == input.getListColumns().size()) { // test if standard columns (no custom, or same
                 // input / output)
-                for (int i = 0; i < other.getListColumns().size(); i++) {
-                    IMetadataColumn otherColumn = other.getListColumns().get(i);
+                for (int i = 0; i < input.getListColumns().size(); i++) {
+                    IMetadataColumn otherColumn = input.getListColumns().get(i);
                     IMetadataColumn myColumn = this.listColumns.get(i);
                     if (!otherColumn.sameMetacolumnAs(myColumn, options)) {
                         return false;
                     }
                 }
-            } else { // test for custom input / output
-                int nbNotCustomOrigin = 0;
-                int nbNotCustomOther = 0;
-                for (IMetadataColumn column : listColumns) {
-                    if (!column.isCustom()) {
-                        nbNotCustomOrigin++;
+            } else {
+                // output should have at least all columns from input, but can add some others (custom)
+                // custom columns are considered as columns who can be added to output
+
+                List<IMetadataColumn> outputColumnsNotTested = new ArrayList<IMetadataColumn>(this.getListColumns());
+
+                // test that input columns are correctly propagated to output first
+                // no matter if this one is custom or not (all custom must be propagated too)
+                for (int i = 0; i < input.getListColumns().size(); i++) {
+                    IMetadataColumn inputColumn = input.getListColumns().get(i);
+                    IMetadataColumn myColumn = this.getColumn(inputColumn.getLabel());
+                    outputColumnsNotTested.remove(myColumn);
+                    if (!inputColumn.sameMetacolumnAs(myColumn, options)) {
+                        return false;
                     }
                 }
-                for (IMetadataColumn column : other.getListColumns()) {
+
+                // we tested already all input columns propagated to output
+                // means normally there should be only possible custom columns remaining in the schema.
+                // if one of the column remaining in output is not custom, then there is a problem of propagation
+                for (IMetadataColumn column : outputColumnsNotTested) {
                     if (!column.isCustom()) {
-                        nbNotCustomOther++;
-                    }
-                }
-                if (nbNotCustomOrigin != nbNotCustomOther) {
-                    return false;
-                } else {
-                    // test non custom columns
-                    for (int i = 0; i < other.getListColumns().size(); i++) {
-                        IMetadataColumn otherColumn = other.getListColumns().get(i);
-                        if (!otherColumn.isCustom()) {
-                            IMetadataColumn myColumn = this.getColumn(otherColumn.getLabel());
-                            if (!otherColumn.sameMetacolumnAs(myColumn, options)) {
-                                return false;
-                            }
-                        }
-                    }
-                    // test custom columns
-                    for (int i = 0; i < other.getListColumns().size(); i++) {
-                        IMetadataColumn otherColumn = other.getListColumns().get(i);
-                        if (otherColumn.isCustom()) {
-                            IMetadataColumn myColumn = this.getColumn(otherColumn.getLabel());
-                            if (!otherColumn.sameMetacolumnAs(myColumn, options)) {
-                                return false;
-                            }
-                        }
+                        return false;
                     }
                 }
             }
