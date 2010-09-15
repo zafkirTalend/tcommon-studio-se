@@ -334,7 +334,6 @@ public class WebServiceDialog extends Dialog implements WebServiceEventListener 
                         sourceMap.put("PARAPARENT", element.getParent().getName());
                     }
                     inputparaValue.add(sourceMap);
-                    // System.out.println(element.getParent() + " ppp");
                     mark = false;
                     if (!element.getParameterInfos().isEmpty()) {
                         listParamter.addAll(new ParameterInfoUtil().getAllChildren(element));
@@ -435,7 +434,6 @@ public class WebServiceDialog extends Dialog implements WebServiceEventListener 
                         sourceMap.put("PARAPARENT", element.getParent().getName());
                     }
                     outputMap.add(sourceMap);
-                    // System.out.println(element.getParent() + " ppp");
                     mark = false;
                     if (!element.getParameterInfos().isEmpty()) {
                         ls.addAll(new ParameterInfoUtil().getAllChildren(element));

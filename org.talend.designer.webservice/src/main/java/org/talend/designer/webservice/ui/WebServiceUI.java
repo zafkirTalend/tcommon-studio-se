@@ -278,6 +278,8 @@ public class WebServiceUI extends AbstractWebService {
 
     private Boolean isFirst = true;
 
+    private Boolean isRefesh = false;
+
     private WSDLSchemaConnection connection = null;
 
     private List<Function> funList = new ArrayList<Function>();
@@ -1394,6 +1396,7 @@ public class WebServiceUI extends AbstractWebService {
                 // listTable.setSelection(listTable.getItem(0));
                 // listTable.select(0);
                 isFirst = false;
+                isRefesh = true;
             }
         });
         // TableItem firstItem = listTable.getItem(0);
@@ -1404,90 +1407,92 @@ public class WebServiceUI extends AbstractWebService {
         listTable.addSelectionListener(new SelectionAdapter() {
 
             public void widgetSelected(SelectionEvent e) {
-                TableItem[] item = listTable.getSelection();
-                currentFunction = (Function) item[0].getData();
+                if (isRefesh) {
+                    TableItem[] item = listTable.getSelection();
+                    currentFunction = (Function) item[0].getData();
+                    isRefesh = false;
+                    // if select the same as before ,don't change it
+                    // IElementParameter METHODPara = connector.getElementParameter("METHOD"); //$NON-NLS-1$
+                    // Object obj = METHODPara.getValue();
+                    // if (currentFunction.getName().equals(obj.toString())) {
+                    // return;
+                    // }
+                    List<ParameterInfo> listIn = currentFunction.getInputParameters();
+                    List<ParameterInfo> listOut = currentFunction.getOutputParameters();
+                    ExtendedTableModel<InputMappingData> columnModel = expressinPutTableView.getExtendedTableModel();
+                    columnModel.removeAll();
+                    if (listIn != null) {
+                        for (int i = 0; i < listIn.size(); i++) {
+                            ParameterInfo pa = listIn.get(i);
+                            InputMappingData inData = new InputMappingData();
+                            inData.setParameterName(pa.getName());
+                            inData.setParameter(pa);
 
-                // if select the same as before ,don't change it
-                // IElementParameter METHODPara = connector.getElementParameter("METHOD"); //$NON-NLS-1$
-                // Object obj = METHODPara.getValue();
-                // if (currentFunction.getName().equals(obj.toString())) {
-                // return;
-                // }
-                List<ParameterInfo> listIn = currentFunction.getInputParameters();
-                List<ParameterInfo> listOut = currentFunction.getOutputParameters();
-                ExtendedTableModel<InputMappingData> columnModel = expressinPutTableView.getExtendedTableModel();
-                columnModel.removeAll();
-                if (listIn != null) {
-                    for (int i = 0; i < listIn.size(); i++) {
-                        ParameterInfo pa = listIn.get(i);
-                        InputMappingData inData = new InputMappingData();
-                        inData.setParameterName(pa.getName());
-                        inData.setParameter(pa);
-
-                        columnModel.add(inData);
+                            columnModel.add(inData);
+                        }
+                        // if input parameter only one add it auto
+                        // ParameterInfo onlyOneInPara = isOnlyOnePara(listIn);
+                        // if (onlyOneInPara != null) {
+                        // if (onlyOneInPara.getParent() != null) {
+                        // InputMappingData inData = new InputMappingData();
+                        // inData.setParameterName(onlyOneInPara.getParaFullName());
+                        // inData.setParameter(onlyOneInPara);
+                        // columnModel.add(inData);
+                        // }
+                        // }
                     }
-                    // if input parameter only one add it auto
-                    // ParameterInfo onlyOneInPara = isOnlyOnePara(listIn);
-                    // if (onlyOneInPara != null) {
-                    // if (onlyOneInPara.getParent() != null) {
-                    // InputMappingData inData = new InputMappingData();
-                    // inData.setParameterName(onlyOneInPara.getParaFullName());
-                    // inData.setParameter(onlyOneInPara);
-                    // columnModel.add(inData);
-                    // }
-                    // }
-                }
-                expressTableForIn.setSelection(0);
+                    expressTableForIn.setSelection(0);
 
-                ExtendedTableModel<OutPutMappingData> rowForOutput = rowoutPutTableView.getExtendedTableModel();
-                rowForOutput.removeAll();
-                if (listOut != null) {
-                    for (int i = 0; i < listOut.size(); i++) {
+                    ExtendedTableModel<OutPutMappingData> rowForOutput = rowoutPutTableView.getExtendedTableModel();
+                    rowForOutput.removeAll();
+                    if (listOut != null) {
+                        for (int i = 0; i < listOut.size(); i++) {
+                            OutPutMappingData outData = new OutPutMappingData();
+                            ParameterInfo pa = listOut.get(i);
+                            outData.setParameter(pa);
+                            rowForOutput.add(outData);
+                        }
+                        // if output parameter only one add it auto
+                        // ParameterInfo onlyOneOutPara = isOnlyOnePara(listOut);
+                        // if (onlyOneOutPara != null) {
+                        // if (onlyOneOutPara.getParent() != null) {
+                        // OutPutMappingData outData = new OutPutMappingData();
+                        // outData.setParameterName(onlyOneOutPara.getParaFullName());
+                        // outData.setParameter(onlyOneOutPara);
+                        // rowForOutput.add(outData);
+                        // }
+                        // }
+                    }
+                    ExtendedTableModel<OutPutMappingData> exforoutput = expressoutPutTableView.getExtendedTableModel();
+                    exforoutput.removeAll();
+                    for (IMetadataColumn column : forOutColumnList) {
                         OutPutMappingData outData = new OutPutMappingData();
-                        ParameterInfo pa = listOut.get(i);
-                        outData.setParameter(pa);
-                        rowForOutput.add(outData);
+                        outData.setOutputColumnValue(column.getLabel());
+                        outData.setMetadataColumn(column);
+                        exforoutput.add(outData);
                     }
-                    // if output parameter only one add it auto
-                    // ParameterInfo onlyOneOutPara = isOnlyOnePara(listOut);
-                    // if (onlyOneOutPara != null) {
-                    // if (onlyOneOutPara.getParent() != null) {
-                    // OutPutMappingData outData = new OutPutMappingData();
-                    // outData.setParameterName(onlyOneOutPara.getParaFullName());
-                    // outData.setParameter(onlyOneOutPara);
-                    // rowForOutput.add(outData);
-                    // }
-                    // }
-                }
-                ExtendedTableModel<OutPutMappingData> exforoutput = expressoutPutTableView.getExtendedTableModel();
-                exforoutput.removeAll();
-                for (IMetadataColumn column : forOutColumnList) {
-                    OutPutMappingData outData = new OutPutMappingData();
-                    outData.setOutputColumnValue(column.getLabel());
-                    outData.setMetadataColumn(column);
-                    exforoutput.add(outData);
-                }
-                rowTableForout.setSelection(0);
-                if (connection != null) {
-                    if (currentPortName != null) {
-                        connection.setPortName(currentPortName.getPortName());
+                    rowTableForout.setSelection(0);
+                    if (connection != null) {
+                        if (currentPortName != null) {
+                            connection.setPortName(currentPortName.getPortName());
 
-                    } else if (currentPortName == null && allPortNames != null) {
-                        currentPortName = allPortNames.get(0);
-                        connection.setPortName(currentPortName.getPortName());
-                    }
-                    if (currentFunction != null) {
-                        if (currentFunction.getName() != null) {
-                            connection.setMethodName(currentFunction.getName());
+                        } else if (currentPortName == null && allPortNames != null) {
+                            currentPortName = allPortNames.get(0);
+                            connection.setPortName(currentPortName.getPortName());
                         }
-                        if (currentFunction.getServerNameSpace() != null) {
-                            connection.setServerNameSpace(currentFunction.getServerNameSpace());
-                        }
-                        if (currentFunction.getServerName() != null) {
-                            connection.setServerName(currentFunction.getServerName());
-                        }
-                        if (currentFunction.getServerNameSpace() != null) {
-                            connection.setPortNameSpace(currentFunction.getServerNameSpace());
+                        if (currentFunction != null) {
+                            if (currentFunction.getName() != null) {
+                                connection.setMethodName(currentFunction.getName());
+                            }
+                            if (currentFunction.getServerNameSpace() != null) {
+                                connection.setServerNameSpace(currentFunction.getServerNameSpace());
+                            }
+                            if (currentFunction.getServerName() != null) {
+                                connection.setServerName(currentFunction.getServerName());
+                            }
+                            if (currentFunction.getServerNameSpace() != null) {
+                                connection.setPortNameSpace(currentFunction.getServerNameSpace());
+                            }
                         }
                     }
                 }
