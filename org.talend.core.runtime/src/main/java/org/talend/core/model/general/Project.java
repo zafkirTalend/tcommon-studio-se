@@ -36,7 +36,7 @@ public class Project {
     private boolean isSandboxProject;
 
     // used for create project, when there is no account to create.
-    private boolean noAuthor;
+    private boolean needAuthor;
 
     // end
     /**
@@ -271,12 +271,12 @@ public class Project {
         this.isSandboxProject = isSandboxProject;
     }
 
-    public boolean isNoAuthor() {
-        return this.noAuthor;
+    public boolean needAuthor() {
+        return this.needAuthor;
     }
 
-    public void setNoAuthor(boolean noAuthor) {
-        this.noAuthor = noAuthor;
+    public void setNeedAuthor(boolean needAuthor) {
+        this.needAuthor = needAuthor;
     }
 
 }
