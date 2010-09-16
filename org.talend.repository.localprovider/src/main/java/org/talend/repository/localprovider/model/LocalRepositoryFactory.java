@@ -498,12 +498,20 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         IProject prj = root.getProject(technicalLabel);
 
         final IWorkspace workspace = ResourcesPlugin.getWorkspace();
-        final IProjectDescription desc = workspace.newProjectDescription(projectInfor.getLabel());
-        desc.setNatureIds(new String[] { TalendNature.ID });
-        desc.setComment(projectInfor.getDescription());
 
         try {
-            prj.create(desc, null);
+            IProjectDescription desc = null;
+            if (prj.exists()) {
+                desc = prj.getDescription();
+            } else {
+                desc = workspace.newProjectDescription(projectInfor.getLabel());
+            }
+            desc.setNatureIds(new String[] { TalendNature.ID });
+            desc.setComment(projectInfor.getDescription());
+
+            if (!prj.exists()) {
+                prj.create(desc, null);
+            }
             prj.open(IResource.BACKGROUND_REFRESH, null);
             prj.setDefaultCharset("UTF-8", null);
         } catch (CoreException e) {
