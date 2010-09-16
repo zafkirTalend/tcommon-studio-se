@@ -89,9 +89,7 @@ import org.talend.cwm.helper.TableHelper;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.documentation.ERepositoryActionName;
-import org.talend.repository.utils.AbstractResourceChangesService;
 import org.talend.repository.utils.RepositoryPathProvider;
-import org.talend.repository.utils.ResourceChangesServiceRegister;
 
 /**
  * Repository factory use by client. Based on implementation provide by extension point system. This class contains all
@@ -1110,21 +1108,21 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
 
     public void save(Project project, Item item, boolean... isMigrationTask) throws PersistenceException {
         // MOD mzhao resource change listener so that TOP can react the changes.
-        boolean isSave = true;
-        if (item instanceof ConnectionItem) {
-            AbstractResourceChangesService resChangeService = ResourceChangesServiceRegister.getInstance()
-                    .getResourceChangeService(AbstractResourceChangesService.class);
-            if (resChangeService != null) {
-                isSave = resChangeService.handleResourceChange(((ConnectionItem) item).getConnection());
-            }
+        // boolean isSave = true;
+        // if (item instanceof ConnectionItem) {
+        // AbstractResourceChangesService resChangeService = ResourceChangesServiceRegister.getInstance()
+        // .getResourceChangeService(AbstractResourceChangesService.class);
+        // if (resChangeService != null) {
+        // isSave = resChangeService.handleResourceChange(((ConnectionItem) item).getConnection());
+        // }
+        // }
+        // if (isSave) {
+        this.repositoryFactoryFromProvider.save(project, item);
+        if ((item instanceof ProcessItem || item instanceof JobletProcessItem)
+                && (isMigrationTask == null || isMigrationTask.length == 0)) {
+            fireRepositoryPropertyChange(ERepositoryActionName.JOB_SAVE.getName(), null, item);
         }
-        if (isSave) {
-            this.repositoryFactoryFromProvider.save(project, item);
-            if ((item instanceof ProcessItem || item instanceof JobletProcessItem)
-                    && (isMigrationTask == null || isMigrationTask.length == 0)) {
-                fireRepositoryPropertyChange(ERepositoryActionName.JOB_SAVE.getName(), null, item);
-            }
-        }
+        // }
     }
 
     /*

@@ -73,7 +73,6 @@ public class XmiResourceManager {
         resourceSet.getLoadOptions().put("OPTION_USE_PARSER_POOL", Boolean.TRUE);
     }
 
-
     public void resetResourceSet() {
         resourceSet = new ResourceSetImpl();
         resourceSet.getLoadOptions().put("OPTION_DEFER_IDREF_RESOLUTION", Boolean.TRUE);
@@ -246,8 +245,9 @@ public class XmiResourceManager {
         Resource propertyResource = property.eResource();
         URI itemResourceURI = getItemResourceURI(propertyResource.getURI());
         Resource itemResource = resourceSet.getResource(itemResourceURI, true);
-        resources.add(itemResource);
+        // MOD　by zshen to avoid property file be removed when chage connection.
         resources.add(propertyResource);
+        resources.add(itemResource);
 
         return resources;
     }

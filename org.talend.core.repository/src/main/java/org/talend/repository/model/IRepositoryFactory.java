@@ -33,6 +33,7 @@ import org.talend.core.model.repository.Folder;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.IRepositoryWorkUnitListener;
 import org.talend.repository.RepositoryWorkUnit;
+import org.talend.repository.utils.XmiResourceManager;
 
 /**
  * Defines all methods that a repository provider plug-in must provides to client.<br/>
@@ -406,4 +407,5 @@ public interface IRepositoryFactory {
      */
     public List<IRepositoryViewObject> getMetadataByFolder(Project project, ERepositoryObjectType itemType, IPath path);
 
+    public XmiResourceManager getResourceManager();
 }
