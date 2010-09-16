@@ -661,21 +661,6 @@ public class RepositoryToComponentProperty {
                 return typeByProduct;
             }
         }
-
-        if (value.equals("SERVER_NAME")) { //$NON-NLS-1$
-            if (isContextMode(connection, connection.getServerName())) {
-                return connection.getServerName();
-            } else {
-                return TalendTextUtils.addQuotes(connection.getServerName());
-            }
-        }
-        if (value.equals("PORT")) { //$NON-NLS-1$
-            if (isContextMode(connection, connection.getPort())) {
-                return connection.getPort();
-            } else {
-                return TalendTextUtils.addQuotes(connection.getPort());
-            }
-        }
         if (value.equals("FRAMEWORK_TYPE")) { //$NON-NLS-1$
             if (isContextMode(connection, databaseType)) {
                 if (databaseType.equals("JavaDB Embeded")) { //$NON-NLS-1$
@@ -697,6 +682,20 @@ public class RepositoryToComponentProperty {
                 if (databaseType.equals("JavaDB DerbyClient")) { //$NON-NLS-1$
                     return "DERBYCLIENT"; //$NON-NLS-1$
                 }
+            }
+        }
+        if (value.equals("SERVER_NAME")) { //$NON-NLS-1$
+            if (isContextMode(connection, connection.getServerName())) {
+                return connection.getServerName();
+            } else {
+                return TalendTextUtils.addQuotes(connection.getServerName());
+            }
+        }
+        if (value.equals("PORT")) { //$NON-NLS-1$
+            if (isContextMode(connection, connection.getPort())) {
+                return connection.getPort();
+            } else {
+                return TalendTextUtils.addQuotes(connection.getPort());
             }
         }
         if (value.equals("SID")) { //$NON-NLS-1$
@@ -775,6 +774,26 @@ public class RepositoryToComponentProperty {
                     return dbVersionString;
                 } else {
                     return driverValue;
+                }
+            }
+        }
+
+        if (value.equals("CONNECTION_TYPE")) { //$NON-NLS-1$
+            if (isContextMode(connection, databaseType)) {
+                if (databaseType.equals(EDatabaseTypeName.ORACLEFORSID.getDisplayName())) {
+                    return "ORACLE_SID";
+                } else if (databaseType.equals(EDatabaseTypeName.ORACLESN.getDisplayName())) {
+                    return "ORACLE_SERVICE_NAME";
+                } else if (databaseType.equals(EDatabaseTypeName.ORACLE_OCI.getDisplayName())) {
+                    return "ORACLE_OCI";
+                }
+            } else {
+                if (databaseType.equals(EDatabaseTypeName.ORACLEFORSID.getDisplayName())) {
+                    return "ORACLE_SID";
+                } else if (databaseType.equals(EDatabaseTypeName.ORACLESN.getDisplayName())) {
+                    return "ORACLE_SERVICE_NAME";
+                } else if (databaseType.equals(EDatabaseTypeName.ORACLE_OCI.getDisplayName())) {
+                    return "ORACLE_OCI";
                 }
             }
         }
