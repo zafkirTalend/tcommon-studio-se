@@ -576,7 +576,6 @@ public class RepositoryObject implements IRepositoryObject, IAdaptable {
     public ERepositoryStatus getRepositoryStatus() {
         IService service = GlobalServiceRegister.getDefault().getService(IProxyRepositoryService.class);
         IProxyRepositoryFactory factory = ((IProxyRepositoryService) service).getProxyRepositoryFactory();
-        ;
         return factory.getStatus(property.getItem());
     }
 }

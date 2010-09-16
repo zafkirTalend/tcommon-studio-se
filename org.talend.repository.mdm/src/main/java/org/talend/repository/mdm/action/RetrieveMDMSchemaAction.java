@@ -32,10 +32,10 @@ import org.talend.repository.mdm.ui.wizard.concept.CreateConceptWizard;
 import org.talend.repository.mdm.util.MDMUtil;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
-import org.talend.repository.model.ProxyRepositoryFactory;
-import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
 import org.talend.repository.model.IRepositoryNode.EProperties;
+import org.talend.repository.model.ProxyRepositoryFactory;
+import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.ui.actions.metadata.AbstractCreateAction;
 import org.talend.repository.ui.utils.ConnectionContextHelper;
 
@@ -82,7 +82,7 @@ public class RetrieveMDMSchemaAction extends AbstractCreateAction {
             setEnabled(false);
         } else {
             if (ENodeType.REPOSITORY_ELEMENT.equals(node.getType())) {
-                ERepositoryStatus status = factory.getStatus(node.getObject());
+                ERepositoryStatus status = node.getObject().getRepositoryStatus();
                 if (status == ERepositoryStatus.DELETED || status == ERepositoryStatus.LOCK_BY_OTHER) {
                     setEnabled(false);
                     return;

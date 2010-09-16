@@ -19,11 +19,9 @@ import org.talend.core.model.properties.MDMConnectionItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.repository.model.ERepositoryStatus;
-import org.talend.repository.model.IProxyRepositoryFactory;
-import org.talend.repository.model.ProxyRepositoryFactory;
-import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
 import org.talend.repository.model.IRepositoryNode.EProperties;
+import org.talend.repository.model.RepositoryNode;
 
 /**
  * DOC hwang class global comment. Detailled comment
@@ -41,9 +39,8 @@ public class ReadMDMSchemaAction extends RetrieveMDMSchemaAction {
 
     protected void init(RepositoryNode node) {
         setEnabled(false);
-        IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
         if (ENodeType.REPOSITORY_ELEMENT.equals(node.getType())) {
-            if (factory.getStatus(node.getObject()) == ERepositoryStatus.DELETED) {
+            if (node.getObject().getRepositoryStatus() == ERepositoryStatus.DELETED) {
                 return;
             }
             ERepositoryObjectType nodeType = (ERepositoryObjectType) node.getProperties(EProperties.CONTENT_TYPE);

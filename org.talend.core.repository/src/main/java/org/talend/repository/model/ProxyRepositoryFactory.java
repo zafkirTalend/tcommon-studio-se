@@ -81,6 +81,7 @@ import org.talend.core.model.repository.Folder;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.IRepositoryWorkUnitListener;
 import org.talend.core.model.repository.RepositoryObject;
+import org.talend.core.model.repository.RepositoryViewObject;
 import org.talend.core.repository.i18n.Messages;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.cwm.helper.SubItemHelper;
@@ -242,8 +243,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
 
             MessageBox box = new MessageBox(Display.getCurrent().getActiveShell(), SWT.ICON_ERROR | SWT.OK | SWT.CANCEL);
             box.setText(Messages.getString("ProxyRepositoryFactory.JobNameErroe")); //$NON-NLS-1$
-            box
-                    .setMessage(Messages.getString("ProxyRepositoryFactory.Label") + fileName + Messages.getString("ProxyRepositoryFactory.ReplaceJob")); //$NON-NLS-1$ //$NON-NLS-2$
+            box.setMessage(Messages.getString("ProxyRepositoryFactory.Label") + fileName + Messages.getString("ProxyRepositoryFactory.ReplaceJob")); //$NON-NLS-1$ //$NON-NLS-2$
             if (box.open() == SWT.OK) {
                 return true;
             } else {
@@ -1303,6 +1303,9 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                 return ERepositoryStatus.DELETED;
             }
         }
+        if (obj instanceof RepositoryViewObject) {
+            return obj.getRepositoryStatus();
+        }
         return getStatus(getItem(obj));
     }
 
@@ -1325,7 +1328,6 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * @see org.talend.repository.model.IProxyRepositoryFactory#getStatus(org.talend.core.model.properties.Item)
      */
     public ERepositoryStatus getStatus(Item item) {
-        // PTODO SML [FOLDERS] temp code
         ERepositoryStatus toReturn;
         toReturn = this.repositoryFactoryFromProvider.getStatus(item);
 
@@ -1468,15 +1470,27 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * IRepositoryViewObject)
      */
     public boolean isPotentiallyEditable(IRepositoryViewObject obj) {
+        // referenced project items can't be edited.
+        if (!projectManager.getCurrentProject().getLabel().equals(obj.getProjectLabel())) {
+            return false;
+        }
         if (obj instanceof ISubRepositoryObject) {
             AbstractMetadataObject abstractMetadataObject = ((ISubRepositoryObject) obj).getAbstractMetadataObject();
             if (SubItemHelper.isDeleted(abstractMetadataObject)) {
                 return false;
             } else {
-                return isPotentiallyEditable(getItem(obj));
+                if (obj instanceof RepositoryViewObject) {
+                    return obj.getRepositoryStatus().isPotentiallyEditable();
+                } else {
+                    return isPotentiallyEditable(getItem(obj));
+                }
             }
         } else {
-            return isPotentiallyEditable(getItem(obj));
+            if (obj instanceof RepositoryViewObject) {
+                return obj.getRepositoryStatus().isPotentiallyEditable();
+            } else {
+                return isPotentiallyEditable(getItem(obj));
+            }
         }
     }
 
@@ -1505,16 +1519,16 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
     private IResource getContextResource(IProcess process, IContext context) throws Exception {
         switch (ProjectManager.getInstance().getCurrentProject().getLanguage()) {
         case JAVA:
-            IPath path = new Path(JavaUtils.JAVA_SRC_DIRECTORY).append(
-                    coreService.getJavaProjectFolderName(process.getProperty().getItem())).append(
-                    coreService.getJavaJobFolderName(process.getName(), process.getVersion())).append(JOB_CONTEXT_FOLDER).append(
-                    context.getName() + JavaUtils.JAVA_CONTEXT_EXTENSION);
+            IPath path = new Path(JavaUtils.JAVA_SRC_DIRECTORY)
+                    .append(coreService.getJavaProjectFolderName(process.getProperty().getItem()))
+                    .append(coreService.getJavaJobFolderName(process.getName(), process.getVersion())).append(JOB_CONTEXT_FOLDER)
+                    .append(context.getName() + JavaUtils.JAVA_CONTEXT_EXTENSION);
 
             return coreService.getSpecificResourceInJavaProject(path);
         case PERL:
             String rootProjectName = coreService.getRootProjectNameForPerl(process.getProperty().getItem());
-            String contextFullName = coreService.getContextFileNameForPerl(rootProjectName, process.getName(), process
-                    .getVersion(), context.getName());
+            String contextFullName = coreService.getContextFileNameForPerl(rootProjectName, process.getName(),
+                    process.getVersion(), context.getName());
 
             return coreService.getSpecificResourceInPerlProject(new Path(contextFullName));
         }

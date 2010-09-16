@@ -98,7 +98,7 @@ public final class RepositoryManager {
 
     /**
      * 
-     *for create
+     * for create
      */
     public static void refreshCreatedNode(ERepositoryObjectType type) {
         // if (isRefreshManually() || !isRefreshCreated()) {
@@ -117,7 +117,7 @@ public final class RepositoryManager {
 
     /**
      * 
-     *for editorProperties
+     * for editorProperties
      */
     public static void refreshEditorPropertiesNode(ERepositoryObjectType type) {
         if (isRefreshManually() || !isRefreshCreated()) {
@@ -280,15 +280,13 @@ public final class RepositoryManager {
                     if (activePage != null) {
                         IEditorReference[] editorReferences = activePage.getEditorReferences();
                         if (editorReferences != null) {
-                            Property property = objectToMove.getProperty().getItem().getProperty();
-                            //
                             for (IEditorReference editorReference : editorReferences) {
                                 IEditorInput editorInput = editorReference.getEditorInput();
                                 if ((editorInput != null && editorInput instanceof RepositoryEditorInput)) {
                                     RepositoryEditorInput rInput = (RepositoryEditorInput) editorInput;
                                     Property openedProperty = rInput.getItem().getProperty();
-                                    if (openedProperty.getId().equals(property.getId())
-                                            && VersionUtils.compareTo(openedProperty.getVersion(), property.getVersion()) == 0) {
+                                    if (openedProperty.getId().equals(objectToMove.getId())
+                                            && VersionUtils.compareTo(openedProperty.getVersion(), objectToMove.getVersion()) == 0) {
                                         return true;
                                     }
                                 } else if (objectToMove.getProperty().getItem() instanceof BusinessProcessItem) {
@@ -296,8 +294,8 @@ public final class RepositoryManager {
                                     if (obj instanceof RepositoryEditorInput) {
                                         RepositoryEditorInput rInput = (RepositoryEditorInput) obj;
                                         Property openedProperty = rInput.getItem().getProperty();
-                                        if (openedProperty.getId().equals(property.getId())
-                                                && VersionUtils.compareTo(openedProperty.getVersion(), property.getVersion()) == 0) {
+                                        if (openedProperty.getId().equals(objectToMove.getId())
+                                                && VersionUtils.compareTo(openedProperty.getVersion(), objectToMove.getVersion()) == 0) {
                                             return true;
                                         }
                                     }
