@@ -1991,6 +1991,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
      */
     public <K, T> List<T> getMetadatasByFolder(Project project, ERepositoryObjectType itemType, IPath path) {
         FolderItem currentFolderItem = this.getFolderItem(project, itemType, path);
+        if (currentFolderItem == null) {
+            return new ArrayList<T>();
+        }
         List<Item> invalidItems = new ArrayList<Item>();
         RootContainer<K, T> toReturn = new RootContainer<K, T>();
         for (Item curItem : (List<Item>) currentFolderItem.getChildren()) {
@@ -2016,5 +2019,14 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         }
         currentFolderItem.getChildren().removeAll(invalidItems);
         return toReturn.getMembers();
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.repository.model.IRepositoryFactory#getResourceManager()
+     */
+    public XmiResourceManager getResourceManager() {
+        return this.xmiResourceManager;
     }
 }
