@@ -81,14 +81,14 @@
                </documentation>
             </annotation>
          </attribute>
-         <attribute name="mode" type="string">
+         <attribute name="modeType" type="string">
             <annotation>
                <documentation>
                   
                </documentation>
             </annotation>
          </attribute>
-         <attribute name="enable">
+         <attribute name="filterType">
             <annotation>
                <documentation>
                   if empty, will same as ALL
@@ -123,14 +123,14 @@
                </documentation>
             </annotation>
          </attribute>
-         <attribute name="longName" type="string" use="required">
+         <attribute name="shortName" type="string" use="required">
             <annotation>
                <documentation>
                   
                </documentation>
             </annotation>
          </attribute>
-         <attribute name="shortName" type="string" use="required">
+         <attribute name="longName" type="string" use="required">
             <annotation>
                <documentation>
                   
@@ -144,7 +144,7 @@
                </documentation>
             </annotation>
          </attribute>
-         <attribute name="enable">
+         <attribute name="filterType">
             <annotation>
                <documentation>
                   if empty, will same as ALL
@@ -196,6 +196,26 @@
                   
                </documentation>
             </annotation>
+         </attribute>
+         <attribute name="filterType">
+            <annotation>
+               <documentation>
+                  if empty, will same as ALL
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="identifier"/>
+               </appInfo>
+            </annotation>
+            <simpleType>
+               <restriction base="string">
+                  <enumeration value="REMOTE">
+                  </enumeration>
+                  <enumeration value="LOCAL">
+                  </enumeration>
+                  <enumeration value="ALL">
+                  </enumeration>
+               </restriction>
+            </simpleType>
          </attribute>
       </complexType>
    </element>

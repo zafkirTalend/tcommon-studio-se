@@ -334,11 +334,11 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
     public Project createProject(Project projectInfor) throws PersistenceException {
         checkFileName(projectInfor.getLabel(), RepositoryConstants.PROJECT_PATTERN);
         Project toReturn = this.repositoryFactoryFromProvider.createProject(projectInfor);
-
-        IMigrationToolService service = (IMigrationToolService) GlobalServiceRegister.getDefault().getService(
-                IMigrationToolService.class);
-        service.initNewProjectTasks(toReturn);
-
+        if (toReturn.isLocal()) {
+            IMigrationToolService service = (IMigrationToolService) GlobalServiceRegister.getDefault().getService(
+                    IMigrationToolService.class);
+            service.initNewProjectTasks(toReturn);
+        }
         return toReturn;
     }
 
