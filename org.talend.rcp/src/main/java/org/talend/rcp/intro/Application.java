@@ -28,12 +28,15 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.internal.tweaklets.Tweaklets;
+import org.eclipse.ui.internal.tweaklets.WorkbenchImplementation;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.migration.IMigrationToolService;
 import org.talend.core.ui.branding.IBrandingService;
 import org.talend.rcp.i18n.Messages;
+import org.talend.rcp.intro.linksbar.Workbench3xImplementation4CoolBar;
 import org.talend.repository.RegistrationPlugin;
 import org.talend.repository.license.LicenseManagement;
 import org.talend.repository.model.IRepositoryService;
@@ -89,6 +92,9 @@ public class Application implements IApplication {
             if (LoginComposite.isRestart) {
                 return IApplication.EXIT_RESTART;
             }
+
+            Tweaklets.setDefault(WorkbenchImplementation.KEY, new Workbench3xImplementation4CoolBar());
+
             int returnCode = PlatformUI.createAndRunWorkbench(display, new ApplicationWorkbenchAdvisor());
             if (returnCode == PlatformUI.RETURN_RESTART) {
                 return IApplication.EXIT_RESTART;

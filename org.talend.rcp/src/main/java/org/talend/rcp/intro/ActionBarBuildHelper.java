@@ -59,6 +59,7 @@ import org.talend.core.ui.IReferencedProjectService;
 import org.talend.core.ui.branding.IActionBarHelper;
 import org.talend.core.ui.perspective.PerspectiveMenuManager;
 import org.talend.rcp.exportLogs.ExportLogsAction;
+import org.talend.rcp.intro.linksbar.Workbench3xImplementation4CoolBar;
 import org.talend.repository.model.ProxyRepositoryFactory;
 import org.talend.repository.ui.actions.toolbar.ProjectSettingsAction;
 
@@ -268,6 +269,9 @@ public class ActionBarBuildHelper implements IActionBarHelper {
                 service.addMergeAction(window, toolBar);
             }
         }
+
+        // add feature:15174
+        Workbench3xImplementation4CoolBar.createLinksToolbarItem(coolBar);
     }
 
     public void printCoolBar() {
