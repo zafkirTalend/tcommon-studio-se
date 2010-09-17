@@ -300,24 +300,26 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                         ExceptionHandler.process(e);
                     }
                 } else if (current instanceof IFolder) {
-                    if (!current.getName().equals(BIN)) {
-                        if (!folderNamesFounds.contains(((IFolder) current).getName())) {
-                            Container<K, T> cont = toReturn.addSubContainer(current.getName());
-                            FolderItem folder = folderHelper.getFolder(current.getProjectRelativePath());
+                    if (!FilesUtils.isSVNFolder(current)) {
+                        if (!current.getName().equals(BIN)) {
+                            if (!folderNamesFounds.contains(((IFolder) current).getName())) {
+                                Container<K, T> cont = toReturn.addSubContainer(current.getName());
+                                FolderItem folder = folderHelper.getFolder(current.getProjectRelativePath());
 
-                            Property property = null;
-                            if (folder == null) {
-                                folder = folderHelper.createFolder(current.getProjectRelativePath().toString());
+                                Property property = null;
+                                if (folder == null) {
+                                    folder = folderHelper.createFolder(current.getProjectRelativePath().toString());
+                                }
+                                property = folder.getProperty();
+                                folder.setParent(currentFolderItem);
+
+                                cont.setProperty(property);
+                                cont.setId(property.getId());
+                                addFolderMembers(project, type, cont, (IFolder) current, onlyLastVersion, options);
                             }
-                            property = folder.getProperty();
-                            folder.setParent(currentFolderItem);
-
-                            cont.setProperty(property);
-                            cont.setId(property.getId());
-                            addFolderMembers(project, type, cont, (IFolder) current, onlyLastVersion, options);
+                        } else {
+                            addFolderMembers(project, type, toReturn, (IFolder) current, onlyLastVersion, options);
                         }
-                    } else {
-                        addFolderMembers(project, type, toReturn, (IFolder) current, onlyLastVersion, options);
                     }
                 }
             }
