@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.repository.utils;
 
+import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.regex.Pattern;
 
@@ -30,7 +31,13 @@ public class ProjectHelper {
 
     public static Project createProject(String projectName, String projectDescription, String projectLanguage,
             String projectAuthor, String projectAuthorPass) {
-        return createProject(projectName, projectDescription, projectLanguage, projectAuthor, projectAuthorPass, null, null);
+        return createProject(projectName, projectDescription, projectLanguage, projectAuthor, projectAuthorPass, true);
+    }
+
+    public static Project createProject(String projectName, String projectDescription, String projectLanguage,
+            String projectAuthor, String projectAuthorPass, boolean encrypt) {
+        return createProject(projectName, projectDescription, projectLanguage, projectAuthor, projectAuthorPass, null, null,
+                encrypt);
     }
 
     public static Project createProject(String projectName, String projectDescription, String projectLanguage, User authoer) {
@@ -47,9 +54,16 @@ public class ProjectHelper {
 
     public static Project createProject(String projectName, String projectDescription, String projectLanguage,
             String projectAuthor, String projectAuthorPass, String projectAuthorFirstname, String projectAuthorLastname) {
+        return createProject(projectName, projectDescription, projectLanguage, projectAuthor, projectAuthorPass,
+                projectAuthorFirstname, projectAuthorLastname, true);
+    }
+
+    public static Project createProject(String projectName, String projectDescription, String projectLanguage,
+            String projectAuthor, String projectAuthorPass, String projectAuthorFirstname, String projectAuthorLastname,
+            boolean encrypt) {
 
         Project newProject = createProject(projectName, projectDescription, projectLanguage);
-        User newUser = createUser(projectAuthor, projectAuthorPass, projectAuthorFirstname, projectAuthorLastname);
+        User newUser = createUser(projectAuthor, projectAuthorPass, projectAuthorFirstname, projectAuthorLastname, encrypt);
 
         newProject.setAuthor(newUser); // set in project to record
 
@@ -72,15 +86,28 @@ public class ProjectHelper {
 
     public static User createUser(String projectAuthor, String projectAuthorPass, String projectAuthorFirstname,
             String projectAuthorLastname) {
+        return createUser(projectAuthor, projectAuthorPass, projectAuthorFirstname, projectAuthorLastname, true);
+    }
+
+    public static User createUser(String projectAuthor, String projectAuthorPass, String projectAuthorFirstname,
+            String projectAuthorLastname, boolean encrypt) {
         User newUser = PropertiesFactory.eINSTANCE.createUser();
         newUser.setLogin(projectAuthor);
         newUser.setFirstName(projectAuthorFirstname);
         newUser.setLastName(projectAuthorLastname);
         if (projectAuthorPass != null && !"".equals(projectAuthorPass)) { //$NON-NLS-1$
-            try {
-                newUser.setPassword(PasswordHelper.encryptPasswd(projectAuthorPass));
-            } catch (NoSuchAlgorithmException e) {
-                ExceptionHandler.process(e);
+            if (encrypt) {
+                try {
+                    newUser.setPassword(PasswordHelper.encryptPasswd(projectAuthorPass));
+                } catch (NoSuchAlgorithmException e) {
+                    ExceptionHandler.process(e);
+                }
+            } else {
+                try {
+                    newUser.setPassword(projectAuthorPass.getBytes("UTF-8")); //$NON-NLS-1$
+                } catch (UnsupportedEncodingException e) {
+                    ExceptionHandler.process(e);
+                }
             }
         }
 
