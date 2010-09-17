@@ -266,4 +266,15 @@ public abstract class FolderHelper {
 
     public abstract void doCreateItemState(FolderItem folder);
 
+    public String getFullFolderPath(FolderItem folder) {
+        return getFullFolderPath(folder, "");
+    }
+
+    private String getFullFolderPath(FolderItem folder, String path) {
+        if (folder.getParent() instanceof FolderItem) {
+            return getFullFolderPath((FolderItem) folder.getParent(), folder.getProperty().getLabel() + "/" + path);
+        }
+        return folder.getProperty().getLabel() + "/" + path;
+    }
+
 }
