@@ -1758,7 +1758,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         EList<Resource> kaka = xmiResourceManager.resourceSet.getResources();
         for (int i = 0; i < kaka.size(); i++) {
             Resource resource = xmiResourceManager.resourceSet.getResources().get(i);
-            for (EObject object : resource.getContents()) {
+            final EList<EObject> contents = resource.getContents();
+            for (int j = 0; j < contents.size(); j++) {
+                EObject object = contents.get(j);
                 if (object instanceof Property) {
                     if (((Property) object).getItem() instanceof FolderItem) {
                         continue;
@@ -1788,8 +1790,12 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 // }
             }
         }
-        for (Resource resource : xmiResourceManager.resourceSet.getResources()) {
-            for (EObject object : resource.getContents()) {
+        kaka = xmiResourceManager.resourceSet.getResources();
+        for (int i = 0; i < kaka.size(); i++) {
+            Resource resource = kaka.get(i);
+            final EList<EObject> contents = resource.getContents();
+            for (int j = 0; j < contents.size(); j++) {
+                EObject object = contents.get(j);
                 if (!(object instanceof Property)) {
                     if (possibleItemsURItoUnload.contains(resource.getURI()) && !resourceToUnload.contains(resource)) {
                         resourceToUnload.add(resource);
@@ -1801,7 +1807,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         // MOD mzhao resource change listener so that TOP can react the changes.
         AbstractResourceChangesService resChangeService = ResourceChangesServiceRegister.getInstance().getResourceChangeService(
                 AbstractResourceChangesService.class);
-        for (Resource resource : resourceToUnload) {
+        for (int i = 0; i < resourceToUnload.size(); i++) {
+            Resource resource = resourceToUnload.get(i);
             if (resource.isLoaded()) {
                 if (resChangeService != null) {
                     resChangeService.handleUnload(resource);
