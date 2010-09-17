@@ -986,6 +986,12 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
     public IPath getPathForSaveAsGenericSchema() {
         if (this.path != null && path.length() > 0) {
+            if (path.contains("(default)")) {//$NON-NLS-1$
+                int index = path.indexOf(")");//$NON-NLS-1$
+                if (path.length() > index + 1) {
+                    path = path.substring(path.indexOf(")") + 1);//$NON-NLS-1$
+                }
+            }
             return new Path(path);
         }
         return null;
