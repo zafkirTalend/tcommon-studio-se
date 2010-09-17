@@ -26,7 +26,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.talend.utils.files.FileDirCleaner;
-import org.talend.utils.files.FileDirCleaner.STRATEGY;
+import org.talend.utils.files.FileDirCleaner.SCAN_STRATEGY;
 
 /**
  * 
@@ -71,7 +71,7 @@ public class TestFileDirCleaner extends TestCase {
 
         int maxEntriesByDirectoryAndByType = 3;
         long maxDurationBeforeClean = 0;
-        STRATEGY strategy = STRATEGY.CLEAN_FILES;
+        SCAN_STRATEGY strategy = SCAN_STRATEGY.FILES;
 
         /*
          * 3 files only by directory max, no check on elapsed time, clean files only, no recursive,
@@ -85,7 +85,7 @@ public class TestFileDirCleaner extends TestCase {
 
         int maxEntriesByDirectoryAndByType = 3;
         long maxDurationBeforeClean = 0;
-        STRATEGY strategy = STRATEGY.CLEAN_FILES_AND_DIRECTORIES;
+        SCAN_STRATEGY strategy = SCAN_STRATEGY.FILES_AND_DIRECTORIES;
 
         /*
          * 3 files only by directory max, 3 directories only by directory max, no check on elapsed time, clean files AND
@@ -99,7 +99,7 @@ public class TestFileDirCleaner extends TestCase {
 
         int maxEntriesByDirectoryAndByType = 3;
         long maxDurationBeforeClean = 0;
-        STRATEGY strategy = STRATEGY.CLEAN_DIRECTORIES;
+        SCAN_STRATEGY strategy = SCAN_STRATEGY.DIRECTORIES;
 
         /*
          * 3 files only by directory max, 3 directories only by directory max, no check on elapsed time, clean files AND
@@ -113,7 +113,7 @@ public class TestFileDirCleaner extends TestCase {
 
         int maxEntriesByDirectoryAndByType = 3;
         long maxDurationBeforeClean = 0;
-        STRATEGY strategy = STRATEGY.CLEAN_FILES_RECURSIVELY;
+        SCAN_STRATEGY strategy = SCAN_STRATEGY.FILES_RECURSIVELY;
 
         /*
          * 3 files only by directory max, no check on elapsed time, clean files only, recursive,
@@ -127,7 +127,7 @@ public class TestFileDirCleaner extends TestCase {
 
         int maxEntriesByDirectoryAndByType = 3;
         long maxDurationBeforeClean = 0;
-        STRATEGY strategy = STRATEGY.CLEAN_FILES_AND_DIRECTORIES_RECURSIVELY;
+        SCAN_STRATEGY strategy = SCAN_STRATEGY.FILES_AND_DIRECTORIES_RECURSIVELY;
 
         /*
          * 3 files only by directory max, no check on elapsed time, clean files AND directories, recursive,
@@ -147,7 +147,7 @@ public class TestFileDirCleaner extends TestCase {
 
         int maxEntriesByDirectoryAndByType = 3;
         long maxDurationBeforeClean = getCleanDurationBeforeApril2008();
-        STRATEGY strategy = STRATEGY.CLEAN_FILES;
+        SCAN_STRATEGY strategy = SCAN_STRATEGY.FILES;
 
         /*
          * 3 files only by directory max, clean files older than April 2008, clean files only, no recursive,
@@ -161,7 +161,7 @@ public class TestFileDirCleaner extends TestCase {
 
         int maxEntriesByDirectoryAndByType = 3;
         long maxDurationBeforeClean = getCleanDurationBeforeApril2008();
-        STRATEGY strategy = STRATEGY.CLEAN_FILES_AND_DIRECTORIES;
+        SCAN_STRATEGY strategy = SCAN_STRATEGY.FILES_AND_DIRECTORIES;
 
         /*
          * 3 files only by directory max, clean files older than April 2008, clean files AND directories, no recursive,
@@ -174,7 +174,7 @@ public class TestFileDirCleaner extends TestCase {
 
         int maxEntriesByDirectoryAndByType = 3;
         long cleanAfterThisDuration = getCleanDurationBeforeApril2008();
-        STRATEGY strategy = STRATEGY.CLEAN_FILES_RECURSIVELY;
+        SCAN_STRATEGY strategy = SCAN_STRATEGY.FILES_RECURSIVELY;
 
         /*
          * 3 files only by directory max, clean files older than April 2008, clean files only, recursive,
@@ -188,7 +188,7 @@ public class TestFileDirCleaner extends TestCase {
 
         int maxEntriesByDirectoryAndByType = 3;
         long maxDurationBeforeClean = getCleanDurationBeforeApril2008();
-        STRATEGY strategy = STRATEGY.CLEAN_FILES_AND_DIRECTORIES_RECURSIVELY;
+        SCAN_STRATEGY strategy = SCAN_STRATEGY.FILES_AND_DIRECTORIES_RECURSIVELY;
 
         /*
          * 3 files by directory max, 3 directories by directory max, clean files older than April 2008, clean files AND
@@ -209,7 +209,7 @@ public class TestFileDirCleaner extends TestCase {
 
         int maxEntriesByDirectoryAndByType = 0;
         long maxDurationBeforeClean = getCleanDurationBeforeApril2008();
-        STRATEGY strategy = STRATEGY.CLEAN_FILES;
+        SCAN_STRATEGY strategy = SCAN_STRATEGY.FILES;
 
         /*
          * no clean about max entries, clean files older than April 2008, clean files only, no recursive,
@@ -223,7 +223,7 @@ public class TestFileDirCleaner extends TestCase {
 
         int maxEntriesByDirectoryAndByType = 0;
         long maxDurationBeforeClean = getCleanDurationBeforeApril2008();
-        STRATEGY strategy = STRATEGY.CLEAN_FILES_AND_DIRECTORIES;
+        SCAN_STRATEGY strategy = SCAN_STRATEGY.FILES_AND_DIRECTORIES;
 
         /*
          * no clean about max entries, clean files older than April 2008, clean files AND directories, no recursive,
@@ -236,7 +236,7 @@ public class TestFileDirCleaner extends TestCase {
 
         int maxEntriesByDirectoryAndByType = 0;
         long cleanAfterThisDuration = getCleanDurationBeforeApril2008();
-        STRATEGY strategy = STRATEGY.CLEAN_FILES_RECURSIVELY;
+        SCAN_STRATEGY strategy = SCAN_STRATEGY.FILES_RECURSIVELY;
 
         /*
          * no clean about max entries, clean files older than April 2008, clean files only, recursive,
@@ -250,7 +250,7 @@ public class TestFileDirCleaner extends TestCase {
 
         int maxEntriesByDirectoryAndByType = 0;
         long maxDurationBeforeClean = getCleanDurationBeforeApril2008();
-        STRATEGY strategy = STRATEGY.CLEAN_FILES_AND_DIRECTORIES_RECURSIVELY;
+        SCAN_STRATEGY strategy = SCAN_STRATEGY.FILES_AND_DIRECTORIES_RECURSIVELY;
 
         /*
          * no clean about max entries, clean files older than April 2008, clean files AND directories, recursive,
@@ -268,7 +268,7 @@ public class TestFileDirCleaner extends TestCase {
 
         int maxEntriesByDirectoryAndByType = 1;
         long maxDurationBeforeClean = 0;
-        STRATEGY strategy = STRATEGY.CLEAN_FILES;
+        SCAN_STRATEGY strategy = SCAN_STRATEGY.FILES;
         int expectedDeletedEntries = 1;
         String filesRegExpPattern = "(file_level_0_index_2|file_level_2_index_1|file_level_1_index_3)";
 
@@ -290,7 +290,7 @@ public class TestFileDirCleaner extends TestCase {
 
         int maxEntriesByDirectoryAndByType = 1;
         long maxDurationBeforeClean = 0;
-        STRATEGY strategy = STRATEGY.CLEAN_FILES_AND_DIRECTORIES_RECURSIVELY;
+        SCAN_STRATEGY strategy = SCAN_STRATEGY.FILES_AND_DIRECTORIES_RECURSIVELY;
         int expectedDeletedEntries = 39;
         String directoriesRegExpPattern = "dir_level_2_index_\\d";
 
@@ -312,7 +312,7 @@ public class TestFileDirCleaner extends TestCase {
 
         int maxEntriesByDirectoryAndByType = 1;
         long maxDurationBeforeClean = 0;
-        STRATEGY strategy = STRATEGY.CLEAN_DIRECTORIES_RECURSIVELY;
+        SCAN_STRATEGY strategy = SCAN_STRATEGY.DIRECTORIES_RECURSIVELY;
         int expectedDeletedEntries = 12;
         String directoriesRegExpPattern = "dir_level_2_index_\\d";
 
@@ -326,7 +326,7 @@ public class TestFileDirCleaner extends TestCase {
 
         int maxEntriesByDirectoryAndByType = 3;
         long maxDurationBeforeClean = 0;
-        STRATEGY strategy = STRATEGY.CLEAN_FILES_AND_DIRECTORIES;
+        SCAN_STRATEGY strategy = SCAN_STRATEGY.FILES_AND_DIRECTORIES;
 
         /*
          * 3 files only by directory max, no check on elapsed time, clean files AND directories, no recursive,
@@ -339,7 +339,7 @@ public class TestFileDirCleaner extends TestCase {
 
         int maxEntriesByDirectoryAndByType = 3;
         long maxDurationBeforeClean = 0;
-        STRATEGY strategy = STRATEGY.CLEAN_FILES_RECURSIVELY;
+        SCAN_STRATEGY strategy = SCAN_STRATEGY.FILES_RECURSIVELY;
 
         /*
          * 3 files only by directory max, no check on elapsed time, clean files only, recursive,
@@ -353,7 +353,7 @@ public class TestFileDirCleaner extends TestCase {
 
         int maxEntriesByDirectoryAndByType = 3;
         long maxDurationBeforeClean = 0;
-        STRATEGY strategy = STRATEGY.CLEAN_FILES_AND_DIRECTORIES_RECURSIVELY;
+        SCAN_STRATEGY strategy = SCAN_STRATEGY.FILES_AND_DIRECTORIES_RECURSIVELY;
 
         /*
          * 3 files only by directory max, no check on elapsed time, clean files AND directories, recursive,
@@ -373,7 +373,7 @@ public class TestFileDirCleaner extends TestCase {
 
         int maxEntriesByDirectoryAndByType = 3;
         long maxDurationBeforeClean = getCleanDurationBeforeApril2008();
-        STRATEGY strategy = STRATEGY.CLEAN_FILES;
+        SCAN_STRATEGY strategy = SCAN_STRATEGY.FILES;
 
         /*
          * 3 files only by directory max, clean files older than April 2008, clean files only, no recursive,
@@ -387,7 +387,7 @@ public class TestFileDirCleaner extends TestCase {
 
         int maxEntriesByDirectoryAndByType = 3;
         long maxDurationBeforeClean = getCleanDurationBeforeApril2008();
-        STRATEGY strategy = STRATEGY.CLEAN_FILES_AND_DIRECTORIES;
+        SCAN_STRATEGY strategy = SCAN_STRATEGY.FILES_AND_DIRECTORIES;
 
         /*
          * 3 files only by directory max, clean files older than April 2008, clean files AND directories, no recursive,
@@ -400,7 +400,7 @@ public class TestFileDirCleaner extends TestCase {
 
         int maxEntriesByDirectoryAndByType = 3;
         long cleanAfterThisDuration = getCleanDurationBeforeApril2008();
-        STRATEGY strategy = STRATEGY.CLEAN_FILES_RECURSIVELY;
+        SCAN_STRATEGY strategy = SCAN_STRATEGY.FILES_RECURSIVELY;
 
         /*
          * 3 files only by directory max, clean files older than April 2008, clean files only, recursive,
@@ -414,7 +414,7 @@ public class TestFileDirCleaner extends TestCase {
 
         int maxEntriesByDirectoryAndByType = 3;
         long maxDurationBeforeClean = getCleanDurationBeforeApril2008();
-        STRATEGY strategy = STRATEGY.CLEAN_FILES_AND_DIRECTORIES_RECURSIVELY;
+        SCAN_STRATEGY strategy = SCAN_STRATEGY.FILES_AND_DIRECTORIES_RECURSIVELY;
 
         /*
          * 3 files by directory max, 3 directories by directory max, clean files older than April 2008, clean files AND
@@ -435,7 +435,7 @@ public class TestFileDirCleaner extends TestCase {
 
         int maxEntriesByDirectoryAndByType = 0;
         long maxDurationBeforeClean = getCleanDurationBeforeApril2008();
-        STRATEGY strategy = STRATEGY.CLEAN_FILES;
+        SCAN_STRATEGY strategy = SCAN_STRATEGY.FILES;
 
         /*
          * no clean about max entries, clean files older than April 2008, clean files only, no recursive,
@@ -449,7 +449,7 @@ public class TestFileDirCleaner extends TestCase {
 
         int maxEntriesByDirectoryAndByType = 0;
         long maxDurationBeforeClean = getCleanDurationBeforeApril2008();
-        STRATEGY strategy = STRATEGY.CLEAN_FILES_AND_DIRECTORIES;
+        SCAN_STRATEGY strategy = SCAN_STRATEGY.FILES_AND_DIRECTORIES;
 
         /*
          * no clean about max entries, clean files older than April 2008, clean files AND directories, no recursive,
@@ -462,7 +462,7 @@ public class TestFileDirCleaner extends TestCase {
 
         int maxEntriesByDirectoryAndByType = 0;
         long cleanAfterThisDuration = getCleanDurationBeforeApril2008();
-        STRATEGY strategy = STRATEGY.CLEAN_FILES_RECURSIVELY;
+        SCAN_STRATEGY strategy = SCAN_STRATEGY.FILES_RECURSIVELY;
 
         /*
          * no clean about max entries, clean files older than April 2008, clean files only, recursive,
@@ -476,7 +476,7 @@ public class TestFileDirCleaner extends TestCase {
 
         int maxEntriesByDirectoryAndByType = 0;
         long maxDurationBeforeClean = getCleanDurationBeforeApril2008();
-        STRATEGY strategy = STRATEGY.CLEAN_FILES_AND_DIRECTORIES_RECURSIVELY;
+        SCAN_STRATEGY strategy = SCAN_STRATEGY.FILES_AND_DIRECTORIES_RECURSIVELY;
 
         /*
          * no clean about max entries, clean files older than April 2008, clean files AND directories, recursive,
@@ -484,11 +484,11 @@ public class TestFileDirCleaner extends TestCase {
         runTest(maxEntriesByDirectoryAndByType, maxDurationBeforeClean, strategy);
     }
 
-    private void runTest(int maxEntriesByDirectoryAndByType, long cleanAfterThisDuration, STRATEGY strategy) {
+    private void runTest(int maxEntriesByDirectoryAndByType, long cleanAfterThisDuration, SCAN_STRATEGY strategy) {
         runTest(maxEntriesByDirectoryAndByType, cleanAfterThisDuration, strategy, null, null, null);
     }
 
-    private void runTest(int maxEntriesByDirectoryAndByType, long cleanAfterThisDuration, STRATEGY strategy,
+    private void runTest(int maxEntriesByDirectoryAndByType, long cleanAfterThisDuration, SCAN_STRATEGY strategy,
             Integer expectedDeletedEntries, String filesRegExpPattern, String directoriesRegExpPattern) {
         try {
             generateFiles(LEVELS_COUNT);
