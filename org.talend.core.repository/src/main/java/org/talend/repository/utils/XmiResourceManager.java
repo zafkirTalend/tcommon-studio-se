@@ -23,6 +23,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -30,6 +31,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.talend.commons.emf.EmfHelper;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.model.properties.DatabaseConnectionItem;
@@ -91,6 +93,12 @@ public class XmiResourceManager {
 
     public boolean hasTalendProjectFile(IProject project) {
         URI uri = getProjectResourceUri(project);
+        try {
+            project.refreshLocal(IResource.DEPTH_INFINITE, new NullProgressMonitor());
+        } catch (CoreException e) {
+            // TODO Auto-generated catch block
+            ExceptionHandler.process(e);
+        }
         IPath path = URIHelper.convert(uri);
         IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(path);
         return file.exists();
