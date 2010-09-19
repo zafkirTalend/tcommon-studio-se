@@ -19,10 +19,8 @@ import java.util.Comparator;
 import org.apache.log4j.Logger;
 
 /**
- * FileDirCleaner.
  * 
- * Either it cleans according number of items, or according date, or both, by checking only items which match the regexp
- * and the chosen strategy.
+ * DOC amaumont class global comment. Detailled comment
  */
 public class FileDirCleaner {
 
@@ -50,24 +48,15 @@ public class FileDirCleaner {
 
     /**
      * 
-     * SCAN_STRATEGY. Match according the chosen strategy: <br>
-     * - FILES: scan and match only the direct children files from the given <code>pathDir</code> not recursively <br>
-     * - DIRECTORIES: scan and match only the directories from the given <code>pathDir</code> not recursively <br>
-     * - FILES_AND_DIRECTORIES: scan and match direct children directories and the direct children files from the given
-     * <code>pathDir</code> not recursively <br>
-     * - FILES_RECURSIVELY: scan and match the files from the given <code>pathDir</code> recursively <br>
-     * - DIRECTORIES_RECURSIVELY: scan and match directories and files from the given <code>pathDir</code> recursively <br>
-     * - FILES_AND_DIRECTORIES_RECURSIVELY: scan and match directories and files from the given <code>pathDir</code>
-     * recursively
-     * 
+     * DOC amaumont FileDirCleaner class global comment. Detailled comment
      */
-    public enum SCAN_STRATEGY {
-        FILES(false, true, false),
-        DIRECTORIES(true, false, false),
-        FILES_AND_DIRECTORIES(true, true, false),
-        FILES_RECURSIVELY(false, true, true),
-        DIRECTORIES_RECURSIVELY(true, false, true),
-        FILES_AND_DIRECTORIES_RECURSIVELY(true, true, true);
+    public enum STRATEGY {
+        CLEAN_FILES(false, true, false),
+        CLEAN_DIRECTORIES(true, false, false),
+        CLEAN_FILES_AND_DIRECTORIES(true, true, false),
+        CLEAN_FILES_RECURSIVELY(false, true, true),
+        CLEAN_DIRECTORIES_RECURSIVELY(true, false, true),
+        CLEAN_FILES_AND_DIRECTORIES_RECURSIVELY(true, true, true);
 
         private boolean cleanDirectories;
 
@@ -75,7 +64,7 @@ public class FileDirCleaner {
 
         private boolean recursively;
 
-        private SCAN_STRATEGY(boolean cleanDirectories, boolean cleanFiles, boolean recursively) {
+        private STRATEGY(boolean cleanDirectories, boolean cleanFiles, boolean recursively) {
             this.cleanFiles = cleanFiles;
             this.cleanDirectories = cleanDirectories;
             this.recursively = recursively;
@@ -126,7 +115,7 @@ public class FileDirCleaner {
 
     /**
      * 
-     * FileDirCleaner constructor.
+     * DOC amaumont FileDirCleaner constructor comment.
      * 
      * @param doAction
      * @param maxEntriesByDirectoryAndByType
@@ -135,7 +124,7 @@ public class FileDirCleaner {
      * Default clean strategy is STRATEGY.CLEAN_FILES_ONLY
      */
     public FileDirCleaner(boolean doAction, int maxEntriesByDirectoryAndByType, long maxDurationBeforeCleaning) {
-        this(doAction, SCAN_STRATEGY.FILES, maxEntriesByDirectoryAndByType, maxDurationBeforeCleaning);
+        this(doAction, STRATEGY.CLEAN_FILES, maxEntriesByDirectoryAndByType, maxDurationBeforeCleaning);
     }
 
     /**
@@ -149,18 +138,7 @@ public class FileDirCleaner {
      * @param cleanAfterThisDuration in seconds, clean files and directories (if <code>cleanFilesOnly</code> is false)
      * according their last modified value
      */
-    public FileDirCleaner(boolean doAction, SCAN_STRATEGY strategy, int maxEntriesByDirectory, long cleanAfterThisDuration) {
-        super();
-        this.doAction = doAction;
-        this.maxEntriesByDirectoryAndByType = maxEntriesByDirectory;
-        this.maxDurationBeforeCleaning = cleanAfterThisDuration;
-        this.cleanDirectories = strategy.isCleanDirectories();
-        this.cleanFiles = strategy.isCleanFiles();
-        this.recursively = strategy.isRecursively();
-    }
-
-    public FileDirCleaner(boolean doAction, SCAN_STRATEGY strategy, int maxEntriesByDirectory, long cleanAfterThisDuration,
-            boolean isCleanLibs) {
+    public FileDirCleaner(boolean doAction, STRATEGY strategy, int maxEntriesByDirectory, long cleanAfterThisDuration) {
         super();
         this.doAction = doAction;
         this.maxEntriesByDirectoryAndByType = maxEntriesByDirectory;
@@ -189,46 +167,48 @@ public class FileDirCleaner {
 
     };
 
-    public int clean(String pathDir) {
-        return clean(pathDir, null, null);
+    public int clean(String pathFolder) {
+        return clean(pathFolder, null, null);
     }
 
-    public int clean(String pathDir, String filesRegExpPattern) {
-        return clean(pathDir, filesRegExpPattern, null);
+    public int clean(String pathFolder, String filesRegExpPattern) {
+        return clean(pathFolder, filesRegExpPattern, null);
     }
 
     /**
      * 
-     * "clean".
+     * DOC amaumont Comment method "clean".
      * 
-     * @param pathDir, required
+     * @param pathFolder, required
      * @param filesRegExpPattern, optional
      * @param directoriesRegExpPattern, optional
      * @return
      */
-    public int clean(String pathDir, String filesRegExpPattern, String directoriesRegExpPattern) {
-        if (pathDir == null) {
+    public int clean(String pathFolder, String filesRegExpPattern, String directoriesRegExpPattern) {
+        if (pathFolder == null) {
             throw new IllegalArgumentException("pathFolder can't be null");
         }
         this.cleanResult = new CleanResult();
         this.directoriesRegExpPattern = directoriesRegExpPattern;
         this.filesRegExpPattern = filesRegExpPattern;
         this.currentTime = System.currentTimeMillis();
-        File dir = new File(pathDir);
+        File dir = new File(pathFolder);
         if (dir.isDirectory()) {
             cleanFilesDirRecursively(dir, true);
         } else {
-            throw new IllegalArgumentException("pathDir is not a directory: " + pathDir);
+            throw new IllegalArgumentException("pathFolder is not a directory: " + pathFolder);
         }
         return cleanResult.deletedEntries;
     }
 
     /**
+     * DOC amaumont Comment method "removeFolder".
      * 
-     * "cleanFilesDirRecursively".
+     * @param cleanFiles
+     * @param recursively
      * 
-     * @param dir
-     * @param isRootDirectory
+     * @param current
+     * @param removeRecursivly
      */
     public void cleanFilesDirRecursively(File dir, boolean isRootDirectory) {
         try {
@@ -263,7 +243,7 @@ public class FileDirCleaner {
                 try {
                     if (timeExceeded || tooManyDirs || tooManyFiles) {
                         if (isDirectory) {
-                                dirMatches = directoriesRegExpPattern == null || fileDirName.matches(directoriesRegExpPattern);
+                            dirMatches = directoriesRegExpPattern == null || fileDirName.matches(directoriesRegExpPattern);
                         } else {
                             fileMatches = filesRegExpPattern == null || fileDirName.matches(filesRegExpPattern);
                         }
