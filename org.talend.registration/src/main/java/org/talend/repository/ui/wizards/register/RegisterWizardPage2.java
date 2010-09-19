@@ -67,13 +67,15 @@ public class RegisterWizardPage2 extends AbstractBasicWizardDialog {
 
     private String proxyPort;
 
+    private String oldPasswd;
+
     private boolean isProxyEnable;
 
     private Text passwordText;
 
     private Text passwordText2;
 
-    private Text pseudonymText;
+    private Text userNameText;
 
     private Label password2ValidateLabel;
 
@@ -82,6 +84,12 @@ public class RegisterWizardPage2 extends AbstractBasicWizardDialog {
     private String notValidateStr = Messages.getString("RegisterWizardPage.notValid");
 
     private Button nextButton;
+
+    private Text oldPasswdText;
+
+    private Text firstNameText;
+
+    private Text surNameText;
 
     /**
      * DOC zli RegisterWizardPage1 constructor comment.
@@ -103,6 +111,7 @@ public class RegisterWizardPage2 extends AbstractBasicWizardDialog {
         this.firstname = firstname;
         this.lastname = lastname;
         this.pseudonym = pseudonym;
+
         this.password = password;
         this.proxyHost = proxyHost;
         this.proxyPort = proxyPort;
@@ -112,7 +121,6 @@ public class RegisterWizardPage2 extends AbstractBasicWizardDialog {
 
     @Override
     protected void rightComposite(Composite composite, int style) {
-
         GridData data;
         Composite c = new Composite(composite, SWT.NONE);
         c.setLayout(new GridLayout(3, false));
@@ -158,6 +166,7 @@ public class RegisterWizardPage2 extends AbstractBasicWizardDialog {
         countryCombo.setItems(initiateCountryList());
         countryCombo.select(countryToSelect);
         countryCombo.setLayoutData(data);
+        countryCombo.setEnabled(false);
         new Label(c, SWT.NONE);
 
         createSpacer(c, 3);
@@ -168,14 +177,82 @@ public class RegisterWizardPage2 extends AbstractBasicWizardDialog {
         }
         createLegalInfos(c, 3, str2);
         createSpacer(c, 3);
+        // firstName
+        Label firstName = new Label(c, SWT.NONE);
+        data = new GridData(GridData.HORIZONTAL_ALIGN_CENTER);
+        data.widthHint = 120;
+        data.horizontalIndent = 50;
+        firstName.setLayoutData(data);
+        firstName.setText(Messages.getString("RegisterWizardPage.firstName"));
+        firstNameText = new Text(c, SWT.BORDER);
+        data = new GridData();
+        data.widthHint = 200;
+        firstNameText.setLayoutData(data);
+        if (alreadyRegistered) {
+            firstNameText.setText(firstname);
+        }
+
+        new Label(c, SWT.NONE);
+
+        // LastName
+        Label surName = new Label(c, SWT.NONE);
+        data = new GridData(GridData.HORIZONTAL_ALIGN_CENTER);
+        data.widthHint = 120;
+        data.horizontalIndent = 50;
+        surName.setLayoutData(data);
+        surName.setText(Messages.getString("RegisterWizardPage.surName"));
+        surNameText = new Text(c, SWT.BORDER);
+        data = new GridData();
+        data.widthHint = 200;
+        surNameText.setLayoutData(data);
+        if (alreadyRegistered) {
+            surNameText.setText(lastname);
+        }
+        new Label(c, SWT.NONE);
+        Label userName = new Label(c, SWT.NONE);
+        data = new GridData(GridData.HORIZONTAL_ALIGN_CENTER);
+        data.widthHint = 120;
+        data.horizontalIndent = 50;
+        userName.setLayoutData(data);
+        userName.setText(Messages.getString("RegisterWizardPage.userName"));
+        userNameText = new Text(c, SWT.BORDER);
+        data = new GridData();
+        data.widthHint = 200;
+        userNameText.setLayoutData(data);
+        if (alreadyRegistered) {
+            userNameText.setText(this.pseudonym);
+        }
+        Label d = new Label(c, SWT.NONE);
+        d.setText("*");
+        d.setForeground(new Color(null, new RGB(255, 0, 0)));
+
+        if (alreadyRegistered) {
+            Label oldPasswd = new Label(c, SWT.NONE);
+            data = new GridData(GridData.HORIZONTAL_ALIGN_CENTER);
+            data.widthHint = 120;
+            data.horizontalIndent = 50;
+            oldPasswd.setLayoutData(data);
+            oldPasswd.setText(Messages.getString("RegisterWizardPage.oldPasswd"));
+            oldPasswdText = new Text(c, SWT.BORDER);
+            data = new GridData();
+            data.widthHint = 200;
+            oldPasswdText.setLayoutData(data);
+            oldPasswdText.setEchoChar('*');
+            new Label(c, SWT.NONE);
+        }
 
         // password
         Label password = new Label(c, SWT.NONE);
         data = new GridData(GridData.HORIZONTAL_ALIGN_CENTER);
-        data.widthHint = 100;
+        data.widthHint = 120;
         data.horizontalIndent = 50;
         password.setLayoutData(data);
-        password.setText(Messages.getString("RegisterWizardPage.password"));
+
+        String passwdText = Messages.getString("RegisterWizardPage.password");
+        if (alreadyRegistered) {
+            passwdText = Messages.getString("RegisterWizardPage.Newpassword");
+        }
+        password.setText(passwdText);
         passwordText = new Text(c, SWT.BORDER);
         data = new GridData();
         data.widthHint = 200;
@@ -191,10 +268,10 @@ public class RegisterWizardPage2 extends AbstractBasicWizardDialog {
         // password again
         Label password2 = new Label(c, SWT.NONE);
         data = new GridData(GridData.HORIZONTAL_ALIGN_CENTER);
-        data.widthHint = 100;
+        data.widthHint = 120;
         data.horizontalIndent = 50;
         password2.setLayoutData(data);
-        password2.setText(Messages.getString("RegisterWizardPage.password"));
+        password2.setText(Messages.getString("RegisterWizardPage.confirmPassword"));
         passwordText2 = new Text(c, SWT.BORDER);
         data = new GridData();
         data.widthHint = 200;
@@ -210,68 +287,50 @@ public class RegisterWizardPage2 extends AbstractBasicWizardDialog {
         password2ValidateLabel.setLayoutData(data);
         password2ValidateLabel.setForeground(new Color(null, new RGB(255, 0, 0)));
 
-        // firstName
-        Label firstName = new Label(c, SWT.NONE);
-        data = new GridData(GridData.HORIZONTAL_ALIGN_CENTER);
-        data.widthHint = 100;
-        data.horizontalIndent = 50;
-        firstName.setLayoutData(data);
-        firstName.setText(Messages.getString("RegisterWizardPage.firstName"));
-        Text firstNameText = new Text(c, SWT.BORDER);
-        data = new GridData();
-        data.widthHint = 200;
-        firstNameText.setLayoutData(data);
-        if (alreadyRegistered) {
-            firstNameText.setText(firstname);
-        }
-        new Label(c, SWT.NONE);
-
-        // sureName
-        Label surName = new Label(c, SWT.NONE);
-        data = new GridData(GridData.HORIZONTAL_ALIGN_CENTER);
-        data.widthHint = 100;
-        data.horizontalIndent = 50;
-        surName.setLayoutData(data);
-        surName.setText(Messages.getString("RegisterWizardPage.surName"));
-        Text surNameText = new Text(c, SWT.BORDER);
-        data = new GridData();
-        data.widthHint = 200;
-        surNameText.setLayoutData(data);
-        if (alreadyRegistered) {
-            surNameText.setText(lastname);
-        }
-        new Label(c, SWT.NONE);
-
-        // pseudonym
-        Label pseudonym = new Label(c, SWT.NONE);
-        data = new GridData(GridData.HORIZONTAL_ALIGN_CENTER);
-        data.widthHint = 100;
-        data.horizontalIndent = 50;
-        pseudonym.setLayoutData(data);
-        pseudonym.setText(Messages.getString("RegisterWizardPage.pseudonym"));
-        pseudonymText = new Text(c, SWT.BORDER);
-        data = new GridData();
-        data.widthHint = 200;
-        pseudonymText.setLayoutData(data);
-        if (alreadyRegistered) {
-            pseudonymText.setText(this.pseudonym);
-        }
-        Label d = new Label(c, SWT.NONE);
-        d.setText("*");
-        d.setForeground(new Color(null, new RGB(255, 0, 0)));
+        // // pseudonym
+        // Label pseudonym = new Label(c, SWT.NONE);
+        // data = new GridData(GridData.HORIZONTAL_ALIGN_CENTER);
+        // data.widthHint = 100;
+        // data.horizontalIndent = 50;
+        // pseudonym.setLayoutData(data);
+        // pseudonym.setText(Messages.getString("RegisterWizardPage.pseudonym"));
+        // pseudonymText = new Text(c, SWT.BORDER);
+        // data = new GridData();
+        // data.widthHint = 200;
+        // pseudonymText.setLayoutData(data);
+        // if (alreadyRegistered) {
+        // pseudonymText.setText(this.pseudonym);
+        // }
+        // Label d = new Label(c, SWT.NONE);
+        // d.setText("*");
+        // d.setForeground(new Color(null, new RGB(255, 0, 0)));
         createSpacer(c, 2);
 
         addListener();
     }
 
     private void addListener() {
+        firstNameText.addModifyListener(new ModifyListener() {
+
+            public void modifyText(ModifyEvent e) {
+                // TODO Auto-generated method stub
+                firstname = firstNameText.getText();
+            }
+        });
+        surNameText.addModifyListener(new ModifyListener() {
+
+            public void modifyText(ModifyEvent e) {
+                // TODO Auto-generated method stub
+                lastname = surNameText.getText();
+            }
+        });
         passwordText.addModifyListener(new ModifyListener() {
 
             public void modifyText(ModifyEvent e) {
 
-                String password = passwordText.getText();
+                password = passwordText.getText();
                 String password2 = passwordText2.getText();
-                String pseudonym = pseudonymText.getText();
+                String pseudonym = userNameText.getText();
                 if (password != null && !"".equals(password) && password2 != null && !"".equals(password2)
                         && password.equals(password2)) {
                     password2ValidateLabel.setText(validateStr);
@@ -292,7 +351,7 @@ public class RegisterWizardPage2 extends AbstractBasicWizardDialog {
             public void modifyText(ModifyEvent e) {
                 String password = passwordText.getText();
                 String password2 = passwordText2.getText();
-                String pseudonym = pseudonymText.getText();
+                String pseudonym = userNameText.getText();
 
                 if (password != null && !"".equals(password) && password2 != null && !"".equals(password2)
                         && password.equals(password2)) {
@@ -308,12 +367,12 @@ public class RegisterWizardPage2 extends AbstractBasicWizardDialog {
                 }
             }
         });
-        pseudonymText.addModifyListener(new ModifyListener() {
+        userNameText.addModifyListener(new ModifyListener() {
 
             public void modifyText(ModifyEvent e) {
                 String password = passwordText.getText();
                 String password2 = passwordText2.getText();
-                String pseudonym = pseudonymText.getText();
+                pseudonym = userNameText.getText();
                 if (password != null
                         && !"".equals(password) && password2 != null && !"".equals(password2) && password.equals(password2) && pseudonym != null && !"".equals(pseudonym)) {//$NON-NLS-N$//$NON-NLS-N$//$NON-NLS-N$
                     nextButton.setEnabled(true);
@@ -322,6 +381,15 @@ public class RegisterWizardPage2 extends AbstractBasicWizardDialog {
                 }
             }
         });
+        if (alreadyRegistered) {
+            oldPasswdText.addModifyListener(new ModifyListener() {
+
+                public void modifyText(ModifyEvent e) {
+                    // TODO Auto-generated method stub
+                    oldPasswd = oldPasswdText.getText();
+                }
+            });
+        }
     }
 
     protected void createBottomComposite(Composite composite, int style) {
@@ -367,7 +435,7 @@ public class RegisterWizardPage2 extends AbstractBasicWizardDialog {
 
         String password = passwordText.getText();
         String password2 = passwordText2.getText();
-        String pseudonym = pseudonymText.getText();
+        String pseudonym = userNameText.getText();
 
         if (password != null && !"".equals(password) && password2 != null && !"".equals(password2) && password.equals(password2)
                 && pseudonym != null && !"".equals(pseudonym)) {
@@ -385,8 +453,8 @@ public class RegisterWizardPage2 extends AbstractBasicWizardDialog {
             boolean success = false;
             try {
                 if (alreadyRegistered) {
-                    success = RegisterManagement.getInstance().updateUser(email, pseudonym, null, password, firstname, lastname,
-                            country, isProxyEnable, proxyHost, proxyPort);
+                    success = RegisterManagement.getInstance().updateUser(email, pseudonym, oldPasswd, password, firstname,
+                            lastname, country, isProxyEnable, proxyHost, proxyPort);
                 } else {
                     success = RegisterManagement.getInstance().createUser(email, pseudonym, password, firstname, lastname,
                             country, isProxyEnable, proxyHost, proxyPort);

@@ -13,6 +13,7 @@
 package org.talend.repository.ui.wizards.register;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Locale;
 import java.util.SortedSet;
@@ -132,7 +133,13 @@ public class RegisterWizardPage1 extends AbstractBasicWizardDialog {
                 try {
                     // url = new URL("http://www.talend.com/communitybenefits.php");
                     // PlatformUI.getWorkbench().getBrowserSupport().getExternalBrowser().openURL(url);
-                    Runtime.getRuntime().exec("explorer http://www.talend.com/community/communityMember.php"); // http://www.talend.com/communitybenefits.php
+                    java.net.URI uri = new java.net.URI("http://www.talend.com/community/communityMember.php");
+                    java.awt.Desktop.getDesktop().browse(uri);
+                    // Runtime.getRuntime().exec("explorer http://www.talend.com/community/communityMember.php"); //
+                    // http://www.talend.com/communitybenefits.php
+                } catch (URISyntaxException e1) {
+                    // TODO Auto-generated catch block
+                    ExceptionHandler.process(e1);
                 } catch (IOException e2) {
                     ExceptionHandler.process(e2);
                 }
@@ -313,7 +320,7 @@ public class RegisterWizardPage1 extends AbstractBasicWizardDialog {
                 if (userInfos != null && !"".equals(userInfos)) {
                     alreadyRegistered = true;
                     String[] split = userInfos.split(",");//$NON-NLS-N$
-                    if (split.length > 3) {
+                    if (split.length > 2) {
 
                         firstname = split[0];
                         if (split[0] != null && split[0].length() > 1 && split[0].startsWith("\"") && split[0].endsWith("\"")) {//$NON-NLS-N$//$NON-NLS-N$
@@ -325,9 +332,9 @@ public class RegisterWizardPage1 extends AbstractBasicWizardDialog {
                         if (split[2] != null && split[2].length() > 1 && split[2].startsWith("\"") && split[2].endsWith("\"")) {//$NON-NLS-N$//$NON-NLS-N$
                             pseudonym = split[2].substring(1, split[2].length() - 1);
                         }
-                        if (split[3] != null && split[3].length() > 1 && split[3].startsWith("\"") && split[3].endsWith("\"")) {//$NON-NLS-N$//$NON-NLS-N$
-                            password = split[3].substring(1, split[3].length() - 1);
-                        }
+                        //                        if (split[3] != null && split[3].length() > 1 && split[3].startsWith("\"") && split[3].endsWith("\"")) {//$NON-NLS-N$//$NON-NLS-N$
+                        // password = split[3].substring(1, split[3].length() - 1);
+                        // }
                     }
 
                 }

@@ -127,7 +127,9 @@ public class AbstractBasicWizardDialog extends Dialog {
         GridData layoutData = new GridData();
         center.setLayoutData(layoutData);
 
-        new ImageCanvas(center, ImageProvider.getImageDesc(ERepositoryImages.REGISTER_ICO)); //$NON-NLS-1$
+        ImageCanvas cc = new ImageCanvas(center, ImageProvider.getImageDesc(ERepositoryImages.REGISTER_ICO)); //$NON-NLS-1$
+        cc.setLayout(new GridLayout());
+        cc.setLayoutData(new GridData(GridData.FILL_VERTICAL));
         rightComposite(center, SWT.NONE);
     }
 
