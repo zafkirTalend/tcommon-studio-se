@@ -385,7 +385,7 @@ public class RegisterWizardPage2 extends AbstractBasicWizardDialog {
             boolean success = false;
             try {
                 if (alreadyRegistered) {
-                    success = RegisterManagement.getInstance().updateUser(email, pseudonym, password, firstname, lastname,
+                    success = RegisterManagement.getInstance().updateUser(email, pseudonym, null, password, firstname, lastname,
                             country, isProxyEnable, proxyHost, proxyPort);
                 } else {
                     success = RegisterManagement.getInstance().createUser(email, pseudonym, password, firstname, lastname,

@@ -122,8 +122,8 @@ public class RegisterManagement {
         return result.signum() > 0;
     }
 
-    public boolean updateUser(String email, String pseudo, String password, String firstname, String lastname, String country,
-            boolean isProxyEnabled, String proxyHost, String proxyPort) throws BusinessException {
+    public boolean updateUser(String email, String pseudo, String oldPassword, String password, String firstname,
+            String lastname, String country, boolean isProxyEnabled, String proxyHost, String proxyPort) throws BusinessException {
         BigInteger result = BigInteger.valueOf(-1);
         registNumber = null;
         // if proxy is enabled
@@ -167,9 +167,9 @@ public class RegisterManagement {
         try {
             IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
                     IBrandingService.class);
-            result = proxy.updateUser(email, pseudo, password, firstname, lastname, country, version, brandingService
-                    .getShortProductName(), osName, osVersion, javaVersion, totalMemory + "", memRAM //$NON-NLS-1$
-                    + "", nbProc + ""); //$NON-NLS-1$ //$NON-NLS-2$
+            result = proxy.updateUser(email, pseudo, oldPassword, password, firstname, lastname, country, version,
+                    brandingService.getShortProductName(), osName, osVersion, javaVersion, totalMemory + "", memRAM //$NON-NLS-1$
+                            + "", nbProc + ""); //$NON-NLS-1$ //$NON-NLS-2$
             if (result != null && result.signum() > 0) {
                 PlatformUI.getPreferenceStore().setValue("REGISTRATION_DONE", 1); //$NON-NLS-1$
                 saveRegistoryBean();
