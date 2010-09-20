@@ -13,8 +13,6 @@
 package org.talend.repository.ui.wizards.register;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.Locale;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -129,17 +127,13 @@ public class RegisterWizardPage1 extends AbstractBasicWizardDialog {
 
             @Override
             public void linkActivated(HyperlinkEvent e) {
-                URL url;
+                // URL url;
                 try {
                     // url = new URL("http://www.talend.com/communitybenefits.php");
                     // PlatformUI.getWorkbench().getBrowserSupport().getExternalBrowser().openURL(url);
-                    java.net.URI uri = new java.net.URI("http://www.talend.com/community/communityMember.php");
-                    java.awt.Desktop.getDesktop().browse(uri);
-                    // Runtime.getRuntime().exec("explorer http://www.talend.com/community/communityMember.php"); //
+
+                    Runtime.getRuntime().exec("explorer http://www.talend.com/community/communityMember.php"); //
                     // http://www.talend.com/communitybenefits.php
-                } catch (URISyntaxException e1) {
-                    // TODO Auto-generated catch block
-                    ExceptionHandler.process(e1);
                 } catch (IOException e2) {
                     ExceptionHandler.process(e2);
                 }
@@ -208,13 +202,13 @@ public class RegisterWizardPage1 extends AbstractBasicWizardDialog {
         emailStatus = createOkStatus();
         // Email Name
         if (emailText.getText().length() == 0) {
-            emailStatus = new Status(IStatus.ERROR, RegistrationPlugin.PLUGIN_ID, IStatus.OK, Messages
-                    .getString("RegisterWizardPage.emailEmpty"), null); //$NON-NLS-1$
+            emailStatus = new Status(IStatus.ERROR, RegistrationPlugin.PLUGIN_ID, IStatus.OK,
+                    Messages.getString("RegisterWizardPage.emailEmpty"), null); //$NON-NLS-1$
         } else {
             // Reg Exp validation
             if (!Pattern.matches(RepositoryConstants.MAIL_PATTERN, emailText.getText())) {
-                emailStatus = new Status(IStatus.ERROR, RegistrationPlugin.PLUGIN_ID, IStatus.OK, Messages
-                        .getString("RegisterWizardPage.emailNotValid"), null); //$NON-NLS-1$
+                emailStatus = new Status(IStatus.ERROR, RegistrationPlugin.PLUGIN_ID, IStatus.OK,
+                        Messages.getString("RegisterWizardPage.emailNotValid"), null); //$NON-NLS-1$
             }
         }
         updatePageStatus();
