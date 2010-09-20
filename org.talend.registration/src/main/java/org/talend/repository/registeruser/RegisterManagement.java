@@ -23,6 +23,7 @@ import java.util.Properties;
 
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.adaptor.LocationManager;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
@@ -37,6 +38,8 @@ import org.talend.core.ui.branding.IBrandingService;
 import org.talend.repository.RegistrationPlugin;
 import org.talend.repository.registeruser.proxy.RegisterUserPortTypeProxy;
 import org.talend.repository.ui.login.connections.ConnectionUserPerReader;
+
+import com.mysql.jdbc.Messages;
 
 /**
  * DOC mhirt class global comment. Detailled comment <br/>
@@ -186,6 +189,8 @@ public class RegisterManagement {
                     recup.setComplete(true);
                     prefManipulator.addConnection(recup);
                 }
+            } else {
+                checkErrors(result.signum());
             }
         } catch (RemoteException e) {
             decrementTry();
@@ -262,12 +267,68 @@ public class RegisterManagement {
                     recup.setComplete(true);
                     prefManipulator.addConnection(recup);
                 }
+            } else {
+                checkErrors(result.signum());
             }
         } catch (RemoteException e) {
             decrementTry();
             throw new BusinessException(e);
         }
         return result.signum() > 0;
+    }
+
+    private void checkErrors(int signum) {
+        String message = "";
+        switch (signum) {
+        case -10:
+            message = Messages.getString("RegisterManagement.impossible");
+            break;
+        case -110:
+            message = Messages.getString("RegisterManagement.userNameInDatabase");
+            break;
+        case -120:
+            message = Messages.getString("RegisterManagement.alreadyRegistered");
+            break;
+        case -130:
+            message = Messages.getString("RegisterManagement.userNameInvalid");
+            break;
+        case -140:
+            message = Messages.getString("RegisterManagement.passwdInvalid");
+            break;
+        case -150:
+            message = Messages.getString("RegisterManagement.userNameDifferent");
+            break;
+        case -160:
+            message = Messages.getString("RegisterManagement.notInBlackList");
+            break;
+        case -170:
+            message = Messages.getString("RegisterManagement.emailNotContain");
+            break;
+        case -180:
+            message = Messages.getString("RegisterManagement.emailInvalid");
+            break;
+        case -190:
+            message = Messages.getString("RegisterManagement.emailNotInBlackList");
+            break;
+        case -200:
+            message = Messages.getString("RegisterManagement.userNameInDatabase");
+            break;
+        case -210:
+            message = Messages.getString("RegisterManagement.userNameCharacter");
+            break;
+        case -220:
+            message = Messages.getString("RegisterManagement.userNameInvalid");
+            break;
+        case -230:
+            message = Messages.getString("RegisterManagement.realnameInvalid");
+            break;
+        case -240:
+            message = Messages.getString("RegisterManagement.emailInvalid");
+            break;
+        default:
+            signum = 0;
+        }
+        MessageDialog.openError(null, Messages.getString("RegisterManagement.errors"), message);
     }
 
     public String checkUser(String email, boolean isProxyEnabled, String proxyHost, String proxyPort) throws BusinessException {

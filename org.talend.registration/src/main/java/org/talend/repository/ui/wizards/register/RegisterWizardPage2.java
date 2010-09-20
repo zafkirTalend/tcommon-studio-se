@@ -466,14 +466,12 @@ public class RegisterWizardPage2 extends AbstractBasicWizardDialog {
                 MessageBoxExceptionHandler.process(e);
                 updateOrCreateSuccess = false;
             } finally {
-
-                close();
-                RegisterWizard registerWizard = new RegisterWizard();
-                if (!updateOrCreateSuccess) {
-                    email = null;
+                if (updateOrCreateSuccess) {
+                    close();
+                    RegisterWizard registerWizard = new RegisterWizard();
+                    RegisterWizardPage3 dialog = new RegisterWizardPage3(this.getShell(), registerWizard, email);
+                    dialog.open();
                 }
-                RegisterWizardPage3 dialog = new RegisterWizardPage3(this.getShell(), registerWizard, email);
-                dialog.open();
             }
 
         } else if (IDialogConstants.BACK_ID == buttonId) {
