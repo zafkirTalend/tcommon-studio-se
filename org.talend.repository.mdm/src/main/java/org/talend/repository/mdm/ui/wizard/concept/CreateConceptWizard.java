@@ -59,13 +59,13 @@ import org.talend.repository.ui.wizards.RepositoryWizard;
  */
 public class CreateConceptWizard extends RepositoryWizard implements INewWizard {
 
-    private MDMInOutSelectPage inOutSelectPage;
+    private MdmConceptWizardPage1 inOutSelectPage;
 
-    private MDMInOutSchemaWizardPage schemaPage;
+    private MdmConceptWizardPage3 schemaPage;
 
-    private SetConceptNamePage step0Page;
+    private MdmConceptWizardPage2 step0Page;
 
-    private MDMTablePage tablePage;
+    private MdmConceptWizardPage4 tablePage;
 
     private ConnectionItem connectionItem;
 
@@ -164,14 +164,14 @@ public class CreateConceptWizard extends RepositoryWizard implements INewWizard 
     @Override
     public void addPages() {
         if (creation) {
-            inOutSelectPage = new MDMInOutSelectPage(node, connectionItem, creation);
-            step0Page = new SetConceptNamePage(node, connectionItem, isRepositoryObjectEditable(), creation, existNames);
-            schemaPage = new MDMInOutSchemaWizardPage(node, connectionItem, metadataTable, isRepositoryObjectEditable(), creation);
+            inOutSelectPage = new MdmConceptWizardPage1(node, connectionItem, creation);
+            step0Page = new MdmConceptWizardPage2(node, connectionItem, isRepositoryObjectEditable(), creation, existNames);
+            schemaPage = new MdmConceptWizardPage3(node, connectionItem, metadataTable, isRepositoryObjectEditable(), creation);
             addPage(inOutSelectPage);
             addPage(step0Page);
             addPage(schemaPage);
         } else {
-            tablePage = new MDMTablePage(connectionItem, metadataTable, isRepositoryObjectEditable());
+            tablePage = new MdmConceptWizardPage4(connectionItem, metadataTable, isRepositoryObjectEditable());
             addPage(tablePage);
         }
 
@@ -179,7 +179,7 @@ public class CreateConceptWizard extends RepositoryWizard implements INewWizard 
 
     @Override
     public IWizardPage getNextPage(IWizardPage page) {
-        if (page instanceof MDMInOutSelectPage) {
+        if (page instanceof MdmConceptWizardPage1) {
 
         }
         return super.getNextPage(page);
@@ -272,9 +272,9 @@ public class CreateConceptWizard extends RepositoryWizard implements INewWizard 
      */
     @Override
     public boolean canFinish() {
-        if (currentPage instanceof MDMInOutSchemaWizardPage && currentPage.isPageComplete()) {
+        if (currentPage instanceof MdmConceptWizardPage3 && currentPage.isPageComplete()) {
             return true;
-        } else if (currentPage instanceof MDMTablePage && currentPage.isPageComplete()) {
+        } else if (currentPage instanceof MdmConceptWizardPage4 && currentPage.isPageComplete()) {
             return true;
         }
         return false;

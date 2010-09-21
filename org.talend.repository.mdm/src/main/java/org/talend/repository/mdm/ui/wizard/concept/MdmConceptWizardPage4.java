@@ -24,7 +24,7 @@ import org.talend.repository.ui.swt.utils.AbstractForm;
  * 
  *
  */
-public class MDMTablePage extends WizardPage {
+public class MdmConceptWizardPage4 extends WizardPage {
 
     private MetadataTable metadataTable;
 
@@ -42,7 +42,7 @@ public class MDMTablePage extends WizardPage {
      * 
      * @param ISelection
      */
-    public MDMTablePage(ConnectionItem connectionItem, MetadataTable metadataTable, boolean isRepositoryObjectEditable) {
+    public MdmConceptWizardPage4(ConnectionItem connectionItem, MetadataTable metadataTable, boolean isRepositoryObjectEditable) {
         super("wizardPage"); //$NON-NLS-1$
         this.connectionItem = connectionItem;
         this.metadataTable = metadataTable;
@@ -62,10 +62,10 @@ public class MDMTablePage extends WizardPage {
 
             public void checkPerformed(final AbstractForm source) {
                 if (source.isStatusOnError()) {
-                    MDMTablePage.this.setPageComplete(false);
+                    MdmConceptWizardPage4.this.setPageComplete(false);
                     setErrorMessage(source.getStatus());
                 } else {
-                    MDMTablePage.this.setPageComplete(isRepositoryObjectEditable);
+                    MdmConceptWizardPage4.this.setPageComplete(isRepositoryObjectEditable);
                     setErrorMessage(null);
                     setMessage(source.getStatus(), source.getStatusLevel());
                 }

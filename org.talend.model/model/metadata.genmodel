@@ -37,6 +37,11 @@
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="metadata.ecore#//MDMConnectionProtocol">
       <genEnumLiterals ecoreEnumLiteral="metadata.ecore#//MDMConnectionProtocol/HTTP"/>
     </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="metadata.ecore#//MdmConceptType">
+      <genEnumLiterals ecoreEnumLiteral="metadata.ecore#//MdmConceptType/INPUT"/>
+      <genEnumLiterals ecoreEnumLiteral="metadata.ecore#//MdmConceptType/OUTPUT"/>
+      <genEnumLiterals ecoreEnumLiteral="metadata.ecore#//MdmConceptType/RECEIVE"/>
+    </genEnums>
     <genDataTypes ecoreDataType="metadata.ecore#//Map"/>
     <genDataTypes ecoreDataType="metadata.ecore#//List"/>
     <genClasses ecoreClass="metadata.ecore#//Metadata">
@@ -349,6 +354,8 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//Concept/group"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//Concept/root"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//Concept/loop"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//Concept/conceptType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//Concept/xPathPrefix"/>
     </genClasses>
     <genClasses ecoreClass="metadata.ecore#//ConceptTarget">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference metadata.ecore#//ConceptTarget/schema"/>

@@ -27,6 +27,7 @@ import org.talend.commons.ui.swt.tableviewer.celleditor.DialogErrorForCellEditor
 import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
 import org.talend.commons.utils.data.list.ListenableListEvent;
 import org.talend.core.model.metadata.builder.connection.Concept;
+import org.talend.core.model.metadata.builder.connection.MdmConceptType;
 import org.talend.repository.i18n.Messages;
 import org.talend.repository.mdm.model.MDMXSDExtractorLoopModel;
 import org.talend.repository.mdm.ui.wizard.dnd.MDMLinker;
@@ -154,7 +155,12 @@ public class ExtractionLoopWithMDMEditorView extends AbstractDataTableEditorView
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<Concept, String>() {
 
             public String get(Concept bean) {
-                return bean.getLoopExpression();
+                final String loopExpression = bean.getLoopExpression();
+                if (MdmConceptType.RECEIVE.equals(bean.getConceptType()) && loopExpression != null) {
+                    final String[] split = loopExpression.split("/");
+                    return "/" + split[split.length - 1];
+                }
+                return loopExpression;
             }
 
             public void set(Concept bean, String value) {

@@ -215,6 +215,8 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
             return createRowSeparatorFromString(eDataType, initialValue);
         case ConnectionPackage.MDM_CONNECTION_PROTOCOL:
             return createMDMConnectionProtocolFromString(eDataType, initialValue);
+        case ConnectionPackage.MDM_CONCEPT_TYPE:
+            return createMdmConceptTypeFromString(eDataType, initialValue);
         case ConnectionPackage.MAP:
             return createMapFromString(eDataType, initialValue);
         case ConnectionPackage.LIST:
@@ -241,6 +243,8 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
             return convertRowSeparatorToString(eDataType, instanceValue);
         case ConnectionPackage.MDM_CONNECTION_PROTOCOL:
             return convertMDMConnectionProtocolToString(eDataType, instanceValue);
+        case ConnectionPackage.MDM_CONCEPT_TYPE:
+            return convertMdmConceptTypeToString(eDataType, instanceValue);
         case ConnectionPackage.MAP:
             return convertMapToString(eDataType, instanceValue);
         case ConnectionPackage.LIST:
@@ -728,6 +732,28 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
      * @generated
      */
     public String convertMDMConnectionProtocolToString(EDataType eDataType, Object instanceValue) {
+        return instanceValue == null ? null : instanceValue.toString();
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public MdmConceptType createMdmConceptTypeFromString(EDataType eDataType, String initialValue) {
+        MdmConceptType result = MdmConceptType.get(initialValue);
+        if (result == null)
+            throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
+                    + eDataType.getName() + "'");
+        return result;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String convertMdmConceptTypeToString(EDataType eDataType, Object instanceValue) {
         return instanceValue == null ? null : instanceValue.toString();
     }
 

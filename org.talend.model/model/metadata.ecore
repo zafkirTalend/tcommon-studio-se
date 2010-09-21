@@ -600,6 +600,9 @@
         eType="#//XMLFileNode" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="loop" upperBound="-1" eType="#//XMLFileNode"
         containment="true" resolveProxies="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="conceptType" lowerBound="1"
+        eType="#//MdmConceptType" defaultValueLiteral="INPUT"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="xPathPrefix" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ConceptTarget">
     <eStructuralFeatures xsi:type="ecore:EReference" name="schema" eType="#//Concept"
@@ -684,6 +687,11 @@
         eType="#//XMLFileNode" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="loop" upperBound="-1" eType="#//XMLFileNode"
         containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="MdmConceptType">
+    <eLiterals name="INPUT" literal="INPUT"/>
+    <eLiterals name="OUTPUT" value="1" literal="OUTPUT"/>
+    <eLiterals name="RECEIVE" value="2" literal="RECEIVE"/>
   </eClassifiers>
   <eSubpackages name="cwm" nsURI="http://www.talend.org/cwm/2010" nsPrefix="cwm">
     <eSubpackages name="relational" nsURI="http://www.talend.org/cwm/resource/relational/2010"

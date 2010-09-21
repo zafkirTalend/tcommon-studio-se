@@ -52,6 +52,7 @@ import org.talend.core.model.metadata.builder.connection.HL7Connection;
 import org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.LdifFileConnection;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
+import org.talend.core.model.metadata.builder.connection.MdmConceptType;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.PositionalFileConnection;
@@ -570,7 +571,12 @@ public class RepositoryToComponentProperty {
                 if (isContextMode(connection, concept.getLoopExpression())) {
                     return concept.getLoopExpression();
                 } else {
-                    return TalendTextUtils.addQuotes(concept.getLoopExpression());
+                    String loop = concept.getLoopExpression();
+                    if (MdmConceptType.RECEIVE.equals(concept.getConceptType())) {
+                        final String[] split = loop.split("/");
+                        loop = split[split.length - 1];
+                    }
+                    return TalendTextUtils.addQuotes(loop);
                 }
             }
 
@@ -594,6 +600,11 @@ public class RepositoryToComponentProperty {
             Concept concept = getConcept(connection, table);
             if (concept != null) {
                 return getOutputXmlValue(concept.getGroup());
+            }
+        } else if ("XPATH_PREFIX".equals(value)) {
+            Concept concept = getConcept(connection, table);
+            if (concept != null) {
+                return concept.getXPathPrefix();
             }
         }
         return null;

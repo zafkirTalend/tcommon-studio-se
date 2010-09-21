@@ -59,6 +59,7 @@ import org.talend.commons.ui.command.CommandStackForComposite;
 import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
 import org.talend.commons.ui.swt.formtools.Form;
 import org.talend.commons.ui.swt.formtools.LabelledCheckboxCombo;
+import org.talend.commons.ui.swt.formtools.LabelledCombo;
 import org.talend.commons.ui.swt.formtools.UtilsButton;
 import org.talend.commons.ui.swt.tableviewer.IModifiedBeanListener;
 import org.talend.commons.ui.swt.tableviewer.ModifiedBeanEvent;
@@ -100,9 +101,9 @@ import org.talend.repository.ui.utils.ShadowProcessHelper;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.TreePopulator;
 
 /**
- * DOC hwang class global comment. Detailled comment
+ * DOC wchen class global comment. Detailled comment
  */
-public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefreshable {
+public class MdmReceiveForm extends AbstractMDMFileStepForm implements IRefreshable {
 
     private static Logger log = Logger.getLogger(MDMXSDFileForm.class);
 
@@ -169,6 +170,8 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
 
     private MetadataTable metadataTable;
 
+    private LabelledCombo xPathPrefixCombo;
+
     /**
      * Constructor to use by RCP Wizard.
      * 
@@ -176,7 +179,7 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
      * @param Wizard
      * @param Style
      */
-    public MDMXSDFileForm(Composite parent, ConnectionItem connectionItem, MetadataTable metadataTable, Concept concept,
+    public MdmReceiveForm(Composite parent, ConnectionItem connectionItem, MetadataTable metadataTable, Concept concept,
             WizardPage wizardPage) {
         super(parent, connectionItem);
         this.metadataTable = metadataTable;
@@ -229,6 +232,13 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
         fieldsModel.setConcept(concept.getConceptTargets());
         fieldsTableEditorView.getTableViewerCreator().layout();
 
+        if (concept.getXPathPrefix() == null || "".equals(concept.getXPathPrefix())) {
+            xPathPrefixCombo.select(0);
+        } else {
+            final XPathPrefix xPathPrefix = getXPathPrefix(concept.getXPathPrefix());
+            xPathPrefixCombo.setText(xPathPrefix.getDisplayName());
+        }
+
         if (isContextMode()) {
             adaptFormToEditable();
         }
@@ -246,6 +256,7 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
     @Override
     protected void adaptFormToEditable() {
         super.adaptFormToEditable();
+        xPathPrefixCombo.setReadOnly(isContextMode());
         loopTableEditorView.setReadOnly(isContextMode());
         this.fieldsTableEditorView.setReadOnly(isContextMode());
     }
@@ -329,7 +340,22 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
         }
         // ///////////////////////////////////////////
 
-        schemaTargetGroup.setBackgroundMode(SWT.INHERIT_FORCE);
+        // schemaTargetGroup.setBackgroundMode(SWT.INHERIT_FORCE);
+
+        XPathPrefix[] values = XPathPrefix.values();
+        String[] xPathPrefixData = new String[values.length];
+        for (int j = 0; j < values.length; j++) {
+            xPathPrefixData[j] = values[j].getDisplayName();
+        }
+
+        Composite composite = new Composite(schemaTargetGroup, SWT.NONE);
+        final GridLayout layout = new GridLayout();
+        layout.numColumns = 2;
+        composite.setLayout(layout);
+        composite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+
+        xPathPrefixCombo = new LabelledCombo(composite, "XPath Prefix", "", xPathPrefixData, 1, true, SWT.NONE); //$NON-NLS-1$  //$NON-NLS-1$
+        xPathPrefixCombo.getCombo().setBackground(null);
 
         CommandStackForComposite commandStack = new CommandStackForComposite(schemaTargetGroup);
 
@@ -339,7 +365,6 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
         loopTableEditorView.getExtendedTableViewer().setCommandStack(commandStack);
         GridData data2 = new GridData(GridData.FILL_HORIZONTAL);
         data2.heightHint = 90;
-
         final Composite loopTableEditorComposite = loopTableEditorView.getMainComposite();
         loopTableEditorComposite.setLayoutData(data2);
         loopTableEditorComposite.setBackground(null);
@@ -567,6 +592,21 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
      */
     @Override
     protected void addFieldsListeners() {
+
+        xPathPrefixCombo.getCombo().addSelectionListener(new SelectionAdapter() {
+
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                if (concept != null) {
+                    final XPathPrefix xPathPrefixByDisplayName = getXPathPrefixByDisplayName(xPathPrefixCombo.getText());
+                    if (xPathPrefixByDisplayName != null) {
+                        concept.setXPathPrefix(xPathPrefixByDisplayName.getPrefix());
+                    }
+                }
+            }
+
+        });
+
         // add listener to tableMetadata (listen the event of the toolbars)
         fieldsTableEditorView.getExtendedTableModel().addAfterOperationListListener(new IListenableListListener() {
 
@@ -843,6 +883,14 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
             if (this.linker != null) {
                 this.linker.removeAllLinks();
             }
+
+            if (concept.getXPathPrefix() == null || "".equals(concept.getXPathPrefix())) {
+                xPathPrefixCombo.select(0);
+            } else {
+                final XPathPrefix xPathPrefix = getXPathPrefix(concept.getXPathPrefix());
+                xPathPrefixCombo.setText(xPathPrefix.getDisplayName());
+            }
+
             String selectedEntity = null;
             if (wizardPage != null && wizardPage.getPreviousPage() instanceof MdmConceptWizardPage2) {
                 selectedEntity = ((MdmConceptWizardPage2) wizardPage.getPreviousPage()).getSelectedEntity();
@@ -1002,4 +1050,50 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
         // }
     }
 
+    private XPathPrefix getXPathPrefix(String prefix) {
+        final XPathPrefix[] values = XPathPrefix.values();
+        for (int i = 0; i < values.length; i++) {
+            if (values[i].getPrefix().equals(prefix)) {
+                return values[i];
+            }
+        }
+        return null;
+    }
+
+    private XPathPrefix getXPathPrefixByDisplayName(String dispalyName) {
+        final XPathPrefix[] values = XPathPrefix.values();
+        for (int i = 0; i < values.length; i++) {
+            if (values[i].getDisplayName().equals(dispalyName)) {
+                return values[i];
+            }
+        }
+        return null;
+    }
+
+}
+
+/**
+ * DOC wchen class global comment. Detailled comment
+ */
+enum XPathPrefix {
+    NONE_ITEM("NONE_ITEM", ""),
+    TRIGGER_ITEM("TRIGGER_ITEM", "/exchange/item"),
+    PROCESS_ITEM("PROCESS_ITEM", "/item");
+
+    private String prefix;
+
+    private String displayName;
+
+    XPathPrefix(String prefix, String displayName) {
+        this.prefix = prefix;
+        this.displayName = displayName;
+    }
+
+    public String getPrefix() {
+        return this.prefix;
+    }
+
+    public String getDisplayName() {
+        return this.displayName;
+    }
 }

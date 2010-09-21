@@ -24,6 +24,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.Concept#getGroup <em>Group</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.Concept#getRoot <em>Root</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.Concept#getLoop <em>Loop</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.Concept#getConceptType <em>Concept Type</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.Concept#getXPathPrefix <em>XPath Prefix</em>}</li>
  * </ul>
  * </p>
  *
@@ -177,4 +179,60 @@ public interface Concept extends TdTable {
      * @generated
      */
     EList<XMLFileNode> getLoop();
+
+    /**
+     * Returns the value of the '<em><b>Concept Type</b></em>' attribute.
+     * The default value is <code>"INPUT"</code>.
+     * The literals are from the enumeration {@link org.talend.core.model.metadata.builder.connection.MdmConceptType}.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Concept Type</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Concept Type</em>' attribute.
+     * @see org.talend.core.model.metadata.builder.connection.MdmConceptType
+     * @see #setConceptType(MdmConceptType)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getConcept_ConceptType()
+     * @model default="INPUT" required="true"
+     * @generated
+     */
+    MdmConceptType getConceptType();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.Concept#getConceptType <em>Concept Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Concept Type</em>' attribute.
+     * @see org.talend.core.model.metadata.builder.connection.MdmConceptType
+     * @see #getConceptType()
+     * @generated
+     */
+    void setConceptType(MdmConceptType value);
+
+    /**
+     * Returns the value of the '<em><b>XPath Prefix</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>XPath Prefix</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>XPath Prefix</em>' attribute.
+     * @see #setXPathPrefix(String)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getConcept_XPathPrefix()
+     * @model
+     * @generated
+     */
+    String getXPathPrefix();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.Concept#getXPathPrefix <em>XPath Prefix</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>XPath Prefix</em>' attribute.
+     * @see #getXPathPrefix()
+     * @generated
+     */
+    void setXPathPrefix(String value);
 } // Concept

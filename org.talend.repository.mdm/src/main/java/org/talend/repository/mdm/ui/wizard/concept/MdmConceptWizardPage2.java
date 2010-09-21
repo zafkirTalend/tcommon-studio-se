@@ -22,7 +22,7 @@ import org.talend.repository.ui.swt.utils.AbstractForm;
 /**
  * DOC hwang class global comment. Detailled comment
  */
-public class SetConceptNamePage extends AbstractRetrieveConceptPage {
+public class MdmConceptWizardPage2 extends AbstractRetrieveConceptPage {
 
     private SetNameForm form;
 
@@ -30,7 +30,7 @@ public class SetConceptNamePage extends AbstractRetrieveConceptPage {
 
     private boolean isRepositoryObjectEditable;
 
-    protected SetConceptNamePage(RepositoryNode node, ConnectionItem connectionItem, boolean isRepositoryObjectEditable,
+    protected MdmConceptWizardPage2(RepositoryNode node, ConnectionItem connectionItem, boolean isRepositoryObjectEditable,
             boolean creation, String[] existingNames) {
         super(node, connectionItem, creation); //$NON-NLS-1$
         this.setTitle(Messages.getString("SetConceptNamePage.MDM_Concept")); //$NON-NLS-1$
@@ -54,10 +54,10 @@ public class SetConceptNamePage extends AbstractRetrieveConceptPage {
 
                 public void checkPerformed(final AbstractForm source) {
                     if (source.isStatusOnError()) {
-                        SetConceptNamePage.this.setPageComplete(false);
+                        MdmConceptWizardPage2.this.setPageComplete(false);
                         setErrorMessage(source.getStatus());
                     } else {
-                        SetConceptNamePage.this.setPageComplete(isRepositoryObjectEditable);
+                        MdmConceptWizardPage2.this.setPageComplete(isRepositoryObjectEditable);
                         setErrorMessage(null);
                         setMessage(source.getStatus(), source.getStatusLevel());
                     }

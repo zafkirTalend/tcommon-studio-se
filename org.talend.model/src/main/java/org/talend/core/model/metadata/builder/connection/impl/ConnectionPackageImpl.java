@@ -47,6 +47,7 @@ import org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.LdifFileConnection;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.metadata.builder.connection.MDMConnectionProtocol;
+import org.talend.core.model.metadata.builder.connection.MdmConceptType;
 import org.talend.core.model.metadata.builder.connection.Metadata;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
@@ -409,6 +410,13 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     private EEnum mdmConnectionProtocolEEnum = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EEnum mdmConceptTypeEEnum = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -2669,7 +2677,8 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getConcept_InputModel() {
@@ -2698,6 +2707,24 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      */
     public EReference getConcept_Loop() {
         return (EReference) conceptEClass.getEStructuralFeatures().get(6);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getConcept_ConceptType() {
+        return (EAttribute) conceptEClass.getEStructuralFeatures().get(7);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getConcept_XPathPrefix() {
+        return (EAttribute) conceptEClass.getEStructuralFeatures().get(8);
     }
 
     /**
@@ -3268,6 +3295,15 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EEnum getMdmConceptType() {
+        return mdmConceptTypeEEnum;
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -3613,6 +3649,8 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEReference(conceptEClass, CONCEPT__GROUP);
         createEReference(conceptEClass, CONCEPT__ROOT);
         createEReference(conceptEClass, CONCEPT__LOOP);
+        createEAttribute(conceptEClass, CONCEPT__CONCEPT_TYPE);
+        createEAttribute(conceptEClass, CONCEPT__XPATH_PREFIX);
 
         conceptTargetEClass = createEClass(CONCEPT_TARGET);
         createEReference(conceptTargetEClass, CONCEPT_TARGET__SCHEMA);
@@ -3691,6 +3729,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         escapeEEnum = createEEnum(ESCAPE);
         rowSeparatorEEnum = createEEnum(ROW_SEPARATOR);
         mdmConnectionProtocolEEnum = createEEnum(MDM_CONNECTION_PROTOCOL);
+        mdmConceptTypeEEnum = createEEnum(MDM_CONCEPT_TYPE);
 
         // Create data types
         mapEDataType = createEDataType(MAP);
@@ -4544,6 +4583,10 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEReference(getConcept_Loop(), this.getXMLFileNode(), null, "loop", null, 0, -1, Concept.class, !IS_TRANSIENT,
                 !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
                 IS_ORDERED);
+        initEAttribute(getConcept_ConceptType(), this.getMdmConceptType(), "conceptType", "INPUT", 1, 1, Concept.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getConcept_XPathPrefix(), ecorePackage.getEString(), "xPathPrefix", null, 0, 1, Concept.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(conceptTargetEClass, ConceptTarget.class, "ConceptTarget", !IS_ABSTRACT, !IS_INTERFACE,
                 IS_GENERATED_INSTANCE_CLASS);
@@ -4719,6 +4762,11 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
 
         initEEnum(mdmConnectionProtocolEEnum, MDMConnectionProtocol.class, "MDMConnectionProtocol");
         addEEnumLiteral(mdmConnectionProtocolEEnum, MDMConnectionProtocol.HTTP);
+
+        initEEnum(mdmConceptTypeEEnum, MdmConceptType.class, "MdmConceptType");
+        addEEnumLiteral(mdmConceptTypeEEnum, MdmConceptType.INPUT);
+        addEEnumLiteral(mdmConceptTypeEEnum, MdmConceptType.OUTPUT);
+        addEEnumLiteral(mdmConceptTypeEEnum, MdmConceptType.RECEIVE);
 
         // Initialize data types
         initEDataType(mapEDataType, HashMap.class, "Map", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);

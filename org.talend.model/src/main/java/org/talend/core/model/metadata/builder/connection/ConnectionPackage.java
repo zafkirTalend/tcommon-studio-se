@@ -13026,7 +13026,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Input Model</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13060,12 +13061,30 @@ public interface ConnectionPackage extends EPackage {
     int CONCEPT__LOOP = RelationalPackage.TD_TABLE_FEATURE_COUNT + 6;
 
     /**
+     * The feature id for the '<em><b>Concept Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONCEPT__CONCEPT_TYPE = RelationalPackage.TD_TABLE_FEATURE_COUNT + 7;
+
+    /**
+     * The feature id for the '<em><b>XPath Prefix</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONCEPT__XPATH_PREFIX = RelationalPackage.TD_TABLE_FEATURE_COUNT + 8;
+
+    /**
      * The number of structural features of the '<em>Concept</em>' class.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int CONCEPT_FEATURE_COUNT = RelationalPackage.TD_TABLE_FEATURE_COUNT + 7;
+    int CONCEPT_FEATURE_COUNT = RelationalPackage.TD_TABLE_FEATURE_COUNT + 9;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.ConceptTargetImpl <em>Concept Target</em>}' class.
@@ -15528,13 +15547,23 @@ public interface ConnectionPackage extends EPackage {
     int MDM_CONNECTION_PROTOCOL = 48;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.MdmConceptType <em>Mdm Concept Type</em>}' enum.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.metadata.builder.connection.MdmConceptType
+     * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getMdmConceptType()
+     * @generated
+     */
+    int MDM_CONCEPT_TYPE = 49;
+
+    /**
      * The meta object id for the '<em>Map</em>' data type.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see java.util.HashMap
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getMap()
      * @generated
      */
-    int MAP = 49;
+    int MAP = 50;
 
     /**
      * The meta object id for the '<em>List</em>' data type.
@@ -15543,7 +15572,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getList()
      * @generated
      */
-    int LIST = 50;
+    int LIST = 51;
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.Metadata <em>Metadata</em>}'.
@@ -18335,10 +18364,9 @@ public interface ConnectionPackage extends EPackage {
     EReference getConcept_ConceptTargets();
 
     /**
-     * Returns the meta object for the attribute '
-     * {@link org.talend.core.model.metadata.builder.connection.Concept#isInputModel <em>Input Model</em>}'. <!--
-     * begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.Concept#isInputModel <em>Input Model</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Input Model</em>'.
      * @see org.talend.core.model.metadata.builder.connection.Concept#isInputModel()
      * @see #getConcept()
@@ -18378,6 +18406,28 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      */
     EReference getConcept_Loop();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.Concept#getConceptType <em>Concept Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Concept Type</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.Concept#getConceptType()
+     * @see #getConcept()
+     * @generated
+     */
+    EAttribute getConcept_ConceptType();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.Concept#getXPathPrefix <em>XPath Prefix</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>XPath Prefix</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.Concept#getXPathPrefix()
+     * @see #getConcept()
+     * @generated
+     */
+    EAttribute getConcept_XPathPrefix();
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.ConceptTarget <em>Concept Target</em>}'.
@@ -19101,6 +19151,16 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      */
     EEnum getMDMConnectionProtocol();
+
+    /**
+     * Returns the meta object for enum '{@link org.talend.core.model.metadata.builder.connection.MdmConceptType <em>Mdm Concept Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for enum '<em>Mdm Concept Type</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.MdmConceptType
+     * @generated
+     */
+    EEnum getMdmConceptType();
 
     /**
      * Returns the meta object for data type '{@link java.util.HashMap <em>Map</em>}'.
@@ -21312,8 +21372,8 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Input Model</b></em>' attribute feature.
-         * <!-- begin-user-doc --> <!--
-         * end-user-doc -->
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
          * @generated
          */
         EAttribute CONCEPT__INPUT_MODEL = eINSTANCE.getConcept_InputModel();
@@ -21341,6 +21401,22 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EReference CONCEPT__LOOP = eINSTANCE.getConcept_Loop();
+
+        /**
+         * The meta object literal for the '<em><b>Concept Type</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute CONCEPT__CONCEPT_TYPE = eINSTANCE.getConcept_ConceptType();
+
+        /**
+         * The meta object literal for the '<em><b>XPath Prefix</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute CONCEPT__XPATH_PREFIX = eINSTANCE.getConcept_XPathPrefix();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.ConceptTargetImpl <em>Concept Target</em>}' class.
@@ -21893,6 +21969,16 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EEnum MDM_CONNECTION_PROTOCOL = eINSTANCE.getMDMConnectionProtocol();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.MdmConceptType <em>Mdm Concept Type</em>}' enum.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.metadata.builder.connection.MdmConceptType
+         * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getMdmConceptType()
+         * @generated
+         */
+        EEnum MDM_CONCEPT_TYPE = eINSTANCE.getMdmConceptType();
 
         /**
          * The meta object literal for the '<em>Map</em>' data type.

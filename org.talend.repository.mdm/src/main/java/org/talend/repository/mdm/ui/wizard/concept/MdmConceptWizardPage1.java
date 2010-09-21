@@ -20,19 +20,22 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
+import org.talend.core.model.metadata.builder.connection.MdmConceptType;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.repository.model.RepositoryNode;
 
 /**
  * DOC wchen class global comment. Detailled comment
  */
-public class MDMInOutSelectPage extends AbstractRetrieveConceptPage {
+public class MdmConceptWizardPage1 extends AbstractRetrieveConceptPage {
 
     private Label label;
 
     private Button inputModeButton;
 
     private Button outputModeButton;
+
+    private Button mdmReceiveBtn;
 
     /**
      * DOC wchen MDMInOutSelectPage constructor comment.
@@ -41,7 +44,7 @@ public class MDMInOutSelectPage extends AbstractRetrieveConceptPage {
      * @param title
      * @param titleImage
      */
-    public MDMInOutSelectPage(RepositoryNode node, ConnectionItem connectionItem, boolean creation) {
+    public MdmConceptWizardPage1(RepositoryNode node, ConnectionItem connectionItem, boolean creation) {
         super(node, connectionItem, creation);
         this.setTitle("MDM Model");
     }
@@ -67,16 +70,21 @@ public class MDMInOutSelectPage extends AbstractRetrieveConceptPage {
 
         // boolean inputModel = ((MDMConnection) connectionItem.getConnection()).isInputModel();
         getConcept();
-        boolean isInputModel = concept.isInputModel();
         inputModeButton = new Button(composite, SWT.RADIO);
         inputModeButton.setText("Input MDM");
-        inputModeButton.setSelection(isInputModel);
+        inputModeButton.setSelection(MdmConceptType.INPUT.equals(concept.getConceptType()));
         inputModeButton.setEnabled(creation);
 
         outputModeButton = new Button(composite, SWT.RADIO);
         outputModeButton.setText("Output MDM");
-        outputModeButton.setSelection(!isInputModel);
+        outputModeButton.setSelection(MdmConceptType.OUTPUT.equals(concept.getConceptType()));
         outputModeButton.setEnabled(creation);
+
+        mdmReceiveBtn = new Button(composite, SWT.RADIO);
+        mdmReceiveBtn.setText("Receive MDM");
+        mdmReceiveBtn.setSelection(MdmConceptType.RECEIVE.equals(concept.getConceptType()));
+        mdmReceiveBtn.setEnabled(creation);
+
         setControl(composite);
         addListeners();
 
@@ -88,7 +96,7 @@ public class MDMInOutSelectPage extends AbstractRetrieveConceptPage {
             @Override
             public void widgetSelected(SelectionEvent e) {
                 if (concept != null) {
-                    concept.setInputModel(true);
+                    concept.setConceptType(MdmConceptType.INPUT);
                 }
             }
 
@@ -98,10 +106,20 @@ public class MDMInOutSelectPage extends AbstractRetrieveConceptPage {
             @Override
             public void widgetSelected(SelectionEvent e) {
                 if (concept != null) {
-                    concept.setInputModel(false);
+                    concept.setConceptType(MdmConceptType.OUTPUT);
                 }
             }
 
+        });
+
+        mdmReceiveBtn.addSelectionListener(new SelectionAdapter() {
+
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                if (concept != null) {
+                    concept.setConceptType(MdmConceptType.RECEIVE);
+                }
+            }
         });
     }
 

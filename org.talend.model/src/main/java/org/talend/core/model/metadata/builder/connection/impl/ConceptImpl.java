@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.talend.core.model.metadata.builder.connection.Concept;
 import org.talend.core.model.metadata.builder.connection.ConceptTarget;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
+import org.talend.core.model.metadata.builder.connection.MdmConceptType;
 import org.talend.core.model.metadata.builder.connection.XMLFileNode;
 
 import org.talend.cwm.relational.impl.TdTableImpl;
@@ -42,6 +43,8 @@ import org.talend.cwm.relational.impl.TdTableImpl;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.ConceptImpl#getGroup <em>Group</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.ConceptImpl#getRoot <em>Root</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.ConceptImpl#getLoop <em>Loop</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.ConceptImpl#getConceptType <em>Concept Type</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.ConceptImpl#getXPathPrefix <em>XPath Prefix</em>}</li>
  * </ul>
  * </p>
  *
@@ -148,6 +151,46 @@ public class ConceptImpl extends TdTableImpl implements Concept {
      * @ordered
      */
     protected EList<XMLFileNode> loop;
+
+    /**
+     * The default value of the '{@link #getConceptType() <em>Concept Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getConceptType()
+     * @generated
+     * @ordered
+     */
+    protected static final MdmConceptType CONCEPT_TYPE_EDEFAULT = MdmConceptType.INPUT;
+
+    /**
+     * The cached value of the '{@link #getConceptType() <em>Concept Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getConceptType()
+     * @generated
+     * @ordered
+     */
+    protected MdmConceptType conceptType = CONCEPT_TYPE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getXPathPrefix() <em>XPath Prefix</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getXPathPrefix()
+     * @generated
+     * @ordered
+     */
+    protected static final String XPATH_PREFIX_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getXPathPrefix() <em>XPath Prefix</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getXPathPrefix()
+     * @generated
+     * @ordered
+     */
+    protected String xPathPrefix = XPATH_PREFIX_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -287,6 +330,50 @@ public class ConceptImpl extends TdTableImpl implements Concept {
      * <!-- end-user-doc -->
      * @generated
      */
+    public MdmConceptType getConceptType() {
+        return conceptType;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setConceptType(MdmConceptType newConceptType) {
+        MdmConceptType oldConceptType = conceptType;
+        conceptType = newConceptType == null ? CONCEPT_TYPE_EDEFAULT : newConceptType;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.CONCEPT__CONCEPT_TYPE, oldConceptType,
+                    conceptType));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getXPathPrefix() {
+        return xPathPrefix;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setXPathPrefix(String newXPathPrefix) {
+        String oldXPathPrefix = xPathPrefix;
+        xPathPrefix = newXPathPrefix;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.CONCEPT__XPATH_PREFIX, oldXPathPrefix,
+                    xPathPrefix));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     @SuppressWarnings("unchecked")
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -339,6 +426,10 @@ public class ConceptImpl extends TdTableImpl implements Concept {
             return getRoot();
         case ConnectionPackage.CONCEPT__LOOP:
             return getLoop();
+        case ConnectionPackage.CONCEPT__CONCEPT_TYPE:
+            return getConceptType();
+        case ConnectionPackage.CONCEPT__XPATH_PREFIX:
+            return getXPathPrefix();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -377,6 +468,12 @@ public class ConceptImpl extends TdTableImpl implements Concept {
             getLoop().clear();
             getLoop().addAll((Collection<? extends XMLFileNode>) newValue);
             return;
+        case ConnectionPackage.CONCEPT__CONCEPT_TYPE:
+            setConceptType((MdmConceptType) newValue);
+            return;
+        case ConnectionPackage.CONCEPT__XPATH_PREFIX:
+            setXPathPrefix((String) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
@@ -410,6 +507,12 @@ public class ConceptImpl extends TdTableImpl implements Concept {
         case ConnectionPackage.CONCEPT__LOOP:
             getLoop().clear();
             return;
+        case ConnectionPackage.CONCEPT__CONCEPT_TYPE:
+            setConceptType(CONCEPT_TYPE_EDEFAULT);
+            return;
+        case ConnectionPackage.CONCEPT__XPATH_PREFIX:
+            setXPathPrefix(XPATH_PREFIX_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
@@ -436,6 +539,10 @@ public class ConceptImpl extends TdTableImpl implements Concept {
             return root != null && !root.isEmpty();
         case ConnectionPackage.CONCEPT__LOOP:
             return loop != null && !loop.isEmpty();
+        case ConnectionPackage.CONCEPT__CONCEPT_TYPE:
+            return conceptType != CONCEPT_TYPE_EDEFAULT;
+        case ConnectionPackage.CONCEPT__XPATH_PREFIX:
+            return XPATH_PREFIX_EDEFAULT == null ? xPathPrefix != null : !XPATH_PREFIX_EDEFAULT.equals(xPathPrefix);
         }
         return super.eIsSet(featureID);
     }
@@ -457,6 +564,10 @@ public class ConceptImpl extends TdTableImpl implements Concept {
         result.append(loopLimit);
         result.append(", inputModel: ");
         result.append(inputModel);
+        result.append(", conceptType: ");
+        result.append(conceptType);
+        result.append(", xPathPrefix: ");
+        result.append(xPathPrefix);
         result.append(')');
         return result.toString();
     }

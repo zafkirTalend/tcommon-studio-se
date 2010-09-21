@@ -776,8 +776,8 @@ public class MDMOutputSchemaForm extends AbstractMDMFileStepForm {
         super.setVisible(visible);
         if (super.isVisible()) {
             String selectedEntity = null;
-            if (wizardPage != null && wizardPage.getPreviousPage() instanceof SetConceptNamePage) {
-                selectedEntity = ((SetConceptNamePage) wizardPage.getPreviousPage()).getSelectedEntity();
+            if (wizardPage != null && wizardPage.getPreviousPage() instanceof MdmConceptWizardPage2) {
+                selectedEntity = ((MdmConceptWizardPage2) wizardPage.getPreviousPage()).getSelectedEntity();
             }
             initXmlTreeData(selectedEntity);
             initSchemaTable();

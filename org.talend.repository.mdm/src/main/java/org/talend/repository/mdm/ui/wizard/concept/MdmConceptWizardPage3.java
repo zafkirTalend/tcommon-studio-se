@@ -13,6 +13,7 @@
 package org.talend.repository.mdm.ui.wizard.concept;
 
 import org.eclipse.swt.widgets.Composite;
+import org.talend.core.model.metadata.builder.connection.MdmConceptType;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.repository.mdm.i18n.Messages;
@@ -22,7 +23,7 @@ import org.talend.repository.ui.swt.utils.AbstractForm;
 /**
  * DOC hwang class global comment. Detailled comment
  */
-public class MDMInOutSchemaWizardPage extends AbstractRetrieveConceptPage {
+public class MdmConceptWizardPage3 extends AbstractRetrieveConceptPage {
 
     // private MDMSchemaForm mdmSchemaForm;
     private AbstractMDMFileStepForm xsdFileForm;
@@ -36,7 +37,7 @@ public class MDMInOutSchemaWizardPage extends AbstractRetrieveConceptPage {
      * 
      * @param pageName
      */
-    protected MDMInOutSchemaWizardPage(RepositoryNode node, ConnectionItem connectionItem, MetadataTable metadataTable,
+    protected MdmConceptWizardPage3(RepositoryNode node, ConnectionItem connectionItem, MetadataTable metadataTable,
             boolean isRepositoryObjectEditable, boolean creation) {
         super(node, connectionItem, creation);
         this.metadataTable = metadataTable;
@@ -51,12 +52,14 @@ public class MDMInOutSchemaWizardPage extends AbstractRetrieveConceptPage {
      */
     public void createControl(Composite parent) {
         if (getConcept() != null) {
-            if (getConcept().isInputModel()) {
-                if (getPreviousPage() instanceof SetConceptNamePage) {
+            if (MdmConceptType.INPUT.equals(getConcept().getConceptType())) {
+                if (getPreviousPage() instanceof MdmConceptWizardPage2) {
                     xsdFileForm = new MDMXSDFileForm(parent, connectionItem, metadataTable, getConcept(), this);
                 }
-            } else {
+            } else if (MdmConceptType.OUTPUT.equals(getConcept().getConceptType())) {
                 xsdFileForm = new MDMOutputSchemaForm(parent, connectionItem, metadataTable, getConcept(), this, creation);
+            } else if (MdmConceptType.RECEIVE.equals(getConcept().getConceptType())) {
+                xsdFileForm = new MdmReceiveForm(parent, connectionItem, metadataTable, getConcept(), this);
             }
             xsdFileForm.setReadOnly(!isRepositoryObjectEditable);
 
@@ -64,10 +67,10 @@ public class MDMInOutSchemaWizardPage extends AbstractRetrieveConceptPage {
 
                 public void checkPerformed(final AbstractForm source) {
                     if (source.isStatusOnError()) {
-                        MDMInOutSchemaWizardPage.this.setPageComplete(false);
+                        MdmConceptWizardPage3.this.setPageComplete(false);
                         setErrorMessage(source.getStatus());
                     } else {
-                        MDMInOutSchemaWizardPage.this.setPageComplete(true);
+                        MdmConceptWizardPage3.this.setPageComplete(true);
                         setErrorMessage(null);
                         setMessage(source.getStatus(), source.getStatusLevel());
                     }
