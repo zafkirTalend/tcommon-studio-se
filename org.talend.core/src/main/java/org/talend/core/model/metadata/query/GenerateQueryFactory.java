@@ -31,6 +31,8 @@ public final class GenerateQueryFactory {
     public static IQueryGenerator getGenerator(final String dbType) {
         if (dbType == null) {
             return null;
+        } else if ("General JDBC".equals(dbType)) {//$NON-NLS-N$
+            return null;
         }
         return getGenerator(EDatabaseTypeName.getTypeFromDbType(dbType));
     }
