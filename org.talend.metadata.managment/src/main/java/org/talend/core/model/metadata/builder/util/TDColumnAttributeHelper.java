@@ -26,11 +26,13 @@ import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.cwm.helper.ColumnHelper;
 import org.talend.cwm.helper.ConnectionHelper;
+import org.talend.cwm.helper.TableHelper;
 import org.talend.cwm.helper.TaggedValueHelper;
 import org.talend.cwm.relational.RelationalFactory;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.relational.TdExpression;
 import org.talend.cwm.relational.TdSqlDataType;
+import org.talend.cwm.relational.TdTable;
 import org.talend.utils.sql.ConnectionUtils;
 import org.talend.utils.sql.metadata.constants.GetColumn;
 import org.talend.utils.sugars.ReturnCode;
@@ -51,12 +53,23 @@ public class TDColumnAttributeHelper {
 
     private static Logger log = Logger.getLogger(TDColumnAttributeHelper.class);
 
-    public static TdColumn addColumnAttribute(ResultSet resutSet, TdColumn tdColumn) throws SQLException {
-        Connection conn = ConnectionHelper.getConnection(tdColumn);
-        return addColumnAttribute(resutSet, createConnection((DatabaseConnection) conn).getObject());
+    public static TdTable addTagVale(ResultSet resutSet, TdTable table) {
+        try {
+            if (table == null) {
+                table = RelationalFactory.eINSTANCE.createTdTable();
+            }
+            String colComment = resutSet.getString(GetColumn.REMARKS.name());
+            if (colComment == null) {
+                colComment = "";
+            }
+            TableHelper.setComment(colComment, table);
+        } catch (Exception e) {
+            log.warn(e, e);
+        }
+        return table;
     }
 
-    public static TdColumn addColumnAttribute(ResultSet resutSet, java.sql.Connection conn) throws SQLException {
+    public static TdColumn addColumnAttribute(ResultSet resutSet, TdColumn column) throws SQLException {
 
         // // --- add columns to table
         // ResultSet columns = getConnectionMetadata(connection).getColumns(catalogName, schemaPattern, tablePattern,
@@ -67,6 +80,9 @@ public class TDColumnAttributeHelper {
         // MOD mzhao 2009-04-09,Bug 6840: fetch LONG or LONG RAW column first , as these kind of columns are read as
         // stream,if not read by select order, there will be "Stream has already been closed" error.
         // Don't move the below block ,if you move it that emerge up bug klliu 2010-09-07
+        if (column == null) {
+            column = RelationalFactory.eINSTANCE.createTdColumn();
+        }
         Object defaultvalue = null;
         try {
             defaultvalue = resutSet.getObject(GetColumn.COLUMN_DEF.name());
@@ -87,7 +103,7 @@ public class TDColumnAttributeHelper {
                 colName = e1.getMessage();
             }
         }
-        TdColumn column = ColumnHelper.createTdColumn(colName);
+        column.setName(colName);
 
         int dataType = 0;
         try {
@@ -103,8 +119,8 @@ public class TDColumnAttributeHelper {
             typeName = resutSet.getString(GetColumn.TYPE_NAME.name());
             // MOD zshen when the database is mssql,the datatype for "date" and "time" is "-9" and "-2"
             // ,respective.so change them to "91" and "92" for adapt to Java2SqlType.
-
-            if (isMssql(conn)) {
+            Connection conn = ConnectionHelper.getConnection(column);
+            if (isMssql(createConnection((DatabaseConnection) conn).getObject())) {
                 if (typeName.toLowerCase().equals("date")) {
                     dataType = 91;
                     // MOD scorreia 2010-07-24 removed the call to column.getSQLDataType() here because obviously
@@ -144,6 +160,9 @@ public class TDColumnAttributeHelper {
         // get column description (comment)
         try {
             String colComment = resutSet.getString(GetColumn.REMARKS.name());
+            if (colComment == null) {
+                colComment = "";
+            }
             ColumnHelper.setComment(colComment, column);
         } catch (Exception e) {
             log.warn(e, e);
