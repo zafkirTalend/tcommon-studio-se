@@ -10,10 +10,8 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.designer.runprocess;
+package org.talend.core.model.process;
 
-import org.talend.core.model.process.IContext;
-import org.talend.core.model.process.IProcess;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Property;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
@@ -39,6 +37,8 @@ public class JobInfo {
     private JobInfo fatherJobInfo;
 
     private boolean forceRegenerate;
+
+    private String projectFolderName;
 
     public JobInfo(String jobId, String contextName, String version) {
         this.jobId = jobId;
@@ -139,50 +139,110 @@ public class JobInfo {
         }
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.designer.runprocess.IJobInfo#getContextName()
+     */
     public String getContextName() {
         return contextName;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.designer.runprocess.IJobInfo#setContextName(java.lang.String)
+     */
     public void setContextName(String contextName) {
         this.contextName = contextName;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.designer.runprocess.IJobInfo#getJobId()
+     */
     public String getJobId() {
         return jobId;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.designer.runprocess.IJobInfo#setJobId(java.lang.String)
+     */
     public void setJobId(String jobId) {
         this.jobId = jobId;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.designer.runprocess.IJobInfo#getProcess()
+     */
     public IProcess getProcess() {
         return process;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.designer.runprocess.IJobInfo#setProcess(org.talend.core.model.process.IProcess)
+     */
     public void setProcess(IProcess process) {
         this.process = process;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.designer.runprocess.IJobInfo#getContext()
+     */
     public IContext getContext() {
         return context;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.designer.runprocess.IJobInfo#setContext(org.talend.core.model.process.IContext)
+     */
     public void setContext(IContext context) {
         this.context = context;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.designer.runprocess.IJobInfo#getJobVersion()
+     */
     public String getJobVersion() {
         return this.jobVersion;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.designer.runprocess.IJobInfo#setJobVersion(java.lang.String)
+     */
     public void setJobVersion(String jobVersion) {
         this.jobVersion = jobVersion;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.designer.runprocess.IJobInfo#isApplyContextToChildren()
+     */
     public boolean isApplyContextToChildren() {
         return this.applyContextToChildren;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.designer.runprocess.IJobInfo#setApplyContextToChildren(boolean)
+     */
     public void setApplyContextToChildren(boolean applyContextToChildren) {
         this.applyContextToChildren = applyContextToChildren;
     }
@@ -203,10 +263,20 @@ public class JobInfo {
         this.processItem = processItem;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.designer.runprocess.IJobInfo#getJobName()
+     */
     public String getJobName() {
         return this.jobName;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.designer.runprocess.IJobInfo#setJobName(java.lang.String)
+     */
     public void setJobName(String jobName) {
         this.jobName = jobName;
     }
@@ -268,39 +338,57 @@ public class JobInfo {
         return "job:" + jobName + " / context:" + contextName + " / version:" + jobVersion; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     }
 
-    /**
-     * Getter for fatherJobInfo.
+    /*
+     * (non-Javadoc)
      * 
-     * @return the fatherJobInfo
+     * @see org.talend.designer.runprocess.IJobInfo#getFatherJobInfo()
      */
     public JobInfo getFatherJobInfo() {
         return this.fatherJobInfo;
     }
 
-    /**
-     * Sets the fatherJobInfo.
+    /*
+     * (non-Javadoc)
      * 
-     * @param fatherJobInfo the fatherJobInfo to set
+     * @see org.talend.designer.runprocess.IJobInfo#setFatherJobInfo(org.talend.designer.runprocess.IJobInfo)
      */
     public void setFatherJobInfo(JobInfo fatherJobInfo) {
         this.fatherJobInfo = fatherJobInfo;
     }
 
-    /**
-     * Used only in the ProcessorUtilities to know if one subjob has been generated or not, to generate the father.
+    /*
+     * (non-Javadoc)
      * 
-     * @return forceRegenerate
+     * @see org.talend.designer.runprocess.IJobInfo#isForceRegenerate()
      */
     public boolean isForceRegenerate() {
         return this.forceRegenerate;
     }
 
-    /**
-     * Used only in the ProcessorUtilities to know if one subjob has been generated or not, to generate the father.
+    /*
+     * (non-Javadoc)
      * 
-     * @param forceRegenerate
+     * @see org.talend.designer.runprocess.IJobInfo#setForceRegenerate(boolean)
      */
     public void setForceRegenerate(boolean forceRegenerate) {
         this.forceRegenerate = forceRegenerate;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.designer.runprocess.IJobInfo#getProjectFolderName()
+     */
+    public String getProjectFolderName() {
+        return this.projectFolderName;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.designer.runprocess.IJobInfo#setProjectFolderName(java.lang.String)
+     */
+    public void setProjectFolderName(String projectFolderName) {
+        this.projectFolderName = projectFolderName;
     }
 }

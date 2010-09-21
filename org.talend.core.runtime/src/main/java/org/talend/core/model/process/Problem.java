@@ -32,7 +32,7 @@ public class Problem {
     /**
      * smallet Problem class global comment. Detailled comment <br/>
      * 
-     * $Id: Problem.java 38013 2010-03-05 14:21:59Z mhirt $
+     * $Id: Problem.java 48513 2010-09-18 14:56:23Z nrousseau $
      */
     public enum ProblemStatus {
         ERROR,
@@ -62,11 +62,9 @@ public class Problem {
     /**
      * Added to enhance the refresh speed of the problems view. <br/>
      * 
-     * $Id: Problem.java 38013 2010-03-05 14:21:59Z mhirt $
+     * $Id: Problem.java 48513 2010-09-18 14:56:23Z nrousseau $
      * 
      */
-
-    private IElement element;
 
     private String description;
 
@@ -76,7 +74,11 @@ public class Problem {
 
     private String key;
 
-    private IProcess job;
+    private JobInfo jobInfo;
+
+    private String nodeName;
+
+    private String componentName;
 
     /**
      * DOC smallet Problem constructor comment.
@@ -100,12 +102,12 @@ public class Problem {
     }
 
     /**
-     * Getter for job.
+     * Getter for JobInfo.
      * 
-     * @return the job
+     * @return the JobInfo
      */
-    public IProcess getJob() {
-        return this.job;
+    public JobInfo getJobInfo() {
+        return this.jobInfo;
     }
 
     /*
@@ -118,7 +120,9 @@ public class Problem {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((this.description == null) ? 0 : this.description.hashCode());
-        result = prime * result + ((this.element == null) ? 0 : this.element.hashCode());
+        result = prime * result + ((this.jobInfo == null) ? 0 : this.jobInfo.hashCode());
+        result = prime * result + ((this.nodeName == null) ? 0 : this.nodeName.hashCode());
+        result = prime * result + ((this.componentName == null) ? 0 : this.componentName.hashCode());
         result = prime * result + ((this.status == null) ? 0 : this.status.hashCode());
         return result;
     }
@@ -142,10 +146,20 @@ public class Problem {
                 return false;
         } else if (!this.description.equals(other.description))
             return false;
-        if (this.element == null) {
-            if (other.element != null)
+        if (this.jobInfo == null) {
+            if (other.jobInfo != null)
                 return false;
-        } else if (!this.element.equals(other.element))
+        } else if (!this.jobInfo.equals(other.jobInfo))
+            return false;
+        if (this.nodeName == null) {
+            if (other.nodeName != null)
+                return false;
+        } else if (!this.nodeName.equals(other.nodeName))
+            return false;
+        if (this.componentName == null) {
+            if (other.componentName != null)
+                return false;
+        } else if (!this.componentName.equals(other.componentName))
             return false;
         if (this.status == null) {
             if (other.status != null)
@@ -163,15 +177,14 @@ public class Problem {
         this.description = description;
     }
 
-    public IElement getElement() {
-        return this.element;
-    }
-
     public void setElement(IElement element) {
-        this.element = element;
         if (element instanceof INode) {
-            job = ((INode) element).getProcess();
+            jobInfo = new JobInfo(((INode) element).getProcess().getId(), null, ((INode) element).getProcess().getVersion());
+            jobInfo.setJobName(((INode) element).getProcess().getLabel());
             type = ProblemType.JOB;
+
+            nodeName = ((INode) element).getLabel();
+            componentName = ((INode) element).getComponent().getName();
         }
     }
 
@@ -226,7 +239,7 @@ public class Problem {
      */
     public String getProblemResource() {
         if (getType().equals(ProblemType.JOB)) {
-            return "Job:" + job.getLabel() + "  (component:" + element.getElementName() + ")"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+            return "Job:" + jobInfo.getJobName() + "  (component:" + nodeName + ")"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         } else {
             // TODO need to prcess the display of routine here.
         }
@@ -249,6 +262,24 @@ public class Problem {
      */
     public void setType(ProblemType type) {
         this.type = type;
+    }
+
+    /**
+     * Getter for nodeName.
+     * 
+     * @return the nodeName
+     */
+    public String getNodeName() {
+        return this.nodeName;
+    }
+
+    /**
+     * Getter for componentName.
+     * 
+     * @return the componentName
+     */
+    public String getComponentName() {
+        return this.componentName;
     }
 
 }

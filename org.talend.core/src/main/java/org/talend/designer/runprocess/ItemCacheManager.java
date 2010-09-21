@@ -30,7 +30,7 @@ import org.talend.repository.model.IProxyRepositoryFactory;
  * 
  * @deprecated
  * 
- * Do not cache anymore since 4.1.0
+ * Do not cache anymore. This class actually is only used for compatibility, and keep the system of LASTEST_VERSION
  */
 public class ItemCacheManager {
 

@@ -22,7 +22,7 @@ import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.CorePlugin;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
-import org.talend.designer.runprocess.JobInfo;
+import org.talend.core.model.process.JobInfo;
 
 /**
  * Management of deletion and protection on resource of jobs.

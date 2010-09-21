@@ -101,21 +101,7 @@ public class ExportFileResource {
     }
 
     public Item getItem() {
-        IProxyRepositoryFactory proxyRepositoryFactory = CorePlugin.getDefault().getRepositoryService()
-                .getProxyRepositoryFactory();
-        Property property = item.getProperty();
-        ProjectManager instance = ProjectManager.getInstance();
-
-        // if (instance.getCurrentProject().getEmfProject().equals(instance.getProject(item))) {
-        // try {
-        // // bug 5427 and 5513 : reload property to avoid lazy exception
-        // // property = proxyRepositoryFactory.getUptodateProperty(property);
-        // property = proxyRepositoryFactory.getLastVersion(property.getId()).getProperty();
-        // } catch (PersistenceException e) {
-        // // ignore me
-        // }
-        // }
-        return property.getItem();
+        return item;
     }
 
     public void setProcess(ProcessItem process) {
