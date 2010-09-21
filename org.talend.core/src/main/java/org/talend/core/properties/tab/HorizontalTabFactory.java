@@ -46,14 +46,14 @@ public class HorizontalTabFactory {
 
     private TabbedPropertySheetWidgetFactory widgetFactory;
 
-    public void initComposite(Composite parent) {
+    public void initComposite(Composite parent, boolean displayCompactToolbar) {
 
         Composite panel = new Composite(parent, SWT.NONE);
         panel.setLayoutData(new GridData(GridData.FILL_BOTH));
         panel.setLayout(new FormLayout());
 
         widgetFactory = new TabbedPropertySheetWidgetFactory();
-        tabbedPropertyComposite = new TalendTabbedPropertyComposite(panel, widgetFactory, true);
+        tabbedPropertyComposite = new TalendTabbedPropertyComposite(panel, widgetFactory, true, displayCompactToolbar);
         widgetFactory.paintBordersFor(tabbedPropertyComposite);
         tabbedPropertyComposite.setLayout(new FormLayout());
         FormData formData = new FormData();

@@ -65,6 +65,8 @@ public class TalendTabbedPropertyComposite extends Composite {
 
     private boolean displayTitle;
 
+    private boolean displayCompactToolbar;
+
     /**
      * Constructor for a TabbedPropertyComposite
      * 
@@ -72,10 +74,12 @@ public class TalendTabbedPropertyComposite extends Composite {
      * @param factory the widget factory.
      * @param displayTitle if <code>true</code>, then the title bar will be displayed.
      */
-    public TalendTabbedPropertyComposite(Composite parent, TabbedPropertySheetWidgetFactory factory, boolean displayTitle) {
+    public TalendTabbedPropertyComposite(Composite parent, TabbedPropertySheetWidgetFactory factory, boolean displayTitle,
+            boolean displayCompactToolbar) {
         super(parent, SWT.NO_FOCUS);
         this.factory = factory;
         this.displayTitle = displayTitle;
+        this.displayCompactToolbar = displayCompactToolbar;
 
         createMainComposite();
     }
@@ -105,10 +109,13 @@ public class TalendTabbedPropertyComposite extends Composite {
 
             FormData data = new FormData();
             data.left = new FormAttachment(0, 0);
-            data.right = new FormAttachment(90, 0);
+            if (displayCompactToolbar) {
+                data.right = new FormAttachment(90, 0);
+            } else {
+                data.right = new FormAttachment(100, 0);
+            }
             data.top = new FormAttachment(0, 0);
             title.setLayoutData(data);
-
             composite = new Composite(mainComposite, SWT.NONE);
             compactButton = new Button(composite, SWT.PUSH);
             compactButton.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
@@ -136,12 +143,9 @@ public class TalendTabbedPropertyComposite extends Composite {
             data.left = new FormAttachment(title, 0);
             data.top = new FormAttachment(0, -5);
             composite.setLayoutData(data);
-
             GridData gridData = new GridData();
             gridData.horizontalAlignment = SWT.RIGHT;
             gridData.verticalAlignment = SWT.TOP;
-            // gridData.widthHint = TalendTabbedPropertyComposite.BUTTON_HINT;
-            // gridData.heightHint = TalendTabbedPropertyComposite.BUTTON_HINT;
             compactButton.setData(gridData);
             tableButton.setData(gridData);
 
@@ -152,6 +156,7 @@ public class TalendTabbedPropertyComposite extends Composite {
             layout.makeColumnsEqualWidth = true;
             composite.setLayout(layout);
             composite.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
+            composite.setVisible(displayCompactToolbar);
         }
 
         leftComposite = factory.createComposite(mainComposite, SWT.NO_FOCUS);
