@@ -39,8 +39,8 @@ import org.eclipse.ui.forms.events.HyperlinkEvent;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Hyperlink;
 import org.talend.commons.exception.BusinessException;
-import org.talend.core.BareBonesBrowserLaunch;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ui.TalendBrowserLaunchHelper;
 import org.talend.core.ui.branding.IBrandingService;
 import org.talend.repository.RegistrationPlugin;
 import org.talend.repository.i18n.Messages;
@@ -127,7 +127,7 @@ public class RegisterWizardPage1 extends AbstractBasicWizardDialog {
             @Override
             public void linkActivated(HyperlinkEvent e) {
                 String url = "http://www.talend.com/community/communityMember.php";
-                BareBonesBrowserLaunch.openURL(url);
+                TalendBrowserLaunchHelper.openURL(url);
 
                 // Runtime.getRuntime().exec("explorer http://www.talend.com/community/communityMember.php"); //
             }
