@@ -196,6 +196,10 @@ public final class CodeGeneratorRoutine {
                             }
                         }
                     }
+                } else {
+                    if (processItem == null) { // for shadow job, to fix bug:15791, give default value here
+                        return getRoutineName(process); // same as before, add all
+                    }
                 }
             } else { // for virtual process
                 return getRoutineName(process); // same as before, add all
