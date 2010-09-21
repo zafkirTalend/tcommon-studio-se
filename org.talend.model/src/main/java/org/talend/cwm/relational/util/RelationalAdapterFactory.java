@@ -25,6 +25,7 @@ import orgomg.cwm.objectmodel.core.Attribute;
 import orgomg.cwm.objectmodel.core.Classifier;
 import orgomg.cwm.objectmodel.core.DataType;
 import orgomg.cwm.objectmodel.core.Element;
+import orgomg.cwm.objectmodel.core.Expression;
 import orgomg.cwm.objectmodel.core.Feature;
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.Namespace;
@@ -126,6 +127,11 @@ public class RelationalAdapterFactory extends AdapterFactoryImpl {
         @Override
         public Adapter caseTdProcedure(TdProcedure object) {
             return createTdProcedureAdapter();
+        }
+
+        @Override
+        public Adapter caseTdExpression(TdExpression object) {
+            return createTdExpressionAdapter();
         }
 
         @Override
@@ -244,6 +250,11 @@ public class RelationalAdapterFactory extends AdapterFactoryImpl {
         }
 
         @Override
+        public Adapter caseExpression(Expression object) {
+            return createExpressionAdapter();
+        }
+
+        @Override
         public Adapter defaultCase(EObject object) {
             return createEObjectAdapter();
         }
@@ -343,6 +354,20 @@ public class RelationalAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createTdProcedureAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.cwm.relational.TdExpression <em>Td Expression</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.cwm.relational.TdExpression
+     * @generated
+     */
+    public Adapter createTdExpressionAdapter() {
         return null;
     }
 
@@ -665,6 +690,20 @@ public class RelationalAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createProcedureAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.core.Expression <em>Expression</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see orgomg.cwm.objectmodel.core.Expression
+     * @generated
+     */
+    public Adapter createExpressionAdapter() {
         return null;
     }
 

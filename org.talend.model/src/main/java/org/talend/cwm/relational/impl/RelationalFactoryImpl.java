@@ -72,6 +72,8 @@ public class RelationalFactoryImpl extends EFactoryImpl implements RelationalFac
             return createTdTrigger();
         case RelationalPackage.TD_PROCEDURE:
             return createTdProcedure();
+        case RelationalPackage.TD_EXPRESSION:
+            return createTdExpression();
         default:
             throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -135,6 +137,16 @@ public class RelationalFactoryImpl extends EFactoryImpl implements RelationalFac
     public TdProcedure createTdProcedure() {
         TdProcedureImpl tdProcedure = new TdProcedureImpl();
         return tdProcedure;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public TdExpression createTdExpression() {
+        TdExpressionImpl tdExpression = new TdExpressionImpl();
+        return tdExpression;
     }
 
     /**

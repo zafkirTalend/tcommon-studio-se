@@ -24,6 +24,7 @@ import org.talend.cwm.constants.impl.ConstantsPackageImpl;
 import org.talend.cwm.relational.RelationalFactory;
 import org.talend.cwm.relational.RelationalPackage;
 import org.talend.cwm.relational.TdColumn;
+import org.talend.cwm.relational.TdExpression;
 import org.talend.cwm.relational.TdProcedure;
 import org.talend.cwm.relational.TdSqlDataType;
 import org.talend.cwm.relational.TdTable;
@@ -145,6 +146,13 @@ public class RelationalPackageImpl extends EPackageImpl implements RelationalPac
      * @generated
      */
     private EClass tdProcedureEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass tdExpressionEClass = null;
 
     /**
      * Creates an instance of the model <b>Package</b>, registered with
@@ -396,6 +404,33 @@ public class RelationalPackageImpl extends EPackageImpl implements RelationalPac
      * <!-- end-user-doc -->
      * @generated
      */
+    public EClass getTdExpression() {
+        return tdExpressionEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getTdExpression_Version() {
+        return (EAttribute) tdExpressionEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getTdExpression_ModificationDate() {
+        return (EAttribute) tdExpressionEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public RelationalFactory getRelationalFactory() {
         return (RelationalFactory) getEFactoryInstance();
     }
@@ -439,6 +474,10 @@ public class RelationalPackageImpl extends EPackageImpl implements RelationalPac
         tdTriggerEClass = createEClass(TD_TRIGGER);
 
         tdProcedureEClass = createEClass(TD_PROCEDURE);
+
+        tdExpressionEClass = createEClass(TD_EXPRESSION);
+        createEAttribute(tdExpressionEClass, TD_EXPRESSION__VERSION);
+        createEAttribute(tdExpressionEClass, TD_EXPRESSION__MODIFICATION_DATE);
     }
 
     /**
@@ -487,6 +526,7 @@ public class RelationalPackageImpl extends EPackageImpl implements RelationalPac
         tdSqlDataTypeEClass.getESuperTypes().add(theRelationalPackage_1.getSQLSimpleType());
         tdTriggerEClass.getESuperTypes().add(theRelationalPackage_1.getTrigger());
         tdProcedureEClass.getESuperTypes().add(theRelationalPackage_1.getProcedure());
+        tdExpressionEClass.getESuperTypes().add(theCorePackage.getExpression());
 
         // Initialize classes and features; add operations and parameters
         initEClass(tdTableEClass, TdTable.class, "TdTable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -530,6 +570,14 @@ public class RelationalPackageImpl extends EPackageImpl implements RelationalPac
         initEClass(tdTriggerEClass, TdTrigger.class, "TdTrigger", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(tdProcedureEClass, TdProcedure.class, "TdProcedure", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+        initEClass(tdExpressionEClass, TdExpression.class, "TdExpression", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getTdExpression_Version(), theCorePackage.getString(), "version", null, 0, 1, TdExpression.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getTdExpression_ModificationDate(), theCorePackage.getTime(), "modificationDate", null, 0, 1,
+                TdExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
 
         // Create annotations
         // http://www.eclipse.org/emf/2002/GenModel
