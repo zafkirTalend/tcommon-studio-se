@@ -157,8 +157,12 @@ public class ExtractionLoopWithMDMEditorView extends AbstractDataTableEditorView
             public String get(Concept bean) {
                 final String loopExpression = bean.getLoopExpression();
                 if (MdmConceptType.RECEIVE.equals(bean.getConceptType()) && loopExpression != null) {
-                    final String[] split = loopExpression.split("/");
-                    return "/" + split[split.length - 1];
+                    if (!"".equals(loopExpression)) {
+                        final String[] split = loopExpression.split("/");
+                        return "/" + split[split.length - 1];
+                    } else {
+                        return loopExpression;
+                    }
                 }
                 return loopExpression;
             }

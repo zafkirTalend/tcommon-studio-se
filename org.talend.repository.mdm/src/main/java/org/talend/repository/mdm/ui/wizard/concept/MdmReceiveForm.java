@@ -354,7 +354,7 @@ public class MdmReceiveForm extends AbstractMDMFileStepForm implements IRefresha
         composite.setLayout(layout);
         composite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
-        xPathPrefixCombo = new LabelledCombo(composite, "XPath Prefix", "", xPathPrefixData, 1, true, SWT.NONE); //$NON-NLS-1$  //$NON-NLS-1$
+        xPathPrefixCombo = new LabelledCombo(composite, "XPath Prefix", "", xPathPrefixData, 1, true); //$NON-NLS-1$  //$NON-NLS-1$
         xPathPrefixCombo.getCombo().setBackground(null);
 
         CommandStackForComposite commandStack = new CommandStackForComposite(schemaTargetGroup);
