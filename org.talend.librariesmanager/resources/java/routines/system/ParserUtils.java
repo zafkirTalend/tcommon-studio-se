@@ -146,9 +146,19 @@ public class ParserUtils {
         // e.printStackTrace();
         // System.err.println("Current string to parse '" + s + "'");
         // }
+        // add by wliu for special pattern:yyyy-MM-dd'T'HH:mm:ss'000Z'---------start
+        if (pattern.equals("yyyy-MM-dd'T'HH:mm:ss'000Z'")) {
+            if (!s.endsWith("000Z")) {
+                throw new RuntimeException("Unparseable date: \"" + s + "\""); //$NON-NLS-1$ //$NON-NLS-2$
+            }
+            pattern = "yyyy-MM-dd'T'HH:mm:ss";
+            s = s.substring(0, s.lastIndexOf("000Z"));
+        }
+        // add by wliu -------------------------------------------------------end
         DateFormat format = FastDateParser.getInstance(pattern);
         ParsePosition pp = new ParsePosition(0);
         pp.setIndex(0);
+
         date = format.parse(s, pp);
         if (pp.getIndex() != s.length() || date == null) {
             throw new RuntimeException("Unparseable date: \"" + s + "\""); //$NON-NLS-1$ //$NON-NLS-2$
@@ -172,9 +182,19 @@ public class ParserUtils {
         // e.printStackTrace();
         // System.err.println("Current string to parse '" + s + "'");
         // }
+        // add by wliu for special pattern:yyyy-MM-dd'T'HH:mm:ss'000Z'---------start
+        if (pattern.equals("yyyy-MM-dd'T'HH:mm:ss'000Z'")) {
+            if (!s.endsWith("000Z")) {
+                throw new RuntimeException("Unparseable date: \"" + s + "\""); //$NON-NLS-1$ //$NON-NLS-2$
+            }
+            pattern = "yyyy-MM-dd'T'HH:mm:ss";
+            s = s.substring(0, s.lastIndexOf("000Z"));
+        }
+        // add by wliu -------------------------------------------------------end
         DateFormat format = FastDateParser.getInstance(pattern, lenient);
         ParsePosition pp = new ParsePosition(0);
         pp.setIndex(0);
+
         date = format.parse(s, pp);
         if (pp.getIndex() != s.length() || date == null) {
             throw new RuntimeException("Unparseable date: \"" + s + "\""); //$NON-NLS-1$ //$NON-NLS-2$
