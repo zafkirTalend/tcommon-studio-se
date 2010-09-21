@@ -716,7 +716,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         }
     }
 
-    public Project[] readProject(boolean local) throws PersistenceException {
+    public Project[] readProjects(boolean local) throws PersistenceException {
         // TODO SML Delete this method when remote is implemented
 
         IProject[] prjs = ResourceUtils.getProjetWithNature(TalendNature.ID);
@@ -766,7 +766,13 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
      * java.lang.String, java.lang.String)
      */
     public Project[] readProject() throws PersistenceException {
-        return readProject(true);
+        return readProjects(true);
+    }
+
+    @Override
+    public Project[] readProject(boolean unloadResource) throws PersistenceException, BusinessException {
+        xmiResourceManager.setAvoidUnloadResource(unloadResource);
+        return readProjects(true);
     }
 
     private void synchronizeFolders(final IProject project, final org.talend.core.model.properties.Project emfProject)

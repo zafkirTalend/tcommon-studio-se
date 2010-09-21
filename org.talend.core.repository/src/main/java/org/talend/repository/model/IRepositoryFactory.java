@@ -79,6 +79,9 @@ public interface IRepositoryFactory {
 
     public Project[] readProject() throws PersistenceException, BusinessException;
 
+    // for export project ,no need to unload resource when read projects
+    public Project[] readProject(boolean unloadResource) throws PersistenceException, BusinessException;
+
     public Folder createFolder(Project project, ERepositoryObjectType type, IPath path, String label) throws PersistenceException;
 
     /**

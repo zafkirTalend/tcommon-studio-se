@@ -69,6 +69,8 @@ public class XmiResourceManager {
 
     private boolean useOldProjectFile;
 
+    private boolean avoidUnloadResource;
+
     public XmiResourceManager() {
         setUseOldProjectFile(false);
         resourceSet.getLoadOptions().put("OPTION_DEFER_IDREF_RESOLUTION", Boolean.TRUE);
@@ -83,7 +85,9 @@ public class XmiResourceManager {
 
     public Project loadProject(IProject project) throws PersistenceException {
         URI uri = getProjectResourceUri(project);
-        unloadResource(uri.toString());
+        if (!isAvoidUnloadResource()) {
+            unloadResource(uri.toString());
+        }
         // unloadResources();
         Resource resource = resourceSet.getResource(uri, true);
         Project emfProject = (Project) EcoreUtil
@@ -414,5 +418,13 @@ public class XmiResourceManager {
                 resourceSet.getResources().remove(res);
             }
         }
+    }
+
+    public boolean isAvoidUnloadResource() {
+        return this.avoidUnloadResource;
+    }
+
+    public void setAvoidUnloadResource(boolean avoidUnloadResource) {
+        this.avoidUnloadResource = avoidUnloadResource;
     }
 }

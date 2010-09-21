@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.data.container.RootContainer;
@@ -252,4 +253,14 @@ public abstract class AbstractRepositoryFactory implements IRepositoryFactory {
     }
 
     private Object lock = new Object();
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.repository.model.IRepositoryFactory#readProject(boolean)
+     */
+    public Project[] readProject(boolean unloadResource) throws PersistenceException, BusinessException {
+        return readProject();
+    }
+
 }

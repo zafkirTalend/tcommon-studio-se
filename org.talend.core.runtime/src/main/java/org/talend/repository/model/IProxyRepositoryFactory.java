@@ -383,6 +383,9 @@ public interface IProxyRepositoryFactory {
     // TODO SML Rename in getProjects
     public abstract Project[] readProject() throws PersistenceException, BusinessException;
 
+    // for export project ,no need to unload resource when read projects
+    public abstract Project[] readProject(boolean unloadResource) throws PersistenceException, BusinessException;
+
     /**
      * @param project
      * @param type
@@ -740,10 +743,8 @@ public interface IProxyRepositoryFactory {
 
     public boolean isLocalConnectionProvider() throws PersistenceException;
 
-
     public abstract RootContainer<String, IRepositoryViewObject> getJobScripts(Project project, boolean... options)
             throws PersistenceException;
-
 
     /**
      * 
