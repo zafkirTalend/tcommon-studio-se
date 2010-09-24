@@ -70,7 +70,7 @@ public class ComponentUtilities {
 
     private static final String SCHEMA_COLUMN = "SCHEMA_COLUMN"; //$NON-NLS-1$
 
-    private static final String UNIQUE_NAME = "UNIQUE_NAME"; //$NON-NLS-1$
+    public static final String UNIQUE_NAME = "UNIQUE_NAME"; //$NON-NLS-1$
 
     public static final String NORMAL = "normal"; //$NON-NLS-1$
 
