@@ -25,7 +25,6 @@ import org.talend.commons.utils.database.DB2ForZosDataBaseMetadata;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.cwm.helper.ColumnHelper;
-import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.TableHelper;
 import org.talend.cwm.helper.TaggedValueHelper;
 import org.talend.cwm.relational.RelationalFactory;
@@ -69,7 +68,11 @@ public class TDColumnAttributeHelper {
         return table;
     }
 
-    public static TdColumn addColumnAttribute(ResultSet resutSet, TdColumn column) throws SQLException {
+    public static TdColumn addColumnAttribute(ResultSet resutSet, TdColumn column, DatabaseConnection conn) throws SQLException {
+        return addColumnAttribute(resutSet, column, createConnection(conn).getObject());
+    }
+
+    public static TdColumn addColumnAttribute(ResultSet resutSet, TdColumn column, java.sql.Connection conn) throws SQLException {
 
         // // --- add columns to table
         // ResultSet columns = getConnectionMetadata(connection).getColumns(catalogName, schemaPattern, tablePattern,
@@ -119,8 +122,8 @@ public class TDColumnAttributeHelper {
             typeName = resutSet.getString(GetColumn.TYPE_NAME.name());
             // MOD zshen when the database is mssql,the datatype for "date" and "time" is "-9" and "-2"
             // ,respective.so change them to "91" and "92" for adapt to Java2SqlType.
-            Connection conn = ConnectionHelper.getConnection(column);
-            if (isMssql(createConnection((DatabaseConnection) conn).getObject())) {
+
+            if (isMssql(conn)) {
                 if (typeName.toLowerCase().equals("date")) {
                     dataType = 91;
                     // MOD scorreia 2010-07-24 removed the call to column.getSQLDataType() here because obviously
