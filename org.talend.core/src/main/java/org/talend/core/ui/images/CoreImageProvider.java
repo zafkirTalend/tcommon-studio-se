@@ -53,6 +53,8 @@ public class CoreImageProvider {
             return ECoreImage.CONTEXT_ICON;
         case ROUTINES:
             return ECoreImage.ROUTINE_ICON;
+        case JOB_SCRIPT:
+            return ECoreImage.JOB_SCRIPTS_ICON;
         case SNIPPETS:
             return ECoreImage.SNIPPETS_ICON;
         case DOCUMENTATION:
@@ -94,6 +96,8 @@ public class CoreImageProvider {
             return ECoreImage.REFERENCED_ICON;
         case METADATA_GENERIC_SCHEMA:
             return ECoreImage.METADATA_GENERIC_ICON;
+        case METADATA_FILE_FTP:
+            return ECoreImage.FTP_ICON;
         case METADATA_LDAP_SCHEMA:
             return ECoreImage.METADATA_LDAP_SCHEMA_ICON;
         case METADATA_WSDL_SCHEMA:
