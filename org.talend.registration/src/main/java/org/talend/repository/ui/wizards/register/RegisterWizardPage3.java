@@ -139,21 +139,15 @@ public class RegisterWizardPage3 extends AbstractBasicWizardDialog {
 
     private void saveConnectionBean(String email) {
         ConnectionUserPerReader perReader = ConnectionUserPerReader.getInstance();
-        List<ConnectionBean> cons = new ArrayList<ConnectionBean>();
-        ConnectionBean bean = ConnectionBean.getDefaultConnectionBean();
-        bean.setWorkSpace(new Path(Platform.getInstanceLocation().getURL().getPath()).toFile().getPath());
-        bean.setUser(email);
-        //        String repositroyId = "local"; //$NON-NLS-1$
-        // List<org.talend.repository.model.IRepositoryFactory> availableRepositories = RepositoryFactoryProvider
-        // .getAvailableRepositories();
-        // for (IRepositoryFactory repositoryFactory : availableRepositories) {
-        // if (repositoryFactory.isDisplayToUser()) {
-        // repositroyId = repositoryFactory.getName();
-        // break;
-        // }
-        // }
-        cons.add(bean);
-        perReader.saveConnections(cons);
+        List<ConnectionBean> cons = perReader.forceReadConnections();
+        if (cons.isEmpty()) { // if have exited some connections, don't add default connection.
+            cons = new ArrayList<ConnectionBean>();
+            ConnectionBean bean = ConnectionBean.getDefaultConnectionBean();
+            bean.setWorkSpace(new Path(Platform.getInstanceLocation().getURL().getPath()).toFile().getPath());
+            bean.setUser(email);
+            cons.add(bean);
+            perReader.saveConnections(cons);
+        }
     }
 
     @Override
