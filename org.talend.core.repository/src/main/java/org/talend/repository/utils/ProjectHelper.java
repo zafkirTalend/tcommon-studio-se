@@ -104,7 +104,7 @@ public class ProjectHelper {
                 }
             } else {
                 try {
-                    newUser.setPassword(projectAuthorPass.getBytes("UTF-8")); //$NON-NLS-1$
+                    newUser.setPassword(projectAuthorPass.getBytes("UTF8")); //$NON-NLS-1$
                 } catch (UnsupportedEncodingException e) {
                     ExceptionHandler.process(e);
                 }

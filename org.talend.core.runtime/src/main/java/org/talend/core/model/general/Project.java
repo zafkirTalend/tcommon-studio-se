@@ -35,9 +35,6 @@ public class Project {
     // used for create project or sandbox project in remote
     private boolean isSandboxProject;
 
-    // used for create project, when there is no account to create.
-    private boolean needAuthor;
-
     // end
     /**
      * DOC smallet Project constructor comment.
@@ -269,14 +266,6 @@ public class Project {
 
     public void setSandboxProject(boolean isSandboxProject) {
         this.isSandboxProject = isSandboxProject;
-    }
-
-    public boolean needAuthor() {
-        return this.needAuthor;
-    }
-
-    public void setNeedAuthor(boolean needAuthor) {
-        this.needAuthor = needAuthor;
     }
 
 }
