@@ -95,7 +95,7 @@ public class SetNameForm extends AbstractMDMFileStepForm {
         GridData gridData = new GridData(GridData.FILL_HORIZONTAL);
         mdmParameterGroup.setLayoutData(gridData);
 
-        entityCombo = new LabelledCombo(mdmParameterGroup, "Entities", "Select the entity", new ArrayList<String>());
+        entityCombo = new LabelledCombo(mdmParameterGroup, "Entities", "Select the entity", new ArrayList<String>(), true);
 
         nameText = new LabelledText(mdmParameterGroup, Messages.getString("SetNameForm.NAME"), true); //$NON-NLS-1$
         checkFieldsValue();
@@ -146,8 +146,55 @@ public class SetNameForm extends AbstractMDMFileStepForm {
 
             public void modifyText(ModifyEvent e) {
                 selectedEntity = entityCombo.getText();
+                String type = "";
+                switch (concept.getConceptType()) {
+                case INPUT:
+                    type = "In";
+                    break;
+                case OUTPUT:
+                    type = "Out";
+                    break;
+                case RECEIVE:
+                    type = "Receive";
+                    break;
+                }
+
+                // if entity name has special char
+                String regex = "[^a-zA-Z&&[^0-9]&&[^\\_]]";
+                selectedEntity = selectedEntity.replaceAll(regex, "_");
+
+                // if entity name don't start with alphabet
+                final char charAt = selectedEntity.charAt(0);
+                if (charAt < 'A' || charAt > 'z' || charAt > 'Z' && charAt < 'a') {
+                    selectedEntity = "a" + selectedEntity;
+                }
+
+                String name = selectedEntity + type;
+                int counter = 0;
+                boolean exists = true;
+                while (exists) {
+                    exists = !isValidName(name);
+                    if (!exists) {
+                        break;
+                    }
+                    counter++;
+                    name = name + counter;
+                }
+
+                nameText.setText(name);
+                concept.setLabel(name);
+
             }
         });
+    }
+
+    private boolean isValidName(String name) {
+        for (int i = 0; i < existingNames.length; i++) {
+            if (name.equals(existingNames[i])) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /*

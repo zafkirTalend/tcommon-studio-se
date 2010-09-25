@@ -32,10 +32,10 @@ import org.talend.repository.mdm.ui.wizard.concept.CreateConceptWizard;
 import org.talend.repository.mdm.util.MDMUtil;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
-import org.talend.repository.model.IRepositoryNode.ENodeType;
-import org.talend.repository.model.IRepositoryNode.EProperties;
 import org.talend.repository.model.ProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryNode;
+import org.talend.repository.model.IRepositoryNode.ENodeType;
+import org.talend.repository.model.IRepositoryNode.EProperties;
 import org.talend.repository.ui.actions.metadata.AbstractCreateAction;
 import org.talend.repository.ui.utils.ConnectionContextHelper;
 
@@ -48,9 +48,9 @@ public class RetrieveMDMSchemaAction extends AbstractCreateAction {
 
     protected static final int WIZARD_HEIGHT = 495;
 
-    protected static final String CREATE_LABEL = "Retrieve Concept";
+    protected static final String CREATE_LABEL = "Retrieve Entity";
 
-    protected static final String EDIT_LABEL = "Edit Concept";
+    protected static final String EDIT_LABEL = "Edit Entity";
 
     private RepositoryNode node;
 

@@ -19,16 +19,16 @@ import org.talend.core.model.properties.MDMConnectionItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.repository.model.ERepositoryStatus;
+import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
 import org.talend.repository.model.IRepositoryNode.EProperties;
-import org.talend.repository.model.RepositoryNode;
 
 /**
  * DOC hwang class global comment. Detailled comment
  */
 public class ReadMDMSchemaAction extends RetrieveMDMSchemaAction {
 
-    protected static final String LABEL = "Read concept";
+    protected static final String LABEL = "Read Entity";
 
     public ReadMDMSchemaAction() {
         super();

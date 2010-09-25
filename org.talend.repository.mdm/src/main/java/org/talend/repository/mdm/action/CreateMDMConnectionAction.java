@@ -49,7 +49,7 @@ public class CreateMDMConnectionAction extends AbstractCreateAction {
 
     private static final String OPEN_LABEL = "Open MDM";
 
-    private static final String CREATE_LABEL = "Create MDM";
+    private static final String CREATE_LABEL = "Create MDM Connection";
 
     ImageDescriptor defaultImage = ImageProvider.getImageDesc(ECoreImage.METADATA_MDM_CONNECTION_ICON);
 
