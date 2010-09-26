@@ -136,7 +136,7 @@ public enum EDatabaseTypeName {
             return MYSQL;
         }
         for (EDatabaseTypeName typename : EDatabaseTypeName.values()) {
-            if (typename.getDisplayName().equals(displayName)) {
+            if (typename.getDisplayName().toLowerCase().equals(displayName.toLowerCase())) {
                 return typename;
             }
         }
