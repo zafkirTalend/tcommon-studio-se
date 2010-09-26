@@ -107,6 +107,7 @@ public class TDColumnAttributeHelper {
             }
         }
         column.setName(colName);
+        column.setLabel(colName);
 
         int dataType = 0;
         try {
