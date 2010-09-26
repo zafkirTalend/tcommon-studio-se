@@ -574,7 +574,9 @@ public class RepositoryToComponentProperty {
                     String loop = concept.getLoopExpression();
                     if (MdmConceptType.RECEIVE.equals(concept.getConceptType())) {
                         final String[] split = loop.split("/");
-                        loop = split[split.length - 1];
+                        if (split.length > 1) {
+                            loop = "/" + split[split.length - 1];
+                        }
                     }
                     return TalendTextUtils.addQuotes(loop);
                 }
