@@ -20,6 +20,7 @@ import java.util.Map;
 import org.eclipse.gef.commands.Command;
 import org.talend.core.CorePlugin;
 import org.talend.core.model.metadata.IHL7Constant;
+import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.ISAPConstant;
 import org.talend.core.model.metadata.MetadataTool;
@@ -81,6 +82,19 @@ public class RepositoryChangeMetadataForHL7Command extends Command {
     public void execute() {
         if (node == null) {
             return;
+        }
+        // avoid problem that add same column twice
+        final List<IMetadataTable> metadataList = node.getMetadataList();
+        if (!metadataList.isEmpty()) {
+            final List<IMetadataColumn> newColumns = newOutputMetadata.getListColumns();
+            for (IMetadataColumn newColumn : newColumns) {
+                final String label = newColumn.getLabel();
+                for (IMetadataTable table : metadataList) {
+                    if (table.getColumn(label) != null) {
+                        return;
+                    }
+                }
+            }
         }
         IElementParameter schemasTableParam = node.getElementParameter(propName);
         if (schemasTableParam != null) {
