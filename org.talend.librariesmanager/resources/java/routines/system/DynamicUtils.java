@@ -89,7 +89,7 @@ public class DynamicUtils {
         StringBuilder sql = new StringBuilder();
         for (int i = 0; i < column.getColumnCount(); i++) {
             DynamicMetadata dcm = column.getColumnMetadata(i);
-            sql.append(" '" + dcm.getDbName() + "' ");
+            sql.append(" `" + dcm.getDbName() + "` ");
             sql.append(Dynamic.getDBTypeFromTalendType(database, dcm.getType(), dcm.getLength(), dcm.getPrecision()));
 
             // if ("id_String".equals(dcm.getType()))
