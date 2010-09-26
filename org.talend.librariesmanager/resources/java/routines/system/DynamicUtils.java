@@ -82,28 +82,31 @@ public class DynamicUtils {
                 pstmt.setString((fixedColumnCount + i + 1), String.valueOf(value));
             // }
         }
-		return column.getColumnCount();
+        return column.getColumnCount();
     }
 
     public static String getCreateTableSQL(Dynamic column, String database) {
         StringBuilder sql = new StringBuilder();
         for (int i = 0; i < column.getColumnCount(); i++) {
             DynamicMetadata dcm = column.getColumnMetadata(i);
-            sql.append(dcm.getDbName() + " ");
+            sql.append(" '" + dcm.getDbName() + "' ");
+            sql.append(Dynamic.getDBTypeFromTalendType(database, dcm.getType(), dcm.getLength(), dcm.getPrecision()));
 
-            if ("id_String".equals(dcm.getType()))
-                sql.append("VARCHAR(" + String.valueOf(dcm.getLength()) + ") ");
-            else if ("id_Integer".equals(dcm.getType()))
-                sql.append("INT(" + String.valueOf(dcm.getLength()) + ") ");
-            else if ("id_Long".equals(dcm.getType()))
-                sql.append("BIGINT ");
-            else if ("id_Double".equals(dcm.getType()))
-                sql.append("DOUBLE(" + String.valueOf(dcm.getLength()) + "," + String.valueOf(dcm.getPrecision()) + ") ");
-            else if ("id_Date".equals(dcm.getType()))
-                sql.append("DATETIME DEFAULT NULL ");
+            // if ("id_String".equals(dcm.getType()))
+            // sql.append("VARCHAR(" + String.valueOf(dcm.getLength()) + ") ");
+            // else if ("id_Integer".equals(dcm.getType()))
+            // sql.append("INT(" + String.valueOf(dcm.getLength()) + ") ");
+            // else if ("id_Long".equals(dcm.getType()))
+            // sql.append("BIGINT ");
+            // else if ("id_Double".equals(dcm.getType()))
+            // sql.append("DOUBLE(" + String.valueOf(dcm.getLength()) + "," + String.valueOf(dcm.getPrecision()) +
+            // ") ");
+            // else if ("id_Date".equals(dcm.getType())) {
+            // sql.append(" DEFAULT NULL ");
+            // }
 
             if (dcm.isNullable() == false) {
-                sql.append("NOT NULL ");
+                sql.append(" NOT NULL ");
             }
 
             if (i < (column.getColumnCount() - 1)) {
@@ -133,14 +136,14 @@ public class DynamicUtils {
         }
         return list.toString();
     }
-	
-	public static String getUpdateSet(Dynamic column) {
-    	StringBuilder set=new StringBuilder();
-    	for (int i = 0; i < column.getColumnCount(); i++) {
-    		if(i!=0)
-    			set.append(", ");
-    		set.append(column.getColumnMetadata(i).getName()+" = ?");
-    	}
-    	return set.toString();
+
+    public static String getUpdateSet(Dynamic column) {
+        StringBuilder set = new StringBuilder();
+        for (int i = 0; i < column.getColumnCount(); i++) {
+            if (i != 0)
+                set.append(", ");
+            set.append(column.getColumnMetadata(i).getName() + " = ?");
+        }
+        return set.toString();
     }
 }
