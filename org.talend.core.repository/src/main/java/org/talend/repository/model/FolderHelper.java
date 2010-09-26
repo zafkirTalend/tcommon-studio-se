@@ -181,7 +181,31 @@ public abstract class FolderHelper {
             String segment = path.segment(i);
             FolderItem child = findChildFolder(folder, segment);
             if (child == null) {
-                return null;
+                // for bug 15746
+                child = PropertiesFactory.eINSTANCE.createFolderItem();
+                child.setType(FolderType.FOLDER_LITERAL);
+
+                Property property = PropertiesFactory.eINSTANCE.createProperty();
+                property.setId(EcoreUtil.generateUUID());
+                property.setLabel(segment);
+                property.setVersion(VersionUtils.DEFAULT_VERSION);
+                property.setCreationDate(new Date());
+                property.setAuthor(connectedUser);
+
+                child.setProperty(property);
+
+                createItemState(child);
+                doCreateFolder(child);
+
+                if (folder == null) {
+                    project.getFolders().add(child);
+                    child.setParent(project);
+                } else {
+                    folder.getChildren().add(child);
+                    child.setParent(folder);
+                }
+                return child;
+
             }
             folder = child;
         }
