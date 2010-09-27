@@ -35,6 +35,9 @@ public class MetadataTalendType {
     private static Map<String, Map<String, String>> TALEND_TO_DB_TYPES = Collections
             .synchronizedMap(new HashMap<String, Map<String, String>>());
 
+    private static Map<String, Map<String, List<String>>> TALEND_TO_DB_TYPES_LIST = Collections
+            .synchronizedMap(new HashMap<String, Map<String, List<String>>>());
+
     private static Map<String, Map<String, Map<String, String>>> DB_TYPTES = Collections
             .synchronizedMap(new HashMap<String, Map<String, Map<String, String>>>());
 
@@ -89,9 +92,14 @@ public class MetadataTalendType {
                         .synchronizedMap(new HashMap<String, Map<String, String>>());// use to
                 // store
                 // DB types
+
+                // use to store--TalendType:DBType and all DBType as List
+                Map<String, List<String>> talendToDBList = Collections.synchronizedMap(new HashMap<String, List<String>>());
+
                 DB_TO_TALEND_TYPES.put(dbmsIdValue, talendToDBMap);// store
                 TALEND_TO_DB_TYPES.put(dbmsIdValue, dbToTalendMap);
                 DB_TYPTES.put(dbmsIdValue, dbTypesMaps);
+                TALEND_TO_DB_TYPES_LIST.put(dbmsIdValue, talendToDBList);
 
                 List<Node> childrens = getChildElementNodes(dbmsNode);
 
@@ -161,6 +169,9 @@ public class MetadataTalendType {
                         String talendType = talendTypeItem.getNodeValue();
                         List<Node> languageTypesNodes = getChildElementNodes(talendTypeSource);
 
+                        List<String> dbList = Collections.synchronizedList(new ArrayList<String>()); // new a dbType
+                        // list
+
                         boolean defaultSelected = false;
 
                         for (int j = 0; j < languageTypesNodes.size(); j++) {
@@ -181,8 +192,11 @@ public class MetadataTalendType {
                                     && defaultSelectedItem.getNodeValue().equalsIgnoreCase("true") ? true : false; //$NON-NLS-1$
                             if (defaultSelected == true) {// store the default talendType for the DB type.
                                 dbToTalendMap.put(talendType, dbType);
-                                break;
+                                // break;
                             }
+
+                            dbList.add(dbType);// add this dbType name to list
+
                         }
                         // no default value, then use the first one as the talend type
                         if (!defaultSelected) {
@@ -195,6 +209,8 @@ public class MetadataTalendType {
                                 dbToTalendMap.put(talendType, null);
                             }
                         }
+
+                        talendToDBList.put(talendType, dbList);// store the list to talendToDBList
 
                     }
                     // Talend to DB mapping -----END
@@ -359,6 +375,44 @@ public class MetadataTalendType {
 
         if (TALEND_TO_DB_TYPES.get(dbmsId) != null) {
             return TALEND_TO_DB_TYPES.get(dbmsId).get(talendType);
+        }
+
+        return null;
+    }
+
+    /**
+     * Search and return the Db type list which matches with the given parameters.
+     * 
+     * @author talend
+     * @param dbmsId: the db id like "mysql_id"
+     * @param talendType: the DB type like "id_String"
+     * @return
+     */
+    public static List<String> getTalendToDBList(String dbmsId, String talendType) {
+        if (dbmsId == null || "".equals(dbmsId) || talendType == null || "".equals(talendType)) {
+            return null;
+        }
+        if (TALEND_TO_DB_TYPES_LIST.get(dbmsId) == null) {
+            String dbms = dbmsId.substring(0, dbmsId.indexOf("_"));
+
+            java.io.InputStream is = MetadataTalendType.class.getResourceAsStream("/" + MAPPING_FOLDER + "/mapping_" + dbms
+                    + ".xml");
+            if (is != null) {
+
+                try {
+                    load(is);
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                    return null;
+                }
+            } else {
+                // the destination file doesn't find
+            }
+
+        }
+
+        if (TALEND_TO_DB_TYPES_LIST.get(dbmsId) != null) {
+            return TALEND_TO_DB_TYPES_LIST.get(dbmsId).get(talendType);
         }
 
         return null;

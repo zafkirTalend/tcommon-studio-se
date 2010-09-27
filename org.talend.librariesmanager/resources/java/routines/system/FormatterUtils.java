@@ -122,4 +122,20 @@ public class FormatterUtils {
             returnString.append(part);
         return returnString.toString();
     }
+
+    /**
+     * DOC Administrator Comment method "formatUnwithE". In java when double more than six decimal that use toString
+     * will rentru contains E scientific natation.
+     * 
+     * @param arg like: double falot String .... e.g:1.0E-8
+     * @return 0.00000001 as String
+     */
+    public static String formatUnwithE(Object arg) {
+        String doubleString = String.valueOf(arg);
+        if (doubleString.indexOf("E") != -1) {
+            String position = doubleString.substring(doubleString.indexOf("E") + 2);
+            return String.format("%1." + position + "f", arg);
+        }
+        return doubleString;
+    }
 }
