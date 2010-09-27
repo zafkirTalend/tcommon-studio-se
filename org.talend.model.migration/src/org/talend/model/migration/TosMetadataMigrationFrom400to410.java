@@ -20,6 +20,7 @@ import java.util.logging.Level;
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.Resource.Factory;
 import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
 import org.eclipse.m2m.atl.common.ATLLogger;
 import org.eclipse.m2m.atl.core.ATLCoreException;
@@ -29,6 +30,7 @@ import org.eclipse.m2m.atl.core.emf.EMFInjector;
 import org.eclipse.m2m.atl.core.emf.EMFModel;
 import org.eclipse.m2m.atl.core.emf.EMFModelFactory;
 import org.eclipse.m2m.atl.engine.emfvm.launch.EMFVMLauncher;
+import org.talend.commons.emf.CwmResourceFactory;
 
 /**
  * This perform the migration of TOS metadata file from version 4.0x to version 4.10
@@ -57,6 +59,8 @@ public class TosMetadataMigrationFrom400to410 {
     private Object AtlModule;
 
     private static Logger log = Logger.getLogger(TosMetadataMigrationFrom400to410.class);
+
+    private static Factory cwmResourceFactory = new CwmResourceFactory();
 
     /**
      * To enhance perfomance use one instance of this class to perform the migration of all the files
@@ -107,6 +111,7 @@ public class TosMetadataMigrationFrom400to410 {
         inModel = factory.newModel(inmodelMetamodel);
         injector.inject(inModel, inUri);
         EMFModel outModel = (EMFModel) factory.newModel(outmodelMetamodel);
+        outModel.setEmfResourceFactory(cwmResourceFactory);
         launcher.initialize(Collections.EMPTY_MAP);
         launcher.addInModel(inModel, "IN", "INMODEL"); //$NON-NLS-1$//$NON-NLS-2$
         launcher.addOutModel(outModel, "OUT", "OUTMODEL"); //$NON-NLS-1$//$NON-NLS-2$
