@@ -564,7 +564,7 @@ public class ConnectionHelper {
         Iterator<Package> it = allCatalogs.iterator();
         while (it.hasNext()) {
             Package current = it.next();
-            if (current.getName().equals(name)) {
+            if (current.getName() != null && current.getName().equals(name)) {
                 return current;
             }
         }
