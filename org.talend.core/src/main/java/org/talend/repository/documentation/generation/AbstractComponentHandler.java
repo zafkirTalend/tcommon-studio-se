@@ -20,7 +20,6 @@ import java.util.Map;
 
 import org.dom4j.Element;
 import org.eclipse.swt.SWT;
-import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.image.ImageUtils;
 import org.talend.commons.utils.image.ImageUtils.ICON_SIZE;
 import org.talend.core.GlobalServiceRegister;
@@ -78,7 +77,12 @@ public abstract class AbstractComponentHandler implements IComponentHandler {
         try {
             return new URL(path).getPath();
         } catch (MalformedURLException e) {
-            ExceptionHandler.process(e);
+            // do nothing, if component icon not found directly, recreate the image from icon image
+        }
+        if (component.getIcon32() != null) {
+            String filePath = getTmpFolder(node) + File.separator + node.getUniqueName() + ".png"; //$NON-NLS-1$
+            ImageUtils.save(CoreImageProvider.getComponentIcon(component, ICON_SIZE.ICON_32), filePath, SWT.IMAGE_PNG);
+            return filePath;
         }
         return null;
     }
