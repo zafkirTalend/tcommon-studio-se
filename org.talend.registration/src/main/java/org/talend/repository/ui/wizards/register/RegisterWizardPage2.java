@@ -140,7 +140,7 @@ public class RegisterWizardPage2 extends AbstractBasicWizardDialog {
         Label emailLable = new Label(c, SWT.NONE);
         emailLable.setText(Messages.getString("RegisterWizardPage.email"));
         data = new GridData(GridData.HORIZONTAL_ALIGN_CENTER);
-        data.widthHint = 100;
+        data.widthHint = 120;
         data.horizontalIndent = 50;
         emailLable.setLayoutData(data);
 
@@ -156,7 +156,7 @@ public class RegisterWizardPage2 extends AbstractBasicWizardDialog {
         // country
         Label countryLable = new Label(c, SWT.NONE);
         data = new GridData(GridData.HORIZONTAL_ALIGN_CENTER);
-        data.widthHint = 100;
+        data.widthHint = 120;
         data.horizontalIndent = 50;
         countryLable.setLayoutData(data);
         countryLable.setText(Messages.getString("RegisterWizardPage.country"));
