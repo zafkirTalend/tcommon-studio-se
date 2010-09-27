@@ -50,6 +50,7 @@ import org.talend.core.model.properties.helper.ByteArrayResource;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.repository.constants.FileConstants;
 import org.talend.repository.ProjectManager;
+import org.talend.repository.model.ProxyRepositoryFactory;
 import org.talend.repository.utils.ResourceFilenameHelper.FileName;
 
 /**
@@ -251,9 +252,14 @@ public class XmiResourceManager {
 
     public List<Resource> getAffectedResources(Property property) {
         EcoreUtil.resolveAll(property.getItem());
-
         List<Resource> resources = new ArrayList<Resource>();
-
+        // try to update and get new resource while the job's parent folder's name has been change which may cause
+        // propertyResource == null.
+        try {
+            property = ProxyRepositoryFactory.getInstance().getUptodateProperty(property);
+        } catch (PersistenceException e) {
+            ExceptionHandler.process(e);
+        }
         Resource propertyResource = property.eResource();
         URI itemResourceURI = getItemResourceURI(propertyResource.getURI());
         Resource itemResource = resourceSet.getResource(itemResourceURI, true);
