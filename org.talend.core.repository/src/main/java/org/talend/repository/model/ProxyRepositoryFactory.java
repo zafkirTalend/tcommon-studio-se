@@ -926,10 +926,9 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         String[] split = ERepositoryObjectType.getFolderName(type).split("/"); //$NON-NLS-1$
         String labelType = split[split.length - 1];
 
-        for (Object current : list) {
-            FolderItem folderItem = (FolderItem) current;
-            addChildren(toReturn, folderItem, labelType, ""); //$NON-NLS-1$
-        }
+        FolderItem folderItem = getFolderItem(project, type, new Path(""));//$NON-NLS-1$
+        addChildren(toReturn, folderItem, labelType, ""); //$NON-NLS-1$
+
         return toReturn;
     }
 
