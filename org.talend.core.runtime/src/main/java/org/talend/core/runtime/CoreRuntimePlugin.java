@@ -15,6 +15,7 @@ package org.talend.core.runtime;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.IManagementService;
 import org.talend.core.IService;
+import org.talend.core.IStatusPreferenceInitService;
 import org.talend.core.context.Context;
 import org.talend.core.model.general.ILibrariesService;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -69,4 +70,7 @@ public class CoreRuntimePlugin {
 
     }
 
+    public IStatusPreferenceInitService getStatusPreferenceInitService() {
+        return (IStatusPreferenceInitService) GlobalServiceRegister.getDefault().getService(IStatusPreferenceInitService.class);
+    }
 }

@@ -762,6 +762,7 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
 
         // TODO: review the prefs
         // new StatusPreferenceInitializer().initializeDefaultPreferences();
+        CoreRuntimePlugin.getInstance().getStatusPreferenceInitService().initStatusPreference();
         String productVersion = CoreRepositoryPlugin.getDefault().getBundle().getHeaders().get(
                 org.osgi.framework.Constants.BUNDLE_VERSION).toString();
         IBrandingService brandingService = null;
