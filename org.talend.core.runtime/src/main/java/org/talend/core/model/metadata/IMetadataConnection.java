@@ -14,6 +14,8 @@ package org.talend.core.model.metadata;
 
 import java.util.List;
 
+import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
+
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
  * 
@@ -109,5 +111,9 @@ public interface IMetadataConnection extends IMetadata {
     public boolean isSqlMode();
 
     public void setSqlMode(boolean sqlMode);
+
+    public DatabaseConnection getCurrentConnection();
+
+    public void setCurrentConnection(DatabaseConnection dbconn);
 
 }
