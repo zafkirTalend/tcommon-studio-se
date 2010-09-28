@@ -89,6 +89,7 @@ public final class ConvertionHelper {
         result.setProduct(connection.getProductId());
         result.setDbRootPath(connection.getDBRootPath());
         result.setSqlMode(connection.isSQLMode());
+        result.setCurrentConnection(connection); // keep the connection for the metadataconnection
         return result;
 
     }

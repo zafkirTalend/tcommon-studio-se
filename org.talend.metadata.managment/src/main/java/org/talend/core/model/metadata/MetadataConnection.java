@@ -15,6 +15,7 @@ package org.talend.core.model.metadata;
 import java.io.InputStream;
 import java.util.List;
 
+import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.RepositoryObject;
 
@@ -71,6 +72,8 @@ public class MetadataConnection extends RepositoryObject implements IMetadataCon
     private String additionalParams;
 
     private boolean sqlMode;
+
+    private DatabaseConnection currentConnection;
 
     public boolean isSqlMode() {
         return this.sqlMode;
@@ -522,4 +525,13 @@ public class MetadataConnection extends RepositoryObject implements IMetadataCon
         }
         return false;
     }
+
+    public DatabaseConnection getCurrentConnection() {
+        return this.currentConnection;
+    }
+
+    public void setCurrentConnection(DatabaseConnection currentConnection) {
+        this.currentConnection = currentConnection;
+    }
+
 }

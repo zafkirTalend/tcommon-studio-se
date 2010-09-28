@@ -447,7 +447,6 @@ public class ExtractMetaDataFromDataBase {
             IMetadataConnection metadataConnection, String databaseType) {
         columnIndex = 0;
         List<TdColumn> metadataColumns = new ArrayList<TdColumn>();
-
         HashMap<String, String> primaryKeys = new HashMap<String, String>();
 
         try {
@@ -639,7 +638,8 @@ public class ExtractMetaDataFromDataBase {
                     }
                     // gcui:if not oracle database use "REMARKS" select comments
                     metadataColumn.setComment(commentInfo); //$NON-NLS-1$
-                    TDColumnAttributeHelper.addColumnAttribute(columns, metadataColumn);
+                    TDColumnAttributeHelper
+                            .addColumnAttribute(columns, metadataColumn, metadataConnection.getCurrentConnection());
                     metadataColumns.add(metadataColumn);
 
                     // cantoine : patch to fix 0x0 pb cause by Bad Schema
