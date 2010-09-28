@@ -156,7 +156,7 @@ public final class ResourceUtils {
 
     public static void moveResource(IResource res, IPath path) throws PersistenceException {
         try {
-            res.move(path, false, null);
+            res.move(path, true, null);
         } catch (CoreException e) {
             String msg = Messages.getString("resources.resource.notMoved", res.getName(), path); //$NON-NLS-1$
             throw new PersistenceException(msg, e);
