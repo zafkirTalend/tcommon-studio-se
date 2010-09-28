@@ -37,6 +37,7 @@ import org.talend.core.model.metadata.builder.connection.DelimitedFileConnection
 import org.talend.core.model.metadata.builder.connection.EbcdicConnection;
 import org.talend.core.model.metadata.builder.connection.Escape;
 import org.talend.core.model.metadata.builder.connection.FileExcelConnection;
+import org.talend.core.model.metadata.builder.connection.HL7Connection;
 import org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.LdifFileConnection;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
@@ -148,6 +149,8 @@ public class ComponentToRepositoryProperty {
             setMDMValue((MDMConnection) connection, node, repositoryValue);
         } else if (connection instanceof BRMSConnection) {
             setBRMSValue((BRMSConnection) connection, node, repositoryValue);
+        } else if (connection instanceof HL7Connection) {
+            setHL7Value((HL7Connection) connection, node, repositoryValue);
         }
     }
 
@@ -1109,6 +1112,28 @@ public class ComponentToRepositoryProperty {
                 connection.setModuleUsed(value);
             }
         }
+    }
+
+    private static void setHL7Value(HL7Connection connection, INode node, String repositoryValue) {
+        if ("FILE_PATH".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "FILENAME"); //$NON-NLS-1$
+            if (value != null) {
+                connection.setFilePath(value);
+            }
+        }
+        if ("START_MSG".equals(repositoryValue)) { //$NON-NLS-1$
+            final String value = getParameterValue(node, "START_MSG"); //$NON-NLS-1$
+            if (value != null) {
+                connection.setStartChar(value);
+            }
+        }
+        if ("END_MSG".equals(repositoryValue)) { //$NON-NLS-1$
+            final String value = getParameterValue(node, "END_MSG"); //$NON-NLS-1$
+            if (value != null) {
+                connection.setEndChar(value);
+            }
+        }
+
     }
 
     private static void setLdifFileValue(LdifFileConnection connection, INode node, String repositoryValue) {
