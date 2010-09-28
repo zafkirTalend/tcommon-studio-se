@@ -15493,13 +15493,22 @@ public interface ConnectionPackage extends EPackage {
     int BRMS_CONNECTION__LOOP = CONNECTION_FEATURE_COUNT + 6;
 
     /**
+     * The feature id for the '<em><b>Package</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int BRMS_CONNECTION__PACKAGE = CONNECTION_FEATURE_COUNT + 7;
+
+    /**
      * The number of structural features of the '<em>BRMS Connection</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int BRMS_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 7;
+    int BRMS_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 8;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.FileFormat <em>File Format</em>}' enum.
@@ -19108,6 +19117,17 @@ public interface ConnectionPackage extends EPackage {
     EReference getBRMSConnection_Loop();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.BRMSConnection#getPackage <em>Package</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Package</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.BRMSConnection#getPackage()
+     * @see #getBRMSConnection()
+     * @generated
+     */
+    EAttribute getBRMSConnection_Package();
+
+    /**
      * Returns the meta object for enum '{@link org.talend.core.model.metadata.builder.connection.FileFormat <em>File Format</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for enum '<em>File Format</em>'.
@@ -21924,6 +21944,14 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EReference BRMS_CONNECTION__LOOP = eINSTANCE.getBRMSConnection_Loop();
+
+        /**
+         * The meta object literal for the '<em><b>Package</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute BRMS_CONNECTION__PACKAGE = eINSTANCE.getBRMSConnection_Package();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.FileFormat <em>File Format</em>}' enum.

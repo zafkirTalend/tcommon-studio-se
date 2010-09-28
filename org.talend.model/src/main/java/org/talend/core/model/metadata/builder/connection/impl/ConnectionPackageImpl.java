@@ -3255,6 +3255,15 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getBRMSConnection_Package() {
+        return (EAttribute) brmsConnectionEClass.getEStructuralFeatures().get(7);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -3722,6 +3731,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEReference(brmsConnectionEClass, BRMS_CONNECTION__ROOT);
         createEReference(brmsConnectionEClass, BRMS_CONNECTION__GROUP);
         createEReference(brmsConnectionEClass, BRMS_CONNECTION__LOOP);
+        createEAttribute(brmsConnectionEClass, BRMS_CONNECTION__PACKAGE);
 
         // Create enums
         fileFormatEEnum = createEEnum(FILE_FORMAT);
@@ -4735,6 +4745,8 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEReference(getBRMSConnection_Loop(), this.getXMLFileNode(), null, "loop", null, 0, -1, BRMSConnection.class,
                 !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
                 !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getBRMSConnection_Package(), ecorePackage.getEString(), "package", null, 0, 1, BRMSConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Initialize enums and add enum literals
         initEEnum(fileFormatEEnum, FileFormat.class, "FileFormat");

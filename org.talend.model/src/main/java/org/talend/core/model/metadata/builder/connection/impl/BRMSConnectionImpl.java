@@ -37,6 +37,7 @@ import org.talend.core.model.metadata.builder.connection.XMLFileNode;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.BRMSConnectionImpl#getRoot <em>Root</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.BRMSConnectionImpl#getGroup <em>Group</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.BRMSConnectionImpl#getLoop <em>Loop</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.BRMSConnectionImpl#getPackage <em>Package</em>}</li>
  * </ul>
  * </p>
  *
@@ -153,6 +154,26 @@ public class BRMSConnectionImpl extends ConnectionImpl implements BRMSConnection
      * @ordered
      */
     protected EList<XMLFileNode> loop;
+
+    /**
+     * The default value of the '{@link #getPackage() <em>Package</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getPackage()
+     * @generated
+     * @ordered
+     */
+    protected static final String PACKAGE_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getPackage() <em>Package</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getPackage()
+     * @generated
+     * @ordered
+     */
+    protected String package_ = PACKAGE_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -305,6 +326,28 @@ public class BRMSConnectionImpl extends ConnectionImpl implements BRMSConnection
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getPackage() {
+        return package_;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setPackage(String newPackage) {
+        String oldPackage = package_;
+        package_ = newPackage;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.BRMS_CONNECTION__PACKAGE, oldPackage,
+                    package_));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
@@ -340,6 +383,8 @@ public class BRMSConnectionImpl extends ConnectionImpl implements BRMSConnection
             return getGroup();
         case ConnectionPackage.BRMS_CONNECTION__LOOP:
             return getLoop();
+        case ConnectionPackage.BRMS_CONNECTION__PACKAGE:
+            return getPackage();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -377,6 +422,9 @@ public class BRMSConnectionImpl extends ConnectionImpl implements BRMSConnection
             getLoop().clear();
             getLoop().addAll((Collection<? extends XMLFileNode>) newValue);
             return;
+        case ConnectionPackage.BRMS_CONNECTION__PACKAGE:
+            setPackage((String) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
@@ -410,6 +458,9 @@ public class BRMSConnectionImpl extends ConnectionImpl implements BRMSConnection
         case ConnectionPackage.BRMS_CONNECTION__LOOP:
             getLoop().clear();
             return;
+        case ConnectionPackage.BRMS_CONNECTION__PACKAGE:
+            setPackage(PACKAGE_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
@@ -436,6 +487,8 @@ public class BRMSConnectionImpl extends ConnectionImpl implements BRMSConnection
             return group != null && !group.isEmpty();
         case ConnectionPackage.BRMS_CONNECTION__LOOP:
             return loop != null && !loop.isEmpty();
+        case ConnectionPackage.BRMS_CONNECTION__PACKAGE:
+            return PACKAGE_EDEFAULT == null ? package_ != null : !PACKAGE_EDEFAULT.equals(package_);
         }
         return super.eIsSet(featureID);
     }
@@ -459,6 +512,8 @@ public class BRMSConnectionImpl extends ConnectionImpl implements BRMSConnection
         result.append(className);
         result.append(", moduleUsed: ");
         result.append(moduleUsed);
+        result.append(", package: ");
+        result.append(package_);
         result.append(')');
         return result.toString();
     }

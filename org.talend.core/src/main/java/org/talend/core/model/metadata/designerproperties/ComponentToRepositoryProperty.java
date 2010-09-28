@@ -1106,6 +1106,13 @@ public class ComponentToRepositoryProperty {
             }
         }
 
+        if ("GUVNOR_PACKAGE".equals(repositoryValue)) {//$NON-NLS-1$
+            String value = getParameterValue(node, "GUVNOR_PACKAGE"); //$NON-NLS-1$
+            if (value != null) {
+                connection.setPackage(value);
+            }
+        }
+
         if ("MODULE_USED".equals(repositoryValue)) {//$NON-NLS-1$
             String value = getParameterValue(node, "LIBRARY"); //$NON-NLS-1$
             if (value != null) {

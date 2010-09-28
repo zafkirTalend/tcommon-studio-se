@@ -23,6 +23,7 @@ import java.util.ArrayList;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.BRMSConnection#getRoot <em>Root</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.BRMSConnection#getGroup <em>Group</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.BRMSConnection#getLoop <em>Loop</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.BRMSConnection#getPackage <em>Package</em>}</li>
  * </ul>
  * </p>
  *
@@ -183,5 +184,31 @@ public interface BRMSConnection extends Connection {
      * @generated
      */
     EList<XMLFileNode> getLoop();
+
+    /**
+     * Returns the value of the '<em><b>Package</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Package</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Package</em>' attribute.
+     * @see #setPackage(String)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getBRMSConnection_Package()
+     * @model
+     * @generated
+     */
+    String getPackage();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.BRMSConnection#getPackage <em>Package</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Package</em>' attribute.
+     * @see #getPackage()
+     * @generated
+     */
+    void setPackage(String value);
 
 } // BRMSConnection

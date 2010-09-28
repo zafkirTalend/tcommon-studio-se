@@ -426,6 +426,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//BRMSConnection/root"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//BRMSConnection/group"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//BRMSConnection/loop"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//BRMSConnection/package"/>
     </genClasses>
     <nestedGenPackages prefix="cwm" basePackage="org.talend" disposableProviderFactory="true"
         ecorePackage="metadata.ecore#//cwm">
@@ -452,6 +453,10 @@
         </genClasses>
         <genClasses ecoreClass="metadata.ecore#//cwm/relational/TdTrigger"/>
         <genClasses ecoreClass="metadata.ecore#//cwm/relational/TdProcedure"/>
+        <genClasses ecoreClass="metadata.ecore#//cwm/relational/TdExpression">
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//cwm/relational/TdExpression/version"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//cwm/relational/TdExpression/modificationDate"/>
+        </genClasses>
       </nestedGenPackages>
       <nestedGenPackages prefix="Softwaredeployment" basePackage="org.talend.cwm"
           disposableProviderFactory="true" ecorePackage="metadata.ecore#//cwm/softwaredeployment">
