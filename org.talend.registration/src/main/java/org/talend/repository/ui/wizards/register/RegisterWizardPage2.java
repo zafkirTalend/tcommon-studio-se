@@ -404,6 +404,7 @@ public class RegisterWizardPage2 extends AbstractBasicWizardDialog {
         label.setLayoutData(lgd);
         label.setForeground(new Color(null, new RGB(240, 0, 0)));
         label.setText(string);
+        label.setVisible(false);
         new Label(bottom, SWT.NONE);
         new Label(bottom, SWT.NONE);
     }
