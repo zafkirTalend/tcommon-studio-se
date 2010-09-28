@@ -247,4 +247,13 @@ public class MDMWizard extends RepositoryWizard implements INewWizard {
         this.isToolBar = isToolbar;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.repository.ui.wizards.RepositoryWizard#getConnectionItem()
+     */
+    @Override
+    public ConnectionItem getConnectionItem() {
+        return this.connectionItem;
+    }
 }

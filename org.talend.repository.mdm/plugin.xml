@@ -34,7 +34,7 @@
          point="org.talend.core.runtime.service">
       <Service
             class="org.talend.repository.mdm.MDMProviderService"
-            serviceId="org.talend.repository.mdm.MDMProviderService">
+            serviceId="IMDMProviderService">
       </Service>
    </extension>
 
