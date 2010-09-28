@@ -320,12 +320,8 @@ public class QueryUtil {
             currentTableName = DEFAULT_TABLE_NAME;
         }
         if (schema != null && schema.length() > 0) {
-            if (isContext(schema)) {// && "General JDBC".equals(dbType)
-                currentTableName = quoteStringValue(currentTableName, dbType);
-            } else {
-                // Quote is added to schema and table when call getSchemaName() method
-                currentTableName = getSchemaName(schema, dbType, currentTableName);
-            }
+            // Quote is added to schema and table when call getSchemaName() method
+            currentTableName = getSchemaName(schema, dbType, currentTableName);
         } else {
             // If no schema, you also need to add quote to table name
             if (isContext(currentTableName)) {
