@@ -47,11 +47,14 @@ import org.talend.core.model.metadata.MappingTypeRetriever;
 import org.talend.core.model.metadata.MetadataTable;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
-import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
+import org.talend.core.model.metadata.builder.util.TDColumnAttributeHelper;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.cwm.relational.RelationalFactory;
+import org.talend.cwm.relational.TdColumn;
 import org.talend.repository.model.IRepositoryService;
+import org.talend.utils.sql.metadata.constants.GetTable;
 
 /**
  * DOC cantoine. Extract Meta Data Table. Contains all the Table and Metadata about a DB Connection. <br/>
@@ -62,6 +65,8 @@ import org.talend.repository.model.IRepositoryService;
 public class ExtractMetaDataFromDataBase {
 
     private static ICoreService coreService = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
+
+    public static Map<String, String> tableCommentsMap = new HashMap<String, String>();
 
     /**
      * 
@@ -334,10 +339,10 @@ public class ExtractMetaDataFromDataBase {
      * @param String tableLabel
      * @return Collection of MetadataColumn Object of a Table
      */
-    public static synchronized List<MetadataColumn> returnMetadataColumnsFormTable(IMetadataConnection iMetadataConnection,
+    public static synchronized List<TdColumn> returnMetadataColumnsFormTable(IMetadataConnection iMetadataConnection,
             String tableLabel, boolean... dontCreateClose) {
 
-        List<MetadataColumn> metadataColumns = new ArrayList<MetadataColumn>();
+        List<TdColumn> metadataColumns = new ArrayList<TdColumn>();
 
         boolean needCreateAndClose = dontCreateClose.length == 0 || !dontCreateClose[0];
 
@@ -438,10 +443,10 @@ public class ExtractMetaDataFromDataBase {
      * @param MetadataTable medataTable
      * @return Collection of MetadataColumn Object
      */
-    public static List<MetadataColumn> extractMetadataColumnsFormTable(DatabaseMetaData dbMetaData, IMetadataTable medataTable,
+    public static List<TdColumn> extractMetadataColumnsFormTable(DatabaseMetaData dbMetaData, IMetadataTable medataTable,
             IMetadataConnection metadataConnection, String databaseType) {
         columnIndex = 0;
-        List<MetadataColumn> metadataColumns = new ArrayList<MetadataColumn>();
+        List<TdColumn> metadataColumns = new ArrayList<TdColumn>();
 
         HashMap<String, String> primaryKeys = new HashMap<String, String>();
 
@@ -506,7 +511,7 @@ public class ExtractMetaDataFromDataBase {
                 String fetchTableName = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "TABLE_NAME", null); //$NON-NLS-1$
                 fetchTableName = ManagementTextUtils.filterSpecialChar(fetchTableName); // for 8115
                 if (fetchTableName.equals(tableName) || databaseType.equals(EDatabaseTypeName.SQLITE.getDisplayName())) {
-                    MetadataColumn metadataColumn = ConnectionFactory.eINSTANCE.createMetadataColumn();
+                    TdColumn metadataColumn = RelationalFactory.eINSTANCE.createTdColumn();
                     String label = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "COLUMN_NAME", null); //$NON-NLS-1$
                     label = ManagementTextUtils.filterSpecialChar(label);
                     String sub = ""; //$NON-NLS-1$
@@ -634,6 +639,7 @@ public class ExtractMetaDataFromDataBase {
                     }
                     // gcui:if not oracle database use "REMARKS" select comments
                     metadataColumn.setComment(commentInfo); //$NON-NLS-1$
+                    TDColumnAttributeHelper.addColumnAttribute(columns, metadataColumn);
                     metadataColumns.add(metadataColumn);
 
                     // cantoine : patch to fix 0x0 pb cause by Bad Schema
@@ -1151,8 +1157,19 @@ public class ExtractMetaDataFromDataBase {
      */
     private static List<String> getTableNamesFromQuery(ResultSet resultSet) throws SQLException {
         List<String> itemTablesName = new ArrayList<String>();
+        ExtractMetaDataFromDataBase.tableCommentsMap.clear();
         while (resultSet.next()) {
-            itemTablesName.add(resultSet.getString(1).trim());
+            String nameKey = resultSet.getString(1).trim();
+            String tableComment = getTableComment(nameKey, resultSet, false);
+            if (ExtractMetaDataFromDataBase.tableCommentsMap.containsKey(nameKey)) {
+                if (tableComment == null) {
+                    tableComment = "";
+                }
+                tableCommentsMap.remove(nameKey);
+                tableCommentsMap.put(nameKey, tableComment);
+            }
+            itemTablesName.add(nameKey);
+            tableCommentsMap.put(nameKey, tableComment);
         }
         return itemTablesName;
     }
@@ -1174,9 +1191,20 @@ public class ExtractMetaDataFromDataBase {
      */
     private static List<String> getTableNamesFromTables(ResultSet resultSet) throws SQLException {
         List<String> itemTablesName = new ArrayList<String>();
+        ExtractMetaDataFromDataBase.tableCommentsMap.clear();
         if (resultSet != null) {
             while (resultSet.next()) {
-                itemTablesName.add(resultSet.getString("TABLE_NAME")); //$NON-NLS-1$
+                String nameKey = resultSet.getString(GetTable.TABLE_NAME.name());
+                String colComment = getTableComment(nameKey, resultSet, true);
+                itemTablesName.add(nameKey); //$NON-NLS-1$
+                if (ExtractMetaDataFromDataBase.tableCommentsMap.containsKey(nameKey)) {
+                    if (colComment == null) {
+                        colComment = "";
+                    }
+                    tableCommentsMap.remove(nameKey);
+                    tableCommentsMap.put(nameKey, colComment);
+                }
+                tableCommentsMap.put(nameKey, colComment);
             }
             resultSet.close();
         }
@@ -1214,6 +1242,61 @@ public class ExtractMetaDataFromDataBase {
         rsTableTypes.close();
         rsTables = dbMetaData.getTables(null, schema, tableNamePattern, types);
         return rsTables;
+    }
+
+    private static String getTableComment(String tableName, ResultSet tablesSet, boolean needRemark) throws SQLException {
+        String tableComment = "";
+        if (needRemark) {
+            tableComment = tablesSet.getString(GetTable.REMARKS.name());
+        }
+        if (StringUtils.isBlank(tableComment)) {
+            String selectRemarkOnTable = getSelectRemarkOnTable(tableName);
+            if (selectRemarkOnTable != null && ExtractMetaDataUtils.conn != null) {
+                tableComment = executeGetCommentStatement(selectRemarkOnTable, ExtractMetaDataUtils.conn);
+            }
+        }
+        return tableComment;
+    }
+
+    private static String getSelectRemarkOnTable(String tableName) {
+        return "SELECT TABLE_COMMENT FROM information_schema.TABLES WHERE TABLE_NAME='" + tableName + "'"; //$NON-NLS-1$ //$NON-NLS-2$
+    }
+
+    private static String executeGetCommentStatement(String queryStmt, Connection connection) {
+        String comment = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = connection.createStatement();
+            statement.execute(queryStmt);
+
+            // get the results
+            resultSet = statement.getResultSet();
+            if (resultSet != null) {
+                while (resultSet.next()) {
+                    comment = (String) resultSet.getObject(1);
+                }
+            }
+        } catch (SQLException e) {
+            // do nothing here
+        } finally {
+            // -- release resources
+            if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    log.error(e, e);
+                }
+            }
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    log.error(e, e);
+                }
+            }
+        }
+        return comment;
     }
 
 }

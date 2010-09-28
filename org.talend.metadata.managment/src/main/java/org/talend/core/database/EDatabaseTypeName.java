@@ -12,26 +12,38 @@
 // ============================================================================
 package org.talend.core.database;
 
+import org.talend.core.model.metadata.builder.database.EDatabaseSchemaOrCatalogMapping;
+
 /**
  * qzhang class global comment. Detailled comment <br/>
  * 
  */
 public enum EDatabaseTypeName {
-    MYSQL("MySQL", "MySQL", new Boolean(false), "MYSQL", "MYSQL"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-    PSQL("PostgreSQL", "PostgreSQL", new Boolean(true), "POSTGRESQL", "POSTGRE"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+    MYSQL(
+          "MySQL", "MySQL", new Boolean(false), "MYSQL", "MYSQL", EDatabaseSchemaOrCatalogMapping.Sid, EDatabaseSchemaOrCatalogMapping.None), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    PSQL(
+         "PostgreSQL", "PostgreSQL", new Boolean(true), "POSTGRESQL", "POSTGRE", EDatabaseSchemaOrCatalogMapping.Sid, EDatabaseSchemaOrCatalogMapping.Schema), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
     PLUSPSQL("PostgresPlus", "PostgresPlus", new Boolean(true), "POSTGRESPLUS", "POSTGREPLUS"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-    ORACLEFORSID("ORACLE_SID", "Oracle with SID", new Boolean(true), "ORACLE", "DBORACLE"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-    ORACLESN("ORACLE_SERVICE_NAME", "Oracle with service name", new Boolean(true), "ORACLE", "DBORACLE"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-    ORACLE_OCI("ORACLE_OCI", "Oracle OCI", new Boolean(true), "ORACLE", "DBORACLE"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+    ORACLEFORSID(
+                 "ORACLE_SID", "Oracle with SID", new Boolean(true), "ORACLE", "DBORACLE", EDatabaseSchemaOrCatalogMapping.None, EDatabaseSchemaOrCatalogMapping.Schema), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+    ORACLESN(
+             "ORACLE_SERVICE_NAME", "Oracle with service name", new Boolean(true), "ORACLE", "DBORACLE", EDatabaseSchemaOrCatalogMapping.None, EDatabaseSchemaOrCatalogMapping.Schema), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+    ORACLE_OCI(
+               "ORACLE_OCI", "Oracle OCI", new Boolean(true), "ORACLE", "DBORACLE", EDatabaseSchemaOrCatalogMapping.None, EDatabaseSchemaOrCatalogMapping.Schema), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
     GODBC("Generic ODBC", "Generic ODBC", new Boolean(false), "ODBC"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     MSODBC("Microsoft SQL (Odbc driver)", "Microsoft SQL Server (Odbc driver)", new Boolean(false), "ODBC"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-    IBMDB2("IBM DB2", "IBM DB2", new Boolean(true), "IBM_DB2", "DB2"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-    IBMDB2ZOS("IBM DB2 ZOS", "IBM DB2 ZOS", new Boolean(true), "IBM_DB2", "DB2"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-    SYBASEASE("SybaseASE", "Sybase (ASE and IQ)", new Boolean(true), "SYBASE"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    IBMDB2(
+           "IBM DB2", "IBM DB2", new Boolean(true), "IBM_DB2", "DB2", EDatabaseSchemaOrCatalogMapping.None, EDatabaseSchemaOrCatalogMapping.Schema), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+    IBMDB2ZOS(
+              "IBM DB2 ZOS", "IBM DB2 ZOS", new Boolean(true), "IBM_DB2", "DB2", EDatabaseSchemaOrCatalogMapping.None, EDatabaseSchemaOrCatalogMapping.Schema), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+    SYBASEASE(
+              "SybaseASE", "Sybase (ASE and IQ)", new Boolean(true), "SYBASE", EDatabaseSchemaOrCatalogMapping.Sid, EDatabaseSchemaOrCatalogMapping.None), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
     // this Sybase IQ not used.
-    SYBASEIQ("Sybase IQ", "Sybase IQ", new Boolean(true), "SYBASE"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-    MSSQL("MSSQL", "Microsoft SQL Server", new Boolean(true), "SQL_SERVER", "MSSQL"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+    SYBASEIQ(
+             "Sybase IQ", "Sybase IQ", new Boolean(true), "SYBASE", EDatabaseSchemaOrCatalogMapping.Sid, EDatabaseSchemaOrCatalogMapping.None), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    MSSQL(
+          "MSSQL", "Microsoft SQL Server", new Boolean(true), "SQL_SERVER", "MSSQL", EDatabaseSchemaOrCatalogMapping.Sid, EDatabaseSchemaOrCatalogMapping.Schema), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
     // this don't use in Branch 2.0
     HSQLDB("HSQLDB", "HSQLDB", new Boolean(false), "HSQLDB"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     HSQLDB_SERVER("HSQLDB Server", "HSQLDB Server", new Boolean(false), "HSQLDB"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
@@ -39,16 +51,20 @@ public enum EDatabaseTypeName {
     HSQLDB_IN_PROGRESS("HSQLDB In-Process", "HSQLDB In-Process", new Boolean(false), "HSQLDB"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
     JAVADB("JavaDB", "JavaDB", new Boolean(false), "JAVADB"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-    INGRES("Ingres", "Ingres", new Boolean(false), "INGRES"), // "INGRES"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    INGRES(
+           "Ingres", "Ingres", new Boolean(false), "INGRES", EDatabaseSchemaOrCatalogMapping.None, EDatabaseSchemaOrCatalogMapping.Schema), // "INGRES"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     INTERBASE("Interbase", "Interbase", new Boolean(false), "INTERBASE"), // "INTERBASE"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     SQLITE("SQLite", "SQLite", new Boolean(false), "SQLITE"), // "SQLITE"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     FIREBIRD("FireBird", "FireBird", new Boolean(false), "FIREBIRD"), // "FIREBIRD"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-    INFORMIX("Informix", "Informix", new Boolean(true), "INFORMIX"), // "INFORMIX"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    INFORMIX(
+             "Informix", "Informix", new Boolean(true), "INFORMIX", EDatabaseSchemaOrCatalogMapping.Sid, EDatabaseSchemaOrCatalogMapping.None), // "INFORMIX"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     VECTORWISE("VectorWise", "VectorWise", new Boolean(false), "VECTORWISE"), //$NON-NLS-1$ //$NON-NLS-2$  //$NON-NLS-3$
 
     ACCESS("Access", "Access", new Boolean(false), "ACCESS"), // "ACCESS"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-    TERADATA("Teradata", "Teradata", new Boolean(true), "TERADATA"), // "TERADATA"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-    AS400("AS400", "AS400", new Boolean(false), "AS400"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    TERADATA(
+             "Teradata", "Teradata", new Boolean(true), "TERADATA", EDatabaseSchemaOrCatalogMapping.None, EDatabaseSchemaOrCatalogMapping.Schema), // "TERADATA"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    AS400(
+          "AS400", "AS400", new Boolean(false), "AS400", EDatabaseSchemaOrCatalogMapping.Sid, EDatabaseSchemaOrCatalogMapping.Login), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
     JAVADB_EMBEDED("JavaDB Embeded", "JavaDB Embeded", new Boolean(false), "JAVADB"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     JAVADB_JCCJDBC("JavaDB JCCJDBC", "JavaDB JCCJDBC", new Boolean(false), "JAVADB"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
@@ -80,6 +96,18 @@ public enum EDatabaseTypeName {
     // needs a mapping for bug 0004305
     private String xmlType;
 
+    private EDatabaseSchemaOrCatalogMapping catalogMappingField;
+
+    private EDatabaseSchemaOrCatalogMapping schemaMappingField;
+
+    public EDatabaseSchemaOrCatalogMapping getCatalogMappingField() {
+        return this.catalogMappingField;
+    }
+
+    public EDatabaseSchemaOrCatalogMapping getSchemaMappingField() {
+        return this.schemaMappingField;
+    }
+
     public String getDisplayName() {
         return this.displayName;
     }
@@ -108,12 +136,34 @@ public enum EDatabaseTypeName {
         this.xmlType = product;
     }
 
+    EDatabaseTypeName(String dbType, String displayName, Boolean isNeedSchema, String product,
+            EDatabaseSchemaOrCatalogMapping catalogMappingField, EDatabaseSchemaOrCatalogMapping schemaMappingField) {
+        this.displayName = displayName;
+        this.isNeedSchema = isNeedSchema;
+        this.dbType = dbType;
+        this.product = product;
+        this.xmlType = product;
+        this.catalogMappingField = catalogMappingField;
+        this.schemaMappingField = schemaMappingField;
+    }
+
     EDatabaseTypeName(String dbType, String displayName, Boolean isNeedSchema, String product, String xmlType) {
         this.displayName = displayName;
         this.isNeedSchema = isNeedSchema;
         this.dbType = dbType;
         this.product = product;
         this.xmlType = xmlType;
+    }
+
+    EDatabaseTypeName(String dbType, String displayName, Boolean isNeedSchema, String product, String xmlType,
+            EDatabaseSchemaOrCatalogMapping catalogMappingField, EDatabaseSchemaOrCatalogMapping schemaMappingField) {
+        this.displayName = displayName;
+        this.isNeedSchema = isNeedSchema;
+        this.dbType = dbType;
+        this.product = product;
+        this.xmlType = xmlType;
+        this.catalogMappingField = catalogMappingField;
+        this.schemaMappingField = schemaMappingField;
     }
 
     public static EDatabaseTypeName getTypeFromDbType(String dbType) {
