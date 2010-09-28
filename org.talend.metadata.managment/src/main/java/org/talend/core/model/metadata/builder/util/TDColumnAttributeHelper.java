@@ -311,13 +311,14 @@ public class TDColumnAttributeHelper {
         }
 
         column.setInitialValue(defExpression);
-
-        String mapping = databaseconnection.getDbmsId();
-        MappingTypeRetriever mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(mapping);
-        String talendType = mappingTypeRetriever.getDefaultSelectedTalendType(typeName, ExtractMetaDataUtils.getIntMetaDataInfo(
-                resutSet, "COLUMN_SIZE"), ExtractMetaDataUtils.getIntMetaDataInfo(resutSet, //$NON-NLS-1$
-                "DECIMAL_DIGITS")); //$NON-NLS-1$
-        column.setTalendType(talendType);
+        if (databaseconnection != null) {
+            String mapping = databaseconnection.getDbmsId();
+            MappingTypeRetriever mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(mapping);
+            String talendType = mappingTypeRetriever.getDefaultSelectedTalendType(typeName, ExtractMetaDataUtils
+                    .getIntMetaDataInfo(resutSet, "COLUMN_SIZE"), ExtractMetaDataUtils.getIntMetaDataInfo(resutSet, //$NON-NLS-1$
+                    "DECIMAL_DIGITS")); //$NON-NLS-1$
+            column.setTalendType(talendType);
+        }
         // mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(metadataConnection.getMapping());
         return column;
     }
