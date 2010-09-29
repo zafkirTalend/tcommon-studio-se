@@ -80,8 +80,8 @@ public enum ECoreImage implements IImage {
     METADATA_HL7_CONNECTION_ICON("/icons1/hl7.png"), //$NON-NLS-1$
     METADATA_HL7_CONNECTION_WIZ("/icons1/hl7.png"), //$NON-NLS-1$
 
-    METADATA_BRMS_CONNECTION_ICON("/icons1/unknown.gif"), //$NON-NLS-1$
-    METADATA_BRMS_CONNECTION_WIZ("/icons1/unknown.gif"), //$NON-NLS-1$
+    METADATA_BRMS_CONNECTION_ICON("/icons1/rules_wiz.gif"), //$NON-NLS-1$
+    METADATA_BRMS_CONNECTION_WIZ("/icons1/rules_wiz.gif"), //$NON-NLS-1$
 
     METADATA_EBCDIC_CONNECTION_ICON("/icons1/copybook.png"), //$NON-NLS-1$
     METADATA_EBCDIC_CONNECTION_WIZ("/icons1/copybook_wiz.png"), //$NON-NLS-1$
