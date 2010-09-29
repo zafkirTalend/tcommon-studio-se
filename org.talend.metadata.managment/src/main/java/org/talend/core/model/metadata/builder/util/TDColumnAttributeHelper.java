@@ -74,6 +74,17 @@ public class TDColumnAttributeHelper {
         return table;
     }
 
+    /**
+     * 
+     * DOC Administrator Comment method "addColumnAttribute".
+     * 
+     * @deprecated
+     * @param resutSet
+     * @param column
+     * @return
+     * @throws SQLException
+     * 
+     */
     public static TdColumn addColumnAttribute(ResultSet resutSet, TdColumn column) throws SQLException {
 
         // // --- add columns to table
