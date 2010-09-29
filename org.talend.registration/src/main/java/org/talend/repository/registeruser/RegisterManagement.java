@@ -36,10 +36,9 @@ import org.talend.core.model.general.ConnectionBean;
 import org.talend.core.prefs.PreferenceManipulator;
 import org.talend.core.ui.branding.IBrandingService;
 import org.talend.repository.RegistrationPlugin;
+import org.talend.repository.i18n.Messages;
 import org.talend.repository.registeruser.proxy.RegisterUserPortTypeProxy;
 import org.talend.repository.ui.login.connections.ConnectionUserPerReader;
-
-import com.mysql.jdbc.Messages;
 
 /**
  * DOC mhirt class global comment. Detailled comment <br/>
@@ -268,7 +267,7 @@ public class RegisterManagement {
                     prefManipulator.addConnection(recup);
                 }
             } else {
-                checkErrors(result.signum());
+                checkErrors(result.intValue());
             }
         } catch (RemoteException e) {
             decrementTry();
@@ -326,7 +325,7 @@ public class RegisterManagement {
             message = Messages.getString("RegisterManagement.emailInvalid");
             break;
         default:
-            signum = 0;
+            signum = -1;
         }
         MessageDialog.openError(null, Messages.getString("RegisterManagement.errors"), message);
     }
