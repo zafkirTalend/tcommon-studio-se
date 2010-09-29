@@ -159,6 +159,8 @@ public class SetNameForm extends AbstractMDMFileStepForm {
                     break;
                 }
 
+                selectedEntity = selectedEntity.trim();
+
                 // if entity name has special char
                 String regex = "[^a-zA-Z&&[^0-9]&&[^\\_]]";
                 selectedEntity = selectedEntity.replaceAll(regex, "_");
@@ -183,7 +185,7 @@ public class SetNameForm extends AbstractMDMFileStepForm {
 
                 nameText.setText(name);
                 concept.setLabel(name);
-
+                checkFieldsValue();
             }
         });
     }
