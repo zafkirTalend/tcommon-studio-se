@@ -21,7 +21,7 @@ import org.osgi.framework.BundleContext;
 public class MDMPlugin extends AbstractUIPlugin {
 
 	// The plug-in ID
-	public static final String PLUGIN_ID = "org.talend.repository.mdm";
+	public static final String PLUGIN_ID = "org.talend.repository.mdm"; //$NON-NLS-1$
 
 	// The shared instance
 	private static MDMPlugin plugin;

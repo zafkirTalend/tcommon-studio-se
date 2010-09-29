@@ -28,6 +28,7 @@ import org.talend.core.ui.images.ECoreImage;
 import org.talend.core.utils.XmlArray;
 import org.talend.cwm.helper.TableHelper;
 import org.talend.repository.ProjectManager;
+import org.talend.repository.mdm.i18n.Messages;
 import org.talend.repository.mdm.ui.wizard.concept.CreateConceptWizard;
 import org.talend.repository.mdm.util.MDMUtil;
 import org.talend.repository.model.ERepositoryStatus;
@@ -48,9 +49,9 @@ public class RetrieveMDMSchemaAction extends AbstractCreateAction {
 
     protected static final int WIZARD_HEIGHT = 495;
 
-    protected static final String CREATE_LABEL = "Retrieve Entity";
+    protected static final String CREATE_LABEL = Messages.getString("RetrieveMDMSchemaAction_retrive_entity"); //$NON-NLS-1$
 
-    protected static final String EDIT_LABEL = "Edit Entity";
+    protected static final String EDIT_LABEL = Messages.getString("RetrieveMDMSchemaAction_edit_entity"); //$NON-NLS-1$
 
     private RepositoryNode node;
 

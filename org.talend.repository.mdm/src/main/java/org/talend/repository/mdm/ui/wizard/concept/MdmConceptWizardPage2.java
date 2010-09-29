@@ -33,7 +33,7 @@ public class MdmConceptWizardPage2 extends AbstractRetrieveConceptPage {
     protected MdmConceptWizardPage2(RepositoryNode node, ConnectionItem connectionItem, boolean isRepositoryObjectEditable,
             boolean creation, String[] existingNames) {
         super(node, connectionItem, creation); //$NON-NLS-1$
-        this.setTitle(Messages.getString("SetConceptNamePage.MDM_Concept")); //$NON-NLS-1$
+        this.setTitle(Messages.getString("MdmConceptWizardPage2_mdm_entity")); //$NON-NLS-1$
 
         this.existingNames = existingNames;
         this.isRepositoryObjectEditable = isRepositoryObjectEditable;

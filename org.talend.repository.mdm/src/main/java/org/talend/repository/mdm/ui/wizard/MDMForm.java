@@ -111,7 +111,7 @@ public class MDMForm extends AbstractForm {
     @Override
     protected void addFields() {
         Group mdmParameterGroup = new Group(this, SWT.NULL);
-        mdmParameterGroup.setText(Messages.getString("MDMForm.PARAMETER")); //$NON-NLS-1$
+        mdmParameterGroup.setText(Messages.getString("MDMForm_link_para")); //$NON-NLS-1$
         GridLayout layoutGroup = new GridLayout();
         layoutGroup.numColumns = 2;
         mdmParameterGroup.setLayout(layoutGroup);
@@ -119,14 +119,13 @@ public class MDMForm extends AbstractForm {
         GridData gridData = new GridData(GridData.FILL_HORIZONTAL);
         mdmParameterGroup.setLayoutData(gridData);
 
-        mdmUsernameText = new LabelledText(mdmParameterGroup, Messages.getString("MDMForm.USERNAME"), true); //$NON-NLS-1$
+        mdmUsernameText = new LabelledText(mdmParameterGroup, Messages.getString("MDMForm_userName"), true); //$NON-NLS-1$
 
-        mdmPasswordText = new LabelledText(mdmParameterGroup,
-                Messages.getString("MDMForm.PASSWORD"), 1, SWT.BORDER | SWT.PASSWORD); //$NON-NLS-1$
+        mdmPasswordText = new LabelledText(mdmParameterGroup, Messages.getString("MDMForm_pass"), 1, SWT.BORDER | SWT.PASSWORD); //$NON-NLS-1$
 
-        mdmServer = new LabelledText(mdmParameterGroup, Messages.getString("MDMForm.SERVER"), true); //$NON-NLS-1$
+        mdmServer = new LabelledText(mdmParameterGroup, Messages.getString("MDMForm_server"), true); //$NON-NLS-1$
 
-        mdmHostnameText = new LabelledText(mdmParameterGroup, Messages.getString("MDMForm.PORT"), true); //$NON-NLS-1$
+        mdmHostnameText = new LabelledText(mdmParameterGroup, "Port", true); //$NON-NLS-1$
 
         addCheckButton(mdmParameterGroup);
         checkFieldsValue();
@@ -147,8 +146,7 @@ public class MDMForm extends AbstractForm {
         layout2.marginHeight = 0;
         layout2.marginTop = 0;
         layout2.marginBottom = 0;
-        checkButton = new UtilsButton(compositeCheckButton,
-                Messages.getString("MDMForm.CHECK"), WIDTH_BUTTON_PIXEL, HEIGHT_BUTTON_PIXEL); //$NON-NLS-1$
+        checkButton = new UtilsButton(compositeCheckButton, Messages.getString("MDMForm_check"), WIDTH_BUTTON_PIXEL, HEIGHT_BUTTON_PIXEL); //$NON-NLS-1$
         checkButton.setEnabled(false);
     }
 
@@ -243,14 +241,14 @@ public class MDMForm extends AbstractForm {
         if (verified) {
             page.setPageComplete(true);
             MessageBox box = new MessageBox(Display.getCurrent().getActiveShell(), SWT.ICON_WORKING | SWT.OK | SWT.CANCEL);
-            box.setText(Messages.getString("MDMForm.Success")); //$NON-NLS-1$
-            box.setMessage(Messages.getString("MDMForm.successfully")); //$NON-NLS-1$
+            box.setText(Messages.getString("MDMForm_success")); //$NON-NLS-1$
+            box.setMessage(Messages.getString("MDMForm_connect_successful")); //$NON-NLS-1$
             box.open();
         } else {
             page.setPageComplete(false);
             MessageBox box = new MessageBox(Display.getCurrent().getActiveShell(), SWT.ICON_WORKING | SWT.OK | SWT.CANCEL);
-            box.setText(Messages.getString("MDMForm.Unsuccessful")); //$NON-NLS-1$
-            box.setMessage(Messages.getString("MDMForm.Unsiccess_Mess")); //$NON-NLS-1$
+            box.setText(Messages.getString("MDMForm_unsuccessful")); //$NON-NLS-1$
+            box.setMessage(Messages.getString("MDMForm_connected_unsuccessful")); //$NON-NLS-1$
             box.open();
         }
         initUniverse();
@@ -268,25 +266,25 @@ public class MDMForm extends AbstractForm {
         }
 
         if (mdmUsernameText.getCharCount() == 0) {
-            updateStatus(IStatus.ERROR, Messages.getString("MDMForm.NAME_NULL")); //$NON-NLS-1$
+            updateStatus(IStatus.ERROR, Messages.getString("MDMForm_username_null")); //$NON-NLS-1$
             checkButton.setEnabled(false);
             return false;
         }
 
         if (mdmPasswordText.getCharCount() == 0) {
-            updateStatus(IStatus.ERROR, Messages.getString("MDMForm.PASSWORD_NULL")); //$NON-NLS-1$
+            updateStatus(IStatus.ERROR, Messages.getString("MDMForm_pass_null")); //$NON-NLS-1$
             checkButton.setEnabled(false);
             return false;
         }
 
         if (mdmServer.getCharCount() == 0) {
-            updateStatus(IStatus.ERROR, Messages.getString("MDMForm.SERVER_NULL")); //$NON-NLS-1$
+            updateStatus(IStatus.ERROR, Messages.getString("MDMForm_server_null")); //$NON-NLS-1$
             checkButton.setEnabled(false);
             return false;
         }
 
         if (mdmHostnameText.getCharCount() == 0) {
-            updateStatus(IStatus.ERROR, Messages.getString("MDMForm.PORT_NULL")); //$NON-NLS-1$
+            updateStatus(IStatus.ERROR, Messages.getString("MDMForm_port_null")); //$NON-NLS-1$
             checkButton.setEnabled(false);
             return false;
         }
@@ -323,7 +321,7 @@ public class MDMForm extends AbstractForm {
         mdmPasswordText.setText(pass);
         if (server == null || "".equals(server)) { //$NON-NLS-1$
             mdmServer.setText("localhost"); //$NON-NLS-1$
-            getConnection().setServer("localhost");
+            getConnection().setServer("localhost"); //$NON-NLS-1$
         } else
             mdmServer.setText(server);
         mdmHostnameText.setText(port);

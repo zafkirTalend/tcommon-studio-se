@@ -37,6 +37,7 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.update.RepositoryUpdateManager;
 import org.talend.core.ui.images.ECoreImage;
+import org.talend.repository.mdm.i18n.Messages;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.ProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryNode;
@@ -234,10 +235,10 @@ public class MDMWizard extends RepositoryWizard implements INewWizard {
         }
         propertiesWizardPage = new Step0WizardPage(connectionProperty, pathToSave, ERepositoryObjectType.METADATA_MDMCONNECTION,
                 !isRepositoryObjectEditable(), creation);
-        propertiesWizardPage.setTitle("Talend MDM");
-        propertiesWizardPage.setDescription("Create a MDMConnection");
+        propertiesWizardPage.setTitle("Talend MDM"); //$NON-NLS-1$
+        propertiesWizardPage.setDescription(Messages.getString("MDMWizard_create_mdm_conn")); //$NON-NLS-1$
         mdmWizardPage = new MDMWizardPage(connectionItem, isRepositoryObjectEditable(), existingNames);
-        universePage = new UniversePage(connectionItem, "Talend MDM");
+        universePage = new UniversePage(connectionItem, "Talend MDM"); //$NON-NLS-1$
         addPage(propertiesWizardPage);
         addPage(mdmWizardPage);
         addPage(universePage);

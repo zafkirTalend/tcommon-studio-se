@@ -72,6 +72,7 @@ import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.PackageHelper;
 import org.talend.cwm.xml.TdXmlSchema;
 import org.talend.cwm.xml.XmlFactory;
+import org.talend.repository.mdm.i18n.Messages;
 import org.talend.repository.mdm.ui.wizard.dnd.MDMSchema2TreeLinker;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.ProxyRepositoryFactory;
@@ -227,7 +228,7 @@ public class MDMOutputSchemaForm extends AbstractMDMFileStepForm {
     }
 
     private void addXmlFileViewer(final Composite mainComposite, final int width, final int height) {
-        final Group group = Form.createGroup(mainComposite, 1, "Linker Target", height);
+        final Group group = Form.createGroup(mainComposite, 1, Messages.getString("MDMOutputSchemaForm_linker_target"), height); //$NON-NLS-1$
         GridData data = new GridData(GridData.FILL_BOTH);
         Composite composite = new Composite(group, SWT.NONE);
         composite.setLayout(new GridLayout());
@@ -243,19 +244,19 @@ public class MDMOutputSchemaForm extends AbstractMDMFileStepForm {
         tree.setLinesVisible(true);
         tree.setBackground(tree.getDisplay().getSystemColor(SWT.COLOR_WHITE));
         TreeColumn column1 = new TreeColumn(tree, SWT.LEFT);
-        column1.setText("XML Tree");
+        column1.setText(Messages.getString("MDMOutputSchemaForm_xml_tree")); //$NON-NLS-1$
         column1.setWidth(120);
 
         TreeColumn column2 = new TreeColumn(tree, SWT.CENTER);
-        column2.setText("Related Column");
+        column2.setText(Messages.getString("MDMOutputSchemaForm_related_column")); //$NON-NLS-1$
         column2.setWidth(100);
 
         TreeColumn column3 = new TreeColumn(tree, SWT.CENTER);
-        column3.setText("Node Status");
+        column3.setText(Messages.getString("MDMOutputSchemaForm_node_status")); //$NON-NLS-1$
         column3.setWidth(100);
 
         TreeColumn column4 = new TreeColumn(tree, SWT.CENTER);
-        column4.setText("Default Value");
+        column4.setText(Messages.getString("MDMOutputSchemaForm_default_value")); //$NON-NLS-1$
         column4.setWidth(100);
 
         tree.setHeaderVisible(true);
@@ -304,7 +305,7 @@ public class MDMOutputSchemaForm extends AbstractMDMFileStepForm {
         // }
         // });
 
-        xmlViewer.setColumnProperties(new String[] { "C1", "C2", "C3", "C4" });
+        xmlViewer.setColumnProperties(new String[] { "C1", "C2", "C3", "C4" }); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
         // CellEditor editor = new TextCellEditor(xmlViewer.getTree());
         // editor.addListener(new DialogErrorXMLLabelCellEditor(editor, "C1"));
         // CellEditor editorDefault = new TextCellEditor(xmlViewer.getTree());
@@ -318,7 +319,7 @@ public class MDMOutputSchemaForm extends AbstractMDMFileStepForm {
 
         createAction();
 
-        MenuManager menuMgr = new MenuManager("#PopupMenu");
+        MenuManager menuMgr = new MenuManager("#PopupMenu"); //$NON-NLS-1$
         menuMgr.setRemoveAllWhenShown(true);
         menuMgr.addMenuListener(new IMenuListener() {
 
@@ -355,25 +356,25 @@ public class MDMOutputSchemaForm extends AbstractMDMFileStepForm {
     }
 
     private void createAction() {
-        createAction = new CreateElementAction(xmlViewer, this, "Add Sub-element");
-        createAttributeAction = new CreateAttributeAction(xmlViewer, this, "Add Attribute");
-        createNamespaceAction = new CreateNameSpaceAction(xmlViewer, this, "Add Name Space");
-        deleteAction = new DeleteNodeAction(xmlViewer, this, "Delete");
-        disconnectAction = new DisconnectAction(xmlViewer, this, "Disconnect Linker");
-        fixValueAction = new FixValueAction(xmlViewer, this, "Set A Fix Value");
-        importFromXMLAction = new ImportTreeFromXMLAction(xmlViewer, this, "Import XML Tree");
-        setLoopAction = new SetForLoopAction(xmlViewer, this, "Set As Loop Element");
-        setGroupAction = new SetGroupAction(xmlViewer, this, "Set As Group Element");
-        removeGroupAction = new RemoveGroupAction(xmlViewer, "Remove Group Element", this);
+        createAction = new CreateElementAction(xmlViewer, this, Messages.getString("MDMOutputSchemaForm_add_sub")); //$NON-NLS-1$
+        createAttributeAction = new CreateAttributeAction(xmlViewer, this, Messages.getString("MDMOutputSchemaForm_add_attri")); //$NON-NLS-1$
+        createNamespaceAction = new CreateNameSpaceAction(xmlViewer, this, Messages.getString("MDMOutputSchemaForm_add_ns")); //$NON-NLS-1$
+        deleteAction = new DeleteNodeAction(xmlViewer, this, Messages.getString("MDMOutputSchemaForm_delete")); //$NON-NLS-1$
+        disconnectAction = new DisconnectAction(xmlViewer, this, Messages.getString("MDMOutputSchemaForm_disconnect")); //$NON-NLS-1$
+        fixValueAction = new FixValueAction(xmlViewer, this, Messages.getString("MDMOutputSchemaForm_set_fix_value")); //$NON-NLS-1$
+        importFromXMLAction = new ImportTreeFromXMLAction(xmlViewer, this, Messages.getString("MDMOutputSchemaForm_import_xml")); //$NON-NLS-1$
+        setLoopAction = new SetForLoopAction(xmlViewer, this, Messages.getString("MDMOutputSchemaForm_set_loop")); //$NON-NLS-1$
+        setGroupAction = new SetGroupAction(xmlViewer, this, Messages.getString("MDMOutputSchemaForm_set_group")); //$NON-NLS-1$
+        removeGroupAction = new RemoveGroupAction(xmlViewer, Messages.getString("MDMOutputSchemaForm_remove_group"), this); //$NON-NLS-1$
 
     }
 
     private void addSchemaViewer(final Composite mainComposite, final int width, final int height) {
-        final Group group = Form.createGroup(mainComposite, 1, "Linker Source", height);
+        final Group group = Form.createGroup(mainComposite, 1, Messages.getString("MDMOutputSchemaForm_linker_source"), height); //$NON-NLS-1$
         // group.setBackgroundMode(SWT.INHERIT_FORCE);
         schemaButton = new Button(group, SWT.PUSH);
-        schemaButton.setText("Schema Management");
-        schemaButton.setToolTipText("You can add or edit schema and save in 'Schema List' viewer");
+        schemaButton.setText(Messages.getString("MDMOutputSchemaForm_schema_manage")); //$NON-NLS-1$
+        schemaButton.setToolTipText(Messages.getString("MDMOutputSchemaForm_schema_list_content")); //$NON-NLS-1$
 
         schemaViewer = new TableViewer(group);
         XmlFileTableViewerProvider provider = new XmlFileTableViewerProvider();
@@ -387,7 +388,7 @@ public class MDMOutputSchemaForm extends AbstractMDMFileStepForm {
         }
         table.setHeaderVisible(true);
         org.eclipse.swt.widgets.TableColumn column = new org.eclipse.swt.widgets.TableColumn(table, SWT.LEFT);
-        column.setText("Schema List");
+        column.setText(Messages.getString("MDMOutputSchemaForm_schema_list")); //$NON-NLS-1$
         column.setWidth(100);
         table.setLayoutData(gridData);
     }
@@ -475,12 +476,12 @@ public class MDMOutputSchemaForm extends AbstractMDMFileStepForm {
             }
         }
         if (num != rootNum) {
-            msgError.append("Require set as loop\n");
+            msgError.append(Messages.getString("MDMOutputSchemaForm_require_loop")); //$NON-NLS-1$
         }
         if (linker.isNoLinker()) {
-            msgError.append("No source and target linked");
+            msgError.append(Messages.getString("MDMOutputSchemaForm_no_link")); //$NON-NLS-1$
         }
-        if ("".equals(msgError.toString())) {
+        if ("".equals(msgError.toString())) { //$NON-NLS-1$
             updateStatus(IStatus.OK, null);
             return true;
         }
@@ -494,7 +495,7 @@ public class MDMOutputSchemaForm extends AbstractMDMFileStepForm {
 
     @Override
     protected void initialize() {
-        IPath tempPath = new Path(System.getProperty("user.dir")).append("temp"); //$NON-NLS-1$ //$NON-NLS-1$
+        IPath tempPath = new Path(System.getProperty("user.dir")).append("temp"); //$NON-NLS-1$ //$NON-NLS-1$ //$NON-NLS-2$
         File tempFile = tempPath.toFile();
         if (!tempFile.exists()) {
             tempFile.mkdirs();
@@ -598,16 +599,16 @@ public class MDMOutputSchemaForm extends AbstractMDMFileStepForm {
         FOXTreeNode foxTreeNode = node.get(0);
         if (foxTreeNode != null) {
             initNodeOrder(foxTreeNode);
-            tableLoader((Element) foxTreeNode, "", root, foxTreeNode.getDefaultValue());
+            tableLoader((Element) foxTreeNode, "", root, foxTreeNode.getDefaultValue()); //$NON-NLS-1$
             Element loopNode = (Element) TreeUtil.getLoopNode(foxTreeNode);
             if (loopNode != null) {
                 String path = TreeUtil.getPath(loopNode);
-                tableLoader(loopNode, path.substring(0, path.lastIndexOf("/")), loop, loopNode.getDefaultValue());
+                tableLoader(loopNode, path.substring(0, path.lastIndexOf("/")), loop, loopNode.getDefaultValue()); //$NON-NLS-1$
             }
             Element groupNode = (Element) TreeUtil.getGroupNode(foxTreeNode);
             if (groupNode != null) {
                 String path = TreeUtil.getPath(groupNode);
-                tableLoader(groupNode, path.substring(0, path.lastIndexOf("/")), group, groupNode.getDefaultValue());
+                tableLoader(groupNode, path.substring(0, path.lastIndexOf("/")), group, groupNode.getDefaultValue()); //$NON-NLS-1$
             }
         }
 
@@ -698,10 +699,10 @@ public class MDMOutputSchemaForm extends AbstractMDMFileStepForm {
 
     public void tableLoader(Element element, String parentPath, List<XMLFileNode> table, String defaultValue) {
         XMLFileNode xmlFileNode = ConnectionFactory.eINSTANCE.createXMLFileNode();
-        String currentPath = parentPath + "/" + element.getLabel();
+        String currentPath = parentPath + "/" + element.getLabel(); //$NON-NLS-1$
         xmlFileNode.setXMLPath(currentPath);
         xmlFileNode.setRelatedColumn(element.getColumnLabel());
-        xmlFileNode.setAttribute(element.isMain() ? "main" : "branch");
+        xmlFileNode.setAttribute(element.isMain() ? "main" : "branch"); //$NON-NLS-1$ //$NON-NLS-2$
         xmlFileNode.setDefaultValue(defaultValue);
         xmlFileNode.setType(element.getDataType());
         xmlFileNode.setOrder(getNodeOrder(element));
@@ -710,7 +711,7 @@ public class MDMOutputSchemaForm extends AbstractMDMFileStepForm {
             xmlFileNode = ConnectionFactory.eINSTANCE.createXMLFileNode();
             xmlFileNode.setXMLPath(att.getLabel());
             xmlFileNode.setRelatedColumn(att.getColumnLabel());
-            xmlFileNode.setAttribute("attri");
+            xmlFileNode.setAttribute("attri"); //$NON-NLS-1$
             xmlFileNode.setDefaultValue(att.getDefaultValue());
             xmlFileNode.setType(att.getDataType());
             xmlFileNode.setOrder(getNodeOrder(att));
@@ -720,7 +721,7 @@ public class MDMOutputSchemaForm extends AbstractMDMFileStepForm {
             xmlFileNode = ConnectionFactory.eINSTANCE.createXMLFileNode();
             xmlFileNode.setXMLPath(att.getLabel());
             xmlFileNode.setRelatedColumn(att.getColumnLabel());
-            xmlFileNode.setAttribute("ns");
+            xmlFileNode.setAttribute("ns"); //$NON-NLS-1$
             xmlFileNode.setDefaultValue(att.getDefaultValue());
             xmlFileNode.setType(att.getDataType());
             xmlFileNode.setOrder(getNodeOrder(att));
@@ -828,13 +829,13 @@ public class MDMOutputSchemaForm extends AbstractMDMFileStepForm {
             if ("C4".equals(property)) { //$NON-NLS-1$
                 validateLabel = StringUtil.validateLabelForFixedValue(text.getText());
             }
-            if ("C1".equals(property) && selectNode != null && selectNode instanceof NameSpaceNode) {
+            if ("C1".equals(property) && selectNode != null && selectNode instanceof NameSpaceNode) { //$NON-NLS-1$
                 validateLabel = StringUtil.validateLabelForNameSpace(text.getText());
             } else {
                 validateLabel = StringUtil.validateLabelForXML(text.getText());
             }
             if (!validateLabel) {
-                errorMessage = "Invalid string for XML Label. Label was not changed.";
+                errorMessage = Messages.getString("MDMOutputSchemaForm_invalid_string"); //$NON-NLS-1$
             }
 
             if (errorMessage == null) {
@@ -843,7 +844,7 @@ public class MDMOutputSchemaForm extends AbstractMDMFileStepForm {
                 text.setBackground(text.getDisplay().getSystemColor(SWT.COLOR_RED));
                 if (showAlertIfError) {
                     text.setText(selectedText);
-                    MessageDialog.openError(text.getShell(), "Invalid XML label.", errorMessage);
+                    MessageDialog.openError(text.getShell(), Messages.getString("MDMOutputSchemaForm_invalid_label"), errorMessage); //$NON-NLS-1$
                 }
             }
         }

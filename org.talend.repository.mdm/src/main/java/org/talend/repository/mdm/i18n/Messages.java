@@ -12,27 +12,41 @@
 // ============================================================================
 package org.talend.repository.mdm.i18n;
 
-import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+import org.talend.commons.i18n.MessagesCore;
+
 /**
- * 
- *
+ * DOC hwang class global comment. Detailled comment
  */
-public class Messages {
+public class Messages extends MessagesCore {
 
-    private static final String BUNDLE_NAME = "org.talend.repository.mdm.ui.wizard.messages"; //$NON-NLS-1$
+    private static final String BUNDLE_NAME = "messages"; //$NON-NLS-1$
 
-    private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME);
+    private static final String PLUGIN_ID = "org.talend.repository.mdm"; //$NON-NLS-1$
 
-    private Messages() {
+    private static ResourceBundle resourceBundle = ResourceBundle.getBundle(BUNDLE_NAME);
+
+    /**
+     * Returns the i18n formatted message for <i>key</i> in the class bundle.
+     * 
+     * @param key - the key for the desired string
+     * @return the string for the given key in the class resource bundle
+     * @see MessagesCore#getString(String, ResourceBundle)
+     */
+    public static String getString(String key) {
+        return getString(key, PLUGIN_ID, resourceBundle);
     }
 
-    public static String getString(String key) {
-        try {
-            return RESOURCE_BUNDLE.getString(key);
-        } catch (MissingResourceException e) {
-            return '!' + key + '!';
-        }
+    /**
+     * Returns the i18n formatted message for <i>key</i> and <i>args</i> in the specified bundle.
+     * 
+     * @param key - the key for the desired string
+     * @param args - arg to include in the string
+     * @return the string for the given key in the given resource bundle
+     * @see MessagesCore#getString(String, ResourceBundle, Object[])
+     */
+    public static String getString(String key, Object... args) {
+        return MessagesCore.getString(key, PLUGIN_ID, resourceBundle, args);
     }
 }

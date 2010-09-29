@@ -50,6 +50,7 @@ import org.talend.commons.ui.swt.drawing.link.StyleLink;
 import org.talend.commons.ui.swt.linking.TableToTreeLinker;
 import org.talend.commons.ui.utils.TableUtils;
 import org.talend.commons.ui.utils.TreeUtils;
+import org.talend.repository.mdm.i18n.Messages;
 import org.talend.repository.ui.swt.utils.AbstractXmlStepForm;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.extraction.XmlExtractorBgRefresher;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.FOXTreeNode;
@@ -168,7 +169,7 @@ public class MDMSchema2TreeLinker extends TableToTreeLinker<Object, Object> {
                 List<TreeItem> allItems = TreeUtils.collectAllItems(root);
                 monitorWrap = new EventLoopProgressMonitor(monitor);
 
-                String taskName = "Loop links creation ...";
+                String taskName = Messages.getString("MDMSchema2TreeLinker_loop_created"); //$NON-NLS-1$
                 int totalWork = allItems.size();
 
                 monitorWrap.beginTask(taskName, totalWork); //$NON-NLS-1$

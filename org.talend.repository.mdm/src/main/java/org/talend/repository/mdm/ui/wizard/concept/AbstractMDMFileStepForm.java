@@ -137,7 +137,7 @@ public abstract class AbstractMDMFileStepForm extends AbstractXmlStepForm {
         WSUniversePK universePK = null;
         WSDataModelPK modelPK = null;
         XtentisServiceLocator xtentisService = new XtentisServiceLocator();
-        xtentisService.setXtentisPortEndpointAddress("http://" + server + ":" + port + "/talend/TalendPort"); //$NON-NLS-1$ //$NON-NLS-1$ //$NON-NLS-1$
+        xtentisService.setXtentisPortEndpointAddress("http://" + server + ":" + port + "/talend/TalendPort"); //$NON-NLS-1$ //$NON-NLS-1$ //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         try {
             XtentisPort xtentisWS = xtentisService.getXtentisPort();
             stub = (XtentisBindingStub) xtentisWS;
@@ -194,7 +194,7 @@ public abstract class AbstractMDMFileStepForm extends AbstractXmlStepForm {
     }
 
     private void writeInFile(String schema) {
-        IPath tempPath = new Path(System.getProperty("user.dir")).append("temp"); //$NON-NLS-1$ //$NON-NLS-1$
+        IPath tempPath = new Path(System.getProperty("user.dir")).append("temp"); //$NON-NLS-1$ //$NON-NLS-1$ //$NON-NLS-2$
         File tempFile = tempPath.toFile();
         if (!tempFile.exists()) {
             tempFile.mkdirs();

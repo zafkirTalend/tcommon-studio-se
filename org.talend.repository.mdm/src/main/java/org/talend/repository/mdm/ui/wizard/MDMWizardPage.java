@@ -18,7 +18,6 @@ import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.widgets.Composite;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.mdm.webservice.XtentisBindingStub;
-import org.talend.repository.mdm.i18n.Messages;
 import org.talend.repository.ui.swt.utils.AbstractForm;
 
 /**
@@ -42,11 +41,11 @@ public class MDMWizardPage extends WizardPage {
      * @param titleImage
      */
     protected MDMWizardPage(ConnectionItem connectionItem, boolean isRepositoryObjectEditable, String[] existingNames) {
-        super(Messages.getString("UniversePage.Talend_MDM")); //$NON-NLS-1$
+        super("Talend MDM"); //$NON-NLS-1$
         this.connectionItem = connectionItem;
         this.existingNames = existingNames;
         this.isRepositoryObjectEditable = isRepositoryObjectEditable;
-        this.setTitle(Messages.getString("UniversePage.Talend_MDM")); //$NON-NLS-1$
+        this.setTitle("Talend MDM"); //$NON-NLS-1$
     }
 
     /*

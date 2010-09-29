@@ -40,6 +40,7 @@ import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
+import org.talend.repository.mdm.i18n.Messages;
 import org.talend.repository.ui.swt.utils.AbstractXmlStepForm;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.Attribute;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.Element;
@@ -248,14 +249,14 @@ public class MDMOutputDragAndDropHandler {
                     List<FOXTreeNode> children = targetNode.getChildren();
                     for (FOXTreeNode foxTreeNode : children) {
                         if (!(foxTreeNode instanceof Attribute)) {
-                            MessageDialog.openConfirm(control.getShell(), "Warning", "\"" + targetNode.getLabel()
-                                    + "\" has element children, can not have linker.");
+                            MessageDialog.openConfirm(control.getShell(), Messages.getString("MDMOutputDragAndDropHandler_warn"), //$NON-NLS-1$
+                                    Messages.getString("MDMOutputDragAndDropHandler.has_element", targetNode.getLabel())); //$NON-NLS-1$
                             return;
                         }
                     }
                 } else if (targetNode.getParent() == null) {
-                    MessageDialog.openConfirm(control.getShell(), "Warning", "\"" + targetNode.getLabel()
-                            + "\" is root, can not have linker.");
+                    MessageDialog.openConfirm(control.getShell(), Messages.getString("MDMOutputDragAndDropHandler_warn"), //$NON-NLS-1$
+                            Messages.getString("MDMOutputDragAndDropHandler.is_root", targetNode.getLabel())); //$NON-NLS-1$
                     return;
                 }
                 // IMetadataColumn metaColumn = (IMetadataColumn) dragdedData.get(0);

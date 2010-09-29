@@ -20,7 +20,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.mdm.webservice.XtentisBindingStub;
-import org.talend.repository.mdm.i18n.Messages;
 import org.talend.repository.ui.swt.utils.AbstractForm;
 
 /**
@@ -44,7 +43,7 @@ public class UniversePage extends WizardPage {
     protected UniversePage(ConnectionItem connectionItem, String pageName) {
         super(pageName);
         this.connectionItem = connectionItem;
-        this.setTitle(Messages.getString("UniversePage.Talend_MDM")); //$NON-NLS-1$
+        this.setTitle("Talend MDM"); //$NON-NLS-1$
     }
 
     /*

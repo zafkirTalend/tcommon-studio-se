@@ -22,6 +22,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.talend.core.model.metadata.builder.connection.MdmConceptType;
 import org.talend.core.model.properties.ConnectionItem;
+import org.talend.repository.mdm.i18n.Messages;
 import org.talend.repository.model.RepositoryNode;
 
 /**
@@ -46,7 +47,7 @@ public class MdmConceptWizardPage1 extends AbstractRetrieveConceptPage {
      */
     public MdmConceptWizardPage1(RepositoryNode node, ConnectionItem connectionItem, boolean creation) {
         super(node, connectionItem, creation);
-        this.setTitle("MDM Model");
+        this.setTitle(Messages.getString("MdmConceptWizardPage1_mdm_model")); //$NON-NLS-1$
     }
 
     /*
@@ -66,22 +67,22 @@ public class MdmConceptWizardPage1 extends AbstractRetrieveConceptPage {
         GridData labelData = new GridData();
         labelData.verticalSpan = 8;
         label.setLayoutData(labelData);
-        label.setText("Select one model to create MDM metadata");
+        label.setText(Messages.getString("MdmConceptWizardPage1_select_model")); //$NON-NLS-1$
 
         // boolean inputModel = ((MDMConnection) connectionItem.getConnection()).isInputModel();
         getConcept();
         inputModeButton = new Button(composite, SWT.RADIO);
-        inputModeButton.setText("Input MDM");
+        inputModeButton.setText(Messages.getString("MdmConceptWizardPage1_input_mdm")); //$NON-NLS-1$
         inputModeButton.setSelection(MdmConceptType.INPUT.equals(concept.getConceptType()));
         inputModeButton.setEnabled(creation);
 
         outputModeButton = new Button(composite, SWT.RADIO);
-        outputModeButton.setText("Output MDM");
+        outputModeButton.setText(Messages.getString("MdmConceptWizardPage1_output_mdm")); //$NON-NLS-1$
         outputModeButton.setSelection(MdmConceptType.OUTPUT.equals(concept.getConceptType()));
         outputModeButton.setEnabled(creation);
 
         mdmReceiveBtn = new Button(composite, SWT.RADIO);
-        mdmReceiveBtn.setText("Receive MDM");
+        mdmReceiveBtn.setText(Messages.getString("MdmConceptWizardPage1_receive_mdm")); //$NON-NLS-1$
         mdmReceiveBtn.setSelection(MdmConceptType.RECEIVE.equals(concept.getConceptType()));
         mdmReceiveBtn.setEnabled(creation);
 

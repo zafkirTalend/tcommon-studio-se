@@ -95,9 +95,9 @@ public class SetNameForm extends AbstractMDMFileStepForm {
         GridData gridData = new GridData(GridData.FILL_HORIZONTAL);
         mdmParameterGroup.setLayoutData(gridData);
 
-        entityCombo = new LabelledCombo(mdmParameterGroup, "Entities", "Select the entity", new ArrayList<String>(), true);
+        entityCombo = new LabelledCombo(mdmParameterGroup, Messages.getString("SetNameForm_entities"), Messages.getString("SetNameForm_select_entity"), new ArrayList<String>(), true); //$NON-NLS-1$ //$NON-NLS-2$
 
-        nameText = new LabelledText(mdmParameterGroup, Messages.getString("SetNameForm.NAME"), true); //$NON-NLS-1$
+        nameText = new LabelledText(mdmParameterGroup, Messages.getString("SetNameForm_name"), true); //$NON-NLS-1$
         checkFieldsValue();
         nameText.forceFocus();
 
@@ -123,12 +123,12 @@ public class SetNameForm extends AbstractMDMFileStepForm {
                 String pattern1 = "^[a-zA-Z]+[a-zA-Z0-9\\_]*$";//$NON-NLS-1$     
                 if (!Pattern.matches(pattern, textValue) && !Pattern.matches(pattern1, textValue)) {
                     canContinue = false;
-                    updateStatus(IStatus.ERROR, Messages.getString("SetNameForm.NAME_ILLEGAL")); //$NON-NLS-1$
+                    updateStatus(IStatus.ERROR, Messages.getString("SetNameForm_entity_illegal")); //$NON-NLS-1$
                 }
                 if (canContinue) {
                     for (int i = 0; i < existingNames.length; i++) {
                         if (nameText.getText().equals(existingNames[i])) {
-                            updateStatus(IStatus.ERROR, Messages.getString("SetNameForm.NAME_EXIST")); //$NON-NLS-1$
+                            updateStatus(IStatus.ERROR, Messages.getString("SetNameForm_entity_exist")); //$NON-NLS-1$
                             canContinue = false;
                             break;
                         }
@@ -146,29 +146,29 @@ public class SetNameForm extends AbstractMDMFileStepForm {
 
             public void modifyText(ModifyEvent e) {
                 selectedEntity = entityCombo.getText();
-                String type = "";
+                String type = ""; //$NON-NLS-1$
                 switch (concept.getConceptType()) {
                 case INPUT:
-                    type = "In";
+                    type = "In"; //$NON-NLS-1$
                     break;
                 case OUTPUT:
-                    type = "Out";
+                    type = "Out"; //$NON-NLS-1$
                     break;
                 case RECEIVE:
-                    type = "Receive";
+                    type = "Receive"; //$NON-NLS-1$
                     break;
                 }
 
                 selectedEntity = selectedEntity.trim();
 
                 // if entity name has special char
-                String regex = "[^a-zA-Z&&[^0-9]&&[^\\_]]";
-                selectedEntity = selectedEntity.replaceAll(regex, "_");
+                String regex = "[^a-zA-Z&&[^0-9]&&[^\\_]]"; //$NON-NLS-1$
+                selectedEntity = selectedEntity.replaceAll(regex, "_"); //$NON-NLS-1$
 
                 // if entity name don't start with alphabet
                 final char charAt = selectedEntity.charAt(0);
                 if (charAt < 'A' || charAt > 'z' || charAt > 'Z' && charAt < 'a') {
-                    selectedEntity = "a" + selectedEntity;
+                    selectedEntity = "a" + selectedEntity; //$NON-NLS-1$
                 }
 
                 String name = selectedEntity + type;
@@ -218,7 +218,7 @@ public class SetNameForm extends AbstractMDMFileStepForm {
     @Override
     protected boolean checkFieldsValue() {
         if (nameText == null || nameText.getCharCount() == 0) {
-            updateStatus(IStatus.ERROR, Messages.getString("SetNameForm.NAME_CANNOT_BE_NULL")); //$NON-NLS-1$
+            updateStatus(IStatus.ERROR, Messages.getString("SetNameForm_meta_null")); //$NON-NLS-1$
             return false;
         }
         updateStatus(IStatus.OK, null);
@@ -269,7 +269,7 @@ public class SetNameForm extends AbstractMDMFileStepForm {
                     }
                     checkFieldsValue();
                 } else {
-                    updateStatus(IStatus.ERROR, "Can't get entities , please check the connection !");
+                    updateStatus(IStatus.ERROR, Messages.getString("SetNameForm_get_entity_fail")); //$NON-NLS-1$
                 }
 
             } catch (OdaException e) {

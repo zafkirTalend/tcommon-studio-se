@@ -102,16 +102,16 @@ public class UniverseForm extends AbstractForm {
     @Override
     protected void addFields() {
         Group mdmParameterGroup = new Group(this, SWT.NULL);
-        mdmParameterGroup.setText(Messages.getString("UniverseForm.SELECT")); //$NON-NLS-1$
+        mdmParameterGroup.setText(Messages.getString("UniverseForm_select_version")); //$NON-NLS-1$
         GridLayout layoutGroup = new GridLayout();
         layoutGroup.numColumns = 2;
         mdmParameterGroup.setLayout(layoutGroup);
 
         GridData gridData = new GridData(GridData.FILL_HORIZONTAL);
         mdmParameterGroup.setLayoutData(gridData);
-        universeCombo = new LabelledCombo(mdmParameterGroup, Messages.getString("UniverseForm.UNIVERSE"), "", list, true); //$NON-NLS-1$ //$NON-NLS-2$
-        modelText = new LabelledCombo(mdmParameterGroup, Messages.getString("UniverseForm.MODLE"), "", modelList, true); //$NON-NLS-1$
-        clusterText = new LabelledCombo(mdmParameterGroup, Messages.getString("UniverseForm.CLUSTER"), "", clusterList, true); //$NON-NLS-1$
+        universeCombo = new LabelledCombo(mdmParameterGroup, Messages.getString("UniverseForm_version"), "", list, true); //$NON-NLS-1$ //$NON-NLS-2$
+        modelText = new LabelledCombo(mdmParameterGroup, Messages.getString("UniverseForm_data_model"), "", modelList, true); //$NON-NLS-1$ //$NON-NLS-2$
+        clusterText = new LabelledCombo(mdmParameterGroup, Messages.getString("UniverseForm_data_container"), "", clusterList, true); //$NON-NLS-1$ //$NON-NLS-2$
 
         universePage.setPageComplete(false);
     }
@@ -256,7 +256,7 @@ public class UniverseForm extends AbstractForm {
         for (WSDataModelPK model : models) {
             modelText.add(model.getPk());
         }
-        if (!"".equals(connModel) && connModel != null) {
+        if (!"".equals(connModel) && connModel != null) { //$NON-NLS-1$
             modelText.setText(connModel);// (getConnection().getDatamodel());
             return;
         }
@@ -272,7 +272,7 @@ public class UniverseForm extends AbstractForm {
         for (WSDataClusterPK cluster : clusters) {
             clusterText.add(cluster.getPk());
         }
-        if (!"".equals(connCluster) && connCluster != null) {
+        if (!"".equals(connCluster) && connCluster != null) { //$NON-NLS-1$
             clusterText.setText(connCluster);
             return;
         }

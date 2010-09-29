@@ -30,6 +30,7 @@ import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.ui.images.ECoreImage;
 import org.talend.core.ui.images.OverlayImageProvider;
 import org.talend.repository.ProjectManager;
+import org.talend.repository.mdm.i18n.Messages;
 import org.talend.repository.mdm.ui.wizard.MDMWizard;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.ProxyRepositoryFactory;
@@ -45,11 +46,11 @@ public class CreateMDMConnectionAction extends AbstractCreateAction {
 
     // protected static Logger log = Logger.getLogger(CreateMDMConnectionAction.class);
 
-    private static final String EDIT_LABEL = "Edit MDM";
+    private static final String EDIT_LABEL = Messages.getString("CreateMDMConnectionAction_edit_mdm"); //$NON-NLS-1$
 
-    private static final String OPEN_LABEL = "Open MDM";
+    private static final String OPEN_LABEL = Messages.getString("CreateMDMConnectionAction_open_mdm"); //$NON-NLS-1$
 
-    private static final String CREATE_LABEL = "Create MDM Connection";
+    private static final String CREATE_LABEL = Messages.getString("CreateMDMConnectionAction_create_mdm_conn"); //$NON-NLS-1$
 
     ImageDescriptor defaultImage = ImageProvider.getImageDesc(ECoreImage.METADATA_MDM_CONNECTION_ICON);
 

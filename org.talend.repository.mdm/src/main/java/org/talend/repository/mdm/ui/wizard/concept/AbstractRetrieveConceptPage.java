@@ -19,6 +19,7 @@ import org.talend.core.model.metadata.builder.connection.Concept;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.properties.ConnectionItem;
+import org.talend.repository.mdm.i18n.Messages;
 import org.talend.repository.mdm.util.MDMUtil;
 import org.talend.repository.model.MetadataTableRepositoryObject;
 import org.talend.repository.model.RepositoryNode;
@@ -42,7 +43,7 @@ public abstract class AbstractRetrieveConceptPage extends WizardPage {
      * @param pageName
      */
     protected AbstractRetrieveConceptPage(RepositoryNode node, ConnectionItem connectionItem, boolean creation) {
-        super("Wizard page");
+        super(Messages.getString("AbstractRetrieveConceptPage_wizard_page")); //$NON-NLS-1$
         this.node = node;
         this.connectionItem = connectionItem;
         this.creation = creation;

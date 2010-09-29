@@ -18,6 +18,7 @@ import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.MDMConnectionItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.repository.mdm.i18n.Messages;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
@@ -28,7 +29,7 @@ import org.talend.repository.model.IRepositoryNode.EProperties;
  */
 public class ReadMDMSchemaAction extends RetrieveMDMSchemaAction {
 
-    protected static final String LABEL = "Read Entity";
+    protected static final String LABEL = Messages.getString("ReadMDMSchemaAction_read_entity"); //$NON-NLS-1$
 
     public ReadMDMSchemaAction() {
         super();
