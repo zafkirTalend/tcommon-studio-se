@@ -226,8 +226,12 @@ public class RunStat implements Runnable {
         jobIsFinished = true;
         try {
             sendMessages();
-            pred.close();
-            s.close();
+            if (pred != null) {
+                pred.close();
+            }
+            if (s != null && !s.isClosed()) {
+                s.close();
+            }
             System.out.println("[statistics] disconnected"); //$NON-NLS-1$
         } catch (java.io.IOException ie) {
         }
