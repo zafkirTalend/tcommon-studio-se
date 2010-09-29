@@ -75,11 +75,11 @@ public final class CatalogHelper {
     }
 
     public static boolean addSchemas(Collection<Schema> schemas, Catalog catalog) {
-        return catalog.getOwnedElement().addAll(schemas);
+        return addPackages(schemas, catalog);
     }
 
     public static boolean addTables(Collection<TdTable> tables, Catalog catalog) {
-        return catalog.getOwnedElement().addAll(tables);
+        return addPackages(tables, catalog);
     }
 
     public static List<TdTable> getTables(Catalog catalog) {
@@ -92,10 +92,22 @@ public final class CatalogHelper {
 
     // ADDED add a method addViews to add all the views to special catalog
     public static boolean addViews(Collection<TdView> views, Catalog catalog) {
-        return catalog.getOwnedElement().addAll(views);
+        return addPackages(views, catalog);
     }
 
     public static List<TdView> getViews(Catalog catalog) {
         return ViewHelper.getViews(catalog.getOwnedElement());
+    }
+
+    private static boolean addPackages(Collection<? extends ModelElement> elements, Catalog catalog) {
+        boolean added = false;
+        if ((catalog != null) && (elements != null)) {
+            List<ModelElement> elementList = catalog.getOwnedElement();
+            if (elementList != null && elementList.size() > 0) {
+                elementList.clear();
+            }
+            added = elementList.addAll(elements);
+        }
+        return added;
     }
 }

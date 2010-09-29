@@ -25,6 +25,7 @@ import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.relational.TdTable;
 import org.talend.cwm.relational.TdView;
 import org.talend.cwm.relational.util.RelationalSwitch;
+import orgomg.cwm.objectmodel.core.Feature;
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.Namespace;
 import orgomg.cwm.objectmodel.core.Package;
@@ -112,7 +113,11 @@ public final class ColumnSetHelper {
     public static boolean addColumns(ColumnSet columnSet, Collection<? extends TdColumn> columns) {
         assert columnSet != null;
         assert columns != null;
-        return columnSet.getFeature().addAll(columns);
+        List<Feature> features = columnSet.getFeature();
+        if (features != null && features.size() > 0) {
+            features.clear();
+        }
+        return features.addAll(columns);
     }
 
     /**

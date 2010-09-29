@@ -21,7 +21,6 @@ import org.talend.cwm.relational.TdTable;
 import org.talend.cwm.relational.TdView;
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.Namespace;
-import orgomg.cwm.resource.relational.Catalog;
 import orgomg.cwm.resource.relational.Schema;
 
 /**
@@ -34,13 +33,12 @@ public final class SchemaHelper {
     private SchemaHelper() {
     }
 
-    
     public static Schema createSchema(String name) {
-    	Schema schema = orgomg.cwm.resource.relational.RelationalFactory.eINSTANCE.createSchema();
-    	schema.setName(name);
+        Schema schema = orgomg.cwm.resource.relational.RelationalFactory.eINSTANCE.createSchema();
+        schema.setName(name);
         return schema;
     }
-    
+
     public static List<Schema> getSchemas(Collection<? extends EObject> elements) {
         List<Schema> schemas = new ArrayList<Schema>();
         for (EObject modelElement : elements) {
@@ -71,11 +69,11 @@ public final class SchemaHelper {
     }
 
     public static boolean addTables(Collection<TdTable> tables, Schema schema) {
-        return schema.getOwnedElement().addAll(tables);
+        return addPackages(tables, schema);
     }
 
     public static boolean addViews(Collection<TdView> views, Schema schema) {
-        return schema.getOwnedElement().addAll(views);
+        return addPackages(views, schema);
     }
 
     /**
@@ -90,6 +88,18 @@ public final class SchemaHelper {
         }
         final Namespace namespace = element.getNamespace();
         return (namespace != null) ? SwitchHelpers.SCHEMA_SWITCH.doSwitch(namespace) : null;
+    }
+
+    private static boolean addPackages(Collection<? extends ModelElement> elements, Schema schema) {
+        boolean added = false;
+        if ((schema != null) && (elements != null)) {
+            List<ModelElement> elementList = schema.getOwnedElement();
+            if (elementList != null && elementList.size() > 0) {
+                elementList.clear();
+            }
+            added = elementList.addAll(elements);
+        }
+        return added;
     }
 
 }
