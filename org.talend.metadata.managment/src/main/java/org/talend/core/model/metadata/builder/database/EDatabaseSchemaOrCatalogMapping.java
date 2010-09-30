@@ -19,5 +19,7 @@ public enum EDatabaseSchemaOrCatalogMapping {
     None(),
     Sid(),
     Schema(),
-    Login()
+    Login(),
+    Default_Name()
+    // this is for databases like micosoft access which didn't require the schema or catalog
 }

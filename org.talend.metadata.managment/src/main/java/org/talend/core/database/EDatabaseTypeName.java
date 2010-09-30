@@ -73,7 +73,7 @@ public enum EDatabaseTypeName {
                "VectorWise", "VectorWise", new Boolean(false), "VECTORWISE", EDatabaseSchemaOrCatalogMapping.Sid, EDatabaseSchemaOrCatalogMapping.None), //$NON-NLS-1$ //$NON-NLS-2$  //$NON-NLS-3$
 
     ACCESS(
-           "Access", "Access", new Boolean(false), "ACCESS", EDatabaseSchemaOrCatalogMapping.Sid, EDatabaseSchemaOrCatalogMapping.None), // "ACCESS"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+           "Access", "Access", new Boolean(false), "ACCESS", EDatabaseSchemaOrCatalogMapping.None, EDatabaseSchemaOrCatalogMapping.Default_Name), // "ACCESS"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     TERADATA(
              "Teradata", "Teradata", new Boolean(true), "TERADATA", EDatabaseSchemaOrCatalogMapping.None, EDatabaseSchemaOrCatalogMapping.Schema), // "TERADATA"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     AS400(
@@ -188,6 +188,21 @@ public enum EDatabaseTypeName {
         return getTypeFromDisplayName(dbType);
     }
 
+    public static EDatabaseTypeName getTypeFromDbType(String dbType, boolean isDefault) {
+        if (dbType == null) {
+            return getTypeFromDisplayName(dbType, isDefault);
+        }
+        for (EDatabaseTypeName typename : EDatabaseTypeName.values()) {
+            if (typename.getXmlName().toUpperCase().equals(dbType.toUpperCase())) {
+                return typename;
+            }
+            if (typename.getProduct().toUpperCase().equals(dbType.toUpperCase())) {
+                return typename;
+            }
+        }
+        return getTypeFromDisplayName(dbType, isDefault);
+    }
+
     public static EDatabaseTypeName getTypeFromDisplayName(String displayName) {
         if (displayName == null) {
             return MYSQL;
@@ -198,6 +213,20 @@ public enum EDatabaseTypeName {
             }
         }
         return MYSQL;
+    }
+
+    public static EDatabaseTypeName getTypeFromDisplayName(String displayName, boolean isDefault) {
+        if (displayName == null && isDefault) {
+            return MYSQL;
+        } else if (displayName == null) {
+            return null;
+        }
+        for (EDatabaseTypeName typename : EDatabaseTypeName.values()) {
+            if (typename.getDisplayName().toLowerCase().equals(displayName.toLowerCase())) {
+                return typename;
+            }
+        }
+        return isDefault ? MYSQL : null;
     }
 
     /**

@@ -458,10 +458,10 @@ public class ExtractMetaDataFromDataBase {
             if (!"".equals(metadataConnection.getSchema()) && (metadataConnection.getSchema() != null)) { //$NON-NLS-1$
                 originSchema = metadataConnection.getSchema();
             }
+            boolean isAccess = EDatabaseTypeName.ACCESS.getDisplayName().equals(metadataConnection.getDbType());
 
             try {
                 ResultSet keys;
-                boolean isAccess = EDatabaseTypeName.ACCESS.getDisplayName().equals(metadataConnection.getDbType());
                 if (dbMetaData.supportsSchemasInDataManipulation() && (originSchema != null)) {
                     if (!isAccess) {
                         keys = dbMetaData.getPrimaryKeys(null, originSchema, medataTable.getLabel());
@@ -638,8 +638,10 @@ public class ExtractMetaDataFromDataBase {
                     }
                     // gcui:if not oracle database use "REMARKS" select comments
                     metadataColumn.setComment(commentInfo); //$NON-NLS-1$
-                    TDColumnAttributeHelper
-                            .addColumnAttribute(columns, metadataColumn, metadataConnection.getCurrentConnection());
+                    if (!isAccess) { // jdbc-odbc driver won't apply methods for access
+                        TDColumnAttributeHelper.addColumnAttribute(columns, metadataColumn, metadataConnection
+                                .getCurrentConnection());
+                    }
                     metadataColumns.add(metadataColumn);
 
                     // cantoine : patch to fix 0x0 pb cause by Bad Schema
