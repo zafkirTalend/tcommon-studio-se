@@ -13,8 +13,9 @@
 package org.talend.repository.mdm.ui.wizard.concept;
 
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.StringReader;
 import java.util.List;
 
@@ -205,12 +206,14 @@ public abstract class AbstractMDMFileStepForm extends AbstractXmlStepForm {
         StringReader reader = new StringReader(schema);
 
         try {
-            FileWriter writer = new FileWriter(file);
+            FileOutputStream outputStream = new FileOutputStream(file);
+            OutputStreamWriter writer = new OutputStreamWriter(outputStream, "UTF-8");
             char[] c = new char[1024];
             int l = 0;
             while ((l = reader.read(c)) != -1) {
                 writer.write(c, 0, l);
             }
+            writer.flush();
             writer.close();
             reader.close();
         } catch (IOException e) {
