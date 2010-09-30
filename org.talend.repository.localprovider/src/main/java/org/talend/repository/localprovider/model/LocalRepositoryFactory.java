@@ -479,28 +479,30 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 List<String> physicalDirectoryFounds = new ArrayList<String>();
                 for (IResource current : ResourceUtils.getMembers(physicalFolder)) {
                     if (current instanceof IFile) {
-                        String fileName = ((IFile) current).getName();
-                        physicalPropertyFounds.add(fileName);
-                        if (xmiResourceManager.isPropertyFile((IFile) current) && !propertyFounds.contains(fileName)) {
-                            Property property = null;
-                            try {
-                                property = xmiResourceManager.loadProperty(current);
-                                addToHistory(id, type, property.getItem().getState().getPath());
-                            } catch (RuntimeException e) {
-                                // property will be null
-                                ExceptionHandler.process(e);
-                            }
-                            if (property != null) {
-                                if (id == null || property.getId().equals(id)) {
-                                    if (withDeleted || !property.getItem().getState().isDeleted()) {
-                                        toReturn.add(new RepositoryObject(property));
-                                    }
+                        if (xmiResourceManager.isPropertyFile((IFile) current)) {
+                            String fileName = ((IFile) current).getName();
+                            physicalPropertyFounds.add(fileName);
+                            if (!propertyFounds.contains(fileName)) {
+                                Property property = null;
+                                try {
+                                    property = xmiResourceManager.loadProperty(current);
+                                    addToHistory(id, type, property.getItem().getState().getPath());
+                                } catch (RuntimeException e) {
+                                    // property will be null
+                                    ExceptionHandler.process(e);
                                 }
-                                currentFolderItem.getChildren().add(property.getItem());
-                                property.getItem().setParent(currentFolderItem);
-                                projectModified = true;
-                            } else {
-                                log.error(Messages.getString("LocalRepositoryFactory.CannotLoadProperty") + current); //$NON-NLS-1$
+                                if (property != null) {
+                                    if (id == null || property.getId().equals(id)) {
+                                        if (withDeleted || !property.getItem().getState().isDeleted()) {
+                                            toReturn.add(new RepositoryObject(property));
+                                        }
+                                    }
+                                    currentFolderItem.getChildren().add(property.getItem());
+                                    property.getItem().setParent(currentFolderItem);
+                                    projectModified = true;
+                                } else {
+                                    log.error(Messages.getString("LocalRepositoryFactory.CannotLoadProperty") + current); //$NON-NLS-1$
+                                }
                             }
                         }
                     } else if (current instanceof IFolder) { // &&
@@ -1780,6 +1782,10 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     public void unloadUnlockedResources() {
+        if (!ProxyRepositoryFactory.getInstance().isFullLogonFinished()) {
+            // don't unload anything while logoon
+            return;
+        }
         List<Resource> resourceToUnload = new ArrayList<Resource>();
         List<URI> possibleItemsURItoUnload = new ArrayList<URI>();
         EList<Resource> kaka = xmiResourceManager.resourceSet.getResources();
@@ -1812,9 +1818,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                     resourceToUnload.add(resource);
                     possibleItemsURItoUnload.add(xmiResourceManager.getItemResourceURI(resource.getURI()));
                 }
-                // else if (possibleItemsURItoUnload.contains(resource.getURI())) {
-                // resourceToUnload.add(resource);
-                // }
             }
         }
         kaka = xmiResourceManager.resourceSet.getResources();
@@ -1843,6 +1846,11 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 resource.unload();
                 // xmiResourceManager.resourceSet.getResources().remove(resource);
             }
+        }
+        try {
+            this.reloadProject(this.getRepositoryContext().getProject());
+        } catch (PersistenceException e) {
+            ExceptionHandler.process(e);
         }
     }
 

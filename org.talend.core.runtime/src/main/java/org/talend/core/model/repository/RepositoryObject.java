@@ -20,6 +20,7 @@ import java.util.Set;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EObject;
 import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.exception.PersistenceException;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.IService;
 import org.talend.core.model.metadata.builder.connection.Connection;
@@ -577,5 +578,14 @@ public class RepositoryObject implements IRepositoryObject, IAdaptable {
         IService service = GlobalServiceRegister.getDefault().getService(IProxyRepositoryService.class);
         IProxyRepositoryFactory factory = ((IProxyRepositoryService) service).getProxyRepositoryFactory();
         return factory.getStatus(property.getItem());
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.repository.IRepositoryViewObject#throwPersistenceExceptionIfAny()
+     */
+    public void throwPersistenceExceptionIfAny() throws PersistenceException {
+        // can't have any exception here...
     }
 }

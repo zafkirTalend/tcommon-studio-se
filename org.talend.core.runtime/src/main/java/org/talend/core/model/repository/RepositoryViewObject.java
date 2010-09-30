@@ -20,8 +20,12 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.PlatformUI;
+import org.talend.commons.CommonsPlugin;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.image.ImageProvider;
@@ -98,6 +102,8 @@ public class RepositoryViewObject implements IRepositoryViewObject, IAdaptable {
     private Image customImage;
 
     private static ICoreService coreSerivce = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
+
+    private PersistenceException exception;
 
     public RepositoryViewObject(Property property) {
         this.id = property.getId();
@@ -240,6 +246,7 @@ public class RepositoryViewObject implements IRepositoryViewObject, IAdaptable {
     }
 
     public Property getProperty() {
+        exception = null;
         try {
             IProxyRepositoryFactory factory = null;
             if (!GlobalServiceRegister.getDefault().isServiceRegistered(IProxyRepositoryService.class)) {
@@ -250,7 +257,8 @@ public class RepositoryViewObject implements IRepositoryViewObject, IAdaptable {
 
             IRepositoryViewObject object = factory.getLastVersion(id);
             if (object == null) {
-                throw new PersistenceException("item with name:" + label + " / id:" + id + " not found !");
+                throw new PersistenceException("item with name:" + label + " / id:" + id
+                        + " not found !\n\nPlease Refresh the repository.");
             }
             this.customImage = null;
             Property property = object.getProperty();
@@ -286,7 +294,10 @@ public class RepositoryViewObject implements IRepositoryViewObject, IAdaptable {
             }
             return property;
         } catch (PersistenceException e) {
-            ExceptionHandler.process(e);
+            exception = e;
+            if (!CommonsPlugin.isHeadless() && PlatformUI.isWorkbenchRunning()) {
+                MessageDialog.openError(Display.getCurrent().getActiveShell(), "Error", exception.getMessage());
+            }
         }
         return null;
     }
@@ -504,5 +515,16 @@ public class RepositoryViewObject implements IRepositoryViewObject, IAdaptable {
      */
     public Image getCustomImage() {
         return this.customImage;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.repository.IRepositoryViewObject#throwPersistenceExceptionIfAny()
+     */
+    public void throwPersistenceExceptionIfAny() throws PersistenceException {
+        if (exception != null) {
+            throw exception;
+        }
     }
 }

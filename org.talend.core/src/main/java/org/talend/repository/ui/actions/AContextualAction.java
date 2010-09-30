@@ -56,10 +56,10 @@ import org.talend.designer.core.ui.views.properties.IJobSettingsView;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.model.IRepositoryNode;
-import org.talend.repository.model.RepositoryConstants;
-import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
 import org.talend.repository.model.IRepositoryNode.EProperties;
+import org.talend.repository.model.RepositoryConstants;
+import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.ui.views.IRepositoryView;
 
 /**
@@ -342,8 +342,9 @@ public abstract class AContextualAction extends Action implements ITreeContextua
         try {
             CorePlugin.getDefault().getProxyRepositoryFactory().initialize();
 
-            updatedProperty = CorePlugin.getDefault().getProxyRepositoryFactory().getLastVersion(
-                    new Project(ProjectManager.getInstance().getProject(property.getItem())), property.getId()).getProperty();
+            updatedProperty = CorePlugin.getDefault().getProxyRepositoryFactory()
+                    .getLastVersion(new Project(ProjectManager.getInstance().getProject(property.getItem())), property.getId())
+                    .getProperty();
         } catch (PersistenceException e) {
             ExceptionHandler.process(e);
         }
@@ -555,11 +556,11 @@ public abstract class AContextualAction extends Action implements ITreeContextua
                     }
                 }
                 if (pathExist) {
-                    allVersion = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory().getAllVersion(
-                            property.getId(), state.getPath(), repositoryObject.getObject().getType());
+                    allVersion = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory()
+                            .getAllVersion(property.getId(), state.getPath(), repositoryObject.getObject().getType());
                 } else {
-                    allVersion = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory().getAllVersion(
-                            property.getId());
+                    allVersion = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory()
+                            .getAllVersion(property.getId());
                 }
                 if (allVersion == null || allVersion.isEmpty()) {
                     return false;
