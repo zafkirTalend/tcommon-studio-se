@@ -136,8 +136,8 @@ public class LabelledText {
      * @param styleField
      * @param isFill
      */
-    private void createLabelledText(Composite composite, String string, int horizontalSpan, int styleField,
-            boolean isFill, int labelStyle) {
+    private void createLabelledText(Composite composite, String string, int horizontalSpan, int styleField, boolean isFill,
+            int labelStyle) {
 
         label = new Label(composite, labelStyle);
         if (string != null) {
@@ -295,6 +295,10 @@ public class LabelledText {
     public void setVisible(final boolean visible) {
         text.setVisible(visible);
         label.setVisible(visible);
+    }
+
+    public boolean isVisiable() {
+        return text.isVisible() && label.isVisible();
     }
 
     public void hide() {
