@@ -116,6 +116,13 @@ public class ContextSetConfigurationDialog extends ObjectSelectionDialog<IContex
         });
     }
 
+    @Override
+    protected void createOrderButtons(Composite parent) {
+        super.createOrderButtons(parent);
+        fSelectAll.setVisible(false);
+        fDeselectAll.setVisible(false);
+    }
+
     public List<IContext> getResultContexts() {
         return getData();
     }

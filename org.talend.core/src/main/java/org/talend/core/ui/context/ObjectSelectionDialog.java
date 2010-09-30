@@ -61,9 +61,9 @@ public abstract class ObjectSelectionDialog<B> extends SelectionDialog {
 
     private Button fDownButton;
 
-    private Button fSelectAll;
+    protected Button fSelectAll;
 
-    private Button fDeselectAll;
+    protected Button fDeselectAll;
 
     private Label msgLabel;
 
@@ -196,7 +196,7 @@ public abstract class ObjectSelectionDialog<B> extends SelectionDialog {
         });
     }
 
-    private void createOrderButtons(Composite parent) {
+    protected void createOrderButtons(Composite parent) {
         Composite buttons = new Composite(parent, SWT.NONE);
         buttons.setFont(parent.getFont());
         buttons.setLayoutData(new GridData(GridData.FILL_VERTICAL));
@@ -394,7 +394,6 @@ public abstract class ObjectSelectionDialog<B> extends SelectionDialog {
 
     private void selectAll() {
         fTableViewer.setSelection(new StructuredSelection(data));
-
     }
 
     private void deselectAll() {

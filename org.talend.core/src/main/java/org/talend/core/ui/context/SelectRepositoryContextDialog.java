@@ -16,10 +16,12 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.CheckStateChangedEvent;
@@ -626,7 +628,26 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
         @Override
         public boolean select(Viewer viewer, Object parentElement, Object element) {
             if (element instanceof ContextItem) {
-                return true;
+                boolean show = false;
+                ContextItem item = (ContextItem) element;
+                final EList contexts = item.getContext();
+                for (Iterator it = contexts.iterator(); it.hasNext();) {
+                    final Object object = it.next();
+                    if (object instanceof ContextType) {
+                        final EList parameters = ((ContextType) object).getContextParameter();
+                        for (Iterator para = parameters.iterator(); para.hasNext();) {
+                            final Object obj = para.next();
+                            if (obj instanceof ContextParameterType) {
+                                show = select(viewer, element, obj);
+                                // if no contextparameter show, contextItem shoud be hidden.
+                                if (show) {
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+                return show;
             }
             if (element instanceof ContextParameterType) {
                 ContextParameterType paramType = (ContextParameterType) element;
@@ -637,7 +658,7 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
             }
             return true;
         }
-
+        
     }
 
     /**
