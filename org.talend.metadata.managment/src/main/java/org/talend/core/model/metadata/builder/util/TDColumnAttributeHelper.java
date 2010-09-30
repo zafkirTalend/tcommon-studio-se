@@ -322,8 +322,8 @@ public class TDColumnAttributeHelper {
         }
 
         column.setInitialValue(defExpression);
-        if (databaseconnection != null) {
-            String mapping = databaseconnection.getDbmsId();
+        String mapping = databaseconnection.getDbmsId();
+        if (databaseconnection != null && mapping != null) {
             MappingTypeRetriever mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(mapping);
             String talendType = mappingTypeRetriever.getDefaultSelectedTalendType(typeName, ExtractMetaDataUtils
                     .getIntMetaDataInfo(resutSet, "COLUMN_SIZE"), ExtractMetaDataUtils.getIntMetaDataInfo(resutSet, //$NON-NLS-1$
