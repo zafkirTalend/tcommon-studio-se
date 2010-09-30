@@ -272,4 +272,16 @@ public class ConnectionBean implements Cloneable {
 
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof ConnectionBean)) {
+            return false;
+        }
+
+        return this.readToString().equals(((ConnectionBean) obj).readToString());
+    }
+
 }
