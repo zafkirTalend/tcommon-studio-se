@@ -22,6 +22,7 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
@@ -375,6 +376,12 @@ public class ConnectionHelper {
             if (packageList != null && packageList.size() > 0) {
                 packageList.clear();
             }
+
+            Resource eResource = dataProvider.eResource();
+            if (eResource != null) {
+                eResource.getContents().addAll(packages);
+            }
+
             added = packageList.addAll(packages);
         }
         return added;
