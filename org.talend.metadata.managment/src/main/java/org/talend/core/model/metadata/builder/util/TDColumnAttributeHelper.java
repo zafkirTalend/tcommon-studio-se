@@ -260,7 +260,7 @@ public class TDColumnAttributeHelper {
             // MOD zshen when the database is mssql,the datatype for "date" and "time" is "-9" and "-2"
             // ,respective.so change them to "91" and "92" for adapt to Java2SqlType.
 
-            if (isMssql(conn)) {
+            if (isMssql()) {
                 if (typeName.toLowerCase().equals("date")) {
                     dataType = 91;
                     // MOD scorreia 2010-07-24 removed the call to column.getSQLDataType() here because obviously
@@ -366,6 +366,21 @@ public class TDColumnAttributeHelper {
                 && connectionMetadata.getDatabaseProductName() != null
                 && connectionMetadata.getDatabaseProductName().equals(ODBC_MSSQL_PRODUCT_NAME)) {
             return true;
+        }
+        return false;
+    }
+
+    /**
+     * DOC zshen Comment method "isMssql".
+     * 
+     * 
+     * @return decide to whether is mssql connection
+     * @throws SQLException
+     */
+    private static boolean isMssql() throws SQLException {
+        String dbtype = databaseconnection.getDatabaseType();
+        if (dbtype != null) {
+            return dbtype.contains(ODBC_MSSQL_PRODUCT_NAME);
         }
         return false;
     }
