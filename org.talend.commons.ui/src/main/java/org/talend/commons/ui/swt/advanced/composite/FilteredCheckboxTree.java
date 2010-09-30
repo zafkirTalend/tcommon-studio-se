@@ -597,7 +597,7 @@ public class FilteredCheckboxTree extends Composite {
      * Update the receiver after the text has changed.
      */
     protected void textChanged() {
-        saveCheckedLeafNodes();
+        calculateCheckedLeafNodes();
         // narrowingDown = previousFilterText==null || getFilterString().startsWith(previousFilterText);
         previousFilterText = getFilterString();
         // cancel currently running job first, to prevent unnecessary redraw
@@ -605,8 +605,7 @@ public class FilteredCheckboxTree extends Composite {
         refreshJob.schedule(200);
     }
 
-    @SuppressWarnings("unchecked")
-    private void saveCheckedLeafNodes() {
+    public void calculateCheckedLeafNodes() {
         TreeItem[] roots = getViewer().getTree().getItems();
         Set checked = new HashSet();
         Set unchecked = new HashSet();
