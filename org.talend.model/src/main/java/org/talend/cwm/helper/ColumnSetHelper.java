@@ -20,6 +20,7 @@ import java.util.Set;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.talend.cwm.relational.RelationalPackage;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.relational.TdTable;
@@ -116,6 +117,10 @@ public final class ColumnSetHelper {
         List<Feature> features = columnSet.getFeature();
         if (features != null && features.size() > 0) {
             features.clear();
+        }
+        Resource eResource = columnSet.eResource();
+        if (eResource != null) {
+            eResource.getContents().addAll(columns);
         }
         return features.addAll(columns);
     }

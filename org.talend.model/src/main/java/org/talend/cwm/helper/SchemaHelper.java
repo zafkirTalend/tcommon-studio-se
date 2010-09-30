@@ -17,6 +17,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.talend.cwm.relational.TdTable;
 import org.talend.cwm.relational.TdView;
 import orgomg.cwm.objectmodel.core.ModelElement;
@@ -96,6 +97,10 @@ public final class SchemaHelper {
             List<ModelElement> elementList = schema.getOwnedElement();
             if (elementList != null && elementList.size() > 0) {
                 elementList.clear();
+            }
+            Resource eResource = schema.eResource();
+            if (eResource != null) {
+                eResource.getContents().addAll(elements);
             }
             added = elementList.addAll(elements);
         }
