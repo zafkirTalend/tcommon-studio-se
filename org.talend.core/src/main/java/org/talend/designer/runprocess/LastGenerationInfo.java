@@ -109,7 +109,11 @@ public class LastGenerationInfo {
      */
     public void setModulesNeededWithSubjobPerJob(String jobId, String jobVersion, Set<String> modulesNeeded) {
         String key = jobId + "_" + jobVersion; //$NON-NLS-1$
-        modulesNeededWithSubjobPerJob.put(key, new HashSet<String>(modulesNeeded));
+        if (modulesNeeded == null) {
+            modulesNeededWithSubjobPerJob.put(key, null);
+        } else {
+            modulesNeededWithSubjobPerJob.put(key, new HashSet<String>(modulesNeeded));
+        }
     }
 
     /**
