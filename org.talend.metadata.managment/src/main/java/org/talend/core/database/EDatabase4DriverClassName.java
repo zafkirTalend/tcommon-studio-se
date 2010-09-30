@@ -48,6 +48,7 @@ public enum EDatabase4DriverClassName {
     MSSQL(EDatabaseTypeName.MSSQL, "net.sourceforge.jtds.jdbc.Driver"), //$NON-NLS-1$
 
     MYSQL(EDatabaseTypeName.MYSQL, "org.gjt.mm.mysql.Driver"), //$NON-NLS-1$
+    MYSQL2(EDatabaseTypeName.MYSQL, "com.mysql.jdbc.Driver"), //$NON-NLS-1$
     NETEZZA(EDatabaseTypeName.NETEZZA, "org.netezza.Driver"), //$NON-NLS-1$
 
     ORACLEFORSID(EDatabaseTypeName.ORACLEFORSID, "oracle.jdbc.driver.OracleDriver"), //$NON-NLS-1$
