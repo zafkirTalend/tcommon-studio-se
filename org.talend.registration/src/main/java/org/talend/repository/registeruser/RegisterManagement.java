@@ -277,57 +277,58 @@ public class RegisterManagement {
     }
 
     private void checkErrors(int signum) {
-        String message = "";
+        String message = ""; //$NON-NLS-1$
         switch (signum) {
         case -10:
-            message = Messages.getString("RegisterManagement.impossible");
+            message = Messages.getString("RegisterManagement.impossible"); //$NON-NLS-1$
             break;
         case -110:
-            message = Messages.getString("RegisterManagement.userNameInDatabase");
+            message = Messages.getString("RegisterManagement.userNameInDatabase"); //$NON-NLS-1$
             break;
         case -120:
-            message = Messages.getString("RegisterManagement.alreadyRegistered");
+            message = Messages.getString("RegisterManagement.alreadyRegistered"); //$NON-NLS-1$
             break;
         case -130:
-            message = Messages.getString("RegisterManagement.userNameInvalid");
+            message = Messages.getString("RegisterManagement.userNameInvalid"); //$NON-NLS-1$
             break;
         case -140:
-            message = Messages.getString("RegisterManagement.passwdInvalid");
+            message = Messages.getString("RegisterManagement.passwdInvalid"); //$NON-NLS-1$
             break;
         case -150:
-            message = Messages.getString("RegisterManagement.userNameDifferent");
+            message = Messages.getString("RegisterManagement.userNameDifferent"); //$NON-NLS-1$
             break;
         case -160:
-            message = Messages.getString("RegisterManagement.notInBlackList");
+            message = Messages.getString("RegisterManagement.notInBlackList"); //$NON-NLS-1$
             break;
         case -170:
-            message = Messages.getString("RegisterManagement.emailNotContain");
+            message = Messages.getString("RegisterManagement.emailNotContain"); //$NON-NLS-1$
             break;
         case -180:
-            message = Messages.getString("RegisterManagement.emailInvalid");
+            message = Messages.getString("RegisterManagement.emailInvalid"); //$NON-NLS-1$
             break;
         case -190:
-            message = Messages.getString("RegisterManagement.emailNotInBlackList");
+            message = Messages.getString("RegisterManagement.emailNotInBlackList"); //$NON-NLS-1$
             break;
         case -200:
-            message = Messages.getString("RegisterManagement.userNameInDatabase");
+            message = Messages.getString("RegisterManagement.userNameInDatabase"); //$NON-NLS-1$
             break;
         case -210:
-            message = Messages.getString("RegisterManagement.userNameCharacter");
+            message = Messages.getString("RegisterManagement.userNameCharacter"); //$NON-NLS-1$
             break;
         case -220:
-            message = Messages.getString("RegisterManagement.userNameInvalid");
+            message = Messages.getString("RegisterManagement.userNameInvalid"); //$NON-NLS-1$
             break;
         case -230:
-            message = Messages.getString("RegisterManagement.realnameInvalid");
+            message = Messages.getString("RegisterManagement.realnameInvalid"); //$NON-NLS-1$
             break;
         case -240:
-            message = Messages.getString("RegisterManagement.emailInvalid");
+            message = Messages.getString("RegisterManagement.emailInvalid"); //$NON-NLS-1$
             break;
         default:
             signum = -1;
+            message = Messages.getString("RegisterManagement.try_again"); //$NON-NLS-1$
         }
-        MessageDialog.openError(null, Messages.getString("RegisterManagement.errors"), message);
+        MessageDialog.openError(null, Messages.getString("RegisterManagement.errors"), message); //$NON-NLS-1$
     }
 
     public String checkUser(String email, boolean isProxyEnabled, String proxyHost, String proxyPort) throws BusinessException {
@@ -364,18 +365,18 @@ public class RegisterManagement {
         try {
             IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
                     IBrandingService.class);
-            registURL = new URL("http://www.talend.com/designer_post_reg.php?prd=" + brandingService.getAcronym() + "&cid="
+            registURL = new URL("http://www.talend.com/designer_post_reg.php?prd=" + brandingService.getAcronym() + "&cid=" //$NON-NLS-1$ //$NON-NLS-2$
                     + registNumber);
             PlatformUI.getWorkbench().getBrowserSupport().getExternalBrowser().openURL(registURL);
         } catch (PartInitException e) {
             // if no default browser (like on linux), try to open directly with firefox.
             try {
-                Runtime.getRuntime().exec("firefox " + registURL.toString());
+                Runtime.getRuntime().exec("firefox " + registURL.toString()); //$NON-NLS-1$
             } catch (IOException e2) {
                 if (PlatformUI.getWorkbench().getBrowserSupport().isInternalWebBrowserAvailable()) {
                     IWebBrowser browser;
                     try {
-                        browser = PlatformUI.getWorkbench().getBrowserSupport().createBrowser("registrationId");
+                        browser = PlatformUI.getWorkbench().getBrowserSupport().createBrowser("registrationId"); //$NON-NLS-1$
                         browser.openURL(registURL);
                     } catch (PartInitException e1) {
                         ExceptionHandler.process(e);
@@ -399,7 +400,7 @@ public class RegisterManagement {
         ConnectionUserPerReader read = ConnectionUserPerReader.getInstance();
         String registration = read.readRegistration();
         String registration_done = read.readRegistrationDone();
-        if (!registration.equals("2") && !registration_done.equals("1")) {
+        if (!registration.equals("2") && !registration_done.equals("1")) { //$NON-NLS-1$ //$NON-NLS-2$
             return false;
         }
         return true;
