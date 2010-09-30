@@ -189,7 +189,7 @@ public class RegisterManagement {
                     prefManipulator.addConnection(recup);
                 }
             } else {
-                checkErrors(result.signum());
+                checkErrors(result.intValue());
             }
         } catch (RemoteException e) {
             decrementTry();
@@ -324,9 +324,11 @@ public class RegisterManagement {
         case -240:
             message = Messages.getString("RegisterManagement.emailInvalid"); //$NON-NLS-1$
             break;
+        case -300:
+            message = Messages.getString("RegisterManagement.password_wrong"); //$NON-NLS-1$
+            break;
         default:
             signum = -1;
-            message = Messages.getString("RegisterManagement.try_again"); //$NON-NLS-1$
         }
         MessageDialog.openError(null, Messages.getString("RegisterManagement.errors"), message); //$NON-NLS-1$
     }
