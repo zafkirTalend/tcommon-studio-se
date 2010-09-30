@@ -15,7 +15,6 @@ package org.talend.core.model.repository;
 import java.util.Date;
 import java.util.List;
 
-import org.talend.commons.exception.PersistenceException;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.User;
 import org.talend.repository.model.ERepositoryStatus;
@@ -78,6 +77,4 @@ public interface IRepositoryViewObject {
     public ERepositoryStatus getRepositoryStatus();
 
     public ERepositoryStatus getInformationStatus();
-
-    public void throwPersistenceExceptionIfAny() throws PersistenceException;
 }
