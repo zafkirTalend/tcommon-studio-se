@@ -22,7 +22,7 @@ import org.talend.core.model.properties.User;
  */
 public final class ReponsitoryContextBridge {
 
-    public static String PROJECT_DEFAULT_NAME = "TOP_DEFAULT_PRJ";
+    private static String PROJECT_DEFAULT_NAME = "TOP_DEFAULT_PRJ";
 
     private static Project project;
 
