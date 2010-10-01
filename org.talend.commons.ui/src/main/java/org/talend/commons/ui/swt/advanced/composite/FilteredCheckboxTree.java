@@ -1228,4 +1228,13 @@ public class FilteredCheckboxTree extends Composite {
         }
     }
 
+    /**
+     * check element is an internal element that should be reset when ever the tree content is reset
+     */
+    public void resetCheckedElements() {
+        if (checkedElements != null) {
+            checkedElements.clear();
+        } //else nothing to clear
+    }
+
 }
