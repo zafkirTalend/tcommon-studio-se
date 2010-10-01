@@ -5036,13 +5036,13 @@ public interface PropertiesPackage extends EPackage {
     int TALEND_TRIGGER__TRIGGER_TYPE = 4;
 
     /**
-     * The feature id for the '<em><b>Execution Triggerable</b></em>' container reference.
+     * The feature id for the '<em><b>Execution Task</b></em>' container reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int TALEND_TRIGGER__EXECUTION_TRIGGERABLE = 5;
+    int TALEND_TRIGGER__EXECUTION_TASK = 5;
 
     /**
      * The feature id for the '<em><b>Start Time</b></em>' attribute.
@@ -5154,13 +5154,13 @@ public interface PropertiesPackage extends EPackage {
     int CRON_TALEND_TRIGGER__TRIGGER_TYPE = TALEND_TRIGGER__TRIGGER_TYPE;
 
     /**
-     * The feature id for the '<em><b>Execution Triggerable</b></em>' container reference.
+     * The feature id for the '<em><b>Execution Task</b></em>' container reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int CRON_TALEND_TRIGGER__EXECUTION_TRIGGERABLE = TALEND_TRIGGER__EXECUTION_TRIGGERABLE;
+    int CRON_TALEND_TRIGGER__EXECUTION_TASK = TALEND_TRIGGER__EXECUTION_TASK;
 
     /**
      * The feature id for the '<em><b>Start Time</b></em>' attribute.
@@ -5280,13 +5280,13 @@ public interface PropertiesPackage extends EPackage {
     int CRON_UI_TALEND_TRIGGER__TRIGGER_TYPE = TALEND_TRIGGER__TRIGGER_TYPE;
 
     /**
-     * The feature id for the '<em><b>Execution Triggerable</b></em>' container reference.
+     * The feature id for the '<em><b>Execution Task</b></em>' container reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int CRON_UI_TALEND_TRIGGER__EXECUTION_TRIGGERABLE = TALEND_TRIGGER__EXECUTION_TRIGGERABLE;
+    int CRON_UI_TALEND_TRIGGER__EXECUTION_TASK = TALEND_TRIGGER__EXECUTION_TASK;
 
     /**
      * The feature id for the '<em><b>Start Time</b></em>' attribute.
@@ -5448,13 +5448,13 @@ public interface PropertiesPackage extends EPackage {
     int SIMPLE_TALEND_TRIGGER__TRIGGER_TYPE = TALEND_TRIGGER__TRIGGER_TYPE;
 
     /**
-     * The feature id for the '<em><b>Execution Triggerable</b></em>' container reference.
+     * The feature id for the '<em><b>Execution Task</b></em>' container reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int SIMPLE_TALEND_TRIGGER__EXECUTION_TRIGGERABLE = TALEND_TRIGGER__EXECUTION_TRIGGERABLE;
+    int SIMPLE_TALEND_TRIGGER__EXECUTION_TASK = TALEND_TRIGGER__EXECUTION_TASK;
 
     /**
      * The feature id for the '<em><b>Start Time</b></em>' attribute.
@@ -5590,13 +5590,13 @@ public interface PropertiesPackage extends EPackage {
     int FILE_TRIGGER__TRIGGER_TYPE = SIMPLE_TALEND_TRIGGER__TRIGGER_TYPE;
 
     /**
-     * The feature id for the '<em><b>Execution Triggerable</b></em>' container reference.
+     * The feature id for the '<em><b>Execution Task</b></em>' container reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int FILE_TRIGGER__EXECUTION_TRIGGERABLE = SIMPLE_TALEND_TRIGGER__EXECUTION_TRIGGERABLE;
+    int FILE_TRIGGER__EXECUTION_TASK = SIMPLE_TALEND_TRIGGER__EXECUTION_TASK;
 
     /**
      * The feature id for the '<em><b>Start Time</b></em>' attribute.
@@ -10275,15 +10275,15 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getTalendTrigger_TriggerType();
 
     /**
-     * Returns the meta object for the container reference '{@link org.talend.core.model.properties.TalendTrigger#getExecutionTriggerable <em>Execution Triggerable</em>}'.
+     * Returns the meta object for the container reference '{@link org.talend.core.model.properties.TalendTrigger#getExecutionTask <em>Execution Task</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the container reference '<em>Execution Triggerable</em>'.
-     * @see org.talend.core.model.properties.TalendTrigger#getExecutionTriggerable()
+     * @return the meta object for the container reference '<em>Execution Task</em>'.
+     * @see org.talend.core.model.properties.TalendTrigger#getExecutionTask()
      * @see #getTalendTrigger()
      * @generated
      */
-    EReference getTalendTrigger_ExecutionTriggerable();
+    EReference getTalendTrigger_ExecutionTask();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TalendTrigger#getStartTime <em>Start Time</em>}'.
@@ -15020,12 +15020,12 @@ public interface PropertiesPackage extends EPackage {
         EAttribute TALEND_TRIGGER__TRIGGER_TYPE = eINSTANCE.getTalendTrigger_TriggerType();
 
         /**
-         * The meta object literal for the '<em><b>Execution Triggerable</b></em>' container reference feature.
+         * The meta object literal for the '<em><b>Execution Task</b></em>' container reference feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          */
-        EReference TALEND_TRIGGER__EXECUTION_TRIGGERABLE = eINSTANCE.getTalendTrigger_ExecutionTriggerable();
+        EReference TALEND_TRIGGER__EXECUTION_TASK = eINSTANCE.getTalendTrigger_ExecutionTask();
 
         /**
          * The meta object literal for the '<em><b>Start Time</b></em>' attribute feature.

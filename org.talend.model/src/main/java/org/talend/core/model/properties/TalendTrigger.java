@@ -23,7 +23,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.TalendTrigger#getLabel <em>Label</em>}</li>
  *   <li>{@link org.talend.core.model.properties.TalendTrigger#getDescription <em>Description</em>}</li>
  *   <li>{@link org.talend.core.model.properties.TalendTrigger#getTriggerType <em>Trigger Type</em>}</li>
- *   <li>{@link org.talend.core.model.properties.TalendTrigger#getExecutionTriggerable <em>Execution Triggerable</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.TalendTrigger#getExecutionTask <em>Execution Task</em>}</li>
  *   <li>{@link org.talend.core.model.properties.TalendTrigger#getStartTime <em>Start Time</em>}</li>
  *   <li>{@link org.talend.core.model.properties.TalendTrigger#getEndTime <em>End Time</em>}</li>
  *   <li>{@link org.talend.core.model.properties.TalendTrigger#getPreviousFireTime <em>Previous Fire Time</em>}</li>
@@ -170,32 +170,32 @@ public interface TalendTrigger extends EObject {
     void setTriggerType(String value);
 
     /**
-     * Returns the value of the '<em><b>Execution Triggerable</b></em>' container reference.
+     * Returns the value of the '<em><b>Execution Task</b></em>' container reference.
      * It is bidirectional and its opposite is '{@link org.talend.core.model.properties.ExecutionTriggerable#getTriggers <em>Triggers</em>}'.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Execution Triggerable</em>' container reference isn't clear,
+     * If the meaning of the '<em>Execution Task</em>' container reference isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Execution Triggerable</em>' container reference.
-     * @see #setExecutionTriggerable(ExecutionTriggerable)
-     * @see org.talend.core.model.properties.PropertiesPackage#getTalendTrigger_ExecutionTriggerable()
+     * @return the value of the '<em>Execution Task</em>' container reference.
+     * @see #setExecutionTask(ExecutionTriggerable)
+     * @see org.talend.core.model.properties.PropertiesPackage#getTalendTrigger_ExecutionTask()
      * @see org.talend.core.model.properties.ExecutionTriggerable#getTriggers
      * @model opposite="triggers" transient="false"
      * @generated
      */
-    ExecutionTriggerable getExecutionTriggerable();
+    ExecutionTriggerable getExecutionTask();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.TalendTrigger#getExecutionTriggerable <em>Execution Triggerable</em>}' container reference.
+     * Sets the value of the '{@link org.talend.core.model.properties.TalendTrigger#getExecutionTask <em>Execution Task</em>}' container reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Execution Triggerable</em>' container reference.
-     * @see #getExecutionTriggerable()
+     * @param value the new value of the '<em>Execution Task</em>' container reference.
+     * @see #getExecutionTask()
      * @generated
      */
-    void setExecutionTriggerable(ExecutionTriggerable value);
+    void setExecutionTask(ExecutionTriggerable value);
 
     /**
      * Returns the value of the '<em><b>Start Time</b></em>' attribute.

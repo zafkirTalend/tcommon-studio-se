@@ -432,7 +432,7 @@ public class ExecutionPlanImpl extends EObjectImpl implements ExecutionPlan {
      */
     public EList getTriggers() {
         if (triggers == null) {
-            triggers = new EObjectContainmentWithInverseEList(TalendTrigger.class, this, PropertiesPackage.EXECUTION_PLAN__TRIGGERS, PropertiesPackage.TALEND_TRIGGER__EXECUTION_TRIGGERABLE);
+            triggers = new EObjectContainmentWithInverseEList(TalendTrigger.class, this, PropertiesPackage.EXECUTION_PLAN__TRIGGERS, PropertiesPackage.TALEND_TRIGGER__EXECUTION_TASK);
         }
         return triggers;
     }
