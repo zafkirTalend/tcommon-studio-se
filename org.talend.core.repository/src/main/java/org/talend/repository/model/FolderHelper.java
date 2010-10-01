@@ -211,11 +211,15 @@ public abstract class FolderHelper {
     public FolderItem findChildFolder(FolderItem parent, String name) {
         EList children;
 
+        EObject parentItem;
+
         try {
             if (parent != null) {
                 children = parent.getChildren();
+                parentItem = parent;
             } else {
                 children = project.getFolders();
+                parentItem = project;
             }
             // see the bug "6458".
             EList list = new BasicEList(children);
@@ -226,6 +230,7 @@ public abstract class FolderHelper {
                     children.remove(item);
                     continue;
                 }
+                item.setParent(parentItem);
                 if (item instanceof FolderItem && item.getProperty().getLabel().equals(name)) {
                     return (FolderItem) item;
                 }

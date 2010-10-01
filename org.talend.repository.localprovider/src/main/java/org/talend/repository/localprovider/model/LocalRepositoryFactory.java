@@ -265,6 +265,11 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         if (physicalFolder.exists()) {
             List<String> physicalPropertyFounds = new ArrayList<String>();
             List<String> physicalDirectoryFounds = new ArrayList<String>();
+            try {
+                physicalFolder.refreshLocal(IResource.DEPTH_ONE, null);
+            } catch (CoreException e1) {
+                throw new PersistenceException(e1);
+            }
             for (IResource current : ResourceUtils.getMembers(physicalFolder)) {
                 if (current instanceof IFile) {
                     try {
@@ -477,6 +482,11 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             if (physicalFolder.exists()) {
                 List<String> physicalPropertyFounds = new ArrayList<String>();
                 List<String> physicalDirectoryFounds = new ArrayList<String>();
+                try {
+                    physicalFolder.refreshLocal(IResource.DEPTH_ONE, null);
+                } catch (CoreException e1) {
+                    throw new PersistenceException(e1);
+                }
                 for (IResource current : ResourceUtils.getMembers(physicalFolder)) {
                     if (current instanceof IFile) {
                         if (xmiResourceManager.isPropertyFile((IFile) current)) {
@@ -1846,11 +1856,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 resource.unload();
                 // xmiResourceManager.resourceSet.getResources().remove(resource);
             }
-        }
-        try {
-            this.reloadProject(this.getRepositoryContext().getProject());
-        } catch (PersistenceException e) {
-            ExceptionHandler.process(e);
         }
     }
 
