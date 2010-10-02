@@ -101,7 +101,7 @@ public class ConnectionHelper {
      * @return the data provider or null
      */
     public static DatabaseConnection getTdDataProvider(TdColumn column) {
-        ColumnSet columnSetOwner = ColumnHelper.getColumnSetOwner(column);
+        ColumnSet columnSetOwner = ColumnHelper.getColumnOwnerAsColumnSet(column);
         if (columnSetOwner == null) {
             return null;
         }
