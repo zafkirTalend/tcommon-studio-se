@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TalendMetadata:XmlFileConnection xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:TalendMetadata="http://www.talend.org" XmlFilePath="/home/nfrancisco/Talend/talend_files_0.1/in/XML/sample.xml" Encoding="ISO-8859-1">
+  <tables id="_ABxnQB1DEd-XVfHSJU420w" label="metadata">
+    <columns label="name" talendType="id_String" length="3" precision="0" pattern="&quot;dd-MM-yyyy&quot;"/>
+    <columns label="country_name" talendType="id_String" length="7" precision="0" pattern="&quot;dd-MM-yyyy&quot;"/>
+    <columns label="capital" talendType="id_String" length="10" precision="0" pattern="&quot;dd-MM-yyyy&quot;"/>
+    <columns label="firstname" talendType="id_String" length="6" precision="0" pattern="&quot;dd-MM-yyyy&quot;"/>
+    <columns label="lastname" talendType="id_String" length="7" precision="0" pattern="&quot;dd-MM-yyyy&quot;"/>
+  </tables>
+  <schema LimitBoucle="50" AbsoluteXPathQuery="/root/customers">
+    <schemaTargets RelativeXPathQuery="pays/@name" TagName="name"/>
+    <schemaTargets RelativeXPathQuery="pays/state/@name" TagName="country_name"/>
+    <schemaTargets RelativeXPathQuery="pays/state/@capital" TagName="capital"/>
+    <schemaTargets RelativeXPathQuery="pays/state/customer/@firstname" TagName="firstname"/>
+    <schemaTargets RelativeXPathQuery="pays/state/customer/@lastname" TagName="lastname"/>
+  </schema>
+</TalendMetadata:XmlFileConnection>

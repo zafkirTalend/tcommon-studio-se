@@ -1,301 +1,291 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<talendfile:ProcessType xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" xmi:id="_k7qNOs-5Ed-AIsoUrfi0wQ" defaultContext="Default">
-  <context xmi:id="_k7qNO8-5Ed-AIsoUrfi0wQ" confirmationNeeded="false" name="Default">
-    <contextParameter xmi:id="_k7qNPM-5Ed-AIsoUrfi0wQ" comment="" name="config_filepath" prompt="Define the file path of the config file: (the path of the dir isn't issue of the Repository)" promptNeeded="true" type="id_String" value="C://talend_files/in/config.txt"/>
-    <contextParameter xmi:id="_k7qNPc-5Ed-AIsoUrfi0wQ" comment="" name="uri" prompt="Define by the tLoadContext" promptNeeded="false" type="id_String" value="null"/>
-    <contextParameter xmi:id="_k7qNPs-5Ed-AIsoUrfi0wQ" comment="" name="postLenght" prompt="Define by the tLoadContext" promptNeeded="false" type="id_Integer" value="null"/>
+<talendfile:ProcessType xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" defaultContext="Default">
+  <context confirmationNeeded="false" name="Default">
+    <contextParameter comment="" name="config_filepath" prompt="Define the file path of the config file: (the path of the dir isn't issue of the Repository)" promptNeeded="true" type="id_String" value="C://talend_files/in/config.txt"/>
+    <contextParameter comment="" name="uri" prompt="Define by the tLoadContext" promptNeeded="false" type="id_String" value="null"/>
+    <contextParameter comment="" name="postLenght" prompt="Define by the tLoadContext" promptNeeded="false" type="id_Integer" value="null"/>
   </context>
-  <parameters xmi:id="_k7qNP8-5Ed-AIsoUrfi0wQ">
-    <elementParameter xmi:id="_k7qNQM-5Ed-AIsoUrfi0wQ" field="DIRECTORY" name="COMP_DEFAULT_FILE_DIR" value="D:\TOS-All-r14257-V2.4.0RC2\workspace" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNQc-5Ed-AIsoUrfi0wQ" field="CHECK" name="displaySubjobs" value="true" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNQs-5Ed-AIsoUrfi0wQ" field="TEXT" name="AUTHOR" value="training@talend.com" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNQ8-5Ed-AIsoUrfi0wQ" field="TEXT" name="STATUS" value="" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNRM-5Ed-AIsoUrfi0wQ" field="TEXT" name="NAME" value="tContextLoad_and_file" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNRc-5Ed-AIsoUrfi0wQ" field="TEXT" name="VERSION" value="0.1" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNRs-5Ed-AIsoUrfi0wQ" field="TEXT" name="PURPOSE" value="" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNR8-5Ed-AIsoUrfi0wQ" field="TEXT" name="DESCRIPTION" value="" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNSM-5Ed-AIsoUrfi0wQ" field="TEXT" name="SCREEN_OFFSET_X" value="0" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNSc-5Ed-AIsoUrfi0wQ" field="TEXT" name="SCREEN_OFFSET_Y" value="0" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNSs-5Ed-AIsoUrfi0wQ" field="TEXT" name="SCHEMA_OPTIONS" value="none" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNS8-5Ed-AIsoUrfi0wQ" field="CHECK" name="MULTI_THREAD_EXECATION" value="false" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNTM-5Ed-AIsoUrfi0wQ" field="CHECK" name="IMPLICIT_TCONTEXTLOAD" value="false" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNTc-5Ed-AIsoUrfi0wQ" field="RADIO" name="FROM_FILE_FLAG_IMPLICIT_CONTEXT" value="false" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNTs-5Ed-AIsoUrfi0wQ" field="RADIO" name="FROM_DATABASE_FLAG_IMPLICIT_CONTEXT" value="false" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNT8-5Ed-AIsoUrfi0wQ" field="FILE" name="IMPLICIT_TCONTEXTLOAD_FILE" value="&quot;D:/TOS-All-r14257-V2.4.0RC2/workspace/in.csv&quot;" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNUM-5Ed-AIsoUrfi0wQ" field="PROPERTY_TYPE" name="PROPERTY_TYPE_IMPLICIT_CONTEXT" value="" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNUc-5Ed-AIsoUrfi0wQ" field="TECHNICAL" name="PROPERTY_TYPE_IMPLICIT_CONTEXT:PROPERTY_TYPE" value="BUILT_IN" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNUs-5Ed-AIsoUrfi0wQ" field="TECHNICAL" name="PROPERTY_TYPE_IMPLICIT_CONTEXT:REPOSITORY_PROPERTY_TYPE" value="" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNU8-5Ed-AIsoUrfi0wQ" field="CLOSED_LIST" name="DB_TYPE_IMPLICIT_CONTEXT" value="tDBInput" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNVM-5Ed-AIsoUrfi0wQ" field="TEXT" name="HOST_IMPLICIT_CONTEXT" value="&quot;&quot;" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNVc-5Ed-AIsoUrfi0wQ" field="TEXT" name="PORT_IMPLICIT_CONTEXT" value="&quot;&quot;" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNVs-5Ed-AIsoUrfi0wQ" field="TEXT" name="DBNAME_IMPLICIT_CONTEXT" value="&quot;&quot;" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNV8-5Ed-AIsoUrfi0wQ" field="TEXT" name="PROPERTIES_IMPLICIT_CONTEXT" value="&quot;&quot;" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNWM-5Ed-AIsoUrfi0wQ" field="TEXT" name="SCHEMA_DB_IMPLICIT_CONTEXT" value="&quot;&quot;" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNWc-5Ed-AIsoUrfi0wQ" field="TEXT" name="USER_IMPLICIT_CONTEXT" value="&quot;&quot;" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNWs-5Ed-AIsoUrfi0wQ" field="TEXT" name="PASS_IMPLICIT_CONTEXT" value="&quot;&quot;" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNW8-5Ed-AIsoUrfi0wQ" field="FILE" name="DBFILE_IMPLICIT_CONTEXT" value="&quot;&quot;" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNXM-5Ed-AIsoUrfi0wQ" field="DBTABLE" name="DBTABLE_IMPLICIT_CONTEXT" value="&quot;&quot;" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNXc-5Ed-AIsoUrfi0wQ" field="CLOSED_LIST" name="LOAD_NEW_VARIABLE" value="Warning" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNXs-5Ed-AIsoUrfi0wQ" field="CLOSED_LIST" name="NOT_LOAD_OLD_VARIABLE" value="Warning" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNX8-5Ed-AIsoUrfi0wQ" field="CHECK" name="PRINT_OPERATIONS" value="false" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNYM-5Ed-AIsoUrfi0wQ" field="CHECK" name="DISABLE_ERROR" value="false" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNYc-5Ed-AIsoUrfi0wQ" field="CHECK" name="DISABLE_WARNINGS" value="true" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNYs-5Ed-AIsoUrfi0wQ" field="CHECK" name="DISABLE_INFO" value="true" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNY8-5Ed-AIsoUrfi0wQ" field="CHECK" name="UPDATE_COMPONENTS" value="true" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNZM-5Ed-AIsoUrfi0wQ" field="CHECK" name="ON_STATCATCHER_FLAG" value="false" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNZc-5Ed-AIsoUrfi0wQ" field="CHECK" name="ON_LOGCATCHER_FLAG" value="false" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNZs-5Ed-AIsoUrfi0wQ" field="CHECK" name="ON_METERCATCHER_FLAG" value="false" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNZ8-5Ed-AIsoUrfi0wQ" field="CHECK" name="ON_CONSOLE_FLAG" value="false" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNaM-5Ed-AIsoUrfi0wQ" field="CHECK" name="ON_FILES_FLAG" value="false" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNac-5Ed-AIsoUrfi0wQ" field="DIRECTORY" name="FILE_PATH" value="&quot;&quot;" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNas-5Ed-AIsoUrfi0wQ" field="TEXT" name="FILENAME_STATS" value="&quot;&quot;" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNa8-5Ed-AIsoUrfi0wQ" field="TEXT" name="FILENAME_LOGS" value="&quot;&quot;" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNbM-5Ed-AIsoUrfi0wQ" field="TEXT" name="FILENAME_METTER" value="&quot;&quot;" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNbc-5Ed-AIsoUrfi0wQ" field="CHECK" name="ON_DATABASE_FLAG" value="false" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNbs-5Ed-AIsoUrfi0wQ" field="PROPERTY_TYPE" name="PROPERTY_TYPE" value="" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNb8-5Ed-AIsoUrfi0wQ" field="TECHNICAL" name="PROPERTY_TYPE:PROPERTY_TYPE" value="BUILT_IN" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNcM-5Ed-AIsoUrfi0wQ" field="TECHNICAL" name="PROPERTY_TYPE:REPOSITORY_PROPERTY_TYPE" value="" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNcc-5Ed-AIsoUrfi0wQ" field="CLOSED_LIST" name="DB_TYPE" value="" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNcs-5Ed-AIsoUrfi0wQ" field="TEXT" name="HOST" value="&quot;&quot;" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNc8-5Ed-AIsoUrfi0wQ" field="TEXT" name="PORT" value="&quot;&quot;" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNdM-5Ed-AIsoUrfi0wQ" field="TEXT" name="DBNAME" value="&quot;&quot;" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNdc-5Ed-AIsoUrfi0wQ" field="TEXT" name="PROPERTIES" value="&quot;&quot;" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNds-5Ed-AIsoUrfi0wQ" field="TEXT" name="SCHEMA_DB" value="&quot;&quot;" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNd8-5Ed-AIsoUrfi0wQ" field="TEXT" name="USER" value="&quot;&quot;" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNeM-5Ed-AIsoUrfi0wQ" field="TEXT" name="PASS" value="&quot;&quot;" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNec-5Ed-AIsoUrfi0wQ" field="FILE" name="DBFILE" value="&quot;&quot;" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNes-5Ed-AIsoUrfi0wQ" field="DBTABLE" name="TABLE_STATS" value="&quot;&quot;" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNe8-5Ed-AIsoUrfi0wQ" field="DBTABLE" name="TABLE_LOGS" value="&quot;&quot;" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNfM-5Ed-AIsoUrfi0wQ" field="DBTABLE" name="TABLE_METER" value="&quot;&quot;" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNfc-5Ed-AIsoUrfi0wQ" field="CHECK" name="CATCH_RUNTIME_ERRORS" value="true" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNfs-5Ed-AIsoUrfi0wQ" field="CHECK" name="CATCH_USER_ERRORS" value="true" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNf8-5Ed-AIsoUrfi0wQ" field="CHECK" name="CATCH_USER_WARNING" value="true" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNgM-5Ed-AIsoUrfi0wQ" field="CHECK" name="CATCH_REALTIME_STATS" value="false" contextMode="false"/>
+  <parameters>
+    <elementParameter field="DIRECTORY" name="COMP_DEFAULT_FILE_DIR" value="D:\TOS-All-r14257-V2.4.0RC2\workspace" contextMode="false"/>
+    <elementParameter field="CHECK" name="displaySubjobs" value="true" contextMode="false"/>
+    <elementParameter field="TEXT" name="AUTHOR" value="training@talend.com" contextMode="false"/>
+    <elementParameter field="TEXT" name="STATUS" value="" contextMode="false"/>
+    <elementParameter field="TEXT" name="NAME" value="tContextLoad_and_file" contextMode="false"/>
+    <elementParameter field="TEXT" name="VERSION" value="0.1" contextMode="false"/>
+    <elementParameter field="TEXT" name="PURPOSE" value="" contextMode="false"/>
+    <elementParameter field="TEXT" name="DESCRIPTION" value="" contextMode="false"/>
+    <elementParameter field="TEXT" name="SCREEN_OFFSET_X" value="0" contextMode="false"/>
+    <elementParameter field="TEXT" name="SCREEN_OFFSET_Y" value="0" contextMode="false"/>
+    <elementParameter field="TEXT" name="SCHEMA_OPTIONS" value="none" contextMode="false"/>
+    <elementParameter field="CHECK" name="MULTI_THREAD_EXECATION" value="false" contextMode="false"/>
+    <elementParameter field="CHECK" name="IMPLICIT_TCONTEXTLOAD" value="false" contextMode="false"/>
+    <elementParameter field="RADIO" name="FROM_FILE_FLAG_IMPLICIT_CONTEXT" value="false" contextMode="false"/>
+    <elementParameter field="RADIO" name="FROM_DATABASE_FLAG_IMPLICIT_CONTEXT" value="false" contextMode="false"/>
+    <elementParameter field="FILE" name="IMPLICIT_TCONTEXTLOAD_FILE" value="&quot;D:/TOS-All-r14257-V2.4.0RC2/workspace/in.csv&quot;" contextMode="false"/>
+    <elementParameter field="PROPERTY_TYPE" name="PROPERTY_TYPE_IMPLICIT_CONTEXT" value="" contextMode="false"/>
+    <elementParameter field="TECHNICAL" name="PROPERTY_TYPE_IMPLICIT_CONTEXT:PROPERTY_TYPE" value="BUILT_IN" contextMode="false"/>
+    <elementParameter field="TECHNICAL" name="PROPERTY_TYPE_IMPLICIT_CONTEXT:REPOSITORY_PROPERTY_TYPE" value="" contextMode="false"/>
+    <elementParameter field="CLOSED_LIST" name="DB_TYPE_IMPLICIT_CONTEXT" value="tDBInput" contextMode="false"/>
+    <elementParameter field="TEXT" name="HOST_IMPLICIT_CONTEXT" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="PORT_IMPLICIT_CONTEXT" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="DBNAME_IMPLICIT_CONTEXT" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="PROPERTIES_IMPLICIT_CONTEXT" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="SCHEMA_DB_IMPLICIT_CONTEXT" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="USER_IMPLICIT_CONTEXT" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="PASS_IMPLICIT_CONTEXT" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter field="FILE" name="DBFILE_IMPLICIT_CONTEXT" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter field="DBTABLE" name="DBTABLE_IMPLICIT_CONTEXT" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter field="CLOSED_LIST" name="LOAD_NEW_VARIABLE" value="Warning" contextMode="false"/>
+    <elementParameter field="CLOSED_LIST" name="NOT_LOAD_OLD_VARIABLE" value="Warning" contextMode="false"/>
+    <elementParameter field="CHECK" name="PRINT_OPERATIONS" value="false" contextMode="false"/>
+    <elementParameter field="CHECK" name="DISABLE_ERROR" value="false" contextMode="false"/>
+    <elementParameter field="CHECK" name="DISABLE_WARNINGS" value="true" contextMode="false"/>
+    <elementParameter field="CHECK" name="DISABLE_INFO" value="true" contextMode="false"/>
+    <elementParameter field="CHECK" name="UPDATE_COMPONENTS" value="true" contextMode="false"/>
+    <elementParameter field="CHECK" name="ON_STATCATCHER_FLAG" value="false" contextMode="false"/>
+    <elementParameter field="CHECK" name="ON_LOGCATCHER_FLAG" value="false" contextMode="false"/>
+    <elementParameter field="CHECK" name="ON_METERCATCHER_FLAG" value="false" contextMode="false"/>
+    <elementParameter field="CHECK" name="ON_CONSOLE_FLAG" value="false" contextMode="false"/>
+    <elementParameter field="CHECK" name="ON_FILES_FLAG" value="false" contextMode="false"/>
+    <elementParameter field="DIRECTORY" name="FILE_PATH" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="FILENAME_STATS" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="FILENAME_LOGS" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="FILENAME_METTER" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter field="CHECK" name="ON_DATABASE_FLAG" value="false" contextMode="false"/>
+    <elementParameter field="PROPERTY_TYPE" name="PROPERTY_TYPE" value="" contextMode="false"/>
+    <elementParameter field="TECHNICAL" name="PROPERTY_TYPE:PROPERTY_TYPE" value="BUILT_IN" contextMode="false"/>
+    <elementParameter field="TECHNICAL" name="PROPERTY_TYPE:REPOSITORY_PROPERTY_TYPE" value="" contextMode="false"/>
+    <elementParameter field="CLOSED_LIST" name="DB_TYPE" value="" contextMode="false"/>
+    <elementParameter field="TEXT" name="HOST" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="PORT" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="DBNAME" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="PROPERTIES" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="SCHEMA_DB" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="USER" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="PASS" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter field="FILE" name="DBFILE" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter field="DBTABLE" name="TABLE_STATS" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter field="DBTABLE" name="TABLE_LOGS" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter field="DBTABLE" name="TABLE_METER" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter field="CHECK" name="CATCH_RUNTIME_ERRORS" value="true" contextMode="false"/>
+    <elementParameter field="CHECK" name="CATCH_USER_ERRORS" value="true" contextMode="false"/>
+    <elementParameter field="CHECK" name="CATCH_USER_WARNING" value="true" contextMode="false"/>
+    <elementParameter field="CHECK" name="CATCH_REALTIME_STATS" value="false" contextMode="false"/>
   </parameters>
-  <node xmi:id="_k7qNgc-5Ed-AIsoUrfi0wQ" componentName="tFileInputDelimited" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="128" posY="32">
-    <elementParameter xmi:id="_k7qNgs-5Ed-AIsoUrfi0wQ" field="TEXT" name="UNIQUE_NAME" value="tFileInputDelimited_1" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNg8-5Ed-AIsoUrfi0wQ" field="TEXT" name="COMPONENT_NAME" value="tFileInputDelimited" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNhM-5Ed-AIsoUrfi0wQ" field="TEXT" name="TRANSLATED_COMPONENT_NAME" value="tFileInputDelimited" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNhc-5Ed-AIsoUrfi0wQ" field="TEXT" name="VERSION" value="0.102 (ALPHA)" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNhs-5Ed-AIsoUrfi0wQ" field="TEXT" name="FAMILY" value="File/Input" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNh8-5Ed-AIsoUrfi0wQ" field="CHECK" name="START" value="true" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNiM-5Ed-AIsoUrfi0wQ" field="CHECK" name="STARTABLE" value="true" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNic-5Ed-AIsoUrfi0wQ" field="CHECK" name="ACTIVATE" value="true" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNis-5Ed-AIsoUrfi0wQ" field="CHECK" name="DUMMY" value="false" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNi8-5Ed-AIsoUrfi0wQ" field="CHECK" name="TSTATCATCHER_STATS" value="false" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNjM-5Ed-AIsoUrfi0wQ" field="TEXT" name="HELP" value="org.talend.help.tFileInputDelimited" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNjc-5Ed-AIsoUrfi0wQ" field="CHECK" name="UPDATE_COMPONENTS" value="true" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNjs-5Ed-AIsoUrfi0wQ" field="TEXT" name="CURRENT_OS" value="Windows XP" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNj8-5Ed-AIsoUrfi0wQ" field="DIRECTORY" name="IREPORT_PATH" value="" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNkM-5Ed-AIsoUrfi0wQ" field="PROPERTY_TYPE" name="PROPERTY" value="" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNkc-5Ed-AIsoUrfi0wQ" field="TECHNICAL" name="PROPERTY:PROPERTY_TYPE" value="BUILT_IN" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNks-5Ed-AIsoUrfi0wQ" field="TECHNICAL" name="PROPERTY:REPOSITORY_PROPERTY_TYPE" value="_oPqEcGLZEdyr_sd8lC29WQ" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNk8-5Ed-AIsoUrfi0wQ" field="FILE" name="FILENAME" value="context.config_filepath" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNlM-5Ed-AIsoUrfi0wQ" field="TEXT" name="ROWSEPARATOR" value="&quot;\n&quot;" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNlc-5Ed-AIsoUrfi0wQ" field="TEXT" name="FIELDSEPARATOR" value="&quot;;&quot;" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNls-5Ed-AIsoUrfi0wQ" field="CHECK" name="CSV_OPTION" value="false" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNl8-5Ed-AIsoUrfi0wQ" field="TEXT" name="ESCAPE_CHAR" value="&quot;&quot;&quot;" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNmM-5Ed-AIsoUrfi0wQ" field="TEXT" name="TEXT_ENCLOSURE" value="&quot;&quot;&quot;" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNmc-5Ed-AIsoUrfi0wQ" field="TEXT" name="HEADER" value="0" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNms-5Ed-AIsoUrfi0wQ" field="TEXT" name="FOOTER" value="0" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNm8-5Ed-AIsoUrfi0wQ" field="TEXT" name="LIMIT" value="" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNnM-5Ed-AIsoUrfi0wQ" field="CHECK" name="REMOVE_EMPTY_ROW" value="false" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNnc-5Ed-AIsoUrfi0wQ" field="CHECK" name="DIE_ON_ERROR" value="true" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNns-5Ed-AIsoUrfi0wQ" field="CHECK" name="REPOSITORY_ALLOW_AUTO_SWITCH" value="false" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNn8-5Ed-AIsoUrfi0wQ" field="TECHNICAL" name="SCHEMA:SCHEMA_TYPE" value="BUILT_IN" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNoM-5Ed-AIsoUrfi0wQ" field="TECHNICAL" name="SCHEMA:REPOSITORY_SCHEMA_TYPE" value="_oPqEcGLZEdyr_sd8lC29WQ - metadata" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNoc-5Ed-AIsoUrfi0wQ" field="TECHNICAL" name="SCHEMA_REJECT:SCHEMA_TYPE" value="BUILT_IN" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNos-5Ed-AIsoUrfi0wQ" field="TECHNICAL" name="SCHEMA_REJECT:REPOSITORY_SCHEMA_TYPE" value="" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNo8-5Ed-AIsoUrfi0wQ" field="CHECK" name="ADVANCED_SEPARATOR" value="false" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNpM-5Ed-AIsoUrfi0wQ" field="TEXT" name="THOUSANDS_SEPARATOR" value="&quot;,&quot;" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNpc-5Ed-AIsoUrfi0wQ" field="TEXT" name="DECIMAL_SEPARATOR" value="&quot;.&quot;" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNps-5Ed-AIsoUrfi0wQ" field="CHECK" name="RANDOM" value="false" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNp8-5Ed-AIsoUrfi0wQ" field="TEXT" name="NB_RANDOM" value="10" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNqM-5Ed-AIsoUrfi0wQ" field="CHECK" name="TRIMALL" value="false" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNqc-5Ed-AIsoUrfi0wQ" field="TABLE" name="TRIMSELECT" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNqs-5Ed-AIsoUrfi0wQ" field="CHECK" name="CHECK_FIELDS_NUM" value="false" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNq8-5Ed-AIsoUrfi0wQ" field="ENCODING_TYPE" name="ENCODING" value="&quot;US-ASCII&quot;" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNrM-5Ed-AIsoUrfi0wQ" field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="CUSTOM" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNrc-5Ed-AIsoUrfi0wQ" field="CHECK" name="SPLITRECORD" value="false" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNrs-5Ed-AIsoUrfi0wQ" field="TEXT" name="LABEL" value="              &lt;b>__UNIQUE_NAME__&lt;/b>&lt;br>config.txt define the values of the context" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNr8-5Ed-AIsoUrfi0wQ" field="TEXT" name="HINT" value="__UNIQUE_NAME__&lt;br>__COMMENT__" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNsM-5Ed-AIsoUrfi0wQ" field="TEXT" name="CONNECTION_FORMAT" value="row" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNsc-5Ed-AIsoUrfi0wQ" field="MEMO" name="COMMENT" value="Content of the config.txt&#xD;&#xA;&#xD;&#xA;uri;http://talendforge.org/file_fetch.txt&#xD;&#xA;destination;C:&#xD;&#xA;filename;file_fetch.txt&#xD;&#xA;" contextMode="false"/>
-    <metadata xmi:id="_k7qNss-5Ed-AIsoUrfi0wQ" connector="FLOW" name="tFileInputDelimited_1">
-      <column xmi:id="_k7qNs8-5Ed-AIsoUrfi0wQ" comment="" defaultValue="" key="false" length="255" name="key" nullable="false" pattern="" precision="0" type="id_String"/>
-      <column xmi:id="_k7qNtM-5Ed-AIsoUrfi0wQ" comment="" defaultValue="" key="false" length="255" name="value" nullable="false" pattern="" precision="0" type="id_String"/>
+  <node componentName="tFileInputDelimited" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="128" posY="32">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileInputDelimited_1" contextMode="false"/>
+    <elementParameter field="TEXT" name="COMPONENT_NAME" value="tFileInputDelimited" contextMode="false"/>
+    <elementParameter field="TEXT" name="TRANSLATED_COMPONENT_NAME" value="tFileInputDelimited" contextMode="false"/>
+    <elementParameter field="TEXT" name="VERSION" value="0.102 (ALPHA)" contextMode="false"/>
+    <elementParameter field="TEXT" name="FAMILY" value="File/Input" contextMode="false"/>
+    <elementParameter field="CHECK" name="START" value="true" contextMode="false"/>
+    <elementParameter field="CHECK" name="STARTABLE" value="true" contextMode="false"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="true" contextMode="false"/>
+    <elementParameter field="CHECK" name="DUMMY" value="false" contextMode="false"/>
+    <elementParameter field="CHECK" name="TSTATCATCHER_STATS" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="HELP" value="org.talend.help.tFileInputDelimited" contextMode="false"/>
+    <elementParameter field="CHECK" name="UPDATE_COMPONENTS" value="true" contextMode="false"/>
+    <elementParameter field="TEXT" name="CURRENT_OS" value="Windows XP" contextMode="false"/>
+    <elementParameter field="DIRECTORY" name="IREPORT_PATH" value="" contextMode="false"/>
+    <elementParameter field="PROPERTY_TYPE" name="PROPERTY" value="" contextMode="false"/>
+    <elementParameter field="TECHNICAL" name="PROPERTY:PROPERTY_TYPE" value="BUILT_IN" contextMode="false"/>
+    <elementParameter field="TECHNICAL" name="PROPERTY:REPOSITORY_PROPERTY_TYPE" value="_oPqEcGLZEdyr_sd8lC29WQ" contextMode="false"/>
+    <elementParameter field="FILE" name="FILENAME" value="context.config_filepath" contextMode="false"/>
+    <elementParameter field="TEXT" name="ROWSEPARATOR" value="&quot;\n&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="FIELDSEPARATOR" value="&quot;;&quot;" contextMode="false"/>
+    <elementParameter field="CHECK" name="CSV_OPTION" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="ESCAPE_CHAR" value="&quot;&quot;&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="TEXT_ENCLOSURE" value="&quot;&quot;&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="HEADER" value="0" contextMode="false"/>
+    <elementParameter field="TEXT" name="FOOTER" value="0" contextMode="false"/>
+    <elementParameter field="TEXT" name="LIMIT" value="" contextMode="false"/>
+    <elementParameter field="CHECK" name="REMOVE_EMPTY_ROW" value="false" contextMode="false"/>
+    <elementParameter field="CHECK" name="DIE_ON_ERROR" value="true" contextMode="false"/>
+    <elementParameter field="CHECK" name="REPOSITORY_ALLOW_AUTO_SWITCH" value="false" contextMode="false"/>
+    <elementParameter field="TECHNICAL" name="SCHEMA:SCHEMA_TYPE" value="BUILT_IN" contextMode="false"/>
+    <elementParameter field="TECHNICAL" name="SCHEMA:REPOSITORY_SCHEMA_TYPE" value="_oPqEcGLZEdyr_sd8lC29WQ - metadata" contextMode="false"/>
+    <elementParameter field="TECHNICAL" name="SCHEMA_REJECT:SCHEMA_TYPE" value="BUILT_IN" contextMode="false"/>
+    <elementParameter field="TECHNICAL" name="SCHEMA_REJECT:REPOSITORY_SCHEMA_TYPE" value="" contextMode="false"/>
+    <elementParameter field="CHECK" name="ADVANCED_SEPARATOR" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="THOUSANDS_SEPARATOR" value="&quot;,&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="DECIMAL_SEPARATOR" value="&quot;.&quot;" contextMode="false"/>
+    <elementParameter field="CHECK" name="RANDOM" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="NB_RANDOM" value="10" contextMode="false"/>
+    <elementParameter field="CHECK" name="TRIMALL" value="false" contextMode="false"/>
+    <elementParameter field="TABLE" name="TRIMSELECT" contextMode="false"/>
+    <elementParameter field="CHECK" name="CHECK_FIELDS_NUM" value="false" contextMode="false"/>
+    <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;US-ASCII&quot;" contextMode="false"/>
+    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="CUSTOM" contextMode="false"/>
+    <elementParameter field="CHECK" name="SPLITRECORD" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="LABEL" value="              &lt;b>__UNIQUE_NAME__&lt;/b>&lt;br>config.txt define the values of the context" contextMode="false"/>
+    <elementParameter field="TEXT" name="HINT" value="__UNIQUE_NAME__&lt;br>__COMMENT__" contextMode="false"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row" contextMode="false"/>
+    <elementParameter field="MEMO" name="COMMENT" value="Content of the config.txt&#xD;&#xA;&#xD;&#xA;uri;http://talendforge.org/file_fetch.txt&#xD;&#xA;destination;C:&#xD;&#xA;filename;file_fetch.txt&#xD;&#xA;" contextMode="false"/>
+    <metadata connector="FLOW" name="tFileInputDelimited_1">
+      <column comment="" defaultValue="" key="false" length="255" name="key" nullable="false" pattern="" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="255" name="value" nullable="false" pattern="" precision="0" type="id_String"/>
     </metadata>
-    <metadata xmi:id="_k7qNtc-5Ed-AIsoUrfi0wQ" connector="REJECT" name="REJECT">
-      <column xmi:id="_k7qNts-5Ed-AIsoUrfi0wQ" comment="" defaultValue="" key="false" length="255" name="key" nullable="false" pattern="" precision="0" type="id_String"/>
-      <column xmi:id="_k7qNt8-5Ed-AIsoUrfi0wQ" comment="" defaultValue="" key="false" length="255" name="value" nullable="false" pattern="" precision="0" type="id_String"/>
-      <column xmi:id="_k7qNuM-5Ed-AIsoUrfi0wQ" defaultValue="" key="false" length="255" name="errorCode" nullable="true" precision="0" sourceType="" type="id_String"/>
-      <column xmi:id="_k7qNuc-5Ed-AIsoUrfi0wQ" defaultValue="" key="false" length="255" name="errorMessage" nullable="true" precision="0" sourceType="" type="id_String"/>
-    </metadata>
-  </node>
-  <node xmi:id="_k7qNus-5Ed-AIsoUrfi0wQ" componentName="tContextLoad" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="384" posY="32">
-    <elementParameter xmi:id="_k7qNu8-5Ed-AIsoUrfi0wQ" field="TEXT" name="UNIQUE_NAME" value="tContextLoad_1" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNvM-5Ed-AIsoUrfi0wQ" field="TEXT" name="COMPONENT_NAME" value="tContextLoad" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNvc-5Ed-AIsoUrfi0wQ" field="TEXT" name="TRANSLATED_COMPONENT_NAME" value="tContextLoad" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNvs-5Ed-AIsoUrfi0wQ" field="TEXT" name="VERSION" value="0.101 (ALPHA)" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNv8-5Ed-AIsoUrfi0wQ" field="TEXT" name="FAMILY" value="Misc" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNwM-5Ed-AIsoUrfi0wQ" field="CHECK" name="STARTABLE" value="false" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNwc-5Ed-AIsoUrfi0wQ" field="CHECK" name="ACTIVATE" value="true" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNws-5Ed-AIsoUrfi0wQ" field="CHECK" name="DUMMY" value="false" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNw8-5Ed-AIsoUrfi0wQ" field="CHECK" name="TSTATCATCHER_STATS" value="false" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNxM-5Ed-AIsoUrfi0wQ" field="TEXT" name="HELP" value="org.talend.help.tContextLoad" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNxc-5Ed-AIsoUrfi0wQ" field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNxs-5Ed-AIsoUrfi0wQ" field="TEXT" name="CURRENT_OS" value="Windows XP" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNx8-5Ed-AIsoUrfi0wQ" field="DIRECTORY" name="IREPORT_PATH" value="" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNyM-5Ed-AIsoUrfi0wQ" field="CHECK" name="REPOSITORY_ALLOW_AUTO_SWITCH" value="false" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNyc-5Ed-AIsoUrfi0wQ" field="TECHNICAL" name="SCHEMA:SCHEMA_TYPE" value="BUILT_IN" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNys-5Ed-AIsoUrfi0wQ" field="TECHNICAL" name="SCHEMA:REPOSITORY_SCHEMA_TYPE" value="" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNy8-5Ed-AIsoUrfi0wQ" field="CLOSED_LIST" name="LOAD_NEW_VARIABLE" value="Warning" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNzM-5Ed-AIsoUrfi0wQ" field="CLOSED_LIST" name="NOT_LOAD_OLD_VARIABLE" value="Warning" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNzc-5Ed-AIsoUrfi0wQ" field="CHECK" name="PRINT_OPERATIONS" value="true" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNzs-5Ed-AIsoUrfi0wQ" field="CHECK" name="DISABLE_ERROR" value="false" contextMode="false"/>
-    <elementParameter xmi:id="_k7qNz8-5Ed-AIsoUrfi0wQ" field="CHECK" name="DISABLE_WARNINGS" value="true" contextMode="false"/>
-    <elementParameter xmi:id="_k7qN0M-5Ed-AIsoUrfi0wQ" field="CHECK" name="DISABLE_INFO" value="true" contextMode="false"/>
-    <elementParameter xmi:id="_k7qN0c-5Ed-AIsoUrfi0wQ" field="TEXT" name="LABEL" value="                  &lt;b>__UNIQUE_NAME__&lt;/b>&lt;br>this component load the context in the job" contextMode="false"/>
-    <elementParameter xmi:id="_k7qN0s-5Ed-AIsoUrfi0wQ" field="TEXT" name="HINT" value="__UNIQUE_NAME__&lt;br>__COMMENT__" contextMode="false"/>
-    <elementParameter xmi:id="_k7qN08-5Ed-AIsoUrfi0wQ" field="TEXT" name="CONNECTION_FORMAT" value="row" contextMode="false"/>
-    <elementParameter xmi:id="_k7qN1M-5Ed-AIsoUrfi0wQ" field="MEMO" name="COMMENT" value="" contextMode="false"/>
-    <metadata xmi:id="_k7qN1c-5Ed-AIsoUrfi0wQ" connector="FLOW" name="tContextLoad_1">
-      <column xmi:id="_k7qN1s-5Ed-AIsoUrfi0wQ" comment="" defaultValue="" key="false" length="255" name="key" nullable="true" precision="0" sourceType="" type="id_String"/>
-      <column xmi:id="_k7qN18-5Ed-AIsoUrfi0wQ" comment="" defaultValue="" key="false" length="255" name="value" nullable="true" precision="0" sourceType="" type="id_String"/>
+    <metadata connector="REJECT" name="REJECT">
+      <column comment="" defaultValue="" key="false" length="255" name="key" nullable="false" pattern="" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="255" name="value" nullable="false" pattern="" precision="0" type="id_String"/>
+      <column defaultValue="" key="false" length="255" name="errorCode" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" precision="0" sourceType="" type="id_String"/>
     </metadata>
   </node>
-  <node xmi:id="_k7qN2M-5Ed-AIsoUrfi0wQ" componentName="tRSSInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="128" posY="224">
-    <elementParameter xmi:id="_k7qN2c-5Ed-AIsoUrfi0wQ" field="TEXT" name="UNIQUE_NAME" value="tRSSInput_1" contextMode="false"/>
-    <elementParameter xmi:id="_k7qN2s-5Ed-AIsoUrfi0wQ" field="TEXT" name="COMPONENT_NAME" value="tRSSInput" contextMode="false"/>
-    <elementParameter xmi:id="_k7qN28-5Ed-AIsoUrfi0wQ" field="TEXT" name="TRANSLATED_COMPONENT_NAME" value="tRSSInput" contextMode="false"/>
-    <elementParameter xmi:id="_k7qN3M-5Ed-AIsoUrfi0wQ" field="TEXT" name="VERSION" value="0.102 (ALPHA)" contextMode="false"/>
-    <elementParameter xmi:id="_k7qN3c-5Ed-AIsoUrfi0wQ" field="TEXT" name="FAMILY" value="Internet" contextMode="false"/>
-    <elementParameter xmi:id="_k7qN3s-5Ed-AIsoUrfi0wQ" field="CHECK" name="START" value="false" contextMode="false"/>
-    <elementParameter xmi:id="_k7qN38-5Ed-AIsoUrfi0wQ" field="CHECK" name="STARTABLE" value="true" contextMode="false"/>
-    <elementParameter xmi:id="_k7qN4M-5Ed-AIsoUrfi0wQ" field="CHECK" name="ACTIVATE" value="true" contextMode="false"/>
-    <elementParameter xmi:id="_k7qN4c-5Ed-AIsoUrfi0wQ" field="CHECK" name="DUMMY" value="false" contextMode="false"/>
-    <elementParameter xmi:id="_k7qN4s-5Ed-AIsoUrfi0wQ" field="CHECK" name="TSTATCATCHER_STATS" value="false" contextMode="false"/>
-    <elementParameter xmi:id="_k7qN48-5Ed-AIsoUrfi0wQ" field="TEXT" name="HELP" value="org.talend.help.tRSSInput" contextMode="false"/>
-    <elementParameter xmi:id="_k7qN5M-5Ed-AIsoUrfi0wQ" field="CHECK" name="UPDATE_COMPONENTS" value="true" contextMode="false"/>
-    <elementParameter xmi:id="_k7qN5c-5Ed-AIsoUrfi0wQ" field="TEXT" name="CURRENT_OS" value="Windows XP" contextMode="false"/>
-    <elementParameter xmi:id="_k7qN5s-5Ed-AIsoUrfi0wQ" field="DIRECTORY" name="IREPORT_PATH" value="" contextMode="false"/>
-    <elementParameter xmi:id="_k7qN58-5Ed-AIsoUrfi0wQ" field="CHECK" name="REPOSITORY_ALLOW_AUTO_SWITCH" value="false" contextMode="false"/>
-    <elementParameter xmi:id="_k7qN6M-5Ed-AIsoUrfi0wQ" field="TECHNICAL" name="SCHEMA:SCHEMA_TYPE" value="BUILT_IN" contextMode="false"/>
-    <elementParameter xmi:id="_k7qN6c-5Ed-AIsoUrfi0wQ" field="TECHNICAL" name="SCHEMA:REPOSITORY_SCHEMA_TYPE" value="" contextMode="false"/>
-    <elementParameter xmi:id="_k7qN6s-5Ed-AIsoUrfi0wQ" field="TEXT" name="RSS" value="context.uri" contextMode="false"/>
-    <elementParameter xmi:id="_k7qN68-5Ed-AIsoUrfi0wQ" field="CHECK" name="ARTICLE_DATE" value="false" contextMode="false"/>
-    <elementParameter xmi:id="_k7qN7M-5Ed-AIsoUrfi0wQ" field="DATE" name="DATE" value="" contextMode="false"/>
-    <elementParameter xmi:id="_k7qN7c-5Ed-AIsoUrfi0wQ" field="CHECK" name="ARTICLE_AMOUNT" value="true" contextMode="false"/>
-    <elementParameter xmi:id="_k7qN7s-5Ed-AIsoUrfi0wQ" field="TEXT" name="AMOUNT" value="context.postLenght" contextMode="false"/>
-    <elementParameter xmi:id="_k7qN78-5Ed-AIsoUrfi0wQ" field="CHECK" name="DIE_ON_ERROR" value="false" contextMode="false"/>
-    <elementParameter xmi:id="_k7qN8M-5Ed-AIsoUrfi0wQ" field="TEXT" name="LABEL" value="__UNIQUE_NAME__" contextMode="false"/>
-    <elementParameter xmi:id="_k7qN8c-5Ed-AIsoUrfi0wQ" field="TEXT" name="HINT" value="__UNIQUE_NAME__" contextMode="false"/>
-    <elementParameter xmi:id="_k7qN8s-5Ed-AIsoUrfi0wQ" field="TEXT" name="CONNECTION_FORMAT" value="row" contextMode="false"/>
-    <elementParameter xmi:id="_k7qN88-5Ed-AIsoUrfi0wQ" field="MEMO" name="COMMENT" value="" contextMode="false"/>
-    <metadata xmi:id="_k7qN9M-5Ed-AIsoUrfi0wQ" connector="FLOW" name="tRSSInput_1">
-      <column xmi:id="_k7qN9c-5Ed-AIsoUrfi0wQ" comment="" defaultValue="" key="false" length="255" name="TITLE" nullable="true" precision="0" sourceType="" type="id_String"/>
-      <column xmi:id="_k7qN9s-5Ed-AIsoUrfi0wQ" comment="" defaultValue="" key="false" length="255" name="DESCRIPTION" nullable="true" precision="0" sourceType="" type="id_String"/>
-      <column xmi:id="_k7qN98-5Ed-AIsoUrfi0wQ" comment="" defaultValue="" key="false" length="255" name="PUBDATE" nullable="true" precision="0" sourceType="" type="id_String"/>
-      <column xmi:id="_k7qN-M-5Ed-AIsoUrfi0wQ" comment="" defaultValue="" key="false" length="255" name="LINK" nullable="true" precision="0" sourceType="" type="id_String"/>
+  <node componentName="tContextLoad" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="384" posY="32">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tContextLoad_1" contextMode="false"/>
+    <elementParameter field="TEXT" name="COMPONENT_NAME" value="tContextLoad" contextMode="false"/>
+    <elementParameter field="TEXT" name="TRANSLATED_COMPONENT_NAME" value="tContextLoad" contextMode="false"/>
+    <elementParameter field="TEXT" name="VERSION" value="0.101 (ALPHA)" contextMode="false"/>
+    <elementParameter field="TEXT" name="FAMILY" value="Misc" contextMode="false"/>
+    <elementParameter field="CHECK" name="STARTABLE" value="false" contextMode="false"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="true" contextMode="false"/>
+    <elementParameter field="CHECK" name="DUMMY" value="false" contextMode="false"/>
+    <elementParameter field="CHECK" name="TSTATCATCHER_STATS" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="HELP" value="org.talend.help.tContextLoad" contextMode="false"/>
+    <elementParameter field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="CURRENT_OS" value="Windows XP" contextMode="false"/>
+    <elementParameter field="DIRECTORY" name="IREPORT_PATH" value="" contextMode="false"/>
+    <elementParameter field="CHECK" name="REPOSITORY_ALLOW_AUTO_SWITCH" value="false" contextMode="false"/>
+    <elementParameter field="TECHNICAL" name="SCHEMA:SCHEMA_TYPE" value="BUILT_IN" contextMode="false"/>
+    <elementParameter field="TECHNICAL" name="SCHEMA:REPOSITORY_SCHEMA_TYPE" value="" contextMode="false"/>
+    <elementParameter field="CLOSED_LIST" name="LOAD_NEW_VARIABLE" value="Warning" contextMode="false"/>
+    <elementParameter field="CLOSED_LIST" name="NOT_LOAD_OLD_VARIABLE" value="Warning" contextMode="false"/>
+    <elementParameter field="CHECK" name="PRINT_OPERATIONS" value="true" contextMode="false"/>
+    <elementParameter field="CHECK" name="DISABLE_ERROR" value="false" contextMode="false"/>
+    <elementParameter field="CHECK" name="DISABLE_WARNINGS" value="true" contextMode="false"/>
+    <elementParameter field="CHECK" name="DISABLE_INFO" value="true" contextMode="false"/>
+    <elementParameter field="TEXT" name="LABEL" value="                  &lt;b>__UNIQUE_NAME__&lt;/b>&lt;br>this component load the context in the job" contextMode="false"/>
+    <elementParameter field="TEXT" name="HINT" value="__UNIQUE_NAME__&lt;br>__COMMENT__" contextMode="false"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row" contextMode="false"/>
+    <elementParameter field="MEMO" name="COMMENT" value="" contextMode="false"/>
+    <metadata connector="FLOW" name="tContextLoad_1">
+      <column comment="" defaultValue="" key="false" length="255" name="key" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="255" name="value" nullable="true" precision="0" sourceType="" type="id_String"/>
     </metadata>
   </node>
-  <node xmi:id="_k7qN-c-5Ed-AIsoUrfi0wQ" componentName="tLogRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="384" posY="224">
-    <elementParameter xmi:id="_k7qN-s-5Ed-AIsoUrfi0wQ" field="TEXT" name="UNIQUE_NAME" value="tLogRow_1" contextMode="false"/>
-    <elementParameter xmi:id="_k7qN-8-5Ed-AIsoUrfi0wQ" field="TEXT" name="COMPONENT_NAME" value="tLogRow" contextMode="false"/>
-    <elementParameter xmi:id="_k7qN_M-5Ed-AIsoUrfi0wQ" field="TEXT" name="TRANSLATED_COMPONENT_NAME" value="tLogRow" contextMode="false"/>
-    <elementParameter xmi:id="_k7qN_c-5Ed-AIsoUrfi0wQ" field="TEXT" name="VERSION" value="0.101 (ALPHA)" contextMode="false"/>
-    <elementParameter xmi:id="_k7qN_s-5Ed-AIsoUrfi0wQ" field="TEXT" name="FAMILY" value="Logs &amp; Errors" contextMode="false"/>
-    <elementParameter xmi:id="_k7qN_8-5Ed-AIsoUrfi0wQ" field="CHECK" name="STARTABLE" value="false" contextMode="false"/>
-    <elementParameter xmi:id="_k7qOAM-5Ed-AIsoUrfi0wQ" field="CHECK" name="ACTIVATE" value="true" contextMode="false"/>
-    <elementParameter xmi:id="_k7qOAc-5Ed-AIsoUrfi0wQ" field="CHECK" name="DUMMY" value="false" contextMode="false"/>
-    <elementParameter xmi:id="_k7qOAs-5Ed-AIsoUrfi0wQ" field="CHECK" name="TSTATCATCHER_STATS" value="false" contextMode="false"/>
-    <elementParameter xmi:id="_k7qOA8-5Ed-AIsoUrfi0wQ" field="TEXT" name="HELP" value="org.talend.help.tLogRow" contextMode="false"/>
-    <elementParameter xmi:id="_k7qOBM-5Ed-AIsoUrfi0wQ" field="CHECK" name="UPDATE_COMPONENTS" value="true" contextMode="false"/>
-    <elementParameter xmi:id="_k7qOBc-5Ed-AIsoUrfi0wQ" field="TEXT" name="CURRENT_OS" value="Windows XP" contextMode="false"/>
-    <elementParameter xmi:id="_k7qOBs-5Ed-AIsoUrfi0wQ" field="DIRECTORY" name="IREPORT_PATH" value="" contextMode="false"/>
-    <elementParameter xmi:id="_k7qOB8-5Ed-AIsoUrfi0wQ" field="CHECK" name="REPOSITORY_ALLOW_AUTO_SWITCH" value="false" contextMode="false"/>
-    <elementParameter xmi:id="_k7qOCM-5Ed-AIsoUrfi0wQ" field="TECHNICAL" name="SCHEMA:SCHEMA_TYPE" value="BUILT_IN" contextMode="false"/>
-    <elementParameter xmi:id="_k7qOCc-5Ed-AIsoUrfi0wQ" field="TECHNICAL" name="SCHEMA:REPOSITORY_SCHEMA_TYPE" value="" contextMode="false"/>
-    <elementParameter xmi:id="_k7qOCs-5Ed-AIsoUrfi0wQ" field="RADIO" name="BASIC_MODE" value="true" contextMode="false"/>
-    <elementParameter xmi:id="_k7qOC8-5Ed-AIsoUrfi0wQ" field="RADIO" name="TABLE_PRINT" value="false" contextMode="false"/>
-    <elementParameter xmi:id="_k7qODM-5Ed-AIsoUrfi0wQ" field="RADIO" name="VERTICAL" value="false" contextMode="false"/>
-    <elementParameter xmi:id="_k7qODc-5Ed-AIsoUrfi0wQ" field="TEXT" name="FIELDSEPARATOR" value="&quot;|&quot;" contextMode="false"/>
-    <elementParameter xmi:id="_k7qODs-5Ed-AIsoUrfi0wQ" field="CHECK" name="PRINT_HEADER" value="false" contextMode="false"/>
-    <elementParameter xmi:id="_k7qOD8-5Ed-AIsoUrfi0wQ" field="CHECK" name="PRINT_UNIQUE_NAME" value="false" contextMode="false"/>
-    <elementParameter xmi:id="_k7qOEM-5Ed-AIsoUrfi0wQ" field="CHECK" name="PRINT_COLNAMES" value="false" contextMode="false"/>
-    <elementParameter xmi:id="_k7qOEc-5Ed-AIsoUrfi0wQ" field="CHECK" name="USE_FIXED_LENGTH" value="false" contextMode="false"/>
-    <elementParameter xmi:id="_k7qOEs-5Ed-AIsoUrfi0wQ" field="TABLE" name="LENGTHS" contextMode="false">
-      <elementValue xmi:id="_k7qOE8-5Ed-AIsoUrfi0wQ" elementRef="SCHEMA_COLUMN" value="TITLE"/>
-      <elementValue xmi:id="_k7qOFM-5Ed-AIsoUrfi0wQ" elementRef="LENGTH" value="10"/>
-      <elementValue xmi:id="_k7qOFc-5Ed-AIsoUrfi0wQ" elementRef="SCHEMA_COLUMN" value="DESCRIPTION"/>
-      <elementValue xmi:id="_k7qOFs-5Ed-AIsoUrfi0wQ" elementRef="LENGTH" value="10"/>
-      <elementValue xmi:id="_k7qOF8-5Ed-AIsoUrfi0wQ" elementRef="SCHEMA_COLUMN" value="PUBDATE"/>
-      <elementValue xmi:id="_k7qOGM-5Ed-AIsoUrfi0wQ" elementRef="LENGTH" value="10"/>
-      <elementValue xmi:id="_k7qOGc-5Ed-AIsoUrfi0wQ" elementRef="SCHEMA_COLUMN" value="LINK"/>
-      <elementValue xmi:id="_k7qOGs-5Ed-AIsoUrfi0wQ" elementRef="LENGTH" value="10"/>
+  <node componentName="tRSSInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="128" posY="224">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tRSSInput_1" contextMode="false"/>
+    <elementParameter field="TEXT" name="COMPONENT_NAME" value="tRSSInput" contextMode="false"/>
+    <elementParameter field="TEXT" name="TRANSLATED_COMPONENT_NAME" value="tRSSInput" contextMode="false"/>
+    <elementParameter field="TEXT" name="VERSION" value="0.102 (ALPHA)" contextMode="false"/>
+    <elementParameter field="TEXT" name="FAMILY" value="Internet" contextMode="false"/>
+    <elementParameter field="CHECK" name="START" value="false" contextMode="false"/>
+    <elementParameter field="CHECK" name="STARTABLE" value="true" contextMode="false"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="true" contextMode="false"/>
+    <elementParameter field="CHECK" name="DUMMY" value="false" contextMode="false"/>
+    <elementParameter field="CHECK" name="TSTATCATCHER_STATS" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="HELP" value="org.talend.help.tRSSInput" contextMode="false"/>
+    <elementParameter field="CHECK" name="UPDATE_COMPONENTS" value="true" contextMode="false"/>
+    <elementParameter field="TEXT" name="CURRENT_OS" value="Windows XP" contextMode="false"/>
+    <elementParameter field="DIRECTORY" name="IREPORT_PATH" value="" contextMode="false"/>
+    <elementParameter field="CHECK" name="REPOSITORY_ALLOW_AUTO_SWITCH" value="false" contextMode="false"/>
+    <elementParameter field="TECHNICAL" name="SCHEMA:SCHEMA_TYPE" value="BUILT_IN" contextMode="false"/>
+    <elementParameter field="TECHNICAL" name="SCHEMA:REPOSITORY_SCHEMA_TYPE" value="" contextMode="false"/>
+    <elementParameter field="TEXT" name="RSS" value="context.uri" contextMode="false"/>
+    <elementParameter field="CHECK" name="ARTICLE_DATE" value="false" contextMode="false"/>
+    <elementParameter field="DATE" name="DATE" value="" contextMode="false"/>
+    <elementParameter field="CHECK" name="ARTICLE_AMOUNT" value="true" contextMode="false"/>
+    <elementParameter field="TEXT" name="AMOUNT" value="context.postLenght" contextMode="false"/>
+    <elementParameter field="CHECK" name="DIE_ON_ERROR" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="LABEL" value="__UNIQUE_NAME__" contextMode="false"/>
+    <elementParameter field="TEXT" name="HINT" value="__UNIQUE_NAME__" contextMode="false"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row" contextMode="false"/>
+    <elementParameter field="MEMO" name="COMMENT" value="" contextMode="false"/>
+    <metadata connector="FLOW" name="tRSSInput_1">
+      <column comment="" defaultValue="" key="false" length="255" name="TITLE" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="255" name="DESCRIPTION" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="255" name="PUBDATE" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="255" name="LINK" nullable="true" precision="0" sourceType="" type="id_String"/>
+    </metadata>
+  </node>
+  <node componentName="tLogRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="384" posY="224">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tLogRow_1" contextMode="false"/>
+    <elementParameter field="TEXT" name="COMPONENT_NAME" value="tLogRow" contextMode="false"/>
+    <elementParameter field="TEXT" name="TRANSLATED_COMPONENT_NAME" value="tLogRow" contextMode="false"/>
+    <elementParameter field="TEXT" name="VERSION" value="0.101 (ALPHA)" contextMode="false"/>
+    <elementParameter field="TEXT" name="FAMILY" value="Logs &amp; Errors" contextMode="false"/>
+    <elementParameter field="CHECK" name="STARTABLE" value="false" contextMode="false"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="true" contextMode="false"/>
+    <elementParameter field="CHECK" name="DUMMY" value="false" contextMode="false"/>
+    <elementParameter field="CHECK" name="TSTATCATCHER_STATS" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="HELP" value="org.talend.help.tLogRow" contextMode="false"/>
+    <elementParameter field="CHECK" name="UPDATE_COMPONENTS" value="true" contextMode="false"/>
+    <elementParameter field="TEXT" name="CURRENT_OS" value="Windows XP" contextMode="false"/>
+    <elementParameter field="DIRECTORY" name="IREPORT_PATH" value="" contextMode="false"/>
+    <elementParameter field="CHECK" name="REPOSITORY_ALLOW_AUTO_SWITCH" value="false" contextMode="false"/>
+    <elementParameter field="TECHNICAL" name="SCHEMA:SCHEMA_TYPE" value="BUILT_IN" contextMode="false"/>
+    <elementParameter field="TECHNICAL" name="SCHEMA:REPOSITORY_SCHEMA_TYPE" value="" contextMode="false"/>
+    <elementParameter field="RADIO" name="BASIC_MODE" value="true" contextMode="false"/>
+    <elementParameter field="RADIO" name="TABLE_PRINT" value="false" contextMode="false"/>
+    <elementParameter field="RADIO" name="VERTICAL" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="FIELDSEPARATOR" value="&quot;|&quot;" contextMode="false"/>
+    <elementParameter field="CHECK" name="PRINT_HEADER" value="false" contextMode="false"/>
+    <elementParameter field="CHECK" name="PRINT_UNIQUE_NAME" value="false" contextMode="false"/>
+    <elementParameter field="CHECK" name="PRINT_COLNAMES" value="false" contextMode="false"/>
+    <elementParameter field="CHECK" name="USE_FIXED_LENGTH" value="false" contextMode="false"/>
+    <elementParameter field="TABLE" name="LENGTHS" contextMode="false">
+      <elementValue elementRef="SCHEMA_COLUMN" value="TITLE"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="DESCRIPTION"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="PUBDATE"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="LINK"/>
+      <elementValue elementRef="LENGTH" value="10"/>
     </elementParameter>
-    <elementParameter xmi:id="_k7qOG8-5Ed-AIsoUrfi0wQ" field="TEXT" name="LABEL" value="__UNIQUE_NAME__" contextMode="false"/>
-    <elementParameter xmi:id="_k7qOHM-5Ed-AIsoUrfi0wQ" field="TEXT" name="HINT" value="__UNIQUE_NAME__" contextMode="false"/>
-    <elementParameter xmi:id="_k7qOHc-5Ed-AIsoUrfi0wQ" field="TEXT" name="CONNECTION_FORMAT" value="row" contextMode="false"/>
-    <elementParameter xmi:id="_k7qOHs-5Ed-AIsoUrfi0wQ" field="MEMO" name="COMMENT" value="" contextMode="false"/>
-    <metadata xmi:id="_k7qOH8-5Ed-AIsoUrfi0wQ" connector="FLOW" name="tLogRow_1">
-      <column xmi:id="_k7qOIM-5Ed-AIsoUrfi0wQ" comment="" defaultValue="" key="false" length="255" name="TITLE" nullable="true" precision="0" sourceType="" type="id_String"/>
-      <column xmi:id="_k7qOIc-5Ed-AIsoUrfi0wQ" comment="" defaultValue="" key="false" length="255" name="DESCRIPTION" nullable="true" precision="0" sourceType="" type="id_String"/>
-      <column xmi:id="_k7qOIs-5Ed-AIsoUrfi0wQ" comment="" defaultValue="" key="false" length="255" name="PUBDATE" nullable="true" precision="0" sourceType="" type="id_String"/>
-      <column xmi:id="_k7qOI8-5Ed-AIsoUrfi0wQ" comment="" defaultValue="" key="false" length="255" name="LINK" nullable="true" precision="0" sourceType="" type="id_String"/>
+    <elementParameter field="TEXT" name="LABEL" value="__UNIQUE_NAME__" contextMode="false"/>
+    <elementParameter field="TEXT" name="HINT" value="__UNIQUE_NAME__" contextMode="false"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row" contextMode="false"/>
+    <elementParameter field="MEMO" name="COMMENT" value="" contextMode="false"/>
+    <metadata connector="FLOW" name="tLogRow_1">
+      <column comment="" defaultValue="" key="false" length="255" name="TITLE" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="255" name="DESCRIPTION" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="255" name="PUBDATE" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="255" name="LINK" nullable="true" precision="0" sourceType="" type="id_String"/>
     </metadata>
   </node>
-  <connection xmi:id="_k7qOJM-5Ed-AIsoUrfi0wQ" connectorName="FLOW" label="row1" lineStyle="0" metaname="tFileInputDelimited_1" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_1" target="tContextLoad_1">
-    <elementParameter xmi:id="_k7qOJc-5Ed-AIsoUrfi0wQ" field="CHECK" name="MONITOR_CONNECTION" value="false" contextMode="false"/>
-    <elementParameter xmi:id="_k7qOJs-5Ed-AIsoUrfi0wQ" field="CHECK" name="USEROWLABEL" value="true" contextMode="false"/>
-    <elementParameter xmi:id="_k7qOJ8-5Ed-AIsoUrfi0wQ" field="TEXT" name="METTERLABEL" value="&quot;MyLabel&quot;" contextMode="false"/>
-    <elementParameter xmi:id="_k7qOKM-5Ed-AIsoUrfi0wQ" field="CLOSED_LIST" name="ABSOLUTE" value="Absolute" contextMode="false"/>
-    <elementParameter xmi:id="_k7qOKc-5Ed-AIsoUrfi0wQ" field="CONNECTION_LIST" name="CONNECTIONS" value="" contextMode="false"/>
-    <elementParameter xmi:id="_k7qOKs-5Ed-AIsoUrfi0wQ" field="TABLE" name="THRESHLODS" contextMode="false"/>
-    <elementParameter xmi:id="_k7qOK8-5Ed-AIsoUrfi0wQ" field="CHECK" name="ACTIVATE" value="true" contextMode="false"/>
-    <elementParameter xmi:id="_k7qOLM-5Ed-AIsoUrfi0wQ" field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
-    <elementParameter xmi:id="_k7qOLc-5Ed-AIsoUrfi0wQ" field="TEXT" name="UNIQUE_NAME" value="row1" contextMode="false"/>
+  <connection connectorName="FLOW" label="row1" lineStyle="0" metaname="tFileInputDelimited_1" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_1" target="tContextLoad_1">
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false" contextMode="false"/>
+    <elementParameter field="CHECK" name="USEROWLABEL" value="true" contextMode="false"/>
+    <elementParameter field="TEXT" name="METTERLABEL" value="&quot;MyLabel&quot;" contextMode="false"/>
+    <elementParameter field="CLOSED_LIST" name="ABSOLUTE" value="Absolute" contextMode="false"/>
+    <elementParameter field="CONNECTION_LIST" name="CONNECTIONS" value="" contextMode="false"/>
+    <elementParameter field="TABLE" name="THRESHLODS" contextMode="false"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="true" contextMode="false"/>
+    <elementParameter field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="row1" contextMode="false"/>
   </connection>
-  <connection xmi:id="_k7qOLs-5Ed-AIsoUrfi0wQ" connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFileInputDelimited_1" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_1" target="tRSSInput_1">
-    <elementParameter xmi:id="_k7qOL8-5Ed-AIsoUrfi0wQ" field="CHECK" name="ACTIVATE" value="true" contextMode="false"/>
-    <elementParameter xmi:id="_k7qOMM-5Ed-AIsoUrfi0wQ" field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
-    <elementParameter xmi:id="_k7qOMc-5Ed-AIsoUrfi0wQ" field="TEXT" name="UNIQUE_NAME" value="OnSubjobOk33" contextMode="false"/>
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFileInputDelimited_1" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_1" target="tRSSInput_1">
+    <elementParameter field="CHECK" name="ACTIVATE" value="true" contextMode="false"/>
+    <elementParameter field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnSubjobOk33" contextMode="false"/>
   </connection>
-  <connection xmi:id="_k7qOMs-5Ed-AIsoUrfi0wQ" connectorName="FLOW" label="row2" lineStyle="0" metaname="tRSSInput_1" offsetLabelX="0" offsetLabelY="0" source="tRSSInput_1" target="tLogRow_1">
-    <elementParameter xmi:id="_k7qOM8-5Ed-AIsoUrfi0wQ" field="CHECK" name="MONITOR_CONNECTION" value="false" contextMode="false"/>
-    <elementParameter xmi:id="_k7qONM-5Ed-AIsoUrfi0wQ" field="CHECK" name="USEROWLABEL" value="true" contextMode="false"/>
-    <elementParameter xmi:id="_k7qONc-5Ed-AIsoUrfi0wQ" field="TEXT" name="METTERLABEL" value="&quot;MyLabel&quot;" contextMode="false"/>
-    <elementParameter xmi:id="_k7qONs-5Ed-AIsoUrfi0wQ" field="CLOSED_LIST" name="ABSOLUTE" value="Absolute" contextMode="false"/>
-    <elementParameter xmi:id="_k7qON8-5Ed-AIsoUrfi0wQ" field="CONNECTION_LIST" name="CONNECTIONS" value="" contextMode="false"/>
-    <elementParameter xmi:id="_k7qOOM-5Ed-AIsoUrfi0wQ" field="TABLE" name="THRESHLODS" contextMode="false"/>
-    <elementParameter xmi:id="_k7qOOc-5Ed-AIsoUrfi0wQ" field="CHECK" name="ACTIVATE" value="true" contextMode="false"/>
-    <elementParameter xmi:id="_k7qOOs-5Ed-AIsoUrfi0wQ" field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
-    <elementParameter xmi:id="_k7qOO8-5Ed-AIsoUrfi0wQ" field="TEXT" name="UNIQUE_NAME" value="row2" contextMode="false"/>
+  <connection connectorName="FLOW" label="row2" lineStyle="0" metaname="tRSSInput_1" offsetLabelX="0" offsetLabelY="0" source="tRSSInput_1" target="tLogRow_1">
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false" contextMode="false"/>
+    <elementParameter field="CHECK" name="USEROWLABEL" value="true" contextMode="false"/>
+    <elementParameter field="TEXT" name="METTERLABEL" value="&quot;MyLabel&quot;" contextMode="false"/>
+    <elementParameter field="CLOSED_LIST" name="ABSOLUTE" value="Absolute" contextMode="false"/>
+    <elementParameter field="CONNECTION_LIST" name="CONNECTIONS" value="" contextMode="false"/>
+    <elementParameter field="TABLE" name="THRESHLODS" contextMode="false"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="true" contextMode="false"/>
+    <elementParameter field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="row2" contextMode="false"/>
   </connection>
-  <subjob xmi:id="_k7qOPM-5Ed-AIsoUrfi0wQ">
-    <elementParameter xmi:id="_k7qOPc-5Ed-AIsoUrfi0wQ" field="CHECK" name="COLLAPSED" value="false" contextMode="false"/>
-    <elementParameter xmi:id="_k7qOPs-5Ed-AIsoUrfi0wQ" field="CHECK" name="SHOW_SUBJOB_TITLE" value="false" contextMode="false"/>
-    <elementParameter xmi:id="_k7qOP8-5Ed-AIsoUrfi0wQ" field="TEXT" name="SUBJOB_TITLE" value="" contextMode="false"/>
-    <elementParameter xmi:id="_k7qOQM-5Ed-AIsoUrfi0wQ" field="COLOR" name="SUBJOB_COLOR" value="220;220;250" contextMode="false"/>
-    <elementParameter xmi:id="_k7qOQc-5Ed-AIsoUrfi0wQ" field="TEXT" name="UNIQUE_NAME" value="tFileInputDelimited_1" contextMode="false"/>
-    <elementParameter xmi:id="_k7qOQs-5Ed-AIsoUrfi0wQ" field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
+  <subjob>
+    <elementParameter field="CHECK" name="COLLAPSED" value="false" contextMode="false"/>
+    <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="SUBJOB_TITLE" value="" contextMode="false"/>
+    <elementParameter field="COLOR" name="SUBJOB_COLOR" value="220;220;250" contextMode="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileInputDelimited_1" contextMode="false"/>
+    <elementParameter field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
   </subjob>
-  <subjob xmi:id="_k7qOQ8-5Ed-AIsoUrfi0wQ">
-    <elementParameter xmi:id="_k7qORM-5Ed-AIsoUrfi0wQ" field="CHECK" name="COLLAPSED" value="false" contextMode="false"/>
-    <elementParameter xmi:id="_k7qORc-5Ed-AIsoUrfi0wQ" field="CHECK" name="SHOW_SUBJOB_TITLE" value="false" contextMode="false"/>
-    <elementParameter xmi:id="_k7qORs-5Ed-AIsoUrfi0wQ" field="TEXT" name="SUBJOB_TITLE" value="" contextMode="false"/>
-    <elementParameter xmi:id="_k7qOR8-5Ed-AIsoUrfi0wQ" field="COLOR" name="SUBJOB_COLOR" value="220;220;250" contextMode="false"/>
-    <elementParameter xmi:id="_k7qOSM-5Ed-AIsoUrfi0wQ" field="TEXT" name="UNIQUE_NAME" value="tRSSInput_1" contextMode="false"/>
-    <elementParameter xmi:id="_k7qOSc-5Ed-AIsoUrfi0wQ" field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
+  <subjob>
+    <elementParameter field="CHECK" name="COLLAPSED" value="false" contextMode="false"/>
+    <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="SUBJOB_TITLE" value="" contextMode="false"/>
+    <elementParameter field="COLOR" name="SUBJOB_COLOR" value="220;220;250" contextMode="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tRSSInput_1" contextMode="false"/>
+    <elementParameter field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
   </subjob>
-  <routinesDependencies xmi:id="_k7qOSs-5Ed-AIsoUrfi0wQ" idOrName="DataOperation" system="true"/>
-  <routinesDependencies xmi:id="_k7qOS8-5Ed-AIsoUrfi0wQ" idOrName="Mathematical" system="true"/>
-  <routinesDependencies xmi:id="_k7qOTM-5Ed-AIsoUrfi0wQ" idOrName="Numeric" system="true"/>
-  <routinesDependencies xmi:id="_k7qOTc-5Ed-AIsoUrfi0wQ" idOrName="Relational" system="true"/>
-  <routinesDependencies xmi:id="_k7qOTs-5Ed-AIsoUrfi0wQ" idOrName="StringHandling" system="true"/>
-  <routinesDependencies xmi:id="_k7qOT8-5Ed-AIsoUrfi0wQ" idOrName="TalendDataGenerator" system="true"/>
-  <routinesDependencies xmi:id="_k7qOUM-5Ed-AIsoUrfi0wQ" idOrName="TalendDate" system="true"/>
-  <routinesDependencies xmi:id="_k7qOUc-5Ed-AIsoUrfi0wQ" idOrName="TalendString" system="true"/>
-  <routinesDependencies xmi:id="_k7qOUs-5Ed-AIsoUrfi0wQ" idOrName="_8qwkYFjNEdyj6eiqDt60Og"/>
-  <routinesDependencies xmi:id="_k7qOU8-5Ed-AIsoUrfi0wQ" idOrName="_HKXfQGIZEd26GZmhFZLTPA"/>
 </talendfile:ProcessType>

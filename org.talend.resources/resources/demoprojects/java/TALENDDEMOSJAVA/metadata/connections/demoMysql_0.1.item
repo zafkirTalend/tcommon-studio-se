@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:TalendMetadata="http://www.talend.org/metadata/connection/2010" xmlns:orgomg.cwm.resource.relational="http:///orgomg/cwm/resource/relational.ecore">
-  <TalendMetadata:DatabaseConnection xmi:id="_lHdMs8-5Ed-AIsoUrfi0wQ" dataPackage="_lHdMtM-5Ed-AIsoUrfi0wQ" DatabaseType="MySQL" URL="jdbc:mysql://localhost:3306/demoproject?" dbVersionString="MYSQL_5" Port="3306" Username="root" Password="toor" ServerName="localhost" DatasourceName="" FileFieldName="" SID="demoproject" SqlSynthax="SQL Syntax" DbmsId="mysql_id" ProductId="MYSQL" DBRootPath="" AdditionalParams="" StandardSQL="true" SQLMode="true" UiSchema=""/>
-  <orgomg.cwm.resource.relational:Schema xmi:id="_lHdMtM-5Ed-AIsoUrfi0wQ" name="" dataManager="_lHdMs8-5Ed-AIsoUrfi0wQ"/>
-</xmi:XMI>
+<TalendMetadata:DatabaseConnection xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:TalendMetadata="http://www.talend.org" DatabaseType="MySQL" URL="jdbc:mysql://localhost:3306/demoproject?" dbVersionString="MYSQL_5" Port="3306" Username="root" Password="TWBzxKlzTmE=" ServerName="localhost" DatasourceName="" FileFieldName="" Schema="" SID="demoproject" SqlSynthax="SQL Syntax" DbmsId="mysql_id" ProductId="MYSQL" DBRootPath="" AdditionalParams="" StandardSQL="true">
+  <tables id="_OTNUcDDqEd-mKPO5-zpv7Q" label="state" sourceName="state" tableType="TABLE">
+    <columns label="idusstate" sourceType="INT" defaultValue="&quot;0&quot;" talendType="id_Integer" key="true" nullable="false" length="10" precision="0" originalField="idusstate"/>
+    <columns label="usstatename" sourceType="VARCHAR" talendType="id_String" length="255" precision="0" originalField="usstatename"/>
+  </tables>
+  <tables id="_OfCJ8DDqEd-mKPO5-zpv7Q" label="customer" sourceName="customer" tableType="TABLE">
+    <columns label="idcustomer" sourceType="INT" talendType="id_Integer" length="10" precision="0" originalField="idcustomer"/>
+    <columns label="customername" sourceType="VARCHAR" talendType="id_String" length="255" precision="0" originalField="customername"/>
+    <columns label="idusstate" sourceType="INT" talendType="id_Integer" length="10" precision="0" originalField="idusstate"/>
+  </tables>
+</TalendMetadata:DatabaseConnection>

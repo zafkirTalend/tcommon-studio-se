@@ -1,0 +1,520 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<talendfile:ProcessType xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" defaultContext="demo" screenshot="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">
+  <context confirmationNeeded="false" name="demo">
+    <contextParameter comment="" name="root" prompt="Set the path of the dir to store the example files folder:" promptNeeded="false" repositoryContextId="_dn7XwGT9Edyrh8knyihGHw" type="id_String" value="/home/nfrancisco/Bureau/"/>
+  </context>
+  <parameters>
+    <elementParameter field="DIRECTORY" name="COMP_DEFAULT_FILE_DIR" value="/home/nfrancisco/Talend/Logiciels/TOS/4.0.0/Install/TOS-All-r39896-V4.0.0/workspace"/>
+    <elementParameter field="DIRECTORY" name="COMP_DEFAULT_PROJECT_DIR" value="/home/nfrancisco/Talend/Logiciels/TOS/4.0.0/Install/TOS-All-r39896-V4.0.0/workspace/TALENDDEMOSJAVA"/>
+    <elementParameter field="TEXT" name="JOB_RUN_VM_ARGUMENTS" value=" -Xms256M -Xmx1024M"/>
+    <elementParameter field="CHECK" name="JOB_RUN_VM_ARGUMENTS_OPTION" value="false"/>
+    <elementParameter field="TEXT" name="AUTHOR" value="nfrancisco@talend.com"/>
+    <elementParameter field="TEXT" name="STATUS" value=""/>
+    <elementParameter field="TEXT" name="NAME" value="generic_elt_step1"/>
+    <elementParameter field="TEXT" name="VERSION" value="0.1"/>
+    <elementParameter field="TEXT" name="PURPOSE" value=""/>
+    <elementParameter field="TEXT" name="DESCRIPTION" value=""/>
+    <elementParameter field="TEXT" name="SCREEN_OFFSET_X" value="0"/>
+    <elementParameter field="TEXT" name="SCREEN_OFFSET_Y" value="32"/>
+    <elementParameter field="TEXT" name="SCHEMA_OPTIONS" value="none"/>
+    <elementParameter field="CHECK" name="IMPLICITCONTEXT_USE_PROJECT_SETTINGS" value="true"/>
+    <elementParameter field="CHECK" name="STATANDLOG_USE_PROJECT_SETTINGS" value="true"/>
+    <elementParameter field="CHECK" name="MULTI_THREAD_EXECATION" value="false"/>
+    <elementParameter field="CHECK" name="IMPLICIT_TCONTEXTLOAD" value="false"/>
+    <elementParameter field="RADIO" name="FROM_FILE_FLAG_IMPLICIT_CONTEXT" value="false"/>
+    <elementParameter field="RADIO" name="FROM_DATABASE_FLAG_IMPLICIT_CONTEXT" value="false"/>
+    <elementParameter field="FILE" name="IMPLICIT_TCONTEXTLOAD_FILE" value="&quot;&quot;"/>
+    <elementParameter field="TEXT" name="FIELDSEPARATOR" value="&quot;&quot;"/>
+    <elementParameter field="TECHNICAL" name="PROPERTY_TYPE_IMPLICIT_CONTEXT:PROPERTY_TYPE" value=""/>
+    <elementParameter field="TECHNICAL" name="PROPERTY_TYPE_IMPLICIT_CONTEXT:REPOSITORY_PROPERTY_TYPE" value=""/>
+    <elementParameter field="CLOSED_LIST" name="DB_TYPE_IMPLICIT_CONTEXT" value=""/>
+    <elementParameter field="CLOSED_LIST" name="DB_VERSION_IMPLICIT_CONTEXT" value=""/>
+    <elementParameter field="TEXT" name="HOST_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter field="TEXT" name="PORT_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter field="TEXT" name="DBNAME_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter field="TEXT" name="LOCAL_SERVICE_NAME_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter field="TEXT" name="PROPERTIES_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter field="TEXT" name="SCHEMA_DB_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter field="TEXT" name="USER_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter field="TEXT" name="PASS_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter field="FILE" name="DBFILE_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter field="DBTABLE" name="DBTABLE_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter field="TEXT" name="QUERY_CONDITION_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter field="CLOSED_LIST" name="LOAD_NEW_VARIABLE" value=""/>
+    <elementParameter field="CLOSED_LIST" name="NOT_LOAD_OLD_VARIABLE" value=""/>
+    <elementParameter field="CHECK" name="PRINT_OPERATIONS" value="false"/>
+    <elementParameter field="CHECK" name="DISABLE_ERROR" value="false"/>
+    <elementParameter field="CHECK" name="DISABLE_WARNINGS" value="false"/>
+    <elementParameter field="CHECK" name="DISABLE_INFO" value="false"/>
+    <elementParameter field="CHECK" name="ON_STATCATCHER_FLAG" value="false"/>
+    <elementParameter field="CHECK" name="ON_LOGCATCHER_FLAG" value="false"/>
+    <elementParameter field="CHECK" name="ON_METERCATCHER_FLAG" value="false"/>
+    <elementParameter field="CHECK" name="ON_CONSOLE_FLAG" value="false"/>
+    <elementParameter field="CHECK" name="ON_FILES_FLAG" value="false"/>
+    <elementParameter field="DIRECTORY" name="FILE_PATH" value="&quot;/home/nfrancisco/Talend/Logiciels/TOS/4.0.0M3/Install/TOS-All-r37054-V4.0.0M3/workspace/.metadata&quot;"/>
+    <elementParameter field="TEXT" name="FILENAME_STATS" value="&quot;stats_file.txt&quot;"/>
+    <elementParameter field="TEXT" name="FILENAME_LOGS" value="&quot;logs_file.txt&quot;"/>
+    <elementParameter field="TEXT" name="FILENAME_METTER" value="&quot;meter_file.txt&quot;"/>
+    <elementParameter field="ENCODING_TYPE" name="ENCODING" value="ISO-8859-15"/>
+    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
+    <elementParameter field="CHECK" name="ON_DATABASE_FLAG" value="false"/>
+    <elementParameter field="CLOSED_LIST" name="DB_TYPE" value="tDBOutput"/>
+    <elementParameter field="CLOSED_LIST" name="DB_VERSION" value="ojdbc14-10g.jar"/>
+    <elementParameter field="TEXT" name="HOST" value="&quot;&quot;"/>
+    <elementParameter field="TEXT" name="PORT" value="&quot;&quot;"/>
+    <elementParameter field="TEXT" name="DATASOURCE" value="&quot;&quot;"/>
+    <elementParameter field="TEXT" name="DBNAME" value="&quot;&quot;"/>
+    <elementParameter field="TEXT" name="LOCAL_SERVICE_NAME" value="&quot;&quot;"/>
+    <elementParameter field="TEXT" name="PROPERTIES" value="&quot;&quot;"/>
+    <elementParameter field="TEXT" name="SCHEMA_DB" value="&quot;&quot;"/>
+    <elementParameter field="TEXT" name="USER" value="&quot;&quot;"/>
+    <elementParameter field="TEXT" name="PASS" value="&quot;&quot;"/>
+    <elementParameter field="FILE" name="DBFILE" value="&quot;&quot;"/>
+    <elementParameter field="DBTABLE" name="TABLE_STATS" value="&quot;&quot;"/>
+    <elementParameter field="DBTABLE" name="TABLE_LOGS" value="&quot;&quot;"/>
+    <elementParameter field="DBTABLE" name="TABLE_METER" value="&quot;&quot;"/>
+    <elementParameter field="CHECK" name="CATCH_RUNTIME_ERRORS" value="true"/>
+    <elementParameter field="CHECK" name="CATCH_USER_ERRORS" value="true"/>
+    <elementParameter field="CHECK" name="CATCH_USER_WARNING" value="true"/>
+    <elementParameter field="CHECK" name="CATCH_REALTIME_STATS" value="false"/>
+  </parameters>
+  <node componentName="tFileInputDelimited" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="96" posY="32">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileInputDelimited_1"/>
+    <elementParameter field="CHECK" name="START" value="true"/>
+    <elementParameter field="FILE" name="FILENAME" value="context.root.concat(&quot;talend_files_0.1/in/customer.csv&quot;)"/>
+    <elementParameter field="TEXT" name="ROWSEPARATOR" value="&quot;\n&quot;"/>
+    <elementParameter field="TEXT" name="FIELDSEPARATOR" value="&quot;;&quot;"/>
+    <elementParameter field="CHECK" name="CSV_OPTION" value="false"/>
+    <elementParameter field="TEXT" name="ESCAPE_CHAR" value="&quot;&quot;&quot;"/>
+    <elementParameter field="TEXT" name="TEXT_ENCLOSURE" value="&quot;&quot;&quot;"/>
+    <elementParameter field="TEXT" name="HEADER" value="6"/>
+    <elementParameter field="TEXT" name="FOOTER" value="0"/>
+    <elementParameter field="TEXT" name="LIMIT" value=""/>
+    <elementParameter field="CHECK" name="REMOVE_EMPTY_ROW" value="false"/>
+    <elementParameter field="CHECK" name="UNCOMPRESS" value="false"/>
+    <elementParameter field="CHECK" name="DIE_ON_ERROR" value="false"/>
+    <elementParameter field="TECHNICAL" name="SCHEMA:SCHEMA_TYPE" value="REPOSITORY"/>
+    <elementParameter field="TECHNICAL" name="SCHEMA:REPOSITORY_SCHEMA_TYPE" value="_6hJwYC3iEd-gPuaSchhj7Q - customer"/>
+    <elementParameter field="TECHNICAL" name="SCHEMA_REJECT:SCHEMA_TYPE" value="REPOSITORY"/>
+    <elementParameter field="TECHNICAL" name="SCHEMA_REJECT:REPOSITORY_SCHEMA_TYPE" value="_6hJwYC3iEd-gPuaSchhj7Q - customer"/>
+    <elementParameter field="CHECK" name="ADVANCED_SEPARATOR" value="false"/>
+    <elementParameter field="TEXT" name="THOUSANDS_SEPARATOR" value="&quot;,&quot;"/>
+    <elementParameter field="TEXT" name="DECIMAL_SEPARATOR" value="&quot;.&quot;"/>
+    <elementParameter field="CHECK" name="RANDOM" value="false"/>
+    <elementParameter field="TEXT" name="NB_RANDOM" value="10"/>
+    <elementParameter field="CHECK" name="TRIMALL" value="false"/>
+    <elementParameter field="TABLE" name="TRIMSELECT">
+      <elementValue elementRef="SCHEMA_COLUMN" value="id"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="CustomerName"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="CustomerAddress"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="idState"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="id2"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="RegTime"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="RegisterTime"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Somme1"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Somme2"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Somme3"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Somme4"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Somme5"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Somme6"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Somme7"/>
+      <elementValue elementRef="TRIM" value="false"/>
+    </elementParameter>
+    <elementParameter field="CHECK" name="CHECK_FIELDS_NUM" value="false"/>
+    <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;US-ASCII&quot;"/>
+    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="CUSTOM"/>
+    <elementParameter field="CHECK" name="SPLITRECORD" value="false"/>
+    <elementParameter field="TEXT" name="LABEL" value="customer"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <elementParameter field="CHECK" name="INFORMATION" value="false"/>
+    <elementParameter field="MEMO" name="COMMENT" value=""/>
+    <metadata connector="FLOW" name="tFileInputDelimited_1">
+      <column comment="" defaultValue="" key="true" length="2" name="id" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_Integer"/>
+      <column comment="" defaultValue="" key="false" length="255" name="CustomerName" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="255" name="CustomerAddress" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="2" name="idState" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_Integer"/>
+      <column comment="" defaultValue="" key="false" length="2" name="id2" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_Integer"/>
+      <column comment="" defaultValue="" key="false" length="50" name="RegTime" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="50" name="RegisterTime" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="5" name="Somme1" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_Float"/>
+      <column comment="" defaultValue="" key="false" length="10" name="Somme2" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="5" type="id_Float"/>
+      <column comment="" defaultValue="" key="false" length="5" name="Somme3" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_Float"/>
+      <column comment="" defaultValue="" key="false" length="3" name="Somme4" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_Float"/>
+      <column comment="" defaultValue="" key="false" length="10" name="Somme5" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="5" type="id_Float"/>
+      <column comment="" defaultValue="" key="false" length="11" name="Somme6" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_Float"/>
+      <column comment="" defaultValue="" key="false" length="11" name="Somme7" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="2" type="id_Float"/>
+    </metadata>
+    <metadata connector="REJECT" name="REJECT">
+      <column comment="" defaultValue="" key="true" length="2" name="id" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_Integer"/>
+      <column comment="" defaultValue="" key="false" length="255" name="CustomerName" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="255" name="CustomerAddress" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="2" name="idState" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_Integer"/>
+      <column comment="" defaultValue="" key="false" length="2" name="id2" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_Integer"/>
+      <column comment="" defaultValue="" key="false" length="50" name="RegTime" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="50" name="RegisterTime" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="5" name="Somme1" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_Float"/>
+      <column comment="" defaultValue="" key="false" length="10" name="Somme2" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="5" type="id_Float"/>
+      <column comment="" defaultValue="" key="false" length="5" name="Somme3" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_Float"/>
+      <column comment="" defaultValue="" key="false" length="3" name="Somme4" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_Float"/>
+      <column comment="" defaultValue="" key="false" length="10" name="Somme5" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="5" type="id_Float"/>
+      <column comment="" defaultValue="" key="false" length="11" name="Somme6" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_Float"/>
+      <column comment="" defaultValue="" key="false" length="11" name="Somme7" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="2" type="id_Float"/>
+      <column defaultValue="" key="false" length="255" name="errorCode" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" precision="0" sourceType="" type="id_String"/>
+    </metadata>
+  </node>
+  <node componentName="tMysqlOutput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="416" posY="32">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tMysqlOutput_1"/>
+    <elementParameter field="TECHNICAL" name="PROPERTY:PROPERTY_TYPE" value="REPOSITORY"/>
+    <elementParameter field="TECHNICAL" name="PROPERTY:REPOSITORY_PROPERTY_TYPE" value="_agCZsMvyEdu0-pmJiEk0sg"/>
+    <elementParameter field="CLOSED_LIST" name="DB_VERSION" value="mysql-connector-java-5.1.0-bin.jar"/>
+    <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="false"/>
+    <elementParameter field="COMPONENT_LIST" name="CONNECTION" value=""/>
+    <elementParameter field="TEXT" name="TYPE" value="MYSQL"/>
+    <elementParameter field="TEXT" name="HOST" value="&quot;localhost&quot;"/>
+    <elementParameter field="TEXT" name="PORT" value="&quot;3306&quot;"/>
+    <elementParameter field="TEXT" name="DBNAME" value="&quot;demoproject&quot;"/>
+    <elementParameter field="TEXT" name="USER" value="&quot;root&quot;"/>
+    <elementParameter field="TEXT" name="PASS" value="&quot;toor&quot;"/>
+    <elementParameter field="DBTABLE" name="TABLE" value="&quot;customer&quot;"/>
+    <elementParameter field="CLOSED_LIST" name="TABLE_ACTION" value="DROP_IF_EXISTS_AND_CREATE"/>
+    <elementParameter field="CLOSED_LIST" name="DATA_ACTION" value="INSERT"/>
+    <elementParameter field="CHECK" name="DIE_ON_ERROR" value="false"/>
+    <elementParameter field="MAPPING_TYPE" name="MAPPING" value="mysql_id"/>
+    <elementParameter field="TEXT" name="PROPERTIES" value="&quot;&quot;"/>
+    <elementParameter field="CHECK" name="EXTENDINSERT" value="true"/>
+    <elementParameter field="LABEL" name="NOTE" value="(Not compatible with reject links)"/>
+    <elementParameter field="TEXT" name="NB_ROWS_PER_INSERT" value="100"/>
+    <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;"/>
+    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
+    <elementParameter field="TEXT" name="COMMIT_EVERY" value="10000"/>
+    <elementParameter field="TABLE" name="ADD_COLS"/>
+    <elementParameter field="CHECK" name="USE_FIELD_OPTIONS" value="false"/>
+    <elementParameter field="TABLE" name="FIELD_OPTIONS">
+      <elementValue elementRef="SCHEMA_COLUMN" value="id"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="CustomerName"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="CustomerAddress"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="idState"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="id2"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="RegTime"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="RegisterTime"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Somme1"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Somme2"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Somme3"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Somme4"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Somme5"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Somme6"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Somme7"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+    </elementParameter>
+    <elementParameter field="CHECK" name="USE_HINT_OPTIONS" value="false"/>
+    <elementParameter field="TABLE" name="HINT_OPTIONS"/>
+    <elementParameter field="CHECK" name="ENABLE_DEBUG_MODE" value="false"/>
+    <elementParameter field="CHECK" name="ON_DUPLICATE_KEY_UPDATE" value="false"/>
+    <elementParameter field="TABLE" name="DUPLICATED_KEYS"/>
+    <elementParameter field="CHECK" name="SUPPORT_NULL_WHERE" value="false"/>
+    <elementParameter field="TEXT" name="LABEL" value="__TABLE__"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <elementParameter field="CHECK" name="INFORMATION" value="false"/>
+    <elementParameter field="MEMO" name="COMMENT" value=""/>
+    <metadata connector="FLOW" name="tMysqlOutput_1">
+      <column comment="" defaultValue="" key="true" length="2" name="id" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" sourceType="INT" type="id_Integer"/>
+      <column comment="" defaultValue="" key="false" length="255" name="CustomerName" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" sourceType="VARCHAR" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="255" name="CustomerAddress" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" sourceType="VARCHAR" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="2" name="idState" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" sourceType="INT" type="id_Integer"/>
+      <column comment="" defaultValue="" key="false" length="2" name="id2" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" sourceType="INT" type="id_Integer"/>
+      <column comment="" defaultValue="" key="false" length="50" name="RegTime" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" sourceType="VARCHAR" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="50" name="RegisterTime" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" sourceType="VARCHAR" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="5" name="Somme1" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" sourceType="FLOAT" type="id_Float"/>
+      <column comment="" defaultValue="" key="false" length="10" name="Somme2" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="5" sourceType="FLOAT" type="id_Float"/>
+      <column comment="" defaultValue="" key="false" length="5" name="Somme3" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" sourceType="FLOAT" type="id_Float"/>
+      <column comment="" defaultValue="" key="false" length="3" name="Somme4" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" sourceType="FLOAT" type="id_Float"/>
+      <column comment="" defaultValue="" key="false" length="10" name="Somme5" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="5" sourceType="FLOAT" type="id_Float"/>
+      <column comment="" defaultValue="" key="false" length="11" name="Somme6" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" sourceType="FLOAT" type="id_Float"/>
+      <column comment="" defaultValue="" key="false" length="11" name="Somme7" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="2" sourceType="FLOAT" type="id_Float"/>
+    </metadata>
+    <metadata connector="REJECT" name="REJECT">
+      <column comment="" defaultValue="" key="true" length="2" name="id" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" sourceType="INT" type="id_Integer"/>
+      <column comment="" defaultValue="" key="false" length="255" name="CustomerName" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" sourceType="VARCHAR" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="255" name="CustomerAddress" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" sourceType="VARCHAR" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="2" name="idState" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" sourceType="INT" type="id_Integer"/>
+      <column comment="" defaultValue="" key="false" length="2" name="id2" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" sourceType="INT" type="id_Integer"/>
+      <column comment="" defaultValue="" key="false" length="50" name="RegTime" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" sourceType="VARCHAR" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="50" name="RegisterTime" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" sourceType="VARCHAR" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="5" name="Somme1" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" sourceType="FLOAT" type="id_Float"/>
+      <column comment="" defaultValue="" key="false" length="10" name="Somme2" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="5" sourceType="FLOAT" type="id_Float"/>
+      <column comment="" defaultValue="" key="false" length="5" name="Somme3" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" sourceType="FLOAT" type="id_Float"/>
+      <column comment="" defaultValue="" key="false" length="3" name="Somme4" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" sourceType="FLOAT" type="id_Float"/>
+      <column comment="" defaultValue="" key="false" length="10" name="Somme5" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="5" sourceType="FLOAT" type="id_Float"/>
+      <column comment="" defaultValue="" key="false" length="11" name="Somme6" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" sourceType="FLOAT" type="id_Float"/>
+      <column comment="" defaultValue="" key="false" length="11" name="Somme7" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="2" sourceType="FLOAT" type="id_Float"/>
+      <column defaultValue="" key="false" length="255" name="errorCode" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" precision="0" sourceType="" type="id_String"/>
+    </metadata>
+  </node>
+  <node componentName="tFileInputDelimited" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="96" posY="192">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileInputDelimited_2"/>
+    <elementParameter field="FILE" name="FILENAME" value="context.root.concat(&quot;talend_files_0.1/in/state.txt&quot;)"/>
+    <elementParameter field="TEXT" name="ROWSEPARATOR" value="&quot;\n&quot;"/>
+    <elementParameter field="TEXT" name="FIELDSEPARATOR" value="&quot;;&quot;"/>
+    <elementParameter field="CHECK" name="CSV_OPTION" value="false"/>
+    <elementParameter field="TEXT" name="ESCAPE_CHAR" value="&quot;&quot;&quot;"/>
+    <elementParameter field="TEXT" name="TEXT_ENCLOSURE" value="&quot;&quot;&quot;"/>
+    <elementParameter field="TEXT" name="HEADER" value="1"/>
+    <elementParameter field="TEXT" name="FOOTER" value="0"/>
+    <elementParameter field="TEXT" name="LIMIT" value=""/>
+    <elementParameter field="CHECK" name="REMOVE_EMPTY_ROW" value="false"/>
+    <elementParameter field="CHECK" name="UNCOMPRESS" value="false"/>
+    <elementParameter field="CHECK" name="DIE_ON_ERROR" value="false"/>
+    <elementParameter field="TECHNICAL" name="SCHEMA:SCHEMA_TYPE" value="REPOSITORY"/>
+    <elementParameter field="TECHNICAL" name="SCHEMA:REPOSITORY_SCHEMA_TYPE" value="_EV4Z0C3jEd-gPuaSchhj7Q - state"/>
+    <elementParameter field="TECHNICAL" name="SCHEMA_REJECT:SCHEMA_TYPE" value="REPOSITORY"/>
+    <elementParameter field="TECHNICAL" name="SCHEMA_REJECT:REPOSITORY_SCHEMA_TYPE" value="_EV4Z0C3jEd-gPuaSchhj7Q - state"/>
+    <elementParameter field="CHECK" name="ADVANCED_SEPARATOR" value="false"/>
+    <elementParameter field="TEXT" name="THOUSANDS_SEPARATOR" value="&quot;,&quot;"/>
+    <elementParameter field="TEXT" name="DECIMAL_SEPARATOR" value="&quot;.&quot;"/>
+    <elementParameter field="CHECK" name="RANDOM" value="false"/>
+    <elementParameter field="TEXT" name="NB_RANDOM" value="10"/>
+    <elementParameter field="CHECK" name="TRIMALL" value="false"/>
+    <elementParameter field="TABLE" name="TRIMSELECT">
+      <elementValue elementRef="SCHEMA_COLUMN" value="idstate"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="labelstate"/>
+      <elementValue elementRef="TRIM" value="false"/>
+    </elementParameter>
+    <elementParameter field="CHECK" name="CHECK_FIELDS_NUM" value="false"/>
+    <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;US-ASCII&quot;"/>
+    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="CUSTOM"/>
+    <elementParameter field="CHECK" name="SPLITRECORD" value="false"/>
+    <elementParameter field="TEXT" name="LABEL" value="state"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <elementParameter field="CHECK" name="INFORMATION" value="false"/>
+    <elementParameter field="MEMO" name="COMMENT" value=""/>
+    <metadata connector="FLOW" name="tFileInputDelimited_2">
+      <column comment="" defaultValue="" key="true" length="2" name="idstate" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_Integer"/>
+      <column comment="" defaultValue="" key="false" length="14" name="labelstate" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+    </metadata>
+    <metadata connector="REJECT" name="REJECT">
+      <column comment="" defaultValue="" key="true" length="2" name="idstate" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_Integer"/>
+      <column comment="" defaultValue="" key="false" length="14" name="labelstate" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column defaultValue="" key="false" length="255" name="errorCode" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" precision="0" sourceType="" type="id_String"/>
+    </metadata>
+  </node>
+  <node componentName="tMysqlOutput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="416" posY="192">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tMysqlOutput_2"/>
+    <elementParameter field="TECHNICAL" name="PROPERTY:PROPERTY_TYPE" value="REPOSITORY"/>
+    <elementParameter field="TECHNICAL" name="PROPERTY:REPOSITORY_PROPERTY_TYPE" value="_agCZsMvyEdu0-pmJiEk0sg"/>
+    <elementParameter field="CLOSED_LIST" name="DB_VERSION" value="mysql-connector-java-5.1.0-bin.jar"/>
+    <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="false"/>
+    <elementParameter field="COMPONENT_LIST" name="CONNECTION" value=""/>
+    <elementParameter field="TEXT" name="TYPE" value="MYSQL"/>
+    <elementParameter field="TEXT" name="HOST" value="&quot;localhost&quot;"/>
+    <elementParameter field="TEXT" name="PORT" value="&quot;3306&quot;"/>
+    <elementParameter field="TEXT" name="DBNAME" value="&quot;demoproject&quot;"/>
+    <elementParameter field="TEXT" name="USER" value="&quot;root&quot;"/>
+    <elementParameter field="TEXT" name="PASS" value="&quot;toor&quot;"/>
+    <elementParameter field="DBTABLE" name="TABLE" value="&quot;state&quot;"/>
+    <elementParameter field="CLOSED_LIST" name="TABLE_ACTION" value="DROP_IF_EXISTS_AND_CREATE"/>
+    <elementParameter field="CLOSED_LIST" name="DATA_ACTION" value="INSERT"/>
+    <elementParameter field="CHECK" name="DIE_ON_ERROR" value="false"/>
+    <elementParameter field="MAPPING_TYPE" name="MAPPING" value="mysql_id"/>
+    <elementParameter field="TEXT" name="PROPERTIES" value="&quot;&quot;"/>
+    <elementParameter field="CHECK" name="EXTENDINSERT" value="true"/>
+    <elementParameter field="LABEL" name="NOTE" value="(Not compatible with reject links)"/>
+    <elementParameter field="TEXT" name="NB_ROWS_PER_INSERT" value="100"/>
+    <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;"/>
+    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
+    <elementParameter field="TEXT" name="COMMIT_EVERY" value="10000"/>
+    <elementParameter field="TABLE" name="ADD_COLS"/>
+    <elementParameter field="CHECK" name="USE_FIELD_OPTIONS" value="false"/>
+    <elementParameter field="TABLE" name="FIELD_OPTIONS">
+      <elementValue elementRef="SCHEMA_COLUMN" value="idstate"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="labelstate"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+    </elementParameter>
+    <elementParameter field="CHECK" name="USE_HINT_OPTIONS" value="false"/>
+    <elementParameter field="TABLE" name="HINT_OPTIONS"/>
+    <elementParameter field="CHECK" name="ENABLE_DEBUG_MODE" value="false"/>
+    <elementParameter field="CHECK" name="ON_DUPLICATE_KEY_UPDATE" value="false"/>
+    <elementParameter field="TABLE" name="DUPLICATED_KEYS"/>
+    <elementParameter field="CHECK" name="SUPPORT_NULL_WHERE" value="false"/>
+    <elementParameter field="TEXT" name="LABEL" value="__TABLE__"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <elementParameter field="CHECK" name="INFORMATION" value="false"/>
+    <elementParameter field="MEMO" name="COMMENT" value=""/>
+    <metadata connector="FLOW" name="tMysqlOutput_2">
+      <column comment="" defaultValue="" key="true" length="2" name="idstate" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" sourceType="INT" type="id_Integer"/>
+      <column comment="" defaultValue="" key="false" length="14" name="labelstate" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" sourceType="VARCHAR" type="id_String"/>
+    </metadata>
+    <metadata connector="REJECT" name="REJECT">
+      <column comment="" defaultValue="" key="true" length="2" name="idstate" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" sourceType="INT" type="id_Integer"/>
+      <column comment="" defaultValue="" key="false" length="14" name="labelstate" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" sourceType="VARCHAR" type="id_String"/>
+      <column defaultValue="" key="false" length="255" name="errorCode" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" precision="0" sourceType="" type="id_String"/>
+    </metadata>
+  </node>
+  <connection connectorName="FLOW" label="row2" lineStyle="0" metaname="tFileInputDelimited_1" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_1" target="tMysqlOutput_1">
+    <elementParameter field="CHECK" name="TRACES_CONNECTION_ENABLE" value="true"/>
+    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER">
+      <elementValue elementRef="TRACE_COLUMN" value="id"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="CustomerName"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="CustomerAddress"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="idState"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="id2"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="RegTime"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="RegisterTime"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Somme1"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Somme2"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Somme3"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Somme4"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Somme5"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Somme6"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Somme7"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+    </elementParameter>
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="CHECK" name="USEROWLABEL" value="true"/>
+    <elementParameter field="TEXT" name="METTERLABEL" value="&quot;MyLabel&quot;"/>
+    <elementParameter field="CLOSED_LIST" name="ABSOLUTE" value="Absolute"/>
+    <elementParameter field="CONNECTION_LIST" name="CONNECTIONS" value=""/>
+    <elementParameter field="TABLE" name="THRESHLODS"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="row2"/>
+  </connection>
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFileInputDelimited_1" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_1" target="tFileInputDelimited_2">
+    <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnSubjobOk1"/>
+  </connection>
+  <connection connectorName="FLOW" label="row1" lineStyle="0" metaname="tFileInputDelimited_2" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_2" target="tMysqlOutput_2">
+    <elementParameter field="CHECK" name="TRACES_CONNECTION_ENABLE" value="true"/>
+    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER">
+      <elementValue elementRef="TRACE_COLUMN" value="idstate"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="labelstate"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+    </elementParameter>
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="CHECK" name="USEROWLABEL" value="true"/>
+    <elementParameter field="TEXT" name="METTERLABEL" value="&quot;MyLabel&quot;"/>
+    <elementParameter field="CLOSED_LIST" name="ABSOLUTE" value="Absolute"/>
+    <elementParameter field="CONNECTION_LIST" name="CONNECTIONS" value=""/>
+    <elementParameter field="TABLE" name="THRESHLODS"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="row1"/>
+  </connection>
+  <subjob>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileInputDelimited_1"/>
+    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="160;190;240"/>
+    <elementParameter field="COLOR" name="SUBJOB_COLOR" value="220;220;250"/>
+  </subjob>
+  <subjob>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileInputDelimited_2"/>
+    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="160;190;240"/>
+    <elementParameter field="COLOR" name="SUBJOB_COLOR" value="220;220;250"/>
+  </subjob>
+</talendfile:ProcessType>
