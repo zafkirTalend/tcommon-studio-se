@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<talendfile:ProcessType xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" xmi:id="_k4Xn08-5Ed-AIsoUrfi0wQ" defaultContext="Default">
+  <context xmi:id="_k4Xn1M-5Ed-AIsoUrfi0wQ" confirmationNeeded="false" name="Default">
+    <contextParameter xmi:id="_k4Xn1c-5Ed-AIsoUrfi0wQ" comment="Folder for source file" name="sourcesFilesFolder" prompt="Set the path of the dir to store the example files folder:" promptNeeded="false" repositoryContextId="_dn7XwGT9Edyrh8knyihGHw" type="id_String" value="/home/talend_files/"/>
+  </context>
+  <context xmi:id="_k4Xn1s-5Ed-AIsoUrfi0wQ" confirmationNeeded="false" name="demo">
+    <contextParameter xmi:id="_k4Xn18-5Ed-AIsoUrfi0wQ" comment="Folder for source file" name="sourcesFilesFolder" prompt="Set the path of the dir to store the example files folder:" promptNeeded="false" repositoryContextId="_dn7XwGT9Edyrh8knyihGHw" type="id_String" value="/home/talend_files/"/>
+  </context>
+  <parameters xmi:id="_k4Xn2M-5Ed-AIsoUrfi0wQ">
+    <elementParameter xmi:id="_k4Xn2c-5Ed-AIsoUrfi0wQ" field="DIRECTORY" name="COMP_DEFAULT_FILE_DIR" value="C:/TOS-All-r48998-V4.1.0RC3/workspace"/>
+    <elementParameter xmi:id="_k4Xn2s-5Ed-AIsoUrfi0wQ" field="DIRECTORY" name="COMP_DEFAULT_PROJECT_DIR" value="C:/TOS-All-r48998-V4.1.0RC3/workspace/Demo"/>
+    <elementParameter xmi:id="_k4Xn28-5Ed-AIsoUrfi0wQ" field="TEXT" name="JOB_RUN_VM_ARGUMENTS" value=" -Xms256M -Xmx1024M"/>
+    <elementParameter xmi:id="_k4Xn3M-5Ed-AIsoUrfi0wQ" field="CHECK" name="JOB_RUN_VM_ARGUMENTS_OPTION" value="false"/>
+    <elementParameter xmi:id="_k4Xn3c-5Ed-AIsoUrfi0wQ" field="TEXT" name="AUTHOR" value="jdufay@talend.com"/>
+    <elementParameter xmi:id="_k4Xn3s-5Ed-AIsoUrfi0wQ" field="TEXT" name="STATUS" value=""/>
+    <elementParameter xmi:id="_k4Xn38-5Ed-AIsoUrfi0wQ" field="TEXT" name="NAME" value="tGroovyFile"/>
+    <elementParameter xmi:id="_k4Xn4M-5Ed-AIsoUrfi0wQ" field="TEXT" name="VERSION" value="0.1"/>
+    <elementParameter xmi:id="_k4Xn4c-5Ed-AIsoUrfi0wQ" field="TEXT" name="PURPOSE" value=""/>
+    <elementParameter xmi:id="_k4Xn4s-5Ed-AIsoUrfi0wQ" field="TEXT" name="DESCRIPTION" value=""/>
+    <elementParameter xmi:id="_k4Xn48-5Ed-AIsoUrfi0wQ" field="TEXT" name="SCREEN_OFFSET_X" value="0"/>
+    <elementParameter xmi:id="_k4Xn5M-5Ed-AIsoUrfi0wQ" field="TEXT" name="SCREEN_OFFSET_Y" value="0"/>
+    <elementParameter xmi:id="_k4Xn5c-5Ed-AIsoUrfi0wQ" field="TEXT" name="SCHEMA_OPTIONS" value="none"/>
+    <elementParameter xmi:id="_k4Xn5s-5Ed-AIsoUrfi0wQ" field="CHECK" name="IMPLICITCONTEXT_USE_PROJECT_SETTINGS" value="false"/>
+    <elementParameter xmi:id="_k4Xn58-5Ed-AIsoUrfi0wQ" field="CHECK" name="STATANDLOG_USE_PROJECT_SETTINGS" value="false"/>
+    <elementParameter xmi:id="_k4Xn6M-5Ed-AIsoUrfi0wQ" field="CHECK" name="MULTI_THREAD_EXECATION" value="false"/>
+    <elementParameter xmi:id="_k4Xn6c-5Ed-AIsoUrfi0wQ" field="CHECK" name="IMPLICIT_TCONTEXTLOAD" value="false"/>
+    <elementParameter xmi:id="_k4Xn6s-5Ed-AIsoUrfi0wQ" field="RADIO" name="FROM_FILE_FLAG_IMPLICIT_CONTEXT" value="false"/>
+    <elementParameter xmi:id="_k4Xn68-5Ed-AIsoUrfi0wQ" field="RADIO" name="FROM_DATABASE_FLAG_IMPLICIT_CONTEXT" value="false"/>
+    <elementParameter xmi:id="_k4Xn7M-5Ed-AIsoUrfi0wQ" field="FILE" name="IMPLICIT_TCONTEXTLOAD_FILE" value="&quot;D:/TOS-All-r8293-V2.3.0RC2/workspace/in.csv&quot;"/>
+    <elementParameter xmi:id="_k4Xn7c-5Ed-AIsoUrfi0wQ" field="TEXT" name="FIELDSEPARATOR" value="&quot;;&quot;"/>
+    <elementParameter xmi:id="_k4Xn7s-5Ed-AIsoUrfi0wQ" field="CLOSED_LIST" name="DB_TYPE_IMPLICIT_CONTEXT" value="tDBInput"/>
+    <elementParameter xmi:id="_k4Xn78-5Ed-AIsoUrfi0wQ" field="CLOSED_LIST" name="DB_VERSION_IMPLICIT_CONTEXT" value="ojdbc14-10g.jar"/>
+    <elementParameter xmi:id="_k4Xn8M-5Ed-AIsoUrfi0wQ" field="TEXT" name="HOST_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k4Xn8c-5Ed-AIsoUrfi0wQ" field="TEXT" name="PORT_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k4Xn8s-5Ed-AIsoUrfi0wQ" field="TEXT" name="DBNAME_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k4Xn88-5Ed-AIsoUrfi0wQ" field="TEXT" name="LOCAL_SERVICE_NAME_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k4Xn9M-5Ed-AIsoUrfi0wQ" field="TEXT" name="PROPERTIES_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k4Xn9c-5Ed-AIsoUrfi0wQ" field="TEXT" name="SCHEMA_DB_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k4Xn9s-5Ed-AIsoUrfi0wQ" field="TEXT" name="USER_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k4Xn98-5Ed-AIsoUrfi0wQ" field="TEXT" name="PASS_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k4Xn-M-5Ed-AIsoUrfi0wQ" field="FILE" name="DBFILE_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k4Xn-c-5Ed-AIsoUrfi0wQ" field="DBTABLE" name="DBTABLE_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k4Xn-s-5Ed-AIsoUrfi0wQ" field="TEXT" name="QUERY_CONDITION_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k4Xn-8-5Ed-AIsoUrfi0wQ" field="CLOSED_LIST" name="LOAD_NEW_VARIABLE" value="Warning"/>
+    <elementParameter xmi:id="_k4Xn_M-5Ed-AIsoUrfi0wQ" field="CLOSED_LIST" name="NOT_LOAD_OLD_VARIABLE" value="Warning"/>
+    <elementParameter xmi:id="_k4Xn_c-5Ed-AIsoUrfi0wQ" field="CHECK" name="PRINT_OPERATIONS" value="false"/>
+    <elementParameter xmi:id="_k4Xn_s-5Ed-AIsoUrfi0wQ" field="CHECK" name="DISABLE_ERROR" value="false"/>
+    <elementParameter xmi:id="_k4Xn_8-5Ed-AIsoUrfi0wQ" field="CHECK" name="DISABLE_WARNINGS" value="true"/>
+    <elementParameter xmi:id="_k4XoAM-5Ed-AIsoUrfi0wQ" field="CHECK" name="DISABLE_INFO" value="true"/>
+    <elementParameter xmi:id="_k4XoAc-5Ed-AIsoUrfi0wQ" field="CHECK" name="ON_STATCATCHER_FLAG" value="false"/>
+    <elementParameter xmi:id="_k4XoAs-5Ed-AIsoUrfi0wQ" field="CHECK" name="ON_LOGCATCHER_FLAG" value="false"/>
+    <elementParameter xmi:id="_k4XoA8-5Ed-AIsoUrfi0wQ" field="CHECK" name="ON_METERCATCHER_FLAG" value="false"/>
+    <elementParameter xmi:id="_k4XoBM-5Ed-AIsoUrfi0wQ" field="CHECK" name="ON_CONSOLE_FLAG" value="false"/>
+    <elementParameter xmi:id="_k4XoBc-5Ed-AIsoUrfi0wQ" field="CHECK" name="ON_FILES_FLAG" value="false"/>
+    <elementParameter xmi:id="_k4XoBs-5Ed-AIsoUrfi0wQ" field="DIRECTORY" name="FILE_PATH" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k4XoB8-5Ed-AIsoUrfi0wQ" field="TEXT" name="FILENAME_STATS" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k4XoCM-5Ed-AIsoUrfi0wQ" field="TEXT" name="FILENAME_LOGS" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k4XoCc-5Ed-AIsoUrfi0wQ" field="TEXT" name="FILENAME_METTER" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k4XoCs-5Ed-AIsoUrfi0wQ" field="ENCODING_TYPE" name="ENCODING" value="ISO-8859-15"/>
+    <elementParameter xmi:id="_k4XoC8-5Ed-AIsoUrfi0wQ" field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
+    <elementParameter xmi:id="_k4XoDM-5Ed-AIsoUrfi0wQ" field="CHECK" name="ON_DATABASE_FLAG" value="false"/>
+    <elementParameter xmi:id="_k4XoDc-5Ed-AIsoUrfi0wQ" field="CLOSED_LIST" name="DB_TYPE" value=""/>
+    <elementParameter xmi:id="_k4XoDs-5Ed-AIsoUrfi0wQ" field="CLOSED_LIST" name="DB_VERSION" value="ojdbc14-10g.jar"/>
+    <elementParameter xmi:id="_k4XoD8-5Ed-AIsoUrfi0wQ" field="TEXT" name="URL" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k4XoEM-5Ed-AIsoUrfi0wQ" field="TABLE" name="DRIVER_JAR"/>
+    <elementParameter xmi:id="_k4XoEc-5Ed-AIsoUrfi0wQ" field="TEXT" name="DRIVER_CLASS" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k4XoEs-5Ed-AIsoUrfi0wQ" field="TEXT" name="HOST" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k4XoE8-5Ed-AIsoUrfi0wQ" field="TEXT" name="PORT" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k4XoFM-5Ed-AIsoUrfi0wQ" field="TEXT" name="DATASOURCE" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k4XoFc-5Ed-AIsoUrfi0wQ" field="TEXT" name="DBNAME" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k4XoFs-5Ed-AIsoUrfi0wQ" field="TEXT" name="LOCAL_SERVICE_NAME" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k4XoF8-5Ed-AIsoUrfi0wQ" field="TEXT" name="PROPERTIES" value="&quot;noDatetimeStringSync=true&quot;"/>
+    <elementParameter xmi:id="_k4XoGM-5Ed-AIsoUrfi0wQ" field="TEXT" name="SCHEMA_DB" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k4XoGc-5Ed-AIsoUrfi0wQ" field="TEXT" name="USER" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k4XoGs-5Ed-AIsoUrfi0wQ" field="TEXT" name="PASS" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k4XoG8-5Ed-AIsoUrfi0wQ" field="FILE" name="DBFILE" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k4XoHM-5Ed-AIsoUrfi0wQ" field="DBTABLE" name="TABLE_STATS" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k4XoHc-5Ed-AIsoUrfi0wQ" field="DBTABLE" name="TABLE_LOGS" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k4XoHs-5Ed-AIsoUrfi0wQ" field="DBTABLE" name="TABLE_METER" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k4XoH8-5Ed-AIsoUrfi0wQ" field="CHECK" name="CATCH_RUNTIME_ERRORS" value="true"/>
+    <elementParameter xmi:id="_k4XoIM-5Ed-AIsoUrfi0wQ" field="CHECK" name="CATCH_USER_ERRORS" value="true"/>
+    <elementParameter xmi:id="_k4XoIc-5Ed-AIsoUrfi0wQ" field="CHECK" name="CATCH_USER_WARNING" value="true"/>
+    <elementParameter xmi:id="_k4XoIs-5Ed-AIsoUrfi0wQ" field="CHECK" name="CATCH_REALTIME_STATS" value="false"/>
+    <elementParameter xmi:id="_k4XoI8-5Ed-AIsoUrfi0wQ" field="TEXT" name="HEADERFOOTER_HEADERID" value=""/>
+    <elementParameter xmi:id="_k4XoJM-5Ed-AIsoUrfi0wQ" field="CHECK" name="HEADER_ENABLED" value="false"/>
+    <elementParameter xmi:id="_k4XoJc-5Ed-AIsoUrfi0wQ" field="TEXT" name="HEADER_LIBRARY" value=""/>
+    <elementParameter xmi:id="_k4XoJs-5Ed-AIsoUrfi0wQ" field="TEXT" name="HEADER_CODE" value=""/>
+    <elementParameter xmi:id="_k4XoJ8-5Ed-AIsoUrfi0wQ" field="TEXT" name="HEADER_IMPORT" value=""/>
+    <elementParameter xmi:id="_k4XoKM-5Ed-AIsoUrfi0wQ" field="TEXT" name="HEADERFOOTER_FOOTERID" value=""/>
+    <elementParameter xmi:id="_k4XoKc-5Ed-AIsoUrfi0wQ" field="CHECK" name="FOOTER_ENABLED" value="false"/>
+    <elementParameter xmi:id="_k4XoKs-5Ed-AIsoUrfi0wQ" field="TEXT" name="FOOTER_LIBRARY" value=""/>
+    <elementParameter xmi:id="_k4XoK8-5Ed-AIsoUrfi0wQ" field="TEXT" name="FOOTER_CODE" value=""/>
+    <elementParameter xmi:id="_k4XoLM-5Ed-AIsoUrfi0wQ" field="TEXT" name="FOOTER_IMPORT" value=""/>
+  </parameters>
+  <node xmi:id="_k4XoLc-5Ed-AIsoUrfi0wQ" componentName="tGroovyFile" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="160" posY="160">
+    <elementParameter xmi:id="_k4XoLs-5Ed-AIsoUrfi0wQ" field="TEXT" name="UNIQUE_NAME" value="tGroovyFile_1"/>
+    <elementParameter xmi:id="_k4XoL8-5Ed-AIsoUrfi0wQ" field="CHECK" name="START" value="true"/>
+    <elementParameter xmi:id="_k4XoMM-5Ed-AIsoUrfi0wQ" field="FILE" name="GROOVY_FILE" value="context.sourcesFilesFolder.concat(&quot;talend_files_0.1/in/CustomCode/groovy.txt&quot;)"/>
+    <elementParameter xmi:id="_k4XoMc-5Ed-AIsoUrfi0wQ" field="TABLE" name="VARIABLES"/>
+    <elementParameter xmi:id="_k4XoMs-5Ed-AIsoUrfi0wQ" field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <elementParameter xmi:id="_k4XoM8-5Ed-AIsoUrfi0wQ" field="CHECK" name="INFORMATION" value="false"/>
+    <elementParameter xmi:id="_k4XoNM-5Ed-AIsoUrfi0wQ" field="MEMO" name="COMMENT" value=""/>
+    <metadata xmi:id="_k4XoNc-5Ed-AIsoUrfi0wQ" connector="FLOW" name="tGroovyFile_1"/>
+  </node>
+  <note xmi:id="_k4XoNs-5Ed-AIsoUrfi0wQ" opaque="true" posX="32" posY="32" sizeHeight="64" sizeWidth="321" text="Execute a groovy script file">
+    <elementParameter xmi:id="_k4XoN8-5Ed-AIsoUrfi0wQ" field="COLOR" name="NOTE_COLOR" value="255;255;203"/>
+    <elementParameter xmi:id="_k4XoOM-5Ed-AIsoUrfi0wQ" field="COLOR" name="NOTETXT_COLOR" value="0;0;0"/>
+    <elementParameter xmi:id="_k4XoOc-5Ed-AIsoUrfi0wQ" field="RADIO" name="NOTETXT_LEFT" value="false"/>
+    <elementParameter xmi:id="_k4XoOs-5Ed-AIsoUrfi0wQ" field="RADIO" name="NOTETXT_RIGHT" value="false"/>
+    <elementParameter xmi:id="_k4XoO8-5Ed-AIsoUrfi0wQ" field="RADIO" name="NOTETXT_CENTER" value="true"/>
+    <elementParameter xmi:id="_k4XoPM-5Ed-AIsoUrfi0wQ" field="RADIO" name="NOTELABEL_CENTER" value="true"/>
+    <elementParameter xmi:id="_k4XoPc-5Ed-AIsoUrfi0wQ" field="RADIO" name="NOTETXT_TOP" value="false"/>
+    <elementParameter xmi:id="_k4XoPs-5Ed-AIsoUrfi0wQ" field="RADIO" name="NOTETXT_BOTTOM" value="false"/>
+    <elementParameter xmi:id="_k4XoP8-5Ed-AIsoUrfi0wQ" field="TEXT" name="NOTE_FONT" value="Time New Roman"/>
+    <elementParameter xmi:id="_k4XoQM-5Ed-AIsoUrfi0wQ" field="TEXT" name="FONT_SIZE" value="10"/>
+    <elementParameter xmi:id="_k4XoQc-5Ed-AIsoUrfi0wQ" field="CHECK" name="FONT_BOLD" value="false"/>
+    <elementParameter xmi:id="_k4XoQs-5Ed-AIsoUrfi0wQ" field="CHECK" name="FONT_ITALIC" value="false"/>
+    <elementParameter xmi:id="_k4XoQ8-5Ed-AIsoUrfi0wQ" field="COLOR" name="NOTE_LINECOLOR" value="237;201;122"/>
+  </note>
+  <subjob xmi:id="_k4XoRM-5Ed-AIsoUrfi0wQ">
+    <elementParameter xmi:id="_k4XoRc-5Ed-AIsoUrfi0wQ" field="TEXT" name="UNIQUE_NAME" value="tGroovyFile_1"/>
+    <elementParameter xmi:id="_k4XoRs-5Ed-AIsoUrfi0wQ" field="COLOR" name="SUBJOB_TITLE_COLOR" value=""/>
+    <elementParameter xmi:id="_k4XoR8-5Ed-AIsoUrfi0wQ" field="COLOR" name="SUBJOB_COLOR" value="220;220;250"/>
+  </subjob>
+  <routinesDependencies xmi:id="_k4XoSM-5Ed-AIsoUrfi0wQ" idOrName="DataOperation" system="true"/>
+  <routinesDependencies xmi:id="_k4XoSc-5Ed-AIsoUrfi0wQ" idOrName="Mathematical" system="true"/>
+  <routinesDependencies xmi:id="_k4XoSs-5Ed-AIsoUrfi0wQ" idOrName="Numeric" system="true"/>
+  <routinesDependencies xmi:id="_k4XoS8-5Ed-AIsoUrfi0wQ" idOrName="Relational" system="true"/>
+  <routinesDependencies xmi:id="_k4XoTM-5Ed-AIsoUrfi0wQ" idOrName="StringHandling" system="true"/>
+  <routinesDependencies xmi:id="_k4XoTc-5Ed-AIsoUrfi0wQ" idOrName="TalendDataGenerator" system="true"/>
+  <routinesDependencies xmi:id="_k4XoTs-5Ed-AIsoUrfi0wQ" idOrName="TalendDate" system="true"/>
+  <routinesDependencies xmi:id="_k4XoT8-5Ed-AIsoUrfi0wQ" idOrName="TalendString" system="true"/>
+  <routinesDependencies xmi:id="_k4XoUM-5Ed-AIsoUrfi0wQ" idOrName="_8qwkYFjNEdyj6eiqDt60Og"/>
+  <routinesDependencies xmi:id="_k4XoUc-5Ed-AIsoUrfi0wQ" idOrName="_HKXfQGIZEd26GZmhFZLTPA"/>
+</talendfile:ProcessType>

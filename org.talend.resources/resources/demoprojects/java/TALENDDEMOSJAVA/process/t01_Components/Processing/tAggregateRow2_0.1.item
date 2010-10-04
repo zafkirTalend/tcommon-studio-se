@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<talendfile:ProcessType xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" xmi:id="_k40Uks-5Ed-AIsoUrfi0wQ" defaultContext="Default" screenshot="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">
+  <context xmi:id="_k40Uk8-5Ed-AIsoUrfi0wQ" confirmationNeeded="false" name="Default"/>
+  <parameters xmi:id="_k40UlM-5Ed-AIsoUrfi0wQ">
+    <elementParameter xmi:id="_k40Ulc-5Ed-AIsoUrfi0wQ" field="DIRECTORY" name="COMP_DEFAULT_FILE_DIR" value="D:/02 - TOS/DemoProject/TOS-All-r43696-V4.0.2/workspace_02"/>
+    <elementParameter xmi:id="_k40Uls-5Ed-AIsoUrfi0wQ" field="DIRECTORY" name="COMP_DEFAULT_PROJECT_DIR" value="D:/02 - TOS/DemoProject/TOS-All-r43696-V4.0.2/workspace_02/TALENDDEMOSJAVA"/>
+    <elementParameter xmi:id="_k40Ul8-5Ed-AIsoUrfi0wQ" field="TEXT" name="JOB_RUN_VM_ARGUMENTS" value=" -Xms256M -Xmx1024M"/>
+    <elementParameter xmi:id="_k40UmM-5Ed-AIsoUrfi0wQ" field="CHECK" name="JOB_RUN_VM_ARGUMENTS_OPTION" value="false"/>
+    <elementParameter xmi:id="_k40Umc-5Ed-AIsoUrfi0wQ" field="TEXT" name="AUTHOR" value="emenuet@talend.com"/>
+    <elementParameter xmi:id="_k40Ums-5Ed-AIsoUrfi0wQ" field="TEXT" name="STATUS" value=""/>
+    <elementParameter xmi:id="_k40Um8-5Ed-AIsoUrfi0wQ" field="TEXT" name="NAME" value="tAggregateRow2"/>
+    <elementParameter xmi:id="_k40UnM-5Ed-AIsoUrfi0wQ" field="TEXT" name="VERSION" value="0.1"/>
+    <elementParameter xmi:id="_k40Unc-5Ed-AIsoUrfi0wQ" field="TEXT" name="PURPOSE" value=""/>
+    <elementParameter xmi:id="_k40Uns-5Ed-AIsoUrfi0wQ" field="TEXT" name="DESCRIPTION" value=""/>
+    <elementParameter xmi:id="_k40Un8-5Ed-AIsoUrfi0wQ" field="TEXT" name="SCREEN_OFFSET_X" value="0"/>
+    <elementParameter xmi:id="_k40UoM-5Ed-AIsoUrfi0wQ" field="TEXT" name="SCREEN_OFFSET_Y" value="0"/>
+    <elementParameter xmi:id="_k40Uoc-5Ed-AIsoUrfi0wQ" field="TEXT" name="SCHEMA_OPTIONS" value="none"/>
+    <elementParameter xmi:id="_k40Uos-5Ed-AIsoUrfi0wQ" field="CHECK" name="IMPLICITCONTEXT_USE_PROJECT_SETTINGS" value="false"/>
+    <elementParameter xmi:id="_k40Uo8-5Ed-AIsoUrfi0wQ" field="CHECK" name="STATANDLOG_USE_PROJECT_SETTINGS" value="false"/>
+    <elementParameter xmi:id="_k40UpM-5Ed-AIsoUrfi0wQ" field="CHECK" name="MULTI_THREAD_EXECATION" value="false"/>
+    <elementParameter xmi:id="_k40Upc-5Ed-AIsoUrfi0wQ" field="CHECK" name="IMPLICIT_TCONTEXTLOAD" value="false"/>
+    <elementParameter xmi:id="_k40Ups-5Ed-AIsoUrfi0wQ" field="RADIO" name="FROM_FILE_FLAG_IMPLICIT_CONTEXT" value="false"/>
+    <elementParameter xmi:id="_k40Up8-5Ed-AIsoUrfi0wQ" field="RADIO" name="FROM_DATABASE_FLAG_IMPLICIT_CONTEXT" value="false"/>
+    <elementParameter xmi:id="_k40UqM-5Ed-AIsoUrfi0wQ" field="FILE" name="IMPLICIT_TCONTEXTLOAD_FILE" value="&quot;D:/TOS-All-r14257-V2.4.0RC2/workspace/in.csv&quot;"/>
+    <elementParameter xmi:id="_k40Uqc-5Ed-AIsoUrfi0wQ" field="TEXT" name="FIELDSEPARATOR" value="&quot;;&quot;"/>
+    <elementParameter xmi:id="_k40Uqs-5Ed-AIsoUrfi0wQ" field="CLOSED_LIST" name="DB_TYPE_IMPLICIT_CONTEXT" value="tDBInput"/>
+    <elementParameter xmi:id="_k40Uq8-5Ed-AIsoUrfi0wQ" field="CLOSED_LIST" name="DB_VERSION_IMPLICIT_CONTEXT" value="ojdbc14-10g.jar"/>
+    <elementParameter xmi:id="_k40UrM-5Ed-AIsoUrfi0wQ" field="TEXT" name="HOST_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k40Urc-5Ed-AIsoUrfi0wQ" field="TEXT" name="PORT_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k40Urs-5Ed-AIsoUrfi0wQ" field="TEXT" name="DBNAME_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k40Ur8-5Ed-AIsoUrfi0wQ" field="TEXT" name="LOCAL_SERVICE_NAME_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k40UsM-5Ed-AIsoUrfi0wQ" field="TEXT" name="PROPERTIES_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k40Usc-5Ed-AIsoUrfi0wQ" field="TEXT" name="SCHEMA_DB_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k40Uss-5Ed-AIsoUrfi0wQ" field="TEXT" name="USER_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k40Us8-5Ed-AIsoUrfi0wQ" field="TEXT" name="PASS_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k40UtM-5Ed-AIsoUrfi0wQ" field="FILE" name="DBFILE_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k40Utc-5Ed-AIsoUrfi0wQ" field="DBTABLE" name="DBTABLE_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k40Uts-5Ed-AIsoUrfi0wQ" field="TEXT" name="QUERY_CONDITION_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k40Ut8-5Ed-AIsoUrfi0wQ" field="CLOSED_LIST" name="LOAD_NEW_VARIABLE" value="Warning"/>
+    <elementParameter xmi:id="_k40UuM-5Ed-AIsoUrfi0wQ" field="CLOSED_LIST" name="NOT_LOAD_OLD_VARIABLE" value="Warning"/>
+    <elementParameter xmi:id="_k40Uuc-5Ed-AIsoUrfi0wQ" field="CHECK" name="PRINT_OPERATIONS" value="false"/>
+    <elementParameter xmi:id="_k40Uus-5Ed-AIsoUrfi0wQ" field="CHECK" name="DISABLE_ERROR" value="false"/>
+    <elementParameter xmi:id="_k40Uu8-5Ed-AIsoUrfi0wQ" field="CHECK" name="DISABLE_WARNINGS" value="true"/>
+    <elementParameter xmi:id="_k40UvM-5Ed-AIsoUrfi0wQ" field="CHECK" name="DISABLE_INFO" value="true"/>
+    <elementParameter xmi:id="_k40Uvc-5Ed-AIsoUrfi0wQ" field="CHECK" name="ON_STATCATCHER_FLAG" value="false"/>
+    <elementParameter xmi:id="_k40Uvs-5Ed-AIsoUrfi0wQ" field="CHECK" name="ON_LOGCATCHER_FLAG" value="false"/>
+    <elementParameter xmi:id="_k40Uv8-5Ed-AIsoUrfi0wQ" field="CHECK" name="ON_METERCATCHER_FLAG" value="false"/>
+    <elementParameter xmi:id="_k40UwM-5Ed-AIsoUrfi0wQ" field="CHECK" name="ON_CONSOLE_FLAG" value="false"/>
+    <elementParameter xmi:id="_k40Uwc-5Ed-AIsoUrfi0wQ" field="CHECK" name="ON_FILES_FLAG" value="false"/>
+    <elementParameter xmi:id="_k40Uws-5Ed-AIsoUrfi0wQ" field="DIRECTORY" name="FILE_PATH" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k40Uw8-5Ed-AIsoUrfi0wQ" field="TEXT" name="FILENAME_STATS" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k40UxM-5Ed-AIsoUrfi0wQ" field="TEXT" name="FILENAME_LOGS" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k40Uxc-5Ed-AIsoUrfi0wQ" field="TEXT" name="FILENAME_METTER" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k40Uxs-5Ed-AIsoUrfi0wQ" field="ENCODING_TYPE" name="ENCODING" value="ISO-8859-15"/>
+    <elementParameter xmi:id="_k40Ux8-5Ed-AIsoUrfi0wQ" field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
+    <elementParameter xmi:id="_k40UyM-5Ed-AIsoUrfi0wQ" field="CHECK" name="ON_DATABASE_FLAG" value="false"/>
+    <elementParameter xmi:id="_k40Uyc-5Ed-AIsoUrfi0wQ" field="CLOSED_LIST" name="DB_TYPE" value=""/>
+    <elementParameter xmi:id="_k40Uys-5Ed-AIsoUrfi0wQ" field="CLOSED_LIST" name="DB_VERSION" value="ojdbc14-10g.jar"/>
+    <elementParameter xmi:id="_k40Uy8-5Ed-AIsoUrfi0wQ" field="TEXT" name="HOST" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k40UzM-5Ed-AIsoUrfi0wQ" field="TEXT" name="PORT" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k40Uzc-5Ed-AIsoUrfi0wQ" field="TEXT" name="DATASOURCE" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k40Uzs-5Ed-AIsoUrfi0wQ" field="TEXT" name="DBNAME" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k40Uz8-5Ed-AIsoUrfi0wQ" field="TEXT" name="LOCAL_SERVICE_NAME" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k40U0M-5Ed-AIsoUrfi0wQ" field="TEXT" name="PROPERTIES" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k40U0c-5Ed-AIsoUrfi0wQ" field="TEXT" name="SCHEMA_DB" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k40U0s-5Ed-AIsoUrfi0wQ" field="TEXT" name="USER" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k40U08-5Ed-AIsoUrfi0wQ" field="TEXT" name="PASS" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k40U1M-5Ed-AIsoUrfi0wQ" field="FILE" name="DBFILE" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k40U1c-5Ed-AIsoUrfi0wQ" field="DBTABLE" name="TABLE_STATS" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k40U1s-5Ed-AIsoUrfi0wQ" field="DBTABLE" name="TABLE_LOGS" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k40U18-5Ed-AIsoUrfi0wQ" field="DBTABLE" name="TABLE_METER" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_k40U2M-5Ed-AIsoUrfi0wQ" field="CHECK" name="CATCH_RUNTIME_ERRORS" value="true"/>
+    <elementParameter xmi:id="_k40U2c-5Ed-AIsoUrfi0wQ" field="CHECK" name="CATCH_USER_ERRORS" value="true"/>
+    <elementParameter xmi:id="_k40U2s-5Ed-AIsoUrfi0wQ" field="CHECK" name="CATCH_USER_WARNING" value="true"/>
+    <elementParameter xmi:id="_k40U28-5Ed-AIsoUrfi0wQ" field="CHECK" name="CATCH_REALTIME_STATS" value="false"/>
+  </parameters>
+  <node xmi:id="_k40U3M-5Ed-AIsoUrfi0wQ" componentName="tRowGenerator" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="128" posY="192">
+    <elementParameter xmi:id="_k40U3c-5Ed-AIsoUrfi0wQ" field="TEXT" name="UNIQUE_NAME" value="tRowGenerator_1"/>
+    <elementParameter xmi:id="_k40U3s-5Ed-AIsoUrfi0wQ" field="CHECK" name="START" value="true"/>
+    <elementParameter xmi:id="_k40U38-5Ed-AIsoUrfi0wQ" field="TEXT" name="NB_ROWS" value="Numeric.random(25,100)"/>
+    <elementParameter xmi:id="_k40U4M-5Ed-AIsoUrfi0wQ" field="TABLE" name="VALUES">
+      <elementValue xmi:id="_k40U4c-5Ed-AIsoUrfi0wQ" elementRef="SCHEMA_COLUMN" value="id"/>
+      <elementValue xmi:id="_k40U4s-5Ed-AIsoUrfi0wQ" elementRef="ARRAY" value="Numeric.random(1,10)"/>
+      <elementValue xmi:id="_k40U48-5Ed-AIsoUrfi0wQ" elementRef="SCHEMA_COLUMN" value="number"/>
+      <elementValue xmi:id="_k40U5M-5Ed-AIsoUrfi0wQ" elementRef="ARRAY" value="Numeric.random(75,150)"/>
+      <elementValue xmi:id="_k40U5c-5Ed-AIsoUrfi0wQ" elementRef="SCHEMA_COLUMN" value="txt"/>
+      <elementValue xmi:id="_k40U5s-5Ed-AIsoUrfi0wQ" elementRef="ARRAY" value="TalendDataGenerator.getUsState()"/>
+      <elementValue xmi:id="_k40U58-5Ed-AIsoUrfi0wQ" elementRef="SCHEMA_COLUMN" value="date"/>
+      <elementValue xmi:id="_k40U6M-5Ed-AIsoUrfi0wQ" elementRef="ARRAY" value="TalendDate.getRandomDate(&quot;2007-01-01&quot;,&quot;2008-12-31&quot;)"/>
+      <elementValue xmi:id="_k40U6c-5Ed-AIsoUrfi0wQ" elementRef="SCHEMA_COLUMN" value="flag"/>
+      <elementValue xmi:id="_k40U6s-5Ed-AIsoUrfi0wQ" elementRef="ARRAY" value="true,false"/>
+    </elementParameter>
+    <elementParameter xmi:id="_k40U68-5Ed-AIsoUrfi0wQ" field="EXTERNAL" name="MAP" value=""/>
+    <elementParameter xmi:id="_k40U7M-5Ed-AIsoUrfi0wQ" field="TEXT" name="HINT" value="__UNIQUE_NAME__"/>
+    <elementParameter xmi:id="_k40U7c-5Ed-AIsoUrfi0wQ" field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <elementParameter xmi:id="_k40U7s-5Ed-AIsoUrfi0wQ" field="CHECK" name="INFORMATION" value="false"/>
+    <elementParameter xmi:id="_k40U78-5Ed-AIsoUrfi0wQ" field="MEMO" name="COMMENT" value=""/>
+    <metadata xmi:id="_k40U8M-5Ed-AIsoUrfi0wQ" connector="FLOW" name="tRowGenerator_1">
+      <column xmi:id="_k40U8c-5Ed-AIsoUrfi0wQ" comment="" key="false" name="id" nullable="true" pattern="" sourceType="" type="id_Integer"/>
+      <column xmi:id="_k40U8s-5Ed-AIsoUrfi0wQ" comment="" key="false" length="3" name="number" nullable="false" pattern="" sourceType="" type="id_Integer"/>
+      <column xmi:id="_k40U88-5Ed-AIsoUrfi0wQ" comment="" key="false" length="20" name="txt" nullable="false" pattern="" sourceType="" type="id_String"/>
+      <column xmi:id="_k40U9M-5Ed-AIsoUrfi0wQ" comment="" key="false" length="10" name="date" nullable="false" pattern="&quot;dd-MM-yyyy&quot;" sourceType="" type="id_Date"/>
+      <column xmi:id="_k40U9c-5Ed-AIsoUrfi0wQ" comment="" key="false" length="5" name="flag" nullable="false" pattern="" sourceType="" type="id_Boolean"/>
+    </metadata>
+  </node>
+  <node xmi:id="_k40U9s-5Ed-AIsoUrfi0wQ" componentName="tAggregateRow" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="384" posY="192">
+    <elementParameter xmi:id="_k40U98-5Ed-AIsoUrfi0wQ" field="TEXT" name="UNIQUE_NAME" value="tAggregateRow_1"/>
+    <elementParameter xmi:id="_k40U-M-5Ed-AIsoUrfi0wQ" field="TABLE" name="GROUPBYS">
+      <elementValue xmi:id="_k40U-c-5Ed-AIsoUrfi0wQ" elementRef="OUTPUT_COLUMN" value="key"/>
+      <elementValue xmi:id="_k40U-s-5Ed-AIsoUrfi0wQ" elementRef="INPUT_COLUMN" value="id"/>
+    </elementParameter>
+    <elementParameter xmi:id="_k40U-8-5Ed-AIsoUrfi0wQ" field="TABLE" name="OPERATIONS">
+      <elementValue xmi:id="_k40U_M-5Ed-AIsoUrfi0wQ" elementRef="OUTPUT_COLUMN" value="min"/>
+      <elementValue xmi:id="_k40U_c-5Ed-AIsoUrfi0wQ" elementRef="FUNCTION" value="min"/>
+      <elementValue xmi:id="_k40U_s-5Ed-AIsoUrfi0wQ" elementRef="INPUT_COLUMN" value="number"/>
+      <elementValue xmi:id="_k40U_8-5Ed-AIsoUrfi0wQ" elementRef="IGNORE_NULL" value="false"/>
+      <elementValue xmi:id="_k40VAM-5Ed-AIsoUrfi0wQ" elementRef="OUTPUT_COLUMN" value="max"/>
+      <elementValue xmi:id="_k40VAc-5Ed-AIsoUrfi0wQ" elementRef="FUNCTION" value="max"/>
+      <elementValue xmi:id="_k40VAs-5Ed-AIsoUrfi0wQ" elementRef="INPUT_COLUMN" value="number"/>
+      <elementValue xmi:id="_k40VA8-5Ed-AIsoUrfi0wQ" elementRef="IGNORE_NULL" value="false"/>
+      <elementValue xmi:id="_k40VBM-5Ed-AIsoUrfi0wQ" elementRef="OUTPUT_COLUMN" value="average"/>
+      <elementValue xmi:id="_k40VBc-5Ed-AIsoUrfi0wQ" elementRef="FUNCTION" value="avg"/>
+      <elementValue xmi:id="_k40VBs-5Ed-AIsoUrfi0wQ" elementRef="INPUT_COLUMN" value="number"/>
+      <elementValue xmi:id="_k40VB8-5Ed-AIsoUrfi0wQ" elementRef="IGNORE_NULL" value="false"/>
+      <elementValue xmi:id="_k40VCM-5Ed-AIsoUrfi0wQ" elementRef="OUTPUT_COLUMN" value="sum"/>
+      <elementValue xmi:id="_k40VCc-5Ed-AIsoUrfi0wQ" elementRef="FUNCTION" value="sum"/>
+      <elementValue xmi:id="_k40VCs-5Ed-AIsoUrfi0wQ" elementRef="INPUT_COLUMN" value="number"/>
+      <elementValue xmi:id="_k40VC8-5Ed-AIsoUrfi0wQ" elementRef="IGNORE_NULL" value="false"/>
+      <elementValue xmi:id="_k40VDM-5Ed-AIsoUrfi0wQ" elementRef="OUTPUT_COLUMN" value="first"/>
+      <elementValue xmi:id="_k40VDc-5Ed-AIsoUrfi0wQ" elementRef="FUNCTION" value="first"/>
+      <elementValue xmi:id="_k40VDs-5Ed-AIsoUrfi0wQ" elementRef="INPUT_COLUMN" value="date"/>
+      <elementValue xmi:id="_k40VD8-5Ed-AIsoUrfi0wQ" elementRef="IGNORE_NULL" value="false"/>
+      <elementValue xmi:id="_k40VEM-5Ed-AIsoUrfi0wQ" elementRef="OUTPUT_COLUMN" value="last"/>
+      <elementValue xmi:id="_k40VEc-5Ed-AIsoUrfi0wQ" elementRef="FUNCTION" value="last"/>
+      <elementValue xmi:id="_k40VEs-5Ed-AIsoUrfi0wQ" elementRef="INPUT_COLUMN" value="date"/>
+      <elementValue xmi:id="_k40VE8-5Ed-AIsoUrfi0wQ" elementRef="IGNORE_NULL" value="false"/>
+      <elementValue xmi:id="_k40VFM-5Ed-AIsoUrfi0wQ" elementRef="OUTPUT_COLUMN" value="list"/>
+      <elementValue xmi:id="_k40VFc-5Ed-AIsoUrfi0wQ" elementRef="FUNCTION" value="list"/>
+      <elementValue xmi:id="_k40VFs-5Ed-AIsoUrfi0wQ" elementRef="INPUT_COLUMN" value="txt"/>
+      <elementValue xmi:id="_k40VF8-5Ed-AIsoUrfi0wQ" elementRef="IGNORE_NULL" value="false"/>
+    </elementParameter>
+    <elementParameter xmi:id="_k40VGM-5Ed-AIsoUrfi0wQ" field="TEXT" name="LIST_DELIMITER" value="&quot;,&quot;"/>
+    <elementParameter xmi:id="_k40VGc-5Ed-AIsoUrfi0wQ" field="CHECK" name="USE_FINANCIAL_PRECISION" value="true"/>
+    <elementParameter xmi:id="_k40VGs-5Ed-AIsoUrfi0wQ" field="CHECK" name="CHECK_TYPE_OVERFLOW" value="false"/>
+    <elementParameter xmi:id="_k40VG8-5Ed-AIsoUrfi0wQ" field="CHECK" name="CHECK_ULP" value="false"/>
+    <elementParameter xmi:id="_k40VHM-5Ed-AIsoUrfi0wQ" field="TEXT" name="HINT" value="__UNIQUE_NAME__"/>
+    <elementParameter xmi:id="_k40VHc-5Ed-AIsoUrfi0wQ" field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <elementParameter xmi:id="_k40VHs-5Ed-AIsoUrfi0wQ" field="CHECK" name="INFORMATION" value="false"/>
+    <elementParameter xmi:id="_k40VH8-5Ed-AIsoUrfi0wQ" field="MEMO" name="COMMENT" value=""/>
+    <metadata xmi:id="_k40VIM-5Ed-AIsoUrfi0wQ" connector="FLOW" name="tAggregateRow_1">
+      <column xmi:id="_k40VIc-5Ed-AIsoUrfi0wQ" comment="" key="false" name="key" nullable="true" pattern="" sourceType="" type="id_String"/>
+      <column xmi:id="_k40VIs-5Ed-AIsoUrfi0wQ" comment="" key="false" name="min" nullable="true" pattern="" sourceType="" type="id_Integer"/>
+      <column xmi:id="_k40VI8-5Ed-AIsoUrfi0wQ" comment="" key="false" name="max" nullable="true" pattern="" sourceType="" type="id_Integer"/>
+      <column xmi:id="_k40VJM-5Ed-AIsoUrfi0wQ" comment="" key="false" name="average" nullable="true" pattern="" sourceType="" type="id_BigDecimal"/>
+      <column xmi:id="_k40VJc-5Ed-AIsoUrfi0wQ" comment="" key="false" name="sum" nullable="true" pattern="" sourceType="" type="id_Double"/>
+      <column xmi:id="_k40VJs-5Ed-AIsoUrfi0wQ" comment="" key="false" name="first" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" sourceType="" type="id_Date"/>
+      <column xmi:id="_k40VJ8-5Ed-AIsoUrfi0wQ" comment="" key="false" name="last" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" sourceType="" type="id_Date"/>
+      <column xmi:id="_k40VKM-5Ed-AIsoUrfi0wQ" comment="" key="false" name="list" nullable="true" pattern="" sourceType="" type="id_String"/>
+    </metadata>
+  </node>
+  <node xmi:id="_k40VKc-5Ed-AIsoUrfi0wQ" componentName="tLogRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="608" posY="192">
+    <elementParameter xmi:id="_k40VKs-5Ed-AIsoUrfi0wQ" field="TEXT" name="UNIQUE_NAME" value="tLogRow_1"/>
+    <elementParameter xmi:id="_k40VK8-5Ed-AIsoUrfi0wQ" field="RADIO" name="BASIC_MODE" value="true"/>
+    <elementParameter xmi:id="_k40VLM-5Ed-AIsoUrfi0wQ" field="RADIO" name="TABLE_PRINT" value="false"/>
+    <elementParameter xmi:id="_k40VLc-5Ed-AIsoUrfi0wQ" field="RADIO" name="VERTICAL" value="false"/>
+    <elementParameter xmi:id="_k40VLs-5Ed-AIsoUrfi0wQ" field="RADIO" name="PRINT_UNIQUE" value="true"/>
+    <elementParameter xmi:id="_k40VL8-5Ed-AIsoUrfi0wQ" field="RADIO" name="PRINT_LABEL" value="false"/>
+    <elementParameter xmi:id="_k40VMM-5Ed-AIsoUrfi0wQ" field="RADIO" name="PRINT_UNIQUE_LABEL" value="false"/>
+    <elementParameter xmi:id="_k40VMc-5Ed-AIsoUrfi0wQ" field="TEXT" name="FIELDSEPARATOR" value="&quot;|&quot;"/>
+    <elementParameter xmi:id="_k40VMs-5Ed-AIsoUrfi0wQ" field="CHECK" name="PRINT_HEADER" value="false"/>
+    <elementParameter xmi:id="_k40VM8-5Ed-AIsoUrfi0wQ" field="CHECK" name="PRINT_UNIQUE_NAME" value="false"/>
+    <elementParameter xmi:id="_k40VNM-5Ed-AIsoUrfi0wQ" field="CHECK" name="PRINT_COLNAMES" value="false"/>
+    <elementParameter xmi:id="_k40VNc-5Ed-AIsoUrfi0wQ" field="CHECK" name="USE_FIXED_LENGTH" value="false"/>
+    <elementParameter xmi:id="_k40VNs-5Ed-AIsoUrfi0wQ" field="TABLE" name="LENGTHS">
+      <elementValue xmi:id="_k40VN8-5Ed-AIsoUrfi0wQ" elementRef="SCHEMA_COLUMN" value="key"/>
+      <elementValue xmi:id="_k40VOM-5Ed-AIsoUrfi0wQ" elementRef="LENGTH" value="10"/>
+      <elementValue xmi:id="_k40VOc-5Ed-AIsoUrfi0wQ" elementRef="SCHEMA_COLUMN" value="min"/>
+      <elementValue xmi:id="_k40VOs-5Ed-AIsoUrfi0wQ" elementRef="LENGTH" value="10"/>
+      <elementValue xmi:id="_k40VO8-5Ed-AIsoUrfi0wQ" elementRef="SCHEMA_COLUMN" value="max"/>
+      <elementValue xmi:id="_k40VPM-5Ed-AIsoUrfi0wQ" elementRef="LENGTH" value="10"/>
+      <elementValue xmi:id="_k40VPc-5Ed-AIsoUrfi0wQ" elementRef="SCHEMA_COLUMN" value="average"/>
+      <elementValue xmi:id="_k40VPs-5Ed-AIsoUrfi0wQ" elementRef="LENGTH" value="10"/>
+      <elementValue xmi:id="_k40VP8-5Ed-AIsoUrfi0wQ" elementRef="SCHEMA_COLUMN" value="sum"/>
+      <elementValue xmi:id="_k40VQM-5Ed-AIsoUrfi0wQ" elementRef="LENGTH" value="10"/>
+      <elementValue xmi:id="_k40VQc-5Ed-AIsoUrfi0wQ" elementRef="SCHEMA_COLUMN" value="first"/>
+      <elementValue xmi:id="_k40VQs-5Ed-AIsoUrfi0wQ" elementRef="LENGTH" value="10"/>
+      <elementValue xmi:id="_k40VQ8-5Ed-AIsoUrfi0wQ" elementRef="SCHEMA_COLUMN" value="last"/>
+      <elementValue xmi:id="_k40VRM-5Ed-AIsoUrfi0wQ" elementRef="LENGTH" value="10"/>
+      <elementValue xmi:id="_k40VRc-5Ed-AIsoUrfi0wQ" elementRef="SCHEMA_COLUMN" value="list"/>
+      <elementValue xmi:id="_k40VRs-5Ed-AIsoUrfi0wQ" elementRef="LENGTH" value="10"/>
+    </elementParameter>
+    <elementParameter xmi:id="_k40VR8-5Ed-AIsoUrfi0wQ" field="TEXT" name="HINT" value="__UNIQUE_NAME__"/>
+    <elementParameter xmi:id="_k40VSM-5Ed-AIsoUrfi0wQ" field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <elementParameter xmi:id="_k40VSc-5Ed-AIsoUrfi0wQ" field="CHECK" name="INFORMATION" value="false"/>
+    <elementParameter xmi:id="_k40VSs-5Ed-AIsoUrfi0wQ" field="MEMO" name="COMMENT" value=""/>
+    <metadata xmi:id="_k40VS8-5Ed-AIsoUrfi0wQ" connector="FLOW" name="tLogRow_1">
+      <column xmi:id="_k40VTM-5Ed-AIsoUrfi0wQ" comment="" key="false" name="key" nullable="true" pattern="" sourceType="" type="id_String"/>
+      <column xmi:id="_k40VTc-5Ed-AIsoUrfi0wQ" comment="" key="false" name="min" nullable="true" pattern="" sourceType="" type="id_Integer"/>
+      <column xmi:id="_k40VTs-5Ed-AIsoUrfi0wQ" comment="" key="false" name="max" nullable="true" pattern="" sourceType="" type="id_Integer"/>
+      <column xmi:id="_k40VT8-5Ed-AIsoUrfi0wQ" comment="" key="false" name="average" nullable="true" pattern="" sourceType="" type="id_BigDecimal"/>
+      <column xmi:id="_k40VUM-5Ed-AIsoUrfi0wQ" comment="" key="false" name="sum" nullable="true" pattern="" sourceType="" type="id_Double"/>
+      <column xmi:id="_k40VUc-5Ed-AIsoUrfi0wQ" comment="" key="false" name="first" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" sourceType="" type="id_Date"/>
+      <column xmi:id="_k40VUs-5Ed-AIsoUrfi0wQ" comment="" key="false" name="last" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" sourceType="" type="id_Date"/>
+      <column xmi:id="_k40VU8-5Ed-AIsoUrfi0wQ" comment="" key="false" name="list" nullable="true" pattern="" sourceType="" type="id_String"/>
+    </metadata>
+  </node>
+  <connection xmi:id="_k40VVM-5Ed-AIsoUrfi0wQ" connectorName="FLOW" label="row1" lineStyle="0" metaname="tRowGenerator_1" offsetLabelX="0" offsetLabelY="0" source="tRowGenerator_1" target="tAggregateRow_1">
+    <elementParameter xmi:id="_k40VVc-5Ed-AIsoUrfi0wQ" field="CHECK" name="TRACES_CONNECTION_ENABLE" value="true"/>
+    <elementParameter xmi:id="_k40VVs-5Ed-AIsoUrfi0wQ" field="TABLE" name="TRACES_CONNECTION_FILTER">
+      <elementValue xmi:id="_k40VV8-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN" value="number"/>
+      <elementValue xmi:id="_k40VWM-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_k40VWc-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_k40VWs-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN" value="txt"/>
+      <elementValue xmi:id="_k40VW8-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_k40VXM-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_k40VXc-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN" value="date"/>
+      <elementValue xmi:id="_k40VXs-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_k40VX8-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_k40VYM-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN" value="flag"/>
+      <elementValue xmi:id="_k40VYc-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_k40VYs-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_k40VY8-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN" value="id"/>
+      <elementValue xmi:id="_k40VZM-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_k40VZc-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+    </elementParameter>
+    <elementParameter xmi:id="_k40VZs-5Ed-AIsoUrfi0wQ" field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter xmi:id="_k40VZ8-5Ed-AIsoUrfi0wQ" field="CHECK" name="USEROWLABEL" value="true"/>
+    <elementParameter xmi:id="_k40VaM-5Ed-AIsoUrfi0wQ" field="TEXT" name="METTERLABEL" value="&quot;MyLabel&quot;"/>
+    <elementParameter xmi:id="_k40Vac-5Ed-AIsoUrfi0wQ" field="CLOSED_LIST" name="ABSOLUTE" value="Absolute"/>
+    <elementParameter xmi:id="_k40Vas-5Ed-AIsoUrfi0wQ" field="CONNECTION_LIST" name="CONNECTIONS" value=""/>
+    <elementParameter xmi:id="_k40Va8-5Ed-AIsoUrfi0wQ" field="TABLE" name="THRESHLODS"/>
+    <elementParameter xmi:id="_k40VbM-5Ed-AIsoUrfi0wQ" field="CHECK" name="ACTIVATE" value="true"/>
+    <elementParameter xmi:id="_k40Vbc-5Ed-AIsoUrfi0wQ" field="TEXT" name="UNIQUE_NAME" value="row1"/>
+  </connection>
+  <connection xmi:id="_k40Vbs-5Ed-AIsoUrfi0wQ" connectorName="FLOW" label="row2" lineStyle="0" metaname="tAggregateRow_1" offsetLabelX="0" offsetLabelY="0" source="tAggregateRow_1" target="tLogRow_1">
+    <elementParameter xmi:id="_k40Vb8-5Ed-AIsoUrfi0wQ" field="CHECK" name="TRACES_CONNECTION_ENABLE" value="true"/>
+    <elementParameter xmi:id="_k40VcM-5Ed-AIsoUrfi0wQ" field="TABLE" name="TRACES_CONNECTION_FILTER">
+      <elementValue xmi:id="_k40Vcc-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN" value="number"/>
+      <elementValue xmi:id="_k40Vcs-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_k40Vc8-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_k40VdM-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN" value="txt"/>
+      <elementValue xmi:id="_k40Vdc-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_k40Vds-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_k40Vd8-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN" value="date"/>
+      <elementValue xmi:id="_k40VeM-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_k40Vec-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_k40Ves-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN" value="flag"/>
+      <elementValue xmi:id="_k40Ve8-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_k40VfM-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_k40Vfc-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN" value="count"/>
+      <elementValue xmi:id="_k40Vfs-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_k40Vf8-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_k40VgM-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN" value="key"/>
+      <elementValue xmi:id="_k40Vgc-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_k40Vgs-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_k40Vg8-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN" value="min"/>
+      <elementValue xmi:id="_k40VhM-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_k40Vhc-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_k40Vhs-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN" value="last"/>
+      <elementValue xmi:id="_k40Vh8-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_k40ViM-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_k40Vic-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN" value="max"/>
+      <elementValue xmi:id="_k40Vis-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_k40Vi8-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_k40VjM-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN" value="sum"/>
+      <elementValue xmi:id="_k40Vjc-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_k40Vjs-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_k40Vj8-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN" value="average"/>
+      <elementValue xmi:id="_k40VkM-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_k40Vkc-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_k40Vks-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN" value="list"/>
+      <elementValue xmi:id="_k40Vk8-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_k40VlM-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_k40Vlc-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN" value="first"/>
+      <elementValue xmi:id="_k40Vls-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_k40Vl8-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+    </elementParameter>
+    <elementParameter xmi:id="_k40VmM-5Ed-AIsoUrfi0wQ" field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter xmi:id="_k40Vmc-5Ed-AIsoUrfi0wQ" field="CHECK" name="USEROWLABEL" value="true"/>
+    <elementParameter xmi:id="_k40Vms-5Ed-AIsoUrfi0wQ" field="TEXT" name="METTERLABEL" value="&quot;MyLabel&quot;"/>
+    <elementParameter xmi:id="_k40Vm8-5Ed-AIsoUrfi0wQ" field="CLOSED_LIST" name="ABSOLUTE" value="Absolute"/>
+    <elementParameter xmi:id="_k40VnM-5Ed-AIsoUrfi0wQ" field="CONNECTION_LIST" name="CONNECTIONS" value=""/>
+    <elementParameter xmi:id="_k40Vnc-5Ed-AIsoUrfi0wQ" field="TABLE" name="THRESHLODS"/>
+    <elementParameter xmi:id="_k40Vns-5Ed-AIsoUrfi0wQ" field="CHECK" name="ACTIVATE" value="true"/>
+    <elementParameter xmi:id="_k40Vn8-5Ed-AIsoUrfi0wQ" field="TEXT" name="UNIQUE_NAME" value="row2"/>
+  </connection>
+  <note xmi:id="_k40VoM-5Ed-AIsoUrfi0wQ" opaque="true" posX="96" posY="32" sizeHeight="97" sizeWidth="577" text="tAggregateRow receives a flow and aggregates it based on one or more columns.&#xD;&#xA;For each output line, are provided the aggregation key and the relevant result&#xD;&#xA;of set operations (min, max, sum)">
+    <elementParameter xmi:id="_k40Voc-5Ed-AIsoUrfi0wQ" field="COLOR" name="NOTE_COLOR" value="255;255;203"/>
+    <elementParameter xmi:id="_k40Vos-5Ed-AIsoUrfi0wQ" field="COLOR" name="NOTETXT_COLOR" value="0;0;0"/>
+    <elementParameter xmi:id="_k40Vo8-5Ed-AIsoUrfi0wQ" field="RADIO" name="NOTETXT_LEFT" value="false"/>
+    <elementParameter xmi:id="_k40VpM-5Ed-AIsoUrfi0wQ" field="RADIO" name="NOTETXT_RIGHT" value="false"/>
+    <elementParameter xmi:id="_k40Vpc-5Ed-AIsoUrfi0wQ" field="RADIO" name="NOTETXT_CENTER" value="true"/>
+    <elementParameter xmi:id="_k40Vps-5Ed-AIsoUrfi0wQ" field="RADIO" name="NOTELABEL_CENTER" value="true"/>
+    <elementParameter xmi:id="_k40Vp8-5Ed-AIsoUrfi0wQ" field="RADIO" name="NOTETXT_TOP" value="false"/>
+    <elementParameter xmi:id="_k40VqM-5Ed-AIsoUrfi0wQ" field="RADIO" name="NOTETXT_BOTTOM" value="false"/>
+    <elementParameter xmi:id="_k40Vqc-5Ed-AIsoUrfi0wQ" field="TEXT" name="NOTE_FONT" value="Time New Roman"/>
+    <elementParameter xmi:id="_k40Vqs-5Ed-AIsoUrfi0wQ" field="TEXT" name="FONT_SIZE" value="10"/>
+    <elementParameter xmi:id="_k40Vq8-5Ed-AIsoUrfi0wQ" field="CHECK" name="FONT_BOLD" value="false"/>
+    <elementParameter xmi:id="_k40VrM-5Ed-AIsoUrfi0wQ" field="CHECK" name="FONT_ITALIC" value="false"/>
+    <elementParameter xmi:id="_k40Vrc-5Ed-AIsoUrfi0wQ" field="COLOR" name="NOTE_LINECOLOR" value="237;201;122"/>
+  </note>
+  <subjob xmi:id="_k40Vrs-5Ed-AIsoUrfi0wQ">
+    <elementParameter xmi:id="_k40Vr8-5Ed-AIsoUrfi0wQ" field="TEXT" name="UNIQUE_NAME" value="tRowGenerator_1"/>
+    <elementParameter xmi:id="_k40VsM-5Ed-AIsoUrfi0wQ" field="COLOR" name="SUBJOB_TITLE_COLOR" value="50;50;250"/>
+    <elementParameter xmi:id="_k40Vsc-5Ed-AIsoUrfi0wQ" field="COLOR" name="SUBJOB_COLOR" value="220;220;250"/>
+  </subjob>
+  <routinesDependencies xmi:id="_k40Vss-5Ed-AIsoUrfi0wQ" idOrName="DataOperation" system="true"/>
+  <routinesDependencies xmi:id="_k40Vs8-5Ed-AIsoUrfi0wQ" idOrName="Mathematical" system="true"/>
+  <routinesDependencies xmi:id="_k40VtM-5Ed-AIsoUrfi0wQ" idOrName="Numeric" system="true"/>
+  <routinesDependencies xmi:id="_k40Vtc-5Ed-AIsoUrfi0wQ" idOrName="Relational" system="true"/>
+  <routinesDependencies xmi:id="_k40Vts-5Ed-AIsoUrfi0wQ" idOrName="StringHandling" system="true"/>
+  <routinesDependencies xmi:id="_k40Vt8-5Ed-AIsoUrfi0wQ" idOrName="TalendDataGenerator" system="true"/>
+  <routinesDependencies xmi:id="_k40VuM-5Ed-AIsoUrfi0wQ" idOrName="TalendDate" system="true"/>
+  <routinesDependencies xmi:id="_k40Vuc-5Ed-AIsoUrfi0wQ" idOrName="TalendString" system="true"/>
+  <routinesDependencies xmi:id="_k40Vus-5Ed-AIsoUrfi0wQ" idOrName="_8qwkYFjNEdyj6eiqDt60Og"/>
+  <routinesDependencies xmi:id="_k40Vu8-5Ed-AIsoUrfi0wQ" idOrName="_HKXfQGIZEd26GZmhFZLTPA"/>
+</talendfile:ProcessType>

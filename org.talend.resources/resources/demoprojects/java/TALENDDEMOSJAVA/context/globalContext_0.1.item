@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<talendfile:ContextType xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" xmi:id="_k_insc-5Ed-AIsoUrfi0wQ" confirmationNeeded="false" name="demo">
+  <contextParameter xmi:id="_k_inss-5Ed-AIsoUrfi0wQ" comment="Folder for source file" name="sourcesFilesFolder" prompt="Set the path of the dir to store the example files folder:" promptNeeded="false" type="id_String" value="/home/talend_files/"/>
+</talendfile:ContextType>

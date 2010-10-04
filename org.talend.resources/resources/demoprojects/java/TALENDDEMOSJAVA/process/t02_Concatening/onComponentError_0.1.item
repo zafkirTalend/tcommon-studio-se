@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<talendfile:ProcessType xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" xmi:id="_lASP9s-5Ed-AIsoUrfi0wQ" defaultContext="Default">
+  <context xmi:id="_lASP98-5Ed-AIsoUrfi0wQ" confirmationNeeded="false" name="Default">
+    <contextParameter xmi:id="_lASP-M-5Ed-AIsoUrfi0wQ" comment="" name="filepath" prompt="filePath (you must make an error to display the error message box):" promptNeeded="true" type="id_String" value="pathError"/>
+  </context>
+  <parameters xmi:id="_lASP-c-5Ed-AIsoUrfi0wQ">
+    <elementParameter xmi:id="_lASP-s-5Ed-AIsoUrfi0wQ" field="DIRECTORY" name="COMP_DEFAULT_FILE_DIR" value="D:\TOS-All-r17341-V3.0.0M3\workspace" contextMode="false"/>
+    <elementParameter xmi:id="_lASP-8-5Ed-AIsoUrfi0wQ" field="CHECK" name="displaySubjobs" value="true" contextMode="false"/>
+    <elementParameter xmi:id="_lASP_M-5Ed-AIsoUrfi0wQ" field="TEXT" name="AUTHOR" value="training@talend.com" contextMode="false"/>
+    <elementParameter xmi:id="_lASP_c-5Ed-AIsoUrfi0wQ" field="TEXT" name="STATUS" value="" contextMode="false"/>
+    <elementParameter xmi:id="_lASP_s-5Ed-AIsoUrfi0wQ" field="TEXT" name="NAME" value="onComponentError" contextMode="false"/>
+    <elementParameter xmi:id="_lASP_8-5Ed-AIsoUrfi0wQ" field="TEXT" name="VERSION" value="0.1" contextMode="false"/>
+    <elementParameter xmi:id="_lASQAM-5Ed-AIsoUrfi0wQ" field="TEXT" name="PURPOSE" value="" contextMode="false"/>
+    <elementParameter xmi:id="_lASQAc-5Ed-AIsoUrfi0wQ" field="TEXT" name="DESCRIPTION" value="" contextMode="false"/>
+    <elementParameter xmi:id="_lASQAs-5Ed-AIsoUrfi0wQ" field="TEXT" name="SCREEN_OFFSET_X" value="0" contextMode="false"/>
+    <elementParameter xmi:id="_lASQA8-5Ed-AIsoUrfi0wQ" field="TEXT" name="SCREEN_OFFSET_Y" value="0" contextMode="false"/>
+    <elementParameter xmi:id="_lASQBM-5Ed-AIsoUrfi0wQ" field="TEXT" name="SCHEMA_OPTIONS" value="none" contextMode="false"/>
+    <elementParameter xmi:id="_lASQBc-5Ed-AIsoUrfi0wQ" field="CHECK" name="MULTI_THREAD_EXECATION" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_lASQBs-5Ed-AIsoUrfi0wQ" field="CHECK" name="IMPLICIT_TCONTEXTLOAD" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_lASQB8-5Ed-AIsoUrfi0wQ" field="RADIO" name="FROM_FILE_FLAG_IMPLICIT_CONTEXT" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_lASQCM-5Ed-AIsoUrfi0wQ" field="RADIO" name="FROM_DATABASE_FLAG_IMPLICIT_CONTEXT" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_lASQCc-5Ed-AIsoUrfi0wQ" field="FILE" name="IMPLICIT_TCONTEXTLOAD_FILE" value="&quot;D:/TOS-All-r8293-V2.3.0RC2/workspace/in.csv&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_lASQCs-5Ed-AIsoUrfi0wQ" field="TEXT" name="FIELDSEPARATOR" value="&quot;;&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_lASQC8-5Ed-AIsoUrfi0wQ" field="PROPERTY_TYPE" name="PROPERTY_TYPE_IMPLICIT_CONTEXT" value="" contextMode="false"/>
+    <elementParameter xmi:id="_lASQDM-5Ed-AIsoUrfi0wQ" field="TECHNICAL" name="PROPERTY_TYPE_IMPLICIT_CONTEXT:PROPERTY_TYPE" value="BUILT_IN" contextMode="false"/>
+    <elementParameter xmi:id="_lASQDc-5Ed-AIsoUrfi0wQ" field="TECHNICAL" name="PROPERTY_TYPE_IMPLICIT_CONTEXT:REPOSITORY_PROPERTY_TYPE" value="" contextMode="false"/>
+    <elementParameter xmi:id="_lASQDs-5Ed-AIsoUrfi0wQ" field="CLOSED_LIST" name="DB_TYPE_IMPLICIT_CONTEXT" value="tDBInput" contextMode="false"/>
+    <elementParameter xmi:id="_lASQD8-5Ed-AIsoUrfi0wQ" field="TEXT" name="HOST_IMPLICIT_CONTEXT" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_lASQEM-5Ed-AIsoUrfi0wQ" field="TEXT" name="PORT_IMPLICIT_CONTEXT" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_lASQEc-5Ed-AIsoUrfi0wQ" field="TEXT" name="DBNAME_IMPLICIT_CONTEXT" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_lASQEs-5Ed-AIsoUrfi0wQ" field="TEXT" name="PROPERTIES_IMPLICIT_CONTEXT" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_lASQE8-5Ed-AIsoUrfi0wQ" field="TEXT" name="SCHEMA_DB_IMPLICIT_CONTEXT" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_lASQFM-5Ed-AIsoUrfi0wQ" field="TEXT" name="USER_IMPLICIT_CONTEXT" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_lASQFc-5Ed-AIsoUrfi0wQ" field="TEXT" name="PASS_IMPLICIT_CONTEXT" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_lASQFs-5Ed-AIsoUrfi0wQ" field="FILE" name="DBFILE_IMPLICIT_CONTEXT" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_lASQF8-5Ed-AIsoUrfi0wQ" field="DBTABLE" name="DBTABLE_IMPLICIT_CONTEXT" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_lASQGM-5Ed-AIsoUrfi0wQ" field="TEXT" name="QUERY_CONDITION_IMPLICIT_CONTEXT" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_lASQGc-5Ed-AIsoUrfi0wQ" field="CLOSED_LIST" name="LOAD_NEW_VARIABLE" value="Warning" contextMode="false"/>
+    <elementParameter xmi:id="_lASQGs-5Ed-AIsoUrfi0wQ" field="CLOSED_LIST" name="NOT_LOAD_OLD_VARIABLE" value="Warning" contextMode="false"/>
+    <elementParameter xmi:id="_lASQG8-5Ed-AIsoUrfi0wQ" field="CHECK" name="PRINT_OPERATIONS" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_lASQHM-5Ed-AIsoUrfi0wQ" field="CHECK" name="DISABLE_ERROR" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-sM-5Ed-AIsoUrfi0wQ" field="CHECK" name="DISABLE_WARNINGS" value="true" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-sc-5Ed-AIsoUrfi0wQ" field="CHECK" name="DISABLE_INFO" value="true" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-ss-5Ed-AIsoUrfi0wQ" field="CHECK" name="UPDATE_COMPONENTS" value="true" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-s8-5Ed-AIsoUrfi0wQ" field="CHECK" name="ON_STATCATCHER_FLAG" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-tM-5Ed-AIsoUrfi0wQ" field="CHECK" name="ON_LOGCATCHER_FLAG" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-tc-5Ed-AIsoUrfi0wQ" field="CHECK" name="ON_METERCATCHER_FLAG" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-ts-5Ed-AIsoUrfi0wQ" field="CHECK" name="ON_CONSOLE_FLAG" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-t8-5Ed-AIsoUrfi0wQ" field="CHECK" name="ON_FILES_FLAG" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-uM-5Ed-AIsoUrfi0wQ" field="DIRECTORY" name="FILE_PATH" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-uc-5Ed-AIsoUrfi0wQ" field="TEXT" name="FILENAME_STATS" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-us-5Ed-AIsoUrfi0wQ" field="TEXT" name="FILENAME_LOGS" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-u8-5Ed-AIsoUrfi0wQ" field="TEXT" name="FILENAME_METTER" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-vM-5Ed-AIsoUrfi0wQ" field="CHECK" name="ON_DATABASE_FLAG" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-vc-5Ed-AIsoUrfi0wQ" field="PROPERTY_TYPE" name="PROPERTY_TYPE" value="" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-vs-5Ed-AIsoUrfi0wQ" field="TECHNICAL" name="PROPERTY_TYPE:PROPERTY_TYPE" value="BUILT_IN" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-v8-5Ed-AIsoUrfi0wQ" field="TECHNICAL" name="PROPERTY_TYPE:REPOSITORY_PROPERTY_TYPE" value="" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-wM-5Ed-AIsoUrfi0wQ" field="CLOSED_LIST" name="DB_TYPE" value="" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-wc-5Ed-AIsoUrfi0wQ" field="TEXT" name="HOST" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-ws-5Ed-AIsoUrfi0wQ" field="TEXT" name="PORT" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-w8-5Ed-AIsoUrfi0wQ" field="TEXT" name="DBNAME" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-xM-5Ed-AIsoUrfi0wQ" field="TEXT" name="PROPERTIES" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-xc-5Ed-AIsoUrfi0wQ" field="TEXT" name="SCHEMA_DB" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-xs-5Ed-AIsoUrfi0wQ" field="TEXT" name="USER" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-x8-5Ed-AIsoUrfi0wQ" field="TEXT" name="PASS" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-yM-5Ed-AIsoUrfi0wQ" field="FILE" name="DBFILE" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-yc-5Ed-AIsoUrfi0wQ" field="DBTABLE" name="TABLE_STATS" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-ys-5Ed-AIsoUrfi0wQ" field="DBTABLE" name="TABLE_LOGS" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-y8-5Ed-AIsoUrfi0wQ" field="DBTABLE" name="TABLE_METER" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-zM-5Ed-AIsoUrfi0wQ" field="CHECK" name="CATCH_RUNTIME_ERRORS" value="true" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-zc-5Ed-AIsoUrfi0wQ" field="CHECK" name="CATCH_USER_ERRORS" value="true" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-zs-5Ed-AIsoUrfi0wQ" field="CHECK" name="CATCH_USER_WARNING" value="true" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-z8-5Ed-AIsoUrfi0wQ" field="CHECK" name="CATCH_REALTIME_STATS" value="false" contextMode="false"/>
+  </parameters>
+  <node xmi:id="_lAb-0M-5Ed-AIsoUrfi0wQ" componentName="tFileInputDelimited" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="192" posY="192">
+    <elementParameter xmi:id="_lAb-0c-5Ed-AIsoUrfi0wQ" field="TEXT" name="UNIQUE_NAME" value="tFileInputDelimited_1" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-0s-5Ed-AIsoUrfi0wQ" field="TEXT" name="COMPONENT_NAME" value="tFileInputDelimited" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-08-5Ed-AIsoUrfi0wQ" field="TEXT" name="TRANSLATED_COMPONENT_NAME" value="tFileInputDelimited" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-1M-5Ed-AIsoUrfi0wQ" field="TEXT" name="VERSION" value="0.102 (ALPHA)" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-1c-5Ed-AIsoUrfi0wQ" field="TEXT" name="FAMILY" value="File/Input" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-1s-5Ed-AIsoUrfi0wQ" field="CHECK" name="START" value="true" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-18-5Ed-AIsoUrfi0wQ" field="CHECK" name="STARTABLE" value="true" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-2M-5Ed-AIsoUrfi0wQ" field="CHECK" name="ACTIVATE" value="true" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-2c-5Ed-AIsoUrfi0wQ" field="CHECK" name="DUMMY" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-2s-5Ed-AIsoUrfi0wQ" field="CHECK" name="TSTATCATCHER_STATS" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-28-5Ed-AIsoUrfi0wQ" field="TEXT" name="HELP" value="org.talend.help.tFileInputDelimited" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-3M-5Ed-AIsoUrfi0wQ" field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-3c-5Ed-AIsoUrfi0wQ" field="TEXT" name="CURRENT_OS" value="Windows XP" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-3s-5Ed-AIsoUrfi0wQ" field="DIRECTORY" name="IREPORT_PATH" value="" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-38-5Ed-AIsoUrfi0wQ" field="PROPERTY_TYPE" name="PROPERTY" value="" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-4M-5Ed-AIsoUrfi0wQ" field="TECHNICAL" name="PROPERTY:PROPERTY_TYPE" value="BUILT_IN" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-4c-5Ed-AIsoUrfi0wQ" field="TECHNICAL" name="PROPERTY:REPOSITORY_PROPERTY_TYPE" value="" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-4s-5Ed-AIsoUrfi0wQ" field="FILE" name="FILENAME" value="context.filepath" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-48-5Ed-AIsoUrfi0wQ" field="TEXT" name="ROWSEPARATOR" value="&quot;\n&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-5M-5Ed-AIsoUrfi0wQ" field="TEXT" name="FIELDSEPARATOR" value="&quot;;&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-5c-5Ed-AIsoUrfi0wQ" field="CHECK" name="CSV_OPTION" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-5s-5Ed-AIsoUrfi0wQ" field="TEXT" name="ESCAPE_CHAR" value="&quot;&quot;&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-58-5Ed-AIsoUrfi0wQ" field="TEXT" name="TEXT_ENCLOSURE" value="&quot;&quot;&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-6M-5Ed-AIsoUrfi0wQ" field="TEXT" name="HEADER" value="0" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-6c-5Ed-AIsoUrfi0wQ" field="TEXT" name="FOOTER" value="0" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-6s-5Ed-AIsoUrfi0wQ" field="TEXT" name="LIMIT" value="" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-68-5Ed-AIsoUrfi0wQ" field="CHECK" name="REMOVE_EMPTY_ROW" value="true" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-7M-5Ed-AIsoUrfi0wQ" field="CHECK" name="DIE_ON_ERROR" value="true" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-7c-5Ed-AIsoUrfi0wQ" field="CHECK" name="REPOSITORY_ALLOW_AUTO_SWITCH" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-7s-5Ed-AIsoUrfi0wQ" field="TECHNICAL" name="SCHEMA:SCHEMA_TYPE" value="BUILT_IN" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-78-5Ed-AIsoUrfi0wQ" field="TECHNICAL" name="SCHEMA:REPOSITORY_SCHEMA_TYPE" value="" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-8M-5Ed-AIsoUrfi0wQ" field="TECHNICAL" name="SCHEMA_REJECT:SCHEMA_TYPE" value="BUILT_IN" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-8c-5Ed-AIsoUrfi0wQ" field="TECHNICAL" name="SCHEMA_REJECT:REPOSITORY_SCHEMA_TYPE" value="" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-8s-5Ed-AIsoUrfi0wQ" field="CHECK" name="ADVANCED_SEPARATOR" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-88-5Ed-AIsoUrfi0wQ" field="TEXT" name="THOUSANDS_SEPARATOR" value="','" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-9M-5Ed-AIsoUrfi0wQ" field="TEXT" name="DECIMAL_SEPARATOR" value="'.'" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-9c-5Ed-AIsoUrfi0wQ" field="CHECK" name="RANDOM" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-9s-5Ed-AIsoUrfi0wQ" field="TEXT" name="NB_RANDOM" value="10" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-98-5Ed-AIsoUrfi0wQ" field="CHECK" name="TRIMALL" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_lAb--M-5Ed-AIsoUrfi0wQ" field="TABLE" name="TRIMSELECT" contextMode="false"/>
+    <elementParameter xmi:id="_lAb--c-5Ed-AIsoUrfi0wQ" field="CHECK" name="CHECK_FIELDS_NUM" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_lAb--s-5Ed-AIsoUrfi0wQ" field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_lAb--8-5Ed-AIsoUrfi0wQ" field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-_M-5Ed-AIsoUrfi0wQ" field="CHECK" name="SPLITRECORD" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-_c-5Ed-AIsoUrfi0wQ" field="TEXT" name="LABEL" value="__UNIQUE_NAME__" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-_s-5Ed-AIsoUrfi0wQ" field="TEXT" name="HINT" value="__UNIQUE_NAME__" contextMode="false"/>
+    <elementParameter xmi:id="_lAb-_8-5Ed-AIsoUrfi0wQ" field="TEXT" name="CONNECTION_FORMAT" value="row" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_AM-5Ed-AIsoUrfi0wQ" field="MEMO" name="COMMENT" value="" contextMode="false"/>
+    <metadata xmi:id="_lAb_Ac-5Ed-AIsoUrfi0wQ" connector="FLOW" name="tFileInputDelimited_1">
+      <column xmi:id="_lAb_As-5Ed-AIsoUrfi0wQ" comment="" defaultValue="" key="false" length="3" name="number" nullable="false" pattern="" sourceType="" type="id_Integer"/>
+      <column xmi:id="_lAb_A8-5Ed-AIsoUrfi0wQ" comment="" defaultValue="" key="false" length="20" name="txt" nullable="false" pattern="" sourceType="" type="id_String"/>
+      <column xmi:id="_lAb_BM-5Ed-AIsoUrfi0wQ" comment="" defaultValue="" key="false" length="10" name="date" nullable="false" pattern="" sourceType="" type="id_String"/>
+      <column xmi:id="_lAb_Bc-5Ed-AIsoUrfi0wQ" comment="" defaultValue="" key="false" length="5" name="flag" nullable="false" pattern="" sourceType="" type="id_Boolean"/>
+    </metadata>
+    <metadata xmi:id="_lAb_Bs-5Ed-AIsoUrfi0wQ" connector="REJECT" name="REJECT">
+      <column xmi:id="_lAb_B8-5Ed-AIsoUrfi0wQ" comment="" defaultValue="" key="false" length="3" name="number" nullable="false" pattern="" sourceType="" type="id_Integer"/>
+      <column xmi:id="_lAb_CM-5Ed-AIsoUrfi0wQ" comment="" defaultValue="" key="false" length="20" name="txt" nullable="false" pattern="" sourceType="" type="id_String"/>
+      <column xmi:id="_lAb_Cc-5Ed-AIsoUrfi0wQ" comment="" defaultValue="" key="false" length="10" name="date" nullable="false" pattern="" sourceType="" type="id_String"/>
+      <column xmi:id="_lAb_Cs-5Ed-AIsoUrfi0wQ" comment="" defaultValue="" key="false" length="5" name="flag" nullable="false" pattern="" sourceType="" type="id_Boolean"/>
+      <column xmi:id="_lAb_C8-5Ed-AIsoUrfi0wQ" defaultValue="" key="false" length="255" name="errorCode" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column xmi:id="_lAb_DM-5Ed-AIsoUrfi0wQ" defaultValue="" key="false" length="255" name="errorMessage" nullable="true" precision="0" sourceType="" type="id_String"/>
+    </metadata>
+  </node>
+  <node xmi:id="_lAb_Dc-5Ed-AIsoUrfi0wQ" componentName="tJavaRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="512" posY="192">
+    <elementParameter xmi:id="_lAb_Ds-5Ed-AIsoUrfi0wQ" field="TEXT" name="UNIQUE_NAME" value="tJavaRow_1" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_D8-5Ed-AIsoUrfi0wQ" field="TEXT" name="COMPONENT_NAME" value="tJavaRow" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_EM-5Ed-AIsoUrfi0wQ" field="TEXT" name="TRANSLATED_COMPONENT_NAME" value="tJavaRow" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_Ec-5Ed-AIsoUrfi0wQ" field="TEXT" name="VERSION" value="0.101 (ALPHA)" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_Es-5Ed-AIsoUrfi0wQ" field="TEXT" name="FAMILY" value="Custom Code" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_E8-5Ed-AIsoUrfi0wQ" field="CHECK" name="STARTABLE" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_FM-5Ed-AIsoUrfi0wQ" field="CHECK" name="ACTIVATE" value="true" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_Fc-5Ed-AIsoUrfi0wQ" field="CHECK" name="DUMMY" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_Fs-5Ed-AIsoUrfi0wQ" field="CHECK" name="TSTATCATCHER_STATS" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_F8-5Ed-AIsoUrfi0wQ" field="TEXT" name="HELP" value="org.talend.help.tJavaRow" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_GM-5Ed-AIsoUrfi0wQ" field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_Gc-5Ed-AIsoUrfi0wQ" field="TEXT" name="CURRENT_OS" value="Windows XP" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_Gs-5Ed-AIsoUrfi0wQ" field="DIRECTORY" name="IREPORT_PATH" value="" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_G8-5Ed-AIsoUrfi0wQ" field="CHECK" name="REPOSITORY_ALLOW_AUTO_SWITCH" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_HM-5Ed-AIsoUrfi0wQ" field="TECHNICAL" name="SCHEMA:SCHEMA_TYPE" value="BUILT_IN" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_Hc-5Ed-AIsoUrfi0wQ" field="TECHNICAL" name="SCHEMA:REPOSITORY_SCHEMA_TYPE" value="" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_Hs-5Ed-AIsoUrfi0wQ" field="MEMO_JAVA" name="CODE" value="// Do nothing!" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_H8-5Ed-AIsoUrfi0wQ" field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_IM-5Ed-AIsoUrfi0wQ" field="TEXT" name="LABEL" value="__UNIQUE_NAME__&lt;br> Do nothing!" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_Ic-5Ed-AIsoUrfi0wQ" field="TEXT" name="HINT" value="__UNIQUE_NAME__" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_Is-5Ed-AIsoUrfi0wQ" field="TEXT" name="CONNECTION_FORMAT" value="row" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_I8-5Ed-AIsoUrfi0wQ" field="MEMO" name="COMMENT" value="" contextMode="false"/>
+    <metadata xmi:id="_lAb_JM-5Ed-AIsoUrfi0wQ" connector="FLOW" name="tJavaRow_1"/>
+  </node>
+  <node xmi:id="_lAb_Jc-5Ed-AIsoUrfi0wQ" componentName="tMsgBox" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="352" posY="384">
+    <elementParameter xmi:id="_lAb_Js-5Ed-AIsoUrfi0wQ" field="TEXT" name="UNIQUE_NAME" value="tMsgBox_1" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_J8-5Ed-AIsoUrfi0wQ" field="TEXT" name="COMPONENT_NAME" value="tMsgBox" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_KM-5Ed-AIsoUrfi0wQ" field="TEXT" name="TRANSLATED_COMPONENT_NAME" value="tMsgBox" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_Kc-5Ed-AIsoUrfi0wQ" field="TEXT" name="VERSION" value="0.101 (ALPHA)" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_Ks-5Ed-AIsoUrfi0wQ" field="TEXT" name="FAMILY" value="Misc" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_K8-5Ed-AIsoUrfi0wQ" field="CHECK" name="START" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_LM-5Ed-AIsoUrfi0wQ" field="CHECK" name="STARTABLE" value="true" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_Lc-5Ed-AIsoUrfi0wQ" field="CHECK" name="ACTIVATE" value="true" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_Ls-5Ed-AIsoUrfi0wQ" field="CHECK" name="DUMMY" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_L8-5Ed-AIsoUrfi0wQ" field="CHECK" name="TSTATCATCHER_STATS" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_MM-5Ed-AIsoUrfi0wQ" field="TEXT" name="HELP" value="org.talend.help.tMsgBox" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_Mc-5Ed-AIsoUrfi0wQ" field="CHECK" name="UPDATE_COMPONENTS" value="true" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_Ms-5Ed-AIsoUrfi0wQ" field="TEXT" name="CURRENT_OS" value="Windows XP" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_M8-5Ed-AIsoUrfi0wQ" field="DIRECTORY" name="IREPORT_PATH" value="" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_NM-5Ed-AIsoUrfi0wQ" field="TEXT" name="TITLE" value="&quot;Talend Open Studio&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_Nc-5Ed-AIsoUrfi0wQ" field="CLOSED_LIST" name="BUTTONS" value="0" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_Ns-5Ed-AIsoUrfi0wQ" field="CLOSED_LIST" name="ICON" value="INFORMATION_MESSAGE" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_N8-5Ed-AIsoUrfi0wQ" field="TEXT" name="QUESTION_TITLE" value="&quot;Window Title&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_OM-5Ed-AIsoUrfi0wQ" field="MEMO" name="QUESTION_LABEL" value="&quot;Question ?&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_Oc-5Ed-AIsoUrfi0wQ" field="MEMO" name="MESSAGE" value="&quot;The file is accessible, the job run correctly&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_Os-5Ed-AIsoUrfi0wQ" field="TECHNICAL" name="NOT_SYNCHRONIZED_SCHEMA:SCHEMA_TYPE" value="BUILT_IN" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_O8-5Ed-AIsoUrfi0wQ" field="TECHNICAL" name="NOT_SYNCHRONIZED_SCHEMA:REPOSITORY_SCHEMA_TYPE" value="" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_PM-5Ed-AIsoUrfi0wQ" field="TEXT" name="LABEL" value="__UNIQUE_NAME__" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_Pc-5Ed-AIsoUrfi0wQ" field="TEXT" name="HINT" value="__UNIQUE_NAME__" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_Ps-5Ed-AIsoUrfi0wQ" field="TEXT" name="CONNECTION_FORMAT" value="row" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_P8-5Ed-AIsoUrfi0wQ" field="MEMO" name="COMMENT" value="" contextMode="false"/>
+    <metadata xmi:id="_lAb_QM-5Ed-AIsoUrfi0wQ" connector="FLOW" name="tMsgBox_1"/>
+  </node>
+  <node xmi:id="_lAb_Qc-5Ed-AIsoUrfi0wQ" componentName="tMsgBox" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="96" posY="384">
+    <elementParameter xmi:id="_lAb_Qs-5Ed-AIsoUrfi0wQ" field="TEXT" name="UNIQUE_NAME" value="tMsgBox_2" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_Q8-5Ed-AIsoUrfi0wQ" field="TEXT" name="COMPONENT_NAME" value="tMsgBox" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_RM-5Ed-AIsoUrfi0wQ" field="TEXT" name="TRANSLATED_COMPONENT_NAME" value="tMsgBox" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_Rc-5Ed-AIsoUrfi0wQ" field="TEXT" name="VERSION" value="0.101 (ALPHA)" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_Rs-5Ed-AIsoUrfi0wQ" field="TEXT" name="FAMILY" value="Misc" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_R8-5Ed-AIsoUrfi0wQ" field="CHECK" name="START" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_SM-5Ed-AIsoUrfi0wQ" field="CHECK" name="STARTABLE" value="true" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_Sc-5Ed-AIsoUrfi0wQ" field="CHECK" name="ACTIVATE" value="true" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_Ss-5Ed-AIsoUrfi0wQ" field="CHECK" name="DUMMY" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_S8-5Ed-AIsoUrfi0wQ" field="CHECK" name="TSTATCATCHER_STATS" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_TM-5Ed-AIsoUrfi0wQ" field="TEXT" name="HELP" value="org.talend.help.tMsgBox" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_Tc-5Ed-AIsoUrfi0wQ" field="CHECK" name="UPDATE_COMPONENTS" value="true" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_Ts-5Ed-AIsoUrfi0wQ" field="TEXT" name="CURRENT_OS" value="Windows XP" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_T8-5Ed-AIsoUrfi0wQ" field="DIRECTORY" name="IREPORT_PATH" value="" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_UM-5Ed-AIsoUrfi0wQ" field="TEXT" name="TITLE" value="&quot;Talend Open Studio&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_Uc-5Ed-AIsoUrfi0wQ" field="CLOSED_LIST" name="BUTTONS" value="0" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_Us-5Ed-AIsoUrfi0wQ" field="CLOSED_LIST" name="ICON" value="INFORMATION_MESSAGE" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_U8-5Ed-AIsoUrfi0wQ" field="TEXT" name="QUESTION_TITLE" value="&quot;Window Title&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_VM-5Ed-AIsoUrfi0wQ" field="MEMO" name="QUESTION_LABEL" value="&quot;Question ?&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_Vc-5Ed-AIsoUrfi0wQ" field="MEMO" name="MESSAGE" value="&quot;Talend Open Studio can't open the file: &quot;+((String)context.getProperty(&quot;filepath&quot;))" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_Vs-5Ed-AIsoUrfi0wQ" field="TECHNICAL" name="NOT_SYNCHRONIZED_SCHEMA:SCHEMA_TYPE" value="BUILT_IN" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_V8-5Ed-AIsoUrfi0wQ" field="TECHNICAL" name="NOT_SYNCHRONIZED_SCHEMA:REPOSITORY_SCHEMA_TYPE" value="" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_WM-5Ed-AIsoUrfi0wQ" field="TEXT" name="LABEL" value="__UNIQUE_NAME__" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_Wc-5Ed-AIsoUrfi0wQ" field="TEXT" name="HINT" value="__UNIQUE_NAME__" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_Ws-5Ed-AIsoUrfi0wQ" field="TEXT" name="CONNECTION_FORMAT" value="row" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_W8-5Ed-AIsoUrfi0wQ" field="MEMO" name="COMMENT" value="" contextMode="false"/>
+    <metadata xmi:id="_lAb_XM-5Ed-AIsoUrfi0wQ" connector="FLOW" name="tMsgBox_2"/>
+  </node>
+  <connection xmi:id="_lAb_Xc-5Ed-AIsoUrfi0wQ" connectorName="FLOW" label="row1" lineStyle="0" metaname="tFileInputDelimited_1" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_1" target="tJavaRow_1">
+    <elementParameter xmi:id="_lAb_Xs-5Ed-AIsoUrfi0wQ" field="CHECK" name="MONITOR_CONNECTION" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_X8-5Ed-AIsoUrfi0wQ" field="CHECK" name="USEROWLABEL" value="true" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_YM-5Ed-AIsoUrfi0wQ" field="TEXT" name="METTERLABEL" value="&quot;MyLabel&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_Yc-5Ed-AIsoUrfi0wQ" field="CLOSED_LIST" name="ABSOLUTE" value="Absolute" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_Ys-5Ed-AIsoUrfi0wQ" field="CONNECTION_LIST" name="CONNECTIONS" value="" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_Y8-5Ed-AIsoUrfi0wQ" field="TABLE" name="THRESHLODS" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_ZM-5Ed-AIsoUrfi0wQ" field="CHECK" name="ACTIVATE" value="true" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_Zc-5Ed-AIsoUrfi0wQ" field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_Zs-5Ed-AIsoUrfi0wQ" field="TEXT" name="UNIQUE_NAME" value="row1" contextMode="false"/>
+  </connection>
+  <connection xmi:id="_lAb_Z8-5Ed-AIsoUrfi0wQ" connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tFileInputDelimited_1" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_1" target="tMsgBox_1">
+    <elementParameter xmi:id="_lAb_aM-5Ed-AIsoUrfi0wQ" field="CHECK" name="ACTIVATE" value="true" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_ac-5Ed-AIsoUrfi0wQ" field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_as-5Ed-AIsoUrfi0wQ" field="TEXT" name="UNIQUE_NAME" value="OnComponentOk8" contextMode="false"/>
+  </connection>
+  <connection xmi:id="_lAb_a8-5Ed-AIsoUrfi0wQ" connectorName="COMPONENT_ERROR" label="OnComponentError" lineStyle="5" metaname="tFileInputDelimited_1" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_1" target="tMsgBox_2">
+    <elementParameter xmi:id="_lAb_bM-5Ed-AIsoUrfi0wQ" field="CHECK" name="ACTIVATE" value="true" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_bc-5Ed-AIsoUrfi0wQ" field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_bs-5Ed-AIsoUrfi0wQ" field="TEXT" name="UNIQUE_NAME" value="OnComponentError5" contextMode="false"/>
+  </connection>
+  <note xmi:id="_lAb_b8-5Ed-AIsoUrfi0wQ" opaque="true" posX="64" posY="32" sizeHeight="96" sizeWidth="641" text="OnComponentError and OnComponentOk are neede to customize the log management.">
+    <elementParameter xmi:id="_lAb_cM-5Ed-AIsoUrfi0wQ" field="COLOR" name="NOTE_COLOR" value="255;255;203" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_cc-5Ed-AIsoUrfi0wQ" field="COLOR" name="NOTETXT_COLOR" value="0;0;0" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_cs-5Ed-AIsoUrfi0wQ" field="RADIO" name="NOTETXT_LEFT" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_c8-5Ed-AIsoUrfi0wQ" field="RADIO" name="NOTETXT_RIGHT" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_dM-5Ed-AIsoUrfi0wQ" field="RADIO" name="NOTETXT_CENTER" value="true" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_dc-5Ed-AIsoUrfi0wQ" field="RADIO" name="NOTELABEL_CENTER" value="true" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_ds-5Ed-AIsoUrfi0wQ" field="RADIO" name="NOTETXT_TOP" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_d8-5Ed-AIsoUrfi0wQ" field="RADIO" name="NOTETXT_BOTTOM" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_eM-5Ed-AIsoUrfi0wQ" field="TEXT" name="NOTE_FONT" value="Time New Roman" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_ec-5Ed-AIsoUrfi0wQ" field="TEXT" name="FONT_SIZE" value="10" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_es-5Ed-AIsoUrfi0wQ" field="CHECK" name="FONT_BOLD" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_e8-5Ed-AIsoUrfi0wQ" field="CHECK" name="FONT_ITALIC" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_fM-5Ed-AIsoUrfi0wQ" field="COLOR" name="NOTE_LINECOLOR" value="237;201;122" contextMode="false"/>
+  </note>
+  <subjob xmi:id="_lAb_fc-5Ed-AIsoUrfi0wQ">
+    <elementParameter xmi:id="_lAb_fs-5Ed-AIsoUrfi0wQ" field="CHECK" name="COLLAPSED" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_f8-5Ed-AIsoUrfi0wQ" field="CHECK" name="SHOW_SUBJOB_TITLE" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_gM-5Ed-AIsoUrfi0wQ" field="TEXT" name="UNIQUE_NAME" value="tFileInputDelimited_1" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_gc-5Ed-AIsoUrfi0wQ" field="TEXT" name="SUBJOB_TITLE" value="" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_gs-5Ed-AIsoUrfi0wQ" field="COLOR" name="SUBJOB_TITLE_COLOR" value="50;50;250" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_g8-5Ed-AIsoUrfi0wQ" field="COLOR" name="SUBJOB_COLOR" value="220;220;250" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_hM-5Ed-AIsoUrfi0wQ" field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_hc-5Ed-AIsoUrfi0wQ" field="CHECK" name="SUBJOB_DISPLAYED" value="true" contextMode="false"/>
+  </subjob>
+  <subjob xmi:id="_lAb_hs-5Ed-AIsoUrfi0wQ">
+    <elementParameter xmi:id="_lAb_h8-5Ed-AIsoUrfi0wQ" field="CHECK" name="COLLAPSED" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_iM-5Ed-AIsoUrfi0wQ" field="CHECK" name="SHOW_SUBJOB_TITLE" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_ic-5Ed-AIsoUrfi0wQ" field="TEXT" name="UNIQUE_NAME" value="tMsgBox_1" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_is-5Ed-AIsoUrfi0wQ" field="TEXT" name="SUBJOB_TITLE" value="" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_i8-5Ed-AIsoUrfi0wQ" field="COLOR" name="SUBJOB_TITLE_COLOR" value="50;50;250" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_jM-5Ed-AIsoUrfi0wQ" field="COLOR" name="SUBJOB_COLOR" value="220;220;250" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_jc-5Ed-AIsoUrfi0wQ" field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_js-5Ed-AIsoUrfi0wQ" field="CHECK" name="SUBJOB_DISPLAYED" value="true" contextMode="false"/>
+  </subjob>
+  <subjob xmi:id="_lAb_j8-5Ed-AIsoUrfi0wQ">
+    <elementParameter xmi:id="_lAb_kM-5Ed-AIsoUrfi0wQ" field="CHECK" name="COLLAPSED" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_kc-5Ed-AIsoUrfi0wQ" field="CHECK" name="SHOW_SUBJOB_TITLE" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_ks-5Ed-AIsoUrfi0wQ" field="TEXT" name="UNIQUE_NAME" value="tMsgBox_2" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_k8-5Ed-AIsoUrfi0wQ" field="TEXT" name="SUBJOB_TITLE" value="" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_lM-5Ed-AIsoUrfi0wQ" field="COLOR" name="SUBJOB_TITLE_COLOR" value="50;50;250" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_lc-5Ed-AIsoUrfi0wQ" field="COLOR" name="SUBJOB_COLOR" value="220;220;250" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_ls-5Ed-AIsoUrfi0wQ" field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_lAb_l8-5Ed-AIsoUrfi0wQ" field="CHECK" name="SUBJOB_DISPLAYED" value="true" contextMode="false"/>
+  </subjob>
+  <routinesDependencies xmi:id="_lAb_mM-5Ed-AIsoUrfi0wQ" idOrName="DataOperation" system="true"/>
+  <routinesDependencies xmi:id="_lAb_mc-5Ed-AIsoUrfi0wQ" idOrName="Mathematical" system="true"/>
+  <routinesDependencies xmi:id="_lAb_ms-5Ed-AIsoUrfi0wQ" idOrName="Numeric" system="true"/>
+  <routinesDependencies xmi:id="_lAb_m8-5Ed-AIsoUrfi0wQ" idOrName="Relational" system="true"/>
+  <routinesDependencies xmi:id="_lAb_nM-5Ed-AIsoUrfi0wQ" idOrName="StringHandling" system="true"/>
+  <routinesDependencies xmi:id="_lAb_nc-5Ed-AIsoUrfi0wQ" idOrName="TalendDataGenerator" system="true"/>
+  <routinesDependencies xmi:id="_lAb_ns-5Ed-AIsoUrfi0wQ" idOrName="TalendDate" system="true"/>
+  <routinesDependencies xmi:id="_lAb_n8-5Ed-AIsoUrfi0wQ" idOrName="TalendString" system="true"/>
+  <routinesDependencies xmi:id="_lAb_oM-5Ed-AIsoUrfi0wQ" idOrName="_8qwkYFjNEdyj6eiqDt60Og"/>
+  <routinesDependencies xmi:id="_lAb_oc-5Ed-AIsoUrfi0wQ" idOrName="_HKXfQGIZEd26GZmhFZLTPA"/>
+</talendfile:ProcessType>

@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<talendfile:ProcessType xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" xmi:id="_k65_fs-5Ed-AIsoUrfi0wQ" defaultContext="Default">
+  <context xmi:id="_k65_f8-5Ed-AIsoUrfi0wQ" confirmationNeeded="false" name="Default"/>
+  <parameters xmi:id="_k65_gM-5Ed-AIsoUrfi0wQ">
+    <elementParameter xmi:id="_k65_gc-5Ed-AIsoUrfi0wQ" field="DIRECTORY" name="COMP_DEFAULT_FILE_DIR" value="D:\TOS-All-r17341-V3.0.0M3\workspace" contextMode="false"/>
+    <elementParameter xmi:id="_k65_gs-5Ed-AIsoUrfi0wQ" field="CHECK" name="displaySubjobs" value="true" contextMode="false"/>
+    <elementParameter xmi:id="_k65_g8-5Ed-AIsoUrfi0wQ" field="TEXT" name="AUTHOR" value="training@talend.com" contextMode="false"/>
+    <elementParameter xmi:id="_k65_hM-5Ed-AIsoUrfi0wQ" field="TEXT" name="STATUS" value="" contextMode="false"/>
+    <elementParameter xmi:id="_k65_hc-5Ed-AIsoUrfi0wQ" field="TEXT" name="NAME" value="tWebServiceInput" contextMode="false"/>
+    <elementParameter xmi:id="_k65_hs-5Ed-AIsoUrfi0wQ" field="TEXT" name="VERSION" value="0.1" contextMode="false"/>
+    <elementParameter xmi:id="_k65_h8-5Ed-AIsoUrfi0wQ" field="TEXT" name="PURPOSE" value="" contextMode="false"/>
+    <elementParameter xmi:id="_k65_iM-5Ed-AIsoUrfi0wQ" field="TEXT" name="DESCRIPTION" value="" contextMode="false"/>
+    <elementParameter xmi:id="_k65_ic-5Ed-AIsoUrfi0wQ" field="TEXT" name="SCREEN_OFFSET_X" value="0" contextMode="false"/>
+    <elementParameter xmi:id="_k65_is-5Ed-AIsoUrfi0wQ" field="TEXT" name="SCREEN_OFFSET_Y" value="0" contextMode="false"/>
+    <elementParameter xmi:id="_k65_i8-5Ed-AIsoUrfi0wQ" field="TEXT" name="SCHEMA_OPTIONS" value="none" contextMode="false"/>
+    <elementParameter xmi:id="_k65_jM-5Ed-AIsoUrfi0wQ" field="CHECK" name="MULTI_THREAD_EXECATION" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_k65_jc-5Ed-AIsoUrfi0wQ" field="CHECK" name="IMPLICIT_TCONTEXTLOAD" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_k65_js-5Ed-AIsoUrfi0wQ" field="RADIO" name="FROM_FILE_FLAG_IMPLICIT_CONTEXT" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_k65_j8-5Ed-AIsoUrfi0wQ" field="RADIO" name="FROM_DATABASE_FLAG_IMPLICIT_CONTEXT" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_k65_kM-5Ed-AIsoUrfi0wQ" field="FILE" name="IMPLICIT_TCONTEXTLOAD_FILE" value="&quot;D:/TOS-All-r8623-V2.3.0/workspace/in.csv&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_k65_kc-5Ed-AIsoUrfi0wQ" field="TEXT" name="FIELDSEPARATOR" value="&quot;;&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_k65_ks-5Ed-AIsoUrfi0wQ" field="PROPERTY_TYPE" name="PROPERTY_TYPE_IMPLICIT_CONTEXT" value="" contextMode="false"/>
+    <elementParameter xmi:id="_k65_k8-5Ed-AIsoUrfi0wQ" field="TECHNICAL" name="PROPERTY_TYPE_IMPLICIT_CONTEXT:PROPERTY_TYPE" value="BUILT_IN" contextMode="false"/>
+    <elementParameter xmi:id="_k65_lM-5Ed-AIsoUrfi0wQ" field="TECHNICAL" name="PROPERTY_TYPE_IMPLICIT_CONTEXT:REPOSITORY_PROPERTY_TYPE" value="" contextMode="false"/>
+    <elementParameter xmi:id="_k65_lc-5Ed-AIsoUrfi0wQ" field="CLOSED_LIST" name="DB_TYPE_IMPLICIT_CONTEXT" value="tDBInput" contextMode="false"/>
+    <elementParameter xmi:id="_k65_ls-5Ed-AIsoUrfi0wQ" field="TEXT" name="HOST_IMPLICIT_CONTEXT" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_k65_l8-5Ed-AIsoUrfi0wQ" field="TEXT" name="PORT_IMPLICIT_CONTEXT" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_k65_mM-5Ed-AIsoUrfi0wQ" field="TEXT" name="DBNAME_IMPLICIT_CONTEXT" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_k65_mc-5Ed-AIsoUrfi0wQ" field="TEXT" name="PROPERTIES_IMPLICIT_CONTEXT" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_k65_ms-5Ed-AIsoUrfi0wQ" field="TEXT" name="SCHEMA_DB_IMPLICIT_CONTEXT" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_k65_m8-5Ed-AIsoUrfi0wQ" field="TEXT" name="USER_IMPLICIT_CONTEXT" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_k65_nM-5Ed-AIsoUrfi0wQ" field="TEXT" name="PASS_IMPLICIT_CONTEXT" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_k65_nc-5Ed-AIsoUrfi0wQ" field="FILE" name="DBFILE_IMPLICIT_CONTEXT" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_k65_ns-5Ed-AIsoUrfi0wQ" field="DBTABLE" name="DBTABLE_IMPLICIT_CONTEXT" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_k65_n8-5Ed-AIsoUrfi0wQ" field="TEXT" name="QUERY_CONDITION_IMPLICIT_CONTEXT" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_k65_oM-5Ed-AIsoUrfi0wQ" field="CLOSED_LIST" name="LOAD_NEW_VARIABLE" value="Warning" contextMode="false"/>
+    <elementParameter xmi:id="_k65_oc-5Ed-AIsoUrfi0wQ" field="CLOSED_LIST" name="NOT_LOAD_OLD_VARIABLE" value="Warning" contextMode="false"/>
+    <elementParameter xmi:id="_k65_os-5Ed-AIsoUrfi0wQ" field="CHECK" name="PRINT_OPERATIONS" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_k65_o8-5Ed-AIsoUrfi0wQ" field="CHECK" name="DISABLE_ERROR" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_k65_pM-5Ed-AIsoUrfi0wQ" field="CHECK" name="DISABLE_WARNINGS" value="true" contextMode="false"/>
+    <elementParameter xmi:id="_k65_pc-5Ed-AIsoUrfi0wQ" field="CHECK" name="DISABLE_INFO" value="true" contextMode="false"/>
+    <elementParameter xmi:id="_k65_ps-5Ed-AIsoUrfi0wQ" field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_k65_p8-5Ed-AIsoUrfi0wQ" field="CHECK" name="ON_STATCATCHER_FLAG" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_k65_qM-5Ed-AIsoUrfi0wQ" field="CHECK" name="ON_LOGCATCHER_FLAG" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_k65_qc-5Ed-AIsoUrfi0wQ" field="CHECK" name="ON_METERCATCHER_FLAG" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_k65_qs-5Ed-AIsoUrfi0wQ" field="CHECK" name="ON_CONSOLE_FLAG" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_k65_q8-5Ed-AIsoUrfi0wQ" field="CHECK" name="ON_FILES_FLAG" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_k65_rM-5Ed-AIsoUrfi0wQ" field="DIRECTORY" name="FILE_PATH" value="&quot;D:/runtime-talend_trunk.product/.metadata&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_k65_rc-5Ed-AIsoUrfi0wQ" field="TEXT" name="FILENAME_STATS" value="&quot;stats_file.txt&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_k65_rs-5Ed-AIsoUrfi0wQ" field="TEXT" name="FILENAME_LOGS" value="&quot;logs_file.txt&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_k65_r8-5Ed-AIsoUrfi0wQ" field="TEXT" name="FILENAME_METTER" value="&quot;metter_file.txt&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_k65_sM-5Ed-AIsoUrfi0wQ" field="CHECK" name="ON_DATABASE_FLAG" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_k65_sc-5Ed-AIsoUrfi0wQ" field="PROPERTY_TYPE" name="PROPERTY_TYPE" value="" contextMode="false"/>
+    <elementParameter xmi:id="_k65_ss-5Ed-AIsoUrfi0wQ" field="TECHNICAL" name="PROPERTY_TYPE:PROPERTY_TYPE" value="BUILT_IN" contextMode="false"/>
+    <elementParameter xmi:id="_k65_s8-5Ed-AIsoUrfi0wQ" field="TECHNICAL" name="PROPERTY_TYPE:REPOSITORY_PROPERTY_TYPE" value="" contextMode="false"/>
+    <elementParameter xmi:id="_k65_tM-5Ed-AIsoUrfi0wQ" field="CLOSED_LIST" name="DB_TYPE" value="" contextMode="false"/>
+    <elementParameter xmi:id="_k65_tc-5Ed-AIsoUrfi0wQ" field="TEXT" name="HOST" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_k65_ts-5Ed-AIsoUrfi0wQ" field="TEXT" name="PORT" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_k65_t8-5Ed-AIsoUrfi0wQ" field="TEXT" name="DBNAME" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_k65_uM-5Ed-AIsoUrfi0wQ" field="TEXT" name="PROPERTIES" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_k65_uc-5Ed-AIsoUrfi0wQ" field="TEXT" name="SCHEMA_DB" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_k65_us-5Ed-AIsoUrfi0wQ" field="TEXT" name="USER" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_k65_u8-5Ed-AIsoUrfi0wQ" field="TEXT" name="PASS" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_k65_vM-5Ed-AIsoUrfi0wQ" field="FILE" name="DBFILE" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_k65_vc-5Ed-AIsoUrfi0wQ" field="DBTABLE" name="TABLE_STATS" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_k65_vs-5Ed-AIsoUrfi0wQ" field="DBTABLE" name="TABLE_LOGS" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_k65_v8-5Ed-AIsoUrfi0wQ" field="DBTABLE" name="TABLE_METER" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_k65_wM-5Ed-AIsoUrfi0wQ" field="CHECK" name="CATCH_RUNTIME_ERRORS" value="true" contextMode="false"/>
+    <elementParameter xmi:id="_k65_wc-5Ed-AIsoUrfi0wQ" field="CHECK" name="CATCH_USER_ERRORS" value="true" contextMode="false"/>
+    <elementParameter xmi:id="_k65_ws-5Ed-AIsoUrfi0wQ" field="CHECK" name="CATCH_USER_WARNING" value="true" contextMode="false"/>
+    <elementParameter xmi:id="_k65_w8-5Ed-AIsoUrfi0wQ" field="CHECK" name="CATCH_REALTIME_STATS" value="false" contextMode="false"/>
+  </parameters>
+  <node xmi:id="_k65_xM-5Ed-AIsoUrfi0wQ" componentName="tWebServiceInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="192" posY="192">
+    <elementParameter xmi:id="_k65_xc-5Ed-AIsoUrfi0wQ" field="TEXT" name="UNIQUE_NAME" value="tWebServiceInput_1" contextMode="false"/>
+    <elementParameter xmi:id="_k65_xs-5Ed-AIsoUrfi0wQ" field="TEXT" name="COMPONENT_NAME" value="tWebServiceInput" contextMode="false"/>
+    <elementParameter xmi:id="_k65_x8-5Ed-AIsoUrfi0wQ" field="TEXT" name="TRANSLATED_COMPONENT_NAME" value="tWebServiceInput" contextMode="false"/>
+    <elementParameter xmi:id="_k65_yM-5Ed-AIsoUrfi0wQ" field="TEXT" name="VERSION" value="0.102 (ALPHA)" contextMode="false"/>
+    <elementParameter xmi:id="_k65_yc-5Ed-AIsoUrfi0wQ" field="TEXT" name="FAMILY" value="Internet" contextMode="false"/>
+    <elementParameter xmi:id="_k65_ys-5Ed-AIsoUrfi0wQ" field="CHECK" name="START" value="true" contextMode="false"/>
+    <elementParameter xmi:id="_k65_y8-5Ed-AIsoUrfi0wQ" field="CHECK" name="STARTABLE" value="true" contextMode="false"/>
+    <elementParameter xmi:id="_k65_zM-5Ed-AIsoUrfi0wQ" field="CHECK" name="ACTIVATE" value="true" contextMode="false"/>
+    <elementParameter xmi:id="_k65_zc-5Ed-AIsoUrfi0wQ" field="CHECK" name="DUMMY" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_k65_zs-5Ed-AIsoUrfi0wQ" field="CHECK" name="TSTATCATCHER_STATS" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_k65_z8-5Ed-AIsoUrfi0wQ" field="TEXT" name="HELP" value="org.talend.help.tWebServiceInput" contextMode="false"/>
+    <elementParameter xmi:id="_k65_0M-5Ed-AIsoUrfi0wQ" field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_k65_0c-5Ed-AIsoUrfi0wQ" field="TEXT" name="CURRENT_OS" value="Windows XP" contextMode="false"/>
+    <elementParameter xmi:id="_k65_0s-5Ed-AIsoUrfi0wQ" field="DIRECTORY" name="IREPORT_PATH" value="" contextMode="false"/>
+    <elementParameter xmi:id="_k65_08-5Ed-AIsoUrfi0wQ" field="PROPERTY_TYPE" name="PROPERTY" value="" contextMode="false"/>
+    <elementParameter xmi:id="_k65_1M-5Ed-AIsoUrfi0wQ" field="TECHNICAL" name="PROPERTY:PROPERTY_TYPE" value="BUILT_IN" contextMode="false"/>
+    <elementParameter xmi:id="_k65_1c-5Ed-AIsoUrfi0wQ" field="TECHNICAL" name="PROPERTY:REPOSITORY_PROPERTY_TYPE" value="" contextMode="false"/>
+    <elementParameter xmi:id="_k65_1s-5Ed-AIsoUrfi0wQ" field="CHECK" name="REPOSITORY_ALLOW_AUTO_SWITCH" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_k65_18-5Ed-AIsoUrfi0wQ" field="TECHNICAL" name="SCHEMA:SCHEMA_TYPE" value="BUILT_IN" contextMode="false"/>
+    <elementParameter xmi:id="_k65_2M-5Ed-AIsoUrfi0wQ" field="TECHNICAL" name="SCHEMA:REPOSITORY_SCHEMA_TYPE" value="" contextMode="false"/>
+    <elementParameter xmi:id="_k65_2c-5Ed-AIsoUrfi0wQ" field="TEXT" name="ENDPOINT" value="&quot;http://www.deeptraining.com/webservices/weather.asmx?WSDL&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_k65_2s-5Ed-AIsoUrfi0wQ" field="CHECK" name="NEED_AUTH" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_k65_28-5Ed-AIsoUrfi0wQ" field="TEXT" name="AUTH_USERNAME" value="&quot;username&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_k65_3M-5Ed-AIsoUrfi0wQ" field="TEXT" name="AUTH_PASSWORD" value="&quot;password&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_k65_3c-5Ed-AIsoUrfi0wQ" field="CHECK" name="UES_PROXY" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_k65_3s-5Ed-AIsoUrfi0wQ" field="TEXT" name="PROXY_HOST" value="&quot;61.163.92.4&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_k65_38-5Ed-AIsoUrfi0wQ" field="TEXT" name="PROXY_PORT" value="&quot;8080&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_k65_4M-5Ed-AIsoUrfi0wQ" field="TEXT" name="PROXY_USERNAME" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_k65_4c-5Ed-AIsoUrfi0wQ" field="TEXT" name="PROXY_PASSWORD" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_k65_4s-5Ed-AIsoUrfi0wQ" field="TEXT" name="METHOD" value="&quot;GetWeather&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_k65_48-5Ed-AIsoUrfi0wQ" field="TEXT" name="TIMEOUT" value="20" contextMode="false"/>
+    <elementParameter xmi:id="_k65_5M-5Ed-AIsoUrfi0wQ" field="TABLE" name="PARAMS" contextMode="false">
+      <elementValue xmi:id="_k65_5c-5Ed-AIsoUrfi0wQ" elementRef="VALUE" value="&quot;Paris&quot;"/>
+    </elementParameter>
+    <elementParameter xmi:id="_k65_5s-5Ed-AIsoUrfi0wQ" field="CHECK" name="ADVANCED_USE" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_k65_58-5Ed-AIsoUrfi0wQ" field="WSDL2JAVA" name="WSDL2Java" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_k65_6M-5Ed-AIsoUrfi0wQ" field="MEMO_JAVA" name="CODE" value="&#xA;//==============================================================================&#x9;&#x9;    &#xA;//example code for : http://www.deeptraining.com/webservices/weather.asmx?WSDL&#xA;//==============================================================================&#xA;/*&#x9;&#x9;    &#xA;routines.WeatherSoap_PortType weatherSoap = new routines.WeatherLocator().getWeatherSoap();&#xA;&#xA;routines.WeatherSoap_BindingStub stub = (routines.WeatherSoap_BindingStub)weatherSoap;&#xA;&#xA;//stub.setUsername(String username);&#xA;//stub.setPassword(String password);&#xA;&#xA;//stub.setTimeout(int timeout);&#xA;&#xA;//AxisProperties.setProperty(&quot;http.proxyHost&quot;, proxyHost);&#xA;//AxisProperties.setProperty(&quot;http.proxyPort&quot;, proxyPort);&#xA;//AxisProperties.setProperty(&quot;http.proxyUser&quot;, proxyUser);&#xA;//AxisProperties.setProperty(&quot;http.proxyPassword&quot;, proxyPassword);&#xA;&#xA;String city = &quot;Paris&quot;;&#xA;String result = weatherSoap.getWeather(city);&#x9;&#xA;&#xA;output_row.weather = result;&#xA;*/&#xA;&#xA;//==============================================================================&#xA;//example code for : http://localhost:8080/talendJob_0.1/services/talendJob?wsdl&#xA;//==============================================================================&#xA;/*&#x9;&#x9;    &#xA;routines.TalendJob_PortType talendJob = new routines.TalendJobServiceLocator().getTalendJob();&#xA;&#xA;routines.TalendJobSoapBindingStub stub = (routines.TalendJobSoapBindingStub)talendJob;&#xA;&#xA;//stub.setUsername(String username);&#xA;//stub.setPassword(String password);&#xA;&#xA;//stub.setTimeout(int timeout);&#xA;&#xA;//AxisProperties.setProperty(&quot;http.proxyHost&quot;, proxyHost);&#xA;//AxisProperties.setProperty(&quot;http.proxyPort&quot;, proxyPort);&#xA;//AxisProperties.setProperty(&quot;http.proxyUser&quot;, proxyUser);&#xA;//AxisProperties.setProperty(&quot;http.proxyPassword&quot;, proxyPassword);&#xA;&#xA;String[] args = new String[]{};&#xA;String[][] result = talendJob.runJob(args);&#xA;&#xA;for(int i = 0; i &lt; result.length; i++){&#xA;&#x9;&#xA;&#x9;// output_row.name = result[i][0];&#xA;&#x9;// output_row.address = result[i][1];&#xA;&#x9;// output_row.phone = result[i][2];&#xA;*/&#xA;&#x9;&#x9;    " contextMode="false"/>
+    <elementParameter xmi:id="_k65_6c-5Ed-AIsoUrfi0wQ" field="CLOSED_LIST" name="MATCHBRACKETS" value="" contextMode="false"/>
+    <elementParameter xmi:id="_k65_6s-5Ed-AIsoUrfi0wQ" field="TEXT" name="LABEL" value="__UNIQUE_NAME__" contextMode="false"/>
+    <elementParameter xmi:id="_k65_68-5Ed-AIsoUrfi0wQ" field="TEXT" name="HINT" value="&lt;b>__UNIQUE_NAME__&lt;/b>&lt;br>__COMMENT__" contextMode="false"/>
+    <elementParameter xmi:id="_k65_7M-5Ed-AIsoUrfi0wQ" field="TEXT" name="CONNECTION_FORMAT" value="row" contextMode="false"/>
+    <elementParameter xmi:id="_k65_7c-5Ed-AIsoUrfi0wQ" field="MEMO" name="COMMENT" value="" contextMode="false"/>
+    <metadata xmi:id="_k65_7s-5Ed-AIsoUrfi0wQ" connector="FLOW" name="tWebServiceInput_1">
+      <column xmi:id="_k65_78-5Ed-AIsoUrfi0wQ" comment="" defaultValue="" key="false" name="weather" nullable="true" pattern="" sourceType="" type="id_String"/>
+    </metadata>
+  </node>
+  <node xmi:id="_k65_8M-5Ed-AIsoUrfi0wQ" componentName="tLogRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="512" posY="192">
+    <elementParameter xmi:id="_k65_8c-5Ed-AIsoUrfi0wQ" field="TEXT" name="UNIQUE_NAME" value="tLogRow_1" contextMode="false"/>
+    <elementParameter xmi:id="_k65_8s-5Ed-AIsoUrfi0wQ" field="TEXT" name="COMPONENT_NAME" value="tLogRow" contextMode="false"/>
+    <elementParameter xmi:id="_k65_88-5Ed-AIsoUrfi0wQ" field="TEXT" name="TRANSLATED_COMPONENT_NAME" value="tLogRow" contextMode="false"/>
+    <elementParameter xmi:id="_k65_9M-5Ed-AIsoUrfi0wQ" field="TEXT" name="VERSION" value="0.101 (ALPHA)" contextMode="false"/>
+    <elementParameter xmi:id="_k65_9c-5Ed-AIsoUrfi0wQ" field="TEXT" name="FAMILY" value="Logs &amp; Errors" contextMode="false"/>
+    <elementParameter xmi:id="_k65_9s-5Ed-AIsoUrfi0wQ" field="CHECK" name="STARTABLE" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_k65_98-5Ed-AIsoUrfi0wQ" field="CHECK" name="ACTIVATE" value="true" contextMode="false"/>
+    <elementParameter xmi:id="_k65_-M-5Ed-AIsoUrfi0wQ" field="CHECK" name="DUMMY" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_k65_-c-5Ed-AIsoUrfi0wQ" field="CHECK" name="TSTATCATCHER_STATS" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_k65_-s-5Ed-AIsoUrfi0wQ" field="TEXT" name="HELP" value="org.talend.help.tLogRow" contextMode="false"/>
+    <elementParameter xmi:id="_k65_-8-5Ed-AIsoUrfi0wQ" field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_k65__M-5Ed-AIsoUrfi0wQ" field="TEXT" name="CURRENT_OS" value="Windows XP" contextMode="false"/>
+    <elementParameter xmi:id="_k65__c-5Ed-AIsoUrfi0wQ" field="DIRECTORY" name="IREPORT_PATH" value="" contextMode="false"/>
+    <elementParameter xmi:id="_k65__s-5Ed-AIsoUrfi0wQ" field="CHECK" name="REPOSITORY_ALLOW_AUTO_SWITCH" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_k65__8-5Ed-AIsoUrfi0wQ" field="TECHNICAL" name="SCHEMA:SCHEMA_TYPE" value="BUILT_IN" contextMode="false"/>
+    <elementParameter xmi:id="_k66AAM-5Ed-AIsoUrfi0wQ" field="TECHNICAL" name="SCHEMA:REPOSITORY_SCHEMA_TYPE" value="" contextMode="false"/>
+    <elementParameter xmi:id="_k66AAc-5Ed-AIsoUrfi0wQ" field="RADIO" name="BASIC_MODE" value="true" contextMode="false"/>
+    <elementParameter xmi:id="_k66AAs-5Ed-AIsoUrfi0wQ" field="RADIO" name="TABLE_PRINT" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_k66AA8-5Ed-AIsoUrfi0wQ" field="RADIO" name="VERTICAL" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_k66ABM-5Ed-AIsoUrfi0wQ" field="TEXT" name="FIELDSEPARATOR" value="&quot;|&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_k66ABc-5Ed-AIsoUrfi0wQ" field="CHECK" name="PRINT_HEADER" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_k66ABs-5Ed-AIsoUrfi0wQ" field="CHECK" name="PRINT_UNIQUE_NAME" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_k66AB8-5Ed-AIsoUrfi0wQ" field="CHECK" name="PRINT_COLNAMES" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_k66ACM-5Ed-AIsoUrfi0wQ" field="CHECK" name="USE_FIXED_LENGTH" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_k66ACc-5Ed-AIsoUrfi0wQ" field="TABLE" name="LENGTHS" contextMode="false">
+      <elementValue xmi:id="_k66ACs-5Ed-AIsoUrfi0wQ" elementRef="SCHEMA_COLUMN" value="weather"/>
+      <elementValue xmi:id="_k66AC8-5Ed-AIsoUrfi0wQ" elementRef="LENGTH" value="10"/>
+    </elementParameter>
+    <elementParameter xmi:id="_k66ADM-5Ed-AIsoUrfi0wQ" field="TEXT" name="LABEL" value="__UNIQUE_NAME__" contextMode="false"/>
+    <elementParameter xmi:id="_k66ADc-5Ed-AIsoUrfi0wQ" field="TEXT" name="HINT" value="&lt;b>__UNIQUE_NAME__&lt;/b>&lt;br>__COMMENT__" contextMode="false"/>
+    <elementParameter xmi:id="_k66ADs-5Ed-AIsoUrfi0wQ" field="TEXT" name="CONNECTION_FORMAT" value="row" contextMode="false"/>
+    <elementParameter xmi:id="_k66AD8-5Ed-AIsoUrfi0wQ" field="MEMO" name="COMMENT" value="" contextMode="false"/>
+    <metadata xmi:id="_k66AEM-5Ed-AIsoUrfi0wQ" connector="FLOW" name="tLogRow_1">
+      <column xmi:id="_k66AEc-5Ed-AIsoUrfi0wQ" comment="" defaultValue="" key="false" name="weather" nullable="true" pattern="" sourceType="" type="id_String"/>
+    </metadata>
+  </node>
+  <connection xmi:id="_k66AEs-5Ed-AIsoUrfi0wQ" connectorName="FLOW" label="row1" lineStyle="0" metaname="tWebServiceInput_1" offsetLabelX="0" offsetLabelY="0" source="tWebServiceInput_1" target="tLogRow_1">
+    <elementParameter xmi:id="_k66AE8-5Ed-AIsoUrfi0wQ" field="CHECK" name="MONITOR_CONNECTION" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_k66AFM-5Ed-AIsoUrfi0wQ" field="CHECK" name="USEROWLABEL" value="true" contextMode="false"/>
+    <elementParameter xmi:id="_k66AFc-5Ed-AIsoUrfi0wQ" field="TEXT" name="METTERLABEL" value="&quot;MyLabel&quot;" contextMode="false"/>
+    <elementParameter xmi:id="_k66AFs-5Ed-AIsoUrfi0wQ" field="CLOSED_LIST" name="ABSOLUTE" value="Absolute" contextMode="false"/>
+    <elementParameter xmi:id="_k66AF8-5Ed-AIsoUrfi0wQ" field="CONNECTION_LIST" name="CONNECTIONS" value="" contextMode="false"/>
+    <elementParameter xmi:id="_k66AGM-5Ed-AIsoUrfi0wQ" field="TABLE" name="THRESHLODS" contextMode="false"/>
+    <elementParameter xmi:id="_k66AGc-5Ed-AIsoUrfi0wQ" field="CHECK" name="ACTIVATE" value="true" contextMode="false"/>
+    <elementParameter xmi:id="_k66AGs-5Ed-AIsoUrfi0wQ" field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_k66AG8-5Ed-AIsoUrfi0wQ" field="TEXT" name="UNIQUE_NAME" value="row1" contextMode="false"/>
+  </connection>
+  <note xmi:id="_k66AHM-5Ed-AIsoUrfi0wQ" opaque="true" posX="128" posY="32" sizeHeight="96" sizeWidth="449" text="Calls the defined method from the invoked webservice,&#xD;&#xA;and returns the class as defined, based on the given parameters. &#xD;&#xA;&#xD;&#xA;This job used a training WebService, is not a weather services!">
+    <elementParameter xmi:id="_k66AHc-5Ed-AIsoUrfi0wQ" field="COLOR" name="NOTE_COLOR" value="255;255;203" contextMode="false"/>
+    <elementParameter xmi:id="_k66AHs-5Ed-AIsoUrfi0wQ" field="COLOR" name="NOTETXT_COLOR" value="0;0;0" contextMode="false"/>
+    <elementParameter xmi:id="_k66AH8-5Ed-AIsoUrfi0wQ" field="RADIO" name="NOTETXT_LEFT" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_k66AIM-5Ed-AIsoUrfi0wQ" field="RADIO" name="NOTETXT_RIGHT" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_k66AIc-5Ed-AIsoUrfi0wQ" field="RADIO" name="NOTETXT_CENTER" value="true" contextMode="false"/>
+    <elementParameter xmi:id="_k66AIs-5Ed-AIsoUrfi0wQ" field="RADIO" name="NOTELABEL_CENTER" value="true" contextMode="false"/>
+    <elementParameter xmi:id="_k66AI8-5Ed-AIsoUrfi0wQ" field="RADIO" name="NOTETXT_TOP" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_k66AJM-5Ed-AIsoUrfi0wQ" field="RADIO" name="NOTETXT_BOTTOM" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_k66AJc-5Ed-AIsoUrfi0wQ" field="TEXT" name="NOTE_FONT" value="Time New Roman" contextMode="false"/>
+    <elementParameter xmi:id="_k66AJs-5Ed-AIsoUrfi0wQ" field="TEXT" name="FONT_SIZE" value="10" contextMode="false"/>
+    <elementParameter xmi:id="_k66AJ8-5Ed-AIsoUrfi0wQ" field="CHECK" name="FONT_BOLD" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_k66AKM-5Ed-AIsoUrfi0wQ" field="CHECK" name="FONT_ITALIC" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_k66AKc-5Ed-AIsoUrfi0wQ" field="COLOR" name="NOTE_LINECOLOR" value="237;201;122" contextMode="false"/>
+  </note>
+  <subjob xmi:id="_k66AKs-5Ed-AIsoUrfi0wQ">
+    <elementParameter xmi:id="_k66AK8-5Ed-AIsoUrfi0wQ" field="CHECK" name="COLLAPSED" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_k66ALM-5Ed-AIsoUrfi0wQ" field="CHECK" name="SHOW_SUBJOB_TITLE" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_k66ALc-5Ed-AIsoUrfi0wQ" field="TEXT" name="UNIQUE_NAME" value="tWebServiceInput_1" contextMode="false"/>
+    <elementParameter xmi:id="_k66ALs-5Ed-AIsoUrfi0wQ" field="TEXT" name="SUBJOB_TITLE" value="" contextMode="false"/>
+    <elementParameter xmi:id="_k66AL8-5Ed-AIsoUrfi0wQ" field="COLOR" name="SUBJOB_TITLE_COLOR" value="50;50;250" contextMode="false"/>
+    <elementParameter xmi:id="_k66AMM-5Ed-AIsoUrfi0wQ" field="COLOR" name="SUBJOB_COLOR" value="220;220;250" contextMode="false"/>
+    <elementParameter xmi:id="_k66AMc-5Ed-AIsoUrfi0wQ" field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
+    <elementParameter xmi:id="_k66AMs-5Ed-AIsoUrfi0wQ" field="CHECK" name="SUBJOB_DISPLAYED" value="true" contextMode="false"/>
+  </subjob>
+  <routinesDependencies xmi:id="_k66AM8-5Ed-AIsoUrfi0wQ" idOrName="DataOperation" system="true"/>
+  <routinesDependencies xmi:id="_k66ANM-5Ed-AIsoUrfi0wQ" idOrName="Mathematical" system="true"/>
+  <routinesDependencies xmi:id="_k66ANc-5Ed-AIsoUrfi0wQ" idOrName="Numeric" system="true"/>
+  <routinesDependencies xmi:id="_k66ANs-5Ed-AIsoUrfi0wQ" idOrName="Relational" system="true"/>
+  <routinesDependencies xmi:id="_k66AN8-5Ed-AIsoUrfi0wQ" idOrName="StringHandling" system="true"/>
+  <routinesDependencies xmi:id="_k66AOM-5Ed-AIsoUrfi0wQ" idOrName="TalendDataGenerator" system="true"/>
+  <routinesDependencies xmi:id="_k66AOc-5Ed-AIsoUrfi0wQ" idOrName="TalendDate" system="true"/>
+  <routinesDependencies xmi:id="_k66AOs-5Ed-AIsoUrfi0wQ" idOrName="TalendString" system="true"/>
+  <routinesDependencies xmi:id="_k66AO8-5Ed-AIsoUrfi0wQ" idOrName="_8qwkYFjNEdyj6eiqDt60Og"/>
+  <routinesDependencies xmi:id="_k66APM-5Ed-AIsoUrfi0wQ" idOrName="_HKXfQGIZEd26GZmhFZLTPA"/>
+</talendfile:ProcessType>

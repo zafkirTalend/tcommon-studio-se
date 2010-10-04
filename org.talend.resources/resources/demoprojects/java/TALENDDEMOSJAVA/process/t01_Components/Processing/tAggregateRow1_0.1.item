@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<talendfile:ProcessType xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" xmi:id="_lDR4Ac-5Ed-AIsoUrfi0wQ" defaultContext="Default" screenshot="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">
+  <context xmi:id="_lDR4As-5Ed-AIsoUrfi0wQ" confirmationNeeded="false" name="Default"/>
+  <parameters xmi:id="_lDR4A8-5Ed-AIsoUrfi0wQ">
+    <elementParameter xmi:id="_lDR4BM-5Ed-AIsoUrfi0wQ" field="DIRECTORY" name="COMP_DEFAULT_FILE_DIR" value="D:/02 - TOS/DemoProject/TOS-All-r43696-V4.0.2/workspace_02"/>
+    <elementParameter xmi:id="_lDR4Bc-5Ed-AIsoUrfi0wQ" field="DIRECTORY" name="COMP_DEFAULT_PROJECT_DIR" value="D:/02 - TOS/DemoProject/TOS-All-r43696-V4.0.2/workspace_02/TALENDDEMOSJAVA"/>
+    <elementParameter xmi:id="_lDR4Bs-5Ed-AIsoUrfi0wQ" field="TEXT" name="JOB_RUN_VM_ARGUMENTS" value=" -Xms256M -Xmx1024M"/>
+    <elementParameter xmi:id="_lDR4B8-5Ed-AIsoUrfi0wQ" field="CHECK" name="JOB_RUN_VM_ARGUMENTS_OPTION" value="false"/>
+    <elementParameter xmi:id="_lDR4CM-5Ed-AIsoUrfi0wQ" field="TEXT" name="AUTHOR" value="training@talend.com"/>
+    <elementParameter xmi:id="_lDR4Cc-5Ed-AIsoUrfi0wQ" field="TEXT" name="STATUS" value=""/>
+    <elementParameter xmi:id="_lDR4Cs-5Ed-AIsoUrfi0wQ" field="TEXT" name="NAME" value="tAggregateRow1"/>
+    <elementParameter xmi:id="_lDR4C8-5Ed-AIsoUrfi0wQ" field="TEXT" name="VERSION" value="0.1"/>
+    <elementParameter xmi:id="_lDR4DM-5Ed-AIsoUrfi0wQ" field="TEXT" name="PURPOSE" value=""/>
+    <elementParameter xmi:id="_lDR4Dc-5Ed-AIsoUrfi0wQ" field="TEXT" name="DESCRIPTION" value=""/>
+    <elementParameter xmi:id="_lDR4Ds-5Ed-AIsoUrfi0wQ" field="TEXT" name="SCREEN_OFFSET_X" value="0"/>
+    <elementParameter xmi:id="_lDR4D8-5Ed-AIsoUrfi0wQ" field="TEXT" name="SCREEN_OFFSET_Y" value="0"/>
+    <elementParameter xmi:id="_lDR4EM-5Ed-AIsoUrfi0wQ" field="TEXT" name="SCHEMA_OPTIONS" value="none"/>
+    <elementParameter xmi:id="_lDR4Ec-5Ed-AIsoUrfi0wQ" field="CHECK" name="IMPLICITCONTEXT_USE_PROJECT_SETTINGS" value="false"/>
+    <elementParameter xmi:id="_lDR4Es-5Ed-AIsoUrfi0wQ" field="CHECK" name="STATANDLOG_USE_PROJECT_SETTINGS" value="false"/>
+    <elementParameter xmi:id="_lDR4E8-5Ed-AIsoUrfi0wQ" field="CHECK" name="MULTI_THREAD_EXECATION" value="false"/>
+    <elementParameter xmi:id="_lDR4FM-5Ed-AIsoUrfi0wQ" field="CHECK" name="IMPLICIT_TCONTEXTLOAD" value="false"/>
+    <elementParameter xmi:id="_lDR4Fc-5Ed-AIsoUrfi0wQ" field="RADIO" name="FROM_FILE_FLAG_IMPLICIT_CONTEXT" value="false"/>
+    <elementParameter xmi:id="_lDR4Fs-5Ed-AIsoUrfi0wQ" field="RADIO" name="FROM_DATABASE_FLAG_IMPLICIT_CONTEXT" value="false"/>
+    <elementParameter xmi:id="_lDR4F8-5Ed-AIsoUrfi0wQ" field="FILE" name="IMPLICIT_TCONTEXTLOAD_FILE" value="&quot;D:/TOS-All-r14257-V2.4.0RC2/workspace/in.csv&quot;"/>
+    <elementParameter xmi:id="_lDR4GM-5Ed-AIsoUrfi0wQ" field="TEXT" name="FIELDSEPARATOR" value="&quot;;&quot;"/>
+    <elementParameter xmi:id="_lDR4Gc-5Ed-AIsoUrfi0wQ" field="CLOSED_LIST" name="DB_TYPE_IMPLICIT_CONTEXT" value="tDBInput"/>
+    <elementParameter xmi:id="_lDR4Gs-5Ed-AIsoUrfi0wQ" field="CLOSED_LIST" name="DB_VERSION_IMPLICIT_CONTEXT" value="ojdbc14-10g.jar"/>
+    <elementParameter xmi:id="_lDR4G8-5Ed-AIsoUrfi0wQ" field="TEXT" name="HOST_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_lDR4HM-5Ed-AIsoUrfi0wQ" field="TEXT" name="PORT_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_lDR4Hc-5Ed-AIsoUrfi0wQ" field="TEXT" name="DBNAME_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_lDR4Hs-5Ed-AIsoUrfi0wQ" field="TEXT" name="LOCAL_SERVICE_NAME_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_lDR4H8-5Ed-AIsoUrfi0wQ" field="TEXT" name="PROPERTIES_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_lDR4IM-5Ed-AIsoUrfi0wQ" field="TEXT" name="SCHEMA_DB_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_lDR4Ic-5Ed-AIsoUrfi0wQ" field="TEXT" name="USER_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_lDR4Is-5Ed-AIsoUrfi0wQ" field="TEXT" name="PASS_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_lDR4I8-5Ed-AIsoUrfi0wQ" field="FILE" name="DBFILE_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_lDR4JM-5Ed-AIsoUrfi0wQ" field="DBTABLE" name="DBTABLE_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_lDR4Jc-5Ed-AIsoUrfi0wQ" field="TEXT" name="QUERY_CONDITION_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_lDR4Js-5Ed-AIsoUrfi0wQ" field="CLOSED_LIST" name="LOAD_NEW_VARIABLE" value="Warning"/>
+    <elementParameter xmi:id="_lDR4J8-5Ed-AIsoUrfi0wQ" field="CLOSED_LIST" name="NOT_LOAD_OLD_VARIABLE" value="Warning"/>
+    <elementParameter xmi:id="_lDR4KM-5Ed-AIsoUrfi0wQ" field="CHECK" name="PRINT_OPERATIONS" value="false"/>
+    <elementParameter xmi:id="_lDR4Kc-5Ed-AIsoUrfi0wQ" field="CHECK" name="DISABLE_ERROR" value="false"/>
+    <elementParameter xmi:id="_lDR4Ks-5Ed-AIsoUrfi0wQ" field="CHECK" name="DISABLE_WARNINGS" value="true"/>
+    <elementParameter xmi:id="_lDR4K8-5Ed-AIsoUrfi0wQ" field="CHECK" name="DISABLE_INFO" value="true"/>
+    <elementParameter xmi:id="_lDR4LM-5Ed-AIsoUrfi0wQ" field="CHECK" name="ON_STATCATCHER_FLAG" value="false"/>
+    <elementParameter xmi:id="_lDR4Lc-5Ed-AIsoUrfi0wQ" field="CHECK" name="ON_LOGCATCHER_FLAG" value="false"/>
+    <elementParameter xmi:id="_lDR4Ls-5Ed-AIsoUrfi0wQ" field="CHECK" name="ON_METERCATCHER_FLAG" value="false"/>
+    <elementParameter xmi:id="_lDR4L8-5Ed-AIsoUrfi0wQ" field="CHECK" name="ON_CONSOLE_FLAG" value="false"/>
+    <elementParameter xmi:id="_lDR4MM-5Ed-AIsoUrfi0wQ" field="CHECK" name="ON_FILES_FLAG" value="false"/>
+    <elementParameter xmi:id="_lDR4Mc-5Ed-AIsoUrfi0wQ" field="DIRECTORY" name="FILE_PATH" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_lDR4Ms-5Ed-AIsoUrfi0wQ" field="TEXT" name="FILENAME_STATS" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_lDR4M8-5Ed-AIsoUrfi0wQ" field="TEXT" name="FILENAME_LOGS" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_lDR4NM-5Ed-AIsoUrfi0wQ" field="TEXT" name="FILENAME_METTER" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_lDR4Nc-5Ed-AIsoUrfi0wQ" field="ENCODING_TYPE" name="ENCODING" value="ISO-8859-15"/>
+    <elementParameter xmi:id="_lDR4Ns-5Ed-AIsoUrfi0wQ" field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
+    <elementParameter xmi:id="_lDR4N8-5Ed-AIsoUrfi0wQ" field="CHECK" name="ON_DATABASE_FLAG" value="false"/>
+    <elementParameter xmi:id="_lDR4OM-5Ed-AIsoUrfi0wQ" field="CLOSED_LIST" name="DB_TYPE" value=""/>
+    <elementParameter xmi:id="_lDR4Oc-5Ed-AIsoUrfi0wQ" field="CLOSED_LIST" name="DB_VERSION" value="ojdbc14-10g.jar"/>
+    <elementParameter xmi:id="_lDR4Os-5Ed-AIsoUrfi0wQ" field="TEXT" name="HOST" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_lDR4O8-5Ed-AIsoUrfi0wQ" field="TEXT" name="PORT" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_lDR4PM-5Ed-AIsoUrfi0wQ" field="TEXT" name="DATASOURCE" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_lDR4Pc-5Ed-AIsoUrfi0wQ" field="TEXT" name="DBNAME" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_lDR4Ps-5Ed-AIsoUrfi0wQ" field="TEXT" name="LOCAL_SERVICE_NAME" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_lDR4P8-5Ed-AIsoUrfi0wQ" field="TEXT" name="PROPERTIES" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_lDR4QM-5Ed-AIsoUrfi0wQ" field="TEXT" name="SCHEMA_DB" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_lDR4Qc-5Ed-AIsoUrfi0wQ" field="TEXT" name="USER" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_lDR4Qs-5Ed-AIsoUrfi0wQ" field="TEXT" name="PASS" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_lDR4Q8-5Ed-AIsoUrfi0wQ" field="FILE" name="DBFILE" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_lDR4RM-5Ed-AIsoUrfi0wQ" field="DBTABLE" name="TABLE_STATS" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_lDR4Rc-5Ed-AIsoUrfi0wQ" field="DBTABLE" name="TABLE_LOGS" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_lDR4Rs-5Ed-AIsoUrfi0wQ" field="DBTABLE" name="TABLE_METER" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_lDR4R8-5Ed-AIsoUrfi0wQ" field="CHECK" name="CATCH_RUNTIME_ERRORS" value="true"/>
+    <elementParameter xmi:id="_lDR4SM-5Ed-AIsoUrfi0wQ" field="CHECK" name="CATCH_USER_ERRORS" value="true"/>
+    <elementParameter xmi:id="_lDR4Sc-5Ed-AIsoUrfi0wQ" field="CHECK" name="CATCH_USER_WARNING" value="true"/>
+    <elementParameter xmi:id="_lDR4Ss-5Ed-AIsoUrfi0wQ" field="CHECK" name="CATCH_REALTIME_STATS" value="false"/>
+  </parameters>
+  <node xmi:id="_lDR4S8-5Ed-AIsoUrfi0wQ" componentName="tRowGenerator" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="128" posY="192">
+    <elementParameter xmi:id="_lDR4TM-5Ed-AIsoUrfi0wQ" field="TEXT" name="UNIQUE_NAME" value="tRowGenerator_1"/>
+    <elementParameter xmi:id="_lDR4Tc-5Ed-AIsoUrfi0wQ" field="CHECK" name="START" value="true"/>
+    <elementParameter xmi:id="_lDR4Ts-5Ed-AIsoUrfi0wQ" field="TEXT" name="NB_ROWS" value="100"/>
+    <elementParameter xmi:id="_lDR4T8-5Ed-AIsoUrfi0wQ" field="TABLE" name="VALUES">
+      <elementValue xmi:id="_lDR4UM-5Ed-AIsoUrfi0wQ" elementRef="SCHEMA_COLUMN" value="number"/>
+      <elementValue xmi:id="_lDR4Uc-5Ed-AIsoUrfi0wQ" elementRef="ARRAY" value="1,2,3,4,5,6,7,8,9,10"/>
+      <elementValue xmi:id="_lDR4Us-5Ed-AIsoUrfi0wQ" elementRef="SCHEMA_COLUMN" value="txt"/>
+      <elementValue xmi:id="_lDR4U8-5Ed-AIsoUrfi0wQ" elementRef="ARRAY" value="&quot;text1&quot;, &quot;text2&quot;, &quot;text3&quot;, &quot;text4&quot;, &quot;text5&quot;, &quot;text6&quot;, &quot;text7&quot;, &quot;text8&quot;, &quot;text9&quot;, &quot;text10&quot;"/>
+      <elementValue xmi:id="_lDR4VM-5Ed-AIsoUrfi0wQ" elementRef="SCHEMA_COLUMN" value="date"/>
+      <elementValue xmi:id="_lDR4Vc-5Ed-AIsoUrfi0wQ" elementRef="ARRAY" value="&quot;2007-01-21&quot;, &quot;2007-02-22&quot;, &quot;2007-03-23&quot;, &quot;2006-04-24&quot;, &quot;2006-05-25&quot;, &quot;2006-06-26&quot;, &quot;2005-07-27&quot;, &quot;2005-08-28&quot;, &quot;2005-08-29&quot;, &quot;2004-11-21&quot;"/>
+      <elementValue xmi:id="_lDR4Vs-5Ed-AIsoUrfi0wQ" elementRef="SCHEMA_COLUMN" value="flag"/>
+      <elementValue xmi:id="_lDR4V8-5Ed-AIsoUrfi0wQ" elementRef="ARRAY" value="true,false"/>
+    </elementParameter>
+    <elementParameter xmi:id="_lDR4WM-5Ed-AIsoUrfi0wQ" field="EXTERNAL" name="MAP" value=""/>
+    <elementParameter xmi:id="_lDR4Wc-5Ed-AIsoUrfi0wQ" field="TEXT" name="HINT" value="__UNIQUE_NAME__"/>
+    <elementParameter xmi:id="_lDR4Ws-5Ed-AIsoUrfi0wQ" field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <elementParameter xmi:id="_lDR4W8-5Ed-AIsoUrfi0wQ" field="CHECK" name="INFORMATION" value="false"/>
+    <elementParameter xmi:id="_lDR4XM-5Ed-AIsoUrfi0wQ" field="MEMO" name="COMMENT" value=""/>
+    <metadata xmi:id="_lDR4Xc-5Ed-AIsoUrfi0wQ" connector="FLOW" name="tRowGenerator_1">
+      <column xmi:id="_lDR4Xs-5Ed-AIsoUrfi0wQ" comment="" key="false" length="3" name="number" nullable="false" pattern="" sourceType="" type="id_Integer"/>
+      <column xmi:id="_lDR4X8-5Ed-AIsoUrfi0wQ" comment="" key="false" length="20" name="txt" nullable="false" pattern="" sourceType="" type="id_String"/>
+      <column xmi:id="_lDR4YM-5Ed-AIsoUrfi0wQ" comment="" key="false" length="10" name="date" nullable="false" pattern="" sourceType="" type="id_String"/>
+      <column xmi:id="_lDR4Yc-5Ed-AIsoUrfi0wQ" comment="" key="false" length="5" name="flag" nullable="false" pattern="" sourceType="" type="id_Boolean"/>
+    </metadata>
+  </node>
+  <node xmi:id="_lDR4Ys-5Ed-AIsoUrfi0wQ" componentName="tAggregateRow" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="384" posY="192">
+    <elementParameter xmi:id="_lDR4Y8-5Ed-AIsoUrfi0wQ" field="TEXT" name="UNIQUE_NAME" value="tAggregateRow_1"/>
+    <elementParameter xmi:id="_lDR4ZM-5Ed-AIsoUrfi0wQ" field="TABLE" name="GROUPBYS">
+      <elementValue xmi:id="_lDR4Zc-5Ed-AIsoUrfi0wQ" elementRef="OUTPUT_COLUMN" value="number"/>
+      <elementValue xmi:id="_lDR4Zs-5Ed-AIsoUrfi0wQ" elementRef="INPUT_COLUMN" value="number"/>
+      <elementValue xmi:id="_lDR4Z8-5Ed-AIsoUrfi0wQ" elementRef="OUTPUT_COLUMN" value="txt"/>
+      <elementValue xmi:id="_lDR4aM-5Ed-AIsoUrfi0wQ" elementRef="INPUT_COLUMN" value="txt"/>
+      <elementValue xmi:id="_lDR4ac-5Ed-AIsoUrfi0wQ" elementRef="OUTPUT_COLUMN" value="date"/>
+      <elementValue xmi:id="_lDR4as-5Ed-AIsoUrfi0wQ" elementRef="INPUT_COLUMN" value="date"/>
+    </elementParameter>
+    <elementParameter xmi:id="_lDR4a8-5Ed-AIsoUrfi0wQ" field="TABLE" name="OPERATIONS">
+      <elementValue xmi:id="_lDR4bM-5Ed-AIsoUrfi0wQ" elementRef="OUTPUT_COLUMN" value="count"/>
+      <elementValue xmi:id="_lDR4bc-5Ed-AIsoUrfi0wQ" elementRef="FUNCTION" value="count"/>
+      <elementValue xmi:id="_lDR4bs-5Ed-AIsoUrfi0wQ" elementRef="INPUT_COLUMN" value="number"/>
+      <elementValue xmi:id="_lDR4b8-5Ed-AIsoUrfi0wQ" elementRef="IGNORE_NULL" value="false"/>
+    </elementParameter>
+    <elementParameter xmi:id="_lDR4cM-5Ed-AIsoUrfi0wQ" field="TEXT" name="LIST_DELIMITER" value="&quot;,&quot;"/>
+    <elementParameter xmi:id="_lDR4cc-5Ed-AIsoUrfi0wQ" field="CHECK" name="USE_FINANCIAL_PRECISION" value="true"/>
+    <elementParameter xmi:id="_lDR4cs-5Ed-AIsoUrfi0wQ" field="CHECK" name="CHECK_TYPE_OVERFLOW" value="false"/>
+    <elementParameter xmi:id="_lDR4c8-5Ed-AIsoUrfi0wQ" field="CHECK" name="CHECK_ULP" value="false"/>
+    <elementParameter xmi:id="_lDR4dM-5Ed-AIsoUrfi0wQ" field="TEXT" name="HINT" value="__UNIQUE_NAME__"/>
+    <elementParameter xmi:id="_lDR4dc-5Ed-AIsoUrfi0wQ" field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <elementParameter xmi:id="_lDR4ds-5Ed-AIsoUrfi0wQ" field="CHECK" name="INFORMATION" value="false"/>
+    <elementParameter xmi:id="_lDR4d8-5Ed-AIsoUrfi0wQ" field="MEMO" name="COMMENT" value=""/>
+    <metadata xmi:id="_lDR4eM-5Ed-AIsoUrfi0wQ" connector="FLOW" name="tAggregateRow_1">
+      <column xmi:id="_lDR4ec-5Ed-AIsoUrfi0wQ" comment="" key="false" length="3" name="number" nullable="false" pattern="" sourceType="" type="id_Integer"/>
+      <column xmi:id="_lDR4es-5Ed-AIsoUrfi0wQ" comment="" key="false" length="20" name="txt" nullable="false" pattern="" sourceType="" type="id_String"/>
+      <column xmi:id="_lDR4e8-5Ed-AIsoUrfi0wQ" comment="" key="false" length="10" name="date" nullable="false" pattern="" sourceType="" type="id_String"/>
+      <column xmi:id="_lDR4fM-5Ed-AIsoUrfi0wQ" comment="" key="false" length="5" name="flag" nullable="false" pattern="" sourceType="" type="id_Boolean"/>
+      <column xmi:id="_lDR4fc-5Ed-AIsoUrfi0wQ" comment="" key="false" name="count" nullable="false" pattern="" sourceType="" type="id_BigDecimal"/>
+    </metadata>
+  </node>
+  <node xmi:id="_lDR4fs-5Ed-AIsoUrfi0wQ" componentName="tLogRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="608" posY="192">
+    <elementParameter xmi:id="_lDR4f8-5Ed-AIsoUrfi0wQ" field="TEXT" name="UNIQUE_NAME" value="tLogRow_1"/>
+    <elementParameter xmi:id="_lDR4gM-5Ed-AIsoUrfi0wQ" field="RADIO" name="BASIC_MODE" value="true"/>
+    <elementParameter xmi:id="_lDR4gc-5Ed-AIsoUrfi0wQ" field="RADIO" name="TABLE_PRINT" value="false"/>
+    <elementParameter xmi:id="_lDR4gs-5Ed-AIsoUrfi0wQ" field="RADIO" name="VERTICAL" value="false"/>
+    <elementParameter xmi:id="_lDR4g8-5Ed-AIsoUrfi0wQ" field="RADIO" name="PRINT_UNIQUE" value="true"/>
+    <elementParameter xmi:id="_lDR4hM-5Ed-AIsoUrfi0wQ" field="RADIO" name="PRINT_LABEL" value="false"/>
+    <elementParameter xmi:id="_lDR4hc-5Ed-AIsoUrfi0wQ" field="RADIO" name="PRINT_UNIQUE_LABEL" value="false"/>
+    <elementParameter xmi:id="_lDR4hs-5Ed-AIsoUrfi0wQ" field="TEXT" name="FIELDSEPARATOR" value="&quot;|&quot;"/>
+    <elementParameter xmi:id="_lDR4h8-5Ed-AIsoUrfi0wQ" field="CHECK" name="PRINT_HEADER" value="false"/>
+    <elementParameter xmi:id="_lDR4iM-5Ed-AIsoUrfi0wQ" field="CHECK" name="PRINT_UNIQUE_NAME" value="false"/>
+    <elementParameter xmi:id="_lDR4ic-5Ed-AIsoUrfi0wQ" field="CHECK" name="PRINT_COLNAMES" value="false"/>
+    <elementParameter xmi:id="_lDR4is-5Ed-AIsoUrfi0wQ" field="CHECK" name="USE_FIXED_LENGTH" value="false"/>
+    <elementParameter xmi:id="_lDR4i8-5Ed-AIsoUrfi0wQ" field="TABLE" name="LENGTHS">
+      <elementValue xmi:id="_lDR4jM-5Ed-AIsoUrfi0wQ" elementRef="SCHEMA_COLUMN" value="number"/>
+      <elementValue xmi:id="_lDR4jc-5Ed-AIsoUrfi0wQ" elementRef="LENGTH" value="10"/>
+      <elementValue xmi:id="_lDR4js-5Ed-AIsoUrfi0wQ" elementRef="SCHEMA_COLUMN" value="txt"/>
+      <elementValue xmi:id="_lDR4j8-5Ed-AIsoUrfi0wQ" elementRef="LENGTH" value="10"/>
+      <elementValue xmi:id="_lDR4kM-5Ed-AIsoUrfi0wQ" elementRef="SCHEMA_COLUMN" value="date"/>
+      <elementValue xmi:id="_lDR4kc-5Ed-AIsoUrfi0wQ" elementRef="LENGTH" value="10"/>
+      <elementValue xmi:id="_lDR4ks-5Ed-AIsoUrfi0wQ" elementRef="SCHEMA_COLUMN" value="flag"/>
+      <elementValue xmi:id="_lDR4k8-5Ed-AIsoUrfi0wQ" elementRef="LENGTH" value="10"/>
+      <elementValue xmi:id="_lDR4lM-5Ed-AIsoUrfi0wQ" elementRef="SCHEMA_COLUMN" value="count"/>
+      <elementValue xmi:id="_lDR4lc-5Ed-AIsoUrfi0wQ" elementRef="LENGTH" value="10"/>
+    </elementParameter>
+    <elementParameter xmi:id="_lDR4ls-5Ed-AIsoUrfi0wQ" field="TEXT" name="HINT" value="__UNIQUE_NAME__"/>
+    <elementParameter xmi:id="_lDR4l8-5Ed-AIsoUrfi0wQ" field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <elementParameter xmi:id="_lDR4mM-5Ed-AIsoUrfi0wQ" field="CHECK" name="INFORMATION" value="false"/>
+    <elementParameter xmi:id="_lDR4mc-5Ed-AIsoUrfi0wQ" field="MEMO" name="COMMENT" value=""/>
+    <metadata xmi:id="_lDR4ms-5Ed-AIsoUrfi0wQ" connector="FLOW" name="tLogRow_1">
+      <column xmi:id="_lDR4m8-5Ed-AIsoUrfi0wQ" comment="" key="false" length="3" name="number" nullable="false" pattern="" sourceType="" type="id_Integer"/>
+      <column xmi:id="_lDR4nM-5Ed-AIsoUrfi0wQ" comment="" key="false" length="20" name="txt" nullable="false" pattern="" sourceType="" type="id_String"/>
+      <column xmi:id="_lDR4nc-5Ed-AIsoUrfi0wQ" comment="" key="false" length="10" name="date" nullable="false" pattern="" sourceType="" type="id_String"/>
+      <column xmi:id="_lDR4ns-5Ed-AIsoUrfi0wQ" comment="" key="false" length="5" name="flag" nullable="false" pattern="" sourceType="" type="id_Boolean"/>
+      <column xmi:id="_lDR4n8-5Ed-AIsoUrfi0wQ" comment="" key="false" name="count" nullable="false" pattern="" sourceType="" type="id_BigDecimal"/>
+    </metadata>
+  </node>
+  <connection xmi:id="_lDR4oM-5Ed-AIsoUrfi0wQ" connectorName="FLOW" label="row1" lineStyle="0" metaname="tRowGenerator_1" offsetLabelX="0" offsetLabelY="0" source="tRowGenerator_1" target="tAggregateRow_1">
+    <elementParameter xmi:id="_lDR4oc-5Ed-AIsoUrfi0wQ" field="CHECK" name="TRACES_CONNECTION_ENABLE" value="true"/>
+    <elementParameter xmi:id="_lDR4os-5Ed-AIsoUrfi0wQ" field="TABLE" name="TRACES_CONNECTION_FILTER">
+      <elementValue xmi:id="_lDR4o8-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN" value="number"/>
+      <elementValue xmi:id="_lDR4pM-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_lDR4pc-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_lDR4ps-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN" value="txt"/>
+      <elementValue xmi:id="_lDR4p8-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_lDR4qM-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_lDR4qc-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN" value="date"/>
+      <elementValue xmi:id="_lDR4qs-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_lDR4q8-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_lDR4rM-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN" value="flag"/>
+      <elementValue xmi:id="_lDR4rc-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_lDR4rs-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+    </elementParameter>
+    <elementParameter xmi:id="_lDR4r8-5Ed-AIsoUrfi0wQ" field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter xmi:id="_lDR4sM-5Ed-AIsoUrfi0wQ" field="CHECK" name="USEROWLABEL" value="true"/>
+    <elementParameter xmi:id="_lDR4sc-5Ed-AIsoUrfi0wQ" field="TEXT" name="METTERLABEL" value="&quot;MyLabel&quot;"/>
+    <elementParameter xmi:id="_lDR4ss-5Ed-AIsoUrfi0wQ" field="CLOSED_LIST" name="ABSOLUTE" value="Absolute"/>
+    <elementParameter xmi:id="_lDR4s8-5Ed-AIsoUrfi0wQ" field="CONNECTION_LIST" name="CONNECTIONS" value=""/>
+    <elementParameter xmi:id="_lDR4tM-5Ed-AIsoUrfi0wQ" field="TABLE" name="THRESHLODS"/>
+    <elementParameter xmi:id="_lDR4tc-5Ed-AIsoUrfi0wQ" field="CHECK" name="ACTIVATE" value="true"/>
+    <elementParameter xmi:id="_lDR4ts-5Ed-AIsoUrfi0wQ" field="TEXT" name="UNIQUE_NAME" value="row1"/>
+  </connection>
+  <connection xmi:id="_lDR4t8-5Ed-AIsoUrfi0wQ" connectorName="FLOW" label="row2" lineStyle="0" metaname="tAggregateRow_1" offsetLabelX="0" offsetLabelY="0" source="tAggregateRow_1" target="tLogRow_1">
+    <elementParameter xmi:id="_lDR4uM-5Ed-AIsoUrfi0wQ" field="CHECK" name="TRACES_CONNECTION_ENABLE" value="true"/>
+    <elementParameter xmi:id="_lDR4uc-5Ed-AIsoUrfi0wQ" field="TABLE" name="TRACES_CONNECTION_FILTER">
+      <elementValue xmi:id="_lDR4us-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN" value="number"/>
+      <elementValue xmi:id="_lDR4u8-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_lDR4vM-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_lDR4vc-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN" value="txt"/>
+      <elementValue xmi:id="_lDR4vs-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_lDR4v8-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_lDR4wM-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN" value="date"/>
+      <elementValue xmi:id="_lDR4wc-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_lDR4ws-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_lDR4w8-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN" value="flag"/>
+      <elementValue xmi:id="_lDR4xM-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_lDR4xc-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_lDR4xs-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN" value="count"/>
+      <elementValue xmi:id="_lDR4x8-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_lDR4yM-5Ed-AIsoUrfi0wQ" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+    </elementParameter>
+    <elementParameter xmi:id="_lDR4yc-5Ed-AIsoUrfi0wQ" field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter xmi:id="_lDR4ys-5Ed-AIsoUrfi0wQ" field="CHECK" name="USEROWLABEL" value="true"/>
+    <elementParameter xmi:id="_lDR4y8-5Ed-AIsoUrfi0wQ" field="TEXT" name="METTERLABEL" value="&quot;MyLabel&quot;"/>
+    <elementParameter xmi:id="_lDR4zM-5Ed-AIsoUrfi0wQ" field="CLOSED_LIST" name="ABSOLUTE" value="Absolute"/>
+    <elementParameter xmi:id="_lDR4zc-5Ed-AIsoUrfi0wQ" field="CONNECTION_LIST" name="CONNECTIONS" value=""/>
+    <elementParameter xmi:id="_lDR4zs-5Ed-AIsoUrfi0wQ" field="TABLE" name="THRESHLODS"/>
+    <elementParameter xmi:id="_lDR4z8-5Ed-AIsoUrfi0wQ" field="CHECK" name="ACTIVATE" value="true"/>
+    <elementParameter xmi:id="_lDR40M-5Ed-AIsoUrfi0wQ" field="TEXT" name="UNIQUE_NAME" value="row2"/>
+  </connection>
+  <note xmi:id="_lDR40c-5Ed-AIsoUrfi0wQ" opaque="true" posX="96" posY="32" sizeHeight="97" sizeWidth="577" text="tAggregateRow receives a flow and aggregates it based on one or more columns.&#xD;&#xA;For each output line, are provided the aggregation key and the relevant result&#xD;&#xA;of set operations (min, max, sum)">
+    <elementParameter xmi:id="_lDR40s-5Ed-AIsoUrfi0wQ" field="COLOR" name="NOTE_COLOR" value="255;255;203"/>
+    <elementParameter xmi:id="_lDR408-5Ed-AIsoUrfi0wQ" field="COLOR" name="NOTETXT_COLOR" value="0;0;0"/>
+    <elementParameter xmi:id="_lDR41M-5Ed-AIsoUrfi0wQ" field="RADIO" name="NOTETXT_LEFT" value="false"/>
+    <elementParameter xmi:id="_lDR41c-5Ed-AIsoUrfi0wQ" field="RADIO" name="NOTETXT_RIGHT" value="false"/>
+    <elementParameter xmi:id="_lDR41s-5Ed-AIsoUrfi0wQ" field="RADIO" name="NOTETXT_CENTER" value="true"/>
+    <elementParameter xmi:id="_lDR418-5Ed-AIsoUrfi0wQ" field="RADIO" name="NOTELABEL_CENTER" value="true"/>
+    <elementParameter xmi:id="_lDR42M-5Ed-AIsoUrfi0wQ" field="RADIO" name="NOTETXT_TOP" value="false"/>
+    <elementParameter xmi:id="_lDR42c-5Ed-AIsoUrfi0wQ" field="RADIO" name="NOTETXT_BOTTOM" value="false"/>
+    <elementParameter xmi:id="_lDR42s-5Ed-AIsoUrfi0wQ" field="TEXT" name="NOTE_FONT" value="Time New Roman"/>
+    <elementParameter xmi:id="_lDR428-5Ed-AIsoUrfi0wQ" field="TEXT" name="FONT_SIZE" value="10"/>
+    <elementParameter xmi:id="_lDR43M-5Ed-AIsoUrfi0wQ" field="CHECK" name="FONT_BOLD" value="false"/>
+    <elementParameter xmi:id="_lDR43c-5Ed-AIsoUrfi0wQ" field="CHECK" name="FONT_ITALIC" value="false"/>
+    <elementParameter xmi:id="_lDR43s-5Ed-AIsoUrfi0wQ" field="COLOR" name="NOTE_LINECOLOR" value="237;201;122"/>
+  </note>
+  <subjob xmi:id="_lDR438-5Ed-AIsoUrfi0wQ">
+    <elementParameter xmi:id="_lDR44M-5Ed-AIsoUrfi0wQ" field="TEXT" name="UNIQUE_NAME" value="tRowGenerator_1"/>
+    <elementParameter xmi:id="_lDR44c-5Ed-AIsoUrfi0wQ" field="COLOR" name="SUBJOB_TITLE_COLOR" value="50;50;250"/>
+    <elementParameter xmi:id="_lDR44s-5Ed-AIsoUrfi0wQ" field="COLOR" name="SUBJOB_COLOR" value="220;220;250"/>
+  </subjob>
+  <routinesDependencies xmi:id="_lDR448-5Ed-AIsoUrfi0wQ" idOrName="DataOperation" system="true"/>
+  <routinesDependencies xmi:id="_lDR45M-5Ed-AIsoUrfi0wQ" idOrName="Mathematical" system="true"/>
+  <routinesDependencies xmi:id="_lDR45c-5Ed-AIsoUrfi0wQ" idOrName="Numeric" system="true"/>
+  <routinesDependencies xmi:id="_lDR45s-5Ed-AIsoUrfi0wQ" idOrName="Relational" system="true"/>
+  <routinesDependencies xmi:id="_lDR458-5Ed-AIsoUrfi0wQ" idOrName="StringHandling" system="true"/>
+  <routinesDependencies xmi:id="_lDR46M-5Ed-AIsoUrfi0wQ" idOrName="TalendDataGenerator" system="true"/>
+  <routinesDependencies xmi:id="_lDR46c-5Ed-AIsoUrfi0wQ" idOrName="TalendDate" system="true"/>
+  <routinesDependencies xmi:id="_lDR46s-5Ed-AIsoUrfi0wQ" idOrName="TalendString" system="true"/>
+  <routinesDependencies xmi:id="_lDR468-5Ed-AIsoUrfi0wQ" idOrName="_8qwkYFjNEdyj6eiqDt60Og"/>
+  <routinesDependencies xmi:id="_lDR47M-5Ed-AIsoUrfi0wQ" idOrName="_HKXfQGIZEd26GZmhFZLTPA"/>
+</talendfile:ProcessType>
