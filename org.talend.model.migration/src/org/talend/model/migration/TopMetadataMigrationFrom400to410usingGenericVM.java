@@ -21,6 +21,7 @@ import java.util.logging.Level;
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
 import org.eclipse.m2m.atl.common.ATLLogger;
 import org.eclipse.m2m.atl.core.ATLCoreException;
@@ -31,6 +32,8 @@ import org.eclipse.m2m.atl.core.ui.vm.RegularVMLauncher;
 import org.eclipse.m2m.atl.core.ui.vm.asm.ASMExtractor;
 import org.eclipse.m2m.atl.core.ui.vm.asm.ASMFactory;
 import org.eclipse.m2m.atl.core.ui.vm.asm.ASMInjector;
+import org.eclipse.m2m.atl.core.ui.vm.asm.ASMModelWrapper;
+import org.talend.model.migration.atl.ASMExtractorPatched;
 
 /**
  * class that perform the migration for TOP metadata from version 4.0x to 4.10 <br/>
@@ -58,7 +61,7 @@ public class TopMetadataMigrationFrom400to410usingGenericVM {
 
     private Object AtlModule;
 
-    private HashMap options;
+    private HashMap<String, Object> saveOptions;
 
     private ASMExtractor extractor;
 
@@ -92,7 +95,7 @@ public class TopMetadataMigrationFrom400to410usingGenericVM {
         // otherwise the loading of an input model fails, I do not know why
         {// output metamodel
             HashMap<String, Object> metaOutHM = new HashMap<String, Object>(3);
-            metaOutHM.put(ASMFactory.OPTION_MODEL_HANDLER, "EMF"); //$NON-NLS-1$
+            metaOutHM.put(ASMFactory.OPTION_MODEL_HANDLER, "EMF_PATCHED"); //$NON-NLS-1$
             metaOutHM.put(ASMFactory.OPTION_MODEL_NAME, "OUTMODEL"); //$NON-NLS-1$
             metaOutHM.put(ASMFactory.OPTION_MODEL_PATH, OUT_METADATA_410_URI);
             outmodelMetamodel = factory.newReferenceModel(metaOutHM);
@@ -125,7 +128,9 @@ public class TopMetadataMigrationFrom400to410usingGenericVM {
             log.error("error while loading the Transformation file : " + ATL_FILE_URI, e);
             throw new RuntimeException(e);
         }
-        extractor = new ASMExtractor();
+        extractor = new ASMExtractorPatched();
+        saveOptions = new HashMap<String, Object>();
+        saveOptions.put(XMIResource.OPTION_ENCODING, "UTF-8");
     }
 
     /**
@@ -158,6 +163,8 @@ public class TopMetadataMigrationFrom400to410usingGenericVM {
         launcher.addInModel(inModel, "IN", "INMODEL"); //$NON-NLS-1$//$NON-NLS-2$
         launcher.addOutModel(outModel, "OUT", "OUTMODEL"); //$NON-NLS-1$//$NON-NLS-2$
         launcher.launch("run", monitor, Collections.EMPTY_MAP, AtlModule); //$NON-NLS-1$
-        extractor.extract(outModel, outUri);
+        ASMModelWrapper modelWrapper = (ASMModelWrapper) outModel;
+        // modelWrapper.getModelLoader().
+        extractor.extract(outModel, outUri, saveOptions);
     }
 }
