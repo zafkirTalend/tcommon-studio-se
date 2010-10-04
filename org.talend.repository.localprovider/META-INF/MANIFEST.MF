@@ -5,9 +5,7 @@ Bundle-SymbolicName: org.talend.repository.localprovider;singleton:=true
 Bundle-Version: 2.2.0.qualifier
 Bundle-Activator: org.talend.repository.localprovider.RepositoryLocalProviderPlugin
 Bundle-Localization: plugin
-Require-Bundle: org.eclipse.ui.ide,
- org.talend.migrationTool,
- org.eclipse.ui.views.properties.tabbed,
+Require-Bundle: org.eclipse.ui.views.properties.tabbed,
  org.eclipse.emf.ecore.xmi,
  org.talend.core.repository,
  org.talend.core.runtime,
