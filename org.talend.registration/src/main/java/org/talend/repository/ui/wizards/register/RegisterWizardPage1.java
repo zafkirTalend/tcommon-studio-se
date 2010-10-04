@@ -126,7 +126,7 @@ public class RegisterWizardPage1 extends AbstractBasicWizardDialog {
 
             @Override
             public void linkActivated(HyperlinkEvent e) {
-                String url = "http://www.talend.com/community/communityMember.php";
+                String url = "http://www.talendforge.org/communitybenefits.php";
                 TalendBrowserLaunchHelper.openURL(url);
 
                 // Runtime.getRuntime().exec("explorer http://www.talend.com/community/communityMember.php"); //
