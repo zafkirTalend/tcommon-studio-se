@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<TalendMetadata:DelimitedFileConnection xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:TalendMetadata="http://www.talend.org" Server="Localhost 127.0.0.1" FilePath="/home/nfrancisco/Talend/Formations/Foundation/FichiersFormation/state.txt" Encoding="US-ASCII" FieldSeparatorValue="&quot;;&quot;" RowSeparatorValue="&quot;\n&quot;">
-  <tables id="_-PlJ8C3iEd-gPuaSchhj7Q" label="state">
-    <columns label="idstate" talendType="id_Integer" key="true" length="2" precision="0" pattern="&quot;dd-MM-yyyy&quot;"/>
-    <columns label="labelstate" talendType="id_String" length="14" precision="0" pattern="&quot;dd-MM-yyyy&quot;"/>
-  </tables>
-</TalendMetadata:DelimitedFileConnection>
