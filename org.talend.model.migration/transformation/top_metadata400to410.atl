@@ -65,6 +65,34 @@ rule "cwm::relational::TdCatalog" {
         dataManager <- s.dataManager)
 }
 
+rule "cwm::relational::TdSchema" {
+    from s : INMODEL!"topcwm::relational::TdSchema" (thisModule.inElements->includes(s))
+    to t : OUTMODEL!"orgomg::cwm::resource::relational::Schema" (
+        __xmiID__ <- s.__xmiID__, 
+        name <- s.name,
+        visibility <- s.visibility,
+        clientDependency <- s.clientDependency,
+        supplierDependency <- s.supplierDependency,
+        constraint <- s.constraint,
+        importer <- s.importer,
+        stereotype <- s.stereotype,
+        taggedValue <- s.taggedValue,
+        document <- s.document,
+        description <- s.description,
+        responsibleParty <- s.responsibleParty,
+        elementNode <- s.elementNode,
+        set <- s.set,
+        renderedObject <- s.renderedObject,
+        vocabularyElement <- s.vocabularyElement,
+        measurement <- s.measurement,
+        changeRequest <- s.changeRequest,
+        dasdlProperty <- s.dasdlProperty,
+        ownedElement <- s.ownedElement,
+        importedElement <- s.importedElement,
+        dataManager <- s.dataManager)
+}
+
+
 rule "cwm::relational::TdTable" {
     from s : INMODEL!"topcwm::relational::TdTable" (thisModule.inElements->includes(s))
 	using {
@@ -170,32 +198,6 @@ rule "cwm::relational::TdView" {
 }
 
 
-rule "cwm::relational::TdSchema" {
-    from s : INMODEL!"topcwm::relational::TdSchema" (thisModule.inElements->includes(s))
-    to t : OUTMODEL!"orgomg::cwm::resource::relational::Schema" (
-        __xmiID__ <- s.__xmiID__, 
-        name <- s.name,
-        visibility <- s.visibility,
-        clientDependency <- s.clientDependency,
-        supplierDependency <- s.supplierDependency,
-        constraint <- s.constraint,
-        importer <- s.importer,
-        stereotype <- s.stereotype,
-        taggedValue <- s.taggedValue,
-        document <- s.document,
-        description <- s.description,
-        responsibleParty <- s.responsibleParty,
-        elementNode <- s.elementNode,
-        set <- s.set,
-        renderedObject <- s.renderedObject,
-        vocabularyElement <- s.vocabularyElement,
-        measurement <- s.measurement,
-        changeRequest <- s.changeRequest,
-        dasdlProperty <- s.dasdlProperty,
-        ownedElement <- s.ownedElement,
-        importedElement <- s.importedElement,
-        dataManager <- s.dataManager)
-}
 
 rule "cwm::relational::TdColumn" {
     from s : INMODEL!"topcwm::relational::TdColumn" (thisModule.inElements->includes(s))
