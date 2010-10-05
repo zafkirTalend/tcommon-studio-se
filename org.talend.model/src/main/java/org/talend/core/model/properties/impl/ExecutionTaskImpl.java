@@ -1313,7 +1313,7 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
      */
     public EList getTriggers() {
         if (triggers == null) {
-            triggers = new EObjectContainmentWithInverseEList(TalendTrigger.class, this, PropertiesPackage.EXECUTION_TASK__TRIGGERS, PropertiesPackage.TALEND_TRIGGER__EXECUTION_TASK);
+            triggers = new EObjectContainmentWithInverseEList(TalendTrigger.class, this, PropertiesPackage.EXECUTION_TASK__TRIGGERS, PropertiesPackage.TALEND_TRIGGER__EXECUTION_TRIGGERABLE);
         }
         return triggers;
     }

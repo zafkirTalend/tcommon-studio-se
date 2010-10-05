@@ -2900,7 +2900,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getTalendTrigger_ExecutionTask() {
+    public EReference getTalendTrigger_ExecutionTriggerable() {
         return (EReference)talendTriggerEClass.getEStructuralFeatures().get(5);
     }
 
@@ -5290,7 +5290,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEAttribute(talendTriggerEClass, TALEND_TRIGGER__LABEL);
         createEAttribute(talendTriggerEClass, TALEND_TRIGGER__DESCRIPTION);
         createEAttribute(talendTriggerEClass, TALEND_TRIGGER__TRIGGER_TYPE);
-        createEReference(talendTriggerEClass, TALEND_TRIGGER__EXECUTION_TASK);
+        createEReference(talendTriggerEClass, TALEND_TRIGGER__EXECUTION_TRIGGERABLE);
         createEAttribute(talendTriggerEClass, TALEND_TRIGGER__START_TIME);
         createEAttribute(talendTriggerEClass, TALEND_TRIGGER__END_TIME);
         createEAttribute(talendTriggerEClass, TALEND_TRIGGER__PREVIOUS_FIRE_TIME);
@@ -5818,7 +5818,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
 
         initEClass(executionTriggerableEClass, ExecutionTriggerable.class, "ExecutionTriggerable", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getExecutionTriggerable_Id(), theEcorePackage.getEInt(), "id", null, 1, 1, ExecutionTriggerable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getExecutionTriggerable_Triggers(), this.getTalendTrigger(), this.getTalendTrigger_ExecutionTask(), "triggers", null, 0, -1, ExecutionTriggerable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+        initEReference(getExecutionTriggerable_Triggers(), this.getTalendTrigger(), this.getTalendTrigger_ExecutionTriggerable(), "triggers", null, 0, -1, ExecutionTriggerable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
         initEAttribute(getExecutionTriggerable_IdQuartzJob(), theEcorePackage.getEInt(), "idQuartzJob", null, 0, 1, ExecutionTriggerable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getExecutionTriggerable_Status(), theEcorePackage.getEString(), "status", null, 0, 1, ExecutionTriggerable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getExecutionTriggerable_ErrorStatus(), theEcorePackage.getEString(), "errorStatus", null, 0, 1, ExecutionTriggerable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -5972,7 +5972,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getTalendTrigger_Label(), theEcorePackage.getEString(), "label", null, 0, 1, TalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTalendTrigger_Description(), theEcorePackage.getEString(), "description", null, 0, 1, TalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTalendTrigger_TriggerType(), theEcorePackage.getEString(), "triggerType", null, 0, 1, TalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getTalendTrigger_ExecutionTask(), this.getExecutionTriggerable(), this.getExecutionTriggerable_Triggers(), "executionTask", null, 0, 1, TalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getTalendTrigger_ExecutionTriggerable(), this.getExecutionTriggerable(), this.getExecutionTriggerable_Triggers(), "executionTriggerable", null, 0, 1, TalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTalendTrigger_StartTime(), theEcorePackage.getEDate(), "startTime", null, 0, 1, TalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTalendTrigger_EndTime(), theEcorePackage.getEDate(), "endTime", null, 0, 1, TalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTalendTrigger_PreviousFireTime(), theEcorePackage.getEDate(), "previousFireTime", null, 0, 1, TalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

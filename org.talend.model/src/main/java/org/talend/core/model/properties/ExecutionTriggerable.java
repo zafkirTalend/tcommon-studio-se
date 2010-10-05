@@ -62,7 +62,7 @@ public interface ExecutionTriggerable extends EObject {
     /**
      * Returns the value of the '<em><b>Triggers</b></em>' containment reference list.
      * The list contents are of type {@link org.talend.core.model.properties.TalendTrigger}.
-     * It is bidirectional and its opposite is '{@link org.talend.core.model.properties.TalendTrigger#getExecutionTask <em>Execution Task</em>}'.
+     * It is bidirectional and its opposite is '{@link org.talend.core.model.properties.TalendTrigger#getExecutionTriggerable <em>Execution Triggerable</em>}'.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Triggers</em>' containment reference list isn't clear,
@@ -71,8 +71,8 @@ public interface ExecutionTriggerable extends EObject {
      * <!-- end-user-doc -->
      * @return the value of the '<em>Triggers</em>' containment reference list.
      * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTriggerable_Triggers()
-     * @see org.talend.core.model.properties.TalendTrigger#getExecutionTask
-     * @model type="org.talend.core.model.properties.TalendTrigger" opposite="executionTask" containment="true" ordered="false"
+     * @see org.talend.core.model.properties.TalendTrigger#getExecutionTriggerable
+     * @model type="org.talend.core.model.properties.TalendTrigger" opposite="executionTriggerable" containment="true" ordered="false"
      * @generated
      */
     EList getTriggers();

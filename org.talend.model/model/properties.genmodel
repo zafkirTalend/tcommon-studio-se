@@ -409,7 +409,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TalendTrigger/label"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TalendTrigger/description"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TalendTrigger/triggerType"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference properties.ecore#//TalendTrigger/executionTask"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference properties.ecore#//TalendTrigger/executionTriggerable"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TalendTrigger/startTime"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TalendTrigger/endTime"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TalendTrigger/previousFireTime"/>
