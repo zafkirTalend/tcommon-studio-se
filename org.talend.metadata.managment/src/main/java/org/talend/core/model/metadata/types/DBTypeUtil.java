@@ -17,13 +17,19 @@ package org.talend.core.model.metadata.types;
  */
 public class DBTypeUtil {
 
-    private final String dbTypeName;
+    private String dbTypeName;
 
-    private final boolean isDefault;
+    private boolean isDefault;
 
-    public DBTypeUtil(String dbTypeName, boolean isDefault) {
+    private boolean ignoreLength;
+
+    private boolean ignorePrecision;
+
+    public DBTypeUtil(String dbTypeName, boolean isDefault, boolean ignoreLen, boolean ignorePre) {
         this.dbTypeName = dbTypeName;
         this.isDefault = isDefault;
+        this.ignoreLength = ignoreLen;
+        this.ignorePrecision = ignorePre;
     }
 
     public String getDbTypeName() {
@@ -32,6 +38,24 @@ public class DBTypeUtil {
 
     public boolean isDefault() {
         return this.isDefault;
+    }
+
+    /**
+     * Getter for ignoreLength.
+     * 
+     * @return the ignoreLength
+     */
+    public boolean isIgnoreLength() {
+        return this.ignoreLength;
+    }
+
+    /**
+     * Getter for ignorePrecision.
+     * 
+     * @return the ignorePrecision
+     */
+    public boolean isIgnorePrecision() {
+        return this.ignorePrecision;
     }
 
 }

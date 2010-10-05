@@ -21,6 +21,8 @@ import java.util.Set;
 import org.apache.commons.collections.MultiMap;
 import org.apache.commons.collections.map.MultiValueMap;
 import org.apache.log4j.Logger;
+import org.talend.core.model.metadata.types.DBTypeUtil;
+import org.talend.core.model.metadata.types.JavaTypesManager;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -146,7 +148,27 @@ public class MappingTypeRetriever {
         return false;
     }
 
+    private boolean isExtensionLengthIgnored(String dbmsId, String dbType) {
+        Map<String, Map<String, List<DBTypeUtil>>> javaTypeMappingFromExtension = JavaTypesManager
+                .getJavaTypeMappingFromExtension();
+        for (String id : javaTypeMappingFromExtension.keySet()) {
+            for (String mappingId : javaTypeMappingFromExtension.get(id).keySet()) {
+                if (dbmsId.equals(mappingId)) {
+                    for (DBTypeUtil dbTypeUtil : javaTypeMappingFromExtension.get(id).get(mappingId)) {
+                        if (dbTypeUtil.getDbTypeName().equals(dbType)) {
+                            return dbTypeUtil.isIgnoreLength();
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
     public boolean isLengthIgnored(String dbmsId, String dbType) {
+        if (isExtensionLengthIgnored(dbmsId, dbType)) {
+            return true;
+        }
         Dbms dbms = MetadataTalendType.getDbms(dbmsId);
         List ignoreLP = dbms.getIgnoreLengthPrecision();
         String ignore = new String(""); //$NON-NLS-1$
@@ -166,7 +188,28 @@ public class MappingTypeRetriever {
         return false;
     }
 
+    private boolean isExtensionPrecisionIgnored(String dbmsId, String dbType) {
+        Map<String, Map<String, List<DBTypeUtil>>> javaTypeMappingFromExtension = JavaTypesManager
+                .getJavaTypeMappingFromExtension();
+        for (String id : javaTypeMappingFromExtension.keySet()) {
+            for (String mappingId : javaTypeMappingFromExtension.get(id).keySet()) {
+                if (dbmsId.equals(mappingId)) {
+                    for (DBTypeUtil dbTypeUtil : javaTypeMappingFromExtension.get(id).get(mappingId)) {
+                        if (dbTypeUtil.getDbTypeName().equals(dbType)) {
+                            return dbTypeUtil.isIgnorePrecision();
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
     public boolean isPrecisionIgnored(String dbmsId, String dbType) {
+        if (isExtensionPrecisionIgnored(dbmsId, dbType)) {
+            return true;
+        }
+
         Dbms dbms = MetadataTalendType.getDbms(dbmsId);
         List ignoreLP = dbms.getIgnoreLengthPrecision();
         String ignore = new String(""); //$NON-NLS-1$

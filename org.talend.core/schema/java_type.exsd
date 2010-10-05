@@ -117,6 +117,20 @@ All parameters will be used here.
                </documentation>
             </annotation>
          </attribute>
+         <attribute name="ignoreLen" type="boolean">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="ignorePre" type="boolean">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
       </complexType>
    </element>
 

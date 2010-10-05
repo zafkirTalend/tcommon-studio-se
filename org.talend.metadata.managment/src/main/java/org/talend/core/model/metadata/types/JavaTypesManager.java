@@ -150,7 +150,12 @@ public final class JavaTypesManager {
                         for (IConfigurationElement dbTypeElement : dbTypeElements) {
                             boolean isDefault = dbTypeElement.getAttribute("default") == null ? false : Boolean
                                     .valueOf(dbTypeElement.getAttribute("default"));
-                            DBTypeUtil dbType = new DBTypeUtil(dbTypeElement.getAttribute("DbType"), isDefault);
+                            boolean isIgnoreLen = dbTypeElement.getAttribute("ignoreLen") == null ? false : Boolean
+                                    .valueOf(dbTypeElement.getAttribute("ignoreLen"));
+                            boolean isIgnorePre = dbTypeElement.getAttribute("ignorePre") == null ? false : Boolean
+                                    .valueOf(dbTypeElement.getAttribute("ignorePre"));
+                            DBTypeUtil dbType = new DBTypeUtil(dbTypeElement.getAttribute("DbType"), isDefault, isIgnoreLen,
+                                    isIgnorePre);
                             dbTypes.add(dbType);
                         }
                         dbAndDBType.put(mappingId, dbTypes);

@@ -220,7 +220,8 @@ public class MappingFileLoader {
                                 // the
                                 // type
                                 // exists
-                                String message = Messages.getString("MappingFileLoader.InvalidTalendType", //$NON-NLS-1$
+                                String message = Messages.getString(
+                                        "MappingFileLoader.InvalidTalendType", //$NON-NLS-1$
                                         new Object[] { talendType, codeLanguage.getName(), dbmsIdValue,
                                                 defaultNodeRetriever.getAbsoluteXPathFromNode(talendTypeSource) });
                                 // System.out.println(message);
@@ -310,7 +311,8 @@ public class MappingFileLoader {
                                 String talendType = talendTypeItem.getNodeValue();
 
                                 if (!hAllTalendTypes.contains(talendType)) {
-                                    String message = Messages.getString("MappingFileLoader.InvalidTalendType", //$NON-NLS-1$
+                                    String message = Messages.getString(
+                                            "MappingFileLoader.InvalidTalendType", //$NON-NLS-1$
                                             new Object[] { talendType, codeLanguage.getName(), dbmsIdValue,
                                                     defaultNodeRetriever.getAbsoluteXPathFromNode(languageTypeNode) });
                                     // System.out.println(message);
