@@ -105,6 +105,9 @@ public interface IRepositoryService extends IService {
 
     public DatabaseConnection cloneOriginalValueConnection(DatabaseConnection dbConn, boolean defaultContext);
 
+    public DatabaseConnection cloneOriginalValueConnection(DatabaseConnection dbConn, boolean defaultContext,
+            String selectedContext);
+
     public IEditorPart openSQLPatternEditor(SQLPatternItem item, boolean readOnly);
 
     public void createSqlpattern(String path, boolean isFromSqlPatternComposite);

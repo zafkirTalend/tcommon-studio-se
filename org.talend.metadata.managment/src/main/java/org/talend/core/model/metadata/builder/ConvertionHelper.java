@@ -45,6 +45,10 @@ public final class ConvertionHelper {
     }
 
     public static IMetadataConnection convert(DatabaseConnection sourceConnection, boolean defaultContext) {
+        return convert(sourceConnection, false, null);
+    }
+
+    public static IMetadataConnection convert(DatabaseConnection sourceConnection, boolean defaultContext, String selectedContext) {
 
         if (sourceConnection == null) {
             return null;
@@ -52,7 +56,7 @@ public final class ConvertionHelper {
         // if sourceConnection is not context mode, will be same as before.
         DatabaseConnection connection = null;
         DatabaseConnection originalValueConnection = CoreRuntimePlugin.getInstance().getRepositoryService()
-                .cloneOriginalValueConnection(sourceConnection, defaultContext);
+                .cloneOriginalValueConnection(sourceConnection, defaultContext, selectedContext);
         if (originalValueConnection == null) {
             connection = sourceConnection;
         } else {
