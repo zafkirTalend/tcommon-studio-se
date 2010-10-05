@@ -385,7 +385,7 @@ public class MDMForm extends AbstractForm {
             WSUniversePK[] universe = null;
             try {
                 universe = stub.getUniversePKs(new WSGetUniversePKs(""));//$NON-NLS-1$
-            } catch (SOAPFaultException e) {
+            } catch (Exception e) {
                 // @FIXME
                 universe = null;
             }

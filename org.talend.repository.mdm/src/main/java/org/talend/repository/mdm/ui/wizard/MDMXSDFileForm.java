@@ -1052,20 +1052,20 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
             stub.ping(new WSPing());
             try {
                 universes = stub.getUniversePKs(new WSGetUniversePKs("")); //$NON-NLS-1$
-            } catch (SOAPFaultException e) {
+            } catch (Exception e) {
                 // @FIXME
                 universes = null;
             }
         } catch (Exception e) {
             ExceptionHandler.process(e);
         }
-        if (universes == null) {
-            return;
-        }
-        for (int i = 0; i < universes.length; i++) {
-            if (universes[i].getPk().equals(universe)) {
-                universePK = universes[i];
-                break;
+        if (universes != null) {
+
+            for (int i = 0; i < universes.length; i++) {
+                if (universes[i].getPk().equals(universe)) {
+                    universePK = universes[i];
+                    break;
+                }
             }
         }
         if (universePK != null && universe != null && !"".equals(universe)) { //$NON-NLS-1$
