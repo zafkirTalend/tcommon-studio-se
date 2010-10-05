@@ -15,6 +15,8 @@ package org.talend.repository.mdm.ui.wizard;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.rpc.soap.SOAPFaultException;
+
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -146,7 +148,8 @@ public class MDMForm extends AbstractForm {
         layout2.marginHeight = 0;
         layout2.marginTop = 0;
         layout2.marginBottom = 0;
-        checkButton = new UtilsButton(compositeCheckButton, Messages.getString("MDMForm_check"), WIDTH_BUTTON_PIXEL, HEIGHT_BUTTON_PIXEL); //$NON-NLS-1$
+        checkButton = new UtilsButton(compositeCheckButton,
+                Messages.getString("MDMForm_check"), WIDTH_BUTTON_PIXEL, HEIGHT_BUTTON_PIXEL); //$NON-NLS-1$
         checkButton.setEnabled(false);
     }
 
@@ -379,9 +382,17 @@ public class MDMForm extends AbstractForm {
             return list;
         }
         try {
-            WSUniversePK[] universe = stub.getUniversePKs(new WSGetUniversePKs(""));//$NON-NLS-1$
-            for (int i = 0; i < universe.length; i++) {
-                list.add(universe[i].getPk());
+            WSUniversePK[] universe = null;
+            try {
+                universe = stub.getUniversePKs(new WSGetUniversePKs(""));//$NON-NLS-1$
+            } catch (SOAPFaultException e) {
+                // @FIXME
+                universe = null;
+            }
+            if (universe != null) {
+                for (int i = 0; i < universe.length; i++) {
+                    list.add(universe[i].getPk());
+                }
             }
         } catch (Exception e) {
             ExceptionHandler.process(e);

@@ -19,6 +19,8 @@ import java.io.OutputStreamWriter;
 import java.io.StringReader;
 import java.util.List;
 
+import javax.xml.rpc.soap.SOAPFaultException;
+
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.viewers.TableViewer;
@@ -145,7 +147,12 @@ public abstract class AbstractMDMFileStepForm extends AbstractXmlStepForm {
             stub.setUsername(userName);
             stub.setPassword(password);
             stub.ping(new WSPing());
-            universes = stub.getUniversePKs(new WSGetUniversePKs("")); //$NON-NLS-1$
+            try {
+                universes = stub.getUniversePKs(new WSGetUniversePKs("")); //$NON-NLS-1$
+            } catch (SOAPFaultException e) {
+                // @FIXME
+                universes = null;
+            }
         } catch (Exception e) {
             ExceptionHandler.process(e);
         }

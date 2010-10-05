@@ -26,6 +26,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.xml.rpc.soap.SOAPFaultException;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.CoreException;
@@ -1048,7 +1050,12 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
             stub.setUsername(userName);
             stub.setPassword(password);
             stub.ping(new WSPing());
-            universes = stub.getUniversePKs(new WSGetUniversePKs("")); //$NON-NLS-1$
+            try {
+                universes = stub.getUniversePKs(new WSGetUniversePKs("")); //$NON-NLS-1$
+            } catch (SOAPFaultException e) {
+                // @FIXME
+                universes = null;
+            }
         } catch (Exception e) {
             ExceptionHandler.process(e);
         }
