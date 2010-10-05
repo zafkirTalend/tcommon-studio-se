@@ -18,7 +18,10 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.FileReader;
 import java.io.FilenameFilter;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -45,8 +48,16 @@ public class Top_metadata400to410Test {
 
     @Test
     public void TestMigrationOnSamplesFolder() throws Throwable {
+        String[] paths = { "platform:/plugin/org.talend.model.migration.test/samples/top323/",
+                "platform:/plugin/org.talend.model.migration.test/samples/top400/" };
+        for (String path : paths) {
+            runMigrationOnSinglePath(path);
+        }
+    }
+
+    private void runMigrationOnSinglePath(String path) throws IOException, MalformedURLException, URISyntaxException, Throwable {
         URL sampleFolderUnEscapedURL = FileLocator.toFileURL(new URL(
-                "platform:/plugin/org.talend.model.migration.test/samples/top400/")); //$NON-NLS-1$
+                path)); //$NON-NLS-1$
         // FileLocator.toFileURL will not escape special chars when creating the URL see bug
         // https://bugs.eclipse.org/bugs/show_bug.cgi?id=145096
         // so we use the URI constructor to create an escaped URI
