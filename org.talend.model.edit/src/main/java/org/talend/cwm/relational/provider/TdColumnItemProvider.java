@@ -26,18 +26,17 @@ import org.talend.cwm.relational.RelationalPackage;
 import org.talend.cwm.relational.TdColumn;
 
 /**
- * This is the item provider adapter for a {@link org.talend.cwm.relational.TdColumn} object.
- * <!-- begin-user-doc -->
+ * This is the item provider adapter for a {@link org.talend.cwm.relational.TdColumn} object. <!-- begin-user-doc -->
  * <!-- end-user-doc -->
+ * 
  * @generated
  */
 public class TdColumnItemProvider extends MetadataColumnItemProvider implements IEditingDomainItemProvider,
         IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 
     /**
-     * This constructs an instance from a factory and a notifier.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * This constructs an instance from a factory and a notifier. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public TdColumnItemProvider(AdapterFactory adapterFactory) {
@@ -45,9 +44,8 @@ public class TdColumnItemProvider extends MetadataColumnItemProvider implements 
     }
 
     /**
-     * This returns the property descriptors for the adapted class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * This returns the property descriptors for the adapted class. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -62,9 +60,9 @@ public class TdColumnItemProvider extends MetadataColumnItemProvider implements 
     /**
      * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
      * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
-     * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -77,8 +75,8 @@ public class TdColumnItemProvider extends MetadataColumnItemProvider implements 
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -90,9 +88,8 @@ public class TdColumnItemProvider extends MetadataColumnItemProvider implements 
     }
 
     /**
-     * This returns TdColumn.gif.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * This returns TdColumn.gif. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -109,15 +106,16 @@ public class TdColumnItemProvider extends MetadataColumnItemProvider implements 
     public String getText(Object object) {
         TdColumn tdColumn = ((TdColumn) object);
         String label = tdColumn.getName();
-        return label == null || label.length() == 0 ? getString("_UI_TdColumn_type") : getString("_UI_TdColumn_type") + label
-                + " (" + tdColumn.getSqlDataType().getName() + ")";
+        String sqlType = tdColumn.getSqlDataType() == null ? "" : " (" + tdColumn.getSqlDataType().getName() + ")"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+        return label == null || label.length() == 0 ? getString("_UI_TdColumn_type") : getString("_UI_TdColumn_type") + label //$NON-NLS-1$//$NON-NLS-2$
+                + sqlType;
     }
 
     /**
-     * This handles model notifications by calling {@link #updateChildren} to update any cached
-     * children and by creating a viewer notification, which it passes to {@link #fireNotifyChanged}.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * This handles model notifications by calling {@link #updateChildren} to update any cached children and by creating
+     * a viewer notification, which it passes to {@link #fireNotifyChanged}. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      */
     @Override
@@ -133,10 +131,9 @@ public class TdColumnItemProvider extends MetadataColumnItemProvider implements 
     }
 
     /**
-     * This adds {@link org.eclipse.emf.edit.command.CommandParameter}s describing the children
-     * that can be created under this object.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * This adds {@link org.eclipse.emf.edit.command.CommandParameter}s describing the children that can be created
+     * under this object. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -148,9 +145,8 @@ public class TdColumnItemProvider extends MetadataColumnItemProvider implements 
     }
 
     /**
-     * Return the resource locator for this item provider's resources.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Return the resource locator for this item provider's resources. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
