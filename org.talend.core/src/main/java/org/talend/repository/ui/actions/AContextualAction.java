@@ -51,6 +51,7 @@ import org.talend.core.model.properties.ItemState;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.model.repository.RepositoryViewObject;
 import org.talend.designer.core.ui.views.properties.IJobSettingsView;
 import org.talend.repository.ProjectManager;
@@ -87,6 +88,8 @@ public abstract class AContextualAction extends Action implements ITreeContextua
     private String neededVersion;
 
     private boolean avoidUnloadResources;
+
+    protected RepositoryNode repositoryNode;
 
     public boolean isEditAction() {
         return editAction;
@@ -515,6 +518,7 @@ public abstract class AContextualAction extends Action implements ITreeContextua
 
     @Override
     public void run() {
+        beforeWorkUnit();
         String name = "User action : " + getText(); //$NON-NLS-1$
         RepositoryWorkUnit<Object> repositoryWorkUnit = new RepositoryWorkUnit<Object>(name, this) {
 
@@ -526,6 +530,18 @@ public abstract class AContextualAction extends Action implements ITreeContextua
         };
         repositoryWorkUnit.setAvoidUnloadResources(avoidUnloadResources);
         CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory().executeRepositoryWorkUnit(repositoryWorkUnit);
+    }
+
+    protected void beforeWorkUnit() {
+        if (this.repositoryNode == null) {
+            repositoryNode = getCurrentRepositoryNode();
+        }
+        if (repositoryNode != null && repositoryNode.getObject() != null) {
+            final Item item = repositoryNode.getObject().getProperty().getItem();
+            if (item instanceof ConnectionItem) {
+                RepositoryManager.getRepositoryView().refresh();
+            }
+        }
     }
 
     protected abstract void doRun();
