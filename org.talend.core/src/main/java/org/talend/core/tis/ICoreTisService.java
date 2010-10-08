@@ -21,4 +21,5 @@ public interface ICoreTisService extends IService {
 
     public void drawWelcomeLogo(String version);
 
+    public boolean isSupportDynamicType(String componentName);
 }
