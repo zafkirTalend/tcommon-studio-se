@@ -325,7 +325,7 @@ public class RegisterManagement {
             message = Messages.getString("RegisterManagement.emailInvalid"); //$NON-NLS-1$
             break;
         case -300:
-            message = Messages.getString("RegisterManagement.password_wrong"); //$NON-NLS-1$
+            message = Messages.getString("RegisterManagement.passwordWrong"); //$NON-NLS-1$
             break;
         default:
             signum = -1;
