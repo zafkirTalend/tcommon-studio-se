@@ -20,6 +20,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.MessageBoxExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
@@ -37,6 +38,7 @@ import org.talend.core.ui.ILastVersionChecker;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 import org.talend.designer.joblet.model.JobletProcess;
 import org.talend.repository.ProjectManager;
+import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryService;
 import org.talend.repository.model.RepositoryConstants;
@@ -126,7 +128,7 @@ public abstract class JobEditorInput extends RepositoryEditorInput {
             // loadedProcess.setXmlStream(getFile().getContents());
 
             IRepositoryService service = CorePlugin.getDefault().getRepositoryService();
-            IProxyRepositoryFactory factory = service.getProxyRepositoryFactory();
+            final IProxyRepositoryFactory factory = service.getProxyRepositoryFactory();
 
             if (path != null) {
                 // factory.createProcess(project, loadedProcess, path);
@@ -138,10 +140,20 @@ public abstract class JobEditorInput extends RepositoryEditorInput {
                 } else if (getItem() instanceof ProcessItem) {
                     ((ProcessItem) getItem()).setProcess(processType);
                 }
-                factory.save(getItem());
-                loadedProcess.setProperty(getItem().getProperty());
-                // 9035
-                RelationshipItemBuilder.getInstance().addOrUpdateItem(getItem());
+                factory.executeRepositoryWorkUnit(new RepositoryWorkUnit("save process") {
+
+                    @Override
+                    protected void run() throws LoginException, PersistenceException {
+                        factory.save(getItem());
+                        loadedProcess.setProperty(getItem().getProperty());
+                        // 9035
+                        RelationshipItemBuilder.getInstance().addOrUpdateItem(getItem());
+                    }
+                });
+                // factory.save(getItem());
+                // loadedProcess.setProperty(getItem().getProperty());
+                // // 9035
+                // RelationshipItemBuilder.getInstance().addOrUpdateItem(getItem());
                 if (monitor != null) {
                     monitor.worked(50);
                 }
