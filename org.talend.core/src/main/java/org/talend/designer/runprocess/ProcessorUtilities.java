@@ -924,4 +924,40 @@ public class ProcessorUtilities {
         return getAllJobInfo(processItem.getProcess(), new HashSet<JobInfo>());
 
     }
+
+    /**
+     * DOC xtan. for bug:15299
+     * 
+     * @param jobId
+     * @return
+     */
+    public static boolean getLastGeneratedWithStats(String jobId) {
+        // posible value is: null, 0, 1, 2, 3
+        Integer previousInfos = lastGeneratedWithStatsOrTrace.get(jobId);
+
+        if (previousInfos != null) {
+            int flagStats = previousInfos & GENERATED_WITH_STATS;
+            return flagStats != 0;
+        }
+
+        return false;
+    }
+
+    /**
+     * DOC xtan. for bug:15299
+     * 
+     * @param jobId
+     * @return
+     */
+    public static boolean getLastGeneratedWithTrace(String jobId) {
+        // posible value is: null, 0, 1, 2, 3
+        Integer previousInfos = lastGeneratedWithStatsOrTrace.get(jobId);
+
+        if (previousInfos != null) {
+            int flagTraces = previousInfos & GENERATED_WITH_TRACES;
+            return flagTraces != 0;
+        }
+
+        return false;
+    }
 }
