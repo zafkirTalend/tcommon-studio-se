@@ -122,29 +122,31 @@ public class CreateMDMConnectionAction extends AbstractCreateAction {
      */
     @Override
     protected void doRun() {
-        RepositoryNode dbConnectionNode = getCurrentRepositoryNode();
+        if (repositoryNode == null) {
+            repositoryNode = getCurrentRepositoryNode();
+        }
 
         if (isToolbar()) {
-            if (dbConnectionNode != null && dbConnectionNode.getContentType() != ERepositoryObjectType.METADATA_MDMCONNECTION) {
-                dbConnectionNode = null;
+            if (repositoryNode != null && repositoryNode.getContentType() != ERepositoryObjectType.METADATA_MDMCONNECTION) {
+                repositoryNode = null;
             }
-            if (dbConnectionNode == null) {
-                dbConnectionNode = getRepositoryNodeForDefault(ERepositoryObjectType.METADATA_MDMCONNECTION);
+            if (repositoryNode == null) {
+                repositoryNode = getRepositoryNodeForDefault(ERepositoryObjectType.METADATA_MDMCONNECTION);
             }
         }
-        RepositoryNode metadataNode = dbConnectionNode.getParent();
+        RepositoryNode metadataNode = repositoryNode.getParent();
         if (metadataNode != null) {
             // Force focus to the repositoryView and open Metadata and DbConnection nodes
             getViewPart().setFocus();
             getViewPart().expand(metadataNode, true);
-            getViewPart().expand(dbConnectionNode, true);
+            getViewPart().expand(repositoryNode, true);
         }
 
         MDMConnection connection = null;
         IPath pathToSave = null;
 
         // Define the RepositoryNode, by default Metadata/DbConnection
-        RepositoryNode node = dbConnectionNode;
+        RepositoryNode node = repositoryNode;
         ISelection selection = null;
         // When the userSelection is an element of metadataNode, use it !
         if (!isToolbar()) {
@@ -187,7 +189,7 @@ public class CreateMDMConnectionAction extends AbstractCreateAction {
             mdmWizard = new MDMWizard(PlatformUI.getWorkbench(), creation, node, getExistingNames());
             mdmWizard.setToolBar(true);
         } else {
-            mdmWizard = new MDMWizard(PlatformUI.getWorkbench(), creation, selection, getExistingNames());
+            mdmWizard = new MDMWizard(PlatformUI.getWorkbench(), creation, node, getExistingNames());
         }
 
         // Open the Wizard
@@ -196,7 +198,7 @@ public class CreateMDMConnectionAction extends AbstractCreateAction {
         wizardDialog.create();
         wizardDialog.open();
 
-        RepositoryManager.getRepositoryView().expand(dbConnectionNode, true);
+        RepositoryManager.getRepositoryView().expand(repositoryNode, true);
 
         RepositoryManager.refreshCreatedNode(ERepositoryObjectType.METADATA_MDMCONNECTION);
 
