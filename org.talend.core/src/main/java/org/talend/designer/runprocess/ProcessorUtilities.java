@@ -183,9 +183,10 @@ public class ProcessorUtilities {
     public static IProcessor getProcessor(IProcess process) {
         if (process.getProcessor() == null) {
             IRunProcessService service = CorePlugin.getDefault().getRunProcessService();
-            return service.createCodeProcessor(process,
-                    ((RepositoryContext) CorePlugin.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY)).getProject()
-                            .getLanguage(), true);
+            IProcessor processor = service.createCodeProcessor(process, ((RepositoryContext) CorePlugin.getContext().getProperty(
+                    Context.REPOSITORY_CONTEXT_KEY)).getProject().getLanguage(), true);
+            process.setProcessor(processor);
+            return processor;
         } else {
             return process.getProcessor();
         }
@@ -385,8 +386,8 @@ public class ProcessorUtilities {
             }
         }
 
-        Set<String> neededLibraries = CorePlugin.getDefault().getDesignerCoreService()
-                .getNeededLibrariesForProcess(currentProcess, false);
+        Set<String> neededLibraries = CorePlugin.getDefault().getDesignerCoreService().getNeededLibrariesForProcess(
+                currentProcess, false);
         if (neededLibraries != null) {
             LastGenerationInfo.getInstance().setModulesNeededWithSubjobPerJob(jobInfo.getJobId(), jobInfo.getJobVersion(),
                     neededLibraries);
@@ -440,16 +441,14 @@ public class ProcessorUtilities {
                             generateCode(subJobInfo, selectedContextName, statistics, false, true, GENERATE_ALL_CHILDS,
                                     progressMonitor);
                         }
-                        LastGenerationInfo
-                                .getInstance()
-                                .getModulesNeededWithSubjobPerJob(jobInfo.getJobId(), jobInfo.getJobVersion())
-                                .addAll(LastGenerationInfo.getInstance().getModulesNeededWithSubjobPerJob(subJobInfo.getJobId(),
+                        LastGenerationInfo.getInstance().getModulesNeededWithSubjobPerJob(jobInfo.getJobId(),
+                                jobInfo.getJobVersion()).addAll(
+                                LastGenerationInfo.getInstance().getModulesNeededWithSubjobPerJob(subJobInfo.getJobId(),
                                         subJobInfo.getJobVersion()));
 
-                        LastGenerationInfo
-                                .getInstance()
-                                .getRoutinesNeededWithSubjobPerJob(jobInfo.getJobId(), jobInfo.getJobVersion())
-                                .addAll(LastGenerationInfo.getInstance().getRoutinesNeededWithSubjobPerJob(subJobInfo.getJobId(),
+                        LastGenerationInfo.getInstance().getRoutinesNeededWithSubjobPerJob(jobInfo.getJobId(),
+                                jobInfo.getJobVersion()).addAll(
+                                LastGenerationInfo.getInstance().getRoutinesNeededWithSubjobPerJob(subJobInfo.getJobId(),
                                         subJobInfo.getJobVersion()));
                     }
                 }
@@ -484,8 +483,8 @@ public class ProcessorUtilities {
                 } else {
                     processor.setContext(context);
                 }
-                LastGenerationInfo.getInstance().getContextPerJob(jobInfo.getJobId(), jobInfo.getJobVersion())
-                        .add(context.getName());
+                LastGenerationInfo.getInstance().getContextPerJob(jobInfo.getJobId(), jobInfo.getJobVersion()).add(
+                        context.getName());
                 try {
                     processor.generateContextCode();
                 } catch (ProcessorException pe) {

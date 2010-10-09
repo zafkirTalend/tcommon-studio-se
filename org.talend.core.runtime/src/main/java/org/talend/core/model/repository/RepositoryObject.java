@@ -588,4 +588,18 @@ public class RepositoryObject implements IRepositoryObject, IAdaptable {
     public void throwPersistenceExceptionIfAny() throws PersistenceException {
         // can't have any exception here...
     }
+
+    @Override
+    public String toString() {
+        if (property != null) {
+            String label = "";
+            if (property.getItem() != null) {
+                ERepositoryObjectType type = ERepositoryObjectType.getItemType(property.getItem());
+                label = "[" + type.getKey() + "] ";
+            }
+            label += property.getLabel();
+            return label;
+        }
+        return super.toString();
+    }
 }
