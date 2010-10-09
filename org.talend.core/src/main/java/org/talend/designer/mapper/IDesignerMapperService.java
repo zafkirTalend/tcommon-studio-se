@@ -12,8 +12,12 @@
 // ============================================================================
 package org.talend.designer.mapper;
 
+import java.util.List;
+
 import org.talend.core.IService;
+import org.talend.core.model.process.IExternalData;
 import org.talend.core.model.process.INode;
+import org.talend.core.model.process.IProcess;
 
 /**
  * DOC YeXiaowei class global comment. Detailled comment <br/>
@@ -29,4 +33,8 @@ public interface IDesignerMapperService extends IService {
      * @return
      */
     public boolean isVirtualComponent(final INode node);
+
+    public void renameJoinTable(IProcess process, IExternalData data, List<String> createdNames);
+
+    public List<String> getJoinTableNames(IExternalData data);
 }
