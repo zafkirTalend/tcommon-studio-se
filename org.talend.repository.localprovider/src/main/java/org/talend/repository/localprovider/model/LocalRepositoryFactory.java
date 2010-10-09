@@ -307,7 +307,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                         ExceptionHandler.process(e);
                     }
                 } else if (current instanceof IFolder) {
-                    if (!FilesUtils.isSVNFolder(current)) {
+                    if (!((IFolder) current).getName().startsWith(".") && !FilesUtils.isSVNFolder(current)) {
                         if (!current.getName().equals(BIN)) {
                             physicalDirectoryFounds.add(((IFolder) current).getName());
                             if (!folderNamesFounds.contains(((IFolder) current).getName())) {
@@ -453,7 +453,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 for (Item curItem : (List<Item>) currentFolderItem.getChildren()) {
                     if (curItem instanceof FolderItem && searchInChildren) {
                         folderNamesFounds.add(curItem.getProperty().getLabel());
-                        toReturn.addAll(getSerializableFromFolder(project, curItem, id, type, allVersion, true, withDeleted, true));
+                        toReturn
+                                .addAll(getSerializableFromFolder(project, curItem, id, type, allVersion, true, withDeleted, true));
                     } else if (!(curItem instanceof FolderItem)) {
                         Property property = curItem.getProperty();
                         if (property != null && property.eResource() != null) {
@@ -516,7 +517,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                             }
                         }
                     } else if (current instanceof IFolder) { // &&
-                        if (!FilesUtils.isSVNFolder(current) && searchInChildren) {
+                        if (!((IFolder) current).getName().startsWith(".") && !FilesUtils.isSVNFolder(current)
+                                && searchInChildren) {
                             if (((IFolder) current).getLocation().toPortableString().contains("bin")) {
                                 // don't do anything for bin directory
                             } else {
@@ -978,8 +980,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         for (int i = 0; i < childrens.length; i++) {
             if (childrens[i] instanceof FolderItem) {
                 FolderItem children = (FolderItem) childrens[i];
-                moveFolder(type, sourcePath.append(children.getProperty().getLabel()),
-                        targetPath.append(emfFolder.getProperty().getLabel()));
+                moveFolder(type, sourcePath.append(children.getProperty().getLabel()), targetPath.append(emfFolder.getProperty()
+                        .getLabel()));
             } else {
                 emfFolder.getChildren().remove(childrens[i]);
                 newFolder.getChildren().add(childrens[i]);
@@ -992,8 +994,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         for (IRepositoryViewObject object : serializableFromFolder) {
             List<Resource> affectedResources = xmiResourceManager.getAffectedResources(object.getProperty());
             for (Resource resource : affectedResources) {
-                IPath path = getPhysicalProject(project).getFullPath().append(completeNewPath)
-                        .append(resource.getURI().lastSegment());
+                IPath path = getPhysicalProject(project).getFullPath().append(completeNewPath).append(
+                        resource.getURI().lastSegment());
                 xmiResourceManager.moveResource(resource, path);
             }
         }
