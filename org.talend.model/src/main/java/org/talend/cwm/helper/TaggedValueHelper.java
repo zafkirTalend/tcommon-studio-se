@@ -33,6 +33,7 @@ public final class TaggedValueHelper {
 
     private static Logger log = Logger.getLogger(TaggedValueHelper.class);
 
+    public static final String OTHER_PARAMETER = "otherParameter";
     /**
      * The tag used when setting a column content type.
      */
