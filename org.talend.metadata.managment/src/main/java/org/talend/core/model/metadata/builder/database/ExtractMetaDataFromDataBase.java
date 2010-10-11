@@ -1071,12 +1071,11 @@ public class ExtractMetaDataFromDataBase {
 
                 } else {
                     if (nameFiters.isEmpty()) {
-                        itemTablesName = getTableNamesFromTablesForMultiSchema(tableInfoParameters,
-                                "", iMetadataConnection.getDbType()); //$NON-NLS-1$
+                        itemTablesName = getTableNamesFromTablesForMultiSchema(tableInfoParameters, "", iMetadataConnection); //$NON-NLS-1$
                     } else {
                         for (String s : nameFiters) {
                             List<String> tableNamesFromTables = getTableNamesFromTablesForMultiSchema(tableInfoParameters, s,
-                                    iMetadataConnection.getDbType());
+                                    iMetadataConnection);
                             for (String string : tableNamesFromTables) {
                                 if (!itemTablesName.contains(string)) {
                                     itemTablesName.add(string);
@@ -1131,19 +1130,19 @@ public class ExtractMetaDataFromDataBase {
      * bug 12179
      */
     private static List<String> getTableNamesFromTablesForMultiSchema(TableInfoParameters tableInfo, String namePattern,
-            String dbType) throws SQLException {
+            IMetadataConnection iMetadataConnection) throws SQLException {
 
         String[] multiSchemas = ExtractMetaDataUtils.getMultiSchems(ExtractMetaDataUtils.schema);
         List<String> tableNames = new ArrayList<String>();
         if (multiSchemas != null) {
             for (String s : multiSchemas) {
                 List<String> tableNamesFromTables = getTableNamesFromTables(getResultSetFromTableInfo(tableInfo, namePattern,
-                        dbType, s.trim()));
+                        iMetadataConnection, s.trim()), iMetadataConnection);
                 tableNames.addAll(tableNamesFromTables);
             }
         } else {
-            List<String> tableNamesFromTables = getTableNamesFromTables(getResultSetFromTableInfo(tableInfo, namePattern, dbType,
-                    null));
+            List<String> tableNamesFromTables = getTableNamesFromTables(getResultSetFromTableInfo(tableInfo, namePattern,
+                    iMetadataConnection, null), iMetadataConnection);
             tableNames.addAll(tableNamesFromTables);
         }
         return tableNames;
@@ -1191,13 +1190,27 @@ public class ExtractMetaDataFromDataBase {
      * @return
      * @throws SQLException
      */
-    private static List<String> getTableNamesFromTables(ResultSet resultSet) throws SQLException {
+    private static List<String> getTableNamesFromTables(ResultSet resultSet, IMetadataConnection iMetadataConnection)
+            throws SQLException {
         List<String> itemTablesName = new ArrayList<String>();
         ExtractMetaDataFromDataBase.tableCommentsMap.clear();
         if (resultSet != null) {
+
             while (resultSet.next()) {
                 String nameKey = resultSet.getString(GetTable.TABLE_NAME.name());
-                String colComment = getTableComment(nameKey, resultSet, true);
+                boolean isDerby = false;
+                if (iMetadataConnection != null) {
+                    String dbType = iMetadataConnection.getDbType();
+                    if (dbType.equals("General JDBC")) {
+                        String driverClassName = iMetadataConnection.getDriverClass();
+                        dbType = ExtractMetaDataUtils.getDbTypeByClassName(driverClassName);
+                    }
+                    isDerby = dbType.equals("JavaDB Embeded") || dbType.equals("HSQLDB In-Process");
+                }
+                String colComment = "";
+                if (!isDerby) {
+                    colComment = getTableComment(nameKey, resultSet, true);
+                }
                 itemTablesName.add(nameKey); //$NON-NLS-1$
                 if (ExtractMetaDataFromDataBase.tableCommentsMap.containsKey(nameKey)) {
                     if (colComment == null) {
@@ -1207,6 +1220,7 @@ public class ExtractMetaDataFromDataBase {
                     tableCommentsMap.put(nameKey, colComment);
                 }
                 tableCommentsMap.put(nameKey, colComment);
+
             }
             resultSet.close();
         }
@@ -1220,15 +1234,16 @@ public class ExtractMetaDataFromDataBase {
      * @return
      * @throws SQLException
      */
-    private static ResultSet getResultSetFromTableInfo(TableInfoParameters tableInfo, String namePattern, String dbType,
-            String schema) throws SQLException {
+    private static ResultSet getResultSetFromTableInfo(TableInfoParameters tableInfo, String namePattern,
+            IMetadataConnection iMetadataConnection, String schema) throws SQLException {
         ResultSet rsTables = null;
         String tableNamePattern = "".equals(namePattern) ? null : namePattern; //$NON-NLS-1$
         String[] types = new String[tableInfo.getTypes().size()];
         for (int i = 0; i < types.length; i++) {
             types[i] = tableInfo.getTypes().get(i).getName();
         }
-        DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn, dbType);
+        DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn, iMetadataConnection
+                .getDbType());
         // rsTables = dbMetaData.getTables(null, ExtractMetaDataUtils.schema, tableNamePattern, types);
         ResultSet rsTableTypes = null;
         rsTableTypes = dbMetaData.getTableTypes();
