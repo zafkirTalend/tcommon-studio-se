@@ -13,8 +13,6 @@
 package org.talend.repository.documentation.generation;
 
 import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.List;
 import java.util.Map;
 
@@ -72,13 +70,14 @@ public abstract class AbstractComponentHandler implements IComponentHandler {
 
             }
         }
-        String string = component.getIcon32().toString();
-        String path = string.substring("URLImageDescriptor(".length(), string.length() - 1); //$NON-NLS-1$
-        try {
-            return new URL(path).getPath();
-        } catch (MalformedURLException e) {
-            // do nothing, if component icon not found directly, recreate the image from icon image
-        }
+        // remove this part for bug:15579 by xtan
+        // String string = component.getIcon32().toString();
+        //        String path = string.substring("URLImageDescriptor(".length(), string.length() - 1); //$NON-NLS-1$
+        // try {
+        // return new URL(path).getPath();
+        // } catch (MalformedURLException e) {
+        // // do nothing, if component icon not found directly, recreate the image from icon image
+        // }
         if (component.getIcon32() != null) {
             String filePath = getTmpFolder(node) + File.separator + node.getUniqueName() + ".png"; //$NON-NLS-1$
             ImageUtils.save(CoreImageProvider.getComponentIcon(component, ICON_SIZE.ICON_32), filePath, SWT.IMAGE_PNG);
