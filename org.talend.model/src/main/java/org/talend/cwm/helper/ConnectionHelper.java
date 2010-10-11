@@ -498,6 +498,30 @@ public class ConnectionHelper {
         }
     }
 
+    // MOD klliu 2010-10-09 feature 15821
+    /**
+     * 
+     * DOC klliu Comment method "getOtherParameter".
+     * 
+     * @return
+     */
+    public static String getOtherParameter(ModelElement element) {
+        TaggedValue tv = TaggedValueHelper.getTaggedValue(TaggedValueHelper.OTHER_PARAMETER, element.getTaggedValue());
+        if (tv == null) {
+            return "";
+        }
+        return tv.getValue();
+    }
+
+    /**
+     * 
+     * DOC klliu Comment method "setOtherParameter".
+     * 
+     * @param otherParameter
+     */
+    public static void setOtherParameter(String otherParameter, ModelElement element) {
+        TaggedValueHelper.setTaggedValue(element, TaggedValueHelper.OTHER_PARAMETER, otherParameter);
+    }
     /**
      * DOC xqliu Comment method "setRetrieveAllMetadata". ADD xqliu 2010-03-03 feature 11412
      * 
@@ -624,4 +648,5 @@ public class ConnectionHelper {
         CryptoHelper cryptoHelper = new CryptoHelper(ConnectionHelper.PASSPHRASE);
         return cryptoHelper.encrypt(password);
     }
+
 }
