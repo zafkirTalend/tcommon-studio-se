@@ -37,8 +37,10 @@ public class KeywordsValidator {
 
     private static KeywordMap tsqlKeyWords;
     static {
-        Mode mode = Modes.getMode("tsql.xml"); //$NON-NLS-1$
-        tsqlKeyWords = mode.getDefaultRuleSet().getKeywords();
+        if (!Platform.getOS().equals(Platform.OS_AIX)) {
+            Mode mode = Modes.getMode("tsql.xml"); //$NON-NLS-1$
+            tsqlKeyWords = mode.getDefaultRuleSet().getKeywords();
+        }
     }
 
     public static boolean isKeyword(String word) {
