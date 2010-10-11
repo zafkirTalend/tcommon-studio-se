@@ -38,6 +38,8 @@ public interface IRepositoryView extends IViewPart {
 
     public void refresh(Object object);
 
+    public void refreshView();
+
     /**
      * refresh the type of root node for creating and deleting items.
      * 
