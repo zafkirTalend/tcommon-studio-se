@@ -21,7 +21,6 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.LoginException;
-import org.talend.commons.exception.MessageBoxExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.CorePlugin;
@@ -118,7 +117,7 @@ public abstract class JobEditorInput extends RepositoryEditorInput {
             if (monitor != null) {
                 monitor.beginTask("save process", 100); //$NON-NLS-1$
             }
-            ProcessType processType = loadedProcess.saveXmlFile();
+            final ProcessType processType = loadedProcess.saveXmlFile();
             if (monitor != null) {
                 monitor.worked(40);
             }
@@ -133,20 +132,21 @@ public abstract class JobEditorInput extends RepositoryEditorInput {
             if (path != null) {
                 // factory.createProcess(project, loadedProcess, path);
             } else {
-                resetItem();
 
-                if (getItem() instanceof JobletProcessItem) {
-                    ((JobletProcessItem) getItem()).setJobletProcess((JobletProcess) processType);
-                } else if (getItem() instanceof ProcessItem) {
-                    ((ProcessItem) getItem()).setProcess(processType);
-                }
                 factory.executeRepositoryWorkUnit(new RepositoryWorkUnit("save process") {
 
                     @Override
                     protected void run() throws LoginException, PersistenceException {
+                        resetItem();
+                        if (getItem() instanceof JobletProcessItem) {
+                            ((JobletProcessItem) getItem()).setJobletProcess((JobletProcess) processType);
+                        } else if (getItem() instanceof ProcessItem) {
+                            ((ProcessItem) getItem()).setProcess(processType);
+                        }
                         factory.save(getItem());
                         loadedProcess.setProperty(getItem().getProperty());
                         // 9035
+
                         RelationshipItemBuilder.getInstance().addOrUpdateItem(getItem());
                     }
                 });
@@ -166,12 +166,6 @@ public abstract class JobEditorInput extends RepositoryEditorInput {
         } catch (IOException e) {
             // e.printStackTrace();
             ExceptionHandler.process(e);
-            if (monitor != null) {
-                monitor.setCanceled(true);
-            }
-            return false;
-        } catch (PersistenceException e) {
-            MessageBoxExceptionHandler.process(e);
             if (monitor != null) {
                 monitor.setCanceled(true);
             }
