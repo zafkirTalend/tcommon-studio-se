@@ -369,7 +369,7 @@ public class ConnectionHelper {
         return false;
     }
 
-    private static boolean addPackages(Collection<? extends Package> packages, Connection dataProvider) {
+    public static boolean addPackages(Collection<? extends Package> packages, Connection dataProvider) {
         boolean added = false;
         if ((dataProvider != null) && (packages != null)) {
             List<Package> packageList = dataProvider.getDataPackage();
