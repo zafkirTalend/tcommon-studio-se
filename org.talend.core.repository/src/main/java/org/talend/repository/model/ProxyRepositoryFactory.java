@@ -241,7 +241,8 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
 
             MessageBox box = new MessageBox(Display.getCurrent().getActiveShell(), SWT.ICON_ERROR | SWT.OK | SWT.CANCEL);
             box.setText(Messages.getString("ProxyRepositoryFactory.JobNameErroe")); //$NON-NLS-1$
-            box.setMessage(Messages.getString("ProxyRepositoryFactory.Label") + fileName + Messages.getString("ProxyRepositoryFactory.ReplaceJob")); //$NON-NLS-1$ //$NON-NLS-2$
+            box
+                    .setMessage(Messages.getString("ProxyRepositoryFactory.Label") + fileName + Messages.getString("ProxyRepositoryFactory.ReplaceJob")); //$NON-NLS-1$ //$NON-NLS-2$
             if (box.open() == SWT.OK) {
                 return true;
             } else {
@@ -374,6 +375,11 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
     }
 
     public synchronized void deleteFolder(Project project, ERepositoryObjectType type, IPath path) throws PersistenceException {
+        deleteFolder(projectManager.getCurrentProject(), type, path, false);
+    }
+
+    public synchronized void deleteFolder(Project project, ERepositoryObjectType type, IPath path, boolean fromEmptyRecycleBin)
+            throws PersistenceException {
         this.repositoryFactoryFromProvider.deleteFolder(project, type, path);
         if (type == ERepositoryObjectType.PROCESS) {
             fireRepositoryPropertyChange(ERepositoryActionName.FOLDER_DELETE.getName(), path, type);
@@ -608,6 +614,11 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
 
     public void deleteObjectPhysical(Project project, IRepositoryViewObject objToDelete, String version)
             throws PersistenceException {
+        deleteObjectPhysical(project, objToDelete, null, false);
+    }
+
+    public void deleteObjectPhysical(Project project, IRepositoryViewObject objToDelete, String version,
+            boolean fromEmptyRecycleBin) throws PersistenceException {
         if (project == null || objToDelete == null || objToDelete.getProperty() == null) {
             return;
         }
@@ -633,11 +644,11 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
             fireRepositoryPropertyChange(ERepositoryActionName.BUSINESS_DELETE_FOREVER.getName(), null, object);
         }
 
-        this.repositoryFactoryFromProvider.deleteObjectPhysical(project, object, version);
+        this.repositoryFactoryFromProvider.deleteObjectPhysical(project, object, version, fromEmptyRecycleBin);
         // i18n
         // log.info("Physical deletion [" + objToDelete + "] by " + getRepositoryContext().getUser() + ".");
         String str[] = new String[] { object.toString(), getRepositoryContext().getUser().toString() };
-        log.info(Messages.getString("ProxyRepositoryFactory.log.physicalDeletion", str)); //$NON-NLS-1$
+        log.info(Messages.getString("ProxyRepositoryFactory.log.physicalDeletion", str)); //$NON-NLS-1$    }
     }
 
     /*
@@ -1520,16 +1531,16 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
     private IResource getContextResource(IProcess process, IContext context) throws Exception {
         switch (ProjectManager.getInstance().getCurrentProject().getLanguage()) {
         case JAVA:
-            IPath path = new Path(JavaUtils.JAVA_SRC_DIRECTORY)
-                    .append(coreService.getJavaProjectFolderName(process.getProperty().getItem()))
-                    .append(coreService.getJavaJobFolderName(process.getName(), process.getVersion())).append(JOB_CONTEXT_FOLDER)
-                    .append(context.getName() + JavaUtils.JAVA_CONTEXT_EXTENSION);
+            IPath path = new Path(JavaUtils.JAVA_SRC_DIRECTORY).append(
+                    coreService.getJavaProjectFolderName(process.getProperty().getItem())).append(
+                    coreService.getJavaJobFolderName(process.getName(), process.getVersion())).append(JOB_CONTEXT_FOLDER).append(
+                    context.getName() + JavaUtils.JAVA_CONTEXT_EXTENSION);
 
             return coreService.getSpecificResourceInJavaProject(path);
         case PERL:
             String rootProjectName = coreService.getRootProjectNameForPerl(process.getProperty().getItem());
-            String contextFullName = coreService.getContextFileNameForPerl(rootProjectName, process.getName(),
-                    process.getVersion(), context.getName());
+            String contextFullName = coreService.getContextFileNameForPerl(rootProjectName, process.getName(), process
+                    .getVersion(), context.getName());
 
             return coreService.getSpecificResourceInPerlProject(new Path(contextFullName));
         }

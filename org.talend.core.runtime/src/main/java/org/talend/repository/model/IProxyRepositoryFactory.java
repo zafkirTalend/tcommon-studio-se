@@ -126,6 +126,9 @@ public interface IProxyRepositoryFactory {
 
     public abstract void deleteFolder(Project project, ERepositoryObjectType type, IPath path) throws PersistenceException;
 
+    public abstract void deleteFolder(Project project, ERepositoryObjectType type, IPath path, boolean fromEmptyRecycleBin)
+            throws PersistenceException;
+
     /**
      * @param project
      * @param type
@@ -417,6 +420,9 @@ public interface IProxyRepositoryFactory {
 
     public abstract void deleteObjectPhysical(Project project, IRepositoryViewObject objToDelete, String version)
             throws PersistenceException;
+
+    public abstract void deleteObjectPhysical(Project project, IRepositoryViewObject objToDelete, String version,
+            boolean fromEmptyRecycleBin) throws PersistenceException;
 
     public abstract void restoreObject(IRepositoryViewObject objToRestore, IPath path) throws PersistenceException,
             BusinessException;

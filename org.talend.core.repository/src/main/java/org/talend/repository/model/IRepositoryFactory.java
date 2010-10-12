@@ -105,6 +105,9 @@ public interface IRepositoryFactory {
 
     public void deleteFolder(Project project, ERepositoryObjectType type, IPath path) throws PersistenceException;
 
+    public void deleteFolder(Project project, ERepositoryObjectType type, IPath path, boolean fromEmptyRecycleBin)
+            throws PersistenceException;
+
     public void moveFolder(ERepositoryObjectType type, IPath sourcePath, IPath targetPath) throws PersistenceException;
 
     public void renameFolder(ERepositoryObjectType type, IPath path, String label) throws PersistenceException;
@@ -181,6 +184,9 @@ public interface IRepositoryFactory {
 
     public void deleteObjectPhysical(Project project, IRepositoryViewObject objToDelete, String version)
             throws PersistenceException;
+
+    public void deleteObjectPhysical(Project project, IRepositoryViewObject objToDelete, String version,
+            boolean fromEmptyRecycleBin) throws PersistenceException;
 
     /**
      * Restore a logically deleted object. <code>isDeleted</code> on this object will now returned <code>false</code>.

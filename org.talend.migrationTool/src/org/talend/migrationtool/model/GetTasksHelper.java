@@ -12,7 +12,9 @@
 // ============================================================================
 package org.talend.migrationtool.model;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
@@ -32,46 +34,74 @@ import org.talend.migration.IWorkspaceMigrationTask;
  */
 public class GetTasksHelper {
 
-    public static IProjectMigrationTask getProjectTask(final String taskId) {
-        IExtensionPointLimiter actionExtensionPoint = new ExtensionPointLimiterImpl(
-                "org.talend.core.migrationTask", "projecttask"); //$NON-NLS-1$ //$NON-NLS-2$
+    private static GetTasksHelper instance = null;
 
-        ExtensionImplementationProvider<IProjectMigrationTask> provider = new ExtensionImplementationProvider<IProjectMigrationTask>(
-                actionExtensionPoint) {
+    private Map<String, IProjectMigrationTask> migrationsInstances = null;
 
-            /*
-             * (non-Javadoc)
-             * 
-             * @see
-             * org.talend.commons.utils.workbench.extensions.ExtensionImplementationProvider#createImplementation(org
-             * .eclipse.core.runtime.IExtension, org.talend.commons.utils.workbench.extensions.IExtensionPointLimiter)
-             */
-            @Override
-            protected IProjectMigrationTask createImplementation(IExtension extension,
-                    IExtensionPointLimiter extensionPointLimiter, IConfigurationElement configurationElement) {
-                try {
-                    if (configurationElement.getAttribute("id").equals(taskId)) { //$NON-NLS-1$
-                        IProjectMigrationTask currentAction = (IProjectMigrationTask) configurationElement
-                                .createExecutableExtension("class"); //$NON-NLS-1$
-                        currentAction.setId(configurationElement.getAttribute("id")); //$NON-NLS-1$
-                        currentAction.setName(configurationElement.getAttribute("name")); //$NON-NLS-1$
-                        currentAction.setDescription(configurationElement.getAttribute("description")); //$NON-NLS-1$
-                        return currentAction;
-                    }
-                } catch (CoreException e) {
-                    ExceptionHandler.process(e);
-                }
-                return null;
-            }
-
-        };
-
-        List<IProjectMigrationTask> createInstances = provider.createInstances();
-        if (createInstances.isEmpty()) {
-            return null;
-        } else {
-            return createInstances.get(0);
+    public static GetTasksHelper getInstance() {
+        if (instance == null) {
+            instance = new GetTasksHelper();
+            instance.migrationsInstances = new HashMap<String, IProjectMigrationTask>();
         }
+        return instance;
+    }
+
+    /**
+     * Dispose not called yet, since it could enhance the next import items done (mostly for commandline or even TUJs).
+     * This could be called if needed, but migration tasks shouldn't take too much memory
+     */
+    public void dispose() {
+        migrationsInstances = null;
+    }
+
+    /**
+     * Recreate the instance will lose many times if import many items who need many migration tasks. So don't recreate
+     * the instance if not needed (migrations task shouldn't hold much things in memory in all cases).
+     */
+    public IProjectMigrationTask getProjectTask(final String taskId) {
+        if (!migrationsInstances.containsKey(taskId)) {
+            IExtensionPointLimiter actionExtensionPoint = new ExtensionPointLimiterImpl(
+                    "org.talend.core.migrationTask", "projecttask"); //$NON-NLS-1$ //$NON-NLS-2$
+
+            ExtensionImplementationProvider<IProjectMigrationTask> provider = new ExtensionImplementationProvider<IProjectMigrationTask>(
+                    actionExtensionPoint) {
+
+                /*
+                 * (non-Javadoc)
+                 * 
+                 * @see
+                 * org.talend.commons.utils.workbench.extensions.ExtensionImplementationProvider#createImplementation
+                 * (org .eclipse.core.runtime.IExtension,
+                 * org.talend.commons.utils.workbench.extensions.IExtensionPointLimiter)
+                 */
+                @Override
+                protected IProjectMigrationTask createImplementation(IExtension extension,
+                        IExtensionPointLimiter extensionPointLimiter, IConfigurationElement configurationElement) {
+                    try {
+                        if (configurationElement.getAttribute("id").equals(taskId)) { //$NON-NLS-1$
+                            IProjectMigrationTask currentAction = (IProjectMigrationTask) configurationElement
+                                    .createExecutableExtension("class"); //$NON-NLS-1$
+                            currentAction.setId(configurationElement.getAttribute("id")); //$NON-NLS-1$
+                            currentAction.setName(configurationElement.getAttribute("name")); //$NON-NLS-1$
+                            currentAction.setDescription(configurationElement.getAttribute("description")); //$NON-NLS-1$
+                            return currentAction;
+                        }
+                    } catch (CoreException e) {
+                        ExceptionHandler.process(e);
+                    }
+                    return null;
+                }
+
+            };
+
+            List<IProjectMigrationTask> createInstances = provider.createInstances();
+            if (createInstances.isEmpty()) {
+                return null;
+            } else {
+                migrationsInstances.put(taskId, createInstances.get(0));
+            }
+        }
+        return migrationsInstances.get(taskId);
     }
 
     public static List<IProjectMigrationTask> getProjectTasks(final boolean beforeLogon) {

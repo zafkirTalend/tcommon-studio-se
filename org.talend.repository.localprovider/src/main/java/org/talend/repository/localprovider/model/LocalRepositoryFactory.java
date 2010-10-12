@@ -927,7 +927,11 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     public void deleteFolder(Project project, ERepositoryObjectType type, IPath path) throws PersistenceException {
+        deleteFolder(project, type, path, false);
+    }
 
+    public void deleteFolder(Project project, ERepositoryObjectType type, IPath path, boolean fromEmptyRecycleBin)
+            throws PersistenceException {
         // If the "System", "Generated", "Jobs" folder is created in the root,
         // it can't be deleted .
         if (RepositoryConstants.isSystemFolder(path.toString()) || RepositoryConstants.isGeneratedFolder(path.toString())
@@ -941,8 +945,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         // Getting the folder :
         IFolder folder = ResourceUtils.getFolder(fsProject, completePath, true);
         getFolderHelper(project.getEmfProject()).deleteFolder(completePath);
-        xmiResourceManager.saveResource(project.getEmfProject().eResource());
-
+        if (!fromEmptyRecycleBin) {
+            saveProject(project);
+        }
         ResourceUtils.deleteResource(folder);
     }
 
@@ -1074,6 +1079,11 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
     public void deleteObjectPhysical(Project project, IRepositoryViewObject objToDelete, String version)
             throws PersistenceException {
+        deleteObjectPhysical(project, objToDelete, null, false);
+    }
+
+    public void deleteObjectPhysical(Project project, IRepositoryViewObject objToDelete, String version,
+            boolean fromEmptyRecycleBin) throws PersistenceException {
         if ("".equals(version)) { //$NON-NLS-1$
             version = null; // for all version
         }
@@ -1092,7 +1102,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 }
             }
         }
-        saveProject(project);
+        if (!fromEmptyRecycleBin) {
+            saveProject(project);
+        }
     }
 
     public void restoreObject(IRepositoryViewObject objToRestore, IPath path) throws PersistenceException {
