@@ -2065,7 +2065,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         if (currentProject != null && currentProject.isLocal() && !workUnit.isAvoidUnloadResources()) { // 14969 avoid
             // reload before
             // create
-            unloadUnlockedResources();
+            if (workUnit.isAvoidUnloadResources()) {
+                unloadUnlockedResources();
+            }
         }
         super.executeRepositoryWorkUnit(workUnit);
     }
