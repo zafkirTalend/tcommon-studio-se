@@ -432,7 +432,7 @@ public class TDColumnAttributeHelper {
      */
     private static TypedReturnCode<java.sql.Connection> createConnection(DatabaseConnection providerConnection) {
         TypedReturnCode<java.sql.Connection> rc = new TypedReturnCode<java.sql.Connection>(false);
-        String url = providerConnection.getURL();
+        String url = providerConnection == null ? null : providerConnection.getURL();
         if (url == null) {
             rc
                     .setMessage("Unable to decrypt given password correctly. It's probably due to a change in the passphrase used in encryption"); //$NON-NLS-1$
