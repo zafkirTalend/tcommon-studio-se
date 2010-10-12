@@ -96,6 +96,8 @@ public class RelationshipItemBuilder {
 
     private boolean loading = false;
 
+    private boolean modified = false;
+
     public static RelationshipItemBuilder getInstance() {
         if (instance == null) {
             instance = new RelationshipItemBuilder();
@@ -196,7 +198,7 @@ public class RelationshipItemBuilder {
     }
 
     public void saveRelations() {
-        if (!loaded) {
+        if (!loaded && !modified) {
             return;
         }
         project.getEmfProject().getItemsRelations().clear();
@@ -228,6 +230,7 @@ public class RelationshipItemBuilder {
         } catch (PersistenceException e) {
             ExceptionHandler.process(e);
         }
+        modified = false;
     }
 
     private String getTypeFromItem(Item item) {
@@ -282,6 +285,7 @@ public class RelationshipItemBuilder {
 
     public void buildIndex(Project project, IProgressMonitor monitor) {
         this.project = project;
+        modified = true;
 
         if (!project.getEmfProject().getItemsRelations().isEmpty()) {
             loadRelations(project);
@@ -388,6 +392,8 @@ public class RelationshipItemBuilder {
         if (!loaded) {
             loadRelations(ProjectManager.getInstance().getCurrentProject());
         }
+        modified = true;
+
         ProcessType processType = null;
         if (item instanceof ProcessItem) {
             processType = ((ProcessItem) item).getProcess();
@@ -566,6 +572,8 @@ public class RelationshipItemBuilder {
         if (!loaded) {
             loadRelations(ProjectManager.getInstance().getCurrentProject());
         }
+        modified = true;
+
         ProcessType processType = null;
         if (item instanceof ProcessItem) {
             processType = ((ProcessItem) item).getProcess();
