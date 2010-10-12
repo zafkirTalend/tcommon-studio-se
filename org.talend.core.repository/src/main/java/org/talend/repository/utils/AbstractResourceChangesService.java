@@ -14,6 +14,7 @@ package org.talend.repository.utils;
 
 import org.eclipse.emf.ecore.resource.Resource;
 import org.talend.core.IService;
+import org.talend.core.model.properties.Property;
 import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
@@ -28,6 +29,15 @@ public class AbstractResourceChangesService implements IService {
     // Add new elements to resource, remove elements from resource, delete resource
     public boolean handleResourceChange(ModelElement modelElement) {
         return true;
+    }
+
+    public void handleLogicalDelete(Property prop) {
+    }
+
+    public void handlePhysicalDelete(Property prop) {
+    }
+
+    public void handleRestore(Property prop) {
     }
 
 }
