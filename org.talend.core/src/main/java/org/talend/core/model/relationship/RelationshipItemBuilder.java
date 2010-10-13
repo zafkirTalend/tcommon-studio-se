@@ -332,9 +332,15 @@ public class RelationshipItemBuilder {
         return toReturn;
     }
 
-    public void updateItemVersion(Item item7, String oldVersion, String id) throws PersistenceException {
+    public void updateItemVersion(Item item7, String oldVersion, String id, Map<String, String> versions)
+            throws PersistenceException {
+        updateItemVersion(item7, oldVersion, id, versions, false);
+    }
+
+    public void updateItemVersion(Item item7, String oldVersion, String id, Map<String, String> versions, boolean avoidSaveProject)
+            throws PersistenceException {
         IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
-        IRepositoryViewObject obj = factory.getSpecificVersion(id, oldVersion);
+        IRepositoryViewObject obj = factory.getSpecificVersion(id, oldVersion, avoidSaveProject);
         Item item = obj.getProperty().getItem();
         // String itemVersion = item.getProperty().getVersion();
         if (!loaded) {
@@ -366,22 +372,25 @@ public class RelationshipItemBuilder {
                                     || param.getName().equals("PROCESS_TYPE_VERSION")) { //$NON-NLS-1$
                                 jobVersion = param.getValue();
                                 if (jobVersion.equals(ItemCacheManager.LATEST_VERSION)) {
-                                    IRepositoryViewObject itemobj = factory.getLastVersion(jobId);
-                                    nowVersion = itemobj.getVersion();
-                                    param.setValue(itemobj.getVersion());
+                                    if (!versions.isEmpty()) {
+                                        nowVersion = versions.get(jobId);
+                                        param.setValue(nowVersion);
+                                    }
                                 }
                             }
                         }
                     }
                     if (jobId != null) {
-                        addRelationShip(item, jobId, nowVersion, JOB_RELATION);
-                        factory.save(project, item.getProperty());
-                        factory.save(item);
+                        addRelationShip(item, jobId, nowVersion, JOB_RELATION, avoidSaveProject);
+                        // factory.save(project, item.getProperty());
+                        factory.save(project, item);
                     }
                 }
             }
         }
-        saveRelations();
+        if (!avoidSaveProject) {
+            saveRelations();
+        }
     }
 
     public void addOrUpdateItem(Item item) {

@@ -820,7 +820,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
     }
 
     public List<IRepositoryViewObject> getAllRefVersion(Project project, String id) throws PersistenceException {
-        List<IRepositoryViewObject> allVersion = getAllVersion(project, id);
+        List<IRepositoryViewObject> allVersion = getAllVersion(project, id, false);
         if (allVersion.isEmpty()) {
             for (Project p : projectManager.getReferencedProjects(project)) {
                 allVersion = getAllRefVersion(p, id);
@@ -846,8 +846,9 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         return allVersion;
     }
 
-    public List<IRepositoryViewObject> getAllVersion(Project project, String id) throws PersistenceException {
-        return this.repositoryFactoryFromProvider.getAllVersion(project, id);
+    public List<IRepositoryViewObject> getAllVersion(Project project, String id, boolean avoidSaveProject)
+            throws PersistenceException {
+        return this.repositoryFactoryFromProvider.getAllVersion(project, id, avoidSaveProject);
     }
 
     public List<IRepositoryViewObject> getAllVersion(Project project, String id, String folderPath, ERepositoryObjectType type)
@@ -1932,8 +1933,9 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * org.talend.repository.model.IProxyRepositoryFactory#getSpecificVersion(org.talend.core.model.general.Project,
      * java.lang.String, java.lang.String)
      */
-    public IRepositoryViewObject getSpecificVersion(Project project, String id, String version) throws PersistenceException {
-        List<IRepositoryViewObject> objList = getAllVersion(project, id);
+    public IRepositoryViewObject getSpecificVersion(Project project, String id, String version, boolean avoidSaveProject)
+            throws PersistenceException {
+        List<IRepositoryViewObject> objList = getAllVersion(project, id, avoidSaveProject);
         for (IRepositoryViewObject obj : objList) {
             if (obj.getVersion().equals(version)) {
                 return obj;
@@ -1947,8 +1949,9 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * 
      * @see org.talend.repository.model.IProxyRepositoryFactory#getSpecificVersion(java.lang.String, java.lang.String)
      */
-    public IRepositoryViewObject getSpecificVersion(String id, String version) throws PersistenceException {
-        return getSpecificVersion(projectManager.getCurrentProject(), id, version);
+    public IRepositoryViewObject getSpecificVersion(String id, String version, boolean avoidSaveProject)
+            throws PersistenceException {
+        return getSpecificVersion(projectManager.getCurrentProject(), id, version, avoidSaveProject);
     }
 
     /*

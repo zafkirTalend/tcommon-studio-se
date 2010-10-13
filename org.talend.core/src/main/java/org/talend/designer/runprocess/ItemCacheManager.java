@@ -111,7 +111,7 @@ public class ItemCacheManager {
         IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
         try {
 
-            List<IRepositoryViewObject> allVersions = factory.getAllVersion(project, processId);
+            List<IRepositoryViewObject> allVersions = factory.getAllVersion(project, processId, false);
             for (IRepositoryViewObject ro : allVersions) {
                 if (ro.getType() == ERepositoryObjectType.PROCESS) {
                     if (ro.getVersion().equals(version)) {
@@ -181,7 +181,7 @@ public class ItemCacheManager {
         IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
         try {
 
-            List<IRepositoryViewObject> allVersions = factory.getAllVersion(project, jobletId);
+            List<IRepositoryViewObject> allVersions = factory.getAllVersion(project, jobletId, false);
             for (IRepositoryViewObject ro : allVersions) {
                 if (ro.getType() == ERepositoryObjectType.JOBLET) {
                     if (ro.getVersion().equals(version)) {

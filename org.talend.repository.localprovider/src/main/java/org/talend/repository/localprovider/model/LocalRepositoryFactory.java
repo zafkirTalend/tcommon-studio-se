@@ -405,7 +405,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         } catch (ResourceNotFoundException e) {
             return Collections.emptyList();
         }
-        return convert(getSerializableFromFolder(project, folder, null, type, allVersions, true, withDeleted));
+        return convert(getSerializableFromFolder(project, folder, null, type, allVersions, true, withDeleted, false));
     }
 
     /**
@@ -422,7 +422,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
      */
     protected List<IRepositoryViewObject> getSerializableFromFolder(Project project, Object folder, String id,
             ERepositoryObjectType type, boolean allVersion, boolean searchInChildren, boolean withDeleted,
-            boolean... recursiveCall) throws PersistenceException {
+            boolean avoidSaveProject, boolean... recursiveCall) throws PersistenceException {
         List<IRepositoryViewObject> toReturn = new VersionList(allVersion);
         FolderHelper folderHelper = getFolderHelper(project.getEmfProject());
 
@@ -477,80 +477,82 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                     projectModified = true;
                 }
             }
-
-            // check the items from physical folder, in case any item has been added (or deleted) manually (or from copy
-            // to branch)
-            if (physicalFolder.exists()) {
-                List<String> physicalPropertyFounds = new ArrayList<String>();
-                List<String> physicalDirectoryFounds = new ArrayList<String>();
-                try {
-                    physicalFolder.refreshLocal(IResource.DEPTH_ONE, null);
-                } catch (CoreException e1) {
-                    throw new PersistenceException(e1);
-                }
-                for (IResource current : ResourceUtils.getMembers(physicalFolder)) {
-                    if (current instanceof IFile) {
-                        if (xmiResourceManager.isPropertyFile((IFile) current)) {
-                            String fileName = ((IFile) current).getName();
-                            physicalPropertyFounds.add(fileName);
-                            if (!propertyFounds.contains(fileName)) {
-                                Property property = null;
-                                try {
-                                    property = xmiResourceManager.loadProperty(current);
-                                    addToHistory(id, type, property.getItem().getState().getPath());
-                                } catch (RuntimeException e) {
-                                    // property will be null
-                                    ExceptionHandler.process(e);
-                                }
-                                if (property != null) {
-                                    if (id == null || property.getId().equals(id)) {
-                                        if (withDeleted || !property.getItem().getState().isDeleted()) {
-                                            toReturn.add(new RepositoryObject(property));
-                                        }
+            if (!avoidSaveProject) {
+                // check the items from physical folder, in case any item has been added (or deleted) manually (or from
+                // copy
+                // to branch)
+                if (physicalFolder.exists()) {
+                    List<String> physicalPropertyFounds = new ArrayList<String>();
+                    List<String> physicalDirectoryFounds = new ArrayList<String>();
+                    try {
+                        physicalFolder.refreshLocal(IResource.DEPTH_ONE, null);
+                    } catch (CoreException e1) {
+                        throw new PersistenceException(e1);
+                    }
+                    for (IResource current : ResourceUtils.getMembers(physicalFolder)) {
+                        if (current instanceof IFile) {
+                            if (xmiResourceManager.isPropertyFile((IFile) current)) {
+                                String fileName = ((IFile) current).getName();
+                                physicalPropertyFounds.add(fileName);
+                                if (!propertyFounds.contains(fileName)) {
+                                    Property property = null;
+                                    try {
+                                        property = xmiResourceManager.loadProperty(current);
+                                        addToHistory(id, type, property.getItem().getState().getPath());
+                                    } catch (RuntimeException e) {
+                                        // property will be null
+                                        ExceptionHandler.process(e);
                                     }
-                                    currentFolderItem.getChildren().add(property.getItem());
-                                    property.getItem().setParent(currentFolderItem);
-                                    projectModified = true;
+                                    if (property != null) {
+                                        if (id == null || property.getId().equals(id)) {
+                                            if (withDeleted || !property.getItem().getState().isDeleted()) {
+                                                toReturn.add(new RepositoryObject(property));
+                                            }
+                                        }
+                                        currentFolderItem.getChildren().add(property.getItem());
+                                        property.getItem().setParent(currentFolderItem);
+                                        projectModified = true;
+                                    } else {
+                                        log.error(Messages.getString("LocalRepositoryFactory.CannotLoadProperty") + current); //$NON-NLS-1$
+                                    }
+                                }
+                            }
+                        } else if (current instanceof IFolder) { // &&
+                            if (!((IFolder) current).getName().startsWith(".") && !FilesUtils.isSVNFolder(current)
+                                    && searchInChildren) {
+                                if (((IFolder) current).getLocation().toPortableString().contains("bin")) {
+                                    // don't do anything for bin directory
                                 } else {
-                                    log.error(Messages.getString("LocalRepositoryFactory.CannotLoadProperty") + current); //$NON-NLS-1$
-                                }
-                            }
-                        }
-                    } else if (current instanceof IFolder) { // &&
-                        if (!((IFolder) current).getName().startsWith(".") && !FilesUtils.isSVNFolder(current)
-                                && searchInChildren) {
-                            if (((IFolder) current).getLocation().toPortableString().contains("bin")) {
-                                // don't do anything for bin directory
-                            } else {
-                                String fileName = ((IFolder) current).getName();
-                                physicalDirectoryFounds.add(fileName);
-                                if (!folderNamesFounds.contains(((IFolder) current).getName())) {
-                                    toReturn.addAll(getSerializableFromFolder(project, (IFolder) current, id, type, allVersion,
-                                            true, withDeleted, true));
+                                    String fileName = ((IFolder) current).getName();
+                                    physicalDirectoryFounds.add(fileName);
+                                    if (!folderNamesFounds.contains(((IFolder) current).getName())) {
+                                        toReturn.addAll(getSerializableFromFolder(project, (IFolder) current, id, type,
+                                                allVersion, true, withDeleted, true, avoidSaveProject));
+                                    }
                                 }
                             }
                         }
                     }
-                }
 
-                // in case any property has been deleted manually, should delete from the emf model
-                List<Item> itemsDeleted = new ArrayList<Item>();
-                for (Item curItem : (List<Item>) currentFolderItem.getChildren()) {
-                    if (!(curItem instanceof FolderItem)) {
-                        String name = curItem.getProperty().getLabel() + "_" + curItem.getProperty().getVersion() + "."
-                                + FileConstants.PROPERTIES_EXTENSION;
-                        if (!physicalPropertyFounds.contains(name)) {
-                            itemsDeleted.add(curItem);
-                            projectModified = true;
-                        }
-                    } else if (searchInChildren && ProxyRepositoryFactory.getInstance().isFullLogonFinished()) {
-                        if (!physicalDirectoryFounds.contains(curItem.getProperty().getLabel())) {
-                            itemsDeleted.add(curItem);
-                            projectModified = true;
+                    // in case any property has been deleted manually, should delete from the emf model
+                    List<Item> itemsDeleted = new ArrayList<Item>();
+                    for (Item curItem : (List<Item>) currentFolderItem.getChildren()) {
+                        if (!(curItem instanceof FolderItem)) {
+                            String name = curItem.getProperty().getLabel() + "_" + curItem.getProperty().getVersion() + "."
+                                    + FileConstants.PROPERTIES_EXTENSION;
+                            if (!physicalPropertyFounds.contains(name)) {
+                                itemsDeleted.add(curItem);
+                                projectModified = true;
+                            }
+                        } else if (searchInChildren && ProxyRepositoryFactory.getInstance().isFullLogonFinished()) {
+                            if (!physicalDirectoryFounds.contains(curItem.getProperty().getLabel())) {
+                                itemsDeleted.add(curItem);
+                                projectModified = true;
+                            }
                         }
                     }
+                    currentFolderItem.getChildren().removeAll(itemsDeleted);
                 }
-                currentFolderItem.getChildren().removeAll(itemsDeleted);
             }
         }
         if ((recursiveCall.length != 0 && !recursiveCall[0] && projectModified) || (recursiveCall.length == 0 && projectModified)) {
@@ -995,7 +997,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         }
 
         List<IRepositoryViewObject> serializableFromFolder = getSerializableFromFolder(project, folder, null, type, true, true,
-                true);
+                true, false);
         for (IRepositoryViewObject object : serializableFromFolder) {
             List<Resource> affectedResources = xmiResourceManager.getAffectedResources(object.getProperty());
             for (Resource resource : affectedResources) {
@@ -1065,7 +1067,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         // IFolder bin = ResourceUtils.getFolder(fsProject, ERepositoryObjectType.getFolderName(objToDelete.getType())
         // + IPath.SEPARATOR + BIN, true);
 
-        List<IRepositoryViewObject> allVersionToDelete = getAllVersion(project, objToDelete.getId());
+        List<IRepositoryViewObject> allVersionToDelete = getAllVersion(project, objToDelete.getId(), false);
         for (IRepositoryViewObject currentVersion : allVersionToDelete) {
             ItemState state = currentVersion.getProperty().getItem().getState();
             state.setDeleted(true);
@@ -1088,7 +1090,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             version = null; // for all version
         }
         // can only delete in the main project
-        List<IRepositoryViewObject> allVersionToDelete = getAllVersion(project, objToDelete.getId());
+        List<IRepositoryViewObject> allVersionToDelete = getAllVersion(project, objToDelete.getId(), false);
         for (IRepositoryViewObject currentVersion : allVersionToDelete) {
             if (version == null || currentVersion.getVersion().equals(version)) {
                 Item currentItem = currentVersion.getProperty().getItem();
@@ -1116,7 +1118,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         // typeRootFolder.getFullPath().append(path));
         // org.talend.core.model.properties.Project project = xmiResourceManager.loadProject(getProject());
 
-        List<IRepositoryViewObject> allVersionToDelete = getAllVersion(getRepositoryContext().getProject(), objToRestore.getId());
+        List<IRepositoryViewObject> allVersionToDelete = getAllVersion(getRepositoryContext().getProject(), objToRestore.getId(),
+                false);
         for (IRepositoryViewObject currentVersion : allVersionToDelete) {
             ItemState itemState = currentVersion.getProperty().getItem().getState();
             itemState.setDeleted(false);
@@ -1138,7 +1141,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         String folderName = ERepositoryObjectType.getFolderName(objToMove.getType()) + IPath.SEPARATOR + newPath;
         IFolder folder = ResourceUtils.getFolder(fsProject, folderName, true);
 
-        List<IRepositoryViewObject> allVersionToMove = getAllVersion(getRepositoryContext().getProject(), objToMove.getId());
+        List<IRepositoryViewObject> allVersionToMove = getAllVersion(getRepositoryContext().getProject(), objToMove.getId(),
+                false);
         for (IRepositoryViewObject obj : allVersionToMove) {
             Item currentItem = obj.getProperty().getItem();
             if (currentItem.getParent() instanceof FolderItem) {
@@ -1585,7 +1589,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     private void propagateFileName(Project project, Property property) throws PersistenceException {
-        List<IRepositoryViewObject> allVersionToMove = getAllVersion(project, property.getId());
+        List<IRepositoryViewObject> allVersionToMove = getAllVersion(project, property.getId(), false);
         for (IRepositoryViewObject object : allVersionToMove) {
             xmiResourceManager.propagateFileName(property, object.getProperty());
         }
@@ -1982,7 +1986,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         IFolder folder = ResourceUtils.getFolder(project, folderPathString, false);
 
         List<IRepositoryViewObject> serializableFromFolder = getSerializableFromFolder(baseProject, folder, null, type, true,
-                false, false);
+                false, false, false);
         for (IRepositoryViewObject repositoryObject : serializableFromFolder) {
             ItemState state = repositoryObject.getProperty().getItem().getState();
             state.setPath(targetPath.toString());

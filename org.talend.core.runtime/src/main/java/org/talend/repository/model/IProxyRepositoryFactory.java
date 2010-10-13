@@ -525,7 +525,8 @@ public interface IProxyRepositoryFactory {
      * 
      * @see org.talend.repository.model.IRepositoryFactory#getAllVersion(org.talend .core.model.general.Project, int)
      */
-    public abstract List<IRepositoryViewObject> getAllVersion(Project project, String id) throws PersistenceException;
+    public abstract List<IRepositoryViewObject> getAllVersion(Project project, String id, boolean avoidSaveProject)
+            throws PersistenceException;
 
     public abstract List<IRepositoryViewObject> getAllVersion(String id) throws PersistenceException;
 
@@ -536,10 +537,11 @@ public interface IProxyRepositoryFactory {
 
     public abstract IRepositoryViewObject getLastVersion(String id) throws PersistenceException;
 
-    public abstract IRepositoryViewObject getSpecificVersion(Project project, String id, String version)
+    public abstract IRepositoryViewObject getSpecificVersion(Project project, String id, String version, boolean avoidSaveProject)
             throws PersistenceException;
 
-    public abstract IRepositoryViewObject getSpecificVersion(String id, String version) throws PersistenceException;
+    public abstract IRepositoryViewObject getSpecificVersion(String id, String version, boolean avoidSaveProject)
+            throws PersistenceException;
 
     public abstract List<IRepositoryViewObject> getAll(ERepositoryObjectType type) throws PersistenceException;
 

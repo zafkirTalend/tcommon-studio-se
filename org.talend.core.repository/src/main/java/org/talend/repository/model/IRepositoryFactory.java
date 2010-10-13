@@ -120,7 +120,8 @@ public interface IRepositoryFactory {
      * @return a list (may be empty) of all version
      * @throws PersistenceException
      */
-    public List<IRepositoryViewObject> getAllVersion(Project project, String id) throws PersistenceException;
+    public List<IRepositoryViewObject> getAllVersion(Project project, String id, boolean avoidSaveProject)
+            throws PersistenceException;
 
     public List<IRepositoryViewObject> getAllVersion(Project project, String id, String relativeFolder, ERepositoryObjectType type)
             throws PersistenceException;

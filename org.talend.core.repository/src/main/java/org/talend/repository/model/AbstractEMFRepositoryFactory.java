@@ -322,7 +322,7 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
         lastRepositoryTypeForItemMap.put(id, itemType);
     }
 
-    protected List<IRepositoryViewObject> getSerializable(Project project, String id, boolean allVersion)
+    protected List<IRepositoryViewObject> getSerializable(Project project, String id, boolean allVersion, boolean avoidSaveProject)
             throws PersistenceException {
         List<IRepositoryViewObject> toReturn = new ArrayList<IRepositoryViewObject>();
 
@@ -334,7 +334,7 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
             try {
                 if (fullFolder != null && (fullFolder instanceof FolderItem || ((IFolder) fullFolder).exists())) {
                     List<IRepositoryViewObject> itemsFound = getSerializableFromFolder(project, fullFolder, id, itemType,
-                            allVersion, false, true);
+                            allVersion, false, true, avoidSaveProject);
                     if (!itemsFound.isEmpty()) { // add for items in recycle-bin
                         toReturn.addAll(itemsFound);
                         return toReturn;
@@ -351,7 +351,7 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
             Object folder = getFolder(project, repositoryObjectType);
             if (folder != null) {
                 List<IRepositoryViewObject> itemsFound = getSerializableFromFolder(project, folder, id, repositoryObjectType,
-                        allVersion, true, true);
+                        allVersion, true, true, avoidSaveProject);
                 if (!itemsFound.isEmpty()) {
                     addToHistory(id, repositoryObjectType, itemsFound.get(0).getProperty().getItem().getState().getPath());
                     toReturn.addAll(itemsFound);
@@ -366,9 +366,10 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
 
     protected abstract Object getFolder(Project project, ERepositoryObjectType repositoryObjectType) throws PersistenceException;
 
-    public List<IRepositoryViewObject> getAllVersion(Project project, String id) throws PersistenceException {
+    public List<IRepositoryViewObject> getAllVersion(Project project, String id, boolean avoidSaveProject)
+            throws PersistenceException {
         List<IRepositoryViewObject> serializableAllVersion = null;
-        serializableAllVersion = getSerializable(project, id, true);
+        serializableAllVersion = getSerializable(project, id, true, avoidSaveProject);
         return convert(serializableAllVersion);
     }
 
@@ -378,10 +379,10 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
 
         Object fullFolder = getFullFolder(project, type, relativeFolder);
         if (fullFolder != null) {
-            serializableAllVersion = getSerializableFromFolder(project, fullFolder, id, type, true, false, true);
+            serializableAllVersion = getSerializableFromFolder(project, fullFolder, id, type, true, false, false, true);
             if (serializableAllVersion.isEmpty()) {
                 // look in all folders
-                serializableAllVersion = getSerializable(project, id, true);
+                serializableAllVersion = getSerializable(project, id, true, false);
             }
             return convert(serializableAllVersion);
         }
@@ -433,7 +434,7 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
 
     protected abstract List<IRepositoryViewObject> getSerializableFromFolder(Project project, Object folder, String id,
             ERepositoryObjectType type, boolean allVersion, boolean searchInChildren, boolean withDeleted,
-            boolean... recursiveCall) throws PersistenceException;
+            boolean avoidSaveProject, boolean... recursiveCall) throws PersistenceException;
 
     protected abstract <K, T> RootContainer<K, T> getObjectFromFolder(Project project, ERepositoryObjectType type,
             boolean onlyLastVersion, boolean... options) throws PersistenceException;
@@ -843,7 +844,7 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
 
     public IRepositoryViewObject getLastVersion(Project project, String id) throws PersistenceException {
         List<IRepositoryViewObject> serializableAllVersion = null;
-        serializableAllVersion = getSerializable(project, id, false);
+        serializableAllVersion = getSerializable(project, id, false, false);
         int size = serializableAllVersion.size();
         if (size > 1) {
             String message = getItemsMessages(serializableAllVersion, size);
@@ -882,10 +883,10 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
             throws PersistenceException {
         List<IRepositoryViewObject> serializableAllVersion = null;
         Object fullFolder = getFullFolder(project, type, relativeFolder);
-        serializableAllVersion = getSerializableFromFolder(project, fullFolder, id, type, false, false, true);
+        serializableAllVersion = getSerializableFromFolder(project, fullFolder, id, type, false, false, false, true);
         if (serializableAllVersion.isEmpty()) {
             // look in all folders
-            serializableAllVersion = getSerializable(project, id, true);
+            serializableAllVersion = getSerializable(project, id, true, false);
         }
         int size = serializableAllVersion.size();
 
@@ -959,13 +960,14 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
         ERepositoryObjectType itemType = ERepositoryObjectType.getItemType(property.getItem());
         Object fullFolder = getFullFolder(project, itemType, property.getItem().getState().getPath());
         if (fullFolder != null) {
-            allVersion.addAll(getSerializableFromFolder(project, fullFolder, property.getId(), itemType, true, false, true));
+            allVersion
+                    .addAll(getSerializableFromFolder(project, fullFolder, property.getId(), itemType, true, false, false, true));
             if (allVersion.size() == 0) {
                 // if no item found in current directory, look for all directory
-                allVersion.addAll(getAllVersion(project, property.getId()));
+                allVersion.addAll(getAllVersion(project, property.getId(), false));
             }
         } else {
-            allVersion.addAll(getAllVersion(project, property.getId()));
+            allVersion.addAll(getAllVersion(project, property.getId(), false));
         }
         if (allVersion.size() == 0 && project.getEmfProject().getReferencedProjects().size() > 0) {
             String parentBranch = getRepositoryContext().getFields().get(
