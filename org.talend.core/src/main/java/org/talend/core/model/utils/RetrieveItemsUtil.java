@@ -91,6 +91,9 @@ public final class RetrieveItemsUtil {
         for (Relation r : itemsRelated) {
             if (ArrayUtils.contains(targetRelations, r.getType())) {
                 IRepositoryViewObject lastVersion = factory.getLastVersion(curProject, r.getId());
+                if (lastVersion == null) {
+                    continue;
+                }
                 ERepositoryStatus status = factory.getStatus(lastVersion);
 
                 if ((withDeleted || status != ERepositoryStatus.DELETED)
