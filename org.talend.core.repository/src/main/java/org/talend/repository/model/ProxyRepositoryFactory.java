@@ -380,7 +380,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
 
     public synchronized void deleteFolder(Project project, ERepositoryObjectType type, IPath path, boolean fromEmptyRecycleBin)
             throws PersistenceException {
-        this.repositoryFactoryFromProvider.deleteFolder(project, type, path);
+        this.repositoryFactoryFromProvider.deleteFolder(project, type, path, fromEmptyRecycleBin);
         if (type == ERepositoryObjectType.PROCESS) {
             fireRepositoryPropertyChange(ERepositoryActionName.FOLDER_DELETE.getName(), path, type);
         }
