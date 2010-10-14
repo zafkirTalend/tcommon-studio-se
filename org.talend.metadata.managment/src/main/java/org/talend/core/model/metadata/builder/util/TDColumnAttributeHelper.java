@@ -322,7 +322,7 @@ public class TDColumnAttributeHelper {
         }
 
         column.setInitialValue(defExpression);
-        String mapping = databaseconnection.getDbmsId();
+        String mapping = databaseconnection == null ? null : databaseconnection.getDbmsId();
         if (databaseconnection != null && mapping != null) {
             MappingTypeRetriever mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(mapping);
             String talendType = mappingTypeRetriever.getDefaultSelectedTalendType(typeName, ExtractMetaDataUtils
@@ -378,7 +378,7 @@ public class TDColumnAttributeHelper {
      * @throws SQLException
      */
     private static boolean isMssql() throws SQLException {
-        String dbtype = databaseconnection.getDatabaseType();
+        String dbtype = databaseconnection == null ? null : databaseconnection.getDatabaseType();
         if (dbtype != null) {
             return dbtype.contains(ODBC_MSSQL_PRODUCT_NAME);
         }
