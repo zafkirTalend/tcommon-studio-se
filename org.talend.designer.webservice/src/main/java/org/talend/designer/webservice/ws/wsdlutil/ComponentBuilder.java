@@ -520,6 +520,12 @@ public class ComponentBuilder {
 
     private void buildParameterFromElements(String partElement, ParameterInfo parameterRoot, int ioOrRecursion) {
         // XmlSchemaObjectTable elements = xmlSchema.getElements();
+        if (ioOrRecursion < 3) {
+            parametersName.clear();
+            parametersName.add(parameterRoot.getName());
+        } else if (ioOrRecursion == 3) {
+            parametersName.add(parameterRoot.getName());
+        }
         Iterator elementsItr = allXmlSchemaElement.iterator();
         if (partElement != null) {
             while (elementsItr.hasNext()) {
