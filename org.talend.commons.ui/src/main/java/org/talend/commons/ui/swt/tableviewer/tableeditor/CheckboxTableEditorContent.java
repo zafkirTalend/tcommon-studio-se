@@ -19,12 +19,16 @@ import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Table;
 import org.talend.commons.ui.swt.tableviewer.IModifiedBeanListener;
 import org.talend.commons.ui.swt.tableviewer.ModifiedBeanEvent;
@@ -65,23 +69,20 @@ public class CheckboxTableEditorContent extends TableEditorContent {
      * java.lang.Object, java.lang.Object)
      */
     @SuppressWarnings("unchecked")
-    public Control initialize(final Table table, final TableEditor tableEditor,
-            final TableViewerCreatorColumn currentColumn, final Object currentRowObject, final Object currentCellValue) {
+    public Control initialize(final Table table, final TableEditor tableEditor, final TableViewerCreatorColumn currentColumn,
+            final Object currentRowObject, final Object currentCellValue) {
 
-        
-        
         /*
          * Do not set check control as field because one instance of CheckboxTableEditorContent is shared by all checks
          * of a same column
-         * 
          */
 
         final TableViewerCreator<Object> tableViewerCreator = currentColumn.getTableViewerCreator();
 
         final Button check = new Button(table, SWT.CHECK);
 
-//        System.out.println("Intitlalize:" + CheckboxTableEditorContent.this + " with check " + check.hashCode());
-        
+        // System.out.println("Intitlalize:" + CheckboxTableEditorContent.this + " with check " + check.hashCode());
+
         boolean enabled = currentColumn.isModifiable()
                 && (tableViewerCreator.getCellModifier() == null || tableViewerCreator.getCellModifier().canModify(
                         currentRowObject, currentColumn.getId()));
@@ -99,7 +100,7 @@ public class CheckboxTableEditorContent extends TableEditorContent {
         if (bgColorCheck == null) {
             bgColorCheck = new Color(check.getDisplay(), 28, 81, 128);
         }
-        
+
         final SelectionListener selectionListener = new SelectionListener() {
 
             public void widgetDefaultSelected(SelectionEvent e) {
@@ -107,7 +108,7 @@ public class CheckboxTableEditorContent extends TableEditorContent {
 
             @SuppressWarnings("unchecked")
             public void widgetSelected(SelectionEvent e) {
-//                System.out.println("Checking " + check.hashCode());
+                // System.out.println("Checking " + check.hashCode());
                 tableViewerCreator.getCellModifier().modify(tableEditor.getItem(), currentColumn.getId(),
                         ((Button) e.getSource()).getSelection() ? CHECKED : UNCHECKED);
                 tableViewerCreator.getTableViewer().setSelection(new StructuredSelection(currentRowObject));
@@ -145,18 +146,48 @@ public class CheckboxTableEditorContent extends TableEditorContent {
         };
         check.addFocusListener(focusListener);
 
+        // fix bug 11810, by xtan.
+        final MouseListener mouseListener = new MouseAdapter() {
+
+            public void mouseDown(MouseEvent e) {
+                // System.out.println("checkbox - mouseDown Event");
+                // convert axis from button(x,y) to table(x1,y1)
+                Point map = e.display.map((Control) e.widget, table, new Point(e.x, e.y));
+
+                // build a common Event from MouseEvent, @see:MouseEvent(Event e)
+                Event event = new Event();
+                // super(e);
+                event.x = map.x;
+                event.y = map.y;
+                event.button = e.button;
+                event.stateMask = e.stateMask;
+                event.count = e.count;
+                // super(e.widget);
+                event.display = e.display;
+                event.widget = table;
+                event.time = e.time;
+                event.data = e.data;
+                // event.widget = e.source;
+
+                // the purpose is to send a MouseDown event to Table...like TextCellEditor/ColorCellEditor in SWT
+                table.notifyListeners(SWT.MouseDown, event);
+            }
+        };
+        check.addMouseListener(mouseListener);
+
         check.addDisposeListener(new DisposeListener() {
 
             public void widgetDisposed(DisposeEvent e) {
-//                System.out.println("Disposing:" + CheckboxTableEditorContent.this + " with check " + check.hashCode());
+                // System.out.println("Disposing:" + CheckboxTableEditorContent.this + " with check " +
+                // check.hashCode());
                 check.removeFocusListener(focusListener);
                 tableViewerCreator.removeModifiedBeanListener(modifiedBeanListener);
                 check.removeSelectionListener(selectionListener);
+                check.removeMouseListener(mouseListener);
             }
-            
+
         });
 
-        
         // Set attributes of the editor
         tableEditor.horizontalAlignment = SWT.CENTER;
 
