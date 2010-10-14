@@ -437,6 +437,7 @@ public class TDColumnAttributeHelper {
             rc
                     .setMessage("Unable to decrypt given password correctly. It's probably due to a change in the passphrase used in encryption"); //$NON-NLS-1$
             rc.setOk(false);
+            return rc;
         }
         String driverClassName = providerConnection.getDriverClass();
         Collection<TaggedValue> taggedValues = providerConnection.getTaggedValue();
