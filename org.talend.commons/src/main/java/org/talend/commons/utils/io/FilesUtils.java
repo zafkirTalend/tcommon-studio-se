@@ -356,7 +356,7 @@ public final class FilesUtils {
         FileFilter filter = new FileFilter() {
 
             public boolean accept(File pathname) {
-                return pathname.toString().toLowerCase().endsWith(".jar") || pathname.toString().toLowerCase().endsWith(".zip");//$NON-NLS-1$ //$NON-NLS-2$
+                return pathname.toString().toLowerCase().endsWith(".jar") || pathname.toString().toLowerCase().endsWith(".zip") || pathname.toString().toLowerCase().endsWith(".bar");//$NON-NLS-1$ //$NON-NLS-2$
             }
 
         };
@@ -367,7 +367,7 @@ public final class FilesUtils {
         FileFilter filter = new FileFilter() {
 
             public boolean accept(File pathname) {
-                return pathname.toString().toLowerCase().endsWith(".jar") || pathname.toString().toLowerCase().endsWith(".zip") || pathname.toString().toLowerCase().endsWith(".properties");//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                return pathname.toString().toLowerCase().endsWith(".jar") || pathname.toString().toLowerCase().endsWith(".zip") || pathname.toString().toLowerCase().endsWith(".bar") || pathname.toString().toLowerCase().endsWith(".properties");//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
             }
 
         };
