@@ -23,7 +23,6 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
@@ -52,12 +51,10 @@ import org.talend.core.model.properties.ItemState;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
-import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.model.repository.RepositoryViewObject;
 import org.talend.designer.core.ui.views.properties.IJobSettingsView;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.RepositoryWorkUnit;
-import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.RepositoryConstants;
 import org.talend.repository.model.RepositoryNode;
@@ -519,7 +516,6 @@ public abstract class AContextualAction extends Action implements ITreeContextua
 
     @Override
     public void run() {
-        beforeWorkUnit();
         String name = "User action : " + getText(); //$NON-NLS-1$
         RepositoryWorkUnit<Object> repositoryWorkUnit = new RepositoryWorkUnit<Object>(name, this) {
 
@@ -531,31 +527,6 @@ public abstract class AContextualAction extends Action implements ITreeContextua
         };
         repositoryWorkUnit.setAvoidUnloadResources(avoidUnloadResources);
         CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory().executeRepositoryWorkUnit(repositoryWorkUnit);
-    }
-
-    protected void beforeWorkUnit() {
-        try {
-            final IProxyRepositoryFactory factory = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
-            if (!factory.isLocalConnectionProvider()) { // for remote to update all items.
-                repositoryNode = getCurrentRepositoryNode();
-                if (repositoryNode != null && repositoryNode.getObject() != null) {
-                    final Item item = repositoryNode.getObject().getProperty().getItem();
-                    if (item instanceof ConnectionItem) {
-                        final IRepositoryView repositoryView = RepositoryManager.getRepositoryView();
-                        repositoryView.refresh();
-                        // re-select
-                        IRepositoryNode newNode = CorePlugin.getDefault().getRepositoryService().getRepositoryNode(
-                                item.getProperty().getId(), false);
-                        if (newNode != null) {
-                            repositoryView.getViewer().setSelection(new StructuredSelection(newNode));
-                        }
-                    }
-                }
-            }
-        } catch (PersistenceException e) {
-            ExceptionHandler.process(e);
-        }
-
     }
 
     protected abstract void doRun();
