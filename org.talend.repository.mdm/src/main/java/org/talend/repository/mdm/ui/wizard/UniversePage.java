@@ -19,7 +19,6 @@ import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.talend.core.model.properties.ConnectionItem;
-import org.talend.mdm.webservice.XtentisBindingStub;
 import org.talend.repository.ui.swt.utils.AbstractForm;
 
 /**
@@ -75,25 +74,12 @@ public class UniversePage extends WizardPage {
         // }
     }
 
-    public List<String> getList() {
-        return universeForm.getList();
-    }
-
-    public void setList(List<String> list) {
-        universeForm.setList(list);
-        // this.list = list;
-    }
-
-    public void setUserName(String userName) {
-        universeForm.setUserName(userName);
-    }
-
-    public void setStub(XtentisBindingStub stub) {
-        universeForm.setStub(stub);
-    }
-
-    public void refreshCombo(List<String> list) {
-        universeForm.refreshCombo(list);
+    @Override
+    public void setVisible(boolean visible) {
+        super.setVisible(visible);
+        if (visible) {
+            ((MDMWizard) getWizard()).setCurrentPage(this);
+        }
     }
 
 }

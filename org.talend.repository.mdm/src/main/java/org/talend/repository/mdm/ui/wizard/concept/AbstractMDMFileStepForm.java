@@ -148,7 +148,6 @@ public abstract class AbstractMDMFileStepForm extends AbstractXmlStepForm {
             try {
                 universes = stub.getUniversePKs(new WSGetUniversePKs("")); //$NON-NLS-1$
             } catch (Exception e) {
-                // @FIXME
                 universes = null;
             }
         } catch (Exception e) {

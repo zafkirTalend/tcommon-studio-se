@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -31,6 +32,7 @@ import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.mdm.webservice.WSDataClusterPK;
 import org.talend.mdm.webservice.WSDataModelPK;
+import org.talend.mdm.webservice.WSGetUniversePKs;
 import org.talend.mdm.webservice.WSRegexDataClusterPKs;
 import org.talend.mdm.webservice.WSRegexDataModelPKs;
 import org.talend.mdm.webservice.WSUniversePK;
@@ -51,7 +53,7 @@ public class UniverseForm extends AbstractForm {
 
     // private MDMWizardPage mdmWizardPage;
 
-    private List<String> list = new ArrayList<String>();
+    private List<String> universList = new ArrayList<String>();
 
     private List<String> modelList = new ArrayList<String>();
 
@@ -67,6 +69,8 @@ public class UniverseForm extends AbstractForm {
 
     private UniversePage universePage;
 
+    private static final String DEFAULT_UNIVERS = "[HEAD]";
+
     /**
      * DOC Administrator UniverseForm constructor comment.
      * 
@@ -80,6 +84,9 @@ public class UniverseForm extends AbstractForm {
         super(parent, style, existingNames);
         this.connectionItem = connectionItem;
         this.universePage = universePage;
+        stub = ((MDMWizardPage) (universePage.getPreviousPage())).getXtentisBindingStub();
+        username = stub.getUsername();
+        initUniverse();
         setupForm(true);
     }
 
@@ -109,9 +116,13 @@ public class UniverseForm extends AbstractForm {
 
         GridData gridData = new GridData(GridData.FILL_HORIZONTAL);
         mdmParameterGroup.setLayoutData(gridData);
-        universeCombo = new LabelledCombo(mdmParameterGroup, Messages.getString("UniverseForm_version"), "", list, true); //$NON-NLS-1$ //$NON-NLS-2$
+        if (universList != null) {
+            universeCombo = new LabelledCombo(mdmParameterGroup,
+                    Messages.getString("UniverseForm_version"), "", universList, true); //$NON-NLS-1$ //$NON-NLS-2$
+        }
         modelText = new LabelledCombo(mdmParameterGroup, Messages.getString("UniverseForm_data_model"), "", modelList, true); //$NON-NLS-1$ //$NON-NLS-2$
-        clusterText = new LabelledCombo(mdmParameterGroup, Messages.getString("UniverseForm_data_container"), "", clusterList, true); //$NON-NLS-1$ //$NON-NLS-2$
+        clusterText = new LabelledCombo(mdmParameterGroup,
+                Messages.getString("UniverseForm_data_container"), "", clusterList, true); //$NON-NLS-1$ //$NON-NLS-2$
 
         universePage.setPageComplete(false);
     }
@@ -123,39 +134,43 @@ public class UniverseForm extends AbstractForm {
      */
     @Override
     protected void addFieldsListeners() {
-        universeCombo.addModifyListener(new ModifyListener() {
+        if (universeCombo != null) {
+            universeCombo.addModifyListener(new ModifyListener() {
 
-            public void modifyText(ModifyEvent e) {
-                if (stub == null) {
-                    return;
-                }
-                String universeValue = universeCombo.getText();
-                if (universeValue.equals("[HEAD]")) { //$NON-NLS-1$
-                    modelText.setText("");//$NON-NLS-1$
-                    clusterText.setText("");//$NON-NLS-1$
-                    return;
-                }
-                if (universeValue == null || universeValue.trim().length() == 0) {
-                    stub.setUsername(username);
-                } else {
-                    stub.setUsername(universeValue + "/" + username);//$NON-NLS-1$
-                }
-                try {
-                    WSDataModelPK[] models = stub.getDataModelPKs(new WSRegexDataModelPKs(""));//$NON-NLS-1$
-                    WSDataClusterPK[] clusters = stub.getDataClusterPKs(new WSRegexDataClusterPKs(""));//$NON-NLS-1$
-                    refreshModelCombo(models);
-                    refreshClusterCombo(clusters);
-                    checkFieldsValue();
-                    universePage.setPageComplete(true);
-                } catch (RemoteException e1) {
-                    modelText.setText("");//$NON-NLS-1$
-                    clusterText.setText("");//$NON-NLS-1$
-                    ExceptionHandler.process(e1);
-                }
-            }
+                public void modifyText(ModifyEvent e) {
+                    if (stub == null) {
+                        return;
+                    }
+                    String universeValue = universeCombo.getText();
+                    if (DEFAULT_UNIVERS.equals(universeValue)) { //$NON-NLS-1$
+                        modelText.setText("");//$NON-NLS-1$
+                        clusterText.setText("");//$NON-NLS-1$
+                        return;
+                    }
+                    if (universeValue == null || universeValue.trim().length() == 0) {
+                        stub.setUsername(username);
+                    } else {
+                        stub.setUsername(universeValue + "/" + username);//$NON-NLS-1$
+                    }
+                    try {
+                        WSDataModelPK[] models = stub.getDataModelPKs(new WSRegexDataModelPKs(""));//$NON-NLS-1$
+                        WSDataClusterPK[] clusters = stub.getDataClusterPKs(new WSRegexDataClusterPKs(""));//$NON-NLS-1$
+                        refreshModelCombo(models);
+                        refreshClusterCombo(clusters);
 
-        });
+                        getConnection().setUniverse(universeCombo.getText());
+                        getConnection().setDatamodel(modelText.getText());
+                        getConnection().setDatacluster(clusterText.getText());
+                        checkFieldsValue();
+                    } catch (RemoteException e1) {
+                        modelText.setText("");//$NON-NLS-1$
+                        clusterText.setText("");//$NON-NLS-1$
+                        ExceptionHandler.process(e1);
+                    }
+                }
 
+            });
+        }
         modelText.addModifyListener(new ModifyListener() {
 
             public void modifyText(ModifyEvent e) {
@@ -190,9 +205,22 @@ public class UniverseForm extends AbstractForm {
      */
     @Override
     protected boolean checkFieldsValue() {
-        getConnection().setUniverse(universeCombo.getText());
-        getConnection().setDatamodel(modelText.getText());
-        getConnection().setDatacluster(clusterText.getText());
+        if (universeCombo != null && (universeCombo.getText() == null || "".equals(universeCombo.getText()))) {
+            updateStatus(IStatus.ERROR, "Universe can't be null"); //$NON-NLS-1$
+            return false;
+        }
+        if (modelText.getText() == null || "".equals(modelText.getText())) {
+            updateStatus(IStatus.ERROR, "Data model can't be null"); //$NON-NLS-1$
+            return false;
+        }
+
+        if (clusterText.getText() == null || "".equals(clusterText.getText())) {
+            updateStatus(IStatus.ERROR, "Data cluster can't be null"); //$NON-NLS-1$
+            return false;
+
+        }
+
+        universePage.setPageComplete(true);
         return true;
     }
 
@@ -203,56 +231,50 @@ public class UniverseForm extends AbstractForm {
      */
     @Override
     protected void initialize() {
-        universeCombo.setText(getConnection().getUniverse());
-        universeCombo.getCombo().setData(getConnection().getUniverse());
-        modelText.setText(getConnection().getDatamodel());
-        modelText.getCombo().setData(getConnection().getDatamodel());
-        clusterText.setText(getConnection().getDatacluster());
-        clusterText.getCombo().setData(getConnection().getDatacluster());
-        if ("".equals(getConnection().getUniverse()) || getConnection().getUniverse() == null) {//$NON-NLS-1$
-            if (list.size() > 1) {
-                universeCombo.getCombo().setData(list.get(1));
+        if (universeCombo != null) {
+            if (getConnection().getUniverse() != null) {
+                universeCombo.setText(getConnection().getUniverse());
             } else {
-                universeCombo.getCombo().setData("[HEAD]");//$NON-NLS-1$
+                universeCombo.setText(DEFAULT_UNIVERS);
             }
         }
-    }
 
-    public List<String> getList() {
-        return this.list;
-    }
+        String universeValue = getConnection().getUniverse();
 
-    public void setList(List<String> list) {
-        this.list = list;
-    }
-
-    public void setUserName(String userName) {
-        this.username = userName;
-    }
-
-    public XtentisBindingStub getStub() {
-        return this.stub;
-    }
-
-    public void setStub(XtentisBindingStub stub) {
-        this.stub = stub;
-    }
-
-    public void refreshCombo(List<String> list) {
-        String universeValue = (String) universeCombo.getCombo().getData();
-        universeCombo.removeAll();
-        for (String universe : list) {
-            universeCombo.add(universe);
+        if (universeValue == null || universeValue.trim().length() == 0) {
+            stub.setUsername(username);
+        } else {
+            stub.setUsername(universeValue + "/" + username);//$NON-NLS-1$
         }
-        universeCombo.setText(universeValue);
+        try {
+            WSDataModelPK[] models = stub.getDataModelPKs(new WSRegexDataModelPKs(""));//$NON-NLS-1$
+            WSDataClusterPK[] clusters = stub.getDataClusterPKs(new WSRegexDataClusterPKs(""));//$NON-NLS-1$
+            refreshModelCombo(models);
+            refreshClusterCombo(clusters);
+        } catch (RemoteException e1) {
+            ExceptionHandler.process(e1);
+        }
+
+        if (getConnection().getDatamodel() != null) {
+            modelText.setText(getConnection().getDatamodel());
+        } else {
+            getConnection().setDatamodel(modelText.getText());
+        }
+        if (getConnection().getDatacluster() != null) {
+            clusterText.setText(getConnection().getDatacluster());
+        } else {
+            getConnection().setDatacluster(clusterText.getText());
+        }
+
+        checkFieldsValue();
     }
 
     private void refreshModelCombo(WSDataModelPK[] models) {
         String connModel = (String) modelText.getCombo().getData();
+        modelText.removeAll();
         if (models.length <= 0) {
             return;
         }
-        modelText.removeAll();
         for (WSDataModelPK model : models) {
             modelText.add(model.getPk());
         }
@@ -261,14 +283,15 @@ public class UniverseForm extends AbstractForm {
             return;
         }
         modelText.setText(models[0].getPk());
+
     }
 
     private void refreshClusterCombo(WSDataClusterPK[] clusters) {
         String connCluster = (String) clusterText.getCombo().getData();
+        clusterText.removeAll();
         if (clusters.length <= 0) {
             return;
         }
-        clusterText.removeAll();
         for (WSDataClusterPK cluster : clusters) {
             clusterText.add(cluster.getPk());
         }
@@ -281,6 +304,29 @@ public class UniverseForm extends AbstractForm {
 
     public MDMConnection getConnection() {
         return (MDMConnection) connectionItem.getConnection();
+    }
+
+    protected void initUniverse() {
+        universList.add(0, "[HEAD]");//$NON-NLS-1$
+        if (stub == null) {
+            return;
+        }
+        try {
+            WSUniversePK[] universe = null;
+            try {
+                universe = stub.getUniversePKs(new WSGetUniversePKs(""));//$NON-NLS-1$
+            } catch (Exception e) {
+                universe = null;
+                universList = null;
+            }
+            if (universe != null) {
+                for (int i = 0; i < universe.length; i++) {
+                    universList.add(universe[i].getPk());
+                }
+            }
+        } catch (Exception e) {
+            ExceptionHandler.process(e);
+        }
     }
 
 }

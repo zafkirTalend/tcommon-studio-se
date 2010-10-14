@@ -12,8 +12,6 @@
 // ============================================================================
 package org.talend.repository.mdm.ui.wizard;
 
-import java.util.List;
-
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.widgets.Composite;
 import org.talend.core.model.properties.ConnectionItem;
@@ -89,8 +87,16 @@ public class MDMWizardPage extends WizardPage {
         return mdmForm.getPassword();
     }
 
-    public List<String> initUniverse() {
-        return mdmForm.initUniverse();
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.jface.dialogs.DialogPage#setVisible(boolean)
+     */
+    @Override
+    public void setVisible(boolean visible) {
+        super.setVisible(visible);
+        if (visible) {
+            ((MDMWizard) getWizard()).setCurrentPage(this);
+        }
     }
-
 }

@@ -18,11 +18,11 @@ import java.util.List;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.wizard.IWizardPage;
+import org.eclipse.jface.wizard.WizardPage;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 import org.talend.commons.exception.PersistenceException;
-import org.talend.commons.ui.image.ImageProvider;
 import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
 import org.talend.commons.utils.VersionUtils;
 import org.talend.core.CorePlugin;
@@ -36,7 +36,6 @@ import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.update.RepositoryUpdateManager;
-import org.talend.core.ui.images.ECoreImage;
 import org.talend.repository.mdm.i18n.Messages;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.ProxyRepositoryFactory;
@@ -45,7 +44,6 @@ import org.talend.repository.model.RepositoryNodeUtilities;
 import org.talend.repository.ui.utils.ConnectionContextHelper;
 import org.talend.repository.ui.wizards.PropertiesWizardPage;
 import org.talend.repository.ui.wizards.RepositoryWizard;
-import org.talend.repository.ui.wizards.metadata.connection.Step0WizardPage;
 
 /**
  * DOC hwang class global comment. Detailled comment
@@ -67,6 +65,8 @@ public class MDMWizard extends RepositoryWizard implements INewWizard {
     private boolean isToolBar;
 
     private RepositoryNode node;
+
+    private WizardPage currentPage;
 
     /**
      * DOC hwang MDMWizard constructor comment.
@@ -204,15 +204,8 @@ public class MDMWizard extends RepositoryWizard implements INewWizard {
     }
 
     @Override
-    public IWizardPage getNextPage(IWizardPage page) {
-        if (page instanceof MDMWizardPage) {
-            universePage.refreshCombo(((MDMWizardPage) page).initUniverse());
-            universePage.setUserName(((MDMWizardPage) page).getUserName());
-            universePage.setStub(((MDMWizardPage) page).getXtentisBindingStub());
-        } else if (page instanceof UniversePage) {
-
-        }
-        return super.getNextPage(page);
+    public void createPageControls(Composite pageContainer) {
+        // do nothing to create pages lazily
     }
 
     /*
@@ -229,12 +222,12 @@ public class MDMWizard extends RepositoryWizard implements INewWizard {
     @Override
     public void addPages() {
         setWindowTitle("");//$NON-NLS-1$
-        setDefaultPageImageDescriptor(ImageProvider.getImageDesc(ECoreImage.METADATA_MDM_CONNECTION_WIZ));
+        // setDefaultPageImageDescriptor(ImageProvider.getImageDesc(ECoreImage.METADATA_MDM_CONNECTION_WIZ));
         if (isToolBar) {
             pathToSave = null;
         }
-        propertiesWizardPage = new Step0WizardPage(connectionProperty, pathToSave, ERepositoryObjectType.METADATA_MDMCONNECTION,
-                !isRepositoryObjectEditable(), creation);
+        propertiesWizardPage = new MdmStep0WizardPage(connectionProperty, pathToSave,
+                ERepositoryObjectType.METADATA_MDMCONNECTION, !isRepositoryObjectEditable(), creation);
         propertiesWizardPage.setTitle("Talend MDM"); //$NON-NLS-1$
         propertiesWizardPage.setDescription(Messages.getString("MDMWizard_create_mdm_conn")); //$NON-NLS-1$
         mdmWizardPage = new MDMWizardPage(connectionItem, isRepositoryObjectEditable(), existingNames);
@@ -256,5 +249,17 @@ public class MDMWizard extends RepositoryWizard implements INewWizard {
     @Override
     public ConnectionItem getConnectionItem() {
         return this.connectionItem;
+    }
+
+    @Override
+    public boolean canFinish() {
+        if (currentPage instanceof UniversePage && currentPage.isPageComplete()) {
+            return true;
+        }
+        return false;
+    }
+
+    public void setCurrentPage(WizardPage currentPage) {
+        this.currentPage = currentPage;
     }
 }

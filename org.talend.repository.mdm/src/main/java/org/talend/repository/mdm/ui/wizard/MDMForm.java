@@ -12,11 +12,6 @@
 // ============================================================================
 package org.talend.repository.mdm.ui.wizard;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.xml.rpc.soap.SOAPFaultException;
-
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -35,9 +30,7 @@ import org.talend.commons.ui.swt.formtools.LabelledText;
 import org.talend.commons.ui.swt.formtools.UtilsButton;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.properties.ConnectionItem;
-import org.talend.mdm.webservice.WSGetUniversePKs;
 import org.talend.mdm.webservice.WSPing;
-import org.talend.mdm.webservice.WSUniversePK;
 import org.talend.mdm.webservice.XtentisBindingStub;
 import org.talend.mdm.webservice.XtentisPort;
 import org.talend.mdm.webservice.XtentisServiceLocator;
@@ -221,7 +214,7 @@ public class MDMForm extends AbstractForm {
     private void checkMDMConnection() {
         XtentisServiceLocator xtentisService = new XtentisServiceLocator();
         xtentisService.setXtentisPortEndpointAddress("http://" + mdmServer.getText() + ":" + mdmHostnameText.getText()//$NON-NLS-1$//$NON-NLS-1$ //$NON-NLS-2$
-                + "/talend/TalendPort");//$NON-NLS-1$
+                + "/talend/TalendPort" + "?wsdl");//$NON-NLS-1$
         String username = mdmUsernameText.getText();
         String pass = mdmPasswordText.getText();
         if (username == null || pass == null) {
@@ -254,7 +247,6 @@ public class MDMForm extends AbstractForm {
             box.setMessage(Messages.getString("MDMForm_connected_unsuccessful")); //$NON-NLS-1$
             box.open();
         }
-        initUniverse();
     }
 
     /*
@@ -374,29 +366,4 @@ public class MDMForm extends AbstractForm {
         return mdmPasswordText.getText();
     }
 
-    protected List<String> initUniverse() {
-        List<String> list = new ArrayList<String>();
-        list.add(0, "[HEAD]");//$NON-NLS-1$
-        XtentisBindingStub stub = getXtentisBindingStub();
-        if (stub == null) {
-            return list;
-        }
-        try {
-            WSUniversePK[] universe = null;
-            try {
-                universe = stub.getUniversePKs(new WSGetUniversePKs(""));//$NON-NLS-1$
-            } catch (Exception e) {
-                // @FIXME
-                universe = null;
-            }
-            if (universe != null) {
-                for (int i = 0; i < universe.length; i++) {
-                    list.add(universe[i].getPk());
-                }
-            }
-        } catch (Exception e) {
-            ExceptionHandler.process(e);
-        }
-        return list;
-    }
 }
