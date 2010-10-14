@@ -78,7 +78,7 @@ public class Timer {
 
     public String toString() {
         if (times.size() == 1) {
-            return "Print " + name + " : " + timeDelta; //$NON-NLS-1$ //$NON-NLS-2$
+            return "Print " + name + " : " + timeDelta + " ms"; //$NON-NLS-1$ //$NON-NLS-2$
         } else {
             long totalTime = computeTotalTime();
             long averageTime = totalTime / times.size();
