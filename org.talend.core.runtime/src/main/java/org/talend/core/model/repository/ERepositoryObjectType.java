@@ -93,7 +93,9 @@ public enum ERepositoryObjectType {
 
     // feature 0006484 add
     METADATA_FILE_RULES("repository.metadataFileRules", "repository.metadataFileRules.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    METADATA_FILE_LINKRULES("repository.metadataLinkFileRules", "repository.metadataLinkFileRules.alias"), //$NON-NLS-1$ //$NON-NLS-2$
+    METADATA_FILE_LINKRULES("repository.metadataLinkFileRules", "repository.metadataRulesManagement.alias"), //$NON-NLS-1$ //$NON-NLS-2$
+
+    METADATA_RULES_MANAGEMENT("repository.metadataRulesManagement", "repository.metadataBaseRules.alias"), //$NON-NLS-1$ //$NON-NLS-2$
 
     METADATA_CONNECTIONS("repository.metadataConnections", "repository.metadataConnections.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     METADATA_SAPCONNECTIONS("repository.metadataSAPConnections", "repository.metadataSAPConnections.alias"), //$NON-NLS-1$ //$NON-NLS-2$
