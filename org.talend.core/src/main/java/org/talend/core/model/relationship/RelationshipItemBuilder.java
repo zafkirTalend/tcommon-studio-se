@@ -88,9 +88,9 @@ public class RelationshipItemBuilder {
 
     public static RelationshipItemBuilder instance;
 
-    private Map<Relation, List<Relation>> itemsRelations;
+    private Map<Relation, List<Relation>> currentProjectItemsRelations;
 
-    private Project project;
+    private Map<Relation, List<Relation>> referencesItemsRelations;
 
     private boolean loaded = false;
 
@@ -107,8 +107,22 @@ public class RelationshipItemBuilder {
 
     public List<Relation> getItemsRelatedTo(String itemId, String version, String relationType) {
         if (!loaded) {
-            loadRelations(ProjectManager.getInstance().getCurrentProject());
+            loadRelations();
         }
+        List<Relation> relations = new ArrayList<Relation>();
+        List<Relation> itemsRelations = getItemsRelatedTo(currentProjectItemsRelations, itemId, version, relationType);
+        if (itemsRelations != null) {
+            relations.addAll(itemsRelations);
+        }
+        itemsRelations = getItemsRelatedTo(referencesItemsRelations, itemId, version, relationType);
+        if (itemsRelations != null) {
+            relations.addAll(itemsRelations);
+        }
+        return relations;
+    }
+
+    private List<Relation> getItemsRelatedTo(Map<Relation, List<Relation>> itemsRelations, String itemId, String version,
+            String relationType) {
 
         Relation itemToTest = new Relation();
 
@@ -135,8 +149,22 @@ public class RelationshipItemBuilder {
 
     public List<Relation> getItemsJobRelatedTo(String itemId, String version, String relationType) {
         if (!loaded) {
-            loadRelations(ProjectManager.getInstance().getCurrentProject());
+            loadRelations();
         }
+        List<Relation> relations = new ArrayList<Relation>();
+        List<Relation> itemsRelations = getItemsJobRelatedTo(currentProjectItemsRelations, itemId, version, relationType);
+        if (itemsRelations != null) {
+            relations.addAll(itemsRelations);
+        }
+        itemsRelations = getItemsJobRelatedTo(referencesItemsRelations, itemId, version, relationType);
+        if (itemsRelations != null) {
+            relations.addAll(itemsRelations);
+        }
+        return relations;
+    }
+
+    private List<Relation> getItemsJobRelatedTo(Map<Relation, List<Relation>> itemsRelations, String itemId, String version,
+            String relationType) {
 
         Relation itemToTest = new Relation();
         List<Relation> jobRelations = new ArrayList<Relation>();
@@ -157,12 +185,28 @@ public class RelationshipItemBuilder {
         return jobRelations;
     }
 
-    private void loadRelations(Project project) {
+    private void loadRelations() {
         if (loading) {
             return;
         }
         loading = true;
-        itemsRelations = new HashMap<Relation, List<Relation>>();
+        currentProjectItemsRelations = new HashMap<Relation, List<Relation>>();
+        referencesItemsRelations = new HashMap<Relation, List<Relation>>();
+
+        Project currentProject = ProjectManager.getInstance().getCurrentProject();
+        loadRelations(currentProjectItemsRelations, currentProject);
+
+        List<Project> referencedProjects = ProjectManager.getInstance().getReferencedProjects();
+        for (Project p : referencedProjects) {
+            loadRelations(referencesItemsRelations, p);
+        }
+
+        loading = false;
+        loaded = true;
+
+    }
+
+    private void loadRelations(Map<Relation, List<Relation>> itemRelations, Project project) {
 
         for (Object o : project.getEmfProject().getItemsRelations()) {
             ItemRelations relations = (ItemRelations) o;
@@ -172,7 +216,7 @@ public class RelationshipItemBuilder {
                 log.log(Level.WARN, "Error when load the relationship, so rebuild all..."); //$NON-NLS-1$
                 loaded = false;
                 project.getEmfProject().getItemsRelations().clear();
-                buildIndex(project, new NullProgressMonitor());
+                buildIndex(itemRelations, project, new NullProgressMonitor());
                 return;
             }
 
@@ -180,7 +224,7 @@ public class RelationshipItemBuilder {
             baseItem.setType(relations.getBaseItem().getType());
             baseItem.setVersion(relations.getBaseItem().getVersion());
 
-            itemsRelations.put(baseItem, new ArrayList<Relation>());
+            itemRelations.put(baseItem, new ArrayList<Relation>());
             for (Object o2 : relations.getRelatedItems()) {
                 ItemRelation emfRelatedItem = (ItemRelation) o2;
 
@@ -189,21 +233,20 @@ public class RelationshipItemBuilder {
                 relatedItem.setType(emfRelatedItem.getType());
                 relatedItem.setVersion(emfRelatedItem.getVersion());
 
-                itemsRelations.get(baseItem).add(relatedItem);
+                itemRelations.get(baseItem).add(relatedItem);
             }
         }
-        loading = false;
-        loaded = true;
-        this.project = project;
+
     }
 
     public void saveRelations() {
         if (!loaded && !modified) {
             return;
         }
-        project.getEmfProject().getItemsRelations().clear();
+        Project currentProject = ProjectManager.getInstance().getCurrentProject();
+        currentProject.getEmfProject().getItemsRelations().clear();
 
-        for (Relation relation : itemsRelations.keySet()) {
+        for (Relation relation : currentProjectItemsRelations.keySet()) {
             ItemRelations itemRelations = PropertiesFactory.eINSTANCE.createItemRelations();
 
             ItemRelation baseItem = PropertiesFactory.eINSTANCE.createItemRelation();
@@ -212,7 +255,7 @@ public class RelationshipItemBuilder {
             baseItem.setId(relation.getId());
             baseItem.setType(relation.getType());
             baseItem.setVersion(relation.getVersion());
-            for (Relation relatedItem : itemsRelations.get(relation)) {
+            for (Relation relatedItem : currentProjectItemsRelations.get(relation)) {
                 ItemRelation emfRelatedItem = PropertiesFactory.eINSTANCE.createItemRelation();
                 emfRelatedItem.setId(relatedItem.getId());
                 emfRelatedItem.setType(relatedItem.getType());
@@ -220,13 +263,13 @@ public class RelationshipItemBuilder {
 
                 itemRelations.getRelatedItems().add(emfRelatedItem);
             }
-            project.getEmfProject().getItemsRelations().add(itemRelations);
+            currentProject.getEmfProject().getItemsRelations().add(itemRelations);
         }
         try {
             IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(
                     IRepositoryService.class);
             IProxyRepositoryFactory factory = service.getProxyRepositoryFactory();
-            factory.saveProject(project);
+            factory.saveProject(currentProject);
         } catch (PersistenceException e) {
             ExceptionHandler.process(e);
         }
@@ -252,8 +295,11 @@ public class RelationshipItemBuilder {
         relation.setType(getTypeFromItem(baseItem));
         relation.setVersion(baseItem.getProperty().getVersion());
 
-        if (itemsRelations.containsKey(relation)) {
-            itemsRelations.get(relation).clear();
+        if (currentProjectItemsRelations.containsKey(relation)) {
+            currentProjectItemsRelations.get(relation).clear();
+        }
+        if (referencesItemsRelations.containsKey(relation)) {
+            referencesItemsRelations.get(relation).clear();
         }
     }
 
@@ -272,23 +318,32 @@ public class RelationshipItemBuilder {
         addedRelation.setType(type);
         addedRelation.setVersion(relatedVersion);
         addedRelation.setSystem(relatedInSystem);
+        Map<Relation, List<Relation>> itemRelations = getRelatedRelations(baseItem);
 
-        if (!itemsRelations.containsKey(relation)) {
-            itemsRelations.put(relation, new ArrayList<Relation>());
+        if (!itemRelations.containsKey(relation)) {
+            itemRelations.put(relation, new ArrayList<Relation>());
         }
-        itemsRelations.get(relation).add(addedRelation);
+        itemRelations.get(relation).add(addedRelation);
+    }
+
+    private Map<Relation, List<Relation>> getRelatedRelations(Item baseItem) {
+        Map<Relation, List<Relation>> itemRelations = currentProjectItemsRelations;
+        if (!ProjectManager.getInstance().isInCurrentMainProject(baseItem)) {
+            itemRelations = referencesItemsRelations;
+        }
+        return itemRelations;
+
     }
 
     public boolean isAlreadyBuilt(Project project) {
         return !project.getEmfProject().getItemsRelations().isEmpty();
     }
 
-    public void buildIndex(Project project, IProgressMonitor monitor) {
-        this.project = project;
+    private void buildIndex(Map<Relation, List<Relation>> itemRelations, Project project, IProgressMonitor monitor) {
         modified = true;
 
         if (!project.getEmfProject().getItemsRelations().isEmpty()) {
-            loadRelations(project);
+            loadRelations(itemRelations, project);
             if (loaded) { // check if already loaded successfully
                 return;
             }
@@ -332,19 +387,24 @@ public class RelationshipItemBuilder {
         return toReturn;
     }
 
-    public void updateItemVersion(Item item7, String oldVersion, String id, Map<String, String> versions)
+    public void updateItemVersion(Item baseItem, String oldVersion, String id, Map<String, String> versions)
             throws PersistenceException {
-        updateItemVersion(item7, oldVersion, id, versions, false);
+        updateItemVersion(baseItem, oldVersion, id, versions, false);
     }
 
-    public void updateItemVersion(Item item7, String oldVersion, String id, Map<String, String> versions, boolean avoidSaveProject)
-            throws PersistenceException {
+    public void updateItemVersion(Item baseItem, String oldVersion, String id, Map<String, String> versions,
+            boolean avoidSaveProject) throws PersistenceException {
         IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
         IRepositoryViewObject obj = factory.getSpecificVersion(id, oldVersion, avoidSaveProject);
         Item item = obj.getProperty().getItem();
         // String itemVersion = item.getProperty().getVersion();
+        Project currentProject = ProjectManager.getInstance().getCurrentProject();
+        Project project = new Project(ProjectManager.getInstance().getProject(item));
         if (!loaded) {
-            loadRelations(ProjectManager.getInstance().getCurrentProject());
+            loadRelations();
+        }
+        if (!currentProject.equals(project)) { // only current project
+            return;
         }
         ProcessType processType = null;
         if (item instanceof ProcessItem) {
@@ -381,7 +441,7 @@ public class RelationshipItemBuilder {
                         }
                     }
                     if (jobId != null) {
-                        addRelationShip(item, jobId, nowVersion, JOB_RELATION, avoidSaveProject);
+                        addRelationShip(item, jobId, nowVersion, JOB_RELATION);
                         // factory.save(project, item.getProperty());
                         factory.save(project, item);
                     }
@@ -399,7 +459,7 @@ public class RelationshipItemBuilder {
 
     public void addOrUpdateItem(Item item, boolean fromMigration) {
         if (!loaded) {
-            loadRelations(ProjectManager.getInstance().getCurrentProject());
+            loadRelations();
         }
         modified = true;
 
@@ -579,7 +639,7 @@ public class RelationshipItemBuilder {
 
     public void removeItemRelations(Item item) {
         if (!loaded) {
-            loadRelations(ProjectManager.getInstance().getCurrentProject());
+            loadRelations();
         }
         modified = true;
 
@@ -597,9 +657,11 @@ public class RelationshipItemBuilder {
             relation.setType(getTypeFromItem(item));
             relation.setVersion(item.getProperty().getVersion());
 
-            if (itemsRelations.containsKey(relation)) {
-                itemsRelations.get(relation).clear();
-                itemsRelations.remove(relation);
+            Map<Relation, List<Relation>> itemRelations = getRelatedRelations(item);
+
+            if (itemRelations.containsKey(relation)) {
+                itemRelations.get(relation).clear();
+                itemRelations.remove(relation);
                 saveRelations();
             }
         }

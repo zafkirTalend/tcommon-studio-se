@@ -84,13 +84,12 @@ public final class RetrieveItemsUtil {
         final List<Relation> itemsRelated = relationsBuilder.getItemsRelatedTo(relatedId, ItemCacheManager.LATEST_VERSION,
                 sourceRelation);
         final IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
-        final Project curProject = ProjectManager.getInstance().getCurrentProject();
 
         List<IRepositoryViewObject> tmpObjects = new ArrayList<IRepositoryViewObject>();
 
         for (Relation r : itemsRelated) {
             if (ArrayUtils.contains(targetRelations, r.getType())) {
-                IRepositoryViewObject lastVersion = factory.getLastVersion(curProject, r.getId());
+                IRepositoryViewObject lastVersion = factory.getLastVersion(r.getId());
                 if (lastVersion == null) {
                     continue;
                 }
