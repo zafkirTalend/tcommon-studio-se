@@ -508,9 +508,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                                         currentFolderItem.getChildren().add(property.getItem());
                                         property.getItem().setParent(currentFolderItem);
                                         projectModified = true;
-                                    } else {
-                                        log.error(Messages.getString("LocalRepositoryFactory.CannotLoadProperty") + current); //$NON-NLS-1$
                                     }
+                                } else {
+                                    log.error(Messages.getString("LocalRepositoryFactory.CannotLoadProperty") + current); //$NON-NLS-1$
                                 }
                             }
                         }
@@ -1903,6 +1903,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         synchronizeSqlpatterns(project2);
         synchronizeFolders(project2, project.getEmfProject());
         changeRoutinesPackage(project);
+        saveProject(project);
     }
 
     private void changeRoutinesPackage(Project project) {

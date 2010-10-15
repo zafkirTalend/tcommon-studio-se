@@ -629,7 +629,7 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
             }
 
             if (!routineItem.getProperty().getLabel().equals(coreSerivce.getTemplateString())) {
-                create(getRepositoryContext().getProject(), routineItem, path);
+                create(getRepositoryContext().getProject(), routineItem, path, true);
             }
         } catch (IOException ioe) {
             if (stream != null) {
@@ -716,7 +716,7 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
                         categoryPath, userPath.lastSegment());
                 ((FolderItem) folder.getProperty().getItem()).setType(FolderType.SYSTEM_FOLDER_LITERAL);
             }
-            create(getRepositoryContext().getProject(), sqlpatternItem, systemPath);
+            create(getRepositoryContext().getProject(), sqlpatternItem, systemPath, true);
 
         } catch (IOException ioe) {
             if (stream != null) {
