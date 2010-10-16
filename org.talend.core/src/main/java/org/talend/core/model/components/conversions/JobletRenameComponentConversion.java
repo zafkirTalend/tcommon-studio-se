@@ -12,7 +12,12 @@
 // ============================================================================
 package org.talend.core.model.components.conversions;
 
+import org.eclipse.emf.common.util.EList;
+import org.talend.core.model.components.ComponentUtilities;
+import org.talend.designer.core.model.utils.emf.talendfile.ConnectionType;
+import org.talend.designer.core.model.utils.emf.talendfile.MetadataType;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
+import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 
 /**
  * DOC guanglong.du class global comment. Detailled comment
@@ -29,6 +34,38 @@ public class JobletRenameComponentConversion implements IComponentConversion {
     public void transform(NodeType node) {
         // TODO Auto-generated method stub
         node.setComponentName(newName);
+        ProcessType item = (ProcessType) node.eContainer();
+        String oldNodeUniqueName = ComponentUtilities.getNodeUniqueName(node);
+        String newNodeUniqueName = ComponentUtilities.generateUniqueNodeName(newName, item);
+        replaceAllInAllNodesParameterValue(item, oldNodeUniqueName, newNodeUniqueName);
+    }
+
+    private static void replaceAllInAllNodesParameterValue(ProcessType item, String oldName, String newName) {
+        for (Object o : item.getNode()) {
+            NodeType nt = (NodeType) o;
+            ComponentUtilities.replaceInNodeParameterValue(nt, oldName, newName);
+            EList metaList = nt.getMetadata();
+            if (metaList != null) {
+                if (!metaList.isEmpty()) {
+                    MetadataType firstMeta = (MetadataType) metaList.get(0);
+                    if (firstMeta.getName().equals(oldName)) {
+                        firstMeta.setName(newName);
+                    }
+                }
+            }
+        }
+        for (Object o : item.getConnection()) {
+            ConnectionType currentConnection = (ConnectionType) o;
+            if (currentConnection.getSource().equals(oldName)) {
+                currentConnection.setSource(newName);
+            }
+            if (currentConnection.getTarget().equals(oldName)) {
+                currentConnection.setTarget(newName);
+            }
+            if (currentConnection.getMetaname().equals(oldName)) {
+                currentConnection.setMetaname(newName);
+            }
+        }
     }
 
     public String getNewName() {
