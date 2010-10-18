@@ -31,6 +31,7 @@ import org.eclipse.m2m.atl.core.emf.EMFModel;
 import org.eclipse.m2m.atl.core.emf.EMFModelFactory;
 import org.eclipse.m2m.atl.engine.emfvm.launch.EMFVMLauncher;
 import org.talend.commons.emf.CwmResourceFactory;
+import org.talend.model.migration.i18n.Messages;
 
 /**
  * This perform the migration of TOS metadata file from version 4.0x to version 4.10
@@ -42,7 +43,7 @@ public class TosMetadataMigrationFrom400to410 {
 
     private static final String OUT_METADATA_410_URI = "platform:/plugin/org.talend.model.migration/migration_metamodel/metadata410forMigration.ecore"; //$NON-NLS-1$
 
-    private static final String ATL_FILE_URI = "platform:/plugin/org.talend.model.migration/transformation/tos_metadata400to410.asm";
+    private static final String ATL_FILE_URI = "platform:/plugin/org.talend.model.migration/transformation/tos_metadata400to410.asm"; //$NON-NLS-1$
 
     private IReferenceModel inmodelMetamodel;
 
@@ -94,7 +95,7 @@ public class TosMetadataMigrationFrom400to410 {
             AtlModule = launcher.loadModule(URI.create(ATL_FILE_URI).toURL().openStream());
         } catch (Exception e) {
             // this should never happend at runtime
-            log.error("error while loading the Transformation file : " + ATL_FILE_URI, e);
+            log.error(Messages.getString("TosMetadataMigrationFrom400to410_tos_error_log", ATL_FILE_URI), e); //$NON-NLS-1$
             throw new RuntimeException(e);
         }
     }
@@ -116,7 +117,7 @@ public class TosMetadataMigrationFrom400to410 {
         launcher.addInModel(inModel, "IN", "INMODEL"); //$NON-NLS-1$//$NON-NLS-2$
         launcher.addOutModel(outModel, "OUT", "OUTMODEL"); //$NON-NLS-1$//$NON-NLS-2$
         // launcher.addOutModel(migModel, "MIG", "MIGMODEL");
-        launcher.launch("run", monitor, Collections.EMPTY_MAP, AtlModule);
+        launcher.launch("run", monitor, Collections.EMPTY_MAP, AtlModule); //$NON-NLS-1$
         return outModel.getResource();
     }
 }

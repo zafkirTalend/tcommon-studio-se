@@ -34,6 +34,7 @@ import org.eclipse.m2m.atl.core.ui.vm.asm.ASMFactory;
 import org.eclipse.m2m.atl.core.ui.vm.asm.ASMInjector;
 import org.eclipse.m2m.atl.core.ui.vm.asm.ASMModelWrapper;
 import org.talend.model.migration.atl.ASMExtractorPatched;
+import org.talend.model.migration.i18n.Messages;
 
 /**
  * class that perform the migration for TOP metadata from version 4.0x to 4.10 <br/>
@@ -125,12 +126,12 @@ public class TopMetadataMigrationFrom400to410usingGenericVM {
             AtlModule = launcher.loadModule(URI.create(ATL_FILE_URI).toURL().openStream());
         } catch (Exception e) {
             // this should never happend at runtime
-            log.error("error while loading the Transformation file : " + ATL_FILE_URI, e);
+            log.error(Messages.getString("TopMetadataMigrationFrom400to410usingGenericVM_top_error_log") + ATL_FILE_URI, e); //$NON-NLS-1$
             throw new RuntimeException(e);
         }
         extractor = new ASMExtractorPatched();
         saveOptions = new HashMap<String, Object>();
-        saveOptions.put(XMIResource.OPTION_ENCODING, "UTF-8");
+        saveOptions.put(XMIResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
     }
 
     /**
