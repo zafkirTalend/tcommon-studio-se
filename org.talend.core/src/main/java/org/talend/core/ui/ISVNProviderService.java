@@ -44,8 +44,6 @@ public interface ISVNProviderService extends IService {
 
     public boolean isSVNProject(Project p) throws PersistenceException;
 
-    public void svnEclipseHandlerCommit(IProject eclipseProject, Project currentProject);
-
     public void svnEclipseHandlerDelete(IProject eclipseProject, Project currentProject, String filePath);
 
 }

@@ -18,6 +18,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
@@ -30,7 +31,7 @@ import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.io.FilesUtils;
-import org.talend.core.GlobalServiceRegister;
+import org.talend.core.CorePlugin;
 import org.talend.core.PluginChecker;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
@@ -44,10 +45,10 @@ import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.Problem;
 import org.talend.core.model.process.Problem.ProblemStatus;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.ui.ISVNProviderService;
 import org.talend.librariesmanager.i18n.Messages;
 import org.talend.librariesmanager.model.ModulesNeededProvider;
 import org.talend.repository.ProjectManager;
+import org.talend.repository.RepositoryWorkUnit;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -56,6 +57,8 @@ import org.talend.repository.ProjectManager;
  * 
  */
 public abstract class AbstractLibrariesService implements ILibrariesService {
+
+    private static Logger log = Logger.getLogger(AbstractLibrariesService.class);
 
     private final List<IChangedLibrariesListener> listeners = new ArrayList<IChangedLibrariesListener>();
 
@@ -77,8 +80,8 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
 
     public void deployLibrary(URL source) throws IOException {
         // TODO SML Allow perl module to be deploy in a folder structure in "lib/perl/..."
-        File sourceFile = new File(source.getFile());
-        File targetFile = new File(getLibrariesPath() + File.separatorChar + sourceFile.getName());
+        final File sourceFile = new File(source.getFile());
+        final File targetFile = new File(getLibrariesPath() + File.separatorChar + sourceFile.getName());
 
         FilesUtils.copyFile(sourceFile, targetFile);
         ModulesNeededProvider.userAddImportModules(targetFile.getPath(), sourceFile.getName(), ELibraryInstallStatus.INSTALLED);
@@ -89,37 +92,35 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
 
         // for feature 12877
         Project currentProject = ProjectManager.getInstance().getCurrentProject();
-        String projectLabel = currentProject.getTechnicalLabel();
+        final String projectLabel = currentProject.getTechnicalLabel();
 
         IWorkspace workspace = ResourcesPlugin.getWorkspace();
-        IProject eclipseProject = workspace.getRoot().getProject(projectLabel);
+        final IProject eclipseProject = workspace.getRoot().getProject(projectLabel);
 
         if (PluginChecker.isTIS()) {
+            RepositoryWorkUnit repositoryWorkUnit = new RepositoryWorkUnit(currentProject, "") {
 
-            String path = new Path(Platform.getInstanceLocation().getURL().getPath()).toFile().getPath();
-            path = path + File.separatorChar + projectLabel + File.separatorChar
-                    + ERepositoryObjectType.getFolderName(ERepositoryObjectType.LIBS) + File.separatorChar + sourceFile.getName();
-            File libsTargetFile = new File(path);
+                public void run() throws PersistenceException {
 
-            FilesUtils.copyFile(sourceFile, libsTargetFile);
-            try {
-                eclipseProject.refreshLocal(IResource.DEPTH_INFINITE, new NullProgressMonitor());
-            } catch (CoreException e1) {
-                ExceptionHandler.process(e1);
-            }
+                    String path = new Path(Platform.getInstanceLocation().getURL().getPath()).toFile().getPath();
+                    path = path + File.separatorChar + projectLabel + File.separatorChar
+                            + ERepositoryObjectType.getFolderName(ERepositoryObjectType.LIBS) + File.separatorChar
+                            + sourceFile.getName();
+                    File libsTargetFile = new File(path);
 
-            if (PluginChecker.isSVNProviderPluginLoaded() && !currentProject.isLocal()) {
-                ISVNProviderService service = (ISVNProviderService) GlobalServiceRegister.getDefault().getService(
-                        ISVNProviderService.class);
-                try {
-                    boolean isSvnProject = service.isSVNProject(currentProject);
-                    if (isSvnProject) {
-                        service.svnEclipseHandlerCommit(eclipseProject, currentProject);
+                    try {
+                        FilesUtils.copyFile(sourceFile, libsTargetFile);
+                        eclipseProject.refreshLocal(IResource.DEPTH_INFINITE, new NullProgressMonitor());
+                    } catch (CoreException e1) {
+                        ExceptionHandler.process(e1);
+                    } catch (IOException e) {
+                        ExceptionHandler.process(e);
                     }
-                } catch (PersistenceException e) {
-                    ExceptionHandler.process(e);
                 }
-            }
+            };
+            repositoryWorkUnit.setAvoidUnloadResources(true);
+            CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory().executeRepositoryWorkUnit(
+                    repositoryWorkUnit);
         }
     }
 
