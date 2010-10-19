@@ -90,7 +90,8 @@ public class RepositoryChangeMetadataForHL7Command extends Command {
             for (IMetadataColumn newColumn : newColumns) {
                 final String label = newColumn.getLabel();
                 for (IMetadataTable table : metadataList) {
-                    if (table.getLabel().equals(newOutputMetadata.getLabel()) && table.getColumn(label) != null) {
+                    if (table.getLabel() != null && table.getLabel().equals(newOutputMetadata.getLabel())
+                            && table.getColumn(label) != null) {
                         return;
                     }
                 }
