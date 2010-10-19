@@ -182,8 +182,8 @@ public class ConnectionHelper {
      * @return the technical name of the element (or null if none)
      */
     public static String getTechnicalName(ModelElement element) {
-        TaggedValue taggedValue = TaggedValueHelper.getTaggedValue(TaggedValueHelper.TECH_NAME_TAGGED_VAL, element
-                .getTaggedValue());
+        TaggedValue taggedValue = TaggedValueHelper.getTaggedValue(TaggedValueHelper.TECH_NAME_TAGGED_VAL,
+                element.getTaggedValue());
         if (taggedValue == null) {
             return "";
         }
@@ -209,8 +209,8 @@ public class ConnectionHelper {
      * @return the identifier quote string
      */
     public static String getIdentifierQuoteString(Connection dataProvider) {
-        TaggedValue taggedValue = TaggedValueHelper.getTaggedValue(TaggedValueHelper.DB_IDENTIFIER_QUOTE_STRING, dataProvider
-                .getTaggedValue());
+        TaggedValue taggedValue = TaggedValueHelper.getTaggedValue(TaggedValueHelper.DB_IDENTIFIER_QUOTE_STRING,
+                dataProvider.getTaggedValue());
         if (taggedValue == null) {
             return "";
         }
@@ -328,6 +328,14 @@ public class ConnectionHelper {
 
     public static boolean addSchema(Schema schema, Connection dataProvider) {
         return addPackage(schema, dataProvider);
+    }
+
+    public static void removeCatalogs(Collection<Catalog> catalogs, Connection connection) {
+        connection.getDataPackage().removeAll(catalogs);
+    }
+
+    public static void removeSchemas(Collection<Schema> schemas, Connection connection) {
+        connection.getDataPackage().removeAll(schemas);
     }
 
     // MOD mzhao feature 10238
@@ -522,6 +530,7 @@ public class ConnectionHelper {
     public static void setOtherParameter(String otherParameter, ModelElement element) {
         TaggedValueHelper.setTaggedValue(element, TaggedValueHelper.OTHER_PARAMETER, otherParameter);
     }
+
     /**
      * DOC xqliu Comment method "setRetrieveAllMetadata". ADD xqliu 2010-03-03 feature 11412
      * 
