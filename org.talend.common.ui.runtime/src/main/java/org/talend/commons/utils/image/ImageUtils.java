@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.commons.utils.image;
 
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -164,29 +165,33 @@ public class ImageUtils {
 
     public static byte[] saveImageToData(ImageDescriptor imageDes) {
         if (imageDes != null) {
-            if (imageDes != null) {
-                Image img = imageDes.createImage();
-                if (img != null) {
-                    ByteArrayOutputStream baos = null;
+            Image img = imageDes.createImage();
+            return saveImageToData(img);
+        }
+        return null;
+    }
+
+    public static byte[] saveImageToData(Image img) {
+        if (img != null) {
+            ByteArrayOutputStream baos = null;
+            try {
+                baos = new ByteArrayOutputStream();
+                BufferedOutputStream stream = new BufferedOutputStream(baos, 8192);
+                ImageLoader imageLoader = new ImageLoader();
+                imageLoader.data = new ImageData[] { img.getImageData() };
+                imageLoader.save(stream, SWT.IMAGE_PNG);
+                byte[] imageByteArray = baos.toByteArray();
+                return imageByteArray;
+            } catch (Exception e) {
+                ExceptionHandler.process(e);
+            } finally {
+                if (baos != null) {
                     try {
-                        baos = new ByteArrayOutputStream();
-                        ImageLoader imageLoader = new ImageLoader();
-                        imageLoader.data = new ImageData[] { imageDes.getImageData() };
-                        imageLoader.save(baos, SWT.IMAGE_PNG);
-                        byte[] imageByteArray = baos.toByteArray();
-                        return imageByteArray;
-                    } catch (Exception e) {
+                        baos.close();
+                        if (img != null && !img.isDisposed())
+                            img.dispose();
+                    } catch (IOException e) {
                         ExceptionHandler.process(e);
-                    } finally {
-                        if (baos != null) {
-                            try {
-                                baos.close();
-                                if (img != null && !img.isDisposed())
-                                    img.dispose();
-                            } catch (IOException e) {
-                                ExceptionHandler.process(e);
-                            }
-                        }
                     }
                 }
             }

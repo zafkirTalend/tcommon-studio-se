@@ -17,7 +17,6 @@ import java.io.InputStream;
 import java.util.List;
 
 import org.eclipse.gef.commands.CommandStack;
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.model.update.IUpdateManager;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
@@ -91,9 +90,9 @@ public interface IProcess2 extends IProcess {
 
     public IUpdateManager getUpdateManager();
 
-    public ImageDescriptor getScreenshot();
+    public byte[] getScreenshot();
 
-    public void setScreenshot(ImageDescriptor imagedes);
+    public void setScreenshot(byte[] image);
 
     public void dispose();
 
