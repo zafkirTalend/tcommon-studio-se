@@ -100,7 +100,6 @@ public class XmiResourceManager {
         try {
             project.refreshLocal(IResource.DEPTH_INFINITE, new NullProgressMonitor());
         } catch (CoreException e) {
-            // TODO Auto-generated catch block
             ExceptionHandler.process(e);
         }
         IPath path = URIHelper.convert(uri);
@@ -113,18 +112,18 @@ public class XmiResourceManager {
         // this is only if a user update itself a .item or .properties, or for SVN repository.
         //
         URI propertyUri = URIHelper.convert(iResource.getFullPath());
-        // URI itemResourceURI = getItemResourceURI(propertyUri);
-        // List<Resource> resources = new ArrayList<Resource>(resourceSet.getResources());
-        // for (Resource res : resources) {
-        // if (propertyUri.toString().equals(res.getURI().toString())) {
-        // res.unload();
-        // // resourceSet.getResources().remove(res);
-        // }
-        // // if (itemResourceURI.toString().equals(res.getURI().toString())) {
-        // // res.unload();
-        // // // resourceSet.getResources().remove(res);
-        // // }
-        // }
+        URI itemResourceURI = getItemResourceURI(propertyUri);
+        List<Resource> resources = new ArrayList<Resource>(resourceSet.getResources());
+        for (Resource res : resources) {
+            if (propertyUri.toString().equals(res.getURI().toString())) {
+                res.unload();
+                resourceSet.getResources().remove(res);
+            }
+            if (itemResourceURI.toString().equals(res.getURI().toString())) {
+                res.unload();
+                resourceSet.getResources().remove(res);
+            }
+        }
         // try {
         // iResource.refreshLocal(IResource.DEPTH_ONE, new NullProgressMonitor());
         // } catch (CoreException e) {
@@ -132,8 +131,9 @@ public class XmiResourceManager {
         // }
         Resource propertyResource = resourceSet.getResource(propertyUri, true);
         // resourceSet.getResources().add(propertyResource);
-        Property property = (Property) EcoreUtil.getObjectByType(propertyResource.getContents(),
-                PropertiesPackage.eINSTANCE.getProperty());
+
+        Property property = (Property) EcoreUtil.getObjectByType(propertyResource.getContents(), PropertiesPackage.eINSTANCE
+                .getProperty());
         // property.getItem().eResource()
         return property;
     }
