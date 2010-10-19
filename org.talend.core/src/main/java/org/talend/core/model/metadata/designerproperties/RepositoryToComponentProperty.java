@@ -165,23 +165,93 @@ public class RepositoryToComponentProperty {
         if (table == null || table.getColumns() == null || table.getColumns().isEmpty()) {
             return;
         }
-        value2.clear();// Make sure for this
+        value2.clear(); // Make sure for this
+        Map<String, List<Object>> mergedKeyValues = new HashMap<String, List<Object>>(); // all merged columns's key
         for (int i = 0; i < table.getColumns().size(); i++) {
             SAPFunctionParameterColumn column = (SAPFunctionParameterColumn) table.getColumns().get(i);
             Map<String, Object> map = new HashMap<String, Object>();
             if (isInput) {
-                String talendType = getTalendTypeFromJCOType(column.getDataType());
-                if (talendType.contains("String")) { //$NON-NLS-1$
-                    map.put("SAP_PARAMETER_VALUE", TalendTextUtils.addQuotes(column.getValue())); //$NON-NLS-1$
-                } else {
-                    map.put("SAP_PARAMETER_VALUE", column.getValue()); //$NON-NLS-1$
-                }
-
+                mergeColumn(map, column, table.getColumns(), mergedKeyValues);
+            } else {
+                map.put("SAP_PARAMETER_TYPE", column.getParameterType().replace('.', '_')); //$NON-NLS-1$
+                map.put("SAP_TABLE_NAME", TalendTextUtils.addQuotes(column.getStructureOrTableName())); //$NON-NLS-1$
+                map.put("SAP_PARAMETER_NAME", TalendTextUtils.addQuotes(column.getName())); //$NON-NLS-1$
             }
+            if (!map.isEmpty()) {
+                value2.add(map);
+            }
+        }
+    }
+
+    private static void mergeColumn(Map<String, Object> map, SAPFunctionParameterColumn column,
+            EList<SAPFunctionParameterColumn> columns, Map<String, List<Object>> mergedMapping) {
+        boolean merged = false;
+        String mergeName = column.getName();
+        String mergeValue = "";
+        String mergeStructure = "";
+        String mergeType = "";
+        String value = "";
+        String talendType = getTalendTypeFromJCOType(column.getDataType());
+        if (talendType.contains("String")) { //$NON-NLS-1$
+            value = TalendTextUtils.addQuotes(column.getValue()); //$NON-NLS-1$
+        } else {
+            value = column.getValue(); //$NON-NLS-1$
+        }
+
+        for (SAPFunctionParameterColumn current : columns) {
+            String currentValue = "";
+            if (talendType.contains("String")) { //$NON-NLS-1$
+                currentValue = TalendTextUtils.addQuotes(current.getValue()); //$NON-NLS-1$
+            } else {
+                currentValue = current.getValue(); //$NON-NLS-1$
+            }
+            if (current.getStructureOrTableName() != null && !"".equals(current.getStructureOrTableName())) {
+                if (current.getStructureOrTableName().equals(column.getStructureOrTableName())
+                        && current.getName().equals(column.getName())) {
+
+                    String key = current.getStructureOrTableName() + "_" + current.getName(); //$NON-NLS-N$
+                    if (!mergedMapping.keySet().contains(key)) {// need
+                        // merge
+                        mergeType = column.getParameterType().replace('.', '_'); //$NON-NLS-0$ //$NON-NLS-1$
+                        mergeStructure = current.getStructureOrTableName();
+                        if ("".equals(mergeValue)) {
+                            mergeValue = value;
+                        } else {
+                            mergeValue = mergeValue + "," + currentValue;
+                        }
+                        List values = new ArrayList();
+                        values.add(current.getValue());
+                        mergedMapping.put(key, values);
+                        merged = true;
+                        /*
+                         * same key,different values,need to put the value to the valuelist of this key.
+                         */
+                    } else if (mergedMapping.keySet().contains(key) && !mergedMapping.get(key).contains(current.getValue())) {
+                        mergedMapping.get(key).add(current.getValue());
+                        mergeType = column.getParameterType().replace('.', '_'); //$NON-NLS-0$ //$NON-NLS-1$
+                        mergeStructure = current.getStructureOrTableName();
+                        if ("".equals(mergeValue)) {
+                            mergeValue = value;
+                        } else {
+                            mergeValue = mergeValue + "," + currentValue;
+                        }
+                        merged = true;
+                    }
+                    // break; // merge one,add one
+                }
+            }
+
+        }
+        if (merged) {
+            map.put("SAP_PARAMETER_VALUE", mergeValue); //$NON-NLS-1$
+            map.put("SAP_PARAMETER_TYPE", mergeType); //$NON-NLS-1$
+            map.put("SAP_TABLE_NAME", TalendTextUtils.addQuotes(mergeStructure)); //$NON-NLS-1$
+            map.put("SAP_PARAMETER_NAME", TalendTextUtils.addQuotes(mergeName)); //$NON-NLS-1$
+        } else if (!mergedMapping.keySet().contains(column.getStructureOrTableName() + "_" + column.getName())) {
+            map.put("SAP_PARAMETER_VALUE", value); //$NON-NLS-1$
             map.put("SAP_PARAMETER_TYPE", column.getParameterType().replace('.', '_')); //$NON-NLS-1$
             map.put("SAP_TABLE_NAME", TalendTextUtils.addQuotes(column.getStructureOrTableName())); //$NON-NLS-1$
             map.put("SAP_PARAMETER_NAME", TalendTextUtils.addQuotes(column.getName())); //$NON-NLS-1$
-            value2.add(map);
         }
     }
 
