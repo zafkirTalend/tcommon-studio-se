@@ -166,7 +166,9 @@ public class ImageUtils {
     public static byte[] saveImageToData(ImageDescriptor imageDes) {
         if (imageDes != null) {
             Image img = imageDes.createImage();
-            return saveImageToData(img);
+            byte[] bytes = saveImageToData(img);
+            img.dispose();
+            return bytes;
         }
         return null;
     }
@@ -180,6 +182,7 @@ public class ImageUtils {
                 ImageLoader imageLoader = new ImageLoader();
                 imageLoader.data = new ImageData[] { img.getImageData() };
                 imageLoader.save(stream, SWT.IMAGE_PNG);
+                stream.flush();
                 byte[] imageByteArray = baos.toByteArray();
                 return imageByteArray;
             } catch (Exception e) {
