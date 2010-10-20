@@ -89,7 +89,9 @@ import org.talend.cwm.helper.TableHelper;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.documentation.ERepositoryActionName;
+import org.talend.repository.utils.AbstractResourceChangesService;
 import org.talend.repository.utils.RepositoryPathProvider;
+import org.talend.repository.utils.ResourceChangesServiceRegister;
 
 /**
  * Repository factory use by client. Based on implementation provide by extension point system. This class contains all
@@ -563,6 +565,14 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         IRepositoryViewObject object = new RepositoryObject(objToDelete.getProperty());
         checkAvailability(object);
         this.repositoryFactoryFromProvider.deleteObjectLogical(project, object);
+        // MOD qiongli 2010-10-20,bug 16602.
+        Item item = objToDelete.getProperty().getItem();
+        AbstractResourceChangesService resChangeService = ResourceChangesServiceRegister.getInstance().getResourceChangeService(
+                AbstractResourceChangesService.class);
+        if (item instanceof ConnectionItem && resChangeService != null) {
+            resChangeService.handleLogicalDelete(item.getProperty());
+        }// ~
+
         // unlock(objToDelete);
         // i18n
         // log.debug("Logical deletion [" + objToDelete + "] by " + getRepositoryContext().getUser() + ".");
@@ -644,7 +654,15 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
             fireRepositoryPropertyChange(ERepositoryActionName.BUSINESS_DELETE_FOREVER.getName(), null, object);
         }
 
+        // MOD qiongli 2010-10-20,bug 16602
+        Item item = objToDelete.getProperty().getItem();
         this.repositoryFactoryFromProvider.deleteObjectPhysical(project, object, version, fromEmptyRecycleBin);
+        AbstractResourceChangesService resChangeService = ResourceChangesServiceRegister.getInstance().getResourceChangeService(
+                AbstractResourceChangesService.class);
+        if (item instanceof ConnectionItem && resChangeService != null) {
+            resChangeService.handlePhysicalDelete(item.getProperty());
+        }// ~
+
         // i18n
         // log.info("Physical deletion [" + objToDelete + "] by " + getRepositoryContext().getUser() + ".");
         String str[] = new String[] { object.toString(), getRepositoryContext().getUser().toString() };
