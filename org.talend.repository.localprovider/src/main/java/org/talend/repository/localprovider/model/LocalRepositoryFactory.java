@@ -2031,7 +2031,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         IProject project = ResourceModelUtils.getProject(baseProject);
         String folderPathString = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + targetPath.toString();
         IFolder folder = ResourceUtils.getFolder(project, folderPathString, false);
-
+        unloadUnlockedResources();
         List<IRepositoryViewObject> serializableFromFolder = getSerializableFromFolder(baseProject, folder, null, type, true,
                 false, false, false);
         for (IRepositoryViewObject repositoryObject : serializableFromFolder) {
