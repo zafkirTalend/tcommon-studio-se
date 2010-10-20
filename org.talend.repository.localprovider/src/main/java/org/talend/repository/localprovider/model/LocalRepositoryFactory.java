@@ -464,8 +464,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                                         toReturn.add(new RepositoryObject(property));
                                     }
                                 }
-                                propertyFounds.add(property.getLabel() + "_" + property.getVersion() + "."
-                                        + FileConstants.PROPERTIES_EXTENSION);
+                                propertyFounds.add(property.eResource().getURI().lastSegment());
                                 property.getItem().setParent(currentFolderItem);
                                 addToHistory(id, type, property.getItem().getState().getPath());
                             } else {
