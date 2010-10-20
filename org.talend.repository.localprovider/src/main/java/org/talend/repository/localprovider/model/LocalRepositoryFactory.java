@@ -182,9 +182,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         // projectModified = false;
         addFolderMembers(project, type, toReturn, objectFolder, onlyLastVersion, options);
 
-        if (projectModified) {
-            saveProject(project);
-        }
+        // if (projectModified) {
+        // saveProject(project);
+        // }
 
         String arg1 = toReturn.absoluteSize() + ""; //$NON-NLS-1$
         String arg2 = (System.currentTimeMillis() - currentTime) / 1000 + ""; //$NON-NLS-1$
@@ -339,8 +339,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 }
             }
 
-            if (currentFolderItem != null) { // only for bin directory
-                // in case any property has been deleted manually, should delete from the emf model
+            // in case any property has been deleted manually, should delete from the emf model
+            if (currentFolderItem != null) { // test if null only for bin directory
                 List<Item> itemsDeleted = new ArrayList<Item>();
                 for (Item curItem : (List<Item>) currentFolderItem.getChildren()) {
                     if (!(curItem instanceof FolderItem)) {
@@ -448,7 +448,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             if (folder instanceof IFolder) {
                 if (!((IFolder) folder).getName().equals(BIN)) {
                     currentFolderItem = folderHelper.getFolder(((IFolder) folder).getProjectRelativePath());
-                    if (((IFolder) folder).getLocation().toPortableString().contains("bin")) {
+                    if (((IFolder) folder).getLocation().toPortableString().contains(BIN)) {
                         // don't do anything for bin directory
                     } else if (currentFolderItem == null) {
                         // create folder
