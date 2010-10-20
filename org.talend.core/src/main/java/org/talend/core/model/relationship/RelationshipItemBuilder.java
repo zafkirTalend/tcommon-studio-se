@@ -239,6 +239,13 @@ public class RelationshipItemBuilder {
 
     }
 
+    public boolean isNeedSaveRelations() {
+        if (loaded && modified) {
+            return true;
+        }
+        return false;
+    }
+
     public void saveRelations() {
         if (!loaded && !modified) {
             return;

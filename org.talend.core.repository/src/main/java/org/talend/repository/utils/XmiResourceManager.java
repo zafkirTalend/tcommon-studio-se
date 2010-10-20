@@ -130,6 +130,9 @@ public class XmiResourceManager {
         // // do nothing
         // }
         Resource propertyResource = resourceSet.getResource(propertyUri, true);
+
+        // // get item resource, but won't be loaded first
+        // resourceSet.getResource(itemResourceURI, true);
         // resourceSet.getResources().add(propertyResource);
 
         Property property = (Property) EcoreUtil.getObjectByType(propertyResource.getContents(), PropertiesPackage.eINSTANCE

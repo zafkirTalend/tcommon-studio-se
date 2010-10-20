@@ -44,6 +44,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature.Setting;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -148,7 +149,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         return singleton;
     }
 
-    boolean projectModified;
+    protected boolean projectModified;
 
     /**
      * DOC smallet Comment method "getObjectFromFolder".
@@ -178,7 +179,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             // log.info(rex.getMessage());
             return new RootContainer<K, T>(); // return empty
         }
-        projectModified = false;
+        // projectModified = false;
         addFolderMembers(project, type, toReturn, objectFolder, onlyLastVersion, options);
 
         if (projectModified) {
@@ -208,14 +209,16 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     protected <K, T> void addFolderMembers(Project project, ERepositoryObjectType type, Container<K, T> toReturn,
             Object objectFolder, boolean onlyLastVersion, boolean... options) throws PersistenceException {
         FolderHelper folderHelper = getFolderHelper(project.getEmfProject());
-        FolderItem currentFolderItem;
+        FolderItem currentFolderItem = null;
         IFolder physicalFolder;
         if (objectFolder instanceof IFolder) {
-            currentFolderItem = folderHelper.getFolder(((IFolder) objectFolder).getProjectRelativePath());
-            if (currentFolderItem == null) {
-                // create folder
-                currentFolderItem = folderHelper.createFolder(((IFolder) objectFolder).getProjectRelativePath()
-                        .toPortableString());
+            if (!((IFolder) objectFolder).getName().equals(BIN)) {
+                currentFolderItem = folderHelper.getFolder(((IFolder) objectFolder).getProjectRelativePath());
+                if (currentFolderItem == null) {
+                    // create folder
+                    currentFolderItem = folderHelper.createFolder(((IFolder) objectFolder).getProjectRelativePath()
+                            .toPortableString());
+                }
             }
             physicalFolder = (IFolder) objectFolder;
         } else {
@@ -225,44 +228,48 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         List<String> propertyFounds = new ArrayList<String>();
         List<String> folderNamesFounds = new ArrayList<String>();
         List<Item> invalidItems = new ArrayList<Item>();
-        for (Item curItem : (List<Item>) currentFolderItem.getChildren()) {
-            Property property = curItem.getProperty();
-            if (property != null) {
-                if (curItem instanceof FolderItem) {
-                    FolderItem subFolder = (FolderItem) curItem;
-                    Container<K, T> cont = toReturn.addSubContainer(subFolder.getProperty().getLabel());
-                    subFolder.setParent(currentFolderItem);
+        if (currentFolderItem != null) { // only for bin directory
+            for (Item curItem : (List<Item>) currentFolderItem.getChildren()) {
+                Property property = curItem.getProperty();
+                if (property != null) {
+                    if (curItem instanceof FolderItem) {
+                        FolderItem subFolder = (FolderItem) curItem;
+                        Container<K, T> cont = toReturn.addSubContainer(subFolder.getProperty().getLabel());
+                        subFolder.setParent(currentFolderItem);
 
-                    cont.setProperty(property);
-                    cont.setId(property.getId());
-                    addFolderMembers(project, type, cont, curItem, onlyLastVersion, options);
-                    folderNamesFounds.add(curItem.getProperty().getLabel());
-                } else {
-                    if (property.eResource() != null) {
-                        property.getItem().setParent(currentFolderItem);
-                        IRepositoryViewObject currentObject;
-                        if (options.length > 0 && options[0] == true) {
-                            // called from repository view
-                            currentObject = new RepositoryViewObject(property);
-                        } else {
-                            currentObject = new RepositoryObject(property);
-                        }
-                        propertyFounds.add(property.getLabel() + "_" + property.getVersion() + "."
-                                + FileConstants.PROPERTIES_EXTENSION);
-                        addItemToContainer(toReturn, currentObject, onlyLastVersion);
-
-                        addToHistory(property.getId(), type, property.getItem().getState().getPath());
+                        cont.setProperty(property);
+                        cont.setId(property.getId());
+                        addFolderMembers(project, type, cont, curItem, onlyLastVersion, options);
+                        folderNamesFounds.add(curItem.getProperty().getLabel());
                     } else {
-                        invalidItems.add(curItem);
-                        projectModified = true;
+                        if (property.eResource() != null) {
+                            property.getItem().setParent(currentFolderItem);
+                            IRepositoryViewObject currentObject;
+                            if (options.length > 0 && options[0] == true) {
+                                // called from repository view
+                                currentObject = new RepositoryViewObject(property);
+                            } else {
+                                currentObject = new RepositoryObject(property);
+                            }
+                            propertyFounds.add(property.eResource().getURI().lastSegment());
+                            addItemToContainer(toReturn, currentObject, onlyLastVersion);
+
+                            addToHistory(property.getId(), type, property.getItem().getState().getPath());
+                        } else {
+                            invalidItems.add(curItem);
+                            projectModified = true;
+                        }
                     }
+                } else {
+                    invalidItems.add(curItem);
+                    projectModified = true;
                 }
-            } else {
-                invalidItems.add(curItem);
-                projectModified = true;
             }
+            for (Item item : invalidItems) {
+                item.setParent(null);
+            }
+            currentFolderItem.getChildren().removeAll(invalidItems);
         }
-        currentFolderItem.getChildren().removeAll(invalidItems);
 
         // check the items from physical folder, in case any item has been added (or deleted) manually (or from copy to
         // branch)
@@ -332,24 +339,29 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 }
             }
 
-            // in case any property has been deleted manually, should delete from the emf model
-            List<Item> itemsDeleted = new ArrayList<Item>();
-            for (Item curItem : (List<Item>) currentFolderItem.getChildren()) {
-                if (!(curItem instanceof FolderItem)) {
-                    String name = curItem.getProperty().getLabel() + "_" + curItem.getProperty().getVersion() + "."
-                            + FileConstants.PROPERTIES_EXTENSION;
-                    if (!physicalPropertyFounds.contains(name)) {
-                        itemsDeleted.add(curItem);
-                        projectModified = true;
-                    }
-                } else {
-                    if (!physicalDirectoryFounds.contains(curItem.getProperty().getLabel())) {
-                        itemsDeleted.add(curItem);
-                        projectModified = true;
+            if (currentFolderItem != null) { // only for bin directory
+                // in case any property has been deleted manually, should delete from the emf model
+                List<Item> itemsDeleted = new ArrayList<Item>();
+                for (Item curItem : (List<Item>) currentFolderItem.getChildren()) {
+                    if (!(curItem instanceof FolderItem)) {
+                        String name = curItem.getProperty().getLabel() + "_" + curItem.getProperty().getVersion() + "."
+                                + FileConstants.PROPERTIES_EXTENSION;
+                        if (!physicalPropertyFounds.contains(name)) {
+                            itemsDeleted.add(curItem);
+                            projectModified = true;
+                        }
+                    } else {
+                        if (!physicalDirectoryFounds.contains(curItem.getProperty().getLabel())) {
+                            itemsDeleted.add(curItem);
+                            projectModified = true;
+                        }
                     }
                 }
+                for (Item item : itemsDeleted) {
+                    item.setParent(null);
+                }
+                currentFolderItem.getChildren().removeAll(itemsDeleted);
             }
-            currentFolderItem.getChildren().removeAll(itemsDeleted);
         }
     }
 
@@ -432,14 +444,17 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
         if (folder != null) {
             IFolder physicalFolder;
-            FolderItem currentFolderItem;
+            FolderItem currentFolderItem = null;
             if (folder instanceof IFolder) {
-                currentFolderItem = folderHelper.getFolder(((IFolder) folder).getProjectRelativePath());
-                if (((IFolder) folder).getLocation().toPortableString().contains("bin")) {
-                    // don't do anything for bin directory
-                } else if (currentFolderItem == null) {
-                    // create folder
-                    currentFolderItem = folderHelper.createFolder(((IFolder) folder).getProjectRelativePath().toPortableString());
+                if (!((IFolder) folder).getName().equals(BIN)) {
+                    currentFolderItem = folderHelper.getFolder(((IFolder) folder).getProjectRelativePath());
+                    if (((IFolder) folder).getLocation().toPortableString().contains("bin")) {
+                        // don't do anything for bin directory
+                    } else if (currentFolderItem == null) {
+                        // create folder
+                        currentFolderItem = folderHelper.createFolder(((IFolder) folder).getProjectRelativePath()
+                                .toPortableString());
+                    }
                 }
                 physicalFolder = (IFolder) folder;
             } else {
@@ -494,20 +509,20 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                                 Property property = null;
                                 try {
                                     property = xmiResourceManager.loadProperty(current);
-                                    addToHistory(id, type, property.getItem().getState().getPath());
                                 } catch (RuntimeException e) {
                                     // property will be null
                                     ExceptionHandler.process(e);
                                 }
                                 if (property != null) {
+                                    addToHistory(property.getId(), type, property.getItem().getState().getPath());
                                     if (id == null || property.getId().equals(id)) {
                                         if (withDeleted || !property.getItem().getState().isDeleted()) {
                                             toReturn.add(new RepositoryObject(property));
                                         }
-                                        currentFolderItem.getChildren().add(property.getItem());
-                                        property.getItem().setParent(currentFolderItem);
-                                        projectModified = true;
                                     }
+                                    currentFolderItem.getChildren().add(property.getItem());
+                                    property.getItem().setParent(currentFolderItem);
+                                    projectModified = true;
                                 } else {
                                     log.error(Messages.getString("LocalRepositoryFactory.CannotLoadProperty") + current); //$NON-NLS-1$
                                 }
@@ -537,34 +552,40 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                     }
                 }
 
-                // in case any property has been deleted manually, should delete from the emf model
-                List<Item> itemsDeleted = new ArrayList<Item>();
-                for (Item curItem : (List<Item>) currentFolderItem.getChildren()) {
-                    if (!(curItem instanceof FolderItem)) {
-                        String name = curItem.getProperty().getLabel() + "_" + curItem.getProperty().getVersion() + "."
-                                + FileConstants.PROPERTIES_EXTENSION;
-                        if (!physicalPropertyFounds.contains(name)) {
-                            itemsDeleted.add(curItem);
-                            projectModified = true;
-                        }
-                    } else if (searchInChildren && ProxyRepositoryFactory.getInstance().isFullLogonFinished()) {
-                        if (!physicalDirectoryFounds.contains(curItem.getProperty().getLabel())) {
-                            itemsDeleted.add(curItem);
-                            projectModified = true;
+                if (currentFolderItem != null) { // for bin directory
+                    // in case any property has been deleted manually, should delete from the emf model
+                    List<Item> itemsDeleted = new ArrayList<Item>();
+                    for (Item curItem : (List<Item>) currentFolderItem.getChildren()) {
+                        if (!(curItem instanceof FolderItem)) {
+                            String name = curItem.getProperty().getLabel() + "_" + curItem.getProperty().getVersion() + "."
+                                    + FileConstants.PROPERTIES_EXTENSION;
+                            if (!physicalPropertyFounds.contains(name)) {
+                                itemsDeleted.add(curItem);
+                                projectModified = true;
+                            }
+                        } else if (searchInChildren && ProxyRepositoryFactory.getInstance().isFullLogonFinished()) {
+                            if (!physicalDirectoryFounds.contains(curItem.getProperty().getLabel())) {
+                                itemsDeleted.add(curItem);
+                                projectModified = true;
+                            }
                         }
                     }
+                    for (Item item : itemsDeleted) {
+                        item.setParent(null);
+                    }
+                    currentFolderItem.getChildren().removeAll(itemsDeleted);
                 }
-                currentFolderItem.getChildren().removeAll(itemsDeleted);
+            }
+        }
+        // if ((recursiveCall.length != 0 && !recursiveCall[0] && projectModified) || (recursiveCall.length == 0 &&
+        // projectModified)) {
+        // if (avoidSaveProject) {
+        // projectModified = false;
+        // } else {
+        // saveProject(project);
+        // }
+        // }
 
-            }
-        }
-        if ((recursiveCall.length != 0 && !recursiveCall[0] && projectModified) || (recursiveCall.length == 0 && projectModified)) {
-            if (avoidSaveProject) {
-                projectModified = false;
-            } else {
-                saveProject(project);
-            }
-        }
         return toReturn;
     }
 
@@ -617,6 +638,15 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
     public void saveProject(Project project) throws PersistenceException {
         Resource projectResource = project.getEmfProject().eResource();
+
+        if (projectResource == null) {
+            if (project.getEmfProject() != null && project.getEmfProject().eIsProxy()) {
+                ResourceSet resourceSet = xmiResourceManager.resourceSet;
+                project.setEmfProject((org.talend.core.model.properties.Project) EcoreUtil.resolve(project.getEmfProject(),
+                        resourceSet));
+                projectResource = project.getEmfProject().eResource();
+            }
+        }
         xmiResourceManager.saveResource(projectResource);
         projectModified = false;
     }
@@ -1852,6 +1882,14 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                         continue;
                     }
                     resourceToUnload.add(resource);
+                    if (((Property) object).getItem() != null && ((Property) object).getItem().getParent() != null
+                            && (((Property) object).getItem().getParent()) instanceof FolderItem) {
+                        // to free memory or parent will still hold the item
+                        ((FolderItem) ((Property) object).getItem().getParent()).getChildren().remove(
+                                ((Property) object).getItem());
+                        ((Property) object).getItem().setParent(null);
+                        projectModified = true;
+                    }
                     possibleItemsURItoUnload.add(xmiResourceManager.getItemResourceURI(resource.getURI()));
                 }
             }
@@ -2075,12 +2113,22 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     @Override
     public void executeRepositoryWorkUnit(RepositoryWorkUnit workUnit) {
         Project currentProject = ProjectManager.getInstance().getCurrentProject();
-        if (currentProject != null && currentProject.isLocal() && !workUnit.isAvoidUnloadResources()) { // 14969 avoid
-            // reload before
-            // create
-            unloadUnlockedResources();
+        if (currentProject != null && currentProject.isLocal()) {
+            if (projectModified) {
+                try {
+                    saveProject(currentProject);
+                } catch (PersistenceException e) {
+                    workUnit.setPersistenceException(e);
+                }
+            }
+            if (!workUnit.isAvoidUnloadResources()) { // 14969
+                unloadUnlockedResources();
+            }
         }
         super.executeRepositoryWorkUnit(workUnit);
+        if (currentProject != null && currentProject.isLocal() && workUnit.isUnloadResourcesAfterRun()) { // 14969 avoid
+            unloadUnlockedResources();
+        }
     }
 
     /*
@@ -2134,6 +2182,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                     projectModified = true;
                 }
             }
+        }
+        for (Item item : invalidItems) {
+            item.setParent(null);
         }
         currentFolderItem.getChildren().removeAll(invalidItems);
         return toReturn.getMembers();
