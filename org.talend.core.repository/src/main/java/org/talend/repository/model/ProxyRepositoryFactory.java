@@ -1140,22 +1140,15 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
     }
 
     public void save(Project project, Item item, boolean... isMigrationTask) throws PersistenceException {
-        // MOD mzhao resource change listener so that TOP can react the changes.
-        // boolean isSave = true;
-        // if (item instanceof ConnectionItem) {
-        // AbstractResourceChangesService resChangeService = ResourceChangesServiceRegister.getInstance()
-        // .getResourceChangeService(AbstractResourceChangesService.class);
-        // if (resChangeService != null) {
-        // isSave = resChangeService.handleResourceChange(((ConnectionItem) item).getConnection());
-        // }
-        // }
-        // if (isSave) {
-        this.repositoryFactoryFromProvider.save(project, item);
+        if (isMigrationTask.length == 0 || !isMigrationTask[0]) {
+            this.repositoryFactoryFromProvider.save(project, item);
+        } else {
+            item.eResource().setModified(true);
+        }
         if ((item instanceof ProcessItem || item instanceof JobletProcessItem)
                 && (isMigrationTask == null || isMigrationTask.length == 0)) {
             fireRepositoryPropertyChange(ERepositoryActionName.JOB_SAVE.getName(), null, item);
         }
-        // }
     }
 
     /*
