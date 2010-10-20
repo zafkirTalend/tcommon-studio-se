@@ -226,7 +226,9 @@ public abstract class AbstractDataTableEditorView<B> {
             /*
              * (non-Javadoc)
              * 
-             * @see org.talend.commons.ui.swt.extended.macrotable.AbstractExtendedTableViewer#setTableViewerCreatorOptions(org.talend.commons.ui.swt.tableviewer.TableViewerCreator)
+             * @see
+             * org.talend.commons.ui.swt.extended.macrotable.AbstractExtendedTableViewer#setTableViewerCreatorOptions
+             * (org.talend.commons.ui.swt.tableviewer.TableViewerCreator)
              */
             @Override
             protected void setTableViewerCreatorOptions(TableViewerCreator<B> newTableViewerCreator) {
@@ -237,7 +239,8 @@ public abstract class AbstractDataTableEditorView<B> {
             /*
              * (non-Javadoc)
              * 
-             * @see org.talend.commons.ui.swt.extended.macrotable.AbstractExtendedTableViewer#handleBeforeListenableListOperationEvent(org.talend.commons.utils.data.list.ListenableListEvent)
+             * @seeorg.talend.commons.ui.swt.extended.macrotable.AbstractExtendedTableViewer#
+             * handleBeforeListenableListOperationEvent(org.talend.commons.utils.data.list.ListenableListEvent)
              */
             @Override
             protected void handleBeforeListenableListOperationEvent(ListenableListEvent<B> event) {
@@ -248,7 +251,8 @@ public abstract class AbstractDataTableEditorView<B> {
             /*
              * (non-Javadoc)
              * 
-             * @see org.talend.commons.ui.swt.extended.macrotable.AbstractExtendedTableViewer#handleAfterListenableListOperationEvent(org.talend.commons.utils.data.list.ListenableListEvent)
+             * @seeorg.talend.commons.ui.swt.extended.macrotable.AbstractExtendedTableViewer#
+             * handleAfterListenableListOperationEvent(org.talend.commons.utils.data.list.ListenableListEvent)
              */
             @Override
             protected void handleAfterListenableListOperationEvent(ListenableListEvent<B> event) {
@@ -304,7 +308,7 @@ public abstract class AbstractDataTableEditorView<B> {
 
                 public void keyReleased(KeyEvent e) {
                     if (e.character == SWT.DEL
-                            && (toolbarVisible && getExtendedToolbar().getRemoveButton() != null && getExtendedToolbar()
+                            && (toolbarVisible && getExtendedToolbar() != null && getExtendedToolbar().getRemoveButton() != null && getExtendedToolbar()
                                     .getRemoveButton().getEnabledState())) {
                         ExtendedTableModel model = extendedTableViewer.getExtendedTableModel();
                         if (model != null && model.isDataRegistered()) {
