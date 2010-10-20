@@ -43,11 +43,9 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.model.update.RepositoryUpdateManager;
-import org.talend.designer.core.DesignerPlugin;
 import org.talend.repository.RepositoryPlugin;
 import org.talend.repository.i18n.Messages;
 import org.talend.repository.model.IProxyRepositoryFactory;
-import org.talend.repository.model.IRepositoryService;
 import org.talend.repository.model.ProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.RepositoryNodeUtilities;
@@ -78,8 +76,6 @@ public class CreateConceptWizard extends RepositoryWizard implements INewWizard 
     private Property property;
 
     private RepositoryNode node;
-
-    private IPath path;
 
     private String[] existNames;
 
@@ -256,8 +252,7 @@ public class CreateConceptWizard extends RepositoryWizard implements INewWizard 
      * org.eclipse.jface.viewers.IStructuredSelection)
      */
     public void init(IWorkbench workbench, IStructuredSelection selection) {
-        IRepositoryService service = DesignerPlugin.getDefault().getRepositoryService();
-        path = service.getRepositoryPath(node);
+
     }
 
     @Override
