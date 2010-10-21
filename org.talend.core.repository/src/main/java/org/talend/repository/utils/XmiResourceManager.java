@@ -115,6 +115,9 @@ public class XmiResourceManager {
         URI itemResourceURI = getItemResourceURI(propertyUri);
         List<Resource> resources = new ArrayList<Resource>(resourceSet.getResources());
         for (Resource res : resources) {
+            if (res == null) {  // happened one time during dev, but should never happen
+                resourceSet.getResources().remove(res);
+            }
             if (propertyUri.toString().equals(res.getURI().toString())) {
                 res.unload();
                 resourceSet.getResources().remove(res);
@@ -124,6 +127,7 @@ public class XmiResourceManager {
                 resourceSet.getResources().remove(res);
             }
         }
+
         // try {
         // iResource.refreshLocal(IResource.DEPTH_ONE, new NullProgressMonitor());
         // } catch (CoreException e) {
@@ -137,7 +141,6 @@ public class XmiResourceManager {
 
         Property property = (Property) EcoreUtil.getObjectByType(propertyResource.getContents(), PropertiesPackage.eINSTANCE
                 .getProperty());
-        // property.getItem().eResource()
         return property;
     }
 

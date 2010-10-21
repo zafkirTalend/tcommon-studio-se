@@ -334,6 +334,16 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                             }
                         } else {
                             addFolderMembers(project, type, toReturn, (IFolder) current, onlyLastVersion, options);
+                            // if empty directory, just delete it
+                            IResource[] binFolder = ResourceUtils.getMembers((IFolder) current);
+                            if (binFolder.length == 0 || (binFolder.length == 1 && FilesUtils.isSVNFolder(binFolder[0]))) {
+                                try {
+                                    ((IFolder) current).delete(true, null);
+                                } catch (CoreException e) {
+                                    // not catched, not important if can delete or not
+                                }
+                            }
+
                         }
                     }
                 }
@@ -532,7 +542,16 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                         if (!((IFolder) current).getName().startsWith(".") && !FilesUtils.isSVNFolder(current)
                                 && searchInChildren) {
                             if (((IFolder) current).getLocation().toPortableString().contains("bin")) {
-                                // don't do anything for bin directory
+                                // if empty directory, just delete it
+                                IResource[] binFolder = ResourceUtils.getMembers((IFolder) current);
+
+                                if (binFolder.length == 0 || (binFolder.length == 1 && FilesUtils.isSVNFolder(binFolder[0]))) {
+                                    try {
+                                        ((IFolder) current).delete(true, null);
+                                    } catch (CoreException e) {
+                                        // not catched, not important if can delete or not
+                                    }
+                                }
                             } else {
                                 String fileName = ((IFolder) current).getName();
                                 physicalDirectoryFounds.add(fileName);
