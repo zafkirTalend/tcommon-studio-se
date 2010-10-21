@@ -78,7 +78,8 @@ public class ConnectionHelper {
     }
 
     public static Connection getTdDataProvider(Package catalog) {
-        Collection<Connection> tdDataProviders = DataProviderHelper.getTdDataProviders(catalog.getDataManager());
+        assert catalog != null;
+        Collection<Connection> tdDataProviders = getTdDataProviders(catalog.getDataManager());
         if ((tdDataProviders.isEmpty()) || (tdDataProviders.size() > 1)) {
             // check whether given object is a schema contained in a catalog
             Namespace cat = catalog.getNamespace();

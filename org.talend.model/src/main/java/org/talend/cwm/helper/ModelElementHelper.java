@@ -21,6 +21,7 @@ import org.eclipse.emf.common.util.EList;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.xml.TdXmlElementType;
+import org.talend.cwm.xml.TdXmlSchema;
 import orgomg.cwm.foundation.businessinformation.BusinessinformationFactory;
 import orgomg.cwm.foundation.businessinformation.Description;
 import orgomg.cwm.foundation.businessinformation.Document;
@@ -250,10 +251,11 @@ public final class ModelElementHelper {
 
     public static final Connection getTdDataProvider(ModelElement element) {
         if (element instanceof TdColumn) {
-            return DataProviderHelper.getTdDataProvider((TdColumn) element);
+            return ConnectionHelper.getTdDataProvider((TdColumn) element);
         }
         if (element instanceof TdXmlElementType) {
-            return DataProviderHelper.getTdDataProvider(((TdXmlElementType) element).getOwnedDocument());
+            TdXmlSchema ownedDocument = ((TdXmlElementType) element).getOwnedDocument();
+            return ownedDocument != null ? ConnectionHelper.getTdDataProvider(ownedDocument) : null;
         }
         return null;
     }
