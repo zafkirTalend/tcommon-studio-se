@@ -1140,11 +1140,11 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
     }
 
     public void save(Project project, Item item, boolean... isMigrationTask) throws PersistenceException {
-        if (isMigrationTask.length == 0 || !isMigrationTask[0]) {
-            this.repositoryFactoryFromProvider.save(project, item);
-        } else {
-            item.eResource().setModified(true);
-        }
+        // if (isMigrationTask.length == 0 || !isMigrationTask[0]) {
+        this.repositoryFactoryFromProvider.save(project, item);
+        // } else {
+        // item.eResource().setModified(true);
+        // }
         if ((item instanceof ProcessItem || item instanceof JobletProcessItem)
                 && (isMigrationTask == null || isMigrationTask.length == 0)) {
             fireRepositoryPropertyChange(ERepositoryActionName.JOB_SAVE.getName(), null, item);

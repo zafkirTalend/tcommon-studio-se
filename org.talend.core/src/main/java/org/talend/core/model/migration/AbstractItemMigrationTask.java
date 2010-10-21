@@ -68,10 +68,10 @@ public abstract class AbstractItemMigrationTask extends AbstractMigrationTask im
 
                 Item item = object.getProperty().getItem();
                 execute = execute(item);
-                if (item.getProperty().eResource().isModified()) {
-                    factory.save(item, true);
-                    item.getProperty().eResource().setModified(false);
-                }
+                // if (item.getProperty().eResource().isModified()) {
+                // factory.save(item, true);
+                // item.getProperty().eResource().setModified(false);
+                // }
                 if (execute == ExecutionResult.FAILURE) {
                     log.warn(Messages.getString(
                             "AbstractItemMigrationTask.taskFailed", this.getName(), item.getProperty().getLabel())); //$NON-NLS-1$
