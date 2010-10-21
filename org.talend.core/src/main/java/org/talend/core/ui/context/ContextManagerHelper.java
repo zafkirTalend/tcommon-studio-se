@@ -48,8 +48,6 @@ import org.talend.repository.model.IProxyRepositoryFactory;
  */
 public final class ContextManagerHelper {
 
-    private Map<ContextItem, List<ContextParameterType>> contextMap;
-
     private IContextManager manager;
 
     private Map<String, Set<String>> itemNameToParametersMap = new HashMap<String, Set<String>>();
@@ -62,38 +60,15 @@ public final class ContextManagerHelper {
     public void initHelper(IContextManager manager) {
         this.manager = manager;
         initExistedParametersMap();
-        contextMap = new HashMap<ContextItem, List<ContextParameterType>>();
-        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
-        List<ContextItem> itemList = null;
-
-        try {
-            itemList = factory.getContextItem();
-        } catch (PersistenceException e) {
-            throw new RuntimeException(e);
-        }
-        if (itemList != null) {
-
-            for (ContextItem contextItem : itemList) {
-                if (factory.getStatus(contextItem) != ERepositoryStatus.DELETED) {
-                    addParameterMap(contextItem);
-                }
-            }
-        }
-
     }
 
     private void addParameterMap(ContextItem item) {
-        List<ContextParameterType> paramTypeSet = contextMap.get(item);
-        if (paramTypeSet == null) {
-            paramTypeSet = new ArrayList<ContextParameterType>();
-            contextMap.put(item, paramTypeSet);
-        }
         ContextType type = getDefaultContextType(item);
 
         if (type != null) {
             for (Object objParam : type.getContextParameter()) {
                 ContextParameterType param = (ContextParameterType) objParam;
-                paramTypeSet.add(param);
+                // paramTypeSet.add(param);
             }
         }
     }
@@ -133,7 +108,25 @@ public final class ContextManagerHelper {
      * get valid the ContextItem.
      */
     public Set<ContextItem> getContextItems() {
-        return contextMap.keySet();
+        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
+        Set<ContextItem> itemList = null;
+
+        try {
+            itemList = new HashSet<ContextItem>(factory.getContextItem());
+        } catch (PersistenceException e) {
+            throw new RuntimeException(e);
+        }
+        if (itemList != null) {
+            List<ContextItem> toRemove = new ArrayList<ContextItem>();
+
+            for (ContextItem contextItem : itemList) {
+                if (factory.getStatus(contextItem) == ERepositoryStatus.DELETED) {
+                    toRemove.add(contextItem);
+                }
+            }
+            itemList.removeAll(toRemove);
+        }
+        return itemList;
     }
 
     /*
@@ -143,7 +136,16 @@ public final class ContextManagerHelper {
         if (!isValid(item)) {
             return null;
         }
-        List<ContextParameterType> paramSet = contextMap.get(item);
+        ContextType type = getDefaultContextType(item);
+
+        List<ContextParameterType> paramSet = new ArrayList<ContextParameterType>();
+        if (type != null) {
+            for (Object objParam : type.getContextParameter()) {
+                ContextParameterType param = (ContextParameterType) objParam;
+                paramSet.add(param);
+            }
+        }
+
         if (paramSet != null) {
             return paramSet;
         }
