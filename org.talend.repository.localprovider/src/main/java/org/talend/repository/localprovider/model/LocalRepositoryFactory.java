@@ -1904,10 +1904,12 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                     if (((Property) object).getItem() != null && ((Property) object).getItem().getParent() != null
                             && (((Property) object).getItem().getParent()) instanceof FolderItem) {
                         // to free memory or parent will still hold the item
-                        ((FolderItem) ((Property) object).getItem().getParent()).getChildren().remove(
-                                ((Property) object).getItem());
-                        ((Property) object).getItem().setParent(null);
-                        projectModified = true;
+                        if (!((Property) object).getItem().getState().isDeleted()) {
+                            ((FolderItem) ((Property) object).getItem().getParent()).getChildren().remove(
+                                    ((Property) object).getItem());
+                            ((Property) object).getItem().setParent(null);
+                            projectModified = true;
+                        }
                     }
                     possibleItemsURItoUnload.add(xmiResourceManager.getItemResourceURI(resource.getURI()));
                 }
