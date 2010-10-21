@@ -115,9 +115,6 @@ public class XmiResourceManager {
         URI itemResourceURI = getItemResourceURI(propertyUri);
         List<Resource> resources = new ArrayList<Resource>(resourceSet.getResources());
         for (Resource res : resources) {
-            if (res == null) {  // happened one time during dev, but should never happen
-                resourceSet.getResources().remove(res);
-            }
             if (propertyUri.toString().equals(res.getURI().toString())) {
                 res.unload();
                 resourceSet.getResources().remove(res);
@@ -128,16 +125,7 @@ public class XmiResourceManager {
             }
         }
 
-        // try {
-        // iResource.refreshLocal(IResource.DEPTH_ONE, new NullProgressMonitor());
-        // } catch (CoreException e) {
-        // // do nothing
-        // }
         Resource propertyResource = resourceSet.getResource(propertyUri, true);
-
-        // // get item resource, but won't be loaded first
-        // resourceSet.getResource(itemResourceURI, true);
-        // resourceSet.getResources().add(propertyResource);
 
         Property property = (Property) EcoreUtil.getObjectByType(propertyResource.getContents(), PropertiesPackage.eINSTANCE
                 .getProperty());
@@ -256,7 +244,7 @@ public class XmiResourceManager {
     }
 
     public List<Resource> getAffectedResources(Property property) {
-        EcoreUtil.resolveAll(property.getItem());
+        EcoreUtil.resolveAll(property);
         List<Resource> resources = new ArrayList<Resource>();
         Resource propertyResource = property.eResource();
         URI itemResourceURI = getItemResourceURI(propertyResource.getURI());
@@ -313,8 +301,8 @@ public class XmiResourceManager {
     public void propagateFileName(Property lastVersionProperty, Property resourceProperty) throws PersistenceException {
         List<Resource> affectedResources = getAffectedResources(resourceProperty);
         List<Resource> resourcesToSave = new ArrayList<Resource>();
-
         Property previousVersionProperty = null;
+        IFile propertyFile = null;
 
         for (Resource resource : affectedResources) {
             ResourceFilenameHelper.FileName fileName = ResourceFilenameHelper.create(resource, resourceProperty,
@@ -337,7 +325,7 @@ public class XmiResourceManager {
                 file = ResourcesPlugin.getWorkspace().getRoot().getFile(path);
 
                 if (isPropertyFile(file)) {
-                    previousVersionProperty = loadProperty(file);
+                    propertyFile = file;
                 }
             } else if (ResourceFilenameHelper.mustChangeLabel(fileName)) {
                 resourceProperty.setLabel(lastVersionProperty.getLabel());
@@ -346,6 +334,10 @@ public class XmiResourceManager {
                 }
                 resourcesToSave.add(resource);
             }
+        }
+
+        if (propertyFile != null) {
+            previousVersionProperty = loadProperty(propertyFile);
         }
 
         if (previousVersionProperty != null) {
