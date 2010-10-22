@@ -244,7 +244,7 @@ public class XmiResourceManager {
     }
 
     public List<Resource> getAffectedResources(Property property) {
-        EcoreUtil.resolveAll(property);
+        EcoreUtil.resolveAll(property.getItem());
         List<Resource> resources = new ArrayList<Resource>();
         Resource propertyResource = property.eResource();
         URI itemResourceURI = getItemResourceURI(propertyResource.getURI());
