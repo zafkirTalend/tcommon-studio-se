@@ -104,9 +104,11 @@ public final class CatalogHelper {
         boolean added = false;
         if ((catalog != null) && (elements != null)) {
             List<ModelElement> elementList = catalog.getOwnedElement();
-            if (elementList != null && elementList.size() > 0) {
-                elementList.clear();
-            }
+            // MOD xqliu 2010-10-22 bug 16499: reload table/view will remove table informations
+            // if (elementList != null && elementList.size() > 0) {
+            // elementList.clear();
+            // }
+            // ~ 16499
             Resource eResource = catalog.eResource();
             if (eResource != null) {
                 eResource.getContents().addAll(elements);
