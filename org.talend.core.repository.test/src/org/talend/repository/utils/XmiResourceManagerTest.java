@@ -19,6 +19,9 @@ import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IProjectDescription;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -31,6 +34,7 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.general.Project;
+import org.talend.core.model.general.TalendNature;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.Property;
@@ -41,7 +45,6 @@ import org.talend.core.repository.constants.FileConstants;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFileFactory;
 import org.talend.repository.ProjectManager;
-import org.talend.repository.localprovider.model.LocalRepositoryFactory;
 import org.talend.repository.model.ResourceModelUtils;
 
 /**
@@ -49,8 +52,53 @@ import org.talend.repository.model.ResourceModelUtils;
  */
 public class XmiResourceManagerTest {
 
+    /**
+     * create project function took from LocalRepositoryFactory from code version 4.1.1.
+     * 
+     * @param projectInfor
+     * @return
+     * @throws PersistenceException
+     */
+    public Project createProject(Project projectInfor) throws PersistenceException {
+        IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+
+        String technicalLabel = Project.createTechnicalName(projectInfor.getLabel());
+        IProject prj = root.getProject(technicalLabel);
+
+        final IWorkspace workspace = ResourcesPlugin.getWorkspace();
+
+        try {
+            IProjectDescription desc = null;
+            if (prj.exists()) {
+                desc = prj.getDescription();
+            } else {
+                desc = workspace.newProjectDescription(projectInfor.getLabel());
+            }
+            desc.setNatureIds(new String[] { TalendNature.ID });
+            desc.setComment(projectInfor.getDescription());
+
+            if (!prj.exists()) {
+                prj.create(desc, null);
+            }
+            prj.open(IResource.BACKGROUND_REFRESH, null);
+            prj.setDefaultCharset("UTF-8", null);
+        } catch (CoreException e) {
+            throw new PersistenceException(e);
+        }
+
+        Project project = new Project();
+        // Fill project object
+        project.setLabel(projectInfor.getLabel());
+        project.setDescription(projectInfor.getDescription());
+        project.setLanguage(projectInfor.getLanguage());
+        project.setAuthor(projectInfor.getAuthor());
+        project.setLocal(true);
+        project.setTechnicalLabel(technicalLabel);
+
+        return project;
+    }
+
     public Project createTempProject() throws PersistenceException {
-        LocalRepositoryFactory localRepFactory = new LocalRepositoryFactory();
         Project project = new Project();
         project.setLabel("testauto");
         project.setDescription("no desc");
@@ -58,7 +106,7 @@ public class XmiResourceManagerTest {
         User user = PropertiesFactory.eINSTANCE.createUser();
         user.setLogin("testauto@talend.com");
         project.setAuthor(user);
-        return localRepFactory.createProject(project);
+        return createProject(project);
     }
 
     /**
@@ -82,8 +130,15 @@ public class XmiResourceManagerTest {
      */
     @Test
     public void testLoadProject() throws PersistenceException, CoreException {
-        IProject physProject = ResourceModelUtils.getProject(createTempProject());
+        Project project = createTempProject();
         XmiResourceManager xrm = new XmiResourceManager();
+        IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+        IProject prj = root.getProject("TESTAUTO");
+        Resource projectResource = xrm.createProjectResource(prj);
+        projectResource.getContents().add(project.getEmfProject());
+        projectResource.getContents().add(project.getAuthor());
+        xrm.saveResource(projectResource);
+        IProject physProject = ResourceModelUtils.getProject(project);
         org.talend.core.model.properties.Project emfProject = xrm.loadProject(physProject);
         assertTrue(emfProject.getTechnicalLabel().equals("TESTAUTO"));
         physProject.delete(true, null);
@@ -98,8 +153,15 @@ public class XmiResourceManagerTest {
      */
     @Test
     public void testHasTalendProjectFile() throws PersistenceException, CoreException {
-        IProject physProject = ResourceModelUtils.getProject(createTempProject());
+        Project project = createTempProject();
         XmiResourceManager xrm = new XmiResourceManager();
+        IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+        IProject prj = root.getProject("TESTAUTO");
+        Resource projectResource = xrm.createProjectResource(prj);
+        projectResource.getContents().add(project.getEmfProject());
+        projectResource.getContents().add(project.getAuthor());
+        xrm.saveResource(projectResource);
+        IProject physProject = ResourceModelUtils.getProject(project);
         assertTrue(xrm.hasTalendProjectFile(physProject));
         physProject.delete(true, null);
     }
@@ -907,14 +969,20 @@ public class XmiResourceManagerTest {
      */
     @Test
     public void testUnloadResources() throws IOException, PersistenceException, CoreException {
-        IProject physProject = ResourceModelUtils.getProject(createTempProject());
+        Project project = createTempProject();
         XmiResourceManager xrm = new XmiResourceManager();
-        org.talend.core.model.properties.Project emfProject = xrm.loadProject(physProject);
+        IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+        IProject prj = root.getProject("TESTAUTO");
+        Resource projectResource = xrm.createProjectResource(prj);
+        projectResource.getContents().add(project.getEmfProject());
+        projectResource.getContents().add(project.getAuthor());
+        xrm.saveResource(projectResource);
+        org.talend.core.model.properties.Project emfProject = xrm.loadProject(prj);
         assertTrue(emfProject.getTechnicalLabel().equals("TESTAUTO"));
         assertTrue(emfProject.eResource().isLoaded());
         xrm.unloadResources();
         assertTrue(emfProject.eResource() == null);
-        physProject.delete(true, null);
+        prj.delete(true, null);
     }
 
     /**
@@ -986,14 +1054,20 @@ public class XmiResourceManagerTest {
      */
     @Test
     public void testUnloadResource() throws IOException, PersistenceException, CoreException {
-        IProject physProject = ResourceModelUtils.getProject(createTempProject());
+        Project project = createTempProject();
         XmiResourceManager xrm = new XmiResourceManager();
-        org.talend.core.model.properties.Project emfProject = xrm.loadProject(physProject);
+        IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+        IProject prj = root.getProject("TESTAUTO");
+        Resource projectResource = xrm.createProjectResource(prj);
+        projectResource.getContents().add(project.getEmfProject());
+        projectResource.getContents().add(project.getAuthor());
+        xrm.saveResource(projectResource);
+        org.talend.core.model.properties.Project emfProject = xrm.loadProject(prj);
         assertTrue(emfProject.getTechnicalLabel().equals("TESTAUTO"));
         assertTrue(emfProject.eResource().isLoaded());
         xrm.unloadResource(emfProject.eResource().getURI().toString());
         assertTrue(emfProject.eResource() == null);
-        physProject.delete(true, null);
+        prj.delete(true, null);
     }
 
 }
