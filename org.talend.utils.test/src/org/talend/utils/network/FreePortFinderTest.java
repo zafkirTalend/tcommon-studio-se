@@ -125,6 +125,10 @@ public class FreePortFinderTest extends TestCase {
 
         int testsCount = 200;
         
+        /**
+         * 
+         * DOC amaumont FreePortFinderTest class global comment. Detailled comment
+         */
         class Command implements Runnable {
 
             int port;
