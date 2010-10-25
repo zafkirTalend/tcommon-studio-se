@@ -16,8 +16,9 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.talend.utils.network.FreePortFinder;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import junit.framework.TestCase;
 
@@ -115,6 +116,64 @@ public class FreePortFinderTest extends TestCase {
         }
 
         closeServerSockets(servers);
+
+    }
+
+    public void testConcurrency() {
+
+        ThreadPoolExecutor threadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(50);
+
+        int testsCount = 200;
+        
+        class Command implements Runnable {
+
+            int port;
+            
+            /*
+             * (non-Javadoc)
+             * 
+             * @see java.lang.Runnable#run()
+             */
+            public void run() {
+                port = new FreePortFinder().searchFreePort(10000, 20000);
+                System.out.println("port=" + port + " System.currentTimeMillis()=" + System.currentTimeMillis());
+            }
+
+            /**
+             * Getter for port.
+             * 
+             * @return the port
+             */
+            public int getPort() {
+                return port;
+            }
+
+        };
+
+        final Command[] commands = new Command[testsCount];
+
+        for (int i = 0; i < testsCount; i++) {
+            Command command = new Command();
+            commands[i] = command;
+        }
+
+        for (int i = 0; i < testsCount; i++) {
+            threadPool.execute(commands[i]);
+        }
+        
+        threadPool.shutdown();
+        try {
+            threadPool.awaitTermination(1, TimeUnit.MINUTES);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            fail(e.getMessage());
+        }
+
+        for (int i = 1; i < testsCount; i++) {
+            if (commands[i].getPort() == commands[i - 1].getPort()) {
+                fail("Identical port found " + commands[i].getPort());
+            }
+        }
 
     }
 

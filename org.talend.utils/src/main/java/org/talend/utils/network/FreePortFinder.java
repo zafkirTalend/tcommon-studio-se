@@ -14,7 +14,6 @@ package org.talend.utils.network;
 
 import java.io.IOException;
 import java.net.ServerSocket;
-import java.util.Date;
 import java.util.Random;
 
 import org.apache.log4j.Logger;
@@ -26,6 +25,10 @@ import org.apache.log4j.Logger;
 public class FreePortFinder {
 
     private static Logger log = Logger.getLogger(FreePortFinder.class);
+
+    private static Random random = new Random(System.currentTimeMillis());
+
+    private static Object[] randomLock = new Object[0];
 
     /**
      * DOC amaumont FreePortFinder constructor comment.
@@ -108,10 +111,11 @@ public class FreePortFinder {
         int portBoundMax = portRangeBound1 < portRangeBound2 ? portRangeBound2 : portRangeBound1;
         int increment = 0;
         if (randomizeIndexStart) {
-            Random random = new Random(new Date().getTime());
             int maxRandomBound = (int) ((double) portBoundMax - (double) portBoundMin) * 3 / 4;
             if (maxRandomBound > 0) {
-                increment = random.nextInt(maxRandomBound);
+                synchronized (randomLock) {
+                    increment = random.nextInt(maxRandomBound);
+                }
             }
         }
 
