@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
@@ -70,7 +71,9 @@ public class Application implements IApplication {
                     IRepositoryService.class);
             repositoryService.setRCPMode();
 
-            openLicenseAndRegister(shell);
+            if (!ArrayUtils.contains(Platform.getApplicationArgs(), "--disableLoginDialog")) {
+                openLicenseAndRegister(shell);
+            }
 
             IMigrationToolService service = (IMigrationToolService) GlobalServiceRegister.getDefault().getService(
                     IMigrationToolService.class);

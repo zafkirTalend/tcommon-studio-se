@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.rcp.intro;
 
+import org.apache.commons.lang.ArrayUtils;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.ui.IWorkbenchPreferenceConstants;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.application.IWorkbenchConfigurer;
@@ -89,7 +91,9 @@ public class ApplicationWorkbenchAdvisor extends IDEWorkbenchAdvisor {
     public void postStartup() {
         super.postStartup();
 
-        RegisterManagement.getInstance().validateRegistration();
+        if (!ArrayUtils.contains(Platform.getApplicationArgs(), "--disableLoginDialog")) {
+            RegisterManagement.getInstance().validateRegistration();
+        }
         if (!CommonsPlugin.isHeadless()) {
             CorePlugin.getDefault().getCodeGeneratorService().initializeTemplates();
         }
