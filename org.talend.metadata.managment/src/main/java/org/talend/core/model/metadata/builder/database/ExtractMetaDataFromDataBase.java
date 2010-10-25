@@ -220,7 +220,10 @@ public class ExtractMetaDataFromDataBase {
                     } else {
                         rsTables = dbMetaData.getTables(null, schema, null, availableTableTypes.toArray(new String[] {}));
                     }
+                } else if (schema != null && schema.equals("")) {
+                    rsTables = dbMetaData.getTables(null, schema, null, availableTableTypes.toArray(new String[] {}));
                 } else {
+
                     rsTables = dbMetaData.getTables(null, null, null, availableTableTypes.toArray(new String[] {}));
                 }
             } else {
