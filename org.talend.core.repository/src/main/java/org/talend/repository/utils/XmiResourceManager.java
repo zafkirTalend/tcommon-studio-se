@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.repository.utils;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -160,10 +159,6 @@ public class XmiResourceManager {
         return resourceSet.createResource(propertyResourceURI);
     }
 
-    public Resource createPropertyResource(URI propertyResourceURI) {
-        return resourceSet.createResource(propertyResourceURI);
-    }
-
     public Resource createItemResource(IProject project, Item item, IPath path, ERepositoryObjectType repositoryObjectType,
             boolean byteArrayResource) throws PersistenceException {
         URI itemResourceURI = getItemResourceURI(project, repositoryObjectType, path, item);
@@ -284,10 +279,6 @@ public class XmiResourceManager {
 
     public boolean isPropertyFile(IFile file) {
         return FileConstants.PROPERTIES_EXTENSION.equals(file.getFileExtension());
-    }
-
-    public boolean isPropertyFile(File file) {
-        return file.getAbsolutePath().endsWith(FileConstants.PROPERTIES_EXTENSION);
     }
 
     public boolean isPropertyFile(String filename) {
