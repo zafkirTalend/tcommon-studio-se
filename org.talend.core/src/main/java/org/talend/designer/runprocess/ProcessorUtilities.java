@@ -792,18 +792,20 @@ public class ProcessorUtilities {
         }
         currentProcess = service.getProcessFromProcessItem(processItem);
 
-        return getCommandLine(targetPlatform, externalUse, currentProcess, contextName, statisticPort, tracePort, codeOptions);
+        return getCommandLine(targetPlatform, externalUse, currentProcess, contextName, true, statisticPort, tracePort,
+                codeOptions);
     }
 
     public static String[] getCommandLine(String targetPlatform, boolean externalUse, IProcess currentProcess,
-            String contextName, int statisticPort, int tracePort, String... codeOptions) throws ProcessorException {
+            String contextName, boolean needContext, int statisticPort, int tracePort, String... codeOptions)
+            throws ProcessorException {
         if (currentProcess == null) {
             return new String[] {};
         }
         IContext currentContext = getContext(currentProcess, contextName);
         IProcessor processor = getProcessor(currentProcess, currentContext);
         processor.setTargetPlatform(targetPlatform);
-        return processor.getCommandLine(externalUse, statisticPort, tracePort, codeOptions);
+        return processor.getCommandLine(needContext, externalUse, statisticPort, tracePort, codeOptions);
     }
 
     public static String[] getMainCommand(String processName, String processVersion, String contextName, int statisticPort,

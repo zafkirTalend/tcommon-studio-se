@@ -220,7 +220,8 @@ public interface IProcessor {
      */
     public Object saveLaunchConfiguration() throws CoreException;
 
-    public String[] getCommandLine(boolean externalUse, int statOption, int traceOption, String... codeOptions);
+    public String[] getCommandLine(boolean needContext, boolean externalUse, int statOption, int traceOption,
+            String... codeOptions);
 
     public void setContext(IContext context);
 
