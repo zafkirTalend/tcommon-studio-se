@@ -771,19 +771,20 @@ public class ProcessorUtilities {
     public static String[] getCommandLine(String targetPlatform, boolean externalUse, String processId, String contextName,
             int statisticPort, int tracePort, String... codeOptions) throws ProcessorException {
         ProcessItem selectedProcessItem = ItemCacheManager.getProcessItem(processId);
-        return getCommandLine(targetPlatform, externalUse, selectedProcessItem, contextName, statisticPort, tracePort,
+        return getCommandLine(targetPlatform, externalUse, selectedProcessItem, contextName, true, statisticPort, tracePort,
                 codeOptions);
     }
 
     public static String[] getCommandLine(String targetPlatform, boolean externalUse, String processId, String contextName,
             String version, int statisticPort, int tracePort, String... codeOptions) throws ProcessorException {
         ProcessItem selectedProcessItem = ItemCacheManager.getProcessItem(processId, version);
-        return getCommandLine(targetPlatform, externalUse, selectedProcessItem, contextName, statisticPort, tracePort,
+        return getCommandLine(targetPlatform, externalUse, selectedProcessItem, contextName, true, statisticPort, tracePort,
                 codeOptions);
     }
 
     public static String[] getCommandLine(String targetPlatform, boolean externalUse, ProcessItem processItem,
-            String contextName, int statisticPort, int tracePort, String... codeOptions) throws ProcessorException {
+            String contextName, boolean needContext, int statisticPort, int tracePort, String... codeOptions)
+            throws ProcessorException {
         IProcess currentProcess = null;
         IDesignerCoreService service = CorePlugin.getDefault().getDesignerCoreService();
 
@@ -792,7 +793,7 @@ public class ProcessorUtilities {
         }
         currentProcess = service.getProcessFromProcessItem(processItem);
 
-        return getCommandLine(targetPlatform, externalUse, currentProcess, contextName, true, statisticPort, tracePort,
+        return getCommandLine(targetPlatform, externalUse, currentProcess, contextName, needContext, statisticPort, tracePort,
                 codeOptions);
     }
 
