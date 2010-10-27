@@ -277,6 +277,24 @@ public class ExtractMetaDataUtils {
         return null;
     }
 
+    public static String getDbTypeByClassNameAndDriverJar(String driverClassName, String driverJar) {
+        List<EDatabase4DriverClassName> t4d = EDatabase4DriverClassName.indexOfByDriverClass(driverClassName);
+        if (t4d.size() == 1) {
+            return t4d.get(0).getDbTypeName();
+        } else if (t4d.size() > 1) {
+            // for some dbs use the same driverClassName.
+            if (driverJar == null || "".equals(driverJar) || !driverJar.contains(".jar")) {
+                return t4d.get(0).getDbTypeName();
+            } else if (driverJar.contains("postgresql-8.3-603.jdbc3.jar") || driverJar.contains("postgresql-8.3-603.jdbc4.jar")
+                    || driverJar.contains("postgresql-8.3-603.jdbc2.jar")) {//
+                return EDatabase4DriverClassName.PSQL.getDbTypeName();
+            } else {
+                return t4d.get(0).getDbTypeName(); // first default
+            }
+        }
+        return null;
+    }
+
     /**
      * 
      * DOC YeXiaowei Comment method "isValidJarFile".

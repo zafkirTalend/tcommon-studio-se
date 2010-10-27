@@ -1204,13 +1204,23 @@ public class ExtractMetaDataFromDataBase {
                 boolean isDerby = false;
                 if (iMetadataConnection != null) {
                     String dbType = iMetadataConnection.getDbType();
-                    if (dbType.equals("General JDBC")) {
+                    if (dbType.equals("General JDBC")) {//$NON-NLS-N$
                         String driverClassName = iMetadataConnection.getDriverClass();
-                        dbType = ExtractMetaDataUtils.getDbTypeByClassName(driverClassName);
+                        String driverJar = iMetadataConnection.getDriverJarPath();
+                        if (driverJar != null && !"".equals(driverJar)) {
+                            if (driverJar.contains("\\")) {//$NON-NLS-N$
+                                driverJar = driverJar.substring(driverJar.lastIndexOf("\\") + 1, driverJar.length());//$NON-NLS-N$
+                            }
+                        }
+                        if (driverJar != null && !"".equals(driverJar)) {//$NON-NLS-N$
+                            dbType = ExtractMetaDataUtils.getDbTypeByClassNameAndDriverJar(driverClassName, driverJar);
+                        } else {
+                            dbType = ExtractMetaDataUtils.getDbTypeByClassName(driverClassName);
+                        }
                     }
-                    isDerby = dbType.equals("JavaDB Embeded") || dbType.equals("HSQLDB In-Process");
+                    isDerby = dbType.equals("JavaDB Embeded") || dbType.equals("HSQLDB In-Process");//$NON-NLS-N$//$NON-NLS-N$
                 }
-                String colComment = "";
+                String colComment = "";//$NON-NLS-N$
                 if (!isDerby) {
                     colComment = getTableComment(nameKey, resultSet, true);
                 }
