@@ -299,9 +299,12 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                                 } else {
                                     currentObject = new RepositoryObject(property);
                                 }
-                                currentFolderItem.getChildren().add(property.getItem());
-                                property.getItem().setParent(currentFolderItem);
-                                projectModified = true;
+                                if (currentFolderItem != null && !currentFolderItem.getChildren().contains(property.getItem())
+                                        && !getRepositoryContext().getProject().equals(project)) {
+                                    currentFolderItem.getChildren().add(property.getItem());
+                                    property.getItem().setParent(currentFolderItem);
+                                    projectModified = true;
+                                }
                             } else {
                                 log.error(Messages.getString("LocalRepositoryFactory.CannotLoadProperty") + current); //$NON-NLS-1$
                             }
@@ -530,9 +533,13 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                                             toReturn.add(new RepositoryObject(property));
                                         }
                                     }
-                                    currentFolderItem.getChildren().add(property.getItem());
-                                    property.getItem().setParent(currentFolderItem);
-                                    projectModified = true;
+                                    if (currentFolderItem != null
+                                            && !currentFolderItem.getChildren().contains(property.getItem())
+                                            && !getRepositoryContext().getProject().equals(project)) {
+                                        currentFolderItem.getChildren().add(property.getItem());
+                                        property.getItem().setParent(currentFolderItem);
+                                        projectModified = true;
+                                    }
                                 } else {
                                     log.error(Messages.getString("LocalRepositoryFactory.CannotLoadProperty") + current); //$NON-NLS-1$
                                 }
