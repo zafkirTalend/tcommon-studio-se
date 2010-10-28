@@ -299,8 +299,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                                 } else {
                                     currentObject = new RepositoryObject(property);
                                 }
-                                if (currentFolderItem != null && !currentFolderItem.getChildren().contains(property.getItem())
-                                        && !getRepositoryContext().getProject().equals(project)) {
+                                if (currentFolderItem != null && !currentFolderItem.getChildren().contains(property.getItem())) {
                                     currentFolderItem.getChildren().add(property.getItem());
                                     property.getItem().setParent(currentFolderItem);
                                     projectModified = true;
@@ -534,8 +533,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                                         }
                                     }
                                     if (currentFolderItem != null
-                                            && !currentFolderItem.getChildren().contains(property.getItem())
-                                            && !getRepositoryContext().getProject().equals(project)) {
+                                            && !currentFolderItem.getChildren().contains(property.getItem())) {
                                         currentFolderItem.getChildren().add(property.getItem());
                                         property.getItem().setParent(currentFolderItem);
                                         projectModified = true;
