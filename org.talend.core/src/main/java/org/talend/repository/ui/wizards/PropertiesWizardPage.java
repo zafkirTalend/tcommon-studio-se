@@ -142,6 +142,19 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
     private String lastVersionFound;
 
+    // for save as: because there need check name and version
+    private String orignalName = null;
+
+    private String orignalVersion = null;
+
+    private boolean isSaveAs = false;
+
+    public void initializeSaveAs(String orignalName, String orignalVersion, boolean isSaveAs) {
+        this.orignalName = orignalName;
+        this.orignalVersion = orignalVersion;
+        this.isSaveAs = isSaveAs;
+    }
+
     protected PropertiesWizardPage(String pageName, Property property, IPath destinationPath) {
         this(pageName, property, destinationPath, false, true, null);
     }
@@ -811,14 +824,32 @@ public abstract class PropertiesWizardPage extends WizardPage {
         nameText.addModifyListener(new ModifyListener() {
 
             public void modifyText(ModifyEvent e) {
-                // if (!update) {
-                if (nameText.getText().length() == 0) {
-                    nameModifiedByUser = false;
-                } else {
-                    nameModifiedByUser = true;
+                if (!isSaveAs) {// it means create a new one and keep the old logic
+                    // if (!update) {
+                    if (nameText.getText().length() == 0) {
+                        nameModifiedByUser = false;
+                    } else {
+                        nameModifiedByUser = true;
+                    }
+                    // }
+                    evaluateTextField();
+                } else {// means to go the SaveAS logic
+                    if (nameText.getText().equalsIgnoreCase(orignalName)) {
+                        nameStatus = createOkStatus(); // clean the last status
+                        updatePageStatus();
+
+                        if (versionText.getText().equalsIgnoreCase(orignalVersion)) {
+                            setPageComplete(false); // can't save as
+                        } else {
+                            setPageComplete(true); // can save as
+                        }
+                    } else {
+                        // there won't plan to process this case:
+                        // exist (Job AAA 1.0 and Job BBB 2.0), to save Job AAA 1.0 as Job BBB 3.0
+                        nameModifiedByUser = true;
+                        evaluateTextField();
+                    }
                 }
-                // }
-                evaluateTextField();
             }
         });
 
