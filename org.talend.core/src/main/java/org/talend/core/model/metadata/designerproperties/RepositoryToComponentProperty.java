@@ -1529,32 +1529,34 @@ public class RepositoryToComponentProperty {
             List<Map<String, Object>> tableInfo, IMetadataTable metaTable) {
         if (connection instanceof XmlFileConnection) {
             XmlFileConnection xmlConnection = (XmlFileConnection) connection;
-            EList objectList = xmlConnection.getSchema();
-            XmlXPathLoopDescriptor xmlDesc = (XmlXPathLoopDescriptor) objectList.get(0);
-            if (value.equals("XML_MAPPING")) { //$NON-NLS-1$
-                if (xmlDesc == null) {
-                    return;
-                } else {
-                    String[] list = param.getListRepositoryItems();
+            if (xmlConnection.isInputModel()) {
+                EList objectList = xmlConnection.getSchema();
+                XmlXPathLoopDescriptor xmlDesc = (XmlXPathLoopDescriptor) objectList.get(0);
+                if (value.equals("XML_MAPPING")) { //$NON-NLS-1$
+                    if (xmlDesc == null) {
+                        return;
+                    } else {
+                        String[] list = param.getListRepositoryItems();
 
-                    int column = 0;
-                    boolean found = false;
-                    for (int k = 0; (k < list.length) && (!found); k++) {
-                        if (list[k].equals("XML_QUERY")) { //$NON-NLS-1$
-                            column = k;
-                            found = true;
+                        int column = 0;
+                        boolean found = false;
+                        for (int k = 0; (k < list.length) && (!found); k++) {
+                            if (list[k].equals("XML_QUERY")) { //$NON-NLS-1$
+                                column = k;
+                                found = true;
+                            }
                         }
-                    }
-                    EList schemaList = xmlDesc.getSchemaTargets();
-                    String[] names = param.getListItemsDisplayCodeName();
-                    for (int k = 0; k < schemaList.size(); k++) {
-                        if (tableInfo.size() > k) {
-                            Map<String, Object> line = tableInfo.get(k);
-                            if (metaTable != null) {
-                                if (metaTable.getListColumns().size() > k) {
-                                    SchemaTarget schemaTarget = (SchemaTarget) schemaList.get(k);
-                                    String strValue = TalendTextUtils.addQuotes(schemaTarget.getRelativeXPathQuery());
-                                    line.put(names[column], strValue);
+                        EList schemaList = xmlDesc.getSchemaTargets();
+                        String[] names = param.getListItemsDisplayCodeName();
+                        for (int k = 0; k < schemaList.size(); k++) {
+                            if (tableInfo.size() > k) {
+                                Map<String, Object> line = tableInfo.get(k);
+                                if (metaTable != null) {
+                                    if (metaTable.getListColumns().size() > k) {
+                                        SchemaTarget schemaTarget = (SchemaTarget) schemaList.get(k);
+                                        String strValue = TalendTextUtils.addQuotes(schemaTarget.getRelativeXPathQuery());
+                                        line.put(names[column], strValue);
+                                    }
                                 }
                             }
                         }
