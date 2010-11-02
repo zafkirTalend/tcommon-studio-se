@@ -16,6 +16,8 @@
 			<dbType type="BINARY" ignorePre="true"/>
 			<dbType type="VARBINARY" ignorePre="true" />
 			<dbType type="NUMERIC" defaultLength="10" defaultPrecision="5"/>
+			<dbType type="INT8" ignoreLen="true" ignorePre="true"/>
+			<dbType type="FLOAT8" ignoreLen="true" ignorePre="true"/>
 		</dbTypes>
 
 		<language name="java">
@@ -50,9 +52,11 @@
 				</talendType>
 				<talendType type="id_Float">
 					<dbType type="FLOAT" default="true" />
+					<dbType type="FLOAT8"/>
 				</talendType>
 				<talendType type="id_Integer">
 					<dbType type="INTEGER" default="true" />
+					<dbType type="INT8" />
 				</talendType>
 				<talendType type="id_Long">
 					<dbType type="BIGINT" default="true" />
@@ -88,10 +92,18 @@
 					<talendType type="id_Short" />
 					<talendType type="id_Byte" />
 				</dbType>
+				<dbType type="INT8">
+					<talendType type="id_Integer" default="true" />
+					<talendType type="id_Short" />
+					<talendType type="id_Byte" />
+				</dbType>
 				<dbType type="BIGINT">
 					<talendType type="id_Long" default="true" />
 				</dbType>
 				<dbType type="FLOAT">
+					<talendType type="id_Float" default="true" />
+				</dbType>
+				<dbType type="FLOAT8">
 					<talendType type="id_Float" default="true" />
 				</dbType>
 				<dbType type="DOUBLE PRECISION">
