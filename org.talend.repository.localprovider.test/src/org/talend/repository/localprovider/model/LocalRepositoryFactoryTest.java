@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2009 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2010 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -19,6 +19,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
@@ -41,14 +42,18 @@ import org.talend.core.model.general.ConnectionBean;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.general.TalendNature;
 import org.talend.core.model.properties.FolderItem;
+import org.talend.core.model.properties.ItemState;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.Property;
+import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.properties.User;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.Folder;
 import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.core.model.repository.RepositoryObject;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFileFactory;
 import org.talend.repository.model.FolderHelper;
@@ -81,16 +86,13 @@ public class LocalRepositoryFactoryTest {
         try {
             IProjectDescription desc = null;
             if (prj.exists()) {
-                desc = prj.getDescription();
-            } else {
-                desc = workspace.newProjectDescription(projectInfor.getLabel());
+                prj.delete(true, null); // always delete to avoid conflicts between 2 tests
             }
+            desc = workspace.newProjectDescription(projectInfor.getLabel());
             desc.setNatureIds(new String[] { TalendNature.ID });
             desc.setComment(projectInfor.getDescription());
 
-            if (!prj.exists()) {
-                prj.create(desc, null);
-            }
+            prj.create(desc, null);
             prj.open(IResource.BACKGROUND_REFRESH, null);
             prj.setDefaultCharset("UTF-8", null);
         } catch (CoreException e) {
@@ -125,7 +127,52 @@ public class LocalRepositoryFactoryTest {
     private void removeTempProject() throws PersistenceException, CoreException {
         final IProject project = ResourceModelUtils.getProject(sampleProject);
         project.delete(true, null);
+    }
 
+    @SuppressWarnings("unchecked")
+    private ProcessItem createTempProcessItem(LocalRepositoryFactory factory, String path) throws PersistenceException {
+        ProcessItem processItem = PropertiesFactory.eINSTANCE.createProcessItem();
+        Property myProperty = PropertiesFactory.eINSTANCE.createProperty();
+        ItemState itemState = PropertiesFactory.eINSTANCE.createItemState();
+        itemState.setPath(path);
+        processItem.setProperty(myProperty);
+        processItem.setState(itemState);
+        myProperty.setId(factory.getNextId());
+        myProperty.setLabel("myJob");
+        myProperty.setVersion("0.1");
+
+        processItem.setProcess(TalendFileFactory.eINSTANCE.createProcessType());
+        processItem.getProcess().getNode().add(TalendFileFactory.eINSTANCE.createNodeType());
+        ((NodeType) processItem.getProcess().getNode().get(0)).setComponentName("test");
+        ((NodeType) processItem.getProcess().getNode().get(0)).setComponentVersion("0.1");
+
+        if (!"".equals(path)) {
+            factory.createFolder(sampleProject, ERepositoryObjectType.PROCESS, new Path(""), path);
+        }
+
+        factory.create(sampleProject, processItem, new Path(path), false);
+
+        return processItem;
+    }
+
+    private RoutineItem createTempRoutineItem(LocalRepositoryFactory factory, String path) throws PersistenceException {
+        RoutineItem routineItem = PropertiesFactory.eINSTANCE.createRoutineItem();
+        Property myProperty = PropertiesFactory.eINSTANCE.createProperty();
+        ItemState itemState = PropertiesFactory.eINSTANCE.createItemState();
+        itemState.setPath(path);
+        routineItem.setState(itemState);
+        routineItem.setProperty(myProperty);
+        myProperty.setId(factory.getNextId());
+        myProperty.setLabel("myRoutine");
+        myProperty.setVersion("0.1");
+        routineItem.setContent(PropertiesFactory.eINSTANCE.createByteArray());
+        routineItem.getContent().setInnerContent("myRoutineContent".getBytes());
+
+        if (!"".equals(path)) {
+            factory.createFolder(sampleProject, ERepositoryObjectType.ROUTINES, new Path(""), path);
+        }
+        factory.create(sampleProject, routineItem, new Path(path), false);
+        return routineItem;
     }
 
     /**
@@ -164,6 +211,14 @@ public class LocalRepositoryFactoryTest {
         LocalRepositoryFactory repositoryFactory = new LocalRepositoryFactory();
         final Project[] readProject = repositoryFactory.readProject();
         assertTrue(readProject != null && readProject.length > 0);
+        boolean contains = false;
+        for (Project project : readProject) {
+            if (project.getLabel().equals("testauto")) {
+                contains = true;
+                break;
+            }
+        }
+        assertTrue(contains);
         removeTempProject();
 
     }
@@ -296,26 +351,223 @@ public class LocalRepositoryFactoryTest {
     public void testGetSerializableFromFolder() throws PersistenceException, CoreException, LoginException {
         LocalRepositoryFactory repositoryFactory = new LocalRepositoryFactory();
         createTempProject();
-        Property property = PropertiesFactory.eINSTANCE.createProperty();
-        property.setAuthor(sampleProject.getAuthor());
-        property.setVersion(VersionUtils.DEFAULT_VERSION);
-        property.setStatusCode("");
-        final String nextId = repositoryFactory.getNextId();
-        property.setId(nextId);
-        ProcessItem processItem = PropertiesFactory.eINSTANCE.createProcessItem();
-        processItem.setProperty(property);
-        ProcessType process = TalendFileFactory.eINSTANCE.createProcessType();
-        processItem.setProcess(process);
         repositoryFactory.createUser(sampleProject);
         repositoryFactory.logOnProject(sampleProject);
-        repositoryFactory.create(sampleProject, processItem, new Path(""), false);
-        final Object fullFolder = getFullFolder(repositoryFactory, sampleProject, ERepositoryObjectType.PROCESS, "");
 
-        final List<IRepositoryViewObject> serializableFromFolder = repositoryFactory.getSerializableFromFolder(sampleProject,
-                fullFolder, nextId, ERepositoryObjectType.PROCESS, true, true, true, true);
-        assertNotNull(serializableFromFolder);
-        assertTrue(!serializableFromFolder.isEmpty());
+        testGetSerializableProcess(repositoryFactory, "");
+        testGetSerializableProcess(repositoryFactory, "myProcessFolder");
+
+        testGetSerializableRoutine(repositoryFactory, "");
+        testGetSerializableRoutine(repositoryFactory, "myRoutineFolder");
+
         removeTempProject();
+    }
+
+    private void testGetSerializableRoutine(LocalRepositoryFactory repositoryFactory, String path) throws PersistenceException,
+            CoreException {
+        Object fullFolder;
+        List<IRepositoryViewObject> serializableFromFolder;
+        IRepositoryViewObject rvo;
+        // ### START ### Test for routine
+        // retrieve after create
+        RoutineItem rItem = createTempRoutineItem(repositoryFactory, path);
+        String routineId = rItem.getProperty().getId();
+        fullFolder = getFullFolder(repositoryFactory, sampleProject, ERepositoryObjectType.ROUTINES, "");
+        serializableFromFolder = repositoryFactory.getSerializableFromFolder(sampleProject, fullFolder, routineId,
+                ERepositoryObjectType.ROUTINES, true, true, true, false);
+        assertNotNull(serializableFromFolder);
+        assertTrue(serializableFromFolder.size() == 1);
+        rvo = serializableFromFolder.get(0);
+        String content = new String(((RoutineItem) (rvo.getProperty().getItem())).getContent().getInnerContent());
+        assertTrue(content.equals("myRoutineContent"));
+
+        // test if logical delete (can retrieve or not with flag)
+        repositoryFactory.deleteObjectLogical(sampleProject, rvo);
+        serializableFromFolder = repositoryFactory.getSerializableFromFolder(sampleProject, fullFolder, routineId,
+                ERepositoryObjectType.ROUTINES, true, true, true, false);
+        assertNotNull(serializableFromFolder);
+        assertTrue(serializableFromFolder.size() == 1);
+        content = new String(((RoutineItem) (serializableFromFolder.get(0).getProperty().getItem())).getContent()
+                .getInnerContent());
+        assertTrue(content.equals("myRoutineContent"));
+
+        serializableFromFolder = repositoryFactory.getSerializableFromFolder(sampleProject, fullFolder, routineId,
+                ERepositoryObjectType.ROUTINES, true, true, false, false);
+        assertNotNull(serializableFromFolder);
+        assertTrue(serializableFromFolder.size() == 0);
+
+        // test if physical delete
+        repositoryFactory.deleteObjectPhysical(sampleProject, rvo);
+        serializableFromFolder = repositoryFactory.getSerializableFromFolder(sampleProject, fullFolder, routineId,
+                ERepositoryObjectType.ROUTINES, true, true, true, false);
+        assertNotNull(serializableFromFolder);
+        assertTrue(serializableFromFolder.size() == 0);
+
+        // test manual creation, check if can be retrieved.
+        RoutineItem routineItem = PropertiesFactory.eINSTANCE.createRoutineItem();
+        Property myProperty = PropertiesFactory.eINSTANCE.createProperty();
+        routineItem.setProperty(myProperty);
+        myProperty.setLabel("myTestRoutine");
+        myProperty.setVersion("0.1");
+        routineItem.setContent(PropertiesFactory.eINSTANCE.createByteArray());
+        routineItem.getContent().setInnerContent("myRoutineContent".getBytes());
+        routineItem.getProperty().setId("777");
+        routineItem.setState(PropertiesFactory.eINSTANCE.createItemState());
+        routineItem.getState().setPath(path);
+
+        IProject project = ResourceModelUtils.getProject(sampleProject);
+        XmiResourceManager xrm = new XmiResourceManager();
+        Resource processItemResource = xrm.createItemResource(project, routineItem, new Path(path),
+                ERepositoryObjectType.ROUTINES, false);
+        Resource propertyResource = xrm.createPropertyResource(processItemResource);
+
+        propertyResource.getContents().add(routineItem.getProperty());
+        propertyResource.getContents().add(routineItem.getState());
+        propertyResource.getContents().add(routineItem);
+
+        processItemResource.getContents().add(routineItem.getContent());
+        xrm.saveResource(processItemResource);
+        xrm.saveResource(propertyResource);
+        assertNull(routineItem.getParent());
+        // unload the resource to be really the same as created from navigator or even SVN project.
+        xrm.unloadResources(routineItem.getProperty());
+        serializableFromFolder = repositoryFactory.getSerializableFromFolder(sampleProject, fullFolder, "777",
+                ERepositoryObjectType.ROUTINES, true, true, true, false);
+        assertNotNull(serializableFromFolder);
+        assertTrue(serializableFromFolder.size() == 1);
+        FolderItem folderItem = repositoryFactory.getFolderItem(sampleProject, ERepositoryObjectType.ROUTINES, new Path(path));
+        routineItem = (RoutineItem) serializableFromFolder.get(0).getProperty().getItem();
+        assertNotNull(routineItem.getParent());
+        assertTrue(routineItem.getParent().equals(folderItem));
+
+        // test manual deletion
+        IFile fileProperty;
+        IFile fileItem;
+        if ("".equals(path)) {
+            fileProperty = project.getFile(new Path(ERepositoryObjectType.getFolderName(ERepositoryObjectType.ROUTINES)
+                    + "/myTestRoutine_0.1.properties"));
+            fileItem = project.getFile(new Path(ERepositoryObjectType.getFolderName(ERepositoryObjectType.ROUTINES)
+                    + "/myTestRoutine_0.1.item"));
+        } else {
+            fileProperty = project.getFile(new Path(ERepositoryObjectType.getFolderName(ERepositoryObjectType.ROUTINES) + "/"
+                    + path + "/myTestRoutine_0.1.properties"));
+            fileItem = project.getFile(new Path(ERepositoryObjectType.getFolderName(ERepositoryObjectType.ROUTINES) + "/" + path
+                    + "/myTestRoutine_0.1.item"));
+        }
+        fileItem.delete(true, null);
+        fileProperty.delete(true, null);
+        serializableFromFolder = repositoryFactory.getSerializableFromFolder(sampleProject, fullFolder, "777",
+                ERepositoryObjectType.ROUTINES, true, true, true, false);
+        assertNotNull(serializableFromFolder);
+        assertTrue(serializableFromFolder.size() == 0);
+
+        // item has been deleted, so link to original folder should be null
+        assertNull(routineItem.getParent());
+
+        // ### END ### Test for routine
+    }
+
+    private void testGetSerializableProcess(LocalRepositoryFactory repositoryFactory, String path) throws PersistenceException,
+            CoreException {
+        // ### START ### Test for Job
+        // retrieve after create
+        ProcessItem pItem = createTempProcessItem(repositoryFactory, path);
+        String jobId = pItem.getProperty().getId();
+        Object fullFolder = getFullFolder(repositoryFactory, sampleProject, ERepositoryObjectType.PROCESS, "");
+        List<IRepositoryViewObject> serializableFromFolder = repositoryFactory.getSerializableFromFolder(sampleProject,
+                fullFolder, jobId, ERepositoryObjectType.PROCESS, true, true, true, false);
+        assertNotNull(serializableFromFolder);
+        assertTrue(serializableFromFolder.size() == 1);
+        IRepositoryViewObject rvo = serializableFromFolder.get(0);
+        assertTrue(((NodeType) ((ProcessItem) (serializableFromFolder.get(0).getProperty().getItem())).getProcess().getNode()
+                .get(0)).getComponentVersion().equals("0.1"));
+
+        // test if logical delete (can retrieve or not with flag)
+        repositoryFactory.deleteObjectLogical(sampleProject, rvo);
+        serializableFromFolder = repositoryFactory.getSerializableFromFolder(sampleProject, fullFolder, jobId,
+                ERepositoryObjectType.PROCESS, true, true, true, false);
+        assertNotNull(serializableFromFolder);
+        assertTrue(serializableFromFolder.size() == 1);
+        assertTrue(((NodeType) ((ProcessItem) (serializableFromFolder.get(0).getProperty().getItem())).getProcess().getNode()
+                .get(0)).getComponentVersion().equals("0.1"));
+
+        serializableFromFolder = repositoryFactory.getSerializableFromFolder(sampleProject, fullFolder, jobId,
+                ERepositoryObjectType.PROCESS, true, true, false, false);
+        assertNotNull(serializableFromFolder);
+        assertTrue(serializableFromFolder.size() == 0);
+
+        // test if physical delete
+        repositoryFactory.deleteObjectPhysical(sampleProject, rvo);
+        serializableFromFolder = repositoryFactory.getSerializableFromFolder(sampleProject, fullFolder, jobId,
+                ERepositoryObjectType.PROCESS, true, true, true, false);
+        assertNotNull(serializableFromFolder);
+        assertTrue(serializableFromFolder.size() == 0);
+
+        // test manual creation, check if can be retrieved.
+        ProcessItem processItem = PropertiesFactory.eINSTANCE.createProcessItem();
+        Property myProperty = PropertiesFactory.eINSTANCE.createProperty();
+        processItem.setProperty(myProperty);
+        myProperty.setLabel("myTestJob");
+        myProperty.setVersion("0.1");
+        processItem.getProperty().setId("666");
+        processItem.setState(PropertiesFactory.eINSTANCE.createItemState());
+        processItem.getState().setPath(path);
+
+        processItem.setProcess(TalendFileFactory.eINSTANCE.createProcessType());
+        processItem.getProcess().getNode().add(TalendFileFactory.eINSTANCE.createNodeType());
+        ((NodeType) processItem.getProcess().getNode().get(0)).setComponentName("test");
+        ((NodeType) processItem.getProcess().getNode().get(0)).setComponentVersion("0.1");
+
+        IProject project = ResourceModelUtils.getProject(sampleProject);
+        XmiResourceManager xrm = new XmiResourceManager();
+        Resource processItemResource = xrm.createItemResource(project, processItem, new Path(path),
+                ERepositoryObjectType.PROCESS, false);
+        Resource propertyResource = xrm.createPropertyResource(processItemResource);
+
+        propertyResource.getContents().add(processItem.getProperty());
+        propertyResource.getContents().add(processItem.getState());
+        propertyResource.getContents().add(processItem);
+
+        processItemResource.getContents().add(processItem.getProcess());
+        xrm.saveResource(processItemResource);
+        xrm.saveResource(propertyResource);
+        assertNull(processItem.getParent());
+        // unload the resource to be really the same as created from navigator or even SVN project.
+        xrm.unloadResources(processItem.getProperty());
+        serializableFromFolder = repositoryFactory.getSerializableFromFolder(sampleProject, fullFolder, "666",
+                ERepositoryObjectType.PROCESS, true, true, true, false);
+        assertNotNull(serializableFromFolder);
+        assertTrue(serializableFromFolder.size() == 1);
+        FolderItem folderItem = repositoryFactory.getFolderItem(sampleProject, ERepositoryObjectType.PROCESS, new Path(path));
+        processItem = (ProcessItem) serializableFromFolder.get(0).getProperty().getItem();
+        assertNotNull(processItem.getParent());
+        assertTrue(processItem.getParent().equals(folderItem));
+
+        // test manual deletion
+        IFile fileProperty;
+        IFile fileItem;
+        if ("".equals(path)) {
+            fileProperty = project.getFile(new Path(ERepositoryObjectType.getFolderName(ERepositoryObjectType.PROCESS)
+                    + "/myTestJob_0.1.properties"));
+            fileItem = project.getFile(new Path(ERepositoryObjectType.getFolderName(ERepositoryObjectType.PROCESS)
+                    + "/myTestJob_0.1.item"));
+        } else {
+            fileProperty = project.getFile(new Path(ERepositoryObjectType.getFolderName(ERepositoryObjectType.PROCESS) + "/"
+                    + path + "/myTestJob_0.1.properties"));
+            fileItem = project.getFile(new Path(ERepositoryObjectType.getFolderName(ERepositoryObjectType.PROCESS) + "/" + path
+                    + "/myTestJob_0.1.item"));
+        }
+        fileItem.delete(true, null);
+        fileProperty.delete(true, null);
+        serializableFromFolder = repositoryFactory.getSerializableFromFolder(sampleProject, fullFolder, "666",
+                ERepositoryObjectType.PROCESS, true, true, true, false);
+        assertNotNull(serializableFromFolder);
+        assertTrue(serializableFromFolder.size() == 0);
+
+        // item has been deleted, so link to original folder should be null
+        assertNull(processItem.getParent());
+
+        // ### END ### Test for Job
     }
 
     private Object getFullFolder(LocalRepositoryFactory repositoryFactory, Project project, ERepositoryObjectType itemType,
@@ -422,6 +674,7 @@ public class LocalRepositoryFactoryTest {
         repositoryFactory.create(sampleProject, processItem, new Path(""), false);
         final Property uptodateProperty = repositoryFactory.getUptodateProperty(sampleProject, property);
         assertNotNull(uptodateProperty);
+        assertNotNull(uptodateProperty.eResource());
         removeTempProject();
     }
 
@@ -521,12 +774,52 @@ public class LocalRepositoryFactoryTest {
         repositoryFactory.create(sampleProject, processItem, new Path(""), false);
         repositoryFactory.create(sampleProject, processItem2, new Path(""), false);
 
+        ProcessItem pItem = createTempProcessItem(repositoryFactory, "");
+        RoutineItem rItem = createTempRoutineItem(repositoryFactory, "");
+
         assertNotNull(processItem.eResource());
         assertNotNull(processItem2.eResource());
+        assertNotNull(pItem.eResource());
+        assertNotNull(rItem.eResource());
+        FolderItem parent = (FolderItem) pItem.getParent();
         ProxyRepositoryFactory.getInstance().setFullLogonFinished(true);
         repositoryFactory.unloadUnlockedResources();
         assertNull(processItem.eResource());
         assertNull(processItem2.eResource());
+        assertNull(pItem.eResource());
+        assertNull(rItem.eResource());
+        assertNull(pItem.getParent());
+        assertTrue(!parent.getChildren().contains(pItem));
+
+        pItem = (ProcessItem) repositoryFactory.getLastVersion(sampleProject, pItem.getProperty().getId()).getProperty()
+                .getItem();
+        rItem = (RoutineItem) repositoryFactory.getLastVersion(sampleProject, rItem.getProperty().getId()).getProperty()
+                .getItem();
+        assertNotNull(pItem.eResource());
+        assertNotNull(rItem.eResource());
+        assertTrue(((NodeType) (pItem).getProcess().getNode().get(0)).getComponentVersion().equals("0.1"));
+        String content = new String((rItem).getContent().getInnerContent());
+        assertTrue(content.equals("myRoutineContent"));
+
+        // ## test to modify after bug 16633 is updated
+        pItem.getState().setDeleted(true);
+        repositoryFactory.unloadUnlockedResources();
+        // unlocked resource kept in memory, and keep in folder
+        assertNotNull(pItem.getParent());
+        assertTrue(((FolderItem) pItem.getParent()).getChildren().contains(pItem));
+        // ## test to modify after bug 16633 is updated
+
+        pItem = (ProcessItem) repositoryFactory.getLastVersion(sampleProject, pItem.getProperty().getId()).getProperty()
+                .getItem();
+
+        // test locked item (keep in memory)
+        pItem.getState().setDeleted(false);
+        pItem.getState().setLocked(true);
+        repositoryFactory.unloadUnlockedResources();
+        assertNotNull(pItem.getParent());
+        assertTrue(((FolderItem) pItem.getParent()).getChildren().contains(pItem));
+        assertNotNull(pItem.eResource());
+
         removeTempProject();
     }
 
@@ -590,4 +883,460 @@ public class LocalRepositoryFactoryTest {
         assertTrue(instance != null);
     }
 
+    /**
+     * Test method for {@link
+     * org.talend.repository.localprovider.model.LocalRepositoryFactory#save((org.talend.core.model.general.Project,
+     * org.talend.core.model.properties.Item)} .
+     * 
+     * @throws PersistenceException
+     * @throws CoreException
+     * @throws LoginException
+     */
+    @Test
+    public void testSaveProjectItem() throws PersistenceException, CoreException, LoginException {
+        LocalRepositoryFactory repositoryFactory = new LocalRepositoryFactory();
+        createTempProject();
+        repositoryFactory.createUser(sampleProject);
+        repositoryFactory.logOnProject(sampleProject);
+
+        testProcesspropagateFileName(repositoryFactory, "");
+        testProcesspropagateFileName(repositoryFactory, "myFolder");
+
+        testRoutinepropagateFileName(repositoryFactory, "");
+        testRoutinepropagateFileName(repositoryFactory, "myFolder");
+        removeTempProject();
+    }
+
+    /**
+     * Test method for {@link
+     * org.talend.repository.localprovider.model.LocalRepositoryFactory#save((org.talend.core.model.general.Project,
+     * org.talend.core.model.properties.Property)} .
+     * 
+     * @throws PersistenceException
+     * @throws CoreException
+     * @throws LoginException
+     */
+    @Test
+    public void testSaveProjectProperty() throws PersistenceException, CoreException, LoginException {
+        LocalRepositoryFactory repositoryFactory = new LocalRepositoryFactory();
+        createTempProject();
+        repositoryFactory.createUser(sampleProject);
+        repositoryFactory.logOnProject(sampleProject);
+
+        testProcesspropagateFileName2(repositoryFactory, "");
+        testProcesspropagateFileName2(repositoryFactory, "myFolder");
+
+        testRoutinepropagateFileName2(repositoryFactory, "");
+        testRoutinepropagateFileName2(repositoryFactory, "myFolder");
+        removeTempProject();
+    }
+
+    private void testProcesspropagateFileName(LocalRepositoryFactory factory, String path) throws PersistenceException {
+        IProject project = ResourceModelUtils.getProject(sampleProject);
+        ProcessItem processItem = createTempProcessItem(factory, path);
+
+        String processId = processItem.getProperty().getId();
+        FolderItem folderItem = factory.getFolderItem(sampleProject, ERepositoryObjectType.PROCESS, new Path(path));
+        assertNotNull(processItem.getParent());
+        assertTrue(processItem.getParent().equals(folderItem));
+
+        // same name, same version, only change content:
+        ((NodeType) processItem.getProcess().getNode().get(0)).setComponentName("toto");
+        factory.save(sampleProject, processItem);
+        factory.unloadUnlockedResources();
+        processItem = (ProcessItem) factory.getLastVersion(sampleProject, processId).getProperty().getItem();
+        assertTrue(((NodeType) (processItem).getProcess().getNode().get(0)).getComponentName().equals("toto"));
+        folderItem = factory.getFolderItem(sampleProject, ERepositoryObjectType.PROCESS, new Path(path));
+        assertNotNull(processItem.getParent());
+        assertTrue(processItem.getParent().equals(folderItem));
+
+        // test 1 item, 1 version, change label only
+        processItem.getProperty().setLabel("myJob2");
+        checkFileExists(project, ERepositoryObjectType.PROCESS, path, "myJob", "0.1");
+        factory.save(sampleProject, processItem);
+        checkFileExists(project, ERepositoryObjectType.PROCESS, path, "myJob2", "0.1");
+        checkFileNotExists(project, ERepositoryObjectType.PROCESS, path, "myJob", "0.1");
+        folderItem = factory.getFolderItem(sampleProject, ERepositoryObjectType.PROCESS, new Path(path));
+        assertNotNull(processItem.getParent());
+        assertTrue(processItem.getParent().equals(folderItem));
+
+        // test 1 item, 1 version, change version only
+        processItem.getProperty().setVersion("0.2");
+        ((NodeType) processItem.getProcess().getNode().get(0)).setComponentVersion("0.2");
+        factory.save(sampleProject, processItem);
+        checkFileExists(project, ERepositoryObjectType.PROCESS, path, "myJob2", "0.1");
+        checkFileExists(project, ERepositoryObjectType.PROCESS, path, "myJob2", "0.2");
+
+        factory.unloadUnlockedResources();
+
+        List<IRepositoryViewObject> objects = factory.getAllVersion(sampleProject, processId, false);
+        for (IRepositoryViewObject object : objects) {
+            assertTrue(object instanceof RepositoryObject);
+            assertTrue(((NodeType) ((ProcessItem) object.getProperty().getItem()).getProcess().getNode().get(0))
+                    .getComponentVersion().equals(object.getProperty().getVersion()));
+            folderItem = factory.getFolderItem(sampleProject, ERepositoryObjectType.PROCESS, new Path(path));
+            assertNotNull(object.getProperty().getItem().getParent());
+            assertTrue(object.getProperty().getItem().getParent().equals(folderItem));
+        }
+
+        processItem = (ProcessItem) factory.getLastVersion(sampleProject, processId).getProperty().getItem();
+        folderItem = factory.getFolderItem(sampleProject, ERepositoryObjectType.PROCESS, new Path(path));
+        assertNotNull(processItem.getParent());
+        assertTrue(processItem.getParent().equals(folderItem));
+
+        // test 1 item, 2 version, change name only
+        processItem.getProperty().setLabel("myJob3");
+        factory.save(sampleProject, processItem);
+
+        checkFileExists(project, ERepositoryObjectType.PROCESS, path, "myJob3", "0.1");
+        checkFileExists(project, ERepositoryObjectType.PROCESS, path, "myJob3", "0.2");
+        checkFileNotExists(project, ERepositoryObjectType.PROCESS, path, "myJob2", "0.1");
+        checkFileNotExists(project, ERepositoryObjectType.PROCESS, path, "myJob2", "0.2");
+
+        // test 1 item, 2 version, change version
+        processItem.getProperty().setVersion("0.3");
+        ((NodeType) processItem.getProcess().getNode().get(0)).setComponentVersion("0.3");
+        factory.save(sampleProject, processItem);
+        checkFileExists(project, ERepositoryObjectType.PROCESS, path, "myJob3", "0.1");
+        checkFileExists(project, ERepositoryObjectType.PROCESS, path, "myJob3", "0.2");
+        checkFileExists(project, ERepositoryObjectType.PROCESS, path, "myJob3", "0.3");
+
+        factory.unloadUnlockedResources();
+
+        objects = factory.getAllVersion(sampleProject, processId, false);
+        for (IRepositoryViewObject object : objects) {
+            assertTrue(object instanceof RepositoryObject);
+            assertTrue(((NodeType) ((ProcessItem) object.getProperty().getItem()).getProcess().getNode().get(0))
+                    .getComponentVersion().equals(object.getProperty().getVersion()));
+            folderItem = factory.getFolderItem(sampleProject, ERepositoryObjectType.PROCESS, new Path(path));
+            assertNotNull(object.getProperty().getItem().getParent());
+            assertTrue(object.getProperty().getItem().getParent().equals(folderItem));
+        }
+
+        processItem = (ProcessItem) factory.getLastVersion(sampleProject, processId).getProperty().getItem();
+        folderItem = factory.getFolderItem(sampleProject, ERepositoryObjectType.PROCESS, new Path(path));
+        assertNotNull(processItem.getParent());
+        assertTrue(processItem.getParent().equals(folderItem));
+
+        // test 1 item, 3 version, change version and name
+        processItem.getProperty().setVersion("1.0");
+        processItem.getProperty().setLabel("myJob");
+        ((NodeType) processItem.getProcess().getNode().get(0)).setComponentVersion("1.0");
+        factory.save(sampleProject, processItem);
+        checkFileExists(project, ERepositoryObjectType.PROCESS, path, "myJob", "0.1");
+        checkFileExists(project, ERepositoryObjectType.PROCESS, path, "myJob", "0.2");
+        checkFileExists(project, ERepositoryObjectType.PROCESS, path, "myJob", "0.3");
+        checkFileExists(project, ERepositoryObjectType.PROCESS, path, "myJob", "1.0");
+        checkFileNotExists(project, ERepositoryObjectType.PROCESS, path, "myJob3", "0.1");
+        checkFileNotExists(project, ERepositoryObjectType.PROCESS, path, "myJob3", "0.2");
+        checkFileNotExists(project, ERepositoryObjectType.PROCESS, path, "myJob3", "0.3");
+
+        objects = factory.getAllVersion(sampleProject, processId, false);
+        for (IRepositoryViewObject object : objects) {
+            assertTrue(object instanceof RepositoryObject);
+            assertTrue(((NodeType) ((ProcessItem) object.getProperty().getItem()).getProcess().getNode().get(0))
+                    .getComponentVersion().equals(object.getProperty().getVersion()));
+            folderItem = factory.getFolderItem(sampleProject, ERepositoryObjectType.PROCESS, new Path(path));
+            assertNotNull(object.getProperty().getItem().getParent());
+            assertTrue(object.getProperty().getItem().getParent().equals(folderItem));
+        }
+
+        factory.deleteObjectPhysical(sampleProject, factory.getLastVersion(sampleProject, processId));
+    }
+
+    private void testRoutinepropagateFileName(LocalRepositoryFactory factory, String path) throws PersistenceException {
+        IProject project = ResourceModelUtils.getProject(sampleProject);
+        RoutineItem routineItem = createTempRoutineItem(factory, path);
+        FolderItem folderItem = factory.getFolderItem(sampleProject, ERepositoryObjectType.ROUTINES, new Path(path));
+        assertNotNull(routineItem.getParent());
+        assertTrue(routineItem.getParent().equals(folderItem));
+
+        String routineId = routineItem.getProperty().getId();
+
+        // same name, same version, only change content:
+        routineItem.getContent().setInnerContent("myRoutineContent_0.1".getBytes());
+        factory.save(sampleProject, routineItem);
+        factory.unloadUnlockedResources();
+        routineItem = (RoutineItem) factory.getLastVersion(sampleProject, routineId).getProperty().getItem();
+        String content = new String(routineItem.getContent().getInnerContent());
+        assertTrue(content.equals("myRoutineContent_0.1"));
+
+        // test 1 item, 1 version, change label only
+        routineItem.getProperty().setLabel("myRoutine2");
+        checkFileExists(project, ERepositoryObjectType.ROUTINES, path, "myRoutine", "0.1");
+        factory.save(sampleProject, routineItem);
+        checkFileExists(project, ERepositoryObjectType.ROUTINES, path, "myRoutine2", "0.1");
+        checkFileNotExists(project, ERepositoryObjectType.ROUTINES, path, "myRoutine", "0.1");
+
+        // test 1 item, 1 version, change version only
+        routineItem.getProperty().setVersion("0.2");
+        routineItem.getContent().setInnerContent("myRoutineContent_0.2".getBytes());
+        factory.save(sampleProject, routineItem);
+        checkFileExists(project, ERepositoryObjectType.ROUTINES, path, "myRoutine2", "0.1");
+        checkFileExists(project, ERepositoryObjectType.ROUTINES, path, "myRoutine2", "0.2");
+
+        factory.unloadUnlockedResources();
+
+        List<IRepositoryViewObject> objects = factory.getAllVersion(sampleProject, routineId, false);
+        for (IRepositoryViewObject object : objects) {
+            assertTrue(object instanceof RepositoryObject);
+            content = new String(((RoutineItem) object.getProperty().getItem()).getContent().getInnerContent());
+            assertTrue(content.equals("myRoutineContent_" + object.getProperty().getVersion()));
+            folderItem = factory.getFolderItem(sampleProject, ERepositoryObjectType.ROUTINES, new Path(path));
+            assertNotNull(object.getProperty().getItem().getParent());
+            assertTrue(object.getProperty().getItem().getParent().equals(folderItem));
+        }
+
+        routineItem = (RoutineItem) factory.getLastVersion(sampleProject, routineId).getProperty().getItem();
+        folderItem = factory.getFolderItem(sampleProject, ERepositoryObjectType.ROUTINES, new Path(path));
+        assertNotNull(routineItem.getParent());
+        assertTrue(routineItem.getParent().equals(folderItem));
+
+        // test 1 item, 2 version, change name only
+        routineItem.getProperty().setLabel("myRoutine3");
+        factory.save(sampleProject, routineItem);
+
+        checkFileExists(project, ERepositoryObjectType.ROUTINES, path, "myRoutine3", "0.1");
+        checkFileExists(project, ERepositoryObjectType.ROUTINES, path, "myRoutine3", "0.2");
+        checkFileNotExists(project, ERepositoryObjectType.ROUTINES, path, "myRoutine2", "0.1");
+        checkFileNotExists(project, ERepositoryObjectType.ROUTINES, path, "myRoutine2", "0.2");
+
+        // test 1 item, 2 version, change version
+        routineItem.getProperty().setVersion("0.3");
+        routineItem.getContent().setInnerContent("myRoutineContent_0.3".getBytes());
+        factory.save(sampleProject, routineItem);
+
+        checkFileExists(project, ERepositoryObjectType.ROUTINES, path, "myRoutine3", "0.1");
+        checkFileExists(project, ERepositoryObjectType.ROUTINES, path, "myRoutine3", "0.2");
+        checkFileExists(project, ERepositoryObjectType.ROUTINES, path, "myRoutine3", "0.3");
+
+        objects = factory.getAllVersion(sampleProject, routineId, false);
+        for (IRepositoryViewObject object : objects) {
+            assertTrue(object instanceof RepositoryObject);
+            content = new String(((RoutineItem) object.getProperty().getItem()).getContent().getInnerContent());
+            assertTrue(content.equals("myRoutineContent_" + object.getProperty().getVersion()));
+            folderItem = factory.getFolderItem(sampleProject, ERepositoryObjectType.ROUTINES, new Path(path));
+            assertNotNull(object.getProperty().getItem().getParent());
+            assertTrue(object.getProperty().getItem().getParent().equals(folderItem));
+        }
+
+        routineItem = (RoutineItem) factory.getLastVersion(sampleProject, routineId).getProperty().getItem();
+        folderItem = factory.getFolderItem(sampleProject, ERepositoryObjectType.ROUTINES, new Path(path));
+        assertNotNull(routineItem.getParent());
+        assertTrue(routineItem.getParent().equals(folderItem));
+
+        // test 1 item, 3 version, change version and name
+        routineItem.getProperty().setVersion("1.0");
+        routineItem.getProperty().setLabel("myRoutine");
+        routineItem.getContent().setInnerContent("myRoutineContent_1.0".getBytes());
+        factory.save(sampleProject, routineItem);
+        checkFileExists(project, ERepositoryObjectType.ROUTINES, path, "myRoutine", "0.1");
+        checkFileExists(project, ERepositoryObjectType.ROUTINES, path, "myRoutine", "0.2");
+        checkFileExists(project, ERepositoryObjectType.ROUTINES, path, "myRoutine", "0.3");
+        checkFileExists(project, ERepositoryObjectType.ROUTINES, path, "myRoutine", "1.0");
+        checkFileNotExists(project, ERepositoryObjectType.ROUTINES, path, "myRoutine3", "0.1");
+        checkFileNotExists(project, ERepositoryObjectType.ROUTINES, path, "myRoutine3", "0.2");
+        checkFileNotExists(project, ERepositoryObjectType.ROUTINES, path, "myRoutine3", "0.3");
+
+        objects = factory.getAllVersion(sampleProject, routineId, false);
+        for (IRepositoryViewObject object : objects) {
+            assertTrue(object instanceof RepositoryObject);
+            content = new String(((RoutineItem) object.getProperty().getItem()).getContent().getInnerContent());
+            assertTrue(content.equals("myRoutineContent_" + object.getProperty().getVersion()));
+            folderItem = factory.getFolderItem(sampleProject, ERepositoryObjectType.ROUTINES, new Path(path));
+            assertNotNull(object.getProperty().getItem().getParent());
+            assertTrue(object.getProperty().getItem().getParent().equals(folderItem));
+        }
+
+        factory.deleteObjectPhysical(sampleProject, factory.getLastVersion(sampleProject, routineId));
+    }
+
+    private void testProcesspropagateFileName2(LocalRepositoryFactory factory, String path) throws PersistenceException {
+        IProject project = ResourceModelUtils.getProject(sampleProject);
+        ProcessItem processItem = createTempProcessItem(factory, path);
+        FolderItem folderItem = factory.getFolderItem(sampleProject, ERepositoryObjectType.PROCESS, new Path(path));
+        assertNotNull(processItem.getParent());
+        assertTrue(processItem.getParent().equals(folderItem));
+
+        String processId = processItem.getProperty().getId();
+
+        // test 1 item, 1 version, change label only
+        processItem.getProperty().setLabel("myJob2");
+        checkFileExists(project, ERepositoryObjectType.PROCESS, path, "myJob", "0.1");
+        factory.save(sampleProject, processItem.getProperty());
+        checkFileExists(project, ERepositoryObjectType.PROCESS, path, "myJob2", "0.1");
+        checkFileNotExists(project, ERepositoryObjectType.PROCESS, path, "myJob", "0.1");
+
+        // test 1 item, 1 version, change version only
+        processItem.getProperty().setVersion("0.2");
+        factory.save(sampleProject, processItem.getProperty());
+        checkFileExists(project, ERepositoryObjectType.PROCESS, path, "myJob2", "0.1");
+        checkFileExists(project, ERepositoryObjectType.PROCESS, path, "myJob2", "0.2");
+
+        factory.unloadUnlockedResources();
+
+        List<IRepositoryViewObject> objects = factory.getAllVersion(sampleProject, processId, false);
+        assertTrue(objects.size() == 2);
+
+        processItem = (ProcessItem) factory.getLastVersion(sampleProject, processId).getProperty().getItem();
+        folderItem = factory.getFolderItem(sampleProject, ERepositoryObjectType.PROCESS, new Path(path));
+        assertNotNull(processItem.getParent());
+        assertTrue(processItem.getParent().equals(folderItem));
+
+        // test 1 item, 2 version, change name only
+        processItem.getProperty().setLabel("myJob3");
+        factory.save(sampleProject, processItem.getProperty());
+
+        checkFileExists(project, ERepositoryObjectType.PROCESS, path, "myJob3", "0.1");
+        checkFileExists(project, ERepositoryObjectType.PROCESS, path, "myJob3", "0.2");
+        checkFileNotExists(project, ERepositoryObjectType.PROCESS, path, "myJob2", "0.1");
+        checkFileNotExists(project, ERepositoryObjectType.PROCESS, path, "myJob2", "0.2");
+
+        // test 1 item, 2 version, change version
+        processItem.getProperty().setVersion("0.3");
+        factory.save(sampleProject, processItem.getProperty());
+        checkFileExists(project, ERepositoryObjectType.PROCESS, path, "myJob3", "0.1");
+        checkFileExists(project, ERepositoryObjectType.PROCESS, path, "myJob3", "0.2");
+        checkFileExists(project, ERepositoryObjectType.PROCESS, path, "myJob3", "0.3");
+
+        factory.unloadUnlockedResources();
+
+        objects = factory.getAllVersion(sampleProject, processId, false);
+        assertTrue(objects.size() == 3);
+
+        processItem = (ProcessItem) factory.getLastVersion(sampleProject, processId).getProperty().getItem();
+        folderItem = factory.getFolderItem(sampleProject, ERepositoryObjectType.PROCESS, new Path(path));
+        assertNotNull(processItem.getParent());
+        assertTrue(processItem.getParent().equals(folderItem));
+
+        // test 1 item, 3 version, change version and name
+        processItem.getProperty().setVersion("1.0");
+        processItem.getProperty().setLabel("myJob");
+        factory.save(sampleProject, processItem.getProperty());
+        checkFileExists(project, ERepositoryObjectType.PROCESS, path, "myJob", "0.1");
+        checkFileExists(project, ERepositoryObjectType.PROCESS, path, "myJob", "0.2");
+        checkFileExists(project, ERepositoryObjectType.PROCESS, path, "myJob", "0.3");
+        checkFileExists(project, ERepositoryObjectType.PROCESS, path, "myJob", "1.0");
+        checkFileNotExists(project, ERepositoryObjectType.PROCESS, path, "myJob3", "0.1");
+        checkFileNotExists(project, ERepositoryObjectType.PROCESS, path, "myJob3", "0.2");
+        checkFileNotExists(project, ERepositoryObjectType.PROCESS, path, "myJob3", "0.3");
+
+        objects = factory.getAllVersion(sampleProject, processId, false);
+        assertTrue(objects.size() == 4);
+
+        factory.deleteObjectPhysical(sampleProject, factory.getLastVersion(sampleProject, processId));
+    }
+
+    private void testRoutinepropagateFileName2(LocalRepositoryFactory factory, String path) throws PersistenceException {
+        IProject project = ResourceModelUtils.getProject(sampleProject);
+        RoutineItem routineItem = createTempRoutineItem(factory, path);
+        FolderItem folderItem = factory.getFolderItem(sampleProject, ERepositoryObjectType.ROUTINES, new Path(path));
+        assertNotNull(routineItem.getParent());
+        assertTrue(routineItem.getParent().equals(folderItem));
+
+        String routineId = routineItem.getProperty().getId();
+
+        // test 1 item, 1 version, change label only
+        routineItem.getProperty().setLabel("myRoutine2");
+        checkFileExists(project, ERepositoryObjectType.ROUTINES, path, "myRoutine", "0.1");
+        factory.save(sampleProject, routineItem.getProperty());
+        checkFileExists(project, ERepositoryObjectType.ROUTINES, path, "myRoutine2", "0.1");
+        checkFileNotExists(project, ERepositoryObjectType.ROUTINES, path, "myRoutine", "0.1");
+
+        // test 1 item, 1 version, change version only
+        routineItem.getProperty().setVersion("0.2");
+        factory.save(sampleProject, routineItem.getProperty());
+        checkFileExists(project, ERepositoryObjectType.ROUTINES, path, "myRoutine2", "0.1");
+        checkFileExists(project, ERepositoryObjectType.ROUTINES, path, "myRoutine2", "0.2");
+
+        factory.unloadUnlockedResources();
+
+        List<IRepositoryViewObject> objects = factory.getAllVersion(sampleProject, routineId, false);
+        assertTrue(objects.size() == 2);
+
+        routineItem = (RoutineItem) factory.getLastVersion(sampleProject, routineId).getProperty().getItem();
+        folderItem = factory.getFolderItem(sampleProject, ERepositoryObjectType.ROUTINES, new Path(path));
+        assertNotNull(routineItem.getParent());
+        assertTrue(routineItem.getParent().equals(folderItem));
+
+        // test 1 item, 2 version, change name only
+        routineItem.getProperty().setLabel("myRoutine3");
+        factory.save(sampleProject, routineItem.getProperty());
+
+        checkFileExists(project, ERepositoryObjectType.ROUTINES, path, "myRoutine3", "0.1");
+        checkFileExists(project, ERepositoryObjectType.ROUTINES, path, "myRoutine3", "0.2");
+        checkFileNotExists(project, ERepositoryObjectType.ROUTINES, path, "myRoutine2", "0.1");
+        checkFileNotExists(project, ERepositoryObjectType.ROUTINES, path, "myRoutine2", "0.2");
+
+        // test 1 item, 2 version, change version
+        routineItem.getProperty().setVersion("0.3");
+        factory.save(sampleProject, routineItem.getProperty());
+
+        checkFileExists(project, ERepositoryObjectType.ROUTINES, path, "myRoutine3", "0.1");
+        checkFileExists(project, ERepositoryObjectType.ROUTINES, path, "myRoutine3", "0.2");
+        checkFileExists(project, ERepositoryObjectType.ROUTINES, path, "myRoutine3", "0.3");
+
+        objects = factory.getAllVersion(sampleProject, routineId, false);
+        assertTrue(objects.size() == 3);
+
+        routineItem = (RoutineItem) factory.getLastVersion(sampleProject, routineId).getProperty().getItem();
+        folderItem = factory.getFolderItem(sampleProject, ERepositoryObjectType.ROUTINES, new Path(path));
+        assertNotNull(routineItem.getParent());
+        assertTrue(routineItem.getParent().equals(folderItem));
+
+        // test 1 item, 3 version, change version and name
+        routineItem.getProperty().setVersion("1.0");
+        routineItem.getProperty().setLabel("myRoutine");
+        factory.save(sampleProject, routineItem.getProperty());
+        checkFileExists(project, ERepositoryObjectType.ROUTINES, path, "myRoutine", "0.1");
+        checkFileExists(project, ERepositoryObjectType.ROUTINES, path, "myRoutine", "0.2");
+        checkFileExists(project, ERepositoryObjectType.ROUTINES, path, "myRoutine", "0.3");
+        checkFileExists(project, ERepositoryObjectType.ROUTINES, path, "myRoutine", "1.0");
+        checkFileNotExists(project, ERepositoryObjectType.ROUTINES, path, "myRoutine3", "0.1");
+        checkFileNotExists(project, ERepositoryObjectType.ROUTINES, path, "myRoutine3", "0.2");
+        checkFileNotExists(project, ERepositoryObjectType.ROUTINES, path, "myRoutine3", "0.3");
+
+        objects = factory.getAllVersion(sampleProject, routineId, false);
+        assertTrue(objects.size() == 4);
+
+        factory.deleteObjectPhysical(sampleProject, factory.getLastVersion(sampleProject, routineId));
+    }
+
+    private void checkFileExists(IProject project, ERepositoryObjectType type, String path, String name, String version) {
+        IFile fileProperty;
+        IFile fileItem;
+        if ("".equals(path)) {
+            fileProperty = project.getFile(new Path(ERepositoryObjectType.getFolderName(type) + "/" + name + "_" + version
+                    + ".properties"));
+            fileItem = project
+                    .getFile(new Path(ERepositoryObjectType.getFolderName(type) + "/" + name + "_" + version + ".item"));
+        } else {
+            fileProperty = project.getFile(new Path(ERepositoryObjectType.getFolderName(type) + "/" + path + "/" + name + "_"
+                    + version + ".properties"));
+            fileItem = project.getFile(new Path(ERepositoryObjectType.getFolderName(type) + "/" + path + "/" + name + "_"
+                    + version + ".item"));
+        }
+
+        assertTrue(fileProperty.exists());
+        assertTrue(fileItem.exists());
+    }
+
+    private void checkFileNotExists(IProject project, ERepositoryObjectType type, String path, String name, String version) {
+        IFile fileProperty;
+        IFile fileItem;
+        if ("".equals(path)) {
+            fileProperty = project.getFile(new Path(ERepositoryObjectType.getFolderName(type) + "/" + name + "_" + version
+                    + ".properties"));
+            fileItem = project
+                    .getFile(new Path(ERepositoryObjectType.getFolderName(type) + "/" + name + "_" + version + ".item"));
+        } else {
+            fileProperty = project.getFile(new Path(ERepositoryObjectType.getFolderName(type) + "/" + path + "/" + name + "_"
+                    + version + ".properties"));
+            fileItem = project.getFile(new Path(ERepositoryObjectType.getFolderName(type) + "/" + path + "/" + name + "_"
+                    + version + ".item"));
+        }
+
+        assertTrue(!fileProperty.exists());
+        assertTrue(!fileItem.exists());
+    }
 }
