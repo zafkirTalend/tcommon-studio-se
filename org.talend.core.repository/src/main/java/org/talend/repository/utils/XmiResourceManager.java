@@ -13,6 +13,7 @@
 package org.talend.repository.utils;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
@@ -25,6 +26,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -239,15 +241,37 @@ public class XmiResourceManager {
     }
 
     public List<Resource> getAffectedResources(Property property) {
-        EcoreUtil.resolveAll(property.getItem());
         List<Resource> resources = new ArrayList<Resource>();
-        Resource propertyResource = property.eResource();
-        URI itemResourceURI = getItemResourceURI(propertyResource.getURI());
-        Resource itemResource = resourceSet.getResource(itemResourceURI, true);
-        // MOD　by zshen to avoid property file be removed when chage connection.
-        resources.add(propertyResource);
-        resources.add(itemResource);
-
+        Iterator<EObject> i = property.getItem().eCrossReferences().iterator();
+        while (i.hasNext()) {
+            EObject object = i.next();
+            Resource currentResource = object.eResource();
+            if (!resources.contains(currentResource)) {
+                if (!currentResource.getURI().lastSegment().equals(getProjectFilename())) {
+                    resources.add(currentResource);
+                }
+                if (!resourceSet.getResources().contains(currentResource)) {
+                    resourceSet.getResources().add(currentResource);
+                }
+            }
+        }
+        i = property.getItem().eAllContents();
+        while (i.hasNext()) {
+            EObject object = i.next();
+            Iterator<EObject> j = object.eCrossReferences().iterator();
+            while (j.hasNext()) {
+                EObject childEObject = j.next();
+                Resource currentResource = childEObject.eResource();
+                if (!resources.contains(currentResource)) {
+                    if (!currentResource.getURI().lastSegment().equals(getProjectFilename())) {
+                        resources.add(currentResource);
+                    }
+                }
+                if (!resourceSet.getResources().contains(currentResource)) {
+                    resourceSet.getResources().add(currentResource);
+                }
+            }
+        }
         return resources;
     }
 
