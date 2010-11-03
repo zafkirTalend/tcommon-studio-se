@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package tosstudio.metadata.databaseoperation;
+package tosstudio.metadata.filemanipulation;
 
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
@@ -29,7 +29,7 @@ import org.talend.swtbot.TalendSwtBotForTos;
  * DOC Administrator class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class tMySQLInput extends TalendSwtBotForTos {
+public class tFileInputDelimited extends TalendSwtBotForTos {
 
     private static SWTBotTree tree;
 
@@ -41,21 +41,11 @@ public class tMySQLInput extends TalendSwtBotForTos {
 
     private static SWTBotGefEditor gefEditor;
 
-    private static String DBTYPE = "MySQL";
+    private static String FILENAME = "test_delimited";
 
-    private static String DBNAME = "test_mysql";
+    private static String FILEPATH = "E:/testdata/test1.csv";
 
-    private static String DBLOGIN = "root";
-
-    private static String DBPASSWORD = "123456";
-
-    private static String DBSERVER = "localhost";
-
-    private static String DB = "test";
-
-    private static String VERSION = "0.1";
-
-    private static String JOBNAME = "UsetMySQLInput";
+    private static String JOBNAME = "UsetFileInputDelimited";
 
     @Test
     public void createConnection() {
@@ -65,37 +55,17 @@ public class tMySQLInput extends TalendSwtBotForTos {
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
         tree.setFocus();
 
-        tree.expandNode("Metadata").getNode("Db Connections").contextMenu("Create connection").click();
-        gefBot.waitUntil(Conditions.shellIsActive("Database Connection"));
-        gefBot.shell("Database Connection").activate();
+        tree.expandNode("Metadata").getNode("File delimited").contextMenu("Create file delimited").click();
+        gefBot.waitUntil(Conditions.shellIsActive("New Delimited File"));
+        gefBot.shell("New Delimited File").activate();
 
-        gefBot.textWithLabel("Name").setText(DBNAME);
+        gefBot.textWithLabel("Name").setText(FILENAME);
         gefBot.button("Next >").click();
-        gefBot.comboBox(0).setSelection(DBTYPE);
-        gefBot.textWithLabel("Login").setText(DBLOGIN);
-        gefBot.textWithLabel("Password").setText(DBPASSWORD);
-        gefBot.textWithLabel("Server").setText(DBSERVER);
-        gefBot.textWithLabel("DataBase").setText(DB);
-        gefBot.button("Check").click();
-
-        gefBot.waitUntil(Conditions.shellIsActive("Check Connection"));
-        shell = gefBot.shell("Check Connection");
-        shell.activate();
-        gefBot.button("OK").click();
-        gefBot.waitUntil(Conditions.shellCloses(shell));
-
-        gefBot.button("Finish").click();
-    }
-
-    @Test
-    public void retrieveSchema() {
-        tree.expandNode("Metadata", "Db Connections").getNode(DBNAME + " " + VERSION).contextMenu("Retrieve Schema").click();
-
-        gefBot.waitUntil(Conditions.shellIsActive("Schema"));
-        shell = gefBot.shell("Schema");
-        shell.activate();
+        gefBot.textWithLabel("File").setText(FILEPATH);
+        gefBot.comboBoxWithLabel("Format").setSelection("WINDOWS");
         gefBot.button("Next >").click();
-        gefBot.table(0).getTableItem(0).check();
+        while (!"Refresh Preview".equals(gefBot.button(0).getText())) {
+        }
         gefBot.button("Next >").click();
         gefBot.button("Finish").click();
     }
@@ -119,15 +89,14 @@ public class tMySQLInput extends TalendSwtBotForTos {
         botEditor = gefBot.activeEditor();
         gefEditor = gefBot.gefEditor(botEditor.getTitle());
 
-        gefEditor.activateTool("tMysqlInput");
+        gefEditor.activateTool("tFileInputDelimited");
         gefEditor.click(100, 100);
         gefEditor.activateTool("tLogRow");
         gefEditor.click(300, 100);
 
         gefEditor.doubleClick(110, 110);
         gefBot.viewByTitle("Component").setFocus();
-        gefBot.ccomboBox(0).setSelection("Repository");
-        gefBot.button("Guess Query").click();
+        gefBot.comboBox(0).setSelection("Repository");
 
         /* link two component */
         gefEditor.click(110, 110);
