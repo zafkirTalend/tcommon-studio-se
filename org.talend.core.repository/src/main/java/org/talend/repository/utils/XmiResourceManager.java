@@ -246,6 +246,10 @@ public class XmiResourceManager {
         while (i.hasNext()) {
             EObject object = i.next();
             Resource currentResource = object.eResource();
+            if (currentResource == null) {
+                // only for invalid items !!
+                continue;
+            }
             if (!resources.contains(currentResource)) {
                 if (!currentResource.getURI().lastSegment().equals(getProjectFilename())) {
                     resources.add(currentResource);
@@ -262,6 +266,10 @@ public class XmiResourceManager {
             while (j.hasNext()) {
                 EObject childEObject = j.next();
                 Resource currentResource = childEObject.eResource();
+                if (currentResource == null) {
+                    // only for invalid items !!
+                    continue;
+                }
                 if (!resources.contains(currentResource)) {
                     if (!currentResource.getURI().lastSegment().equals(getProjectFilename())) {
                         resources.add(currentResource);
