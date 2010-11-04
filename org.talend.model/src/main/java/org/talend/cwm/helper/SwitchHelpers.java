@@ -216,6 +216,14 @@ public final class SwitchHelpers {
         public Connection caseConnection(Connection object) {
             return object;
         }
+
+        public Connection caseDatabaseConnection(DatabaseConnection object) {
+            return object;
+        };
+
+        public Connection caseMDMConnection(MDMConnection object) {
+            return object;
+        };
     };
 
     public static final ConnectionSwitch<DatabaseConnection> DATABASECONNECTION_SWITCH = new ConnectionSwitch<DatabaseConnection>() {

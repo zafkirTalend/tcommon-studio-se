@@ -34,6 +34,7 @@ import org.talend.cwm.xml.TdXmlElementType;
 import org.talend.cwm.xml.TdXmlSchema;
 import org.talend.utils.security.CryptoHelper;
 import orgomg.cwm.foundation.softwaredeployment.Component;
+import orgomg.cwm.foundation.softwaredeployment.DataManager;
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.Namespace;
 import orgomg.cwm.objectmodel.core.Package;
@@ -342,6 +343,17 @@ public class ConnectionHelper {
     // MOD mzhao feature 10238
     public static boolean addXMLDocuments(Collection<TdXmlSchema> xmlDocuments, Connection dataProvider) {
         return addPackages(xmlDocuments, dataProvider);
+    }
+
+    // MOD bzhou bug 16715
+    public static boolean addXMLDocuments(Collection<TdXmlSchema> xmlDocuments) {
+        TdXmlSchema xmlSchema = xmlDocuments.iterator().next();
+        DataManager dataManager = xmlSchema.getDataManager().get(0);
+        if (dataManager != null) {
+            return addPackages(xmlDocuments, (Connection) dataManager);
+        }
+
+        return false;
     }
 
     public static TdSoftwareSystem getSoftwareSystem(Connection dataProvider) {
