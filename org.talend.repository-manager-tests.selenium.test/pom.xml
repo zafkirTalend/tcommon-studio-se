@@ -1,0 +1,134 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>repositorymanager-assembly</groupId>
+		<artifactId>repositorymanager-assembly</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<groupId>repositorymanager-tests</groupId>
+	<artifactId>repositorymanager-tests</artifactId>
+	<packaging>pom</packaging>
+
+	<properties>
+		<selenium.background>true</selenium.background>
+		<repositorymanager.wait>false</repositorymanager.wait>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.openqa.selenium</groupId>
+			<artifactId>selenium-rc</artifactId>
+			<version>1.0-20081010.060147</version>
+			<type>pom</type>
+		</dependency>
+
+		<dependency>
+			<groupId>org.seleniumhq.selenium.client-drivers</groupId>
+			<artifactId>selenium-java-client-driver</artifactId>
+			<version>1.0.2</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.4</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<testSourceDirectory>src/main/java</testSourceDirectory>
+		<plugins>
+
+			<!-- JUnit Compilation -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.5</source>
+					<target>1.5</target>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>testCompile</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Junit Tests -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>integration-test</phase>
+						<goals>
+							<goal>test</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Cargo -->
+			<plugin>
+				<groupId>org.codehaus.cargo</groupId>
+				<artifactId>cargo-maven2-plugin</artifactId>
+				<version>1.0.2</version>
+				<executions>
+					<execution>
+						<id>start-container</id>
+						<phase>pre-integration-test</phase>
+						<goals>					
+							<goal>start</goal>						
+							<goal>deployer-deploy</goal>	
+						</goals>
+						<configuration>
+							<wait>${repositorymanager.wait}</wait>
+						</configuration>
+					</execution>
+					<execution>
+						<id>stop-container</id>
+						<phase>post-integration-test</phase>
+						<goals>
+							<goal>stop</goal>						
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Selenium management -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>selenium-maven-plugin</artifactId>
+				<version>1.0.1</version>
+				<executions>
+					<execution>
+						<id>start-selenium</id>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>start-server</goal>
+						</goals>
+						<configuration>
+							<background>${selenium.background}</background>
+							<logOutput>true</logOutput>
+						</configuration>
+					</execution>
+					<execution>
+						<id>stop-selenium</id>
+						<phase>post-integration-test</phase>
+						<goals>
+							<goal>stop-server</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+
+	</build>
+</project>
