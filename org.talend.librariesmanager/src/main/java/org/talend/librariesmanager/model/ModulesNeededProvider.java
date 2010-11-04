@@ -221,11 +221,12 @@ public class ModulesNeededProvider {
                         .getRoutinesParameter()) {
 
                     Property property = findRoutinesPropery(infor.getId(), infor.getName());
-                    if (((RoutineItem) property.getItem()).isBuiltIn()) {
-                        systemRoutines.add(infor.getId());
-                    } else {
-                        userRoutines.add(infor.getId());
-                    }
+                    if (property != null)
+                        if (((RoutineItem) property.getItem()).isBuiltIn()) {
+                            systemRoutines.add(infor.getId());
+                        } else {
+                            userRoutines.add(infor.getId());
+                        }
 
                 }
             }

@@ -183,17 +183,19 @@ public final class CodeGeneratorRoutine {
                     EList routinesDependencies = ((ProcessItem) processItem).getProcess().getParameters().getRoutinesParameter();
                     for (RoutinesParameterType infor : (List<RoutinesParameterType>) routinesDependencies) {
                         Property property = findRoutinesPropery(infor.getId(), infor.getName());
-                        if (((RoutineItem) property.getItem()).isBuiltIn()) {
-                            routines.add(getRoutineStr(currentProject, infor.getName(), true));
-                        } else {
-                            String id = infor.getId();
-                            IRepositoryViewObject lastVersion = proxyRepositoryFactory.getLastVersion(id);
-                            if (lastVersion != null) {
-                                Item item = lastVersion.getProperty().getItem();
-                                if (item instanceof RoutineItem) {
-                                    String routineStr = getRoutineStr(currentProject, (RoutineItem) item);
-                                    if (routineStr != null) {
-                                        routines.add(routineStr);
+                        if (property != null) {
+                            if (((RoutineItem) property.getItem()).isBuiltIn()) {
+                                routines.add(getRoutineStr(currentProject, infor.getName(), true));
+                            } else {
+                                String id = infor.getId();
+                                IRepositoryViewObject lastVersion = proxyRepositoryFactory.getLastVersion(id);
+                                if (lastVersion != null) {
+                                    Item item = lastVersion.getProperty().getItem();
+                                    if (item instanceof RoutineItem) {
+                                        String routineStr = getRoutineStr(currentProject, (RoutineItem) item);
+                                        if (routineStr != null) {
+                                            routines.add(routineStr);
+                                        }
                                     }
                                 }
                             }
