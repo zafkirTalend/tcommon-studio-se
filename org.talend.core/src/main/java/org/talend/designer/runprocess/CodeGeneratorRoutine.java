@@ -33,12 +33,14 @@ import org.talend.core.model.properties.InformationLevel;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.ProjectReference;
+import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.properties.impl.ProjectReferenceImpl;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
-import org.talend.designer.core.model.utils.emf.talendfile.ItemInforType;
+import org.talend.designer.core.model.utils.emf.talendfile.RoutinesParameterType;
 import org.talend.repository.ProjectManager;
+import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
 
 /**
@@ -178,12 +180,13 @@ public final class CodeGeneratorRoutine {
             if (process instanceof IProcess2) { // for process
                 Item processItem = process.getProperty().getItem();
                 if (processItem instanceof ProcessItem) {
-                    EList routinesDependencies = ((ProcessItem) processItem).getProcess().getRoutinesDependencies();
-                    for (ItemInforType infor : (List<ItemInforType>) routinesDependencies) {
-                        if (infor.isSystem()) {
-                            routines.add(getRoutineStr(currentProject, infor.getIdOrName(), true));
+                    EList routinesDependencies = ((ProcessItem) processItem).getProcess().getParameters().getRoutinesParameter();
+                    for (RoutinesParameterType infor : (List<RoutinesParameterType>) routinesDependencies) {
+                        Property property = findRoutinesPropery(infor.getId(), infor.getName());
+                        if (((RoutineItem) property.getItem()).isBuiltIn()) {
+                            routines.add(getRoutineStr(currentProject, infor.getName(), true));
                         } else {
-                            String id = infor.getIdOrName();
+                            String id = infor.getId();
                             IRepositoryViewObject lastVersion = proxyRepositoryFactory.getLastVersion(id);
                             if (lastVersion != null) {
                                 Item item = lastVersion.getProperty().getItem();
@@ -208,6 +211,43 @@ public final class CodeGeneratorRoutine {
             ExceptionHandler.process(e);
         }
         return routines;
+    }
+
+    private static Property findRoutinesPropery(String id, String name) {
+        IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
+        try {
+            List<IRepositoryViewObject> routines = repositoryFactory.getAll(ERepositoryObjectType.ROUTINES, true);
+            // getRefRoutines(routines, ProjectManager.getInstance().getCurrentProject().getEmfProject());
+            for (IRepositoryViewObject current : routines) {
+                if (repositoryFactory.getStatus(current) != ERepositoryStatus.DELETED) {
+                    Item item = current.getProperty().getItem();
+                    RoutineItem routine = (RoutineItem) item;
+                    Property property = routine.getProperty();
+                    if (property.getId().equals(id) || property.getLabel().equals(name)) {
+                        return property;
+                    }
+                }
+            }
+        } catch (PersistenceException e) {
+            ExceptionHandler.process(e);
+        }
+        return null;
+    }
+
+    private static void getRefRoutines(List<IRepositoryViewObject> routines, org.talend.core.model.properties.Project mainProject) {
+        IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
+        try {
+            if (mainProject.getReferencedProjects() != null) {
+                for (ProjectReference reference : (List<ProjectReference>) mainProject.getReferencedProjects()) {
+                    final org.talend.core.model.properties.Project referencedProject = reference.getReferencedProject();
+                    routines.addAll(repositoryFactory
+                            .getAll(new Project(referencedProject), ERepositoryObjectType.ROUTINES, true));
+                    getRefRoutines(routines, referencedProject);
+                }
+            }
+        } catch (PersistenceException e) {
+            ExceptionHandler.process(e);
+        }
     }
 
     /**

@@ -39,8 +39,8 @@ import org.talend.core.ui.IJobletProviderService;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
-import org.talend.designer.core.model.utils.emf.talendfile.ItemInforType;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
+import org.talend.designer.core.model.utils.emf.talendfile.RoutinesParameterType;
 import org.talend.designer.runprocess.ItemCacheManager;
 import org.talend.repository.model.IProxyRepositoryFactory;
 
@@ -430,18 +430,19 @@ public final class ProcessUtils {
         }
         for (Item item : items) {
             if (item instanceof ProcessItem) {
-                for (ItemInforType infor : (List<ItemInforType>) ((ProcessItem) item).getProcess().getRoutinesDependencies()) {
+                for (RoutinesParameterType infor : (List<RoutinesParameterType>) ((ProcessItem) item).getProcess()
+                        .getParameters().getRoutinesParameter()) {
                     // no need system item
-                    if (infor.isSystem() && withSystem && systemRoutines != null) {
+                    if (withSystem && systemRoutines != null) {
                         for (IRepositoryViewObject obj : systemRoutines) {
-                            if (obj.getLabel().equals(infor.getIdOrName())) {
+                            if (obj.getLabel().equals(infor.getName()) && obj.getId().equals(infor.getId())) {
                                 repositoryObjects.add(obj);
                                 break;
                             }
                         }
                     } else {
                         try {
-                            IRepositoryViewObject lastVersion = factory.getLastVersion(infor.getIdOrName());
+                            IRepositoryViewObject lastVersion = factory.getLastVersion(infor.getId());
                             if (lastVersion != null) {
                                 repositoryObjects.add(lastVersion);
                             }

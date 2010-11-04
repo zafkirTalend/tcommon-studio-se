@@ -130,6 +130,7 @@
     </genClasses>
     <genClasses ecoreClass="TalendFile.ecore#//ParametersType">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TalendFile.ecore#//ParametersType/elementParameter"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference TalendFile.ecore#//ParametersType/routinesParameter"/>
     </genClasses>
     <genClasses ecoreClass="TalendFile.ecore#//ProcessType">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//ProcessType/description"/>
@@ -161,6 +162,11 @@
     <genClasses ecoreClass="TalendFile.ecore#//ItemInforType">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//ItemInforType/idOrName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//ItemInforType/system"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="TalendFile.ecore#//AbstractExternalData"/>
+    <genClasses ecoreClass="TalendFile.ecore#//RoutinesParameterType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//RoutinesParameterType/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//RoutinesParameterType/name"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

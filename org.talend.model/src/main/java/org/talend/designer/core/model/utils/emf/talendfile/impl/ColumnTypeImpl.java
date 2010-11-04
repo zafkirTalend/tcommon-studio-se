@@ -17,31 +17,28 @@ import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#getComment <em>Comment</em>}</li>
- * <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#getDefaultValue <em>Default Value
- * </em>}</li>
- * <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#isKey <em>Key</em>}</li>
- * <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#getLength <em>Length</em>}</li>
- * <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#getName <em>Name</em>}</li>
- * <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#isNullable <em>Nullable</em>}</li>
- * <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#getOriginalDbColumnName <em>
- * Original Db Column Name</em>}</li>
- * <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#getPattern <em>Pattern</em>}</li>
- * <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#getPrecision <em>Precision</em>}</li>
- * <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#getSourceType <em>Source Type
- * </em>}</li>
- * <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#getType <em>Type</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#getComment <em>Comment</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#getDefaultValue <em>Default Value</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#isKey <em>Key</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#getLength <em>Length</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#isNullable <em>Nullable</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#getOriginalDbColumnName <em>Original Db Column Name</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#getPattern <em>Pattern</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#getPrecision <em>Precision</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#getSourceType <em>Source Type</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#getType <em>Type</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
 
     /**
-     * The default value of the '{@link #getComment() <em>Comment</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getComment() <em>Comment</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getComment()
      * @generated
      * @ordered
@@ -49,9 +46,9 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
     protected static final String COMMENT_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getComment() <em>Comment</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getComment() <em>Comment</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getComment()
      * @generated
      * @ordered
@@ -59,9 +56,9 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
     protected String comment = COMMENT_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getDefaultValue() <em>Default Value</em>}' attribute. <!-- begin-user-doc -->
+     * The default value of the '{@link #getDefaultValue() <em>Default Value</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
      * @see #getDefaultValue()
      * @generated
      * @ordered
@@ -69,9 +66,9 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
     protected static final String DEFAULT_VALUE_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getDefaultValue() <em>Default Value</em>}' attribute. <!-- begin-user-doc -->
+     * The cached value of the '{@link #getDefaultValue() <em>Default Value</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
      * @see #getDefaultValue()
      * @generated
      * @ordered
@@ -79,8 +76,8 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
     protected String defaultValue = DEFAULT_VALUE_EDEFAULT;
 
     /**
-     * The default value of the '{@link #isKey() <em>Key</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * The default value of the '{@link #isKey() <em>Key</em>}' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #isKey()
      * @generated
      * @ordered
@@ -88,8 +85,8 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
     protected static final boolean KEY_EDEFAULT = false;
 
     /**
-     * The cached value of the '{@link #isKey() <em>Key</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * The cached value of the '{@link #isKey() <em>Key</em>}' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #isKey()
      * @generated
      * @ordered
@@ -97,17 +94,17 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
     protected boolean key = KEY_EDEFAULT;
 
     /**
-     * This is true if the Key attribute has been set. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * This is true if the Key attribute has been set.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     protected boolean keyESet;
 
     /**
-     * The default value of the '{@link #getLength() <em>Length</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getLength() <em>Length</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getLength()
      * @generated
      * @ordered
@@ -115,9 +112,9 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
     protected static final int LENGTH_EDEFAULT = 0;
 
     /**
-     * The cached value of the '{@link #getLength() <em>Length</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getLength() <em>Length</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getLength()
      * @generated
      * @ordered
@@ -125,8 +122,8 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
     protected int length = LENGTH_EDEFAULT;
 
     /**
-     * This is true if the Length attribute has been set. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * This is true if the Length attribute has been set.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -153,9 +150,9 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
     protected String name = NAME_EDEFAULT;
 
     /**
-     * The default value of the '{@link #isNullable() <em>Nullable</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #isNullable() <em>Nullable</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #isNullable()
      * @generated
      * @ordered
@@ -163,9 +160,9 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
     protected static final boolean NULLABLE_EDEFAULT = false;
 
     /**
-     * The cached value of the '{@link #isNullable() <em>Nullable</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #isNullable() <em>Nullable</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #isNullable()
      * @generated
      * @ordered
@@ -173,8 +170,8 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
     protected boolean nullable = NULLABLE_EDEFAULT;
 
     /**
-     * This is true if the Nullable attribute has been set. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * This is true if the Nullable attribute has been set.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -201,9 +198,9 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
     protected String originalDbColumnName = ORIGINAL_DB_COLUMN_NAME_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getPattern() <em>Pattern</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getPattern() <em>Pattern</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getPattern()
      * @generated
      * @ordered
@@ -211,9 +208,9 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
     protected static final String PATTERN_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getPattern() <em>Pattern</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getPattern() <em>Pattern</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getPattern()
      * @generated
      * @ordered
@@ -221,9 +218,9 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
     protected String pattern = PATTERN_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getPrecision() <em>Precision</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getPrecision() <em>Precision</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getPrecision()
      * @generated
      * @ordered
@@ -231,9 +228,9 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
     protected static final int PRECISION_EDEFAULT = 0;
 
     /**
-     * The cached value of the '{@link #getPrecision() <em>Precision</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getPrecision() <em>Precision</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getPrecision()
      * @generated
      * @ordered
@@ -241,17 +238,17 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
     protected int precision = PRECISION_EDEFAULT;
 
     /**
-     * This is true if the Precision attribute has been set. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * This is true if the Precision attribute has been set.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     protected boolean precisionESet;
 
     /**
-     * The default value of the '{@link #getSourceType() <em>Source Type</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getSourceType() <em>Source Type</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getSourceType()
      * @generated
      * @ordered
@@ -259,9 +256,9 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
     protected static final String SOURCE_TYPE_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getSourceType() <em>Source Type</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getSourceType() <em>Source Type</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getSourceType()
      * @generated
      * @ordered
@@ -290,16 +287,14 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
-    public ColumnTypeImpl() {
+    protected ColumnTypeImpl() {
         super();
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     protected EClass eStaticClass() {
@@ -308,7 +303,6 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getComment() {
@@ -317,7 +311,6 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setComment(String newComment) {
@@ -329,7 +322,6 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getDefaultValue() {
@@ -338,20 +330,17 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setDefaultValue(String newDefaultValue) {
         String oldDefaultValue = defaultValue;
         defaultValue = newDefaultValue;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.COLUMN_TYPE__DEFAULT_VALUE, oldDefaultValue,
-                    defaultValue));
+            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.COLUMN_TYPE__DEFAULT_VALUE, oldDefaultValue, defaultValue));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public boolean isKey() {
@@ -360,7 +349,6 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setKey(boolean newKey) {
@@ -374,7 +362,6 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void unsetKey() {
@@ -383,13 +370,11 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
         key = KEY_EDEFAULT;
         keyESet = false;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.UNSET, TalendFilePackage.COLUMN_TYPE__KEY, oldKey, KEY_EDEFAULT,
-                    oldKeyESet));
+            eNotify(new ENotificationImpl(this, Notification.UNSET, TalendFilePackage.COLUMN_TYPE__KEY, oldKey, KEY_EDEFAULT, oldKeyESet));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public boolean isSetKey() {
@@ -398,7 +383,6 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public int getLength() {
@@ -407,7 +391,6 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setLength(int newLength) {
@@ -416,13 +399,11 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
         boolean oldLengthESet = lengthESet;
         lengthESet = true;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.COLUMN_TYPE__LENGTH, oldLength, length,
-                    !oldLengthESet));
+            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.COLUMN_TYPE__LENGTH, oldLength, length, !oldLengthESet));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void unsetLength() {
@@ -431,13 +412,11 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
         length = LENGTH_EDEFAULT;
         lengthESet = false;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.UNSET, TalendFilePackage.COLUMN_TYPE__LENGTH, oldLength,
-                    LENGTH_EDEFAULT, oldLengthESet));
+            eNotify(new ENotificationImpl(this, Notification.UNSET, TalendFilePackage.COLUMN_TYPE__LENGTH, oldLength, LENGTH_EDEFAULT, oldLengthESet));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public boolean isSetLength() {
@@ -446,7 +425,6 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getName() {
@@ -455,7 +433,6 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setName(String newName) {
@@ -467,7 +444,6 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public boolean isNullable() {
@@ -476,7 +452,6 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setNullable(boolean newNullable) {
@@ -485,13 +460,11 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
         boolean oldNullableESet = nullableESet;
         nullableESet = true;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.COLUMN_TYPE__NULLABLE, oldNullable, nullable,
-                    !oldNullableESet));
+            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.COLUMN_TYPE__NULLABLE, oldNullable, nullable, !oldNullableESet));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void unsetNullable() {
@@ -500,13 +473,11 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
         nullable = NULLABLE_EDEFAULT;
         nullableESet = false;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.UNSET, TalendFilePackage.COLUMN_TYPE__NULLABLE, oldNullable,
-                    NULLABLE_EDEFAULT, oldNullableESet));
+            eNotify(new ENotificationImpl(this, Notification.UNSET, TalendFilePackage.COLUMN_TYPE__NULLABLE, oldNullable, NULLABLE_EDEFAULT, oldNullableESet));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public boolean isSetNullable() {
@@ -515,7 +486,6 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getOriginalDbColumnName() {
@@ -524,20 +494,17 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setOriginalDbColumnName(String newOriginalDbColumnName) {
         String oldOriginalDbColumnName = originalDbColumnName;
         originalDbColumnName = newOriginalDbColumnName;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.COLUMN_TYPE__ORIGINAL_DB_COLUMN_NAME,
-                    oldOriginalDbColumnName, originalDbColumnName));
+            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.COLUMN_TYPE__ORIGINAL_DB_COLUMN_NAME, oldOriginalDbColumnName, originalDbColumnName));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getPattern() {
@@ -546,7 +513,6 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setPattern(String newPattern) {
@@ -558,7 +524,6 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public int getPrecision() {
@@ -567,7 +532,6 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setPrecision(int newPrecision) {
@@ -576,13 +540,11 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
         boolean oldPrecisionESet = precisionESet;
         precisionESet = true;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.COLUMN_TYPE__PRECISION, oldPrecision,
-                    precision, !oldPrecisionESet));
+            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.COLUMN_TYPE__PRECISION, oldPrecision, precision, !oldPrecisionESet));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void unsetPrecision() {
@@ -591,13 +553,11 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
         precision = PRECISION_EDEFAULT;
         precisionESet = false;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.UNSET, TalendFilePackage.COLUMN_TYPE__PRECISION, oldPrecision,
-                    PRECISION_EDEFAULT, oldPrecisionESet));
+            eNotify(new ENotificationImpl(this, Notification.UNSET, TalendFilePackage.COLUMN_TYPE__PRECISION, oldPrecision, PRECISION_EDEFAULT, oldPrecisionESet));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public boolean isSetPrecision() {
@@ -606,7 +566,6 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getSourceType() {
@@ -615,20 +574,17 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setSourceType(String newSourceType) {
         String oldSourceType = sourceType;
         sourceType = newSourceType;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.COLUMN_TYPE__SOURCE_TYPE, oldSourceType,
-                    sourceType));
+            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.COLUMN_TYPE__SOURCE_TYPE, oldSourceType, sourceType));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getType() {
@@ -637,7 +593,6 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setType(String newType) {
@@ -649,167 +604,160 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-        case TalendFilePackage.COLUMN_TYPE__COMMENT:
-            return getComment();
-        case TalendFilePackage.COLUMN_TYPE__DEFAULT_VALUE:
-            return getDefaultValue();
-        case TalendFilePackage.COLUMN_TYPE__KEY:
-            return isKey() ? Boolean.TRUE : Boolean.FALSE;
-        case TalendFilePackage.COLUMN_TYPE__LENGTH:
-            return new Integer(getLength());
-        case TalendFilePackage.COLUMN_TYPE__NAME:
-            return getName();
-        case TalendFilePackage.COLUMN_TYPE__NULLABLE:
-            return isNullable() ? Boolean.TRUE : Boolean.FALSE;
-        case TalendFilePackage.COLUMN_TYPE__ORIGINAL_DB_COLUMN_NAME:
-            return getOriginalDbColumnName();
-        case TalendFilePackage.COLUMN_TYPE__PATTERN:
-            return getPattern();
-        case TalendFilePackage.COLUMN_TYPE__PRECISION:
-            return new Integer(getPrecision());
-        case TalendFilePackage.COLUMN_TYPE__SOURCE_TYPE:
-            return getSourceType();
-        case TalendFilePackage.COLUMN_TYPE__TYPE:
-            return getType();
+            case TalendFilePackage.COLUMN_TYPE__COMMENT:
+                return getComment();
+            case TalendFilePackage.COLUMN_TYPE__DEFAULT_VALUE:
+                return getDefaultValue();
+            case TalendFilePackage.COLUMN_TYPE__KEY:
+                return isKey() ? Boolean.TRUE : Boolean.FALSE;
+            case TalendFilePackage.COLUMN_TYPE__LENGTH:
+                return new Integer(getLength());
+            case TalendFilePackage.COLUMN_TYPE__NAME:
+                return getName();
+            case TalendFilePackage.COLUMN_TYPE__NULLABLE:
+                return isNullable() ? Boolean.TRUE : Boolean.FALSE;
+            case TalendFilePackage.COLUMN_TYPE__ORIGINAL_DB_COLUMN_NAME:
+                return getOriginalDbColumnName();
+            case TalendFilePackage.COLUMN_TYPE__PATTERN:
+                return getPattern();
+            case TalendFilePackage.COLUMN_TYPE__PRECISION:
+                return new Integer(getPrecision());
+            case TalendFilePackage.COLUMN_TYPE__SOURCE_TYPE:
+                return getSourceType();
+            case TalendFilePackage.COLUMN_TYPE__TYPE:
+                return getType();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-        case TalendFilePackage.COLUMN_TYPE__COMMENT:
-            setComment((String) newValue);
-            return;
-        case TalendFilePackage.COLUMN_TYPE__DEFAULT_VALUE:
-            setDefaultValue((String) newValue);
-            return;
-        case TalendFilePackage.COLUMN_TYPE__KEY:
-            setKey(((Boolean) newValue).booleanValue());
-            return;
-        case TalendFilePackage.COLUMN_TYPE__LENGTH:
-            setLength(((Integer) newValue).intValue());
-            return;
-        case TalendFilePackage.COLUMN_TYPE__NAME:
-            setName((String) newValue);
-            return;
-        case TalendFilePackage.COLUMN_TYPE__NULLABLE:
-            setNullable(((Boolean) newValue).booleanValue());
-            return;
-        case TalendFilePackage.COLUMN_TYPE__ORIGINAL_DB_COLUMN_NAME:
-            setOriginalDbColumnName((String) newValue);
-            return;
-        case TalendFilePackage.COLUMN_TYPE__PATTERN:
-            setPattern((String) newValue);
-            return;
-        case TalendFilePackage.COLUMN_TYPE__PRECISION:
-            setPrecision(((Integer) newValue).intValue());
-            return;
-        case TalendFilePackage.COLUMN_TYPE__SOURCE_TYPE:
-            setSourceType((String) newValue);
-            return;
-        case TalendFilePackage.COLUMN_TYPE__TYPE:
-            setType((String) newValue);
-            return;
+            case TalendFilePackage.COLUMN_TYPE__COMMENT:
+                setComment((String)newValue);
+                return;
+            case TalendFilePackage.COLUMN_TYPE__DEFAULT_VALUE:
+                setDefaultValue((String)newValue);
+                return;
+            case TalendFilePackage.COLUMN_TYPE__KEY:
+                setKey(((Boolean)newValue).booleanValue());
+                return;
+            case TalendFilePackage.COLUMN_TYPE__LENGTH:
+                setLength(((Integer)newValue).intValue());
+                return;
+            case TalendFilePackage.COLUMN_TYPE__NAME:
+                setName((String)newValue);
+                return;
+            case TalendFilePackage.COLUMN_TYPE__NULLABLE:
+                setNullable(((Boolean)newValue).booleanValue());
+                return;
+            case TalendFilePackage.COLUMN_TYPE__ORIGINAL_DB_COLUMN_NAME:
+                setOriginalDbColumnName((String)newValue);
+                return;
+            case TalendFilePackage.COLUMN_TYPE__PATTERN:
+                setPattern((String)newValue);
+                return;
+            case TalendFilePackage.COLUMN_TYPE__PRECISION:
+                setPrecision(((Integer)newValue).intValue());
+                return;
+            case TalendFilePackage.COLUMN_TYPE__SOURCE_TYPE:
+                setSourceType((String)newValue);
+                return;
+            case TalendFilePackage.COLUMN_TYPE__TYPE:
+                setType((String)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void eUnset(int featureID) {
         switch (featureID) {
-        case TalendFilePackage.COLUMN_TYPE__COMMENT:
-            setComment(COMMENT_EDEFAULT);
-            return;
-        case TalendFilePackage.COLUMN_TYPE__DEFAULT_VALUE:
-            setDefaultValue(DEFAULT_VALUE_EDEFAULT);
-            return;
-        case TalendFilePackage.COLUMN_TYPE__KEY:
-            unsetKey();
-            return;
-        case TalendFilePackage.COLUMN_TYPE__LENGTH:
-            unsetLength();
-            return;
-        case TalendFilePackage.COLUMN_TYPE__NAME:
-            setName(NAME_EDEFAULT);
-            return;
-        case TalendFilePackage.COLUMN_TYPE__NULLABLE:
-            unsetNullable();
-            return;
-        case TalendFilePackage.COLUMN_TYPE__ORIGINAL_DB_COLUMN_NAME:
-            setOriginalDbColumnName(ORIGINAL_DB_COLUMN_NAME_EDEFAULT);
-            return;
-        case TalendFilePackage.COLUMN_TYPE__PATTERN:
-            setPattern(PATTERN_EDEFAULT);
-            return;
-        case TalendFilePackage.COLUMN_TYPE__PRECISION:
-            unsetPrecision();
-            return;
-        case TalendFilePackage.COLUMN_TYPE__SOURCE_TYPE:
-            setSourceType(SOURCE_TYPE_EDEFAULT);
-            return;
-        case TalendFilePackage.COLUMN_TYPE__TYPE:
-            setType(TYPE_EDEFAULT);
-            return;
+            case TalendFilePackage.COLUMN_TYPE__COMMENT:
+                setComment(COMMENT_EDEFAULT);
+                return;
+            case TalendFilePackage.COLUMN_TYPE__DEFAULT_VALUE:
+                setDefaultValue(DEFAULT_VALUE_EDEFAULT);
+                return;
+            case TalendFilePackage.COLUMN_TYPE__KEY:
+                unsetKey();
+                return;
+            case TalendFilePackage.COLUMN_TYPE__LENGTH:
+                unsetLength();
+                return;
+            case TalendFilePackage.COLUMN_TYPE__NAME:
+                setName(NAME_EDEFAULT);
+                return;
+            case TalendFilePackage.COLUMN_TYPE__NULLABLE:
+                unsetNullable();
+                return;
+            case TalendFilePackage.COLUMN_TYPE__ORIGINAL_DB_COLUMN_NAME:
+                setOriginalDbColumnName(ORIGINAL_DB_COLUMN_NAME_EDEFAULT);
+                return;
+            case TalendFilePackage.COLUMN_TYPE__PATTERN:
+                setPattern(PATTERN_EDEFAULT);
+                return;
+            case TalendFilePackage.COLUMN_TYPE__PRECISION:
+                unsetPrecision();
+                return;
+            case TalendFilePackage.COLUMN_TYPE__SOURCE_TYPE:
+                setSourceType(SOURCE_TYPE_EDEFAULT);
+                return;
+            case TalendFilePackage.COLUMN_TYPE__TYPE:
+                setType(TYPE_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-        case TalendFilePackage.COLUMN_TYPE__COMMENT:
-            return COMMENT_EDEFAULT == null ? comment != null : !COMMENT_EDEFAULT.equals(comment);
-        case TalendFilePackage.COLUMN_TYPE__DEFAULT_VALUE:
-            return DEFAULT_VALUE_EDEFAULT == null ? defaultValue != null : !DEFAULT_VALUE_EDEFAULT.equals(defaultValue);
-        case TalendFilePackage.COLUMN_TYPE__KEY:
-            return isSetKey();
-        case TalendFilePackage.COLUMN_TYPE__LENGTH:
-            return isSetLength();
-        case TalendFilePackage.COLUMN_TYPE__NAME:
-            return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-        case TalendFilePackage.COLUMN_TYPE__NULLABLE:
-            return isSetNullable();
-        case TalendFilePackage.COLUMN_TYPE__ORIGINAL_DB_COLUMN_NAME:
-            return ORIGINAL_DB_COLUMN_NAME_EDEFAULT == null ? originalDbColumnName != null : !ORIGINAL_DB_COLUMN_NAME_EDEFAULT
-                    .equals(originalDbColumnName);
-        case TalendFilePackage.COLUMN_TYPE__PATTERN:
-            return PATTERN_EDEFAULT == null ? pattern != null : !PATTERN_EDEFAULT.equals(pattern);
-        case TalendFilePackage.COLUMN_TYPE__PRECISION:
-            return isSetPrecision();
-        case TalendFilePackage.COLUMN_TYPE__SOURCE_TYPE:
-            return SOURCE_TYPE_EDEFAULT == null ? sourceType != null : !SOURCE_TYPE_EDEFAULT.equals(sourceType);
-        case TalendFilePackage.COLUMN_TYPE__TYPE:
-            return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
+            case TalendFilePackage.COLUMN_TYPE__COMMENT:
+                return COMMENT_EDEFAULT == null ? comment != null : !COMMENT_EDEFAULT.equals(comment);
+            case TalendFilePackage.COLUMN_TYPE__DEFAULT_VALUE:
+                return DEFAULT_VALUE_EDEFAULT == null ? defaultValue != null : !DEFAULT_VALUE_EDEFAULT.equals(defaultValue);
+            case TalendFilePackage.COLUMN_TYPE__KEY:
+                return isSetKey();
+            case TalendFilePackage.COLUMN_TYPE__LENGTH:
+                return isSetLength();
+            case TalendFilePackage.COLUMN_TYPE__NAME:
+                return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+            case TalendFilePackage.COLUMN_TYPE__NULLABLE:
+                return isSetNullable();
+            case TalendFilePackage.COLUMN_TYPE__ORIGINAL_DB_COLUMN_NAME:
+                return ORIGINAL_DB_COLUMN_NAME_EDEFAULT == null ? originalDbColumnName != null : !ORIGINAL_DB_COLUMN_NAME_EDEFAULT.equals(originalDbColumnName);
+            case TalendFilePackage.COLUMN_TYPE__PATTERN:
+                return PATTERN_EDEFAULT == null ? pattern != null : !PATTERN_EDEFAULT.equals(pattern);
+            case TalendFilePackage.COLUMN_TYPE__PRECISION:
+                return isSetPrecision();
+            case TalendFilePackage.COLUMN_TYPE__SOURCE_TYPE:
+                return SOURCE_TYPE_EDEFAULT == null ? sourceType != null : !SOURCE_TYPE_EDEFAULT.equals(sourceType);
+            case TalendFilePackage.COLUMN_TYPE__TYPE:
+                return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
         }
         return super.eIsSet(featureID);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String toString() {
-        if (eIsProxy())
-            return super.toString();
+        if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (comment: ");
@@ -817,31 +765,19 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
         result.append(", defaultValue: ");
         result.append(defaultValue);
         result.append(", key: ");
-        if (keyESet)
-            result.append(key);
-        else
-            result.append("<unset>");
+        if (keyESet) result.append(key); else result.append("<unset>");
         result.append(", length: ");
-        if (lengthESet)
-            result.append(length);
-        else
-            result.append("<unset>");
+        if (lengthESet) result.append(length); else result.append("<unset>");
         result.append(", name: ");
         result.append(name);
         result.append(", nullable: ");
-        if (nullableESet)
-            result.append(nullable);
-        else
-            result.append("<unset>");
+        if (nullableESet) result.append(nullable); else result.append("<unset>");
         result.append(", originalDbColumnName: ");
         result.append(originalDbColumnName);
         result.append(", pattern: ");
         result.append(pattern);
         result.append(", precision: ");
-        if (precisionESet)
-            result.append(precision);
-        else
-            result.append("<unset>");
+        if (precisionESet) result.append(precision); else result.append("<unset>");
         result.append(", sourceType: ");
         result.append(sourceType);
         result.append(", type: ");

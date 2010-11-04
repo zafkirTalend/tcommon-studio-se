@@ -146,6 +146,9 @@ public class TalendFileAdapterFactory extends AdapterFactoryImpl {
             public Object caseAbstractExternalData(AbstractExternalData object) {
                 return createAbstractExternalDataAdapter();
             }
+            public Object caseRoutinesParameterType(RoutinesParameterType object) {
+                return createRoutinesParameterTypeAdapter();
+            }
             public Object defaultCase(EObject object) {
                 return createEObjectAdapter();
             }
@@ -455,6 +458,20 @@ public class TalendFileAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createAbstractExternalDataAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.designer.core.model.utils.emf.talendfile.RoutinesParameterType <em>Routines Parameter Type</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.RoutinesParameterType
+     * @generated
+     */
+    public Adapter createRoutinesParameterTypeAdapter() {
         return null;
     }
 

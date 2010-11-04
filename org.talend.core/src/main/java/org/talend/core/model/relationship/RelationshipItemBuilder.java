@@ -45,9 +45,9 @@ import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementValueType;
-import org.talend.designer.core.model.utils.emf.talendfile.ItemInforType;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
+import org.talend.designer.core.model.utils.emf.talendfile.RoutinesParameterType;
 import org.talend.designer.runprocess.ItemCacheManager;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.ComponentsFactoryProvider;
@@ -311,10 +311,10 @@ public class RelationshipItemBuilder {
     }
 
     private void addRelationShip(Item baseItem, String relatedId, String relatedVersion, String type) {
-        addRelationShip(baseItem, relatedId, relatedVersion, type, false);
+        addRelationShip(baseItem, relatedId, relatedVersion, type, "");
     }
 
-    private void addRelationShip(Item baseItem, String relatedId, String relatedVersion, String type, boolean relatedInSystem) {
+    private void addRelationShip(Item baseItem, String relatedId, String relatedVersion, String type, String relatedInSystem) {
         Relation relation = new Relation();
         relation.setId(baseItem.getProperty().getId());
         relation.setType(getTypeFromItem(baseItem));
@@ -324,7 +324,7 @@ public class RelationshipItemBuilder {
         addedRelation.setId(relatedId);
         addedRelation.setType(type);
         addedRelation.setVersion(relatedVersion);
-        addedRelation.setSystem(relatedInSystem);
+        addedRelation.setName(relatedInSystem);
         Map<Relation, List<Relation>> itemRelations = getRelatedRelations(baseItem);
 
         if (!itemRelations.containsKey(relation)) {
@@ -496,10 +496,9 @@ public class RelationshipItemBuilder {
                     }
                 }
             }
-            for (Object o : processType.getRoutinesDependencies()) {
-                ItemInforType itemInfor = (ItemInforType) o;
-                addRelationShip(item, itemInfor.getIdOrName(), ItemCacheManager.LATEST_VERSION, ROUTINE_RELATION, itemInfor
-                        .isSystem());
+            for (Object o : processType.getParameters().getRoutinesParameter()) {
+                RoutinesParameterType itemInfor = (RoutinesParameterType) o;
+                addRelationShip(item, itemInfor.getId(), ItemCacheManager.LATEST_VERSION, ROUTINE_RELATION, itemInfor.getName());
             }
             if (processType.getParameters() != null) {
                 for (Object o : processType.getParameters().getElementParameter()) {
@@ -686,7 +685,7 @@ public class RelationshipItemBuilder {
 
         private String version;
 
-        private boolean system;
+        private String name;
 
         public String getType() {
             return type;
@@ -711,7 +710,7 @@ public class RelationshipItemBuilder {
             result = prime * result + ((id == null) ? 0 : id.hashCode());
             result = prime * result + ((type == null) ? 0 : type.hashCode());
             result = prime * result + ((version == null) ? 0 : version.hashCode());
-            result = prime * result + (system ? 0 : 1);
+            result = prime * result + ((name == null) ? 0 : name.hashCode());
             return result;
         }
 
@@ -739,9 +738,12 @@ public class RelationshipItemBuilder {
                     return false;
             } else if (!version.equals(other.version))
                 return false;
-            if (other.isSystem() != this.isSystem()) {
-                return false;
-            }
+            // if (name == null) {
+            // if (other.name != null)
+            // return false;
+            // } else if (!name.equals(other.name)) {
+            // return false;
+            // }
             return true;
         }
 
@@ -753,12 +755,12 @@ public class RelationshipItemBuilder {
             this.version = version;
         }
 
-        public boolean isSystem() {
-            return this.system;
+        public String getName() {
+            return this.name;
         }
 
-        public void setSystem(boolean system) {
-            this.system = system;
+        public void setName(String name) {
+            this.name = name;
         }
 
     }

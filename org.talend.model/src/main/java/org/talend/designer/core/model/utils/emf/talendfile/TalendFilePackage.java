@@ -1193,13 +1193,22 @@ public interface TalendFilePackage extends EPackage {
     int PARAMETERS_TYPE__ELEMENT_PARAMETER = 0;
 
     /**
+     * The feature id for the '<em><b>Routines Parameter</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PARAMETERS_TYPE__ROUTINES_PARAMETER = 1;
+
+    /**
      * The number of structural features of the '<em>Parameters Type</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int PARAMETERS_TYPE_FEATURE_COUNT = 1;
+    int PARAMETERS_TYPE_FEATURE_COUNT = 2;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl <em>Process Type</em>}' class.
@@ -1507,6 +1516,43 @@ public interface TalendFilePackage extends EPackage {
      */
     int ABSTRACT_EXTERNAL_DATA_FEATURE_COUNT = 0;
 
+
+    /**
+     * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.RoutinesParameterTypeImpl <em>Routines Parameter Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.designer.core.model.utils.emf.talendfile.impl.RoutinesParameterTypeImpl
+     * @see org.talend.designer.core.model.utils.emf.talendfile.impl.TalendFilePackageImpl#getRoutinesParameterType()
+     * @generated
+     */
+    int ROUTINES_PARAMETER_TYPE = 21;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ROUTINES_PARAMETER_TYPE__ID = 0;
+
+    /**
+     * The feature id for the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ROUTINES_PARAMETER_TYPE__NAME = 1;
+
+    /**
+     * The number of structural features of the '<em>Routines Parameter Type</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ROUTINES_PARAMETER_TYPE_FEATURE_COUNT = 2;
 
     /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType <em>Column Type</em>}'.
@@ -2692,6 +2738,17 @@ public interface TalendFilePackage extends EPackage {
     EReference getParametersType_ElementParameter();
 
     /**
+     * Returns the meta object for the containment reference list '{@link org.talend.designer.core.model.utils.emf.talendfile.ParametersType#getRoutinesParameter <em>Routines Parameter</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>Routines Parameter</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.ParametersType#getRoutinesParameter()
+     * @see #getParametersType()
+     * @generated
+     */
+    EReference getParametersType_RoutinesParameter();
+
+    /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType <em>Process Type</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2993,6 +3050,38 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      */
     EClass getAbstractExternalData();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.talendfile.RoutinesParameterType <em>Routines Parameter Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Routines Parameter Type</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.RoutinesParameterType
+     * @generated
+     */
+    EClass getRoutinesParameterType();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.talendfile.RoutinesParameterType#getId <em>Id</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Id</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.RoutinesParameterType#getId()
+     * @see #getRoutinesParameterType()
+     * @generated
+     */
+    EAttribute getRoutinesParameterType_Id();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.talendfile.RoutinesParameterType#getName <em>Name</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Name</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.RoutinesParameterType#getName()
+     * @see #getRoutinesParameterType()
+     * @generated
+     */
+    EAttribute getRoutinesParameterType_Name();
 
     /**
      * Returns the factory that creates the instances of the model.
@@ -3921,6 +4010,14 @@ public interface TalendFilePackage extends EPackage {
         EReference PARAMETERS_TYPE__ELEMENT_PARAMETER = eINSTANCE.getParametersType_ElementParameter();
 
         /**
+         * The meta object literal for the '<em><b>Routines Parameter</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference PARAMETERS_TYPE__ROUTINES_PARAMETER = eINSTANCE.getParametersType_RoutinesParameter();
+
+        /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl <em>Process Type</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -4153,6 +4250,32 @@ public interface TalendFilePackage extends EPackage {
          * @generated
          */
         EClass ABSTRACT_EXTERNAL_DATA = eINSTANCE.getAbstractExternalData();
+
+        /**
+         * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.RoutinesParameterTypeImpl <em>Routines Parameter Type</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.designer.core.model.utils.emf.talendfile.impl.RoutinesParameterTypeImpl
+         * @see org.talend.designer.core.model.utils.emf.talendfile.impl.TalendFilePackageImpl#getRoutinesParameterType()
+         * @generated
+         */
+        EClass ROUTINES_PARAMETER_TYPE = eINSTANCE.getRoutinesParameterType();
+
+        /**
+         * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute ROUTINES_PARAMETER_TYPE__ID = eINSTANCE.getRoutinesParameterType_Id();
+
+        /**
+         * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute ROUTINES_PARAMETER_TYPE__NAME = eINSTANCE.getRoutinesParameterType_Name();
 
     }
 

@@ -93,6 +93,7 @@ public class TalendFileFactoryImpl extends EFactoryImpl implements TalendFileFac
             case TalendFilePackage.REQUIRED_TYPE: return createRequiredType();
             case TalendFilePackage.SUBJOB_TYPE: return createSubjobType();
             case TalendFilePackage.ITEM_INFOR_TYPE: return createItemInforType();
+            case TalendFilePackage.ROUTINES_PARAMETER_TYPE: return createRoutinesParameterType();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -296,6 +297,16 @@ public class TalendFileFactoryImpl extends EFactoryImpl implements TalendFileFac
     public ItemInforType createItemInforType() {
         ItemInforTypeImpl itemInforType = new ItemInforTypeImpl();
         return itemInforType;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public RoutinesParameterType createRoutinesParameterType() {
+        RoutinesParameterTypeImpl routinesParameterType = new RoutinesParameterTypeImpl();
+        return routinesParameterType;
     }
 
     /**

@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ParametersType#getElementParameter <em>Element Parameter</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ParametersType#getRoutinesParameter <em>Routines Parameter</em>}</li>
  * </ul>
  * </p>
  *
@@ -43,5 +44,21 @@ public interface ParametersType extends EObject {
      * @generated
      */
     EList getElementParameter();
+
+    /**
+     * Returns the value of the '<em><b>Routines Parameter</b></em>' containment reference list.
+     * The list contents are of type {@link org.talend.designer.core.model.utils.emf.talendfile.RoutinesParameterType}.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Routines Parameter</em>' reference list isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Routines Parameter</em>' containment reference list.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getParametersType_RoutinesParameter()
+     * @model type="org.talend.designer.core.model.utils.emf.talendfile.RoutinesParameterType" containment="true"
+     * @generated
+     */
+    EList getRoutinesParameter();
 
 } // ParametersType

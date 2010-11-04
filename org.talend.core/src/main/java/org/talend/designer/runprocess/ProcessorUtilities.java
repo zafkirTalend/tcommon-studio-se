@@ -63,9 +63,9 @@ import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.core.ReplaceNodesInProcessProvider;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
-import org.talend.designer.core.model.utils.emf.talendfile.ItemInforType;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
+import org.talend.designer.core.model.utils.emf.talendfile.RoutinesParameterType;
 import org.talend.repository.job.deletion.JobResource;
 import org.talend.repository.job.deletion.JobResourceManager;
 import org.talend.repository.model.ERepositoryStatus;
@@ -348,9 +348,9 @@ public class ProcessorUtilities {
         if (selectedProcessItem != null) {
             // item can be null in case of job preview
             Set<String> routinesId = new HashSet<String>();
-            for (ItemInforType infor : (List<ItemInforType>) ((ProcessItem) selectedProcessItem).getProcess()
-                    .getRoutinesDependencies()) {
-                routinesId.add(infor.getIdOrName());
+            for (RoutinesParameterType infor : (List<RoutinesParameterType>) ((ProcessItem) selectedProcessItem).getProcess()
+                    .getParameters().getRoutinesParameter()) {
+                routinesId.add(infor.getId());
             }
             LastGenerationInfo.getInstance().setRoutinesNeededPerJob(jobInfo.getJobId(), jobInfo.getJobVersion(), routinesId);
             LastGenerationInfo.getInstance().setRoutinesNeededWithSubjobPerJob(jobInfo.getJobId(), jobInfo.getJobVersion(),

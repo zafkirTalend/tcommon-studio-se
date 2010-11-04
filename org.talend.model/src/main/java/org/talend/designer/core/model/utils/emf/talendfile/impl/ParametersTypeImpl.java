@@ -18,10 +18,12 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ParametersType;
+import org.talend.designer.core.model.utils.emf.talendfile.RoutinesParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
 
 /**
@@ -32,6 +34,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ParametersTypeImpl#getElementParameter <em>Element Parameter</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ParametersTypeImpl#getRoutinesParameter <em>Routines Parameter</em>}</li>
  * </ul>
  * </p>
  *
@@ -47,6 +50,16 @@ public class ParametersTypeImpl extends EObjectImpl implements ParametersType {
      * @ordered
      */
     protected EList elementParameter;
+
+    /**
+     * The cached value of the '{@link #getRoutinesParameter() <em>Routines Parameter</em>}' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getRoutinesParameter()
+     * @generated
+     * @ordered
+     */
+    protected EList routinesParameter;
 
     /**
      * <!-- begin-user-doc -->
@@ -83,10 +96,24 @@ public class ParametersTypeImpl extends EObjectImpl implements ParametersType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public EList getRoutinesParameter() {
+        if (routinesParameter == null) {
+            routinesParameter = new EObjectContainmentEList(RoutinesParameterType.class, this, TalendFilePackage.PARAMETERS_TYPE__ROUTINES_PARAMETER);
+        }
+        return routinesParameter;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case TalendFilePackage.PARAMETERS_TYPE__ELEMENT_PARAMETER:
                 return ((InternalEList)getElementParameter()).basicRemove(otherEnd, msgs);
+            case TalendFilePackage.PARAMETERS_TYPE__ROUTINES_PARAMETER:
+                return ((InternalEList)getRoutinesParameter()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -100,6 +127,8 @@ public class ParametersTypeImpl extends EObjectImpl implements ParametersType {
         switch (featureID) {
             case TalendFilePackage.PARAMETERS_TYPE__ELEMENT_PARAMETER:
                 return getElementParameter();
+            case TalendFilePackage.PARAMETERS_TYPE__ROUTINES_PARAMETER:
+                return getRoutinesParameter();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -115,6 +144,10 @@ public class ParametersTypeImpl extends EObjectImpl implements ParametersType {
                 getElementParameter().clear();
                 getElementParameter().addAll((Collection)newValue);
                 return;
+            case TalendFilePackage.PARAMETERS_TYPE__ROUTINES_PARAMETER:
+                getRoutinesParameter().clear();
+                getRoutinesParameter().addAll((Collection)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -129,6 +162,9 @@ public class ParametersTypeImpl extends EObjectImpl implements ParametersType {
             case TalendFilePackage.PARAMETERS_TYPE__ELEMENT_PARAMETER:
                 getElementParameter().clear();
                 return;
+            case TalendFilePackage.PARAMETERS_TYPE__ROUTINES_PARAMETER:
+                getRoutinesParameter().clear();
+                return;
         }
         super.eUnset(featureID);
     }
@@ -142,6 +178,8 @@ public class ParametersTypeImpl extends EObjectImpl implements ParametersType {
         switch (featureID) {
             case TalendFilePackage.PARAMETERS_TYPE__ELEMENT_PARAMETER:
                 return elementParameter != null && !elementParameter.isEmpty();
+            case TalendFilePackage.PARAMETERS_TYPE__ROUTINES_PARAMETER:
+                return routinesParameter != null && !routinesParameter.isEmpty();
         }
         return super.eIsSet(featureID);
     }

@@ -32,18 +32,19 @@ import org.talend.core.language.LanguageManager;
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.components.IComponentsFactory;
 import org.talend.core.model.general.ModuleNeeded;
-import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
 import org.talend.core.model.general.Project;
+import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.ProjectReference;
+import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.routines.RoutinesUtil;
 import org.talend.designer.core.model.utils.emf.component.IMPORTType;
-import org.talend.designer.core.model.utils.emf.talendfile.ItemInforType;
+import org.talend.designer.core.model.utils.emf.talendfile.RoutinesParameterType;
 import org.talend.librariesmanager.i18n.Messages;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.ComponentsFactoryProvider;
@@ -109,8 +110,8 @@ public class ModulesNeededProvider {
          * 
          * TimeMeasure.end("ModulesNeededProvider.getModulesNeededForJobs");
          */// TimeMeasure.measureActive = false;
-           // TimeMeasure.display = false;
-           //        TimeMeasure.end("ModulesNeededProvider.getAllMoudlesNeeded"); //$NON-NLS-1$
+        // TimeMeasure.display = false;
+        //        TimeMeasure.end("ModulesNeededProvider.getAllMoudlesNeeded"); //$NON-NLS-1$
         return componentImportNeedsList;
     }
 
@@ -216,12 +217,16 @@ public class ModulesNeededProvider {
             Set<String> userRoutines = new HashSet<String>();
 
             for (ProcessItem p : processItems) {
-                for (ItemInforType infor : (List<ItemInforType>) p.getProcess().getRoutinesDependencies()) {
-                    if (infor.isSystem()) {
-                        systemRoutines.add(infor.getIdOrName());
+                for (RoutinesParameterType infor : (List<RoutinesParameterType>) p.getProcess().getParameters()
+                        .getRoutinesParameter()) {
+
+                    Property property = findRoutinesPropery(infor.getId(), infor.getName());
+                    if (((RoutineItem) property.getItem()).isBuiltIn()) {
+                        systemRoutines.add(infor.getId());
                     } else {
-                        userRoutines.add(infor.getIdOrName());
+                        userRoutines.add(infor.getId());
                     }
+
                 }
             }
             //
@@ -237,6 +242,28 @@ public class ModulesNeededProvider {
         }
 
         return importNeedsList;
+    }
+
+    private static Property findRoutinesPropery(String id, String name) {
+        IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
+        try {
+            List<IRepositoryViewObject> routines = repositoryFactory.getAll(ERepositoryObjectType.ROUTINES, true);
+            getRefRoutines(routines, ProjectManager.getInstance().getCurrentProject().getEmfProject());
+            for (IRepositoryViewObject current : routines) {
+                if (repositoryFactory.getStatus(current) != ERepositoryStatus.DELETED) {
+                    Item item = current.getProperty().getItem();
+                    RoutineItem routine = (RoutineItem) item;
+                    Property property = routine.getProperty();
+                    if (property.getId().equals(id) || property.getLabel().equals(name)) {
+                        return property;
+                    }
+                }
+            }
+        } catch (PersistenceException e) {
+            // TODO Auto-generated catch block
+            ExceptionHandler.process(e);
+        }
+        return null;
     }
 
     private static List<ModuleNeeded> collectModuleNeeded(List<IRepositoryViewObject> routineItems, Set<String> routineIdOrNames,

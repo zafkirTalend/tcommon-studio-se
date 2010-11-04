@@ -28,6 +28,7 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.designer.core.model.utils.emf.talendfile.ItemInforType;
+import org.talend.designer.core.model.utils.emf.talendfile.RoutinesParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFileFactory;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -63,6 +64,17 @@ public final class RoutinesUtil {
 
         return repositoryObjects;
 
+    }
+
+    public static IRepositoryViewObject getUserRoutines(String id) {
+        IRepositoryViewObject repositoryObjects = null;
+        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
+        try {
+            repositoryObjects = factory.getLastVersion(id);
+        } catch (PersistenceException e) {
+            ExceptionHandler.process(e);
+        }
+        return repositoryObjects;
     }
 
     /**
@@ -106,12 +118,12 @@ public final class RoutinesUtil {
         }
     }
 
-    public static List<ItemInforType> createJobRoutineDependencies(boolean system) throws PersistenceException {
-        List<ItemInforType> itemInfors = new ArrayList<ItemInforType>();
+    public static List<RoutinesParameterType> createJobRoutineDependencies(boolean system) throws PersistenceException {
+        List<RoutinesParameterType> itemInfors = new ArrayList<RoutinesParameterType>();
         if (system) {
             List<IRepositoryViewObject> systemRoutines = RoutinesUtil.getCurrentSystemRoutines();
             for (IRepositoryViewObject object : systemRoutines) {
-                ItemInforType itemInfor = createItemInforType((RoutineItem) object.getProperty().getItem());
+                RoutinesParameterType itemInfor = createItemInforType((RoutineItem) object.getProperty().getItem());
                 itemInfors.add(itemInfor);
             }
         } else {
@@ -121,7 +133,8 @@ public final class RoutinesUtil {
         return itemInfors;
     }
 
-    private static void createJobRoutineDependencies(List<ItemInforType> itemInfors, Project project) throws PersistenceException {
+    private static void createJobRoutineDependencies(List<RoutinesParameterType> itemInfors, Project project)
+            throws PersistenceException {
 
         List<IRepositoryViewObject> all = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory().getAll(
                 project, ERepositoryObjectType.ROUTINES, allowDeletedRoutine());
@@ -129,7 +142,7 @@ public final class RoutinesUtil {
             Property property = object.getProperty();
             RoutineItem item = (RoutineItem) property.getItem();
             if (!item.isBuiltIn()) {
-                ItemInforType itemInfor = createItemInforType(item);
+                RoutinesParameterType itemInfor = createItemInforType(item);
                 itemInfors.add(itemInfor);
             }
         }
@@ -138,7 +151,68 @@ public final class RoutinesUtil {
         }
     }
 
-    private static ItemInforType createItemInforType(RoutineItem routineItem) {
+    private static RoutinesParameterType createItemInforType(RoutineItem routineItem) {
+        Property property = routineItem.getProperty();
+
+        RoutinesParameterType itemRecordType = TalendFileFactory.eINSTANCE.createRoutinesParameterType();
+
+        // itemRecordType.setSystem(routineItem.isBuiltIn());
+        // if (itemRecordType.isSystem()) {
+        itemRecordType.setName(property.getLabel());
+        // } else {
+        itemRecordType.setId(property.getId());
+        // }
+        return itemRecordType;
+    }
+
+    public static List<RoutinesParameterType> createDependenciesInPreference() throws PersistenceException {
+        List<RoutinesParameterType> itemInfors = new ArrayList<RoutinesParameterType>();
+
+        IPreferenceStore preferenceStore = CorePlugin.getDefault().getDesignerCoreService().getDesignerCorePreferenceStore();
+        if (preferenceStore.getBoolean(ITalendCorePrefConstants.ADD_SYSTEM_ROUTINES)) {
+            itemInfors.addAll(createJobRoutineDependencies(true));
+        }
+        if (preferenceStore.getBoolean(ITalendCorePrefConstants.ADD_USER_ROUTINES)) {
+            itemInfors.addAll(createJobRoutineDependencies(false));
+        }
+        return itemInfors;
+    }
+
+    // need change
+    public static List<ItemInforType> createOldJobRoutineDependencies(boolean system) throws PersistenceException {
+        List<ItemInforType> itemInfors = new ArrayList<ItemInforType>();
+        if (system) {
+            List<IRepositoryViewObject> systemRoutines = RoutinesUtil.getCurrentSystemRoutines();
+            for (IRepositoryViewObject object : systemRoutines) {
+                ItemInforType itemInfor = createOldItemInforType((RoutineItem) object.getProperty().getItem());
+                itemInfors.add(itemInfor);
+            }
+        } else {
+            Project p = ProjectManager.getInstance().getCurrentProject();
+            createOldJobRoutineDependencies(itemInfors, p);
+        }
+        return itemInfors;
+    }
+
+    private static void createOldJobRoutineDependencies(List<ItemInforType> itemInfors, Project project)
+            throws PersistenceException {
+
+        List<IRepositoryViewObject> all = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory().getAll(
+                project, ERepositoryObjectType.ROUTINES, allowDeletedRoutine());
+        for (IRepositoryViewObject object : all) {
+            Property property = object.getProperty();
+            RoutineItem item = (RoutineItem) property.getItem();
+            if (!item.isBuiltIn()) {
+                ItemInforType itemInfor = createOldItemInforType(item);
+                itemInfors.add(itemInfor);
+            }
+        }
+        for (Project p : ProjectManager.getInstance().getReferencedProjects(project)) {
+            createOldJobRoutineDependencies(itemInfors, p);
+        }
+    }
+
+    private static ItemInforType createOldItemInforType(RoutineItem routineItem) {
         Property property = routineItem.getProperty();
 
         ItemInforType itemRecordType = TalendFileFactory.eINSTANCE.createItemInforType();
@@ -152,15 +226,15 @@ public final class RoutinesUtil {
         return itemRecordType;
     }
 
-    public static List<ItemInforType> createDependenciesInPreference() throws PersistenceException {
+    public static List<ItemInforType> createOldDependenciesInPreference() throws PersistenceException {
         List<ItemInforType> itemInfors = new ArrayList<ItemInforType>();
 
         IPreferenceStore preferenceStore = CorePlugin.getDefault().getDesignerCoreService().getDesignerCorePreferenceStore();
         if (preferenceStore.getBoolean(ITalendCorePrefConstants.ADD_SYSTEM_ROUTINES)) {
-            itemInfors.addAll(createJobRoutineDependencies(true));
+            itemInfors.addAll(createOldJobRoutineDependencies(true));
         }
         if (preferenceStore.getBoolean(ITalendCorePrefConstants.ADD_USER_ROUTINES)) {
-            itemInfors.addAll(createJobRoutineDependencies(false));
+            itemInfors.addAll(createOldJobRoutineDependencies(false));
         }
         return itemInfors;
     }
