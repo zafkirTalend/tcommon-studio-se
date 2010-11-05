@@ -96,7 +96,7 @@ public class tFileInputDelimited extends TalendSwtBotForTos {
 
         gefEditor.doubleClick(110, 110);
         gefBot.viewByTitle("Component").setFocus();
-        gefBot.comboBox(0).setSelection("Repository");
+        gefBot.ccomboBox(0).setSelection("Repository");
 
         /* link two component */
         gefEditor.click(110, 110);

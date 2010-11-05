@@ -29,7 +29,7 @@ import org.talend.swtbot.TalendSwtBotForTos;
  * DOC Administrator class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class tFileInputPositional extends TalendSwtBotForTos {
+public class tFileInputXML extends TalendSwtBotForTos {
 
     private static SWTBotTree tree;
 
@@ -41,11 +41,15 @@ public class tFileInputPositional extends TalendSwtBotForTos {
 
     private static SWTBotGefEditor gefEditor;
 
-    private static String FILENAME = "test_positional";
+    private static String FILENAME = "test_xml";
 
-    private static String FILEPATH = "E:/testdata/test1.txt";
+    private static String FILEPATH = "E:/testdata/log.xml";
 
-    private static String JOBNAME = "UsetFileInputPositional";
+    private static String JOBNAME = "UsetFileInputXML";
+
+    private static String LOOP = "/schema/column";
+
+    private static String[] SCHEMA = { "comment", "default", "key" };
 
     @Test
     public void createConnection() {
@@ -55,18 +59,23 @@ public class tFileInputPositional extends TalendSwtBotForTos {
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
         tree.setFocus();
 
-        tree.expandNode("Metadata").getNode("File positional").contextMenu("Create file positional").click();
-        gefBot.waitUntil(Conditions.shellIsActive("New Positional File"));
-        gefBot.shell("New Positional File").activate();
+        tree.expandNode("Metadata").getNode("File XML").contextMenu("Create file XML").click();
+        gefBot.waitUntil(Conditions.shellIsActive("New Xml File"));
+        gefBot.shell("New Xml File").activate();
 
         gefBot.textWithLabel("Name").setText(FILENAME);
         gefBot.button("Next >").click();
-        gefBot.textWithLabel("File").setText(FILEPATH);
-        gefBot.comboBoxWithLabel("Format").setSelection("WINDOWS");
-        gefBot.textWithLabel("Field Separator").setText("5,7,7,*");
-        gefBot.textWithLabel("Marker position").setText("5,12,19");
         gefBot.button("Next >").click();
-        while (!"Refresh Preview".equals(gefBot.button(0).getText())) {
+        gefBot.textWithLabel("XML").setText(FILEPATH);
+        gefBot.button("Next >").click();
+        gefBot.tableInGroup("Target Schema", 0).click(0, 1);
+        gefBot.text().setText(LOOP);
+        for (int i = 0; i < 3; i++) {
+            gefBot.buttonWithTooltip("Add").click();
+            gefBot.tableInGroup("Target Schema", 1).click(0, 1);
+            gefBot.text().setText("@" + SCHEMA[i]);
+            gefBot.tableInGroup("Target Schema", 1).click(0, 2);
+            gefBot.text().setText(SCHEMA[i]);
         }
         gefBot.button("Next >").click();
         gefBot.button("Finish").click();
@@ -91,7 +100,7 @@ public class tFileInputPositional extends TalendSwtBotForTos {
         botEditor = gefBot.activeEditor();
         gefEditor = gefBot.gefEditor(botEditor.getTitle());
 
-        gefEditor.activateTool("tFileInputPositional");
+        gefEditor.activateTool("tFileInputXML");
         gefEditor.click(100, 100);
         gefEditor.activateTool("tLogRow");
         gefEditor.click(300, 100);
@@ -99,8 +108,6 @@ public class tFileInputPositional extends TalendSwtBotForTos {
         gefEditor.doubleClick(110, 110);
         gefBot.viewByTitle("Component").setFocus();
         gefBot.ccomboBox(0).setSelection("Repository");
-        gefBot.shell("Confirm").activate();
-        gefBot.button("OK").click();
 
         /* link two component */
         gefEditor.click(110, 110);
