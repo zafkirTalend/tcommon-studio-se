@@ -1,14 +1,17 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">	
 	<parent>
-		<groupId>repositorymanager-assembly</groupId>
-		<artifactId>repositorymanager-assembly</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<groupId>org.talend.repositorymanager.tests</groupId>
+	    <artifactId>repositorymanager-acceptance</artifactId>
+	    <version>1.0-SNAPSHOT</version>
+	    <relativePath>../pom.xml</relativePath>
 	</parent>
-	<groupId>repositorymanager-tests</groupId>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.talend.repositorymanager.tests</groupId>
 	<artifactId>repositorymanager-tests</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
+	<name>repositorymanager-tests</name>
 
 	<properties>
 		<selenium.background>true</selenium.background>
@@ -38,6 +41,35 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+	
+	<profiles>
+		<profile>
+		  <id>env-build</id>
+		  <activation>
+			<property>
+			  <name>env-build</name>
+			</property>
+		  </activation>
+		  <build>
+			<plugins>
+			  <plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>selenium-maven-plugin</artifactId>
+				<version>1.0.1</version>
+				<executions>
+				  <execution>
+					<id>xvfb</id>
+					<phase>package</phase>
+					<goals>
+					  <goal>xvfb</goal>
+					</goals>
+				  </execution>
+				</executions>
+			  </plugin>
+			</plugins>
+		  </build>
+		</profile>
+  </profiles>
 
 	<build>
 		<testSourceDirectory>src/main/java</testSourceDirectory>
