@@ -22,7 +22,7 @@ import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.Folder;
 import org.talend.core.model.repository.IRepositoryViewObject;
-import org.talend.core.ui.images.CoreImageProvider;
+import org.talend.core.ui.images.RepositoryImageProvider;
 import org.talend.repository.model.nodes.IProjectRepositoryNode;
 
 /**
@@ -284,9 +284,9 @@ public class RepositoryNode implements IRepositoryNode {
         switch (getType()) {
         case REPOSITORY_ELEMENT:
         case SIMPLE_FOLDER:
-            return CoreImageProvider.getIcon(getObjectType());
+            return RepositoryImageProvider.getIcon(getObjectType());
         default:
-            return CoreImageProvider.getIcon(getContentType());
+            return RepositoryImageProvider.getIcon(getContentType());
         }
     }
 
