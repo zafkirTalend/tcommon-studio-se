@@ -55,6 +55,7 @@ import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.ContextItem;
+import org.talend.core.model.properties.GenericSchemaConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.ProcessItem;
@@ -1210,6 +1211,23 @@ public abstract class RepositoryUpdateManager {
         List<RelationshipItemBuilder.Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(
                 ((ConnectionItem) connItem).getProperty().getId(), ItemCacheManager.LATEST_VERSION,
                 RelationshipItemBuilder.PROPERTY_RELATION);
+
+        /*
+         * the id for schema which stored in .project file is like "_dlkjfhjkdfioi - metadata",not only indicate by a
+         * single id but also table name,so if only find the relations by id and
+         * RelationshipItemBuilder.PROPERTY_RELATION,it can't find
+         */
+        if (connItem instanceof GenericSchemaConnectionItem) {
+            String id = ((ConnectionItem) connItem).getProperty().getId();
+            if (table instanceof MetadataTable) {
+                id = id + " - " + ((MetadataTable) table).getLabel(); //$NON-NLS-N$
+            }
+            List<RelationshipItemBuilder.Relation> schemaRelations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(id,
+                    ItemCacheManager.LATEST_VERSION, RelationshipItemBuilder.SCHEMA_RELATION);
+            if (!schemaRelations.isEmpty()) {
+                relations.addAll(schemaRelations);
+            }
+        }
 
         for (RelationshipItemBuilder.Relation relation : relations) {
             try {
