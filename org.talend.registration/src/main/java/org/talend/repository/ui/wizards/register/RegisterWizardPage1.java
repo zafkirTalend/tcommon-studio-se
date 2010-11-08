@@ -171,6 +171,18 @@ public class RegisterWizardPage1 extends AbstractBasicWizardDialog {
         addListeners();
     }
 
+    public String getCountry() {
+        if (countryCombo.getSelectionIndex() != -1) {
+            String selectedCountry = countryCombo.getItem(countryCombo.getSelectionIndex());
+            for (Locale locale : Locale.getAvailableLocales()) {
+                if (locale.getDisplayCountry().compareTo(selectedCountry) == 0) {
+                    return locale.getCountry();
+                }
+            }
+        }
+        return null;
+    }
+
     private void addListeners() {
         emailText.addModifyListener(new ModifyListener() {
 
@@ -237,19 +249,6 @@ public class RegisterWizardPage1 extends AbstractBasicWizardDialog {
 
     public String getEmail() {
         return emailText.getText();
-    }
-
-    public String getCountry() {
-        if (countryCombo.getSelectionIndex() != -1) {
-            String selectedCountry = countryCombo.getItem(countryCombo.getSelectionIndex());
-            // for (Locale locale : Locale.getAvailableLocales()) {
-            // if (locale.getDisplayCountry().compareTo(selectedCountry) == 0) {
-            // return locale.getCountry();
-            // }
-            // }
-            return selectedCountry;
-        }
-        return null;
     }
 
     /**
