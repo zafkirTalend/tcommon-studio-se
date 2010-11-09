@@ -20,7 +20,6 @@ import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
-import org.talend.commons.utils.threading.AsynchronousThreading;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -100,14 +99,15 @@ public abstract class ProgressDialog {
                     final ProgressMonitorDialog progressMonitorDialog = new ProgressMonitorDialog(parentShell);
                     if (timeBeforeShowDialog > 0) {
                         progressMonitorDialog.setOpenOnRun(false);
-                        AsynchronousThreading asynchronousThreading = new AsynchronousThreading(timeBeforeShowDialog, true,
-                                display, new Runnable() {
+                        // AsynchronousThreading asynchronousThreading = new AsynchronousThreading(timeBeforeShowDialog,
+                        // true,
+                        // display, new Runnable() {
 
-                                    public void run() {
-                                        progressMonitorDialog.open();
-                                    }
-                                });
-                        asynchronousThreading.start();
+                        // public void run() {
+                        progressMonitorDialog.open();
+                        // }
+                        // });
+                        // asynchronousThreading.start();
                     }
 
                     try {

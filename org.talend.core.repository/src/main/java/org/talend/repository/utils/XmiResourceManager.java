@@ -397,7 +397,7 @@ public class XmiResourceManager {
         }
     }
 
-    private String getProjectFilename() {
+    public String getProjectFilename() {
         if (useOldProjectFile) {
             return OLD_PROJECT_FILENAME;
         } else {
