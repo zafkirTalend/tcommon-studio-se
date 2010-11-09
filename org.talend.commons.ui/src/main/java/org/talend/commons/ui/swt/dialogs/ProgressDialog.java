@@ -99,6 +99,7 @@ public abstract class ProgressDialog {
                     final ProgressMonitorDialog progressMonitorDialog = new ProgressMonitorDialog(parentShell);
                     if (timeBeforeShowDialog > 0) {
                         progressMonitorDialog.setOpenOnRun(false);
+                        // for bug 16801
                         // AsynchronousThreading asynchronousThreading = new AsynchronousThreading(timeBeforeShowDialog,
                         // true,
                         // display, new Runnable() {
