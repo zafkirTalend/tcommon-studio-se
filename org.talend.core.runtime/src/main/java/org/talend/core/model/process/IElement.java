@@ -35,4 +35,15 @@ public interface IElement {
     public void setReadOnly(boolean readOnly);
 
     public String getElementName();
+
+    public Object getPropertyValue(String name);
+
+    public void setPropertyValue(String name, Object value);
+
+    public IElementParameter getElementParameterFromField(EParameterFieldType dbtable);
+
+    public IElementParameter getElementParameterFromField(EParameterFieldType propertyType, EComponentCategory category);
+
+    public Object getPropertyValue(String name, String paramName);
+
 }

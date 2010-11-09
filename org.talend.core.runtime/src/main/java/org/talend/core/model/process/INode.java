@@ -14,6 +14,7 @@ package org.talend.core.model.process;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.components.IODataComponent;
@@ -160,13 +161,6 @@ public interface INode extends IElement {
      */
     public void renameData(String oldName, String newName);
 
-    /**
-     * Gets current node's position.
-     * 
-     * @return
-     */
-    public Object getLocation();
-
     public boolean isThereLinkWithHash();
 
     public List<? extends IConnection> getOutgoingSortedConnections();
@@ -226,4 +220,60 @@ public interface INode extends IElement {
 
     public boolean isUseLoopOnConditionalOutput(String outputName);
 
+    public IExternalData getExternalData();
+
+    public List<? extends INodeConnector> getListConnector();
+
+    public boolean isDummy();
+
+    public Set<INode> fsComponentsInProgressBar();
+
+    public boolean isExternalNode();
+
+    public Object getExternalBytesData();
+
+    public void addOutput(IConnection connection);
+
+    public void addInput(IConnection connection);
+
+    public boolean isTemplate();
+
+    public boolean isGeneratedByJobscriptBool();
+
+    public void removeOutput(IConnection connection);
+
+    public void removeInput(IConnection connection);
+
+    public IMetadataTable getMetadataTable(String metaName);
+
+    public INodeConnector getConnectorFromType(EConnectionType lineStyle);
+
+    public boolean checkIfCanBeStart();
+
+    public void setStart(boolean checkIfCanBeStart);
+
+    public void checkNode();
+
+    public Object getSchemaParameterFromConnector(String name);
+
+    public boolean hasRunIfLink();
+
+    public void setMetadataList(List<IMetadataTable> metadataList);
+
+    public void setOutgoingConnections(List<? extends IConnection> outgoingConnections);
+
+    public void setIncomingConnections(List<? extends IConnection> incomingConnections);
+
+    public INode getProcessStartNode(boolean processStartNode);
+
+    public boolean isFileScaleComponent();
+
+    public boolean sameProcessAs(INode target, boolean withConditions);
+
+    public void setLabel(String label);
+
+    // 2 functions below to prepare to link model to Emf later (functions already exists in emf model)
+    public int getPosX();
+
+    public int getPosY();
 }

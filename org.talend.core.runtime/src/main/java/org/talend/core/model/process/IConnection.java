@@ -88,6 +88,8 @@ public interface IConnection extends IElement {
      */
     public boolean isTraceConnection();
 
+    public void setTraceConnection(boolean trace);
+
     /**
      * feature 6355. can trace for the columns of this connection.
      */
@@ -97,4 +99,32 @@ public interface IConnection extends IElement {
      * feature 6355. get the trace condition this connection.
      */
     public String getTracesCondition();
+
+    boolean isMonitorConnection();
+
+    String getMetaName();
+
+    INodeConnector getSourceNodeConnector();
+
+    boolean isSubjobConnection();
+
+    void updateAllId();
+
+    void setMetaName(String uniqueName);
+
+    void reconnect(INode newSource, INode oldTarget, EConnectionType newLineStyle);
+
+    void updateName();
+
+    void setName(String newName);
+
+    void reconnect();
+
+    INodeConnector getTargetNodeConnector();
+
+    void disconnect();
+
+    void setConnectorName(String name);
+
+    void setInputId(int inputId);
 }

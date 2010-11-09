@@ -25,7 +25,20 @@ import org.talend.designer.runprocess.IProcessor;
  * $Id: IProcess.java 38013 2010-03-05 14:21:59Z mhirt $
  * 
  */
+/**
+ * DOC nrousseau class global comment. Detailled comment
+ */
 public interface IProcess extends IRepositoryObject, IElement {
+
+    public static final String NEED_UPDATE_JOB = "NEED_UPDATE_JOB"; //$NON-NLS-1$
+
+    public static final String TABLE_ACTION = "TABLE_ACTION"; //$NON-NLS-1$
+
+    public static final String DEFAULT_ROW_CONNECTION_NAME = "row"; //$NON-NLS-1$
+
+    public static final String DEFAULT_TABLE_CONNECTION_NAME = "table"; //$NON-NLS-1$
+
+    public static final String DEFAULT_ITERATE_CONNECTION_NAME = "iterate"; //$NON-NLS-1$
 
     public static final String SCREEN_OFFSET_X = "SCREEN_OFFSET_X"; //$NON-NLS-1$
 
@@ -72,16 +85,10 @@ public interface IProcess extends IRepositoryObject, IElement {
 
     public boolean isThereLinkWithHash(final INode node);
 
-    boolean disableRunJobView();
-
     public List<INode> getNodesWithImport();
 
-    public IContext getLastRunContext();
-
-    public void setLastRunContext(IContext context);
-
     /**
-     * if need to regenerate the code for the current process.
+     * if need to regenerate the code for the current process. For jobs without GUI, always true.
      * 
      * @return
      */
@@ -90,4 +97,19 @@ public interface IProcess extends IRepositoryObject, IElement {
     public void setNeedRegenerateCode(boolean regenerateCode);
 
     public IMetadataTable getOutputMetadataTable();
+
+    public boolean isDuplicate();
+
+    /**
+     * Duplicate == true means copy of process used for code generation.
+     * 
+     * @param duplicate
+     */
+    public void setDuplicate(boolean duplicate);
+
+    public void setActivate(boolean activate);
+
+    public void setContextManager(IContextManager contextManager);
+
+    public void checkStartNodes();
 }
