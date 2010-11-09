@@ -18,7 +18,7 @@ import org.eclipse.gef.commands.CommandStack;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
-import org.talend.core.model.process.IProcess;
+import org.talend.core.model.process.IProcess2;
 
 /**
  * DOC bqian class global comment. Detailled comment <br/>
@@ -28,7 +28,7 @@ public interface IContextModelManager {
 
     public IContextManager getContextManager();
 
-    public IProcess getProcess();
+    public IProcess2 getProcess();
 
     /**
      * refresh the contextComposite.

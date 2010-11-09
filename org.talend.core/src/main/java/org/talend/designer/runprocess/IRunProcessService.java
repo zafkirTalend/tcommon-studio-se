@@ -24,6 +24,7 @@ import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.ICodeProblemsChecker;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IProcess;
+import org.talend.core.model.process.IProcess2;
 
 /**
  * DOC qian class global comment. Detailled comment <br/>
@@ -42,9 +43,9 @@ public interface IRunProcessService extends IService {
      * 
      * @param activeContext the activeContext to set
      */
-    public void setActiveProcess(IProcess activeProcess);
+    public void setActiveProcess(IProcess2 activeProcess);
 
-    public void setActiveProcess(IProcess activeProcess, boolean refreshUI);
+    public void setActiveProcess(IProcess2 activeProcess, boolean refreshUI);
 
     public void removeProcess(IProcess activeProcess);
 

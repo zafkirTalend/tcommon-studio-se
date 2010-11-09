@@ -21,6 +21,7 @@ import org.talend.core.model.metadata.query.GenerateQueryFactory;
 import org.talend.core.model.metadata.query.IQueryGenerator;
 import org.talend.core.model.process.EParameterFieldType;
 import org.talend.core.model.process.Element;
+import org.talend.core.model.process.IElement;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.model.utils.TalendTextUtils;
@@ -72,7 +73,7 @@ public class QueryUtil {
         return false;
     }
 
-    public static String generateNewQuery(Element node, IMetadataTable repositoryMetadata, String dbType, String schema,
+    public static String generateNewQuery(IElement node, IMetadataTable repositoryMetadata, String dbType, String schema,
             String realTableName) {
         IQueryGenerator generator = GenerateQueryFactory.getGenerator(dbType);
         if (generator != null) {
@@ -82,7 +83,7 @@ public class QueryUtil {
         return generateNewQueryDelegate(node, repositoryMetadata, dbType, schema, realTableName);
     }
 
-    public static String generateNewQuery(Element node, IMetadataTable repositoryMetadata, String dbType, String schema,
+    public static String generateNewQuery(IElement node, IMetadataTable repositoryMetadata, String dbType, String schema,
             String realTableName, boolean standardSyntax) {
         IQueryGenerator generator = GenerateQueryFactory.getGenerator(dbType);
         if (generator != null) {
@@ -92,13 +93,13 @@ public class QueryUtil {
         return generateNewQueryDelegate(node, repositoryMetadata, dbType, schema, realTableName, standardSyntax);
     }
 
-    public static String generateNewQueryDelegate(Element node, IMetadataTable repositoryMetadata, String dbType, String schema,
+    public static String generateNewQueryDelegate(IElement node, IMetadataTable repositoryMetadata, String dbType, String schema,
             String realTableName) {
         String tableName = getTableName(node, repositoryMetadata, schema, dbType, realTableName);
         return generateNewQuery(repositoryMetadata, dbType, tableName, realTableName);
     }
 
-    public static String generateNewQueryDelegate(Element node, IMetadataTable repositoryMetadata, String dbType, String schema,
+    public static String generateNewQueryDelegate(IElement node, IMetadataTable repositoryMetadata, String dbType, String schema,
             String realTableName, boolean standardSyntax) {
 
         String tableName = getTableName(node, repositoryMetadata, schema, dbType, realTableName);
@@ -265,7 +266,7 @@ public class QueryUtil {
         return schema;
     }
 
-    public static String getTableName(Element node, IMetadataTable repositoryMetadata, String schema, String dbType,
+    public static String getTableName(IElement node, IMetadataTable repositoryMetadata, String schema, String dbType,
             String realTableName) {
         String currentTableName = null;
         boolean flag = false;
@@ -382,7 +383,7 @@ public class QueryUtil {
         return TalendTextUtils.addQuotesWithSpaceFieldForSQLStringForce(TalendTextUtils.declareString(value), dbType, true);
     }
 
-    private static String getDbTableName(Element node) {
+    private static String getDbTableName(IElement node) {
         if (node != null) { // for job settings extra.(feature 2710)
             IElementParameter param = node.getElementParameterFromField(EParameterFieldType.DBTABLE);
             if (param != null && param.isShow(node.getElementParameters())) {

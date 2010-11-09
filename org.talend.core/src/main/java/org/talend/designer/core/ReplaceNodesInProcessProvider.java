@@ -30,19 +30,22 @@ public final class ReplaceNodesInProcessProvider {
 
     public static final String ATTR_CLASS = "class"; //$NON-NLS-1$
 
+    private static List<IReplaceNodeInProcess> providers = new ArrayList<IReplaceNodeInProcess>();
+
     public static List<IReplaceNodeInProcess> findReplaceNodesProvider() {
-        List<IReplaceNodeInProcess> list = new ArrayList<IReplaceNodeInProcess>();
-        IConfigurationElement[] elems = Platform.getExtensionRegistry().getConfigurationElementsFor(EXTENSION_ID);
-        for (IConfigurationElement elem : elems) {
-            IReplaceNodeInProcess createExecutableExtension;
-            try {
-                createExecutableExtension = (IReplaceNodeInProcess) elem.createExecutableExtension(ATTR_CLASS);
-                list.add(createExecutableExtension);
-            } catch (CoreException e) {
-                ExceptionHandler.process(e);
+        if (providers.isEmpty()) {
+            IConfigurationElement[] elems = Platform.getExtensionRegistry().getConfigurationElementsFor(EXTENSION_ID);
+            for (IConfigurationElement elem : elems) {
+                IReplaceNodeInProcess createExecutableExtension;
+                try {
+                    createExecutableExtension = (IReplaceNodeInProcess) elem.createExecutableExtension(ATTR_CLASS);
+                    providers.add(createExecutableExtension);
+                } catch (CoreException e) {
+                    ExceptionHandler.process(e);
+                }
             }
         }
-        return list;
+        return providers;
     }
 
     public static boolean isNeedForceRebuild(IProcess2 process) {

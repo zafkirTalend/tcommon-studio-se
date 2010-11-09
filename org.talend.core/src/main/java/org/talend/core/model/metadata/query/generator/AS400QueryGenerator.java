@@ -20,7 +20,7 @@ import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.query.AbstractQueryGenerator;
 import org.talend.core.model.process.EParameterFieldType;
-import org.talend.core.model.process.Element;
+import org.talend.core.model.process.IElement;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.properties.Item;
@@ -39,7 +39,7 @@ public class AS400QueryGenerator extends AbstractQueryGenerator {
     }
 
     @Override
-    public void setParameters(Element element, IMetadataTable metadataTable, String schema, String realTableName) {
+    public void setParameters(IElement element, IMetadataTable metadataTable, String schema, String realTableName) {
         super.setParameters(element, metadataTable, schema, realTableName);
         //
         standardSyntax = CorePlugin.getDefault().getPreferenceStore().getBoolean(ITalendCorePrefConstants.AS400_SQL_SEG);

@@ -24,7 +24,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.talend.core.i18n.Messages;
 import org.talend.core.model.process.IContextManager;
-import org.talend.core.model.process.IProcess;
+import org.talend.core.model.process.IProcess2;
 
 /**
  * This class must be extended for implementing the specific context composite. <br/>
@@ -230,7 +230,7 @@ public abstract class ContextComposite extends Composite implements IContextMode
      * 
      * @see org.talend.core.ui.context.IContextModelManager#getProcess()
      */
-    public IProcess getProcess() {
+    public IProcess2 getProcess() {
         return null;
     }
 

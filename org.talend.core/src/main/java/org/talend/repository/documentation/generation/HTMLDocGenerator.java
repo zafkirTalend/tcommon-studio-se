@@ -995,11 +995,8 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
             Point screenshotOffset) {
         int x = 0, y = 0, width = 0, height = 0;
         for (INode node : allComponentsList) {
-            if (node.getLocation() != null) {
-                Point point = (Point) node.getLocation();
-                x = point.x + screenshotOffset.x;
-                y = point.y + screenshotOffset.y;
-            }
+            x = node.getPosX() + screenshotOffset.x;
+            y = node.getPosY() + screenshotOffset.y;
             Image icon = CoreImageProvider.getComponentIcon(node.getComponent(), ICON_SIZE.ICON_32);
             if (icon != null) {
                 ImageData imageData = icon.getImageData();

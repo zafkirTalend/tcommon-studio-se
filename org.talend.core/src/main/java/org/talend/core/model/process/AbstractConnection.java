@@ -263,4 +263,89 @@ public abstract class AbstractConnection implements IConnection {
     public String getElementName() {
         return this.getUniqueName();
     }
+
+    public String getMetaName() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public INodeConnector getSourceNodeConnector() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public INodeConnector getTargetNodeConnector() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public boolean isMonitorConnection() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    public boolean isSubjobConnection() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    public void reconnect() {
+        // TODO Auto-generated method stub
+
+    }
+
+    public void reconnect(INode newSource, INode oldTarget, EConnectionType newLineStyle) {
+        // TODO Auto-generated method stub
+
+    }
+
+    public void setMetaName(String uniqueName) {
+        // TODO Auto-generated method stub
+
+    }
+
+    public void setTraceConnection(boolean trace) {
+        // TODO Auto-generated method stub
+
+    }
+
+    public void updateAllId() {
+        // TODO Auto-generated method stub
+
+    }
+
+    public void updateName() {
+        // TODO Auto-generated method stub
+
+    }
+
+    public Object getPropertyValue(String name) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public void setPropertyValue(String name, Object value) {
+        // TODO Auto-generated method stub
+
+    }
+
+    public IElementParameter getElementParameterFromField(EParameterFieldType propertyType, EComponentCategory category) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public IElementParameter getElementParameterFromField(EParameterFieldType dbtable) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public void disconnect() {
+        // TODO Auto-generated method stub
+
+    }
+
+    public Object getPropertyValue(String name, String paramName) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

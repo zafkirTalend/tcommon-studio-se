@@ -14,7 +14,7 @@ package org.talend.core.model.metadata.query.generator;
 
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.model.metadata.query.AbstractQueryGenerator;
-import org.talend.core.model.process.Element;
+import org.talend.core.model.process.IElement;
 
 /**
  * ggu class global comment. Detailled comment
@@ -26,8 +26,7 @@ public class NonDatabaseDefaultQueryGenerator extends AbstractQueryGenerator {
     }
 
     @Override
-    protected String getDBName(Element elem) {
-        // return super.getDBName(elem);
+    protected String getDBName(IElement elem) {
         return EMPTY; // no need database
     }
 }

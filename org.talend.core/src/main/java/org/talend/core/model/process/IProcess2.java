@@ -17,13 +17,14 @@ import java.io.InputStream;
 import java.util.List;
 
 import org.eclipse.gef.commands.CommandStack;
+import org.eclipse.ui.IEditorPart;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.model.update.IUpdateManager;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 
 /**
- * DOC qzhang class global comment. Detailled comment
+ * This interface should list all functions used only for graphical purpose of the process.
  */
 public interface IProcess2 extends IProcess {
 
@@ -102,5 +103,21 @@ public interface IProcess2 extends IProcess {
 
     // for tmap ErrorReject
     public String generateUniqueConnectionName(String baseName, String tableName);
+
+    boolean disableRunJobView();
+
+    public IEditorPart getEditor();
+
+    void removeUniqueNodeName(String uniqueName);
+
+    void addUniqueNodeName(String uniqueName);
+
+    boolean isGridEnabled();
+
+    public void updateSubjobContainers();
+
+    public IContext getLastRunContext();
+
+    public void setLastRunContext(IContext context);
 
 }

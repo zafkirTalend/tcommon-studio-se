@@ -22,7 +22,7 @@ import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.QueryUtil;
 import org.talend.core.model.process.EParameterFieldType;
-import org.talend.core.model.process.Element;
+import org.talend.core.model.process.IElement;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
@@ -37,7 +37,7 @@ public abstract class AbstractQueryGenerator implements IQueryGenerator {
 
     private final EDatabaseTypeName dbType;
 
-    private Element element;
+    private IElement element;
 
     private IMetadataTable metadataTable;
 
@@ -53,7 +53,7 @@ public abstract class AbstractQueryGenerator implements IQueryGenerator {
         originalSqlQuoteSetting = CorePlugin.getDefault().getPreferenceStore().getBoolean(ITalendCorePrefConstants.SQL_ADD_QUOTE);
     }
 
-    public void setParameters(Element element, IMetadataTable metadataTable, String schema, String realTableName) {
+    public void setParameters(IElement element, IMetadataTable metadataTable, String schema, String realTableName) {
         this.element = element;
         this.metadataTable = metadataTable;
         this.schema = schema;
@@ -76,7 +76,7 @@ public abstract class AbstractQueryGenerator implements IQueryGenerator {
         this.schema = schema;
     }
 
-    protected Element getElement() {
+    protected IElement getElement() {
         return this.element;
     }
 
@@ -92,7 +92,7 @@ public abstract class AbstractQueryGenerator implements IQueryGenerator {
         this.realTableName = realTableName;
     }
 
-    private Element getUseExistedConnetion(Element currentElem) {
+    private IElement getUseExistedConnetion(IElement currentElem) {
         IElementParameter param = currentElem.getElementParameter("USE_EXISTING_CONNECTION"); //$NON-NLS-1$
         if (param != null) {
             Object value = param.getValue();
@@ -111,7 +111,7 @@ public abstract class AbstractQueryGenerator implements IQueryGenerator {
                         if (process != null) {
                             for (INode node : process.getGraphicalNodes()) {
                                 if (connNodeName.equals(node.getUniqueName())) {
-                                    return (Element) node;
+                                    return node;
                                 }
                             }
                         }
@@ -128,7 +128,7 @@ public abstract class AbstractQueryGenerator implements IQueryGenerator {
      * 
      * moved from QueryUtil
      */
-    protected String getDBTableName(Element elem) {
+    protected String getDBTableName(IElement elem) {
         if (elem != null) { // for job settings extra.(feature 2710)
             IElementParameter param = elem.getElementParameterFromField(EParameterFieldType.DBTABLE);
             if (param != null) {
@@ -167,7 +167,7 @@ public abstract class AbstractQueryGenerator implements IQueryGenerator {
      * 
      * moved from QueryUtil
      */
-    protected String getDBName(Element elem) {
+    protected String getDBName(IElement elem) {
         if (elem != null) {
             IElementParameter param = elem.getElementParameter("DBNAME"); //$NON-NLS-1$
             if (param != null) {
@@ -177,7 +177,7 @@ public abstract class AbstractQueryGenerator implements IQueryGenerator {
                         return processDBName(value);
                     }
                 } else { // when use an existed connection
-                    Element usedElem = getUseExistedConnetion(elem);
+                    IElement usedElem = getUseExistedConnetion(elem);
                     if (usedElem != null) {
                         return getDBName(usedElem);
                     }
@@ -203,7 +203,7 @@ public abstract class AbstractQueryGenerator implements IQueryGenerator {
         return null;
     }
 
-    protected String getSchema(Element elem) {
+    protected String getSchema(IElement elem) {
         if (elem != null) {
             for (IElementParameter param : elem.getElementParameters()) {
                 if ("SCHEMA".equals(param.getRepositoryValue())) { //$NON-NLS-1$
@@ -213,7 +213,7 @@ public abstract class AbstractQueryGenerator implements IQueryGenerator {
                             return processSchema(value);
                         }
                     } else { // when use an existed connection
-                        Element usedElem = getUseExistedConnetion(elem);
+                        IElement usedElem = getUseExistedConnetion(elem);
                         if (usedElem != null) {
                             return getSchema(usedElem);
                         }

@@ -15,10 +15,12 @@ package org.talend.core.model.process;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.StringTokenizer;
 
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.components.IMultipleComponentManager;
+import org.talend.core.model.components.IODataComponent;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.utils.NodeUtil;
 import org.talend.core.model.utils.ParameterValueUtil;
@@ -714,5 +716,170 @@ public abstract class AbstractNode implements INode {
      */
     public String getElementName() {
         return this.getUniqueName();
+    }
+
+    public void addInput(IConnection connection) {
+        // TODO Auto-generated method stub
+
+    }
+
+    public void addOutput(IConnection connection) {
+        // TODO Auto-generated method stub
+
+    }
+
+    public boolean checkIfCanBeStart() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    public void checkNode() {
+        // TODO Auto-generated method stub
+
+    }
+
+    public Set<INode> fsComponentsInProgressBar() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public INodeConnector getConnectorFromType(EConnectionType lineStyle) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public Object getExternalBytesData() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public IExternalData getExternalData() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public List<? extends INodeConnector> getListConnector() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public IMetadataTable getMetadataTable(String metaName) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public INode getProcessStartNode(boolean processStartNode) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public Object getSchemaParameterFromConnector(String name) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public Object getSize() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public boolean hasRunIfLink() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    public boolean isDummy() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    public boolean isExternalNode() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    public boolean isGeneratedByJobscriptBool() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    public boolean isTemplate() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    public void metadataInputChanged(IODataComponent dataComponent, String connectionToApply) {
+        // TODO Auto-generated method stub
+
+    }
+
+    public void metadataOutputChanged(IODataComponent dataComponent, String connectionToApply) {
+        // TODO Auto-generated method stub
+
+    }
+
+    public void removeInput(IConnection connection) {
+        // TODO Auto-generated method stub
+
+    }
+
+    public void removeOutput(IConnection connection) {
+        // TODO Auto-generated method stub
+
+    }
+
+    public boolean sameProcessAs(INode target, boolean withConditions) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    public void setLocation(Object location) {
+        // TODO Auto-generated method stub
+
+    }
+
+    public void setSize(Object size) {
+        // TODO Auto-generated method stub
+
+    }
+
+    public Object getPropertyValue(String name) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public void setPropertyValue(String name, Object value) {
+        // TODO Auto-generated method stub
+
+    }
+
+    public IElementParameter getElementParameterFromField(EParameterFieldType propertyType, EComponentCategory category) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public IElementParameter getElementParameterFromField(EParameterFieldType dbtable) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public Object getPropertyValue(String name, String paramName) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public void setLabel(String label) {
+        // TODO Auto-generated method stub
+
+    }
+
+    public int getPosX() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    public int getPosY() {
+        // TODO Auto-generated method stub
+        return 0;
     }
 }

@@ -13,7 +13,7 @@
 package org.talend.core.model.metadata.query;
 
 import org.talend.core.model.metadata.IMetadataTable;
-import org.talend.core.model.process.Element;
+import org.talend.core.model.process.IElement;
 
 /**
  * ggu class global comment. Detailled comment
@@ -32,7 +32,7 @@ public interface IQueryGenerator {
 
     public static final String SQL_FROM = "FROM"; //$NON-NLS-1$
 
-    public void setParameters(Element element, IMetadataTable metadataTable, String schema, String realTableName);
+    public void setParameters(IElement element, IMetadataTable metadataTable, String schema, String realTableName);
 
     public abstract String generateQuery();
 }
