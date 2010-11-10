@@ -829,10 +829,9 @@ public class ProcessorUtilities {
         IProcess currentProcess = null;
         ProcessItem selectedProcessItem = null;
         selectedProcessItem = ItemCacheManager.getProcessItem(processName, processVersion);
-        if (selectedProcessItem != null && currentProcess instanceof IProcess2) {
+        if (selectedProcessItem != null) {
             IDesignerCoreService service = CorePlugin.getDefault().getDesignerCoreService();
             currentProcess = service.getProcessFromProcessItem(selectedProcessItem);
-            ((IProcess2) currentProcess).setProperty(selectedProcessItem.getProperty());
         }
         if (currentProcess == null) {
             return new String[] {};
