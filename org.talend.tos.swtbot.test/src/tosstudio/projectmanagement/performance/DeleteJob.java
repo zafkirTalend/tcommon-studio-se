@@ -14,19 +14,21 @@ package tosstudio.projectmanagement.performance;
 
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
+import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.talend.swtbot.TalendSwtBotForTos;
 
 /**
  * DOC Administrator class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class DeleteJob extends TalendSwtBotForTos {
+public class DeleteJob {
+
+    private static SWTGefBot gefBot = new SWTGefBot();
 
     private static SWTBotTree tree;
 

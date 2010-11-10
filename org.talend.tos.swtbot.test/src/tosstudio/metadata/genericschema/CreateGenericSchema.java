@@ -10,47 +10,59 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package tosstudio.projectmanagement.performance;
+package tosstudio.metadata.genericschema;
 
 import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
-import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.swtbot.TalendSwtBotForTos;
 
 /**
  * DOC Administrator class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class CopyPasteJob {
-
-    private static SWTGefBot gefBot = new SWTGefBot();
+public class CreateGenericSchema extends TalendSwtBotForTos {
 
     private static SWTBotTree tree;
 
     private static SWTBotView view;
 
-    private static String JOBNAME = "test01";
+    private static String SCHEMANAME = "schema1";
 
-    private static String DEFAULT_VERSION = "0.1";
+    private static String[] COLUMN = { "A", "B", "C" };
+
+    private static String[] TYPE = { "int | Integer", "String", "float | Float" };
 
     @Test
-    public void copyJob() {
+    public void createGenericSchema() {
         view = gefBot.viewByTitle("Repository");
         view.setFocus();
 
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
         tree.setFocus();
 
-        tree.expandNode("Job Designs").getNode(JOBNAME + " " + DEFAULT_VERSION).contextMenu("Copy").click();
-    }
+        tree.expandNode("Metadata").getNode("Generic schemas").contextMenu("Create generic schema").click();
+        gefBot.waitUntil(Conditions.shellIsActive("Create new generic schema"));
+        gefBot.shell("Create new generic schema").activate();
 
-    @Test
-    public void pasteJob() {
-        tree.select("Job Designs").contextMenu("Paste").click();
-    }
+        /* step 1 of 2 */
+        gefBot.textWithLabel("Name").setText(SCHEMANAME);
+        gefBot.button("Next >").click();
 
+        /* step 2 of 2 */
+        for (int i = 0; i < 3; i++) {
+            gefBot.buttonWithTooltip("Add").click();
+            gefBot.table().click(i, 2);
+            gefBot.text().setText(COLUMN[i]);
+            gefBot.table().click(i, 4);
+            gefBot.ccomboBox().setSelection(TYPE[i]);
+        }
+
+        gefBot.button("Finish").click();
+    }
 }

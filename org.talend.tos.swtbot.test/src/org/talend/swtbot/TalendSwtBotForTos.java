@@ -56,7 +56,7 @@ public class TalendSwtBotForTos {
 
     static public SWTGefBot gefBot = new SWTGefBot();
 
-    static private boolean isGenerationEngineInitialised = false;
+    protected static boolean isGenerationEngineInitialised = false;
 
     /**
      * wait for the Generation engine to be intialised, and this is done only once during the lifetime of the

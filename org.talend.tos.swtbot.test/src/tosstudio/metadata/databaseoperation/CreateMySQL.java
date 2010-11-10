@@ -14,9 +14,7 @@ package tosstudio.metadata.databaseoperation;
 
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotEditor;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
-import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
@@ -29,17 +27,13 @@ import org.talend.swtbot.TalendSwtBotForTos;
  * DOC Administrator class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class tMySQLInput extends TalendSwtBotForTos {
+public class CreateMySQL extends TalendSwtBotForTos {
 
     private static SWTBotTree tree;
 
     private static SWTBotShell shell;
 
     private static SWTBotView view;
-
-    private static SWTBotEditor botEditor;
-
-    private static SWTBotGefEditor gefEditor;
 
     private static String DBTYPE = "MySQL";
 
@@ -53,12 +47,8 @@ public class tMySQLInput extends TalendSwtBotForTos {
 
     private static String DB = "test";
 
-    private static String VERSION = "0.1";
-
-    private static String JOBNAME = "UsetMySQLInput";
-
     @Test
-    public void createConnection() {
+    public void createMySQL() {
         view = gefBot.viewByTitle("Repository");
         view.setFocus();
 
@@ -86,64 +76,4 @@ public class tMySQLInput extends TalendSwtBotForTos {
 
         gefBot.button("Finish").click();
     }
-
-    @Test
-    public void retrieveSchema() {
-        tree.expandNode("Metadata", "Db Connections").getNode(DBNAME + " " + VERSION).contextMenu("Retrieve Schema").click();
-
-        gefBot.waitUntil(Conditions.shellIsActive("Schema"));
-        shell = gefBot.shell("Schema");
-        shell.activate();
-        gefBot.button("Next >").click();
-        gefBot.table(0).getTableItem(0).check();
-        gefBot.button("Next >").click();
-        gefBot.button("Finish").click();
-    }
-
-    @Test
-    public void createJob() {
-        tree.select("Job Designs").contextMenu("Create job").click();
-
-        gefBot.waitUntil(Conditions.shellIsActive("New job"));
-        shell = gefBot.shell("New job");
-        shell.activate();
-
-        gefBot.textWithLabel("Name").setText(JOBNAME);
-
-        gefBot.button("Finish").click();
-    }
-
-    @Test
-    public void useDataInJob() {
-        gefBot.viewByTitle("Palette").close();
-        botEditor = gefBot.activeEditor();
-        gefEditor = gefBot.gefEditor(botEditor.getTitle());
-
-        gefEditor.activateTool("tMysqlInput");
-        gefEditor.click(100, 100);
-        gefEditor.activateTool("tLogRow");
-        gefEditor.click(300, 100);
-
-        gefEditor.doubleClick(110, 110);
-        gefBot.viewByTitle("Component").setFocus();
-        gefBot.ccomboBox(0).setSelection("Repository");
-        gefBot.button("Guess Query").click();
-
-        /* link two component */
-        gefEditor.click(110, 110);
-        gefEditor.clickContextMenu("Row").clickContextMenu("Main");
-        gefEditor.click(310, 110);
-
-        gefBot.toolbarButtonWithTooltip("Save (Ctrl+S)").click();
-    }
-
-    @Test
-    public void runTheJob() {
-        gefBot.viewByTitle("Run (Job " + JOBNAME + ")").setFocus();
-        gefBot.button(" Run").click();
-
-        gefBot.waitUntil(Conditions.shellIsActive("Launching " + JOBNAME + " 0.1"));
-        gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Launching " + JOBNAME + " 0.1")), 10000);
-    }
-
 }

@@ -14,12 +14,9 @@ package tosstudio.metadata.filemanipulation;
 
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotEditor;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
-import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,26 +26,18 @@ import org.talend.swtbot.TalendSwtBotForTos;
  * DOC Administrator class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class tFileInputLDIF extends TalendSwtBotForTos {
+public class CreateLdifFile extends TalendSwtBotForTos {
 
     private static SWTBotTree tree;
 
-    private static SWTBotShell shell;
-
     private static SWTBotView view;
-
-    private static SWTBotEditor botEditor;
-
-    private static SWTBotGefEditor gefEditor;
 
     private static String FILENAME = "test_ldif";
 
     private static String FILEPATH = "E:/testdata/sample.ldif";
 
-    private static String JOBNAME = "UsetFileInputLDIF";
-
     @Test
-    public void createConnection() {
+    public void createLdifFile() {
         view = gefBot.viewByTitle("Repository");
         view.setFocus();
 
@@ -69,56 +58,4 @@ public class tFileInputLDIF extends TalendSwtBotForTos {
         gefBot.button("Next >").click();
         gefBot.button("Finish").click();
     }
-
-    @Test
-    public void createJob() {
-        tree.select("Job Designs").contextMenu("Create job").click();
-
-        gefBot.waitUntil(Conditions.shellIsActive("New job"));
-        shell = gefBot.shell("New job");
-        shell.activate();
-
-        gefBot.textWithLabel("Name").setText(JOBNAME);
-
-        gefBot.button("Finish").click();
-    }
-
-    @Test
-    public void useDataInJob() {
-        gefBot.viewByTitle("Palette").close();
-        botEditor = gefBot.activeEditor();
-        gefEditor = gefBot.gefEditor(botEditor.getTitle());
-
-        gefEditor.activateTool("tFileInputLDIF");
-        gefEditor.click(100, 100);
-        gefEditor.activateTool("tLogRow");
-        gefEditor.click(300, 100);
-
-        gefEditor.doubleClick(110, 110);
-        gefBot.viewByTitle("Component").setFocus();
-        gefBot.ccomboBox(0).setSelection("Repository");
-        gefBot.button("...", 0).click();
-
-        shell = gefBot.shell("Repository Content");
-        shell.activate();
-        gefBot.tree().select(FILENAME + " 0.1");
-        gefBot.button("OK").click();
-
-        /* link two component */
-        gefEditor.click(110, 110);
-        gefEditor.clickContextMenu("Row").clickContextMenu("Main");
-        gefEditor.click(310, 110);
-
-        gefBot.toolbarButtonWithTooltip("Save (Ctrl+S)").click();
-    }
-
-    @Test
-    public void runTheJob() {
-        gefBot.viewByTitle("Run (Job " + JOBNAME + ")").setFocus();
-        gefBot.button(" Run").click();
-
-        gefBot.waitUntil(Conditions.shellIsActive("Launching " + JOBNAME + " 0.1"));
-        gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Launching " + JOBNAME + " 0.1")), 10000);
-    }
-
 }
