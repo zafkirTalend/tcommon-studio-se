@@ -178,7 +178,7 @@ public final class CodeGeneratorRoutine {
                 .getProxyRepositoryFactory();
         try {
             if (process instanceof IProcess2) { // for process
-                Item processItem = process.getProperty().getItem();
+                Item processItem = ((IProcess2) process).getProperty().getItem();
                 if (processItem instanceof ProcessItem) {
                     EList routinesDependencies = ((ProcessItem) processItem).getProcess().getParameters().getRoutinesParameter();
                     for (RoutinesParameterType infor : (List<RoutinesParameterType>) routinesDependencies) {
@@ -259,7 +259,12 @@ public final class CodeGeneratorRoutine {
      * @return
      */
     public static List<String> getRoutineName(IProcess process) {
-        Item processItem = process.getProperty().getItem();
+        Item processItem;
+        if (process instanceof IProcess2) {
+            processItem = ((IProcess2) process).getProperty().getItem();
+        } else {
+            processItem = ItemCacheManager.getProcessItem(process.getId(), process.getVersion());
+        }
         ProjectManager pManager = ProjectManager.getInstance();
 
         org.talend.core.model.properties.Project emfProject = pManager.getProject(processItem);

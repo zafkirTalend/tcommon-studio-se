@@ -45,7 +45,7 @@ public final class ParameterValueUtil {
             return;
         }
         boolean flag = true;
-        if (param.getField() == EParameterFieldType.MEMO_SQL)
+        if (param.getFieldType() == EParameterFieldType.MEMO_SQL)
             flag = false;
         if (param.getValue() instanceof String) { // for TEXT / MEMO etc..
             String value = (String) param.getValue();

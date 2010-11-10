@@ -162,7 +162,7 @@ public final class ElementParameterParser {
                 param = params.get(i);
                 if (text.indexOf(param.getVariableName()) != -1
                         || (param.getVariableName() != null && param.getVariableName().contains(text))) {
-                    if (param.getField() == EParameterFieldType.TABLE) {
+                    if (param.getFieldType() == EParameterFieldType.TABLE) {
                         return createTableValues((List<Map<String, Object>>) param.getValue(), param);
                     }
                     return param.getValue();
@@ -248,7 +248,7 @@ public final class ElementParameterParser {
         for (int i = 0; i < element.getElementParameters().size(); i++) {
             param = element.getElementParameters().get(i);
             if (text.indexOf(param.getVariableName()) != -1) {
-                if (param.getField() == EParameterFieldType.TABLE) {
+                if (param.getFieldType() == EParameterFieldType.TABLE) {
                     return createTableValuesXML((List<Map<String, Object>>) param.getValue(), param);
                 }
                 return param.getValue();
@@ -394,8 +394,8 @@ public final class ElementParameterParser {
                                 if (param.getElement() instanceof INode) {
                                     INode node = (INode) param.getElement();
                                     IProcess process = node.getProcess();
-                                    String jobLabel = process.getProperty().getLabel();
-                                    String jobVersion = process.getProperty().getVersion();
+                                    String jobLabel = process.getName();
+                                    String jobVersion = process.getVersion();
                                     processLabelAndVersion = JavaResourcesHelper.getJobFolderName(jobLabel, jobVersion);
                                 }
 
@@ -415,8 +415,8 @@ public final class ElementParameterParser {
 
             return (String) value;
         }
-        if (param.getField() == EParameterFieldType.RADIO || param.getField() == EParameterFieldType.CHECK
-                || param.getField() == EParameterFieldType.AS400_CHECK) {
+        if (param.getFieldType() == EParameterFieldType.RADIO || param.getFieldType() == EParameterFieldType.CHECK
+                || param.getFieldType() == EParameterFieldType.AS400_CHECK) {
             if (value instanceof Boolean) {
                 return ((Boolean) param.getValue()).toString();
             } else {
@@ -424,7 +424,7 @@ public final class ElementParameterParser {
             }
         }
 
-        if (param.getField() == EParameterFieldType.TABLE) {
+        if (param.getFieldType() == EParameterFieldType.TABLE) {
             List<Map<String, Object>> tableValues = (List<Map<String, Object>>) param.getValue();
             String[] items = param.getListItemsDisplayCodeName();
             String stringValues = "{"; //$NON-NLS-1$

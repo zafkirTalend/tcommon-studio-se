@@ -58,12 +58,12 @@ public final class UpdateRunJobComponentContextHelper {
     private static final String TRUN_JOB = "tRunJob"; //$NON-NLS-1$
 
     @SuppressWarnings("unchecked")
-    public static synchronized void updateOpenedJobRunJobComponentReference(final List<IProcess> openedProcesses,
+    public static synchronized void updateOpenedJobRunJobComponentReference(final List<IProcess2> openedProcesses,
             final Map<String, String> nameMap, final String refJobId, final Set<String> varNameSet) {
         if (openedProcesses == null || refJobId == null) {
             return;
         }
-        for (IProcess process : openedProcesses) {
+        for (IProcess2 process : openedProcesses) {
             if (process.getId().equals(refJobId)) {
                 // ignore self
                 continue;

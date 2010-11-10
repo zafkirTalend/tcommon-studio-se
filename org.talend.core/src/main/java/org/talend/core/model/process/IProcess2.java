@@ -19,6 +19,7 @@ import java.util.List;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.ui.IEditorPart;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.core.model.update.IUpdateManager;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
@@ -26,7 +27,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 /**
  * This interface should list all functions used only for graphical purpose of the process.
  */
-public interface IProcess2 extends IProcess {
+public interface IProcess2 extends IRepositoryObject, IProcess {
 
     boolean checkReadOnly();
 

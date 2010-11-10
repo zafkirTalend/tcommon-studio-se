@@ -442,7 +442,7 @@ public class MetadataTool {
         IElementParameter mappingParameter = getMappingParameter(elementParameters);
         for (int i = 0; i < elementParameters.size(); i++) {
             IElementParameter param = elementParameters.get(i);
-            if (param.getField().equals(EParameterFieldType.SCHEMA_TYPE)
+            if (param.getFieldType().equals(EParameterFieldType.SCHEMA_TYPE)
                     && param.getContext().equals(metadataTable.getAttachedConnector())) {
                 if (param.getValue() instanceof IMetadataTable) {
                     param.setValueToDefault(elementParameters);
@@ -497,7 +497,7 @@ public class MetadataTool {
     public static IElementParameter getMappingParameter(List<IElementParameter> elementParameters) {
         for (int i = 0; i < elementParameters.size(); i++) {
             IElementParameter param = elementParameters.get(i);
-            if (param.getField().equals(EParameterFieldType.MAPPING_TYPE)) {
+            if (param.getFieldType().equals(EParameterFieldType.MAPPING_TYPE)) {
                 return param;
             }
         }

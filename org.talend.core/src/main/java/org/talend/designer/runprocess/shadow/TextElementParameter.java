@@ -28,7 +28,7 @@ public class TextElementParameter extends ObjectElementParameter {
      * 
      * @see org.talend.core.model.process.IElementParameter#getField()
      */
-    public EParameterFieldType getField() {
+    public EParameterFieldType getFieldType() {
         return EParameterFieldType.TEXT;
     }
 }

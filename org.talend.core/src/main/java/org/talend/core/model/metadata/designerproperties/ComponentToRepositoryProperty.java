@@ -23,11 +23,11 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.utils.PasswordEncryptUtil;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.DatabaseConnStrUtil;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 import org.talend.core.i18n.Messages;
-import org.talend.core.model.PasswordEncryptUtil;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.builder.connection.BRMSConnection;
 import org.talend.core.model.metadata.builder.connection.Connection;
@@ -192,7 +192,7 @@ public class ComponentToRepositoryProperty {
         for (IElementParameter param : (List<IElementParameter>) node.getElementParameters()) {
             if (param.getRepositoryValue() != null) {
                 if (param.getRepositoryValue().equals(repositoryName)) {
-                    if (param.getField().equals(EParameterFieldType.CLOSED_LIST)) {
+                    if (param.getFieldType().equals(EParameterFieldType.CLOSED_LIST)) {
                         String repositoryItem = getRepositoryItemFromRepositoryName(param, repositoryName);
                         if (isConetxtParaMode(repositoryItem)) {
                             return getContextOriginalValue(node, repositoryItem);

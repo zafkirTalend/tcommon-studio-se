@@ -485,7 +485,7 @@ public abstract class AbstractNode implements INode {
      * @return
      */
     private boolean isSQLQueryParameter(final IElementParameter parameter) {
-        return parameter.getField().equals(EParameterFieldType.MEMO_SQL) && parameter.getName().equals("QUERY"); //$NON-NLS-1$
+        return parameter.getFieldType().equals(EParameterFieldType.MEMO_SQL) && parameter.getName().equals("QUERY"); //$NON-NLS-1$
     }
 
     /*
@@ -496,7 +496,7 @@ public abstract class AbstractNode implements INode {
     public boolean useData(String name) {
 
         for (IElementParameter param : this.getElementParameters()) {
-            if (param.getField() == EParameterFieldType.IMAGE) {
+            if (param.getFieldType() == EParameterFieldType.IMAGE) {
                 continue;
             }
             if (param.getName().equals("UNIQUE_NAME")) { //$NON-NLS-1$

@@ -25,6 +25,7 @@ import org.talend.core.language.ICodeProblemsChecker;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.IProcess2;
+import org.talend.core.model.properties.Property;
 
 /**
  * DOC qian class global comment. Detailled comment <br/>
@@ -71,7 +72,7 @@ public interface IRunProcessService extends IService {
      * @param filenameFromLabel
      * @return
      */
-    public IProcessor createCodeProcessor(IProcess process, ECodeLanguage language, boolean filenameFromLabel);
+    public IProcessor createCodeProcessor(IProcess process, Property property, ECodeLanguage language, boolean filenameFromLabel);
 
     /**
      * DOC qian Comment method "createPerformanceData".

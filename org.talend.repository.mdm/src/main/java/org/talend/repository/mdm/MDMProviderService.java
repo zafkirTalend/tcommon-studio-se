@@ -66,7 +66,7 @@ public class MDMProviderService implements IMDMProviderService {
     public boolean isMDMNode(INode node) {
         if (node != null) {
             IElementParameter param = node.getElementParameter(IMDMConstant.PROPERTY);
-            if (param != null && param.getField() == EParameterFieldType.PROPERTY_TYPE
+            if (param != null && param.getFieldType() == EParameterFieldType.PROPERTY_TYPE
                     && IMDMConstant.REPOSITORY_VALUE.equals(param.getRepositoryValue())) {
                 return true;
             }

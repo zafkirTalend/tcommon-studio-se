@@ -85,7 +85,7 @@ public class ObjectElementParameter implements IElementParameter {
      * 
      * @see org.talend.core.model.process.IElementParameter#getField()
      */
-    public EParameterFieldType getField() {
+    public EParameterFieldType getFieldType() {
         return EParameterFieldType.TABLE;
     }
 
@@ -212,7 +212,7 @@ public class ObjectElementParameter implements IElementParameter {
      * 
      * @see org.talend.core.model.process.IElementParameter#setField(org.talend.core .model.process.EParameterFieldType)
      */
-    public void setField(EParameterFieldType type) {
+    public void setFieldType(EParameterFieldType type) {
         // Read-only
     }
 
@@ -824,12 +824,12 @@ public class ObjectElementParameter implements IElementParameter {
 
     }
 
-    public IElementParameter clone() throws CloneNotSupportedException {
-        final IElementParameter clone = (IElementParameter) super.clone();
+    public IElementParameter getClone() {
+        final IElementParameter clone = new ObjectElementParameter(this.name, this.value);
 
         clone.setCategory(this.getCategory());
         clone.setName(this.getName());
-        clone.setField(this.getField());
+        clone.setFieldType(this.getFieldType());
         clone.setDisplayName(this.getDisplayName());
         clone.setValue(this.getValue());
 

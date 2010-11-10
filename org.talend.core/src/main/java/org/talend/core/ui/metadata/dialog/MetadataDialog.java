@@ -189,7 +189,7 @@ public class MetadataDialog extends Dialog {
             if (node.getComponent().getOriginalFamilyName().startsWith(DATABASE_LABEL) || eltComponent) {
                 dbComponent = true;
                 for (IElementParameter currentParam : node.getElementParameters()) {
-                    if (currentParam.getField().equals(EParameterFieldType.MAPPING_TYPE)) {
+                    if (currentParam.getFieldType().equals(EParameterFieldType.MAPPING_TYPE)) {
                         metaView.setCurrentDbms((String) currentParam.getValue());
                         hasMappingType = true;
                     }

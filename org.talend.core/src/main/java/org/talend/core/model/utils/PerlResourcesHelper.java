@@ -21,6 +21,7 @@ import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ProcessItem;
+import org.talend.core.model.properties.Property;
 import org.talend.designer.runprocess.ItemCacheManager;
 import org.talend.repository.ProjectManager;
 
@@ -67,6 +68,13 @@ public class PerlResourcesHelper {
      */
     public static String escapeSpace(String name) {
         return name != null ? name.replace(" ", "") : ""; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    }
+
+    public static String getRootProjectName(Property property) {
+        if (property == null) {
+            return ProjectManager.getInstance().getCurrentProject().getTechnicalLabel();
+        }
+        return getRootProjectName(property.getItem());
     }
 
     public static String getRootProjectName(Item item) {

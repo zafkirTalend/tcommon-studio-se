@@ -648,7 +648,7 @@ public class ComponentUtilities {
                 IElementParameter param = (IElementParameter) obj;
                 paramName = param.getName();
                 value = param.getValue();
-                field = param.getField().getName();
+                field = param.getFieldType().getName();
             } else if (obj instanceof ElementParameterType) {
                 ElementParameterType param = (ElementParameterType) obj;
                 paramName = param.getName();

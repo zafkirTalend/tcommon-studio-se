@@ -136,7 +136,7 @@ public class ModulesNeededProvider {
         // Step 1: remove all modules for current job;
         List<ModuleNeeded> moduleForCurrentJobList = new ArrayList<ModuleNeeded>(5);
         for (ModuleNeeded module : componentImportNeedsList) {
-            if (module.getContext().equals("Job " + process.getProperty().getLabel())) { //$NON-NLS-1$
+            if (module.getContext().equals("Job " + process.getName())) { //$NON-NLS-1$
                 moduleForCurrentJobList.add(module);
             }
         }
@@ -156,8 +156,8 @@ public class ModulesNeededProvider {
                 }
 
                 // Step 2: re-add specific modules
-                ModuleNeeded toAdd = new ModuleNeeded("Job " + process.getProperty().getLabel(), neededLibrary, //$NON-NLS-1$
-                        "Required for the job " + process.getProperty().getLabel() + ".", true); //$NON-NLS-1$ //$NON-NLS-2$
+                ModuleNeeded toAdd = new ModuleNeeded("Job " + process.getName(), neededLibrary, //$NON-NLS-1$
+                        "Required for the job " + process.getName() + ".", true); //$NON-NLS-1$ //$NON-NLS-2$
 
                 componentImportNeedsList.add(toAdd);
 

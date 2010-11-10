@@ -20,6 +20,7 @@ import org.talend.core.CorePlugin;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.Property;
 import org.talend.repository.ProjectManager;
 
 /**
@@ -64,6 +65,13 @@ public class JavaResourcesHelper {
         } else {
             return jobName.replaceAll(" ", "_").toLowerCase(); //$NON-NLS-1$ //$NON-NLS-2$
         }
+    }
+
+    public static String getProjectFolderName(Property property) {
+        if (property == null) {
+            return ProjectManager.getInstance().getCurrentProject().getTechnicalLabel().toLowerCase();
+        }
+        return getProjectFolderName(property.getItem());
     }
 
     public static String getProjectFolderName(Item item) {

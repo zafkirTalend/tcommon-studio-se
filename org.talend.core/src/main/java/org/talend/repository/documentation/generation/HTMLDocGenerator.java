@@ -61,13 +61,13 @@ import org.eclipse.swt.widgets.Display;
 import org.osgi.framework.Bundle;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.utils.PasswordEncryptUtil;
 import org.talend.commons.utils.image.ImageUtils;
 import org.talend.commons.utils.image.ImageUtils.ICON_SIZE;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
-import org.talend.core.model.PasswordEncryptUtil;
 import org.talend.core.model.context.ContextUtils;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.genhtml.CSSParserUtils;
@@ -617,7 +617,8 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
         if (CorePlugin.getDefault().getPreferenceStore().getBoolean(ITalendCorePrefConstants.DOC_GENERATESOURCECODE)) {
             IDesignerCoreService service = CorePlugin.getDefault().getDesignerCoreService();
             IProcess process = service.getProcessFromProcessItem(item);
-            IProcessor processor = ProcessorUtilities.getProcessor(process, process.getContextManager().getDefaultContext());
+            IProcessor processor = ProcessorUtilities
+                    .getProcessor(process, null, process.getContextManager().getDefaultContext());
             if (ProjectManager.getInstance().getCurrentProject().getEmfProject().isHidePassword()) {
                 hideSourcecodePassword(process);
             }

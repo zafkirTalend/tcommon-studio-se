@@ -262,7 +262,7 @@ public abstract class RepositoryUpdateManager {
         if (results == null) {
             return null;
         }
-        List<IProcess> openedProcessList = CorePlugin.getDefault().getDesignerCoreService().getOpenedProcess(getEditors());
+        List<IProcess2> openedProcessList = CorePlugin.getDefault().getDesignerCoreService().getOpenedProcess(getEditors());
 
         List<UpdateResult> checkedResults = new ArrayList<UpdateResult>();
         for (UpdateResult result : results) {
@@ -469,7 +469,7 @@ public abstract class RepositoryUpdateManager {
             }
         });
 
-        List<IProcess> openedProcessList = CorePlugin.getDefault().getDesignerCoreService().getOpenedProcess(getEditors());
+        List<IProcess2> openedProcessList = CorePlugin.getDefault().getDesignerCoreService().getOpenedProcess(getEditors());
 
         try {
             List<UpdateResult> resultList = new ArrayList<UpdateResult>();
@@ -550,7 +550,7 @@ public abstract class RepositoryUpdateManager {
                 }
             }
             // opened job
-            for (IProcess process : openedProcessList) {
+            for (IProcess2 process : openedProcessList) {
                 checkMonitorCanceled(parentMonitor);
                 parentMonitor.subTask(getUpdateJobInfor(process.getProperty()));
 
@@ -615,11 +615,11 @@ public abstract class RepositoryUpdateManager {
      * @param openedProcessList
      * @return
      */
-    private MultiKeyMap createOpenProcessMap(List<IProcess> openedProcessList) {
+    private MultiKeyMap createOpenProcessMap(List<IProcess2> openedProcessList) {
         MultiKeyMap map = new MultiKeyMap();
         if (openedProcessList != null) {
-            for (IProcess process : openedProcessList) {
-                map.put(process.getId(), process.getLabel(), process.getVersion(), process);
+            for (IProcess2 process : openedProcessList) {
+                map.put(process.getId(), process.getName(), process.getVersion(), process);
             }
         }
         return map;

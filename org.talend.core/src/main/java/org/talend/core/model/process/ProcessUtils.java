@@ -389,7 +389,7 @@ public final class ProcessUtils {
                 List<INode> nodes = (List<INode>) process.getGraphicalNodes();
                 for (INode node : nodes) {
                     IElementParameter sqlTemplateParam = node.getElementParameter("SQLPATTERN_VALUE"); //$NON-NLS-1$
-                    if (sqlTemplateParam != null && sqlTemplateParam.getField() == EParameterFieldType.TABLE) {
+                    if (sqlTemplateParam != null && sqlTemplateParam.getFieldType() == EParameterFieldType.TABLE) {
                         List<Map<String, Object>> values = (List<Map<String, Object>>) sqlTemplateParam.getValue();
                         if (values != null) {
                             for (Map<String, Object> line : values) {
