@@ -220,7 +220,7 @@ public class ExtractMetaDataFromDataBase {
                     } else {
                         rsTables = dbMetaData.getTables(null, schema, null, availableTableTypes.toArray(new String[] {}));
                     }
-                } else if (schema != null && schema.equals("")) {
+                } else if (schema != null && !schema.equals("")) {
                     rsTables = dbMetaData.getTables(null, schema, null, availableTableTypes.toArray(new String[] {}));
                 } else {
 
@@ -565,7 +565,8 @@ public class ExtractMetaDataFromDataBase {
                     dbType = handleDBtype(dbType);
                     metadataColumn.setSourceType(dbType);
 
-                    metadataColumn.setLength(ExtractMetaDataUtils.getIntMetaDataInfo(columns, "COLUMN_SIZE")); //$NON-NLS-1$
+                    Integer columnSize = ExtractMetaDataUtils.getIntMetaDataInfo(columns, "COLUMN_SIZE");
+                    metadataColumn.setLength(columnSize); //$NON-NLS-1$
                     // Convert dbmsType to TalendType
 
                     String talendType = null;
@@ -574,9 +575,8 @@ public class ExtractMetaDataFromDataBase {
                     if (metadataConnection.getMapping() != null) {
                         mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(metadataConnection.getMapping());
                     }
-                    talendType = mappingTypeRetriever.getDefaultSelectedTalendType(dbType, ExtractMetaDataUtils
-                            .getIntMetaDataInfo(columns, "COLUMN_SIZE"), ExtractMetaDataUtils.getIntMetaDataInfo(columns, //$NON-NLS-1$
-                            "DECIMAL_DIGITS")); //$NON-NLS-1$
+                    Integer intMetaDataInfo = ExtractMetaDataUtils.getIntMetaDataInfo(columns, "DECIMAL_DIGITS");
+                    talendType = mappingTypeRetriever.getDefaultSelectedTalendType(dbType, columnSize, intMetaDataInfo); //$NON-NLS-1$
                     talendType = ManagementTextUtils.filterSpecialChar(talendType);
                     if (talendType == null) {
                         if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
@@ -620,10 +620,10 @@ public class ExtractMetaDataFromDataBase {
 
                         metadataColumn.setPrecision(ident); //$NON-NLS-1$
                     } else {
-                        metadataColumn.setPrecision(ExtractMetaDataUtils.getIntMetaDataInfo(columns, "DECIMAL_DIGITS")); //$NON-NLS-1$
+                        metadataColumn.setPrecision(intMetaDataInfo); //$NON-NLS-1$
                     }
 
-                    boolean isNullable = ExtractMetaDataUtils.getBooleanMetaDataInfo(columns, "IS_NULLABLE"); //$NON-NLS-1$
+                    boolean isNullable = ExtractMetaDataUtils.getBooleanMetaDataInfo(columns, "IS_NULLABLE"); //$NON-NLS-1$ 
                     metadataColumn.setNullable(isNullable);
 
                     // gcui:see bug 6450, if in the commentInfo have some invalid character then will remove it.
@@ -642,8 +642,8 @@ public class ExtractMetaDataFromDataBase {
                     // gcui:if not oracle database use "REMARKS" select comments
                     metadataColumn.setComment(commentInfo); //$NON-NLS-1$
                     if (!isAccess) { // jdbc-odbc driver won't apply methods for access
-                        TDColumnAttributeHelper.addColumnAttribute(columns, metadataColumn, metadataConnection
-                                .getCurrentConnection());
+                        TDColumnAttributeHelper.addColumnAttribute(label, dbType, columnSize, intMetaDataInfo, commentInfo,
+                                columns, metadataColumn, metadataConnection.getCurrentConnection());// columnName,
                     }
                     metadataColumns.add(metadataColumn);
 

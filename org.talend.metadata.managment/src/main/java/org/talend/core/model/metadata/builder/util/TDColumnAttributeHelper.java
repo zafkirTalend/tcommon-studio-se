@@ -202,6 +202,145 @@ public class TDColumnAttributeHelper {
         return column;
     }
 
+    public static TdColumn addColumnAttribute(String columnName, String typeName, int columnSize, int decimalDigts,
+            String columnRemark, ResultSet resutSet, TdColumn column, DatabaseConnection conn) throws SQLException {
+        databaseconnection = conn;
+        return addColumnAttribute(columnName, typeName, columnSize, decimalDigts, columnRemark, resutSet, column,
+                createConnection(conn).getObject());
+
+    }
+
+    public static TdColumn addColumnAttribute(String columnName, String typeName, int columnSize, int decimalDigts,
+            String columnRemark, ResultSet resutSet, TdColumn column, java.sql.Connection conn) throws SQLException {
+
+        // // --- add columns to table
+        // ResultSet columns = getConnectionMetadata(connection).getColumns(catalogName, schemaPattern, tablePattern,
+        // columnPattern);
+
+        // TODO scorreia other informations for columns can be retrieved here
+        // get the default value
+        // MOD mzhao 2009-04-09,Bug 6840: fetch LONG or LONG RAW column first , as these kind of columns are read as
+        // stream,if not read by select order, there will be "Stream has already been closed" error.
+        // Don't move the below block ,if you move it that emerge up bug klliu 2010-09-07
+        if (column == null) {
+            column = RelationalFactory.eINSTANCE.createTdColumn();
+        }
+        Object defaultvalue = null;
+        try {
+            defaultvalue = resutSet.getObject(GetColumn.COLUMN_DEF.name());
+        } catch (Exception e1) {
+            log.warn(e1, e1);
+        }
+        String defaultStr = (defaultvalue != null) ? String.valueOf(defaultvalue) : null;
+        TdExpression defExpression = createTdExpression(GetColumn.COLUMN_DEF.name(), defaultStr);
+
+        // columnName
+        if (columnName == null || "".equals(columnName)) {
+            try {
+                columnName = resutSet.getString(GetColumn.COLUMN_NAME.name());
+            } catch (Exception e1) {
+                log.warn(e1, e1);
+                if (columnName == null) {
+                    columnName = e1.getMessage();
+                }
+            }
+        }
+        column.setName(columnName);
+        column.setLabel(columnName);
+
+        // dataType
+        int dataType = 0;
+        try {
+            dataType = resutSet.getInt(GetColumn.DATA_TYPE.name());
+            // MOD scorreia 2010-07-24 removed the call to column.getSQLDataType() here because obviously the sql
+            // data type it is null and results in a NPE
+        } catch (Exception e) {
+            log.warn(e, e);
+        }
+
+        // typeName
+        if (typeName == null || "".equals(typeName)) {
+            try {
+                typeName = resutSet.getString(GetColumn.TYPE_NAME.name());
+            } catch (Exception e1) {
+                log.warn(e1, e1);
+            }
+        }
+        if (isMssql()) {
+            if (typeName.toLowerCase().equals("date")) {
+                dataType = 91;
+                // MOD scorreia 2010-07-24 removed the call to column.getSQLDataType() here because obviously
+                // the sql
+                // data type it is null and results in a NPE
+            } else if (typeName.toLowerCase().equals("time")) {
+                dataType = 92;
+                // MOD scorreia 2010-07-24 removed the call to column.getSQLDataType() here because obviously
+                // the sql
+                // data type it is null and results in a NPE
+            }
+        }
+
+        // columnSize
+        if (columnSize < 0) {
+            try {
+                columnSize = resutSet.getInt(GetColumn.COLUMN_SIZE.name());
+            } catch (Exception e1) {
+                log.warn(e1, e1);
+            }
+        }
+
+        column.setLength(columnSize);
+
+        // decimalDigts
+        if (decimalDigts < 0) {
+            try {
+                decimalDigts = resutSet.getInt(GetColumn.DECIMAL_DIGITS.name());
+            } catch (Exception e) {
+                log.warn(e);
+            }
+        }
+
+        //
+        int numPrecRadix = 0;
+        try {
+            numPrecRadix = resutSet.getInt(GetColumn.NUM_PREC_RADIX.name());
+        } catch (Exception e) {
+            log.warn(e);
+        }
+
+        // columnRemark
+        if (columnRemark == null || "".equals(columnRemark)) {
+            try {
+                columnRemark = resutSet.getString(GetColumn.REMARKS.name());
+                if (columnRemark == null) {
+                    columnRemark = "";
+                }
+            } catch (Exception e) {
+                log.warn(e, e);
+            }
+        }
+        ColumnHelper.setComment(columnRemark, column);
+        TdSqlDataType sqlDataType = createDataType(dataType, typeName, decimalDigts, numPrecRadix);
+        column.setSqlDataType(sqlDataType);
+
+        try {
+            column.getSqlDataType().setNullable(NullableType.get(resutSet.getInt(GetColumn.NULLABLE.name())));
+        } catch (Exception e1) {
+            log.warn(e1, e1);
+        }
+
+        column.setInitialValue(defExpression);
+        String mapping = databaseconnection == null ? null : databaseconnection.getDbmsId();
+        if (databaseconnection != null && mapping != null) {
+            MappingTypeRetriever mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(mapping);
+            String talendType = mappingTypeRetriever.getDefaultSelectedTalendType(typeName, ExtractMetaDataUtils
+                    .getIntMetaDataInfo(resutSet, "COLUMN_SIZE"), ExtractMetaDataUtils.getIntMetaDataInfo(resutSet, //$NON-NLS-1$
+                    "DECIMAL_DIGITS")); //$NON-NLS-1$
+            column.setTalendType(talendType);
+        }
+        return column;
+    }
+
     public static TdColumn addColumnAttribute(ResultSet resutSet, TdColumn column, DatabaseConnection conn) throws SQLException {
         databaseconnection = conn;
         return addColumnAttribute(resutSet, column, createConnection(conn).getObject());
