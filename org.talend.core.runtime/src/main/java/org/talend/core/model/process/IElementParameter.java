@@ -23,7 +23,7 @@ import org.eclipse.swt.graphics.RGB;
  * $Id: IElementParameter.java 39167 2010-03-26 06:55:10Z cli $
  * 
  */
-public interface IElementParameter extends Cloneable {
+public interface IElementParameter {
 
     public void setName(final String s);
 
@@ -35,7 +35,7 @@ public interface IElementParameter extends Cloneable {
 
     public void setDisplayName(final String s);
 
-    public void setField(final EParameterFieldType type);
+    public void setFieldType(final EParameterFieldType type);
 
     public void setValue(final Object o);
 
@@ -43,7 +43,7 @@ public interface IElementParameter extends Cloneable {
 
     public String getDisplayName();
 
-    public EParameterFieldType getField();
+    public EParameterFieldType getFieldType();
 
     public Object getValue();
 
@@ -209,5 +209,5 @@ public interface IElementParameter extends Cloneable {
 
     public void setNoContextAssist(boolean enable);
 
-    public IElementParameter clone() throws CloneNotSupportedException;
+    public IElementParameter getClone();
 }

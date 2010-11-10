@@ -16,8 +16,6 @@ import java.util.List;
 import java.util.Set;
 
 import org.talend.core.model.metadata.IMetadataTable;
-import org.talend.core.model.repository.IRepositoryObject;
-import org.talend.designer.runprocess.IProcessor;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
@@ -28,7 +26,7 @@ import org.talend.designer.runprocess.IProcessor;
 /**
  * DOC nrousseau class global comment. Detailled comment
  */
-public interface IProcess extends IRepositoryObject, IElement {
+public interface IProcess extends IElement {
 
     public static final String NEED_UPDATE_JOB = "NEED_UPDATE_JOB"; //$NON-NLS-1$
 
@@ -45,6 +43,10 @@ public interface IProcess extends IRepositoryObject, IElement {
     public static final String SCREEN_OFFSET_Y = "SCREEN_OFFSET_Y"; //$NON-NLS-1$
 
     public String getName();
+
+    public String getId();
+
+    public String getVersion();
 
     // list of nodes that are in the designer
     public List<? extends INode> getGraphicalNodes();
@@ -66,10 +68,6 @@ public interface IProcess extends IRepositoryObject, IElement {
     public IContextManager getContextManager();
 
     public List<? extends INode> getNodesOfType(String componentName);
-
-    public void setProcessor(IProcessor processor);
-
-    public IProcessor getProcessor();
 
     /**
      * Comment method "getAllConnections".

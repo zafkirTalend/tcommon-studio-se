@@ -20,6 +20,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IProcess;
+import org.talend.core.model.properties.Property;
 import org.talend.designer.core.ISyntaxCheckableEditor;
 
 /**
@@ -235,6 +236,8 @@ public interface IProcessor {
 
     public IContext getContext();
 
+    public Property getProperty();
+
     /**
      * Check if the code has been generated at least once. Will be false if the code has never been generated.
      * 
@@ -260,4 +263,5 @@ public interface IProcessor {
     public String[] getProxyParameters();
 
     public void setProxyParameters(String[] proxyParameters);
+
 }

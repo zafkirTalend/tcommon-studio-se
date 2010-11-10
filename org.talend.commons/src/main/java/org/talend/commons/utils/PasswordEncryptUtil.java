@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.core.model;
+package org.talend.commons.utils;
 
 import java.security.SecureRandom;
 
@@ -19,9 +19,6 @@ import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
-
-import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
-import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
@@ -71,20 +68,6 @@ public class PasswordEncryptUtil {
         c.init(Cipher.DECRYPT_MODE, key, secureRandom);
         byte[] clearByte = c.doFinal(dec);
         return new String(clearByte);
-    }
-
-    public static boolean isEncrypted(DatabaseConnection dbConn) {
-        return !dbConn.isContextMode() && dbConn.getRawPassword() != null;
-    }
-
-    public static void encryptPassword(DatabaseConnection dbConn) throws Exception {
-        String password = encryptPassword(dbConn.getRawPassword());
-        dbConn.setPassword(password);
-    }
-
-    public static void encryptPassword(ContextParameterType param) throws Exception {
-        String password = encryptPassword(param.getRawValue());
-        param.setValue(password);
     }
 
     public static boolean isPasswordType(String type) {

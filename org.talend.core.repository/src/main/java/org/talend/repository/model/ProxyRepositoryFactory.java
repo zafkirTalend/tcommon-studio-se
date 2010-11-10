@@ -47,7 +47,6 @@ import org.talend.commons.exception.MessageBoxExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.exception.SystemException;
 import org.talend.commons.utils.data.container.RootContainer;
-import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ICoreService;
@@ -60,8 +59,6 @@ import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.builder.connection.AbstractMetadataObject;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.migration.IMigrationToolService;
-import org.talend.core.model.process.IContext;
-import org.talend.core.model.process.IProcess;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.properties.FolderItem;
@@ -120,8 +117,6 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
     private boolean fullLogonFinished;
 
     private ProjectManager projectManager;
-
-    public static final String JOB_CONTEXT_FOLDER = "contexts"; //$NON-NLS-1$
 
     public synchronized void addPropertyChangeListener(PropertyChangeListener l) {
         if (l == null) {
@@ -1524,39 +1519,6 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
 
     public List<org.talend.core.model.properties.Project> getReferencedProjects(Project project) {
         return this.repositoryFactoryFromProvider.getReferencedProjects(project);
-    }
-
-    public void removeContextFiles(IProcess process, IContext context) throws Exception {
-        IResource resource = getContextResource(process, context);
-        if (resource != null) {
-            resource.delete(true, null);
-        }
-    }
-
-    /**
-     * Gets the context file resource according to the project type.
-     * 
-     * @param process
-     * @param context
-     * @return
-     */
-    private IResource getContextResource(IProcess process, IContext context) throws Exception {
-        switch (ProjectManager.getInstance().getCurrentProject().getLanguage()) {
-        case JAVA:
-            IPath path = new Path(JavaUtils.JAVA_SRC_DIRECTORY).append(
-                    coreService.getJavaProjectFolderName(process.getProperty().getItem())).append(
-                    coreService.getJavaJobFolderName(process.getName(), process.getVersion())).append(JOB_CONTEXT_FOLDER).append(
-                    context.getName() + JavaUtils.JAVA_CONTEXT_EXTENSION);
-
-            return coreService.getSpecificResourceInJavaProject(path);
-        case PERL:
-            String rootProjectName = coreService.getRootProjectNameForPerl(process.getProperty().getItem());
-            String contextFullName = coreService.getContextFileNameForPerl(rootProjectName, process.getName(), process
-                    .getVersion(), context.getName());
-
-            return coreService.getSpecificResourceInPerlProject(new Path(contextFullName));
-        }
-        return null;
     }
 
     public Boolean hasChildren(Object parent) {

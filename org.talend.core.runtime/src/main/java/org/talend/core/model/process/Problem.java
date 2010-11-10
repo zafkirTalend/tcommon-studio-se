@@ -180,7 +180,7 @@ public class Problem {
     public void setElement(IElement element) {
         if (element instanceof INode) {
             jobInfo = new JobInfo(((INode) element).getProcess().getId(), null, ((INode) element).getProcess().getVersion());
-            jobInfo.setJobName(((INode) element).getProcess().getLabel());
+            jobInfo.setJobName(((INode) element).getProcess().getName());
             type = ProblemType.JOB;
 
             nodeName = ((INode) element).getLabel();

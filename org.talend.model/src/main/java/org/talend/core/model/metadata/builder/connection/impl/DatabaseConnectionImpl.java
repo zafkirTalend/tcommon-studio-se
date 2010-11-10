@@ -10,7 +10,7 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.talend.core.model.PasswordEncryptUtil;
+import org.talend.commons.utils.PasswordEncryptUtil;
 import org.talend.core.model.metadata.builder.connection.CDCConnection;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
