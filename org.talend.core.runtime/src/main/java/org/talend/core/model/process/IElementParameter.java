@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.swt.graphics.RGB;
-import org.talend.core.model.properties.Item;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
@@ -65,10 +64,6 @@ public interface IElementParameter extends Cloneable {
     public void setRequired(final boolean required);
 
     public void setShow(final boolean show);
-
-    public void setLinkedRepositoryItem(final Item item);
-
-    public Item getLinkedRepositoryItem();
 
     // for combo box (CLOSED_LIST)
     public void setDefaultClosedListValue(final Object o);
