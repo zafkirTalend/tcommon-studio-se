@@ -12,11 +12,6 @@
 // ============================================================================
 package org.talend.core.model.process;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.Reader;
-import java.io.Writer;
 import java.util.List;
 
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -24,6 +19,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.talend.core.model.components.IODataComponentContainer;
 import org.talend.core.model.metadata.IMetadataTable;
+import org.talend.designer.core.model.utils.emf.talendfile.AbstractExternalData;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
@@ -49,27 +45,6 @@ public interface IExternalNode extends INode {
     public void setExternalData(IExternalData persistentData);
 
     public IExternalData getExternalData();
-
-    /**
-     * 
-     * ExternalData to Xml.
-     * 
-     * @param out
-     * @param writer
-     * @throws IOException
-     */
-    public void loadDataOut(OutputStream out, Writer writer) throws IOException;
-
-    /**
-     * 
-     * Xml to ExternalData.
-     * 
-     * @param inputStream
-     * @param reader
-     * @throws IOException
-     * @throws ClassNotFoundException
-     */
-    public void loadDataIn(InputStream inputStream, Reader reader) throws IOException, ClassNotFoundException;
 
     public List<Problem> getProblems();
 
@@ -114,4 +89,8 @@ public interface IExternalNode extends INode {
     public INode getOriginalNode();
 
     public void setOriginalNode(INode originalNode);
+
+    public AbstractExternalData saveExternalData();
+
+    public void buildExternalData(AbstractExternalData abstractData);
 }

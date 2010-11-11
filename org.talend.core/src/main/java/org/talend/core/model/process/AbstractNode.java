@@ -748,11 +748,6 @@ public abstract class AbstractNode implements INode {
         return null;
     }
 
-    public Object getExternalBytesData() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
     public IExternalData getExternalData() {
         // TODO Auto-generated method stub
         return null;

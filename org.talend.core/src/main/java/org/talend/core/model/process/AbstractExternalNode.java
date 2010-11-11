@@ -18,6 +18,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.talend.core.model.components.IODataComponent;
 import org.talend.core.model.components.IODataComponentContainer;
 import org.talend.core.model.metadata.ColumnNameChanged;
+import org.talend.designer.core.model.utils.emf.talendfile.AbstractExternalData;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
@@ -112,4 +113,11 @@ public abstract class AbstractExternalNode extends AbstractNode implements IExte
         this.originalNode = originalNode;
     }
 
+    public AbstractExternalData saveExternalData() {
+        return null;
+    }
+
+    public void buildExternalData(AbstractExternalData abstractData) {
+
+    }
 }

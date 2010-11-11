@@ -230,8 +230,6 @@ public interface INode extends IElement {
 
     public boolean isExternalNode();
 
-    public Object getExternalBytesData();
-
     public void addOutput(IConnection connection);
 
     public void addInput(IConnection connection);
