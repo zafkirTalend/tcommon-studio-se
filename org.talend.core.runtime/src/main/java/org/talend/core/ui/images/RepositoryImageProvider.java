@@ -98,6 +98,8 @@ public class RepositoryImageProvider {
             return ECoreImage.METADATA_RULES_ICON;
         case METADATA_FILE_LINKRULES:
             return ECoreImage.METADATA_RULES_ICON;
+        case RECYCLE_BIN:
+            return ECoreImage.RECYCLE_BIN_EMPTY_ICON;
         default:
             return EImage.DEFAULT_IMAGE;
         }
