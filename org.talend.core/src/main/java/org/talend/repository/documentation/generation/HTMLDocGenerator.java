@@ -68,6 +68,7 @@ import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
+import org.talend.core.i18n.Messages;
 import org.talend.core.model.context.ContextUtils;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.genhtml.CSSParserUtils;
@@ -1190,6 +1191,7 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
      */
     protected Element generateProjectInfo(Document document) {
         Element projectElement = document.addElement("project"); //$NON-NLS-1$
+        generateMessages(projectElement);
         projectElement.addAttribute("name", getProject().getLabel()); //$NON-NLS-1$
         projectElement.addAttribute("logo", IHTMLDocConstants.PICTUREFOLDERPATH + IHTMLDocConstants.TALEND_LOGO_FILE_NAME); //$NON-NLS-1$
         projectElement.addAttribute("title", IHTMLDocConstants.TITLE_GEN + getFullProductName()); //$NON-NLS-1$
@@ -1208,6 +1210,69 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
         Element proDesc = projectElement.addElement("pro-description"); //$NON-NLS-1$
         proDesc.addCDATA(getProject().getDescription().replaceAll("\\r\\n", "<br/>")); //$NON-NLS-1$ //$NON-NLS-2$
         return projectElement;
+    }
+
+    /**
+     * 
+     * wzhang Comment method "generateMessages". generate messages for i18n.
+     * 
+     * @param element
+     * @return
+     */
+    protected Element generateMessages(Element element) {
+        element.addAttribute("i18n.job.generated.documetation", Messages.getString("HTMLDocGenerator_generate_document")); //$NON-NLS-1$ //$NON-NLS-2$
+        element.addAttribute("i18n.job.project.name", Messages.getString("HTMLDocGenerator.project_name")); //$NON-NLS-1$ //$NON-NLS-2$
+        element.addAttribute("i18n.job.generated.date", Messages.getString("HTMLDocGenerator.generation_date")); //$NON-NLS-1$ //$NON-NLS-2$
+        element.addAttribute("i18n.job.author", Messages.getString("HTMLDocGenerator.author")); //$NON-NLS-1$ //$NON-NLS-2$
+        element.addAttribute("i18n.job.summary", Messages.getString("HTMLDocGenerator.summary")); //$NON-NLS-1$ //$NON-NLS-2$
+        element.addAttribute("i18n.job.project.description", Messages.getString("HTMLDocGenerator.project_description")); //$NON-NLS-1$ //$NON-NLS-2$
+        element.addAttribute("i18n.job.job.description", Messages.getString("HTMLDocGenerator.job_description")); //$NON-NLS-1$ //$NON-NLS-2$
+        element.addAttribute("i18n.job.job.preview.picture", Messages.getString("HTMLDocGenerator.job_preview_picture")); //$NON-NLS-1$ //$NON-NLS-2$
+        element.addAttribute("i18n.job.job.setting", Messages.getString("HTMLDocGenerator.job_settings")); //$NON-NLS-1$ //$NON-NLS-2$
+        element.addAttribute("i18n.job.context.list", Messages.getString("HTMLDocGenerator.context_list")); //$NON-NLS-1$ //$NON-NLS-2$
+        element.addAttribute("i18n.job.component.list", Messages.getString("HTMLDocGenerator.component_list")); //$NON-NLS-1$ //$NON-NLS-2$
+        element.addAttribute("i18n.job.components.description", Messages.getString("HTMLDocGenerator.component_description")); //$NON-NLS-1$ //$NON-NLS-2$
+        element.addAttribute("i18n.job.source.code", Messages.getString("HTMLDocGenerator.source_code")); //$NON-NLS-1$ //$NON-NLS-2$
+        element.addAttribute("i18n.job.properties", Messages.getString("HTMLDocGenerator.properties")); //$NON-NLS-1$ //$NON-NLS-2$
+        element.addAttribute("i18n.job.values", Messages.getString("HTMLDocGenerator.values")); //$NON-NLS-1$ //$NON-NLS-2$
+        element.addAttribute("i18n.job.name", Messages.getString("HTMLDocGenerator.name")); //$NON-NLS-1$ //$NON-NLS-2$
+        element.addAttribute("i18n.job.language", Messages.getString("HTMLDocGenerator.language")); //$NON-NLS-1$ //$NON-NLS-2$
+        element.addAttribute("i18n.job.description", Messages.getString("HTMLDocGenerator.description")); //$NON-NLS-1$ //$NON-NLS-2$
+        element.addAttribute("i18n.job.author.min", Messages.getString("HTMLDocGenerator.author1")); //$NON-NLS-1$ //$NON-NLS-2$
+        element.addAttribute("i18n.job.version", Messages.getString("HTMLDocGenerator.version")); //$NON-NLS-1$ //$NON-NLS-2$
+        element.addAttribute("i18n.job.purpose", Messages.getString("HTMLDocGenerator.purpose")); //$NON-NLS-1$ //$NON-NLS-2$
+        element.addAttribute("i18n.job.status", Messages.getString("HTMLDocGenerator.status")); //$NON-NLS-1$ //$NON-NLS-2$
+        element.addAttribute("i18n.job.creation", Messages.getString("HTMLDocGenerator.creation")); //$NON-NLS-1$ //$NON-NLS-2$
+        element.addAttribute("i18n.job.modification", Messages.getString("HTMLDocGenerator.modification")); //$NON-NLS-1$ //$NON-NLS-2$
+        element.addAttribute("i18n.job.extract.settings", Messages.getString("HTMLDocGenerator.extra_settings")); //$NON-NLS-1$ //$NON-NLS-2$
+        element.addAttribute("i18n.job.value", Messages.getString("HTMLDocGenerator.value")); //$NON-NLS-1$ //$NON-NLS-2$
+        element.addAttribute("i18n.job.stats.logs", Messages.getString("HTMLDocGenerator.stats_logs")); //$NON-NLS-1$ //$NON-NLS-2$
+        element.addAttribute("i18n.job.context", Messages.getString("HTMLDocGenerator.context")); //$NON-NLS-1$ //$NON-NLS-2$
+        element.addAttribute("i18n.job.promt", Messages.getString("HTMLDocGenerator.prompt")); //$NON-NLS-1$ //$NON-NLS-2$
+        element.addAttribute("i18n.job.need.promt", Messages.getString("HTMLDocGenerator.need_prompt")); //$NON-NLS-1$ //$NON-NLS-2$
+        element.addAttribute("i18n.job.type", Messages.getString("HTMLDocGenerator.type")); //$NON-NLS-1$ //$NON-NLS-2$
+        element.addAttribute("i18n.job.source", Messages.getString("HTMLDocGenerator.source")); //$NON-NLS-1$ //$NON-NLS-2$
+        element.addAttribute("i18n.job.component.name", Messages.getString("HTMLDocGenerator.component_name")); //$NON-NLS-1$ //$NON-NLS-2$
+        element.addAttribute("i18n.job.component.type", Messages.getString("HTMLDocGenerator.component_type")); //$NON-NLS-1$ //$NON-NLS-2$
+        element.addAttribute("i18n.job.component", Messages.getString("HTMLDocGenerator.component")); //$NON-NLS-1$ //$NON-NLS-2$
+        element.addAttribute("i18n.job.unique.name", Messages.getString("HTMLDocGenerator.unique_name")); //$NON-NLS-1$ //$NON-NLS-2$
+        element.addAttribute("i18n.job.input", Messages.getString("HTMLDocGenerator.input")); //$NON-NLS-1$ //$NON-NLS-2$
+        element.addAttribute("i18n.job.label", Messages.getString("HTMLDocGenerator.label")); //$NON-NLS-1$ //$NON-NLS-2$
+        element.addAttribute("i18n.job.output", Messages.getString("HTMLDocGenerator.output")); //$NON-NLS-1$ //$NON-NLS-2$
+        element.addAttribute("i18n.job.component.parameters", Messages.getString("HTMLDocGenerator.component_parameters")); //$NON-NLS-1$ //$NON-NLS-2$
+        element.addAttribute("i18n.job.schema.for", Messages.getString("HTMLDocGenerator.schema_for")); //$NON-NLS-1$ //$NON-NLS-2$
+        element.addAttribute("i18n.job.column", Messages.getString("HTMLDocGenerator.column")); //$NON-NLS-1$ //$NON-NLS-2$
+        element.addAttribute("i18n.job.key", Messages.getString("HTMLDocGenerator.key")); //$NON-NLS-1$ //$NON-NLS-2$
+        element.addAttribute("i18n.job.length", Messages.getString("HTMLDocGenerator.length")); //$NON-NLS-1$ //$NON-NLS-2$
+        element.addAttribute("i18n.job.precision", Messages.getString("HTMLDocGenerator.precision")); //$NON-NLS-1$ //$NON-NLS-2$
+        element.addAttribute("i18n.job.nullable", Messages.getString("HTMLDocGenerator.nullable")); //$NON-NLS-1$ //$NON-NLS-2$
+        element.addAttribute("i18n.job.comment", Messages.getString("HTMLDocGenerator.comment")); //$NON-NLS-1$ //$NON-NLS-2$
+        element.addAttribute(
+                "i18n.job.original.function.parameters", Messages.getString("HTMLDocGenerator.original_function_para")); //$NON-NLS-1$ //$NON-NLS-2$
+        element.addAttribute("i18n.job.ended", Messages.getString("HTMLDocGenerator.ended")); //$NON-NLS-1$ //$NON-NLS-2$
+        element.addAttribute("i18n.job.content", Messages.getString("HTMLDocGenerator.content")); //$NON-NLS-1$ //$NON-NLS-2$
+
+        return element;
     }
 
     /**
