@@ -240,7 +240,7 @@ public abstract class AbstractComponentHandler implements IComponentHandler {
                     String type = HTMLDocUtils.checkString(columnType.getTalendType());
                     if (node.getComponent().getOriginalFamilyName().startsWith("ELT")) { //$NON-NLS-1$
                         // if ELT then use the db type
-                        type = HTMLDocUtils.checkString(columnType.getType());
+                        type = HTMLDocUtils.checkString(columnType.getSourceType());
                     } else if (LanguageManager.getCurrentLanguage().equals(ECodeLanguage.JAVA)) {
                         type = JavaTypesManager.getTypeToGenerate(columnType.getTalendType(), columnType.isNullable());
                     }

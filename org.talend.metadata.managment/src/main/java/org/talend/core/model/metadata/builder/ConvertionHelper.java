@@ -136,7 +136,7 @@ public final class ConvertionHelper {
                 newColumn.setPrecision(Long.valueOf(column.getPrecision()).intValue());
             }
             newColumn.setTalendType(column.getTalendType());
-            newColumn.setType(column.getSourceType());
+            newColumn.setSourceType(column.getSourceType());
             if (column.getName() == null || column.getName().equals("")) { //$NON-NLS-1$
                 String label = label2;
                 if (label != null && label.length() > 0) {
@@ -176,7 +176,7 @@ public final class ConvertionHelper {
             newColumn.setPrecision(column.getPrecision());
         }
         newColumn.setTalendType(column.getTalendType());
-        newColumn.setSourceType(column.getType());
+        newColumn.setSourceType(column.getSourceType());
         if (column.getOriginalDbColumnName() == null || column.getOriginalDbColumnName().equals("")) { //$NON-NLS-1$
             newColumn.setName(column.getLabel());
         } else {
@@ -204,7 +204,7 @@ public final class ConvertionHelper {
             newColumn.setPrecision(Long.valueOf(column.getPrecision()).intValue());
         }
         newColumn.setTalendType(column.getTalendType());
-        newColumn.setType(column.getSourceType());
+        newColumn.setSourceType(column.getSourceType());
         if (column.getName() == null || column.getName().equals("")) { //$NON-NLS-1$
             newColumn.setOriginalDbColumnName(column.getLabel());
         } else {
@@ -249,7 +249,7 @@ public final class ConvertionHelper {
                 newColumn.setPrecision(column.getPrecision());
             }
             newColumn.setTalendType(column.getTalendType());
-            newColumn.setSourceType(column.getType());
+            newColumn.setSourceType(column.getSourceType());
             if (column.getOriginalDbColumnName() == null || column.getOriginalDbColumnName().equals("")) { //$NON-NLS-1$
                 newColumn.setName(column.getLabel());
             } else {

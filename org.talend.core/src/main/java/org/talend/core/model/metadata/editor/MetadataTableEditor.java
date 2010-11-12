@@ -191,7 +191,7 @@ public class MetadataTableEditor extends ExtendedTableModel<IMetadataColumn> {
             } else {
                 metadataColumn.setTalendType(JavaTypesManager.getDefaultJavaType().getId());
                 if (metadataTable.getDbms() != null) {
-                    metadataColumn.setType(TypesManager.getDBTypeFromTalendType(metadataTable.getDbms(), metadataColumn
+                    metadataColumn.setSourceType(TypesManager.getDBTypeFromTalendType(metadataTable.getDbms(), metadataColumn
                             .getTalendType()));
                 }
             }

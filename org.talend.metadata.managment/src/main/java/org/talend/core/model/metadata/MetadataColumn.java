@@ -13,6 +13,8 @@
 package org.talend.core.model.metadata;
 
 import org.talend.commons.exception.ExceptionHandler;
+import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.model.repository.RepositoryObject;
 
 /**
  * Definition of a column in the Meta Data. <br/>
@@ -20,17 +22,17 @@ import org.talend.commons.exception.ExceptionHandler;
  * $Id: MetadataColumn.java 38013 2010-03-05 14:21:59Z mhirt $
  * 
  */
-public class MetadataColumn implements IMetadataColumn, Cloneable {
+public class MetadataColumn extends RepositoryObject implements IMetadataColumn, Cloneable {
 
     private static int nextId = 0;
 
-    private int id;
+    private String id;
 
     private String label = ""; //$NON-NLS-1$
 
     private boolean key = false;
 
-    private String type = ""; //$NON-NLS-1$
+    private String sourceType = ""; //$NON-NLS-1$
 
     private String talendType = ""; //$NON-NLS-1$
 
@@ -81,7 +83,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
             ExceptionHandler.process(e);
         }
 
-        this.setType(metadataColumn.getType());
+        this.setSourceType(metadataColumn.getSourceType());
         // setDbms(metadataColumn.getDbms());
 
         this.nullable = metadataColumn.isNullable();
@@ -92,8 +94,8 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
         setComment(metadataColumn.getComment());
     }
 
-    private static synchronized int getNewId() {
-        return nextId++;
+    private static synchronized String getNewId() {
+        return String.valueOf(nextId++);
     }
 
     @Override
@@ -106,7 +108,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
      * 
      * @return the id
      */
-    public int getId() {
+    public String getId() {
         return this.id;
     }
 
@@ -115,7 +117,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
      * 
      * @param id the id to set
      */
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -170,8 +172,8 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
      * 
      * @see org.talend.designer.core.model.metadata.IMetadataColumn#getType()
      */
-    public String getType() {
-        return this.type;
+    public String getSourceType() {
+        return this.sourceType;
     }
 
     /*
@@ -179,8 +181,8 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
      * 
      * @see org.talend.designer.core.model.metadata.IMetadataColumn#setType(java.lang.String)
      */
-    public void setType(String type) {
-        this.type = type;
+    public void setSourceType(String sourceType) {
+        this.sourceType = sourceType;
     }
 
     /*
@@ -418,7 +420,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
             }
         }
         if ((options & OPTIONS_IGNORE_DBTYPE) == 0) {
-            if (!sameStringValue(this.type, other.getType())) {
+            if (!sameStringValue(this.sourceType, other.getSourceType())) {
                 return false;
             }
         }
@@ -533,4 +535,10 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
     public void setOriginalDbColumnName(String originalDbColumnName) {
         this.originalDbColumnName = originalDbColumnName;
     }
+
+    @Override
+    public ERepositoryObjectType getType() {
+        return ERepositoryObjectType.METADATA_COLUMN;
+    }
+
 }

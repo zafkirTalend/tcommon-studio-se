@@ -51,9 +51,9 @@ public interface IMetadataColumn {
             | OPTIONS_IGNORE_COMMENT | OPTIONS_IGNORE_NULLABLE | OPTIONS_IGNORE_KEY | OPTIONS_IGNORE_DBCOLUMNNAME
             | OPTIONS_IGNORE_BIGGER_SIZE;
 
-    public int getId();
+    public String getId();
 
-    public void setId(int i);
+    public void setId(String i);
 
     public String getLabel();
 
@@ -63,9 +63,9 @@ public interface IMetadataColumn {
 
     public void setKey(boolean key);
 
-    public String getType();
+    public String getSourceType();
 
-    public void setType(String type);
+    public void setSourceType(String sourceType);
 
     public String getTalendType();
 

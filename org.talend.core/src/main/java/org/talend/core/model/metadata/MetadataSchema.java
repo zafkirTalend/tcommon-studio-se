@@ -208,7 +208,7 @@ public class MetadataSchema {
         metadataColumn.setKey(Boolean.parseBoolean(key.getNodeValue()));
         metadataColumn.setTalendType(getNewTalendType(type.getNodeValue()));
         if (sourceType != null) {
-            metadataColumn.setType(sourceType.getNodeValue());
+            metadataColumn.setSourceType(sourceType.getNodeValue());
         }
         if (originalDbColumnName != null && !"".equals(originalDbColumnName.getNodeValue().toString())) { // hywang for //$NON-NLS-1$
             // 0007919
@@ -715,9 +715,9 @@ public class MetadataSchema {
         talendType.setNodeValue(metadataColumn.getTalendType());
         column.setAttributeNode(talendType);
 
-        if (metadataColumn.getType() != null) {
+        if (metadataColumn.getSourceType() != null) {
             Attr sourceType = document.createAttribute("type"); //$NON-NLS-1$
-            sourceType.setNodeValue(metadataColumn.getType());
+            sourceType.setNodeValue(metadataColumn.getSourceType());
             column.setAttributeNode(sourceType);
         }
 
