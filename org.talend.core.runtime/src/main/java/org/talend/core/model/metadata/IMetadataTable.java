@@ -14,15 +14,25 @@ package org.talend.core.model.metadata;
 
 import java.util.List;
 
-import org.talend.core.model.repository.IRepositoryObject;
-
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
  * 
  * $Id: IMetadataTable.java 38013 2010-03-05 14:21:59Z mhirt $
  * 
  */
-public interface IMetadataTable extends IRepositoryObject {
+public interface IMetadataTable {
+
+    public String getId();
+
+    public void setId(String id);
+
+    public void setComment(String comment);
+
+    public String getComment();
+
+    public void setLabel(String label);
+
+    public String getLabel();
 
     public String getDbms();
 

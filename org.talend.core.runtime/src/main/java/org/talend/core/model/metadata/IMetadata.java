@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.core.model.metadata;
 
-import org.talend.core.model.repository.IRepositoryObject;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
@@ -20,5 +19,5 @@ import org.talend.core.model.repository.IRepositoryObject;
  * $Id: IMetadata.java 38013 2010-03-05 14:21:59Z mhirt $
  * 
  */
-public interface IMetadata extends IRepositoryObject {
+public interface IMetadata {
 }

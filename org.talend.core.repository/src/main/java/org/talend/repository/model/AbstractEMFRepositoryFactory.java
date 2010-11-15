@@ -1013,7 +1013,8 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
     }
 
     public void deleteObjectPhysical(Project project, IRepositoryObject objToDelete) throws PersistenceException {
-        if (objToDelete.getType() == ERepositoryObjectType.PROCESS || objToDelete.getType() == ERepositoryObjectType.JOBLET) {
+        if (objToDelete.getRepositoryObjectType() == ERepositoryObjectType.PROCESS
+                || objToDelete.getRepositoryObjectType() == ERepositoryObjectType.JOBLET) {
             if (coreSerivce.isAlreadyBuilt(project)) {
                 coreSerivce.removeItemRelations(objToDelete.getProperty().getItem());
             }

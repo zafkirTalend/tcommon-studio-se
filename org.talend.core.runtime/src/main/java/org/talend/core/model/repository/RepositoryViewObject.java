@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
@@ -65,7 +64,7 @@ import orgomg.cwm.resource.relational.Catalog;
 /**
  * DOC Administrator class global comment. Detailled comment
  */
-public class RepositoryViewObject implements IRepositoryViewObject, IAdaptable {
+public class RepositoryViewObject implements IRepositoryViewObject {
 
     private IRepositoryNode repositoryNode;
 
@@ -302,17 +301,13 @@ public class RepositoryViewObject implements IRepositoryViewObject, IAdaptable {
         return null;
     }
 
-    public ERepositoryObjectType getType() {
+    public ERepositoryObjectType getRepositoryObjectType() {
         return type;
     }
 
     public List<IRepositoryViewObject> getChildren() {
         List<IRepositoryViewObject> toReturn = new ArrayList<IRepositoryViewObject>();
         return toReturn;
-    }
-
-    public Object getAdapter(Class adapter) {
-        return null;
     }
 
     /*

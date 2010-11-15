@@ -575,12 +575,14 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         log.debug(Messages.getString("ProxyRepositoryFactory.log.logicalDeletion", str)); //$NON-NLS-1$
 
         // TODO this need to be refactered after M2.
-        if (object.getType() == ERepositoryObjectType.PROCESS || object.getType() == ERepositoryObjectType.JOBLET
-                || object.getType() == ERepositoryObjectType.ROUTINES || object.getType() == ERepositoryObjectType.JOB_SCRIPT) {
+        if (object.getRepositoryObjectType() == ERepositoryObjectType.PROCESS
+                || object.getRepositoryObjectType() == ERepositoryObjectType.JOBLET
+                || object.getRepositoryObjectType() == ERepositoryObjectType.ROUTINES
+                || object.getRepositoryObjectType() == ERepositoryObjectType.JOB_SCRIPT) {
             fireRepositoryPropertyChange(ERepositoryActionName.JOB_DELETE_TO_RECYCLE_BIN.getName(), null, object);
         }
 
-        if (objToDelete.getType() == ERepositoryObjectType.BUSINESS_PROCESS) {
+        if (objToDelete.getRepositoryObjectType() == ERepositoryObjectType.BUSINESS_PROCESS) {
             fireRepositoryPropertyChange(ERepositoryActionName.BUSINESS_DELETE_TO_RECYCLE_BIN.getName(), null, object);
         }
     }
@@ -629,14 +631,15 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         }
         // RepositoryViewObject is dynamic, so force to use in all case the RepositoryObject with fixed object.
         IRepositoryViewObject object = new RepositoryObject(objToDelete.getProperty());
-        if (object.getType() == ERepositoryObjectType.PROCESS || object.getType() == ERepositoryObjectType.JOBLET
-                || object.getType() == ERepositoryObjectType.ROUTINES) {
+        if (object.getRepositoryObjectType() == ERepositoryObjectType.PROCESS
+                || object.getRepositoryObjectType() == ERepositoryObjectType.JOBLET
+                || object.getRepositoryObjectType() == ERepositoryObjectType.ROUTINES) {
             fireRepositoryPropertyChange(ERepositoryActionName.JOB_DELETE_FOREVER.getName(), null, object);
-            if (object.getType() == ERepositoryObjectType.PROCESS) {
+            if (object.getRepositoryObjectType() == ERepositoryObjectType.PROCESS) {
                 // delete the job launch, for bug 8878
                 coreService.removeJobLaunch(object);
             }
-            if (object.getType() == ERepositoryObjectType.ROUTINES) {
+            if (object.getRepositoryObjectType() == ERepositoryObjectType.ROUTINES) {
                 try {
                     coreService.deleteRoutinefile(object);
                 } catch (Exception e) {
@@ -645,7 +648,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
 
             }
         }
-        if (object.getType() == ERepositoryObjectType.BUSINESS_PROCESS) {
+        if (object.getRepositoryObjectType() == ERepositoryObjectType.BUSINESS_PROCESS) {
             fireRepositoryPropertyChange(ERepositoryActionName.BUSINESS_DELETE_FOREVER.getName(), null, object);
         }
 
@@ -681,8 +684,9 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         // "\".");
         String str[] = new String[] { objToRestore + "", getRepositoryContext().getUser() + "", path + "" };//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         log.debug(Messages.getString("ProxyRepositoryFactory.log.Restoration", str)); //$NON-NLS-1$
-        if (objToRestore.getType() == ERepositoryObjectType.PROCESS || objToRestore.getType() == ERepositoryObjectType.JOBLET
-                || objToRestore.getType() == ERepositoryObjectType.ROUTINES) {
+        if (objToRestore.getRepositoryObjectType() == ERepositoryObjectType.PROCESS
+                || objToRestore.getRepositoryObjectType() == ERepositoryObjectType.JOBLET
+                || objToRestore.getRepositoryObjectType() == ERepositoryObjectType.ROUTINES) {
             fireRepositoryPropertyChange(ERepositoryActionName.JOB_RESTORE.getName(), null, objToRestore);
         }
     }
@@ -715,13 +719,13 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         String str[] = new String[] { objToMove + "", targetPath + "" }; //$NON-NLS-1$ //$NON-NLS-2$
         log.debug(Messages.getString("ProxyRepositoryFactory.log.move", str)); //$NON-NLS-1$
         // unlock(getItem(objToMove));
-        if (objToMove.getType() == ERepositoryObjectType.PROCESS) {
+        if (objToMove.getRepositoryObjectType() == ERepositoryObjectType.PROCESS) {
             if (sourcePath != null && sourcePath.length == 1) {
                 fireRepositoryPropertyChange(ERepositoryActionName.JOB_MOVE.getName(), objToMove, new IPath[] { sourcePath[0],
                         targetPath });
             }
         }
-        if (objToMove.getType() == ERepositoryObjectType.JOBLET) {
+        if (objToMove.getRepositoryObjectType() == ERepositoryObjectType.JOBLET) {
             if (sourcePath != null && sourcePath.length == 1) {
                 fireRepositoryPropertyChange(ERepositoryActionName.JOBLET_MOVE.getName(), objToMove, new IPath[] { sourcePath[0],
                         targetPath });

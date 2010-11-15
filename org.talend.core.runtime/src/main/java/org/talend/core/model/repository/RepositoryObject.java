@@ -17,7 +17,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EObject;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
@@ -86,7 +85,7 @@ import orgomg.cwm.resource.relational.Catalog;
 /**
  * DOC nrousseau class global comment. Detailled comment
  */
-public class RepositoryObject implements IRepositoryObject, IAdaptable {
+public class RepositoryObject implements IRepositoryObject {
 
     protected Property property = PropertiesFactory.eINSTANCE.createProperty();
 
@@ -202,7 +201,7 @@ public class RepositoryObject implements IRepositoryObject, IAdaptable {
         this.property.setVersion(value);
     }
 
-    public ERepositoryObjectType getType() {
+    public ERepositoryObjectType getRepositoryObjectType() {
         return (ERepositoryObjectType) new PropertiesSwitch() {
 
             public Object caseDocumentationItem(DocumentationItem object) {
@@ -349,7 +348,6 @@ public class RepositoryObject implements IRepositoryObject, IAdaptable {
 
             @Override
             public Object caseLinkDocumentationItem(LinkDocumentationItem object) {
-
                 return ERepositoryObjectType.DOCUMENTATION;
             }
 
@@ -359,7 +357,6 @@ public class RepositoryObject implements IRepositoryObject, IAdaptable {
 
             @Override
             public Object caseSVGBusinessProcessItem(SVGBusinessProcessItem object) {
-                // TODO Auto-generated method stub
                 return ERepositoryObjectType.SVG_BUSINESS_PROCESS;
             }
 
@@ -503,17 +500,12 @@ public class RepositoryObject implements IRepositoryObject, IAdaptable {
         return object;
     }
 
-    public Object getAdapter(Class adapter) {
-        return null;
-    }
-
     /*
      * (non-Javadoc)
      * 
      * @see org.talend.core.model.repository.IRepositoryObject#getRepositoryNode()
      */
     public IRepositoryNode getRepositoryNode() {
-        // TODO Auto-generated method stub
         return this.repositoryNode;
     }
 

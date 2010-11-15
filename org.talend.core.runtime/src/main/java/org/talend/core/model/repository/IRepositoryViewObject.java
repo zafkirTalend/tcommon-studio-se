@@ -58,7 +58,7 @@ public interface IRepositoryViewObject {
 
     public String getPurpose();
 
-    public ERepositoryObjectType getType();
+    public ERepositoryObjectType getRepositoryObjectType();
 
     public List<IRepositoryViewObject> getChildren();
 

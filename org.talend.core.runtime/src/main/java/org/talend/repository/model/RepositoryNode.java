@@ -52,28 +52,6 @@ public class RepositoryNode implements IRepositoryNode {
 
     private boolean initialized = false;
 
-    // This field is only used to retreive the process back from repositryNode. (StatsAndLogsTabPropertySection.java)
-    // See issue 973.
-    // IProcess process = null;
-    //
-    // /**
-    // * Getter for process.
-    // *
-    // * @return the process
-    // */
-    // public IProcess getProcess() {
-    // return this.process;
-    // }
-    //
-    // /**
-    // * Sets the process.
-    // *
-    // * @param process the process to set
-    // */
-    // public void setProcess(IProcess process) {
-    // this.process = process;
-    // }
-
     /*
      * (non-Javadoc)
      * 
@@ -209,7 +187,7 @@ public class RepositoryNode implements IRepositoryNode {
      * @see org.talend.repository.model.RepositoryNode#getType()
      */
     public ENodeType getType() {
-        if (type == ENodeType.REPOSITORY_ELEMENT && getObject().getType() == ERepositoryObjectType.FOLDER) {
+        if (type == ENodeType.REPOSITORY_ELEMENT && getObject().getRepositoryObjectType() == ERepositoryObjectType.FOLDER) {
             return ENodeType.SIMPLE_FOLDER;
         }
         return type;
@@ -222,7 +200,7 @@ public class RepositoryNode implements IRepositoryNode {
      */
     public ERepositoryObjectType getObjectType() {
         if (getObject() != null) {
-            return getObject().getType();
+            return getObject().getRepositoryObjectType();
         }
         return null;
     }

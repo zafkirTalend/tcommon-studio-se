@@ -14,8 +14,6 @@ package org.talend.core.model.metadata;
 
 import java.util.List;
 
-import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
-
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
  * 
@@ -23,6 +21,18 @@ import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
  * 
  */
 public interface IMetadataConnection extends IMetadata {
+
+    public String getId();
+
+    public void setId(String id);
+
+    public void setComment(String comment);
+
+    public String getComment();
+
+    public void setLabel(String label);
+
+    public String getLabel();
 
     public String getDbType();
 
@@ -112,8 +122,10 @@ public interface IMetadataConnection extends IMetadata {
 
     public void setSqlMode(boolean sqlMode);
 
-    public DatabaseConnection getCurrentConnection();
+    // keep the link to the emf model for now, But this part should be removed if possible later
 
-    public void setCurrentConnection(DatabaseConnection dbconn);
+    public Object getCurrentConnection();
+
+    public void setCurrentConnection(Object dbconn);
 
 }

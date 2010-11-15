@@ -14,11 +14,12 @@ package org.talend.repository.model;
 
 import org.talend.core.model.metadata.builder.connection.AbstractMetadataObject;
 import org.talend.core.model.properties.Property;
+import org.talend.core.model.repository.IRepositoryViewObject;
 
 /**
  * DOC nrousseau class global comment. Detailled comment
  */
-public interface ISubRepositoryObject {
+public interface ISubRepositoryObject extends IRepositoryViewObject {
 
     public AbstractMetadataObject getAbstractMetadataObject();
 

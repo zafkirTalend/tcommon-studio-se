@@ -44,7 +44,7 @@ public class Folder extends RepositoryObject implements IRepositoryObject {
      * 
      * @return ERepositoryObjectType.FOLDER
      */
-    public ERepositoryObjectType getType() {
+    public ERepositoryObjectType getRepositoryObjectType() {
         return ERepositoryObjectType.FOLDER;
     }
 
