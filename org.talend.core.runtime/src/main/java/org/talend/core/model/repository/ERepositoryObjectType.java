@@ -566,8 +566,7 @@ public enum ERepositoryObjectType {
     public boolean isResourceItem() {
         return !subItem && !this.equals(ERepositoryObjectType.FOLDER) && !this.equals(ERepositoryObjectType.REFERENCED_PROJECTS)
                 && !this.equals(ERepositoryObjectType.SNIPPETS) && !this.equals(ERepositoryObjectType.GENERATED)
-                && !this.equals(ERepositoryObjectType.JOBS) && !this.equals(ERepositoryObjectType.JOB_DOC)
-                && !this.equals(ERepositoryObjectType.JOBLETS) && !this.equals(ERepositoryObjectType.JOBLET_DOC)
+                && !this.equals(ERepositoryObjectType.JOBS) && !this.equals(ERepositoryObjectType.JOBLETS)
                 && !this.equals(ERepositoryObjectType.METADATA) && !this.equals(ERepositoryObjectType.SVN_ROOT);
     }
 
