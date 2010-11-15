@@ -213,7 +213,7 @@ public class MetadataDialog extends Dialog {
                             hasRepositoryDbSchema = true;
 
                             for (IMetadataColumn column : metadataTable.getListColumns()) {
-                                if ((column.getSourceType() == "") || (column.getSourceType() == null)) { //$NON-NLS-1$
+                                if ((column.getType() == "") || (column.getType() == null)) { //$NON-NLS-1$
                                     hasRepositoryDbSchema = false;
                                 }
                             }

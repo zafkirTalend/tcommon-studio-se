@@ -63,9 +63,9 @@ public interface IMetadataColumn {
 
     public void setKey(boolean key);
 
-    public String getSourceType();
+    public String getType();
 
-    public void setSourceType(String sourceType);
+    public void setType(String sourceType);
 
     public String getTalendType();
 

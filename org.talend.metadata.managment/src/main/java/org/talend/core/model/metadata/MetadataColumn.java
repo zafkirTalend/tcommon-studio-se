@@ -13,8 +13,6 @@
 package org.talend.core.model.metadata;
 
 import org.talend.commons.exception.ExceptionHandler;
-import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.model.repository.RepositoryObject;
 
 /**
  * Definition of a column in the Meta Data. <br/>
@@ -22,7 +20,7 @@ import org.talend.core.model.repository.RepositoryObject;
  * $Id: MetadataColumn.java 38013 2010-03-05 14:21:59Z mhirt $
  * 
  */
-public class MetadataColumn extends RepositoryObject implements IMetadataColumn, Cloneable {
+public class MetadataColumn implements IMetadataColumn, Cloneable {
 
     private static int nextId = 0;
 
@@ -83,7 +81,7 @@ public class MetadataColumn extends RepositoryObject implements IMetadataColumn,
             ExceptionHandler.process(e);
         }
 
-        this.setSourceType(metadataColumn.getSourceType());
+        this.setType(metadataColumn.getType());
         // setDbms(metadataColumn.getDbms());
 
         this.nullable = metadataColumn.isNullable();
@@ -172,7 +170,7 @@ public class MetadataColumn extends RepositoryObject implements IMetadataColumn,
      * 
      * @see org.talend.designer.core.model.metadata.IMetadataColumn#getType()
      */
-    public String getSourceType() {
+    public String getType() {
         return this.sourceType;
     }
 
@@ -181,7 +179,7 @@ public class MetadataColumn extends RepositoryObject implements IMetadataColumn,
      * 
      * @see org.talend.designer.core.model.metadata.IMetadataColumn#setType(java.lang.String)
      */
-    public void setSourceType(String sourceType) {
+    public void setType(String sourceType) {
         this.sourceType = sourceType;
     }
 
@@ -420,7 +418,7 @@ public class MetadataColumn extends RepositoryObject implements IMetadataColumn,
             }
         }
         if ((options & OPTIONS_IGNORE_DBTYPE) == 0) {
-            if (!sameStringValue(this.sourceType, other.getSourceType())) {
+            if (!sameStringValue(this.sourceType, other.getType())) {
                 return false;
             }
         }
@@ -534,11 +532,6 @@ public class MetadataColumn extends RepositoryObject implements IMetadataColumn,
 
     public void setOriginalDbColumnName(String originalDbColumnName) {
         this.originalDbColumnName = originalDbColumnName;
-    }
-
-    @Override
-    public ERepositoryObjectType getType() {
-        return ERepositoryObjectType.METADATA_COLUMN;
     }
 
 }

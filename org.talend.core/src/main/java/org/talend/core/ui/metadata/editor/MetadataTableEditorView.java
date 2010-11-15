@@ -369,13 +369,13 @@ public class MetadataTableEditorView extends AbstractMetadataTableEditorView<IMe
                 }
                 String dbms = getCurrentDbms();
                 if (showDbTypeColumn && dbTypeColumnWritable && (dbms != null)) {
-                    String oldDbType = bean.getSourceType();
+                    String oldDbType = bean.getType();
                     String oldDefaultDbType = null;
                     if ((oldDbType != null) && !oldDbType.equals("")) { //$NON-NLS-1$
                         oldDefaultDbType = TypesManager.getDBTypeFromTalendType(dbms, oldTalendType);
                     }
                     if ((oldDbType == null) || oldDbType.equals(oldDefaultDbType) || oldDbType.equals("")) { //$NON-NLS-1$
-                        bean.setSourceType(TypesManager.getDBTypeFromTalendType(dbms, value));
+                        bean.setType(TypesManager.getDBTypeFromTalendType(dbms, value));
                     }
                 }
                 if (currentBeanHasJavaDateType(bean)) {
@@ -391,7 +391,7 @@ public class MetadataTableEditorView extends AbstractMetadataTableEditorView<IMe
 
             public String get(IMetadataColumn bean) {
 
-                return bean.getSourceType();
+                return bean.getType();
             }
 
             public void set(IMetadataColumn bean, String value) {
@@ -406,7 +406,7 @@ public class MetadataTableEditorView extends AbstractMetadataTableEditorView<IMe
                 // }
                 // }
                 // }
-                bean.setSourceType(value);
+                bean.setType(value);
             }
 
         };

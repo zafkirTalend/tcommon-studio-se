@@ -160,7 +160,7 @@ public class SaveAsGenericSchemaCommand extends Command {
                 createMetadataColumn.setNullable(column.isNullable());
                 createMetadataColumn.setOriginalField(column.getOriginalDbColumnName());
                 createMetadataColumn.setTalendType(column.getTalendType());
-                createMetadataColumn.setSourceType(column.getSourceType());
+                createMetadataColumn.setSourceType(column.getType());
 
                 createMetadataTable.getColumns().add(createMetadataColumn);
             }

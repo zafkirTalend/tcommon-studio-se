@@ -60,7 +60,7 @@ public class ExtendedTableResetDBTypesCommand extends Command implements IExtend
         List beansList = extendedTable.getBeansList();
         for (Object object : beansList) {
             if (object instanceof IMetadataColumn) {
-                oldDbTypes.add(((IMetadataColumn) object).getSourceType());
+                oldDbTypes.add(((IMetadataColumn) object).getType());
             } else if (object instanceof MetadataColumn) {
                 oldDbTypes.add(((MetadataColumn) object).getSourceType());
             }
@@ -71,8 +71,8 @@ public class ExtendedTableResetDBTypesCommand extends Command implements IExtend
                 IMetadataColumn column = (IMetadataColumn) beansList.get(i);
                 // qli modified to fix the bug 6654.
                 if (dbmsId != null) {
-                    if (!TypesManager.checkDBType(dbmsId, column.getTalendType(), column.getSourceType())) {
-                        column.setSourceType(TypesManager.getDBTypeFromTalendType(dbmsId, column.getTalendType()));
+                    if (!TypesManager.checkDBType(dbmsId, column.getTalendType(), column.getType())) {
+                        column.setType(TypesManager.getDBTypeFromTalendType(dbmsId, column.getTalendType()));
                     }
                 }
             } else if (beansList.get(i) instanceof MetadataColumn) {
@@ -99,7 +99,7 @@ public class ExtendedTableResetDBTypesCommand extends Command implements IExtend
         for (int i = 0; i < beansList.size(); i++) {
             if (beansList.get(i) instanceof IMetadataColumn) {
                 IMetadataColumn column = (IMetadataColumn) beansList.get(i);
-                column.setSourceType(oldDbTypes.get(i));
+                column.setType(oldDbTypes.get(i));
             }
         }
         extendedTableViewer.getTableViewerCreator().getTableViewer().refresh();

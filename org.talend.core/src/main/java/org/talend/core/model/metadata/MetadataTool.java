@@ -142,10 +142,10 @@ public class MetadataTool {
         List<IMetadataColumn> listColumns = metaTable.getListColumns();
         for (IMetadataColumn column : listColumns) {
             String talendType = column.getTalendType();
-            String type = column.getSourceType();
+            String type = column.getType();
             if (dbmsid != null) {
                 if (!TypesManager.checkDBType(dbmsid, talendType, type)) {
-                    column.setSourceType(TypesManager.getDBTypeFromTalendType(dbmsid, talendType));
+                    column.setType(TypesManager.getDBTypeFromTalendType(dbmsid, talendType));
                 }
             }
         }
@@ -480,7 +480,7 @@ public class MetadataTool {
                                 oldColumn.setLength(newColumn.getLength());
                                 oldColumn.setPrecision(newColumn.getPrecision());
                                 oldColumn.setPattern(newColumn.getPattern());
-                                oldColumn.setSourceType(newColumn.getSourceType());
+                                oldColumn.setType(newColumn.getType());
                                 oldColumn.setTalendType(newColumn.getTalendType());
                                 oldColumn.setComment(newColumn.getComment());
                             }
@@ -539,7 +539,7 @@ public class MetadataTool {
             createColumnType.setNullable(column.isNullable());
             createColumnType.setPattern(column.getPattern());
 
-            createColumnType.setSourceType(column.getSourceType());
+            createColumnType.setSourceType(column.getType());
             createColumnType.setType(column.getTalendType());
             colTypes.add(createColumnType);
         }
