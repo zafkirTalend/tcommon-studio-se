@@ -459,7 +459,12 @@ public class ProcessorUtilities {
             }
         }
 
-        IProcessor processor = getProcessor(currentProcess, selectedProcessItem.getProperty());
+        IProcessor processor = null;
+        if (selectedProcessItem == null) { // shadow process
+            processor = getProcessor(currentProcess, null);
+        } else {
+            processor = getProcessor(currentProcess, selectedProcessItem.getProperty());
+        }
 
         // generate the code of the father after the childrens
         // so the code won't have any error during the check, and it will help to check
@@ -522,9 +527,15 @@ public class ProcessorUtilities {
         jobInfo.setProcess(null);
         if (isMainJob) {
             progressMonitor.subTask(Messages.getString("ProcessorUtilities.finalizeBuild") + currentJobName); //$NON-NLS-1$
-            getProcessor(currentProcess, selectedProcessItem.getProperty()).computeLibrariesPath(
-                    LastGenerationInfo.getInstance()
-                            .getModulesNeededWithSubjobPerJob(jobInfo.getJobId(), jobInfo.getJobVersion()));
+            if (selectedProcessItem == null) { // shadow process
+                getProcessor(currentProcess, null).computeLibrariesPath(
+                        LastGenerationInfo.getInstance().getModulesNeededWithSubjobPerJob(jobInfo.getJobId(),
+                                jobInfo.getJobVersion()));
+            } else {
+                getProcessor(currentProcess, selectedProcessItem.getProperty()).computeLibrariesPath(
+                        LastGenerationInfo.getInstance().getModulesNeededWithSubjobPerJob(jobInfo.getJobId(),
+                                jobInfo.getJobVersion()));
+            }
             if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA && codeModified) {
                 try {
                     ((IJavaProject) CorePlugin.getDefault().getRunProcessService().getJavaProject()).getProject().build(
