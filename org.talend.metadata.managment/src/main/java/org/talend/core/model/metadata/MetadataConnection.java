@@ -15,17 +15,13 @@ package org.talend.core.model.metadata;
 import java.io.InputStream;
 import java.util.List;
 
-import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
-import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.model.repository.RepositoryObject;
-
 /**
  * DOC cantoine Meta Data Connection. Contains info of conncection. <br/>
  * 
  * $Id: MetadataConnection.java 38013 2010-03-05 14:21:59Z mhirt $
  * 
  */
-public class MetadataConnection extends RepositoryObject implements IMetadataConnection {
+public class MetadataConnection implements IMetadataConnection {
 
     private String dbVersionString;
 
@@ -73,7 +69,13 @@ public class MetadataConnection extends RepositoryObject implements IMetadataCon
 
     private boolean sqlMode;
 
-    private DatabaseConnection currentConnection;
+    private String comment;
+
+    private String id;
+
+    private String label;
+
+    private Object connection;
 
     public boolean isSqlMode() {
         return this.sqlMode;
@@ -372,16 +374,6 @@ public class MetadataConnection extends RepositoryObject implements IMetadataCon
         this.listTables = listTables;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.core.model.repository.IRepositoryObject#getType()
-     */
-    @Override
-    public ERepositoryObjectType getType() {
-        return ERepositoryObjectType.METADATA_CONNECTIONS;
-    }
-
     public String getMapping() {
         return this.mapping;
     }
@@ -526,12 +518,35 @@ public class MetadataConnection extends RepositoryObject implements IMetadataCon
         return false;
     }
 
-    public DatabaseConnection getCurrentConnection() {
-        return this.currentConnection;
+    public String getComment() {
+        return comment;
     }
 
-    public void setCurrentConnection(DatabaseConnection currentConnection) {
-        this.currentConnection = currentConnection;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public Object getCurrentConnection() {
+        return connection;
+    }
+
+    public void setCurrentConnection(Object dbconn) {
+        this.connection = dbconn;
+    }
 }

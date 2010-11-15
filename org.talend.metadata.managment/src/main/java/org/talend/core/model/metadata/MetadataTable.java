@@ -17,14 +17,12 @@ import java.util.List;
 
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.model.components.EReadOnlyComlumnPosition;
-import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.model.repository.RepositoryObject;
 
 /**
  * Meta Data Table. Contains all the columns. <br/>
  * $Id: MetadataTable.java 46622 2010-08-11 10:04:57Z wliu $
  */
-public class MetadataTable extends RepositoryObject implements IMetadataTable, Cloneable {
+public class MetadataTable implements IMetadataTable, Cloneable {
 
     private String tableName;
 
@@ -39,6 +37,12 @@ public class MetadataTable extends RepositoryObject implements IMetadataTable, C
     private String attachedConnector;
 
     private String readOnlyColumnPosition;
+
+    private String label;
+
+    private String id;
+
+    private String comment;
 
     public String getReadOnlyColumnPosition() {
         return this.readOnlyColumnPosition;
@@ -229,26 +233,6 @@ public class MetadataTable extends RepositoryObject implements IMetadataTable, C
         this.parent = parent;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.core.model.repository.IRepositoryObject#getType()
-     */
-    @Override
-    public ERepositoryObjectType getType() {
-        return ERepositoryObjectType.METADATA_CON_TABLE;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.core.model.repository.IRepositoryObject#getVersion()
-     */
-    @Override
-    public String getVersion() {
-        return getParent().getVersion();
-    }
-
     public IMetadataColumn getColumn(String columnName) {
         for (int i = 0; i < listColumns.size(); i++) {
             IMetadataColumn column = listColumns.get(i);
@@ -330,5 +314,29 @@ public class MetadataTable extends RepositoryObject implements IMetadataTable, C
      */
     public void setAttachedConnector(String attachedConnector) {
         this.attachedConnector = attachedConnector;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

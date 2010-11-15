@@ -47,6 +47,7 @@ import org.talend.core.model.metadata.MappingTypeRetriever;
 import org.talend.core.model.metadata.MetadataTable;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
+import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.util.TDColumnAttributeHelper;
 import org.talend.core.model.metadata.types.JavaTypesManager;
@@ -297,7 +298,7 @@ public class ExtractMetaDataFromDataBase {
             medataTable.setLabel(tableName); //$NON-NLS-1$
             medataTable.setTableName(medataTable.getLabel());
 
-            medataTable.setDescription(ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, "REMARKS", null)); //$NON-NLS-1$
+            medataTable.setComment(ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, "REMARKS", null)); //$NON-NLS-1$
 
             String schema = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, "TABLE_SCHEM", null); //$NON-NLS-1$
             if (schema == null) {
@@ -643,7 +644,7 @@ public class ExtractMetaDataFromDataBase {
                     metadataColumn.setComment(commentInfo); //$NON-NLS-1$
                     if (!isAccess) { // jdbc-odbc driver won't apply methods for access
                         TDColumnAttributeHelper.addColumnAttribute(label, dbType, columnSize, intMetaDataInfo, commentInfo,
-                                columns, metadataColumn, metadataConnection.getCurrentConnection());// columnName,
+                                columns, metadataColumn, (DatabaseConnection) metadataConnection.getCurrentConnection());// columnName,
                     }
                     metadataColumns.add(metadataColumn);
 

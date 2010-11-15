@@ -63,7 +63,7 @@ public final class ConvertionHelper {
             connection = originalValueConnection;
         }
         IMetadataConnection result = new org.talend.core.model.metadata.MetadataConnection();
-        result.setDescription(connection.getComment());
+        result.setComment(connection.getComment());
         result.setDatabase(connection.getSID());
         result.setDataSourceName(connection.getDatasourceName());
 
@@ -100,7 +100,7 @@ public final class ConvertionHelper {
 
     public static IMetadataTable convert(MetadataTable old) {
         IMetadataTable result = new org.talend.core.model.metadata.MetadataTable();
-        result.setDescription(old.getComment());
+        result.setComment(old.getComment());
         result.setId(old.getId());
         result.setLabel(old.getLabel());
         String sourceName = old.getName();
@@ -224,7 +224,7 @@ public final class ConvertionHelper {
      */
     public static MetadataTable convert(IMetadataTable old) {
         MetadataTable result = ConnectionFactory.eINSTANCE.createMetadataTable();
-        result.setComment(old.getDescription());
+        result.setComment(old.getComment());
         result.setId(old.getId());
         result.setLabel(old.getLabel());
         result.setSourceName(old.getTableName());
