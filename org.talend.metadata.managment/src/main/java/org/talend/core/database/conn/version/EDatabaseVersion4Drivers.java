@@ -68,7 +68,9 @@ public enum EDatabaseVersion4Drivers {
     PARACCEL(new DbVersion4Drivers(EDatabaseTypeName.PARACCEL, "paraccel-jdbc.jar")), //$NON-NLS-1$
     VECTORWISE(new DbVersion4Drivers(EDatabaseTypeName.VECTORWISE, "iijdbc.jar")), //$NON-NLS-1$
 
-    EXASOL(new DbVersion4Drivers(EDatabaseTypeName.EXASOL, "jdbc14.jar")); //$NON-NLS-N$
+    EXASOL(new DbVersion4Drivers(EDatabaseTypeName.EXASOL, "jdbc14.jar")),
+
+    MAXDB(new DbVersion4Drivers(EDatabaseTypeName.MAXDB, "sapdbc.jar")); //$NON-NLS-N$
 
     private DbVersion4Drivers dbVersionBean;
 
