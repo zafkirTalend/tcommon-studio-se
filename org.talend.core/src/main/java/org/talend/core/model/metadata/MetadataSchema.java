@@ -91,7 +91,7 @@ public class MetadataSchema {
     public static IMetadataTable loadMetadaFromFile(final File file, IMetadataTable oldTable)
             throws ParserConfigurationException, SAXException, IOException {
         final IMetadataTable table = new MetadataTable();
-        table.setDescription(oldTable.getDescription());
+        table.setComment(oldTable.getComment());
         table.setId(oldTable.getId());
         table.setLabel(oldTable.getLabel());
         table.setParent(oldTable.getParent());

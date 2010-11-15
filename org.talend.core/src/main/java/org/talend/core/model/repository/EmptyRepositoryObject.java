@@ -115,9 +115,9 @@ public class EmptyRepositoryObject implements IRepositoryObject {
     /*
      * (non-Javadoc)
      * 
-     * @see org.talend.core.model.repository.IRepositoryObject#getType()
+     * @see org.talend.core.model.repository.IRepositoryObject#getRepositoryObjectType()
      */
-    public ERepositoryObjectType getType() {
+    public ERepositoryObjectType getRepositoryObjectType() {
         return null;
     }
 

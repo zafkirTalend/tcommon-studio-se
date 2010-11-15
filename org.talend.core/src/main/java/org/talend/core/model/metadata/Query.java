@@ -12,14 +12,12 @@
 // ============================================================================
 package org.talend.core.model.metadata;
 
-import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.model.repository.RepositoryObject;
 
 /**
- * Meta Data Table. Contains all the columns. <br/> $Id: MetadataTable.java,v 1.24.4.1 2006/09/05 13:38:25 mhelleboid
- * Exp $
+ * Meta Data Table. Contains all the columns. <br/>
+ * $Id: MetadataTable.java,v 1.24.4.1 2006/09/05 13:38:25 mhelleboid Exp $
  */
-public class Query extends RepositoryObject implements Cloneable {
+public class Query implements Cloneable {
 
     private String queryName;
 
@@ -60,23 +58,4 @@ public class Query extends RepositoryObject implements Cloneable {
     public void setParent(IMetadataConnection parent) {
         this.parent = parent;
     }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.core.model.repository.IRepositoryObject#getType()
-     */
-    public ERepositoryObjectType getType() {
-        return ERepositoryObjectType.METADATA_CON_QUERY;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.core.model.repository.IRepositoryObject#getVersion()
-     */
-    public String getVersion() {
-        return getParent().getVersion();
-    }
-
 }

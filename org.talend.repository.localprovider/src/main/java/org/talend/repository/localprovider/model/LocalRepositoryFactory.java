@@ -1225,7 +1225,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     public void moveObject(IRepositoryViewObject objToMove, IPath newPath) throws PersistenceException {
         Project project = getRepositoryContext().getProject();
         IProject fsProject = ResourceModelUtils.getProject(project);
-        String folderName = ERepositoryObjectType.getFolderName(objToMove.getType()) + IPath.SEPARATOR + newPath;
+        String folderName = ERepositoryObjectType.getFolderName(objToMove.getRepositoryObjectType()) + IPath.SEPARATOR + newPath;
         IFolder folder = ResourceUtils.getFolder(fsProject, folderName, true);
 
         List<IRepositoryViewObject> allVersionToMove = getAllVersion(getRepositoryContext().getProject(), objToMove.getId(),
@@ -1235,7 +1235,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             if (currentItem.getParent() instanceof FolderItem) {
                 ((FolderItem) currentItem.getParent()).getChildren().remove(currentItem);
             }
-            FolderItem newFolderItem = getFolderItem(project, objToMove.getType(), newPath);
+            FolderItem newFolderItem = getFolderItem(project, objToMove.getRepositoryObjectType(), newPath);
             newFolderItem.getChildren().add(currentItem);
             currentItem.setParent(newFolderItem);
 

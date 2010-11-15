@@ -48,7 +48,7 @@ public class ItemCacheManager {
         IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
         try {
             IRepositoryViewObject object = factory.getLastVersion(project, processId);
-            if (object == null || object.getType() != ERepositoryObjectType.PROCESS) {
+            if (object == null || object.getRepositoryObjectType() != ERepositoryObjectType.PROCESS) {
                 return null;
             }
             lastVersionOfProcess = (ProcessItem) object.getProperty().getItem();
@@ -113,7 +113,7 @@ public class ItemCacheManager {
 
             List<IRepositoryViewObject> allVersions = factory.getAllVersion(project, processId, false);
             for (IRepositoryViewObject ro : allVersions) {
-                if (ro.getType() == ERepositoryObjectType.PROCESS) {
+                if (ro.getRepositoryObjectType() == ERepositoryObjectType.PROCESS) {
                     if (ro.getVersion().equals(version)) {
                         selectedProcessItem = (ProcessItem) ro.getProperty().getItem();
                     }
@@ -143,7 +143,7 @@ public class ItemCacheManager {
         IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
         try {
             IRepositoryViewObject object = factory.getLastVersion(project, jobletId);
-            if (object == null || object.getType() != ERepositoryObjectType.JOBLET) {
+            if (object == null || object.getRepositoryObjectType() != ERepositoryObjectType.JOBLET) {
                 return null;
             }
             lastVersionOfJoblet = (JobletProcessItem) object.getProperty().getItem();
@@ -183,7 +183,7 @@ public class ItemCacheManager {
 
             List<IRepositoryViewObject> allVersions = factory.getAllVersion(project, jobletId, false);
             for (IRepositoryViewObject ro : allVersions) {
-                if (ro.getType() == ERepositoryObjectType.JOBLET) {
+                if (ro.getRepositoryObjectType() == ERepositoryObjectType.JOBLET) {
                     if (ro.getVersion().equals(version)) {
                         selectedProcessItem = (JobletProcessItem) ro.getProperty().getItem();
                     }

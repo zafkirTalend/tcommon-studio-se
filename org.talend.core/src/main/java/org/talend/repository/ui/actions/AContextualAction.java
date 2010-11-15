@@ -558,7 +558,7 @@ public abstract class AContextualAction extends Action implements ITreeContextua
                 }
                 if (pathExist) {
                     allVersion = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory().getAllVersion(
-                            property.getId(), state.getPath(), repositoryObject.getObject().getType());
+                            property.getId(), state.getPath(), repositoryObject.getObject().getRepositoryObjectType());
                 } else {
                     allVersion = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory().getAllVersion(
                             property.getId());
