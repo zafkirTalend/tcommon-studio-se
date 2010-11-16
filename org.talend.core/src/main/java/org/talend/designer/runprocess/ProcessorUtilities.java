@@ -58,6 +58,7 @@ import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.model.utils.JavaResourcesHelper;
 import org.talend.core.model.utils.PerlResourcesHelper;
+import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.ui.IJobletProviderService;
 import org.talend.core.ui.ISVNProviderService;
 import org.talend.designer.core.IDesignerCoreService;
@@ -987,5 +988,18 @@ public class ProcessorUtilities {
         }
 
         return false;
+    }
+
+    public static String generateCmdByTalendJob(String[] cmd) {
+        StringBuffer sb = new StringBuffer();
+        sb.append(""); //$NON-NLS-1$
+        if (cmd != null && cmd.length > 0) {
+            for (String s : cmd) {
+                sb.append(s).append(' '); //$NON-NLS-1$
+            }
+        }
+        String commandStr = CorePlugin.getDefault().getPreferenceStore().getString(ITalendCorePrefConstants.COMMAND_STR);
+        String finalCommand = commandStr.replace(ITalendCorePrefConstants.DEFAULT_COMMAND_STR, sb.toString());
+        return finalCommand;
     }
 }
