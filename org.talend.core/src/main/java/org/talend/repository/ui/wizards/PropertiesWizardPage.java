@@ -843,12 +843,19 @@ public abstract class PropertiesWizardPage extends WizardPage {
                         } else {
                             setPageComplete(true); // can save as
                         }
+
+                        // assign value directly(because the old job name is valid).
+                        if (property != null && nameStatus.getSeverity() == IStatus.OK) {
+                            property.setLabel(StringUtils.trimToNull(nameText.getText()));
+                        }
+
                     } else {
                         // there won't plan to process this case:
                         // exist (Job AAA 1.0 and Job BBB 2.0), to save Job AAA 1.0 as Job BBB 3.0
                         nameModifiedByUser = true;
                         evaluateTextField();
                     }
+
                 }
             }
         });
