@@ -31,8 +31,14 @@ public class CwmResourceFactory extends XMIResourceFactoryImpl {
 
     @Override
     public Resource createResource(URI uri) {
-        String business = "businessProcess";
+        String business = "businessProcess"; // context + process
+        String context = "context";
+        String process = "process";
         if (uri.toString().contains("/" + business + "/") && uri.segmentCount() > 2 && uri.segments()[2].equals(business)) {
+            return super.createResource(uri);
+        } else if (uri.toString().contains("/" + context + "/") && uri.segmentCount() > 2 && uri.segments()[2].equals(context)) {
+            return super.createResource(uri);
+        } else if (uri.toString().contains("/" + process + "/") && uri.segmentCount() > 2 && uri.segments()[2].equals(process)) {
             return super.createResource(uri);
         } else {
             return new CwmResource(uri);
