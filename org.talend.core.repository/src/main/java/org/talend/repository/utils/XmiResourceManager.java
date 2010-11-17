@@ -251,6 +251,12 @@ public class XmiResourceManager {
                 continue;
             }
             if (!resources.contains(currentResource)) {
+
+                // ignore the business model linking *.business_diagram file...(for update version of item...)
+                if (object instanceof org.eclipse.gmf.runtime.notation.impl.DiagramImpl) {
+                    continue;
+                }
+
                 if (!currentResource.getURI().lastSegment().equals(getProjectFilename())) {
                     resources.add(currentResource);
                 }
@@ -271,6 +277,12 @@ public class XmiResourceManager {
                     continue;
                 }
                 if (!resources.contains(currentResource)) {
+
+                    // ignore the business model linking *.business_diagram file...(for update version of item...)
+                    if (object instanceof org.eclipse.gmf.runtime.notation.impl.DiagramImpl) {
+                        continue;
+                    }
+
                     if (!currentResource.getURI().lastSegment().equals(getProjectFilename())) {
                         resources.add(currentResource);
                     }
