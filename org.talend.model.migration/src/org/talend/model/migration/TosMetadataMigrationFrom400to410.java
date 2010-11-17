@@ -85,6 +85,9 @@ public class TosMetadataMigrationFrom400to410 {
      */
     private void createMetamodels() throws ATLCoreException {
         factory = new EMFModelFactory();
+        // Map<String, Object> etfm = Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap();
+        // etfm.put("*", cwmResourceFactory); //$NON-NLS-1$
+
         injector = new EMFInjector();
         inmodelMetamodel = factory.newReferenceModel();
         injector.inject(inmodelMetamodel, IN_METADATA_400_URI);
@@ -112,7 +115,7 @@ public class TosMetadataMigrationFrom400to410 {
         inModel = factory.newModel(inmodelMetamodel);
         injector.inject(inModel, inUri);
         EMFModel outModel = (EMFModel) factory.newModel(outmodelMetamodel);
-        outModel.setEmfResourceFactory(cwmResourceFactory);
+        // outModel.setEmfResourceFactory(cwmResourceFactory);
         launcher.initialize(Collections.EMPTY_MAP);
         launcher.addInModel(inModel, "IN", "INMODEL"); //$NON-NLS-1$//$NON-NLS-2$
         launcher.addOutModel(outModel, "OUT", "OUTMODEL"); //$NON-NLS-1$//$NON-NLS-2$

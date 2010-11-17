@@ -15,7 +15,6 @@ package org.talend.repository.model;
 import java.util.Set;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.gef.palette.PaletteDrawer;
 import org.eclipse.gef.palette.PaletteEntry;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.talend.commons.exception.ExceptionHandler;
@@ -30,6 +29,7 @@ import org.talend.core.model.components.IComponentsFactory;
 import org.talend.core.model.components.IComponentsService;
 import org.talend.core.model.properties.ComponentSetting;
 import org.talend.core.model.properties.PropertiesFactory;
+import org.talend.designer.core.IPaletteFilter;
 
 /**
  * Provides, using extension points, implementation of many factories.
@@ -147,8 +147,8 @@ public class ComponentsFactoryProvider {
     public static String getPaletteEntryFamily(PaletteEntry entry) {
         String family = ""; //$NON-NLS-1$
         if (!(entry instanceof PaletteRoot)) {
-            if (entry instanceof PaletteDrawer) {
-                family = ((PaletteDrawer) entry).getOriginalName();
+            if (entry instanceof IPaletteFilter) {
+                family = ((IPaletteFilter) entry).getOriginalName();
             }
             // else {
             // family = entry.getLabel();

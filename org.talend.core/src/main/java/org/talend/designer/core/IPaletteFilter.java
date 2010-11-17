@@ -18,10 +18,13 @@ package org.talend.designer.core;
  * $Id: talend.epf 1 2006-09-29 17:06:40Z nrousseau $
  * 
  */
-public interface IFilter {
+public interface IPaletteFilter {
 
     public boolean isFiltered();
 
     public void setFiltered(boolean fitler);
 
+    public String getOriginalName();
+
+    public void setOriginalName(String originalName);
 }

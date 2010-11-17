@@ -42,7 +42,7 @@ import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
-import org.talend.designer.core.IFilter;
+import org.talend.designer.core.IPaletteFilter;
 import org.talend.designer.core.model.utils.emf.talendfile.ColumnType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
@@ -227,7 +227,7 @@ public class ComponentUtilities {
             }
         } else if (entry instanceof PaletteDrawer) {
             PaletteDrawer drawer = (PaletteDrawer) entry;
-            if (drawer instanceof IFilter && ((IFilter) entry).isFiltered()) {
+            if (drawer instanceof IPaletteFilter && ((IPaletteFilter) entry).isFiltered()) {
                 emptyEntry.add(entry);
             } else {
                 List children = drawer.getChildren();
@@ -259,8 +259,8 @@ public class ComponentUtilities {
             return;
         }
         PaletteEntry parentEntry = entry.getParent();
-        if (parentEntry instanceof IFilter) {
-            ((IFilter) parentEntry).setFiltered(false);
+        if (parentEntry instanceof IPaletteFilter) {
+            ((IPaletteFilter) parentEntry).setFiltered(false);
         }
     }
 
@@ -520,7 +520,9 @@ public class ComponentUtilities {
         } else {
             parentPaletteDrawer.add(paletteDrawer);
         }
-        paletteDrawer.setOriginalName(originalFamily);
+        if (paletteDrawer instanceof IPaletteFilter) {
+            ((IPaletteFilter) paletteDrawer).setOriginalName(originalFamily);
+        }
         ht.put(familyToCreate, paletteDrawer);
 
         return paletteDrawer;
