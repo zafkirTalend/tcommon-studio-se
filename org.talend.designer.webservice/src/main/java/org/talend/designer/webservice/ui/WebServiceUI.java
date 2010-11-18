@@ -848,27 +848,26 @@ public class WebServiceUI extends AbstractWebService {
                     int lastArray = exp.lastIndexOf("[");
                     reArrayOutExp = exp.substring(0, lastArray);
                 }
-                if ("".equals(exp) || exp == null) { //$NON-NLS-1$
-                    continue;
-                }
-                data.setParameterName(exp);
-                // org.talend.core.model.metadata.MetadataColumn
-                // Set<String> expList = webParser.parseOutTableEntryLocations(exp);
-                for (OutPutMappingData outMappingData : outParaList) {
-                    ParameterInfo outInfo = outMappingData.getParameter();
-                    String outInfoName = outMappingData.getParameterName();
-                    // if (outInfoName != null) {
-                    // int m = outInfoName.lastIndexOf(".");
-                    // outInfoName = outInfoName.substring(m + 1);
-                    // } else {
-                    // outInfoName = outInfo.getName();
-                    // }
-                    // Iterator<String> ite = expList.iterator();
-                    // while (ite.hasNext()) {
-                    if (exp.equals(outInfoName)) {
-                        data.getParameterList().add(outInfo);
+                if (!"".equals(exp) && exp != null) { //$NON-NLS-1$
+                    data.setParameterName(exp);
+                    // org.talend.core.model.metadata.MetadataColumn
+                    // Set<String> expList = webParser.parseOutTableEntryLocations(exp);
+                    for (OutPutMappingData outMappingData : outParaList) {
+                        ParameterInfo outInfo = outMappingData.getParameter();
+                        String outInfoName = outMappingData.getParameterName();
+                        // if (outInfoName != null) {
+                        // int m = outInfoName.lastIndexOf(".");
+                        // outInfoName = outInfoName.substring(m + 1);
+                        // } else {
+                        // outInfoName = outInfo.getName();
+                        // }
+                        // Iterator<String> ite = expList.iterator();
+                        // while (ite.hasNext()) {
+                        if (exp.equals(outInfoName)) {
+                            data.getParameterList().add(outInfo);
+                        }
+                        // }
                     }
-                    // }
                 }
 
             }
@@ -880,6 +879,9 @@ public class WebServiceUI extends AbstractWebService {
                 data.setMetadataColumn(column);
                 data.setOutputColumnValue(columnName);
                 outputColumnCompareList.add(data);
+                if (!"".equals(columnName) && data.getParameterName() == null) {
+                    data.setParameterName("");
+                }
             }
             if (data != null && data.getParameterName() != null) {
                 list.add(data);
@@ -3057,11 +3059,13 @@ public class WebServiceUI extends AbstractWebService {
                                 // }
                                 if (isDelete(oldCol, outNewColumn)) {
                                     // forOutColumnList.remove(oldCol);
-                                    for (int j = 0; j < schemaMetadataColumn.size(); j++) {
-                                        MetadataColumn mcolumn = (MetadataColumn) schemaMetadataColumn.get(j);
-                                        if (mcolumn.getLabel().equals(oldCol.getLabel())) {
-                                            schemaMetadataColumn.remove(mcolumn);
-                                            j--;
+                                    if (schemaMetadataColumn != null) {
+                                        for (int j = 0; j < schemaMetadataColumn.size(); j++) {
+                                            MetadataColumn mcolumn = (MetadataColumn) schemaMetadataColumn.get(j);
+                                            if (mcolumn.getLabel().equals(oldCol.getLabel())) {
+                                                schemaMetadataColumn.remove(mcolumn);
+                                                j--;
+                                            }
                                         }
                                     }
                                     outPutcolumnList.remove(outcol);
@@ -3073,7 +3077,7 @@ public class WebServiceUI extends AbstractWebService {
                                 OutPutMappingData outcol = outputColumnCompareList.get(i);
                                 IMetadataColumn oldCol = outcol.getMetadataColumn();
                                 if (isDelete(oldCol, outNewColumn)) {
-                                    if (schemaMetadataColumn != null)
+                                    if (schemaMetadataColumn != null) {
                                         for (int j = 0; j < schemaMetadataColumn.size(); j++) {
                                             MetadataColumn mcolumn = (MetadataColumn) schemaMetadataColumn.get(j);
                                             if (mcolumn.getLabel().equals(oldCol.getLabel())) {
@@ -3081,6 +3085,8 @@ public class WebServiceUI extends AbstractWebService {
                                                 j--;
                                             }
                                         }
+                                    }
+
                                 }
                                 // i--;
                             }
