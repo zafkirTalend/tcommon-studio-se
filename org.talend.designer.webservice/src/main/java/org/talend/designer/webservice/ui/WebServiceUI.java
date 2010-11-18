@@ -18,8 +18,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -63,8 +63,8 @@ import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.commons.ui.swt.formtools.LabelledFileField;
 import org.talend.commons.ui.swt.linking.TableToTablesLinker;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
-import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.CELL_EDITOR_STATE;
+import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 import org.talend.commons.ui.swt.tableviewer.celleditor.DialogErrorForCellEditorListener;
 import org.talend.commons.ui.utils.PathUtils;
 import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
@@ -117,8 +117,8 @@ import org.talend.ws.helper.conf.ServiceHelperConfiguration;
  */
 public class WebServiceUI extends AbstractWebService {
 
-    protected int maximumRowsToPreview = CorePlugin.getDefault().getPreferenceStore().getInt(
-            ITalendCorePrefConstants.PREVIEW_LIMIT);
+    protected int maximumRowsToPreview = CorePlugin.getDefault().getPreferenceStore()
+            .getInt(ITalendCorePrefConstants.PREVIEW_LIMIT);
 
     private WebServiceManager webServiceManager;
 
@@ -615,8 +615,8 @@ public class WebServiceUI extends AbstractWebService {
             boolean isUseProxy = webServiceComponent.getElementParameter("USE_PROXY").getValue().toString().equals("true");
             boolean isUseAuth = webServiceComponent.getElementParameter("NEED_AUTH").getValue().toString().equals("true");
             boolean isUseNTLM = webServiceComponent.getElementParameter("USE_NTLM").getValue().toString().equals("true");
-            boolean isUseSSL = webServiceComponent.getElementParameter("NEED_SSL_TO_TRUSTSERVER").getValue().toString().equals(
-                    "true");
+            boolean isUseSSL = webServiceComponent.getElementParameter("NEED_SSL_TO_TRUSTSERVER").getValue().toString()
+                    .equals("true");
 
             if (isUseProxy) {
                 useProxy();
@@ -1890,8 +1890,8 @@ public class WebServiceUI extends AbstractWebService {
 
                     public void newValidValueTyped(int itemIndex, Object previousValue, Object newValue, CELL_EDITOR_STATE state) {
                         if (state == CELL_EDITOR_STATE.EDITING) {
-                            tabTotabLinkForin.onXPathValueChanged(rowTableForin, table, previousValue.toString(), newValue
-                                    .toString(), inComeName, itemIndex);
+                            tabTotabLinkForin.onXPathValueChanged(rowTableForin, table, previousValue.toString(),
+                                    newValue.toString(), inComeName, itemIndex);
                         }
 
                     }
@@ -2126,8 +2126,7 @@ public class WebServiceUI extends AbstractWebService {
                 Boolean isArray = false;
                 String isArrayName = currentInputMappingData.getParameterName();
                 if ((currentInputMappingData.getParameter().getArraySize() == -1 || currentInputMappingData.getParameter()
-                        .getArraySize() > 1)
-                        && !isArrayName.endsWith("]")) {
+                        .getArraySize() > 1) && !isArrayName.endsWith("]")) {
                     isArray = true;
                 }
                 if (isArrayName.contains("*")) {
@@ -2662,8 +2661,8 @@ public class WebServiceUI extends AbstractWebService {
 
                     public void newValidValueTyped(int itemIndex, Object previousValue, Object newValue, CELL_EDITOR_STATE state) {
                         if (state == CELL_EDITOR_STATE.EDITING) {
-                            tabTotabLinkForout.onXPathValueChanged(rowTableForout, table, previousValue.toString(), newValue
-                                    .toString(), null, itemIndex);
+                            tabTotabLinkForout.onXPathValueChanged(rowTableForout, table, previousValue.toString(),
+                                    newValue.toString(), null, itemIndex);
                         }
 
                     }
@@ -2731,8 +2730,7 @@ public class WebServiceUI extends AbstractWebService {
                     isArrayName = currentOutputMappingData.getParameterName();
                 }
                 if ((currentOutputMappingData.getParameter().getArraySize() == -1 || currentOutputMappingData.getParameter()
-                        .getArraySize() > 1)
-                        && !isArrayName.endsWith("]")) {
+                        .getArraySize() > 1) && !isArrayName.endsWith("]")) {
                     isArray = true;
                     isOutPutArray = true;
                 }
@@ -3075,13 +3073,14 @@ public class WebServiceUI extends AbstractWebService {
                                 OutPutMappingData outcol = outputColumnCompareList.get(i);
                                 IMetadataColumn oldCol = outcol.getMetadataColumn();
                                 if (isDelete(oldCol, outNewColumn)) {
-                                    for (int j = 0; j < schemaMetadataColumn.size(); j++) {
-                                        MetadataColumn mcolumn = (MetadataColumn) schemaMetadataColumn.get(j);
-                                        if (mcolumn.getLabel().equals(oldCol.getLabel())) {
-                                            schemaMetadataColumn.remove(mcolumn);
-                                            j--;
+                                    if (schemaMetadataColumn != null)
+                                        for (int j = 0; j < schemaMetadataColumn.size(); j++) {
+                                            MetadataColumn mcolumn = (MetadataColumn) schemaMetadataColumn.get(j);
+                                            if (mcolumn.getLabel().equals(oldCol.getLabel())) {
+                                                schemaMetadataColumn.remove(mcolumn);
+                                                j--;
+                                            }
                                         }
-                                    }
                                 }
                                 // i--;
                             }
