@@ -176,13 +176,15 @@ public final class CodeGeneratorRoutine {
         Project currentProject = ProjectManager.getInstance().getCurrentProject();
         IProxyRepositoryFactory proxyRepositoryFactory = CorePlugin.getDefault().getRepositoryService()
                 .getProxyRepositoryFactory();
+
         try {
+            List<IRepositoryViewObject> routinesObj = proxyRepositoryFactory.getAll(ERepositoryObjectType.ROUTINES, true);
             if (process instanceof IProcess2) { // for process
                 Item processItem = ((IProcess2) process).getProperty().getItem();
                 if (processItem instanceof ProcessItem) {
                     EList routinesDependencies = ((ProcessItem) processItem).getProcess().getParameters().getRoutinesParameter();
                     for (RoutinesParameterType infor : (List<RoutinesParameterType>) routinesDependencies) {
-                        Property property = findRoutinesPropery(infor.getId(), infor.getName());
+                        Property property = findRoutinesPropery(infor.getId(), infor.getName(), routinesObj);
                         if (property != null) {
                             if (((RoutineItem) property.getItem()).isBuiltIn()) {
                                 routines.add(getRoutineStr(currentProject, infor.getName(), true));
@@ -215,23 +217,18 @@ public final class CodeGeneratorRoutine {
         return routines;
     }
 
-    private static Property findRoutinesPropery(String id, String name) {
+    private static Property findRoutinesPropery(String id, String name, List<IRepositoryViewObject> routines) {
         IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
-        try {
-            List<IRepositoryViewObject> routines = repositoryFactory.getAll(ERepositoryObjectType.ROUTINES, true);
-            // getRefRoutines(routines, ProjectManager.getInstance().getCurrentProject().getEmfProject());
-            for (IRepositoryViewObject current : routines) {
-                if (repositoryFactory.getStatus(current) != ERepositoryStatus.DELETED) {
-                    Item item = current.getProperty().getItem();
-                    RoutineItem routine = (RoutineItem) item;
-                    Property property = routine.getProperty();
-                    if (property.getId().equals(id) || property.getLabel().equals(name)) {
-                        return property;
-                    }
+        // getRefRoutines(routines, ProjectManager.getInstance().getCurrentProject().getEmfProject());
+        for (IRepositoryViewObject current : routines) {
+            if (repositoryFactory.getStatus(current) != ERepositoryStatus.DELETED) {
+                Item item = current.getProperty().getItem();
+                RoutineItem routine = (RoutineItem) item;
+                Property property = routine.getProperty();
+                if (property.getId().equals(id) || property.getLabel().equals(name)) {
+                    return property;
                 }
             }
-        } catch (PersistenceException e) {
-            ExceptionHandler.process(e);
         }
         return null;
     }

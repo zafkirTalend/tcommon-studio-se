@@ -499,7 +499,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                         if (curItem instanceof FolderItem && searchInChildren) {
                             folderNamesFounds.add(curItem.getProperty().getLabel());
                             toReturn.addAll(getSerializableFromFolder(project, curItem, id, type, allVersion, true, withDeleted,
-                                    true));
+                                    avoidSaveProject, true));
                         } else if (!(curItem instanceof FolderItem)) {
                             if (property.eResource() != null) {
                                 if (id == null || property.getId().equals(id)) {
@@ -573,7 +573,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                                 parentFolder.setParent(currentFolderItem);
                                 projectModified = true;
                                 toReturn.addAll(getSerializableFromFolder(project, (IFolder) current, id, type, allVersion, true,
-                                        withDeleted, true));
+                                        withDeleted, avoidSaveProject, true));
                             }
                             if (((IFolder) current).getName().equals(BIN)) {
 
@@ -941,14 +941,18 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         xmiResourceManager.saveResource(emfProject.eResource());
     }
 
+    public Folder createFolder(Project project, ERepositoryObjectType type, IPath path, String label) throws PersistenceException {
+        return createFolder(project, type, path, label, false);
+    }
+
     /*
      * (non-Javadoc)
      * 
      * @see org.talend.designer.core.extension.IRepositoryFactory#createFolder(org .talend.core.model.temp.Project,
      * org.talend.core.model.repository.EObjectType, org.eclipse.core.runtime.IPath, java.lang.String)
      */
-
-    public Folder createFolder(Project project, ERepositoryObjectType type, IPath path, String label) throws PersistenceException {
+    public Folder createFolder(Project project, ERepositoryObjectType type, IPath path, String label, boolean isImportItem)
+            throws PersistenceException {
         if (type == null) {
             throw new IllegalArgumentException(Messages.getString("LocalRepositoryFactory.illegalArgumentException01")); //$NON-NLS-1$
         }
@@ -968,7 +972,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
         String completePath = parentPath + IPath.SEPARATOR + label;
         FolderItem folderItem = getFolderHelper(project.getEmfProject()).createFolder(completePath);
-        xmiResourceManager.saveResource(project.getEmfProject().eResource());
+        if (!isImportItem) {
+            xmiResourceManager.saveResource(project.getEmfProject().eResource());
+        }
         // Getting the folder :
         IFolder folder = ResourceUtils.getFolder(fsProject, completePath, false);
         if (!folder.exists()) {
@@ -1074,8 +1080,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         for (int i = 0; i < childrens.length; i++) {
             if (childrens[i] instanceof FolderItem) {
                 FolderItem children = (FolderItem) childrens[i];
-                moveFolder(type, sourcePath.append(children.getProperty().getLabel()), targetPath.append(emfFolder.getProperty()
-                        .getLabel()));
+                moveFolder(type, sourcePath.append(children.getProperty().getLabel()),
+                        targetPath.append(emfFolder.getProperty().getLabel()));
             } else {
                 emfFolder.getChildren().remove(childrens[i]);
                 newFolder.getChildren().add(childrens[i]);
@@ -1088,8 +1094,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         for (IRepositoryViewObject object : serializableFromFolder) {
             List<Resource> affectedResources = xmiResourceManager.getAffectedResources(object.getProperty());
             for (Resource resource : affectedResources) {
-                IPath path = getPhysicalProject(project).getFullPath().append(completeNewPath).append(
-                        resource.getURI().lastSegment());
+                IPath path = getPhysicalProject(project).getFullPath().append(completeNewPath)
+                        .append(resource.getURI().lastSegment());
                 xmiResourceManager.moveResource(resource, path);
             }
         }

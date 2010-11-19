@@ -32,8 +32,8 @@ import org.talend.core.language.LanguageManager;
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.components.IComponentsFactory;
 import org.talend.core.model.general.ModuleNeeded;
-import org.talend.core.model.general.Project;
 import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
+import org.talend.core.model.general.Project;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ProcessItem;
@@ -110,8 +110,8 @@ public class ModulesNeededProvider {
          * 
          * TimeMeasure.end("ModulesNeededProvider.getModulesNeededForJobs");
          */// TimeMeasure.measureActive = false;
-        // TimeMeasure.display = false;
-        //        TimeMeasure.end("ModulesNeededProvider.getAllMoudlesNeeded"); //$NON-NLS-1$
+           // TimeMeasure.display = false;
+           //        TimeMeasure.end("ModulesNeededProvider.getAllMoudlesNeeded"); //$NON-NLS-1$
         return componentImportNeedsList;
     }
 
@@ -215,21 +215,30 @@ public class ModulesNeededProvider {
         if (processItems != null) {
             Set<String> systemRoutines = new HashSet<String>();
             Set<String> userRoutines = new HashSet<String>();
+            IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService()
+                    .getProxyRepositoryFactory();
 
-            for (ProcessItem p : processItems) {
-                for (RoutinesParameterType infor : (List<RoutinesParameterType>) p.getProcess().getParameters()
-                        .getRoutinesParameter()) {
+            try {
+                List<IRepositoryViewObject> routines = repositoryFactory.getAll(ERepositoryObjectType.ROUTINES, true);
 
-                    Property property = findRoutinesPropery(infor.getId(), infor.getName());
-                    if (property != null)
-                        if (((RoutineItem) property.getItem()).isBuiltIn()) {
-                            systemRoutines.add(infor.getId());
-                        } else {
-                            userRoutines.add(infor.getId());
-                        }
+                for (ProcessItem p : processItems) {
+                    for (RoutinesParameterType infor : (List<RoutinesParameterType>) p.getProcess().getParameters()
+                            .getRoutinesParameter()) {
 
+                        Property property = findRoutinesPropery(infor.getId(), infor.getName(), routines);
+                        if (property != null)
+                            if (((RoutineItem) property.getItem()).isBuiltIn()) {
+                                systemRoutines.add(infor.getId());
+                            } else {
+                                userRoutines.add(infor.getId());
+                            }
+
+                    }
                 }
+            } catch (PersistenceException e) {
+                ExceptionHandler.process(e);
             }
+
             //
             if (!systemRoutines.isEmpty()) {
                 List<IRepositoryViewObject> systemRoutineItems = RoutinesUtil.collectRelatedRoutines(systemRoutines, true);
@@ -245,24 +254,18 @@ public class ModulesNeededProvider {
         return importNeedsList;
     }
 
-    private static Property findRoutinesPropery(String id, String name) {
+    private static Property findRoutinesPropery(String id, String name, List<IRepositoryViewObject> routines) {
         IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
-        try {
-            List<IRepositoryViewObject> routines = repositoryFactory.getAll(ERepositoryObjectType.ROUTINES, true);
-            getRefRoutines(routines, ProjectManager.getInstance().getCurrentProject().getEmfProject());
-            for (IRepositoryViewObject current : routines) {
-                if (repositoryFactory.getStatus(current) != ERepositoryStatus.DELETED) {
-                    Item item = current.getProperty().getItem();
-                    RoutineItem routine = (RoutineItem) item;
-                    Property property = routine.getProperty();
-                    if (property.getId().equals(id) || property.getLabel().equals(name)) {
-                        return property;
-                    }
+        getRefRoutines(routines, ProjectManager.getInstance().getCurrentProject().getEmfProject());
+        for (IRepositoryViewObject current : routines) {
+            if (repositoryFactory.getStatus(current) != ERepositoryStatus.DELETED) {
+                Item item = current.getProperty().getItem();
+                RoutineItem routine = (RoutineItem) item;
+                Property property = routine.getProperty();
+                if (property.getId().equals(id) || property.getLabel().equals(name)) {
+                    return property;
                 }
             }
-        } catch (PersistenceException e) {
-            // TODO Auto-generated catch block
-            ExceptionHandler.process(e);
         }
         return null;
     }
