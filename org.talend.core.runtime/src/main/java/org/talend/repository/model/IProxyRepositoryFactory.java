@@ -112,6 +112,9 @@ public interface IProxyRepositoryFactory {
     public abstract Folder createFolder(Project project, ERepositoryObjectType type, IPath path, String label)
             throws PersistenceException;
 
+    public abstract Folder createFolder(Project project, ERepositoryObjectType type, IPath path, String label,
+            boolean isImportItem) throws PersistenceException;
+
     /**
      * @param project
      * @param type
@@ -721,6 +724,9 @@ public interface IProxyRepositoryFactory {
     public void createParentFoldersRecursively(ERepositoryObjectType itemType, IPath path) throws PersistenceException;
 
     public void createParentFoldersRecursively(Project project, ERepositoryObjectType itemType, IPath path)
+            throws PersistenceException;
+
+    public void createParentFoldersRecursively(Project project, ERepositoryObjectType itemType, IPath path, boolean isImportItem)
             throws PersistenceException;
 
     public void forceDeleteObjectPhysical(IRepositoryViewObject objToDelete, String version) throws PersistenceException;

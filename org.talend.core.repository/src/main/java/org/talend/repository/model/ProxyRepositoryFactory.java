@@ -238,8 +238,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
 
             MessageBox box = new MessageBox(Display.getCurrent().getActiveShell(), SWT.ICON_ERROR | SWT.OK | SWT.CANCEL);
             box.setText(Messages.getString("ProxyRepositoryFactory.JobNameErroe")); //$NON-NLS-1$
-            box
-                    .setMessage(Messages.getString("ProxyRepositoryFactory.Label") + fileName + Messages.getString("ProxyRepositoryFactory.ReplaceJob")); //$NON-NLS-1$ //$NON-NLS-2$
+            box.setMessage(Messages.getString("ProxyRepositoryFactory.Label") + fileName + Messages.getString("ProxyRepositoryFactory.ReplaceJob")); //$NON-NLS-1$ //$NON-NLS-2$
             if (box.open() == SWT.OK) {
                 return true;
             } else {
@@ -353,8 +352,13 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
     }
 
     public Folder createFolder(Project project, ERepositoryObjectType type, IPath path, String label) throws PersistenceException {
+        return createFolder(project, type, path, label, false);
+    }
+
+    public Folder createFolder(Project project, ERepositoryObjectType type, IPath path, String label, boolean isImportItem)
+            throws PersistenceException {
         checkFileNameAndPath(project, label, RepositoryConstants.FOLDER_PATTERN, type, path, true);
-        Folder createFolder = this.repositoryFactoryFromProvider.createFolder(project, type, path, label);
+        Folder createFolder = this.repositoryFactoryFromProvider.createFolder(project, type, path, label, isImportItem);
         if (type == ERepositoryObjectType.PROCESS || type == ERepositoryObjectType.JOBLET) {
             fireRepositoryPropertyChange(ERepositoryActionName.FOLDER_CREATE.getName(), path, new Object[] { createFolder, type });
         }
@@ -1049,6 +1053,11 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
     }
 
     public void createParentFoldersRecursively(Project project, ERepositoryObjectType itemType, IPath path)
+            throws PersistenceException {
+        createParentFoldersRecursively(project, itemType, path, false);
+    }
+
+    public void createParentFoldersRecursively(Project project, ERepositoryObjectType itemType, IPath path, boolean isImportItem)
             throws PersistenceException {
         List<String> folders = getFolders(project, itemType);
 
