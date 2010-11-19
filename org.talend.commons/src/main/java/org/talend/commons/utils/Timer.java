@@ -94,4 +94,8 @@ public class Timer {
         }
         return totalTime;
     }
+
+    public void clear() {
+        times.clear();
+    }
 }
