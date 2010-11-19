@@ -38,10 +38,6 @@ public class CreateHL7Output extends TalendSwtBotForTos {
 
     private static String OUTPUT_FILEPATH = "E:/testdata/outputHL7.txt";
 
-    private static String[] COLUMN_MSH = { "MSH-1(1)-1-1[ST]", "MSH-2(1)-1-1[ST]", "MSH-3(1)-1-1[IS]" };
-
-    private static String[] COLUMN_EVN = { "EVN-1(1)-1-1[ID]", "EVN-2(1)-1-1[TSComponentOne]" };
-
     @Test
     public void createHL7Output() {
         view = gefBot.viewByTitle("Repository");
