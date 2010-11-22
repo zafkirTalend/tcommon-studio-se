@@ -369,6 +369,7 @@ public class ExtractMetaDataFromDataBase {
                 IMetadataTable metaTable = (IMetadataTable) iterate.next();
                 if (metaTable.getLabel().equals(tableLabel)) {
                     metaTable1 = metaTable;
+                    break;
                 }
             }
 
