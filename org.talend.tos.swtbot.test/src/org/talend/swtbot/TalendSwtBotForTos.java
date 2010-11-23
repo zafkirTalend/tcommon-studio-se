@@ -54,6 +54,13 @@ import org.talend.designer.core.ui.editor.nodes.NodePart;
  */
 public class TalendSwtBotForTos {
 
+    /**
+     * 
+     */
+    private static final String GENERATION_ENGINE_INITIALIZATION_IN_PROGRESS = "Generation Engine Initialization in progress..."; //$NON-NLS-1$
+
+    private static final long ONE_MINUTE_IN_MILLISEC = 60000;
+
     static public SWTGefBot gefBot = new SWTGefBot();
 
     protected static boolean isGenerationEngineInitialised = false;
@@ -65,9 +72,9 @@ public class TalendSwtBotForTos {
     @BeforeClass
     public static void before() {
         if (!isGenerationEngineInitialised) {
-            gefBot.waitUntil(Conditions.shellIsActive("Generation Engine Initialization in progress..."));
-            SWTBotShell shell = gefBot.shell("Generation Engine Initialization in progress...");
-            gefBot.waitUntil(Conditions.shellCloses(shell), 60000 * 5);
+            gefBot.waitUntil(Conditions.shellIsActive(GENERATION_ENGINE_INITIALIZATION_IN_PROGRESS), ONE_MINUTE_IN_MILLISEC);
+            SWTBotShell shell = gefBot.shell(GENERATION_ENGINE_INITIALIZATION_IN_PROGRESS);
+            gefBot.waitUntil(Conditions.shellCloses(shell), ONE_MINUTE_IN_MILLISEC * 5);
             gefBot.viewByTitle("Welcome").close();
             gefBot.menu("Window").menu("Perspective").menu("Design Workspace").click();
             isGenerationEngineInitialised = true;
@@ -104,8 +111,8 @@ public class TalendSwtBotForTos {
             }
 
             public void describeTo(Description description) {
-                description.appendText("NodePart with NodeLabelEditPart figure named (").appendText(componentLabel).appendText(
-                        ")");
+                description.appendText("NodePart with NodeLabelEditPart figure named (").appendText(componentLabel)
+                        .appendText(")");
             }
         });
         return editParts.size() > 0 ? editParts.get(0) : null;

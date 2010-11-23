@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: SWTBotTest
-Bundle-SymbolicName: SWTBotTest;singleton:=true
+Bundle-Name: SWTBot Test for TOS
+Bundle-SymbolicName: org.talend.tos.swtbot.test;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: 
@@ -12,3 +12,5 @@ Require-Bundle: org.eclipse.swtbot.go,
  org.talend.designer.core;bundle-version="2.2.0",
  org.talend.core;bundle-version="2.2.0",
  org.talend.commons.ui;bundle-version="2.2.0"
+Bundle-ClassPath: .,
+ sample/
