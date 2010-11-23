@@ -625,7 +625,8 @@ public class RepositoryToComponentProperty {
             if (concept != null) {
                 conceptName = concept.getLoopExpression();
                 if (conceptName != null && conceptName.startsWith("/")) {
-                    conceptName = conceptName.substring(1, conceptName.length());
+                    conceptName = conceptName.split("/")[1];
+                    // conceptName.substring(1, conceptName.length());
                 }
                 return TalendTextUtils.addQuotes(conceptName);
             }
@@ -687,7 +688,7 @@ public class RepositoryToComponentProperty {
             for (Concept concept : (List<Concept>) connection.getSchemas()) {
                 // test if sourcename is null, this is only for compatibility with first mdm repository
                 // released.
-                if (concept != null && (concept.getLabel() == null || concept.getLabel().equals(table.getLabel()))) {
+                if (concept != null && (concept.getLabel() != null && concept.getLabel().equals(table.getLabel()))) {
                     return concept;
                 }
             }
