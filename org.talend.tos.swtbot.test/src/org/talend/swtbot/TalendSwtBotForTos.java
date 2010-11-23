@@ -74,7 +74,7 @@ public class TalendSwtBotForTos {
         if (!isGenerationEngineInitialised) {
             gefBot.waitUntil(Conditions.shellIsActive(GENERATION_ENGINE_INITIALIZATION_IN_PROGRESS), ONE_MINUTE_IN_MILLISEC);
             SWTBotShell shell = gefBot.shell(GENERATION_ENGINE_INITIALIZATION_IN_PROGRESS);
-            gefBot.waitUntil(Conditions.shellCloses(shell), ONE_MINUTE_IN_MILLISEC * 5);
+            gefBot.waitUntil(Conditions.shellCloses(shell), ONE_MINUTE_IN_MILLISEC * 10);
             gefBot.viewByTitle("Welcome").close();
             gefBot.menu("Window").menu("Perspective").menu("Design Workspace").click();
             isGenerationEngineInitialised = true;
