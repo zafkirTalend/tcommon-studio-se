@@ -28,6 +28,8 @@
 			<dbType type="UNIQUEIDENTIFIERSTR" ignoreLen="true" ignorePre="true" />
 			<dbType type="VARCHAR" default="true" defaultLength="200" ignorePre="true" />
 			<dbType type="VARBINARY" ignoreLen="true" ignorePre="true" />
+			<dbType type="NCHAR" defaultLength="100" ignorePre="true" />
+			<dbType type="NVARCHAR" defaultLength="200" ignorePre="true" />
 		</dbTypes>
 
 		<language name="java">
@@ -113,6 +115,8 @@
 					<dbType type="UNIQUEIDENTIFIERSTR" />
 					<dbType type="CHAR"/>
 					<dbType type="CHARACTER" />
+					<dbType type="NVARCHAR" />
+					<dbType type="NCHAR" />
 					<dbType type="CHARACTER VARYING" />		
 				</talendType>
 			</talendToDbTypes>
@@ -212,6 +216,12 @@
 				</dbType>
 				<dbType type="VARBINARY">
 					<talendType type="id_Object" default="true" />
+				</dbType>
+				<dbType type="NCHAR">
+					<talendType type="id_String" default="true" />
+				</dbType>
+				<dbType type="NVARCHAR">
+					<talendType type="id_String" default="true" />
 				</dbType>
 			</dbToTalendTypes>
 		</language>
