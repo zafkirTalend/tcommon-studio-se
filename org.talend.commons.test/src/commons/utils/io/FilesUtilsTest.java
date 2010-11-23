@@ -12,7 +12,10 @@
 // ============================================================================
 package commons.utils.io;
 
+import static org.junit.Assert.assertTrue;
+
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,14 +23,15 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.talend.commons.utils.io.FilesUtils;
 
-
 /**
- * DOC xqliu  class global comment. Detailled comment
+ * DOC xqliu class global comment. Detailled comment
  */
 public class FilesUtilsTest {
 
     /**
-     * Test method for {@link org.talend.commons.utils.io.FilesUtils#migrateFolder(java.io.File, java.lang.String[], java.util.Map, org.apache.log4j.Logger)}.
+     * Test method for
+     * {@link org.talend.commons.utils.io.FilesUtils#migrateFolder(java.io.File, java.lang.String[], java.util.Map, org.apache.log4j.Logger)}
+     * .
      */
     @Test
     public void testMigrateFolder() {
@@ -43,6 +47,21 @@ public class FilesUtilsTest {
         Logger log = Logger.getLogger(FilesUtils.class);
 
         FilesUtils.migrateFolder(fileMdmConnection, mdmFileExtentionNames, replaceStringMap, log);
+    }
+
+    /**
+     * Test method for
+     * {@link org.talend.commons.utils.io.FilesUtils#migrateFolder(java.io.File, java.io.File, boolean, java.io.FileFilter,java.io.FileFilter, boolean, boolean, org.eclipse.core.runtime.IProgressMonitor)}
+     * .
+     * 
+     * @throws IOException
+     */
+    @Test
+    public void testCopyFolder() throws IOException {
+        File source = new File("");
+        File target = new File("");
+        FilesUtils.copyFolder(source, target, false, null, null, true, null);
+        assertTrue(!target.exists());
     }
 
 }

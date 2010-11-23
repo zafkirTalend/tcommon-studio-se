@@ -162,27 +162,32 @@ public final class FilesUtils {
         if (!copyFolder || (copyFolder && !needAvoidCopyItself)) {
             Map<String, File> foldersToDelete = new HashMap<String, File>();
             if (synchronize) {
-                for (File file : target.listFiles()) {
-                    if (file.isDirectory()) {
-                        foldersToDelete.put(file.getName(), file);
+                if (target.exists()) {
+                    for (File file : target.listFiles()) {
+                        if (file.isDirectory()) {
+                            foldersToDelete.put(file.getName(), file);
+                        }
                     }
                 }
             }
-            for (File current : source.listFiles(folderFilter)) {
-                if (foldersToDelete.keySet().contains(current.getName())) {
-                    foldersToDelete.remove(current.getName());
-                }
-                if (monitor != null && monitor.isCanceled()) {
-                    throw new OperationCanceledException(Messages.getString("FilesUtils.operationCanceled")); //$NON-NLS-1$
-                }
-                if (copyFolder) {
-                    File newFolder = new File(target, current.getName());
-                    newFolder.mkdir();
-                    copyFolder(current, newFolder, targetBaseFolder, emptyTargetBeforeCopy, sourceFolderFilter, sourceFileFilter,
-                            copyFolder, synchronize);
-                } else {
-                    copyFolder(current, target, targetBaseFolder, emptyTargetBeforeCopy, sourceFolderFilter, sourceFileFilter,
-                            copyFolder, synchronize);
+
+            if (source.exists()) {
+                for (File current : source.listFiles(folderFilter)) {
+                    if (foldersToDelete.keySet().contains(current.getName())) {
+                        foldersToDelete.remove(current.getName());
+                    }
+                    if (monitor != null && monitor.isCanceled()) {
+                        throw new OperationCanceledException(Messages.getString("FilesUtils.operationCanceled")); //$NON-NLS-1$
+                    }
+                    if (copyFolder) {
+                        File newFolder = new File(target, current.getName());
+                        newFolder.mkdir();
+                        copyFolder(current, newFolder, targetBaseFolder, emptyTargetBeforeCopy, sourceFolderFilter,
+                                sourceFileFilter, copyFolder, synchronize);
+                    } else {
+                        copyFolder(current, target, targetBaseFolder, emptyTargetBeforeCopy, sourceFolderFilter,
+                                sourceFileFilter, copyFolder, synchronize);
+                    }
                 }
             }
             if (synchronize) {
@@ -194,22 +199,26 @@ public final class FilesUtils {
 
         Map<String, File> filesToDelete = new HashMap<String, File>();
         if (synchronize) {
-            for (File file : target.listFiles()) {
-                if (!file.isDirectory()) {
-                    filesToDelete.put(file.getName(), file);
+            if (target.exists()) {
+                for (File file : target.listFiles()) {
+                    if (!file.isDirectory()) {
+                        filesToDelete.put(file.getName(), file);
+                    }
                 }
             }
         }
-        for (File current : source.listFiles(fileFilter)) {
-            if (filesToDelete.keySet().contains(current.getName())) {
-                filesToDelete.remove(current.getName());
-            }
+        if (source.exists()) {
+            for (File current : source.listFiles(fileFilter)) {
+                if (filesToDelete.keySet().contains(current.getName())) {
+                    filesToDelete.remove(current.getName());
+                }
 
-            if (monitor != null && monitor.isCanceled()) {
-                throw new OperationCanceledException(""); //$NON-NLS-1$
+                if (monitor != null && monitor.isCanceled()) {
+                    throw new OperationCanceledException(""); //$NON-NLS-1$
+                }
+                File out = new File(target, current.getName());
+                copyFile(current, out);
             }
-            File out = new File(target, current.getName());
-            copyFile(current, out);
         }
         if (synchronize) {
             for (File file : filesToDelete.values()) {
@@ -220,6 +229,9 @@ public final class FilesUtils {
     }
 
     private static void emptyFolder(File toEmpty) {
+        if (!toEmpty.exists()) {
+            return;
+        }
         final File[] listFiles = toEmpty.listFiles(getExcludeSystemFilesFilter());
         for (File current : listFiles) {
             if (current.isDirectory()) {
