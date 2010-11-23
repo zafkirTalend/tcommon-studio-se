@@ -735,37 +735,40 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
         if (StringUtils.equals(nameValueMap.get(IJobSettingConstants.IMPLICIT_TCONTEXTLOAD), "true")) { //$NON-NLS-1$
 
             if (StringUtils.equals(nameValueMap.get(IJobSettingConstants.FROM_FILE_FLAG_IMPLICIT_CONTEXT), "true")) { //$NON-NLS-1$
-                createSingleJobParameter(extraElement, makeNameValue(nameValueMap,
-                        IJobSettingConstants.FROM_FILE_FLAG_IMPLICIT_CONTEXT));
-                createSingleJobParameter(extraElement, makeNameValue(nameValueMap,
-                        IJobSettingConstants.IMPLICIT_TCONTEXTLOAD_FILE));
+                createSingleJobParameter(extraElement,
+                        makeNameValue(nameValueMap, IJobSettingConstants.FROM_FILE_FLAG_IMPLICIT_CONTEXT));
+                createSingleJobParameter(extraElement,
+                        makeNameValue(nameValueMap, IJobSettingConstants.IMPLICIT_TCONTEXTLOAD_FILE));
             }
 
             if (StringUtils.equals(nameValueMap.get(IJobSettingConstants.FROM_DATABASE_FLAG_IMPLICIT_CONTEXT), "true")) { //$NON-NLS-1$
-                createSingleJobParameter(extraElement, makeNameValue(nameValueMap,
-                        IJobSettingConstants.FROM_DATABASE_FLAG_IMPLICIT_CONTEXT));
+                createSingleJobParameter(extraElement,
+                        makeNameValue(nameValueMap, IJobSettingConstants.FROM_DATABASE_FLAG_IMPLICIT_CONTEXT));
 
                 // some params about databse setting
-                createSingleJobParameter(extraElement, makeNameValue(nameValueMap,
-                        IJobSettingConstants.PROPERTY_TYPE_IMPLICIT_CONTEXT_PROPERTY_TYPE));
-                if (!StringUtils.equalsIgnoreCase(nameValueMap
-                        .get(IJobSettingConstants.PROPERTY_TYPE_IMPLICIT_CONTEXT_PROPERTY_TYPE), "built_in")) { //$NON-NLS-1$
-                    createSingleJobParameter(extraElement, getConnectionLabelById(makeNameValue(nameValueMap,
-                            IJobSettingConstants.PROPERTY_TYPE_IMPLICIT_CONTEXT_REPOSITORY_PROPERTY_TYPE), null));
+                createSingleJobParameter(extraElement,
+                        makeNameValue(nameValueMap, IJobSettingConstants.PROPERTY_TYPE_IMPLICIT_CONTEXT_PROPERTY_TYPE));
+                if (!StringUtils.equalsIgnoreCase(
+                        nameValueMap.get(IJobSettingConstants.PROPERTY_TYPE_IMPLICIT_CONTEXT_PROPERTY_TYPE), "built_in")) { //$NON-NLS-1$
+                    createSingleJobParameter(
+                            extraElement,
+                            getConnectionLabelById(
+                                    makeNameValue(nameValueMap,
+                                            IJobSettingConstants.PROPERTY_TYPE_IMPLICIT_CONTEXT_REPOSITORY_PROPERTY_TYPE), null));
                 }
 
                 createSingleJobParameter(extraElement, makeNameValue(nameValueMap, IJobSettingConstants.DB_TYPE_IMPLICIT_CONTEXT));
                 createSingleJobParameter(extraElement, makeNameValue(nameValueMap, IJobSettingConstants.HOST_IMPLICIT_CONTEXT));
                 createSingleJobParameter(extraElement, makeNameValue(nameValueMap, IJobSettingConstants.PORT_IMPLICIT_CONTEXT));
                 createSingleJobParameter(extraElement, makeNameValue(nameValueMap, IJobSettingConstants.DBNAME_IMPLICIT_CONTEXT));
-                createSingleJobParameter(extraElement, makeNameValue(nameValueMap,
-                        IJobSettingConstants.SCHEMA_DB_IMPLICIT_CONTEXT));
+                createSingleJobParameter(extraElement,
+                        makeNameValue(nameValueMap, IJobSettingConstants.SCHEMA_DB_IMPLICIT_CONTEXT));
                 createSingleJobParameter(extraElement, makeNameValue(nameValueMap, IJobSettingConstants.USER_IMPLICIT_CONTEXT));
                 createSingleJobParameter(extraElement, makeNameValue(nameValueMap, IJobSettingConstants.PASS_IMPLICIT_CONTEXT));
                 createSingleJobParameter(extraElement, makeNameValue(nameValueMap, IJobSettingConstants.DBFILE_IMPLICIT_CONTEXT));
                 createSingleJobParameter(extraElement, makeNameValue(nameValueMap, IJobSettingConstants.DBTABLE_IMPLICIT_CONTEXT));
-                createSingleJobParameter(extraElement, makeNameValue(nameValueMap,
-                        IJobSettingConstants.QUERY_CONDITION_IMPLICIT_CONTEXT));
+                createSingleJobParameter(extraElement,
+                        makeNameValue(nameValueMap, IJobSettingConstants.QUERY_CONDITION_IMPLICIT_CONTEXT));
 
             }
             // print operation
@@ -799,11 +802,13 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
         if (StringUtils.equals(nameValueMap.get(IJobSettingConstants.ON_DATABASE_FLAG), "true")) { //$NON-NLS-1$
             // add on database details
             createSingleJobParameter(statsAndLotsElement, makeNameValue(nameValueMap, IJobSettingConstants.PROPERTY_TYPE));
-            createSingleJobParameter(statsAndLotsElement, makeNameValue(nameValueMap,
-                    IJobSettingConstants.PROPERTY_TYPE_PROPERTY_TYPE));
+            createSingleJobParameter(statsAndLotsElement,
+                    makeNameValue(nameValueMap, IJobSettingConstants.PROPERTY_TYPE_PROPERTY_TYPE));
             if (!StringUtils.equalsIgnoreCase(nameValueMap.get(IJobSettingConstants.PROPERTY_TYPE_PROPERTY_TYPE), "built_in")) { //$NON-NLS-1$
-                createSingleJobParameter(statsAndLotsElement, getConnectionLabelById(makeNameValue(nameValueMap,
-                        IJobSettingConstants.PROPERTY_TYPE_REPOSITORY_PROPERTY_TYPE), null));
+                createSingleJobParameter(
+                        statsAndLotsElement,
+                        getConnectionLabelById(
+                                makeNameValue(nameValueMap, IJobSettingConstants.PROPERTY_TYPE_REPOSITORY_PROPERTY_TYPE), null));
             }
 
             createSingleJobParameter(statsAndLotsElement, makeNameValue(nameValueMap, IJobSettingConstants.DB_TYPE));
@@ -1208,7 +1213,9 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
         }
 
         Element proDesc = projectElement.addElement("pro-description"); //$NON-NLS-1$
-        proDesc.addCDATA(getProject().getDescription().replaceAll("\\r\\n", "<br/>")); //$NON-NLS-1$ //$NON-NLS-2$
+        if (getProject().getDescription() != null) { // for bug 16854, project description can be null.
+            proDesc.addCDATA(getProject().getDescription().replaceAll("\\r\\n", "<br/>")); //$NON-NLS-1$ //$NON-NLS-2$
+        }
         return projectElement;
     }
 
@@ -1357,8 +1364,8 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
      */
     private String getCurrentTOSVersion() {
         String currentVersion = IHTMLDocConstants.UNKNOWN;
-        currentVersion = (String) CorePlugin.getDefault().getBundle().getHeaders().get(
-                org.osgi.framework.Constants.BUNDLE_VERSION);
+        currentVersion = (String) CorePlugin.getDefault().getBundle().getHeaders()
+                .get(org.osgi.framework.Constants.BUNDLE_VERSION);
         return currentVersion;
     }
 
