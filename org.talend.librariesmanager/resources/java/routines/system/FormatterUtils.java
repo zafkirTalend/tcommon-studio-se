@@ -133,7 +133,12 @@ public class FormatterUtils {
     public static String formatUnwithE(Object arg) {
         String doubleString = String.valueOf(arg);
         if (doubleString.indexOf("E") != -1) {
-            String position = doubleString.substring(doubleString.indexOf("E") + 2);
+            String position;
+            if (doubleString.charAt(doubleString.indexOf("E") + 1) != '-') {
+                position = doubleString.substring(doubleString.indexOf("E") + 1);
+            } else {
+                position = doubleString.substring(doubleString.indexOf("E") + 2);
+            }
             return String.format("%1." + position + "f", arg);
         }
         return doubleString;
