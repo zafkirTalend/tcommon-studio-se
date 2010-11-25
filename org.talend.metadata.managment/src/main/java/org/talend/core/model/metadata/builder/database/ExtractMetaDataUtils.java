@@ -18,6 +18,7 @@ import java.sql.DatabaseMetaData;
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -220,6 +221,20 @@ public class ExtractMetaDataUtils {
         return metaDataInfo;
     }
 
+    public static Integer getMysqlIntMetaDataInfo(ResultSetMetaData rMetadata, int columnIndex) {
+        Integer metaDataInfo = new Integer(0);
+        try {
+            metaDataInfo = rMetadata.getPrecision(columnIndex);
+        } catch (SQLException e) {
+            // log.error(e.toString());
+            return metaDataInfo;
+        } catch (Exception e) {
+            // log.error(e.toString());
+            return metaDataInfo;
+        }
+        return metaDataInfo;
+    }
+
     /**
      * Return boolean value, used only to check if one field is nullable or not. If used to something else than nullable
      * check, take care of the default values returned. Actually returns null if there is any error during the check.
@@ -355,17 +370,17 @@ public class ExtractMetaDataUtils {
                     }
                 }
                 if (schemaBase != null && !schemaBase.equals("")) { //$NON-NLS-1$
-                    final boolean equals = EDatabaseTypeName.getTypeFromDbType(dbType).getProduct().equals(
-                            EDatabaseTypeName.ORACLEFORSID.getProduct());
+                    final boolean equals = EDatabaseTypeName.getTypeFromDbType(dbType).getProduct()
+                            .equals(EDatabaseTypeName.ORACLEFORSID.getProduct());
                     if (!ExtractMetaDataFromDataBase.checkSchemaConnection(schemaBase, conn, equals, dbType)) {
                         schema = null;
                     }
                 } else {
-                    boolean teradata = EDatabaseTypeName.getTypeFromDbType(dbType).getProduct().equals(
-                            EDatabaseTypeName.TERADATA.getProduct());
+                    boolean teradata = EDatabaseTypeName.getTypeFromDbType(dbType).getProduct()
+                            .equals(EDatabaseTypeName.TERADATA.getProduct());
                     // add for bug 10644
-                    boolean as400 = EDatabaseTypeName.getTypeFromDbType(dbType).getProduct().equals(
-                            EDatabaseTypeName.AS400.getProduct());
+                    boolean as400 = EDatabaseTypeName.getTypeFromDbType(dbType).getProduct()
+                            .equals(EDatabaseTypeName.AS400.getProduct());
                     if (teradata) {
                         schema = dataBase;
                     } else if (as400) {

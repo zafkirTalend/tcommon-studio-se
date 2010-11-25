@@ -17,6 +17,7 @@ import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -210,8 +211,8 @@ public class ExtractMetaDataFromDataBase {
                         String[] multiSchems = ExtractMetaDataUtils.getMultiSchems(schema);
                         if (multiSchems != null) {
                             for (String s : multiSchems) {
-                                rsTables = dbMetaData.getTables(null, s.trim(), null, availableTableTypes
-                                        .toArray(new String[] {}));
+                                rsTables = dbMetaData.getTables(null, s.trim(), null,
+                                        availableTableTypes.toArray(new String[] {}));
                                 getMetadataTables(medataTables, rsTables, dbMetaData.supportsSchemasInTableDefinitions(),
                                         tablesToFilter, limit);
                                 rsTables.close();
@@ -355,8 +356,8 @@ public class ExtractMetaDataFromDataBase {
             if (needCreateAndClose || ExtractMetaDataUtils.conn == null || ExtractMetaDataUtils.conn.isClosed()) {
                 ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(),
                         iMetadataConnection.getUsername(), iMetadataConnection.getPassword(), iMetadataConnection.getDatabase(),
-                        iMetadataConnection.getSchema(), iMetadataConnection.getDriverClass(), iMetadataConnection
-                                .getDriverJarPath(), iMetadataConnection.getDbVersionString());
+                        iMetadataConnection.getSchema(), iMetadataConnection.getDriverClass(),
+                        iMetadataConnection.getDriverJarPath(), iMetadataConnection.getDbVersionString());
             }
             String dbType = iMetadataConnection.getDbType();
             DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn, dbType);
@@ -508,6 +509,14 @@ public class ExtractMetaDataFromDataBase {
                     columns = dbMetaData.getColumns(null, null, tableName, null);
                 }
             }
+            boolean isMYSQL = EDatabaseTypeName.MYSQL.getDisplayName().equals(metadataConnection.getDbType());
+            ResultSetMetaData resultMetadata = null;
+            if (isMYSQL) {
+                Statement statement = connection.createStatement();
+                String query = "SELECT * FROM " + tableName;
+                ResultSet resultSet = statement.executeQuery(query);
+                resultMetadata = resultSet.getMetaData();
+            }
             IRepositoryService repositoryService = CoreRuntimePlugin.getInstance().getRepositoryService();
             boolean isMSSQL = EDatabaseTypeName.MSSQL.getDisplayName().equals(metadataConnection.getDbType());
             while (columns.next()) {
@@ -566,8 +575,12 @@ public class ExtractMetaDataFromDataBase {
                     dbType = ManagementTextUtils.filterSpecialChar(dbType);
                     dbType = handleDBtype(dbType);
                     metadataColumn.setSourceType(dbType);
-
-                    Integer columnSize = ExtractMetaDataUtils.getIntMetaDataInfo(columns, "COLUMN_SIZE");
+                    Integer columnSize;
+                    if (isMYSQL) {
+                        columnSize = ExtractMetaDataUtils.getMysqlIntMetaDataInfo(resultMetadata, columnIndex);
+                    } else {
+                        columnSize = ExtractMetaDataUtils.getIntMetaDataInfo(columns, "COLUMN_SIZE");
+                    }
                     metadataColumn.setLength(columnSize); //$NON-NLS-1$
                     // Convert dbmsType to TalendType
 
@@ -916,8 +929,8 @@ public class ExtractMetaDataFromDataBase {
 
         List list = ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), url, iMetadataConnection.getUsername(),
                 iMetadataConnection.getPassword(), iMetadataConnection.getDatabase(), iMetadataConnection.getSchema(),
-                iMetadataConnection.getDriverClass(), iMetadataConnection.getDriverJarPath(), iMetadataConnection
-                        .getDbVersionString());
+                iMetadataConnection.getDriverClass(), iMetadataConnection.getDriverJarPath(),
+                iMetadataConnection.getDbVersionString());
         Connection conn = null;
         DriverShim wapperDriver = null;
 
@@ -965,10 +978,10 @@ public class ExtractMetaDataFromDataBase {
             IMetadataConnection iMetadataConnection) {
         List<org.talend.core.model.metadata.builder.connection.MetadataTable> itemTablesName = new ArrayList<org.talend.core.model.metadata.builder.connection.MetadataTable>();
 
-        ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(), iMetadataConnection
-                .getUsername(), iMetadataConnection.getPassword(), iMetadataConnection.getDatabase(), iMetadataConnection
-                .getSchema(), iMetadataConnection.getDriverClass(), iMetadataConnection.getDriverJarPath(), iMetadataConnection
-                .getDbVersionString());
+        ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(),
+                iMetadataConnection.getUsername(), iMetadataConnection.getPassword(), iMetadataConnection.getDatabase(),
+                iMetadataConnection.getSchema(), iMetadataConnection.getDriverClass(), iMetadataConnection.getDriverJarPath(),
+                iMetadataConnection.getDbVersionString());
         String dbType = iMetadataConnection.getDbType();
         DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn, dbType);
 
@@ -1024,10 +1037,10 @@ public class ExtractMetaDataFromDataBase {
         // add by wzhang
         ExtractMetaDataUtils.metadataCon = iMetadataConnection;
         // end
-        ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(), iMetadataConnection
-                .getUsername(), iMetadataConnection.getPassword(), iMetadataConnection.getDatabase(), iMetadataConnection
-                .getSchema(), iMetadataConnection.getDriverClass(), iMetadataConnection.getDriverJarPath(), iMetadataConnection
-                .getDbVersionString());
+        ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(),
+                iMetadataConnection.getUsername(), iMetadataConnection.getPassword(), iMetadataConnection.getDatabase(),
+                iMetadataConnection.getSchema(), iMetadataConnection.getDriverClass(), iMetadataConnection.getDriverJarPath(),
+                iMetadataConnection.getDbVersionString());
         try {
             if (!tableInfoParameters.isUsedName()) {
                 if (tableInfoParameters.getSqlFiter() != null && !"".equals(tableInfoParameters.getSqlFiter())) { //$NON-NLS-1$
@@ -1141,13 +1154,13 @@ public class ExtractMetaDataFromDataBase {
         List<String> tableNames = new ArrayList<String>();
         if (multiSchemas != null) {
             for (String s : multiSchemas) {
-                List<String> tableNamesFromTables = getTableNamesFromTables(getResultSetFromTableInfo(tableInfo, namePattern,
-                        iMetadataConnection, s.trim()), iMetadataConnection);
+                List<String> tableNamesFromTables = getTableNamesFromTables(
+                        getResultSetFromTableInfo(tableInfo, namePattern, iMetadataConnection, s.trim()), iMetadataConnection);
                 tableNames.addAll(tableNamesFromTables);
             }
         } else {
-            List<String> tableNamesFromTables = getTableNamesFromTables(getResultSetFromTableInfo(tableInfo, namePattern,
-                    iMetadataConnection, null), iMetadataConnection);
+            List<String> tableNamesFromTables = getTableNamesFromTables(
+                    getResultSetFromTableInfo(tableInfo, namePattern, iMetadataConnection, null), iMetadataConnection);
             tableNames.addAll(tableNamesFromTables);
         }
         return tableNames;
@@ -1257,8 +1270,8 @@ public class ExtractMetaDataFromDataBase {
         for (int i = 0; i < types.length; i++) {
             types[i] = tableInfo.getTypes().get(i).getName();
         }
-        DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn, iMetadataConnection
-                .getDbType());
+        DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn,
+                iMetadataConnection.getDbType());
         // rsTables = dbMetaData.getTables(null, ExtractMetaDataUtils.schema, tableNamePattern, types);
         ResultSet rsTableTypes = null;
         rsTableTypes = dbMetaData.getTableTypes();
