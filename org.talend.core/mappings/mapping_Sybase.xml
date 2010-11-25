@@ -346,6 +346,12 @@
 				<dbType type="VARBINARY">
 					<talendType type="string" default="true" />
 				</dbType>
+				<dbType type="NCHAR">
+					<talendType type="id_String" default="true" />
+				</dbType>
+				<dbType type="NVARCHAR">
+					<talendType type="id_String" default="true" />
+				</dbType>
 			</dbToTalendTypes>
 		</language>
 	</dbms>
