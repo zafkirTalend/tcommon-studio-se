@@ -14,6 +14,7 @@ package org.talend.core;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.net.URI;
@@ -25,6 +26,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
@@ -37,13 +39,19 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.osgi.baseadaptor.BaseData;
+import org.eclipse.osgi.baseadaptor.bundlefile.BundleFile;
+import org.eclipse.osgi.framework.adaptor.BundleData;
+import org.eclipse.osgi.framework.internal.core.BundleHost;
 import org.eclipse.swt.graphics.Image;
 import org.osgi.framework.Bundle;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.SystemException;
 import org.talend.commons.utils.generation.JavaUtils;
+import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.language.ECodeLanguage;
+import org.talend.core.model.general.ILibrariesService;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.ColumnNameChanged;
 import org.talend.core.model.metadata.IMetadataTable;
@@ -82,6 +90,8 @@ import org.xml.sax.SAXException;
  * DOC Administrator class global comment. Detailled comment
  */
 public class CoreService implements ICoreService {
+
+    private static Logger log = Logger.getLogger(CoreService.class);
 
     public List<ColumnNameChanged> getColumnNameChanged(IMetadataTable oldTable, IMetadataTable newTable) {
         return MetadataTool.getColumnNameChanged(oldTable, newTable);
@@ -418,6 +428,36 @@ public class CoreService implements ICoreService {
             out.create(fis, true, null);
         }
         fis.close();
+    }
+
+    public void synchronizeSapLib() {
+        ILibrariesService libService = (ILibrariesService) GlobalServiceRegister.getDefault().getService(ILibrariesService.class);
+        final String jarJco = libService.getJavaLibrariesPath() + File.separatorChar + "sapjco.jar";
+        String targetPath = "";
+        File source = new File(jarJco);
+        if (source.exists()) {
+            Bundle bundle = Platform.getBundle(PluginChecker.getSapWizardPluginId());
+            if (bundle instanceof BundleHost) {
+                BundleHost bundleHost = (BundleHost) bundle;
+                final BundleData bundleData = bundleHost.getBundleData();
+                if (bundleData instanceof BaseData) {
+                    BaseData baseData = (BaseData) bundleData;
+                    final BundleFile bundleFile = baseData.getBundleFile();
+                    final File baseFile = bundleFile.getBaseFile();
+                    targetPath = baseFile.getAbsolutePath() + File.separator + "sapjco.jar";
+
+                    File target = new File(targetPath);
+                    try {
+                        FilesUtils.copyFile(source, target);
+                    } catch (FileNotFoundException e) {
+                        ExceptionHandler.process(e);
+                    } catch (IOException e) {
+                        ExceptionHandler.process(e);
+                    }
+                }
+            }
+        }
+
     }
 
 }

@@ -1640,6 +1640,12 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
             if (PluginChecker.isRulesPluginLoaded()) {
                 coreService.syncAllRules();
             }
+
+            // sap
+            if (PluginChecker.isSAPWizardPluginLoaded()) {
+                coreService.synchronizeSapLib();
+            }
+
             // monitorWrap.worked(1);
             if (!CommonsPlugin.isHeadless()) {
                 coreService.initializeTemplates();

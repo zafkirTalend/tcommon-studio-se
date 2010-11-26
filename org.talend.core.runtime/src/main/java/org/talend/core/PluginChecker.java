@@ -191,4 +191,7 @@ public class PluginChecker {
         return isPluginLoaded(METALANGUAGE_PLUGIN_ID);
     }
 
+    public static String getSapWizardPluginId() {
+        return SAP_WZIARD_PLUGIN_ID;
+    }
 }

@@ -118,4 +118,6 @@ public interface ICoreService extends IService {
 
     public void synchronizeMapptingXML();
 
+    public void synchronizeSapLib();
+
 }
