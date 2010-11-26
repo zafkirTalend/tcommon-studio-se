@@ -12,40 +12,48 @@
 // ============================================================================
 package tosstudio.components.basicelements;
 
+import junit.framework.Assert;
+
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
+import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
+import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
 
 /**
  * DOC Administrator class global comment. Detailled comment
  */
+@RunWith(SWTBotJunit4ClassRunner.class)
 public class CopyComponentsBetweenJob extends TalendSwtBotForTos {
 
-    private static SWTBotView view;
+    private SWTBotView view;
 
-    private static SWTBotShell shell;
+    private SWTBotShell shell;
 
-    private static SWTBotTree tree;
+    private SWTBotTree tree;
 
-    private static SWTBotGefEditor gefEditor;
+    private SWTBotGefEditor gefEditor;
 
-    private static String JOBNAME1 = "CopyComponentsBetweenJob1";
+    private static String JOBNAME1 = "CopyComponentsBetweenJob1"; //$NON-NLS-1$
 
-    private static String JOBNAME2 = "CopyComponentsBetweenJob2";
+    private static String JOBNAME2 = "CopyComponentsBetweenJob2"; //$NON-NLS-1$
 
-    @Test
+    @Before
     public void createJob() {
         view = gefBot.viewByTitle("Repository");
         view.setFocus();
-        /* Create job1 */
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
         tree.setFocus();
+        /* Create job1 */
         tree.select("Job Designs").contextMenu("Create job").click();
 
         gefBot.waitUntil(Conditions.shellIsActive("New job"));
@@ -65,50 +73,67 @@ public class CopyComponentsBetweenJob extends TalendSwtBotForTos {
         gefBot.textWithLabel("Name").setText(JOBNAME2);
 
         gefBot.button("Finish").click();
-    }
 
-    @Test
-    public void useComponentInJob() {
-        gefBot.viewByTitle("Palette").close();
-        gefEditor = gefBot.gefEditor("Job CopyComponentsBetweenJob1 0.1");
+        /* Use components in job1 */
+        gefEditor = gefBot.gefEditor("Job " + JOBNAME1 + " 0.1");
         gefEditor.show();
 
-        gefEditor.activateTool("tRowGenerator");
-        gefEditor.click(100, 100);
-        gefEditor.activateTool("tLogRow");
-        gefEditor.click(300, 100);
+        gefEditor.activateTool("tRowGenerator").click(100, 100);
+        gefEditor.activateTool("tLogRow").click(300, 100);
 
-        gefEditor.doubleClick(110, 110);
+        SWTBotGefEditPart rowGen = getTalendComponentPart(gefEditor, "tRowGenerator_1");
+        rowGen.doubleClick();
         shell = gefBot.shell("JasperETL Powered by Talend - tRowGenerator - tRowGenerator_1");
         shell.activate();
         gefBot.buttonWithTooltip("Add").click();
         gefBot.buttonWithTooltip("Add").click();
         gefBot.button("OK").click();
 
-        gefEditor.click(110, 110);
+        gefEditor.select(rowGen);
         gefEditor.clickContextMenu("Row").clickContextMenu("Main");
-        gefEditor.click(310, 110);
+        SWTBotGefEditPart logRow = getTalendComponentPart(gefEditor, "tLogRow_1");
+        gefEditor.click(logRow);
     }
 
     @Test
-    public void copyPasteInOwnJob() {
-        gefEditor.click(200, 100);
+    public void copyAndPasteComponents() {
+        /* Copy and paste in own job */
+        SWTBotGefEditPart rowGen1 = getTalendComponentPart(gefEditor, "tRowGenerator_1");
+        SWTBotGefEditPart logRow1 = getTalendComponentPart(gefEditor, "tLogRow_1");
+        gefEditor.select(rowGen1, logRow1);
         gefEditor.clickContextMenu("Copy");
         gefEditor.click(100, 300);
         gefEditor.clickContextMenu("Paste");
 
-        gefEditor.save();
-    }
+        SWTBotGefEditPart rowGen2 = getTalendComponentPart(gefEditor, "tRowGenerator_2");
+        Assert.assertNotNull(rowGen2);
+        SWTBotGefEditPart logRow2 = getTalendComponentPart(gefEditor, "tLogRow_2");
+        Assert.assertNotNull(logRow2);
+        SWTBotGefEditPart rowMain2 = gefEditor.getEditPart("row2 (Main)");
+        Assert.assertNotNull(rowMain2);
+        gefEditor.saveAndClose();
 
-    @Test
-    public void copyPasteInAnotherJob() {
-        gefEditor = gefBot.gefEditor("Job CopyComponentsBetweenJob2 0.1");
+        /* Copy and paste in another job */
+        gefEditor = gefBot.gefEditor("Job " + JOBNAME2 + " 0.1");
         gefEditor.setFocus();
-
         gefEditor.click(100, 100);
         gefEditor.clickContextMenu("Paste");
 
-        gefEditor.save();
+        SWTBotGefEditPart rowGen1_2 = getTalendComponentPart(gefEditor, "tRowGenerator_1");
+        Assert.assertNotNull(rowGen1_2);
+        SWTBotGefEditPart logRow1_2 = getTalendComponentPart(gefEditor, "tLogRow_1");
+        Assert.assertNotNull(logRow1_2);
+        SWTBotGefEditPart rowMain1_2 = gefEditor.getEditPart("row1 (Main)");
+        Assert.assertNotNull(rowMain1_2);
+        gefEditor.saveAndClose();
     }
 
+    @After
+    public void removePreviouslyCreateItems() {
+        tree.expandNode("Job Designs").getNode(JOBNAME1 + " 0.1").contextMenu("Delete").click();
+        tree.expandNode("Job Designs").getNode(JOBNAME2 + " 0.1").contextMenu("Delete").click();
+        tree.select("Recycle bin").contextMenu("Empty recycle bin").click();
+        gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
+        gefBot.button("Yes").click();
+    }
 }

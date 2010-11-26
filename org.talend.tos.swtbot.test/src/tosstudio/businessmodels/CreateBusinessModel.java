@@ -12,6 +12,8 @@
 // ============================================================================
 package tosstudio.businessmodels;
 
+import junit.framework.Assert;
+
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
@@ -19,6 +21,9 @@ import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
@@ -29,20 +34,23 @@ import org.talend.swtbot.TalendSwtBotForTos;
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class CreateBusinessModel extends TalendSwtBotForTos {
 
-    private static SWTBotTree tree;
+    private SWTBotTree tree;
 
-    private static SWTBotShell shell;
+    private SWTBotShell shell;
 
-    private static SWTBotView view;
+    private SWTBotView view;
 
-    private static String BUSINESSMODELNAME = "businessModel1";
+    private static String BUSINESSMODELNAME = "businessModel1"; //$NON-NLS-1$
+
+    @Before
+    public void InitialisePrivateFields() {
+        view = gefBot.viewByTitle("Repository");
+        view.setFocus();
+        tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
+    }
 
     @Test
     public void createBusinessModel() {
-        view = gefBot.viewByTitle("Repository");
-        view.setFocus();
-
-        tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
         tree.setFocus();
         tree.select("Business Models").contextMenu("Create Business Model").click();
 
@@ -53,5 +61,18 @@ public class CreateBusinessModel extends TalendSwtBotForTos {
         gefBot.textWithLabel("Name").setText(BUSINESSMODELNAME);
 
         gefBot.button("Finish").click();
+
+        SWTBotTreeItem newBusinessModelItem = tree.expandNode("Business Models").select(BUSINESSMODELNAME + " 0.1");
+        Assert.assertNotNull(newBusinessModelItem);
+    }
+
+    @After
+    public void removePreviouslyCreateItems() {
+        gefBot.cTabItem("Model " + BUSINESSMODELNAME).close();
+        tree.expandNode("Business Models").getNode(BUSINESSMODELNAME + " 0.1").contextMenu("Delete").click();
+
+        tree.select("Recycle bin").contextMenu("Empty recycle bin").click();
+        gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
+        gefBot.button("Yes").click();
     }
 }

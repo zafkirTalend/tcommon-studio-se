@@ -12,6 +12,8 @@
 // ============================================================================
 package tisstudio.metadata.sap;
 
+import junit.framework.Assert;
+
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
@@ -19,6 +21,9 @@ import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
@@ -29,32 +34,35 @@ import org.talend.swtbot.TalendSwtBotForTos;
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class CreateSapConnection extends TalendSwtBotForTos {
 
-    private static SWTBotTree tree;
+    private SWTBotTree tree;
 
-    private static SWTBotShell shell;
+    private SWTBotShell shell;
 
-    private static SWTBotView view;
+    private SWTBotView view;
 
-    private static String SAPNAME = "sap1";
+    private static String SAPNAME = "sap1"; //$NON-NLS-1$
 
-    private static String CLIENT = "000";
+    private static String CLIENT = "000"; //$NON-NLS-1$
 
-    private static String HOST = "192.168.0.185";
+    private static String HOST = "192.168.0.185"; //$NON-NLS-1$
 
-    private static String USER = "TALEND";
+    private static String USER = "TALEND"; //$NON-NLS-1$
 
-    private static String PASSWORD = "FRANCE";
+    private static String PASSWORD = "FRANCE"; //$NON-NLS-1$
 
-    private static String SYSTEM_NUMBER = "00";
+    private static String SYSTEM_NUMBER = "00"; //$NON-NLS-1$
 
-    private static String LANGUAGE = "en";
+    private static String LANGUAGE = "en"; //$NON-NLS-1$
+
+    @Before
+    public void InitialisePrivateFields() {
+        view = gefBot.viewByTitle("Repository");
+        view.setFocus();
+        tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
+    }
 
     @Test
     public void createSapConnection() {
-        view = gefBot.viewByTitle("Repository");
-        view.setFocus();
-
-        tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
         tree.setFocus();
 
         tree.expandNode("Metadata").getNode("SAP Connections").contextMenu("Create SAP connection").click();
@@ -79,5 +87,17 @@ public class CreateSapConnection extends TalendSwtBotForTos {
         gefBot.waitUntil(Conditions.shellCloses(shell));
 
         gefBot.button("Finish").click();
+
+        SWTBotTreeItem newSapItem = tree.expandNode("Metadata", "SAP Connections").select(SAPNAME + " 0.1");
+        Assert.assertNotNull(newSapItem);
+    }
+
+    @After
+    public void removePreviouslyCreateItems() {
+        tree.expandNode("Metadata", "SAP Connections").getNode(SAPNAME + " 0.1").contextMenu("Delete").click();
+
+        tree.select("Recycle bin").contextMenu("Empty recycle bin").click();
+        gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
+        gefBot.button("Yes").click();
     }
 }

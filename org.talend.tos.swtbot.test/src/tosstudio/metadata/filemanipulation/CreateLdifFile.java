@@ -12,15 +12,24 @@
 // ============================================================================
 package tosstudio.metadata.filemanipulation;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+
+import junit.framework.Assert;
+
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
+import org.talend.swtbot.Utilities;
 
 /**
  * DOC Administrator class global comment. Detailled comment
@@ -28,20 +37,23 @@ import org.talend.swtbot.TalendSwtBotForTos;
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class CreateLdifFile extends TalendSwtBotForTos {
 
-    private static SWTBotTree tree;
+    private SWTBotTree tree;
 
-    private static SWTBotView view;
+    private SWTBotView view;
 
-    private static String FILENAME = "test_ldif";
+    private static String FILENAME = "test_ldif"; //$NON-NLS-1$
 
-    private static String FILEPATH = "E:/testdata/sample.ldif";
+    private static String SAMPLE_RELATIVE_FILEPATH = "test.ldif"; //$NON-NLS-1$
 
-    @Test
-    public void createLdifFile() {
+    @Before
+    public void InitialisePrivateFields() {
         view = gefBot.viewByTitle("Repository");
         view.setFocus();
-
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
+    }
+
+    @Test
+    public void createLdifFile() throws IOException, URISyntaxException {
         tree.setFocus();
 
         tree.expandNode("Metadata").getNode("File ldif").contextMenu("Create file ldif").click();
@@ -50,12 +62,24 @@ public class CreateLdifFile extends TalendSwtBotForTos {
 
         gefBot.textWithLabel("Name").setText(FILENAME);
         gefBot.button("Next >").click();
-        gefBot.textWithLabel("File").setText(FILEPATH);
+        gefBot.textWithLabel("File").setText(
+                Utilities.getFileFromCurrentPluginSampleFolder(SAMPLE_RELATIVE_FILEPATH).getAbsolutePath());
         gefBot.button("Next >").click();
         for (int i = 0; i < 5; i++) {
             gefBot.tableInGroup("List Attributes of Ldif file").getTableItem(i).check();
         }
         gefBot.button("Next >").click();
         gefBot.button("Finish").click();
+
+        SWTBotTreeItem newLdifItem = tree.expandNode("Metadata", "File ldif").select(FILENAME + " 0.1");
+        Assert.assertNotNull(newLdifItem);
+    }
+
+    @After
+    public void removePreviouslyCreateItems() {
+        tree.expandNode("Metadata", "File ldif").getNode(FILENAME + " 0.1").contextMenu("Delete").click();
+        tree.getTreeItem("Recycle bin").contextMenu("Empty recycle bin").click();
+        gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
+        gefBot.button("Yes").click();
     }
 }

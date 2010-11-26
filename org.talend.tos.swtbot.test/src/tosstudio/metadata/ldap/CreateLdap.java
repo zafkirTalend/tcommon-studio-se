@@ -12,13 +12,19 @@
 // ============================================================================
 package tosstudio.metadata.ldap;
 
+import junit.framework.Assert;
+
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
+import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
@@ -29,28 +35,31 @@ import org.talend.swtbot.TalendSwtBotForTos;
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class CreateLdap extends TalendSwtBotForTos {
 
-    private static SWTBotTree tree;
+    private SWTBotTree tree;
 
-    private static SWTBotShell shell;
+    private SWTBotShell shell;
 
-    private static SWTBotView view;
+    private SWTBotView view;
 
-    private static String LDAPNAME = "ldap1";
+    private static String LDAPNAME = "ldap1"; //$NON-NLS-1$
 
-    private static String HOSTNAME = "192.168.0.244";
+    private static String HOSTNAME = "192.168.0.244"; //$NON-NLS-1$
 
-    private static String PORT = "389";
+    private static String PORT = "389"; //$NON-NLS-1$
 
-    private static String DN_OR_USER = "cn=Manager,dc=example,dc=com";
+    private static String DN_OR_USER = "cn=Manager,dc=example,dc=com"; //$NON-NLS-1$
 
-    private static String PASSWORD = "secret";
+    private static String PASSWORD = "secret"; //$NON-NLS-1$
+
+    @Before
+    public void InitialisePrivateFields() {
+        view = gefBot.viewByTitle("Repository");
+        view.setFocus();
+        tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
+    }
 
     @Test
     public void createLdap() {
-        view = gefBot.viewByTitle("Repository");
-        view.setFocus();
-
-        tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
         tree.setFocus();
 
         tree.expandNode("Metadata").getNode("LDAP").contextMenu("Create LDAP schema").click();
@@ -94,12 +103,31 @@ public class CreateLdap extends TalendSwtBotForTos {
             gefBot.tableInGroup("List attributes of LDAP Schema").getTableItem(i).check();
         }
         gefBot.button("Refresh Preview").click();
-        while (!"Refresh Preview".equals(gefBot.button(2).getText())) {
-            // wait for previewing
-        }
+        gefBot.waitUntil(new DefaultCondition() {
+
+            public boolean test() throws Exception {
+
+                return gefBot.button("Next >").isEnabled();
+            }
+
+            public String getFailureMessage() {
+                return "next button was never enabled";
+            }
+        });
         gefBot.button("Next >").click();
 
         /* step 5 of 5 */
         gefBot.button("Finish").click();
+
+        SWTBotTreeItem newLdapItem = tree.expandNode("Metadata", "LDAP").select(LDAPNAME + " 0.1");
+        Assert.assertNotNull(newLdapItem);
+    }
+
+    @After
+    public void removePreviouslyCreateItems() {
+        tree.expandNode("Metadata").expandNode("LDAP").getNode(LDAPNAME + " 0.1").contextMenu("Delete").click();
+        tree.getTreeItem("Recycle bin").contextMenu("Empty recycle bin").click();
+        gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
+        gefBot.button("Yes").click();
     }
 }

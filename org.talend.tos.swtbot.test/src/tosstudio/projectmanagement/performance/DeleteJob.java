@@ -13,48 +13,68 @@
 package tosstudio.projectmanagement.performance;
 
 import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
-import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.swtbot.TalendSwtBotForTos;
 
 /**
  * DOC Administrator class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class DeleteJob {
+public class DeleteJob extends TalendSwtBotForTos {
 
-    private static SWTGefBot gefBot = new SWTGefBot();
+    private SWTBotTree tree;
 
-    private static SWTBotTree tree;
+    private SWTBotShell shell;
 
-    private static SWTBotShell shell;
+    private SWTBotView view;
 
-    private static SWTBotView view;
+    private static String JOBNAME = "test01"; //$NON-NLS-1$
 
-    private static String JOBNAME = "test01";
-
-    private static String DEFAULT_VERSION = "0.1";
-
-    @Test
-    public void deleteJob() {
+    @Before
+    public void createJob() {
         view = gefBot.viewByTitle("Repository");
         view.setFocus();
 
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
         tree.setFocus();
+        tree.select("Job Designs").contextMenu("Create job").click();
 
-        tree.expandNode("Job Designs").getNode(JOBNAME + " " + DEFAULT_VERSION).contextMenu("Delete").click();
-
-        tree.expandNode("Recycle bin").getNode(JOBNAME + " " + DEFAULT_VERSION + " ()").contextMenu("Delete forever").click();
-
-        shell = gefBot.shell("Delete forever");
+        gefBot.waitUntil(Conditions.shellIsActive("New job"));
+        shell = gefBot.shell("New job");
         shell.activate();
-        gefBot.button("Yes").click();
+
+        gefBot.textWithLabel("Name").setText(JOBNAME);
+
+        gefBot.button("Finish").click();
+        gefBot.waitUntil(Conditions.shellCloses(shell));
+
+        gefBot.toolbarButtonWithTooltip("Save (Ctrl+S)").click();
     }
 
+    @Test
+    public void deleteJob() {
+        gefBot.cTabItem("Job " + JOBNAME + " 0.1").close();
+        tree.expandNode("Job Designs").getNode(JOBNAME + " 0.1").contextMenu("Delete").click();
+
+        SWTBotTreeItem newJobItem = tree.expandNode("Recycle bin").select(JOBNAME + " 0.1" + " ()");
+        Assert.assertNotNull(newJobItem);
+    }
+
+    @After
+    public void removePreviouslyCreateItems() {
+        tree.select("Recycle bin").contextMenu("Empty recycle bin").click();
+        gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
+        gefBot.button("Yes").click();
+    }
 }

@@ -19,6 +19,10 @@ import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
@@ -29,20 +33,23 @@ import org.talend.swtbot.TalendSwtBotForTos;
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class CreateRoutine extends TalendSwtBotForTos {
 
-    private static SWTBotTree tree;
+    private SWTBotTree tree;
 
-    private static SWTBotShell shell;
+    private SWTBotShell shell;
 
-    private static SWTBotView view;
+    private SWTBotView view;
 
-    private static String ROUTINENAME = "routine1";
+    private static String ROUTINENAME = "routine1"; //$NON-NLS-1$
+
+    @Before
+    public void InitialisePrivateFields() {
+        view = gefBot.viewByTitle("Repository");
+        view.setFocus();
+        tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
+    }
 
     @Test
     public void createRoutine() {
-        view = gefBot.viewByTitle("Repository");
-        view.setFocus();
-
-        tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
         tree.setFocus();
         tree.expandNode("Code").getNode("Routines").contextMenu("Create routine").click();
 
@@ -53,5 +60,18 @@ public class CreateRoutine extends TalendSwtBotForTos {
         gefBot.textWithLabel("Name").setText(ROUTINENAME);
 
         gefBot.button("Finish").click();
+
+        SWTBotTreeItem newRoutineItem = tree.expandNode("Code", "Routines").select(ROUTINENAME + " 0.1");
+        Assert.assertNotNull(newRoutineItem);
+    }
+
+    @After
+    public void removePreviouslyCreateItems() {
+        gefBot.cTabItem(ROUTINENAME + " 0.1").close();
+        tree.expandNode("Code", "Routines").getNode(ROUTINENAME + " 0.1").contextMenu("Delete").click();
+
+        tree.select("Recycle bin").contextMenu("Empty recycle bin").click();
+        gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
+        gefBot.button("Yes").click();
     }
 }

@@ -12,15 +12,24 @@
 // ============================================================================
 package tosstudio.metadata.copybook;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+
+import junit.framework.Assert;
+
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
+import org.talend.swtbot.Utilities;
 
 /**
  * DOC Administrator class global comment. Detailled comment
@@ -28,22 +37,25 @@ import org.talend.swtbot.TalendSwtBotForTos;
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class CreateCopybook extends TalendSwtBotForTos {
 
-    private static SWTBotTree tree;
+    private SWTBotTree tree;
 
-    private static SWTBotView view;
+    private SWTBotView view;
 
-    private static String COPYBOOKNAME = "copybook1";
+    private static String COPYBOOKNAME = "copybook1"; //$NON-NLS-1$
 
-    private static String FILEPATH = "E:/testdata/FDSUJ-formated.copybook";
+    private static String SAMPLE_RELATIVE_FILEPATH = "FDSUJ-formated.copybook"; //$NON-NLS-1$
 
-    private static String DATAFILE = "E:/testdata/file1.txt";
+    private static String SAMPLE_RELATIVE_DATAFILE = "file1.txt"; //$NON-NLS-1$
 
-    @Test
-    public void createCopybook() {
+    @Before
+    public void InitialisePrivateFields() {
         view = gefBot.viewByTitle("Repository");
         view.setFocus();
-
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
+    }
+
+    @Test
+    public void createCopybook() throws IOException, URISyntaxException {
         tree.setFocus();
 
         tree.expandNode("Metadata").getNode("Copybook").contextMenu("Create EBCDIC").click();
@@ -55,12 +67,25 @@ public class CreateCopybook extends TalendSwtBotForTos {
         gefBot.button("Next >").click();
 
         /* step 2 of 3 */
-        gefBot.textWithLabel("File").setText(FILEPATH);
-        gefBot.textWithLabel("Data file").setText(DATAFILE);
+        gefBot.textWithLabel("File").setText(
+                Utilities.getFileFromCurrentPluginSampleFolder(SAMPLE_RELATIVE_FILEPATH).getAbsolutePath());
+        gefBot.textWithLabel("Data file").setText(
+                Utilities.getFileFromCurrentPluginSampleFolder(SAMPLE_RELATIVE_DATAFILE).getAbsolutePath());
         gefBot.button("Generate").click();
         gefBot.button("Next >").click();
 
         /* step 3 of 3 */
         gefBot.button("Finish").click();
+
+        SWTBotTreeItem newCopybookItem = tree.expandNode("Metadata", "Copybook").select(COPYBOOKNAME + " 0.1");
+        Assert.assertNotNull(newCopybookItem);
+    }
+
+    @After
+    public void removePreviouslyCreateItems() {
+        tree.expandNode("Metadata", "Copybook").getNode(COPYBOOKNAME + " 0.1").contextMenu("Delete").click();
+        tree.select("Recycle bin").contextMenu("Empty recycle bin").click();
+        gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
+        gefBot.button("Yes").click();
     }
 }

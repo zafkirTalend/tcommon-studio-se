@@ -12,14 +12,21 @@
 // ============================================================================
 package tosstudio.components.basicelements;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
+import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
@@ -30,17 +37,17 @@ import org.talend.swtbot.TalendSwtBotForTos;
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class ExternalComponentsTesting extends TalendSwtBotForTos {
 
-    private static SWTBotView view;
+    private SWTBotView view;
 
-    private static SWTBotShell shell;
+    private SWTBotShell shell;
 
-    private static SWTBotTree tree;
+    private SWTBotTree tree;
 
-    private static SWTBotGefEditor gefEditor;
+    private SWTBotGefEditor gefEditor;
 
-    private static String JOBNAME = "ExternalComponentsTesting";
+    private static String JOBNAME = "ExternalComponentsTesting"; //$NON-NLS-1$
 
-    @Test
+    @Before
     public void createJob() {
         view = gefBot.viewByTitle("Repository");
         view.setFocus();
@@ -56,27 +63,24 @@ public class ExternalComponentsTesting extends TalendSwtBotForTos {
         gefBot.textWithLabel("Name").setText(JOBNAME);
 
         gefBot.button("Finish").click();
-
     }
 
     @Test
-    public void useComponentInJob() {
-        gefBot.viewByTitle("Palette").close();
+    public void useComponentInJob() throws IOException, URISyntaxException {
         gefEditor = gefBot.gefEditor("Job " + JOBNAME + " 0.1");
         gefEditor.show();
 
-        gefEditor.activateTool("tRowGenerator");
-        gefEditor.click(100, 100);
-        gefEditor.activateTool("tMap");
-        gefEditor.click(300, 100);
-        gefEditor.activateTool("tFileOutputDelimited");
-        gefEditor.click(500, 100);
+        gefEditor.activateTool("tRowGenerator").click(100, 100);
+        gefEditor.activateTool("tMap").click(300, 100);
+        gefEditor.activateTool("tFileOutputDelimited").click(500, 100);
 
         /* Edit tRowGenerator */
-        gefEditor.doubleClick(getTalendComponentPart(gefEditor, "tRowGenerator_1"));
+        SWTBotGefEditPart rowGen = getTalendComponentPart(gefEditor, "tRowGenerator_1");
+        Assert.assertNotNull(rowGen);
+        rowGen.doubleClick();
         shell = gefBot.shell("JasperETL Powered by Talend - tRowGenerator - tRowGenerator_1");
         shell.activate();
-        /* Add id */
+        /* Add column "id" */
         gefBot.buttonWithTooltip("Add").click();
         gefBot.table(0).click(0, 2);
         gefBot.text("newColumn").setText("id");
@@ -85,7 +89,7 @@ public class ExternalComponentsTesting extends TalendSwtBotForTos {
         gefBot.table(0).click(0, 10);
         gefBot.ccomboBox("XTD").setSelection("sequence");
         gefBot.table(0).select(0);
-        /* Add name */
+        /* Add column "name" */
         gefBot.buttonWithTooltip("Add").click();
         gefBot.table(0).click(1, 2);
         gefBot.text("newColumn").setText("name");
@@ -96,15 +100,19 @@ public class ExternalComponentsTesting extends TalendSwtBotForTos {
         gefBot.button("OK").click();
         gefBot.waitUntil(Conditions.shellCloses(shell));
 
-        gefEditor.click(getTalendComponentPart(gefEditor, "tRowGenerator_1"));
+        gefEditor.select(rowGen);
         gefEditor.clickContextMenu("Row").clickContextMenu("Main");
-        gefEditor.click(getTalendComponentPart(gefEditor, "tMap_1"));
+        SWTBotGefEditPart map = getTalendComponentPart(gefEditor, "tMap_1");
+        Assert.assertNotNull(map);
+        gefEditor.click(map);
+        SWTBotGefEditPart rowMain = gefEditor.getEditPart("row1 (Main)");
+        Assert.assertNotNull(rowMain);
 
         /* Edit tMap */
-        gefEditor.doubleClick(getTalendComponentPart(gefEditor, "tMap_1"));
-        gefBot.waitUntil(Conditions.shellIsActive("JasperETL Powered by Talend - tMap - tMap_1"));
+        map.doubleClick();
         shell = gefBot.shell("JasperETL Powered by Talend - tMap - tMap_1");
         shell.activate();
+        gefBot.waitUntil(Conditions.shellIsActive("JasperETL Powered by Talend - tMap - tMap_1"));
 
         gefBot.toolbarButtonWithTooltip("Add output table").click();
         gefBot.shell("Add a output").activate();
@@ -114,7 +122,7 @@ public class ExternalComponentsTesting extends TalendSwtBotForTos {
         gefBot.tableWithLabel("row1").select(0, 1);
         gefBot.buttonWithTooltip("Copy selected items", 0).click();
         gefBot.buttonWithTooltip("Paste", 1).click();
-        // shell.setFocus();
+
         gefBot.tableWithLabel("out1").click(0, 0);
         gefBot.text().setText("row1.id");
         gefBot.tableWithLabel("out1").click(1, 0);
@@ -124,18 +132,30 @@ public class ExternalComponentsTesting extends TalendSwtBotForTos {
         gefBot.waitUntil(Conditions.shellCloses(shell));
 
         /* Connect tMap and tFileOutputDelimited */
-        gefEditor.click(310, 110);
+        gefEditor.click(map);
         gefEditor.clickContextMenu("Row").clickContextMenu("out1");
-        gefEditor.click(510, 110);
-        gefEditor.save();
-    }
+        SWTBotGefEditPart outputDeliFile = getTalendComponentPart(gefEditor, "tFileOutputDelimited_1");
+        Assert.assertNotNull(outputDeliFile);
+        gefEditor.click(outputDeliFile);
+        SWTBotGefEditPart outMain = gefEditor.getEditPart("out1 (Main)");
+        Assert.assertNotNull(outMain);
 
-    @Test
-    public void runTheJob() {
+        gefEditor.save();
+
+        /* Run the job */
         gefBot.viewByTitle("Run (Job " + JOBNAME + ")").setFocus();
         gefBot.button(" Run").click();
 
         gefBot.waitUntil(Conditions.shellIsActive("Launching " + JOBNAME + " 0.1"));
         gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Launching " + JOBNAME + " 0.1")));
+    }
+
+    @After
+    public void removePreviousCreateItems() {
+        gefBot.cTabItem("Job " + JOBNAME + " 0.1").close();
+        tree.expandNode("Job Designs").getNode(JOBNAME + " 0.1").contextMenu("Delete").click();
+        tree.select("Recycle bin").contextMenu("Empty recycle bin").click();
+        gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
+        gefBot.button("Yes").click();
     }
 }

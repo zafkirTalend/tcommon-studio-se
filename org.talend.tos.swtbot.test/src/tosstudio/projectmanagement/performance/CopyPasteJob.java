@@ -13,44 +13,73 @@
 package tosstudio.projectmanagement.performance;
 
 import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
-import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.swtbot.TalendSwtBotForTos;
 
 /**
  * DOC Administrator class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class CopyPasteJob {
+public class CopyPasteJob extends TalendSwtBotForTos {
 
-    private static SWTGefBot gefBot = new SWTGefBot();
+    private SWTBotTree tree;
 
-    private static SWTBotTree tree;
+    private SWTBotShell shell;
 
-    private static SWTBotView view;
+    private SWTBotView view;
 
-    private static String JOBNAME = "test01";
+    private static String JOBNAME = "test01"; //$NON-NLS-1$
 
-    private static String DEFAULT_VERSION = "0.1";
-
-    @Test
-    public void copyJob() {
+    @Before
+    public void createJob() {
         view = gefBot.viewByTitle("Repository");
         view.setFocus();
 
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
         tree.setFocus();
+        tree.select("Job Designs").contextMenu("Create job").click();
 
-        tree.expandNode("Job Designs").getNode(JOBNAME + " " + DEFAULT_VERSION).contextMenu("Copy").click();
+        gefBot.waitUntil(Conditions.shellIsActive("New job"));
+        shell = gefBot.shell("New job");
+        shell.activate();
+
+        gefBot.textWithLabel("Name").setText(JOBNAME);
+
+        gefBot.button("Finish").click();
+        gefBot.waitUntil(Conditions.shellCloses(shell));
+
+        gefBot.toolbarButtonWithTooltip("Save (Ctrl+S)").click();
     }
 
     @Test
-    public void pasteJob() {
+    public void copyAndPasteJob() {
+        tree.expandNode("Job Designs").getNode(JOBNAME + " 0.1").contextMenu("Copy").click();
+
         tree.select("Job Designs").contextMenu("Paste").click();
+
+        SWTBotTreeItem newJobItem = tree.expandNode("Job Designs").select("Copy_of_" + JOBNAME + " 0.1");
+        Assert.assertNotNull(newJobItem);
     }
 
+    @After
+    public void removePreviouslyCreateItems() {
+        gefBot.cTabItem("Job " + JOBNAME + " 0.1").close();
+        tree.expandNode("Job Designs").getNode(JOBNAME + " 0.1").contextMenu("Delete").click();
+        tree.expandNode("Job Designs").getNode("Copy_of_" + JOBNAME + " 0.1").contextMenu("Delete").click();
+
+        tree.select("Recycle bin").contextMenu("Empty recycle bin").click();
+        gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
+        gefBot.button("Yes").click();
+    }
 }

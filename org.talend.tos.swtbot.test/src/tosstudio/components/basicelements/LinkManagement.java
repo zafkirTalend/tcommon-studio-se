@@ -12,15 +12,19 @@
 // ============================================================================
 package tosstudio.components.basicelements;
 
+import junit.framework.Assert;
+
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotEditor;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
+import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
@@ -31,19 +35,17 @@ import org.talend.swtbot.TalendSwtBotForTos;
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class LinkManagement extends TalendSwtBotForTos {
 
-    public static SWTBotTree tree;
+    public SWTBotTree tree;
 
-    public static SWTBotShell shell;
+    public SWTBotShell shell;
 
-    public static SWTBotView view;
+    public SWTBotView view;
 
-    private static SWTBotEditor botEditor;
+    private SWTBotGefEditor gefEditor;
 
-    private static SWTBotGefEditor gefEditor;
+    public static String JOBNAME = "linkManagement"; //$NON-NLS-1$
 
-    public static String JOBNAME = "linkManagement";
-
-    @Test
+    @Before
     public void createJob() {
         view = gefBot.viewByTitle("Repository");
         view.setFocus();
@@ -63,35 +65,42 @@ public class LinkManagement extends TalendSwtBotForTos {
 
     @Test
     public void useComponentInJob() {
-        gefBot.viewByTitle("Palette").close();
-        botEditor = gefBot.activeEditor();
-        gefEditor = gefBot.gefEditor(botEditor.getTitle());
+        gefEditor = gefBot.gefEditor("Job " + JOBNAME + " 0.1");
 
-        gefEditor.activateTool("tRowGenerator");
-        gefEditor.click(100, 100);
-        gefEditor.activateTool("tLogRow");
-        gefEditor.click(300, 100);
+        gefEditor.activateTool("tRowGenerator").click(100, 100);
+        gefEditor.activateTool("tLogRow").click(300, 100);
 
-        gefEditor.doubleClick(110, 110);
+        SWTBotGefEditPart rowGen = getTalendComponentPart(gefEditor, "tRowGenerator_1");
+        rowGen.doubleClick();
         shell = gefBot.shell("JasperETL Powered by Talend - tRowGenerator - tRowGenerator_1");
         shell.activate();
         gefBot.buttonWithTooltip("Add").click();
         gefBot.buttonWithTooltip("Add").click();
         gefBot.button("OK").click();
 
-        gefEditor.click(110, 110);
+        gefEditor.select(rowGen);
         gefEditor.clickContextMenu("Row").clickContextMenu("Main");
-        gefEditor.click(310, 110);
+        SWTBotGefEditPart logRow = getTalendComponentPart(gefEditor, "tLogRow_1");
+        gefEditor.click(logRow);
 
         gefBot.viewByTitle("Component").show();
-        gefEditor.click(310, 110);
-        gefBot.buttonWithLabel("Schema").click(); // label and button do not correspond
-        shell = gefBot.shell("Schema oftLogRow_1");
+        logRow.click();
+        gefBot.buttonWithLabel("Schema Type").click(); // label and button do not correspond
+        shell = gefBot.shell("Schema of tLogRow_1");
         shell.activate();
-        gefBot.waitUntil(Conditions.shellIsActive("Schema oftLogRow_1"));
+        gefBot.waitUntil(Conditions.shellIsActive("Schema of tLogRow_1"));
+        Assert.assertEquals("newColumn", gefBot.tableWithLabel("tLogRow_1 (Output)").cell(0, "Column"));
+        Assert.assertEquals("newColumn1", gefBot.tableWithLabel("tLogRow_1 (Output)").cell(1, "Column"));
         gefBot.button("OK").click();
 
-        gefBot.toolbarButtonWithTooltip("Save (Ctrl+S)").click();
+        gefEditor.saveAndClose();
     }
 
+    @After
+    public void removePreviousCreateItems() {
+        tree.expandNode("Job Designs").getNode(JOBNAME + " 0.1").contextMenu("Delete").click();
+        tree.select("Recycle bin").contextMenu("Empty recycle bin").click();
+        gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
+        gefBot.button("Yes").click();
+    }
 }
