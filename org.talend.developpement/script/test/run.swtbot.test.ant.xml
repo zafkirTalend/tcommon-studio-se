@@ -14,9 +14,9 @@
 		
 	
 	<!-- the following properties defines the way to find all the classes that we want to test-->
-	<property name="test.plugin.prefix" value="org.talend.tos"/>
-	<property name="test.plugin.suffix" value="swtbot.test"/>
-	<property name="test.package.prefix" value="tos"/><!-- MUST NEVER be EMTPY-->
+	<property name="test.plugin.prefix" value="org.talend.tos"/><!-- This may be a list of comma separated prefixes -->
+	<property name="test.plugin.suffix" value="swtbot.test"/><!-- This may be a list of comma separated suffixes -->
+	<property name="test.package.prefix" value="tos"/><!-- This may be a list of comma separated prefixes -->
 	<property name="test.class.filter" value="*"/>
 	<property name="test.only.fragments" value="false"/>
 	<propertyset id="test.class.collector.properties" description="defines all the prefix and suffix used to find the classes to tested">
@@ -54,7 +54,7 @@
     	    <arg line="-className ${test-class-name}"/>
     	    <arg line="formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,${junit.results.subpath}"/>
     	    <arg line="-consoleLog"/>
-    	    <jvmarg line="-Xms128m -Xmx1024m -XX:MaxPermSize=256m -XX:+HeapDumpOnOutOfMemoryError"/>
+    	    <jvmarg line="-Xms128m -Xmx1024m -XX:MaxPermSize=256m -XX:+HeapDumpOnOutOfMemoryError -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=1716"/>
     	</java>        
     </target>
 </project>
