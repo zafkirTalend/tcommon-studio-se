@@ -6,3 +6,9 @@ backport_top.pl
 backport_tdq.pl     
 backport_tis_shared.pl   
 backport_tos.pl
+
+
+Scripts to get a list of plugins from feature, folder or .launch file:
+list_plugins_in_features.sh
+list_plugins_in_folder.sh
+list_plugins_in_launch.pl
