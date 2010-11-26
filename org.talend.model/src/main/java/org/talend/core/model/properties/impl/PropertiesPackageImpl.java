@@ -2450,6 +2450,24 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExecutionServer_Username() {
+        return (EAttribute)executionServerEClass.getEStructuralFeatures().get(9);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExecutionServer_Password() {
+        return (EAttribute)executionServerEClass.getEStructuralFeatures().get(10);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -5342,6 +5360,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEAttribute(executionServerEClass, EXECUTION_SERVER__ACTIVE);
         createEAttribute(executionServerEClass, EXECUTION_SERVER__MONITORING_PORT);
         createEAttribute(executionServerEClass, EXECUTION_SERVER__TIMEOUT_UNKNOWN_STATE);
+        createEAttribute(executionServerEClass, EXECUTION_SERVER__USERNAME);
+        createEAttribute(executionServerEClass, EXECUTION_SERVER__PASSWORD);
 
         executionVirtualServerEClass = createEClass(EXECUTION_VIRTUAL_SERVER);
         createEAttribute(executionVirtualServerEClass, EXECUTION_VIRTUAL_SERVER__ID);
@@ -6024,6 +6044,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getExecutionServer_Active(), theEcorePackage.getEBoolean(), "active", "true", 0, 1, ExecutionServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getExecutionServer_MonitoringPort(), theEcorePackage.getEInt(), "monitoringPort", "-1", 0, 1, ExecutionServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getExecutionServer_TimeoutUnknownState(), theEcorePackage.getEInt(), "timeoutUnknownState", "-1", 0, 1, ExecutionServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionServer_Username(), theEcorePackage.getEString(), "username", null, 0, 1, ExecutionServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionServer_Password(), theEcorePackage.getEString(), "password", null, 0, 1, ExecutionServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(executionVirtualServerEClass, ExecutionVirtualServer.class, "ExecutionVirtualServer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getExecutionVirtualServer_Id(), ecorePackage.getEInt(), "id", null, 1, 1, ExecutionVirtualServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

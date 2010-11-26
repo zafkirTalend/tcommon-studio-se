@@ -34,6 +34,8 @@ import org.talend.core.model.properties.PropertiesPackage;
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionServerImpl#isActive <em>Active</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionServerImpl#getMonitoringPort <em>Monitoring Port</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionServerImpl#getTimeoutUnknownState <em>Timeout Unknown State</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionServerImpl#getUsername <em>Username</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionServerImpl#getPassword <em>Password</em>}</li>
  * </ul>
  * </p>
  *
@@ -219,6 +221,46 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
      * @ordered
      */
     protected int timeoutUnknownState = TIMEOUT_UNKNOWN_STATE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getUsername() <em>Username</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getUsername()
+     * @generated
+     * @ordered
+     */
+    protected static final String USERNAME_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getUsername() <em>Username</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getUsername()
+     * @generated
+     * @ordered
+     */
+    protected String username = USERNAME_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getPassword() <em>Password</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getPassword()
+     * @generated
+     * @ordered
+     */
+    protected static final String PASSWORD_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getPassword() <em>Password</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getPassword()
+     * @generated
+     * @ordered
+     */
+    protected String password = PASSWORD_EDEFAULT;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -410,6 +452,48 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setUsername(String newUsername) {
+        String oldUsername = username;
+        username = newUsername;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_SERVER__USERNAME, oldUsername, username));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setPassword(String newPassword) {
+        String oldPassword = password;
+        password = newPassword;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_SERVER__PASSWORD, oldPassword, password));
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -433,6 +517,10 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
                 return new Integer(getMonitoringPort());
             case PropertiesPackage.EXECUTION_SERVER__TIMEOUT_UNKNOWN_STATE:
                 return new Integer(getTimeoutUnknownState());
+            case PropertiesPackage.EXECUTION_SERVER__USERNAME:
+                return getUsername();
+            case PropertiesPackage.EXECUTION_SERVER__PASSWORD:
+                return getPassword();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -469,6 +557,12 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
                 return;
             case PropertiesPackage.EXECUTION_SERVER__TIMEOUT_UNKNOWN_STATE:
                 setTimeoutUnknownState(((Integer)newValue).intValue());
+                return;
+            case PropertiesPackage.EXECUTION_SERVER__USERNAME:
+                setUsername((String)newValue);
+                return;
+            case PropertiesPackage.EXECUTION_SERVER__PASSWORD:
+                setPassword((String)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -507,6 +601,12 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
             case PropertiesPackage.EXECUTION_SERVER__TIMEOUT_UNKNOWN_STATE:
                 setTimeoutUnknownState(TIMEOUT_UNKNOWN_STATE_EDEFAULT);
                 return;
+            case PropertiesPackage.EXECUTION_SERVER__USERNAME:
+                setUsername(USERNAME_EDEFAULT);
+                return;
+            case PropertiesPackage.EXECUTION_SERVER__PASSWORD:
+                setPassword(PASSWORD_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -535,6 +635,10 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
                 return monitoringPort != MONITORING_PORT_EDEFAULT;
             case PropertiesPackage.EXECUTION_SERVER__TIMEOUT_UNKNOWN_STATE:
                 return timeoutUnknownState != TIMEOUT_UNKNOWN_STATE_EDEFAULT;
+            case PropertiesPackage.EXECUTION_SERVER__USERNAME:
+                return USERNAME_EDEFAULT == null ? username != null : !USERNAME_EDEFAULT.equals(username);
+            case PropertiesPackage.EXECUTION_SERVER__PASSWORD:
+                return PASSWORD_EDEFAULT == null ? password != null : !PASSWORD_EDEFAULT.equals(password);
         }
         return super.eIsSet(featureID);
     }
@@ -565,6 +669,10 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
         result.append(monitoringPort);
         result.append(", timeoutUnknownState: ");
         result.append(timeoutUnknownState);
+        result.append(", username: ");
+        result.append(username);
+        result.append(", password: ");
+        result.append(password);
         result.append(')');
         return result.toString();
     }

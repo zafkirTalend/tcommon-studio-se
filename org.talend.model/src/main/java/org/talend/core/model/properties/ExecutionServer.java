@@ -26,6 +26,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.ExecutionServer#isActive <em>Active</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionServer#getMonitoringPort <em>Monitoring Port</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionServer#getTimeoutUnknownState <em>Timeout Unknown State</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionServer#getUsername <em>Username</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionServer#getPassword <em>Password</em>}</li>
  * </ul>
  * </p>
  *
@@ -272,5 +274,57 @@ public interface ExecutionServer extends EObject {
      * @generated
      */
     void setTimeoutUnknownState(int value);
+
+    /**
+     * Returns the value of the '<em><b>Username</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Username</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Username</em>' attribute.
+     * @see #setUsername(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionServer_Username()
+     * @model
+     * @generated
+     */
+    String getUsername();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionServer#getUsername <em>Username</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Username</em>' attribute.
+     * @see #getUsername()
+     * @generated
+     */
+    void setUsername(String value);
+
+    /**
+     * Returns the value of the '<em><b>Password</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Password</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Password</em>' attribute.
+     * @see #setPassword(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionServer_Password()
+     * @model
+     * @generated
+     */
+    String getPassword();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionServer#getPassword <em>Password</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Password</em>' attribute.
+     * @see #getPassword()
+     * @generated
+     */
+    void setPassword(String value);
 
 } // ExecutionServer

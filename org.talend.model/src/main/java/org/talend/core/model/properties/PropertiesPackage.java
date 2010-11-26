@@ -5873,13 +5873,31 @@ public interface PropertiesPackage extends EPackage {
     int EXECUTION_SERVER__TIMEOUT_UNKNOWN_STATE = 8;
 
     /**
+     * The feature id for the '<em><b>Username</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_SERVER__USERNAME = 9;
+
+    /**
+     * The feature id for the '<em><b>Password</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_SERVER__PASSWORD = 10;
+
+    /**
      * The number of structural features of the '<em>Execution Server</em>' class.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int EXECUTION_SERVER_FEATURE_COUNT = 9;
+    int EXECUTION_SERVER_FEATURE_COUNT = 11;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -9672,6 +9690,28 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EAttribute getExecutionServer_TimeoutUnknownState();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionServer#getUsername <em>Username</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Username</em>'.
+     * @see org.talend.core.model.properties.ExecutionServer#getUsername()
+     * @see #getExecutionServer()
+     * @generated
+     */
+    EAttribute getExecutionServer_Username();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionServer#getPassword <em>Password</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Password</em>'.
+     * @see org.talend.core.model.properties.ExecutionServer#getPassword()
+     * @see #getExecutionServer()
+     * @generated
+     */
+    EAttribute getExecutionServer_Password();
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.ExecutionTask <em>Execution Task</em>}'.
@@ -14546,6 +14586,22 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute EXECUTION_SERVER__TIMEOUT_UNKNOWN_STATE = eINSTANCE.getExecutionServer_TimeoutUnknownState();
+
+        /**
+         * The meta object literal for the '<em><b>Username</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_SERVER__USERNAME = eINSTANCE.getExecutionServer_Username();
+
+        /**
+         * The meta object literal for the '<em><b>Password</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_SERVER__PASSWORD = eINSTANCE.getExecutionServer_Password();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.ExecutionTaskImpl <em>Execution Task</em>}' class.

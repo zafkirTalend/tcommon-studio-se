@@ -461,6 +461,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionServer/active"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionServer/monitoringPort"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionServer/timeoutUnknownState"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionServer/username"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionServer/password"/>
     </genClasses>
     <genClasses ecoreClass="properties.ecore#//ExecutionVirtualServer">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionVirtualServer/id"/>
