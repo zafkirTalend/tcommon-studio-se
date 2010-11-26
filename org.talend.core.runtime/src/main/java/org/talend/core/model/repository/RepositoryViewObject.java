@@ -104,7 +104,7 @@ public class RepositoryViewObject implements IRepositoryViewObject {
 
     private PersistenceException exception;
 
-    public RepositoryViewObject(Property property) {
+    public RepositoryViewObject(Property property, boolean avoidGuiInfos) {
         this.id = property.getId();
         this.author = property.getAuthor();
         this.creationDate = property.getCreationDate();
@@ -128,21 +128,27 @@ public class RepositoryViewObject implements IRepositoryViewObject {
             InformationLevel informationLevel = property.getMaxInformationLevel();
             informationStatus = factory.getStatus(informationLevel);
         }
-        if (type == ERepositoryObjectType.JOBLET) {
-            JobletProcessItem item = (JobletProcessItem) property.getItem();
-            if (item.getIcon() != null && item.getIcon().getInnerContent() != null
-                    && item.getIcon().getInnerContent().length == 0) {
-                customImage = getJobletCustomIcon(property);
-                customImage = ImageUtils.propertyLabelScale(property.getId(), customImage, ICON_SIZE.ICON_16);
-            }
-        } else if (type == ERepositoryObjectType.DOCUMENTATION) {
-            Item item = property.getItem();
-            if (item instanceof DocumentationItem) {
-                customImage = coreSerivce.getImageWithDocExt(((DocumentationItem) item).getExtension());
-            } else if (item instanceof LinkDocumentationItem) {
-                customImage = coreSerivce.getImageWithSpecial(customImage).createImage();
+        if (avoidGuiInfos) {
+            if (type == ERepositoryObjectType.JOBLET) {
+                JobletProcessItem item = (JobletProcessItem) property.getItem();
+                if (item.getIcon() != null && item.getIcon().getInnerContent() != null
+                        && item.getIcon().getInnerContent().length == 0) {
+                    customImage = getJobletCustomIcon(property);
+                    customImage = ImageUtils.propertyLabelScale(property.getId(), customImage, ICON_SIZE.ICON_16);
+                }
+            } else if (type == ERepositoryObjectType.DOCUMENTATION) {
+                Item item = property.getItem();
+                if (item instanceof DocumentationItem) {
+                    customImage = coreSerivce.getImageWithDocExt(((DocumentationItem) item).getExtension());
+                } else if (item instanceof LinkDocumentationItem) {
+                    customImage = coreSerivce.getImageWithSpecial(customImage).createImage();
+                }
             }
         }
+    }
+
+    public RepositoryViewObject(Property property) {
+        this(property, false);
     }
 
     /**
