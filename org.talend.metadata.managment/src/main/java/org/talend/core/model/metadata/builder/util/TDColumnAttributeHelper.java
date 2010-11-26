@@ -17,7 +17,6 @@ import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Collection;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
@@ -30,7 +29,6 @@ import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.cwm.helper.ColumnHelper;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.TableHelper;
-import org.talend.cwm.helper.TaggedValueHelper;
 import org.talend.cwm.relational.RelationalFactory;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.relational.TdExpression;
@@ -40,7 +38,6 @@ import org.talend.utils.sql.ConnectionUtils;
 import org.talend.utils.sql.metadata.constants.GetColumn;
 import org.talend.utils.sugars.ReturnCode;
 import org.talend.utils.sugars.TypedReturnCode;
-import orgomg.cwm.objectmodel.core.TaggedValue;
 import orgomg.cwm.resource.relational.enumerations.NullableType;
 
 /**
@@ -570,44 +567,8 @@ public class TDColumnAttributeHelper {
      * getby JavaSqlFactory
      */
     private static TypedReturnCode<java.sql.Connection> createConnection(DatabaseConnection providerConnection) {
-        TypedReturnCode<java.sql.Connection> rc = new TypedReturnCode<java.sql.Connection>(false);
-        String url = providerConnection == null ? null : providerConnection.getURL();
-        if (url == null) {
-            rc
-                    .setMessage("Unable to decrypt given password correctly. It's probably due to a change in the passphrase used in encryption"); //$NON-NLS-1$
-            rc.setOk(false);
-            return rc;
-        }
-        String driverClassName = providerConnection.getDriverClass();
-        Collection<TaggedValue> taggedValues = providerConnection.getTaggedValue();
-        Properties props = new Properties();
-        props.put(TaggedValueHelper.USER, providerConnection.getUsername());
-        props.put(TaggedValueHelper.PASSWORD, providerConnection.getPassword());
-        String pass = props.getProperty(TaggedValueHelper.PASSWORD);
-        if (pass != null) {
-            String clearTextPassword = providerConnection.getPassword();
-            if (clearTextPassword == null) {
-                rc
-                        .setMessage("Unable to decrypt given password correctly. It's probably due to a change in the passphrase used in encryption."); //$NON-NLS-1$
-                rc.setOk(false);
-            } else {
-                props.setProperty(TaggedValueHelper.PASSWORD, clearTextPassword);
-            }
-        }
-        try {
-            java.sql.Connection connection = createConnection(url, driverClassName, props);
-            rc.setObject(connection);
-            rc.setOk(true);
-        } catch (SQLException e) {
-            rc.setReturnCode(e.getMessage(), false);
-        } catch (InstantiationException e) {
-            rc.setReturnCode(e.getMessage(), false);
-        } catch (IllegalAccessException e) {
-            rc.setReturnCode(e.getMessage(), false);
-        } catch (ClassNotFoundException e) {
-            rc.setReturnCode(e.getMessage(), false);
-        }
-        return rc;
+        TypedReturnCode localTypedReturnCode = new TypedReturnCode(false);
+        return localTypedReturnCode;
     }
 
     /**
