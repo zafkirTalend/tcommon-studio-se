@@ -16,8 +16,6 @@ import java.util.Map;
 
 import org.apache.commons.collections.BidiMap;
 import org.eclipse.swt.widgets.Composite;
-import org.talend.core.model.metadata.IMetadataTable;
-import org.talend.core.model.metadata.builder.connection.Query;
 import org.talend.core.model.process.EComponentCategory;
 import org.talend.core.model.process.Element;
 import org.talend.core.model.properties.ConnectionItem;
@@ -38,15 +36,16 @@ public interface IDynamicProperty {
 
     public Composite getComposite();
 
-    public Map<String, IMetadataTable> getRepositoryTableMap();
+    // public Map<String, IMetadataTable> getRepositoryTableMap();
 
     public void setCurRowSize(int i);
 
     public int getCurRowSize();
 
-    public Map<String, ConnectionItem> getRepositoryConnectionItemMap();
+    /* 16969 */
+    // public Map<String, ConnectionItem> getRepositoryConnectionItemMap();
 
-    public Map<String, Query> getRepositoryQueryStoreMap();
+    // public Map<String, Query> getRepositoryQueryStoreMap();
 
     public Map<String, String> getTableIdAndDbTypeMap();
 
