@@ -1037,7 +1037,7 @@ public class ExtractMetaDataFromDataBase {
         // add by wzhang
         ExtractMetaDataUtils.metadataCon = iMetadataConnection;
         // end
-        ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(),
+        List connList = ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(),
                 iMetadataConnection.getUsername(), iMetadataConnection.getPassword(), iMetadataConnection.getDatabase(),
                 iMetadataConnection.getSchema(), iMetadataConnection.getDriverClass(), iMetadataConnection.getDriverJarPath(),
                 iMetadataConnection.getDbVersionString());
@@ -1114,7 +1114,27 @@ public class ExtractMetaDataFromDataBase {
         if (EDatabaseTypeName.ORACLEFORSID.getProduct().equals(iMetadataConnection.getProduct())) {
             filterTablesFromRecycleBin(itemTablesName);
         }
-        ExtractMetaDataUtils.closeConnection();
+         ExtractMetaDataUtils.closeConnection();
+        // for buy 15042
+        DriverShim wapperDriver = null;
+        if (connList != null && connList.size() > 0) {
+            for (int i = 0; i < connList.size(); i++) {
+                if (connList.get(i) instanceof DriverShim) {
+                    wapperDriver = (DriverShim) connList.get(i);
+                }
+            }
+        }
+        String driverClassName = iMetadataConnection.getDriverClass();
+
+        // added for retrieve schema derby close
+        if (wapperDriver != null && driverClassName.equals(EDatabase4DriverClassName.JAVADB_EMBEDED.getDriverClass())) {
+            try {
+                wapperDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
+            } catch (SQLException e) {
+                // exception of shutdown success. no need to catch.
+            }
+        }
+        
         filterTablesName = itemTablesName;
         return itemTablesName;
     }
