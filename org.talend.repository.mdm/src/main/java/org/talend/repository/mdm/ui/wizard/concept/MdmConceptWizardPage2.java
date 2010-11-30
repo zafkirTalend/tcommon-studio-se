@@ -14,6 +14,7 @@ package org.talend.repository.mdm.ui.wizard.concept;
 
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.swt.widgets.Composite;
+import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.repository.mdm.i18n.Messages;
 import org.talend.repository.model.RepositoryNode;
@@ -30,9 +31,9 @@ public class MdmConceptWizardPage2 extends AbstractRetrieveConceptPage {
 
     private boolean isRepositoryObjectEditable;
 
-    protected MdmConceptWizardPage2(RepositoryNode node, ConnectionItem connectionItem, boolean isRepositoryObjectEditable,
-            boolean creation, String[] existingNames) {
-        super(node, connectionItem, creation); //$NON-NLS-1$
+    protected MdmConceptWizardPage2(RepositoryNode node, ConnectionItem connectionItem, MetadataTable metadataTable,
+            boolean isRepositoryObjectEditable, boolean creation, String[] existingNames) {
+        super(node, connectionItem, metadataTable, creation); //$NON-NLS-1$
         this.setTitle(Messages.getString("MdmConceptWizardPage2_mdm_entity")); //$NON-NLS-1$
 
         this.existingNames = existingNames;
@@ -47,7 +48,7 @@ public class MdmConceptWizardPage2 extends AbstractRetrieveConceptPage {
     public void createControl(Composite parent) {
 
         if (getConcept() != null) {
-            form = new SetNameForm(parent, connectionItem, getConcept(), existingNames);
+            form = new SetNameForm(parent, connectionItem, getConcept(), existingNames, creation);
             form.setReadOnly(!isRepositoryObjectEditable);
 
             AbstractForm.ICheckListener listener = new AbstractForm.ICheckListener() {

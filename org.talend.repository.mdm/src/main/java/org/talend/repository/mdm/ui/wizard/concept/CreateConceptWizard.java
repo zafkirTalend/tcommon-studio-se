@@ -160,16 +160,27 @@ public class CreateConceptWizard extends RepositoryWizard implements INewWizard 
     @Override
     public void addPages() {
         if (creation) {
-            inOutSelectPage = new MdmConceptWizardPage1(node, connectionItem, creation);
-            step0Page = new MdmConceptWizardPage2(node, connectionItem, isRepositoryObjectEditable(), creation, existNames);
+            inOutSelectPage = new MdmConceptWizardPage1(node, connectionItem, metadataTable, creation);
+            step0Page = new MdmConceptWizardPage2(node, connectionItem, metadataTable, isRepositoryObjectEditable(), creation,
+                    existNames);
             schemaPage = new MdmConceptWizardPage3(node, connectionItem, metadataTable, isRepositoryObjectEditable(), creation);
             addPage(inOutSelectPage);
             addPage(step0Page);
             addPage(schemaPage);
         } else {
+
+            inOutSelectPage = new MdmConceptWizardPage1(node, connectionItem, metadataTable, creation);
+            step0Page = new MdmConceptWizardPage2(node, connectionItem, metadataTable, isRepositoryObjectEditable(), creation,
+                    existNames);
+            schemaPage = new MdmConceptWizardPage3(node, connectionItem, metadataTable, isRepositoryObjectEditable(), creation);
             tablePage = new MdmConceptWizardPage4(connectionItem, metadataTable, isRepositoryObjectEditable());
+            //
+            addPage(inOutSelectPage);
+            addPage(step0Page);
+            addPage(schemaPage);
             addPage(tablePage);
         }
+        // else read
 
     }
 
@@ -267,7 +278,7 @@ public class CreateConceptWizard extends RepositoryWizard implements INewWizard 
      */
     @Override
     public boolean canFinish() {
-        if (currentPage instanceof MdmConceptWizardPage3 && currentPage.isPageComplete()) {
+        if (creation && currentPage instanceof MdmConceptWizardPage3 && currentPage.isPageComplete()) {
             return true;
         } else if (currentPage instanceof MdmConceptWizardPage4 && currentPage.isPageComplete()) {
             return true;

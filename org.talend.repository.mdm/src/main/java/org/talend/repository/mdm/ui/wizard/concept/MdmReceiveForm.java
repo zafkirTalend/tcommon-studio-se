@@ -172,6 +172,8 @@ public class MdmReceiveForm extends AbstractMDMFileStepForm implements IRefresha
 
     private LabelledCombo xPathPrefixCombo;
 
+    private boolean creation;
+
     /**
      * Constructor to use by RCP Wizard.
      * 
@@ -180,11 +182,12 @@ public class MdmReceiveForm extends AbstractMDMFileStepForm implements IRefresha
      * @param Style
      */
     public MdmReceiveForm(Composite parent, ConnectionItem connectionItem, MetadataTable metadataTable, Concept concept,
-            WizardPage wizardPage) {
+            WizardPage wizardPage, boolean creation) {
         super(parent, connectionItem);
         this.metadataTable = metadataTable;
         this.wizardPage = wizardPage;
         this.concept = concept;
+        this.creation = creation;
         setupForm(true);
 
     }
@@ -682,8 +685,8 @@ public class MdmReceiveForm extends AbstractMDMFileStepForm implements IRefresha
             // if the checkbox is checked, check Numeric value
             if (labelledCheckboxCombo.getCheckbox().getSelection()) {
                 if (labelledCheckboxCombo.getText() == "") { //$NON-NLS-1$
-                    updateStatus(IStatus.ERROR, labelledCheckboxCombo.getLabelText()
-                            + Messages.getString("FileStep2.mustBePrecised")); //$NON-NLS-1$
+                    updateStatus(IStatus.ERROR,
+                            labelledCheckboxCombo.getLabelText() + Messages.getString("FileStep2.mustBePrecised")); //$NON-NLS-1$
                     return false;
                 }
             }
@@ -940,9 +943,9 @@ public class MdmReceiveForm extends AbstractMDMFileStepForm implements IRefresha
             Concept temp = concept;
 
             // IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
-            concept = ConnectionFactory.eINSTANCE.createConcept();
-            concept.setLabel(temp.getLabel());
-            concept.setConceptType(temp.getConceptType());
+            // concept = ConnectionFactory.eINSTANCE.createConcept();
+            // concept.setLabel(temp.getLabel());
+            // concept.setConceptType(temp.getConceptType());
             // if (conceptName != null) {
             // concept.setLabel(conceptName);
             // concept.setId(factory.getNextId());
@@ -986,7 +989,7 @@ public class MdmReceiveForm extends AbstractMDMFileStepForm implements IRefresha
         MappingTypeRetriever retriever = MetadataTalendType.getMappingTypeRetriever("xsd_id"); //$NON-NLS-1$
         List<ConceptTarget> targetList = concept.getConceptTargets();
         List<MetadataColumn> metadataColumns = new ArrayList<MetadataColumn>();
-
+        metadataTable.getColumns().clear();
         for (ConceptTarget target : targetList) {
             String relativeXpath = target.getRelativeLoopExpression();
             String fullPath = target.getSchema().getLoopExpression();
@@ -1001,18 +1004,21 @@ public class MdmReceiveForm extends AbstractMDMFileStepForm implements IRefresha
                 fullPath = TalendTextUtils.removeQuotes(ConnectionContextHelper.getOriginalValue(contextType, fullPath));
             }
             // adapt relative path
-            String[] relatedSplitedPaths = relativeXpath.split("\\.\\./"); //$NON-NLS-1$
-            if (relatedSplitedPaths.length > 1) {
-                int pathsToRemove = relatedSplitedPaths.length - 1;
-                String[] fullPathSplited = fullPath.split("/"); //$NON-NLS-1$
-                fullPath = ""; //$NON-NLS-1$
-                for (int i = 1; i < (fullPathSplited.length - pathsToRemove); i++) {
-                    fullPath += "/" + fullPathSplited[i]; //$NON-NLS-1$
+            if (relativeXpath != null) {
+                String[] relatedSplitedPaths = relativeXpath.split("\\.\\./"); //$NON-NLS-1$
+                if (relatedSplitedPaths.length > 1) {
+                    int pathsToRemove = relatedSplitedPaths.length - 1;
+                    String[] fullPathSplited = fullPath.split("/"); //$NON-NLS-1$
+                    fullPath = ""; //$NON-NLS-1$
+                    for (int i = 1; i < (fullPathSplited.length - pathsToRemove); i++) {
+                        fullPath += "/" + fullPathSplited[i]; //$NON-NLS-1$
+                    }
+                    fullPath += "/" + relatedSplitedPaths[pathsToRemove]; //$NON-NLS-1$
+                } else {
+                    fullPath += "/" + relativeXpath; //$NON-NLS-1$
                 }
-                fullPath += "/" + relatedSplitedPaths[pathsToRemove]; //$NON-NLS-1$
-            } else {
-                fullPath += "/" + relativeXpath; //$NON-NLS-1$
             }
+
             TreeItem treeItem = treePopulator.getTreeItem(fullPath);
             if (treeItem != null) {
                 ATreeNode curNode = (ATreeNode) treeItem.getData();
@@ -1033,8 +1039,9 @@ public class MdmReceiveForm extends AbstractMDMFileStepForm implements IRefresha
             }
         }
         if (!ConnectionHelper.getTables(getConnection()).contains(metadataTable)) {
-            TdXmlSchema d = (TdXmlSchema) ConnectionHelper.getPackage(((MDMConnection) connectionItem.getConnection())
-                    .getDatacluster(), connectionItem.getConnection(), TdXmlSchema.class);
+            TdXmlSchema d = (TdXmlSchema) ConnectionHelper.getPackage(
+                    ((MDMConnection) connectionItem.getConnection()).getDatacluster(), connectionItem.getConnection(),
+                    TdXmlSchema.class);
             if (d != null) {
                 d.getOwnedElement().add(metadataTable);
             } else {

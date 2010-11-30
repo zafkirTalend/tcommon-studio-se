@@ -21,6 +21,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.talend.core.model.metadata.builder.connection.MdmConceptType;
+import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.repository.mdm.i18n.Messages;
 import org.talend.repository.model.RepositoryNode;
@@ -45,8 +46,8 @@ public class MdmConceptWizardPage1 extends AbstractRetrieveConceptPage {
      * @param title
      * @param titleImage
      */
-    public MdmConceptWizardPage1(RepositoryNode node, ConnectionItem connectionItem, boolean creation) {
-        super(node, connectionItem, creation);
+    public MdmConceptWizardPage1(RepositoryNode node, ConnectionItem connectionItem, MetadataTable metadataTable, boolean creation) {
+        super(node, connectionItem, metadataTable, creation);
         this.setTitle(Messages.getString("MdmConceptWizardPage1_mdm_model")); //$NON-NLS-1$
     }
 

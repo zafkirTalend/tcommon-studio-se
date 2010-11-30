@@ -37,15 +37,19 @@ public abstract class AbstractRetrieveConceptPage extends WizardPage {
 
     protected boolean creation;
 
+    protected MetadataTable metadataTable;
+
     /**
      * DOC talend AbstractRetrieveConceptPage constructor comment.
      * 
      * @param pageName
      */
-    protected AbstractRetrieveConceptPage(RepositoryNode node, ConnectionItem connectionItem, boolean creation) {
+    protected AbstractRetrieveConceptPage(RepositoryNode node, ConnectionItem connectionItem, MetadataTable metadataTable,
+            boolean creation) {
         super(Messages.getString("AbstractRetrieveConceptPage_wizard_page")); //$NON-NLS-1$
         this.node = node;
         this.connectionItem = connectionItem;
+        this.metadataTable = metadataTable;
         this.creation = creation;
     }
 
@@ -64,8 +68,12 @@ public abstract class AbstractRetrieveConceptPage extends WizardPage {
     }
 
     protected Concept getConcept() {
-        if (creation && getConnection().getSchemas().size() > 0) {
-            concept = (Concept) getConnection().getSchemas().get(getConnection().getSchemas().size() - 1);
+        if (getConnection().getSchemas().size() > 0) {
+            if (creation) {
+                concept = (Concept) getConnection().getSchemas().get(getConnection().getSchemas().size() - 1);
+            } else {
+                concept = MDMUtil.getConcept(getConnection(), metadataTable);
+            }
         } else if (node.getObject() instanceof MetadataTableRepositoryObject) {
             MetadataTable table = (MetadataTable) ((MetadataTableRepositoryObject) node.getObject()).getTable();
             concept = MDMUtil.getConcept(getConnection(), MetadataTool.getMetadataTableFromRepository(table.getId()));

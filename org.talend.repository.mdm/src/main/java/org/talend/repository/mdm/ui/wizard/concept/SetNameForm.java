@@ -21,6 +21,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.datatools.connectivity.oda.OdaException;
 import org.eclipse.datatools.enablement.oda.xml.util.ui.ATreeNode;
 import org.eclipse.datatools.enablement.oda.xml.util.ui.SchemaPopulationUtil;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -32,6 +33,7 @@ import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.ui.swt.formtools.LabelledCombo;
 import org.talend.commons.ui.swt.formtools.LabelledText;
 import org.talend.core.model.metadata.builder.connection.Concept;
+import org.talend.core.model.metadata.builder.connection.XMLFileNode;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.repository.mdm.i18n.Messages;
 
@@ -54,6 +56,10 @@ public class SetNameForm extends AbstractMDMFileStepForm {
 
     private Concept concept;
 
+    private boolean creation;
+
+    private boolean firstTime = true;
+
     /**
      * DOC Administrator SetNameForm constructor comment.
      * 
@@ -61,11 +67,13 @@ public class SetNameForm extends AbstractMDMFileStepForm {
      * @param style
      * @param existingNames
      */
-    protected SetNameForm(Composite parent, ConnectionItem connectionItem, Concept concept, String[] existingNames) {
+    protected SetNameForm(Composite parent, ConnectionItem connectionItem, Concept concept, String[] existingNames,
+            boolean creation) {
         super(parent, SWT.NONE, existingNames);
         this.connectionItem = connectionItem;
         this.concept = concept;
         this.existingNames = existingNames;
+        this.creation = creation;
         setupForm(false);
     }
 
@@ -95,12 +103,17 @@ public class SetNameForm extends AbstractMDMFileStepForm {
         GridData gridData = new GridData(GridData.FILL_HORIZONTAL);
         mdmParameterGroup.setLayoutData(gridData);
 
-        entityCombo = new LabelledCombo(mdmParameterGroup, Messages.getString("SetNameForm_entities"), Messages.getString("SetNameForm_select_entity"), new ArrayList<String>(), true); //$NON-NLS-1$ //$NON-NLS-2$
+        entityCombo = new LabelledCombo(
+                mdmParameterGroup,
+                Messages.getString("SetNameForm_entities"), Messages.getString("SetNameForm_select_entity"), new ArrayList<String>(), true); //$NON-NLS-1$ //$NON-NLS-2$
 
         nameText = new LabelledText(mdmParameterGroup, Messages.getString("SetNameForm_name"), true); //$NON-NLS-1$
         checkFieldsValue();
         nameText.forceFocus();
-
+        if (!creation) {
+            entityCombo.setReadOnly(true);
+            nameText.setReadOnly(true);
+        }
     }
 
     /*
@@ -183,8 +196,11 @@ public class SetNameForm extends AbstractMDMFileStepForm {
                     name = name + counter;
                 }
 
-                nameText.setText(name);
-                concept.setLabel(name);
+                if (creation || firstTime != true) {
+                    nameText.setText(name);
+                    concept.setLabel(name);
+                }
+                firstTime = false;
                 checkFieldsValue();
             }
         });
@@ -259,13 +275,27 @@ public class SetNameForm extends AbstractMDMFileStepForm {
                             }
                         }
                         if (entityCombo.getItemCount() > 0) {
-                            entityCombo.select(0);
+                            if (creation) {
+                                entityCombo.select(0);
+                            } else {
+                                int index = getIndex();
+                                entityCombo.select(index);
+                            }
                             selectedEntity = entityCombo.getText();
                         }
-                    } else if (selectedEntity != null) {
+                    } else if (selectedEntity != null && !"".equals(selectedEntity)) {
                         entityCombo.setText(selectedEntity);
                     } else if (entityCombo.getItemCount() > 0) {
-                        entityCombo.select(0);
+                        if (creation) {
+                            entityCombo.select(0);
+                        } else {
+                            int index = getIndex();
+                            entityCombo.select(index);
+                        }
+
+                    }
+                    if (!creation) {
+                        nameText.setText(concept.getLabel());
                     }
                     checkFieldsValue();
                 } else {
@@ -285,6 +315,31 @@ public class SetNameForm extends AbstractMDMFileStepForm {
 
     public String getSelectedEntity() {
         return this.selectedEntity;
+    }
+
+    private int getIndex() {
+        String expression = concept.getLoopExpression();
+
+        if (expression == null) {
+            EList<XMLFileNode> loops = concept.getLoop();
+            if (loops != null && loops.size() > 0) {
+                expression = loops.get(0).getXMLPath();
+            }
+        }
+
+        if (expression != null) {
+            if (expression.contains("/")) {
+                String entity = expression.split("/")[1];
+                String[] entitys = entityCombo.getCombo().getItems();
+                for (int i = 0; i < entitys.length; i++) {
+                    if (entitys[i].equals(entity)) {
+                        return i;
+                    }
+                }
+            }
+        }
+
+        return 0;
     }
 
 }

@@ -26,6 +26,7 @@ import org.eclipse.xsd.impl.XSDSchemaImpl;
 import org.talend.core.model.metadata.builder.connection.Concept;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
+import org.talend.core.model.metadata.builder.connection.XMLFileNode;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
@@ -75,12 +76,19 @@ public class MDMUtil {
             if (obj instanceof Concept) {
                 Concept concept = (Concept) obj;
                 String loopExpression = concept.getLoopExpression();
+                if (loopExpression == null || loopExpression.length() <= 1) {
+                    EList<XMLFileNode> loopList = concept.getLoop();
+                    if (loopList != null && loopList.size() > 0) {
+                        loopExpression = loopList.get(0).getXMLPath();
+                    }
+                }
                 if (loopExpression != null && loopExpression.length() > 1) {
-                    String entityName = loopExpression.substring(1, loopExpression.length());
+                    String entityName = loopExpression.split("/")[1];// substring(1, loopExpression.length());
                     if (entityName.equals(table.getSourceName())) {
                         return concept;
                     }
                 }
+
             }
         }
 

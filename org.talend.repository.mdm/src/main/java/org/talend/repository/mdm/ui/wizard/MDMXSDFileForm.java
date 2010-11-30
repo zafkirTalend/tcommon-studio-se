@@ -26,8 +26,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.xml.rpc.soap.SOAPFaultException;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.CoreException;
@@ -650,8 +648,8 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
             // if the checkbox is checked, check Numeric value
             if (labelledCheckboxCombo.getCheckbox().getSelection()) {
                 if (labelledCheckboxCombo.getText() == "") { //$NON-NLS-1$
-                    updateStatus(IStatus.ERROR, labelledCheckboxCombo.getLabelText()
-                            + Messages.getString("FileStep2.mustBePrecised")); //$NON-NLS-1$
+                    updateStatus(IStatus.ERROR,
+                            labelledCheckboxCombo.getLabelText() + Messages.getString("FileStep2.mustBePrecised")); //$NON-NLS-1$
                     return false;
                 }
             }
@@ -975,18 +973,21 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
                 fullPath = TalendTextUtils.removeQuotes(ConnectionContextHelper.getOriginalValue(contextType, fullPath));
             }
             // adapt relative path
-            String[] relatedSplitedPaths = relativeXpath.split("\\.\\./"); //$NON-NLS-1$
-            if (relatedSplitedPaths.length > 1) {
-                int pathsToRemove = relatedSplitedPaths.length - 1;
-                String[] fullPathSplited = fullPath.split("/"); //$NON-NLS-1$
-                fullPath = ""; //$NON-NLS-1$
-                for (int i = 1; i < (fullPathSplited.length - pathsToRemove); i++) {
-                    fullPath += "/" + fullPathSplited[i]; //$NON-NLS-1$
+            if (relativeXpath != null) {
+                String[] relatedSplitedPaths = relativeXpath.split("\\.\\./"); //$NON-NLS-1$
+                if (relatedSplitedPaths.length > 1) {
+                    int pathsToRemove = relatedSplitedPaths.length - 1;
+                    String[] fullPathSplited = fullPath.split("/"); //$NON-NLS-1$
+                    fullPath = ""; //$NON-NLS-1$
+                    for (int i = 1; i < (fullPathSplited.length - pathsToRemove); i++) {
+                        fullPath += "/" + fullPathSplited[i]; //$NON-NLS-1$
+                    }
+                    fullPath += "/" + relatedSplitedPaths[pathsToRemove]; //$NON-NLS-1$
+                } else {
+                    fullPath += "/" + relativeXpath; //$NON-NLS-1$
                 }
-                fullPath += "/" + relatedSplitedPaths[pathsToRemove]; //$NON-NLS-1$
-            } else {
-                fullPath += "/" + relativeXpath; //$NON-NLS-1$
             }
+
             TreeItem treeItem = treePopulator.getTreeItem(fullPath);
             if (treeItem != null) {
                 ATreeNode curNode = (ATreeNode) treeItem.getData();
@@ -1010,8 +1011,9 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
         // getConnection().getTables().add(metadataTable);
         // }
         if (!ConnectionHelper.getTables(getConnection()).contains(metadataTable)) {
-            TdXmlSchema d = (TdXmlSchema) ConnectionHelper.getPackage(((MDMConnection) connectionItem.getConnection())
-                    .getDatacluster(), connectionItem.getConnection(), TdXmlSchema.class);
+            TdXmlSchema d = (TdXmlSchema) ConnectionHelper.getPackage(
+                    ((MDMConnection) connectionItem.getConnection()).getDatacluster(), connectionItem.getConnection(),
+                    TdXmlSchema.class);
             if (d != null) {
                 d.getOwnedElement().add(metadataTable);
             } else {

@@ -90,6 +90,7 @@ import org.talend.repository.ui.wizards.metadata.connection.files.xml.buttons.Ad
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.buttons.MoveDownTreeNodeButton;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.buttons.MoveUpTreeNodeButton;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.buttons.RemoveTreeNodeButton;
+import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.Attribute;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.Element;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.FOXTreeNode;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.NameSpaceNode;
@@ -185,6 +186,9 @@ public class MDMOutputSchemaForm extends AbstractMDMFileStepForm {
     }
 
     private void initSchemaTable() {
+        if (!creation && this.metadataTable != null) {
+            tempMetadataTable = this.metadataTable;
+        }
         if (tempMetadataTable == null) {
             tempMetadataTable = ConnectionFactory.eINSTANCE.createMetadataTable();
             IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
@@ -561,7 +565,13 @@ public class MDMOutputSchemaForm extends AbstractMDMFileStepForm {
     }
 
     private IMetadataColumn getColumn(String columnName) {
-        EList columns = ConnectionHelper.getTables(getConnection()).toArray(new MetadataTable[0])[0].getColumns();
+        EList columns = null;
+        if (creation) {
+            columns = ConnectionHelper.getTables(getConnection()).toArray(new MetadataTable[0])[0].getColumns();
+        } else {
+            columns = this.metadataTable.getColumns();
+        }
+
         for (int i = 0; i < columns.size(); i++) {
             MetadataColumn column = (MetadataColumn) columns.get(i);
             if (column.getLabel().equals(columnName)) {
@@ -573,10 +583,200 @@ public class MDMOutputSchemaForm extends AbstractMDMFileStepForm {
 
     private void initXmlTreeData(String selectedEntity) {
         treeData.clear();
-        if (selectedEntity != null && xsdFilePath != null) {
+        if (creation && selectedEntity != null && xsdFilePath != null) {
             treeData = TreeUtil.getFoxTreeNodes(xsdFilePath, selectedEntity);
+        } else if (!creation && concept != null) {
+            treeData.clear();
+            // metadataColumnList.clear();
+            EList root = concept.getRoot();
+            EList loop = concept.getLoop();
+            EList group = concept.getGroup();
+            // initialMetadataColumn();
+
+            FOXTreeNode rootNode = null;
+            FOXTreeNode current = null;
+            FOXTreeNode temp = null;
+            FOXTreeNode mainNode = null;
+            String mainPath = null;
+            String currentPath = null;
+            String defaultValue = null;
+            int nodeOrder = 0;
+            boolean haveOrder = true;
+
+            // build root tree
+            for (int i = 0; i < root.size(); i++) {
+                XMLFileNode node = (XMLFileNode) root.get(i);
+                String newPath = node.getXMLPath();
+                defaultValue = node.getDefaultValue();
+                String type = node.getType();
+                String orderValue = String.valueOf(node.getOrder());
+                if (orderValue == null || "".equals(orderValue)) {
+                    haveOrder = false;
+                }
+                if (haveOrder) {
+                    nodeOrder = node.getOrder();
+                }
+                if (node.getAttribute().equals("attri")) {
+                    temp = new Attribute(newPath);
+                    temp.setDefaultValue(defaultValue);
+                    temp.setAttribute(true);
+                    temp.setDataType(type);
+                    current.addChild(temp);
+                } else if (node.getAttribute().equals("ns")) {
+                    temp = new NameSpaceNode(newPath);
+                    temp.setDefaultValue(defaultValue);
+                    temp.setNameSpace(true);
+                    temp.setDataType(type);
+                    current.addChild(temp);
+                } else {
+                    temp = this.addElement(current, currentPath, newPath, defaultValue);
+                    temp.setDataType(type);
+                    if (rootNode == null) {
+                        rootNode = temp;
+                    }
+                    if (node.getAttribute().equals("main")) {
+                        temp.setMain(true);
+                        mainNode = temp;
+                        mainPath = newPath;
+                    }
+                    current = temp;
+                    currentPath = newPath;
+                }
+                if (haveOrder) {
+                    temp.setOrder(nodeOrder);
+                }
+                String columnName = node.getRelatedColumn();
+                if (columnName != null && columnName.length() > 0) {
+                    temp.setColumn(getColumn(columnName));
+                }
+            }
+
+            // build group tree
+            current = mainNode;
+            currentPath = mainPath;
+            boolean isFirst = true;
+            for (int i = 0; i < group.size(); i++) {
+                XMLFileNode node = (XMLFileNode) group.get(i);
+                String newPath = node.getXMLPath();
+                defaultValue = node.getDefaultValue();
+                String type = node.getType();
+                String orderValue = String.valueOf(node.getOrder());
+                if (orderValue == null || "".equals(orderValue)) {
+                    haveOrder = false;
+                }
+                if (haveOrder) {
+                    nodeOrder = node.getOrder();
+                }
+                if (node.getAttribute().equals("attri")) {
+                    temp = new Attribute(newPath);
+                    temp.setDefaultValue(defaultValue);
+                    temp.setAttribute(true);
+                    temp.setDataType(type);
+                    current.addChild(temp);
+                } else if (node.getAttribute().equals("ns")) {
+                    temp = new NameSpaceNode(newPath);
+                    temp.setDefaultValue(defaultValue);
+                    temp.setNameSpace(true);
+                    temp.setDataType(type);
+                    current.addChild(temp);
+                } else {
+                    temp = this.addElement(current, currentPath, newPath, defaultValue);
+                    temp.setDataType(type);
+                    if (node.getAttribute().equals("main")) {
+                        temp.setMain(true);
+                        mainNode = temp;
+                        mainPath = newPath;
+                    }
+                    if (isFirst) {
+                        temp.setGroup(true);
+                        isFirst = false;
+                    }
+                    current = temp;
+                    currentPath = newPath;
+                }
+                if (haveOrder) {
+                    temp.setOrder(nodeOrder);
+                }
+                String columnName = node.getRelatedColumn();
+                if (columnName != null && columnName.length() > 0) {
+                    temp.setColumn(getColumn(columnName));
+                }
+            }
+
+            // build loop tree
+            current = mainNode;
+            currentPath = mainPath;
+            isFirst = true;
+            for (int i = 0; i < loop.size(); i++) {
+                XMLFileNode node = (XMLFileNode) loop.get(i);
+                String newPath = node.getXMLPath();
+                defaultValue = node.getDefaultValue();
+                String type = node.getType();
+                String orderValue = String.valueOf(node.getOrder());
+                if (orderValue == null || "".equals(orderValue)) {
+                    haveOrder = false;
+                }
+                if (haveOrder) {
+                    nodeOrder = node.getOrder();
+                }
+                if (node.getAttribute().equals("attri")) {
+                    temp = new Attribute(newPath);
+                    temp.setDefaultValue(defaultValue);
+                    temp.setAttribute(true);
+                    temp.setDataType(type);
+                    temp.setDataType(type);
+                    current.addChild(temp);
+                } else if (node.getAttribute().equals("ns")) {
+                    temp = new NameSpaceNode(newPath);
+                    temp.setDefaultValue(defaultValue);
+                    temp.setNameSpace(true);
+                    temp.setDataType(type);
+                    current.addChild(temp);
+                } else {
+                    temp = this.addElement(current, currentPath, newPath, defaultValue);
+                    temp.setDataType(type);
+                    if (node.getAttribute().equals("main")) {
+                        temp.setMain(true);
+                        mainNode = temp;
+                        mainPath = newPath;
+                    }
+                    if (isFirst) {
+                        temp.setLoop(true);
+                        isFirst = false;
+                    }
+                    current = temp;
+                    currentPath = newPath;
+                }
+                if (haveOrder) {
+                    temp.setOrder(nodeOrder);
+                }
+                String columnName = node.getRelatedColumn();
+                if (columnName != null && columnName.length() > 0) {
+                    temp.setColumn(getColumn(columnName));
+                }
+            }
+
+            if (rootNode == null) {
+                rootNode = new Element("rootTag");
+            }
+            rootNode.setParent(null);
+            if (haveOrder) {
+                orderNode(rootNode);
+            }
+            treeData.add(rootNode);
         }
 
+    }
+
+    private List<FOXTreeNode> getAllTreeNodes(FOXTreeNode treeNode) {
+        List<FOXTreeNode> treeNodes = new ArrayList<FOXTreeNode>();
+        for (FOXTreeNode node : treeNode.getChildren()) {
+            if (node.getChildren().size() > 0) {
+                treeNodes.addAll(getAllTreeNodes(node));
+            }
+            treeNodes.add(node);
+        }
+        return treeNodes;
     }
 
     public MetadataTable getMetadataTable() {
@@ -844,7 +1044,8 @@ public class MDMOutputSchemaForm extends AbstractMDMFileStepForm {
                 text.setBackground(text.getDisplay().getSystemColor(SWT.COLOR_RED));
                 if (showAlertIfError) {
                     text.setText(selectedText);
-                    MessageDialog.openError(text.getShell(), Messages.getString("MDMOutputSchemaForm_invalid_label"), errorMessage); //$NON-NLS-1$
+                    MessageDialog.openError(text.getShell(),
+                            Messages.getString("MDMOutputSchemaForm_invalid_label"), errorMessage); //$NON-NLS-1$
                 }
             }
         }
@@ -872,8 +1073,9 @@ public class MDMOutputSchemaForm extends AbstractMDMFileStepForm {
         // getConnection().getTables().add(metadataTable);
         // }
         if (!ConnectionHelper.getTables(getConnection()).contains(metadataTable)) {
-            TdXmlSchema d = (TdXmlSchema) ConnectionHelper.getPackage(((MDMConnection) connectionItem.getConnection())
-                    .getDatacluster(), connectionItem.getConnection(), TdXmlSchema.class);
+            TdXmlSchema d = (TdXmlSchema) ConnectionHelper.getPackage(
+                    ((MDMConnection) connectionItem.getConnection()).getDatacluster(), connectionItem.getConnection(),
+                    TdXmlSchema.class);
             if (d != null) {
                 d.getOwnedElement().add(metadataTable);
             } else {
@@ -884,6 +1086,20 @@ public class MDMOutputSchemaForm extends AbstractMDMFileStepForm {
             }
             // ConnectionHelper.getTables(getConnection()).add(metadataTable);
         }
+
+        if (metadataTable.getSourceName() == null) {
+            EList<XMLFileNode> loopList = this.concept.getLoop();
+            if (loopList != null && loopList.size() > 0) {
+                String fullPath = loopList.get(0).getXMLPath();
+                if (fullPath.contains("/")) {
+                    String source = fullPath.split("/")[1]; //$NON-NLS-1$ 
+                    metadataTable.setSourceName(source);
+                } else {
+                    metadataTable.setSourceName(fullPath);
+                }
+            }
+        }
+
     }
 
     @Override
