@@ -9,8 +9,7 @@ Require-Bundle: org.eclipse.ui.views.properties.tabbed,
  org.eclipse.emf.ecore.xmi,
  org.talend.core.repository,
  org.talend.core.runtime,
- org.talend.model,
- org.talend.common.ui.runtime
+ org.talend.model
 Eclipse-LazyStart: true
 Bundle-Vendor: .Talend SA.
 Export-Package: org.talend.repository.localprovider.model
