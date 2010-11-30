@@ -98,4 +98,8 @@ public class Timer {
     public void clear() {
         times.clear();
     }
+
+    public long getLastTime() {
+        return timeDelta;
+    }
 }
