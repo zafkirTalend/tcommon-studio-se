@@ -608,35 +608,6 @@ public class ExtractMetaDataFromDataBase {
 
                     metadataColumn.setTalendType(talendType);
                     // for bug 13078
-                    if (isMSSQL && metadataColumn.isKey() && "INT IDENTITY".equals(dbType)) {
-                        Integer ident = 0;
-                        try {
-                            PreparedStatement statement = ExtractMetaDataUtils.conn.prepareStatement(" select IDENT_INCR ( '" //$NON-NLS-1$
-                                    + medataTable.getLabel() + "')"); //$NON-NLS-1$ //$NON-NLS-2$
-                            ResultSet resultSet = null;
-                            ExtractMetaDataUtils.setQueryStatementTimeout(statement);
-                            if (statement.execute()) {
-                                resultSet = statement.getResultSet();
-                                while (resultSet.next()) {
-                                    String st = resultSet.getString(1);
-                                    Integer valueOf = Integer.valueOf(st);
-                                    if (valueOf != null) {
-                                        ident = valueOf;
-                                    }
-
-                                }
-                            }
-                            resultSet.close();
-                            statement.close();
-
-                        } catch (Exception e) {
-                            log.error(e.toString());
-                        }
-
-                        metadataColumn.setPrecision(ident); //$NON-NLS-1$
-                    } else {
-                        metadataColumn.setPrecision(intMetaDataInfo); //$NON-NLS-1$
-                    }
 
                     boolean isNullable = ExtractMetaDataUtils.getBooleanMetaDataInfo(columns, "IS_NULLABLE"); //$NON-NLS-1$ 
                     metadataColumn.setNullable(isNullable);
@@ -660,8 +631,49 @@ public class ExtractMetaDataFromDataBase {
                         TDColumnAttributeHelper.addColumnAttribute(label, dbType, columnSize, intMetaDataInfo, commentInfo,
                                 columns, metadataColumn, (DatabaseConnection) metadataConnection.getCurrentConnection());// columnName,
                     }
-                    metadataColumns.add(metadataColumn);
 
+                    if (isMSSQL && "INT IDENTITY".equals(dbType)) { //$NON-NLS-1$  // && metadataColumn.isKey()
+
+                        // for MSSQL bug16852
+                        // get inent_seed get_incr for schema's length, precision.
+                        Integer ident1 = 0;
+                        Integer ident2 = 0;
+                        try {
+                            PreparedStatement statement = ExtractMetaDataUtils.conn
+                                    .prepareStatement(" select IDENT_SEED ( '" + medataTable.getLabel() + "')," + "IDENT_INCR ( '" //$NON-NLS-N$ //$NON-NLS-N$ //$NON-NLS-N$
+                                            + medataTable.getLabel() + "')"); //$NON-NLS-1$ 
+                            ResultSet resultSet = null;
+                            ExtractMetaDataUtils.setQueryStatementTimeout(statement);
+                            if (statement.execute()) {
+                                resultSet = statement.getResultSet();
+                                while (resultSet.next()) {
+                                    String st1 = resultSet.getString(1);
+                                    String st2 = resultSet.getString(2);
+                                    Integer valueOf1 = Integer.valueOf(st1);
+                                    if (valueOf1 != null) {
+                                        ident1 = valueOf1;
+                                    }
+                                    Integer valueOf2 = Integer.valueOf(st2);
+                                    if (valueOf2 != null) {
+                                        ident2 = valueOf2;
+                                    }
+
+                                }
+                            }
+                            resultSet.close();
+                            statement.close();
+
+                        } catch (Exception e) {
+                            log.error(e.toString());
+                        }
+
+                        metadataColumn.setLength(ident1);
+                        metadataColumn.setPrecision(ident2);
+                    } else {
+                        metadataColumn.setPrecision(intMetaDataInfo);
+                    }
+
+                    metadataColumns.add(metadataColumn);
                     // cantoine : patch to fix 0x0 pb cause by Bad Schema
                     // description
                     String stringMetaDataInfo = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "COLUMN_DEF", dbMetaData); //$NON-NLS-1$
@@ -1114,7 +1126,7 @@ public class ExtractMetaDataFromDataBase {
         if (EDatabaseTypeName.ORACLEFORSID.getProduct().equals(iMetadataConnection.getProduct())) {
             filterTablesFromRecycleBin(itemTablesName);
         }
-         ExtractMetaDataUtils.closeConnection();
+        ExtractMetaDataUtils.closeConnection();
         // for buy 15042
         DriverShim wapperDriver = null;
         if (connList != null && connList.size() > 0) {
@@ -1134,7 +1146,7 @@ public class ExtractMetaDataFromDataBase {
                 // exception of shutdown success. no need to catch.
             }
         }
-        
+
         filterTablesName = itemTablesName;
         return itemTablesName;
     }
