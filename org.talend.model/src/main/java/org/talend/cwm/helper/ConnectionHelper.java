@@ -23,6 +23,7 @@ import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.talend.commons.utils.VersionUtils;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
@@ -75,6 +76,7 @@ public class ConnectionHelper {
     public static MDMConnection createMDMConnection(String name) {
         MDMConnection provider = ConnectionFactory.eINSTANCE.createMDMConnection();
         provider.setName(name);
+        provider.setLabel(name);
         return provider;
     }
 
@@ -469,17 +471,27 @@ public class ConnectionHelper {
     }
 
     /**
-     * DOC zshen Comment method "getDataFilter".
+     * zshen Comment method "getDataFilter".
      * 
-     * @param element
-     * @return
+     * @param element the connection which contain dataFilter tag.It should be a MdmConnection.
+     * @return the value of datafilter tag.empty string will be return when the element havn't contain datafilter tag.
      */
-    public static String getDataFilter(Connection element) {
+    public static String getDataFilter(MDMConnection element) {
         TaggedValue taggedValue = TaggedValueHelper.getTaggedValue(TaggedValueHelper.DATA_FILTER, element.getTaggedValue());
         if (taggedValue == null) {
             return "";
         }
         return taggedValue.getValue();
+    }
+
+    /**
+     * zshen Comment method "getDataFilter".
+     * 
+     * @param element the connection which contain dataFilter tag.It should be a MdmConnection.
+     * @return the value of datafilter tag.empty string will be return when the element havn't contain datafilter tag.
+     */
+    public static void setDataFilter(String datafilter, MDMConnection element) {
+        TaggedValueHelper.setTaggedValue(element, TaggedValueHelper.DATA_FILTER, datafilter);
     }
 
     /**
@@ -669,6 +681,242 @@ public class ConnectionHelper {
     public static String getEncryptPassword(String password) {
         CryptoHelper cryptoHelper = new CryptoHelper(ConnectionHelper.PASSPHRASE);
         return cryptoHelper.encrypt(password);
+    }
+
+
+    /**
+     * DOC bZhou Comment method "setAuthor".
+     * 
+     * @param element
+     * @param author
+     * @return
+     */
+    public static boolean setAuthor(String author, ModelElement element) {
+        return TaggedValueHelper.setTaggedValue(element, TaggedValueHelper.AUTHOR, author);
+    }
+
+    /**
+     * DOC bZhou Comment method "getAuthor".
+     * 
+     * @param element
+     * @return
+     */
+    public static String getAuthor(ModelElement element) {
+        TaggedValue tv = TaggedValueHelper.getTaggedValue(TaggedValueHelper.AUTHOR, element.getTaggedValue());
+        if (tv == null) {
+            return "";//$NON-NLS-1$
+        }
+        return tv.getValue();
+    }
+
+    /**
+     * Method "setDevStatus" sets the development status of the given element.
+     * 
+     * @param element
+     * @param status the state to set.
+     * @return
+     */
+    public static boolean setDevStatus(String statusLabel, ModelElement element) {
+        // MOD mzhao feature 7479 2009-10-16
+        if (statusLabel == null) {
+            return false;
+        }
+        return TaggedValueHelper.setTaggedValue(element, TaggedValueHelper.DEV_STATUS, statusLabel);
+    }
+
+    /**
+     * Method "setVersion" sets the version of the given element.
+     * 
+     * @param version the version to set
+     * @param element the element
+     * @return true if the value was not set before.
+     */
+    public static boolean setVersion(String version, ModelElement element) {
+        String statusStr = String.valueOf(version);
+        return TaggedValueHelper.setTaggedValue(element, TaggedValueHelper.VERSION, statusStr);
+    }
+
+    /**
+     * Method "getVersion".
+     * 
+     * @param element
+     * @return the version of the element
+     */
+    public static String getVersion(ModelElement element) {
+        TaggedValue tv = TaggedValueHelper.getTaggedValue(TaggedValueHelper.VERSION, element.getTaggedValue());
+        if (tv == null) {
+            return VersionUtils.DEFAULT_VERSION;
+        }
+        return tv.getValue();
+    }
+
+    /**
+     * Method "setPurpose".
+     * 
+     * @param purpose the purpose to set or create
+     * @param element a CWM element
+     */
+    public static void setPurpose(String purpose, ModelElement element) {
+        TaggedValueHelper.setTaggedValue(element, TaggedValueHelper.PURPOSE, purpose);
+    }
+
+    /**
+     * Method "getPurpose".
+     * 
+     * @param element a CWM element
+     * @return the purpose or null
+     */
+    public static String getPurpose(ModelElement element) {
+        TaggedValue tv = TaggedValueHelper.getTaggedValue(TaggedValueHelper.PURPOSE, element.getTaggedValue());
+        if (tv == null) {
+            return "";//$NON-NLS-1$
+        }
+        return tv.getValue();
+    }
+
+    /**
+     * DOC bZhou Comment method "getDescription".
+     * 
+     * @param element
+     * @return
+     */
+    public static String getDescription(ModelElement element) {
+        TaggedValue tv = TaggedValueHelper.getTaggedValue(TaggedValueHelper.DESCRIPTION, element.getTaggedValue());
+        if (tv == null) {
+            return "";//$NON-NLS-1$
+        }
+        return tv.getValue();
+    }
+
+    /**
+     * DOC bZhou Comment method "setDescription".
+     * 
+     * @param description
+     * @param element
+     * @return
+     */
+    public static boolean setDescription(String description, ModelElement element) {
+        return TaggedValueHelper.setTaggedValue(element, TaggedValueHelper.DESCRIPTION, description);
+    }
+
+    /**
+     * DOC xqliu Comment method "setServerName".
+     * 
+     * @param conn
+     * @param serverName
+     */
+    public static void setServerName(Connection conn, String serverName) {
+        DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
+        if (dbConn != null) {
+            dbConn.setServerName(serverName);
+        }
+        MDMConnection mdmConn = SwitchHelpers.MDMCONNECTION_SWITCH.doSwitch(conn);
+        if (mdmConn != null) {
+            mdmConn.setServer(serverName);
+        }
+    }
+
+    /**
+     * DOC xqliu Comment method "setPort".
+     * 
+     * @param conn
+     * @param port
+     */
+    public static void setPort(Connection conn, String port) {
+        DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
+        if (dbConn != null) {
+            dbConn.setPort(port);
+        }
+        MDMConnection mdmConn = SwitchHelpers.MDMCONNECTION_SWITCH.doSwitch(conn);
+        if (mdmConn != null) {
+            mdmConn.setPort(port);
+        }
+    }
+
+    /**
+     * DOC xqliu Comment method "setSID".
+     * 
+     * @param conn
+     * @param sid
+     */
+    public static void setSID(Connection conn, String sid) {
+        DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
+        if (dbConn != null) {
+            dbConn.setSID(sid);
+        }
+        MDMConnection mdmConn = SwitchHelpers.MDMCONNECTION_SWITCH.doSwitch(conn);
+        if (mdmConn != null) {
+            mdmConn.setContext(sid);
+        }
+    }
+
+    /**
+     * DOC xqliu Comment method "setURL".
+     * 
+     * @param conn
+     * @param url
+     */
+    public static void setURL(Connection conn, String url) {
+        DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
+        if (dbConn != null) {
+            dbConn.setURL(url);
+        }
+        MDMConnection mdmConn = SwitchHelpers.MDMCONNECTION_SWITCH.doSwitch(conn);
+        if (mdmConn != null) {
+            mdmConn.setPathname(url);
+        }
+    }
+
+    /**
+     * DOC xqliu Comment method "setUsername".
+     * 
+     * @param conn
+     * @param username
+     */
+    public static void setUsername(Connection conn, String username) {
+        DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
+        if (dbConn != null) {
+            dbConn.setUsername(username);
+        }
+        MDMConnection mdmConn = SwitchHelpers.MDMCONNECTION_SWITCH.doSwitch(conn);
+        if (mdmConn != null) {
+            mdmConn.setUsername(username);
+        }
+    }
+
+    /**
+     * DOC xqliu Comment method "setPassword".
+     * 
+     * @param conn
+     * @param password
+     */
+    public static void setPassword(Connection conn, String password) {
+        DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
+        if (dbConn != null) {
+            dbConn.setPassword(ConnectionHelper.getEncryptPassword(password));
+        }
+        MDMConnection mdmConn = SwitchHelpers.MDMCONNECTION_SWITCH.doSwitch(conn);
+        if (mdmConn != null) {
+            mdmConn.setPassword(ConnectionHelper.getEncryptPassword(password));
+        }
+    }
+
+    /**
+     * zshen Comment method "getPassword".
+     * 
+     * @param conn
+     * @param password
+     */
+    public static String getPassword(Connection conn) {
+        DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
+        if (dbConn != null) {
+            return dbConn.getPassword();
+        }
+        MDMConnection mdmConn = SwitchHelpers.MDMCONNECTION_SWITCH.doSwitch(conn);
+        if (mdmConn != null) {
+            return mdmConn.getPassword();
+        }
+        return null;
     }
 
 }

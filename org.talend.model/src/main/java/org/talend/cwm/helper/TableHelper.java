@@ -196,7 +196,7 @@ public final class TableHelper extends SubItemHelper {
      * 
      * @param table
      * @param primaryKeys the primary keys of the table.
-     * @deprecated caus there can only be one PrimaryKey and only on tables, so use addPrimaryKey instead
+     * @deprecated because there can only be one PrimaryKey on same one table, so use addPrimaryKey instead
      */
     public static void addPrimaryKeys(ColumnSet table, List<PrimaryKey> primaryKeys) {
         assert table != null;

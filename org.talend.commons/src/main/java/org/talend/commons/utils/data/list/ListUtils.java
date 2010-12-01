@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.commons.utils.data.list;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -39,6 +41,14 @@ public final class ListUtils {
         int indexObject2 = list.indexOf(object2);
         list.set(indexObject2, object1);
         list.set(indexObject1, object2);
+    }
+
+    public static <T> List<T> castList(Class<? extends T> clazz, Collection<?> c) {
+        List<T> r = new ArrayList<T>(c.size());
+        for (Object o : c) {
+            r.add(clazz.cast(o));
+        }
+        return r;
     }
 
 }

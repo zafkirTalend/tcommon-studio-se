@@ -169,6 +169,18 @@ public final class PackageHelper {
     }
 
     /**
+     * the the package that hold the table if any or null.
+     * 
+     * @param element never null
+     * @return the Catalog or of Schema or null
+     */
+    public static Package getParentPackage(Package subpackge) {
+        assert subpackge != null;
+        Namespace namespace = subpackge.getNamespace();
+        return PackageHelper.getCatalogOrSchema(namespace);
+    }
+
+    /**
      * This returs the table from this package and all the owned package of this package.
      * 
      * @param pack the package to look for table and sub packages (never null)

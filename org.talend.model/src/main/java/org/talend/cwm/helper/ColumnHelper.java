@@ -70,6 +70,7 @@ public final class ColumnHelper {
     public static TdColumn createTdColumn(String name) {
         TdColumn column = RelationalFactory.eINSTANCE.createTdColumn();
         column.setName(name);
+        column.setLabel(name);
         return column;
     }
 

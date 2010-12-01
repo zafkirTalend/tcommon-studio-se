@@ -128,4 +128,44 @@ public interface IMetadataConnection extends IMetadata {
 
     public void setCurrentConnection(Object dbconn);
 
+    public String getDatafilter();
+
+    public void setDatafilter(String datafilter);
+
+    public String getUniverse();
+
+    public void setUniverse(String universe);
+
+    public boolean isRetrieveAllMetadata();
+
+    public void setRetrieveAllMetadata(boolean retrieveAllMetadata);
+
+    public String getPurpose();
+
+    public void setPurpose(String purpose);
+
+    public String getDescription();
+
+    public void setDescription(String description);
+
+    public String getStatus();
+
+    public void setStatus(String status);
+
+    public String getVersion();
+
+    public void setVersion(String version);
+
+    public String getAuthor();
+
+    public void setAuthor(String author);
+
+    public String getOtherParameter();
+
+    public void setOtherParameter(String otherParameter);
+
+    public String getDbName();
+
+    public void setDbName(String dbName);
+
 }
