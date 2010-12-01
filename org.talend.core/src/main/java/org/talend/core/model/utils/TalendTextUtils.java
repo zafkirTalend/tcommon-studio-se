@@ -219,7 +219,7 @@ public class TalendTextUtils {
         if (string.length() > LINE_MAX_NUM) {
             String substring = string.substring(0, LINE_MAX_NUM);
             substring = substring.substring(0, getLastWord(string, substring, quoteStyle));
-            after += substring + "\n"; //$NON-NLS-1$
+            after += substring + "\"+\n\""; //$NON-NLS-1$
             after += getAfterString(quoteStyle, string.substring(substring.length()));
         } else {
             after += string;
