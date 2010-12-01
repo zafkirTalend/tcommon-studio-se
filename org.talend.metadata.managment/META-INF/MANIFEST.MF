@@ -11,7 +11,8 @@ Require-Bundle: org.eclipse.ui,
  org.talend.core.repository,
  org.talend.utils
 Bundle-ActivationPolicy: lazy
-Export-Package: org.talend.core.database,
+Export-Package: org.apache.axis.client,
+ org.talend.core.database,
  org.talend.core.database.conn,
  org.talend.core.database.conn.template,
  org.talend.core.database.conn.version,
@@ -21,7 +22,13 @@ Export-Package: org.talend.core.database,
  org.talend.core.model.metadata.builder,
  org.talend.core.model.metadata.builder.database,
  org.talend.core.model.metadata.builder.util,
- org.talend.core.model.metadata.types
+ org.talend.core.model.metadata.types,
+ org.talend.mdm.webservice
+Bundle-ClassPath: .,
+ lib/mdm_webservice.jar,
+ lib/axis.jar,
+ lib/commons-discovery-0.2.jar,
+ lib/wsdl4j-1.5.1.jar
 
 
 

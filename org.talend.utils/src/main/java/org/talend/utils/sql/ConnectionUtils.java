@@ -58,6 +58,29 @@ public final class ConnectionUtils {
     }
 
     /**
+     * 
+     * zshen Method "createConnection".
+     * 
+     * @param url the database url
+     * @param driver Driver of database and can't be null
+     * @param props properties passed to the driver manager for getting the connection (normally at least a "user" and
+     * "password" property should be included)
+     * @return the connection,it is can be null when the driver is null
+     * @throws SQLException
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     * @throws ClassNotFoundException
+     */
+    public static Connection createConnection(String url, Driver driver, Properties props) throws SQLException,
+            InstantiationException, IllegalAccessException, ClassNotFoundException {
+        Connection connection = null;
+        if (driver != null) {
+            connection = driver.connect(url, props);
+        }
+        return connection;
+    }
+
+    /**
      * Method "isValid".
      * 
      * @param connection the connection to test

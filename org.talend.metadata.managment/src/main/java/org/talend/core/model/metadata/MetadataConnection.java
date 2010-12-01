@@ -69,6 +69,36 @@ public class MetadataConnection implements IMetadataConnection {
 
     private boolean sqlMode;
 
+
+    // MOD by zshen for mdmConnection of top
+    private String datafilter;
+
+    private String universe;
+
+    // ~
+
+    // MOD by zshen for DatabaseConnection of top
+    private boolean retrieveAllMetadata;
+
+    private String purpose;
+
+    private String description;
+
+    private String status;
+
+    private String version;
+
+    private String author;
+
+    private String otherParameter;
+
+    private String dbName;
+
+    // ~
+
+
+
+
     private String comment;
 
     private String id;
@@ -76,6 +106,8 @@ public class MetadataConnection implements IMetadataConnection {
     private String label;
 
     private Object connection;
+
+
 
     public boolean isSqlMode() {
         return this.sqlMode;
@@ -534,6 +566,32 @@ public class MetadataConnection implements IMetadataConnection {
         return label;
     }
 
+
+    public String getDatafilter() {
+        return datafilter;
+    }
+
+    public void setDatafilter(String datafilter) {
+        this.datafilter = datafilter;
+    }
+
+    public String getUniverse() {
+        return universe;
+    }
+
+    public void setUniverse(String universe) {
+        this.universe = universe;
+    }
+
+    public boolean isRetrieveAllMetadata() {
+        return retrieveAllMetadata;
+    }
+
+    public void setRetrieveAllMetadata(boolean retrieveAllMetadata) {
+        this.retrieveAllMetadata = retrieveAllMetadata;
+    }
+
+
     public void setId(String id) {
         this.id = id;
     }
@@ -549,4 +607,61 @@ public class MetadataConnection implements IMetadataConnection {
     public void setCurrentConnection(Object dbconn) {
         this.connection = dbconn;
     }
+
+    public String getPurpose() {
+        return purpose;
+    }
+
+    public void setPurpose(String purpose) {
+        this.purpose = purpose;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getOtherParameter() {
+        return otherParameter;
+    }
+
+    public void setOtherParameter(String otherParameter) {
+        this.otherParameter = otherParameter;
+    }
+
+    public String getDbName() {
+        return dbName;
+    }
+
+    public void setDbName(String dbName) {
+        this.dbName = dbName;
+    }
+
 }
