@@ -335,7 +335,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
     }
 
     @Override
-    public List<TdTable> fillTables(Package pack, DatabaseMetaData dbJDBCMetadata, List<String> tableFilter, String tablePattern) {
+    public List<TdTable> fillTables(Package pack, DatabaseMetaData dbJDBCMetadata, List<String> tableFilter, String tablePattern,
+            String[] tableType) {
         List<TdTable> tableList = new ArrayList<TdTable>();
         if (dbJDBCMetadata == null) {
             return null;
@@ -344,7 +345,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         String catalogName = null;
         String schemaPattern = null;
 
-        String[] tableType = new String[] { TableType.TABLE.toString() };
+        // String[] tableType = new String[] { TableType.TABLE.toString() };
         if (catalogOrSchema != null) {
             // catalog
             if (catalogOrSchema instanceof Catalog) {
@@ -356,10 +357,17 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             }
         }
         try {
-
+            
             ResultSet tables = dbJDBCMetadata.getTables(catalogName, schemaPattern, tablePattern, tableType);
             String productName = dbJDBCMetadata.getDatabaseProductName();
             while (tables.next()) {
+                // if TableType is view type don't create it at here.
+                String temptableType = tables.getString(GetTable.TABLE_TYPE.name());
+                if (TableType.VIEW.toString().equals(temptableType)) {
+                    continue;
+                } else if (TableType.SYNONYM.toString().equals(temptableType)) {
+                    System.out.println("");
+                }
 
                 String tableName = tables.getString(GetTable.TABLE_NAME.name());
                 if (!filterMetadaElement(tableFilter, tableName)) {

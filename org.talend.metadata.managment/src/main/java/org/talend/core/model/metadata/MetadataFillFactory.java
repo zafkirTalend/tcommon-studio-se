@@ -121,8 +121,6 @@ public class MetadataFillFactory {
         return metadataFiller.fillSchemas(dbConn, dbJDBCMetadata, schemaFilter);
     }
 
-
-
     /**
      * 
      * zshen Comment method "fillTables".
@@ -134,10 +132,12 @@ public class MetadataFillFactory {
      * the package will be return.
      * @param tablePattern another method to filter the tables.the table will be keep if it's name match to the
      * tablePattern.And if you don't want to use it null is ok.
+     * @param tableType the type of Table which you want to fill.It should be the one of TableType enum.
      * @return The list of tables after filter.Will return null only if dbJDBCMetadata isn't normal.
      */
-    public List<TdTable> fillTables(Package pack, DatabaseMetaData dbJDBCMetadata, List<String> tableFilter, String tablePattern) {
-        return metadataFiller.fillTables(pack, dbJDBCMetadata, tableFilter, tablePattern);
+    public List<TdTable> fillTables(Package pack, DatabaseMetaData dbJDBCMetadata, List<String> tableFilter, String tablePattern,
+            String[] tableType) {
+        return metadataFiller.fillTables(pack, dbJDBCMetadata, tableFilter, tablePattern, tableType);
     }
 
     /**
@@ -149,10 +149,11 @@ public class MetadataFillFactory {
      * @param dbJDBCMetadata If it is null the method will do nothing and return null too.
      * @param tableFilter tableFilter The list for filter tables which you want to get.If it is null all of tables which
      * belong to the package will be return.
+     * @param tableType the type of Table which you want to fill.It should be the one of TableType enum.
      * @return The list of tables after filter.Will return null only if dbJDBCMetadata isn't normal.
      */
-    public List<TdTable> fillTables(Package pack, DatabaseMetaData dbJDBCMetadata, List<String> tableFilter) {
-        return metadataFiller.fillTables(pack, dbJDBCMetadata, tableFilter, null);
+    public List<TdTable> fillTables(Package pack, DatabaseMetaData dbJDBCMetadata, List<String> tableFilter, String[] tableType) {
+        return metadataFiller.fillTables(pack, dbJDBCMetadata, tableFilter, null, tableType);
     }
 
     /**

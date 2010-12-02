@@ -79,9 +79,6 @@ public interface IMetadataFiller {
      */
     public List<Package> fillSchemas(Connection dbConn, DatabaseMetaData dbJDBCMetadata, List<String> Filter);
 
-
-
-
     /**
      * 
      * zshen Comment method "fillTables".
@@ -93,9 +90,11 @@ public interface IMetadataFiller {
      * the package will be return.
      * @param tablePattern another method to filter the tables.the table will be keep if it's name match to the
      * tablePattern.And if you don't want to use it null is ok.
+     * @param tableType the type of Table which you want to fill.It should be the one of TableType enum.
      * @return The list of tables after filter.Will return null only if dbJDBCMetadata isn't normal.
      */
-    public List<TdTable> fillTables(Package pack, DatabaseMetaData dbJDBCMetadata, List<String> tableFilter, String tablePattern);
+    public List<TdTable> fillTables(Package pack, DatabaseMetaData dbJDBCMetadata, List<String> tableFilter, String tablePattern,
+            String[] tableType);
 
 
 

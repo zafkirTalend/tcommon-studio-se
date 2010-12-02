@@ -78,7 +78,8 @@ public abstract class MetadataFillerImpl implements IMetadataFiller {
      * @see org.talend.core.model.metadata.IMetadataFiller#fillTables(java.lang.Package, java.sql.DatabaseMetaData,
      * java.util.List, java.lang.String)
      */
-    public List<TdTable> fillTables(Package pack, DatabaseMetaData dbJDBCMetadata, List<String> tableFilter, String tablePattern) {
+    public List<TdTable> fillTables(Package pack, DatabaseMetaData dbJDBCMetadata, List<String> tableFilter, String tablePattern,
+            String[] tableType) {
         return null;
     }
 
