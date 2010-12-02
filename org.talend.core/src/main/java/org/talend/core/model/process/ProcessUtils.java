@@ -39,6 +39,8 @@ import org.talend.core.ui.IJobletProviderService;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
+import org.talend.designer.core.model.utils.emf.talendfile.MetadataType;
+import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 import org.talend.designer.core.model.utils.emf.talendfile.RoutinesParameterType;
 import org.talend.designer.runprocess.ItemCacheManager;
@@ -49,9 +51,6 @@ import org.talend.repository.model.IProxyRepositoryFactory;
  */
 @SuppressWarnings("unchecked")
 public final class ProcessUtils {
-
-    private ProcessUtils() {
-    }
 
     private static List<IProcess> fakeProcesses = new ArrayList<IProcess>();
 
@@ -468,4 +467,16 @@ public final class ProcessUtils {
         }
         return repositoryObjects;
     }
+
+    public static MetadataType getOutputMetadata(ProcessType processType) {
+        for (Object nodeObject : processType.getNode()) {
+            NodeType nodeType = (NodeType) nodeObject;
+            if (nodeType.getComponentName().equals("tBufferOutput")) { //$NON-NLS-1$
+                MetadataType metadataType = (MetadataType) nodeType.getMetadata().get(0);
+                return metadataType;
+            }
+        }
+        return null;
+    }
+
 }
