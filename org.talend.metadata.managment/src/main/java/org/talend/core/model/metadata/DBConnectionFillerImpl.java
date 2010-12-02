@@ -365,8 +365,6 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 String temptableType = tables.getString(GetTable.TABLE_TYPE.name());
                 if (TableType.VIEW.toString().equals(temptableType)) {
                     continue;
-                } else if (TableType.SYNONYM.toString().equals(temptableType)) {
-                    System.out.println("");
                 }
 
                 String tableName = tables.getString(GetTable.TABLE_NAME.name());
@@ -388,7 +386,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 // create table
                 TdTable table = RelationalFactory.eINSTANCE.createTdTable();
                 table.setName(tableName);
-                table.setTableType(ExtractMetaDataFromDataBase.ETableTypes.TABLETYPE_TABLE.getName());
+                table.setTableType(temptableType);
                 table.setLabel(table.getName());
                 if (tableOwner != null) {
                     ColumnSetHelper.setTableOwner(tableOwner, table);
