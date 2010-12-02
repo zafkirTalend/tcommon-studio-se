@@ -58,6 +58,7 @@ import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.model.utils.TalendTextUtils;
+import org.talend.cwm.helper.ConnectionHelper;
 
 /**
  * DOC wzhang class global comment. Detailled comment
@@ -1046,7 +1047,7 @@ public class ComponentToRepositoryProperty {
         if ("PASSWORD".equals(repositoryValue)) {//$NON-NLS-1$
             String value = getParameterValue(node, "PASSWORD"); //$NON-NLS-1$
             if (value != null) {
-                connection.setPassword(value);
+                ConnectionHelper.setPassword(connection, value);
             }
         }
 

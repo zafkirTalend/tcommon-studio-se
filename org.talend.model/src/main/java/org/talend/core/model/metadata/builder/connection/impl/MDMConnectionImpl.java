@@ -284,6 +284,16 @@ public class MDMConnectionImpl extends ConnectionImpl implements MDMConnection {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @not generated
+     */
+    public String getRawPassword() {
+        return password;
+        // ~ 16729
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setPassword(String newPassword) {
@@ -475,7 +485,7 @@ public class MDMConnectionImpl extends ConnectionImpl implements MDMConnection {
         case ConnectionPackage.MDM_CONNECTION__USERNAME:
             return getUsername();
         case ConnectionPackage.MDM_CONNECTION__PASSWORD:
-            return getPassword();
+            return getRawPassword();
         case ConnectionPackage.MDM_CONNECTION__PORT:
             return getPort();
         case ConnectionPackage.MDM_CONNECTION__SERVER:
