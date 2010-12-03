@@ -49,7 +49,8 @@ public abstract class AbstractItemMigrationTask extends AbstractMigrationTask im
         try {
             for (ERepositoryObjectType curTyp : getTypes()) {
                 if (curTyp.isResourceItem()) {
-                    list.addAll(factory.getAll(curTyp, true, true));
+                    /* specific project so that on svn model it will migrate all ref projects,bug 17295 */
+                    list.addAll(factory.getAll(project, curTyp, true, true));
                 }
             }
 
