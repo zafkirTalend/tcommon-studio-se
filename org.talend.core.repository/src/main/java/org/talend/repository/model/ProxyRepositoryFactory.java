@@ -223,6 +223,21 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         }
     }
 
+    /* hywang for 17295,need to migration refProjects when login using svn repository */
+    private void executeMigrationForRefProjects(Project mainProject, boolean beforeLogon, IMigrationToolService service,
+            SubMonitor monitorWrap) {
+        if (service != null) {
+            List<Project> subProjects = ProjectManager.getInstance().getReferencedProjects(mainProject);
+            if (subProjects.size() == 0) {
+                return;
+            }
+            for (Project subProject : subProjects) {
+                service.executeProjectTasks(subProject, beforeLogon, monitorWrap);
+                executeMigrationForRefProjects(subProject, beforeLogon, service, monitorWrap);
+            }
+        }
+    }
+
     private boolean checkFileNameAndPath(Project project, Item item, String pattern, IPath path, boolean folder,
             boolean... isImportItem) throws PersistenceException {
         String fileName = item.getProperty().getLabel();
@@ -1619,6 +1634,9 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
             currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
             currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.exec.migration.tasks"), 1); //$NON-NLS-1$
             service.executeProjectTasks(project, false, currentMonitor);
+            if (!project.isLocal() && PluginChecker.isSVNProviderPluginLoaded()) {
+                executeMigrationForRefProjects(project, false, service, currentMonitor);
+            }
             // monitorWrap.worked(1);
 
             // clean workspace
