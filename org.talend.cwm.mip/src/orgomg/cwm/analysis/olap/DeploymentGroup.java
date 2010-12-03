@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.analysis.olap;
@@ -9,9 +8,8 @@ package orgomg.cwm.analysis.olap;
 import org.eclipse.emf.common.util.EList;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Deployment Group</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Deployment Group</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * DeploymentGroup represents a logical grouping of model elements defining a single, complete deployment of an instance of Olap Schema (i.e., CubeDeployments and DimensionDeployments).
@@ -33,14 +31,15 @@ import org.eclipse.emf.common.util.EList;
  * @generated
  */
 public interface DeploymentGroup extends orgomg.cwm.objectmodel.core.Package {
+
     /**
-     * Returns the value of the '<em><b>Schema</b></em>' container reference.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.analysis.olap.Schema#getDeploymentGroup <em>Deployment Group</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The Schema owning a DeploymentGroup.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Schema</b></em>' container reference. It
+     * is bidirectional and its opposite is '
+     * {@link orgomg.cwm.analysis.olap.Schema#getDeploymentGroup
+     * <em>Deployment Group</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * --> <!-- begin-model-doc --> The Schema owning a DeploymentGroup. <!--
+     * end-model-doc -->
+     * 
      * @return the value of the '<em>Schema</em>' container reference.
      * @see #setSchema(Schema)
      * @see orgomg.cwm.analysis.olap.OlapPackage#getDeploymentGroup_Schema()
@@ -52,8 +51,8 @@ public interface DeploymentGroup extends orgomg.cwm.objectmodel.core.Package {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.analysis.olap.DeploymentGroup#getSchema <em>Schema</em>}' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Schema</em>' container reference.
      * @see #getSchema()
      * @generated
@@ -61,14 +60,15 @@ public interface DeploymentGroup extends orgomg.cwm.objectmodel.core.Package {
     void setSchema(Schema value);
 
     /**
-     * Returns the value of the '<em><b>Cube Deployment</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwm.analysis.olap.CubeDeployment}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.analysis.olap.CubeDeployment#getDeploymentGroup <em>Deployment Group</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The CubeDeployments referenced by a DeploymentGroup.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Cube Deployment</b></em>' reference
+     * list. The list contents are of type
+     * {@link orgomg.cwm.analysis.olap.CubeDeployment}. It is bidirectional and
+     * its opposite is '
+     * {@link orgomg.cwm.analysis.olap.CubeDeployment#getDeploymentGroup
+     * <em>Deployment Group</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * --> <!-- begin-model-doc --> The CubeDeployments referenced by a
+     * DeploymentGroup. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Cube Deployment</em>' reference list.
      * @see orgomg.cwm.analysis.olap.OlapPackage#getDeploymentGroup_CubeDeployment()
      * @see orgomg.cwm.analysis.olap.CubeDeployment#getDeploymentGroup
@@ -78,14 +78,15 @@ public interface DeploymentGroup extends orgomg.cwm.objectmodel.core.Package {
     EList<CubeDeployment> getCubeDeployment();
 
     /**
-     * Returns the value of the '<em><b>Dimension Deployment</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwm.analysis.olap.DimensionDeployment}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.analysis.olap.DimensionDeployment#getDeploymentGroup <em>Deployment Group</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The DimensionDeployments referenced by a DeploymentGroup.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Dimension Deployment</b></em>' reference
+     * list. The list contents are of type
+     * {@link orgomg.cwm.analysis.olap.DimensionDeployment}. It is bidirectional
+     * and its opposite is '
+     * {@link orgomg.cwm.analysis.olap.DimensionDeployment#getDeploymentGroup
+     * <em>Deployment Group</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * --> <!-- begin-model-doc --> The DimensionDeployments referenced by a
+     * DeploymentGroup. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Dimension Deployment</em>' reference list.
      * @see orgomg.cwm.analysis.olap.OlapPackage#getDeploymentGroup_DimensionDeployment()
      * @see orgomg.cwm.analysis.olap.DimensionDeployment#getDeploymentGroup

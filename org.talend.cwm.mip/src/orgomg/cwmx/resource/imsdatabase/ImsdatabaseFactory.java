@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.imsdatabase;
@@ -9,18 +8,17 @@ package orgomg.cwmx.resource.imsdatabase;
 import org.eclipse.emf.ecore.EFactory;
 
 /**
- * <!-- begin-user-doc -->
- * The <b>Factory</b> for the model.
- * It provides a create method for each non-abstract class of the model.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> The <b>Factory</b> for the model. It provides a
+ * create method for each non-abstract class of the model. <!-- end-user-doc -->
  * @see orgomg.cwmx.resource.imsdatabase.ImsdatabasePackage
  * @generated
  */
 public interface ImsdatabaseFactory extends EFactory {
+
     /**
      * The singleton instance of the factory.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     ImsdatabaseFactory eINSTANCE = orgomg.cwmx.resource.imsdatabase.impl.ImsdatabaseFactoryImpl.init();
@@ -62,18 +60,18 @@ public interface ImsdatabaseFactory extends EFactory {
     Segment createSegment();
 
     /**
-     * Returns a new object of class '<em>Segment Complex</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns a new object of class '<em>Segment Complex</em>'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return a new object of class '<em>Segment Complex</em>'.
      * @generated
      */
     SegmentComplex createSegmentComplex();
 
     /**
-     * Returns a new object of class '<em>Segment Logical</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns a new object of class '<em>Segment Logical</em>'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return a new object of class '<em>Segment Logical</em>'.
      * @generated
      */
@@ -99,8 +97,8 @@ public interface ImsdatabaseFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Sen Segment</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @return a new object of class '<em>Sen Segment</em>'.
      * @generated
      */
@@ -108,8 +106,8 @@ public interface ImsdatabaseFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Sen Field</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @return a new object of class '<em>Sen Field</em>'.
      * @generated
      */
@@ -125,9 +123,9 @@ public interface ImsdatabaseFactory extends EFactory {
     ACBLIB createACBLIB();
 
     /**
-     * Returns a new object of class '<em>Access Method</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns a new object of class '<em>Access Method</em>'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return a new object of class '<em>Access Method</em>'.
      * @generated
      */
@@ -179,9 +177,9 @@ public interface ImsdatabaseFactory extends EFactory {
     MSDB createMSDB();
 
     /**
-     * Returns a new object of class '<em>Secondary Index</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns a new object of class '<em>Secondary Index</em>'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return a new object of class '<em>Secondary Index</em>'.
      * @generated
      */
@@ -232,4 +230,4 @@ public interface ImsdatabaseFactory extends EFactory {
      */
     ImsdatabasePackage getImsdatabasePackage();
 
-} //ImsdatabaseFactory
+} // ImsdatabaseFactory

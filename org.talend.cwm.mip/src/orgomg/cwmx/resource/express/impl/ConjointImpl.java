@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.express.impl;
@@ -13,9 +12,8 @@ import orgomg.cwmx.resource.express.Conjoint;
 import orgomg.cwmx.resource.express.ExpressPackage;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Conjoint</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Conjoint</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -27,10 +25,11 @@ import orgomg.cwmx.resource.express.ExpressPackage;
  * @generated
  */
 public class ConjointImpl extends DimensionImpl implements Conjoint {
+
     /**
      * The default value of the '{@link #getSearchAlgorithm() <em>Search Algorithm</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getSearchAlgorithm()
      * @generated
      * @ordered
@@ -39,8 +38,8 @@ public class ConjointImpl extends DimensionImpl implements Conjoint {
 
     /**
      * The cached value of the '{@link #getSearchAlgorithm() <em>Search Algorithm</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getSearchAlgorithm()
      * @generated
      * @ordered
@@ -49,8 +48,7 @@ public class ConjointImpl extends DimensionImpl implements Conjoint {
 
     /**
      * The default value of the '{@link #getPageSpace() <em>Page Space</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getPageSpace()
      * @generated
      * @ordered
@@ -59,8 +57,7 @@ public class ConjointImpl extends DimensionImpl implements Conjoint {
 
     /**
      * The cached value of the '{@link #getPageSpace() <em>Page Space</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getPageSpace()
      * @generated
      * @ordered
@@ -68,8 +65,7 @@ public class ConjointImpl extends DimensionImpl implements Conjoint {
     protected String pageSpace = PAGE_SPACE_EDEFAULT;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected ConjointImpl() {
@@ -77,8 +73,7 @@ public class ConjointImpl extends DimensionImpl implements Conjoint {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -87,8 +82,7 @@ public class ConjointImpl extends DimensionImpl implements Conjoint {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getSearchAlgorithm() {
@@ -96,20 +90,19 @@ public class ConjointImpl extends DimensionImpl implements Conjoint {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setSearchAlgorithm(String newSearchAlgorithm) {
         String oldSearchAlgorithm = searchAlgorithm;
         searchAlgorithm = newSearchAlgorithm;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ExpressPackage.CONJOINT__SEARCH_ALGORITHM, oldSearchAlgorithm, searchAlgorithm));
+            eNotify(new ENotificationImpl(this, Notification.SET, ExpressPackage.CONJOINT__SEARCH_ALGORITHM, oldSearchAlgorithm,
+                    searchAlgorithm));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getPageSpace() {
@@ -117,8 +110,7 @@ public class ConjointImpl extends DimensionImpl implements Conjoint {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setPageSpace(String newPageSpace) {
@@ -129,81 +121,78 @@ public class ConjointImpl extends DimensionImpl implements Conjoint {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case ExpressPackage.CONJOINT__SEARCH_ALGORITHM:
-                return getSearchAlgorithm();
-            case ExpressPackage.CONJOINT__PAGE_SPACE:
-                return getPageSpace();
+        case ExpressPackage.CONJOINT__SEARCH_ALGORITHM:
+            return getSearchAlgorithm();
+        case ExpressPackage.CONJOINT__PAGE_SPACE:
+            return getPageSpace();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case ExpressPackage.CONJOINT__SEARCH_ALGORITHM:
-                setSearchAlgorithm((String)newValue);
-                return;
-            case ExpressPackage.CONJOINT__PAGE_SPACE:
-                setPageSpace((String)newValue);
-                return;
+        case ExpressPackage.CONJOINT__SEARCH_ALGORITHM:
+            setSearchAlgorithm((String) newValue);
+            return;
+        case ExpressPackage.CONJOINT__PAGE_SPACE:
+            setPageSpace((String) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case ExpressPackage.CONJOINT__SEARCH_ALGORITHM:
-                setSearchAlgorithm(SEARCH_ALGORITHM_EDEFAULT);
-                return;
-            case ExpressPackage.CONJOINT__PAGE_SPACE:
-                setPageSpace(PAGE_SPACE_EDEFAULT);
-                return;
+        case ExpressPackage.CONJOINT__SEARCH_ALGORITHM:
+            setSearchAlgorithm(SEARCH_ALGORITHM_EDEFAULT);
+            return;
+        case ExpressPackage.CONJOINT__PAGE_SPACE:
+            setPageSpace(PAGE_SPACE_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case ExpressPackage.CONJOINT__SEARCH_ALGORITHM:
-                return SEARCH_ALGORITHM_EDEFAULT == null ? searchAlgorithm != null : !SEARCH_ALGORITHM_EDEFAULT.equals(searchAlgorithm);
-            case ExpressPackage.CONJOINT__PAGE_SPACE:
-                return PAGE_SPACE_EDEFAULT == null ? pageSpace != null : !PAGE_SPACE_EDEFAULT.equals(pageSpace);
+        case ExpressPackage.CONJOINT__SEARCH_ALGORITHM:
+            return SEARCH_ALGORITHM_EDEFAULT == null ? searchAlgorithm != null : !SEARCH_ALGORITHM_EDEFAULT
+                    .equals(searchAlgorithm);
+        case ExpressPackage.CONJOINT__PAGE_SPACE:
+            return PAGE_SPACE_EDEFAULT == null ? pageSpace != null : !PAGE_SPACE_EDEFAULT.equals(pageSpace);
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (searchAlgorithm: ");
@@ -214,4 +203,4 @@ public class ConjointImpl extends DimensionImpl implements Conjoint {
         return result.toString();
     }
 
-} //ConjointImpl
+} // ConjointImpl

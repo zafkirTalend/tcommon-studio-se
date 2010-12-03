@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.analysis.datamining.impl;
@@ -19,9 +18,8 @@ import orgomg.cwm.analysis.datamining.DataminingPackage;
 import orgomg.cwm.objectmodel.core.impl.ModelElementImpl;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Category</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Category</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -35,10 +33,11 @@ import orgomg.cwm.objectmodel.core.impl.ModelElementImpl;
  * @generated
  */
 public class CategoryImpl extends ModelElementImpl implements Category {
+
     /**
      * The default value of the '{@link #getDisplayValue() <em>Display Value</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getDisplayValue()
      * @generated
      * @ordered
@@ -47,8 +46,8 @@ public class CategoryImpl extends ModelElementImpl implements Category {
 
     /**
      * The cached value of the '{@link #getDisplayValue() <em>Display Value</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getDisplayValue()
      * @generated
      * @ordered
@@ -57,8 +56,7 @@ public class CategoryImpl extends ModelElementImpl implements Category {
 
     /**
      * The default value of the '{@link #getProperty() <em>Property</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getProperty()
      * @generated
      * @ordered
@@ -67,8 +65,7 @@ public class CategoryImpl extends ModelElementImpl implements Category {
 
     /**
      * The cached value of the '{@link #getProperty() <em>Property</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getProperty()
      * @generated
      * @ordered
@@ -77,8 +74,7 @@ public class CategoryImpl extends ModelElementImpl implements Category {
 
     /**
      * The default value of the '{@link #getValue() <em>Value</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getValue()
      * @generated
      * @ordered
@@ -87,8 +83,7 @@ public class CategoryImpl extends ModelElementImpl implements Category {
 
     /**
      * The cached value of the '{@link #getValue() <em>Value</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getValue()
      * @generated
      * @ordered
@@ -96,8 +91,7 @@ public class CategoryImpl extends ModelElementImpl implements Category {
     protected String value = VALUE_EDEFAULT;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected CategoryImpl() {
@@ -105,8 +99,7 @@ public class CategoryImpl extends ModelElementImpl implements Category {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -115,8 +108,7 @@ public class CategoryImpl extends ModelElementImpl implements Category {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getDisplayValue() {
@@ -124,20 +116,19 @@ public class CategoryImpl extends ModelElementImpl implements Category {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setDisplayValue(String newDisplayValue) {
         String oldDisplayValue = displayValue;
         displayValue = newDisplayValue;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, DataminingPackage.CATEGORY__DISPLAY_VALUE, oldDisplayValue, displayValue));
+            eNotify(new ENotificationImpl(this, Notification.SET, DataminingPackage.CATEGORY__DISPLAY_VALUE, oldDisplayValue,
+                    displayValue));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public CategoryProperty getProperty() {
@@ -145,8 +136,7 @@ public class CategoryImpl extends ModelElementImpl implements Category {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setProperty(CategoryProperty newProperty) {
@@ -157,8 +147,7 @@ public class CategoryImpl extends ModelElementImpl implements Category {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getValue() {
@@ -166,8 +155,7 @@ public class CategoryImpl extends ModelElementImpl implements Category {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setValue(String newValue) {
@@ -178,186 +166,182 @@ public class CategoryImpl extends ModelElementImpl implements Category {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public CategoricalAttribute getCategoricalAttribute() {
-        if (eContainerFeatureID() != DataminingPackage.CATEGORY__CATEGORICAL_ATTRIBUTE) return null;
-        return (CategoricalAttribute)eContainer();
+        if (eContainerFeatureID() != DataminingPackage.CATEGORY__CATEGORICAL_ATTRIBUTE)
+            return null;
+        return (CategoricalAttribute) eContainer();
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public NotificationChain basicSetCategoricalAttribute(CategoricalAttribute newCategoricalAttribute, NotificationChain msgs) {
-        msgs = eBasicSetContainer((InternalEObject)newCategoricalAttribute, DataminingPackage.CATEGORY__CATEGORICAL_ATTRIBUTE, msgs);
+        msgs = eBasicSetContainer((InternalEObject) newCategoricalAttribute, DataminingPackage.CATEGORY__CATEGORICAL_ATTRIBUTE,
+                msgs);
         return msgs;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setCategoricalAttribute(CategoricalAttribute newCategoricalAttribute) {
-        if (newCategoricalAttribute != eInternalContainer() || (eContainerFeatureID() != DataminingPackage.CATEGORY__CATEGORICAL_ATTRIBUTE && newCategoricalAttribute != null)) {
+        if (newCategoricalAttribute != eInternalContainer()
+                || (eContainerFeatureID() != DataminingPackage.CATEGORY__CATEGORICAL_ATTRIBUTE && newCategoricalAttribute != null)) {
             if (EcoreUtil.isAncestor(this, newCategoricalAttribute))
                 throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
             NotificationChain msgs = null;
             if (eInternalContainer() != null)
                 msgs = eBasicRemoveFromContainer(msgs);
             if (newCategoricalAttribute != null)
-                msgs = ((InternalEObject)newCategoricalAttribute).eInverseAdd(this, DataminingPackage.CATEGORICAL_ATTRIBUTE__CATEGORY, CategoricalAttribute.class, msgs);
+                msgs = ((InternalEObject) newCategoricalAttribute).eInverseAdd(this,
+                        DataminingPackage.CATEGORICAL_ATTRIBUTE__CATEGORY, CategoricalAttribute.class, msgs);
             msgs = basicSetCategoricalAttribute(newCategoricalAttribute, msgs);
-            if (msgs != null) msgs.dispatch();
-        }
-        else if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, DataminingPackage.CATEGORY__CATEGORICAL_ATTRIBUTE, newCategoricalAttribute, newCategoricalAttribute));
+            if (msgs != null)
+                msgs.dispatch();
+        } else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, DataminingPackage.CATEGORY__CATEGORICAL_ATTRIBUTE,
+                    newCategoricalAttribute, newCategoricalAttribute));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case DataminingPackage.CATEGORY__CATEGORICAL_ATTRIBUTE:
-                if (eInternalContainer() != null)
-                    msgs = eBasicRemoveFromContainer(msgs);
-                return basicSetCategoricalAttribute((CategoricalAttribute)otherEnd, msgs);
+        case DataminingPackage.CATEGORY__CATEGORICAL_ATTRIBUTE:
+            if (eInternalContainer() != null)
+                msgs = eBasicRemoveFromContainer(msgs);
+            return basicSetCategoricalAttribute((CategoricalAttribute) otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case DataminingPackage.CATEGORY__CATEGORICAL_ATTRIBUTE:
-                return basicSetCategoricalAttribute(null, msgs);
+        case DataminingPackage.CATEGORY__CATEGORICAL_ATTRIBUTE:
+            return basicSetCategoricalAttribute(null, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
         switch (eContainerFeatureID()) {
-            case DataminingPackage.CATEGORY__CATEGORICAL_ATTRIBUTE:
-                return eInternalContainer().eInverseRemove(this, DataminingPackage.CATEGORICAL_ATTRIBUTE__CATEGORY, CategoricalAttribute.class, msgs);
+        case DataminingPackage.CATEGORY__CATEGORICAL_ATTRIBUTE:
+            return eInternalContainer().eInverseRemove(this, DataminingPackage.CATEGORICAL_ATTRIBUTE__CATEGORY,
+                    CategoricalAttribute.class, msgs);
         }
         return super.eBasicRemoveFromContainerFeature(msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case DataminingPackage.CATEGORY__DISPLAY_VALUE:
-                return getDisplayValue();
-            case DataminingPackage.CATEGORY__PROPERTY:
-                return getProperty();
-            case DataminingPackage.CATEGORY__VALUE:
-                return getValue();
-            case DataminingPackage.CATEGORY__CATEGORICAL_ATTRIBUTE:
-                return getCategoricalAttribute();
+        case DataminingPackage.CATEGORY__DISPLAY_VALUE:
+            return getDisplayValue();
+        case DataminingPackage.CATEGORY__PROPERTY:
+            return getProperty();
+        case DataminingPackage.CATEGORY__VALUE:
+            return getValue();
+        case DataminingPackage.CATEGORY__CATEGORICAL_ATTRIBUTE:
+            return getCategoricalAttribute();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case DataminingPackage.CATEGORY__DISPLAY_VALUE:
-                setDisplayValue((String)newValue);
-                return;
-            case DataminingPackage.CATEGORY__PROPERTY:
-                setProperty((CategoryProperty)newValue);
-                return;
-            case DataminingPackage.CATEGORY__VALUE:
-                setValue((String)newValue);
-                return;
-            case DataminingPackage.CATEGORY__CATEGORICAL_ATTRIBUTE:
-                setCategoricalAttribute((CategoricalAttribute)newValue);
-                return;
+        case DataminingPackage.CATEGORY__DISPLAY_VALUE:
+            setDisplayValue((String) newValue);
+            return;
+        case DataminingPackage.CATEGORY__PROPERTY:
+            setProperty((CategoryProperty) newValue);
+            return;
+        case DataminingPackage.CATEGORY__VALUE:
+            setValue((String) newValue);
+            return;
+        case DataminingPackage.CATEGORY__CATEGORICAL_ATTRIBUTE:
+            setCategoricalAttribute((CategoricalAttribute) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case DataminingPackage.CATEGORY__DISPLAY_VALUE:
-                setDisplayValue(DISPLAY_VALUE_EDEFAULT);
-                return;
-            case DataminingPackage.CATEGORY__PROPERTY:
-                setProperty(PROPERTY_EDEFAULT);
-                return;
-            case DataminingPackage.CATEGORY__VALUE:
-                setValue(VALUE_EDEFAULT);
-                return;
-            case DataminingPackage.CATEGORY__CATEGORICAL_ATTRIBUTE:
-                setCategoricalAttribute((CategoricalAttribute)null);
-                return;
+        case DataminingPackage.CATEGORY__DISPLAY_VALUE:
+            setDisplayValue(DISPLAY_VALUE_EDEFAULT);
+            return;
+        case DataminingPackage.CATEGORY__PROPERTY:
+            setProperty(PROPERTY_EDEFAULT);
+            return;
+        case DataminingPackage.CATEGORY__VALUE:
+            setValue(VALUE_EDEFAULT);
+            return;
+        case DataminingPackage.CATEGORY__CATEGORICAL_ATTRIBUTE:
+            setCategoricalAttribute((CategoricalAttribute) null);
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case DataminingPackage.CATEGORY__DISPLAY_VALUE:
-                return DISPLAY_VALUE_EDEFAULT == null ? displayValue != null : !DISPLAY_VALUE_EDEFAULT.equals(displayValue);
-            case DataminingPackage.CATEGORY__PROPERTY:
-                return property != PROPERTY_EDEFAULT;
-            case DataminingPackage.CATEGORY__VALUE:
-                return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
-            case DataminingPackage.CATEGORY__CATEGORICAL_ATTRIBUTE:
-                return getCategoricalAttribute() != null;
+        case DataminingPackage.CATEGORY__DISPLAY_VALUE:
+            return DISPLAY_VALUE_EDEFAULT == null ? displayValue != null : !DISPLAY_VALUE_EDEFAULT.equals(displayValue);
+        case DataminingPackage.CATEGORY__PROPERTY:
+            return property != PROPERTY_EDEFAULT;
+        case DataminingPackage.CATEGORY__VALUE:
+            return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
+        case DataminingPackage.CATEGORY__CATEGORICAL_ATTRIBUTE:
+            return getCategoricalAttribute() != null;
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (displayValue: ");
@@ -370,4 +354,4 @@ public class CategoryImpl extends ModelElementImpl implements Category {
         return result.toString();
     }
 
-} //CategoryImpl
+} // CategoryImpl

@@ -1,16 +1,13 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.analysis.datamining;
 
-
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Regression Settings</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Regression Settings</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * Parameters for computing a regression model.

@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.objectmodel.relationships.impl;
@@ -12,18 +11,17 @@ import orgomg.cwm.objectmodel.relationships.Association;
 import orgomg.cwm.objectmodel.relationships.RelationshipsPackage;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Association</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Association</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
 public class AssociationImpl extends ClassImpl implements Association {
+
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected AssociationImpl() {
@@ -31,8 +29,7 @@ public class AssociationImpl extends ClassImpl implements Association {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -40,4 +37,4 @@ public class AssociationImpl extends ClassImpl implements Association {
         return RelationshipsPackage.Literals.ASSOCIATION;
     }
 
-} //AssociationImpl
+} // AssociationImpl

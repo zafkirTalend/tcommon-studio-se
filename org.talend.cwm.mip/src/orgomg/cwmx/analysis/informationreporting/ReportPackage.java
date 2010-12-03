@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.analysis.informationreporting;
@@ -9,9 +8,8 @@ package orgomg.cwmx.analysis.informationreporting;
 import orgomg.cwm.analysis.informationvisualization.RenderedObjectSet;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Report Package</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Report Package</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * Defines a grouping of related reports.

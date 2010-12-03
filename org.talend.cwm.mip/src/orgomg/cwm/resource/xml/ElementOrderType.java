@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.resource.xml;
@@ -13,13 +12,11 @@ import java.util.List;
 import org.eclipse.emf.common.util.Enumerator;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the literals of the enumeration '<em><b>Element Order Type</b></em>',
- * and utility methods for working with them.
- * <!-- end-user-doc -->
- * <!-- begin-model-doc -->
- * choice, sequence
- * <!-- end-model-doc -->
+ * <!-- begin-user-doc --> A representation of the literals of the enumeration '
+ * <em><b>Element Order Type</b></em>', and utility methods for working with
+ * them. <!-- end-user-doc --> <!-- begin-model-doc --> choice, sequence <!--
+ * end-model-doc -->
+ * 
  * @see orgomg.cwm.resource.xml.XmlPackage#getElementOrderType()
  * @model
  * @generated
@@ -37,8 +34,8 @@ public enum ElementOrderType implements Enumerator {
 
     /**
      * The '<em><b>Xml sequence</b></em>' literal object.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @see #XML_SEQUENCE_VALUE
      * @generated
      * @ordered
@@ -49,8 +46,8 @@ public enum ElementOrderType implements Enumerator {
      * The '<em><b>Xml choice</b></em>' literal value.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of '<em><b>Xml choice</b></em>' literal object isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of '<em><b>Xml choice</b></em>' literal object isn't
+     * clear, there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
      * @see #XML_CHOICE
@@ -64,8 +61,8 @@ public enum ElementOrderType implements Enumerator {
      * The '<em><b>Xml sequence</b></em>' literal value.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of '<em><b>Xml sequence</b></em>' literal object isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of '<em><b>Xml sequence</b></em>' literal object isn't
+     * clear, there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
      * @see #XML_SEQUENCE
@@ -77,28 +74,21 @@ public enum ElementOrderType implements Enumerator {
 
     /**
      * An array of all the '<em><b>Element Order Type</b></em>' enumerators.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    private static final ElementOrderType[] VALUES_ARRAY =
-        new ElementOrderType[] {
-            XML_CHOICE,
-            XML_SEQUENCE,
-        };
+    private static final ElementOrderType[] VALUES_ARRAY = new ElementOrderType[] { XML_CHOICE, XML_SEQUENCE, };
 
     /**
      * A public read-only list of all the '<em><b>Element Order Type</b></em>' enumerators.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static final List<ElementOrderType> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
     /**
      * Returns the '<em><b>Element Order Type</b></em>' literal with the specified literal value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static ElementOrderType get(String literal) {
@@ -113,8 +103,7 @@ public enum ElementOrderType implements Enumerator {
 
     /**
      * Returns the '<em><b>Element Order Type</b></em>' literal with the specified name.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static ElementOrderType getByName(String name) {
@@ -129,43 +118,41 @@ public enum ElementOrderType implements Enumerator {
 
     /**
      * Returns the '<em><b>Element Order Type</b></em>' literal with the specified integer value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static ElementOrderType get(int value) {
         switch (value) {
-            case XML_CHOICE_VALUE: return XML_CHOICE;
-            case XML_SEQUENCE_VALUE: return XML_SEQUENCE;
+        case XML_CHOICE_VALUE:
+            return XML_CHOICE;
+        case XML_SEQUENCE_VALUE:
+            return XML_SEQUENCE;
         }
         return null;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private final int value;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private final String name;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private final String literal;
 
     /**
      * Only this class can construct instances.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     private ElementOrderType(int value, String name, String literal) {
@@ -175,41 +162,37 @@ public enum ElementOrderType implements Enumerator {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public int getValue() {
-      return value;
+        return value;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getName() {
-      return name;
+        return name;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getLiteral() {
-      return literal;
+        return literal;
     }
 
     /**
      * Returns the literal value of the enumerator, which is its string representation.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
         return literal;
     }
-    
-} //ElementOrderType
+
+} // ElementOrderType

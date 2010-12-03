@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.coboldata;
@@ -13,13 +12,11 @@ import java.util.List;
 import org.eclipse.emf.common.util.Enumerator;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the literals of the enumeration '<em><b>Block Kind</b></em>',
- * and utility methods for working with them.
- * <!-- end-user-doc -->
- * <!-- begin-model-doc -->
- * An enumeration representing the values that COBOLFD block size fields may take.
- * <!-- end-model-doc -->
+ * <!-- begin-user-doc --> A representation of the literals of the enumeration '
+ * <em><b>Block Kind</b></em>', and utility methods for working with them. <!--
+ * end-user-doc --> <!-- begin-model-doc --> An enumeration representing the
+ * values that COBOLFD block size fields may take. <!-- end-model-doc -->
+ * 
  * @see orgomg.cwmx.resource.coboldata.CoboldataPackage#getBlockKind()
  * @model
  * @generated
@@ -37,8 +34,8 @@ public enum BlockKind implements Enumerator {
 
     /**
      * The '<em><b>Bk characters</b></em>' literal object.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @see #BK_CHARACTERS_VALUE
      * @generated
      * @ordered
@@ -49,8 +46,8 @@ public enum BlockKind implements Enumerator {
      * The '<em><b>Bk records</b></em>' literal value.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of '<em><b>Bk records</b></em>' literal object isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of '<em><b>Bk records</b></em>' literal object isn't
+     * clear, there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
      * @see #BK_RECORDS
@@ -62,10 +59,11 @@ public enum BlockKind implements Enumerator {
 
     /**
      * The '<em><b>Bk characters</b></em>' literal value.
-     * <!-- begin-user-doc -->
+     * <!-- begin-user-doc
+     * -->
      * <p>
-     * If the meaning of '<em><b>Bk characters</b></em>' literal object isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of '<em><b>Bk characters</b></em>' literal object isn't
+     * clear, there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
      * @see #BK_CHARACTERS
@@ -76,29 +74,23 @@ public enum BlockKind implements Enumerator {
     public static final int BK_CHARACTERS_VALUE = 1;
 
     /**
-     * An array of all the '<em><b>Block Kind</b></em>' enumerators.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * An array of all the '<em><b>Block Kind</b></em>' enumerators. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
-    private static final BlockKind[] VALUES_ARRAY =
-        new BlockKind[] {
-            BK_RECORDS,
-            BK_CHARACTERS,
-        };
+    private static final BlockKind[] VALUES_ARRAY = new BlockKind[] { BK_RECORDS, BK_CHARACTERS, };
 
     /**
      * A public read-only list of all the '<em><b>Block Kind</b></em>' enumerators.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static final List<BlockKind> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
     /**
      * Returns the '<em><b>Block Kind</b></em>' literal with the specified literal value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static BlockKind get(String literal) {
@@ -113,8 +105,7 @@ public enum BlockKind implements Enumerator {
 
     /**
      * Returns the '<em><b>Block Kind</b></em>' literal with the specified name.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static BlockKind getByName(String name) {
@@ -129,43 +120,41 @@ public enum BlockKind implements Enumerator {
 
     /**
      * Returns the '<em><b>Block Kind</b></em>' literal with the specified integer value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static BlockKind get(int value) {
         switch (value) {
-            case BK_RECORDS_VALUE: return BK_RECORDS;
-            case BK_CHARACTERS_VALUE: return BK_CHARACTERS;
+        case BK_RECORDS_VALUE:
+            return BK_RECORDS;
+        case BK_CHARACTERS_VALUE:
+            return BK_CHARACTERS;
         }
         return null;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private final int value;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private final String name;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private final String literal;
 
     /**
      * Only this class can construct instances.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     private BlockKind(int value, String name, String literal) {
@@ -175,41 +164,37 @@ public enum BlockKind implements Enumerator {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public int getValue() {
-      return value;
+        return value;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getName() {
-      return name;
+        return name;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getLiteral() {
-      return literal;
+        return literal;
     }
 
     /**
      * Returns the literal value of the enumerator, which is its string representation.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
         return literal;
     }
-    
-} //BlockKind
+
+} // BlockKind

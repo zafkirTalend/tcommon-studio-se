@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.resource.relational.impl;
@@ -16,9 +15,8 @@ import orgomg.cwm.resource.relational.enumerations.DeferrabilityType;
 import orgomg.cwm.resource.relational.enumerations.ReferentialRuleType;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Foreign Key</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Foreign Key</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -31,10 +29,10 @@ import orgomg.cwm.resource.relational.enumerations.ReferentialRuleType;
  * @generated
  */
 public class ForeignKeyImpl extends KeyRelationshipImpl implements ForeignKey {
+
     /**
      * The default value of the '{@link #getDeleteRule() <em>Delete Rule</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getDeleteRule()
      * @generated
      * @ordered
@@ -43,8 +41,7 @@ public class ForeignKeyImpl extends KeyRelationshipImpl implements ForeignKey {
 
     /**
      * The cached value of the '{@link #getDeleteRule() <em>Delete Rule</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getDeleteRule()
      * @generated
      * @ordered
@@ -53,8 +50,7 @@ public class ForeignKeyImpl extends KeyRelationshipImpl implements ForeignKey {
 
     /**
      * The default value of the '{@link #getUpdateRule() <em>Update Rule</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getUpdateRule()
      * @generated
      * @ordered
@@ -63,8 +59,7 @@ public class ForeignKeyImpl extends KeyRelationshipImpl implements ForeignKey {
 
     /**
      * The cached value of the '{@link #getUpdateRule() <em>Update Rule</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getUpdateRule()
      * @generated
      * @ordered
@@ -73,8 +68,8 @@ public class ForeignKeyImpl extends KeyRelationshipImpl implements ForeignKey {
 
     /**
      * The default value of the '{@link #getDeferrability() <em>Deferrability</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getDeferrability()
      * @generated
      * @ordered
@@ -83,8 +78,8 @@ public class ForeignKeyImpl extends KeyRelationshipImpl implements ForeignKey {
 
     /**
      * The cached value of the '{@link #getDeferrability() <em>Deferrability</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getDeferrability()
      * @generated
      * @ordered
@@ -92,8 +87,7 @@ public class ForeignKeyImpl extends KeyRelationshipImpl implements ForeignKey {
     protected DeferrabilityType deferrability = DEFERRABILITY_EDEFAULT;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected ForeignKeyImpl() {
@@ -101,8 +95,7 @@ public class ForeignKeyImpl extends KeyRelationshipImpl implements ForeignKey {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -111,8 +104,7 @@ public class ForeignKeyImpl extends KeyRelationshipImpl implements ForeignKey {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public ReferentialRuleType getDeleteRule() {
@@ -120,20 +112,19 @@ public class ForeignKeyImpl extends KeyRelationshipImpl implements ForeignKey {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setDeleteRule(ReferentialRuleType newDeleteRule) {
         ReferentialRuleType oldDeleteRule = deleteRule;
         deleteRule = newDeleteRule == null ? DELETE_RULE_EDEFAULT : newDeleteRule;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, RelationalPackage.FOREIGN_KEY__DELETE_RULE, oldDeleteRule, deleteRule));
+            eNotify(new ENotificationImpl(this, Notification.SET, RelationalPackage.FOREIGN_KEY__DELETE_RULE, oldDeleteRule,
+                    deleteRule));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public ReferentialRuleType getUpdateRule() {
@@ -141,20 +132,19 @@ public class ForeignKeyImpl extends KeyRelationshipImpl implements ForeignKey {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setUpdateRule(ReferentialRuleType newUpdateRule) {
         ReferentialRuleType oldUpdateRule = updateRule;
         updateRule = newUpdateRule == null ? UPDATE_RULE_EDEFAULT : newUpdateRule;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, RelationalPackage.FOREIGN_KEY__UPDATE_RULE, oldUpdateRule, updateRule));
+            eNotify(new ENotificationImpl(this, Notification.SET, RelationalPackage.FOREIGN_KEY__UPDATE_RULE, oldUpdateRule,
+                    updateRule));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public DeferrabilityType getDeferrability() {
@@ -162,103 +152,99 @@ public class ForeignKeyImpl extends KeyRelationshipImpl implements ForeignKey {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setDeferrability(DeferrabilityType newDeferrability) {
         DeferrabilityType oldDeferrability = deferrability;
         deferrability = newDeferrability == null ? DEFERRABILITY_EDEFAULT : newDeferrability;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, RelationalPackage.FOREIGN_KEY__DEFERRABILITY, oldDeferrability, deferrability));
+            eNotify(new ENotificationImpl(this, Notification.SET, RelationalPackage.FOREIGN_KEY__DEFERRABILITY, oldDeferrability,
+                    deferrability));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case RelationalPackage.FOREIGN_KEY__DELETE_RULE:
-                return getDeleteRule();
-            case RelationalPackage.FOREIGN_KEY__UPDATE_RULE:
-                return getUpdateRule();
-            case RelationalPackage.FOREIGN_KEY__DEFERRABILITY:
-                return getDeferrability();
+        case RelationalPackage.FOREIGN_KEY__DELETE_RULE:
+            return getDeleteRule();
+        case RelationalPackage.FOREIGN_KEY__UPDATE_RULE:
+            return getUpdateRule();
+        case RelationalPackage.FOREIGN_KEY__DEFERRABILITY:
+            return getDeferrability();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case RelationalPackage.FOREIGN_KEY__DELETE_RULE:
-                setDeleteRule((ReferentialRuleType)newValue);
-                return;
-            case RelationalPackage.FOREIGN_KEY__UPDATE_RULE:
-                setUpdateRule((ReferentialRuleType)newValue);
-                return;
-            case RelationalPackage.FOREIGN_KEY__DEFERRABILITY:
-                setDeferrability((DeferrabilityType)newValue);
-                return;
+        case RelationalPackage.FOREIGN_KEY__DELETE_RULE:
+            setDeleteRule((ReferentialRuleType) newValue);
+            return;
+        case RelationalPackage.FOREIGN_KEY__UPDATE_RULE:
+            setUpdateRule((ReferentialRuleType) newValue);
+            return;
+        case RelationalPackage.FOREIGN_KEY__DEFERRABILITY:
+            setDeferrability((DeferrabilityType) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case RelationalPackage.FOREIGN_KEY__DELETE_RULE:
-                setDeleteRule(DELETE_RULE_EDEFAULT);
-                return;
-            case RelationalPackage.FOREIGN_KEY__UPDATE_RULE:
-                setUpdateRule(UPDATE_RULE_EDEFAULT);
-                return;
-            case RelationalPackage.FOREIGN_KEY__DEFERRABILITY:
-                setDeferrability(DEFERRABILITY_EDEFAULT);
-                return;
+        case RelationalPackage.FOREIGN_KEY__DELETE_RULE:
+            setDeleteRule(DELETE_RULE_EDEFAULT);
+            return;
+        case RelationalPackage.FOREIGN_KEY__UPDATE_RULE:
+            setUpdateRule(UPDATE_RULE_EDEFAULT);
+            return;
+        case RelationalPackage.FOREIGN_KEY__DEFERRABILITY:
+            setDeferrability(DEFERRABILITY_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case RelationalPackage.FOREIGN_KEY__DELETE_RULE:
-                return deleteRule != DELETE_RULE_EDEFAULT;
-            case RelationalPackage.FOREIGN_KEY__UPDATE_RULE:
-                return updateRule != UPDATE_RULE_EDEFAULT;
-            case RelationalPackage.FOREIGN_KEY__DEFERRABILITY:
-                return deferrability != DEFERRABILITY_EDEFAULT;
+        case RelationalPackage.FOREIGN_KEY__DELETE_RULE:
+            return deleteRule != DELETE_RULE_EDEFAULT;
+        case RelationalPackage.FOREIGN_KEY__UPDATE_RULE:
+            return updateRule != UPDATE_RULE_EDEFAULT;
+        case RelationalPackage.FOREIGN_KEY__DEFERRABILITY:
+            return deferrability != DEFERRABILITY_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (deleteRule: ");
@@ -271,4 +257,4 @@ public class ForeignKeyImpl extends KeyRelationshipImpl implements ForeignKey {
         return result.toString();
     }
 
-} //ForeignKeyImpl
+} // ForeignKeyImpl

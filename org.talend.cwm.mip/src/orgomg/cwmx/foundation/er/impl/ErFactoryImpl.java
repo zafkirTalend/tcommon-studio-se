@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.foundation.er.impl;
@@ -11,6 +10,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import orgomg.cwmx.foundation.er.*;
 import orgomg.cwmx.foundation.er.Attribute;
 import orgomg.cwmx.foundation.er.CandidateKey;
 import orgomg.cwmx.foundation.er.Domain;
@@ -27,26 +27,26 @@ import orgomg.cwmx.foundation.er.RelationshipEnd;
 import orgomg.cwmx.foundation.er.SubjectArea;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model <b>Factory</b>.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!--
+ * end-user-doc -->
  * @generated
  */
 public class ErFactoryImpl extends EFactoryImpl implements ErFactory {
+
     /**
      * Creates the default factory implementation.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     public static ErFactory init() {
         try {
-            ErFactory theErFactory = (ErFactory)EPackage.Registry.INSTANCE.getEFactory("http:///orgomg/cwmx/foundation/er.ecore"); 
+            ErFactory theErFactory = (ErFactory) EPackage.Registry.INSTANCE
+                    .getEFactory("http:///orgomg/cwmx/foundation/er.ecore");
             if (theErFactory != null) {
                 return theErFactory;
             }
-        }
-        catch (Exception exception) {
+        } catch (Exception exception) {
             EcorePlugin.INSTANCE.log(exception);
         }
         return new ErFactoryImpl();
@@ -54,8 +54,8 @@ public class ErFactoryImpl extends EFactoryImpl implements ErFactory {
 
     /**
      * Creates an instance of the factory.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     public ErFactoryImpl() {
@@ -63,33 +63,43 @@ public class ErFactoryImpl extends EFactoryImpl implements ErFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public EObject create(EClass eClass) {
         switch (eClass.getClassifierID()) {
-            case ErPackage.ENTITY: return createEntity();
-            case ErPackage.NONUNIQUE_KEY: return createNonuniqueKey();
-            case ErPackage.CANDIDATE_KEY: return createCandidateKey();
-            case ErPackage.FOREIGN_KEY: return createForeignKey();
-            case ErPackage.DOMAIN: return createDomain();
-            case ErPackage.ATTRIBUTE: return createAttribute();
-            case ErPackage.RELATIONSHIP: return createRelationship();
-            case ErPackage.RELATIONSHIP_END: return createRelationshipEnd();
-            case ErPackage.MODEL_LIBRARY: return createModelLibrary();
-            case ErPackage.MODEL: return createModel();
-            case ErPackage.SUBJECT_AREA: return createSubjectArea();
-            case ErPackage.PRIMARY_KEY: return createPrimaryKey();
-            default:
-                throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+        case ErPackage.ENTITY:
+            return createEntity();
+        case ErPackage.NONUNIQUE_KEY:
+            return createNonuniqueKey();
+        case ErPackage.CANDIDATE_KEY:
+            return createCandidateKey();
+        case ErPackage.FOREIGN_KEY:
+            return createForeignKey();
+        case ErPackage.DOMAIN:
+            return createDomain();
+        case ErPackage.ATTRIBUTE:
+            return createAttribute();
+        case ErPackage.RELATIONSHIP:
+            return createRelationship();
+        case ErPackage.RELATIONSHIP_END:
+            return createRelationshipEnd();
+        case ErPackage.MODEL_LIBRARY:
+            return createModelLibrary();
+        case ErPackage.MODEL:
+            return createModel();
+        case ErPackage.SUBJECT_AREA:
+            return createSubjectArea();
+        case ErPackage.PRIMARY_KEY:
+            return createPrimaryKey();
+        default:
+            throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Entity createEntity() {
@@ -98,8 +108,7 @@ public class ErFactoryImpl extends EFactoryImpl implements ErFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public NonuniqueKey createNonuniqueKey() {
@@ -108,8 +117,7 @@ public class ErFactoryImpl extends EFactoryImpl implements ErFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public CandidateKey createCandidateKey() {
@@ -118,8 +126,7 @@ public class ErFactoryImpl extends EFactoryImpl implements ErFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public ForeignKey createForeignKey() {
@@ -128,8 +135,7 @@ public class ErFactoryImpl extends EFactoryImpl implements ErFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Domain createDomain() {
@@ -138,8 +144,7 @@ public class ErFactoryImpl extends EFactoryImpl implements ErFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Attribute createAttribute() {
@@ -148,8 +153,7 @@ public class ErFactoryImpl extends EFactoryImpl implements ErFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Relationship createRelationship() {
@@ -158,8 +162,7 @@ public class ErFactoryImpl extends EFactoryImpl implements ErFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public RelationshipEnd createRelationshipEnd() {
@@ -168,8 +171,7 @@ public class ErFactoryImpl extends EFactoryImpl implements ErFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public ModelLibrary createModelLibrary() {
@@ -178,8 +180,7 @@ public class ErFactoryImpl extends EFactoryImpl implements ErFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Model createModel() {
@@ -188,8 +189,7 @@ public class ErFactoryImpl extends EFactoryImpl implements ErFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public SubjectArea createSubjectArea() {
@@ -198,8 +198,7 @@ public class ErFactoryImpl extends EFactoryImpl implements ErFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public PrimaryKey createPrimaryKey() {
@@ -208,17 +207,15 @@ public class ErFactoryImpl extends EFactoryImpl implements ErFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public ErPackage getErPackage() {
-        return (ErPackage)getEPackage();
+        return (ErPackage) getEPackage();
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @deprecated
      * @generated
      */
@@ -227,4 +224,4 @@ public class ErFactoryImpl extends EFactoryImpl implements ErFactory {
         return ErPackage.eINSTANCE;
     }
 
-} //ErFactoryImpl
+} // ErFactoryImpl

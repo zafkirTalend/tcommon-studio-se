@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.analysis.businessnomenclature;
@@ -9,9 +8,8 @@ package orgomg.cwm.analysis.businessnomenclature;
 import org.eclipse.emf.common.util.EList;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Term</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Term</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * This represents words or phrases used by business users to refer to Concepts.
@@ -37,15 +35,17 @@ import org.eclipse.emf.common.util.EList;
  * @generated
  */
 public interface Term extends VocabularyElement {
+
     /**
-     * Returns the value of the '<em><b>Concept</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwm.analysis.businessnomenclature.Concept}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.analysis.businessnomenclature.Concept#getTerm <em>Term</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the Concepts from which the Term is derived.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Concept</b></em>' reference list. The
+     * list contents are of type
+     * {@link orgomg.cwm.analysis.businessnomenclature.Concept}. It is
+     * bidirectional and its opposite is '
+     * {@link orgomg.cwm.analysis.businessnomenclature.Concept#getTerm
+     * <em>Term</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> Identifies the Concepts from which the Term is
+     * derived. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Concept</em>' reference list.
      * @see orgomg.cwm.analysis.businessnomenclature.BusinessnomenclaturePackage#getTerm_Concept()
      * @see orgomg.cwm.analysis.businessnomenclature.Concept#getTerm
@@ -56,13 +56,13 @@ public interface Term extends VocabularyElement {
 
     /**
      * Returns the value of the '<em><b>Related Term</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwm.analysis.businessnomenclature.Term}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.analysis.businessnomenclature.Term#getTerm <em>Term</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the related Terms.
-     * <!-- end-model-doc -->
+     * The list contents are of type
+     * {@link orgomg.cwm.analysis.businessnomenclature.Term}. It is
+     * bidirectional and its opposite is '
+     * {@link orgomg.cwm.analysis.businessnomenclature.Term#getTerm
+     * <em>Term</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> Identifies the related Terms. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Related Term</em>' reference list.
      * @see orgomg.cwm.analysis.businessnomenclature.BusinessnomenclaturePackage#getTerm_RelatedTerm()
      * @see orgomg.cwm.analysis.businessnomenclature.Term#getTerm
@@ -75,8 +75,7 @@ public interface Term extends VocabularyElement {
      * Returns the value of the '<em><b>Term</b></em>' reference list.
      * The list contents are of type {@link orgomg.cwm.analysis.businessnomenclature.Term}.
      * It is bidirectional and its opposite is '{@link orgomg.cwm.analysis.businessnomenclature.Term#getRelatedTerm <em>Related Term</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Identifies a Term.
      * <!-- end-model-doc -->
@@ -89,13 +88,13 @@ public interface Term extends VocabularyElement {
     EList<Term> getTerm();
 
     /**
-     * Returns the value of the '<em><b>Preferred Term</b></em>' reference.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.analysis.businessnomenclature.Term#getSynonym <em>Synonym</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the preferred term for the synonym.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Preferred Term</b></em>' reference. It
+     * is bidirectional and its opposite is '
+     * {@link orgomg.cwm.analysis.businessnomenclature.Term#getSynonym
+     * <em>Synonym</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> Identifies the preferred term for the synonym. <!--
+     * end-model-doc -->
+     * 
      * @return the value of the '<em>Preferred Term</em>' reference.
      * @see #setPreferredTerm(Term)
      * @see orgomg.cwm.analysis.businessnomenclature.BusinessnomenclaturePackage#getTerm_PreferredTerm()
@@ -107,8 +106,8 @@ public interface Term extends VocabularyElement {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.analysis.businessnomenclature.Term#getPreferredTerm <em>Preferred Term</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Preferred Term</em>' reference.
      * @see #getPreferredTerm()
      * @generated
@@ -119,8 +118,7 @@ public interface Term extends VocabularyElement {
      * Returns the value of the '<em><b>Synonym</b></em>' reference list.
      * The list contents are of type {@link orgomg.cwm.analysis.businessnomenclature.Term}.
      * It is bidirectional and its opposite is '{@link orgomg.cwm.analysis.businessnomenclature.Term#getPreferredTerm <em>Preferred Term</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Identifies a Term.
      * <!-- end-model-doc -->
@@ -136,8 +134,7 @@ public interface Term extends VocabularyElement {
      * Returns the value of the '<em><b>Wider Term</b></em>' reference list.
      * The list contents are of type {@link orgomg.cwm.analysis.businessnomenclature.Term}.
      * It is bidirectional and its opposite is '{@link orgomg.cwm.analysis.businessnomenclature.Term#getNarrowerTerm <em>Narrower Term</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Identifies a Term.
      * <!-- end-model-doc -->
@@ -151,13 +148,14 @@ public interface Term extends VocabularyElement {
 
     /**
      * Returns the value of the '<em><b>Narrower Term</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwm.analysis.businessnomenclature.Term}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.analysis.businessnomenclature.Term#getWiderTerm <em>Wider Term</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the narrower terms for the wider term.
+     * The list contents are of type
+     * {@link orgomg.cwm.analysis.businessnomenclature.Term}. It is
+     * bidirectional and its opposite is '
+     * {@link orgomg.cwm.analysis.businessnomenclature.Term#getWiderTerm
+     * <em>Wider Term</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> Identifies the narrower terms for the wider term.
      * <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Narrower Term</em>' reference list.
      * @see orgomg.cwm.analysis.businessnomenclature.BusinessnomenclaturePackage#getTerm_NarrowerTerm()
      * @see orgomg.cwm.analysis.businessnomenclature.Term#getWiderTerm

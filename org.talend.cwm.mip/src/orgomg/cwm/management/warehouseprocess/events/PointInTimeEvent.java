@@ -1,16 +1,13 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.management.warehouseprocess.events;
 
-
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Point In Time Event</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Point In Time Event</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * A PointInTime event is triggered at a fixed time, independently of any external context.

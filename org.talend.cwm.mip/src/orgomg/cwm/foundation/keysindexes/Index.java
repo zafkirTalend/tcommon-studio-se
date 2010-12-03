@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.foundation.keysindexes;
@@ -10,9 +9,8 @@ import org.eclipse.emf.common.util.EList;
 import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Index</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Index</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * Instances of the Index class represent the ordering of the instances of some other Class, and the Index is said to "span" the Class. Indexes normally have an ordered set of attributes of the Class instance they span that make up the "key" of the index; this set of relationships is represented by the IndexedFeature class that indicates how the attributes are used by the Index instance.
@@ -37,13 +35,13 @@ import orgomg.cwm.objectmodel.core.ModelElement;
  * @generated
  */
 public interface Index extends ModelElement {
+
     /**
      * Returns the value of the '<em><b>Is Partitioning</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * If True, this Index instance is used as a partitioning index.
-     * <!-- end-model-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> If
+     * True, this Index instance is used as a partitioning index. <!--
+     * end-model-doc -->
+     * 
      * @return the value of the '<em>Is Partitioning</em>' attribute.
      * @see #setIsPartitioning(boolean)
      * @see orgomg.cwm.foundation.keysindexes.KeysindexesPackage#getIndex_IsPartitioning()
@@ -54,8 +52,8 @@ public interface Index extends ModelElement {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.foundation.keysindexes.Index#isIsPartitioning <em>Is Partitioning</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Is Partitioning</em>' attribute.
      * @see #isIsPartitioning()
      * @generated
@@ -63,12 +61,11 @@ public interface Index extends ModelElement {
     void setIsPartitioning(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Is Sorted</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * If True, the Index instance is maintained in a sorted order.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Is Sorted</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> If
+     * True, the Index instance is maintained in a sorted order. <!--
+     * end-model-doc -->
+     * 
      * @return the value of the '<em>Is Sorted</em>' attribute.
      * @see #setIsSorted(boolean)
      * @see orgomg.cwm.foundation.keysindexes.KeysindexesPackage#getIndex_IsSorted()
@@ -78,22 +75,24 @@ public interface Index extends ModelElement {
     boolean isIsSorted();
 
     /**
-     * Sets the value of the '{@link orgomg.cwm.foundation.keysindexes.Index#isIsSorted <em>Is Sorted</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Is Sorted</em>' attribute.
+     * Sets the value of the '
+     * {@link orgomg.cwm.foundation.keysindexes.Index#isIsSorted
+     * <em>Is Sorted</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @param value
+     *            the new value of the '<em>Is Sorted</em>' attribute.
      * @see #isIsSorted()
      * @generated
      */
     void setIsSorted(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Is Unique</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The isUnique attribute is True if the Index instance guarantees all of its instances have a unique key value.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Is Unique</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> The
+     * isUnique attribute is True if the Index instance guarantees all of its
+     * instances have a unique key value. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Is Unique</em>' attribute.
      * @see #setIsUnique(boolean)
      * @see orgomg.cwm.foundation.keysindexes.KeysindexesPackage#getIndex_IsUnique()
@@ -103,25 +102,33 @@ public interface Index extends ModelElement {
     boolean isIsUnique();
 
     /**
-     * Sets the value of the '{@link orgomg.cwm.foundation.keysindexes.Index#isIsUnique <em>Is Unique</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Is Unique</em>' attribute.
+     * Sets the value of the '
+     * {@link orgomg.cwm.foundation.keysindexes.Index#isIsUnique
+     * <em>Is Unique</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @param value
+     *            the new value of the '<em>Is Unique</em>' attribute.
      * @see #isIsUnique()
      * @generated
      */
     void setIsUnique(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Indexed Feature</b></em>' containment reference list.
-     * The list contents are of type {@link orgomg.cwm.foundation.keysindexes.IndexedFeature}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.foundation.keysindexes.IndexedFeature#getIndex <em>Index</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the IndexedFeature instance that associates this Index with one of the StructuralFeature elements of the Index?s key. The ordered constraint on this reference can be used to represent the sequential order of elements of the Index?s key.
-     * <!-- end-model-doc -->
-     * @return the value of the '<em>Indexed Feature</em>' containment reference list.
+     * Returns the value of the '<em><b>Indexed Feature</b></em>' containment
+     * reference list. The list contents are of type
+     * {@link orgomg.cwm.foundation.keysindexes.IndexedFeature}. It is
+     * bidirectional and its opposite is '
+     * {@link orgomg.cwm.foundation.keysindexes.IndexedFeature#getIndex
+     * <em>Index</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> Identifies the IndexedFeature instance that
+     * associates this Index with one of the StructuralFeature elements of the
+     * Index?s key. The ordered constraint on this reference can be used to
+     * represent the sequential order of elements of the Index?s key. <!--
+     * end-model-doc -->
+     * 
+     * @return the value of the '<em>Indexed Feature</em>' containment reference
+     *         list.
      * @see orgomg.cwm.foundation.keysindexes.KeysindexesPackage#getIndex_IndexedFeature()
      * @see orgomg.cwm.foundation.keysindexes.IndexedFeature#getIndex
      * @model opposite="index" containment="true"
@@ -130,13 +137,13 @@ public interface Index extends ModelElement {
     EList<IndexedFeature> getIndexedFeature();
 
     /**
-     * Returns the value of the '<em><b>Spanned Class</b></em>' reference.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.objectmodel.core.Class#getIndex <em>Index</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the Class instance the Index instance spans.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Spanned Class</b></em>' reference. It is
+     * bidirectional and its opposite is '
+     * {@link orgomg.cwm.objectmodel.core.Class#getIndex <em>Index</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * Identifies the Class instance the Index instance spans. <!--
+     * end-model-doc -->
+     * 
      * @return the value of the '<em>Spanned Class</em>' reference.
      * @see #setSpannedClass(orgomg.cwm.objectmodel.core.Class)
      * @see orgomg.cwm.foundation.keysindexes.KeysindexesPackage#getIndex_SpannedClass()
@@ -148,8 +155,8 @@ public interface Index extends ModelElement {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.foundation.keysindexes.Index#getSpannedClass <em>Spanned Class</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Spanned Class</em>' reference.
      * @see #getSpannedClass()
      * @generated

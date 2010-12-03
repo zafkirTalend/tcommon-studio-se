@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.analysis.informationset;
@@ -11,9 +10,8 @@ import orgomg.cwm.analysis.olap.Cube;
 import orgomg.cwm.objectmodel.core.ProcedureExpression;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Segment</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Segment</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * Segment represents a multidimensional structure. A Segment is defined by a collection of unique Dimensions from the InformationSet. Each unique combination of members in the Cartesian product of the Segment?s Dimensions identifies precisely one data cell within the multidimensional structure.
@@ -34,14 +32,15 @@ import orgomg.cwm.objectmodel.core.ProcedureExpression;
  * @generated
  */
 public interface Segment extends Cube {
+
     /**
-     * Returns the value of the '<em><b>Region Sequence</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Specifies the sequence of the SegmentRegion.
-     * <!-- end-model-doc -->
-     * @return the value of the '<em>Region Sequence</em>' containment reference.
+     * Returns the value of the '<em><b>Region Sequence</b></em>' containment
+     * reference. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> Specifies the sequence of the SegmentRegion. <!--
+     * end-model-doc -->
+     * 
+     * @return the value of the '<em>Region Sequence</em>' containment
+     *         reference.
      * @see #setRegionSequence(ProcedureExpression)
      * @see orgomg.cwmx.analysis.informationset.InformationsetPackage#getSegment_RegionSequence()
      * @model containment="true"
@@ -60,14 +59,13 @@ public interface Segment extends Cube {
     void setRegionSequence(ProcedureExpression value);
 
     /**
-     * Returns the value of the '<em><b>Rule</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwmx.analysis.informationset.Rule}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwmx.analysis.informationset.Rule#getSegment <em>Segment</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The Rule for a Segment
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Rule</b></em>' reference list. The list
+     * contents are of type {@link orgomg.cwmx.analysis.informationset.Rule}. It
+     * is bidirectional and its opposite is '
+     * {@link orgomg.cwmx.analysis.informationset.Rule#getSegment
+     * <em>Segment</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> The Rule for a Segment <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Rule</em>' reference list.
      * @see orgomg.cwmx.analysis.informationset.InformationsetPackage#getSegment_Rule()
      * @see orgomg.cwmx.analysis.informationset.Rule#getSegment

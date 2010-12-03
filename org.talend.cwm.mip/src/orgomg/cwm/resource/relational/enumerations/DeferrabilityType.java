@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.resource.relational.enumerations;
@@ -13,24 +12,23 @@ import java.util.List;
 import org.eclipse.emf.common.util.Enumerator;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the literals of the enumeration '<em><b>Deferrability Type</b></em>',
- * and utility methods for working with them.
- * <!-- end-user-doc -->
- * <!-- begin-model-doc -->
- * Used in Foreign Keys
- * Indicates if the Foreign Key validation should be deferred to the end of the transaction or executed immadiately at the end of the statement.
- * This is the value used at the beginning of a transaction. It can be changed within a transaction.
- * <!-- end-model-doc -->
+ * <!-- begin-user-doc --> A representation of the literals of the enumeration '
+ * <em><b>Deferrability Type</b></em>', and utility methods for working with
+ * them. <!-- end-user-doc --> <!-- begin-model-doc --> Used in Foreign Keys
+ * Indicates if the Foreign Key validation should be deferred to the end of the
+ * transaction or executed immadiately at the end of the statement. This is the
+ * value used at the beginning of a transaction. It can be changed within a
+ * transaction. <!-- end-model-doc -->
+ * 
  * @see orgomg.cwm.resource.relational.enumerations.EnumerationsPackage#getDeferrabilityType()
  * @model
  * @generated
  */
 public enum DeferrabilityType implements Enumerator {
     /**
-     * The '<em><b>Initially Deferred</b></em>' literal object.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The '<em><b>Initially Deferred</b></em>' literal object. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #INITIALLY_DEFERRED_VALUE
      * @generated
      * @ordered
@@ -38,9 +36,9 @@ public enum DeferrabilityType implements Enumerator {
     INITIALLY_DEFERRED(0, "initiallyDeferred", "initiallyDeferred"),
 
     /**
-     * The '<em><b>Initially Immediate</b></em>' literal object.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The '<em><b>Initially Immediate</b></em>' literal object. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #INITIALLY_IMMEDIATE_VALUE
      * @generated
      * @ordered
@@ -49,8 +47,8 @@ public enum DeferrabilityType implements Enumerator {
 
     /**
      * The '<em><b>Not Deferrable</b></em>' literal object.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @see #NOT_DEFERRABLE_VALUE
      * @generated
      * @ordered
@@ -58,12 +56,11 @@ public enum DeferrabilityType implements Enumerator {
     NOT_DEFERRABLE(2, "notDeferrable", "notDeferrable");
 
     /**
-     * The '<em><b>Initially Deferred</b></em>' literal value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * By default, the test for Foreign Key validity is performed at the end of the transaction
-     * <!-- end-model-doc -->
+     * The '<em><b>Initially Deferred</b></em>' literal value. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> By
+     * default, the test for Foreign Key validity is performed at the end of the
+     * transaction <!-- end-model-doc -->
+     * 
      * @see #INITIALLY_DEFERRED
      * @model name="initiallyDeferred"
      * @generated
@@ -72,12 +69,11 @@ public enum DeferrabilityType implements Enumerator {
     public static final int INITIALLY_DEFERRED_VALUE = 0;
 
     /**
-     * The '<em><b>Initially Immediate</b></em>' literal value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * By default, the test for ForeignKey validity is performed at each statement
+     * The '<em><b>Initially Immediate</b></em>' literal value. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> By
+     * default, the test for ForeignKey validity is performed at each statement
      * <!-- end-model-doc -->
+     * 
      * @see #INITIALLY_IMMEDIATE
      * @model name="initiallyImmediate"
      * @generated
@@ -86,12 +82,11 @@ public enum DeferrabilityType implements Enumerator {
     public static final int INITIALLY_IMMEDIATE_VALUE = 1;
 
     /**
-     * The '<em><b>Not Deferrable</b></em>' literal value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The test for Foreign Key validity is performed at each statement and cannot be changed in the transaction.
-     * <!-- end-model-doc -->
+     * The '<em><b>Not Deferrable</b></em>' literal value. <!-- begin-user-doc
+     * --> <!-- end-user-doc --> <!-- begin-model-doc --> The test for Foreign
+     * Key validity is performed at each statement and cannot be changed in the
+     * transaction. <!-- end-model-doc -->
+     * 
      * @see #NOT_DEFERRABLE
      * @model name="notDeferrable"
      * @generated
@@ -101,29 +96,22 @@ public enum DeferrabilityType implements Enumerator {
 
     /**
      * An array of all the '<em><b>Deferrability Type</b></em>' enumerators.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    private static final DeferrabilityType[] VALUES_ARRAY =
-        new DeferrabilityType[] {
-            INITIALLY_DEFERRED,
-            INITIALLY_IMMEDIATE,
-            NOT_DEFERRABLE,
-        };
+    private static final DeferrabilityType[] VALUES_ARRAY = new DeferrabilityType[] { INITIALLY_DEFERRED, INITIALLY_IMMEDIATE,
+            NOT_DEFERRABLE, };
 
     /**
      * A public read-only list of all the '<em><b>Deferrability Type</b></em>' enumerators.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static final List<DeferrabilityType> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
     /**
      * Returns the '<em><b>Deferrability Type</b></em>' literal with the specified literal value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static DeferrabilityType get(String literal) {
@@ -138,8 +126,7 @@ public enum DeferrabilityType implements Enumerator {
 
     /**
      * Returns the '<em><b>Deferrability Type</b></em>' literal with the specified name.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static DeferrabilityType getByName(String name) {
@@ -154,44 +141,43 @@ public enum DeferrabilityType implements Enumerator {
 
     /**
      * Returns the '<em><b>Deferrability Type</b></em>' literal with the specified integer value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static DeferrabilityType get(int value) {
         switch (value) {
-            case INITIALLY_DEFERRED_VALUE: return INITIALLY_DEFERRED;
-            case INITIALLY_IMMEDIATE_VALUE: return INITIALLY_IMMEDIATE;
-            case NOT_DEFERRABLE_VALUE: return NOT_DEFERRABLE;
+        case INITIALLY_DEFERRED_VALUE:
+            return INITIALLY_DEFERRED;
+        case INITIALLY_IMMEDIATE_VALUE:
+            return INITIALLY_IMMEDIATE;
+        case NOT_DEFERRABLE_VALUE:
+            return NOT_DEFERRABLE;
         }
         return null;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private final int value;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private final String name;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private final String literal;
 
     /**
      * Only this class can construct instances.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     private DeferrabilityType(int value, String name, String literal) {
@@ -201,41 +187,37 @@ public enum DeferrabilityType implements Enumerator {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public int getValue() {
-      return value;
+        return value;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getName() {
-      return name;
+        return name;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getLiteral() {
-      return literal;
+        return literal;
     }
 
     /**
      * Returns the literal value of the enumerator, which is its string representation.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
         return literal;
     }
-    
-} //DeferrabilityType
+
+} // DeferrabilityType

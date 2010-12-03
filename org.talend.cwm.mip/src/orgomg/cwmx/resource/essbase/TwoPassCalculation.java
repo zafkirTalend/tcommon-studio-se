@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.essbase;
@@ -9,9 +8,8 @@ package orgomg.cwmx.resource.essbase;
 import orgomg.cwm.resource.multidimensional.DimensionedObject;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Two Pass Calculation</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Two Pass Calculation</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * This is a tag specifying that a derived (calculated) Accounts member needs to be re-computed following the global calculation of an Essbase Database.

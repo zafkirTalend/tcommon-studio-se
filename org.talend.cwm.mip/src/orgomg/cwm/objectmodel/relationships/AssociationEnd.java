@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.objectmodel.relationships;
@@ -9,9 +8,8 @@ package orgomg.cwm.objectmodel.relationships;
 import orgomg.cwm.objectmodel.core.StructuralFeature;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Association End</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Association End</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * An association end is an endpoint of an association, which connects the association to a classifier. Each association end is part of one association. The association ends of each association are ordered.
@@ -34,14 +32,17 @@ import orgomg.cwm.objectmodel.core.StructuralFeature;
  * @generated
  */
 public interface AssociationEnd extends StructuralFeature {
+
     /**
-     * Returns the value of the '<em><b>Aggregation</b></em>' attribute.
-     * The literals are from the enumeration {@link orgomg.cwm.objectmodel.relationships.AggregationKind}.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * When placed on one end (the "target" end), specifies whether the class on the target end is an aggregation with respect to the class on the other end (the "source" end). Only one end of an association can be an aggregation.
+     * Returns the value of the '<em><b>Aggregation</b></em>' attribute. The
+     * literals are from the enumeration
+     * {@link orgomg.cwm.objectmodel.relationships.AggregationKind}. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> When
+     * placed on one end (the "target" end), specifies whether the class on the
+     * target end is an aggregation with respect to the class on the other end
+     * (the "source" end). Only one end of an association can be an aggregation.
      * <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Aggregation</em>' attribute.
      * @see orgomg.cwm.objectmodel.relationships.AggregationKind
      * @see #setAggregation(AggregationKind)
@@ -53,8 +54,8 @@ public interface AssociationEnd extends StructuralFeature {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.objectmodel.relationships.AssociationEnd#getAggregation <em>Aggregation</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Aggregation</em>' attribute.
      * @see orgomg.cwm.objectmodel.relationships.AggregationKind
      * @see #getAggregation()
@@ -63,12 +64,15 @@ public interface AssociationEnd extends StructuralFeature {
     void setAggregation(AggregationKind value);
 
     /**
-     * Returns the value of the '<em><b>Is Navigable</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * When placed on a target end, specifies whether traversal from a source instance to its associated target instances is possible. A value of true means that the association can be navigated by the source class and the target rolename can be used in navigation expressions. Specification of navigability for each direction is defined independently.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Is Navigable</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> When
+     * placed on a target end, specifies whether traversal from a source
+     * instance to its associated target instances is possible. A value of true
+     * means that the association can be navigated by the source class and the
+     * target rolename can be used in navigation expressions. Specification of
+     * navigability for each direction is defined independently. <!--
+     * end-model-doc -->
+     * 
      * @return the value of the '<em>Is Navigable</em>' attribute.
      * @see #setIsNavigable(boolean)
      * @see orgomg.cwm.objectmodel.relationships.RelationshipsPackage#getAssociationEnd_IsNavigable()
@@ -79,8 +83,8 @@ public interface AssociationEnd extends StructuralFeature {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.objectmodel.relationships.AssociationEnd#isIsNavigable <em>Is Navigable</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Is Navigable</em>' attribute.
      * @see #isIsNavigable()
      * @generated

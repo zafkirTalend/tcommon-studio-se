@@ -1,16 +1,13 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.objectmodel.relationships;
 
-
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Association</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Association</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * An association defines a semantic relationship between classifiers. Associations have two or more named ends. Associations with two or more ends are called "n-ary" whereas associations with exactly two ends are called "binary". Each end, depending

@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.analysis.transformation;
@@ -12,9 +11,8 @@ import orgomg.cwm.objectmodel.core.Namespace;
 import orgomg.cwm.objectmodel.core.ProcedureExpression;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Classifier Map</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Classifier Map</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * This represents a mapping of source Classifiers to target Classifiers. A ClassifierMap may consists of a group of ClassifierFeatureMaps and/or FeatureMaps.
@@ -36,13 +34,13 @@ import orgomg.cwm.objectmodel.core.ProcedureExpression;
  * @generated
  */
 public interface ClassifierMap extends Namespace {
+
     /**
-     * Returns the value of the '<em><b>Function</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Any code or script for the ClassifierMap.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Function</b></em>' containment
+     * reference. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> Any code or script for the ClassifierMap. <!--
+     * end-model-doc -->
+     * 
      * @return the value of the '<em>Function</em>' containment reference.
      * @see #setFunction(ProcedureExpression)
      * @see orgomg.cwm.analysis.transformation.TransformationPackage#getClassifierMap_Function()
@@ -53,8 +51,8 @@ public interface ClassifierMap extends Namespace {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.analysis.transformation.ClassifierMap#getFunction <em>Function</em>}' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Function</em>' containment reference.
      * @see #getFunction()
      * @generated
@@ -62,12 +60,11 @@ public interface ClassifierMap extends Namespace {
     void setFunction(ProcedureExpression value);
 
     /**
-     * Returns the value of the '<em><b>Function Description</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * A short description for any code or script performed by the ClassifierMap.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Function Description</b></em>'
+     * attribute. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> A short description for any code or script performed
+     * by the ClassifierMap. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Function Description</em>' attribute.
      * @see #setFunctionDescription(String)
      * @see orgomg.cwm.analysis.transformation.TransformationPackage#getClassifierMap_FunctionDescription()
@@ -78,8 +75,8 @@ public interface ClassifierMap extends Namespace {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.analysis.transformation.ClassifierMap#getFunctionDescription <em>Function Description</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Function Description</em>' attribute.
      * @see #getFunctionDescription()
      * @generated
@@ -90,8 +87,7 @@ public interface ClassifierMap extends Namespace {
      * Returns the value of the '<em><b>Feature Map</b></em>' containment reference list.
      * The list contents are of type {@link orgomg.cwm.analysis.transformation.FeatureMap}.
      * It is bidirectional and its opposite is '{@link orgomg.cwm.analysis.transformation.FeatureMap#getClassifierMap <em>Classifier Map</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Identifies the owned FeatureMaps
      * <!-- end-model-doc -->
@@ -107,8 +103,7 @@ public interface ClassifierMap extends Namespace {
      * Returns the value of the '<em><b>Cf Map</b></em>' containment reference list.
      * The list contents are of type {@link orgomg.cwm.analysis.transformation.ClassifierFeatureMap}.
      * It is bidirectional and its opposite is '{@link orgomg.cwm.analysis.transformation.ClassifierFeatureMap#getClassifierMap <em>Classifier Map</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Identifies the owned ClassifierFeatureMaps
      * <!-- end-model-doc -->
@@ -124,8 +119,7 @@ public interface ClassifierMap extends Namespace {
      * Returns the value of the '<em><b>Source</b></em>' reference list.
      * The list contents are of type {@link orgomg.cwm.objectmodel.core.Classifier}.
      * It is bidirectional and its opposite is '{@link orgomg.cwm.objectmodel.core.Classifier#getClassifierMap <em>Classifier Map</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Identifies the source Classifiers of the ClassifierMap
      * <!-- end-model-doc -->

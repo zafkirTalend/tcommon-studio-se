@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.resource.xml.impl;
@@ -14,9 +13,8 @@ import orgomg.cwm.resource.xml.Schema;
 import orgomg.cwm.resource.xml.XmlPackage;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Schema</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Schema</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -28,10 +26,10 @@ import orgomg.cwm.resource.xml.XmlPackage;
  * @generated
  */
 public class SchemaImpl extends PackageImpl implements Schema {
+
     /**
      * The default value of the '{@link #getVersion() <em>Version</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getVersion()
      * @generated
      * @ordered
@@ -40,8 +38,7 @@ public class SchemaImpl extends PackageImpl implements Schema {
 
     /**
      * The cached value of the '{@link #getVersion() <em>Version</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getVersion()
      * @generated
      * @ordered
@@ -50,8 +47,8 @@ public class SchemaImpl extends PackageImpl implements Schema {
 
     /**
      * The default value of the '{@link #getXmlNamespace() <em>Xml Namespace</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getXmlNamespace()
      * @generated
      * @ordered
@@ -60,8 +57,8 @@ public class SchemaImpl extends PackageImpl implements Schema {
 
     /**
      * The cached value of the '{@link #getXmlNamespace() <em>Xml Namespace</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getXmlNamespace()
      * @generated
      * @ordered
@@ -69,8 +66,7 @@ public class SchemaImpl extends PackageImpl implements Schema {
     protected String xmlNamespace = XML_NAMESPACE_EDEFAULT;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected SchemaImpl() {
@@ -78,8 +74,7 @@ public class SchemaImpl extends PackageImpl implements Schema {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -88,8 +83,7 @@ public class SchemaImpl extends PackageImpl implements Schema {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getVersion() {
@@ -97,8 +91,7 @@ public class SchemaImpl extends PackageImpl implements Schema {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setVersion(String newVersion) {
@@ -109,8 +102,7 @@ public class SchemaImpl extends PackageImpl implements Schema {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getXmlNamespace() {
@@ -118,8 +110,7 @@ public class SchemaImpl extends PackageImpl implements Schema {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setXmlNamespace(String newXmlNamespace) {
@@ -130,81 +121,77 @@ public class SchemaImpl extends PackageImpl implements Schema {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case XmlPackage.SCHEMA__VERSION:
-                return getVersion();
-            case XmlPackage.SCHEMA__XML_NAMESPACE:
-                return getXmlNamespace();
+        case XmlPackage.SCHEMA__VERSION:
+            return getVersion();
+        case XmlPackage.SCHEMA__XML_NAMESPACE:
+            return getXmlNamespace();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case XmlPackage.SCHEMA__VERSION:
-                setVersion((String)newValue);
-                return;
-            case XmlPackage.SCHEMA__XML_NAMESPACE:
-                setXmlNamespace((String)newValue);
-                return;
+        case XmlPackage.SCHEMA__VERSION:
+            setVersion((String) newValue);
+            return;
+        case XmlPackage.SCHEMA__XML_NAMESPACE:
+            setXmlNamespace((String) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case XmlPackage.SCHEMA__VERSION:
-                setVersion(VERSION_EDEFAULT);
-                return;
-            case XmlPackage.SCHEMA__XML_NAMESPACE:
-                setXmlNamespace(XML_NAMESPACE_EDEFAULT);
-                return;
+        case XmlPackage.SCHEMA__VERSION:
+            setVersion(VERSION_EDEFAULT);
+            return;
+        case XmlPackage.SCHEMA__XML_NAMESPACE:
+            setXmlNamespace(XML_NAMESPACE_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case XmlPackage.SCHEMA__VERSION:
-                return VERSION_EDEFAULT == null ? version != null : !VERSION_EDEFAULT.equals(version);
-            case XmlPackage.SCHEMA__XML_NAMESPACE:
-                return XML_NAMESPACE_EDEFAULT == null ? xmlNamespace != null : !XML_NAMESPACE_EDEFAULT.equals(xmlNamespace);
+        case XmlPackage.SCHEMA__VERSION:
+            return VERSION_EDEFAULT == null ? version != null : !VERSION_EDEFAULT.equals(version);
+        case XmlPackage.SCHEMA__XML_NAMESPACE:
+            return XML_NAMESPACE_EDEFAULT == null ? xmlNamespace != null : !XML_NAMESPACE_EDEFAULT.equals(xmlNamespace);
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (version: ");
@@ -215,4 +202,4 @@ public class SchemaImpl extends PackageImpl implements Schema {
         return result.toString();
     }
 
-} //SchemaImpl
+} // SchemaImpl

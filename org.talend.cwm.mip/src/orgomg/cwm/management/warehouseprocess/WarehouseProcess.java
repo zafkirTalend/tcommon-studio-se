@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.management.warehouseprocess;
@@ -12,9 +11,8 @@ import orgomg.cwm.management.warehouseprocess.events.WarehouseEvent;
 import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Warehouse Process</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Warehouse Process</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * A WarehouseProcess represents the processing of a transformation. It is instantiated as one of its subtypes WarehouseActivity or WarehouseStep, depending on whether it represents the processing of a TransformationActivity or a Transformation Step.
@@ -36,16 +34,18 @@ import orgomg.cwm.objectmodel.core.ModelElement;
  * @generated
  */
 public interface WarehouseProcess extends ModelElement {
+
     /**
      * Returns the value of the '<em><b>Static Definition</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * When a WarehouseProcess is a constant mapping (such as a Relational View of legacy data or a continuous data propagation process), this flag indicates that the mapping does not require to be run for the target to be up-to-date and in sync with
-     * the source.
+     * <!-- begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * When a WarehouseProcess is a constant mapping (such as a Relational View
+     * of legacy data or a continuous data propagation process), this flag
+     * indicates that the mapping does not require to be run for the target to
+     * be up-to-date and in sync with the source.
      * 
      * 
      * <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Static Definition</em>' attribute.
      * @see #setStaticDefinition(boolean)
      * @see orgomg.cwm.management.warehouseprocess.WarehouseprocessPackage#getWarehouseProcess_StaticDefinition()
@@ -56,8 +56,8 @@ public interface WarehouseProcess extends ModelElement {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.management.warehouseprocess.WarehouseProcess#isStaticDefinition <em>Static Definition</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Static Definition</em>' attribute.
      * @see #isStaticDefinition()
      * @generated
@@ -65,12 +65,13 @@ public interface WarehouseProcess extends ModelElement {
     void setStaticDefinition(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Is Sequential</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * This flag indicates if more than one instance of this WarehouseProcess may run at a time. If this flag is true, the scheduler should fail any attempt to trigger this WarehouseProcess while an instance is already in progress.
+     * Returns the value of the '<em><b>Is Sequential</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> This
+     * flag indicates if more than one instance of this WarehouseProcess may run
+     * at a time. If this flag is true, the scheduler should fail any attempt to
+     * trigger this WarehouseProcess while an instance is already in progress.
      * <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Is Sequential</em>' attribute.
      * @see #setIsSequential(boolean)
      * @see orgomg.cwm.management.warehouseprocess.WarehouseprocessPackage#getWarehouseProcess_IsSequential()
@@ -81,8 +82,8 @@ public interface WarehouseProcess extends ModelElement {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.management.warehouseprocess.WarehouseProcess#isIsSequential <em>Is Sequential</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Is Sequential</em>' attribute.
      * @see #isIsSequential()
      * @generated
@@ -90,16 +91,20 @@ public interface WarehouseProcess extends ModelElement {
     void setIsSequential(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Warehouse Event</b></em>' containment reference list.
-     * The list contents are of type {@link orgomg.cwm.management.warehouseprocess.events.WarehouseEvent}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.management.warehouseprocess.events.WarehouseEvent#getWarehouseProcess <em>Warehouse Process</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies a set of events of various types, which will be used to trigger the execution of the warehouse process and its associated transformations.	
+     * Returns the value of the '<em><b>Warehouse Event</b></em>' containment
+     * reference list. The list contents are of type
+     * {@link orgomg.cwm.management.warehouseprocess.events.WarehouseEvent}. It
+     * is bidirectional and its opposite is '
+     * {@link orgomg.cwm.management.warehouseprocess.events.WarehouseEvent#getWarehouseProcess
+     * <em>Warehouse Process</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * --> <!-- begin-model-doc --> Identifies a set of events of various types,
+     * which will be used to trigger the execution of the warehouse process and
+     * its associated transformations.
      * 
      * <!-- end-model-doc -->
-     * @return the value of the '<em>Warehouse Event</em>' containment reference list.
+     * 
+     * @return the value of the '<em>Warehouse Event</em>' containment reference
+     *         list.
      * @see orgomg.cwm.management.warehouseprocess.WarehouseprocessPackage#getWarehouseProcess_WarehouseEvent()
      * @see orgomg.cwm.management.warehouseprocess.events.WarehouseEvent#getWarehouseProcess
      * @model opposite="warehouseProcess" containment="true"
@@ -111,8 +116,7 @@ public interface WarehouseProcess extends ModelElement {
      * Returns the value of the '<em><b>Internal Event</b></em>' reference list.
      * The list contents are of type {@link orgomg.cwm.management.warehouseprocess.events.InternalEvent}.
      * It is bidirectional and its opposite is '{@link orgomg.cwm.management.warehouseprocess.events.InternalEvent#getTriggeringWP <em>Triggering WP</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Identifies an internal event triggered by the termination of the WarehouseProcess. 
      * <!-- end-model-doc -->

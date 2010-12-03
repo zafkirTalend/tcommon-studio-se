@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.imsdatabase.impl;
@@ -13,9 +12,8 @@ import orgomg.cwmx.resource.imsdatabase.DEDB;
 import orgomg.cwmx.resource.imsdatabase.ImsdatabasePackage;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>DEDB</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>DEDB</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -28,10 +26,10 @@ import orgomg.cwmx.resource.imsdatabase.ImsdatabasePackage;
  * @generated
  */
 public class DEDBImpl extends AccessMethodImpl implements DEDB {
+
     /**
      * The default value of the '{@link #getRmName() <em>Rm Name</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getRmName()
      * @generated
      * @ordered
@@ -40,8 +38,7 @@ public class DEDBImpl extends AccessMethodImpl implements DEDB {
 
     /**
      * The cached value of the '{@link #getRmName() <em>Rm Name</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getRmName()
      * @generated
      * @ordered
@@ -50,8 +47,7 @@ public class DEDBImpl extends AccessMethodImpl implements DEDB {
 
     /**
      * The default value of the '{@link #getStage() <em>Stage</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getStage()
      * @generated
      * @ordered
@@ -60,8 +56,7 @@ public class DEDBImpl extends AccessMethodImpl implements DEDB {
 
     /**
      * The cached value of the '{@link #getStage() <em>Stage</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getStage()
      * @generated
      * @ordered
@@ -70,8 +65,8 @@ public class DEDBImpl extends AccessMethodImpl implements DEDB {
 
     /**
      * The default value of the '{@link #isExtendedCall() <em>Extended Call</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #isExtendedCall()
      * @generated
      * @ordered
@@ -80,8 +75,7 @@ public class DEDBImpl extends AccessMethodImpl implements DEDB {
 
     /**
      * The cached value of the '{@link #isExtendedCall() <em>Extended Call</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #isExtendedCall()
      * @generated
      * @ordered
@@ -89,8 +83,7 @@ public class DEDBImpl extends AccessMethodImpl implements DEDB {
     protected boolean extendedCall = EXTENDED_CALL_EDEFAULT;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected DEDBImpl() {
@@ -98,8 +91,7 @@ public class DEDBImpl extends AccessMethodImpl implements DEDB {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -108,8 +100,7 @@ public class DEDBImpl extends AccessMethodImpl implements DEDB {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getRmName() {
@@ -117,8 +108,7 @@ public class DEDBImpl extends AccessMethodImpl implements DEDB {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setRmName(String newRmName) {
@@ -129,8 +119,7 @@ public class DEDBImpl extends AccessMethodImpl implements DEDB {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public long getStage() {
@@ -138,8 +127,7 @@ public class DEDBImpl extends AccessMethodImpl implements DEDB {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setStage(long newStage) {
@@ -150,8 +138,7 @@ public class DEDBImpl extends AccessMethodImpl implements DEDB {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isExtendedCall() {
@@ -159,103 +146,99 @@ public class DEDBImpl extends AccessMethodImpl implements DEDB {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setExtendedCall(boolean newExtendedCall) {
         boolean oldExtendedCall = extendedCall;
         extendedCall = newExtendedCall;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.DEDB__EXTENDED_CALL, oldExtendedCall, extendedCall));
+            eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.DEDB__EXTENDED_CALL, oldExtendedCall,
+                    extendedCall));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case ImsdatabasePackage.DEDB__RM_NAME:
-                return getRmName();
-            case ImsdatabasePackage.DEDB__STAGE:
-                return getStage();
-            case ImsdatabasePackage.DEDB__EXTENDED_CALL:
-                return isExtendedCall();
+        case ImsdatabasePackage.DEDB__RM_NAME:
+            return getRmName();
+        case ImsdatabasePackage.DEDB__STAGE:
+            return getStage();
+        case ImsdatabasePackage.DEDB__EXTENDED_CALL:
+            return isExtendedCall();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case ImsdatabasePackage.DEDB__RM_NAME:
-                setRmName((String)newValue);
-                return;
-            case ImsdatabasePackage.DEDB__STAGE:
-                setStage((Long)newValue);
-                return;
-            case ImsdatabasePackage.DEDB__EXTENDED_CALL:
-                setExtendedCall((Boolean)newValue);
-                return;
+        case ImsdatabasePackage.DEDB__RM_NAME:
+            setRmName((String) newValue);
+            return;
+        case ImsdatabasePackage.DEDB__STAGE:
+            setStage((Long) newValue);
+            return;
+        case ImsdatabasePackage.DEDB__EXTENDED_CALL:
+            setExtendedCall((Boolean) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case ImsdatabasePackage.DEDB__RM_NAME:
-                setRmName(RM_NAME_EDEFAULT);
-                return;
-            case ImsdatabasePackage.DEDB__STAGE:
-                setStage(STAGE_EDEFAULT);
-                return;
-            case ImsdatabasePackage.DEDB__EXTENDED_CALL:
-                setExtendedCall(EXTENDED_CALL_EDEFAULT);
-                return;
+        case ImsdatabasePackage.DEDB__RM_NAME:
+            setRmName(RM_NAME_EDEFAULT);
+            return;
+        case ImsdatabasePackage.DEDB__STAGE:
+            setStage(STAGE_EDEFAULT);
+            return;
+        case ImsdatabasePackage.DEDB__EXTENDED_CALL:
+            setExtendedCall(EXTENDED_CALL_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case ImsdatabasePackage.DEDB__RM_NAME:
-                return RM_NAME_EDEFAULT == null ? rmName != null : !RM_NAME_EDEFAULT.equals(rmName);
-            case ImsdatabasePackage.DEDB__STAGE:
-                return stage != STAGE_EDEFAULT;
-            case ImsdatabasePackage.DEDB__EXTENDED_CALL:
-                return extendedCall != EXTENDED_CALL_EDEFAULT;
+        case ImsdatabasePackage.DEDB__RM_NAME:
+            return RM_NAME_EDEFAULT == null ? rmName != null : !RM_NAME_EDEFAULT.equals(rmName);
+        case ImsdatabasePackage.DEDB__STAGE:
+            return stage != STAGE_EDEFAULT;
+        case ImsdatabasePackage.DEDB__EXTENDED_CALL:
+            return extendedCall != EXTENDED_CALL_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (rmName: ");
@@ -268,4 +251,4 @@ public class DEDBImpl extends AccessMethodImpl implements DEDB {
         return result.toString();
     }
 
-} //DEDBImpl
+} // DEDBImpl

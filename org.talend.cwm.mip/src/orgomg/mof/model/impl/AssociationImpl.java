@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.mof.model.impl;
@@ -21,9 +20,8 @@ import orgomg.mof.model.Association;
 import orgomg.mof.model.ModelPackage;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Association</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Association</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -34,6 +32,7 @@ import orgomg.mof.model.ModelPackage;
  * @generated
  */
 public class AssociationImpl extends EObjectImpl implements Association {
+
     /**
      * The cached value of the '{@link #getModeledProjection() <em>Modeled Projection</em>}' reference list.
      * <!-- begin-user-doc -->
@@ -45,8 +44,7 @@ public class AssociationImpl extends EObjectImpl implements Association {
     protected EList<ModeledSemanticContext> modeledProjection;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected AssociationImpl() {
@@ -54,8 +52,7 @@ public class AssociationImpl extends EObjectImpl implements Association {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -64,104 +61,99 @@ public class AssociationImpl extends EObjectImpl implements Association {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<ModeledSemanticContext> getModeledProjection() {
         if (modeledProjection == null) {
-            modeledProjection = new EObjectWithInverseResolvingEList.ManyInverse<ModeledSemanticContext>(ModeledSemanticContext.class, this, ModelPackage.ASSOCIATION__MODELED_PROJECTION, CwmmipPackage.MODELED_SEMANTIC_CONTEXT__MOF_ASSOCIATION);
+            modeledProjection = new EObjectWithInverseResolvingEList.ManyInverse<ModeledSemanticContext>(
+                    ModeledSemanticContext.class, this, ModelPackage.ASSOCIATION__MODELED_PROJECTION,
+                    CwmmipPackage.MODELED_SEMANTIC_CONTEXT__MOF_ASSOCIATION);
         }
         return modeledProjection;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case ModelPackage.ASSOCIATION__MODELED_PROJECTION:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getModeledProjection()).basicAdd(otherEnd, msgs);
+        case ModelPackage.ASSOCIATION__MODELED_PROJECTION:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getModeledProjection()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case ModelPackage.ASSOCIATION__MODELED_PROJECTION:
-                return ((InternalEList<?>)getModeledProjection()).basicRemove(otherEnd, msgs);
+        case ModelPackage.ASSOCIATION__MODELED_PROJECTION:
+            return ((InternalEList<?>) getModeledProjection()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case ModelPackage.ASSOCIATION__MODELED_PROJECTION:
-                return getModeledProjection();
+        case ModelPackage.ASSOCIATION__MODELED_PROJECTION:
+            return getModeledProjection();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case ModelPackage.ASSOCIATION__MODELED_PROJECTION:
-                getModeledProjection().clear();
-                getModeledProjection().addAll((Collection<? extends ModeledSemanticContext>)newValue);
-                return;
+        case ModelPackage.ASSOCIATION__MODELED_PROJECTION:
+            getModeledProjection().clear();
+            getModeledProjection().addAll((Collection<? extends ModeledSemanticContext>) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case ModelPackage.ASSOCIATION__MODELED_PROJECTION:
-                getModeledProjection().clear();
-                return;
+        case ModelPackage.ASSOCIATION__MODELED_PROJECTION:
+            getModeledProjection().clear();
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case ModelPackage.ASSOCIATION__MODELED_PROJECTION:
-                return modeledProjection != null && !modeledProjection.isEmpty();
+        case ModelPackage.ASSOCIATION__MODELED_PROJECTION:
+            return modeledProjection != null && !modeledProjection.isEmpty();
         }
         return super.eIsSet(featureID);
     }
 
-} //AssociationImpl
+} // AssociationImpl

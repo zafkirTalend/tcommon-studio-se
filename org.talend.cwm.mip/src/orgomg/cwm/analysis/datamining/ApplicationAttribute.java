@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.analysis.datamining;
@@ -10,9 +9,8 @@ import org.eclipse.emf.common.util.EList;
 import orgomg.cwm.objectmodel.core.Attribute;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Application Attribute</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Application Attribute</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * Attribute used when the model was generated.
@@ -33,14 +31,15 @@ import orgomg.cwm.objectmodel.core.Attribute;
  * @generated
  */
 public interface ApplicationAttribute extends Attribute {
+
     /**
-     * Returns the value of the '<em><b>Usage Type</b></em>' attribute.
-     * The literals are from the enumeration {@link orgomg.cwm.analysis.datamining.AttributeUsage}.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Indicates whether attribute was actively used when the model was generated.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Usage Type</b></em>' attribute. The
+     * literals are from the enumeration
+     * {@link orgomg.cwm.analysis.datamining.AttributeUsage}. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * Indicates whether attribute was actively used when the model was
+     * generated. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Usage Type</em>' attribute.
      * @see orgomg.cwm.analysis.datamining.AttributeUsage
      * @see #setUsageType(AttributeUsage)
@@ -52,8 +51,8 @@ public interface ApplicationAttribute extends Attribute {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.analysis.datamining.ApplicationAttribute#getUsageType <em>Usage Type</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Usage Type</em>' attribute.
      * @see orgomg.cwm.analysis.datamining.AttributeUsage
      * @see #getUsageType()
@@ -62,13 +61,12 @@ public interface ApplicationAttribute extends Attribute {
     void setUsageType(AttributeUsage value);
 
     /**
-     * Returns the value of the '<em><b>Attribute Type</b></em>' attribute.
-     * The literals are from the enumeration {@link orgomg.cwm.analysis.datamining.AttributeType}.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Type of ApplicationAttribute.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Attribute Type</b></em>' attribute. The
+     * literals are from the enumeration
+     * {@link orgomg.cwm.analysis.datamining.AttributeType}. <!-- begin-user-doc
+     * --> <!-- end-user-doc --> <!-- begin-model-doc --> Type of
+     * ApplicationAttribute. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Attribute Type</em>' attribute.
      * @see orgomg.cwm.analysis.datamining.AttributeType
      * @see #setAttributeType(AttributeType)
@@ -80,8 +78,8 @@ public interface ApplicationAttribute extends Attribute {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.analysis.datamining.ApplicationAttribute#getAttributeType <em>Attribute Type</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Attribute Type</em>' attribute.
      * @see orgomg.cwm.analysis.datamining.AttributeType
      * @see #getAttributeType()
@@ -92,8 +90,7 @@ public interface ApplicationAttribute extends Attribute {
     /**
      * Returns the value of the '<em><b>Input Spec</b></em>' container reference.
      * It is bidirectional and its opposite is '{@link orgomg.cwm.analysis.datamining.ApplicationInputSpecification#getInputAttribute <em>Input Attribute</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * The ApplicationInputSpecification owning ApplicationAttributes.
      * <!-- end-model-doc -->
@@ -108,8 +105,8 @@ public interface ApplicationAttribute extends Attribute {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.analysis.datamining.ApplicationAttribute#getInputSpec <em>Input Spec</em>}' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Input Spec</em>' container reference.
      * @see #getInputSpec()
      * @generated
@@ -117,15 +114,17 @@ public interface ApplicationAttribute extends Attribute {
     void setInputSpec(ApplicationInputSpecification value);
 
     /**
-     * Returns the value of the '<em><b>Supervised Mining Model</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwm.analysis.datamining.SupervisedMiningModel}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.analysis.datamining.SupervisedMiningModel#getTarget <em>Target</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * SupervisedMiningModels referencing the ApplicationAttribute as their "target".
-     * <!-- end-model-doc -->
-     * @return the value of the '<em>Supervised Mining Model</em>' reference list.
+     * Returns the value of the '<em><b>Supervised Mining Model</b></em>'
+     * reference list. The list contents are of type
+     * {@link orgomg.cwm.analysis.datamining.SupervisedMiningModel}. It is
+     * bidirectional and its opposite is '
+     * {@link orgomg.cwm.analysis.datamining.SupervisedMiningModel#getTarget
+     * <em>Target</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> SupervisedMiningModels referencing the
+     * ApplicationAttribute as their "target". <!-- end-model-doc -->
+     * 
+     * @return the value of the '<em>Supervised Mining Model</em>' reference
+     *         list.
      * @see orgomg.cwm.analysis.datamining.DataminingPackage#getApplicationAttribute_SupervisedMiningModel()
      * @see orgomg.cwm.analysis.datamining.SupervisedMiningModel#getTarget
      * @model opposite="target"

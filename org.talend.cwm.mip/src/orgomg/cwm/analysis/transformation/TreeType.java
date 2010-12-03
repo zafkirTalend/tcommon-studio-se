@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.analysis.transformation;
@@ -13,13 +12,11 @@ import java.util.List;
 import org.eclipse.emf.common.util.Enumerator;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the literals of the enumeration '<em><b>Tree Type</b></em>',
- * and utility methods for working with them.
- * <!-- end-user-doc -->
- * <!-- begin-model-doc -->
- * unary, binary
- * <!-- end-model-doc -->
+ * <!-- begin-user-doc --> A representation of the literals of the enumeration '
+ * <em><b>Tree Type</b></em>', and utility methods for working with them. <!--
+ * end-user-doc --> <!-- begin-model-doc --> unary, binary <!-- end-model-doc
+ * -->
+ * 
  * @see orgomg.cwm.analysis.transformation.TransformationPackage#getTreeType()
  * @model
  * @generated
@@ -64,8 +61,8 @@ public enum TreeType implements Enumerator {
      * The '<em><b>Tfm binary</b></em>' literal value.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of '<em><b>Tfm binary</b></em>' literal object isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of '<em><b>Tfm binary</b></em>' literal object isn't
+     * clear, there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
      * @see #TFM_BINARY
@@ -76,29 +73,23 @@ public enum TreeType implements Enumerator {
     public static final int TFM_BINARY_VALUE = 1;
 
     /**
-     * An array of all the '<em><b>Tree Type</b></em>' enumerators.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * An array of all the '<em><b>Tree Type</b></em>' enumerators. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
-    private static final TreeType[] VALUES_ARRAY =
-        new TreeType[] {
-            TFM_UNARY,
-            TFM_BINARY,
-        };
+    private static final TreeType[] VALUES_ARRAY = new TreeType[] { TFM_UNARY, TFM_BINARY, };
 
     /**
      * A public read-only list of all the '<em><b>Tree Type</b></em>' enumerators.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static final List<TreeType> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
     /**
      * Returns the '<em><b>Tree Type</b></em>' literal with the specified literal value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static TreeType get(String literal) {
@@ -113,8 +104,7 @@ public enum TreeType implements Enumerator {
 
     /**
      * Returns the '<em><b>Tree Type</b></em>' literal with the specified name.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static TreeType getByName(String name) {
@@ -129,43 +119,41 @@ public enum TreeType implements Enumerator {
 
     /**
      * Returns the '<em><b>Tree Type</b></em>' literal with the specified integer value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static TreeType get(int value) {
         switch (value) {
-            case TFM_UNARY_VALUE: return TFM_UNARY;
-            case TFM_BINARY_VALUE: return TFM_BINARY;
+        case TFM_UNARY_VALUE:
+            return TFM_UNARY;
+        case TFM_BINARY_VALUE:
+            return TFM_BINARY;
         }
         return null;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private final int value;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private final String name;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private final String literal;
 
     /**
      * Only this class can construct instances.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     private TreeType(int value, String name, String literal) {
@@ -175,41 +163,37 @@ public enum TreeType implements Enumerator {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public int getValue() {
-      return value;
+        return value;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getName() {
-      return name;
+        return name;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getLiteral() {
-      return literal;
+        return literal;
     }
 
     /**
      * Returns the literal value of the enumerator, which is its string representation.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
         return literal;
     }
-    
-} //TreeType
+
+} // TreeType

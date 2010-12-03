@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.foundation.keysindexes.util;
@@ -10,6 +9,7 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
+import orgomg.cwm.foundation.keysindexes.*;
 import orgomg.cwm.foundation.keysindexes.Index;
 import orgomg.cwm.foundation.keysindexes.IndexedFeature;
 import orgomg.cwm.foundation.keysindexes.KeyRelationship;
@@ -19,26 +19,25 @@ import orgomg.cwm.objectmodel.core.Element;
 import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
- * <!-- begin-user-doc -->
- * The <b>Adapter Factory</b> for the model.
- * It provides an adapter <code>createXXX</code> method for each class of the model.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> The <b>Adapter Factory</b> for the model. It provides
+ * an adapter <code>createXXX</code> method for each class of the model. <!--
+ * end-user-doc -->
  * @see orgomg.cwm.foundation.keysindexes.KeysindexesPackage
  * @generated
  */
 public class KeysindexesAdapterFactory extends AdapterFactoryImpl {
+
     /**
      * The cached model package.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected static KeysindexesPackage modelPackage;
 
     /**
      * Creates an instance of the adapter factory.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     public KeysindexesAdapterFactory() {
@@ -49,9 +48,9 @@ public class KeysindexesAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Returns whether this factory is applicable for the type of the object.
-     * <!-- begin-user-doc -->
-     * This implementation returns <code>true</code> if the object is either the model's package or is an instance object of the model.
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> This implementation returns <code>true</code> if
+     * the object is either the model's package or is an instance object of the
+     * model. <!-- end-user-doc -->
      * @return whether this factory is applicable for the type of the object.
      * @generated
      */
@@ -61,48 +60,54 @@ public class KeysindexesAdapterFactory extends AdapterFactoryImpl {
             return true;
         }
         if (object instanceof EObject) {
-            return ((EObject)object).eClass().getEPackage() == modelPackage;
+            return ((EObject) object).eClass().getEPackage() == modelPackage;
         }
         return false;
     }
 
     /**
-     * The switch that delegates to the <code>createXXX</code> methods.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The switch that delegates to the <code>createXXX</code> methods. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
-    protected KeysindexesSwitch<Adapter> modelSwitch =
-        new KeysindexesSwitch<Adapter>() {
-            @Override
-            public Adapter caseUniqueKey(UniqueKey object) {
-                return createUniqueKeyAdapter();
-            }
-            @Override
-            public Adapter caseIndex(Index object) {
-                return createIndexAdapter();
-            }
-            @Override
-            public Adapter caseKeyRelationship(KeyRelationship object) {
-                return createKeyRelationshipAdapter();
-            }
-            @Override
-            public Adapter caseIndexedFeature(IndexedFeature object) {
-                return createIndexedFeatureAdapter();
-            }
-            @Override
-            public Adapter caseElement(Element object) {
-                return createElementAdapter();
-            }
-            @Override
-            public Adapter caseModelElement(ModelElement object) {
-                return createModelElementAdapter();
-            }
-            @Override
-            public Adapter defaultCase(EObject object) {
-                return createEObjectAdapter();
-            }
-        };
+    protected KeysindexesSwitch<Adapter> modelSwitch = new KeysindexesSwitch<Adapter>() {
+
+        @Override
+        public Adapter caseUniqueKey(UniqueKey object) {
+            return createUniqueKeyAdapter();
+        }
+
+        @Override
+        public Adapter caseIndex(Index object) {
+            return createIndexAdapter();
+        }
+
+        @Override
+        public Adapter caseKeyRelationship(KeyRelationship object) {
+            return createKeyRelationshipAdapter();
+        }
+
+        @Override
+        public Adapter caseIndexedFeature(IndexedFeature object) {
+            return createIndexedFeatureAdapter();
+        }
+
+        @Override
+        public Adapter caseElement(Element object) {
+            return createElementAdapter();
+        }
+
+        @Override
+        public Adapter caseModelElement(ModelElement object) {
+            return createModelElementAdapter();
+        }
+
+        @Override
+        public Adapter defaultCase(EObject object) {
+            return createEObjectAdapter();
+        }
+    };
 
     /**
      * Creates an adapter for the <code>target</code>.
@@ -114,16 +119,14 @@ public class KeysindexesAdapterFactory extends AdapterFactoryImpl {
      */
     @Override
     public Adapter createAdapter(Notifier target) {
-        return modelSwitch.doSwitch((EObject)target);
+        return modelSwitch.doSwitch((EObject) target);
     }
-
 
     /**
      * Creates a new adapter for an object of class '{@link orgomg.cwm.foundation.keysindexes.UniqueKey <em>Unique Key</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> This default implementation returns null so that
+     * we can easily ignore cases; it's useful to ignore a case when inheritance
+     * will catch all the cases anyway. <!-- end-user-doc -->
      * @return the new adapter.
      * @see orgomg.cwm.foundation.keysindexes.UniqueKey
      * @generated
@@ -133,11 +136,12 @@ public class KeysindexesAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '{@link orgomg.cwm.foundation.keysindexes.Index <em>Index</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
+     * Creates a new adapter for an object of class '
+     * {@link orgomg.cwm.foundation.keysindexes.Index <em>Index</em>}'. <!--
+     * begin-user-doc --> This default implementation returns null so that we
+     * can easily ignore cases; it's useful to ignore a case when inheritance
+     * will catch all the cases anyway. <!-- end-user-doc -->
+     * 
      * @return the new adapter.
      * @see orgomg.cwm.foundation.keysindexes.Index
      * @generated
@@ -148,9 +152,9 @@ public class KeysindexesAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Creates a new adapter for an object of class '{@link orgomg.cwm.foundation.keysindexes.KeyRelationship <em>Key Relationship</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- begin-user-doc --> This default
+     * implementation returns null so that we can easily ignore cases; it's
+     * useful to ignore a case when inheritance will catch all the cases anyway.
      * <!-- end-user-doc -->
      * @return the new adapter.
      * @see orgomg.cwm.foundation.keysindexes.KeyRelationship
@@ -162,9 +166,9 @@ public class KeysindexesAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Creates a new adapter for an object of class '{@link orgomg.cwm.foundation.keysindexes.IndexedFeature <em>Indexed Feature</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- begin-user-doc --> This default
+     * implementation returns null so that we can easily ignore cases; it's
+     * useful to ignore a case when inheritance will catch all the cases anyway.
      * <!-- end-user-doc -->
      * @return the new adapter.
      * @see orgomg.cwm.foundation.keysindexes.IndexedFeature
@@ -175,11 +179,12 @@ public class KeysindexesAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.core.Element <em>Element</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
+     * Creates a new adapter for an object of class '
+     * {@link orgomg.cwm.objectmodel.core.Element <em>Element</em>}'. <!--
+     * begin-user-doc --> This default implementation returns null so that we
+     * can easily ignore cases; it's useful to ignore a case when inheritance
+     * will catch all the cases anyway. <!-- end-user-doc -->
+     * 
      * @return the new adapter.
      * @see orgomg.cwm.objectmodel.core.Element
      * @generated
@@ -190,10 +195,9 @@ public class KeysindexesAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.core.ModelElement <em>Model Element</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> This default implementation returns null so that
+     * we can easily ignore cases; it's useful to ignore a case when inheritance
+     * will catch all the cases anyway. <!-- end-user-doc -->
      * @return the new adapter.
      * @see orgomg.cwm.objectmodel.core.ModelElement
      * @generated
@@ -204,9 +208,8 @@ public class KeysindexesAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Creates a new adapter for the default case.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null.
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> This
+     * default implementation returns null. <!-- end-user-doc -->
      * @return the new adapter.
      * @generated
      */
@@ -214,4 +217,4 @@ public class KeysindexesAdapterFactory extends AdapterFactoryImpl {
         return null;
     }
 
-} //KeysindexesAdapterFactory
+} // KeysindexesAdapterFactory

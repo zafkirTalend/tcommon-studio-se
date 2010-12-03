@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.resource.relational.impl;
@@ -14,9 +13,8 @@ import orgomg.cwm.resource.relational.RelationalPackage;
 import orgomg.cwm.resource.relational.SQLDataType;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>SQL Data Type</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>SQL Data Type</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -27,10 +25,10 @@ import orgomg.cwm.resource.relational.SQLDataType;
  * @generated
  */
 public abstract class SQLDataTypeImpl extends ClassifierImpl implements SQLDataType {
+
     /**
      * The default value of the '{@link #getTypeNumber() <em>Type Number</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getTypeNumber()
      * @generated
      * @ordered
@@ -39,8 +37,7 @@ public abstract class SQLDataTypeImpl extends ClassifierImpl implements SQLDataT
 
     /**
      * The cached value of the '{@link #getTypeNumber() <em>Type Number</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getTypeNumber()
      * @generated
      * @ordered
@@ -48,8 +45,7 @@ public abstract class SQLDataTypeImpl extends ClassifierImpl implements SQLDataT
     protected long typeNumber = TYPE_NUMBER_EDEFAULT;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected SQLDataTypeImpl() {
@@ -57,8 +53,7 @@ public abstract class SQLDataTypeImpl extends ClassifierImpl implements SQLDataT
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -67,8 +62,7 @@ public abstract class SQLDataTypeImpl extends ClassifierImpl implements SQLDataT
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public long getTypeNumber() {
@@ -76,83 +70,79 @@ public abstract class SQLDataTypeImpl extends ClassifierImpl implements SQLDataT
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setTypeNumber(long newTypeNumber) {
         long oldTypeNumber = typeNumber;
         typeNumber = newTypeNumber;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, RelationalPackage.SQL_DATA_TYPE__TYPE_NUMBER, oldTypeNumber, typeNumber));
+            eNotify(new ENotificationImpl(this, Notification.SET, RelationalPackage.SQL_DATA_TYPE__TYPE_NUMBER, oldTypeNumber,
+                    typeNumber));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case RelationalPackage.SQL_DATA_TYPE__TYPE_NUMBER:
-                return getTypeNumber();
+        case RelationalPackage.SQL_DATA_TYPE__TYPE_NUMBER:
+            return getTypeNumber();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case RelationalPackage.SQL_DATA_TYPE__TYPE_NUMBER:
-                setTypeNumber((Long)newValue);
-                return;
+        case RelationalPackage.SQL_DATA_TYPE__TYPE_NUMBER:
+            setTypeNumber((Long) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case RelationalPackage.SQL_DATA_TYPE__TYPE_NUMBER:
-                setTypeNumber(TYPE_NUMBER_EDEFAULT);
-                return;
+        case RelationalPackage.SQL_DATA_TYPE__TYPE_NUMBER:
+            setTypeNumber(TYPE_NUMBER_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case RelationalPackage.SQL_DATA_TYPE__TYPE_NUMBER:
-                return typeNumber != TYPE_NUMBER_EDEFAULT;
+        case RelationalPackage.SQL_DATA_TYPE__TYPE_NUMBER:
+            return typeNumber != TYPE_NUMBER_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (typeNumber: ");
@@ -161,4 +151,4 @@ public abstract class SQLDataTypeImpl extends ClassifierImpl implements SQLDataT
         return result.toString();
     }
 
-} //SQLDataTypeImpl
+} // SQLDataTypeImpl

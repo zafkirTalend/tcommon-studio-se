@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.foundation.er.impl;
@@ -12,18 +11,17 @@ import orgomg.cwmx.foundation.er.ErPackage;
 import orgomg.cwmx.foundation.er.NonuniqueKey;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Nonunique Key</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Nonunique Key</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
 public class NonuniqueKeyImpl extends IndexImpl implements NonuniqueKey {
+
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected NonuniqueKeyImpl() {
@@ -31,8 +29,7 @@ public class NonuniqueKeyImpl extends IndexImpl implements NonuniqueKey {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -40,4 +37,4 @@ public class NonuniqueKeyImpl extends IndexImpl implements NonuniqueKey {
         return ErPackage.Literals.NONUNIQUE_KEY;
     }
 
-} //NonuniqueKeyImpl
+} // NonuniqueKeyImpl

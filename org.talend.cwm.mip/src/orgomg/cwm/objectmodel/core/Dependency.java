@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.objectmodel.core;
@@ -9,9 +8,8 @@ package orgomg.cwm.objectmodel.core;
 import org.eclipse.emf.common.util.EList;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Dependency</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Dependency</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * A dependency states that the implementation or functioning of one or more elements requires the presence of one or more other elements.
@@ -37,13 +35,15 @@ import org.eclipse.emf.common.util.EList;
  * @generated
  */
 public interface Dependency extends ModelElement {
+
     /**
-     * Returns the value of the '<em><b>Kind</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Contains a description of the nature of the dependency relationship between the client and supplier. The list of possible values is open-ended. However, CWM predefines the values "Abstraction" and "Usage".
+     * Returns the value of the '<em><b>Kind</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * Contains a description of the nature of the dependency relationship
+     * between the client and supplier. The list of possible values is
+     * open-ended. However, CWM predefines the values "Abstraction" and "Usage".
      * <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Kind</em>' attribute.
      * @see #setKind(String)
      * @see orgomg.cwm.objectmodel.core.CorePackage#getDependency_Kind()
@@ -54,8 +54,7 @@ public interface Dependency extends ModelElement {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.objectmodel.core.Dependency#getKind <em>Kind</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Kind</em>' attribute.
      * @see #getKind()
      * @generated
@@ -63,14 +62,15 @@ public interface Dependency extends ModelElement {
     void setKind(String value);
 
     /**
-     * Returns the value of the '<em><b>Client</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwm.objectmodel.core.ModelElement}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.objectmodel.core.ModelElement#getClientDependency <em>Client Dependency</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the ModelElements that are clients of the Dependency instance.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Client</b></em>' reference list. The
+     * list contents are of type
+     * {@link orgomg.cwm.objectmodel.core.ModelElement}. It is bidirectional and
+     * its opposite is '
+     * {@link orgomg.cwm.objectmodel.core.ModelElement#getClientDependency
+     * <em>Client Dependency</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * --> <!-- begin-model-doc --> Identifies the ModelElements that are
+     * clients of the Dependency instance. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Client</em>' reference list.
      * @see orgomg.cwm.objectmodel.core.CorePackage#getDependency_Client()
      * @see orgomg.cwm.objectmodel.core.ModelElement#getClientDependency
@@ -80,14 +80,15 @@ public interface Dependency extends ModelElement {
     EList<ModelElement> getClient();
 
     /**
-     * Returns the value of the '<em><b>Supplier</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwm.objectmodel.core.ModelElement}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.objectmodel.core.ModelElement#getSupplierDependency <em>Supplier Dependency</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the ModelElements that are suppliers of the Dependency instance.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Supplier</b></em>' reference list. The
+     * list contents are of type
+     * {@link orgomg.cwm.objectmodel.core.ModelElement}. It is bidirectional and
+     * its opposite is '
+     * {@link orgomg.cwm.objectmodel.core.ModelElement#getSupplierDependency
+     * <em>Supplier Dependency</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * --> <!-- begin-model-doc --> Identifies the ModelElements that are
+     * suppliers of the Dependency instance. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Supplier</em>' reference list.
      * @see orgomg.cwm.objectmodel.core.CorePackage#getDependency_Supplier()
      * @see orgomg.cwm.objectmodel.core.ModelElement#getSupplierDependency

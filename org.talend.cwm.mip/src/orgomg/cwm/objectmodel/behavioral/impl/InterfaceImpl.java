@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.objectmodel.behavioral.impl;
@@ -12,18 +11,17 @@ import orgomg.cwm.objectmodel.behavioral.Interface;
 import orgomg.cwm.objectmodel.core.impl.ClassifierImpl;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Interface</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Interface</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
 public class InterfaceImpl extends ClassifierImpl implements Interface {
+
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected InterfaceImpl() {
@@ -31,8 +29,7 @@ public class InterfaceImpl extends ClassifierImpl implements Interface {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -40,4 +37,4 @@ public class InterfaceImpl extends ClassifierImpl implements Interface {
         return BehavioralPackage.Literals.INTERFACE;
     }
 
-} //InterfaceImpl
+} // InterfaceImpl

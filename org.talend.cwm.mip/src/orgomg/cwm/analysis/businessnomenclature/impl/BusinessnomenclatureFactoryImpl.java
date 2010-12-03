@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.analysis.businessnomenclature.impl;
@@ -11,6 +10,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import orgomg.cwm.analysis.businessnomenclature.*;
 import orgomg.cwm.analysis.businessnomenclature.BusinessDomain;
 import orgomg.cwm.analysis.businessnomenclature.BusinessnomenclatureFactory;
 import orgomg.cwm.analysis.businessnomenclature.BusinessnomenclaturePackage;
@@ -22,26 +22,26 @@ import orgomg.cwm.analysis.businessnomenclature.Term;
 import orgomg.cwm.analysis.businessnomenclature.VocabularyElement;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model <b>Factory</b>.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!--
+ * end-user-doc -->
  * @generated
  */
 public class BusinessnomenclatureFactoryImpl extends EFactoryImpl implements BusinessnomenclatureFactory {
+
     /**
      * Creates the default factory implementation.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     public static BusinessnomenclatureFactory init() {
         try {
-            BusinessnomenclatureFactory theBusinessnomenclatureFactory = (BusinessnomenclatureFactory)EPackage.Registry.INSTANCE.getEFactory("http:///orgomg/cwm/analysis/businessnomenclature.ecore"); 
+            BusinessnomenclatureFactory theBusinessnomenclatureFactory = (BusinessnomenclatureFactory) EPackage.Registry.INSTANCE
+                    .getEFactory("http:///orgomg/cwm/analysis/businessnomenclature.ecore");
             if (theBusinessnomenclatureFactory != null) {
                 return theBusinessnomenclatureFactory;
             }
-        }
-        catch (Exception exception) {
+        } catch (Exception exception) {
             EcorePlugin.INSTANCE.log(exception);
         }
         return new BusinessnomenclatureFactoryImpl();
@@ -49,8 +49,8 @@ public class BusinessnomenclatureFactoryImpl extends EFactoryImpl implements Bus
 
     /**
      * Creates an instance of the factory.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     public BusinessnomenclatureFactoryImpl() {
@@ -58,28 +58,33 @@ public class BusinessnomenclatureFactoryImpl extends EFactoryImpl implements Bus
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public EObject create(EClass eClass) {
         switch (eClass.getClassifierID()) {
-            case BusinessnomenclaturePackage.VOCABULARY_ELEMENT: return createVocabularyElement();
-            case BusinessnomenclaturePackage.NOMENCLATURE: return createNomenclature();
-            case BusinessnomenclaturePackage.TAXONOMY: return createTaxonomy();
-            case BusinessnomenclaturePackage.GLOSSARY: return createGlossary();
-            case BusinessnomenclaturePackage.BUSINESS_DOMAIN: return createBusinessDomain();
-            case BusinessnomenclaturePackage.CONCEPT: return createConcept();
-            case BusinessnomenclaturePackage.TERM: return createTerm();
-            default:
-                throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+        case BusinessnomenclaturePackage.VOCABULARY_ELEMENT:
+            return createVocabularyElement();
+        case BusinessnomenclaturePackage.NOMENCLATURE:
+            return createNomenclature();
+        case BusinessnomenclaturePackage.TAXONOMY:
+            return createTaxonomy();
+        case BusinessnomenclaturePackage.GLOSSARY:
+            return createGlossary();
+        case BusinessnomenclaturePackage.BUSINESS_DOMAIN:
+            return createBusinessDomain();
+        case BusinessnomenclaturePackage.CONCEPT:
+            return createConcept();
+        case BusinessnomenclaturePackage.TERM:
+            return createTerm();
+        default:
+            throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public VocabularyElement createVocabularyElement() {
@@ -88,8 +93,7 @@ public class BusinessnomenclatureFactoryImpl extends EFactoryImpl implements Bus
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Nomenclature createNomenclature() {
@@ -98,8 +102,7 @@ public class BusinessnomenclatureFactoryImpl extends EFactoryImpl implements Bus
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Taxonomy createTaxonomy() {
@@ -108,8 +111,7 @@ public class BusinessnomenclatureFactoryImpl extends EFactoryImpl implements Bus
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Glossary createGlossary() {
@@ -118,8 +120,7 @@ public class BusinessnomenclatureFactoryImpl extends EFactoryImpl implements Bus
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public BusinessDomain createBusinessDomain() {
@@ -128,8 +129,7 @@ public class BusinessnomenclatureFactoryImpl extends EFactoryImpl implements Bus
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Concept createConcept() {
@@ -138,8 +138,7 @@ public class BusinessnomenclatureFactoryImpl extends EFactoryImpl implements Bus
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Term createTerm() {
@@ -148,17 +147,15 @@ public class BusinessnomenclatureFactoryImpl extends EFactoryImpl implements Bus
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public BusinessnomenclaturePackage getBusinessnomenclaturePackage() {
-        return (BusinessnomenclaturePackage)getEPackage();
+        return (BusinessnomenclaturePackage) getEPackage();
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @deprecated
      * @generated
      */
@@ -167,4 +164,4 @@ public class BusinessnomenclatureFactoryImpl extends EFactoryImpl implements Bus
         return BusinessnomenclaturePackage.eINSTANCE;
     }
 
-} //BusinessnomenclatureFactoryImpl
+} // BusinessnomenclatureFactoryImpl

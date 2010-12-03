@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.resource.relational.impl;
@@ -21,9 +20,8 @@ import orgomg.cwm.resource.relational.SQLDistinctType;
 import orgomg.cwm.resource.relational.SQLSimpleType;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>SQL Distinct Type</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>SQL Distinct Type</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -38,10 +36,10 @@ import orgomg.cwm.resource.relational.SQLSimpleType;
  * @generated
  */
 public class SQLDistinctTypeImpl extends SQLDataTypeImpl implements SQLDistinctType {
+
     /**
      * The cached value of the '{@link #getType() <em>Type</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getType()
      * @generated
      * @ordered
@@ -50,8 +48,7 @@ public class SQLDistinctTypeImpl extends SQLDataTypeImpl implements SQLDistinctT
 
     /**
      * The default value of the '{@link #getLength() <em>Length</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getLength()
      * @generated
      * @ordered
@@ -60,8 +57,7 @@ public class SQLDistinctTypeImpl extends SQLDataTypeImpl implements SQLDistinctT
 
     /**
      * The cached value of the '{@link #getLength() <em>Length</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getLength()
      * @generated
      * @ordered
@@ -70,8 +66,7 @@ public class SQLDistinctTypeImpl extends SQLDataTypeImpl implements SQLDistinctT
 
     /**
      * The default value of the '{@link #getPrecision() <em>Precision</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getPrecision()
      * @generated
      * @ordered
@@ -80,8 +75,7 @@ public class SQLDistinctTypeImpl extends SQLDataTypeImpl implements SQLDistinctT
 
     /**
      * The cached value of the '{@link #getPrecision() <em>Precision</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getPrecision()
      * @generated
      * @ordered
@@ -90,8 +84,7 @@ public class SQLDistinctTypeImpl extends SQLDataTypeImpl implements SQLDistinctT
 
     /**
      * The default value of the '{@link #getScale() <em>Scale</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getScale()
      * @generated
      * @ordered
@@ -100,8 +93,7 @@ public class SQLDistinctTypeImpl extends SQLDataTypeImpl implements SQLDistinctT
 
     /**
      * The cached value of the '{@link #getScale() <em>Scale</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getScale()
      * @generated
      * @ordered
@@ -110,8 +102,8 @@ public class SQLDistinctTypeImpl extends SQLDataTypeImpl implements SQLDistinctT
 
     /**
      * The cached value of the '{@link #getSqlSimpleType() <em>Sql Simple Type</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getSqlSimpleType()
      * @generated
      * @ordered
@@ -119,8 +111,7 @@ public class SQLDistinctTypeImpl extends SQLDataTypeImpl implements SQLDistinctT
     protected SQLSimpleType sqlSimpleType;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected SQLDistinctTypeImpl() {
@@ -128,8 +119,7 @@ public class SQLDistinctTypeImpl extends SQLDataTypeImpl implements SQLDistinctT
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -138,25 +128,24 @@ public class SQLDistinctTypeImpl extends SQLDataTypeImpl implements SQLDistinctT
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Classifier getType() {
         if (type != null && type.eIsProxy()) {
-            InternalEObject oldType = (InternalEObject)type;
-            type = (Classifier)eResolveProxy(oldType);
+            InternalEObject oldType = (InternalEObject) type;
+            type = (Classifier) eResolveProxy(oldType);
             if (type != oldType) {
                 if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, RelationalPackage.SQL_DISTINCT_TYPE__TYPE, oldType, type));
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, RelationalPackage.SQL_DISTINCT_TYPE__TYPE, oldType,
+                            type));
             }
         }
         return type;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Classifier basicGetType() {
@@ -164,42 +153,43 @@ public class SQLDistinctTypeImpl extends SQLDataTypeImpl implements SQLDistinctT
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public NotificationChain basicSetType(Classifier newType, NotificationChain msgs) {
         Classifier oldType = type;
         type = newType;
         if (eNotificationRequired()) {
-            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, RelationalPackage.SQL_DISTINCT_TYPE__TYPE, oldType, newType);
-            if (msgs == null) msgs = notification; else msgs.add(notification);
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+                    RelationalPackage.SQL_DISTINCT_TYPE__TYPE, oldType, newType);
+            if (msgs == null)
+                msgs = notification;
+            else
+                msgs.add(notification);
         }
         return msgs;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setType(Classifier newType) {
         if (newType != type) {
             NotificationChain msgs = null;
             if (type != null)
-                msgs = ((InternalEObject)type).eInverseRemove(this, CorePackage.CLASSIFIER__ALIAS, Classifier.class, msgs);
+                msgs = ((InternalEObject) type).eInverseRemove(this, CorePackage.CLASSIFIER__ALIAS, Classifier.class, msgs);
             if (newType != null)
-                msgs = ((InternalEObject)newType).eInverseAdd(this, CorePackage.CLASSIFIER__ALIAS, Classifier.class, msgs);
+                msgs = ((InternalEObject) newType).eInverseAdd(this, CorePackage.CLASSIFIER__ALIAS, Classifier.class, msgs);
             msgs = basicSetType(newType, msgs);
-            if (msgs != null) msgs.dispatch();
-        }
-        else if (eNotificationRequired())
+            if (msgs != null)
+                msgs.dispatch();
+        } else if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, RelationalPackage.SQL_DISTINCT_TYPE__TYPE, newType, newType));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public long getLength() {
@@ -207,8 +197,7 @@ public class SQLDistinctTypeImpl extends SQLDataTypeImpl implements SQLDistinctT
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setLength(long newLength) {
@@ -219,8 +208,7 @@ public class SQLDistinctTypeImpl extends SQLDataTypeImpl implements SQLDistinctT
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public long getPrecision() {
@@ -228,20 +216,19 @@ public class SQLDistinctTypeImpl extends SQLDataTypeImpl implements SQLDistinctT
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setPrecision(long newPrecision) {
         long oldPrecision = precision;
         precision = newPrecision;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, RelationalPackage.SQL_DISTINCT_TYPE__PRECISION, oldPrecision, precision));
+            eNotify(new ENotificationImpl(this, Notification.SET, RelationalPackage.SQL_DISTINCT_TYPE__PRECISION, oldPrecision,
+                    precision));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public long getScale() {
@@ -249,8 +236,7 @@ public class SQLDistinctTypeImpl extends SQLDataTypeImpl implements SQLDistinctT
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setScale(long newScale) {
@@ -261,25 +247,24 @@ public class SQLDistinctTypeImpl extends SQLDataTypeImpl implements SQLDistinctT
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public SQLSimpleType getSqlSimpleType() {
         if (sqlSimpleType != null && sqlSimpleType.eIsProxy()) {
-            InternalEObject oldSqlSimpleType = (InternalEObject)sqlSimpleType;
-            sqlSimpleType = (SQLSimpleType)eResolveProxy(oldSqlSimpleType);
+            InternalEObject oldSqlSimpleType = (InternalEObject) sqlSimpleType;
+            sqlSimpleType = (SQLSimpleType) eResolveProxy(oldSqlSimpleType);
             if (sqlSimpleType != oldSqlSimpleType) {
                 if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, RelationalPackage.SQL_DISTINCT_TYPE__SQL_SIMPLE_TYPE, oldSqlSimpleType, sqlSimpleType));
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+                            RelationalPackage.SQL_DISTINCT_TYPE__SQL_SIMPLE_TYPE, oldSqlSimpleType, sqlSimpleType));
             }
         }
         return sqlSimpleType;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public SQLSimpleType basicGetSqlSimpleType() {
@@ -287,225 +272,231 @@ public class SQLDistinctTypeImpl extends SQLDataTypeImpl implements SQLDistinctT
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public NotificationChain basicSetSqlSimpleType(SQLSimpleType newSqlSimpleType, NotificationChain msgs) {
         SQLSimpleType oldSqlSimpleType = sqlSimpleType;
         sqlSimpleType = newSqlSimpleType;
         if (eNotificationRequired()) {
-            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, RelationalPackage.SQL_DISTINCT_TYPE__SQL_SIMPLE_TYPE, oldSqlSimpleType, newSqlSimpleType);
-            if (msgs == null) msgs = notification; else msgs.add(notification);
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+                    RelationalPackage.SQL_DISTINCT_TYPE__SQL_SIMPLE_TYPE, oldSqlSimpleType, newSqlSimpleType);
+            if (msgs == null)
+                msgs = notification;
+            else
+                msgs.add(notification);
         }
         return msgs;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setSqlSimpleType(SQLSimpleType newSqlSimpleType) {
         if (newSqlSimpleType != sqlSimpleType) {
             NotificationChain msgs = null;
             if (sqlSimpleType != null)
-                msgs = ((InternalEObject)sqlSimpleType).eInverseRemove(this, RelationalPackage.SQL_SIMPLE_TYPE__SQL_DISTINCT_TYPE, SQLSimpleType.class, msgs);
+                msgs = ((InternalEObject) sqlSimpleType).eInverseRemove(this,
+                        RelationalPackage.SQL_SIMPLE_TYPE__SQL_DISTINCT_TYPE, SQLSimpleType.class, msgs);
             if (newSqlSimpleType != null)
-                msgs = ((InternalEObject)newSqlSimpleType).eInverseAdd(this, RelationalPackage.SQL_SIMPLE_TYPE__SQL_DISTINCT_TYPE, SQLSimpleType.class, msgs);
+                msgs = ((InternalEObject) newSqlSimpleType).eInverseAdd(this,
+                        RelationalPackage.SQL_SIMPLE_TYPE__SQL_DISTINCT_TYPE, SQLSimpleType.class, msgs);
             msgs = basicSetSqlSimpleType(newSqlSimpleType, msgs);
-            if (msgs != null) msgs.dispatch();
-        }
-        else if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, RelationalPackage.SQL_DISTINCT_TYPE__SQL_SIMPLE_TYPE, newSqlSimpleType, newSqlSimpleType));
+            if (msgs != null)
+                msgs.dispatch();
+        } else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, RelationalPackage.SQL_DISTINCT_TYPE__SQL_SIMPLE_TYPE,
+                    newSqlSimpleType, newSqlSimpleType));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case RelationalPackage.SQL_DISTINCT_TYPE__TYPE:
-                if (type != null)
-                    msgs = ((InternalEObject)type).eInverseRemove(this, CorePackage.CLASSIFIER__ALIAS, Classifier.class, msgs);
-                return basicSetType((Classifier)otherEnd, msgs);
-            case RelationalPackage.SQL_DISTINCT_TYPE__SQL_SIMPLE_TYPE:
-                if (sqlSimpleType != null)
-                    msgs = ((InternalEObject)sqlSimpleType).eInverseRemove(this, RelationalPackage.SQL_SIMPLE_TYPE__SQL_DISTINCT_TYPE, SQLSimpleType.class, msgs);
-                return basicSetSqlSimpleType((SQLSimpleType)otherEnd, msgs);
+        case RelationalPackage.SQL_DISTINCT_TYPE__TYPE:
+            if (type != null)
+                msgs = ((InternalEObject) type).eInverseRemove(this, CorePackage.CLASSIFIER__ALIAS, Classifier.class, msgs);
+            return basicSetType((Classifier) otherEnd, msgs);
+        case RelationalPackage.SQL_DISTINCT_TYPE__SQL_SIMPLE_TYPE:
+            if (sqlSimpleType != null)
+                msgs = ((InternalEObject) sqlSimpleType).eInverseRemove(this,
+                        RelationalPackage.SQL_SIMPLE_TYPE__SQL_DISTINCT_TYPE, SQLSimpleType.class, msgs);
+            return basicSetSqlSimpleType((SQLSimpleType) otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case RelationalPackage.SQL_DISTINCT_TYPE__TYPE:
-                return basicSetType(null, msgs);
-            case RelationalPackage.SQL_DISTINCT_TYPE__SQL_SIMPLE_TYPE:
-                return basicSetSqlSimpleType(null, msgs);
+        case RelationalPackage.SQL_DISTINCT_TYPE__TYPE:
+            return basicSetType(null, msgs);
+        case RelationalPackage.SQL_DISTINCT_TYPE__SQL_SIMPLE_TYPE:
+            return basicSetSqlSimpleType(null, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case RelationalPackage.SQL_DISTINCT_TYPE__TYPE:
-                if (resolve) return getType();
-                return basicGetType();
-            case RelationalPackage.SQL_DISTINCT_TYPE__LENGTH:
-                return getLength();
-            case RelationalPackage.SQL_DISTINCT_TYPE__PRECISION:
-                return getPrecision();
-            case RelationalPackage.SQL_DISTINCT_TYPE__SCALE:
-                return getScale();
-            case RelationalPackage.SQL_DISTINCT_TYPE__SQL_SIMPLE_TYPE:
-                if (resolve) return getSqlSimpleType();
-                return basicGetSqlSimpleType();
+        case RelationalPackage.SQL_DISTINCT_TYPE__TYPE:
+            if (resolve)
+                return getType();
+            return basicGetType();
+        case RelationalPackage.SQL_DISTINCT_TYPE__LENGTH:
+            return getLength();
+        case RelationalPackage.SQL_DISTINCT_TYPE__PRECISION:
+            return getPrecision();
+        case RelationalPackage.SQL_DISTINCT_TYPE__SCALE:
+            return getScale();
+        case RelationalPackage.SQL_DISTINCT_TYPE__SQL_SIMPLE_TYPE:
+            if (resolve)
+                return getSqlSimpleType();
+            return basicGetSqlSimpleType();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case RelationalPackage.SQL_DISTINCT_TYPE__TYPE:
-                setType((Classifier)newValue);
-                return;
-            case RelationalPackage.SQL_DISTINCT_TYPE__LENGTH:
-                setLength((Long)newValue);
-                return;
-            case RelationalPackage.SQL_DISTINCT_TYPE__PRECISION:
-                setPrecision((Long)newValue);
-                return;
-            case RelationalPackage.SQL_DISTINCT_TYPE__SCALE:
-                setScale((Long)newValue);
-                return;
-            case RelationalPackage.SQL_DISTINCT_TYPE__SQL_SIMPLE_TYPE:
-                setSqlSimpleType((SQLSimpleType)newValue);
-                return;
+        case RelationalPackage.SQL_DISTINCT_TYPE__TYPE:
+            setType((Classifier) newValue);
+            return;
+        case RelationalPackage.SQL_DISTINCT_TYPE__LENGTH:
+            setLength((Long) newValue);
+            return;
+        case RelationalPackage.SQL_DISTINCT_TYPE__PRECISION:
+            setPrecision((Long) newValue);
+            return;
+        case RelationalPackage.SQL_DISTINCT_TYPE__SCALE:
+            setScale((Long) newValue);
+            return;
+        case RelationalPackage.SQL_DISTINCT_TYPE__SQL_SIMPLE_TYPE:
+            setSqlSimpleType((SQLSimpleType) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case RelationalPackage.SQL_DISTINCT_TYPE__TYPE:
-                setType((Classifier)null);
-                return;
-            case RelationalPackage.SQL_DISTINCT_TYPE__LENGTH:
-                setLength(LENGTH_EDEFAULT);
-                return;
-            case RelationalPackage.SQL_DISTINCT_TYPE__PRECISION:
-                setPrecision(PRECISION_EDEFAULT);
-                return;
-            case RelationalPackage.SQL_DISTINCT_TYPE__SCALE:
-                setScale(SCALE_EDEFAULT);
-                return;
-            case RelationalPackage.SQL_DISTINCT_TYPE__SQL_SIMPLE_TYPE:
-                setSqlSimpleType((SQLSimpleType)null);
-                return;
+        case RelationalPackage.SQL_DISTINCT_TYPE__TYPE:
+            setType((Classifier) null);
+            return;
+        case RelationalPackage.SQL_DISTINCT_TYPE__LENGTH:
+            setLength(LENGTH_EDEFAULT);
+            return;
+        case RelationalPackage.SQL_DISTINCT_TYPE__PRECISION:
+            setPrecision(PRECISION_EDEFAULT);
+            return;
+        case RelationalPackage.SQL_DISTINCT_TYPE__SCALE:
+            setScale(SCALE_EDEFAULT);
+            return;
+        case RelationalPackage.SQL_DISTINCT_TYPE__SQL_SIMPLE_TYPE:
+            setSqlSimpleType((SQLSimpleType) null);
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case RelationalPackage.SQL_DISTINCT_TYPE__TYPE:
-                return type != null;
-            case RelationalPackage.SQL_DISTINCT_TYPE__LENGTH:
-                return length != LENGTH_EDEFAULT;
-            case RelationalPackage.SQL_DISTINCT_TYPE__PRECISION:
-                return precision != PRECISION_EDEFAULT;
-            case RelationalPackage.SQL_DISTINCT_TYPE__SCALE:
-                return scale != SCALE_EDEFAULT;
-            case RelationalPackage.SQL_DISTINCT_TYPE__SQL_SIMPLE_TYPE:
-                return sqlSimpleType != null;
+        case RelationalPackage.SQL_DISTINCT_TYPE__TYPE:
+            return type != null;
+        case RelationalPackage.SQL_DISTINCT_TYPE__LENGTH:
+            return length != LENGTH_EDEFAULT;
+        case RelationalPackage.SQL_DISTINCT_TYPE__PRECISION:
+            return precision != PRECISION_EDEFAULT;
+        case RelationalPackage.SQL_DISTINCT_TYPE__SCALE:
+            return scale != SCALE_EDEFAULT;
+        case RelationalPackage.SQL_DISTINCT_TYPE__SQL_SIMPLE_TYPE:
+            return sqlSimpleType != null;
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
         if (baseClass == DataType.class) {
             switch (derivedFeatureID) {
-                default: return -1;
+            default:
+                return -1;
             }
         }
         if (baseClass == TypeAlias.class) {
             switch (derivedFeatureID) {
-                case RelationalPackage.SQL_DISTINCT_TYPE__TYPE: return DatatypesPackage.TYPE_ALIAS__TYPE;
-                default: return -1;
+            case RelationalPackage.SQL_DISTINCT_TYPE__TYPE:
+                return DatatypesPackage.TYPE_ALIAS__TYPE;
+            default:
+                return -1;
             }
         }
         return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
         if (baseClass == DataType.class) {
             switch (baseFeatureID) {
-                default: return -1;
+            default:
+                return -1;
             }
         }
         if (baseClass == TypeAlias.class) {
             switch (baseFeatureID) {
-                case DatatypesPackage.TYPE_ALIAS__TYPE: return RelationalPackage.SQL_DISTINCT_TYPE__TYPE;
-                default: return -1;
+            case DatatypesPackage.TYPE_ALIAS__TYPE:
+                return RelationalPackage.SQL_DISTINCT_TYPE__TYPE;
+            default:
+                return -1;
             }
         }
         return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (length: ");
@@ -518,4 +509,4 @@ public class SQLDistinctTypeImpl extends SQLDataTypeImpl implements SQLDistinctT
         return result.toString();
     }
 
-} //SQLDistinctTypeImpl
+} // SQLDistinctTypeImpl

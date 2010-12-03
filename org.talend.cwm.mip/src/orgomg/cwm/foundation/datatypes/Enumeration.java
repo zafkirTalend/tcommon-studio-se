@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.foundation.datatypes;
@@ -10,9 +9,8 @@ import org.eclipse.emf.common.util.EList;
 import orgomg.cwm.objectmodel.core.DataType;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Enumeration</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Enumeration</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * The Enumeration class is intended as a starting point from which enumerated data types can be created. An enumerated data type is a collection of identifiers often used as the permitted states that some other attribute or property of the enumerated type may take.
@@ -35,14 +33,16 @@ import orgomg.cwm.objectmodel.core.DataType;
  * @generated
  */
 public interface Enumeration extends DataType {
+
     /**
-     * Returns the value of the '<em><b>Is Ordered</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * If True, the ordered constraint on the EnumerationLiterals association is relevant. Otherwise, the ordering of EnumerationLiteral instances is considered unspecified.
+     * Returns the value of the '<em><b>Is Ordered</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> If
+     * True, the ordered constraint on the EnumerationLiterals association is
+     * relevant. Otherwise, the ordering of EnumerationLiteral instances is
+     * considered unspecified.
      * 
      * <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Is Ordered</em>' attribute.
      * @see #setIsOrdered(boolean)
      * @see orgomg.cwm.foundation.datatypes.DatatypesPackage#getEnumeration_IsOrdered()
@@ -53,8 +53,8 @@ public interface Enumeration extends DataType {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.foundation.datatypes.Enumeration#isIsOrdered <em>Is Ordered</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Is Ordered</em>' attribute.
      * @see #isIsOrdered()
      * @generated
@@ -65,10 +65,9 @@ public interface Enumeration extends DataType {
      * Returns the value of the '<em><b>Literal</b></em>' containment reference list.
      * The list contents are of type {@link orgomg.cwm.foundation.datatypes.EnumerationLiteral}.
      * It is bidirectional and its opposite is '{@link orgomg.cwm.foundation.datatypes.EnumerationLiteral#getEnumeration <em>Enumeration</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
-     * Identifies the EnumerationLiteral instances relevant for a particular Enumeration instance. If the Enumeration�s isOrdered attribute is True, the ordering constraint on this association end can be used to determine a logical ordering for the EnumerationLiteral instances. Otherwise, ordering is ignored.
+     * Identifies the EnumerationLiteral instances relevant for a particular Enumeration instance. If the Enumeration?s isOrdered attribute is True, the ordering constraint on this association end can be used to determine a logical ordering for the EnumerationLiteral instances. Otherwise, ordering is ignored.
      * <!-- end-model-doc -->
      * @return the value of the '<em>Literal</em>' containment reference list.
      * @see orgomg.cwm.foundation.datatypes.DatatypesPackage#getEnumeration_Literal()

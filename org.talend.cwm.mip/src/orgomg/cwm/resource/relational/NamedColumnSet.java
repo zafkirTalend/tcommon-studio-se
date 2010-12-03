@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.resource.relational;
@@ -9,9 +8,8 @@ package orgomg.cwm.resource.relational;
 import org.eclipse.emf.common.util.EList;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Named Column Set</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Named Column Set</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * A catalogued set of columns, which may be Table or View.
@@ -33,12 +31,12 @@ import org.eclipse.emf.common.util.EList;
  * @generated
  */
 public interface NamedColumnSet extends ColumnSet {
+
     /**
      * Returns the value of the '<em><b>Using Trigger</b></em>' reference list.
      * The list contents are of type {@link orgomg.cwm.resource.relational.Trigger}.
      * It is bidirectional and its opposite is '{@link orgomg.cwm.resource.relational.Trigger#getUsedColumnSet <em>Used Column Set</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * A Trigger which references this table in its expression
      * <!-- end-model-doc -->
@@ -51,14 +49,15 @@ public interface NamedColumnSet extends ColumnSet {
     EList<Trigger> getUsingTrigger();
 
     /**
-     * Returns the value of the '<em><b>Type</b></em>' reference.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.resource.relational.SQLStructuredType#getColumnSet <em>Column Set</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * For typed Tables and Views, reference to the base SQLStructuredType.
+     * Returns the value of the '<em><b>Type</b></em>' reference. It is
+     * bidirectional and its opposite is '
+     * {@link orgomg.cwm.resource.relational.SQLStructuredType#getColumnSet
+     * <em>Column Set</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> For typed Tables and Views, reference to the base
+     * SQLStructuredType.
      * 
      * <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Type</em>' reference.
      * @see #setType(SQLStructuredType)
      * @see orgomg.cwm.resource.relational.RelationalPackage#getNamedColumnSet_Type()
@@ -70,8 +69,7 @@ public interface NamedColumnSet extends ColumnSet {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.resource.relational.NamedColumnSet#getType <em>Type</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Type</em>' reference.
      * @see #getType()
      * @generated
@@ -79,14 +77,15 @@ public interface NamedColumnSet extends ColumnSet {
     void setType(SQLStructuredType value);
 
     /**
-     * Returns the value of the '<em><b>Option Scope Column</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwm.resource.relational.Column}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.resource.relational.Column#getOptionScopeColumnSet <em>Option Scope Column Set</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Reference to the Column which contains theSCOPE clause.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Option Scope Column</b></em>' reference
+     * list. The list contents are of type
+     * {@link orgomg.cwm.resource.relational.Column}. It is bidirectional and
+     * its opposite is '
+     * {@link orgomg.cwm.resource.relational.Column#getOptionScopeColumnSet
+     * <em>Option Scope Column Set</em>}'. <!-- begin-user-doc --> <!--
+     * end-user-doc --> <!-- begin-model-doc --> Reference to the Column which
+     * contains theSCOPE clause. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Option Scope Column</em>' reference list.
      * @see orgomg.cwm.resource.relational.RelationalPackage#getNamedColumnSet_OptionScopeColumn()
      * @see orgomg.cwm.resource.relational.Column#getOptionScopeColumnSet

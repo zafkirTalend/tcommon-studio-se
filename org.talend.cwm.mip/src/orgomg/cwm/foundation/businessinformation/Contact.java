@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.foundation.businessinformation;
@@ -10,9 +9,8 @@ import org.eclipse.emf.common.util.EList;
 import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Contact</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Contact</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * Each Contact instance collects together the various types of related contact information. Each Contact instance can be associated with multiple Email, Location and Telephone instances. Conversely, each Email, Location, ResourceLocator and Telephone instance can be associated with many Contact instances. The ordering constraints on the associations between these classes and the Contact class can be used to represent a prioritized sequence in which the various types of contact information  should be used.
@@ -37,15 +35,17 @@ import orgomg.cwm.objectmodel.core.ModelElement;
  * @generated
  */
 public interface Contact extends ModelElement {
+
     /**
-     * Returns the value of the '<em><b>Email</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwm.foundation.businessinformation.Email}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.foundation.businessinformation.Email#getContact <em>Contact</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the Contact instance(s) for which this Email instance is relevant.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Email</b></em>' reference list. The list
+     * contents are of type
+     * {@link orgomg.cwm.foundation.businessinformation.Email}. It is
+     * bidirectional and its opposite is '
+     * {@link orgomg.cwm.foundation.businessinformation.Email#getContact
+     * <em>Contact</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> Identifies the Contact instance(s) for which this
+     * Email instance is relevant. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Email</em>' reference list.
      * @see orgomg.cwm.foundation.businessinformation.BusinessinformationPackage#getContact_Email()
      * @see orgomg.cwm.foundation.businessinformation.Email#getContact
@@ -55,14 +55,17 @@ public interface Contact extends ModelElement {
     EList<Email> getEmail();
 
     /**
-     * Returns the value of the '<em><b>Location</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwm.foundation.businessinformation.Location}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.foundation.businessinformation.Location#getContact <em>Contact</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the Location instances associated with this Contact instance. The ordered constraint may be used to identify the order in which Location instances should be contacted.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Location</b></em>' reference list. The
+     * list contents are of type
+     * {@link orgomg.cwm.foundation.businessinformation.Location}. It is
+     * bidirectional and its opposite is '
+     * {@link orgomg.cwm.foundation.businessinformation.Location#getContact
+     * <em>Contact</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> Identifies the Location instances associated with
+     * this Contact instance. The ordered constraint may be used to identify the
+     * order in which Location instances should be contacted. <!-- end-model-doc
+     * -->
+     * 
      * @return the value of the '<em>Location</em>' reference list.
      * @see orgomg.cwm.foundation.businessinformation.BusinessinformationPackage#getContact_Location()
      * @see orgomg.cwm.foundation.businessinformation.Location#getContact
@@ -72,14 +75,17 @@ public interface Contact extends ModelElement {
     EList<Location> getLocation();
 
     /**
-     * Returns the value of the '<em><b>Url</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwm.foundation.businessinformation.ResourceLocator}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.foundation.businessinformation.ResourceLocator#getContact <em>Contact</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the ResourceLocator instances related to this ContactInfo instance. Note that the ordered constraint on this role can be used to indicate the sequence in which ResourceLocator should be contacted.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Url</b></em>' reference list. The list
+     * contents are of type
+     * {@link orgomg.cwm.foundation.businessinformation.ResourceLocator}. It is
+     * bidirectional and its opposite is '
+     * {@link orgomg.cwm.foundation.businessinformation.ResourceLocator#getContact
+     * <em>Contact</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> Identifies the ResourceLocator instances related to
+     * this ContactInfo instance. Note that the ordered constraint on this role
+     * can be used to indicate the sequence in which ResourceLocator should be
+     * contacted. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Url</em>' reference list.
      * @see orgomg.cwm.foundation.businessinformation.BusinessinformationPackage#getContact_Url()
      * @see orgomg.cwm.foundation.businessinformation.ResourceLocator#getContact
@@ -89,14 +95,17 @@ public interface Contact extends ModelElement {
     EList<ResourceLocator> getUrl();
 
     /**
-     * Returns the value of the '<em><b>Telephone</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwm.foundation.businessinformation.Telephone}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.foundation.businessinformation.Telephone#getContact <em>Contact</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the Telephone instance associated with this Contact instance. The ordered constraint may be used to identify the order in which Telephone instances should be contacted.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Telephone</b></em>' reference list. The
+     * list contents are of type
+     * {@link orgomg.cwm.foundation.businessinformation.Telephone}. It is
+     * bidirectional and its opposite is '
+     * {@link orgomg.cwm.foundation.businessinformation.Telephone#getContact
+     * <em>Contact</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> Identifies the Telephone instance associated with
+     * this Contact instance. The ordered constraint may be used to identify the
+     * order in which Telephone instances should be contacted. <!--
+     * end-model-doc -->
+     * 
      * @return the value of the '<em>Telephone</em>' reference list.
      * @see orgomg.cwm.foundation.businessinformation.BusinessinformationPackage#getContact_Telephone()
      * @see orgomg.cwm.foundation.businessinformation.Telephone#getContact

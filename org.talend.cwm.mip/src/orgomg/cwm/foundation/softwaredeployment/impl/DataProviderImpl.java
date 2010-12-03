@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.foundation.softwaredeployment.impl;
@@ -19,9 +18,8 @@ import orgomg.cwm.foundation.softwaredeployment.ProviderConnection;
 import orgomg.cwm.foundation.softwaredeployment.SoftwaredeploymentPackage;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Data Provider</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Data Provider</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -32,10 +30,12 @@ import orgomg.cwm.foundation.softwaredeployment.SoftwaredeploymentPackage;
  * @generated
  */
 public class DataProviderImpl extends DataManagerImpl implements DataProvider {
+
     /**
-     * The cached value of the '{@link #getResourceConnection() <em>Resource Connection</em>}' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getResourceConnection()
+     * <em>Resource Connection</em>}' containment reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #getResourceConnection()
      * @generated
      * @ordered
@@ -43,8 +43,7 @@ public class DataProviderImpl extends DataManagerImpl implements DataProvider {
     protected EList<ProviderConnection> resourceConnection;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected DataProviderImpl() {
@@ -52,8 +51,7 @@ public class DataProviderImpl extends DataManagerImpl implements DataProvider {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -62,104 +60,99 @@ public class DataProviderImpl extends DataManagerImpl implements DataProvider {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<ProviderConnection> getResourceConnection() {
         if (resourceConnection == null) {
-            resourceConnection = new EObjectContainmentWithInverseEList<ProviderConnection>(ProviderConnection.class, this, SoftwaredeploymentPackage.DATA_PROVIDER__RESOURCE_CONNECTION, SoftwaredeploymentPackage.PROVIDER_CONNECTION__DATA_PROVIDER);
+            resourceConnection = new EObjectContainmentWithInverseEList<ProviderConnection>(ProviderConnection.class, this,
+                    SoftwaredeploymentPackage.DATA_PROVIDER__RESOURCE_CONNECTION,
+                    SoftwaredeploymentPackage.PROVIDER_CONNECTION__DATA_PROVIDER);
         }
         return resourceConnection;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case SoftwaredeploymentPackage.DATA_PROVIDER__RESOURCE_CONNECTION:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getResourceConnection()).basicAdd(otherEnd, msgs);
+        case SoftwaredeploymentPackage.DATA_PROVIDER__RESOURCE_CONNECTION:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getResourceConnection()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case SoftwaredeploymentPackage.DATA_PROVIDER__RESOURCE_CONNECTION:
-                return ((InternalEList<?>)getResourceConnection()).basicRemove(otherEnd, msgs);
+        case SoftwaredeploymentPackage.DATA_PROVIDER__RESOURCE_CONNECTION:
+            return ((InternalEList<?>) getResourceConnection()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case SoftwaredeploymentPackage.DATA_PROVIDER__RESOURCE_CONNECTION:
-                return getResourceConnection();
+        case SoftwaredeploymentPackage.DATA_PROVIDER__RESOURCE_CONNECTION:
+            return getResourceConnection();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case SoftwaredeploymentPackage.DATA_PROVIDER__RESOURCE_CONNECTION:
-                getResourceConnection().clear();
-                getResourceConnection().addAll((Collection<? extends ProviderConnection>)newValue);
-                return;
+        case SoftwaredeploymentPackage.DATA_PROVIDER__RESOURCE_CONNECTION:
+            getResourceConnection().clear();
+            getResourceConnection().addAll((Collection<? extends ProviderConnection>) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case SoftwaredeploymentPackage.DATA_PROVIDER__RESOURCE_CONNECTION:
-                getResourceConnection().clear();
-                return;
+        case SoftwaredeploymentPackage.DATA_PROVIDER__RESOURCE_CONNECTION:
+            getResourceConnection().clear();
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case SoftwaredeploymentPackage.DATA_PROVIDER__RESOURCE_CONNECTION:
-                return resourceConnection != null && !resourceConnection.isEmpty();
+        case SoftwaredeploymentPackage.DATA_PROVIDER__RESOURCE_CONNECTION:
+            return resourceConnection != null && !resourceConnection.isEmpty();
         }
         return super.eIsSet(featureID);
     }
 
-} //DataProviderImpl
+} // DataProviderImpl

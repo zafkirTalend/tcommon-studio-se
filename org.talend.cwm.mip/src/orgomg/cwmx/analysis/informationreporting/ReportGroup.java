@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.analysis.informationreporting;
@@ -11,9 +10,8 @@ import orgomg.cwm.analysis.informationvisualization.RenderedObject;
 import orgomg.cwm.foundation.datatypes.QueryExpression;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Report Group</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Report Group</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * ReportGroup defines a grouping of fields on a report.
@@ -32,14 +30,14 @@ import orgomg.cwm.foundation.datatypes.QueryExpression;
  * @generated
  */
 public interface ReportGroup extends RenderedObject {
+
     /**
-     * Returns the value of the '<em><b>Group Type</b></em>' attribute.
-     * The literals are from the enumeration {@link orgomg.cwmx.analysis.informationreporting.ReportGroupType}.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Specifies the type of a ReportGroup
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Group Type</b></em>' attribute. The
+     * literals are from the enumeration
+     * {@link orgomg.cwmx.analysis.informationreporting.ReportGroupType}. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * Specifies the type of a ReportGroup <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Group Type</em>' attribute.
      * @see orgomg.cwmx.analysis.informationreporting.ReportGroupType
      * @see #setGroupType(ReportGroupType)
@@ -51,8 +49,8 @@ public interface ReportGroup extends RenderedObject {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.analysis.informationreporting.ReportGroup#getGroupType <em>Group Type</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Group Type</em>' attribute.
      * @see orgomg.cwmx.analysis.informationreporting.ReportGroupType
      * @see #getGroupType()
@@ -64,8 +62,7 @@ public interface ReportGroup extends RenderedObject {
      * Returns the value of the '<em><b>Report Query</b></em>' reference list.
      * The list contents are of type {@link orgomg.cwm.foundation.datatypes.QueryExpression}.
      * It is bidirectional and its opposite is '{@link orgomg.cwm.foundation.datatypes.QueryExpression#getReportGroup <em>Report Group</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * QueryExpressions referenced by the ReportGroup.
      * <!-- end-model-doc -->

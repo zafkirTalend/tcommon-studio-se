@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.objectmodel.core.impl;
@@ -13,9 +12,8 @@ import orgomg.cwm.objectmodel.core.CorePackage;
 import orgomg.cwm.objectmodel.core.Expression;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Expression</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Expression</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -27,10 +25,10 @@ import orgomg.cwm.objectmodel.core.Expression;
  * @generated
  */
 public class ExpressionImpl extends ElementImpl implements Expression {
+
     /**
      * The default value of the '{@link #getBody() <em>Body</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getBody()
      * @generated
      * @ordered
@@ -39,8 +37,7 @@ public class ExpressionImpl extends ElementImpl implements Expression {
 
     /**
      * The cached value of the '{@link #getBody() <em>Body</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getBody()
      * @generated
      * @ordered
@@ -49,8 +46,7 @@ public class ExpressionImpl extends ElementImpl implements Expression {
 
     /**
      * The default value of the '{@link #getLanguage() <em>Language</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getLanguage()
      * @generated
      * @ordered
@@ -59,8 +55,7 @@ public class ExpressionImpl extends ElementImpl implements Expression {
 
     /**
      * The cached value of the '{@link #getLanguage() <em>Language</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getLanguage()
      * @generated
      * @ordered
@@ -68,8 +63,7 @@ public class ExpressionImpl extends ElementImpl implements Expression {
     protected String language = LANGUAGE_EDEFAULT;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected ExpressionImpl() {
@@ -77,8 +71,7 @@ public class ExpressionImpl extends ElementImpl implements Expression {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -87,8 +80,7 @@ public class ExpressionImpl extends ElementImpl implements Expression {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getBody() {
@@ -96,8 +88,7 @@ public class ExpressionImpl extends ElementImpl implements Expression {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setBody(String newBody) {
@@ -108,8 +99,7 @@ public class ExpressionImpl extends ElementImpl implements Expression {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getLanguage() {
@@ -117,8 +107,7 @@ public class ExpressionImpl extends ElementImpl implements Expression {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setLanguage(String newLanguage) {
@@ -129,81 +118,77 @@ public class ExpressionImpl extends ElementImpl implements Expression {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case CorePackage.EXPRESSION__BODY:
-                return getBody();
-            case CorePackage.EXPRESSION__LANGUAGE:
-                return getLanguage();
+        case CorePackage.EXPRESSION__BODY:
+            return getBody();
+        case CorePackage.EXPRESSION__LANGUAGE:
+            return getLanguage();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case CorePackage.EXPRESSION__BODY:
-                setBody((String)newValue);
-                return;
-            case CorePackage.EXPRESSION__LANGUAGE:
-                setLanguage((String)newValue);
-                return;
+        case CorePackage.EXPRESSION__BODY:
+            setBody((String) newValue);
+            return;
+        case CorePackage.EXPRESSION__LANGUAGE:
+            setLanguage((String) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case CorePackage.EXPRESSION__BODY:
-                setBody(BODY_EDEFAULT);
-                return;
-            case CorePackage.EXPRESSION__LANGUAGE:
-                setLanguage(LANGUAGE_EDEFAULT);
-                return;
+        case CorePackage.EXPRESSION__BODY:
+            setBody(BODY_EDEFAULT);
+            return;
+        case CorePackage.EXPRESSION__LANGUAGE:
+            setLanguage(LANGUAGE_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case CorePackage.EXPRESSION__BODY:
-                return BODY_EDEFAULT == null ? body != null : !BODY_EDEFAULT.equals(body);
-            case CorePackage.EXPRESSION__LANGUAGE:
-                return LANGUAGE_EDEFAULT == null ? language != null : !LANGUAGE_EDEFAULT.equals(language);
+        case CorePackage.EXPRESSION__BODY:
+            return BODY_EDEFAULT == null ? body != null : !BODY_EDEFAULT.equals(body);
+        case CorePackage.EXPRESSION__LANGUAGE:
+            return LANGUAGE_EDEFAULT == null ? language != null : !LANGUAGE_EDEFAULT.equals(language);
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (body: ");
@@ -214,4 +199,4 @@ public class ExpressionImpl extends ElementImpl implements Expression {
         return result.toString();
     }
 
-} //ExpressionImpl
+} // ExpressionImpl

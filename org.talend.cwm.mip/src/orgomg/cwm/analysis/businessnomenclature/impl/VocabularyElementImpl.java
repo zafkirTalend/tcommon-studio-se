@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.analysis.businessnomenclature.impl;
@@ -23,9 +22,8 @@ import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.impl.ModelElementImpl;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Vocabulary Element</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Vocabulary Element</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -41,10 +39,10 @@ import orgomg.cwm.objectmodel.core.impl.ModelElementImpl;
  * @generated
  */
 public class VocabularyElementImpl extends ModelElementImpl implements VocabularyElement {
+
     /**
      * The default value of the '{@link #getDefinition() <em>Definition</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getDefinition()
      * @generated
      * @ordered
@@ -53,8 +51,7 @@ public class VocabularyElementImpl extends ModelElementImpl implements Vocabular
 
     /**
      * The cached value of the '{@link #getDefinition() <em>Definition</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getDefinition()
      * @generated
      * @ordered
@@ -63,8 +60,7 @@ public class VocabularyElementImpl extends ModelElementImpl implements Vocabular
 
     /**
      * The default value of the '{@link #getExample() <em>Example</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getExample()
      * @generated
      * @ordered
@@ -73,8 +69,7 @@ public class VocabularyElementImpl extends ModelElementImpl implements Vocabular
 
     /**
      * The cached value of the '{@link #getExample() <em>Example</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getExample()
      * @generated
      * @ordered
@@ -83,8 +78,7 @@ public class VocabularyElementImpl extends ModelElementImpl implements Vocabular
 
     /**
      * The default value of the '{@link #getUsage() <em>Usage</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getUsage()
      * @generated
      * @ordered
@@ -93,8 +87,7 @@ public class VocabularyElementImpl extends ModelElementImpl implements Vocabular
 
     /**
      * The cached value of the '{@link #getUsage() <em>Usage</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getUsage()
      * @generated
      * @ordered
@@ -103,8 +96,8 @@ public class VocabularyElementImpl extends ModelElementImpl implements Vocabular
 
     /**
      * The cached value of the '{@link #getRelatedElement() <em>Related Element</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getRelatedElement()
      * @generated
      * @ordered
@@ -113,8 +106,7 @@ public class VocabularyElementImpl extends ModelElementImpl implements Vocabular
 
     /**
      * The cached value of the '{@link #getElement() <em>Element</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getElement()
      * @generated
      * @ordered
@@ -123,8 +115,8 @@ public class VocabularyElementImpl extends ModelElementImpl implements Vocabular
 
     /**
      * The cached value of the '{@link #getModelElement() <em>Model Element</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getModelElement()
      * @generated
      * @ordered
@@ -132,8 +124,7 @@ public class VocabularyElementImpl extends ModelElementImpl implements Vocabular
     protected EList<ModelElement> modelElement;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected VocabularyElementImpl() {
@@ -141,8 +132,7 @@ public class VocabularyElementImpl extends ModelElementImpl implements Vocabular
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -151,8 +141,7 @@ public class VocabularyElementImpl extends ModelElementImpl implements Vocabular
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getDefinition() {
@@ -160,20 +149,19 @@ public class VocabularyElementImpl extends ModelElementImpl implements Vocabular
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setDefinition(String newDefinition) {
         String oldDefinition = definition;
         definition = newDefinition;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, BusinessnomenclaturePackage.VOCABULARY_ELEMENT__DEFINITION, oldDefinition, definition));
+            eNotify(new ENotificationImpl(this, Notification.SET, BusinessnomenclaturePackage.VOCABULARY_ELEMENT__DEFINITION,
+                    oldDefinition, definition));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getExample() {
@@ -181,20 +169,19 @@ public class VocabularyElementImpl extends ModelElementImpl implements Vocabular
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setExample(String newExample) {
         String oldExample = example;
         example = newExample;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, BusinessnomenclaturePackage.VOCABULARY_ELEMENT__EXAMPLE, oldExample, example));
+            eNotify(new ENotificationImpl(this, Notification.SET, BusinessnomenclaturePackage.VOCABULARY_ELEMENT__EXAMPLE,
+                    oldExample, example));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getUsage() {
@@ -202,210 +189,206 @@ public class VocabularyElementImpl extends ModelElementImpl implements Vocabular
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setUsage(String newUsage) {
         String oldUsage = usage;
         usage = newUsage;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, BusinessnomenclaturePackage.VOCABULARY_ELEMENT__USAGE, oldUsage, usage));
+            eNotify(new ENotificationImpl(this, Notification.SET, BusinessnomenclaturePackage.VOCABULARY_ELEMENT__USAGE,
+                    oldUsage, usage));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<VocabularyElement> getRelatedElement() {
         if (relatedElement == null) {
-            relatedElement = new EObjectWithInverseResolvingEList.ManyInverse<VocabularyElement>(VocabularyElement.class, this, BusinessnomenclaturePackage.VOCABULARY_ELEMENT__RELATED_ELEMENT, BusinessnomenclaturePackage.VOCABULARY_ELEMENT__ELEMENT);
+            relatedElement = new EObjectWithInverseResolvingEList.ManyInverse<VocabularyElement>(VocabularyElement.class, this,
+                    BusinessnomenclaturePackage.VOCABULARY_ELEMENT__RELATED_ELEMENT,
+                    BusinessnomenclaturePackage.VOCABULARY_ELEMENT__ELEMENT);
         }
         return relatedElement;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<VocabularyElement> getElement() {
         if (element == null) {
-            element = new EObjectWithInverseResolvingEList.ManyInverse<VocabularyElement>(VocabularyElement.class, this, BusinessnomenclaturePackage.VOCABULARY_ELEMENT__ELEMENT, BusinessnomenclaturePackage.VOCABULARY_ELEMENT__RELATED_ELEMENT);
+            element = new EObjectWithInverseResolvingEList.ManyInverse<VocabularyElement>(VocabularyElement.class, this,
+                    BusinessnomenclaturePackage.VOCABULARY_ELEMENT__ELEMENT,
+                    BusinessnomenclaturePackage.VOCABULARY_ELEMENT__RELATED_ELEMENT);
         }
         return element;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<ModelElement> getModelElement() {
         if (modelElement == null) {
-            modelElement = new EObjectWithInverseResolvingEList.ManyInverse<ModelElement>(ModelElement.class, this, BusinessnomenclaturePackage.VOCABULARY_ELEMENT__MODEL_ELEMENT, CorePackage.MODEL_ELEMENT__VOCABULARY_ELEMENT);
+            modelElement = new EObjectWithInverseResolvingEList.ManyInverse<ModelElement>(ModelElement.class, this,
+                    BusinessnomenclaturePackage.VOCABULARY_ELEMENT__MODEL_ELEMENT, CorePackage.MODEL_ELEMENT__VOCABULARY_ELEMENT);
         }
         return modelElement;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__RELATED_ELEMENT:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getRelatedElement()).basicAdd(otherEnd, msgs);
-            case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__ELEMENT:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getElement()).basicAdd(otherEnd, msgs);
-            case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__MODEL_ELEMENT:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getModelElement()).basicAdd(otherEnd, msgs);
+        case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__RELATED_ELEMENT:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getRelatedElement()).basicAdd(otherEnd, msgs);
+        case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__ELEMENT:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getElement()).basicAdd(otherEnd, msgs);
+        case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__MODEL_ELEMENT:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getModelElement()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__RELATED_ELEMENT:
-                return ((InternalEList<?>)getRelatedElement()).basicRemove(otherEnd, msgs);
-            case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__ELEMENT:
-                return ((InternalEList<?>)getElement()).basicRemove(otherEnd, msgs);
-            case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__MODEL_ELEMENT:
-                return ((InternalEList<?>)getModelElement()).basicRemove(otherEnd, msgs);
+        case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__RELATED_ELEMENT:
+            return ((InternalEList<?>) getRelatedElement()).basicRemove(otherEnd, msgs);
+        case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__ELEMENT:
+            return ((InternalEList<?>) getElement()).basicRemove(otherEnd, msgs);
+        case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__MODEL_ELEMENT:
+            return ((InternalEList<?>) getModelElement()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__DEFINITION:
-                return getDefinition();
-            case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__EXAMPLE:
-                return getExample();
-            case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__USAGE:
-                return getUsage();
-            case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__RELATED_ELEMENT:
-                return getRelatedElement();
-            case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__ELEMENT:
-                return getElement();
-            case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__MODEL_ELEMENT:
-                return getModelElement();
+        case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__DEFINITION:
+            return getDefinition();
+        case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__EXAMPLE:
+            return getExample();
+        case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__USAGE:
+            return getUsage();
+        case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__RELATED_ELEMENT:
+            return getRelatedElement();
+        case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__ELEMENT:
+            return getElement();
+        case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__MODEL_ELEMENT:
+            return getModelElement();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__DEFINITION:
-                setDefinition((String)newValue);
-                return;
-            case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__EXAMPLE:
-                setExample((String)newValue);
-                return;
-            case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__USAGE:
-                setUsage((String)newValue);
-                return;
-            case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__RELATED_ELEMENT:
-                getRelatedElement().clear();
-                getRelatedElement().addAll((Collection<? extends VocabularyElement>)newValue);
-                return;
-            case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__ELEMENT:
-                getElement().clear();
-                getElement().addAll((Collection<? extends VocabularyElement>)newValue);
-                return;
-            case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__MODEL_ELEMENT:
-                getModelElement().clear();
-                getModelElement().addAll((Collection<? extends ModelElement>)newValue);
-                return;
+        case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__DEFINITION:
+            setDefinition((String) newValue);
+            return;
+        case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__EXAMPLE:
+            setExample((String) newValue);
+            return;
+        case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__USAGE:
+            setUsage((String) newValue);
+            return;
+        case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__RELATED_ELEMENT:
+            getRelatedElement().clear();
+            getRelatedElement().addAll((Collection<? extends VocabularyElement>) newValue);
+            return;
+        case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__ELEMENT:
+            getElement().clear();
+            getElement().addAll((Collection<? extends VocabularyElement>) newValue);
+            return;
+        case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__MODEL_ELEMENT:
+            getModelElement().clear();
+            getModelElement().addAll((Collection<? extends ModelElement>) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__DEFINITION:
-                setDefinition(DEFINITION_EDEFAULT);
-                return;
-            case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__EXAMPLE:
-                setExample(EXAMPLE_EDEFAULT);
-                return;
-            case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__USAGE:
-                setUsage(USAGE_EDEFAULT);
-                return;
-            case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__RELATED_ELEMENT:
-                getRelatedElement().clear();
-                return;
-            case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__ELEMENT:
-                getElement().clear();
-                return;
-            case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__MODEL_ELEMENT:
-                getModelElement().clear();
-                return;
+        case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__DEFINITION:
+            setDefinition(DEFINITION_EDEFAULT);
+            return;
+        case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__EXAMPLE:
+            setExample(EXAMPLE_EDEFAULT);
+            return;
+        case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__USAGE:
+            setUsage(USAGE_EDEFAULT);
+            return;
+        case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__RELATED_ELEMENT:
+            getRelatedElement().clear();
+            return;
+        case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__ELEMENT:
+            getElement().clear();
+            return;
+        case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__MODEL_ELEMENT:
+            getModelElement().clear();
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__DEFINITION:
-                return DEFINITION_EDEFAULT == null ? definition != null : !DEFINITION_EDEFAULT.equals(definition);
-            case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__EXAMPLE:
-                return EXAMPLE_EDEFAULT == null ? example != null : !EXAMPLE_EDEFAULT.equals(example);
-            case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__USAGE:
-                return USAGE_EDEFAULT == null ? usage != null : !USAGE_EDEFAULT.equals(usage);
-            case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__RELATED_ELEMENT:
-                return relatedElement != null && !relatedElement.isEmpty();
-            case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__ELEMENT:
-                return element != null && !element.isEmpty();
-            case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__MODEL_ELEMENT:
-                return modelElement != null && !modelElement.isEmpty();
+        case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__DEFINITION:
+            return DEFINITION_EDEFAULT == null ? definition != null : !DEFINITION_EDEFAULT.equals(definition);
+        case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__EXAMPLE:
+            return EXAMPLE_EDEFAULT == null ? example != null : !EXAMPLE_EDEFAULT.equals(example);
+        case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__USAGE:
+            return USAGE_EDEFAULT == null ? usage != null : !USAGE_EDEFAULT.equals(usage);
+        case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__RELATED_ELEMENT:
+            return relatedElement != null && !relatedElement.isEmpty();
+        case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__ELEMENT:
+            return element != null && !element.isEmpty();
+        case BusinessnomenclaturePackage.VOCABULARY_ELEMENT__MODEL_ELEMENT:
+            return modelElement != null && !modelElement.isEmpty();
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (definition: ");
@@ -418,4 +401,4 @@ public class VocabularyElementImpl extends ModelElementImpl implements Vocabular
         return result.toString();
     }
 
-} //VocabularyElementImpl
+} // VocabularyElementImpl

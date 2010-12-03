@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.management.warehouseprocess.events;
@@ -9,9 +8,8 @@ package orgomg.cwm.management.warehouseprocess.events;
 import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Calendar Date</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Calendar Date</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * An entry in a CustomCalendar representing a specific date and time.
@@ -29,13 +27,12 @@ import orgomg.cwm.objectmodel.core.ModelElement;
  * @generated
  */
 public interface CalendarDate extends ModelElement {
+
     /**
-     * Returns the value of the '<em><b>Specific Date</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The value of the date. 
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Specific Date</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> The
+     * value of the date. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Specific Date</em>' attribute.
      * @see #setSpecificDate(String)
      * @see orgomg.cwm.management.warehouseprocess.events.EventsPackage#getCalendarDate_SpecificDate()
@@ -46,8 +43,8 @@ public interface CalendarDate extends ModelElement {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.management.warehouseprocess.events.CalendarDate#getSpecificDate <em>Specific Date</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Specific Date</em>' attribute.
      * @see #getSpecificDate()
      * @generated

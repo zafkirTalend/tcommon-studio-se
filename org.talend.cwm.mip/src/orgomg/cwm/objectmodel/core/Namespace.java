@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.objectmodel.core;
@@ -9,9 +8,8 @@ package orgomg.cwm.objectmodel.core;
 import org.eclipse.emf.common.util.EList;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Namespace</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Namespace</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * A namespace is a part of a model that contains a set of ModelElements each of whose
@@ -36,16 +34,19 @@ import org.eclipse.emf.common.util.EList;
  * @generated
  */
 public interface Namespace extends ModelElement {
+
     /**
-     * Returns the value of the '<em><b>Owned Element</b></em>' containment reference list.
-     * The list contents are of type {@link orgomg.cwm.objectmodel.core.ModelElement}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.objectmodel.core.ModelElement#getNamespace <em>Namespace</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the ModelElements owned by a Namespace.
+     * Returns the value of the '<em><b>Owned Element</b></em>' containment
+     * reference list. The list contents are of type
+     * {@link orgomg.cwm.objectmodel.core.ModelElement}. It is bidirectional and
+     * its opposite is '
+     * {@link orgomg.cwm.objectmodel.core.ModelElement#getNamespace
+     * <em>Namespace</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> Identifies the ModelElements owned by a Namespace.
      * <!-- end-model-doc -->
-     * @return the value of the '<em>Owned Element</em>' containment reference list.
+     * 
+     * @return the value of the '<em>Owned Element</em>' containment reference
+     *         list.
      * @see orgomg.cwm.objectmodel.core.CorePackage#getNamespace_OwnedElement()
      * @see orgomg.cwm.objectmodel.core.ModelElement#getNamespace
      * @model opposite="namespace" containment="true"

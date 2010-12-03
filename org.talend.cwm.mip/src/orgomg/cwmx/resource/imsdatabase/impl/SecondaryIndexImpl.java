@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.imsdatabase.impl;
@@ -25,9 +24,8 @@ import orgomg.cwmx.resource.imsdatabase.SecondaryIndex;
 import orgomg.cwmx.resource.imsdatabase.SegmentComplex;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Secondary Index</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Secondary Index</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -46,10 +44,10 @@ import orgomg.cwmx.resource.imsdatabase.SegmentComplex;
  * @generated
  */
 public class SecondaryIndexImpl extends ModelElementImpl implements SecondaryIndex {
+
     /**
      * The default value of the '{@link #getConstant() <em>Constant</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getConstant()
      * @generated
      * @ordered
@@ -58,8 +56,7 @@ public class SecondaryIndexImpl extends ModelElementImpl implements SecondaryInd
 
     /**
      * The cached value of the '{@link #getConstant() <em>Constant</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getConstant()
      * @generated
      * @ordered
@@ -68,8 +65,7 @@ public class SecondaryIndexImpl extends ModelElementImpl implements SecondaryInd
 
     /**
      * The default value of the '{@link #getExitRoutine() <em>Exit Routine</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getExitRoutine()
      * @generated
      * @ordered
@@ -78,8 +74,7 @@ public class SecondaryIndexImpl extends ModelElementImpl implements SecondaryInd
 
     /**
      * The cached value of the '{@link #getExitRoutine() <em>Exit Routine</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getExitRoutine()
      * @generated
      * @ordered
@@ -88,8 +83,7 @@ public class SecondaryIndexImpl extends ModelElementImpl implements SecondaryInd
 
     /**
      * The default value of the '{@link #getNullValue() <em>Null Value</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getNullValue()
      * @generated
      * @ordered
@@ -98,8 +92,7 @@ public class SecondaryIndexImpl extends ModelElementImpl implements SecondaryInd
 
     /**
      * The cached value of the '{@link #getNullValue() <em>Null Value</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getNullValue()
      * @generated
      * @ordered
@@ -108,8 +101,7 @@ public class SecondaryIndexImpl extends ModelElementImpl implements SecondaryInd
 
     /**
      * The cached value of the '{@link #getIndex() <em>Index</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getIndex()
      * @generated
      * @ordered
@@ -118,8 +110,8 @@ public class SecondaryIndexImpl extends ModelElementImpl implements SecondaryInd
 
     /**
      * The cached value of the '{@link #getSearchFields() <em>Search Fields</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getSearchFields()
      * @generated
      * @ordered
@@ -128,8 +120,7 @@ public class SecondaryIndexImpl extends ModelElementImpl implements SecondaryInd
 
     /**
      * The cached value of the '{@link #getDdataFields() <em>Ddata Fields</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getDdataFields()
      * @generated
      * @ordered
@@ -138,8 +129,8 @@ public class SecondaryIndexImpl extends ModelElementImpl implements SecondaryInd
 
     /**
      * The cached value of the '{@link #getSubseqFields() <em>Subseq Fields</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getSubseqFields()
      * @generated
      * @ordered
@@ -148,8 +139,7 @@ public class SecondaryIndexImpl extends ModelElementImpl implements SecondaryInd
 
     /**
      * The cached value of the '{@link #getIndexSource() <em>Index Source</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getIndexSource()
      * @generated
      * @ordered
@@ -157,8 +147,7 @@ public class SecondaryIndexImpl extends ModelElementImpl implements SecondaryInd
     protected SegmentComplex indexSource;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected SecondaryIndexImpl() {
@@ -166,8 +155,7 @@ public class SecondaryIndexImpl extends ModelElementImpl implements SecondaryInd
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -176,8 +164,7 @@ public class SecondaryIndexImpl extends ModelElementImpl implements SecondaryInd
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getConstant() {
@@ -185,20 +172,19 @@ public class SecondaryIndexImpl extends ModelElementImpl implements SecondaryInd
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setConstant(String newConstant) {
         String oldConstant = constant;
         constant = newConstant;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.SECONDARY_INDEX__CONSTANT, oldConstant, constant));
+            eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.SECONDARY_INDEX__CONSTANT, oldConstant,
+                    constant));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getExitRoutine() {
@@ -206,20 +192,19 @@ public class SecondaryIndexImpl extends ModelElementImpl implements SecondaryInd
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setExitRoutine(String newExitRoutine) {
         String oldExitRoutine = exitRoutine;
         exitRoutine = newExitRoutine;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.SECONDARY_INDEX__EXIT_ROUTINE, oldExitRoutine, exitRoutine));
+            eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.SECONDARY_INDEX__EXIT_ROUTINE,
+                    oldExitRoutine, exitRoutine));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getNullValue() {
@@ -227,37 +212,36 @@ public class SecondaryIndexImpl extends ModelElementImpl implements SecondaryInd
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setNullValue(String newNullValue) {
         String oldNullValue = nullValue;
         nullValue = newNullValue;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.SECONDARY_INDEX__NULL_VALUE, oldNullValue, nullValue));
+            eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.SECONDARY_INDEX__NULL_VALUE, oldNullValue,
+                    nullValue));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public INDEX getIndex() {
         if (index != null && index.eIsProxy()) {
-            InternalEObject oldIndex = (InternalEObject)index;
-            index = (INDEX)eResolveProxy(oldIndex);
+            InternalEObject oldIndex = (InternalEObject) index;
+            index = (INDEX) eResolveProxy(oldIndex);
             if (index != oldIndex) {
                 if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, ImsdatabasePackage.SECONDARY_INDEX__INDEX, oldIndex, index));
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, ImsdatabasePackage.SECONDARY_INDEX__INDEX,
+                            oldIndex, index));
             }
         }
         return index;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public INDEX basicGetIndex() {
@@ -265,136 +249,140 @@ public class SecondaryIndexImpl extends ModelElementImpl implements SecondaryInd
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public NotificationChain basicSetIndex(INDEX newIndex, NotificationChain msgs) {
         INDEX oldIndex = index;
         index = newIndex;
         if (eNotificationRequired()) {
-            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.SECONDARY_INDEX__INDEX, oldIndex, newIndex);
-            if (msgs == null) msgs = notification; else msgs.add(notification);
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+                    ImsdatabasePackage.SECONDARY_INDEX__INDEX, oldIndex, newIndex);
+            if (msgs == null)
+                msgs = notification;
+            else
+                msgs.add(notification);
         }
         return msgs;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setIndex(INDEX newIndex) {
         if (newIndex != index) {
             NotificationChain msgs = null;
             if (index != null)
-                msgs = ((InternalEObject)index).eInverseRemove(this, ImsdatabasePackage.INDEX__SECONDARY_TARGET, INDEX.class, msgs);
+                msgs = ((InternalEObject) index).eInverseRemove(this, ImsdatabasePackage.INDEX__SECONDARY_TARGET, INDEX.class,
+                        msgs);
             if (newIndex != null)
-                msgs = ((InternalEObject)newIndex).eInverseAdd(this, ImsdatabasePackage.INDEX__SECONDARY_TARGET, INDEX.class, msgs);
+                msgs = ((InternalEObject) newIndex).eInverseAdd(this, ImsdatabasePackage.INDEX__SECONDARY_TARGET, INDEX.class,
+                        msgs);
             msgs = basicSetIndex(newIndex, msgs);
-            if (msgs != null) msgs.dispatch();
-        }
-        else if (eNotificationRequired())
+            if (msgs != null)
+                msgs.dispatch();
+        } else if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.SECONDARY_INDEX__INDEX, newIndex, newIndex));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public SegmentComplex getSegment() {
-        if (eContainerFeatureID() != ImsdatabasePackage.SECONDARY_INDEX__SEGMENT) return null;
-        return (SegmentComplex)eContainer();
+        if (eContainerFeatureID() != ImsdatabasePackage.SECONDARY_INDEX__SEGMENT)
+            return null;
+        return (SegmentComplex) eContainer();
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public NotificationChain basicSetSegment(SegmentComplex newSegment, NotificationChain msgs) {
-        msgs = eBasicSetContainer((InternalEObject)newSegment, ImsdatabasePackage.SECONDARY_INDEX__SEGMENT, msgs);
+        msgs = eBasicSetContainer((InternalEObject) newSegment, ImsdatabasePackage.SECONDARY_INDEX__SEGMENT, msgs);
         return msgs;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setSegment(SegmentComplex newSegment) {
-        if (newSegment != eInternalContainer() || (eContainerFeatureID() != ImsdatabasePackage.SECONDARY_INDEX__SEGMENT && newSegment != null)) {
+        if (newSegment != eInternalContainer()
+                || (eContainerFeatureID() != ImsdatabasePackage.SECONDARY_INDEX__SEGMENT && newSegment != null)) {
             if (EcoreUtil.isAncestor(this, newSegment))
                 throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
             NotificationChain msgs = null;
             if (eInternalContainer() != null)
                 msgs = eBasicRemoveFromContainer(msgs);
             if (newSegment != null)
-                msgs = ((InternalEObject)newSegment).eInverseAdd(this, ImsdatabasePackage.SEGMENT_COMPLEX__SECONDARY_INDEX, SegmentComplex.class, msgs);
+                msgs = ((InternalEObject) newSegment).eInverseAdd(this, ImsdatabasePackage.SEGMENT_COMPLEX__SECONDARY_INDEX,
+                        SegmentComplex.class, msgs);
             msgs = basicSetSegment(newSegment, msgs);
-            if (msgs != null) msgs.dispatch();
-        }
-        else if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.SECONDARY_INDEX__SEGMENT, newSegment, newSegment));
+            if (msgs != null)
+                msgs.dispatch();
+        } else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.SECONDARY_INDEX__SEGMENT, newSegment,
+                    newSegment));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<Field> getSearchFields() {
         if (searchFields == null) {
-            searchFields = new EObjectWithInverseResolvingEList.ManyInverse<Field>(Field.class, this, ImsdatabasePackage.SECONDARY_INDEX__SEARCH_FIELDS, ImsdatabasePackage.FIELD__SEARCH_INDEX);
+            searchFields = new EObjectWithInverseResolvingEList.ManyInverse<Field>(Field.class, this,
+                    ImsdatabasePackage.SECONDARY_INDEX__SEARCH_FIELDS, ImsdatabasePackage.FIELD__SEARCH_INDEX);
         }
         return searchFields;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<Field> getDdataFields() {
         if (ddataFields == null) {
-            ddataFields = new EObjectWithInverseResolvingEList.ManyInverse<Field>(Field.class, this, ImsdatabasePackage.SECONDARY_INDEX__DDATA_FIELDS, ImsdatabasePackage.FIELD__DDATA_INDEX);
+            ddataFields = new EObjectWithInverseResolvingEList.ManyInverse<Field>(Field.class, this,
+                    ImsdatabasePackage.SECONDARY_INDEX__DDATA_FIELDS, ImsdatabasePackage.FIELD__DDATA_INDEX);
         }
         return ddataFields;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<Field> getSubseqFields() {
         if (subseqFields == null) {
-            subseqFields = new EObjectWithInverseResolvingEList.ManyInverse<Field>(Field.class, this, ImsdatabasePackage.SECONDARY_INDEX__SUBSEQ_FIELDS, ImsdatabasePackage.FIELD__SUBSEQ_INDEX);
+            subseqFields = new EObjectWithInverseResolvingEList.ManyInverse<Field>(Field.class, this,
+                    ImsdatabasePackage.SECONDARY_INDEX__SUBSEQ_FIELDS, ImsdatabasePackage.FIELD__SUBSEQ_INDEX);
         }
         return subseqFields;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public SegmentComplex getIndexSource() {
         if (indexSource != null && indexSource.eIsProxy()) {
-            InternalEObject oldIndexSource = (InternalEObject)indexSource;
-            indexSource = (SegmentComplex)eResolveProxy(oldIndexSource);
+            InternalEObject oldIndexSource = (InternalEObject) indexSource;
+            indexSource = (SegmentComplex) eResolveProxy(oldIndexSource);
             if (indexSource != oldIndexSource) {
                 if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, ImsdatabasePackage.SECONDARY_INDEX__INDEX_SOURCE, oldIndexSource, indexSource));
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, ImsdatabasePackage.SECONDARY_INDEX__INDEX_SOURCE,
+                            oldIndexSource, indexSource));
             }
         }
         return indexSource;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public SegmentComplex basicGetIndexSource() {
@@ -402,260 +390,263 @@ public class SecondaryIndexImpl extends ModelElementImpl implements SecondaryInd
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public NotificationChain basicSetIndexSource(SegmentComplex newIndexSource, NotificationChain msgs) {
         SegmentComplex oldIndexSource = indexSource;
         indexSource = newIndexSource;
         if (eNotificationRequired()) {
-            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.SECONDARY_INDEX__INDEX_SOURCE, oldIndexSource, newIndexSource);
-            if (msgs == null) msgs = notification; else msgs.add(notification);
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+                    ImsdatabasePackage.SECONDARY_INDEX__INDEX_SOURCE, oldIndexSource, newIndexSource);
+            if (msgs == null)
+                msgs = notification;
+            else
+                msgs.add(notification);
         }
         return msgs;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setIndexSource(SegmentComplex newIndexSource) {
         if (newIndexSource != indexSource) {
             NotificationChain msgs = null;
             if (indexSource != null)
-                msgs = ((InternalEObject)indexSource).eInverseRemove(this, ImsdatabasePackage.SEGMENT_COMPLEX__SOURCED_INDEX, SegmentComplex.class, msgs);
+                msgs = ((InternalEObject) indexSource).eInverseRemove(this, ImsdatabasePackage.SEGMENT_COMPLEX__SOURCED_INDEX,
+                        SegmentComplex.class, msgs);
             if (newIndexSource != null)
-                msgs = ((InternalEObject)newIndexSource).eInverseAdd(this, ImsdatabasePackage.SEGMENT_COMPLEX__SOURCED_INDEX, SegmentComplex.class, msgs);
+                msgs = ((InternalEObject) newIndexSource).eInverseAdd(this, ImsdatabasePackage.SEGMENT_COMPLEX__SOURCED_INDEX,
+                        SegmentComplex.class, msgs);
             msgs = basicSetIndexSource(newIndexSource, msgs);
-            if (msgs != null) msgs.dispatch();
-        }
-        else if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.SECONDARY_INDEX__INDEX_SOURCE, newIndexSource, newIndexSource));
+            if (msgs != null)
+                msgs.dispatch();
+        } else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.SECONDARY_INDEX__INDEX_SOURCE,
+                    newIndexSource, newIndexSource));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case ImsdatabasePackage.SECONDARY_INDEX__INDEX:
-                if (index != null)
-                    msgs = ((InternalEObject)index).eInverseRemove(this, ImsdatabasePackage.INDEX__SECONDARY_TARGET, INDEX.class, msgs);
-                return basicSetIndex((INDEX)otherEnd, msgs);
-            case ImsdatabasePackage.SECONDARY_INDEX__SEGMENT:
-                if (eInternalContainer() != null)
-                    msgs = eBasicRemoveFromContainer(msgs);
-                return basicSetSegment((SegmentComplex)otherEnd, msgs);
-            case ImsdatabasePackage.SECONDARY_INDEX__SEARCH_FIELDS:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getSearchFields()).basicAdd(otherEnd, msgs);
-            case ImsdatabasePackage.SECONDARY_INDEX__DDATA_FIELDS:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getDdataFields()).basicAdd(otherEnd, msgs);
-            case ImsdatabasePackage.SECONDARY_INDEX__SUBSEQ_FIELDS:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getSubseqFields()).basicAdd(otherEnd, msgs);
-            case ImsdatabasePackage.SECONDARY_INDEX__INDEX_SOURCE:
-                if (indexSource != null)
-                    msgs = ((InternalEObject)indexSource).eInverseRemove(this, ImsdatabasePackage.SEGMENT_COMPLEX__SOURCED_INDEX, SegmentComplex.class, msgs);
-                return basicSetIndexSource((SegmentComplex)otherEnd, msgs);
+        case ImsdatabasePackage.SECONDARY_INDEX__INDEX:
+            if (index != null)
+                msgs = ((InternalEObject) index).eInverseRemove(this, ImsdatabasePackage.INDEX__SECONDARY_TARGET, INDEX.class,
+                        msgs);
+            return basicSetIndex((INDEX) otherEnd, msgs);
+        case ImsdatabasePackage.SECONDARY_INDEX__SEGMENT:
+            if (eInternalContainer() != null)
+                msgs = eBasicRemoveFromContainer(msgs);
+            return basicSetSegment((SegmentComplex) otherEnd, msgs);
+        case ImsdatabasePackage.SECONDARY_INDEX__SEARCH_FIELDS:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getSearchFields()).basicAdd(otherEnd, msgs);
+        case ImsdatabasePackage.SECONDARY_INDEX__DDATA_FIELDS:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getDdataFields()).basicAdd(otherEnd, msgs);
+        case ImsdatabasePackage.SECONDARY_INDEX__SUBSEQ_FIELDS:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getSubseqFields()).basicAdd(otherEnd, msgs);
+        case ImsdatabasePackage.SECONDARY_INDEX__INDEX_SOURCE:
+            if (indexSource != null)
+                msgs = ((InternalEObject) indexSource).eInverseRemove(this, ImsdatabasePackage.SEGMENT_COMPLEX__SOURCED_INDEX,
+                        SegmentComplex.class, msgs);
+            return basicSetIndexSource((SegmentComplex) otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case ImsdatabasePackage.SECONDARY_INDEX__INDEX:
-                return basicSetIndex(null, msgs);
-            case ImsdatabasePackage.SECONDARY_INDEX__SEGMENT:
-                return basicSetSegment(null, msgs);
-            case ImsdatabasePackage.SECONDARY_INDEX__SEARCH_FIELDS:
-                return ((InternalEList<?>)getSearchFields()).basicRemove(otherEnd, msgs);
-            case ImsdatabasePackage.SECONDARY_INDEX__DDATA_FIELDS:
-                return ((InternalEList<?>)getDdataFields()).basicRemove(otherEnd, msgs);
-            case ImsdatabasePackage.SECONDARY_INDEX__SUBSEQ_FIELDS:
-                return ((InternalEList<?>)getSubseqFields()).basicRemove(otherEnd, msgs);
-            case ImsdatabasePackage.SECONDARY_INDEX__INDEX_SOURCE:
-                return basicSetIndexSource(null, msgs);
+        case ImsdatabasePackage.SECONDARY_INDEX__INDEX:
+            return basicSetIndex(null, msgs);
+        case ImsdatabasePackage.SECONDARY_INDEX__SEGMENT:
+            return basicSetSegment(null, msgs);
+        case ImsdatabasePackage.SECONDARY_INDEX__SEARCH_FIELDS:
+            return ((InternalEList<?>) getSearchFields()).basicRemove(otherEnd, msgs);
+        case ImsdatabasePackage.SECONDARY_INDEX__DDATA_FIELDS:
+            return ((InternalEList<?>) getDdataFields()).basicRemove(otherEnd, msgs);
+        case ImsdatabasePackage.SECONDARY_INDEX__SUBSEQ_FIELDS:
+            return ((InternalEList<?>) getSubseqFields()).basicRemove(otherEnd, msgs);
+        case ImsdatabasePackage.SECONDARY_INDEX__INDEX_SOURCE:
+            return basicSetIndexSource(null, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
         switch (eContainerFeatureID()) {
-            case ImsdatabasePackage.SECONDARY_INDEX__SEGMENT:
-                return eInternalContainer().eInverseRemove(this, ImsdatabasePackage.SEGMENT_COMPLEX__SECONDARY_INDEX, SegmentComplex.class, msgs);
+        case ImsdatabasePackage.SECONDARY_INDEX__SEGMENT:
+            return eInternalContainer().eInverseRemove(this, ImsdatabasePackage.SEGMENT_COMPLEX__SECONDARY_INDEX,
+                    SegmentComplex.class, msgs);
         }
         return super.eBasicRemoveFromContainerFeature(msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case ImsdatabasePackage.SECONDARY_INDEX__CONSTANT:
-                return getConstant();
-            case ImsdatabasePackage.SECONDARY_INDEX__EXIT_ROUTINE:
-                return getExitRoutine();
-            case ImsdatabasePackage.SECONDARY_INDEX__NULL_VALUE:
-                return getNullValue();
-            case ImsdatabasePackage.SECONDARY_INDEX__INDEX:
-                if (resolve) return getIndex();
-                return basicGetIndex();
-            case ImsdatabasePackage.SECONDARY_INDEX__SEGMENT:
-                return getSegment();
-            case ImsdatabasePackage.SECONDARY_INDEX__SEARCH_FIELDS:
-                return getSearchFields();
-            case ImsdatabasePackage.SECONDARY_INDEX__DDATA_FIELDS:
-                return getDdataFields();
-            case ImsdatabasePackage.SECONDARY_INDEX__SUBSEQ_FIELDS:
-                return getSubseqFields();
-            case ImsdatabasePackage.SECONDARY_INDEX__INDEX_SOURCE:
-                if (resolve) return getIndexSource();
-                return basicGetIndexSource();
+        case ImsdatabasePackage.SECONDARY_INDEX__CONSTANT:
+            return getConstant();
+        case ImsdatabasePackage.SECONDARY_INDEX__EXIT_ROUTINE:
+            return getExitRoutine();
+        case ImsdatabasePackage.SECONDARY_INDEX__NULL_VALUE:
+            return getNullValue();
+        case ImsdatabasePackage.SECONDARY_INDEX__INDEX:
+            if (resolve)
+                return getIndex();
+            return basicGetIndex();
+        case ImsdatabasePackage.SECONDARY_INDEX__SEGMENT:
+            return getSegment();
+        case ImsdatabasePackage.SECONDARY_INDEX__SEARCH_FIELDS:
+            return getSearchFields();
+        case ImsdatabasePackage.SECONDARY_INDEX__DDATA_FIELDS:
+            return getDdataFields();
+        case ImsdatabasePackage.SECONDARY_INDEX__SUBSEQ_FIELDS:
+            return getSubseqFields();
+        case ImsdatabasePackage.SECONDARY_INDEX__INDEX_SOURCE:
+            if (resolve)
+                return getIndexSource();
+            return basicGetIndexSource();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case ImsdatabasePackage.SECONDARY_INDEX__CONSTANT:
-                setConstant((String)newValue);
-                return;
-            case ImsdatabasePackage.SECONDARY_INDEX__EXIT_ROUTINE:
-                setExitRoutine((String)newValue);
-                return;
-            case ImsdatabasePackage.SECONDARY_INDEX__NULL_VALUE:
-                setNullValue((String)newValue);
-                return;
-            case ImsdatabasePackage.SECONDARY_INDEX__INDEX:
-                setIndex((INDEX)newValue);
-                return;
-            case ImsdatabasePackage.SECONDARY_INDEX__SEGMENT:
-                setSegment((SegmentComplex)newValue);
-                return;
-            case ImsdatabasePackage.SECONDARY_INDEX__SEARCH_FIELDS:
-                getSearchFields().clear();
-                getSearchFields().addAll((Collection<? extends Field>)newValue);
-                return;
-            case ImsdatabasePackage.SECONDARY_INDEX__DDATA_FIELDS:
-                getDdataFields().clear();
-                getDdataFields().addAll((Collection<? extends Field>)newValue);
-                return;
-            case ImsdatabasePackage.SECONDARY_INDEX__SUBSEQ_FIELDS:
-                getSubseqFields().clear();
-                getSubseqFields().addAll((Collection<? extends Field>)newValue);
-                return;
-            case ImsdatabasePackage.SECONDARY_INDEX__INDEX_SOURCE:
-                setIndexSource((SegmentComplex)newValue);
-                return;
+        case ImsdatabasePackage.SECONDARY_INDEX__CONSTANT:
+            setConstant((String) newValue);
+            return;
+        case ImsdatabasePackage.SECONDARY_INDEX__EXIT_ROUTINE:
+            setExitRoutine((String) newValue);
+            return;
+        case ImsdatabasePackage.SECONDARY_INDEX__NULL_VALUE:
+            setNullValue((String) newValue);
+            return;
+        case ImsdatabasePackage.SECONDARY_INDEX__INDEX:
+            setIndex((INDEX) newValue);
+            return;
+        case ImsdatabasePackage.SECONDARY_INDEX__SEGMENT:
+            setSegment((SegmentComplex) newValue);
+            return;
+        case ImsdatabasePackage.SECONDARY_INDEX__SEARCH_FIELDS:
+            getSearchFields().clear();
+            getSearchFields().addAll((Collection<? extends Field>) newValue);
+            return;
+        case ImsdatabasePackage.SECONDARY_INDEX__DDATA_FIELDS:
+            getDdataFields().clear();
+            getDdataFields().addAll((Collection<? extends Field>) newValue);
+            return;
+        case ImsdatabasePackage.SECONDARY_INDEX__SUBSEQ_FIELDS:
+            getSubseqFields().clear();
+            getSubseqFields().addAll((Collection<? extends Field>) newValue);
+            return;
+        case ImsdatabasePackage.SECONDARY_INDEX__INDEX_SOURCE:
+            setIndexSource((SegmentComplex) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case ImsdatabasePackage.SECONDARY_INDEX__CONSTANT:
-                setConstant(CONSTANT_EDEFAULT);
-                return;
-            case ImsdatabasePackage.SECONDARY_INDEX__EXIT_ROUTINE:
-                setExitRoutine(EXIT_ROUTINE_EDEFAULT);
-                return;
-            case ImsdatabasePackage.SECONDARY_INDEX__NULL_VALUE:
-                setNullValue(NULL_VALUE_EDEFAULT);
-                return;
-            case ImsdatabasePackage.SECONDARY_INDEX__INDEX:
-                setIndex((INDEX)null);
-                return;
-            case ImsdatabasePackage.SECONDARY_INDEX__SEGMENT:
-                setSegment((SegmentComplex)null);
-                return;
-            case ImsdatabasePackage.SECONDARY_INDEX__SEARCH_FIELDS:
-                getSearchFields().clear();
-                return;
-            case ImsdatabasePackage.SECONDARY_INDEX__DDATA_FIELDS:
-                getDdataFields().clear();
-                return;
-            case ImsdatabasePackage.SECONDARY_INDEX__SUBSEQ_FIELDS:
-                getSubseqFields().clear();
-                return;
-            case ImsdatabasePackage.SECONDARY_INDEX__INDEX_SOURCE:
-                setIndexSource((SegmentComplex)null);
-                return;
+        case ImsdatabasePackage.SECONDARY_INDEX__CONSTANT:
+            setConstant(CONSTANT_EDEFAULT);
+            return;
+        case ImsdatabasePackage.SECONDARY_INDEX__EXIT_ROUTINE:
+            setExitRoutine(EXIT_ROUTINE_EDEFAULT);
+            return;
+        case ImsdatabasePackage.SECONDARY_INDEX__NULL_VALUE:
+            setNullValue(NULL_VALUE_EDEFAULT);
+            return;
+        case ImsdatabasePackage.SECONDARY_INDEX__INDEX:
+            setIndex((INDEX) null);
+            return;
+        case ImsdatabasePackage.SECONDARY_INDEX__SEGMENT:
+            setSegment((SegmentComplex) null);
+            return;
+        case ImsdatabasePackage.SECONDARY_INDEX__SEARCH_FIELDS:
+            getSearchFields().clear();
+            return;
+        case ImsdatabasePackage.SECONDARY_INDEX__DDATA_FIELDS:
+            getDdataFields().clear();
+            return;
+        case ImsdatabasePackage.SECONDARY_INDEX__SUBSEQ_FIELDS:
+            getSubseqFields().clear();
+            return;
+        case ImsdatabasePackage.SECONDARY_INDEX__INDEX_SOURCE:
+            setIndexSource((SegmentComplex) null);
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case ImsdatabasePackage.SECONDARY_INDEX__CONSTANT:
-                return CONSTANT_EDEFAULT == null ? constant != null : !CONSTANT_EDEFAULT.equals(constant);
-            case ImsdatabasePackage.SECONDARY_INDEX__EXIT_ROUTINE:
-                return EXIT_ROUTINE_EDEFAULT == null ? exitRoutine != null : !EXIT_ROUTINE_EDEFAULT.equals(exitRoutine);
-            case ImsdatabasePackage.SECONDARY_INDEX__NULL_VALUE:
-                return NULL_VALUE_EDEFAULT == null ? nullValue != null : !NULL_VALUE_EDEFAULT.equals(nullValue);
-            case ImsdatabasePackage.SECONDARY_INDEX__INDEX:
-                return index != null;
-            case ImsdatabasePackage.SECONDARY_INDEX__SEGMENT:
-                return getSegment() != null;
-            case ImsdatabasePackage.SECONDARY_INDEX__SEARCH_FIELDS:
-                return searchFields != null && !searchFields.isEmpty();
-            case ImsdatabasePackage.SECONDARY_INDEX__DDATA_FIELDS:
-                return ddataFields != null && !ddataFields.isEmpty();
-            case ImsdatabasePackage.SECONDARY_INDEX__SUBSEQ_FIELDS:
-                return subseqFields != null && !subseqFields.isEmpty();
-            case ImsdatabasePackage.SECONDARY_INDEX__INDEX_SOURCE:
-                return indexSource != null;
+        case ImsdatabasePackage.SECONDARY_INDEX__CONSTANT:
+            return CONSTANT_EDEFAULT == null ? constant != null : !CONSTANT_EDEFAULT.equals(constant);
+        case ImsdatabasePackage.SECONDARY_INDEX__EXIT_ROUTINE:
+            return EXIT_ROUTINE_EDEFAULT == null ? exitRoutine != null : !EXIT_ROUTINE_EDEFAULT.equals(exitRoutine);
+        case ImsdatabasePackage.SECONDARY_INDEX__NULL_VALUE:
+            return NULL_VALUE_EDEFAULT == null ? nullValue != null : !NULL_VALUE_EDEFAULT.equals(nullValue);
+        case ImsdatabasePackage.SECONDARY_INDEX__INDEX:
+            return index != null;
+        case ImsdatabasePackage.SECONDARY_INDEX__SEGMENT:
+            return getSegment() != null;
+        case ImsdatabasePackage.SECONDARY_INDEX__SEARCH_FIELDS:
+            return searchFields != null && !searchFields.isEmpty();
+        case ImsdatabasePackage.SECONDARY_INDEX__DDATA_FIELDS:
+            return ddataFields != null && !ddataFields.isEmpty();
+        case ImsdatabasePackage.SECONDARY_INDEX__SUBSEQ_FIELDS:
+            return subseqFields != null && !subseqFields.isEmpty();
+        case ImsdatabasePackage.SECONDARY_INDEX__INDEX_SOURCE:
+            return indexSource != null;
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (constant: ");
@@ -668,4 +659,4 @@ public class SecondaryIndexImpl extends ModelElementImpl implements SecondaryInd
         return result.toString();
     }
 
-} //SecondaryIndexImpl
+} // SecondaryIndexImpl

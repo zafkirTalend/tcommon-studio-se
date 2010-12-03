@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.analysis.transformation;
@@ -9,9 +8,8 @@ package orgomg.cwm.analysis.transformation;
 import orgomg.cwm.foundation.expressions.ExpressionNode;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Tree</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Tree</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * This represents a specialized Transformation which can be modeled as an expression tree. 
@@ -30,14 +28,14 @@ import orgomg.cwm.foundation.expressions.ExpressionNode;
  * @generated
  */
 public interface TransformationTree extends Transformation {
+
     /**
-     * Returns the value of the '<em><b>Type</b></em>' attribute.
-     * The literals are from the enumeration {@link orgomg.cwm.analysis.transformation.TreeType}.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the type of TransformationTree, which can be unary or binary.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Type</b></em>' attribute. The literals
+     * are from the enumeration
+     * {@link orgomg.cwm.analysis.transformation.TreeType}. <!-- begin-user-doc
+     * --> <!-- end-user-doc --> <!-- begin-model-doc --> Identifies the type of
+     * TransformationTree, which can be unary or binary. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Type</em>' attribute.
      * @see orgomg.cwm.analysis.transformation.TreeType
      * @see #setType(TreeType)
@@ -49,8 +47,7 @@ public interface TransformationTree extends Transformation {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.analysis.transformation.TransformationTree#getType <em>Type</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Type</em>' attribute.
      * @see orgomg.cwm.analysis.transformation.TreeType
      * @see #getType()
@@ -60,11 +57,10 @@ public interface TransformationTree extends Transformation {
 
     /**
      * Returns the value of the '<em><b>Body</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the expression tree that embodies the TransformationTree.
-     * <!-- end-model-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * Identifies the expression tree that embodies the TransformationTree. <!--
+     * end-model-doc -->
+     * 
      * @return the value of the '<em>Body</em>' containment reference.
      * @see #setBody(ExpressionNode)
      * @see orgomg.cwm.analysis.transformation.TransformationPackage#getTransformationTree_Body()
@@ -75,8 +71,8 @@ public interface TransformationTree extends Transformation {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.analysis.transformation.TransformationTree#getBody <em>Body</em>}' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Body</em>' containment reference.
      * @see #getBody()
      * @generated

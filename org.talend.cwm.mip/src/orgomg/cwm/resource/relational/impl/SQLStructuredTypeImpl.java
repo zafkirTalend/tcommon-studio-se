@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.resource.relational.impl;
@@ -24,9 +23,8 @@ import orgomg.cwm.resource.relational.SQLDataType;
 import orgomg.cwm.resource.relational.SQLStructuredType;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>SQL Structured Type</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>SQL Structured Type</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -39,10 +37,10 @@ import orgomg.cwm.resource.relational.SQLStructuredType;
  * @generated
  */
 public class SQLStructuredTypeImpl extends ClassImpl implements SQLStructuredType {
+
     /**
      * The default value of the '{@link #getTypeNumber() <em>Type Number</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getTypeNumber()
      * @generated
      * @ordered
@@ -51,8 +49,7 @@ public class SQLStructuredTypeImpl extends ClassImpl implements SQLStructuredTyp
 
     /**
      * The cached value of the '{@link #getTypeNumber() <em>Type Number</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getTypeNumber()
      * @generated
      * @ordered
@@ -61,8 +58,7 @@ public class SQLStructuredTypeImpl extends ClassImpl implements SQLStructuredTyp
 
     /**
      * The cached value of the '{@link #getColumnSet() <em>Column Set</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getColumnSet()
      * @generated
      * @ordered
@@ -80,8 +76,7 @@ public class SQLStructuredTypeImpl extends ClassImpl implements SQLStructuredTyp
     protected EList<Column> referencingColumn;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected SQLStructuredTypeImpl() {
@@ -89,8 +84,7 @@ public class SQLStructuredTypeImpl extends ClassImpl implements SQLStructuredTyp
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -99,8 +93,7 @@ public class SQLStructuredTypeImpl extends ClassImpl implements SQLStructuredTyp
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public long getTypeNumber() {
@@ -108,195 +101,191 @@ public class SQLStructuredTypeImpl extends ClassImpl implements SQLStructuredTyp
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setTypeNumber(long newTypeNumber) {
         long oldTypeNumber = typeNumber;
         typeNumber = newTypeNumber;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, RelationalPackage.SQL_STRUCTURED_TYPE__TYPE_NUMBER, oldTypeNumber, typeNumber));
+            eNotify(new ENotificationImpl(this, Notification.SET, RelationalPackage.SQL_STRUCTURED_TYPE__TYPE_NUMBER,
+                    oldTypeNumber, typeNumber));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<NamedColumnSet> getColumnSet() {
         if (columnSet == null) {
-            columnSet = new EObjectWithInverseResolvingEList<NamedColumnSet>(NamedColumnSet.class, this, RelationalPackage.SQL_STRUCTURED_TYPE__COLUMN_SET, RelationalPackage.NAMED_COLUMN_SET__TYPE);
+            columnSet = new EObjectWithInverseResolvingEList<NamedColumnSet>(NamedColumnSet.class, this,
+                    RelationalPackage.SQL_STRUCTURED_TYPE__COLUMN_SET, RelationalPackage.NAMED_COLUMN_SET__TYPE);
         }
         return columnSet;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<Column> getReferencingColumn() {
         if (referencingColumn == null) {
-            referencingColumn = new EObjectWithInverseResolvingEList<Column>(Column.class, this, RelationalPackage.SQL_STRUCTURED_TYPE__REFERENCING_COLUMN, RelationalPackage.COLUMN__REFERENCED_TABLE_TYPE);
+            referencingColumn = new EObjectWithInverseResolvingEList<Column>(Column.class, this,
+                    RelationalPackage.SQL_STRUCTURED_TYPE__REFERENCING_COLUMN, RelationalPackage.COLUMN__REFERENCED_TABLE_TYPE);
         }
         return referencingColumn;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case RelationalPackage.SQL_STRUCTURED_TYPE__COLUMN_SET:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getColumnSet()).basicAdd(otherEnd, msgs);
-            case RelationalPackage.SQL_STRUCTURED_TYPE__REFERENCING_COLUMN:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getReferencingColumn()).basicAdd(otherEnd, msgs);
+        case RelationalPackage.SQL_STRUCTURED_TYPE__COLUMN_SET:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getColumnSet()).basicAdd(otherEnd, msgs);
+        case RelationalPackage.SQL_STRUCTURED_TYPE__REFERENCING_COLUMN:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getReferencingColumn()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case RelationalPackage.SQL_STRUCTURED_TYPE__COLUMN_SET:
-                return ((InternalEList<?>)getColumnSet()).basicRemove(otherEnd, msgs);
-            case RelationalPackage.SQL_STRUCTURED_TYPE__REFERENCING_COLUMN:
-                return ((InternalEList<?>)getReferencingColumn()).basicRemove(otherEnd, msgs);
+        case RelationalPackage.SQL_STRUCTURED_TYPE__COLUMN_SET:
+            return ((InternalEList<?>) getColumnSet()).basicRemove(otherEnd, msgs);
+        case RelationalPackage.SQL_STRUCTURED_TYPE__REFERENCING_COLUMN:
+            return ((InternalEList<?>) getReferencingColumn()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case RelationalPackage.SQL_STRUCTURED_TYPE__TYPE_NUMBER:
-                return getTypeNumber();
-            case RelationalPackage.SQL_STRUCTURED_TYPE__COLUMN_SET:
-                return getColumnSet();
-            case RelationalPackage.SQL_STRUCTURED_TYPE__REFERENCING_COLUMN:
-                return getReferencingColumn();
+        case RelationalPackage.SQL_STRUCTURED_TYPE__TYPE_NUMBER:
+            return getTypeNumber();
+        case RelationalPackage.SQL_STRUCTURED_TYPE__COLUMN_SET:
+            return getColumnSet();
+        case RelationalPackage.SQL_STRUCTURED_TYPE__REFERENCING_COLUMN:
+            return getReferencingColumn();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case RelationalPackage.SQL_STRUCTURED_TYPE__TYPE_NUMBER:
-                setTypeNumber((Long)newValue);
-                return;
-            case RelationalPackage.SQL_STRUCTURED_TYPE__COLUMN_SET:
-                getColumnSet().clear();
-                getColumnSet().addAll((Collection<? extends NamedColumnSet>)newValue);
-                return;
-            case RelationalPackage.SQL_STRUCTURED_TYPE__REFERENCING_COLUMN:
-                getReferencingColumn().clear();
-                getReferencingColumn().addAll((Collection<? extends Column>)newValue);
-                return;
+        case RelationalPackage.SQL_STRUCTURED_TYPE__TYPE_NUMBER:
+            setTypeNumber((Long) newValue);
+            return;
+        case RelationalPackage.SQL_STRUCTURED_TYPE__COLUMN_SET:
+            getColumnSet().clear();
+            getColumnSet().addAll((Collection<? extends NamedColumnSet>) newValue);
+            return;
+        case RelationalPackage.SQL_STRUCTURED_TYPE__REFERENCING_COLUMN:
+            getReferencingColumn().clear();
+            getReferencingColumn().addAll((Collection<? extends Column>) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case RelationalPackage.SQL_STRUCTURED_TYPE__TYPE_NUMBER:
-                setTypeNumber(TYPE_NUMBER_EDEFAULT);
-                return;
-            case RelationalPackage.SQL_STRUCTURED_TYPE__COLUMN_SET:
-                getColumnSet().clear();
-                return;
-            case RelationalPackage.SQL_STRUCTURED_TYPE__REFERENCING_COLUMN:
-                getReferencingColumn().clear();
-                return;
+        case RelationalPackage.SQL_STRUCTURED_TYPE__TYPE_NUMBER:
+            setTypeNumber(TYPE_NUMBER_EDEFAULT);
+            return;
+        case RelationalPackage.SQL_STRUCTURED_TYPE__COLUMN_SET:
+            getColumnSet().clear();
+            return;
+        case RelationalPackage.SQL_STRUCTURED_TYPE__REFERENCING_COLUMN:
+            getReferencingColumn().clear();
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case RelationalPackage.SQL_STRUCTURED_TYPE__TYPE_NUMBER:
-                return typeNumber != TYPE_NUMBER_EDEFAULT;
-            case RelationalPackage.SQL_STRUCTURED_TYPE__COLUMN_SET:
-                return columnSet != null && !columnSet.isEmpty();
-            case RelationalPackage.SQL_STRUCTURED_TYPE__REFERENCING_COLUMN:
-                return referencingColumn != null && !referencingColumn.isEmpty();
+        case RelationalPackage.SQL_STRUCTURED_TYPE__TYPE_NUMBER:
+            return typeNumber != TYPE_NUMBER_EDEFAULT;
+        case RelationalPackage.SQL_STRUCTURED_TYPE__COLUMN_SET:
+            return columnSet != null && !columnSet.isEmpty();
+        case RelationalPackage.SQL_STRUCTURED_TYPE__REFERENCING_COLUMN:
+            return referencingColumn != null && !referencingColumn.isEmpty();
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
         if (baseClass == SQLDataType.class) {
             switch (derivedFeatureID) {
-                case RelationalPackage.SQL_STRUCTURED_TYPE__TYPE_NUMBER: return RelationalPackage.SQL_DATA_TYPE__TYPE_NUMBER;
-                default: return -1;
+            case RelationalPackage.SQL_STRUCTURED_TYPE__TYPE_NUMBER:
+                return RelationalPackage.SQL_DATA_TYPE__TYPE_NUMBER;
+            default:
+                return -1;
             }
         }
         return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
         if (baseClass == SQLDataType.class) {
             switch (baseFeatureID) {
-                case RelationalPackage.SQL_DATA_TYPE__TYPE_NUMBER: return RelationalPackage.SQL_STRUCTURED_TYPE__TYPE_NUMBER;
-                default: return -1;
+            case RelationalPackage.SQL_DATA_TYPE__TYPE_NUMBER:
+                return RelationalPackage.SQL_STRUCTURED_TYPE__TYPE_NUMBER;
+            default:
+                return -1;
             }
         }
         return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (typeNumber: ");
@@ -305,4 +294,4 @@ public class SQLStructuredTypeImpl extends ClassImpl implements SQLStructuredTyp
         return result.toString();
     }
 
-} //SQLStructuredTypeImpl
+} // SQLStructuredTypeImpl

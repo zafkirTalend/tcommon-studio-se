@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.imsdatabase.impl;
@@ -28,9 +27,8 @@ import orgomg.cwmx.resource.imsdatabase.imstypes.ModelType;
 import orgomg.cwmx.resource.imsdatabase.imstypes.RECFMType;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Dataset</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Dataset</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -62,10 +60,10 @@ import orgomg.cwmx.resource.imsdatabase.imstypes.RECFMType;
  * @generated
  */
 public class DatasetImpl extends ModelElementImpl implements Dataset {
+
     /**
      * The default value of the '{@link #getDd1name() <em>Dd1name</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getDd1name()
      * @generated
      * @ordered
@@ -74,8 +72,7 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
 
     /**
      * The cached value of the '{@link #getDd1name() <em>Dd1name</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getDd1name()
      * @generated
      * @ordered
@@ -84,8 +81,7 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
 
     /**
      * The default value of the '{@link #getDevice() <em>Device</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getDevice()
      * @generated
      * @ordered
@@ -94,8 +90,7 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
 
     /**
      * The cached value of the '{@link #getDevice() <em>Device</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getDevice()
      * @generated
      * @ordered
@@ -104,8 +99,7 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
 
     /**
      * The default value of the '{@link #getModel() <em>Model</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getModel()
      * @generated
      * @ordered
@@ -114,8 +108,7 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
 
     /**
      * The cached value of the '{@link #getModel() <em>Model</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getModel()
      * @generated
      * @ordered
@@ -124,8 +117,7 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
 
     /**
      * The default value of the '{@link #getDd2name() <em>Dd2name</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getDd2name()
      * @generated
      * @ordered
@@ -134,8 +126,7 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
 
     /**
      * The cached value of the '{@link #getDd2name() <em>Dd2name</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getDd2name()
      * @generated
      * @ordered
@@ -144,8 +135,7 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
 
     /**
      * The default value of the '{@link #getSize1() <em>Size1</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getSize1()
      * @generated
      * @ordered
@@ -154,8 +144,7 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
 
     /**
      * The cached value of the '{@link #getSize1() <em>Size1</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getSize1()
      * @generated
      * @ordered
@@ -164,8 +153,7 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
 
     /**
      * The default value of the '{@link #getSize2() <em>Size2</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getSize2()
      * @generated
      * @ordered
@@ -174,8 +162,7 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
 
     /**
      * The cached value of the '{@link #getSize2() <em>Size2</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getSize2()
      * @generated
      * @ordered
@@ -184,8 +171,8 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
 
     /**
      * The default value of the '{@link #getRecordLength1() <em>Record Length1</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getRecordLength1()
      * @generated
      * @ordered
@@ -194,8 +181,8 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
 
     /**
      * The cached value of the '{@link #getRecordLength1() <em>Record Length1</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getRecordLength1()
      * @generated
      * @ordered
@@ -204,8 +191,8 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
 
     /**
      * The default value of the '{@link #getRecordLength2() <em>Record Length2</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getRecordLength2()
      * @generated
      * @ordered
@@ -214,8 +201,8 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
 
     /**
      * The cached value of the '{@link #getRecordLength2() <em>Record Length2</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getRecordLength2()
      * @generated
      * @ordered
@@ -224,8 +211,8 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
 
     /**
      * The default value of the '{@link #getBlockingFactor1() <em>Blocking Factor1</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getBlockingFactor1()
      * @generated
      * @ordered
@@ -234,8 +221,8 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
 
     /**
      * The cached value of the '{@link #getBlockingFactor1() <em>Blocking Factor1</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getBlockingFactor1()
      * @generated
      * @ordered
@@ -244,8 +231,8 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
 
     /**
      * The default value of the '{@link #getBlockingFactor2() <em>Blocking Factor2</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getBlockingFactor2()
      * @generated
      * @ordered
@@ -254,8 +241,8 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
 
     /**
      * The cached value of the '{@link #getBlockingFactor2() <em>Blocking Factor2</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getBlockingFactor2()
      * @generated
      * @ordered
@@ -264,8 +251,8 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
 
     /**
      * The default value of the '{@link #getDatasetLabel() <em>Dataset Label</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getDatasetLabel()
      * @generated
      * @ordered
@@ -274,8 +261,8 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
 
     /**
      * The cached value of the '{@link #getDatasetLabel() <em>Dataset Label</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getDatasetLabel()
      * @generated
      * @ordered
@@ -284,8 +271,8 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
 
     /**
      * The default value of the '{@link #getFreeBlockFrequency() <em>Free Block Frequency</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getFreeBlockFrequency()
      * @generated
      * @ordered
@@ -294,8 +281,8 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
 
     /**
      * The cached value of the '{@link #getFreeBlockFrequency() <em>Free Block Frequency</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getFreeBlockFrequency()
      * @generated
      * @ordered
@@ -304,8 +291,8 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
 
     /**
      * The default value of the '{@link #getFreeSpacePercentage() <em>Free Space Percentage</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getFreeSpacePercentage()
      * @generated
      * @ordered
@@ -314,8 +301,8 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
 
     /**
      * The cached value of the '{@link #getFreeSpacePercentage() <em>Free Space Percentage</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getFreeSpacePercentage()
      * @generated
      * @ordered
@@ -324,8 +311,8 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
 
     /**
      * The default value of the '{@link #getRecordFormat() <em>Record Format</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getRecordFormat()
      * @generated
      * @ordered
@@ -334,8 +321,8 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
 
     /**
      * The cached value of the '{@link #getRecordFormat() <em>Record Format</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getRecordFormat()
      * @generated
      * @ordered
@@ -344,8 +331,8 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
 
     /**
      * The default value of the '{@link #getScanCylinders() <em>Scan Cylinders</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getScanCylinders()
      * @generated
      * @ordered
@@ -354,8 +341,8 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
 
     /**
      * The cached value of the '{@link #getScanCylinders() <em>Scan Cylinders</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getScanCylinders()
      * @generated
      * @ordered
@@ -364,8 +351,8 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
 
     /**
      * The default value of the '{@link #getSearchAlgorithm() <em>Search Algorithm</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getSearchAlgorithm()
      * @generated
      * @ordered
@@ -374,8 +361,8 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
 
     /**
      * The cached value of the '{@link #getSearchAlgorithm() <em>Search Algorithm</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getSearchAlgorithm()
      * @generated
      * @ordered
@@ -384,8 +371,7 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
 
     /**
      * The default value of the '{@link #getRoot() <em>Root</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getRoot()
      * @generated
      * @ordered
@@ -394,8 +380,7 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
 
     /**
      * The cached value of the '{@link #getRoot() <em>Root</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getRoot()
      * @generated
      * @ordered
@@ -404,8 +389,8 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
 
     /**
      * The default value of the '{@link #getRootOverflow() <em>Root Overflow</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getRootOverflow()
      * @generated
      * @ordered
@@ -414,8 +399,8 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
 
     /**
      * The cached value of the '{@link #getRootOverflow() <em>Root Overflow</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getRootOverflow()
      * @generated
      * @ordered
@@ -423,9 +408,9 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
     protected long rootOverflow = ROOT_OVERFLOW_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getUow() <em>Uow</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The default value of the '{@link #getUow() <em>Uow</em>}' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #getUow()
      * @generated
      * @ordered
@@ -433,9 +418,9 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
     protected static final long UOW_EDEFAULT = 0L;
 
     /**
-     * The cached value of the '{@link #getUow() <em>Uow</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getUow() <em>Uow</em>}' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #getUow()
      * @generated
      * @ordered
@@ -444,8 +429,7 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
 
     /**
      * The default value of the '{@link #getUowOverflow() <em>Uow Overflow</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getUowOverflow()
      * @generated
      * @ordered
@@ -454,8 +438,7 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
 
     /**
      * The cached value of the '{@link #getUowOverflow() <em>Uow Overflow</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getUowOverflow()
      * @generated
      * @ordered
@@ -464,8 +447,7 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
 
     /**
      * The cached value of the '{@link #getSegment() <em>Segment</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getSegment()
      * @generated
      * @ordered
@@ -473,8 +455,7 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
     protected EList<SegmentComplex> segment;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected DatasetImpl() {
@@ -482,8 +463,7 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -492,8 +472,7 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getDd1name() {
@@ -501,8 +480,7 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setDd1name(String newDd1name) {
@@ -513,8 +491,7 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public DeviceType getDevice() {
@@ -522,8 +499,7 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setDevice(DeviceType newDevice) {
@@ -534,8 +510,7 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public ModelType getModel() {
@@ -543,8 +518,7 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setModel(ModelType newModel) {
@@ -555,8 +529,7 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getDd2name() {
@@ -564,8 +537,7 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setDd2name(String newDd2name) {
@@ -576,8 +548,7 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public long getSize1() {
@@ -585,8 +556,7 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setSize1(long newSize1) {
@@ -597,8 +567,7 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public long getSize2() {
@@ -606,8 +575,7 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setSize2(long newSize2) {
@@ -618,8 +586,7 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public long getRecordLength1() {
@@ -627,20 +594,19 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setRecordLength1(long newRecordLength1) {
         long oldRecordLength1 = recordLength1;
         recordLength1 = newRecordLength1;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.DATASET__RECORD_LENGTH1, oldRecordLength1, recordLength1));
+            eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.DATASET__RECORD_LENGTH1, oldRecordLength1,
+                    recordLength1));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public long getRecordLength2() {
@@ -648,20 +614,19 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setRecordLength2(long newRecordLength2) {
         long oldRecordLength2 = recordLength2;
         recordLength2 = newRecordLength2;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.DATASET__RECORD_LENGTH2, oldRecordLength2, recordLength2));
+            eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.DATASET__RECORD_LENGTH2, oldRecordLength2,
+                    recordLength2));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public long getBlockingFactor1() {
@@ -669,20 +634,19 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setBlockingFactor1(long newBlockingFactor1) {
         long oldBlockingFactor1 = blockingFactor1;
         blockingFactor1 = newBlockingFactor1;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.DATASET__BLOCKING_FACTOR1, oldBlockingFactor1, blockingFactor1));
+            eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.DATASET__BLOCKING_FACTOR1,
+                    oldBlockingFactor1, blockingFactor1));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public long getBlockingFactor2() {
@@ -690,20 +654,19 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setBlockingFactor2(long newBlockingFactor2) {
         long oldBlockingFactor2 = blockingFactor2;
         blockingFactor2 = newBlockingFactor2;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.DATASET__BLOCKING_FACTOR2, oldBlockingFactor2, blockingFactor2));
+            eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.DATASET__BLOCKING_FACTOR2,
+                    oldBlockingFactor2, blockingFactor2));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getDatasetLabel() {
@@ -711,20 +674,19 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setDatasetLabel(String newDatasetLabel) {
         String oldDatasetLabel = datasetLabel;
         datasetLabel = newDatasetLabel;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.DATASET__DATASET_LABEL, oldDatasetLabel, datasetLabel));
+            eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.DATASET__DATASET_LABEL, oldDatasetLabel,
+                    datasetLabel));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public long getFreeBlockFrequency() {
@@ -732,20 +694,19 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setFreeBlockFrequency(long newFreeBlockFrequency) {
         long oldFreeBlockFrequency = freeBlockFrequency;
         freeBlockFrequency = newFreeBlockFrequency;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.DATASET__FREE_BLOCK_FREQUENCY, oldFreeBlockFrequency, freeBlockFrequency));
+            eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.DATASET__FREE_BLOCK_FREQUENCY,
+                    oldFreeBlockFrequency, freeBlockFrequency));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public long getFreeSpacePercentage() {
@@ -753,20 +714,19 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setFreeSpacePercentage(long newFreeSpacePercentage) {
         long oldFreeSpacePercentage = freeSpacePercentage;
         freeSpacePercentage = newFreeSpacePercentage;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.DATASET__FREE_SPACE_PERCENTAGE, oldFreeSpacePercentage, freeSpacePercentage));
+            eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.DATASET__FREE_SPACE_PERCENTAGE,
+                    oldFreeSpacePercentage, freeSpacePercentage));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public RECFMType getRecordFormat() {
@@ -774,20 +734,19 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setRecordFormat(RECFMType newRecordFormat) {
         RECFMType oldRecordFormat = recordFormat;
         recordFormat = newRecordFormat == null ? RECORD_FORMAT_EDEFAULT : newRecordFormat;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.DATASET__RECORD_FORMAT, oldRecordFormat, recordFormat));
+            eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.DATASET__RECORD_FORMAT, oldRecordFormat,
+                    recordFormat));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public long getScanCylinders() {
@@ -795,20 +754,19 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setScanCylinders(long newScanCylinders) {
         long oldScanCylinders = scanCylinders;
         scanCylinders = newScanCylinders;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.DATASET__SCAN_CYLINDERS, oldScanCylinders, scanCylinders));
+            eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.DATASET__SCAN_CYLINDERS, oldScanCylinders,
+                    scanCylinders));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public AlgorithmType getSearchAlgorithm() {
@@ -816,20 +774,19 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setSearchAlgorithm(AlgorithmType newSearchAlgorithm) {
         AlgorithmType oldSearchAlgorithm = searchAlgorithm;
         searchAlgorithm = newSearchAlgorithm == null ? SEARCH_ALGORITHM_EDEFAULT : newSearchAlgorithm;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.DATASET__SEARCH_ALGORITHM, oldSearchAlgorithm, searchAlgorithm));
+            eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.DATASET__SEARCH_ALGORITHM,
+                    oldSearchAlgorithm, searchAlgorithm));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public long getRoot() {
@@ -837,8 +794,7 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setRoot(long newRoot) {
@@ -849,8 +805,7 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public long getRootOverflow() {
@@ -858,20 +813,19 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setRootOverflow(long newRootOverflow) {
         long oldRootOverflow = rootOverflow;
         rootOverflow = newRootOverflow;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.DATASET__ROOT_OVERFLOW, oldRootOverflow, rootOverflow));
+            eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.DATASET__ROOT_OVERFLOW, oldRootOverflow,
+                    rootOverflow));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public long getUow() {
@@ -879,8 +833,7 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setUow(long newUow) {
@@ -891,8 +844,7 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public long getUowOverflow() {
@@ -900,40 +852,38 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setUowOverflow(long newUowOverflow) {
         long oldUowOverflow = uowOverflow;
         uowOverflow = newUowOverflow;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.DATASET__UOW_OVERFLOW, oldUowOverflow, uowOverflow));
+            eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.DATASET__UOW_OVERFLOW, oldUowOverflow,
+                    uowOverflow));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public DBD getDbd() {
-        if (eContainerFeatureID() != ImsdatabasePackage.DATASET__DBD) return null;
-        return (DBD)eContainer();
+        if (eContainerFeatureID() != ImsdatabasePackage.DATASET__DBD)
+            return null;
+        return (DBD) eContainer();
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public NotificationChain basicSetDbd(DBD newDbd, NotificationChain msgs) {
-        msgs = eBasicSetContainer((InternalEObject)newDbd, ImsdatabasePackage.DATASET__DBD, msgs);
+        msgs = eBasicSetContainer((InternalEObject) newDbd, ImsdatabasePackage.DATASET__DBD, msgs);
         return msgs;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setDbd(DBD newDbd) {
@@ -944,353 +894,346 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
             if (eInternalContainer() != null)
                 msgs = eBasicRemoveFromContainer(msgs);
             if (newDbd != null)
-                msgs = ((InternalEObject)newDbd).eInverseAdd(this, ImsdatabasePackage.DBD__DATASET, DBD.class, msgs);
+                msgs = ((InternalEObject) newDbd).eInverseAdd(this, ImsdatabasePackage.DBD__DATASET, DBD.class, msgs);
             msgs = basicSetDbd(newDbd, msgs);
-            if (msgs != null) msgs.dispatch();
-        }
-        else if (eNotificationRequired())
+            if (msgs != null)
+                msgs.dispatch();
+        } else if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.DATASET__DBD, newDbd, newDbd));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<SegmentComplex> getSegment() {
         if (segment == null) {
-            segment = new EObjectWithInverseResolvingEList<SegmentComplex>(SegmentComplex.class, this, ImsdatabasePackage.DATASET__SEGMENT, ImsdatabasePackage.SEGMENT_COMPLEX__DATASET);
+            segment = new EObjectWithInverseResolvingEList<SegmentComplex>(SegmentComplex.class, this,
+                    ImsdatabasePackage.DATASET__SEGMENT, ImsdatabasePackage.SEGMENT_COMPLEX__DATASET);
         }
         return segment;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case ImsdatabasePackage.DATASET__DBD:
-                if (eInternalContainer() != null)
-                    msgs = eBasicRemoveFromContainer(msgs);
-                return basicSetDbd((DBD)otherEnd, msgs);
-            case ImsdatabasePackage.DATASET__SEGMENT:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getSegment()).basicAdd(otherEnd, msgs);
+        case ImsdatabasePackage.DATASET__DBD:
+            if (eInternalContainer() != null)
+                msgs = eBasicRemoveFromContainer(msgs);
+            return basicSetDbd((DBD) otherEnd, msgs);
+        case ImsdatabasePackage.DATASET__SEGMENT:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getSegment()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case ImsdatabasePackage.DATASET__DBD:
-                return basicSetDbd(null, msgs);
-            case ImsdatabasePackage.DATASET__SEGMENT:
-                return ((InternalEList<?>)getSegment()).basicRemove(otherEnd, msgs);
+        case ImsdatabasePackage.DATASET__DBD:
+            return basicSetDbd(null, msgs);
+        case ImsdatabasePackage.DATASET__SEGMENT:
+            return ((InternalEList<?>) getSegment()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
         switch (eContainerFeatureID()) {
-            case ImsdatabasePackage.DATASET__DBD:
-                return eInternalContainer().eInverseRemove(this, ImsdatabasePackage.DBD__DATASET, DBD.class, msgs);
+        case ImsdatabasePackage.DATASET__DBD:
+            return eInternalContainer().eInverseRemove(this, ImsdatabasePackage.DBD__DATASET, DBD.class, msgs);
         }
         return super.eBasicRemoveFromContainerFeature(msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case ImsdatabasePackage.DATASET__DD1NAME:
-                return getDd1name();
-            case ImsdatabasePackage.DATASET__DEVICE:
-                return getDevice();
-            case ImsdatabasePackage.DATASET__MODEL:
-                return getModel();
-            case ImsdatabasePackage.DATASET__DD2NAME:
-                return getDd2name();
-            case ImsdatabasePackage.DATASET__SIZE1:
-                return getSize1();
-            case ImsdatabasePackage.DATASET__SIZE2:
-                return getSize2();
-            case ImsdatabasePackage.DATASET__RECORD_LENGTH1:
-                return getRecordLength1();
-            case ImsdatabasePackage.DATASET__RECORD_LENGTH2:
-                return getRecordLength2();
-            case ImsdatabasePackage.DATASET__BLOCKING_FACTOR1:
-                return getBlockingFactor1();
-            case ImsdatabasePackage.DATASET__BLOCKING_FACTOR2:
-                return getBlockingFactor2();
-            case ImsdatabasePackage.DATASET__DATASET_LABEL:
-                return getDatasetLabel();
-            case ImsdatabasePackage.DATASET__FREE_BLOCK_FREQUENCY:
-                return getFreeBlockFrequency();
-            case ImsdatabasePackage.DATASET__FREE_SPACE_PERCENTAGE:
-                return getFreeSpacePercentage();
-            case ImsdatabasePackage.DATASET__RECORD_FORMAT:
-                return getRecordFormat();
-            case ImsdatabasePackage.DATASET__SCAN_CYLINDERS:
-                return getScanCylinders();
-            case ImsdatabasePackage.DATASET__SEARCH_ALGORITHM:
-                return getSearchAlgorithm();
-            case ImsdatabasePackage.DATASET__ROOT:
-                return getRoot();
-            case ImsdatabasePackage.DATASET__ROOT_OVERFLOW:
-                return getRootOverflow();
-            case ImsdatabasePackage.DATASET__UOW:
-                return getUow();
-            case ImsdatabasePackage.DATASET__UOW_OVERFLOW:
-                return getUowOverflow();
-            case ImsdatabasePackage.DATASET__DBD:
-                return getDbd();
-            case ImsdatabasePackage.DATASET__SEGMENT:
-                return getSegment();
+        case ImsdatabasePackage.DATASET__DD1NAME:
+            return getDd1name();
+        case ImsdatabasePackage.DATASET__DEVICE:
+            return getDevice();
+        case ImsdatabasePackage.DATASET__MODEL:
+            return getModel();
+        case ImsdatabasePackage.DATASET__DD2NAME:
+            return getDd2name();
+        case ImsdatabasePackage.DATASET__SIZE1:
+            return getSize1();
+        case ImsdatabasePackage.DATASET__SIZE2:
+            return getSize2();
+        case ImsdatabasePackage.DATASET__RECORD_LENGTH1:
+            return getRecordLength1();
+        case ImsdatabasePackage.DATASET__RECORD_LENGTH2:
+            return getRecordLength2();
+        case ImsdatabasePackage.DATASET__BLOCKING_FACTOR1:
+            return getBlockingFactor1();
+        case ImsdatabasePackage.DATASET__BLOCKING_FACTOR2:
+            return getBlockingFactor2();
+        case ImsdatabasePackage.DATASET__DATASET_LABEL:
+            return getDatasetLabel();
+        case ImsdatabasePackage.DATASET__FREE_BLOCK_FREQUENCY:
+            return getFreeBlockFrequency();
+        case ImsdatabasePackage.DATASET__FREE_SPACE_PERCENTAGE:
+            return getFreeSpacePercentage();
+        case ImsdatabasePackage.DATASET__RECORD_FORMAT:
+            return getRecordFormat();
+        case ImsdatabasePackage.DATASET__SCAN_CYLINDERS:
+            return getScanCylinders();
+        case ImsdatabasePackage.DATASET__SEARCH_ALGORITHM:
+            return getSearchAlgorithm();
+        case ImsdatabasePackage.DATASET__ROOT:
+            return getRoot();
+        case ImsdatabasePackage.DATASET__ROOT_OVERFLOW:
+            return getRootOverflow();
+        case ImsdatabasePackage.DATASET__UOW:
+            return getUow();
+        case ImsdatabasePackage.DATASET__UOW_OVERFLOW:
+            return getUowOverflow();
+        case ImsdatabasePackage.DATASET__DBD:
+            return getDbd();
+        case ImsdatabasePackage.DATASET__SEGMENT:
+            return getSegment();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case ImsdatabasePackage.DATASET__DD1NAME:
-                setDd1name((String)newValue);
-                return;
-            case ImsdatabasePackage.DATASET__DEVICE:
-                setDevice((DeviceType)newValue);
-                return;
-            case ImsdatabasePackage.DATASET__MODEL:
-                setModel((ModelType)newValue);
-                return;
-            case ImsdatabasePackage.DATASET__DD2NAME:
-                setDd2name((String)newValue);
-                return;
-            case ImsdatabasePackage.DATASET__SIZE1:
-                setSize1((Long)newValue);
-                return;
-            case ImsdatabasePackage.DATASET__SIZE2:
-                setSize2((Long)newValue);
-                return;
-            case ImsdatabasePackage.DATASET__RECORD_LENGTH1:
-                setRecordLength1((Long)newValue);
-                return;
-            case ImsdatabasePackage.DATASET__RECORD_LENGTH2:
-                setRecordLength2((Long)newValue);
-                return;
-            case ImsdatabasePackage.DATASET__BLOCKING_FACTOR1:
-                setBlockingFactor1((Long)newValue);
-                return;
-            case ImsdatabasePackage.DATASET__BLOCKING_FACTOR2:
-                setBlockingFactor2((Long)newValue);
-                return;
-            case ImsdatabasePackage.DATASET__DATASET_LABEL:
-                setDatasetLabel((String)newValue);
-                return;
-            case ImsdatabasePackage.DATASET__FREE_BLOCK_FREQUENCY:
-                setFreeBlockFrequency((Long)newValue);
-                return;
-            case ImsdatabasePackage.DATASET__FREE_SPACE_PERCENTAGE:
-                setFreeSpacePercentage((Long)newValue);
-                return;
-            case ImsdatabasePackage.DATASET__RECORD_FORMAT:
-                setRecordFormat((RECFMType)newValue);
-                return;
-            case ImsdatabasePackage.DATASET__SCAN_CYLINDERS:
-                setScanCylinders((Long)newValue);
-                return;
-            case ImsdatabasePackage.DATASET__SEARCH_ALGORITHM:
-                setSearchAlgorithm((AlgorithmType)newValue);
-                return;
-            case ImsdatabasePackage.DATASET__ROOT:
-                setRoot((Long)newValue);
-                return;
-            case ImsdatabasePackage.DATASET__ROOT_OVERFLOW:
-                setRootOverflow((Long)newValue);
-                return;
-            case ImsdatabasePackage.DATASET__UOW:
-                setUow((Long)newValue);
-                return;
-            case ImsdatabasePackage.DATASET__UOW_OVERFLOW:
-                setUowOverflow((Long)newValue);
-                return;
-            case ImsdatabasePackage.DATASET__DBD:
-                setDbd((DBD)newValue);
-                return;
-            case ImsdatabasePackage.DATASET__SEGMENT:
-                getSegment().clear();
-                getSegment().addAll((Collection<? extends SegmentComplex>)newValue);
-                return;
+        case ImsdatabasePackage.DATASET__DD1NAME:
+            setDd1name((String) newValue);
+            return;
+        case ImsdatabasePackage.DATASET__DEVICE:
+            setDevice((DeviceType) newValue);
+            return;
+        case ImsdatabasePackage.DATASET__MODEL:
+            setModel((ModelType) newValue);
+            return;
+        case ImsdatabasePackage.DATASET__DD2NAME:
+            setDd2name((String) newValue);
+            return;
+        case ImsdatabasePackage.DATASET__SIZE1:
+            setSize1((Long) newValue);
+            return;
+        case ImsdatabasePackage.DATASET__SIZE2:
+            setSize2((Long) newValue);
+            return;
+        case ImsdatabasePackage.DATASET__RECORD_LENGTH1:
+            setRecordLength1((Long) newValue);
+            return;
+        case ImsdatabasePackage.DATASET__RECORD_LENGTH2:
+            setRecordLength2((Long) newValue);
+            return;
+        case ImsdatabasePackage.DATASET__BLOCKING_FACTOR1:
+            setBlockingFactor1((Long) newValue);
+            return;
+        case ImsdatabasePackage.DATASET__BLOCKING_FACTOR2:
+            setBlockingFactor2((Long) newValue);
+            return;
+        case ImsdatabasePackage.DATASET__DATASET_LABEL:
+            setDatasetLabel((String) newValue);
+            return;
+        case ImsdatabasePackage.DATASET__FREE_BLOCK_FREQUENCY:
+            setFreeBlockFrequency((Long) newValue);
+            return;
+        case ImsdatabasePackage.DATASET__FREE_SPACE_PERCENTAGE:
+            setFreeSpacePercentage((Long) newValue);
+            return;
+        case ImsdatabasePackage.DATASET__RECORD_FORMAT:
+            setRecordFormat((RECFMType) newValue);
+            return;
+        case ImsdatabasePackage.DATASET__SCAN_CYLINDERS:
+            setScanCylinders((Long) newValue);
+            return;
+        case ImsdatabasePackage.DATASET__SEARCH_ALGORITHM:
+            setSearchAlgorithm((AlgorithmType) newValue);
+            return;
+        case ImsdatabasePackage.DATASET__ROOT:
+            setRoot((Long) newValue);
+            return;
+        case ImsdatabasePackage.DATASET__ROOT_OVERFLOW:
+            setRootOverflow((Long) newValue);
+            return;
+        case ImsdatabasePackage.DATASET__UOW:
+            setUow((Long) newValue);
+            return;
+        case ImsdatabasePackage.DATASET__UOW_OVERFLOW:
+            setUowOverflow((Long) newValue);
+            return;
+        case ImsdatabasePackage.DATASET__DBD:
+            setDbd((DBD) newValue);
+            return;
+        case ImsdatabasePackage.DATASET__SEGMENT:
+            getSegment().clear();
+            getSegment().addAll((Collection<? extends SegmentComplex>) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case ImsdatabasePackage.DATASET__DD1NAME:
-                setDd1name(DD1NAME_EDEFAULT);
-                return;
-            case ImsdatabasePackage.DATASET__DEVICE:
-                setDevice(DEVICE_EDEFAULT);
-                return;
-            case ImsdatabasePackage.DATASET__MODEL:
-                setModel(MODEL_EDEFAULT);
-                return;
-            case ImsdatabasePackage.DATASET__DD2NAME:
-                setDd2name(DD2NAME_EDEFAULT);
-                return;
-            case ImsdatabasePackage.DATASET__SIZE1:
-                setSize1(SIZE1_EDEFAULT);
-                return;
-            case ImsdatabasePackage.DATASET__SIZE2:
-                setSize2(SIZE2_EDEFAULT);
-                return;
-            case ImsdatabasePackage.DATASET__RECORD_LENGTH1:
-                setRecordLength1(RECORD_LENGTH1_EDEFAULT);
-                return;
-            case ImsdatabasePackage.DATASET__RECORD_LENGTH2:
-                setRecordLength2(RECORD_LENGTH2_EDEFAULT);
-                return;
-            case ImsdatabasePackage.DATASET__BLOCKING_FACTOR1:
-                setBlockingFactor1(BLOCKING_FACTOR1_EDEFAULT);
-                return;
-            case ImsdatabasePackage.DATASET__BLOCKING_FACTOR2:
-                setBlockingFactor2(BLOCKING_FACTOR2_EDEFAULT);
-                return;
-            case ImsdatabasePackage.DATASET__DATASET_LABEL:
-                setDatasetLabel(DATASET_LABEL_EDEFAULT);
-                return;
-            case ImsdatabasePackage.DATASET__FREE_BLOCK_FREQUENCY:
-                setFreeBlockFrequency(FREE_BLOCK_FREQUENCY_EDEFAULT);
-                return;
-            case ImsdatabasePackage.DATASET__FREE_SPACE_PERCENTAGE:
-                setFreeSpacePercentage(FREE_SPACE_PERCENTAGE_EDEFAULT);
-                return;
-            case ImsdatabasePackage.DATASET__RECORD_FORMAT:
-                setRecordFormat(RECORD_FORMAT_EDEFAULT);
-                return;
-            case ImsdatabasePackage.DATASET__SCAN_CYLINDERS:
-                setScanCylinders(SCAN_CYLINDERS_EDEFAULT);
-                return;
-            case ImsdatabasePackage.DATASET__SEARCH_ALGORITHM:
-                setSearchAlgorithm(SEARCH_ALGORITHM_EDEFAULT);
-                return;
-            case ImsdatabasePackage.DATASET__ROOT:
-                setRoot(ROOT_EDEFAULT);
-                return;
-            case ImsdatabasePackage.DATASET__ROOT_OVERFLOW:
-                setRootOverflow(ROOT_OVERFLOW_EDEFAULT);
-                return;
-            case ImsdatabasePackage.DATASET__UOW:
-                setUow(UOW_EDEFAULT);
-                return;
-            case ImsdatabasePackage.DATASET__UOW_OVERFLOW:
-                setUowOverflow(UOW_OVERFLOW_EDEFAULT);
-                return;
-            case ImsdatabasePackage.DATASET__DBD:
-                setDbd((DBD)null);
-                return;
-            case ImsdatabasePackage.DATASET__SEGMENT:
-                getSegment().clear();
-                return;
+        case ImsdatabasePackage.DATASET__DD1NAME:
+            setDd1name(DD1NAME_EDEFAULT);
+            return;
+        case ImsdatabasePackage.DATASET__DEVICE:
+            setDevice(DEVICE_EDEFAULT);
+            return;
+        case ImsdatabasePackage.DATASET__MODEL:
+            setModel(MODEL_EDEFAULT);
+            return;
+        case ImsdatabasePackage.DATASET__DD2NAME:
+            setDd2name(DD2NAME_EDEFAULT);
+            return;
+        case ImsdatabasePackage.DATASET__SIZE1:
+            setSize1(SIZE1_EDEFAULT);
+            return;
+        case ImsdatabasePackage.DATASET__SIZE2:
+            setSize2(SIZE2_EDEFAULT);
+            return;
+        case ImsdatabasePackage.DATASET__RECORD_LENGTH1:
+            setRecordLength1(RECORD_LENGTH1_EDEFAULT);
+            return;
+        case ImsdatabasePackage.DATASET__RECORD_LENGTH2:
+            setRecordLength2(RECORD_LENGTH2_EDEFAULT);
+            return;
+        case ImsdatabasePackage.DATASET__BLOCKING_FACTOR1:
+            setBlockingFactor1(BLOCKING_FACTOR1_EDEFAULT);
+            return;
+        case ImsdatabasePackage.DATASET__BLOCKING_FACTOR2:
+            setBlockingFactor2(BLOCKING_FACTOR2_EDEFAULT);
+            return;
+        case ImsdatabasePackage.DATASET__DATASET_LABEL:
+            setDatasetLabel(DATASET_LABEL_EDEFAULT);
+            return;
+        case ImsdatabasePackage.DATASET__FREE_BLOCK_FREQUENCY:
+            setFreeBlockFrequency(FREE_BLOCK_FREQUENCY_EDEFAULT);
+            return;
+        case ImsdatabasePackage.DATASET__FREE_SPACE_PERCENTAGE:
+            setFreeSpacePercentage(FREE_SPACE_PERCENTAGE_EDEFAULT);
+            return;
+        case ImsdatabasePackage.DATASET__RECORD_FORMAT:
+            setRecordFormat(RECORD_FORMAT_EDEFAULT);
+            return;
+        case ImsdatabasePackage.DATASET__SCAN_CYLINDERS:
+            setScanCylinders(SCAN_CYLINDERS_EDEFAULT);
+            return;
+        case ImsdatabasePackage.DATASET__SEARCH_ALGORITHM:
+            setSearchAlgorithm(SEARCH_ALGORITHM_EDEFAULT);
+            return;
+        case ImsdatabasePackage.DATASET__ROOT:
+            setRoot(ROOT_EDEFAULT);
+            return;
+        case ImsdatabasePackage.DATASET__ROOT_OVERFLOW:
+            setRootOverflow(ROOT_OVERFLOW_EDEFAULT);
+            return;
+        case ImsdatabasePackage.DATASET__UOW:
+            setUow(UOW_EDEFAULT);
+            return;
+        case ImsdatabasePackage.DATASET__UOW_OVERFLOW:
+            setUowOverflow(UOW_OVERFLOW_EDEFAULT);
+            return;
+        case ImsdatabasePackage.DATASET__DBD:
+            setDbd((DBD) null);
+            return;
+        case ImsdatabasePackage.DATASET__SEGMENT:
+            getSegment().clear();
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case ImsdatabasePackage.DATASET__DD1NAME:
-                return DD1NAME_EDEFAULT == null ? dd1name != null : !DD1NAME_EDEFAULT.equals(dd1name);
-            case ImsdatabasePackage.DATASET__DEVICE:
-                return device != DEVICE_EDEFAULT;
-            case ImsdatabasePackage.DATASET__MODEL:
-                return model != MODEL_EDEFAULT;
-            case ImsdatabasePackage.DATASET__DD2NAME:
-                return DD2NAME_EDEFAULT == null ? dd2name != null : !DD2NAME_EDEFAULT.equals(dd2name);
-            case ImsdatabasePackage.DATASET__SIZE1:
-                return size1 != SIZE1_EDEFAULT;
-            case ImsdatabasePackage.DATASET__SIZE2:
-                return size2 != SIZE2_EDEFAULT;
-            case ImsdatabasePackage.DATASET__RECORD_LENGTH1:
-                return recordLength1 != RECORD_LENGTH1_EDEFAULT;
-            case ImsdatabasePackage.DATASET__RECORD_LENGTH2:
-                return recordLength2 != RECORD_LENGTH2_EDEFAULT;
-            case ImsdatabasePackage.DATASET__BLOCKING_FACTOR1:
-                return blockingFactor1 != BLOCKING_FACTOR1_EDEFAULT;
-            case ImsdatabasePackage.DATASET__BLOCKING_FACTOR2:
-                return blockingFactor2 != BLOCKING_FACTOR2_EDEFAULT;
-            case ImsdatabasePackage.DATASET__DATASET_LABEL:
-                return DATASET_LABEL_EDEFAULT == null ? datasetLabel != null : !DATASET_LABEL_EDEFAULT.equals(datasetLabel);
-            case ImsdatabasePackage.DATASET__FREE_BLOCK_FREQUENCY:
-                return freeBlockFrequency != FREE_BLOCK_FREQUENCY_EDEFAULT;
-            case ImsdatabasePackage.DATASET__FREE_SPACE_PERCENTAGE:
-                return freeSpacePercentage != FREE_SPACE_PERCENTAGE_EDEFAULT;
-            case ImsdatabasePackage.DATASET__RECORD_FORMAT:
-                return recordFormat != RECORD_FORMAT_EDEFAULT;
-            case ImsdatabasePackage.DATASET__SCAN_CYLINDERS:
-                return scanCylinders != SCAN_CYLINDERS_EDEFAULT;
-            case ImsdatabasePackage.DATASET__SEARCH_ALGORITHM:
-                return searchAlgorithm != SEARCH_ALGORITHM_EDEFAULT;
-            case ImsdatabasePackage.DATASET__ROOT:
-                return root != ROOT_EDEFAULT;
-            case ImsdatabasePackage.DATASET__ROOT_OVERFLOW:
-                return rootOverflow != ROOT_OVERFLOW_EDEFAULT;
-            case ImsdatabasePackage.DATASET__UOW:
-                return uow != UOW_EDEFAULT;
-            case ImsdatabasePackage.DATASET__UOW_OVERFLOW:
-                return uowOverflow != UOW_OVERFLOW_EDEFAULT;
-            case ImsdatabasePackage.DATASET__DBD:
-                return getDbd() != null;
-            case ImsdatabasePackage.DATASET__SEGMENT:
-                return segment != null && !segment.isEmpty();
+        case ImsdatabasePackage.DATASET__DD1NAME:
+            return DD1NAME_EDEFAULT == null ? dd1name != null : !DD1NAME_EDEFAULT.equals(dd1name);
+        case ImsdatabasePackage.DATASET__DEVICE:
+            return device != DEVICE_EDEFAULT;
+        case ImsdatabasePackage.DATASET__MODEL:
+            return model != MODEL_EDEFAULT;
+        case ImsdatabasePackage.DATASET__DD2NAME:
+            return DD2NAME_EDEFAULT == null ? dd2name != null : !DD2NAME_EDEFAULT.equals(dd2name);
+        case ImsdatabasePackage.DATASET__SIZE1:
+            return size1 != SIZE1_EDEFAULT;
+        case ImsdatabasePackage.DATASET__SIZE2:
+            return size2 != SIZE2_EDEFAULT;
+        case ImsdatabasePackage.DATASET__RECORD_LENGTH1:
+            return recordLength1 != RECORD_LENGTH1_EDEFAULT;
+        case ImsdatabasePackage.DATASET__RECORD_LENGTH2:
+            return recordLength2 != RECORD_LENGTH2_EDEFAULT;
+        case ImsdatabasePackage.DATASET__BLOCKING_FACTOR1:
+            return blockingFactor1 != BLOCKING_FACTOR1_EDEFAULT;
+        case ImsdatabasePackage.DATASET__BLOCKING_FACTOR2:
+            return blockingFactor2 != BLOCKING_FACTOR2_EDEFAULT;
+        case ImsdatabasePackage.DATASET__DATASET_LABEL:
+            return DATASET_LABEL_EDEFAULT == null ? datasetLabel != null : !DATASET_LABEL_EDEFAULT.equals(datasetLabel);
+        case ImsdatabasePackage.DATASET__FREE_BLOCK_FREQUENCY:
+            return freeBlockFrequency != FREE_BLOCK_FREQUENCY_EDEFAULT;
+        case ImsdatabasePackage.DATASET__FREE_SPACE_PERCENTAGE:
+            return freeSpacePercentage != FREE_SPACE_PERCENTAGE_EDEFAULT;
+        case ImsdatabasePackage.DATASET__RECORD_FORMAT:
+            return recordFormat != RECORD_FORMAT_EDEFAULT;
+        case ImsdatabasePackage.DATASET__SCAN_CYLINDERS:
+            return scanCylinders != SCAN_CYLINDERS_EDEFAULT;
+        case ImsdatabasePackage.DATASET__SEARCH_ALGORITHM:
+            return searchAlgorithm != SEARCH_ALGORITHM_EDEFAULT;
+        case ImsdatabasePackage.DATASET__ROOT:
+            return root != ROOT_EDEFAULT;
+        case ImsdatabasePackage.DATASET__ROOT_OVERFLOW:
+            return rootOverflow != ROOT_OVERFLOW_EDEFAULT;
+        case ImsdatabasePackage.DATASET__UOW:
+            return uow != UOW_EDEFAULT;
+        case ImsdatabasePackage.DATASET__UOW_OVERFLOW:
+            return uowOverflow != UOW_OVERFLOW_EDEFAULT;
+        case ImsdatabasePackage.DATASET__DBD:
+            return getDbd() != null;
+        case ImsdatabasePackage.DATASET__SEGMENT:
+            return segment != null && !segment.isEmpty();
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (dd1name: ");
@@ -1337,4 +1280,4 @@ public class DatasetImpl extends ModelElementImpl implements Dataset {
         return result.toString();
     }
 
-} //DatasetImpl
+} // DatasetImpl

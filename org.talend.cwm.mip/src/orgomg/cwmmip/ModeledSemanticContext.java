@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmmip;
@@ -11,9 +10,8 @@ import orgomg.mof.model.Association;
 import orgomg.mof.model.ModelElement;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Modeled Semantic Context</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Modeled Semantic Context</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * ModeledSemanticContext is a subclass of SemanticContext that adds references to instances of MOF ModelElements and MOF Associations, as well as an association to MOF ModelElements as a means of specifying anchor classes. Constraints may be specified within ModelSemanticContext via the inherited SemanticContext::constraint attribute.
@@ -35,14 +33,15 @@ import orgomg.mof.model.ModelElement;
  * @generated
  */
 public interface ModeledSemanticContext extends SemanticContext {
+
     /**
      * Returns the value of the '<em><b>Mof Association</b></em>' reference list.
      * The list contents are of type {@link orgomg.mof.model.Association}.
      * It is bidirectional and its opposite is '{@link orgomg.mof.model.Association#getModeledProjection <em>Modeled Projection</em>}'.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Mof Association</em>' reference list isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of the '<em>Mof Association</em>' reference list isn't
+     * clear, there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Mof Association</em>' reference list.
@@ -77,8 +76,8 @@ public interface ModeledSemanticContext extends SemanticContext {
      * It is bidirectional and its opposite is '{@link orgomg.mof.model.ModelElement#getModeledSemanticContext <em>Modeled Semantic Context</em>}'.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Mof Anchor Element</em>' reference list isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of the '<em>Mof Anchor Element</em>' reference list isn't
+     * clear, there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Mof Anchor Element</em>' reference list.

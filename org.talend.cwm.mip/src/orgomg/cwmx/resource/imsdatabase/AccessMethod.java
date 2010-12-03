@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.imsdatabase;
@@ -9,9 +8,8 @@ package orgomg.cwmx.resource.imsdatabase;
 import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Access Method</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Access Method</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * An instance of a subtype of this virtual class holds access-method-specific attributes of a DBD user object. DBDs with access methods MSDB, INDEX, HIDAM, DEDB or HDAM will use instances of the subclasses of this object class.
@@ -29,11 +27,11 @@ import orgomg.cwm.objectmodel.core.ModelElement;
  * @generated
  */
 public interface AccessMethod extends ModelElement {
+
     /**
      * Returns the value of the '<em><b>Dbd</b></em>' container reference.
      * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.imsdatabase.DBD#getAccessMethod <em>Access Method</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * DBD extended by this access method instance.
      * <!-- end-model-doc -->
@@ -48,8 +46,7 @@ public interface AccessMethod extends ModelElement {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.imsdatabase.AccessMethod#getDbd <em>Dbd</em>}' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Dbd</em>' container reference.
      * @see #getDbd()
      * @generated

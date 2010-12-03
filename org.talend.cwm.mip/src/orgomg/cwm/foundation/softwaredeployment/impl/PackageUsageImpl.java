@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.foundation.softwaredeployment.impl;
@@ -14,9 +13,8 @@ import orgomg.cwm.foundation.softwaredeployment.SoftwaredeploymentPackage;
 import orgomg.cwm.objectmodel.core.impl.DependencyImpl;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Package Usage</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Package Usage</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -27,10 +25,11 @@ import orgomg.cwm.objectmodel.core.impl.DependencyImpl;
  * @generated
  */
 public class PackageUsageImpl extends DependencyImpl implements PackageUsage {
+
     /**
      * The default value of the '{@link #getPackageAlias() <em>Package Alias</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getPackageAlias()
      * @generated
      * @ordered
@@ -39,8 +38,8 @@ public class PackageUsageImpl extends DependencyImpl implements PackageUsage {
 
     /**
      * The cached value of the '{@link #getPackageAlias() <em>Package Alias</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getPackageAlias()
      * @generated
      * @ordered
@@ -48,8 +47,7 @@ public class PackageUsageImpl extends DependencyImpl implements PackageUsage {
     protected String packageAlias = PACKAGE_ALIAS_EDEFAULT;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected PackageUsageImpl() {
@@ -57,8 +55,7 @@ public class PackageUsageImpl extends DependencyImpl implements PackageUsage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -67,8 +64,7 @@ public class PackageUsageImpl extends DependencyImpl implements PackageUsage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getPackageAlias() {
@@ -76,83 +72,79 @@ public class PackageUsageImpl extends DependencyImpl implements PackageUsage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setPackageAlias(String newPackageAlias) {
         String oldPackageAlias = packageAlias;
         packageAlias = newPackageAlias;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, SoftwaredeploymentPackage.PACKAGE_USAGE__PACKAGE_ALIAS, oldPackageAlias, packageAlias));
+            eNotify(new ENotificationImpl(this, Notification.SET, SoftwaredeploymentPackage.PACKAGE_USAGE__PACKAGE_ALIAS,
+                    oldPackageAlias, packageAlias));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case SoftwaredeploymentPackage.PACKAGE_USAGE__PACKAGE_ALIAS:
-                return getPackageAlias();
+        case SoftwaredeploymentPackage.PACKAGE_USAGE__PACKAGE_ALIAS:
+            return getPackageAlias();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case SoftwaredeploymentPackage.PACKAGE_USAGE__PACKAGE_ALIAS:
-                setPackageAlias((String)newValue);
-                return;
+        case SoftwaredeploymentPackage.PACKAGE_USAGE__PACKAGE_ALIAS:
+            setPackageAlias((String) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case SoftwaredeploymentPackage.PACKAGE_USAGE__PACKAGE_ALIAS:
-                setPackageAlias(PACKAGE_ALIAS_EDEFAULT);
-                return;
+        case SoftwaredeploymentPackage.PACKAGE_USAGE__PACKAGE_ALIAS:
+            setPackageAlias(PACKAGE_ALIAS_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case SoftwaredeploymentPackage.PACKAGE_USAGE__PACKAGE_ALIAS:
-                return PACKAGE_ALIAS_EDEFAULT == null ? packageAlias != null : !PACKAGE_ALIAS_EDEFAULT.equals(packageAlias);
+        case SoftwaredeploymentPackage.PACKAGE_USAGE__PACKAGE_ALIAS:
+            return PACKAGE_ALIAS_EDEFAULT == null ? packageAlias != null : !PACKAGE_ALIAS_EDEFAULT.equals(packageAlias);
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (packageAlias: ");
@@ -161,4 +153,4 @@ public class PackageUsageImpl extends DependencyImpl implements PackageUsage {
         return result.toString();
     }
 
-} //PackageUsageImpl
+} // PackageUsageImpl

@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.resource.relational.impl;
@@ -14,9 +13,8 @@ import orgomg.cwm.resource.relational.Catalog;
 import orgomg.cwm.resource.relational.RelationalPackage;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Catalog</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Catalog</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -28,6 +26,7 @@ import orgomg.cwm.resource.relational.RelationalPackage;
  * @generated
  */
 public class CatalogImpl extends PackageImpl implements Catalog {
+
     /**
      * The default value of the '{@link #getDefaultCharacterSetName() <em>Default Character Set Name</em>}' attribute.
      * <!-- begin-user-doc -->
@@ -50,8 +49,8 @@ public class CatalogImpl extends PackageImpl implements Catalog {
 
     /**
      * The default value of the '{@link #getDefaultCollationName() <em>Default Collation Name</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getDefaultCollationName()
      * @generated
      * @ordered
@@ -60,8 +59,8 @@ public class CatalogImpl extends PackageImpl implements Catalog {
 
     /**
      * The cached value of the '{@link #getDefaultCollationName() <em>Default Collation Name</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getDefaultCollationName()
      * @generated
      * @ordered
@@ -69,8 +68,7 @@ public class CatalogImpl extends PackageImpl implements Catalog {
     protected String defaultCollationName = DEFAULT_COLLATION_NAME_EDEFAULT;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected CatalogImpl() {
@@ -78,8 +76,7 @@ public class CatalogImpl extends PackageImpl implements Catalog {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -88,8 +85,7 @@ public class CatalogImpl extends PackageImpl implements Catalog {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getDefaultCharacterSetName() {
@@ -97,20 +93,19 @@ public class CatalogImpl extends PackageImpl implements Catalog {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setDefaultCharacterSetName(String newDefaultCharacterSetName) {
         String oldDefaultCharacterSetName = defaultCharacterSetName;
         defaultCharacterSetName = newDefaultCharacterSetName;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, RelationalPackage.CATALOG__DEFAULT_CHARACTER_SET_NAME, oldDefaultCharacterSetName, defaultCharacterSetName));
+            eNotify(new ENotificationImpl(this, Notification.SET, RelationalPackage.CATALOG__DEFAULT_CHARACTER_SET_NAME,
+                    oldDefaultCharacterSetName, defaultCharacterSetName));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getDefaultCollationName() {
@@ -118,93 +113,91 @@ public class CatalogImpl extends PackageImpl implements Catalog {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setDefaultCollationName(String newDefaultCollationName) {
         String oldDefaultCollationName = defaultCollationName;
         defaultCollationName = newDefaultCollationName;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, RelationalPackage.CATALOG__DEFAULT_COLLATION_NAME, oldDefaultCollationName, defaultCollationName));
+            eNotify(new ENotificationImpl(this, Notification.SET, RelationalPackage.CATALOG__DEFAULT_COLLATION_NAME,
+                    oldDefaultCollationName, defaultCollationName));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case RelationalPackage.CATALOG__DEFAULT_CHARACTER_SET_NAME:
-                return getDefaultCharacterSetName();
-            case RelationalPackage.CATALOG__DEFAULT_COLLATION_NAME:
-                return getDefaultCollationName();
+        case RelationalPackage.CATALOG__DEFAULT_CHARACTER_SET_NAME:
+            return getDefaultCharacterSetName();
+        case RelationalPackage.CATALOG__DEFAULT_COLLATION_NAME:
+            return getDefaultCollationName();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case RelationalPackage.CATALOG__DEFAULT_CHARACTER_SET_NAME:
-                setDefaultCharacterSetName((String)newValue);
-                return;
-            case RelationalPackage.CATALOG__DEFAULT_COLLATION_NAME:
-                setDefaultCollationName((String)newValue);
-                return;
+        case RelationalPackage.CATALOG__DEFAULT_CHARACTER_SET_NAME:
+            setDefaultCharacterSetName((String) newValue);
+            return;
+        case RelationalPackage.CATALOG__DEFAULT_COLLATION_NAME:
+            setDefaultCollationName((String) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case RelationalPackage.CATALOG__DEFAULT_CHARACTER_SET_NAME:
-                setDefaultCharacterSetName(DEFAULT_CHARACTER_SET_NAME_EDEFAULT);
-                return;
-            case RelationalPackage.CATALOG__DEFAULT_COLLATION_NAME:
-                setDefaultCollationName(DEFAULT_COLLATION_NAME_EDEFAULT);
-                return;
+        case RelationalPackage.CATALOG__DEFAULT_CHARACTER_SET_NAME:
+            setDefaultCharacterSetName(DEFAULT_CHARACTER_SET_NAME_EDEFAULT);
+            return;
+        case RelationalPackage.CATALOG__DEFAULT_COLLATION_NAME:
+            setDefaultCollationName(DEFAULT_COLLATION_NAME_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case RelationalPackage.CATALOG__DEFAULT_CHARACTER_SET_NAME:
-                return DEFAULT_CHARACTER_SET_NAME_EDEFAULT == null ? defaultCharacterSetName != null : !DEFAULT_CHARACTER_SET_NAME_EDEFAULT.equals(defaultCharacterSetName);
-            case RelationalPackage.CATALOG__DEFAULT_COLLATION_NAME:
-                return DEFAULT_COLLATION_NAME_EDEFAULT == null ? defaultCollationName != null : !DEFAULT_COLLATION_NAME_EDEFAULT.equals(defaultCollationName);
+        case RelationalPackage.CATALOG__DEFAULT_CHARACTER_SET_NAME:
+            return DEFAULT_CHARACTER_SET_NAME_EDEFAULT == null ? defaultCharacterSetName != null
+                    : !DEFAULT_CHARACTER_SET_NAME_EDEFAULT.equals(defaultCharacterSetName);
+        case RelationalPackage.CATALOG__DEFAULT_COLLATION_NAME:
+            return DEFAULT_COLLATION_NAME_EDEFAULT == null ? defaultCollationName != null : !DEFAULT_COLLATION_NAME_EDEFAULT
+                    .equals(defaultCollationName);
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (defaultCharacterSetName: ");
@@ -215,4 +208,4 @@ public class CatalogImpl extends PackageImpl implements Catalog {
         return result.toString();
     }
 
-} //CatalogImpl
+} // CatalogImpl

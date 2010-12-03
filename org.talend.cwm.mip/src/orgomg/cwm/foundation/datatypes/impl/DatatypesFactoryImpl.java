@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.foundation.datatypes.impl;
@@ -11,6 +10,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import orgomg.cwm.foundation.datatypes.*;
 import orgomg.cwm.foundation.datatypes.DatatypesFactory;
 import orgomg.cwm.foundation.datatypes.DatatypesPackage;
 import orgomg.cwm.foundation.datatypes.Enumeration;
@@ -21,26 +21,26 @@ import orgomg.cwm.foundation.datatypes.Union;
 import orgomg.cwm.foundation.datatypes.UnionMember;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model <b>Factory</b>.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!--
+ * end-user-doc -->
  * @generated
  */
 public class DatatypesFactoryImpl extends EFactoryImpl implements DatatypesFactory {
+
     /**
      * Creates the default factory implementation.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     public static DatatypesFactory init() {
         try {
-            DatatypesFactory theDatatypesFactory = (DatatypesFactory)EPackage.Registry.INSTANCE.getEFactory("http:///orgomg/cwm/foundation/datatypes.ecore"); 
+            DatatypesFactory theDatatypesFactory = (DatatypesFactory) EPackage.Registry.INSTANCE
+                    .getEFactory("http:///orgomg/cwm/foundation/datatypes.ecore");
             if (theDatatypesFactory != null) {
                 return theDatatypesFactory;
             }
-        }
-        catch (Exception exception) {
+        } catch (Exception exception) {
             EcorePlugin.INSTANCE.log(exception);
         }
         return new DatatypesFactoryImpl();
@@ -48,8 +48,8 @@ public class DatatypesFactoryImpl extends EFactoryImpl implements DatatypesFacto
 
     /**
      * Creates an instance of the factory.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     public DatatypesFactoryImpl() {
@@ -57,27 +57,31 @@ public class DatatypesFactoryImpl extends EFactoryImpl implements DatatypesFacto
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public EObject create(EClass eClass) {
         switch (eClass.getClassifierID()) {
-            case DatatypesPackage.ENUMERATION: return createEnumeration();
-            case DatatypesPackage.ENUMERATION_LITERAL: return createEnumerationLiteral();
-            case DatatypesPackage.QUERY_EXPRESSION: return createQueryExpression();
-            case DatatypesPackage.TYPE_ALIAS: return createTypeAlias();
-            case DatatypesPackage.UNION: return createUnion();
-            case DatatypesPackage.UNION_MEMBER: return createUnionMember();
-            default:
-                throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+        case DatatypesPackage.ENUMERATION:
+            return createEnumeration();
+        case DatatypesPackage.ENUMERATION_LITERAL:
+            return createEnumerationLiteral();
+        case DatatypesPackage.QUERY_EXPRESSION:
+            return createQueryExpression();
+        case DatatypesPackage.TYPE_ALIAS:
+            return createTypeAlias();
+        case DatatypesPackage.UNION:
+            return createUnion();
+        case DatatypesPackage.UNION_MEMBER:
+            return createUnionMember();
+        default:
+            throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Enumeration createEnumeration() {
@@ -86,8 +90,7 @@ public class DatatypesFactoryImpl extends EFactoryImpl implements DatatypesFacto
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EnumerationLiteral createEnumerationLiteral() {
@@ -96,8 +99,7 @@ public class DatatypesFactoryImpl extends EFactoryImpl implements DatatypesFacto
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public QueryExpression createQueryExpression() {
@@ -106,8 +108,7 @@ public class DatatypesFactoryImpl extends EFactoryImpl implements DatatypesFacto
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public TypeAlias createTypeAlias() {
@@ -116,8 +117,7 @@ public class DatatypesFactoryImpl extends EFactoryImpl implements DatatypesFacto
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Union createUnion() {
@@ -126,8 +126,7 @@ public class DatatypesFactoryImpl extends EFactoryImpl implements DatatypesFacto
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public UnionMember createUnionMember() {
@@ -136,17 +135,15 @@ public class DatatypesFactoryImpl extends EFactoryImpl implements DatatypesFacto
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public DatatypesPackage getDatatypesPackage() {
-        return (DatatypesPackage)getEPackage();
+        return (DatatypesPackage) getEPackage();
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @deprecated
      * @generated
      */
@@ -155,4 +152,4 @@ public class DatatypesFactoryImpl extends EFactoryImpl implements DatatypesFacto
         return DatatypesPackage.eINSTANCE;
     }
 
-} //DatatypesFactoryImpl
+} // DatatypesFactoryImpl

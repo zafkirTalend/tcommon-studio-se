@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.essbase;
@@ -9,18 +8,17 @@ package orgomg.cwmx.resource.essbase;
 import org.eclipse.emf.ecore.EFactory;
 
 /**
- * <!-- begin-user-doc -->
- * The <b>Factory</b> for the model.
- * It provides a create method for each non-abstract class of the model.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> The <b>Factory</b> for the model. It provides a
+ * create method for each non-abstract class of the model. <!-- end-user-doc -->
  * @see orgomg.cwmx.resource.essbase.EssbasePackage
  * @generated
  */
 public interface EssbaseFactory extends EFactory {
+
     /**
      * The singleton instance of the factory.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     EssbaseFactory eINSTANCE = orgomg.cwmx.resource.essbase.impl.EssbaseFactoryImpl.init();
@@ -36,8 +34,8 @@ public interface EssbaseFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Application</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @return a new object of class '<em>Application</em>'.
      * @generated
      */
@@ -53,27 +51,27 @@ public interface EssbaseFactory extends EFactory {
     Comment createComment();
 
     /**
-     * Returns a new object of class '<em>Consolidation</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns a new object of class '<em>Consolidation</em>'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return a new object of class '<em>Consolidation</em>'.
      * @generated
      */
     Consolidation createConsolidation();
 
     /**
-     * Returns a new object of class '<em>Currency Conversion</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns a new object of class '<em>Currency Conversion</em>'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return a new object of class '<em>Currency Conversion</em>'.
      * @generated
      */
     CurrencyConversion createCurrencyConversion();
 
     /**
-     * Returns a new object of class '<em>Data Storage</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns a new object of class '<em>Data Storage</em>'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return a new object of class '<em>Data Storage</em>'.
      * @generated
      */
@@ -81,8 +79,8 @@ public interface EssbaseFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Database</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @return a new object of class '<em>Database</em>'.
      * @generated
      */
@@ -90,8 +88,8 @@ public interface EssbaseFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Dimension</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @return a new object of class '<em>Dimension</em>'.
      * @generated
      */
@@ -108,17 +106,17 @@ public interface EssbaseFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Generation</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @return a new object of class '<em>Generation</em>'.
      * @generated
      */
     Generation createGeneration();
 
     /**
-     * Returns a new object of class '<em>Immediate Parent</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns a new object of class '<em>Immediate Parent</em>'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return a new object of class '<em>Immediate Parent</em>'.
      * @generated
      */
@@ -135,8 +133,8 @@ public interface EssbaseFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Member Name</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @return a new object of class '<em>Member Name</em>'.
      * @generated
      */
@@ -144,8 +142,8 @@ public interface EssbaseFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>OLAP Server</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @return a new object of class '<em>OLAP Server</em>'.
      * @generated
      */
@@ -161,36 +159,36 @@ public interface EssbaseFactory extends EFactory {
     Outline createOutline();
 
     /**
-     * Returns a new object of class '<em>Replicated Partition</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns a new object of class '<em>Replicated Partition</em>'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return a new object of class '<em>Replicated Partition</em>'.
      * @generated
      */
     ReplicatedPartition createReplicatedPartition();
 
     /**
-     * Returns a new object of class '<em>Time Balance</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns a new object of class '<em>Time Balance</em>'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return a new object of class '<em>Time Balance</em>'.
      * @generated
      */
     TimeBalance createTimeBalance();
 
     /**
-     * Returns a new object of class '<em>Transparent Partition</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns a new object of class '<em>Transparent Partition</em>'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return a new object of class '<em>Transparent Partition</em>'.
      * @generated
      */
     TransparentPartition createTransparentPartition();
 
     /**
-     * Returns a new object of class '<em>Two Pass Calculation</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns a new object of class '<em>Two Pass Calculation</em>'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return a new object of class '<em>Two Pass Calculation</em>'.
      * @generated
      */
@@ -206,18 +204,18 @@ public interface EssbaseFactory extends EFactory {
     UDA createUDA();
 
     /**
-     * Returns a new object of class '<em>Variance Reporting</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns a new object of class '<em>Variance Reporting</em>'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return a new object of class '<em>Variance Reporting</em>'.
      * @generated
      */
     VarianceReporting createVarianceReporting();
 
     /**
-     * Returns a new object of class '<em>Linked Partition</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns a new object of class '<em>Linked Partition</em>'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return a new object of class '<em>Linked Partition</em>'.
      * @generated
      */
@@ -232,4 +230,4 @@ public interface EssbaseFactory extends EFactory {
      */
     EssbasePackage getEssbasePackage();
 
-} //EssbaseFactory
+} // EssbaseFactory

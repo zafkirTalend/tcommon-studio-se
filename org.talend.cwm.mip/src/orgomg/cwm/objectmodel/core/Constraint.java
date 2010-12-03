@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.objectmodel.core;
@@ -9,9 +8,8 @@ package orgomg.cwm.objectmodel.core;
 import org.eclipse.emf.common.util.EList;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Constraint</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Constraint</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * A constraint is a semantic condition or restriction expressed in text.
@@ -38,13 +36,18 @@ import org.eclipse.emf.common.util.EList;
  * @generated
  */
 public interface Constraint extends ModelElement {
+
     /**
      * Returns the value of the '<em><b>Body</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * A BooleanExpression that must be true when evaluated for an instance of a system to be well-formed. A boolean expression defining the constraint. Expressions are written as strings in a designated language. For the model to be well formed, the expression must always yield a true value when evaluated for instances of the constrained elements at any time when the system is stable (i.e., not during the execution of an atomic operation).
-     * <!-- end-model-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> A
+     * BooleanExpression that must be true when evaluated for an instance of a
+     * system to be well-formed. A boolean expression defining the constraint.
+     * Expressions are written as strings in a designated language. For the
+     * model to be well formed, the expression must always yield a true value
+     * when evaluated for instances of the constrained elements at any time when
+     * the system is stable (i.e., not during the execution of an atomic
+     * operation). <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Body</em>' containment reference.
      * @see #setBody(BooleanExpression)
      * @see orgomg.cwm.objectmodel.core.CorePackage#getConstraint_Body()
@@ -55,8 +58,7 @@ public interface Constraint extends ModelElement {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.objectmodel.core.Constraint#getBody <em>Body</em>}' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Body</em>' containment reference.
      * @see #getBody()
      * @generated
@@ -64,14 +66,15 @@ public interface Constraint extends ModelElement {
     void setBody(BooleanExpression value);
 
     /**
-     * Returns the value of the '<em><b>Constrained Element</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwm.objectmodel.core.ModelElement}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.objectmodel.core.ModelElement#getConstraint <em>Constraint</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the ModelElements whose state is constrained by the Constraint instance.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Constrained Element</b></em>' reference
+     * list. The list contents are of type
+     * {@link orgomg.cwm.objectmodel.core.ModelElement}. It is bidirectional and
+     * its opposite is '
+     * {@link orgomg.cwm.objectmodel.core.ModelElement#getConstraint
+     * <em>Constraint</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> Identifies the ModelElements whose state is
+     * constrained by the Constraint instance. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Constrained Element</em>' reference list.
      * @see orgomg.cwm.objectmodel.core.CorePackage#getConstraint_ConstrainedElement()
      * @see orgomg.cwm.objectmodel.core.ModelElement#getConstraint
@@ -81,14 +84,15 @@ public interface Constraint extends ModelElement {
     EList<ModelElement> getConstrainedElement();
 
     /**
-     * Returns the value of the '<em><b>Constrained Stereotype</b></em>' container reference.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.objectmodel.core.Stereotype#getStereotypeConstraint <em>Stereotype Constraint</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the Stereotype owning a Constraint instance.
-     * <!-- end-model-doc -->
-     * @return the value of the '<em>Constrained Stereotype</em>' container reference.
+     * Returns the value of the '<em><b>Constrained Stereotype</b></em>'
+     * container reference. It is bidirectional and its opposite is '
+     * {@link orgomg.cwm.objectmodel.core.Stereotype#getStereotypeConstraint
+     * <em>Stereotype Constraint</em>}'. <!-- begin-user-doc --> <!--
+     * end-user-doc --> <!-- begin-model-doc --> Identifies the Stereotype
+     * owning a Constraint instance. <!-- end-model-doc -->
+     * 
+     * @return the value of the '<em>Constrained Stereotype</em>' container
+     *         reference.
      * @see #setConstrainedStereotype(Stereotype)
      * @see orgomg.cwm.objectmodel.core.CorePackage#getConstraint_ConstrainedStereotype()
      * @see orgomg.cwm.objectmodel.core.Stereotype#getStereotypeConstraint
@@ -98,10 +102,14 @@ public interface Constraint extends ModelElement {
     Stereotype getConstrainedStereotype();
 
     /**
-     * Sets the value of the '{@link orgomg.cwm.objectmodel.core.Constraint#getConstrainedStereotype <em>Constrained Stereotype</em>}' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Constrained Stereotype</em>' container reference.
+     * Sets the value of the '
+     * {@link orgomg.cwm.objectmodel.core.Constraint#getConstrainedStereotype
+     * <em>Constrained Stereotype</em>}' container reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @param value
+     *            the new value of the '<em>Constrained Stereotype</em>'
+     *            container reference.
      * @see #getConstrainedStereotype()
      * @generated
      */

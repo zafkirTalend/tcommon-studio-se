@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.essbase.impl;
@@ -12,18 +11,17 @@ import orgomg.cwmx.resource.essbase.Comment;
 import orgomg.cwmx.resource.essbase.EssbasePackage;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Comment</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Comment</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
 public class CommentImpl extends DimensionedObjectImpl implements Comment {
+
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected CommentImpl() {
@@ -31,8 +29,7 @@ public class CommentImpl extends DimensionedObjectImpl implements Comment {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -40,4 +37,4 @@ public class CommentImpl extends DimensionedObjectImpl implements Comment {
         return EssbasePackage.Literals.COMMENT;
     }
 
-} //CommentImpl
+} // CommentImpl

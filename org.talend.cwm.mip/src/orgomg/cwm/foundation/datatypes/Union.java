@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.foundation.datatypes;
@@ -10,9 +9,8 @@ import orgomg.cwm.objectmodel.core.Classifier;
 import orgomg.cwm.objectmodel.core.StructuralFeature;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Union</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Union</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * The Union class represents programming language unions and similarly structured data types. Because of the diversity of union semantics found across software systems, the Union and UnionMember classes are likely candidates for specialization to better capture union semantics in specific language extension packages.
@@ -40,14 +38,15 @@ import orgomg.cwm.objectmodel.core.StructuralFeature;
  * @generated
  */
 public interface Union extends Classifier {
+
     /**
-     * Returns the value of the '<em><b>Discriminator</b></em>' reference.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.objectmodel.core.StructuralFeature#getDiscriminatedUnion <em>Discriminated Union</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the StructuralFeature instance that serves as the discriminator for the Union.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Discriminator</b></em>' reference. It is
+     * bidirectional and its opposite is '
+     * {@link orgomg.cwm.objectmodel.core.StructuralFeature#getDiscriminatedUnion
+     * <em>Discriminated Union</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * --> <!-- begin-model-doc --> Identifies the StructuralFeature instance
+     * that serves as the discriminator for the Union. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Discriminator</em>' reference.
      * @see #setDiscriminator(StructuralFeature)
      * @see orgomg.cwm.foundation.datatypes.DatatypesPackage#getUnion_Discriminator()
@@ -59,8 +58,8 @@ public interface Union extends Classifier {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.foundation.datatypes.Union#getDiscriminator <em>Discriminator</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Discriminator</em>' reference.
      * @see #getDiscriminator()
      * @generated

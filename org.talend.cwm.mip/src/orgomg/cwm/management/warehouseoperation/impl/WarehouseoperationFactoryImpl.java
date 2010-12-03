@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.management.warehouseoperation.impl;
@@ -11,6 +10,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import orgomg.cwm.management.warehouseoperation.*;
 import orgomg.cwm.management.warehouseoperation.ActivityExecution;
 import orgomg.cwm.management.warehouseoperation.ChangeRequest;
 import orgomg.cwm.management.warehouseoperation.Measurement;
@@ -20,26 +20,26 @@ import orgomg.cwm.management.warehouseoperation.WarehouseoperationFactory;
 import orgomg.cwm.management.warehouseoperation.WarehouseoperationPackage;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model <b>Factory</b>.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!--
+ * end-user-doc -->
  * @generated
  */
 public class WarehouseoperationFactoryImpl extends EFactoryImpl implements WarehouseoperationFactory {
+
     /**
      * Creates the default factory implementation.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     public static WarehouseoperationFactory init() {
         try {
-            WarehouseoperationFactory theWarehouseoperationFactory = (WarehouseoperationFactory)EPackage.Registry.INSTANCE.getEFactory("http:///orgomg/cwm/management/warehouseoperation.ecore"); 
+            WarehouseoperationFactory theWarehouseoperationFactory = (WarehouseoperationFactory) EPackage.Registry.INSTANCE
+                    .getEFactory("http:///orgomg/cwm/management/warehouseoperation.ecore");
             if (theWarehouseoperationFactory != null) {
                 return theWarehouseoperationFactory;
             }
-        }
-        catch (Exception exception) {
+        } catch (Exception exception) {
             EcorePlugin.INSTANCE.log(exception);
         }
         return new WarehouseoperationFactoryImpl();
@@ -47,8 +47,8 @@ public class WarehouseoperationFactoryImpl extends EFactoryImpl implements Wareh
 
     /**
      * Creates an instance of the factory.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     public WarehouseoperationFactoryImpl() {
@@ -56,26 +56,29 @@ public class WarehouseoperationFactoryImpl extends EFactoryImpl implements Wareh
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public EObject create(EClass eClass) {
         switch (eClass.getClassifierID()) {
-            case WarehouseoperationPackage.MEASUREMENT: return createMeasurement();
-            case WarehouseoperationPackage.CHANGE_REQUEST: return createChangeRequest();
-            case WarehouseoperationPackage.TRANSFORMATION_EXECUTION: return createTransformationExecution();
-            case WarehouseoperationPackage.ACTIVITY_EXECUTION: return createActivityExecution();
-            case WarehouseoperationPackage.STEP_EXECUTION: return createStepExecution();
-            default:
-                throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+        case WarehouseoperationPackage.MEASUREMENT:
+            return createMeasurement();
+        case WarehouseoperationPackage.CHANGE_REQUEST:
+            return createChangeRequest();
+        case WarehouseoperationPackage.TRANSFORMATION_EXECUTION:
+            return createTransformationExecution();
+        case WarehouseoperationPackage.ACTIVITY_EXECUTION:
+            return createActivityExecution();
+        case WarehouseoperationPackage.STEP_EXECUTION:
+            return createStepExecution();
+        default:
+            throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Measurement createMeasurement() {
@@ -84,8 +87,7 @@ public class WarehouseoperationFactoryImpl extends EFactoryImpl implements Wareh
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public ChangeRequest createChangeRequest() {
@@ -94,8 +96,7 @@ public class WarehouseoperationFactoryImpl extends EFactoryImpl implements Wareh
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public TransformationExecution createTransformationExecution() {
@@ -104,8 +105,7 @@ public class WarehouseoperationFactoryImpl extends EFactoryImpl implements Wareh
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public ActivityExecution createActivityExecution() {
@@ -114,8 +114,7 @@ public class WarehouseoperationFactoryImpl extends EFactoryImpl implements Wareh
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public StepExecution createStepExecution() {
@@ -124,17 +123,15 @@ public class WarehouseoperationFactoryImpl extends EFactoryImpl implements Wareh
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public WarehouseoperationPackage getWarehouseoperationPackage() {
-        return (WarehouseoperationPackage)getEPackage();
+        return (WarehouseoperationPackage) getEPackage();
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @deprecated
      * @generated
      */
@@ -143,4 +140,4 @@ public class WarehouseoperationFactoryImpl extends EFactoryImpl implements Wareh
         return WarehouseoperationPackage.eINSTANCE;
     }
 
-} //WarehouseoperationFactoryImpl
+} // WarehouseoperationFactoryImpl

@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.dmsii.impl;
@@ -12,18 +11,17 @@ import orgomg.cwmx.resource.dmsii.DASDLComment;
 import orgomg.cwmx.resource.dmsii.DmsiiPackage;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>DASDL Comment</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>DASDL Comment</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
 public class DASDLCommentImpl extends DescriptionImpl implements DASDLComment {
+
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected DASDLCommentImpl() {
@@ -31,8 +29,7 @@ public class DASDLCommentImpl extends DescriptionImpl implements DASDLComment {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -40,4 +37,4 @@ public class DASDLCommentImpl extends DescriptionImpl implements DASDLComment {
         return DmsiiPackage.Literals.DASDL_COMMENT;
     }
 
-} //DASDLCommentImpl
+} // DASDLCommentImpl

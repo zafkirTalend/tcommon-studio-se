@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.resource.relational.enumerations;
@@ -13,14 +12,12 @@ import java.util.List;
 import org.eclipse.emf.common.util.Enumerator;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the literals of the enumeration '<em><b>Condition Timing Type</b></em>',
- * and utility methods for working with them.
- * <!-- end-user-doc -->
- * <!-- begin-model-doc -->
- * Used in Triggers.
- * It indicates if the trigger activity is run before or after the statement or row is modified.
- * <!-- end-model-doc -->
+ * <!-- begin-user-doc --> A representation of the literals of the enumeration '
+ * <em><b>Condition Timing Type</b></em>', and utility methods for working with
+ * them. <!-- end-user-doc --> <!-- begin-model-doc --> Used in Triggers. It
+ * indicates if the trigger activity is run before or after the statement or row
+ * is modified. <!-- end-model-doc -->
+ * 
  * @see orgomg.cwm.resource.relational.enumerations.EnumerationsPackage#getConditionTimingType()
  * @model
  * @generated
@@ -28,8 +25,8 @@ import org.eclipse.emf.common.util.Enumerator;
 public enum ConditionTimingType implements Enumerator {
     /**
      * The '<em><b>Before</b></em>' literal object.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #BEFORE_VALUE
      * @generated
      * @ordered
@@ -38,8 +35,8 @@ public enum ConditionTimingType implements Enumerator {
 
     /**
      * The '<em><b>After</b></em>' literal object.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #AFTER_VALUE
      * @generated
      * @ordered
@@ -47,12 +44,10 @@ public enum ConditionTimingType implements Enumerator {
     AFTER(1, "after", "after");
 
     /**
-     * The '<em><b>Before</b></em>' literal value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The Trigger activity is run before the data is changed in the table.
-     * <!-- end-model-doc -->
+     * The '<em><b>Before</b></em>' literal value. <!-- begin-user-doc --> <!--
+     * end-user-doc --> <!-- begin-model-doc --> The Trigger activity is run
+     * before the data is changed in the table. <!-- end-model-doc -->
+     * 
      * @see #BEFORE
      * @model name="before"
      * @generated
@@ -61,12 +56,10 @@ public enum ConditionTimingType implements Enumerator {
     public static final int BEFORE_VALUE = 0;
 
     /**
-     * The '<em><b>After</b></em>' literal value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * This Trigger activity is run after the data are modified in the table.
-     * <!-- end-model-doc -->
+     * The '<em><b>After</b></em>' literal value. <!-- begin-user-doc --> <!--
+     * end-user-doc --> <!-- begin-model-doc --> This Trigger activity is run
+     * after the data are modified in the table. <!-- end-model-doc -->
+     * 
      * @see #AFTER
      * @model name="after"
      * @generated
@@ -76,28 +69,21 @@ public enum ConditionTimingType implements Enumerator {
 
     /**
      * An array of all the '<em><b>Condition Timing Type</b></em>' enumerators.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    private static final ConditionTimingType[] VALUES_ARRAY =
-        new ConditionTimingType[] {
-            BEFORE,
-            AFTER,
-        };
+    private static final ConditionTimingType[] VALUES_ARRAY = new ConditionTimingType[] { BEFORE, AFTER, };
 
     /**
      * A public read-only list of all the '<em><b>Condition Timing Type</b></em>' enumerators.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static final List<ConditionTimingType> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
     /**
      * Returns the '<em><b>Condition Timing Type</b></em>' literal with the specified literal value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static ConditionTimingType get(String literal) {
@@ -112,8 +98,7 @@ public enum ConditionTimingType implements Enumerator {
 
     /**
      * Returns the '<em><b>Condition Timing Type</b></em>' literal with the specified name.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static ConditionTimingType getByName(String name) {
@@ -128,43 +113,41 @@ public enum ConditionTimingType implements Enumerator {
 
     /**
      * Returns the '<em><b>Condition Timing Type</b></em>' literal with the specified integer value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static ConditionTimingType get(int value) {
         switch (value) {
-            case BEFORE_VALUE: return BEFORE;
-            case AFTER_VALUE: return AFTER;
+        case BEFORE_VALUE:
+            return BEFORE;
+        case AFTER_VALUE:
+            return AFTER;
         }
         return null;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private final int value;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private final String name;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private final String literal;
 
     /**
      * Only this class can construct instances.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     private ConditionTimingType(int value, String name, String literal) {
@@ -174,41 +157,37 @@ public enum ConditionTimingType implements Enumerator {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public int getValue() {
-      return value;
+        return value;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getName() {
-      return name;
+        return name;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getLiteral() {
-      return literal;
+        return literal;
     }
 
     /**
      * Returns the literal value of the enumerator, which is its string representation.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
         return literal;
     }
-    
-} //ConditionTimingType
+
+} // ConditionTimingType

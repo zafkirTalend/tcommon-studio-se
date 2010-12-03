@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.analysis.datamining.impl;
@@ -12,6 +11,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import orgomg.cwm.analysis.datamining.*;
 import orgomg.cwm.analysis.datamining.ApplicationAttribute;
 import orgomg.cwm.analysis.datamining.ApplicationInputSpecification;
 import orgomg.cwm.analysis.datamining.AssociationRulesSettings;
@@ -41,26 +41,26 @@ import orgomg.cwm.analysis.datamining.SupervisedMiningModel;
 import orgomg.cwm.analysis.datamining.SupervisedMiningSettings;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model <b>Factory</b>.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!--
+ * end-user-doc -->
  * @generated
  */
 public class DataminingFactoryImpl extends EFactoryImpl implements DataminingFactory {
+
     /**
      * Creates the default factory implementation.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     public static DataminingFactory init() {
         try {
-            DataminingFactory theDataminingFactory = (DataminingFactory)EPackage.Registry.INSTANCE.getEFactory("http:///orgomg/cwm/analysis/datamining.ecore"); 
+            DataminingFactory theDataminingFactory = (DataminingFactory) EPackage.Registry.INSTANCE
+                    .getEFactory("http:///orgomg/cwm/analysis/datamining.ecore");
             if (theDataminingFactory != null) {
                 return theDataminingFactory;
             }
-        }
-        catch (Exception exception) {
+        } catch (Exception exception) {
             EcorePlugin.INSTANCE.log(exception);
         }
         return new DataminingFactoryImpl();
@@ -68,8 +68,8 @@ public class DataminingFactoryImpl extends EFactoryImpl implements DataminingFac
 
     /**
      * Creates an instance of the factory.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     public DataminingFactoryImpl() {
@@ -77,84 +77,101 @@ public class DataminingFactoryImpl extends EFactoryImpl implements DataminingFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public EObject create(EClass eClass) {
         switch (eClass.getClassifierID()) {
-            case DataminingPackage.APPLICATION_INPUT_SPECIFICATION: return createApplicationInputSpecification();
-            case DataminingPackage.ATTRIBUTE_USAGE_RELATION: return createAttributeUsageRelation();
-            case DataminingPackage.CATEGORY: return createCategory();
-            case DataminingPackage.CATEGORY_HIERARCHY: return createCategoryHierarchy();
-            case DataminingPackage.COST_MATRIX: return createCostMatrix();
-            case DataminingPackage.MINING_ATTRIBUTE: return createMiningAttribute();
-            case DataminingPackage.MINING_DATA_SPECIFICATION: return createMiningDataSpecification();
-            case DataminingPackage.MINING_MODEL: return createMiningModel();
-            case DataminingPackage.MINING_MODEL_RESULT: return createMiningModelResult();
-            case DataminingPackage.NUMERIC_ATTRIBUTE: return createNumericAttribute();
-            case DataminingPackage.SUPERVISED_MINING_MODEL: return createSupervisedMiningModel();
-            case DataminingPackage.CATEGORICAL_ATTRIBUTE: return createCategoricalAttribute();
-            case DataminingPackage.ORDINAL_ATTRIBUTE: return createOrdinalAttribute();
-            case DataminingPackage.MINING_SETTINGS: return createMiningSettings();
-            case DataminingPackage.CLUSTERING_SETTINGS: return createClusteringSettings();
-            case DataminingPackage.STATISTICS_SETTINGS: return createStatisticsSettings();
-            case DataminingPackage.SUPERVISED_MINING_SETTINGS: return createSupervisedMiningSettings();
-            case DataminingPackage.CLASSIFICATION_SETTINGS: return createClassificationSettings();
-            case DataminingPackage.REGRESSION_SETTINGS: return createRegressionSettings();
-            case DataminingPackage.ASSOCIATION_RULES_SETTINGS: return createAssociationRulesSettings();
-            case DataminingPackage.APPLICATION_ATTRIBUTE: return createApplicationAttribute();
-            default:
-                throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+        case DataminingPackage.APPLICATION_INPUT_SPECIFICATION:
+            return createApplicationInputSpecification();
+        case DataminingPackage.ATTRIBUTE_USAGE_RELATION:
+            return createAttributeUsageRelation();
+        case DataminingPackage.CATEGORY:
+            return createCategory();
+        case DataminingPackage.CATEGORY_HIERARCHY:
+            return createCategoryHierarchy();
+        case DataminingPackage.COST_MATRIX:
+            return createCostMatrix();
+        case DataminingPackage.MINING_ATTRIBUTE:
+            return createMiningAttribute();
+        case DataminingPackage.MINING_DATA_SPECIFICATION:
+            return createMiningDataSpecification();
+        case DataminingPackage.MINING_MODEL:
+            return createMiningModel();
+        case DataminingPackage.MINING_MODEL_RESULT:
+            return createMiningModelResult();
+        case DataminingPackage.NUMERIC_ATTRIBUTE:
+            return createNumericAttribute();
+        case DataminingPackage.SUPERVISED_MINING_MODEL:
+            return createSupervisedMiningModel();
+        case DataminingPackage.CATEGORICAL_ATTRIBUTE:
+            return createCategoricalAttribute();
+        case DataminingPackage.ORDINAL_ATTRIBUTE:
+            return createOrdinalAttribute();
+        case DataminingPackage.MINING_SETTINGS:
+            return createMiningSettings();
+        case DataminingPackage.CLUSTERING_SETTINGS:
+            return createClusteringSettings();
+        case DataminingPackage.STATISTICS_SETTINGS:
+            return createStatisticsSettings();
+        case DataminingPackage.SUPERVISED_MINING_SETTINGS:
+            return createSupervisedMiningSettings();
+        case DataminingPackage.CLASSIFICATION_SETTINGS:
+            return createClassificationSettings();
+        case DataminingPackage.REGRESSION_SETTINGS:
+            return createRegressionSettings();
+        case DataminingPackage.ASSOCIATION_RULES_SETTINGS:
+            return createAssociationRulesSettings();
+        case DataminingPackage.APPLICATION_ATTRIBUTE:
+            return createApplicationAttribute();
+        default:
+            throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object createFromString(EDataType eDataType, String initialValue) {
         switch (eDataType.getClassifierID()) {
-            case DataminingPackage.ATTRIBUTE_TYPE:
-                return createAttributeTypeFromString(eDataType, initialValue);
-            case DataminingPackage.ATTRIBUTE_USAGE:
-                return createAttributeUsageFromString(eDataType, initialValue);
-            case DataminingPackage.CATEGORY_PROPERTY:
-                return createCategoryPropertyFromString(eDataType, initialValue);
-            case DataminingPackage.ORDER_TYPE:
-                return createOrderTypeFromString(eDataType, initialValue);
-            default:
-                throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+        case DataminingPackage.ATTRIBUTE_TYPE:
+            return createAttributeTypeFromString(eDataType, initialValue);
+        case DataminingPackage.ATTRIBUTE_USAGE:
+            return createAttributeUsageFromString(eDataType, initialValue);
+        case DataminingPackage.CATEGORY_PROPERTY:
+            return createCategoryPropertyFromString(eDataType, initialValue);
+        case DataminingPackage.ORDER_TYPE:
+            return createOrderTypeFromString(eDataType, initialValue);
+        default:
+            throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
         }
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String convertToString(EDataType eDataType, Object instanceValue) {
         switch (eDataType.getClassifierID()) {
-            case DataminingPackage.ATTRIBUTE_TYPE:
-                return convertAttributeTypeToString(eDataType, instanceValue);
-            case DataminingPackage.ATTRIBUTE_USAGE:
-                return convertAttributeUsageToString(eDataType, instanceValue);
-            case DataminingPackage.CATEGORY_PROPERTY:
-                return convertCategoryPropertyToString(eDataType, instanceValue);
-            case DataminingPackage.ORDER_TYPE:
-                return convertOrderTypeToString(eDataType, instanceValue);
-            default:
-                throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+        case DataminingPackage.ATTRIBUTE_TYPE:
+            return convertAttributeTypeToString(eDataType, instanceValue);
+        case DataminingPackage.ATTRIBUTE_USAGE:
+            return convertAttributeUsageToString(eDataType, instanceValue);
+        case DataminingPackage.CATEGORY_PROPERTY:
+            return convertCategoryPropertyToString(eDataType, instanceValue);
+        case DataminingPackage.ORDER_TYPE:
+            return convertOrderTypeToString(eDataType, instanceValue);
+        default:
+            throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
         }
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public ApplicationInputSpecification createApplicationInputSpecification() {
@@ -163,8 +180,7 @@ public class DataminingFactoryImpl extends EFactoryImpl implements DataminingFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public AttributeUsageRelation createAttributeUsageRelation() {
@@ -173,8 +189,7 @@ public class DataminingFactoryImpl extends EFactoryImpl implements DataminingFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Category createCategory() {
@@ -183,8 +198,7 @@ public class DataminingFactoryImpl extends EFactoryImpl implements DataminingFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public CategoryHierarchy createCategoryHierarchy() {
@@ -193,8 +207,7 @@ public class DataminingFactoryImpl extends EFactoryImpl implements DataminingFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public CostMatrix createCostMatrix() {
@@ -203,8 +216,7 @@ public class DataminingFactoryImpl extends EFactoryImpl implements DataminingFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public MiningAttribute createMiningAttribute() {
@@ -213,8 +225,7 @@ public class DataminingFactoryImpl extends EFactoryImpl implements DataminingFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public MiningDataSpecification createMiningDataSpecification() {
@@ -223,8 +234,7 @@ public class DataminingFactoryImpl extends EFactoryImpl implements DataminingFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public MiningModel createMiningModel() {
@@ -233,8 +243,7 @@ public class DataminingFactoryImpl extends EFactoryImpl implements DataminingFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public MiningModelResult createMiningModelResult() {
@@ -243,8 +252,7 @@ public class DataminingFactoryImpl extends EFactoryImpl implements DataminingFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public NumericAttribute createNumericAttribute() {
@@ -253,8 +261,7 @@ public class DataminingFactoryImpl extends EFactoryImpl implements DataminingFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public SupervisedMiningModel createSupervisedMiningModel() {
@@ -263,8 +270,7 @@ public class DataminingFactoryImpl extends EFactoryImpl implements DataminingFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public CategoricalAttribute createCategoricalAttribute() {
@@ -273,8 +279,7 @@ public class DataminingFactoryImpl extends EFactoryImpl implements DataminingFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public OrdinalAttribute createOrdinalAttribute() {
@@ -283,8 +288,7 @@ public class DataminingFactoryImpl extends EFactoryImpl implements DataminingFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public MiningSettings createMiningSettings() {
@@ -293,8 +297,7 @@ public class DataminingFactoryImpl extends EFactoryImpl implements DataminingFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public ClusteringSettings createClusteringSettings() {
@@ -303,8 +306,7 @@ public class DataminingFactoryImpl extends EFactoryImpl implements DataminingFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public StatisticsSettings createStatisticsSettings() {
@@ -313,8 +315,7 @@ public class DataminingFactoryImpl extends EFactoryImpl implements DataminingFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public SupervisedMiningSettings createSupervisedMiningSettings() {
@@ -323,8 +324,7 @@ public class DataminingFactoryImpl extends EFactoryImpl implements DataminingFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public ClassificationSettings createClassificationSettings() {
@@ -333,8 +333,7 @@ public class DataminingFactoryImpl extends EFactoryImpl implements DataminingFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public RegressionSettings createRegressionSettings() {
@@ -343,8 +342,7 @@ public class DataminingFactoryImpl extends EFactoryImpl implements DataminingFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public AssociationRulesSettings createAssociationRulesSettings() {
@@ -353,8 +351,7 @@ public class DataminingFactoryImpl extends EFactoryImpl implements DataminingFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public ApplicationAttribute createApplicationAttribute() {
@@ -363,19 +360,19 @@ public class DataminingFactoryImpl extends EFactoryImpl implements DataminingFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public AttributeType createAttributeTypeFromString(EDataType eDataType, String initialValue) {
         AttributeType result = AttributeType.get(initialValue);
-        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+        if (result == null)
+            throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
+                    + eDataType.getName() + "'");
         return result;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String convertAttributeTypeToString(EDataType eDataType, Object instanceValue) {
@@ -383,19 +380,19 @@ public class DataminingFactoryImpl extends EFactoryImpl implements DataminingFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public AttributeUsage createAttributeUsageFromString(EDataType eDataType, String initialValue) {
         AttributeUsage result = AttributeUsage.get(initialValue);
-        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+        if (result == null)
+            throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
+                    + eDataType.getName() + "'");
         return result;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String convertAttributeUsageToString(EDataType eDataType, Object instanceValue) {
@@ -403,19 +400,19 @@ public class DataminingFactoryImpl extends EFactoryImpl implements DataminingFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public CategoryProperty createCategoryPropertyFromString(EDataType eDataType, String initialValue) {
         CategoryProperty result = CategoryProperty.get(initialValue);
-        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+        if (result == null)
+            throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
+                    + eDataType.getName() + "'");
         return result;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String convertCategoryPropertyToString(EDataType eDataType, Object instanceValue) {
@@ -423,19 +420,19 @@ public class DataminingFactoryImpl extends EFactoryImpl implements DataminingFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public OrderType createOrderTypeFromString(EDataType eDataType, String initialValue) {
         OrderType result = OrderType.get(initialValue);
-        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+        if (result == null)
+            throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
+                    + eDataType.getName() + "'");
         return result;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String convertOrderTypeToString(EDataType eDataType, Object instanceValue) {
@@ -443,17 +440,15 @@ public class DataminingFactoryImpl extends EFactoryImpl implements DataminingFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public DataminingPackage getDataminingPackage() {
-        return (DataminingPackage)getEPackage();
+        return (DataminingPackage) getEPackage();
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @deprecated
      * @generated
      */
@@ -462,4 +457,4 @@ public class DataminingFactoryImpl extends EFactoryImpl implements DataminingFac
         return DataminingPackage.eINSTANCE;
     }
 
-} //DataminingFactoryImpl
+} // DataminingFactoryImpl

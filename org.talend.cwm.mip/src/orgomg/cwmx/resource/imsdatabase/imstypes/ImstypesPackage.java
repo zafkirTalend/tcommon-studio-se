@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.imsdatabase.imstypes;
@@ -10,60 +9,56 @@ import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 
 /**
- * <!-- begin-user-doc -->
- * The <b>Package</b> for the model.
- * It contains accessors for the meta objects to represent
+ * <!-- begin-user-doc --> The <b>Package</b> for the model. It contains
+ * accessors for the meta objects to represent
  * <ul>
- *   <li>each class,</li>
- *   <li>each feature of each class,</li>
- *   <li>each enum,</li>
- *   <li>and each data type</li>
+ * <li>each class,</li>
+ * <li>each feature of each class,</li>
+ * <li>each enum,</li>
+ * <li>and each data type</li>
  * </ul>
- * <!-- end-user-doc -->
- * <!-- begin-model-doc -->
- * This package contains enumeration types for IMS classes. 
- * <!-- end-model-doc -->
+ * <!-- end-user-doc --> <!-- begin-model-doc --> This package contains
+ * enumeration types for IMS classes. <!-- end-model-doc -->
+ * 
  * @see orgomg.cwmx.resource.imsdatabase.imstypes.ImstypesFactory
  * @model kind="package"
  * @generated
  */
 public interface ImstypesPackage extends EPackage {
+
     /**
      * The package name.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     String eNAME = "imstypes";
 
     /**
      * The package namespace URI.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     String eNS_URI = "http:///orgomg/cwmx/resource/imsdatabase/imstypes.ecore";
 
     /**
      * The package namespace name.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     String eNS_PREFIX = "orgomg.cwmx.resource.imsdatabase.imstypes";
 
     /**
      * The singleton instance of the package.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     ImstypesPackage eINSTANCE = orgomg.cwmx.resource.imsdatabase.imstypes.impl.ImstypesPackageImpl.init();
 
     /**
      * The meta object id for the '{@link orgomg.cwmx.resource.imsdatabase.imstypes.AccessMethodType <em>Access Method Type</em>}' enum.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.AccessMethodType
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.impl.ImstypesPackageImpl#getAccessMethodType()
      * @generated
@@ -72,8 +67,8 @@ public interface ImstypesPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwmx.resource.imsdatabase.imstypes.PSBLanguageType <em>PSB Language Type</em>}' enum.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.PSBLanguageType
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.impl.ImstypesPackageImpl#getPSBLanguageType()
      * @generated
@@ -82,8 +77,7 @@ public interface ImstypesPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwmx.resource.imsdatabase.imstypes.PCBType <em>PCB Type</em>}' enum.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.PCBType
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.impl.ImstypesPackageImpl#getPCBType()
      * @generated
@@ -92,8 +86,8 @@ public interface ImstypesPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwmx.resource.imsdatabase.imstypes.PositioningType <em>Positioning Type</em>}' enum.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.PositioningType
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.impl.ImstypesPackageImpl#getPositioningType()
      * @generated
@@ -102,8 +96,7 @@ public interface ImstypesPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwmx.resource.imsdatabase.imstypes.LTermType <em>LTerm Type</em>}' enum.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.LTermType
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.impl.ImstypesPackageImpl#getLTermType()
      * @generated
@@ -112,8 +105,7 @@ public interface ImstypesPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwmx.resource.imsdatabase.imstypes.RulesType <em>Rules Type</em>}' enum.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.RulesType
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.impl.ImstypesPackageImpl#getRulesType()
      * @generated
@@ -122,8 +114,8 @@ public interface ImstypesPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwmx.resource.imsdatabase.imstypes.ChildPointerType <em>Child Pointer Type</em>}' enum.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.ChildPointerType
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.impl.ImstypesPackageImpl#getChildPointerType()
      * @generated
@@ -132,8 +124,7 @@ public interface ImstypesPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwmx.resource.imsdatabase.imstypes.FlagsType <em>Flags Type</em>}' enum.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.FlagsType
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.impl.ImstypesPackageImpl#getFlagsType()
      * @generated
@@ -141,9 +132,11 @@ public interface ImstypesPackage extends EPackage {
     int FLAGS_TYPE = 7;
 
     /**
-     * The meta object id for the '{@link orgomg.cwmx.resource.imsdatabase.imstypes.PointerType <em>Pointer Type</em>}' enum.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The meta object id for the '
+     * {@link orgomg.cwmx.resource.imsdatabase.imstypes.PointerType
+     * <em>Pointer Type</em>}' enum. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.PointerType
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.impl.ImstypesPackageImpl#getPointerType()
      * @generated
@@ -151,9 +144,11 @@ public interface ImstypesPackage extends EPackage {
     int POINTER_TYPE = 8;
 
     /**
-     * The meta object id for the '{@link orgomg.cwmx.resource.imsdatabase.imstypes.DeviceType <em>Device Type</em>}' enum.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The meta object id for the '
+     * {@link orgomg.cwmx.resource.imsdatabase.imstypes.DeviceType
+     * <em>Device Type</em>}' enum. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.DeviceType
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.impl.ImstypesPackageImpl#getDeviceType()
      * @generated
@@ -162,8 +157,7 @@ public interface ImstypesPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwmx.resource.imsdatabase.imstypes.ModelType <em>Model Type</em>}' enum.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.ModelType
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.impl.ImstypesPackageImpl#getModelType()
      * @generated
@@ -172,8 +166,7 @@ public interface ImstypesPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwmx.resource.imsdatabase.imstypes.RECFMType <em>RECFM Type</em>}' enum.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.RECFMType
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.impl.ImstypesPackageImpl#getRECFMType()
      * @generated
@@ -181,9 +174,11 @@ public interface ImstypesPackage extends EPackage {
     int RECFM_TYPE = 11;
 
     /**
-     * The meta object id for the '{@link orgomg.cwmx.resource.imsdatabase.imstypes.AlgorithmType <em>Algorithm Type</em>}' enum.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The meta object id for the '
+     * {@link orgomg.cwmx.resource.imsdatabase.imstypes.AlgorithmType
+     * <em>Algorithm Type</em>}' enum. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.AlgorithmType
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.impl.ImstypesPackageImpl#getAlgorithmType()
      * @generated
@@ -191,9 +186,11 @@ public interface ImstypesPackage extends EPackage {
     int ALGORITHM_TYPE = 12;
 
     /**
-     * The meta object id for the '{@link orgomg.cwmx.resource.imsdatabase.imstypes.LPointerType <em>LPointer Type</em>}' enum.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The meta object id for the '
+     * {@link orgomg.cwmx.resource.imsdatabase.imstypes.LPointerType
+     * <em>LPointer Type</em>}' enum. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.LPointerType
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.impl.ImstypesPackageImpl#getLPointerType()
      * @generated
@@ -202,8 +199,7 @@ public interface ImstypesPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwmx.resource.imsdatabase.imstypes.MSDBtype <em>MSD Btype</em>}' enum.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.MSDBtype
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.impl.ImstypesPackageImpl#getMSDBtype()
      * @generated
@@ -211,20 +207,23 @@ public interface ImstypesPackage extends EPackage {
     int MSD_BTYPE = 14;
 
     /**
-     * The meta object id for the '{@link orgomg.cwmx.resource.imsdatabase.imstypes.ParentType <em>Parent Type</em>}' enum.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The meta object id for the '
+     * {@link orgomg.cwmx.resource.imsdatabase.imstypes.ParentType
+     * <em>Parent Type</em>}' enum. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.ParentType
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.impl.ImstypesPackageImpl#getParentType()
      * @generated
      */
     int PARENT_TYPE = 15;
 
-
     /**
-     * Returns the meta object for enum '{@link orgomg.cwmx.resource.imsdatabase.imstypes.AccessMethodType <em>Access Method Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for enum '
+     * {@link orgomg.cwmx.resource.imsdatabase.imstypes.AccessMethodType
+     * <em>Access Method Type</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @return the meta object for enum '<em>Access Method Type</em>'.
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.AccessMethodType
      * @generated
@@ -232,9 +231,11 @@ public interface ImstypesPackage extends EPackage {
     EEnum getAccessMethodType();
 
     /**
-     * Returns the meta object for enum '{@link orgomg.cwmx.resource.imsdatabase.imstypes.PSBLanguageType <em>PSB Language Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for enum '
+     * {@link orgomg.cwmx.resource.imsdatabase.imstypes.PSBLanguageType
+     * <em>PSB Language Type</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @return the meta object for enum '<em>PSB Language Type</em>'.
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.PSBLanguageType
      * @generated
@@ -243,8 +244,7 @@ public interface ImstypesPackage extends EPackage {
 
     /**
      * Returns the meta object for enum '{@link orgomg.cwmx.resource.imsdatabase.imstypes.PCBType <em>PCB Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for enum '<em>PCB Type</em>'.
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.PCBType
      * @generated
@@ -252,9 +252,11 @@ public interface ImstypesPackage extends EPackage {
     EEnum getPCBType();
 
     /**
-     * Returns the meta object for enum '{@link orgomg.cwmx.resource.imsdatabase.imstypes.PositioningType <em>Positioning Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for enum '
+     * {@link orgomg.cwmx.resource.imsdatabase.imstypes.PositioningType
+     * <em>Positioning Type</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @return the meta object for enum '<em>Positioning Type</em>'.
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.PositioningType
      * @generated
@@ -263,8 +265,7 @@ public interface ImstypesPackage extends EPackage {
 
     /**
      * Returns the meta object for enum '{@link orgomg.cwmx.resource.imsdatabase.imstypes.LTermType <em>LTerm Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for enum '<em>LTerm Type</em>'.
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.LTermType
      * @generated
@@ -273,8 +274,7 @@ public interface ImstypesPackage extends EPackage {
 
     /**
      * Returns the meta object for enum '{@link orgomg.cwmx.resource.imsdatabase.imstypes.RulesType <em>Rules Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for enum '<em>Rules Type</em>'.
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.RulesType
      * @generated
@@ -282,9 +282,11 @@ public interface ImstypesPackage extends EPackage {
     EEnum getRulesType();
 
     /**
-     * Returns the meta object for enum '{@link orgomg.cwmx.resource.imsdatabase.imstypes.ChildPointerType <em>Child Pointer Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for enum '
+     * {@link orgomg.cwmx.resource.imsdatabase.imstypes.ChildPointerType
+     * <em>Child Pointer Type</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @return the meta object for enum '<em>Child Pointer Type</em>'.
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.ChildPointerType
      * @generated
@@ -293,8 +295,7 @@ public interface ImstypesPackage extends EPackage {
 
     /**
      * Returns the meta object for enum '{@link orgomg.cwmx.resource.imsdatabase.imstypes.FlagsType <em>Flags Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for enum '<em>Flags Type</em>'.
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.FlagsType
      * @generated
@@ -303,8 +304,7 @@ public interface ImstypesPackage extends EPackage {
 
     /**
      * Returns the meta object for enum '{@link orgomg.cwmx.resource.imsdatabase.imstypes.PointerType <em>Pointer Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for enum '<em>Pointer Type</em>'.
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.PointerType
      * @generated
@@ -313,8 +313,7 @@ public interface ImstypesPackage extends EPackage {
 
     /**
      * Returns the meta object for enum '{@link orgomg.cwmx.resource.imsdatabase.imstypes.DeviceType <em>Device Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for enum '<em>Device Type</em>'.
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.DeviceType
      * @generated
@@ -323,8 +322,7 @@ public interface ImstypesPackage extends EPackage {
 
     /**
      * Returns the meta object for enum '{@link orgomg.cwmx.resource.imsdatabase.imstypes.ModelType <em>Model Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for enum '<em>Model Type</em>'.
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.ModelType
      * @generated
@@ -333,8 +331,7 @@ public interface ImstypesPackage extends EPackage {
 
     /**
      * Returns the meta object for enum '{@link orgomg.cwmx.resource.imsdatabase.imstypes.RECFMType <em>RECFM Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for enum '<em>RECFM Type</em>'.
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.RECFMType
      * @generated
@@ -343,8 +340,7 @@ public interface ImstypesPackage extends EPackage {
 
     /**
      * Returns the meta object for enum '{@link orgomg.cwmx.resource.imsdatabase.imstypes.AlgorithmType <em>Algorithm Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for enum '<em>Algorithm Type</em>'.
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.AlgorithmType
      * @generated
@@ -353,8 +349,7 @@ public interface ImstypesPackage extends EPackage {
 
     /**
      * Returns the meta object for enum '{@link orgomg.cwmx.resource.imsdatabase.imstypes.LPointerType <em>LPointer Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for enum '<em>LPointer Type</em>'.
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.LPointerType
      * @generated
@@ -363,8 +358,7 @@ public interface ImstypesPackage extends EPackage {
 
     /**
      * Returns the meta object for enum '{@link orgomg.cwmx.resource.imsdatabase.imstypes.MSDBtype <em>MSD Btype</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for enum '<em>MSD Btype</em>'.
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.MSDBtype
      * @generated
@@ -373,8 +367,7 @@ public interface ImstypesPackage extends EPackage {
 
     /**
      * Returns the meta object for enum '{@link orgomg.cwmx.resource.imsdatabase.imstypes.ParentType <em>Parent Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for enum '<em>Parent Type</em>'.
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.ParentType
      * @generated
@@ -382,31 +375,32 @@ public interface ImstypesPackage extends EPackage {
     EEnum getParentType();
 
     /**
-     * Returns the factory that creates the instances of the model.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the factory that creates the instances of the model. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the factory that creates the instances of the model.
      * @generated
      */
     ImstypesFactory getImstypesFactory();
 
     /**
-     * <!-- begin-user-doc -->
-     * Defines literals for the meta objects that represent
+     * <!-- begin-user-doc --> Defines literals for the meta objects that
+     * represent
      * <ul>
-     *   <li>each class,</li>
-     *   <li>each feature of each class,</li>
-     *   <li>each enum,</li>
-     *   <li>and each data type</li>
+     * <li>each class,</li>
+     * <li>each feature of each class,</li>
+     * <li>each enum,</li>
+     * <li>and each data type</li>
      * </ul>
      * <!-- end-user-doc -->
      * @generated
      */
     interface Literals {
+
         /**
          * The meta object literal for the '{@link orgomg.cwmx.resource.imsdatabase.imstypes.AccessMethodType <em>Access Method Type</em>}' enum.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwmx.resource.imsdatabase.imstypes.AccessMethodType
          * @see orgomg.cwmx.resource.imsdatabase.imstypes.impl.ImstypesPackageImpl#getAccessMethodType()
          * @generated
@@ -415,8 +409,8 @@ public interface ImstypesPackage extends EPackage {
 
         /**
          * The meta object literal for the '{@link orgomg.cwmx.resource.imsdatabase.imstypes.PSBLanguageType <em>PSB Language Type</em>}' enum.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwmx.resource.imsdatabase.imstypes.PSBLanguageType
          * @see orgomg.cwmx.resource.imsdatabase.imstypes.impl.ImstypesPackageImpl#getPSBLanguageType()
          * @generated
@@ -424,9 +418,11 @@ public interface ImstypesPackage extends EPackage {
         EEnum PSB_LANGUAGE_TYPE = eINSTANCE.getPSBLanguageType();
 
         /**
-         * The meta object literal for the '{@link orgomg.cwmx.resource.imsdatabase.imstypes.PCBType <em>PCB Type</em>}' enum.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '
+         * {@link orgomg.cwmx.resource.imsdatabase.imstypes.PCBType
+         * <em>PCB Type</em>}' enum. <!-- begin-user-doc --> <!-- end-user-doc
+         * -->
+         * 
          * @see orgomg.cwmx.resource.imsdatabase.imstypes.PCBType
          * @see orgomg.cwmx.resource.imsdatabase.imstypes.impl.ImstypesPackageImpl#getPCBType()
          * @generated
@@ -435,8 +431,8 @@ public interface ImstypesPackage extends EPackage {
 
         /**
          * The meta object literal for the '{@link orgomg.cwmx.resource.imsdatabase.imstypes.PositioningType <em>Positioning Type</em>}' enum.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwmx.resource.imsdatabase.imstypes.PositioningType
          * @see orgomg.cwmx.resource.imsdatabase.imstypes.impl.ImstypesPackageImpl#getPositioningType()
          * @generated
@@ -444,9 +440,11 @@ public interface ImstypesPackage extends EPackage {
         EEnum POSITIONING_TYPE = eINSTANCE.getPositioningType();
 
         /**
-         * The meta object literal for the '{@link orgomg.cwmx.resource.imsdatabase.imstypes.LTermType <em>LTerm Type</em>}' enum.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '
+         * {@link orgomg.cwmx.resource.imsdatabase.imstypes.LTermType
+         * <em>LTerm Type</em>}' enum. <!-- begin-user-doc --> <!-- end-user-doc
+         * -->
+         * 
          * @see orgomg.cwmx.resource.imsdatabase.imstypes.LTermType
          * @see orgomg.cwmx.resource.imsdatabase.imstypes.impl.ImstypesPackageImpl#getLTermType()
          * @generated
@@ -454,9 +452,11 @@ public interface ImstypesPackage extends EPackage {
         EEnum LTERM_TYPE = eINSTANCE.getLTermType();
 
         /**
-         * The meta object literal for the '{@link orgomg.cwmx.resource.imsdatabase.imstypes.RulesType <em>Rules Type</em>}' enum.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '
+         * {@link orgomg.cwmx.resource.imsdatabase.imstypes.RulesType
+         * <em>Rules Type</em>}' enum. <!-- begin-user-doc --> <!-- end-user-doc
+         * -->
+         * 
          * @see orgomg.cwmx.resource.imsdatabase.imstypes.RulesType
          * @see orgomg.cwmx.resource.imsdatabase.imstypes.impl.ImstypesPackageImpl#getRulesType()
          * @generated
@@ -465,8 +465,8 @@ public interface ImstypesPackage extends EPackage {
 
         /**
          * The meta object literal for the '{@link orgomg.cwmx.resource.imsdatabase.imstypes.ChildPointerType <em>Child Pointer Type</em>}' enum.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwmx.resource.imsdatabase.imstypes.ChildPointerType
          * @see orgomg.cwmx.resource.imsdatabase.imstypes.impl.ImstypesPackageImpl#getChildPointerType()
          * @generated
@@ -474,9 +474,11 @@ public interface ImstypesPackage extends EPackage {
         EEnum CHILD_POINTER_TYPE = eINSTANCE.getChildPointerType();
 
         /**
-         * The meta object literal for the '{@link orgomg.cwmx.resource.imsdatabase.imstypes.FlagsType <em>Flags Type</em>}' enum.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '
+         * {@link orgomg.cwmx.resource.imsdatabase.imstypes.FlagsType
+         * <em>Flags Type</em>}' enum. <!-- begin-user-doc --> <!-- end-user-doc
+         * -->
+         * 
          * @see orgomg.cwmx.resource.imsdatabase.imstypes.FlagsType
          * @see orgomg.cwmx.resource.imsdatabase.imstypes.impl.ImstypesPackageImpl#getFlagsType()
          * @generated
@@ -485,8 +487,8 @@ public interface ImstypesPackage extends EPackage {
 
         /**
          * The meta object literal for the '{@link orgomg.cwmx.resource.imsdatabase.imstypes.PointerType <em>Pointer Type</em>}' enum.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwmx.resource.imsdatabase.imstypes.PointerType
          * @see orgomg.cwmx.resource.imsdatabase.imstypes.impl.ImstypesPackageImpl#getPointerType()
          * @generated
@@ -495,8 +497,8 @@ public interface ImstypesPackage extends EPackage {
 
         /**
          * The meta object literal for the '{@link orgomg.cwmx.resource.imsdatabase.imstypes.DeviceType <em>Device Type</em>}' enum.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwmx.resource.imsdatabase.imstypes.DeviceType
          * @see orgomg.cwmx.resource.imsdatabase.imstypes.impl.ImstypesPackageImpl#getDeviceType()
          * @generated
@@ -504,9 +506,11 @@ public interface ImstypesPackage extends EPackage {
         EEnum DEVICE_TYPE = eINSTANCE.getDeviceType();
 
         /**
-         * The meta object literal for the '{@link orgomg.cwmx.resource.imsdatabase.imstypes.ModelType <em>Model Type</em>}' enum.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '
+         * {@link orgomg.cwmx.resource.imsdatabase.imstypes.ModelType
+         * <em>Model Type</em>}' enum. <!-- begin-user-doc --> <!-- end-user-doc
+         * -->
+         * 
          * @see orgomg.cwmx.resource.imsdatabase.imstypes.ModelType
          * @see orgomg.cwmx.resource.imsdatabase.imstypes.impl.ImstypesPackageImpl#getModelType()
          * @generated
@@ -514,9 +518,11 @@ public interface ImstypesPackage extends EPackage {
         EEnum MODEL_TYPE = eINSTANCE.getModelType();
 
         /**
-         * The meta object literal for the '{@link orgomg.cwmx.resource.imsdatabase.imstypes.RECFMType <em>RECFM Type</em>}' enum.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '
+         * {@link orgomg.cwmx.resource.imsdatabase.imstypes.RECFMType
+         * <em>RECFM Type</em>}' enum. <!-- begin-user-doc --> <!-- end-user-doc
+         * -->
+         * 
          * @see orgomg.cwmx.resource.imsdatabase.imstypes.RECFMType
          * @see orgomg.cwmx.resource.imsdatabase.imstypes.impl.ImstypesPackageImpl#getRECFMType()
          * @generated
@@ -525,8 +531,8 @@ public interface ImstypesPackage extends EPackage {
 
         /**
          * The meta object literal for the '{@link orgomg.cwmx.resource.imsdatabase.imstypes.AlgorithmType <em>Algorithm Type</em>}' enum.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwmx.resource.imsdatabase.imstypes.AlgorithmType
          * @see orgomg.cwmx.resource.imsdatabase.imstypes.impl.ImstypesPackageImpl#getAlgorithmType()
          * @generated
@@ -535,8 +541,8 @@ public interface ImstypesPackage extends EPackage {
 
         /**
          * The meta object literal for the '{@link orgomg.cwmx.resource.imsdatabase.imstypes.LPointerType <em>LPointer Type</em>}' enum.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwmx.resource.imsdatabase.imstypes.LPointerType
          * @see orgomg.cwmx.resource.imsdatabase.imstypes.impl.ImstypesPackageImpl#getLPointerType()
          * @generated
@@ -544,9 +550,11 @@ public interface ImstypesPackage extends EPackage {
         EEnum LPOINTER_TYPE = eINSTANCE.getLPointerType();
 
         /**
-         * The meta object literal for the '{@link orgomg.cwmx.resource.imsdatabase.imstypes.MSDBtype <em>MSD Btype</em>}' enum.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '
+         * {@link orgomg.cwmx.resource.imsdatabase.imstypes.MSDBtype
+         * <em>MSD Btype</em>}' enum. <!-- begin-user-doc --> <!-- end-user-doc
+         * -->
+         * 
          * @see orgomg.cwmx.resource.imsdatabase.imstypes.MSDBtype
          * @see orgomg.cwmx.resource.imsdatabase.imstypes.impl.ImstypesPackageImpl#getMSDBtype()
          * @generated
@@ -555,8 +563,8 @@ public interface ImstypesPackage extends EPackage {
 
         /**
          * The meta object literal for the '{@link orgomg.cwmx.resource.imsdatabase.imstypes.ParentType <em>Parent Type</em>}' enum.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwmx.resource.imsdatabase.imstypes.ParentType
          * @see orgomg.cwmx.resource.imsdatabase.imstypes.impl.ImstypesPackageImpl#getParentType()
          * @generated
@@ -565,4 +573,4 @@ public interface ImstypesPackage extends EPackage {
 
     }
 
-} //ImstypesPackage
+} // ImstypesPackage

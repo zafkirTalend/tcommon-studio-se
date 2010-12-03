@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.objectmodel.core.impl;
@@ -19,9 +18,8 @@ import orgomg.cwm.foundation.keysindexes.KeysindexesPackage;
 import orgomg.cwm.objectmodel.core.CorePackage;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Class</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Class</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -32,10 +30,10 @@ import orgomg.cwm.objectmodel.core.CorePackage;
  * @generated
  */
 public class ClassImpl extends ClassifierImpl implements orgomg.cwm.objectmodel.core.Class {
+
     /**
      * The cached value of the '{@link #getIndex() <em>Index</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getIndex()
      * @generated
      * @ordered
@@ -43,8 +41,7 @@ public class ClassImpl extends ClassifierImpl implements orgomg.cwm.objectmodel.
     protected EList<Index> index;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected ClassImpl() {
@@ -52,8 +49,7 @@ public class ClassImpl extends ClassifierImpl implements orgomg.cwm.objectmodel.
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -62,104 +58,98 @@ public class ClassImpl extends ClassifierImpl implements orgomg.cwm.objectmodel.
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<Index> getIndex() {
         if (index == null) {
-            index = new EObjectWithInverseResolvingEList<Index>(Index.class, this, CorePackage.CLASS__INDEX, KeysindexesPackage.INDEX__SPANNED_CLASS);
+            index = new EObjectWithInverseResolvingEList<Index>(Index.class, this, CorePackage.CLASS__INDEX,
+                    KeysindexesPackage.INDEX__SPANNED_CLASS);
         }
         return index;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case CorePackage.CLASS__INDEX:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getIndex()).basicAdd(otherEnd, msgs);
+        case CorePackage.CLASS__INDEX:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getIndex()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case CorePackage.CLASS__INDEX:
-                return ((InternalEList<?>)getIndex()).basicRemove(otherEnd, msgs);
+        case CorePackage.CLASS__INDEX:
+            return ((InternalEList<?>) getIndex()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case CorePackage.CLASS__INDEX:
-                return getIndex();
+        case CorePackage.CLASS__INDEX:
+            return getIndex();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case CorePackage.CLASS__INDEX:
-                getIndex().clear();
-                getIndex().addAll((Collection<? extends Index>)newValue);
-                return;
+        case CorePackage.CLASS__INDEX:
+            getIndex().clear();
+            getIndex().addAll((Collection<? extends Index>) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case CorePackage.CLASS__INDEX:
-                getIndex().clear();
-                return;
+        case CorePackage.CLASS__INDEX:
+            getIndex().clear();
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case CorePackage.CLASS__INDEX:
-                return index != null && !index.isEmpty();
+        case CorePackage.CLASS__INDEX:
+            return index != null && !index.isEmpty();
         }
         return super.eIsSet(featureID);
     }
 
-} //ClassImpl
+} // ClassImpl

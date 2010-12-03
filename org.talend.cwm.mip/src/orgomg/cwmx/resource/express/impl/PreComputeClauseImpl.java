@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.express.impl;
@@ -18,9 +17,8 @@ import orgomg.cwmx.resource.express.ExpressPackage;
 import orgomg.cwmx.resource.express.PreComputeClause;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Pre Compute Clause</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Pre Compute Clause</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -32,10 +30,10 @@ import orgomg.cwmx.resource.express.PreComputeClause;
  * @generated
  */
 public class PreComputeClauseImpl extends ModelElementImpl implements PreComputeClause {
+
     /**
      * The default value of the '{@link #getStatusList() <em>Status List</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getStatusList()
      * @generated
      * @ordered
@@ -44,8 +42,7 @@ public class PreComputeClauseImpl extends ModelElementImpl implements PreCompute
 
     /**
      * The cached value of the '{@link #getStatusList() <em>Status List</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getStatusList()
      * @generated
      * @ordered
@@ -53,8 +50,7 @@ public class PreComputeClauseImpl extends ModelElementImpl implements PreCompute
     protected String statusList = STATUS_LIST_EDEFAULT;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected PreComputeClauseImpl() {
@@ -62,8 +58,7 @@ public class PreComputeClauseImpl extends ModelElementImpl implements PreCompute
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -72,8 +67,7 @@ public class PreComputeClauseImpl extends ModelElementImpl implements PreCompute
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getStatusList() {
@@ -81,178 +75,174 @@ public class PreComputeClauseImpl extends ModelElementImpl implements PreCompute
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setStatusList(String newStatusList) {
         String oldStatusList = statusList;
         statusList = newStatusList;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ExpressPackage.PRE_COMPUTE_CLAUSE__STATUS_LIST, oldStatusList, statusList));
+            eNotify(new ENotificationImpl(this, Notification.SET, ExpressPackage.PRE_COMPUTE_CLAUSE__STATUS_LIST, oldStatusList,
+                    statusList));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public AggMapComponent getAggMapComponent() {
-        if (eContainerFeatureID() != ExpressPackage.PRE_COMPUTE_CLAUSE__AGG_MAP_COMPONENT) return null;
-        return (AggMapComponent)eContainer();
+        if (eContainerFeatureID() != ExpressPackage.PRE_COMPUTE_CLAUSE__AGG_MAP_COMPONENT)
+            return null;
+        return (AggMapComponent) eContainer();
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public NotificationChain basicSetAggMapComponent(AggMapComponent newAggMapComponent, NotificationChain msgs) {
-        msgs = eBasicSetContainer((InternalEObject)newAggMapComponent, ExpressPackage.PRE_COMPUTE_CLAUSE__AGG_MAP_COMPONENT, msgs);
+        msgs = eBasicSetContainer((InternalEObject) newAggMapComponent, ExpressPackage.PRE_COMPUTE_CLAUSE__AGG_MAP_COMPONENT,
+                msgs);
         return msgs;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setAggMapComponent(AggMapComponent newAggMapComponent) {
-        if (newAggMapComponent != eInternalContainer() || (eContainerFeatureID() != ExpressPackage.PRE_COMPUTE_CLAUSE__AGG_MAP_COMPONENT && newAggMapComponent != null)) {
+        if (newAggMapComponent != eInternalContainer()
+                || (eContainerFeatureID() != ExpressPackage.PRE_COMPUTE_CLAUSE__AGG_MAP_COMPONENT && newAggMapComponent != null)) {
             if (EcoreUtil.isAncestor(this, newAggMapComponent))
                 throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
             NotificationChain msgs = null;
             if (eInternalContainer() != null)
                 msgs = eBasicRemoveFromContainer(msgs);
             if (newAggMapComponent != null)
-                msgs = ((InternalEObject)newAggMapComponent).eInverseAdd(this, ExpressPackage.AGG_MAP_COMPONENT__COMPUTE_CLAUSE, AggMapComponent.class, msgs);
+                msgs = ((InternalEObject) newAggMapComponent).eInverseAdd(this, ExpressPackage.AGG_MAP_COMPONENT__COMPUTE_CLAUSE,
+                        AggMapComponent.class, msgs);
             msgs = basicSetAggMapComponent(newAggMapComponent, msgs);
-            if (msgs != null) msgs.dispatch();
-        }
-        else if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ExpressPackage.PRE_COMPUTE_CLAUSE__AGG_MAP_COMPONENT, newAggMapComponent, newAggMapComponent));
+            if (msgs != null)
+                msgs.dispatch();
+        } else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ExpressPackage.PRE_COMPUTE_CLAUSE__AGG_MAP_COMPONENT,
+                    newAggMapComponent, newAggMapComponent));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case ExpressPackage.PRE_COMPUTE_CLAUSE__AGG_MAP_COMPONENT:
-                if (eInternalContainer() != null)
-                    msgs = eBasicRemoveFromContainer(msgs);
-                return basicSetAggMapComponent((AggMapComponent)otherEnd, msgs);
+        case ExpressPackage.PRE_COMPUTE_CLAUSE__AGG_MAP_COMPONENT:
+            if (eInternalContainer() != null)
+                msgs = eBasicRemoveFromContainer(msgs);
+            return basicSetAggMapComponent((AggMapComponent) otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case ExpressPackage.PRE_COMPUTE_CLAUSE__AGG_MAP_COMPONENT:
-                return basicSetAggMapComponent(null, msgs);
+        case ExpressPackage.PRE_COMPUTE_CLAUSE__AGG_MAP_COMPONENT:
+            return basicSetAggMapComponent(null, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
         switch (eContainerFeatureID()) {
-            case ExpressPackage.PRE_COMPUTE_CLAUSE__AGG_MAP_COMPONENT:
-                return eInternalContainer().eInverseRemove(this, ExpressPackage.AGG_MAP_COMPONENT__COMPUTE_CLAUSE, AggMapComponent.class, msgs);
+        case ExpressPackage.PRE_COMPUTE_CLAUSE__AGG_MAP_COMPONENT:
+            return eInternalContainer().eInverseRemove(this, ExpressPackage.AGG_MAP_COMPONENT__COMPUTE_CLAUSE,
+                    AggMapComponent.class, msgs);
         }
         return super.eBasicRemoveFromContainerFeature(msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case ExpressPackage.PRE_COMPUTE_CLAUSE__STATUS_LIST:
-                return getStatusList();
-            case ExpressPackage.PRE_COMPUTE_CLAUSE__AGG_MAP_COMPONENT:
-                return getAggMapComponent();
+        case ExpressPackage.PRE_COMPUTE_CLAUSE__STATUS_LIST:
+            return getStatusList();
+        case ExpressPackage.PRE_COMPUTE_CLAUSE__AGG_MAP_COMPONENT:
+            return getAggMapComponent();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case ExpressPackage.PRE_COMPUTE_CLAUSE__STATUS_LIST:
-                setStatusList((String)newValue);
-                return;
-            case ExpressPackage.PRE_COMPUTE_CLAUSE__AGG_MAP_COMPONENT:
-                setAggMapComponent((AggMapComponent)newValue);
-                return;
+        case ExpressPackage.PRE_COMPUTE_CLAUSE__STATUS_LIST:
+            setStatusList((String) newValue);
+            return;
+        case ExpressPackage.PRE_COMPUTE_CLAUSE__AGG_MAP_COMPONENT:
+            setAggMapComponent((AggMapComponent) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case ExpressPackage.PRE_COMPUTE_CLAUSE__STATUS_LIST:
-                setStatusList(STATUS_LIST_EDEFAULT);
-                return;
-            case ExpressPackage.PRE_COMPUTE_CLAUSE__AGG_MAP_COMPONENT:
-                setAggMapComponent((AggMapComponent)null);
-                return;
+        case ExpressPackage.PRE_COMPUTE_CLAUSE__STATUS_LIST:
+            setStatusList(STATUS_LIST_EDEFAULT);
+            return;
+        case ExpressPackage.PRE_COMPUTE_CLAUSE__AGG_MAP_COMPONENT:
+            setAggMapComponent((AggMapComponent) null);
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case ExpressPackage.PRE_COMPUTE_CLAUSE__STATUS_LIST:
-                return STATUS_LIST_EDEFAULT == null ? statusList != null : !STATUS_LIST_EDEFAULT.equals(statusList);
-            case ExpressPackage.PRE_COMPUTE_CLAUSE__AGG_MAP_COMPONENT:
-                return getAggMapComponent() != null;
+        case ExpressPackage.PRE_COMPUTE_CLAUSE__STATUS_LIST:
+            return STATUS_LIST_EDEFAULT == null ? statusList != null : !STATUS_LIST_EDEFAULT.equals(statusList);
+        case ExpressPackage.PRE_COMPUTE_CLAUSE__AGG_MAP_COMPONENT:
+            return getAggMapComponent() != null;
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (statusList: ");
@@ -261,4 +251,4 @@ public class PreComputeClauseImpl extends ModelElementImpl implements PreCompute
         return result.toString();
     }
 
-} //PreComputeClauseImpl
+} // PreComputeClauseImpl

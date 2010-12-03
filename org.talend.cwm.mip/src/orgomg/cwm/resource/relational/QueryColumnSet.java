@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.resource.relational;
@@ -9,9 +8,8 @@ package orgomg.cwm.resource.relational;
 import orgomg.cwm.foundation.datatypes.QueryExpression;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Query Column Set</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Query Column Set</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * The result set of a query.
@@ -29,13 +27,13 @@ import orgomg.cwm.foundation.datatypes.QueryExpression;
  * @generated
  */
 public interface QueryColumnSet extends ColumnSet {
+
     /**
      * Returns the value of the '<em><b>Query</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The query expression generating this result. The language attribute of the expression should generally begin with "SQL"
-     * <!-- end-model-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * The query expression generating this result. The language attribute of
+     * the expression should generally begin with "SQL" <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Query</em>' containment reference.
      * @see #setQuery(QueryExpression)
      * @see orgomg.cwm.resource.relational.RelationalPackage#getQueryColumnSet_Query()
@@ -46,8 +44,8 @@ public interface QueryColumnSet extends ColumnSet {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.resource.relational.QueryColumnSet#getQuery <em>Query</em>}' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Query</em>' containment reference.
      * @see #getQuery()
      * @generated

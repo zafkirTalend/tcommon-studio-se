@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.foundation.datatypes;
@@ -10,9 +9,8 @@ import orgomg.cwm.objectmodel.core.Attribute;
 import orgomg.cwm.objectmodel.core.Expression;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Union Member</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Union Member</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * UnionMembers are described as features of a Union and each represents one of the members of a Union. Note, however, that multiple case values can map to a single UnionMember. If isDefault is true, the union member is the default member.
@@ -33,13 +31,13 @@ import orgomg.cwm.objectmodel.core.Expression;
  * @generated
  */
 public interface UnionMember extends Attribute {
+
     /**
-     * Returns the value of the '<em><b>Member Case</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Contains the value of the Union�s discriminator for this UnionMember.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Member Case</b></em>' containment
+     * reference. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> Contains the value of the Union?s discriminator for
+     * this UnionMember. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Member Case</em>' containment reference.
      * @see #setMemberCase(Expression)
      * @see orgomg.cwm.foundation.datatypes.DatatypesPackage#getUnionMember_MemberCase()
@@ -59,12 +57,12 @@ public interface UnionMember extends Attribute {
     void setMemberCase(Expression value);
 
     /**
-     * Returns the value of the '<em><b>Is Default</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Indicates if this UnionMember is the default member of the Union (implying that when unstated, the Union�s discriminator would assume this instance�s memberCase value).
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Is Default</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * Indicates if this UnionMember is the default member of the Union
+     * (implying that when unstated, the Union?s discriminator would assume this
+     * instance?s memberCase value). <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Is Default</em>' attribute.
      * @see #setIsDefault(boolean)
      * @see orgomg.cwm.foundation.datatypes.DatatypesPackage#getUnionMember_IsDefault()
@@ -75,8 +73,8 @@ public interface UnionMember extends Attribute {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.foundation.datatypes.UnionMember#isIsDefault <em>Is Default</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Is Default</em>' attribute.
      * @see #isIsDefault()
      * @generated

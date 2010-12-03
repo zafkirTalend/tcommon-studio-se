@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.management.warehouseprocess.datatype;
@@ -13,13 +12,11 @@ import java.util.List;
 import org.eclipse.emf.common.util.Enumerator;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the literals of the enumeration '<em><b>Recurring Type</b></em>',
- * and utility methods for working with them.
- * <!-- end-user-doc -->
- * <!-- begin-model-doc -->
- * everyYear, everyMonth, everyWeek, everyDay, everyHour, everyMinute
- * <!-- end-model-doc -->
+ * <!-- begin-user-doc --> A representation of the literals of the enumeration '
+ * <em><b>Recurring Type</b></em>', and utility methods for working with them.
+ * <!-- end-user-doc --> <!-- begin-model-doc --> everyYear, everyMonth,
+ * everyWeek, everyDay, everyHour, everyMinute <!-- end-model-doc -->
+ * 
  * @see orgomg.cwm.management.warehouseprocess.datatype.DatatypePackage#getRecurringType()
  * @model
  * @generated
@@ -77,8 +74,8 @@ public enum RecurringType implements Enumerator {
 
     /**
      * The '<em><b>Every Minute</b></em>' literal object.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @see #EVERY_MINUTE_VALUE
      * @generated
      * @ordered
@@ -89,8 +86,8 @@ public enum RecurringType implements Enumerator {
      * The '<em><b>Every Year</b></em>' literal value.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of '<em><b>Every Year</b></em>' literal object isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of '<em><b>Every Year</b></em>' literal object isn't
+     * clear, there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
      * @see #EVERY_YEAR
@@ -104,8 +101,8 @@ public enum RecurringType implements Enumerator {
      * The '<em><b>Every Month</b></em>' literal value.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of '<em><b>Every Month</b></em>' literal object isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of '<em><b>Every Month</b></em>' literal object isn't
+     * clear, there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
      * @see #EVERY_MONTH
@@ -119,8 +116,8 @@ public enum RecurringType implements Enumerator {
      * The '<em><b>Every Week</b></em>' literal value.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of '<em><b>Every Week</b></em>' literal object isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of '<em><b>Every Week</b></em>' literal object isn't
+     * clear, there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
      * @see #EVERY_WEEK
@@ -149,8 +146,8 @@ public enum RecurringType implements Enumerator {
      * The '<em><b>Every Hour</b></em>' literal value.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of '<em><b>Every Hour</b></em>' literal object isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of '<em><b>Every Hour</b></em>' literal object isn't
+     * clear, there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
      * @see #EVERY_HOUR
@@ -164,8 +161,8 @@ public enum RecurringType implements Enumerator {
      * The '<em><b>Every Minute</b></em>' literal value.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of '<em><b>Every Minute</b></em>' literal object isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of '<em><b>Every Minute</b></em>' literal object isn't
+     * clear, there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
      * @see #EVERY_MINUTE
@@ -176,33 +173,24 @@ public enum RecurringType implements Enumerator {
     public static final int EVERY_MINUTE_VALUE = 5;
 
     /**
-     * An array of all the '<em><b>Recurring Type</b></em>' enumerators.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * An array of all the '<em><b>Recurring Type</b></em>' enumerators. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
-    private static final RecurringType[] VALUES_ARRAY =
-        new RecurringType[] {
-            EVERY_YEAR,
-            EVERY_MONTH,
-            EVERY_WEEK,
-            EVERY_DAY,
-            EVERY_HOUR,
-            EVERY_MINUTE,
-        };
+    private static final RecurringType[] VALUES_ARRAY = new RecurringType[] { EVERY_YEAR, EVERY_MONTH, EVERY_WEEK, EVERY_DAY,
+            EVERY_HOUR, EVERY_MINUTE, };
 
     /**
      * A public read-only list of all the '<em><b>Recurring Type</b></em>' enumerators.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static final List<RecurringType> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
     /**
      * Returns the '<em><b>Recurring Type</b></em>' literal with the specified literal value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static RecurringType get(String literal) {
@@ -217,8 +205,7 @@ public enum RecurringType implements Enumerator {
 
     /**
      * Returns the '<em><b>Recurring Type</b></em>' literal with the specified name.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static RecurringType getByName(String name) {
@@ -233,47 +220,49 @@ public enum RecurringType implements Enumerator {
 
     /**
      * Returns the '<em><b>Recurring Type</b></em>' literal with the specified integer value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static RecurringType get(int value) {
         switch (value) {
-            case EVERY_YEAR_VALUE: return EVERY_YEAR;
-            case EVERY_MONTH_VALUE: return EVERY_MONTH;
-            case EVERY_WEEK_VALUE: return EVERY_WEEK;
-            case EVERY_DAY_VALUE: return EVERY_DAY;
-            case EVERY_HOUR_VALUE: return EVERY_HOUR;
-            case EVERY_MINUTE_VALUE: return EVERY_MINUTE;
+        case EVERY_YEAR_VALUE:
+            return EVERY_YEAR;
+        case EVERY_MONTH_VALUE:
+            return EVERY_MONTH;
+        case EVERY_WEEK_VALUE:
+            return EVERY_WEEK;
+        case EVERY_DAY_VALUE:
+            return EVERY_DAY;
+        case EVERY_HOUR_VALUE:
+            return EVERY_HOUR;
+        case EVERY_MINUTE_VALUE:
+            return EVERY_MINUTE;
         }
         return null;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private final int value;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private final String name;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private final String literal;
 
     /**
      * Only this class can construct instances.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     private RecurringType(int value, String name, String literal) {
@@ -283,41 +272,37 @@ public enum RecurringType implements Enumerator {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public int getValue() {
-      return value;
+        return value;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getName() {
-      return name;
+        return name;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getLiteral() {
-      return literal;
+        return literal;
     }
 
     /**
      * Returns the literal value of the enumerator, which is its string representation.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
         return literal;
     }
-    
-} //RecurringType
+
+} // RecurringType

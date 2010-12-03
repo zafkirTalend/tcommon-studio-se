@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.analysis.informationreporting.impl;
@@ -12,18 +11,17 @@ import orgomg.cwmx.analysis.informationreporting.InformationreportingPackage;
 import orgomg.cwmx.analysis.informationreporting.ReportField;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Report Field</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Report Field</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
 public class ReportFieldImpl extends RenderedObjectImpl implements ReportField {
+
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected ReportFieldImpl() {
@@ -31,8 +29,7 @@ public class ReportFieldImpl extends RenderedObjectImpl implements ReportField {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -40,4 +37,4 @@ public class ReportFieldImpl extends RenderedObjectImpl implements ReportField {
         return InformationreportingPackage.Literals.REPORT_FIELD;
     }
 
-} //ReportFieldImpl
+} // ReportFieldImpl

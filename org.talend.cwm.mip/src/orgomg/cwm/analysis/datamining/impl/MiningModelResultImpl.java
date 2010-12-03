@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.analysis.datamining.impl;
@@ -17,9 +16,8 @@ import orgomg.cwm.analysis.datamining.MiningModelResult;
 import orgomg.cwm.objectmodel.core.impl.ClassImpl;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Mining Model Result</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Mining Model Result</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -31,10 +29,10 @@ import orgomg.cwm.objectmodel.core.impl.ClassImpl;
  * @generated
  */
 public class MiningModelResultImpl extends ClassImpl implements MiningModelResult {
+
     /**
      * The default value of the '{@link #getType() <em>Type</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getType()
      * @generated
      * @ordered
@@ -43,8 +41,7 @@ public class MiningModelResultImpl extends ClassImpl implements MiningModelResul
 
     /**
      * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getType()
      * @generated
      * @ordered
@@ -53,8 +50,7 @@ public class MiningModelResultImpl extends ClassImpl implements MiningModelResul
 
     /**
      * The cached value of the '{@link #getModel() <em>Model</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getModel()
      * @generated
      * @ordered
@@ -62,8 +58,7 @@ public class MiningModelResultImpl extends ClassImpl implements MiningModelResul
     protected MiningModel model;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected MiningModelResultImpl() {
@@ -71,8 +66,7 @@ public class MiningModelResultImpl extends ClassImpl implements MiningModelResul
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -81,8 +75,7 @@ public class MiningModelResultImpl extends ClassImpl implements MiningModelResul
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getType() {
@@ -90,8 +83,7 @@ public class MiningModelResultImpl extends ClassImpl implements MiningModelResul
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setType(String newType) {
@@ -102,25 +94,24 @@ public class MiningModelResultImpl extends ClassImpl implements MiningModelResul
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public MiningModel getModel() {
         if (model != null && model.eIsProxy()) {
-            InternalEObject oldModel = (InternalEObject)model;
-            model = (MiningModel)eResolveProxy(oldModel);
+            InternalEObject oldModel = (InternalEObject) model;
+            model = (MiningModel) eResolveProxy(oldModel);
             if (model != oldModel) {
                 if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, DataminingPackage.MINING_MODEL_RESULT__MODEL, oldModel, model));
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, DataminingPackage.MINING_MODEL_RESULT__MODEL,
+                            oldModel, model));
             }
         }
         return model;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public MiningModel basicGetModel() {
@@ -128,146 +119,147 @@ public class MiningModelResultImpl extends ClassImpl implements MiningModelResul
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public NotificationChain basicSetModel(MiningModel newModel, NotificationChain msgs) {
         MiningModel oldModel = model;
         model = newModel;
         if (eNotificationRequired()) {
-            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DataminingPackage.MINING_MODEL_RESULT__MODEL, oldModel, newModel);
-            if (msgs == null) msgs = notification; else msgs.add(notification);
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+                    DataminingPackage.MINING_MODEL_RESULT__MODEL, oldModel, newModel);
+            if (msgs == null)
+                msgs = notification;
+            else
+                msgs.add(notification);
         }
         return msgs;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setModel(MiningModel newModel) {
         if (newModel != model) {
             NotificationChain msgs = null;
             if (model != null)
-                msgs = ((InternalEObject)model).eInverseRemove(this, DataminingPackage.MINING_MODEL__MINING_RESULT, MiningModel.class, msgs);
+                msgs = ((InternalEObject) model).eInverseRemove(this, DataminingPackage.MINING_MODEL__MINING_RESULT,
+                        MiningModel.class, msgs);
             if (newModel != null)
-                msgs = ((InternalEObject)newModel).eInverseAdd(this, DataminingPackage.MINING_MODEL__MINING_RESULT, MiningModel.class, msgs);
+                msgs = ((InternalEObject) newModel).eInverseAdd(this, DataminingPackage.MINING_MODEL__MINING_RESULT,
+                        MiningModel.class, msgs);
             msgs = basicSetModel(newModel, msgs);
-            if (msgs != null) msgs.dispatch();
-        }
-        else if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, DataminingPackage.MINING_MODEL_RESULT__MODEL, newModel, newModel));
+            if (msgs != null)
+                msgs.dispatch();
+        } else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, DataminingPackage.MINING_MODEL_RESULT__MODEL, newModel,
+                    newModel));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case DataminingPackage.MINING_MODEL_RESULT__MODEL:
-                if (model != null)
-                    msgs = ((InternalEObject)model).eInverseRemove(this, DataminingPackage.MINING_MODEL__MINING_RESULT, MiningModel.class, msgs);
-                return basicSetModel((MiningModel)otherEnd, msgs);
+        case DataminingPackage.MINING_MODEL_RESULT__MODEL:
+            if (model != null)
+                msgs = ((InternalEObject) model).eInverseRemove(this, DataminingPackage.MINING_MODEL__MINING_RESULT,
+                        MiningModel.class, msgs);
+            return basicSetModel((MiningModel) otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case DataminingPackage.MINING_MODEL_RESULT__MODEL:
-                return basicSetModel(null, msgs);
+        case DataminingPackage.MINING_MODEL_RESULT__MODEL:
+            return basicSetModel(null, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case DataminingPackage.MINING_MODEL_RESULT__TYPE:
-                return getType();
-            case DataminingPackage.MINING_MODEL_RESULT__MODEL:
-                if (resolve) return getModel();
-                return basicGetModel();
+        case DataminingPackage.MINING_MODEL_RESULT__TYPE:
+            return getType();
+        case DataminingPackage.MINING_MODEL_RESULT__MODEL:
+            if (resolve)
+                return getModel();
+            return basicGetModel();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case DataminingPackage.MINING_MODEL_RESULT__TYPE:
-                setType((String)newValue);
-                return;
-            case DataminingPackage.MINING_MODEL_RESULT__MODEL:
-                setModel((MiningModel)newValue);
-                return;
+        case DataminingPackage.MINING_MODEL_RESULT__TYPE:
+            setType((String) newValue);
+            return;
+        case DataminingPackage.MINING_MODEL_RESULT__MODEL:
+            setModel((MiningModel) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case DataminingPackage.MINING_MODEL_RESULT__TYPE:
-                setType(TYPE_EDEFAULT);
-                return;
-            case DataminingPackage.MINING_MODEL_RESULT__MODEL:
-                setModel((MiningModel)null);
-                return;
+        case DataminingPackage.MINING_MODEL_RESULT__TYPE:
+            setType(TYPE_EDEFAULT);
+            return;
+        case DataminingPackage.MINING_MODEL_RESULT__MODEL:
+            setModel((MiningModel) null);
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case DataminingPackage.MINING_MODEL_RESULT__TYPE:
-                return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
-            case DataminingPackage.MINING_MODEL_RESULT__MODEL:
-                return model != null;
+        case DataminingPackage.MINING_MODEL_RESULT__TYPE:
+            return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
+        case DataminingPackage.MINING_MODEL_RESULT__MODEL:
+            return model != null;
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (type: ");
@@ -276,4 +268,4 @@ public class MiningModelResultImpl extends ClassImpl implements MiningModelResul
         return result.toString();
     }
 
-} //MiningModelResultImpl
+} // MiningModelResultImpl

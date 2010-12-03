@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.objectmodel.relationships;
@@ -10,9 +9,8 @@ import orgomg.cwm.objectmodel.core.Classifier;
 import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Generalization</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Generalization</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * A generalization is a taxonomic relationship between a more general element and a more specific element. The more specific element is fully consistent with the more general element (it has all of its properties, members, and relationships) and may contain additional information.
@@ -43,11 +41,11 @@ import orgomg.cwm.objectmodel.core.ModelElement;
  * @generated
  */
 public interface Generalization extends ModelElement {
+
     /**
      * Returns the value of the '<em><b>Child</b></em>' reference.
      * It is bidirectional and its opposite is '{@link orgomg.cwm.objectmodel.core.Classifier#getGeneralization <em>Generalization</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Identifies the Classifier instance that acts as a child in the Generalization relationship.
      * <!-- end-model-doc -->
@@ -62,8 +60,7 @@ public interface Generalization extends ModelElement {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.objectmodel.relationships.Generalization#getChild <em>Child</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Child</em>' reference.
      * @see #getChild()
      * @generated
@@ -73,8 +70,7 @@ public interface Generalization extends ModelElement {
     /**
      * Returns the value of the '<em><b>Parent</b></em>' reference.
      * It is bidirectional and its opposite is '{@link orgomg.cwm.objectmodel.core.Classifier#getSpecialization <em>Specialization</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Identifies the Classifier instance that acts as a parent in an inheritance hierarchy.
      * <!-- end-model-doc -->
@@ -88,10 +84,13 @@ public interface Generalization extends ModelElement {
     Classifier getParent();
 
     /**
-     * Sets the value of the '{@link orgomg.cwm.objectmodel.relationships.Generalization#getParent <em>Parent</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Parent</em>' reference.
+     * Sets the value of the '
+     * {@link orgomg.cwm.objectmodel.relationships.Generalization#getParent
+     * <em>Parent</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @param value
+     *            the new value of the '<em>Parent</em>' reference.
      * @see #getParent()
      * @generated
      */

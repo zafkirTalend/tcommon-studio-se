@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.analysis.transformation.impl;
@@ -12,18 +11,17 @@ import orgomg.cwm.analysis.transformation.TransformationPackage;
 import orgomg.cwm.objectmodel.core.impl.DependencyImpl;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Step Precedence</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Step Precedence</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
 public class StepPrecedenceImpl extends DependencyImpl implements StepPrecedence {
+
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected StepPrecedenceImpl() {
@@ -31,8 +29,7 @@ public class StepPrecedenceImpl extends DependencyImpl implements StepPrecedence
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -40,4 +37,4 @@ public class StepPrecedenceImpl extends DependencyImpl implements StepPrecedence
         return TransformationPackage.Literals.STEP_PRECEDENCE;
     }
 
-} //StepPrecedenceImpl
+} // StepPrecedenceImpl

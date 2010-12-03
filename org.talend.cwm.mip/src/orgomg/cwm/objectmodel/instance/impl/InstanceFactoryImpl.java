@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.objectmodel.instance.impl;
@@ -18,26 +17,26 @@ import orgomg.cwm.objectmodel.instance.InstancePackage;
 import orgomg.cwm.objectmodel.instance.Slot;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model <b>Factory</b>.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!--
+ * end-user-doc -->
  * @generated
  */
 public class InstanceFactoryImpl extends EFactoryImpl implements InstanceFactory {
+
     /**
      * Creates the default factory implementation.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     public static InstanceFactory init() {
         try {
-            InstanceFactory theInstanceFactory = (InstanceFactory)EPackage.Registry.INSTANCE.getEFactory("http:///orgomg/cwm/objectmodel/instance.ecore"); 
+            InstanceFactory theInstanceFactory = (InstanceFactory) EPackage.Registry.INSTANCE
+                    .getEFactory("http:///orgomg/cwm/objectmodel/instance.ecore");
             if (theInstanceFactory != null) {
                 return theInstanceFactory;
             }
-        }
-        catch (Exception exception) {
+        } catch (Exception exception) {
             EcorePlugin.INSTANCE.log(exception);
         }
         return new InstanceFactoryImpl();
@@ -45,8 +44,8 @@ public class InstanceFactoryImpl extends EFactoryImpl implements InstanceFactory
 
     /**
      * Creates an instance of the factory.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     public InstanceFactoryImpl() {
@@ -54,25 +53,27 @@ public class InstanceFactoryImpl extends EFactoryImpl implements InstanceFactory
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public EObject create(EClass eClass) {
         switch (eClass.getClassifierID()) {
-            case InstancePackage.SLOT: return createSlot();
-            case InstancePackage.DATA_VALUE: return createDataValue();
-            case InstancePackage.OBJECT: return createObject();
-            case InstancePackage.EXTENT: return createExtent();
-            default:
-                throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+        case InstancePackage.SLOT:
+            return createSlot();
+        case InstancePackage.DATA_VALUE:
+            return createDataValue();
+        case InstancePackage.OBJECT:
+            return createObject();
+        case InstancePackage.EXTENT:
+            return createExtent();
+        default:
+            throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Slot createSlot() {
@@ -81,8 +82,7 @@ public class InstanceFactoryImpl extends EFactoryImpl implements InstanceFactory
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public DataValue createDataValue() {
@@ -91,8 +91,7 @@ public class InstanceFactoryImpl extends EFactoryImpl implements InstanceFactory
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public orgomg.cwm.objectmodel.instance.Object createObject() {
@@ -101,8 +100,7 @@ public class InstanceFactoryImpl extends EFactoryImpl implements InstanceFactory
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Extent createExtent() {
@@ -111,17 +109,15 @@ public class InstanceFactoryImpl extends EFactoryImpl implements InstanceFactory
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public InstancePackage getInstancePackage() {
-        return (InstancePackage)getEPackage();
+        return (InstancePackage) getEPackage();
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @deprecated
      * @generated
      */
@@ -130,4 +126,4 @@ public class InstanceFactoryImpl extends EFactoryImpl implements InstanceFactory
         return InstancePackage.eINSTANCE;
     }
 
-} //InstanceFactoryImpl
+} // InstanceFactoryImpl

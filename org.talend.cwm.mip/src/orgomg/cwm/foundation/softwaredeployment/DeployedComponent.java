@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.foundation.softwaredeployment;
@@ -9,9 +8,8 @@ package orgomg.cwm.foundation.softwaredeployment;
 import org.eclipse.emf.common.util.EList;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Deployed Component</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Deployed Component</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * A DeployedComponent represents the deployment of a Component on a specific Machine.
@@ -36,13 +34,13 @@ import org.eclipse.emf.common.util.EList;
  * @generated
  */
 public interface DeployedComponent extends orgomg.cwm.objectmodel.core.Package {
+
     /**
-     * Returns the value of the '<em><b>Pathname</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * A pathname for the DeployedComponent within the Machine?s file system.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Pathname</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> A
+     * pathname for the DeployedComponent within the Machine?s file system. <!--
+     * end-model-doc -->
+     * 
      * @return the value of the '<em>Pathname</em>' attribute.
      * @see #setPathname(String)
      * @see orgomg.cwm.foundation.softwaredeployment.SoftwaredeploymentPackage#getDeployedComponent_Pathname()
@@ -52,10 +50,13 @@ public interface DeployedComponent extends orgomg.cwm.objectmodel.core.Package {
     String getPathname();
 
     /**
-     * Sets the value of the '{@link orgomg.cwm.foundation.softwaredeployment.DeployedComponent#getPathname <em>Pathname</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Pathname</em>' attribute.
+     * Sets the value of the '
+     * {@link orgomg.cwm.foundation.softwaredeployment.DeployedComponent#getPathname
+     * <em>Pathname</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @param value
+     *            the new value of the '<em>Pathname</em>' attribute.
      * @see #getPathname()
      * @generated
      */
@@ -63,25 +64,25 @@ public interface DeployedComponent extends orgomg.cwm.objectmodel.core.Package {
 
     /**
      * Returns the value of the '<em><b>Machine</b></em>' container reference.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.foundation.softwaredeployment.Machine#getDeployedComponent <em>Deployed Component</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the Machine on which a DeployedComponent is deployed.
-     * <!-- end-model-doc -->
+     * It is bidirectional and its opposite is '
+     * {@link orgomg.cwm.foundation.softwaredeployment.Machine#getDeployedComponent
+     * <em>Deployed Component</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * --> <!-- begin-model-doc --> Identifies the Machine on which a
+     * DeployedComponent is deployed. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Machine</em>' container reference.
      * @see #setMachine(Machine)
      * @see orgomg.cwm.foundation.softwaredeployment.SoftwaredeploymentPackage#getDeployedComponent_Machine()
      * @see orgomg.cwm.foundation.softwaredeployment.Machine#getDeployedComponent
-     * @model opposite="deployedComponent" required="true"
+     * @model opposite="deployedComponent"
      * @generated
      */
     Machine getMachine();
 
     /**
      * Sets the value of the '{@link orgomg.cwm.foundation.softwaredeployment.DeployedComponent#getMachine <em>Machine</em>}' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Machine</em>' container reference.
      * @see #getMachine()
      * @generated
@@ -89,15 +90,17 @@ public interface DeployedComponent extends orgomg.cwm.objectmodel.core.Package {
     void setMachine(Machine value);
 
     /**
-     * Returns the value of the '<em><b>Deployed Software System</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwm.foundation.softwaredeployment.DeployedSoftwareSystem}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.foundation.softwaredeployment.DeployedSoftwareSystem#getDeployedComponent <em>Deployed Component</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the DeployedSoftwareSystem.
-     * <!-- end-model-doc -->
-     * @return the value of the '<em>Deployed Software System</em>' reference list.
+     * Returns the value of the '<em><b>Deployed Software System</b></em>'
+     * reference list. The list contents are of type
+     * {@link orgomg.cwm.foundation.softwaredeployment.DeployedSoftwareSystem}.
+     * It is bidirectional and its opposite is '
+     * {@link orgomg.cwm.foundation.softwaredeployment.DeployedSoftwareSystem#getDeployedComponent
+     * <em>Deployed Component</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * --> <!-- begin-model-doc --> Identifies the DeployedSoftwareSystem. <!--
+     * end-model-doc -->
+     * 
+     * @return the value of the '<em>Deployed Software System</em>' reference
+     *         list.
      * @see orgomg.cwm.foundation.softwaredeployment.SoftwaredeploymentPackage#getDeployedComponent_DeployedSoftwareSystem()
      * @see orgomg.cwm.foundation.softwaredeployment.DeployedSoftwareSystem#getDeployedComponent
      * @model opposite="deployedComponent"
@@ -106,13 +109,13 @@ public interface DeployedComponent extends orgomg.cwm.objectmodel.core.Package {
     EList<DeployedSoftwareSystem> getDeployedSoftwareSystem();
 
     /**
-     * Returns the value of the '<em><b>Component</b></em>' reference.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.foundation.softwaredeployment.Component#getDeployment <em>Deployment</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the Component deployed.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Component</b></em>' reference. It is
+     * bidirectional and its opposite is '
+     * {@link orgomg.cwm.foundation.softwaredeployment.Component#getDeployment
+     * <em>Deployment</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> Identifies the Component deployed. <!-- end-model-doc
+     * -->
+     * 
      * @return the value of the '<em>Component</em>' reference.
      * @see #setComponent(Component)
      * @see orgomg.cwm.foundation.softwaredeployment.SoftwaredeploymentPackage#getDeployedComponent_Component()
@@ -123,10 +126,13 @@ public interface DeployedComponent extends orgomg.cwm.objectmodel.core.Package {
     Component getComponent();
 
     /**
-     * Sets the value of the '{@link orgomg.cwm.foundation.softwaredeployment.DeployedComponent#getComponent <em>Component</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Component</em>' reference.
+     * Sets the value of the '
+     * {@link orgomg.cwm.foundation.softwaredeployment.DeployedComponent#getComponent
+     * <em>Component</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @param value
+     *            the new value of the '<em>Component</em>' reference.
      * @see #getComponent()
      * @generated
      */

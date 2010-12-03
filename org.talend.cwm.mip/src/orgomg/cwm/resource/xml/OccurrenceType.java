@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.resource.xml;
@@ -13,13 +12,11 @@ import java.util.List;
 import org.eclipse.emf.common.util.Enumerator;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the literals of the enumeration '<em><b>Occurrence Type</b></em>',
- * and utility methods for working with them.
- * <!-- end-user-doc -->
- * <!-- begin-model-doc -->
- * one, zeroOrOne, zeroOrMore, OneOrMore
- * <!-- end-model-doc -->
+ * <!-- begin-user-doc --> A representation of the literals of the enumeration '
+ * <em><b>Occurrence Type</b></em>', and utility methods for working with them.
+ * <!-- end-user-doc --> <!-- begin-model-doc --> one, zeroOrOne, zeroOrMore,
+ * OneOrMore <!-- end-model-doc -->
+ * 
  * @see orgomg.cwm.resource.xml.XmlPackage#getOccurrenceType()
  * @model
  * @generated
@@ -37,8 +34,8 @@ public enum OccurrenceType implements Enumerator {
 
     /**
      * The '<em><b>Xml zero Or One</b></em>' literal object.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @see #XML_ZERO_OR_ONE_VALUE
      * @generated
      * @ordered
@@ -46,9 +43,9 @@ public enum OccurrenceType implements Enumerator {
     XML_ZERO_OR_ONE(1, "xml_zeroOrOne", "xml_zeroOrOne"),
 
     /**
-     * The '<em><b>Xml zero Or More</b></em>' literal object.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The '<em><b>Xml zero Or More</b></em>' literal object. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #XML_ZERO_OR_MORE_VALUE
      * @generated
      * @ordered
@@ -57,8 +54,8 @@ public enum OccurrenceType implements Enumerator {
 
     /**
      * The '<em><b>Xml one Or More</b></em>' literal object.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @see #XML_ONE_OR_MORE_VALUE
      * @generated
      * @ordered
@@ -82,10 +79,11 @@ public enum OccurrenceType implements Enumerator {
 
     /**
      * The '<em><b>Xml zero Or One</b></em>' literal value.
-     * <!-- begin-user-doc -->
+     * <!-- begin-user-doc
+     * -->
      * <p>
-     * If the meaning of '<em><b>Xml zero Or One</b></em>' literal object isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of '<em><b>Xml zero Or One</b></em>' literal object isn't
+     * clear, there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
      * @see #XML_ZERO_OR_ONE
@@ -97,10 +95,11 @@ public enum OccurrenceType implements Enumerator {
 
     /**
      * The '<em><b>Xml zero Or More</b></em>' literal value.
-     * <!-- begin-user-doc -->
+     * <!-- begin-user-doc
+     * -->
      * <p>
-     * If the meaning of '<em><b>Xml zero Or More</b></em>' literal object isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of '<em><b>Xml zero Or More</b></em>' literal object isn't
+     * clear, there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
      * @see #XML_ZERO_OR_MORE
@@ -112,10 +111,11 @@ public enum OccurrenceType implements Enumerator {
 
     /**
      * The '<em><b>Xml one Or More</b></em>' literal value.
-     * <!-- begin-user-doc -->
+     * <!-- begin-user-doc
+     * -->
      * <p>
-     * If the meaning of '<em><b>Xml one Or More</b></em>' literal object isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of '<em><b>Xml one Or More</b></em>' literal object isn't
+     * clear, there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
      * @see #XML_ONE_OR_MORE
@@ -126,31 +126,24 @@ public enum OccurrenceType implements Enumerator {
     public static final int XML_ONE_OR_MORE_VALUE = 3;
 
     /**
-     * An array of all the '<em><b>Occurrence Type</b></em>' enumerators.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * An array of all the '<em><b>Occurrence Type</b></em>' enumerators. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
-    private static final OccurrenceType[] VALUES_ARRAY =
-        new OccurrenceType[] {
-            XML_ONE,
-            XML_ZERO_OR_ONE,
-            XML_ZERO_OR_MORE,
-            XML_ONE_OR_MORE,
-        };
+    private static final OccurrenceType[] VALUES_ARRAY = new OccurrenceType[] { XML_ONE, XML_ZERO_OR_ONE, XML_ZERO_OR_MORE,
+            XML_ONE_OR_MORE, };
 
     /**
      * A public read-only list of all the '<em><b>Occurrence Type</b></em>' enumerators.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static final List<OccurrenceType> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
     /**
      * Returns the '<em><b>Occurrence Type</b></em>' literal with the specified literal value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static OccurrenceType get(String literal) {
@@ -165,8 +158,7 @@ public enum OccurrenceType implements Enumerator {
 
     /**
      * Returns the '<em><b>Occurrence Type</b></em>' literal with the specified name.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static OccurrenceType getByName(String name) {
@@ -181,45 +173,45 @@ public enum OccurrenceType implements Enumerator {
 
     /**
      * Returns the '<em><b>Occurrence Type</b></em>' literal with the specified integer value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static OccurrenceType get(int value) {
         switch (value) {
-            case XML_ONE_VALUE: return XML_ONE;
-            case XML_ZERO_OR_ONE_VALUE: return XML_ZERO_OR_ONE;
-            case XML_ZERO_OR_MORE_VALUE: return XML_ZERO_OR_MORE;
-            case XML_ONE_OR_MORE_VALUE: return XML_ONE_OR_MORE;
+        case XML_ONE_VALUE:
+            return XML_ONE;
+        case XML_ZERO_OR_ONE_VALUE:
+            return XML_ZERO_OR_ONE;
+        case XML_ZERO_OR_MORE_VALUE:
+            return XML_ZERO_OR_MORE;
+        case XML_ONE_OR_MORE_VALUE:
+            return XML_ONE_OR_MORE;
         }
         return null;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private final int value;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private final String name;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private final String literal;
 
     /**
      * Only this class can construct instances.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     private OccurrenceType(int value, String name, String literal) {
@@ -229,41 +221,37 @@ public enum OccurrenceType implements Enumerator {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public int getValue() {
-      return value;
+        return value;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getName() {
-      return name;
+        return name;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getLiteral() {
-      return literal;
+        return literal;
     }
 
     /**
      * Returns the literal value of the enumerator, which is its string representation.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
         return literal;
     }
-    
-} //OccurrenceType
+
+} // OccurrenceType

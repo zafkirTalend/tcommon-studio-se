@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmmip.impl;
@@ -11,18 +10,17 @@ import orgomg.cwmmip.BindingParameter;
 import orgomg.cwmmip.CwmmipPackage;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Binding Parameter</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Binding Parameter</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
 public class BindingParameterImpl extends PatternConstraintImpl implements BindingParameter {
+
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected BindingParameterImpl() {
@@ -30,8 +28,7 @@ public class BindingParameterImpl extends PatternConstraintImpl implements Bindi
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -39,4 +36,4 @@ public class BindingParameterImpl extends PatternConstraintImpl implements Bindi
         return CwmmipPackage.Literals.BINDING_PARAMETER;
     }
 
-} //BindingParameterImpl
+} // BindingParameterImpl

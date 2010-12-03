@@ -1,16 +1,13 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.foundation.expressions;
 
-
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Constant Node</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Constant Node</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * Instances of the ConstantNode class are ExpressionNodes that represent constant values within expressions. Appropriate uses of the ConstantNode class place the values of constants in the value attribute, rather than in the expression::body attribute inherited from ExpressionNode. The latter attribute is intended for a different purpose; see the description of the ExpressionNode class for details.
@@ -28,13 +25,12 @@ package orgomg.cwm.foundation.expressions;
  * @generated
  */
 public interface ConstantNode extends ExpressionNode {
+
     /**
-     * Returns the value of the '<em><b>Value</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The value of a constant in an expression tree.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Value</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> The
+     * value of a constant in an expression tree. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Value</em>' attribute.
      * @see #setValue(String)
      * @see orgomg.cwm.foundation.expressions.ExpressionsPackage#getConstantNode_Value()
@@ -45,8 +41,7 @@ public interface ConstantNode extends ExpressionNode {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.foundation.expressions.ConstantNode#getValue <em>Value</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Value</em>' attribute.
      * @see #getValue()
      * @generated

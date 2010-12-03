@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.imsdatabase;
@@ -10,9 +9,8 @@ import org.eclipse.emf.common.util.EList;
 import orgomg.cwm.resource.record.FixedOffsetField;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Field</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Field</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * This sub-type is used to add the attributes that apply to a Record Field only within the context of a specific DBD. One or more Fields within a Segment can be defined as a Sequence Field, which is the Key for the segment. A Sequence Field can be defined as Unique or Multiple. A Segment description does not have to include all of the Fields defined within the data structure.
@@ -37,13 +35,13 @@ import orgomg.cwm.resource.record.FixedOffsetField;
  * @generated
  */
 public interface Field extends FixedOffsetField {
+
     /**
-     * Returns the value of the '<em><b>Sequence Field</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * This attribute is a flag to indicate whether the dataItem instance should be generated as a sequence field or not.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Sequence Field</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> This
+     * attribute is a flag to indicate whether the dataItem instance should be
+     * generated as a sequence field or not. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Sequence Field</em>' attribute.
      * @see #setSequenceField(boolean)
      * @see orgomg.cwmx.resource.imsdatabase.ImsdatabasePackage#getField_SequenceField()
@@ -54,8 +52,8 @@ public interface Field extends FixedOffsetField {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.imsdatabase.Field#isSequenceField <em>Sequence Field</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Sequence Field</em>' attribute.
      * @see #isSequenceField()
      * @generated
@@ -64,11 +62,10 @@ public interface Field extends FixedOffsetField {
 
     /**
      * Returns the value of the '<em><b>Unique Sequence</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * This attribute is a flag to indicate whether the dataItem instance should be generated as a unique sequence field.
-     * <!-- end-model-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * This attribute is a flag to indicate whether the dataItem instance should
+     * be generated as a unique sequence field. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Unique Sequence</em>' attribute.
      * @see #setUniqueSequence(boolean)
      * @see orgomg.cwmx.resource.imsdatabase.ImsdatabasePackage#getField_UniqueSequence()
@@ -79,8 +76,8 @@ public interface Field extends FixedOffsetField {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.imsdatabase.Field#isUniqueSequence <em>Unique Sequence</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Unique Sequence</em>' attribute.
      * @see #isUniqueSequence()
      * @generated
@@ -88,12 +85,11 @@ public interface Field extends FixedOffsetField {
     void setUniqueSequence(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Field Length</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The attribute holds the length of the data item. This value should come from the data item itself.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Field Length</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> The
+     * attribute holds the length of the data item. This value should come from
+     * the data item itself. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Field Length</em>' attribute.
      * @see #setFieldLength(long)
      * @see orgomg.cwmx.resource.imsdatabase.ImsdatabasePackage#getField_FieldLength()
@@ -104,8 +100,8 @@ public interface Field extends FixedOffsetField {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.imsdatabase.Field#getFieldLength <em>Field Length</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Field Length</em>' attribute.
      * @see #getFieldLength()
      * @generated
@@ -113,12 +109,12 @@ public interface Field extends FixedOffsetField {
     void setFieldLength(long value);
 
     /**
-     * Returns the value of the '<em><b>Generated</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Indicates if the field has been generated by analyzing the "copybook" associated with the structure/segment, or if the field is coming directly from the IMS catalog
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Generated</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * Indicates if the field has been generated by analyzing the "copybook"
+     * associated with the structure/segment, or if the field is coming directly
+     * from the IMS catalog <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Generated</em>' attribute.
      * @see #setGenerated(boolean)
      * @see orgomg.cwmx.resource.imsdatabase.ImsdatabasePackage#getField_Generated()
@@ -128,10 +124,13 @@ public interface Field extends FixedOffsetField {
     boolean isGenerated();
 
     /**
-     * Sets the value of the '{@link orgomg.cwmx.resource.imsdatabase.Field#isGenerated <em>Generated</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Generated</em>' attribute.
+     * Sets the value of the '
+     * {@link orgomg.cwmx.resource.imsdatabase.Field#isGenerated
+     * <em>Generated</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @param value
+     *            the new value of the '<em>Generated</em>' attribute.
      * @see #isGenerated()
      * @generated
      */
@@ -141,8 +140,7 @@ public interface Field extends FixedOffsetField {
      * Returns the value of the '<em><b>Search Index</b></em>' reference list.
      * The list contents are of type {@link orgomg.cwmx.resource.imsdatabase.SecondaryIndex}.
      * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.imsdatabase.SecondaryIndex#getSearchFields <em>Search Fields</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * The index that uses this field for a search field.
      * <!-- end-model-doc -->
@@ -158,8 +156,7 @@ public interface Field extends FixedOffsetField {
      * Returns the value of the '<em><b>Ddata Index</b></em>' reference list.
      * The list contents are of type {@link orgomg.cwmx.resource.imsdatabase.SecondaryIndex}.
      * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.imsdatabase.SecondaryIndex#getDdataFields <em>Ddata Fields</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * The index that uses this field as duplicate data.
      * <!-- end-model-doc -->
@@ -175,8 +172,7 @@ public interface Field extends FixedOffsetField {
      * Returns the value of the '<em><b>Subseq Index</b></em>' reference list.
      * The list contents are of type {@link orgomg.cwmx.resource.imsdatabase.SecondaryIndex}.
      * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.imsdatabase.SecondaryIndex#getSubseqFields <em>Subseq Fields</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * The index that uses this field as a subsequence field.
      * <!-- end-model-doc -->
@@ -189,14 +185,14 @@ public interface Field extends FixedOffsetField {
     EList<SecondaryIndex> getSubseqIndex();
 
     /**
-     * Returns the value of the '<em><b>Sen Field</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwmx.resource.imsdatabase.SenField}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.imsdatabase.SenField#getField <em>Field</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The sensitive field that depends on this field.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Sen Field</b></em>' reference list. The
+     * list contents are of type
+     * {@link orgomg.cwmx.resource.imsdatabase.SenField}. It is bidirectional
+     * and its opposite is '
+     * {@link orgomg.cwmx.resource.imsdatabase.SenField#getField <em>Field</em>}
+     * '. <!-- begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * The sensitive field that depends on this field. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Sen Field</em>' reference list.
      * @see orgomg.cwmx.resource.imsdatabase.ImsdatabasePackage#getField_SenField()
      * @see orgomg.cwmx.resource.imsdatabase.SenField#getField

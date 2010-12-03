@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.express;
@@ -9,9 +8,8 @@ package orgomg.cwmx.resource.express;
 import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Pre Compute Clause</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Pre Compute Clause</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * This represents a pre-compute clause for an Express aggregation map.
@@ -30,13 +28,12 @@ import orgomg.cwm.objectmodel.core.ModelElement;
  * @generated
  */
 public interface PreComputeClause extends ModelElement {
+
     /**
-     * Returns the value of the '<em><b>Status List</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The status of the dimension to aggregate.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Status List</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> The
+     * status of the dimension to aggregate. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Status List</em>' attribute.
      * @see #setStatusList(String)
      * @see orgomg.cwmx.resource.express.ExpressPackage#getPreComputeClause_StatusList()
@@ -47,8 +44,8 @@ public interface PreComputeClause extends ModelElement {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.express.PreComputeClause#getStatusList <em>Status List</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Status List</em>' attribute.
      * @see #getStatusList()
      * @generated
@@ -58,8 +55,7 @@ public interface PreComputeClause extends ModelElement {
     /**
      * Returns the value of the '<em><b>Agg Map Component</b></em>' container reference.
      * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.express.AggMapComponent#getComputeClause <em>Compute Clause</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Identifies the AggMapComponent.
      * <!-- end-model-doc -->

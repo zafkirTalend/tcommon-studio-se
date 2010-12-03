@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.imsdatabase;
@@ -13,9 +12,8 @@ import orgomg.cwmx.resource.imsdatabase.imstypes.ParentType;
 import orgomg.cwmx.resource.imsdatabase.imstypes.RulesType;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>LCHILD</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>LCHILD</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * This type holds the attributes that apply to the relationship used to connect a SegmentComplex instance to the SegmentComplex instances for which it is the logical parent (maps to LCHILD statement and to the PARENT keyword on the SEGM statement).
@@ -41,13 +39,13 @@ import orgomg.cwmx.resource.imsdatabase.imstypes.RulesType;
  * @generated
  */
 public interface LCHILD extends ModelElement {
+
     /**
-     * Returns the value of the '<em><b>Counter</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * This attribute holds a flag for whether COUNTER keyword is to be used in the POINTER= parameter on the child segment.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Counter</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> This
+     * attribute holds a flag for whether COUNTER keyword is to be used in the
+     * POINTER= parameter on the child segment. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Counter</em>' attribute.
      * @see #setCounter(boolean)
      * @see orgomg.cwmx.resource.imsdatabase.ImsdatabasePackage#getLCHILD_Counter()
@@ -57,23 +55,27 @@ public interface LCHILD extends ModelElement {
     boolean isCounter();
 
     /**
-     * Sets the value of the '{@link orgomg.cwmx.resource.imsdatabase.LCHILD#isCounter <em>Counter</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Counter</em>' attribute.
+     * Sets the value of the '
+     * {@link orgomg.cwmx.resource.imsdatabase.LCHILD#isCounter
+     * <em>Counter</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @param value
+     *            the new value of the '<em>Counter</em>' attribute.
      * @see #isCounter()
      * @generated
      */
     void setCounter(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Lc Pointer</b></em>' attribute.
-     * The literals are from the enumeration {@link orgomg.cwmx.resource.imsdatabase.imstypes.ChildPointerType}.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * This attribute holds a value used in the POINTER keyword on the LCHILD macro to specify amount of pointer fields to be reserved in the logical parent segment.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Lc Pointer</b></em>' attribute. The
+     * literals are from the enumeration
+     * {@link orgomg.cwmx.resource.imsdatabase.imstypes.ChildPointerType}. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> This
+     * attribute holds a value used in the POINTER keyword on the LCHILD macro
+     * to specify amount of pointer fields to be reserved in the logical parent
+     * segment. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Lc Pointer</em>' attribute.
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.ChildPointerType
      * @see #setLcPointer(ChildPointerType)
@@ -85,8 +87,8 @@ public interface LCHILD extends ModelElement {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.imsdatabase.LCHILD#getLcPointer <em>Lc Pointer</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Lc Pointer</em>' attribute.
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.ChildPointerType
      * @see #getLcPointer()
@@ -95,12 +97,11 @@ public interface LCHILD extends ModelElement {
     void setLcPointer(ChildPointerType value);
 
     /**
-     * Returns the value of the '<em><b>Lparent Flag</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * This attribute holds a flag for whether LPARNT keyword is to be used in the POINTER= parameter on the child segment.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Lparent Flag</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> This
+     * attribute holds a flag for whether LPARNT keyword is to be used in the
+     * POINTER= parameter on the child segment. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Lparent Flag</em>' attribute.
      * @see #setLparentFlag(boolean)
      * @see orgomg.cwmx.resource.imsdatabase.ImsdatabasePackage#getLCHILD_LparentFlag()
@@ -111,8 +112,8 @@ public interface LCHILD extends ModelElement {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.imsdatabase.LCHILD#isLparentFlag <em>Lparent Flag</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Lparent Flag</em>' attribute.
      * @see #isLparentFlag()
      * @generated
@@ -120,14 +121,15 @@ public interface LCHILD extends ModelElement {
     void setLparentFlag(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Ltwin</b></em>' attribute.
-     * The literals are from the enumeration {@link orgomg.cwmx.resource.imsdatabase.imstypes.LPointerType}.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * This attribute holds a value to be used in the POINTER= parameter on the child segment in order to specify logical twin pointers.
+     * Returns the value of the '<em><b>Ltwin</b></em>' attribute. The literals
+     * are from the enumeration
+     * {@link orgomg.cwmx.resource.imsdatabase.imstypes.LPointerType}. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> This
+     * attribute holds a value to be used in the POINTER= parameter on the child
+     * segment in order to specify logical twin pointers.
      * 
      * <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Ltwin</em>' attribute.
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.LPointerType
      * @see #setLtwin(LPointerType)
@@ -139,8 +141,7 @@ public interface LCHILD extends ModelElement {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.imsdatabase.LCHILD#getLtwin <em>Ltwin</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Ltwin</em>' attribute.
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.LPointerType
      * @see #getLtwin()
@@ -149,13 +150,13 @@ public interface LCHILD extends ModelElement {
     void setLtwin(LPointerType value);
 
     /**
-     * Returns the value of the '<em><b>Rules</b></em>' attribute.
-     * The literals are from the enumeration {@link orgomg.cwmx.resource.imsdatabase.imstypes.RulesType}.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * This attribute holds a value used in the RULES keyword on the LCHILD macro to control the logical twin sequence.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Rules</b></em>' attribute. The literals
+     * are from the enumeration
+     * {@link orgomg.cwmx.resource.imsdatabase.imstypes.RulesType}. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> This
+     * attribute holds a value used in the RULES keyword on the LCHILD macro to
+     * control the logical twin sequence. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Rules</em>' attribute.
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.RulesType
      * @see #setRules(RulesType)
@@ -167,8 +168,7 @@ public interface LCHILD extends ModelElement {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.imsdatabase.LCHILD#getRules <em>Rules</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Rules</em>' attribute.
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.RulesType
      * @see #getRules()
@@ -177,13 +177,14 @@ public interface LCHILD extends ModelElement {
     void setRules(RulesType value);
 
     /**
-     * Returns the value of the '<em><b>Virtual Parent</b></em>' attribute.
-     * The literals are from the enumeration {@link orgomg.cwmx.resource.imsdatabase.imstypes.ParentType}.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * This attribute holds a value used in the PARENT parameter on the logical child segment to specify whether the concatenated key of the logical parent segment is stored with each logical child segment.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Virtual Parent</b></em>' attribute. The
+     * literals are from the enumeration
+     * {@link orgomg.cwmx.resource.imsdatabase.imstypes.ParentType}. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> This
+     * attribute holds a value used in the PARENT parameter on the logical child
+     * segment to specify whether the concatenated key of the logical parent
+     * segment is stored with each logical child segment. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Virtual Parent</em>' attribute.
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.ParentType
      * @see #setVirtualParent(ParentType)
@@ -195,8 +196,8 @@ public interface LCHILD extends ModelElement {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.imsdatabase.LCHILD#getVirtualParent <em>Virtual Parent</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Virtual Parent</em>' attribute.
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.ParentType
      * @see #getVirtualParent()
@@ -206,12 +207,12 @@ public interface LCHILD extends ModelElement {
 
     /**
      * Returns the value of the '<em><b>Lparent</b></em>' container reference.
-     * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.imsdatabase.SegmentComplex#getLchild <em>Lchild</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The segment that represents the parent in a logical parent relationship.
-     * <!-- end-model-doc -->
+     * It is bidirectional and its opposite is '
+     * {@link orgomg.cwmx.resource.imsdatabase.SegmentComplex#getLchild
+     * <em>Lchild</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> The segment that represents the parent in a logical
+     * parent relationship. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Lparent</em>' container reference.
      * @see #setLparent(SegmentComplex)
      * @see orgomg.cwmx.resource.imsdatabase.ImsdatabasePackage#getLCHILD_Lparent()
@@ -223,8 +224,8 @@ public interface LCHILD extends ModelElement {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.imsdatabase.LCHILD#getLparent <em>Lparent</em>}' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Lparent</em>' container reference.
      * @see #getLparent()
      * @generated
@@ -232,13 +233,13 @@ public interface LCHILD extends ModelElement {
     void setLparent(SegmentComplex value);
 
     /**
-     * Returns the value of the '<em><b>Lchild</b></em>' reference.
-     * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.imsdatabase.SegmentComplex#getLparent <em>Lparent</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The child segment in the logical parent relationship.
+     * Returns the value of the '<em><b>Lchild</b></em>' reference. It is
+     * bidirectional and its opposite is '
+     * {@link orgomg.cwmx.resource.imsdatabase.SegmentComplex#getLparent
+     * <em>Lparent</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> The child segment in the logical parent relationship.
      * <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Lchild</em>' reference.
      * @see #setLchild(SegmentComplex)
      * @see orgomg.cwmx.resource.imsdatabase.ImsdatabasePackage#getLCHILD_Lchild()
@@ -250,8 +251,7 @@ public interface LCHILD extends ModelElement {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.imsdatabase.LCHILD#getLchild <em>Lchild</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Lchild</em>' reference.
      * @see #getLchild()
      * @generated
@@ -261,8 +261,7 @@ public interface LCHILD extends ModelElement {
     /**
      * Returns the value of the '<em><b>Paired Segment</b></em>' reference.
      * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.imsdatabase.SegmentComplex#getPairedLCHILD <em>Paired LCHILD</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * The pair relationship to a physical child of the logical parent segment.
      * <!-- end-model-doc -->
@@ -277,8 +276,8 @@ public interface LCHILD extends ModelElement {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.imsdatabase.LCHILD#getPairedSegment <em>Paired Segment</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Paired Segment</em>' reference.
      * @see #getPairedSegment()
      * @generated

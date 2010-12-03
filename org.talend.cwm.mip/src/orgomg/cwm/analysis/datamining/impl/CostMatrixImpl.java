@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.analysis.datamining.impl;
@@ -20,9 +19,8 @@ import orgomg.cwm.analysis.datamining.DataminingPackage;
 import orgomg.cwm.objectmodel.core.impl.ClassImpl;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Cost Matrix</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Cost Matrix</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -33,10 +31,10 @@ import orgomg.cwm.objectmodel.core.impl.ClassImpl;
  * @generated
  */
 public class CostMatrixImpl extends ClassImpl implements CostMatrix {
+
     /**
      * The cached value of the '{@link #getSettings() <em>Settings</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getSettings()
      * @generated
      * @ordered
@@ -44,8 +42,7 @@ public class CostMatrixImpl extends ClassImpl implements CostMatrix {
     protected EList<ClassificationSettings> settings;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected CostMatrixImpl() {
@@ -53,8 +50,7 @@ public class CostMatrixImpl extends ClassImpl implements CostMatrix {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -63,104 +59,98 @@ public class CostMatrixImpl extends ClassImpl implements CostMatrix {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<ClassificationSettings> getSettings() {
         if (settings == null) {
-            settings = new EObjectWithInverseResolvingEList<ClassificationSettings>(ClassificationSettings.class, this, DataminingPackage.COST_MATRIX__SETTINGS, DataminingPackage.CLASSIFICATION_SETTINGS__COST_MATRIX);
+            settings = new EObjectWithInverseResolvingEList<ClassificationSettings>(ClassificationSettings.class, this,
+                    DataminingPackage.COST_MATRIX__SETTINGS, DataminingPackage.CLASSIFICATION_SETTINGS__COST_MATRIX);
         }
         return settings;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case DataminingPackage.COST_MATRIX__SETTINGS:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getSettings()).basicAdd(otherEnd, msgs);
+        case DataminingPackage.COST_MATRIX__SETTINGS:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getSettings()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case DataminingPackage.COST_MATRIX__SETTINGS:
-                return ((InternalEList<?>)getSettings()).basicRemove(otherEnd, msgs);
+        case DataminingPackage.COST_MATRIX__SETTINGS:
+            return ((InternalEList<?>) getSettings()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case DataminingPackage.COST_MATRIX__SETTINGS:
-                return getSettings();
+        case DataminingPackage.COST_MATRIX__SETTINGS:
+            return getSettings();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case DataminingPackage.COST_MATRIX__SETTINGS:
-                getSettings().clear();
-                getSettings().addAll((Collection<? extends ClassificationSettings>)newValue);
-                return;
+        case DataminingPackage.COST_MATRIX__SETTINGS:
+            getSettings().clear();
+            getSettings().addAll((Collection<? extends ClassificationSettings>) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case DataminingPackage.COST_MATRIX__SETTINGS:
-                getSettings().clear();
-                return;
+        case DataminingPackage.COST_MATRIX__SETTINGS:
+            getSettings().clear();
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case DataminingPackage.COST_MATRIX__SETTINGS:
-                return settings != null && !settings.isEmpty();
+        case DataminingPackage.COST_MATRIX__SETTINGS:
+            return settings != null && !settings.isEmpty();
         }
         return super.eIsSet(featureID);
     }
 
-} //CostMatrixImpl
+} // CostMatrixImpl

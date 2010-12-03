@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.foundation.softwaredeployment.impl;
@@ -20,9 +19,8 @@ import orgomg.cwm.foundation.softwaredeployment.Site;
 import orgomg.cwm.foundation.softwaredeployment.SoftwaredeploymentPackage;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Site</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Site</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -35,10 +33,11 @@ import orgomg.cwm.foundation.softwaredeployment.SoftwaredeploymentPackage;
  * @generated
  */
 public class SiteImpl extends LocationImpl implements Site {
+
     /**
      * The cached value of the '{@link #getContainingSite() <em>Containing Site</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getContainingSite()
      * @generated
      * @ordered
@@ -47,8 +46,8 @@ public class SiteImpl extends LocationImpl implements Site {
 
     /**
      * The cached value of the '{@link #getContainedSite() <em>Contained Site</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getContainedSite()
      * @generated
      * @ordered
@@ -57,8 +56,7 @@ public class SiteImpl extends LocationImpl implements Site {
 
     /**
      * The cached value of the '{@link #getMachine() <em>Machine</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getMachine()
      * @generated
      * @ordered
@@ -66,8 +64,7 @@ public class SiteImpl extends LocationImpl implements Site {
     protected EList<Machine> machine;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected SiteImpl() {
@@ -75,8 +72,7 @@ public class SiteImpl extends LocationImpl implements Site {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -85,158 +81,152 @@ public class SiteImpl extends LocationImpl implements Site {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<Site> getContainingSite() {
         if (containingSite == null) {
-            containingSite = new EObjectWithInverseResolvingEList.ManyInverse<Site>(Site.class, this, SoftwaredeploymentPackage.SITE__CONTAINING_SITE, SoftwaredeploymentPackage.SITE__CONTAINED_SITE);
+            containingSite = new EObjectWithInverseResolvingEList.ManyInverse<Site>(Site.class, this,
+                    SoftwaredeploymentPackage.SITE__CONTAINING_SITE, SoftwaredeploymentPackage.SITE__CONTAINED_SITE);
         }
         return containingSite;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<Site> getContainedSite() {
         if (containedSite == null) {
-            containedSite = new EObjectWithInverseResolvingEList.ManyInverse<Site>(Site.class, this, SoftwaredeploymentPackage.SITE__CONTAINED_SITE, SoftwaredeploymentPackage.SITE__CONTAINING_SITE);
+            containedSite = new EObjectWithInverseResolvingEList.ManyInverse<Site>(Site.class, this,
+                    SoftwaredeploymentPackage.SITE__CONTAINED_SITE, SoftwaredeploymentPackage.SITE__CONTAINING_SITE);
         }
         return containedSite;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<Machine> getMachine() {
         if (machine == null) {
-            machine = new EObjectWithInverseResolvingEList<Machine>(Machine.class, this, SoftwaredeploymentPackage.SITE__MACHINE, SoftwaredeploymentPackage.MACHINE__SITE);
+            machine = new EObjectWithInverseResolvingEList<Machine>(Machine.class, this, SoftwaredeploymentPackage.SITE__MACHINE,
+                    SoftwaredeploymentPackage.MACHINE__SITE);
         }
         return machine;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case SoftwaredeploymentPackage.SITE__CONTAINING_SITE:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getContainingSite()).basicAdd(otherEnd, msgs);
-            case SoftwaredeploymentPackage.SITE__CONTAINED_SITE:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getContainedSite()).basicAdd(otherEnd, msgs);
-            case SoftwaredeploymentPackage.SITE__MACHINE:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getMachine()).basicAdd(otherEnd, msgs);
+        case SoftwaredeploymentPackage.SITE__CONTAINING_SITE:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getContainingSite()).basicAdd(otherEnd, msgs);
+        case SoftwaredeploymentPackage.SITE__CONTAINED_SITE:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getContainedSite()).basicAdd(otherEnd, msgs);
+        case SoftwaredeploymentPackage.SITE__MACHINE:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getMachine()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case SoftwaredeploymentPackage.SITE__CONTAINING_SITE:
-                return ((InternalEList<?>)getContainingSite()).basicRemove(otherEnd, msgs);
-            case SoftwaredeploymentPackage.SITE__CONTAINED_SITE:
-                return ((InternalEList<?>)getContainedSite()).basicRemove(otherEnd, msgs);
-            case SoftwaredeploymentPackage.SITE__MACHINE:
-                return ((InternalEList<?>)getMachine()).basicRemove(otherEnd, msgs);
+        case SoftwaredeploymentPackage.SITE__CONTAINING_SITE:
+            return ((InternalEList<?>) getContainingSite()).basicRemove(otherEnd, msgs);
+        case SoftwaredeploymentPackage.SITE__CONTAINED_SITE:
+            return ((InternalEList<?>) getContainedSite()).basicRemove(otherEnd, msgs);
+        case SoftwaredeploymentPackage.SITE__MACHINE:
+            return ((InternalEList<?>) getMachine()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case SoftwaredeploymentPackage.SITE__CONTAINING_SITE:
-                return getContainingSite();
-            case SoftwaredeploymentPackage.SITE__CONTAINED_SITE:
-                return getContainedSite();
-            case SoftwaredeploymentPackage.SITE__MACHINE:
-                return getMachine();
+        case SoftwaredeploymentPackage.SITE__CONTAINING_SITE:
+            return getContainingSite();
+        case SoftwaredeploymentPackage.SITE__CONTAINED_SITE:
+            return getContainedSite();
+        case SoftwaredeploymentPackage.SITE__MACHINE:
+            return getMachine();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case SoftwaredeploymentPackage.SITE__CONTAINING_SITE:
-                getContainingSite().clear();
-                getContainingSite().addAll((Collection<? extends Site>)newValue);
-                return;
-            case SoftwaredeploymentPackage.SITE__CONTAINED_SITE:
-                getContainedSite().clear();
-                getContainedSite().addAll((Collection<? extends Site>)newValue);
-                return;
-            case SoftwaredeploymentPackage.SITE__MACHINE:
-                getMachine().clear();
-                getMachine().addAll((Collection<? extends Machine>)newValue);
-                return;
+        case SoftwaredeploymentPackage.SITE__CONTAINING_SITE:
+            getContainingSite().clear();
+            getContainingSite().addAll((Collection<? extends Site>) newValue);
+            return;
+        case SoftwaredeploymentPackage.SITE__CONTAINED_SITE:
+            getContainedSite().clear();
+            getContainedSite().addAll((Collection<? extends Site>) newValue);
+            return;
+        case SoftwaredeploymentPackage.SITE__MACHINE:
+            getMachine().clear();
+            getMachine().addAll((Collection<? extends Machine>) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case SoftwaredeploymentPackage.SITE__CONTAINING_SITE:
-                getContainingSite().clear();
-                return;
-            case SoftwaredeploymentPackage.SITE__CONTAINED_SITE:
-                getContainedSite().clear();
-                return;
-            case SoftwaredeploymentPackage.SITE__MACHINE:
-                getMachine().clear();
-                return;
+        case SoftwaredeploymentPackage.SITE__CONTAINING_SITE:
+            getContainingSite().clear();
+            return;
+        case SoftwaredeploymentPackage.SITE__CONTAINED_SITE:
+            getContainedSite().clear();
+            return;
+        case SoftwaredeploymentPackage.SITE__MACHINE:
+            getMachine().clear();
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case SoftwaredeploymentPackage.SITE__CONTAINING_SITE:
-                return containingSite != null && !containingSite.isEmpty();
-            case SoftwaredeploymentPackage.SITE__CONTAINED_SITE:
-                return containedSite != null && !containedSite.isEmpty();
-            case SoftwaredeploymentPackage.SITE__MACHINE:
-                return machine != null && !machine.isEmpty();
+        case SoftwaredeploymentPackage.SITE__CONTAINING_SITE:
+            return containingSite != null && !containingSite.isEmpty();
+        case SoftwaredeploymentPackage.SITE__CONTAINED_SITE:
+            return containedSite != null && !containedSite.isEmpty();
+        case SoftwaredeploymentPackage.SITE__MACHINE:
+            return machine != null && !machine.isEmpty();
         }
         return super.eIsSet(featureID);
     }
 
-} //SiteImpl
+} // SiteImpl

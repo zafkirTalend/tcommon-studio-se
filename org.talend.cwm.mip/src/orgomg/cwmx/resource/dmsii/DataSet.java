@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.dmsii;
@@ -9,9 +8,8 @@ package orgomg.cwmx.resource.dmsii;
 import orgomg.cwm.resource.record.RecordDef;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Data Set</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Data Set</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * A DataSet is the primary container of data records in a DMS II database. A DataSet instance that is owned by another DataSet instance is embedded in its owner.
@@ -35,14 +33,16 @@ import orgomg.cwm.resource.record.RecordDef;
  * @generated
  */
 public interface DataSet extends RecordDef {
+
     /**
-     * Returns the value of the '<em><b>Is Global</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * If isGlobal = True, the DataSet instance represents the database?s global data record. There can be at most one DataSet instance with isGlobal = True for a given database, but multiple with isGlobal = False.
+     * Returns the value of the '<em><b>Is Global</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> If
+     * isGlobal = True, the DataSet instance represents the database?s global
+     * data record. There can be at most one DataSet instance with isGlobal =
+     * True for a given database, but multiple with isGlobal = False.
      * 
      * <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Is Global</em>' attribute.
      * @see #setIsGlobal(boolean)
      * @see orgomg.cwmx.resource.dmsii.DmsiiPackage#getDataSet_IsGlobal()
@@ -53,8 +53,7 @@ public interface DataSet extends RecordDef {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.dmsii.DataSet#isIsGlobal <em>Is Global</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Is Global</em>' attribute.
      * @see #isIsGlobal()
      * @generated
@@ -62,14 +61,13 @@ public interface DataSet extends RecordDef {
     void setIsGlobal(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Organization</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
+     * Returns the value of the '<em><b>Organization</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
      * Identifies the structural organization of the DataSet.
      * 
      * 
      * <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Organization</em>' attribute.
      * @see #setOrganization(String)
      * @see orgomg.cwmx.resource.dmsii.DmsiiPackage#getDataSet_Organization()
@@ -80,8 +78,8 @@ public interface DataSet extends RecordDef {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.dmsii.DataSet#getOrganization <em>Organization</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Organization</em>' attribute.
      * @see #getOrganization()
      * @generated
@@ -89,14 +87,13 @@ public interface DataSet extends RecordDef {
     void setOrganization(String value);
 
     /**
-     * Returns the value of the '<em><b>Reorganize</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
+     * Returns the value of the '<em><b>Reorganize</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
      * Contains the reorganization clause attached the DataSet instance.
      * 
      * 
      * <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Reorganize</em>' attribute.
      * @see #setReorganize(String)
      * @see orgomg.cwmx.resource.dmsii.DmsiiPackage#getDataSet_Reorganize()
@@ -107,8 +104,8 @@ public interface DataSet extends RecordDef {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.dmsii.DataSet#getReorganize <em>Reorganize</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Reorganize</em>' attribute.
      * @see #getReorganize()
      * @generated
@@ -117,11 +114,10 @@ public interface DataSet extends RecordDef {
 
     /**
      * Returns the value of the '<em><b>Is Required All</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * If True, the REQUIRED ALL clause was specified in the DASDL for this DataSet instance.
-     * <!-- end-model-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> If
+     * True, the REQUIRED ALL clause was specified in the DASDL for this DataSet
+     * instance. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Is Required All</em>' attribute.
      * @see #setIsRequiredAll(boolean)
      * @see orgomg.cwmx.resource.dmsii.DmsiiPackage#getDataSet_IsRequiredAll()
@@ -132,8 +128,8 @@ public interface DataSet extends RecordDef {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.dmsii.DataSet#isIsRequiredAll <em>Is Required All</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Is Required All</em>' attribute.
      * @see #isIsRequiredAll()
      * @generated
@@ -141,13 +137,13 @@ public interface DataSet extends RecordDef {
     void setIsRequiredAll(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Partitioning Set</b></em>' reference.
-     * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.dmsii.Set#getPartitionedDataSet <em>Partitioned Data Set</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the partitioning set for this DataItem instance.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Partitioning Set</b></em>' reference. It
+     * is bidirectional and its opposite is '
+     * {@link orgomg.cwmx.resource.dmsii.Set#getPartitionedDataSet
+     * <em>Partitioned Data Set</em>}'. <!-- begin-user-doc --> <!--
+     * end-user-doc --> <!-- begin-model-doc --> Identifies the partitioning set
+     * for this DataItem instance. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Partitioning Set</em>' reference.
      * @see #setPartitioningSet(Set)
      * @see orgomg.cwmx.resource.dmsii.DmsiiPackage#getDataSet_PartitioningSet()
@@ -159,8 +155,8 @@ public interface DataSet extends RecordDef {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.dmsii.DataSet#getPartitioningSet <em>Partitioning Set</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Partitioning Set</em>' reference.
      * @see #getPartitioningSet()
      * @generated

@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.imsdatabase;
@@ -9,9 +8,8 @@ package orgomg.cwmx.resource.imsdatabase;
 import orgomg.cwm.resource.record.FixedOffsetField;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Sen Field</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Sen Field</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * This relationship associates a SensitiveSegment instance to the Field instances that represent the fields in the segment to which the PCB must be sensitive.
@@ -34,13 +32,13 @@ import orgomg.cwm.resource.record.FixedOffsetField;
  * @generated
  */
 public interface SenField extends FixedOffsetField {
+
     /**
-     * Returns the value of the '<em><b>Replace</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The value of this attribute specifies whether this field may be altered on a replace call.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Replace</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> The
+     * value of this attribute specifies whether this field may be altered on a
+     * replace call. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Replace</em>' attribute.
      * @see #setReplace(boolean)
      * @see orgomg.cwmx.resource.imsdatabase.ImsdatabasePackage#getSenField_Replace()
@@ -50,23 +48,26 @@ public interface SenField extends FixedOffsetField {
     boolean isReplace();
 
     /**
-     * Sets the value of the '{@link orgomg.cwmx.resource.imsdatabase.SenField#isReplace <em>Replace</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Replace</em>' attribute.
+     * Sets the value of the '
+     * {@link orgomg.cwmx.resource.imsdatabase.SenField#isReplace
+     * <em>Replace</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @param value
+     *            the new value of the '<em>Replace</em>' attribute.
      * @see #isReplace()
      * @generated
      */
     void setReplace(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Sen Segment</b></em>' container reference.
-     * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.imsdatabase.SenSegment#getSenField <em>Sen Field</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The segment that is sensitive to this field.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Sen Segment</b></em>' container
+     * reference. It is bidirectional and its opposite is '
+     * {@link orgomg.cwmx.resource.imsdatabase.SenSegment#getSenField
+     * <em>Sen Field</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> The segment that is sensitive to this field. <!--
+     * end-model-doc -->
+     * 
      * @return the value of the '<em>Sen Segment</em>' container reference.
      * @see #setSenSegment(SenSegment)
      * @see orgomg.cwmx.resource.imsdatabase.ImsdatabasePackage#getSenField_SenSegment()
@@ -78,8 +79,8 @@ public interface SenField extends FixedOffsetField {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.imsdatabase.SenField#getSenSegment <em>Sen Segment</em>}' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Sen Segment</em>' container reference.
      * @see #getSenSegment()
      * @generated
@@ -87,13 +88,13 @@ public interface SenField extends FixedOffsetField {
     void setSenSegment(SenSegment value);
 
     /**
-     * Returns the value of the '<em><b>Field</b></em>' reference.
-     * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.imsdatabase.Field#getSenField <em>Sen Field</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The field to which the PCB is sensitive.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Field</b></em>' reference. It is
+     * bidirectional and its opposite is '
+     * {@link orgomg.cwmx.resource.imsdatabase.Field#getSenField
+     * <em>Sen Field</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> The field to which the PCB is sensitive. <!--
+     * end-model-doc -->
+     * 
      * @return the value of the '<em>Field</em>' reference.
      * @see #setField(Field)
      * @see orgomg.cwmx.resource.imsdatabase.ImsdatabasePackage#getSenField_Field()
@@ -105,8 +106,7 @@ public interface SenField extends FixedOffsetField {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.imsdatabase.SenField#getField <em>Field</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Field</em>' reference.
      * @see #getField()
      * @generated

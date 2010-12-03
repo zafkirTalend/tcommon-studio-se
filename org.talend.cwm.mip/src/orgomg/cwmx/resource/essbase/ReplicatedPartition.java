@@ -1,16 +1,13 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.essbase;
 
-
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Replicated Partition</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Replicated Partition</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * Subclass of Essbase Partition representing Replicated Partitions.

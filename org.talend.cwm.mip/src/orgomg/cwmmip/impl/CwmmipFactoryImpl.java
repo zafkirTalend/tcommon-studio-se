@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmmip.impl;
@@ -11,6 +10,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import orgomg.cwmmip.*;
 import orgomg.cwmmip.BindingParameter;
 import orgomg.cwmmip.CwmmipFactory;
 import orgomg.cwmmip.CwmmipPackage;
@@ -25,26 +25,26 @@ import orgomg.cwmmip.SemanticContext;
 import orgomg.cwmmip.UnitOfInterchange;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model <b>Factory</b>.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!--
+ * end-user-doc -->
  * @generated
  */
 public class CwmmipFactoryImpl extends EFactoryImpl implements CwmmipFactory {
+
     /**
      * Creates the default factory implementation.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     public static CwmmipFactory init() {
         try {
-            CwmmipFactory theCwmmipFactory = (CwmmipFactory)EPackage.Registry.INSTANCE.getEFactory("http:///orgomg/cwmmip.ecore"); 
+            CwmmipFactory theCwmmipFactory = (CwmmipFactory) EPackage.Registry.INSTANCE
+                    .getEFactory("http:///orgomg/cwmmip.ecore");
             if (theCwmmipFactory != null) {
                 return theCwmmipFactory;
             }
-        }
-        catch (Exception exception) {
+        } catch (Exception exception) {
             EcorePlugin.INSTANCE.log(exception);
         }
         return new CwmmipFactoryImpl();
@@ -52,8 +52,8 @@ public class CwmmipFactoryImpl extends EFactoryImpl implements CwmmipFactory {
 
     /**
      * Creates an instance of the factory.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     public CwmmipFactoryImpl() {
@@ -61,31 +61,39 @@ public class CwmmipFactoryImpl extends EFactoryImpl implements CwmmipFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public EObject create(EClass eClass) {
         switch (eClass.getClassifierID()) {
-            case CwmmipPackage.UNIT_OF_INTERCHANGE: return createUnitOfInterchange();
-            case CwmmipPackage.INTERCHANGE_PATTERN: return createInterchangePattern();
-            case CwmmipPackage.MODELED_SEMANTIC_CONTEXT: return createModeledSemanticContext();
-            case CwmmipPackage.SEMANTIC_CONTEXT: return createSemanticContext();
-            case CwmmipPackage.ELEMENT: return createElement();
-            case CwmmipPackage.GRAPH_SUBSET: return createGraphSubset();
-            case CwmmipPackage.PATTERN_CONSTRAINT: return createPatternConstraint();
-            case CwmmipPackage.MODELED_GRAPH_SUBSET: return createModeledGraphSubset();
-            case CwmmipPackage.RESTRICTION: return createRestriction();
-            case CwmmipPackage.BINDING_PARAMETER: return createBindingParameter();
-            default:
-                throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+        case CwmmipPackage.UNIT_OF_INTERCHANGE:
+            return createUnitOfInterchange();
+        case CwmmipPackage.INTERCHANGE_PATTERN:
+            return createInterchangePattern();
+        case CwmmipPackage.MODELED_SEMANTIC_CONTEXT:
+            return createModeledSemanticContext();
+        case CwmmipPackage.SEMANTIC_CONTEXT:
+            return createSemanticContext();
+        case CwmmipPackage.ELEMENT:
+            return createElement();
+        case CwmmipPackage.GRAPH_SUBSET:
+            return createGraphSubset();
+        case CwmmipPackage.PATTERN_CONSTRAINT:
+            return createPatternConstraint();
+        case CwmmipPackage.MODELED_GRAPH_SUBSET:
+            return createModeledGraphSubset();
+        case CwmmipPackage.RESTRICTION:
+            return createRestriction();
+        case CwmmipPackage.BINDING_PARAMETER:
+            return createBindingParameter();
+        default:
+            throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public UnitOfInterchange createUnitOfInterchange() {
@@ -94,8 +102,7 @@ public class CwmmipFactoryImpl extends EFactoryImpl implements CwmmipFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public InterchangePattern createInterchangePattern() {
@@ -104,8 +111,7 @@ public class CwmmipFactoryImpl extends EFactoryImpl implements CwmmipFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public ModeledSemanticContext createModeledSemanticContext() {
@@ -114,8 +120,7 @@ public class CwmmipFactoryImpl extends EFactoryImpl implements CwmmipFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public SemanticContext createSemanticContext() {
@@ -124,8 +129,7 @@ public class CwmmipFactoryImpl extends EFactoryImpl implements CwmmipFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Element createElement() {
@@ -134,8 +138,7 @@ public class CwmmipFactoryImpl extends EFactoryImpl implements CwmmipFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public GraphSubset createGraphSubset() {
@@ -144,8 +147,7 @@ public class CwmmipFactoryImpl extends EFactoryImpl implements CwmmipFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public PatternConstraint createPatternConstraint() {
@@ -154,8 +156,7 @@ public class CwmmipFactoryImpl extends EFactoryImpl implements CwmmipFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public ModeledGraphSubset createModeledGraphSubset() {
@@ -164,8 +165,7 @@ public class CwmmipFactoryImpl extends EFactoryImpl implements CwmmipFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Restriction createRestriction() {
@@ -174,8 +174,7 @@ public class CwmmipFactoryImpl extends EFactoryImpl implements CwmmipFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public BindingParameter createBindingParameter() {
@@ -184,17 +183,15 @@ public class CwmmipFactoryImpl extends EFactoryImpl implements CwmmipFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public CwmmipPackage getCwmmipPackage() {
-        return (CwmmipPackage)getEPackage();
+        return (CwmmipPackage) getEPackage();
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @deprecated
      * @generated
      */
@@ -203,4 +200,4 @@ public class CwmmipFactoryImpl extends EFactoryImpl implements CwmmipFactory {
         return CwmmipPackage.eINSTANCE;
     }
 
-} //CwmmipFactoryImpl
+} // CwmmipFactoryImpl

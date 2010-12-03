@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.objectmodel.core.impl;
@@ -28,9 +27,8 @@ import orgomg.cwm.objectmodel.core.Feature;
 import orgomg.cwm.objectmodel.core.ScopeKind;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Feature</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Feature</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -45,10 +43,10 @@ import orgomg.cwm.objectmodel.core.ScopeKind;
  * @generated
  */
 public abstract class FeatureImpl extends ModelElementImpl implements Feature {
+
     /**
      * The default value of the '{@link #getOwnerScope() <em>Owner Scope</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getOwnerScope()
      * @generated
      * @ordered
@@ -57,8 +55,7 @@ public abstract class FeatureImpl extends ModelElementImpl implements Feature {
 
     /**
      * The cached value of the '{@link #getOwnerScope() <em>Owner Scope</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getOwnerScope()
      * @generated
      * @ordered
@@ -67,8 +64,7 @@ public abstract class FeatureImpl extends ModelElementImpl implements Feature {
 
     /**
      * The cached value of the '{@link #getFeatureNode() <em>Feature Node</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getFeatureNode()
      * @generated
      * @ordered
@@ -77,8 +73,7 @@ public abstract class FeatureImpl extends ModelElementImpl implements Feature {
 
     /**
      * The cached value of the '{@link #getFeatureMap() <em>Feature Map</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getFeatureMap()
      * @generated
      * @ordered
@@ -87,8 +82,7 @@ public abstract class FeatureImpl extends ModelElementImpl implements Feature {
 
     /**
      * The cached value of the '{@link #getCfMap() <em>Cf Map</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getCfMap()
      * @generated
      * @ordered
@@ -96,8 +90,7 @@ public abstract class FeatureImpl extends ModelElementImpl implements Feature {
     protected EList<ClassifierFeatureMap> cfMap;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected FeatureImpl() {
@@ -105,8 +98,7 @@ public abstract class FeatureImpl extends ModelElementImpl implements Feature {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -115,8 +107,7 @@ public abstract class FeatureImpl extends ModelElementImpl implements Feature {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public ScopeKind getOwnerScope() {
@@ -124,8 +115,7 @@ public abstract class FeatureImpl extends ModelElementImpl implements Feature {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setOwnerScope(ScopeKind newOwnerScope) {
@@ -136,28 +126,26 @@ public abstract class FeatureImpl extends ModelElementImpl implements Feature {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Classifier getOwner() {
-        if (eContainerFeatureID() != CorePackage.FEATURE__OWNER) return null;
-        return (Classifier)eContainer();
+        if (eContainerFeatureID() != CorePackage.FEATURE__OWNER)
+            return null;
+        return (Classifier) eContainer();
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public NotificationChain basicSetOwner(Classifier newOwner, NotificationChain msgs) {
-        msgs = eBasicSetContainer((InternalEObject)newOwner, CorePackage.FEATURE__OWNER, msgs);
+        msgs = eBasicSetContainer((InternalEObject) newOwner, CorePackage.FEATURE__OWNER, msgs);
         return msgs;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setOwner(Classifier newOwner) {
@@ -168,217 +156,210 @@ public abstract class FeatureImpl extends ModelElementImpl implements Feature {
             if (eInternalContainer() != null)
                 msgs = eBasicRemoveFromContainer(msgs);
             if (newOwner != null)
-                msgs = ((InternalEObject)newOwner).eInverseAdd(this, CorePackage.CLASSIFIER__FEATURE, Classifier.class, msgs);
+                msgs = ((InternalEObject) newOwner).eInverseAdd(this, CorePackage.CLASSIFIER__FEATURE, Classifier.class, msgs);
             msgs = basicSetOwner(newOwner, msgs);
-            if (msgs != null) msgs.dispatch();
-        }
-        else if (eNotificationRequired())
+            if (msgs != null)
+                msgs.dispatch();
+        } else if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, CorePackage.FEATURE__OWNER, newOwner, newOwner));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<FeatureNode> getFeatureNode() {
         if (featureNode == null) {
-            featureNode = new EObjectWithInverseResolvingEList<FeatureNode>(FeatureNode.class, this, CorePackage.FEATURE__FEATURE_NODE, ExpressionsPackage.FEATURE_NODE__FEATURE);
+            featureNode = new EObjectWithInverseResolvingEList<FeatureNode>(FeatureNode.class, this,
+                    CorePackage.FEATURE__FEATURE_NODE, ExpressionsPackage.FEATURE_NODE__FEATURE);
         }
         return featureNode;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<FeatureMap> getFeatureMap() {
         if (featureMap == null) {
-            featureMap = new EObjectWithInverseResolvingEList.ManyInverse<FeatureMap>(FeatureMap.class, this, CorePackage.FEATURE__FEATURE_MAP, TransformationPackage.FEATURE_MAP__TARGET);
+            featureMap = new EObjectWithInverseResolvingEList.ManyInverse<FeatureMap>(FeatureMap.class, this,
+                    CorePackage.FEATURE__FEATURE_MAP, TransformationPackage.FEATURE_MAP__TARGET);
         }
         return featureMap;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<ClassifierFeatureMap> getCfMap() {
         if (cfMap == null) {
-            cfMap = new EObjectWithInverseResolvingEList.ManyInverse<ClassifierFeatureMap>(ClassifierFeatureMap.class, this, CorePackage.FEATURE__CF_MAP, TransformationPackage.CLASSIFIER_FEATURE_MAP__FEATURE);
+            cfMap = new EObjectWithInverseResolvingEList.ManyInverse<ClassifierFeatureMap>(ClassifierFeatureMap.class, this,
+                    CorePackage.FEATURE__CF_MAP, TransformationPackage.CLASSIFIER_FEATURE_MAP__FEATURE);
         }
         return cfMap;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case CorePackage.FEATURE__OWNER:
-                if (eInternalContainer() != null)
-                    msgs = eBasicRemoveFromContainer(msgs);
-                return basicSetOwner((Classifier)otherEnd, msgs);
-            case CorePackage.FEATURE__FEATURE_NODE:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getFeatureNode()).basicAdd(otherEnd, msgs);
-            case CorePackage.FEATURE__FEATURE_MAP:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getFeatureMap()).basicAdd(otherEnd, msgs);
-            case CorePackage.FEATURE__CF_MAP:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getCfMap()).basicAdd(otherEnd, msgs);
+        case CorePackage.FEATURE__OWNER:
+            if (eInternalContainer() != null)
+                msgs = eBasicRemoveFromContainer(msgs);
+            return basicSetOwner((Classifier) otherEnd, msgs);
+        case CorePackage.FEATURE__FEATURE_NODE:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getFeatureNode()).basicAdd(otherEnd, msgs);
+        case CorePackage.FEATURE__FEATURE_MAP:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getFeatureMap()).basicAdd(otherEnd, msgs);
+        case CorePackage.FEATURE__CF_MAP:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getCfMap()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case CorePackage.FEATURE__OWNER:
-                return basicSetOwner(null, msgs);
-            case CorePackage.FEATURE__FEATURE_NODE:
-                return ((InternalEList<?>)getFeatureNode()).basicRemove(otherEnd, msgs);
-            case CorePackage.FEATURE__FEATURE_MAP:
-                return ((InternalEList<?>)getFeatureMap()).basicRemove(otherEnd, msgs);
-            case CorePackage.FEATURE__CF_MAP:
-                return ((InternalEList<?>)getCfMap()).basicRemove(otherEnd, msgs);
+        case CorePackage.FEATURE__OWNER:
+            return basicSetOwner(null, msgs);
+        case CorePackage.FEATURE__FEATURE_NODE:
+            return ((InternalEList<?>) getFeatureNode()).basicRemove(otherEnd, msgs);
+        case CorePackage.FEATURE__FEATURE_MAP:
+            return ((InternalEList<?>) getFeatureMap()).basicRemove(otherEnd, msgs);
+        case CorePackage.FEATURE__CF_MAP:
+            return ((InternalEList<?>) getCfMap()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
         switch (eContainerFeatureID()) {
-            case CorePackage.FEATURE__OWNER:
-                return eInternalContainer().eInverseRemove(this, CorePackage.CLASSIFIER__FEATURE, Classifier.class, msgs);
+        case CorePackage.FEATURE__OWNER:
+            return eInternalContainer().eInverseRemove(this, CorePackage.CLASSIFIER__FEATURE, Classifier.class, msgs);
         }
         return super.eBasicRemoveFromContainerFeature(msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case CorePackage.FEATURE__OWNER_SCOPE:
-                return getOwnerScope();
-            case CorePackage.FEATURE__OWNER:
-                return getOwner();
-            case CorePackage.FEATURE__FEATURE_NODE:
-                return getFeatureNode();
-            case CorePackage.FEATURE__FEATURE_MAP:
-                return getFeatureMap();
-            case CorePackage.FEATURE__CF_MAP:
-                return getCfMap();
+        case CorePackage.FEATURE__OWNER_SCOPE:
+            return getOwnerScope();
+        case CorePackage.FEATURE__OWNER:
+            return getOwner();
+        case CorePackage.FEATURE__FEATURE_NODE:
+            return getFeatureNode();
+        case CorePackage.FEATURE__FEATURE_MAP:
+            return getFeatureMap();
+        case CorePackage.FEATURE__CF_MAP:
+            return getCfMap();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case CorePackage.FEATURE__OWNER_SCOPE:
-                setOwnerScope((ScopeKind)newValue);
-                return;
-            case CorePackage.FEATURE__OWNER:
-                setOwner((Classifier)newValue);
-                return;
-            case CorePackage.FEATURE__FEATURE_NODE:
-                getFeatureNode().clear();
-                getFeatureNode().addAll((Collection<? extends FeatureNode>)newValue);
-                return;
-            case CorePackage.FEATURE__FEATURE_MAP:
-                getFeatureMap().clear();
-                getFeatureMap().addAll((Collection<? extends FeatureMap>)newValue);
-                return;
-            case CorePackage.FEATURE__CF_MAP:
-                getCfMap().clear();
-                getCfMap().addAll((Collection<? extends ClassifierFeatureMap>)newValue);
-                return;
+        case CorePackage.FEATURE__OWNER_SCOPE:
+            setOwnerScope((ScopeKind) newValue);
+            return;
+        case CorePackage.FEATURE__OWNER:
+            setOwner((Classifier) newValue);
+            return;
+        case CorePackage.FEATURE__FEATURE_NODE:
+            getFeatureNode().clear();
+            getFeatureNode().addAll((Collection<? extends FeatureNode>) newValue);
+            return;
+        case CorePackage.FEATURE__FEATURE_MAP:
+            getFeatureMap().clear();
+            getFeatureMap().addAll((Collection<? extends FeatureMap>) newValue);
+            return;
+        case CorePackage.FEATURE__CF_MAP:
+            getCfMap().clear();
+            getCfMap().addAll((Collection<? extends ClassifierFeatureMap>) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case CorePackage.FEATURE__OWNER_SCOPE:
-                setOwnerScope(OWNER_SCOPE_EDEFAULT);
-                return;
-            case CorePackage.FEATURE__OWNER:
-                setOwner((Classifier)null);
-                return;
-            case CorePackage.FEATURE__FEATURE_NODE:
-                getFeatureNode().clear();
-                return;
-            case CorePackage.FEATURE__FEATURE_MAP:
-                getFeatureMap().clear();
-                return;
-            case CorePackage.FEATURE__CF_MAP:
-                getCfMap().clear();
-                return;
+        case CorePackage.FEATURE__OWNER_SCOPE:
+            setOwnerScope(OWNER_SCOPE_EDEFAULT);
+            return;
+        case CorePackage.FEATURE__OWNER:
+            setOwner((Classifier) null);
+            return;
+        case CorePackage.FEATURE__FEATURE_NODE:
+            getFeatureNode().clear();
+            return;
+        case CorePackage.FEATURE__FEATURE_MAP:
+            getFeatureMap().clear();
+            return;
+        case CorePackage.FEATURE__CF_MAP:
+            getCfMap().clear();
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case CorePackage.FEATURE__OWNER_SCOPE:
-                return ownerScope != OWNER_SCOPE_EDEFAULT;
-            case CorePackage.FEATURE__OWNER:
-                return getOwner() != null;
-            case CorePackage.FEATURE__FEATURE_NODE:
-                return featureNode != null && !featureNode.isEmpty();
-            case CorePackage.FEATURE__FEATURE_MAP:
-                return featureMap != null && !featureMap.isEmpty();
-            case CorePackage.FEATURE__CF_MAP:
-                return cfMap != null && !cfMap.isEmpty();
+        case CorePackage.FEATURE__OWNER_SCOPE:
+            return ownerScope != OWNER_SCOPE_EDEFAULT;
+        case CorePackage.FEATURE__OWNER:
+            return getOwner() != null;
+        case CorePackage.FEATURE__FEATURE_NODE:
+            return featureNode != null && !featureNode.isEmpty();
+        case CorePackage.FEATURE__FEATURE_MAP:
+            return featureMap != null && !featureMap.isEmpty();
+        case CorePackage.FEATURE__CF_MAP:
+            return cfMap != null && !cfMap.isEmpty();
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (ownerScope: ");
@@ -387,4 +368,4 @@ public abstract class FeatureImpl extends ModelElementImpl implements Feature {
         return result.toString();
     }
 
-} //FeatureImpl
+} // FeatureImpl

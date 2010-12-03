@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.foundation.businessinformation.impl;
@@ -23,9 +22,8 @@ import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.impl.NamespaceImpl;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Description</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Description</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -39,10 +37,10 @@ import orgomg.cwm.objectmodel.core.impl.NamespaceImpl;
  * @generated
  */
 public class DescriptionImpl extends NamespaceImpl implements Description {
+
     /**
      * The default value of the '{@link #getBody() <em>Body</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getBody()
      * @generated
      * @ordered
@@ -51,8 +49,7 @@ public class DescriptionImpl extends NamespaceImpl implements Description {
 
     /**
      * The cached value of the '{@link #getBody() <em>Body</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getBody()
      * @generated
      * @ordered
@@ -61,8 +58,7 @@ public class DescriptionImpl extends NamespaceImpl implements Description {
 
     /**
      * The default value of the '{@link #getLanguage() <em>Language</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getLanguage()
      * @generated
      * @ordered
@@ -71,8 +67,7 @@ public class DescriptionImpl extends NamespaceImpl implements Description {
 
     /**
      * The cached value of the '{@link #getLanguage() <em>Language</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getLanguage()
      * @generated
      * @ordered
@@ -81,8 +76,7 @@ public class DescriptionImpl extends NamespaceImpl implements Description {
 
     /**
      * The default value of the '{@link #getType() <em>Type</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getType()
      * @generated
      * @ordered
@@ -91,8 +85,7 @@ public class DescriptionImpl extends NamespaceImpl implements Description {
 
     /**
      * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getType()
      * @generated
      * @ordered
@@ -101,8 +94,8 @@ public class DescriptionImpl extends NamespaceImpl implements Description {
 
     /**
      * The cached value of the '{@link #getModelElement() <em>Model Element</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getModelElement()
      * @generated
      * @ordered
@@ -110,8 +103,7 @@ public class DescriptionImpl extends NamespaceImpl implements Description {
     protected EList<ModelElement> modelElement;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected DescriptionImpl() {
@@ -119,8 +111,7 @@ public class DescriptionImpl extends NamespaceImpl implements Description {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -129,8 +120,7 @@ public class DescriptionImpl extends NamespaceImpl implements Description {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getBody() {
@@ -138,8 +128,7 @@ public class DescriptionImpl extends NamespaceImpl implements Description {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setBody(String newBody) {
@@ -150,8 +139,7 @@ public class DescriptionImpl extends NamespaceImpl implements Description {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getLanguage() {
@@ -159,20 +147,19 @@ public class DescriptionImpl extends NamespaceImpl implements Description {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setLanguage(String newLanguage) {
         String oldLanguage = language;
         language = newLanguage;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, BusinessinformationPackage.DESCRIPTION__LANGUAGE, oldLanguage, language));
+            eNotify(new ENotificationImpl(this, Notification.SET, BusinessinformationPackage.DESCRIPTION__LANGUAGE, oldLanguage,
+                    language));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getType() {
@@ -180,8 +167,7 @@ public class DescriptionImpl extends NamespaceImpl implements Description {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setType(String newType) {
@@ -192,144 +178,138 @@ public class DescriptionImpl extends NamespaceImpl implements Description {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<ModelElement> getModelElement() {
         if (modelElement == null) {
-            modelElement = new EObjectWithInverseResolvingEList.ManyInverse<ModelElement>(ModelElement.class, this, BusinessinformationPackage.DESCRIPTION__MODEL_ELEMENT, CorePackage.MODEL_ELEMENT__DESCRIPTION);
+            modelElement = new EObjectWithInverseResolvingEList.ManyInverse<ModelElement>(ModelElement.class, this,
+                    BusinessinformationPackage.DESCRIPTION__MODEL_ELEMENT, CorePackage.MODEL_ELEMENT__DESCRIPTION);
         }
         return modelElement;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case BusinessinformationPackage.DESCRIPTION__MODEL_ELEMENT:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getModelElement()).basicAdd(otherEnd, msgs);
+        case BusinessinformationPackage.DESCRIPTION__MODEL_ELEMENT:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getModelElement()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case BusinessinformationPackage.DESCRIPTION__MODEL_ELEMENT:
-                return ((InternalEList<?>)getModelElement()).basicRemove(otherEnd, msgs);
+        case BusinessinformationPackage.DESCRIPTION__MODEL_ELEMENT:
+            return ((InternalEList<?>) getModelElement()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case BusinessinformationPackage.DESCRIPTION__BODY:
-                return getBody();
-            case BusinessinformationPackage.DESCRIPTION__LANGUAGE:
-                return getLanguage();
-            case BusinessinformationPackage.DESCRIPTION__TYPE:
-                return getType();
-            case BusinessinformationPackage.DESCRIPTION__MODEL_ELEMENT:
-                return getModelElement();
+        case BusinessinformationPackage.DESCRIPTION__BODY:
+            return getBody();
+        case BusinessinformationPackage.DESCRIPTION__LANGUAGE:
+            return getLanguage();
+        case BusinessinformationPackage.DESCRIPTION__TYPE:
+            return getType();
+        case BusinessinformationPackage.DESCRIPTION__MODEL_ELEMENT:
+            return getModelElement();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case BusinessinformationPackage.DESCRIPTION__BODY:
-                setBody((String)newValue);
-                return;
-            case BusinessinformationPackage.DESCRIPTION__LANGUAGE:
-                setLanguage((String)newValue);
-                return;
-            case BusinessinformationPackage.DESCRIPTION__TYPE:
-                setType((String)newValue);
-                return;
-            case BusinessinformationPackage.DESCRIPTION__MODEL_ELEMENT:
-                getModelElement().clear();
-                getModelElement().addAll((Collection<? extends ModelElement>)newValue);
-                return;
+        case BusinessinformationPackage.DESCRIPTION__BODY:
+            setBody((String) newValue);
+            return;
+        case BusinessinformationPackage.DESCRIPTION__LANGUAGE:
+            setLanguage((String) newValue);
+            return;
+        case BusinessinformationPackage.DESCRIPTION__TYPE:
+            setType((String) newValue);
+            return;
+        case BusinessinformationPackage.DESCRIPTION__MODEL_ELEMENT:
+            getModelElement().clear();
+            getModelElement().addAll((Collection<? extends ModelElement>) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case BusinessinformationPackage.DESCRIPTION__BODY:
-                setBody(BODY_EDEFAULT);
-                return;
-            case BusinessinformationPackage.DESCRIPTION__LANGUAGE:
-                setLanguage(LANGUAGE_EDEFAULT);
-                return;
-            case BusinessinformationPackage.DESCRIPTION__TYPE:
-                setType(TYPE_EDEFAULT);
-                return;
-            case BusinessinformationPackage.DESCRIPTION__MODEL_ELEMENT:
-                getModelElement().clear();
-                return;
+        case BusinessinformationPackage.DESCRIPTION__BODY:
+            setBody(BODY_EDEFAULT);
+            return;
+        case BusinessinformationPackage.DESCRIPTION__LANGUAGE:
+            setLanguage(LANGUAGE_EDEFAULT);
+            return;
+        case BusinessinformationPackage.DESCRIPTION__TYPE:
+            setType(TYPE_EDEFAULT);
+            return;
+        case BusinessinformationPackage.DESCRIPTION__MODEL_ELEMENT:
+            getModelElement().clear();
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case BusinessinformationPackage.DESCRIPTION__BODY:
-                return BODY_EDEFAULT == null ? body != null : !BODY_EDEFAULT.equals(body);
-            case BusinessinformationPackage.DESCRIPTION__LANGUAGE:
-                return LANGUAGE_EDEFAULT == null ? language != null : !LANGUAGE_EDEFAULT.equals(language);
-            case BusinessinformationPackage.DESCRIPTION__TYPE:
-                return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
-            case BusinessinformationPackage.DESCRIPTION__MODEL_ELEMENT:
-                return modelElement != null && !modelElement.isEmpty();
+        case BusinessinformationPackage.DESCRIPTION__BODY:
+            return BODY_EDEFAULT == null ? body != null : !BODY_EDEFAULT.equals(body);
+        case BusinessinformationPackage.DESCRIPTION__LANGUAGE:
+            return LANGUAGE_EDEFAULT == null ? language != null : !LANGUAGE_EDEFAULT.equals(language);
+        case BusinessinformationPackage.DESCRIPTION__TYPE:
+            return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
+        case BusinessinformationPackage.DESCRIPTION__MODEL_ELEMENT:
+            return modelElement != null && !modelElement.isEmpty();
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (body: ");
@@ -342,4 +322,4 @@ public class DescriptionImpl extends NamespaceImpl implements Description {
         return result.toString();
     }
 
-} //DescriptionImpl
+} // DescriptionImpl

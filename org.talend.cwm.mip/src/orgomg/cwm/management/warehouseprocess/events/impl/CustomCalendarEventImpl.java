@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.management.warehouseprocess.events.impl;
@@ -16,9 +15,8 @@ import orgomg.cwm.management.warehouseprocess.events.CustomCalendarEvent;
 import orgomg.cwm.management.warehouseprocess.events.EventsPackage;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Custom Calendar Event</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Custom Calendar Event</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -29,10 +27,11 @@ import orgomg.cwm.management.warehouseprocess.events.EventsPackage;
  * @generated
  */
 public class CustomCalendarEventImpl extends PointInTimeEventImpl implements CustomCalendarEvent {
+
     /**
      * The cached value of the '{@link #getCustomCalendar() <em>Custom Calendar</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getCustomCalendar()
      * @generated
      * @ordered
@@ -40,8 +39,7 @@ public class CustomCalendarEventImpl extends PointInTimeEventImpl implements Cus
     protected CustomCalendar customCalendar;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected CustomCalendarEventImpl() {
@@ -49,8 +47,7 @@ public class CustomCalendarEventImpl extends PointInTimeEventImpl implements Cus
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -59,25 +56,24 @@ public class CustomCalendarEventImpl extends PointInTimeEventImpl implements Cus
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public CustomCalendar getCustomCalendar() {
         if (customCalendar != null && customCalendar.eIsProxy()) {
-            InternalEObject oldCustomCalendar = (InternalEObject)customCalendar;
-            customCalendar = (CustomCalendar)eResolveProxy(oldCustomCalendar);
+            InternalEObject oldCustomCalendar = (InternalEObject) customCalendar;
+            customCalendar = (CustomCalendar) eResolveProxy(oldCustomCalendar);
             if (customCalendar != oldCustomCalendar) {
                 if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, EventsPackage.CUSTOM_CALENDAR_EVENT__CUSTOM_CALENDAR, oldCustomCalendar, customCalendar));
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+                            EventsPackage.CUSTOM_CALENDAR_EVENT__CUSTOM_CALENDAR, oldCustomCalendar, customCalendar));
             }
         }
         return customCalendar;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public CustomCalendar basicGetCustomCalendar() {
@@ -85,126 +81,127 @@ public class CustomCalendarEventImpl extends PointInTimeEventImpl implements Cus
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public NotificationChain basicSetCustomCalendar(CustomCalendar newCustomCalendar, NotificationChain msgs) {
         CustomCalendar oldCustomCalendar = customCalendar;
         customCalendar = newCustomCalendar;
         if (eNotificationRequired()) {
-            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, EventsPackage.CUSTOM_CALENDAR_EVENT__CUSTOM_CALENDAR, oldCustomCalendar, newCustomCalendar);
-            if (msgs == null) msgs = notification; else msgs.add(notification);
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+                    EventsPackage.CUSTOM_CALENDAR_EVENT__CUSTOM_CALENDAR, oldCustomCalendar, newCustomCalendar);
+            if (msgs == null)
+                msgs = notification;
+            else
+                msgs.add(notification);
         }
         return msgs;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setCustomCalendar(CustomCalendar newCustomCalendar) {
         if (newCustomCalendar != customCalendar) {
             NotificationChain msgs = null;
             if (customCalendar != null)
-                msgs = ((InternalEObject)customCalendar).eInverseRemove(this, EventsPackage.CUSTOM_CALENDAR__CUSTOM_CALENDAR_EVENT, CustomCalendar.class, msgs);
+                msgs = ((InternalEObject) customCalendar).eInverseRemove(this,
+                        EventsPackage.CUSTOM_CALENDAR__CUSTOM_CALENDAR_EVENT, CustomCalendar.class, msgs);
             if (newCustomCalendar != null)
-                msgs = ((InternalEObject)newCustomCalendar).eInverseAdd(this, EventsPackage.CUSTOM_CALENDAR__CUSTOM_CALENDAR_EVENT, CustomCalendar.class, msgs);
+                msgs = ((InternalEObject) newCustomCalendar).eInverseAdd(this,
+                        EventsPackage.CUSTOM_CALENDAR__CUSTOM_CALENDAR_EVENT, CustomCalendar.class, msgs);
             msgs = basicSetCustomCalendar(newCustomCalendar, msgs);
-            if (msgs != null) msgs.dispatch();
-        }
-        else if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, EventsPackage.CUSTOM_CALENDAR_EVENT__CUSTOM_CALENDAR, newCustomCalendar, newCustomCalendar));
+            if (msgs != null)
+                msgs.dispatch();
+        } else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, EventsPackage.CUSTOM_CALENDAR_EVENT__CUSTOM_CALENDAR,
+                    newCustomCalendar, newCustomCalendar));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case EventsPackage.CUSTOM_CALENDAR_EVENT__CUSTOM_CALENDAR:
-                if (customCalendar != null)
-                    msgs = ((InternalEObject)customCalendar).eInverseRemove(this, EventsPackage.CUSTOM_CALENDAR__CUSTOM_CALENDAR_EVENT, CustomCalendar.class, msgs);
-                return basicSetCustomCalendar((CustomCalendar)otherEnd, msgs);
+        case EventsPackage.CUSTOM_CALENDAR_EVENT__CUSTOM_CALENDAR:
+            if (customCalendar != null)
+                msgs = ((InternalEObject) customCalendar).eInverseRemove(this,
+                        EventsPackage.CUSTOM_CALENDAR__CUSTOM_CALENDAR_EVENT, CustomCalendar.class, msgs);
+            return basicSetCustomCalendar((CustomCalendar) otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case EventsPackage.CUSTOM_CALENDAR_EVENT__CUSTOM_CALENDAR:
-                return basicSetCustomCalendar(null, msgs);
+        case EventsPackage.CUSTOM_CALENDAR_EVENT__CUSTOM_CALENDAR:
+            return basicSetCustomCalendar(null, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case EventsPackage.CUSTOM_CALENDAR_EVENT__CUSTOM_CALENDAR:
-                if (resolve) return getCustomCalendar();
-                return basicGetCustomCalendar();
+        case EventsPackage.CUSTOM_CALENDAR_EVENT__CUSTOM_CALENDAR:
+            if (resolve)
+                return getCustomCalendar();
+            return basicGetCustomCalendar();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case EventsPackage.CUSTOM_CALENDAR_EVENT__CUSTOM_CALENDAR:
-                setCustomCalendar((CustomCalendar)newValue);
-                return;
+        case EventsPackage.CUSTOM_CALENDAR_EVENT__CUSTOM_CALENDAR:
+            setCustomCalendar((CustomCalendar) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case EventsPackage.CUSTOM_CALENDAR_EVENT__CUSTOM_CALENDAR:
-                setCustomCalendar((CustomCalendar)null);
-                return;
+        case EventsPackage.CUSTOM_CALENDAR_EVENT__CUSTOM_CALENDAR:
+            setCustomCalendar((CustomCalendar) null);
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case EventsPackage.CUSTOM_CALENDAR_EVENT__CUSTOM_CALENDAR:
-                return customCalendar != null;
+        case EventsPackage.CUSTOM_CALENDAR_EVENT__CUSTOM_CALENDAR:
+            return customCalendar != null;
         }
         return super.eIsSet(featureID);
     }
 
-} //CustomCalendarEventImpl
+} // CustomCalendarEventImpl

@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.resource.record;
@@ -9,9 +8,8 @@ package orgomg.cwm.resource.record;
 import orgomg.cwm.objectmodel.core.Attribute;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Field</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Field</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * A Field is the fundamental information container within a RecordDef. It holds one piece of information, which may itself have structure. The inherited associations StructuralFeatureType and ElementOwnership provide access to a Field instance?s type and owning classifier, respectively.
@@ -31,13 +29,13 @@ import orgomg.cwm.objectmodel.core.Attribute;
  * @generated
  */
 public interface Field extends Attribute {
+
     /**
-     * Returns the value of the '<em><b>Length</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The length of a fixed length character or byte string field.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Length</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> The
+     * length of a fixed length character or byte string field. <!--
+     * end-model-doc -->
+     * 
      * @return the value of the '<em>Length</em>' attribute.
      * @see #setLength(long)
      * @see orgomg.cwm.resource.record.RecordPackage#getField_Length()
@@ -47,22 +45,22 @@ public interface Field extends Attribute {
     long getLength();
 
     /**
-     * Sets the value of the '{@link orgomg.cwm.resource.record.Field#getLength <em>Length</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Length</em>' attribute.
+     * Sets the value of the '{@link orgomg.cwm.resource.record.Field#getLength
+     * <em>Length</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @param value
+     *            the new value of the '<em>Length</em>' attribute.
      * @see #getLength()
      * @generated
      */
     void setLength(long value);
 
     /**
-     * Returns the value of the '<em><b>Precision</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The total number of digits in a numeric field.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Precision</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> The
+     * total number of digits in a numeric field. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Precision</em>' attribute.
      * @see #setPrecision(long)
      * @see orgomg.cwm.resource.record.RecordPackage#getField_Precision()
@@ -73,8 +71,7 @@ public interface Field extends Attribute {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.resource.record.Field#getPrecision <em>Precision</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Precision</em>' attribute.
      * @see #getPrecision()
      * @generated
@@ -82,12 +79,11 @@ public interface Field extends Attribute {
     void setPrecision(long value);
 
     /**
-     * Returns the value of the '<em><b>Scale</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The number of digits on the right of the decimal separator in a numeric field.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Scale</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> The
+     * number of digits on the right of the decimal separator in a numeric
+     * field. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Scale</em>' attribute.
      * @see #setScale(long)
      * @see orgomg.cwm.resource.record.RecordPackage#getField_Scale()
@@ -98,8 +94,7 @@ public interface Field extends Attribute {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.resource.record.Field#getScale <em>Scale</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Scale</em>' attribute.
      * @see #getScale()
      * @generated

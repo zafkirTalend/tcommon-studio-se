@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.foundation.expressions;
@@ -10,9 +9,8 @@ import org.eclipse.emf.common.util.EList;
 import orgomg.cwm.objectmodel.core.Feature;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Feature Node</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Feature Node</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * The FeatureNode class represents ExpressionNode instances that are features (i.e., attributes or operations) of some Classifier instance within the CWM.
@@ -33,11 +31,11 @@ import orgomg.cwm.objectmodel.core.Feature;
  * @generated
  */
 public interface FeatureNode extends ExpressionNode {
+
     /**
      * Returns the value of the '<em><b>Feature</b></em>' reference.
      * It is bidirectional and its opposite is '{@link orgomg.cwm.objectmodel.core.Feature#getFeatureNode <em>Feature Node</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Identifies the Feature (attribute or operation) which this FeatureNode instance represents.
      * <!-- end-model-doc -->
@@ -51,10 +49,13 @@ public interface FeatureNode extends ExpressionNode {
     Feature getFeature();
 
     /**
-     * Sets the value of the '{@link orgomg.cwm.foundation.expressions.FeatureNode#getFeature <em>Feature</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Feature</em>' reference.
+     * Sets the value of the '
+     * {@link orgomg.cwm.foundation.expressions.FeatureNode#getFeature
+     * <em>Feature</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @param value
+     *            the new value of the '<em>Feature</em>' reference.
      * @see #getFeature()
      * @generated
      */
@@ -64,8 +65,7 @@ public interface FeatureNode extends ExpressionNode {
      * Returns the value of the '<em><b>Argument</b></em>' containment reference list.
      * The list contents are of type {@link orgomg.cwm.foundation.expressions.ExpressionNode}.
      * It is bidirectional and its opposite is '{@link orgomg.cwm.foundation.expressions.ExpressionNode#getFeatureNode <em>Feature Node</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Identifies the ExpressionNode instances that represent the actual arguments for this FeatureNode. If the argument reference is null, the FeatureNode is an attribute or parameter-less function or operation.
      * <!-- end-model-doc -->

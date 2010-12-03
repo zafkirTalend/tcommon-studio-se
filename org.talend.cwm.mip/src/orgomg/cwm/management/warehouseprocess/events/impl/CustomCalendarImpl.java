@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.management.warehouseprocess.events.impl;
@@ -20,9 +19,8 @@ import orgomg.cwm.management.warehouseprocess.events.EventsPackage;
 import orgomg.cwm.objectmodel.core.impl.PackageImpl;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Custom Calendar</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Custom Calendar</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -33,6 +31,7 @@ import orgomg.cwm.objectmodel.core.impl.PackageImpl;
  * @generated
  */
 public class CustomCalendarImpl extends PackageImpl implements CustomCalendar {
+
     /**
      * The cached value of the '{@link #getCustomCalendarEvent() <em>Custom Calendar Event</em>}' reference list.
      * <!-- begin-user-doc -->
@@ -44,8 +43,7 @@ public class CustomCalendarImpl extends PackageImpl implements CustomCalendar {
     protected EList<CustomCalendarEvent> customCalendarEvent;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected CustomCalendarImpl() {
@@ -53,8 +51,7 @@ public class CustomCalendarImpl extends PackageImpl implements CustomCalendar {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -63,104 +60,98 @@ public class CustomCalendarImpl extends PackageImpl implements CustomCalendar {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<CustomCalendarEvent> getCustomCalendarEvent() {
         if (customCalendarEvent == null) {
-            customCalendarEvent = new EObjectWithInverseResolvingEList<CustomCalendarEvent>(CustomCalendarEvent.class, this, EventsPackage.CUSTOM_CALENDAR__CUSTOM_CALENDAR_EVENT, EventsPackage.CUSTOM_CALENDAR_EVENT__CUSTOM_CALENDAR);
+            customCalendarEvent = new EObjectWithInverseResolvingEList<CustomCalendarEvent>(CustomCalendarEvent.class, this,
+                    EventsPackage.CUSTOM_CALENDAR__CUSTOM_CALENDAR_EVENT, EventsPackage.CUSTOM_CALENDAR_EVENT__CUSTOM_CALENDAR);
         }
         return customCalendarEvent;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case EventsPackage.CUSTOM_CALENDAR__CUSTOM_CALENDAR_EVENT:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getCustomCalendarEvent()).basicAdd(otherEnd, msgs);
+        case EventsPackage.CUSTOM_CALENDAR__CUSTOM_CALENDAR_EVENT:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getCustomCalendarEvent()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case EventsPackage.CUSTOM_CALENDAR__CUSTOM_CALENDAR_EVENT:
-                return ((InternalEList<?>)getCustomCalendarEvent()).basicRemove(otherEnd, msgs);
+        case EventsPackage.CUSTOM_CALENDAR__CUSTOM_CALENDAR_EVENT:
+            return ((InternalEList<?>) getCustomCalendarEvent()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case EventsPackage.CUSTOM_CALENDAR__CUSTOM_CALENDAR_EVENT:
-                return getCustomCalendarEvent();
+        case EventsPackage.CUSTOM_CALENDAR__CUSTOM_CALENDAR_EVENT:
+            return getCustomCalendarEvent();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case EventsPackage.CUSTOM_CALENDAR__CUSTOM_CALENDAR_EVENT:
-                getCustomCalendarEvent().clear();
-                getCustomCalendarEvent().addAll((Collection<? extends CustomCalendarEvent>)newValue);
-                return;
+        case EventsPackage.CUSTOM_CALENDAR__CUSTOM_CALENDAR_EVENT:
+            getCustomCalendarEvent().clear();
+            getCustomCalendarEvent().addAll((Collection<? extends CustomCalendarEvent>) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case EventsPackage.CUSTOM_CALENDAR__CUSTOM_CALENDAR_EVENT:
-                getCustomCalendarEvent().clear();
-                return;
+        case EventsPackage.CUSTOM_CALENDAR__CUSTOM_CALENDAR_EVENT:
+            getCustomCalendarEvent().clear();
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case EventsPackage.CUSTOM_CALENDAR__CUSTOM_CALENDAR_EVENT:
-                return customCalendarEvent != null && !customCalendarEvent.isEmpty();
+        case EventsPackage.CUSTOM_CALENDAR__CUSTOM_CALENDAR_EVENT:
+            return customCalendarEvent != null && !customCalendarEvent.isEmpty();
         }
         return super.eIsSet(featureID);
     }
 
-} //CustomCalendarImpl
+} // CustomCalendarImpl

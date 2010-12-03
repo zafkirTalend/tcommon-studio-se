@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmmip.impl;
@@ -13,9 +12,8 @@ import orgomg.cwmmip.CwmmipPackage;
 import orgomg.cwmmip.GraphSubset;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Graph Subset</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Graph Subset</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -30,10 +28,10 @@ import orgomg.cwmmip.GraphSubset;
  * @generated
  */
 public class GraphSubsetImpl extends ProjectionImpl implements GraphSubset {
+
     /**
      * The default value of the '{@link #getElement() <em>Element</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getElement()
      * @generated
      * @ordered
@@ -42,8 +40,7 @@ public class GraphSubsetImpl extends ProjectionImpl implements GraphSubset {
 
     /**
      * The cached value of the '{@link #getElement() <em>Element</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getElement()
      * @generated
      * @ordered
@@ -52,8 +49,7 @@ public class GraphSubsetImpl extends ProjectionImpl implements GraphSubset {
 
     /**
      * The default value of the '{@link #isDeepCopy() <em>Deep Copy</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #isDeepCopy()
      * @generated
      * @ordered
@@ -62,8 +58,7 @@ public class GraphSubsetImpl extends ProjectionImpl implements GraphSubset {
 
     /**
      * The cached value of the '{@link #isDeepCopy() <em>Deep Copy</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #isDeepCopy()
      * @generated
      * @ordered
@@ -72,8 +67,7 @@ public class GraphSubsetImpl extends ProjectionImpl implements GraphSubset {
 
     /**
      * The default value of the '{@link #getCopyDepth() <em>Copy Depth</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getCopyDepth()
      * @generated
      * @ordered
@@ -82,8 +76,7 @@ public class GraphSubsetImpl extends ProjectionImpl implements GraphSubset {
 
     /**
      * The cached value of the '{@link #getCopyDepth() <em>Copy Depth</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getCopyDepth()
      * @generated
      * @ordered
@@ -92,8 +85,8 @@ public class GraphSubsetImpl extends ProjectionImpl implements GraphSubset {
 
     /**
      * The default value of the '{@link #isAggregationsOnly() <em>Aggregations Only</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #isAggregationsOnly()
      * @generated
      * @ordered
@@ -102,8 +95,8 @@ public class GraphSubsetImpl extends ProjectionImpl implements GraphSubset {
 
     /**
      * The cached value of the '{@link #isAggregationsOnly() <em>Aggregations Only</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #isAggregationsOnly()
      * @generated
      * @ordered
@@ -112,8 +105,8 @@ public class GraphSubsetImpl extends ProjectionImpl implements GraphSubset {
 
     /**
      * The default value of the '{@link #isIncludeAssociations() <em>Include Associations</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #isIncludeAssociations()
      * @generated
      * @ordered
@@ -122,8 +115,8 @@ public class GraphSubsetImpl extends ProjectionImpl implements GraphSubset {
 
     /**
      * The cached value of the '{@link #isIncludeAssociations() <em>Include Associations</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #isIncludeAssociations()
      * @generated
      * @ordered
@@ -131,8 +124,7 @@ public class GraphSubsetImpl extends ProjectionImpl implements GraphSubset {
     protected boolean includeAssociations = INCLUDE_ASSOCIATIONS_EDEFAULT;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected GraphSubsetImpl() {
@@ -140,8 +132,7 @@ public class GraphSubsetImpl extends ProjectionImpl implements GraphSubset {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -150,8 +141,7 @@ public class GraphSubsetImpl extends ProjectionImpl implements GraphSubset {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getElement() {
@@ -159,8 +149,7 @@ public class GraphSubsetImpl extends ProjectionImpl implements GraphSubset {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setElement(String newElement) {
@@ -171,8 +160,7 @@ public class GraphSubsetImpl extends ProjectionImpl implements GraphSubset {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isDeepCopy() {
@@ -180,8 +168,7 @@ public class GraphSubsetImpl extends ProjectionImpl implements GraphSubset {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setDeepCopy(boolean newDeepCopy) {
@@ -192,8 +179,7 @@ public class GraphSubsetImpl extends ProjectionImpl implements GraphSubset {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public long getCopyDepth() {
@@ -201,8 +187,7 @@ public class GraphSubsetImpl extends ProjectionImpl implements GraphSubset {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setCopyDepth(long newCopyDepth) {
@@ -213,8 +198,7 @@ public class GraphSubsetImpl extends ProjectionImpl implements GraphSubset {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isAggregationsOnly() {
@@ -222,20 +206,19 @@ public class GraphSubsetImpl extends ProjectionImpl implements GraphSubset {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setAggregationsOnly(boolean newAggregationsOnly) {
         boolean oldAggregationsOnly = aggregationsOnly;
         aggregationsOnly = newAggregationsOnly;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, CwmmipPackage.GRAPH_SUBSET__AGGREGATIONS_ONLY, oldAggregationsOnly, aggregationsOnly));
+            eNotify(new ENotificationImpl(this, Notification.SET, CwmmipPackage.GRAPH_SUBSET__AGGREGATIONS_ONLY,
+                    oldAggregationsOnly, aggregationsOnly));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isIncludeAssociations() {
@@ -243,123 +226,119 @@ public class GraphSubsetImpl extends ProjectionImpl implements GraphSubset {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setIncludeAssociations(boolean newIncludeAssociations) {
         boolean oldIncludeAssociations = includeAssociations;
         includeAssociations = newIncludeAssociations;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, CwmmipPackage.GRAPH_SUBSET__INCLUDE_ASSOCIATIONS, oldIncludeAssociations, includeAssociations));
+            eNotify(new ENotificationImpl(this, Notification.SET, CwmmipPackage.GRAPH_SUBSET__INCLUDE_ASSOCIATIONS,
+                    oldIncludeAssociations, includeAssociations));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case CwmmipPackage.GRAPH_SUBSET__ELEMENT:
-                return getElement();
-            case CwmmipPackage.GRAPH_SUBSET__DEEP_COPY:
-                return isDeepCopy();
-            case CwmmipPackage.GRAPH_SUBSET__COPY_DEPTH:
-                return getCopyDepth();
-            case CwmmipPackage.GRAPH_SUBSET__AGGREGATIONS_ONLY:
-                return isAggregationsOnly();
-            case CwmmipPackage.GRAPH_SUBSET__INCLUDE_ASSOCIATIONS:
-                return isIncludeAssociations();
+        case CwmmipPackage.GRAPH_SUBSET__ELEMENT:
+            return getElement();
+        case CwmmipPackage.GRAPH_SUBSET__DEEP_COPY:
+            return isDeepCopy();
+        case CwmmipPackage.GRAPH_SUBSET__COPY_DEPTH:
+            return getCopyDepth();
+        case CwmmipPackage.GRAPH_SUBSET__AGGREGATIONS_ONLY:
+            return isAggregationsOnly();
+        case CwmmipPackage.GRAPH_SUBSET__INCLUDE_ASSOCIATIONS:
+            return isIncludeAssociations();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case CwmmipPackage.GRAPH_SUBSET__ELEMENT:
-                setElement((String)newValue);
-                return;
-            case CwmmipPackage.GRAPH_SUBSET__DEEP_COPY:
-                setDeepCopy((Boolean)newValue);
-                return;
-            case CwmmipPackage.GRAPH_SUBSET__COPY_DEPTH:
-                setCopyDepth((Long)newValue);
-                return;
-            case CwmmipPackage.GRAPH_SUBSET__AGGREGATIONS_ONLY:
-                setAggregationsOnly((Boolean)newValue);
-                return;
-            case CwmmipPackage.GRAPH_SUBSET__INCLUDE_ASSOCIATIONS:
-                setIncludeAssociations((Boolean)newValue);
-                return;
+        case CwmmipPackage.GRAPH_SUBSET__ELEMENT:
+            setElement((String) newValue);
+            return;
+        case CwmmipPackage.GRAPH_SUBSET__DEEP_COPY:
+            setDeepCopy((Boolean) newValue);
+            return;
+        case CwmmipPackage.GRAPH_SUBSET__COPY_DEPTH:
+            setCopyDepth((Long) newValue);
+            return;
+        case CwmmipPackage.GRAPH_SUBSET__AGGREGATIONS_ONLY:
+            setAggregationsOnly((Boolean) newValue);
+            return;
+        case CwmmipPackage.GRAPH_SUBSET__INCLUDE_ASSOCIATIONS:
+            setIncludeAssociations((Boolean) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case CwmmipPackage.GRAPH_SUBSET__ELEMENT:
-                setElement(ELEMENT_EDEFAULT);
-                return;
-            case CwmmipPackage.GRAPH_SUBSET__DEEP_COPY:
-                setDeepCopy(DEEP_COPY_EDEFAULT);
-                return;
-            case CwmmipPackage.GRAPH_SUBSET__COPY_DEPTH:
-                setCopyDepth(COPY_DEPTH_EDEFAULT);
-                return;
-            case CwmmipPackage.GRAPH_SUBSET__AGGREGATIONS_ONLY:
-                setAggregationsOnly(AGGREGATIONS_ONLY_EDEFAULT);
-                return;
-            case CwmmipPackage.GRAPH_SUBSET__INCLUDE_ASSOCIATIONS:
-                setIncludeAssociations(INCLUDE_ASSOCIATIONS_EDEFAULT);
-                return;
+        case CwmmipPackage.GRAPH_SUBSET__ELEMENT:
+            setElement(ELEMENT_EDEFAULT);
+            return;
+        case CwmmipPackage.GRAPH_SUBSET__DEEP_COPY:
+            setDeepCopy(DEEP_COPY_EDEFAULT);
+            return;
+        case CwmmipPackage.GRAPH_SUBSET__COPY_DEPTH:
+            setCopyDepth(COPY_DEPTH_EDEFAULT);
+            return;
+        case CwmmipPackage.GRAPH_SUBSET__AGGREGATIONS_ONLY:
+            setAggregationsOnly(AGGREGATIONS_ONLY_EDEFAULT);
+            return;
+        case CwmmipPackage.GRAPH_SUBSET__INCLUDE_ASSOCIATIONS:
+            setIncludeAssociations(INCLUDE_ASSOCIATIONS_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case CwmmipPackage.GRAPH_SUBSET__ELEMENT:
-                return ELEMENT_EDEFAULT == null ? element != null : !ELEMENT_EDEFAULT.equals(element);
-            case CwmmipPackage.GRAPH_SUBSET__DEEP_COPY:
-                return deepCopy != DEEP_COPY_EDEFAULT;
-            case CwmmipPackage.GRAPH_SUBSET__COPY_DEPTH:
-                return copyDepth != COPY_DEPTH_EDEFAULT;
-            case CwmmipPackage.GRAPH_SUBSET__AGGREGATIONS_ONLY:
-                return aggregationsOnly != AGGREGATIONS_ONLY_EDEFAULT;
-            case CwmmipPackage.GRAPH_SUBSET__INCLUDE_ASSOCIATIONS:
-                return includeAssociations != INCLUDE_ASSOCIATIONS_EDEFAULT;
+        case CwmmipPackage.GRAPH_SUBSET__ELEMENT:
+            return ELEMENT_EDEFAULT == null ? element != null : !ELEMENT_EDEFAULT.equals(element);
+        case CwmmipPackage.GRAPH_SUBSET__DEEP_COPY:
+            return deepCopy != DEEP_COPY_EDEFAULT;
+        case CwmmipPackage.GRAPH_SUBSET__COPY_DEPTH:
+            return copyDepth != COPY_DEPTH_EDEFAULT;
+        case CwmmipPackage.GRAPH_SUBSET__AGGREGATIONS_ONLY:
+            return aggregationsOnly != AGGREGATIONS_ONLY_EDEFAULT;
+        case CwmmipPackage.GRAPH_SUBSET__INCLUDE_ASSOCIATIONS:
+            return includeAssociations != INCLUDE_ASSOCIATIONS_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (element: ");
@@ -376,4 +355,4 @@ public class GraphSubsetImpl extends ProjectionImpl implements GraphSubset {
         return result.toString();
     }
 
-} //GraphSubsetImpl
+} // GraphSubsetImpl

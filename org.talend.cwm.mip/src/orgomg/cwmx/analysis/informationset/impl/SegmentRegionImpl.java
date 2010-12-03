@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.analysis.informationset.impl;
@@ -20,9 +19,8 @@ import orgomg.cwmx.analysis.informationset.Rule;
 import orgomg.cwmx.analysis.informationset.SegmentRegion;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Segment Region</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Segment Region</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -33,10 +31,10 @@ import orgomg.cwmx.analysis.informationset.SegmentRegion;
  * @generated
  */
 public class SegmentRegionImpl extends CubeRegionImpl implements SegmentRegion {
+
     /**
      * The cached value of the '{@link #getRule() <em>Rule</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getRule()
      * @generated
      * @ordered
@@ -44,8 +42,7 @@ public class SegmentRegionImpl extends CubeRegionImpl implements SegmentRegion {
     protected EList<Rule> rule;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected SegmentRegionImpl() {
@@ -53,8 +50,7 @@ public class SegmentRegionImpl extends CubeRegionImpl implements SegmentRegion {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -63,104 +59,98 @@ public class SegmentRegionImpl extends CubeRegionImpl implements SegmentRegion {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<Rule> getRule() {
         if (rule == null) {
-            rule = new EObjectWithInverseResolvingEList<Rule>(Rule.class, this, InformationsetPackage.SEGMENT_REGION__RULE, InformationsetPackage.RULE__SEGMENT_REGION);
+            rule = new EObjectWithInverseResolvingEList<Rule>(Rule.class, this, InformationsetPackage.SEGMENT_REGION__RULE,
+                    InformationsetPackage.RULE__SEGMENT_REGION);
         }
         return rule;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case InformationsetPackage.SEGMENT_REGION__RULE:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getRule()).basicAdd(otherEnd, msgs);
+        case InformationsetPackage.SEGMENT_REGION__RULE:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getRule()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case InformationsetPackage.SEGMENT_REGION__RULE:
-                return ((InternalEList<?>)getRule()).basicRemove(otherEnd, msgs);
+        case InformationsetPackage.SEGMENT_REGION__RULE:
+            return ((InternalEList<?>) getRule()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case InformationsetPackage.SEGMENT_REGION__RULE:
-                return getRule();
+        case InformationsetPackage.SEGMENT_REGION__RULE:
+            return getRule();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case InformationsetPackage.SEGMENT_REGION__RULE:
-                getRule().clear();
-                getRule().addAll((Collection<? extends Rule>)newValue);
-                return;
+        case InformationsetPackage.SEGMENT_REGION__RULE:
+            getRule().clear();
+            getRule().addAll((Collection<? extends Rule>) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case InformationsetPackage.SEGMENT_REGION__RULE:
-                getRule().clear();
-                return;
+        case InformationsetPackage.SEGMENT_REGION__RULE:
+            getRule().clear();
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case InformationsetPackage.SEGMENT_REGION__RULE:
-                return rule != null && !rule.isEmpty();
+        case InformationsetPackage.SEGMENT_REGION__RULE:
+            return rule != null && !rule.isEmpty();
         }
         return super.eIsSet(featureID);
     }
 
-} //SegmentRegionImpl
+} // SegmentRegionImpl

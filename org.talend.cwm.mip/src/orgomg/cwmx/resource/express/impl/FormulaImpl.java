@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.express.impl;
@@ -14,9 +13,8 @@ import orgomg.cwmx.resource.express.ExpressPackage;
 import orgomg.cwmx.resource.express.Formula;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Formula</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Formula</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -27,10 +25,10 @@ import orgomg.cwmx.resource.express.Formula;
  * @generated
  */
 public class FormulaImpl extends DimensionedObjectImpl implements Formula {
+
     /**
      * The default value of the '{@link #getExpression() <em>Expression</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getExpression()
      * @generated
      * @ordered
@@ -39,8 +37,7 @@ public class FormulaImpl extends DimensionedObjectImpl implements Formula {
 
     /**
      * The cached value of the '{@link #getExpression() <em>Expression</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getExpression()
      * @generated
      * @ordered
@@ -48,8 +45,7 @@ public class FormulaImpl extends DimensionedObjectImpl implements Formula {
     protected String expression = EXPRESSION_EDEFAULT;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected FormulaImpl() {
@@ -57,8 +53,7 @@ public class FormulaImpl extends DimensionedObjectImpl implements Formula {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -67,8 +62,7 @@ public class FormulaImpl extends DimensionedObjectImpl implements Formula {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getExpression() {
@@ -76,8 +70,7 @@ public class FormulaImpl extends DimensionedObjectImpl implements Formula {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setExpression(String newExpression) {
@@ -88,71 +81,67 @@ public class FormulaImpl extends DimensionedObjectImpl implements Formula {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case ExpressPackage.FORMULA__EXPRESSION:
-                return getExpression();
+        case ExpressPackage.FORMULA__EXPRESSION:
+            return getExpression();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case ExpressPackage.FORMULA__EXPRESSION:
-                setExpression((String)newValue);
-                return;
+        case ExpressPackage.FORMULA__EXPRESSION:
+            setExpression((String) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case ExpressPackage.FORMULA__EXPRESSION:
-                setExpression(EXPRESSION_EDEFAULT);
-                return;
+        case ExpressPackage.FORMULA__EXPRESSION:
+            setExpression(EXPRESSION_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case ExpressPackage.FORMULA__EXPRESSION:
-                return EXPRESSION_EDEFAULT == null ? expression != null : !EXPRESSION_EDEFAULT.equals(expression);
+        case ExpressPackage.FORMULA__EXPRESSION:
+            return EXPRESSION_EDEFAULT == null ? expression != null : !EXPRESSION_EDEFAULT.equals(expression);
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (expression: ");
@@ -161,4 +150,4 @@ public class FormulaImpl extends DimensionedObjectImpl implements Formula {
         return result.toString();
     }
 
-} //FormulaImpl
+} // FormulaImpl

@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.analysis.olap;
@@ -9,26 +8,25 @@ package orgomg.cwm.analysis.olap;
 import org.eclipse.emf.ecore.EFactory;
 
 /**
- * <!-- begin-user-doc -->
- * The <b>Factory</b> for the model.
- * It provides a create method for each non-abstract class of the model.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> The <b>Factory</b> for the model. It provides a
+ * create method for each non-abstract class of the model. <!-- end-user-doc -->
  * @see orgomg.cwm.analysis.olap.OlapPackage
  * @generated
  */
 public interface OlapFactory extends EFactory {
+
     /**
      * The singleton instance of the factory.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     OlapFactory eINSTANCE = orgomg.cwm.analysis.olap.impl.OlapFactoryImpl.init();
 
     /**
      * Returns a new object of class '<em>Content Map</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @return a new object of class '<em>Content Map</em>'.
      * @generated
      */
@@ -44,18 +42,18 @@ public interface OlapFactory extends EFactory {
     Cube createCube();
 
     /**
-     * Returns a new object of class '<em>Cube Deployment</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns a new object of class '<em>Cube Deployment</em>'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return a new object of class '<em>Cube Deployment</em>'.
      * @generated
      */
     CubeDeployment createCubeDeployment();
 
     /**
-     * Returns a new object of class '<em>Cube Dimension Association</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns a new object of class '<em>Cube Dimension Association</em>'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return a new object of class '<em>Cube Dimension Association</em>'.
      * @generated
      */
@@ -63,17 +61,17 @@ public interface OlapFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Cube Region</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @return a new object of class '<em>Cube Region</em>'.
      * @generated
      */
     CubeRegion createCubeRegion();
 
     /**
-     * Returns a new object of class '<em>Deployment Group</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns a new object of class '<em>Deployment Group</em>'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return a new object of class '<em>Deployment Group</em>'.
      * @generated
      */
@@ -81,17 +79,17 @@ public interface OlapFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Dimension</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @return a new object of class '<em>Dimension</em>'.
      * @generated
      */
     Dimension createDimension();
 
     /**
-     * Returns a new object of class '<em>Dimension Deployment</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns a new object of class '<em>Dimension Deployment</em>'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return a new object of class '<em>Dimension Deployment</em>'.
      * @generated
      */
@@ -99,35 +97,34 @@ public interface OlapFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Hierarchy Level Association</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Hierarchy Level Association</em>'.
      * @generated
      */
     HierarchyLevelAssociation createHierarchyLevelAssociation();
 
     /**
-     * Returns a new object of class '<em>Level Based Hierarchy</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns a new object of class '<em>Level Based Hierarchy</em>'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return a new object of class '<em>Level Based Hierarchy</em>'.
      * @generated
      */
     LevelBasedHierarchy createLevelBasedHierarchy();
 
     /**
-     * Returns a new object of class '<em>Member Selection Group</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns a new object of class '<em>Member Selection Group</em>'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return a new object of class '<em>Member Selection Group</em>'.
      * @generated
      */
     MemberSelectionGroup createMemberSelectionGroup();
 
     /**
-     * Returns a new object of class '<em>Member Selection</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns a new object of class '<em>Member Selection</em>'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return a new object of class '<em>Member Selection</em>'.
      * @generated
      */
@@ -143,9 +140,9 @@ public interface OlapFactory extends EFactory {
     Schema createSchema();
 
     /**
-     * Returns a new object of class '<em>Value Based Hierarchy</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns a new object of class '<em>Value Based Hierarchy</em>'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return a new object of class '<em>Value Based Hierarchy</em>'.
      * @generated
      */
@@ -162,8 +159,8 @@ public interface OlapFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Coded Level</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @return a new object of class '<em>Coded Level</em>'.
      * @generated
      */
@@ -179,9 +176,9 @@ public interface OlapFactory extends EFactory {
     Measure createMeasure();
 
     /**
-     * Returns a new object of class '<em>Structure Map</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns a new object of class '<em>Structure Map</em>'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return a new object of class '<em>Structure Map</em>'.
      * @generated
      */
@@ -196,4 +193,4 @@ public interface OlapFactory extends EFactory {
      */
     OlapPackage getOlapPackage();
 
-} //OlapFactory
+} // OlapFactory

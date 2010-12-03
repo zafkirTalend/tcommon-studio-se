@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.analysis.informationset.impl;
@@ -22,9 +21,8 @@ import orgomg.cwmx.analysis.informationset.InfoSetDate;
 import orgomg.cwmx.analysis.informationset.InformationsetPackage;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Info Set Date</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Info Set Date</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -38,10 +36,10 @@ import orgomg.cwmx.analysis.informationset.InformationsetPackage;
  * @generated
  */
 public class InfoSetDateImpl extends ModelElementImpl implements InfoSetDate {
+
     /**
      * The default value of the '{@link #getType() <em>Type</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getType()
      * @generated
      * @ordered
@@ -50,8 +48,7 @@ public class InfoSetDateImpl extends ModelElementImpl implements InfoSetDate {
 
     /**
      * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getType()
      * @generated
      * @ordered
@@ -60,8 +57,7 @@ public class InfoSetDateImpl extends ModelElementImpl implements InfoSetDate {
 
     /**
      * The default value of the '{@link #getFormat() <em>Format</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getFormat()
      * @generated
      * @ordered
@@ -70,8 +66,7 @@ public class InfoSetDateImpl extends ModelElementImpl implements InfoSetDate {
 
     /**
      * The cached value of the '{@link #getFormat() <em>Format</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getFormat()
      * @generated
      * @ordered
@@ -80,8 +75,7 @@ public class InfoSetDateImpl extends ModelElementImpl implements InfoSetDate {
 
     /**
      * The default value of the '{@link #getDateTime() <em>Date Time</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getDateTime()
      * @generated
      * @ordered
@@ -90,8 +84,7 @@ public class InfoSetDateImpl extends ModelElementImpl implements InfoSetDate {
 
     /**
      * The cached value of the '{@link #getDateTime() <em>Date Time</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getDateTime()
      * @generated
      * @ordered
@@ -100,8 +93,8 @@ public class InfoSetDateImpl extends ModelElementImpl implements InfoSetDate {
 
     /**
      * The cached value of the '{@link #getInfoSetAdmin() <em>Info Set Admin</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getInfoSetAdmin()
      * @generated
      * @ordered
@@ -109,8 +102,7 @@ public class InfoSetDateImpl extends ModelElementImpl implements InfoSetDate {
     protected EList<InfoSetAdministration> infoSetAdmin;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected InfoSetDateImpl() {
@@ -118,8 +110,7 @@ public class InfoSetDateImpl extends ModelElementImpl implements InfoSetDate {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -128,8 +119,7 @@ public class InfoSetDateImpl extends ModelElementImpl implements InfoSetDate {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getType() {
@@ -137,8 +127,7 @@ public class InfoSetDateImpl extends ModelElementImpl implements InfoSetDate {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setType(String newType) {
@@ -149,8 +138,7 @@ public class InfoSetDateImpl extends ModelElementImpl implements InfoSetDate {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getFormat() {
@@ -158,8 +146,7 @@ public class InfoSetDateImpl extends ModelElementImpl implements InfoSetDate {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setFormat(String newFormat) {
@@ -170,8 +157,7 @@ public class InfoSetDateImpl extends ModelElementImpl implements InfoSetDate {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getDateTime() {
@@ -179,156 +165,151 @@ public class InfoSetDateImpl extends ModelElementImpl implements InfoSetDate {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setDateTime(String newDateTime) {
         String oldDateTime = dateTime;
         dateTime = newDateTime;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, InformationsetPackage.INFO_SET_DATE__DATE_TIME, oldDateTime, dateTime));
+            eNotify(new ENotificationImpl(this, Notification.SET, InformationsetPackage.INFO_SET_DATE__DATE_TIME, oldDateTime,
+                    dateTime));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<InfoSetAdministration> getInfoSetAdmin() {
         if (infoSetAdmin == null) {
-            infoSetAdmin = new EObjectWithInverseResolvingEList.ManyInverse<InfoSetAdministration>(InfoSetAdministration.class, this, InformationsetPackage.INFO_SET_DATE__INFO_SET_ADMIN, InformationsetPackage.INFO_SET_ADMINISTRATION__DATE);
+            infoSetAdmin = new EObjectWithInverseResolvingEList.ManyInverse<InfoSetAdministration>(InfoSetAdministration.class,
+                    this, InformationsetPackage.INFO_SET_DATE__INFO_SET_ADMIN,
+                    InformationsetPackage.INFO_SET_ADMINISTRATION__DATE);
         }
         return infoSetAdmin;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case InformationsetPackage.INFO_SET_DATE__INFO_SET_ADMIN:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getInfoSetAdmin()).basicAdd(otherEnd, msgs);
+        case InformationsetPackage.INFO_SET_DATE__INFO_SET_ADMIN:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getInfoSetAdmin()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case InformationsetPackage.INFO_SET_DATE__INFO_SET_ADMIN:
-                return ((InternalEList<?>)getInfoSetAdmin()).basicRemove(otherEnd, msgs);
+        case InformationsetPackage.INFO_SET_DATE__INFO_SET_ADMIN:
+            return ((InternalEList<?>) getInfoSetAdmin()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case InformationsetPackage.INFO_SET_DATE__TYPE:
-                return getType();
-            case InformationsetPackage.INFO_SET_DATE__FORMAT:
-                return getFormat();
-            case InformationsetPackage.INFO_SET_DATE__DATE_TIME:
-                return getDateTime();
-            case InformationsetPackage.INFO_SET_DATE__INFO_SET_ADMIN:
-                return getInfoSetAdmin();
+        case InformationsetPackage.INFO_SET_DATE__TYPE:
+            return getType();
+        case InformationsetPackage.INFO_SET_DATE__FORMAT:
+            return getFormat();
+        case InformationsetPackage.INFO_SET_DATE__DATE_TIME:
+            return getDateTime();
+        case InformationsetPackage.INFO_SET_DATE__INFO_SET_ADMIN:
+            return getInfoSetAdmin();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case InformationsetPackage.INFO_SET_DATE__TYPE:
-                setType((String)newValue);
-                return;
-            case InformationsetPackage.INFO_SET_DATE__FORMAT:
-                setFormat((String)newValue);
-                return;
-            case InformationsetPackage.INFO_SET_DATE__DATE_TIME:
-                setDateTime((String)newValue);
-                return;
-            case InformationsetPackage.INFO_SET_DATE__INFO_SET_ADMIN:
-                getInfoSetAdmin().clear();
-                getInfoSetAdmin().addAll((Collection<? extends InfoSetAdministration>)newValue);
-                return;
+        case InformationsetPackage.INFO_SET_DATE__TYPE:
+            setType((String) newValue);
+            return;
+        case InformationsetPackage.INFO_SET_DATE__FORMAT:
+            setFormat((String) newValue);
+            return;
+        case InformationsetPackage.INFO_SET_DATE__DATE_TIME:
+            setDateTime((String) newValue);
+            return;
+        case InformationsetPackage.INFO_SET_DATE__INFO_SET_ADMIN:
+            getInfoSetAdmin().clear();
+            getInfoSetAdmin().addAll((Collection<? extends InfoSetAdministration>) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case InformationsetPackage.INFO_SET_DATE__TYPE:
-                setType(TYPE_EDEFAULT);
-                return;
-            case InformationsetPackage.INFO_SET_DATE__FORMAT:
-                setFormat(FORMAT_EDEFAULT);
-                return;
-            case InformationsetPackage.INFO_SET_DATE__DATE_TIME:
-                setDateTime(DATE_TIME_EDEFAULT);
-                return;
-            case InformationsetPackage.INFO_SET_DATE__INFO_SET_ADMIN:
-                getInfoSetAdmin().clear();
-                return;
+        case InformationsetPackage.INFO_SET_DATE__TYPE:
+            setType(TYPE_EDEFAULT);
+            return;
+        case InformationsetPackage.INFO_SET_DATE__FORMAT:
+            setFormat(FORMAT_EDEFAULT);
+            return;
+        case InformationsetPackage.INFO_SET_DATE__DATE_TIME:
+            setDateTime(DATE_TIME_EDEFAULT);
+            return;
+        case InformationsetPackage.INFO_SET_DATE__INFO_SET_ADMIN:
+            getInfoSetAdmin().clear();
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case InformationsetPackage.INFO_SET_DATE__TYPE:
-                return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
-            case InformationsetPackage.INFO_SET_DATE__FORMAT:
-                return FORMAT_EDEFAULT == null ? format != null : !FORMAT_EDEFAULT.equals(format);
-            case InformationsetPackage.INFO_SET_DATE__DATE_TIME:
-                return DATE_TIME_EDEFAULT == null ? dateTime != null : !DATE_TIME_EDEFAULT.equals(dateTime);
-            case InformationsetPackage.INFO_SET_DATE__INFO_SET_ADMIN:
-                return infoSetAdmin != null && !infoSetAdmin.isEmpty();
+        case InformationsetPackage.INFO_SET_DATE__TYPE:
+            return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
+        case InformationsetPackage.INFO_SET_DATE__FORMAT:
+            return FORMAT_EDEFAULT == null ? format != null : !FORMAT_EDEFAULT.equals(format);
+        case InformationsetPackage.INFO_SET_DATE__DATE_TIME:
+            return DATE_TIME_EDEFAULT == null ? dateTime != null : !DATE_TIME_EDEFAULT.equals(dateTime);
+        case InformationsetPackage.INFO_SET_DATE__INFO_SET_ADMIN:
+            return infoSetAdmin != null && !infoSetAdmin.isEmpty();
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (type: ");
@@ -341,4 +322,4 @@ public class InfoSetDateImpl extends ModelElementImpl implements InfoSetDate {
         return result.toString();
     }
 
-} //InfoSetDateImpl
+} // InfoSetDateImpl

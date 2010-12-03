@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.express;
@@ -9,9 +8,8 @@ package orgomg.cwmx.resource.express;
 import orgomg.cwm.resource.multidimensional.DimensionedObject;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Value Set</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Value Set</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * This represents a physical Express value set.
@@ -30,13 +28,13 @@ import orgomg.cwm.resource.multidimensional.DimensionedObject;
  * @generated
  */
 public interface ValueSet extends DimensionedObject {
+
     /**
-     * Returns the value of the '<em><b>Is Temp</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * If set, this indicates that values in the ValueSet are only temporary, and will be discarded at the end of each Express session.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Is Temp</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> If set,
+     * this indicates that values in the ValueSet are only temporary, and will
+     * be discarded at the end of each Express session. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Is Temp</em>' attribute.
      * @see #setIsTemp(boolean)
      * @see orgomg.cwmx.resource.express.ExpressPackage#getValueSet_IsTemp()
@@ -47,8 +45,7 @@ public interface ValueSet extends DimensionedObject {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.express.ValueSet#isIsTemp <em>Is Temp</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Is Temp</em>' attribute.
      * @see #isIsTemp()
      * @generated
@@ -57,12 +54,12 @@ public interface ValueSet extends DimensionedObject {
 
     /**
      * Returns the value of the '<em><b>Reference Dimension</b></em>' reference.
-     * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.express.Dimension#getValueSet <em>Value Set</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the Dimension whose values are to be stored in the ValueSet.
-     * <!-- end-model-doc -->
+     * It is bidirectional and its opposite is '
+     * {@link orgomg.cwmx.resource.express.Dimension#getValueSet
+     * <em>Value Set</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> Identifies the Dimension whose values are to be
+     * stored in the ValueSet. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Reference Dimension</em>' reference.
      * @see #setReferenceDimension(Dimension)
      * @see orgomg.cwmx.resource.express.ExpressPackage#getValueSet_ReferenceDimension()
@@ -74,8 +71,8 @@ public interface ValueSet extends DimensionedObject {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.express.ValueSet#getReferenceDimension <em>Reference Dimension</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Reference Dimension</em>' reference.
      * @see #getReferenceDimension()
      * @generated

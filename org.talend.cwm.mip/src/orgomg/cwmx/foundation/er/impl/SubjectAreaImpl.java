@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.foundation.er.impl;
@@ -12,18 +11,17 @@ import orgomg.cwmx.foundation.er.ErPackage;
 import orgomg.cwmx.foundation.er.SubjectArea;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Subject Area</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Subject Area</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
 public class SubjectAreaImpl extends PackageImpl implements SubjectArea {
+
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected SubjectAreaImpl() {
@@ -31,8 +29,7 @@ public class SubjectAreaImpl extends PackageImpl implements SubjectArea {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -40,4 +37,4 @@ public class SubjectAreaImpl extends PackageImpl implements SubjectArea {
         return ErPackage.Literals.SUBJECT_AREA;
     }
 
-} //SubjectAreaImpl
+} // SubjectAreaImpl

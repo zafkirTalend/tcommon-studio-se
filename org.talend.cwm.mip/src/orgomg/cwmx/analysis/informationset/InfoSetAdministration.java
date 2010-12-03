@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.analysis.informationset;
@@ -10,9 +9,8 @@ import org.eclipse.emf.common.util.EList;
 import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Info Set Administration</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Info Set Administration</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * This class represents administrative details of an Information Set.
@@ -33,13 +31,12 @@ import orgomg.cwm.objectmodel.core.ModelElement;
  * @generated
  */
 public interface InfoSetAdministration extends ModelElement {
+
     /**
-     * Returns the value of the '<em><b>Priority</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The priority of an Information Set.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Priority</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> The
+     * priority of an Information Set. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Priority</em>' attribute.
      * @see #setPriority(String)
      * @see orgomg.cwmx.analysis.informationset.InformationsetPackage#getInfoSetAdministration_Priority()
@@ -49,10 +46,13 @@ public interface InfoSetAdministration extends ModelElement {
     String getPriority();
 
     /**
-     * Sets the value of the '{@link orgomg.cwmx.analysis.informationset.InfoSetAdministration#getPriority <em>Priority</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Priority</em>' attribute.
+     * Sets the value of the '
+     * {@link orgomg.cwmx.analysis.informationset.InfoSetAdministration#getPriority
+     * <em>Priority</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @param value
+     *            the new value of the '<em>Priority</em>' attribute.
      * @see #getPriority()
      * @generated
      */
@@ -60,11 +60,9 @@ public interface InfoSetAdministration extends ModelElement {
 
     /**
      * Returns the value of the '<em><b>Acknowledgement</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * If true, an acknowledgement is requested.
-     * <!-- end-model-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> If
+     * true, an acknowledgement is requested. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Acknowledgement</em>' attribute.
      * @see #setAcknowledgement(boolean)
      * @see orgomg.cwmx.analysis.informationset.InformationsetPackage#getInfoSetAdministration_Acknowledgement()
@@ -75,8 +73,8 @@ public interface InfoSetAdministration extends ModelElement {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.analysis.informationset.InfoSetAdministration#isAcknowledgement <em>Acknowledgement</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Acknowledgement</em>' attribute.
      * @see #isAcknowledgement()
      * @generated
@@ -86,8 +84,7 @@ public interface InfoSetAdministration extends ModelElement {
     /**
      * Returns the value of the '<em><b>Information Set</b></em>' container reference.
      * It is bidirectional and its opposite is '{@link orgomg.cwmx.analysis.informationset.InformationSet#getInfoSetAdmin <em>Info Set Admin</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * InformationSet for adminstrative details.
      * <!-- end-model-doc -->
@@ -114,8 +111,7 @@ public interface InfoSetAdministration extends ModelElement {
      * Returns the value of the '<em><b>Date</b></em>' reference list.
      * The list contents are of type {@link orgomg.cwmx.analysis.informationset.InfoSetDate}.
      * It is bidirectional and its opposite is '{@link orgomg.cwmx.analysis.informationset.InfoSetDate#getInfoSetAdmin <em>Info Set Admin</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Date for administration details.
      * <!-- end-model-doc -->

@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.resource.multidimensional.impl;
@@ -12,18 +11,17 @@ import orgomg.cwm.resource.multidimensional.Member;
 import orgomg.cwm.resource.multidimensional.MultidimensionalPackage;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Member</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Member</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
 public class MemberImpl extends ObjectImpl implements Member {
+
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected MemberImpl() {
@@ -31,8 +29,7 @@ public class MemberImpl extends ObjectImpl implements Member {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -40,4 +37,4 @@ public class MemberImpl extends ObjectImpl implements Member {
         return MultidimensionalPackage.Literals.MEMBER;
     }
 
-} //MemberImpl
+} // MemberImpl

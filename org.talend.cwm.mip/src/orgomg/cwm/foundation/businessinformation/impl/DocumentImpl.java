@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.foundation.businessinformation.impl;
@@ -23,9 +22,8 @@ import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.impl.NamespaceImpl;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Document</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Document</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -38,10 +36,10 @@ import orgomg.cwm.objectmodel.core.impl.NamespaceImpl;
  * @generated
  */
 public class DocumentImpl extends NamespaceImpl implements Document {
+
     /**
      * The default value of the '{@link #getReference() <em>Reference</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getReference()
      * @generated
      * @ordered
@@ -50,8 +48,7 @@ public class DocumentImpl extends NamespaceImpl implements Document {
 
     /**
      * The cached value of the '{@link #getReference() <em>Reference</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getReference()
      * @generated
      * @ordered
@@ -60,8 +57,7 @@ public class DocumentImpl extends NamespaceImpl implements Document {
 
     /**
      * The default value of the '{@link #getType() <em>Type</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getType()
      * @generated
      * @ordered
@@ -70,8 +66,7 @@ public class DocumentImpl extends NamespaceImpl implements Document {
 
     /**
      * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getType()
      * @generated
      * @ordered
@@ -80,8 +75,8 @@ public class DocumentImpl extends NamespaceImpl implements Document {
 
     /**
      * The cached value of the '{@link #getModelElement() <em>Model Element</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getModelElement()
      * @generated
      * @ordered
@@ -89,8 +84,7 @@ public class DocumentImpl extends NamespaceImpl implements Document {
     protected EList<ModelElement> modelElement;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected DocumentImpl() {
@@ -98,8 +92,7 @@ public class DocumentImpl extends NamespaceImpl implements Document {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -108,8 +101,7 @@ public class DocumentImpl extends NamespaceImpl implements Document {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getReference() {
@@ -117,20 +109,19 @@ public class DocumentImpl extends NamespaceImpl implements Document {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setReference(String newReference) {
         String oldReference = reference;
         reference = newReference;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, BusinessinformationPackage.DOCUMENT__REFERENCE, oldReference, reference));
+            eNotify(new ENotificationImpl(this, Notification.SET, BusinessinformationPackage.DOCUMENT__REFERENCE, oldReference,
+                    reference));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getType() {
@@ -138,8 +129,7 @@ public class DocumentImpl extends NamespaceImpl implements Document {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setType(String newType) {
@@ -150,134 +140,128 @@ public class DocumentImpl extends NamespaceImpl implements Document {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<ModelElement> getModelElement() {
         if (modelElement == null) {
-            modelElement = new EObjectWithInverseResolvingEList.ManyInverse<ModelElement>(ModelElement.class, this, BusinessinformationPackage.DOCUMENT__MODEL_ELEMENT, CorePackage.MODEL_ELEMENT__DOCUMENT);
+            modelElement = new EObjectWithInverseResolvingEList.ManyInverse<ModelElement>(ModelElement.class, this,
+                    BusinessinformationPackage.DOCUMENT__MODEL_ELEMENT, CorePackage.MODEL_ELEMENT__DOCUMENT);
         }
         return modelElement;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case BusinessinformationPackage.DOCUMENT__MODEL_ELEMENT:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getModelElement()).basicAdd(otherEnd, msgs);
+        case BusinessinformationPackage.DOCUMENT__MODEL_ELEMENT:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getModelElement()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case BusinessinformationPackage.DOCUMENT__MODEL_ELEMENT:
-                return ((InternalEList<?>)getModelElement()).basicRemove(otherEnd, msgs);
+        case BusinessinformationPackage.DOCUMENT__MODEL_ELEMENT:
+            return ((InternalEList<?>) getModelElement()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case BusinessinformationPackage.DOCUMENT__REFERENCE:
-                return getReference();
-            case BusinessinformationPackage.DOCUMENT__TYPE:
-                return getType();
-            case BusinessinformationPackage.DOCUMENT__MODEL_ELEMENT:
-                return getModelElement();
+        case BusinessinformationPackage.DOCUMENT__REFERENCE:
+            return getReference();
+        case BusinessinformationPackage.DOCUMENT__TYPE:
+            return getType();
+        case BusinessinformationPackage.DOCUMENT__MODEL_ELEMENT:
+            return getModelElement();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case BusinessinformationPackage.DOCUMENT__REFERENCE:
-                setReference((String)newValue);
-                return;
-            case BusinessinformationPackage.DOCUMENT__TYPE:
-                setType((String)newValue);
-                return;
-            case BusinessinformationPackage.DOCUMENT__MODEL_ELEMENT:
-                getModelElement().clear();
-                getModelElement().addAll((Collection<? extends ModelElement>)newValue);
-                return;
+        case BusinessinformationPackage.DOCUMENT__REFERENCE:
+            setReference((String) newValue);
+            return;
+        case BusinessinformationPackage.DOCUMENT__TYPE:
+            setType((String) newValue);
+            return;
+        case BusinessinformationPackage.DOCUMENT__MODEL_ELEMENT:
+            getModelElement().clear();
+            getModelElement().addAll((Collection<? extends ModelElement>) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case BusinessinformationPackage.DOCUMENT__REFERENCE:
-                setReference(REFERENCE_EDEFAULT);
-                return;
-            case BusinessinformationPackage.DOCUMENT__TYPE:
-                setType(TYPE_EDEFAULT);
-                return;
-            case BusinessinformationPackage.DOCUMENT__MODEL_ELEMENT:
-                getModelElement().clear();
-                return;
+        case BusinessinformationPackage.DOCUMENT__REFERENCE:
+            setReference(REFERENCE_EDEFAULT);
+            return;
+        case BusinessinformationPackage.DOCUMENT__TYPE:
+            setType(TYPE_EDEFAULT);
+            return;
+        case BusinessinformationPackage.DOCUMENT__MODEL_ELEMENT:
+            getModelElement().clear();
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case BusinessinformationPackage.DOCUMENT__REFERENCE:
-                return REFERENCE_EDEFAULT == null ? reference != null : !REFERENCE_EDEFAULT.equals(reference);
-            case BusinessinformationPackage.DOCUMENT__TYPE:
-                return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
-            case BusinessinformationPackage.DOCUMENT__MODEL_ELEMENT:
-                return modelElement != null && !modelElement.isEmpty();
+        case BusinessinformationPackage.DOCUMENT__REFERENCE:
+            return REFERENCE_EDEFAULT == null ? reference != null : !REFERENCE_EDEFAULT.equals(reference);
+        case BusinessinformationPackage.DOCUMENT__TYPE:
+            return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
+        case BusinessinformationPackage.DOCUMENT__MODEL_ELEMENT:
+            return modelElement != null && !modelElement.isEmpty();
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (reference: ");
@@ -288,4 +272,4 @@ public class DocumentImpl extends NamespaceImpl implements Document {
         return result.toString();
     }
 
-} //DocumentImpl
+} // DocumentImpl

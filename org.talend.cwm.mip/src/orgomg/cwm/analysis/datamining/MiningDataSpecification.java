@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.analysis.datamining;
@@ -9,9 +8,8 @@ package orgomg.cwm.analysis.datamining;
 import org.eclipse.emf.common.util.EList;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Mining Data Specification</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Mining Data Specification</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * The collection of mining attributes specifying how to interpret the input data attributes.
@@ -32,15 +30,17 @@ import org.eclipse.emf.common.util.EList;
  * @generated
  */
 public interface MiningDataSpecification extends orgomg.cwm.objectmodel.core.Class {
+
     /**
-     * Returns the value of the '<em><b>Attribute</b></em>' containment reference list.
-     * The list contents are of type {@link orgomg.cwm.analysis.datamining.MiningAttribute}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.analysis.datamining.MiningAttribute#getDataSpecification <em>Data Specification</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * MiningAttributes owned by the MiningDataSpecification.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Attribute</b></em>' containment
+     * reference list. The list contents are of type
+     * {@link orgomg.cwm.analysis.datamining.MiningAttribute}. It is
+     * bidirectional and its opposite is '
+     * {@link orgomg.cwm.analysis.datamining.MiningAttribute#getDataSpecification
+     * <em>Data Specification</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * --> <!-- begin-model-doc --> MiningAttributes owned by the
+     * MiningDataSpecification. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Attribute</em>' containment reference list.
      * @see orgomg.cwm.analysis.datamining.DataminingPackage#getMiningDataSpecification_Attribute()
      * @see orgomg.cwm.analysis.datamining.MiningAttribute#getDataSpecification
@@ -50,14 +50,15 @@ public interface MiningDataSpecification extends orgomg.cwm.objectmodel.core.Cla
     EList<MiningAttribute> getAttribute();
 
     /**
-     * Returns the value of the '<em><b>Settings</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwm.analysis.datamining.MiningSettings}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.analysis.datamining.MiningSettings#getDataSpecification <em>Data Specification</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * MiningSettings referencing the MiningAttribute.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Settings</b></em>' reference list. The
+     * list contents are of type
+     * {@link orgomg.cwm.analysis.datamining.MiningSettings}. It is
+     * bidirectional and its opposite is '
+     * {@link orgomg.cwm.analysis.datamining.MiningSettings#getDataSpecification
+     * <em>Data Specification</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * --> <!-- begin-model-doc --> MiningSettings referencing the
+     * MiningAttribute. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Settings</em>' reference list.
      * @see orgomg.cwm.analysis.datamining.DataminingPackage#getMiningDataSpecification_Settings()
      * @see orgomg.cwm.analysis.datamining.MiningSettings#getDataSpecification

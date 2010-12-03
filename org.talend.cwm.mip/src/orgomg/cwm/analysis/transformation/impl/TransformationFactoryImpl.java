@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.analysis.transformation.impl;
@@ -12,6 +11,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import orgomg.cwm.analysis.transformation.*;
 import orgomg.cwm.analysis.transformation.ClassifierFeatureMap;
 import orgomg.cwm.analysis.transformation.ClassifierMap;
 import orgomg.cwm.analysis.transformation.DataObjectSet;
@@ -30,26 +30,26 @@ import orgomg.cwm.analysis.transformation.TransformationUse;
 import orgomg.cwm.analysis.transformation.TreeType;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model <b>Factory</b>.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!--
+ * end-user-doc -->
  * @generated
  */
 public class TransformationFactoryImpl extends EFactoryImpl implements TransformationFactory {
+
     /**
      * Creates the default factory implementation.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     public static TransformationFactory init() {
         try {
-            TransformationFactory theTransformationFactory = (TransformationFactory)EPackage.Registry.INSTANCE.getEFactory("http:///orgomg/cwm/analysis/transformation.ecore"); 
+            TransformationFactory theTransformationFactory = (TransformationFactory) EPackage.Registry.INSTANCE
+                    .getEFactory("http:///orgomg/cwm/analysis/transformation.ecore");
             if (theTransformationFactory != null) {
                 return theTransformationFactory;
             }
-        }
-        catch (Exception exception) {
+        } catch (Exception exception) {
             EcorePlugin.INSTANCE.log(exception);
         }
         return new TransformationFactoryImpl();
@@ -57,8 +57,8 @@ public class TransformationFactoryImpl extends EFactoryImpl implements Transform
 
     /**
      * Creates an instance of the factory.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     public TransformationFactoryImpl() {
@@ -66,64 +66,73 @@ public class TransformationFactoryImpl extends EFactoryImpl implements Transform
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public EObject create(EClass eClass) {
         switch (eClass.getClassifierID()) {
-            case TransformationPackage.TRANSFORMATION: return createTransformation();
-            case TransformationPackage.DATA_OBJECT_SET: return createDataObjectSet();
-            case TransformationPackage.TRANSFORMATION_TASK: return createTransformationTask();
-            case TransformationPackage.TRANSFORMATION_STEP: return createTransformationStep();
-            case TransformationPackage.TRANSFORMATION_ACTIVITY: return createTransformationActivity();
-            case TransformationPackage.PRECEDENCE_CONSTRAINT: return createPrecedenceConstraint();
-            case TransformationPackage.TRANSFORMATION_USE: return createTransformationUse();
-            case TransformationPackage.TRANSFORMATION_MAP: return createTransformationMap();
-            case TransformationPackage.TRANSFORMATION_TREE: return createTransformationTree();
-            case TransformationPackage.CLASSIFIER_MAP: return createClassifierMap();
-            case TransformationPackage.FEATURE_MAP: return createFeatureMap();
-            case TransformationPackage.STEP_PRECEDENCE: return createStepPrecedence();
-            case TransformationPackage.CLASSIFIER_FEATURE_MAP: return createClassifierFeatureMap();
-            default:
-                throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+        case TransformationPackage.TRANSFORMATION:
+            return createTransformation();
+        case TransformationPackage.DATA_OBJECT_SET:
+            return createDataObjectSet();
+        case TransformationPackage.TRANSFORMATION_TASK:
+            return createTransformationTask();
+        case TransformationPackage.TRANSFORMATION_STEP:
+            return createTransformationStep();
+        case TransformationPackage.TRANSFORMATION_ACTIVITY:
+            return createTransformationActivity();
+        case TransformationPackage.PRECEDENCE_CONSTRAINT:
+            return createPrecedenceConstraint();
+        case TransformationPackage.TRANSFORMATION_USE:
+            return createTransformationUse();
+        case TransformationPackage.TRANSFORMATION_MAP:
+            return createTransformationMap();
+        case TransformationPackage.TRANSFORMATION_TREE:
+            return createTransformationTree();
+        case TransformationPackage.CLASSIFIER_MAP:
+            return createClassifierMap();
+        case TransformationPackage.FEATURE_MAP:
+            return createFeatureMap();
+        case TransformationPackage.STEP_PRECEDENCE:
+            return createStepPrecedence();
+        case TransformationPackage.CLASSIFIER_FEATURE_MAP:
+            return createClassifierFeatureMap();
+        default:
+            throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object createFromString(EDataType eDataType, String initialValue) {
         switch (eDataType.getClassifierID()) {
-            case TransformationPackage.TREE_TYPE:
-                return createTreeTypeFromString(eDataType, initialValue);
-            default:
-                throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+        case TransformationPackage.TREE_TYPE:
+            return createTreeTypeFromString(eDataType, initialValue);
+        default:
+            throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
         }
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String convertToString(EDataType eDataType, Object instanceValue) {
         switch (eDataType.getClassifierID()) {
-            case TransformationPackage.TREE_TYPE:
-                return convertTreeTypeToString(eDataType, instanceValue);
-            default:
-                throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+        case TransformationPackage.TREE_TYPE:
+            return convertTreeTypeToString(eDataType, instanceValue);
+        default:
+            throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
         }
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Transformation createTransformation() {
@@ -132,8 +141,7 @@ public class TransformationFactoryImpl extends EFactoryImpl implements Transform
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public DataObjectSet createDataObjectSet() {
@@ -142,8 +150,7 @@ public class TransformationFactoryImpl extends EFactoryImpl implements Transform
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public TransformationTask createTransformationTask() {
@@ -152,8 +159,7 @@ public class TransformationFactoryImpl extends EFactoryImpl implements Transform
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public TransformationStep createTransformationStep() {
@@ -162,8 +168,7 @@ public class TransformationFactoryImpl extends EFactoryImpl implements Transform
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public TransformationActivity createTransformationActivity() {
@@ -172,8 +177,7 @@ public class TransformationFactoryImpl extends EFactoryImpl implements Transform
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public PrecedenceConstraint createPrecedenceConstraint() {
@@ -182,8 +186,7 @@ public class TransformationFactoryImpl extends EFactoryImpl implements Transform
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public TransformationUse createTransformationUse() {
@@ -192,8 +195,7 @@ public class TransformationFactoryImpl extends EFactoryImpl implements Transform
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public TransformationMap createTransformationMap() {
@@ -202,8 +204,7 @@ public class TransformationFactoryImpl extends EFactoryImpl implements Transform
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public TransformationTree createTransformationTree() {
@@ -212,8 +213,7 @@ public class TransformationFactoryImpl extends EFactoryImpl implements Transform
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public ClassifierMap createClassifierMap() {
@@ -222,8 +222,7 @@ public class TransformationFactoryImpl extends EFactoryImpl implements Transform
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public FeatureMap createFeatureMap() {
@@ -232,8 +231,7 @@ public class TransformationFactoryImpl extends EFactoryImpl implements Transform
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public StepPrecedence createStepPrecedence() {
@@ -242,8 +240,7 @@ public class TransformationFactoryImpl extends EFactoryImpl implements Transform
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public ClassifierFeatureMap createClassifierFeatureMap() {
@@ -252,19 +249,19 @@ public class TransformationFactoryImpl extends EFactoryImpl implements Transform
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public TreeType createTreeTypeFromString(EDataType eDataType, String initialValue) {
         TreeType result = TreeType.get(initialValue);
-        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+        if (result == null)
+            throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
+                    + eDataType.getName() + "'");
         return result;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String convertTreeTypeToString(EDataType eDataType, Object instanceValue) {
@@ -272,17 +269,15 @@ public class TransformationFactoryImpl extends EFactoryImpl implements Transform
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public TransformationPackage getTransformationPackage() {
-        return (TransformationPackage)getEPackage();
+        return (TransformationPackage) getEPackage();
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @deprecated
      * @generated
      */
@@ -291,4 +286,4 @@ public class TransformationFactoryImpl extends EFactoryImpl implements Transform
         return TransformationPackage.eINSTANCE;
     }
 
-} //TransformationFactoryImpl
+} // TransformationFactoryImpl

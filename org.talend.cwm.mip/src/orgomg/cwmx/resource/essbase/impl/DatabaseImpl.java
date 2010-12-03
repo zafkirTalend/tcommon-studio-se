@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.essbase.impl;
@@ -17,9 +16,8 @@ import orgomg.cwmx.resource.essbase.EssbasePackage;
 import orgomg.cwmx.resource.essbase.Outline;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Database</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Database</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -31,10 +29,10 @@ import orgomg.cwmx.resource.essbase.Outline;
  * @generated
  */
 public class DatabaseImpl extends SchemaImpl implements Database {
+
     /**
      * The default value of the '{@link #isIsCurrency() <em>Is Currency</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #isIsCurrency()
      * @generated
      * @ordered
@@ -43,8 +41,7 @@ public class DatabaseImpl extends SchemaImpl implements Database {
 
     /**
      * The cached value of the '{@link #isIsCurrency() <em>Is Currency</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #isIsCurrency()
      * @generated
      * @ordered
@@ -53,8 +50,7 @@ public class DatabaseImpl extends SchemaImpl implements Database {
 
     /**
      * The cached value of the '{@link #getOutline() <em>Outline</em>}' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getOutline()
      * @generated
      * @ordered
@@ -62,8 +58,7 @@ public class DatabaseImpl extends SchemaImpl implements Database {
     protected Outline outline;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected DatabaseImpl() {
@@ -71,8 +66,7 @@ public class DatabaseImpl extends SchemaImpl implements Database {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -81,8 +75,7 @@ public class DatabaseImpl extends SchemaImpl implements Database {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isIsCurrency() {
@@ -90,8 +83,7 @@ public class DatabaseImpl extends SchemaImpl implements Database {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setIsCurrency(boolean newIsCurrency) {
@@ -102,8 +94,7 @@ public class DatabaseImpl extends SchemaImpl implements Database {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Outline getOutline() {
@@ -111,145 +102,142 @@ public class DatabaseImpl extends SchemaImpl implements Database {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public NotificationChain basicSetOutline(Outline newOutline, NotificationChain msgs) {
         Outline oldOutline = outline;
         outline = newOutline;
         if (eNotificationRequired()) {
-            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, EssbasePackage.DATABASE__OUTLINE, oldOutline, newOutline);
-            if (msgs == null) msgs = notification; else msgs.add(notification);
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, EssbasePackage.DATABASE__OUTLINE,
+                    oldOutline, newOutline);
+            if (msgs == null)
+                msgs = notification;
+            else
+                msgs.add(notification);
         }
         return msgs;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setOutline(Outline newOutline) {
         if (newOutline != outline) {
             NotificationChain msgs = null;
             if (outline != null)
-                msgs = ((InternalEObject)outline).eInverseRemove(this, EssbasePackage.OUTLINE__DATABASE, Outline.class, msgs);
+                msgs = ((InternalEObject) outline).eInverseRemove(this, EssbasePackage.OUTLINE__DATABASE, Outline.class, msgs);
             if (newOutline != null)
-                msgs = ((InternalEObject)newOutline).eInverseAdd(this, EssbasePackage.OUTLINE__DATABASE, Outline.class, msgs);
+                msgs = ((InternalEObject) newOutline).eInverseAdd(this, EssbasePackage.OUTLINE__DATABASE, Outline.class, msgs);
             msgs = basicSetOutline(newOutline, msgs);
-            if (msgs != null) msgs.dispatch();
-        }
-        else if (eNotificationRequired())
+            if (msgs != null)
+                msgs.dispatch();
+        } else if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, EssbasePackage.DATABASE__OUTLINE, newOutline, newOutline));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case EssbasePackage.DATABASE__OUTLINE:
-                if (outline != null)
-                    msgs = ((InternalEObject)outline).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - EssbasePackage.DATABASE__OUTLINE, null, msgs);
-                return basicSetOutline((Outline)otherEnd, msgs);
+        case EssbasePackage.DATABASE__OUTLINE:
+            if (outline != null)
+                msgs = ((InternalEObject) outline).eInverseRemove(this,
+                        EOPPOSITE_FEATURE_BASE - EssbasePackage.DATABASE__OUTLINE, null, msgs);
+            return basicSetOutline((Outline) otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case EssbasePackage.DATABASE__OUTLINE:
-                return basicSetOutline(null, msgs);
+        case EssbasePackage.DATABASE__OUTLINE:
+            return basicSetOutline(null, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case EssbasePackage.DATABASE__IS_CURRENCY:
-                return isIsCurrency();
-            case EssbasePackage.DATABASE__OUTLINE:
-                return getOutline();
+        case EssbasePackage.DATABASE__IS_CURRENCY:
+            return isIsCurrency();
+        case EssbasePackage.DATABASE__OUTLINE:
+            return getOutline();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case EssbasePackage.DATABASE__IS_CURRENCY:
-                setIsCurrency((Boolean)newValue);
-                return;
-            case EssbasePackage.DATABASE__OUTLINE:
-                setOutline((Outline)newValue);
-                return;
+        case EssbasePackage.DATABASE__IS_CURRENCY:
+            setIsCurrency((Boolean) newValue);
+            return;
+        case EssbasePackage.DATABASE__OUTLINE:
+            setOutline((Outline) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case EssbasePackage.DATABASE__IS_CURRENCY:
-                setIsCurrency(IS_CURRENCY_EDEFAULT);
-                return;
-            case EssbasePackage.DATABASE__OUTLINE:
-                setOutline((Outline)null);
-                return;
+        case EssbasePackage.DATABASE__IS_CURRENCY:
+            setIsCurrency(IS_CURRENCY_EDEFAULT);
+            return;
+        case EssbasePackage.DATABASE__OUTLINE:
+            setOutline((Outline) null);
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case EssbasePackage.DATABASE__IS_CURRENCY:
-                return isCurrency != IS_CURRENCY_EDEFAULT;
-            case EssbasePackage.DATABASE__OUTLINE:
-                return outline != null;
+        case EssbasePackage.DATABASE__IS_CURRENCY:
+            return isCurrency != IS_CURRENCY_EDEFAULT;
+        case EssbasePackage.DATABASE__OUTLINE:
+            return outline != null;
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (isCurrency: ");
@@ -258,4 +246,4 @@ public class DatabaseImpl extends SchemaImpl implements Database {
         return result.toString();
     }
 
-} //DatabaseImpl
+} // DatabaseImpl

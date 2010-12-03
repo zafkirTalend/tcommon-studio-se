@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.management.warehouseprocess.events.impl;
@@ -14,9 +13,8 @@ import orgomg.cwm.management.warehouseprocess.events.CascadeEvent;
 import orgomg.cwm.management.warehouseprocess.events.EventsPackage;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Cascade Event</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Cascade Event</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -27,10 +25,10 @@ import orgomg.cwm.management.warehouseprocess.events.EventsPackage;
  * @generated
  */
 public class CascadeEventImpl extends InternalEventImpl implements CascadeEvent {
+
     /**
      * The default value of the '{@link #getWaitRule() <em>Wait Rule</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getWaitRule()
      * @generated
      * @ordered
@@ -39,8 +37,7 @@ public class CascadeEventImpl extends InternalEventImpl implements CascadeEvent 
 
     /**
      * The cached value of the '{@link #getWaitRule() <em>Wait Rule</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getWaitRule()
      * @generated
      * @ordered
@@ -48,8 +45,7 @@ public class CascadeEventImpl extends InternalEventImpl implements CascadeEvent 
     protected WaitRuleType waitRule = WAIT_RULE_EDEFAULT;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected CascadeEventImpl() {
@@ -57,8 +53,7 @@ public class CascadeEventImpl extends InternalEventImpl implements CascadeEvent 
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -67,8 +62,7 @@ public class CascadeEventImpl extends InternalEventImpl implements CascadeEvent 
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public WaitRuleType getWaitRule() {
@@ -76,8 +70,7 @@ public class CascadeEventImpl extends InternalEventImpl implements CascadeEvent 
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setWaitRule(WaitRuleType newWaitRule) {
@@ -88,71 +81,67 @@ public class CascadeEventImpl extends InternalEventImpl implements CascadeEvent 
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case EventsPackage.CASCADE_EVENT__WAIT_RULE:
-                return getWaitRule();
+        case EventsPackage.CASCADE_EVENT__WAIT_RULE:
+            return getWaitRule();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case EventsPackage.CASCADE_EVENT__WAIT_RULE:
-                setWaitRule((WaitRuleType)newValue);
-                return;
+        case EventsPackage.CASCADE_EVENT__WAIT_RULE:
+            setWaitRule((WaitRuleType) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case EventsPackage.CASCADE_EVENT__WAIT_RULE:
-                setWaitRule(WAIT_RULE_EDEFAULT);
-                return;
+        case EventsPackage.CASCADE_EVENT__WAIT_RULE:
+            setWaitRule(WAIT_RULE_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case EventsPackage.CASCADE_EVENT__WAIT_RULE:
-                return waitRule != WAIT_RULE_EDEFAULT;
+        case EventsPackage.CASCADE_EVENT__WAIT_RULE:
+            return waitRule != WAIT_RULE_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (waitRule: ");
@@ -161,4 +150,4 @@ public class CascadeEventImpl extends InternalEventImpl implements CascadeEvent 
         return result.toString();
     }
 
-} //CascadeEventImpl
+} // CascadeEventImpl

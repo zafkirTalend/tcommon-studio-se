@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.imsdatabase.impl;
@@ -19,9 +18,8 @@ import orgomg.cwmx.resource.imsdatabase.ImsdatabasePackage;
 import orgomg.cwmx.resource.imsdatabase.Segment;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Exit</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Exit</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -41,10 +39,11 @@ import orgomg.cwmx.resource.imsdatabase.Segment;
  * @generated
  */
 public class ExitImpl extends ModelElementImpl implements Exit {
+
     /**
-     * The default value of the '{@link #isKey() <em>Key</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The default value of the '{@link #isKey() <em>Key</em>}' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #isKey()
      * @generated
      * @ordered
@@ -52,9 +51,9 @@ public class ExitImpl extends ModelElementImpl implements Exit {
     protected static final boolean KEY_EDEFAULT = false;
 
     /**
-     * The cached value of the '{@link #isKey() <em>Key</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #isKey() <em>Key</em>}' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #isKey()
      * @generated
      * @ordered
@@ -63,8 +62,7 @@ public class ExitImpl extends ModelElementImpl implements Exit {
 
     /**
      * The default value of the '{@link #isData() <em>Data</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #isData()
      * @generated
      * @ordered
@@ -72,9 +70,9 @@ public class ExitImpl extends ModelElementImpl implements Exit {
     protected static final boolean DATA_EDEFAULT = false;
 
     /**
-     * The cached value of the '{@link #isData() <em>Data</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #isData() <em>Data</em>}' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #isData()
      * @generated
      * @ordered
@@ -83,8 +81,7 @@ public class ExitImpl extends ModelElementImpl implements Exit {
 
     /**
      * The default value of the '{@link #isPath() <em>Path</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #isPath()
      * @generated
      * @ordered
@@ -92,9 +89,9 @@ public class ExitImpl extends ModelElementImpl implements Exit {
     protected static final boolean PATH_EDEFAULT = false;
 
     /**
-     * The cached value of the '{@link #isPath() <em>Path</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #isPath() <em>Path</em>}' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #isPath()
      * @generated
      * @ordered
@@ -102,9 +99,9 @@ public class ExitImpl extends ModelElementImpl implements Exit {
     protected boolean path = PATH_EDEFAULT;
 
     /**
-     * The default value of the '{@link #isLog() <em>Log</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The default value of the '{@link #isLog() <em>Log</em>}' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #isLog()
      * @generated
      * @ordered
@@ -112,9 +109,9 @@ public class ExitImpl extends ModelElementImpl implements Exit {
     protected static final boolean LOG_EDEFAULT = false;
 
     /**
-     * The cached value of the '{@link #isLog() <em>Log</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #isLog() <em>Log</em>}' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #isLog()
      * @generated
      * @ordered
@@ -123,8 +120,7 @@ public class ExitImpl extends ModelElementImpl implements Exit {
 
     /**
      * The default value of the '{@link #isCascade() <em>Cascade</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #isCascade()
      * @generated
      * @ordered
@@ -133,8 +129,7 @@ public class ExitImpl extends ModelElementImpl implements Exit {
 
     /**
      * The cached value of the '{@link #isCascade() <em>Cascade</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #isCascade()
      * @generated
      * @ordered
@@ -143,8 +138,7 @@ public class ExitImpl extends ModelElementImpl implements Exit {
 
     /**
      * The default value of the '{@link #isCascadeKey() <em>Cascade Key</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #isCascadeKey()
      * @generated
      * @ordered
@@ -153,8 +147,7 @@ public class ExitImpl extends ModelElementImpl implements Exit {
 
     /**
      * The cached value of the '{@link #isCascadeKey() <em>Cascade Key</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #isCascadeKey()
      * @generated
      * @ordered
@@ -163,8 +156,7 @@ public class ExitImpl extends ModelElementImpl implements Exit {
 
     /**
      * The default value of the '{@link #isCascadeData() <em>Cascade Data</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #isCascadeData()
      * @generated
      * @ordered
@@ -173,8 +165,7 @@ public class ExitImpl extends ModelElementImpl implements Exit {
 
     /**
      * The cached value of the '{@link #isCascadeData() <em>Cascade Data</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #isCascadeData()
      * @generated
      * @ordered
@@ -183,8 +174,7 @@ public class ExitImpl extends ModelElementImpl implements Exit {
 
     /**
      * The default value of the '{@link #isCascadePath() <em>Cascade Path</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #isCascadePath()
      * @generated
      * @ordered
@@ -193,8 +183,7 @@ public class ExitImpl extends ModelElementImpl implements Exit {
 
     /**
      * The cached value of the '{@link #isCascadePath() <em>Cascade Path</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #isCascadePath()
      * @generated
      * @ordered
@@ -202,8 +191,7 @@ public class ExitImpl extends ModelElementImpl implements Exit {
     protected boolean cascadePath = CASCADE_PATH_EDEFAULT;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected ExitImpl() {
@@ -211,8 +199,7 @@ public class ExitImpl extends ModelElementImpl implements Exit {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -221,8 +208,7 @@ public class ExitImpl extends ModelElementImpl implements Exit {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isKey() {
@@ -230,8 +216,7 @@ public class ExitImpl extends ModelElementImpl implements Exit {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setKey(boolean newKey) {
@@ -242,8 +227,7 @@ public class ExitImpl extends ModelElementImpl implements Exit {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isData() {
@@ -251,8 +235,7 @@ public class ExitImpl extends ModelElementImpl implements Exit {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setData(boolean newData) {
@@ -263,8 +246,7 @@ public class ExitImpl extends ModelElementImpl implements Exit {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isPath() {
@@ -272,8 +254,7 @@ public class ExitImpl extends ModelElementImpl implements Exit {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setPath(boolean newPath) {
@@ -284,8 +265,7 @@ public class ExitImpl extends ModelElementImpl implements Exit {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isLog() {
@@ -293,8 +273,7 @@ public class ExitImpl extends ModelElementImpl implements Exit {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setLog(boolean newLog) {
@@ -305,8 +284,7 @@ public class ExitImpl extends ModelElementImpl implements Exit {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isCascade() {
@@ -314,8 +292,7 @@ public class ExitImpl extends ModelElementImpl implements Exit {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setCascade(boolean newCascade) {
@@ -326,8 +303,7 @@ public class ExitImpl extends ModelElementImpl implements Exit {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isCascadeKey() {
@@ -335,8 +311,7 @@ public class ExitImpl extends ModelElementImpl implements Exit {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setCascadeKey(boolean newCascadeKey) {
@@ -347,8 +322,7 @@ public class ExitImpl extends ModelElementImpl implements Exit {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isCascadeData() {
@@ -356,20 +330,19 @@ public class ExitImpl extends ModelElementImpl implements Exit {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setCascadeData(boolean newCascadeData) {
         boolean oldCascadeData = cascadeData;
         cascadeData = newCascadeData;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.EXIT__CASCADE_DATA, oldCascadeData, cascadeData));
+            eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.EXIT__CASCADE_DATA, oldCascadeData,
+                    cascadeData));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isCascadePath() {
@@ -377,40 +350,38 @@ public class ExitImpl extends ModelElementImpl implements Exit {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setCascadePath(boolean newCascadePath) {
         boolean oldCascadePath = cascadePath;
         cascadePath = newCascadePath;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.EXIT__CASCADE_PATH, oldCascadePath, cascadePath));
+            eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.EXIT__CASCADE_PATH, oldCascadePath,
+                    cascadePath));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public DBD getDbd() {
-        if (eContainerFeatureID() != ImsdatabasePackage.EXIT__DBD) return null;
-        return (DBD)eContainer();
+        if (eContainerFeatureID() != ImsdatabasePackage.EXIT__DBD)
+            return null;
+        return (DBD) eContainer();
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public NotificationChain basicSetDbd(DBD newDbd, NotificationChain msgs) {
-        msgs = eBasicSetContainer((InternalEObject)newDbd, ImsdatabasePackage.EXIT__DBD, msgs);
+        msgs = eBasicSetContainer((InternalEObject) newDbd, ImsdatabasePackage.EXIT__DBD, msgs);
         return msgs;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setDbd(DBD newDbd) {
@@ -421,263 +392,255 @@ public class ExitImpl extends ModelElementImpl implements Exit {
             if (eInternalContainer() != null)
                 msgs = eBasicRemoveFromContainer(msgs);
             if (newDbd != null)
-                msgs = ((InternalEObject)newDbd).eInverseAdd(this, ImsdatabasePackage.DBD__EXIT, DBD.class, msgs);
+                msgs = ((InternalEObject) newDbd).eInverseAdd(this, ImsdatabasePackage.DBD__EXIT, DBD.class, msgs);
             msgs = basicSetDbd(newDbd, msgs);
-            if (msgs != null) msgs.dispatch();
-        }
-        else if (eNotificationRequired())
+            if (msgs != null)
+                msgs.dispatch();
+        } else if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.EXIT__DBD, newDbd, newDbd));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Segment getSegment() {
-        if (eContainerFeatureID() != ImsdatabasePackage.EXIT__SEGMENT) return null;
-        return (Segment)eContainer();
+        if (eContainerFeatureID() != ImsdatabasePackage.EXIT__SEGMENT)
+            return null;
+        return (Segment) eContainer();
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public NotificationChain basicSetSegment(Segment newSegment, NotificationChain msgs) {
-        msgs = eBasicSetContainer((InternalEObject)newSegment, ImsdatabasePackage.EXIT__SEGMENT, msgs);
+        msgs = eBasicSetContainer((InternalEObject) newSegment, ImsdatabasePackage.EXIT__SEGMENT, msgs);
         return msgs;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setSegment(Segment newSegment) {
-        if (newSegment != eInternalContainer() || (eContainerFeatureID() != ImsdatabasePackage.EXIT__SEGMENT && newSegment != null)) {
+        if (newSegment != eInternalContainer()
+                || (eContainerFeatureID() != ImsdatabasePackage.EXIT__SEGMENT && newSegment != null)) {
             if (EcoreUtil.isAncestor(this, newSegment))
                 throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
             NotificationChain msgs = null;
             if (eInternalContainer() != null)
                 msgs = eBasicRemoveFromContainer(msgs);
             if (newSegment != null)
-                msgs = ((InternalEObject)newSegment).eInverseAdd(this, ImsdatabasePackage.SEGMENT__EXIT, Segment.class, msgs);
+                msgs = ((InternalEObject) newSegment).eInverseAdd(this, ImsdatabasePackage.SEGMENT__EXIT, Segment.class, msgs);
             msgs = basicSetSegment(newSegment, msgs);
-            if (msgs != null) msgs.dispatch();
-        }
-        else if (eNotificationRequired())
+            if (msgs != null)
+                msgs.dispatch();
+        } else if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.EXIT__SEGMENT, newSegment, newSegment));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case ImsdatabasePackage.EXIT__DBD:
-                if (eInternalContainer() != null)
-                    msgs = eBasicRemoveFromContainer(msgs);
-                return basicSetDbd((DBD)otherEnd, msgs);
-            case ImsdatabasePackage.EXIT__SEGMENT:
-                if (eInternalContainer() != null)
-                    msgs = eBasicRemoveFromContainer(msgs);
-                return basicSetSegment((Segment)otherEnd, msgs);
+        case ImsdatabasePackage.EXIT__DBD:
+            if (eInternalContainer() != null)
+                msgs = eBasicRemoveFromContainer(msgs);
+            return basicSetDbd((DBD) otherEnd, msgs);
+        case ImsdatabasePackage.EXIT__SEGMENT:
+            if (eInternalContainer() != null)
+                msgs = eBasicRemoveFromContainer(msgs);
+            return basicSetSegment((Segment) otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case ImsdatabasePackage.EXIT__DBD:
-                return basicSetDbd(null, msgs);
-            case ImsdatabasePackage.EXIT__SEGMENT:
-                return basicSetSegment(null, msgs);
+        case ImsdatabasePackage.EXIT__DBD:
+            return basicSetDbd(null, msgs);
+        case ImsdatabasePackage.EXIT__SEGMENT:
+            return basicSetSegment(null, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
         switch (eContainerFeatureID()) {
-            case ImsdatabasePackage.EXIT__DBD:
-                return eInternalContainer().eInverseRemove(this, ImsdatabasePackage.DBD__EXIT, DBD.class, msgs);
-            case ImsdatabasePackage.EXIT__SEGMENT:
-                return eInternalContainer().eInverseRemove(this, ImsdatabasePackage.SEGMENT__EXIT, Segment.class, msgs);
+        case ImsdatabasePackage.EXIT__DBD:
+            return eInternalContainer().eInverseRemove(this, ImsdatabasePackage.DBD__EXIT, DBD.class, msgs);
+        case ImsdatabasePackage.EXIT__SEGMENT:
+            return eInternalContainer().eInverseRemove(this, ImsdatabasePackage.SEGMENT__EXIT, Segment.class, msgs);
         }
         return super.eBasicRemoveFromContainerFeature(msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case ImsdatabasePackage.EXIT__KEY:
-                return isKey();
-            case ImsdatabasePackage.EXIT__DATA:
-                return isData();
-            case ImsdatabasePackage.EXIT__PATH:
-                return isPath();
-            case ImsdatabasePackage.EXIT__LOG:
-                return isLog();
-            case ImsdatabasePackage.EXIT__CASCADE:
-                return isCascade();
-            case ImsdatabasePackage.EXIT__CASCADE_KEY:
-                return isCascadeKey();
-            case ImsdatabasePackage.EXIT__CASCADE_DATA:
-                return isCascadeData();
-            case ImsdatabasePackage.EXIT__CASCADE_PATH:
-                return isCascadePath();
-            case ImsdatabasePackage.EXIT__DBD:
-                return getDbd();
-            case ImsdatabasePackage.EXIT__SEGMENT:
-                return getSegment();
+        case ImsdatabasePackage.EXIT__KEY:
+            return isKey();
+        case ImsdatabasePackage.EXIT__DATA:
+            return isData();
+        case ImsdatabasePackage.EXIT__PATH:
+            return isPath();
+        case ImsdatabasePackage.EXIT__LOG:
+            return isLog();
+        case ImsdatabasePackage.EXIT__CASCADE:
+            return isCascade();
+        case ImsdatabasePackage.EXIT__CASCADE_KEY:
+            return isCascadeKey();
+        case ImsdatabasePackage.EXIT__CASCADE_DATA:
+            return isCascadeData();
+        case ImsdatabasePackage.EXIT__CASCADE_PATH:
+            return isCascadePath();
+        case ImsdatabasePackage.EXIT__DBD:
+            return getDbd();
+        case ImsdatabasePackage.EXIT__SEGMENT:
+            return getSegment();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case ImsdatabasePackage.EXIT__KEY:
-                setKey((Boolean)newValue);
-                return;
-            case ImsdatabasePackage.EXIT__DATA:
-                setData((Boolean)newValue);
-                return;
-            case ImsdatabasePackage.EXIT__PATH:
-                setPath((Boolean)newValue);
-                return;
-            case ImsdatabasePackage.EXIT__LOG:
-                setLog((Boolean)newValue);
-                return;
-            case ImsdatabasePackage.EXIT__CASCADE:
-                setCascade((Boolean)newValue);
-                return;
-            case ImsdatabasePackage.EXIT__CASCADE_KEY:
-                setCascadeKey((Boolean)newValue);
-                return;
-            case ImsdatabasePackage.EXIT__CASCADE_DATA:
-                setCascadeData((Boolean)newValue);
-                return;
-            case ImsdatabasePackage.EXIT__CASCADE_PATH:
-                setCascadePath((Boolean)newValue);
-                return;
-            case ImsdatabasePackage.EXIT__DBD:
-                setDbd((DBD)newValue);
-                return;
-            case ImsdatabasePackage.EXIT__SEGMENT:
-                setSegment((Segment)newValue);
-                return;
+        case ImsdatabasePackage.EXIT__KEY:
+            setKey((Boolean) newValue);
+            return;
+        case ImsdatabasePackage.EXIT__DATA:
+            setData((Boolean) newValue);
+            return;
+        case ImsdatabasePackage.EXIT__PATH:
+            setPath((Boolean) newValue);
+            return;
+        case ImsdatabasePackage.EXIT__LOG:
+            setLog((Boolean) newValue);
+            return;
+        case ImsdatabasePackage.EXIT__CASCADE:
+            setCascade((Boolean) newValue);
+            return;
+        case ImsdatabasePackage.EXIT__CASCADE_KEY:
+            setCascadeKey((Boolean) newValue);
+            return;
+        case ImsdatabasePackage.EXIT__CASCADE_DATA:
+            setCascadeData((Boolean) newValue);
+            return;
+        case ImsdatabasePackage.EXIT__CASCADE_PATH:
+            setCascadePath((Boolean) newValue);
+            return;
+        case ImsdatabasePackage.EXIT__DBD:
+            setDbd((DBD) newValue);
+            return;
+        case ImsdatabasePackage.EXIT__SEGMENT:
+            setSegment((Segment) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case ImsdatabasePackage.EXIT__KEY:
-                setKey(KEY_EDEFAULT);
-                return;
-            case ImsdatabasePackage.EXIT__DATA:
-                setData(DATA_EDEFAULT);
-                return;
-            case ImsdatabasePackage.EXIT__PATH:
-                setPath(PATH_EDEFAULT);
-                return;
-            case ImsdatabasePackage.EXIT__LOG:
-                setLog(LOG_EDEFAULT);
-                return;
-            case ImsdatabasePackage.EXIT__CASCADE:
-                setCascade(CASCADE_EDEFAULT);
-                return;
-            case ImsdatabasePackage.EXIT__CASCADE_KEY:
-                setCascadeKey(CASCADE_KEY_EDEFAULT);
-                return;
-            case ImsdatabasePackage.EXIT__CASCADE_DATA:
-                setCascadeData(CASCADE_DATA_EDEFAULT);
-                return;
-            case ImsdatabasePackage.EXIT__CASCADE_PATH:
-                setCascadePath(CASCADE_PATH_EDEFAULT);
-                return;
-            case ImsdatabasePackage.EXIT__DBD:
-                setDbd((DBD)null);
-                return;
-            case ImsdatabasePackage.EXIT__SEGMENT:
-                setSegment((Segment)null);
-                return;
+        case ImsdatabasePackage.EXIT__KEY:
+            setKey(KEY_EDEFAULT);
+            return;
+        case ImsdatabasePackage.EXIT__DATA:
+            setData(DATA_EDEFAULT);
+            return;
+        case ImsdatabasePackage.EXIT__PATH:
+            setPath(PATH_EDEFAULT);
+            return;
+        case ImsdatabasePackage.EXIT__LOG:
+            setLog(LOG_EDEFAULT);
+            return;
+        case ImsdatabasePackage.EXIT__CASCADE:
+            setCascade(CASCADE_EDEFAULT);
+            return;
+        case ImsdatabasePackage.EXIT__CASCADE_KEY:
+            setCascadeKey(CASCADE_KEY_EDEFAULT);
+            return;
+        case ImsdatabasePackage.EXIT__CASCADE_DATA:
+            setCascadeData(CASCADE_DATA_EDEFAULT);
+            return;
+        case ImsdatabasePackage.EXIT__CASCADE_PATH:
+            setCascadePath(CASCADE_PATH_EDEFAULT);
+            return;
+        case ImsdatabasePackage.EXIT__DBD:
+            setDbd((DBD) null);
+            return;
+        case ImsdatabasePackage.EXIT__SEGMENT:
+            setSegment((Segment) null);
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case ImsdatabasePackage.EXIT__KEY:
-                return key != KEY_EDEFAULT;
-            case ImsdatabasePackage.EXIT__DATA:
-                return data != DATA_EDEFAULT;
-            case ImsdatabasePackage.EXIT__PATH:
-                return path != PATH_EDEFAULT;
-            case ImsdatabasePackage.EXIT__LOG:
-                return log != LOG_EDEFAULT;
-            case ImsdatabasePackage.EXIT__CASCADE:
-                return cascade != CASCADE_EDEFAULT;
-            case ImsdatabasePackage.EXIT__CASCADE_KEY:
-                return cascadeKey != CASCADE_KEY_EDEFAULT;
-            case ImsdatabasePackage.EXIT__CASCADE_DATA:
-                return cascadeData != CASCADE_DATA_EDEFAULT;
-            case ImsdatabasePackage.EXIT__CASCADE_PATH:
-                return cascadePath != CASCADE_PATH_EDEFAULT;
-            case ImsdatabasePackage.EXIT__DBD:
-                return getDbd() != null;
-            case ImsdatabasePackage.EXIT__SEGMENT:
-                return getSegment() != null;
+        case ImsdatabasePackage.EXIT__KEY:
+            return key != KEY_EDEFAULT;
+        case ImsdatabasePackage.EXIT__DATA:
+            return data != DATA_EDEFAULT;
+        case ImsdatabasePackage.EXIT__PATH:
+            return path != PATH_EDEFAULT;
+        case ImsdatabasePackage.EXIT__LOG:
+            return log != LOG_EDEFAULT;
+        case ImsdatabasePackage.EXIT__CASCADE:
+            return cascade != CASCADE_EDEFAULT;
+        case ImsdatabasePackage.EXIT__CASCADE_KEY:
+            return cascadeKey != CASCADE_KEY_EDEFAULT;
+        case ImsdatabasePackage.EXIT__CASCADE_DATA:
+            return cascadeData != CASCADE_DATA_EDEFAULT;
+        case ImsdatabasePackage.EXIT__CASCADE_PATH:
+            return cascadePath != CASCADE_PATH_EDEFAULT;
+        case ImsdatabasePackage.EXIT__DBD:
+            return getDbd() != null;
+        case ImsdatabasePackage.EXIT__SEGMENT:
+            return getSegment() != null;
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (key: ");
@@ -700,4 +663,4 @@ public class ExitImpl extends ModelElementImpl implements Exit {
         return result.toString();
     }
 
-} //ExitImpl
+} // ExitImpl

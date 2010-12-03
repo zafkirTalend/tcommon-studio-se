@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.analysis.datamining.impl;
@@ -16,9 +15,8 @@ import orgomg.cwm.analysis.datamining.DataminingPackage;
 import orgomg.cwm.analysis.datamining.MiningAttribute;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Association Rules Settings</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Association Rules Settings</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -31,10 +29,11 @@ import orgomg.cwm.analysis.datamining.MiningAttribute;
  * @generated
  */
 public class AssociationRulesSettingsImpl extends MiningSettingsImpl implements AssociationRulesSettings {
+
     /**
      * The default value of the '{@link #getMinimumSupport() <em>Minimum Support</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getMinimumSupport()
      * @generated
      * @ordered
@@ -43,8 +42,8 @@ public class AssociationRulesSettingsImpl extends MiningSettingsImpl implements 
 
     /**
      * The cached value of the '{@link #getMinimumSupport() <em>Minimum Support</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getMinimumSupport()
      * @generated
      * @ordered
@@ -53,8 +52,8 @@ public class AssociationRulesSettingsImpl extends MiningSettingsImpl implements 
 
     /**
      * The default value of the '{@link #getMinimumConfidence() <em>Minimum Confidence</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getMinimumConfidence()
      * @generated
      * @ordered
@@ -63,8 +62,8 @@ public class AssociationRulesSettingsImpl extends MiningSettingsImpl implements 
 
     /**
      * The cached value of the '{@link #getMinimumConfidence() <em>Minimum Confidence</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getMinimumConfidence()
      * @generated
      * @ordered
@@ -73,8 +72,7 @@ public class AssociationRulesSettingsImpl extends MiningSettingsImpl implements 
 
     /**
      * The cached value of the '{@link #getItemId() <em>Item Id</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getItemId()
      * @generated
      * @ordered
@@ -82,8 +80,7 @@ public class AssociationRulesSettingsImpl extends MiningSettingsImpl implements 
     protected MiningAttribute itemId;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected AssociationRulesSettingsImpl() {
@@ -91,8 +88,7 @@ public class AssociationRulesSettingsImpl extends MiningSettingsImpl implements 
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -101,8 +97,7 @@ public class AssociationRulesSettingsImpl extends MiningSettingsImpl implements 
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getMinimumSupport() {
@@ -110,20 +105,19 @@ public class AssociationRulesSettingsImpl extends MiningSettingsImpl implements 
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setMinimumSupport(String newMinimumSupport) {
         String oldMinimumSupport = minimumSupport;
         minimumSupport = newMinimumSupport;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, DataminingPackage.ASSOCIATION_RULES_SETTINGS__MINIMUM_SUPPORT, oldMinimumSupport, minimumSupport));
+            eNotify(new ENotificationImpl(this, Notification.SET, DataminingPackage.ASSOCIATION_RULES_SETTINGS__MINIMUM_SUPPORT,
+                    oldMinimumSupport, minimumSupport));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getMinimumConfidence() {
@@ -131,37 +125,36 @@ public class AssociationRulesSettingsImpl extends MiningSettingsImpl implements 
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setMinimumConfidence(String newMinimumConfidence) {
         String oldMinimumConfidence = minimumConfidence;
         minimumConfidence = newMinimumConfidence;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, DataminingPackage.ASSOCIATION_RULES_SETTINGS__MINIMUM_CONFIDENCE, oldMinimumConfidence, minimumConfidence));
+            eNotify(new ENotificationImpl(this, Notification.SET,
+                    DataminingPackage.ASSOCIATION_RULES_SETTINGS__MINIMUM_CONFIDENCE, oldMinimumConfidence, minimumConfidence));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public MiningAttribute getItemId() {
         if (itemId != null && itemId.eIsProxy()) {
-            InternalEObject oldItemId = (InternalEObject)itemId;
-            itemId = (MiningAttribute)eResolveProxy(oldItemId);
+            InternalEObject oldItemId = (InternalEObject) itemId;
+            itemId = (MiningAttribute) eResolveProxy(oldItemId);
             if (itemId != oldItemId) {
                 if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, DataminingPackage.ASSOCIATION_RULES_SETTINGS__ITEM_ID, oldItemId, itemId));
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+                            DataminingPackage.ASSOCIATION_RULES_SETTINGS__ITEM_ID, oldItemId, itemId));
             }
         }
         return itemId;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public MiningAttribute basicGetItemId() {
@@ -169,156 +162,158 @@ public class AssociationRulesSettingsImpl extends MiningSettingsImpl implements 
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public NotificationChain basicSetItemId(MiningAttribute newItemId, NotificationChain msgs) {
         MiningAttribute oldItemId = itemId;
         itemId = newItemId;
         if (eNotificationRequired()) {
-            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DataminingPackage.ASSOCIATION_RULES_SETTINGS__ITEM_ID, oldItemId, newItemId);
-            if (msgs == null) msgs = notification; else msgs.add(notification);
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+                    DataminingPackage.ASSOCIATION_RULES_SETTINGS__ITEM_ID, oldItemId, newItemId);
+            if (msgs == null)
+                msgs = notification;
+            else
+                msgs.add(notification);
         }
         return msgs;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setItemId(MiningAttribute newItemId) {
         if (newItemId != itemId) {
             NotificationChain msgs = null;
             if (itemId != null)
-                msgs = ((InternalEObject)itemId).eInverseRemove(this, DataminingPackage.MINING_ATTRIBUTE__SETTINGS, MiningAttribute.class, msgs);
+                msgs = ((InternalEObject) itemId).eInverseRemove(this, DataminingPackage.MINING_ATTRIBUTE__SETTINGS,
+                        MiningAttribute.class, msgs);
             if (newItemId != null)
-                msgs = ((InternalEObject)newItemId).eInverseAdd(this, DataminingPackage.MINING_ATTRIBUTE__SETTINGS, MiningAttribute.class, msgs);
+                msgs = ((InternalEObject) newItemId).eInverseAdd(this, DataminingPackage.MINING_ATTRIBUTE__SETTINGS,
+                        MiningAttribute.class, msgs);
             msgs = basicSetItemId(newItemId, msgs);
-            if (msgs != null) msgs.dispatch();
-        }
-        else if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, DataminingPackage.ASSOCIATION_RULES_SETTINGS__ITEM_ID, newItemId, newItemId));
+            if (msgs != null)
+                msgs.dispatch();
+        } else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, DataminingPackage.ASSOCIATION_RULES_SETTINGS__ITEM_ID,
+                    newItemId, newItemId));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case DataminingPackage.ASSOCIATION_RULES_SETTINGS__ITEM_ID:
-                if (itemId != null)
-                    msgs = ((InternalEObject)itemId).eInverseRemove(this, DataminingPackage.MINING_ATTRIBUTE__SETTINGS, MiningAttribute.class, msgs);
-                return basicSetItemId((MiningAttribute)otherEnd, msgs);
+        case DataminingPackage.ASSOCIATION_RULES_SETTINGS__ITEM_ID:
+            if (itemId != null)
+                msgs = ((InternalEObject) itemId).eInverseRemove(this, DataminingPackage.MINING_ATTRIBUTE__SETTINGS,
+                        MiningAttribute.class, msgs);
+            return basicSetItemId((MiningAttribute) otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case DataminingPackage.ASSOCIATION_RULES_SETTINGS__ITEM_ID:
-                return basicSetItemId(null, msgs);
+        case DataminingPackage.ASSOCIATION_RULES_SETTINGS__ITEM_ID:
+            return basicSetItemId(null, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case DataminingPackage.ASSOCIATION_RULES_SETTINGS__MINIMUM_SUPPORT:
-                return getMinimumSupport();
-            case DataminingPackage.ASSOCIATION_RULES_SETTINGS__MINIMUM_CONFIDENCE:
-                return getMinimumConfidence();
-            case DataminingPackage.ASSOCIATION_RULES_SETTINGS__ITEM_ID:
-                if (resolve) return getItemId();
-                return basicGetItemId();
+        case DataminingPackage.ASSOCIATION_RULES_SETTINGS__MINIMUM_SUPPORT:
+            return getMinimumSupport();
+        case DataminingPackage.ASSOCIATION_RULES_SETTINGS__MINIMUM_CONFIDENCE:
+            return getMinimumConfidence();
+        case DataminingPackage.ASSOCIATION_RULES_SETTINGS__ITEM_ID:
+            if (resolve)
+                return getItemId();
+            return basicGetItemId();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case DataminingPackage.ASSOCIATION_RULES_SETTINGS__MINIMUM_SUPPORT:
-                setMinimumSupport((String)newValue);
-                return;
-            case DataminingPackage.ASSOCIATION_RULES_SETTINGS__MINIMUM_CONFIDENCE:
-                setMinimumConfidence((String)newValue);
-                return;
-            case DataminingPackage.ASSOCIATION_RULES_SETTINGS__ITEM_ID:
-                setItemId((MiningAttribute)newValue);
-                return;
+        case DataminingPackage.ASSOCIATION_RULES_SETTINGS__MINIMUM_SUPPORT:
+            setMinimumSupport((String) newValue);
+            return;
+        case DataminingPackage.ASSOCIATION_RULES_SETTINGS__MINIMUM_CONFIDENCE:
+            setMinimumConfidence((String) newValue);
+            return;
+        case DataminingPackage.ASSOCIATION_RULES_SETTINGS__ITEM_ID:
+            setItemId((MiningAttribute) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case DataminingPackage.ASSOCIATION_RULES_SETTINGS__MINIMUM_SUPPORT:
-                setMinimumSupport(MINIMUM_SUPPORT_EDEFAULT);
-                return;
-            case DataminingPackage.ASSOCIATION_RULES_SETTINGS__MINIMUM_CONFIDENCE:
-                setMinimumConfidence(MINIMUM_CONFIDENCE_EDEFAULT);
-                return;
-            case DataminingPackage.ASSOCIATION_RULES_SETTINGS__ITEM_ID:
-                setItemId((MiningAttribute)null);
-                return;
+        case DataminingPackage.ASSOCIATION_RULES_SETTINGS__MINIMUM_SUPPORT:
+            setMinimumSupport(MINIMUM_SUPPORT_EDEFAULT);
+            return;
+        case DataminingPackage.ASSOCIATION_RULES_SETTINGS__MINIMUM_CONFIDENCE:
+            setMinimumConfidence(MINIMUM_CONFIDENCE_EDEFAULT);
+            return;
+        case DataminingPackage.ASSOCIATION_RULES_SETTINGS__ITEM_ID:
+            setItemId((MiningAttribute) null);
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case DataminingPackage.ASSOCIATION_RULES_SETTINGS__MINIMUM_SUPPORT:
-                return MINIMUM_SUPPORT_EDEFAULT == null ? minimumSupport != null : !MINIMUM_SUPPORT_EDEFAULT.equals(minimumSupport);
-            case DataminingPackage.ASSOCIATION_RULES_SETTINGS__MINIMUM_CONFIDENCE:
-                return MINIMUM_CONFIDENCE_EDEFAULT == null ? minimumConfidence != null : !MINIMUM_CONFIDENCE_EDEFAULT.equals(minimumConfidence);
-            case DataminingPackage.ASSOCIATION_RULES_SETTINGS__ITEM_ID:
-                return itemId != null;
+        case DataminingPackage.ASSOCIATION_RULES_SETTINGS__MINIMUM_SUPPORT:
+            return MINIMUM_SUPPORT_EDEFAULT == null ? minimumSupport != null : !MINIMUM_SUPPORT_EDEFAULT.equals(minimumSupport);
+        case DataminingPackage.ASSOCIATION_RULES_SETTINGS__MINIMUM_CONFIDENCE:
+            return MINIMUM_CONFIDENCE_EDEFAULT == null ? minimumConfidence != null : !MINIMUM_CONFIDENCE_EDEFAULT
+                    .equals(minimumConfidence);
+        case DataminingPackage.ASSOCIATION_RULES_SETTINGS__ITEM_ID:
+            return itemId != null;
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (minimumSupport: ");
@@ -329,4 +324,4 @@ public class AssociationRulesSettingsImpl extends MiningSettingsImpl implements 
         return result.toString();
     }
 
-} //AssociationRulesSettingsImpl
+} // AssociationRulesSettingsImpl

@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.analysis.datamining;
@@ -13,13 +12,11 @@ import java.util.List;
 import org.eclipse.emf.common.util.Enumerator;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the literals of the enumeration '<em><b>Attribute Usage</b></em>',
- * and utility methods for working with them.
- * <!-- end-user-doc -->
- * <!-- begin-model-doc -->
- * Ways to use an attribute as part of a mining operation.
- * <!-- end-model-doc -->
+ * <!-- begin-user-doc --> A representation of the literals of the enumeration '
+ * <em><b>Attribute Usage</b></em>', and utility methods for working with them.
+ * <!-- end-user-doc --> <!-- begin-model-doc --> Ways to use an attribute as
+ * part of a mining operation. <!-- end-model-doc -->
+ * 
  * @see orgomg.cwm.analysis.datamining.DataminingPackage#getAttributeUsage()
  * @model
  * @generated
@@ -27,8 +24,8 @@ import org.eclipse.emf.common.util.Enumerator;
 public enum AttributeUsage implements Enumerator {
     /**
      * The '<em><b>Active</b></em>' literal object.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #ACTIVE_VALUE
      * @generated
      * @ordered
@@ -47,8 +44,8 @@ public enum AttributeUsage implements Enumerator {
 
     /**
      * The '<em><b>Supplementary</b></em>' literal object.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @see #SUPPLEMENTARY_VALUE
      * @generated
      * @ordered
@@ -56,12 +53,10 @@ public enum AttributeUsage implements Enumerator {
     SUPPLEMENTARY(2, "supplementary", "supplementary");
 
     /**
-     * The '<em><b>Active</b></em>' literal value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Active attributes contribute to the model building process
-     * <!-- end-model-doc -->
+     * The '<em><b>Active</b></em>' literal value. <!-- begin-user-doc --> <!--
+     * end-user-doc --> <!-- begin-model-doc --> Active attributes contribute to
+     * the model building process <!-- end-model-doc -->
+     * 
      * @see #ACTIVE
      * @model name="active"
      * @generated
@@ -70,12 +65,11 @@ public enum AttributeUsage implements Enumerator {
     public static final int ACTIVE_VALUE = 0;
 
     /**
-     * The '<em><b>Inactive</b></em>' literal value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Inactive attributes provide supplementary data that may be useful as part of the analysis.
+     * The '<em><b>Inactive</b></em>' literal value. <!-- begin-user-doc -->
+     * <!-- end-user-doc --> <!-- begin-model-doc --> Inactive attributes
+     * provide supplementary data that may be useful as part of the analysis.
      * <!-- end-model-doc -->
+     * 
      * @see #INACTIVE
      * @model name="inactive"
      * @generated
@@ -84,12 +78,11 @@ public enum AttributeUsage implements Enumerator {
     public static final int INACTIVE_VALUE = 1;
 
     /**
-     * The '<em><b>Supplementary</b></em>' literal value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Supplementary attributes provide any other supplementary data useful to the analysis.
+     * The '<em><b>Supplementary</b></em>' literal value. <!-- begin-user-doc
+     * --> <!-- end-user-doc --> <!-- begin-model-doc --> Supplementary
+     * attributes provide any other supplementary data useful to the analysis.
      * <!-- end-model-doc -->
+     * 
      * @see #SUPPLEMENTARY
      * @model name="supplementary"
      * @generated
@@ -98,30 +91,23 @@ public enum AttributeUsage implements Enumerator {
     public static final int SUPPLEMENTARY_VALUE = 2;
 
     /**
-     * An array of all the '<em><b>Attribute Usage</b></em>' enumerators.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * An array of all the '<em><b>Attribute Usage</b></em>' enumerators. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
-    private static final AttributeUsage[] VALUES_ARRAY =
-        new AttributeUsage[] {
-            ACTIVE,
-            INACTIVE,
-            SUPPLEMENTARY,
-        };
+    private static final AttributeUsage[] VALUES_ARRAY = new AttributeUsage[] { ACTIVE, INACTIVE, SUPPLEMENTARY, };
 
     /**
      * A public read-only list of all the '<em><b>Attribute Usage</b></em>' enumerators.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static final List<AttributeUsage> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
     /**
      * Returns the '<em><b>Attribute Usage</b></em>' literal with the specified literal value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static AttributeUsage get(String literal) {
@@ -136,8 +122,7 @@ public enum AttributeUsage implements Enumerator {
 
     /**
      * Returns the '<em><b>Attribute Usage</b></em>' literal with the specified name.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static AttributeUsage getByName(String name) {
@@ -152,44 +137,43 @@ public enum AttributeUsage implements Enumerator {
 
     /**
      * Returns the '<em><b>Attribute Usage</b></em>' literal with the specified integer value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static AttributeUsage get(int value) {
         switch (value) {
-            case ACTIVE_VALUE: return ACTIVE;
-            case INACTIVE_VALUE: return INACTIVE;
-            case SUPPLEMENTARY_VALUE: return SUPPLEMENTARY;
+        case ACTIVE_VALUE:
+            return ACTIVE;
+        case INACTIVE_VALUE:
+            return INACTIVE;
+        case SUPPLEMENTARY_VALUE:
+            return SUPPLEMENTARY;
         }
         return null;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private final int value;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private final String name;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private final String literal;
 
     /**
      * Only this class can construct instances.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     private AttributeUsage(int value, String name, String literal) {
@@ -199,41 +183,37 @@ public enum AttributeUsage implements Enumerator {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public int getValue() {
-      return value;
+        return value;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getName() {
-      return name;
+        return name;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getLiteral() {
-      return literal;
+        return literal;
     }
 
     /**
      * Returns the literal value of the enumerator, which is its string representation.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
         return literal;
     }
-    
-} //AttributeUsage
+
+} // AttributeUsage

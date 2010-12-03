@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.essbase.impl;
@@ -12,18 +11,17 @@ import orgomg.cwmx.resource.essbase.Consolidation;
 import orgomg.cwmx.resource.essbase.EssbasePackage;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Consolidation</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Consolidation</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
 public class ConsolidationImpl extends DimensionedObjectImpl implements Consolidation {
+
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected ConsolidationImpl() {
@@ -31,8 +29,7 @@ public class ConsolidationImpl extends DimensionedObjectImpl implements Consolid
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -40,4 +37,4 @@ public class ConsolidationImpl extends DimensionedObjectImpl implements Consolid
         return EssbasePackage.Literals.CONSOLIDATION;
     }
 
-} //ConsolidationImpl
+} // ConsolidationImpl

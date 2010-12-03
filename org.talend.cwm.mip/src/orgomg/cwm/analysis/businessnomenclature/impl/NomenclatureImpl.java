@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.analysis.businessnomenclature.impl;
@@ -22,9 +21,8 @@ import orgomg.cwm.analysis.businessnomenclature.Nomenclature;
 import orgomg.cwm.objectmodel.core.impl.PackageImpl;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Nomenclature</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Nomenclature</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -36,10 +34,10 @@ import orgomg.cwm.objectmodel.core.impl.PackageImpl;
  * @generated
  */
 public class NomenclatureImpl extends PackageImpl implements Nomenclature {
+
     /**
      * The cached value of the '{@link #getChild() <em>Child</em>}' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getChild()
      * @generated
      * @ordered
@@ -47,8 +45,7 @@ public class NomenclatureImpl extends PackageImpl implements Nomenclature {
     protected EList<Nomenclature> child;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected NomenclatureImpl() {
@@ -56,8 +53,7 @@ public class NomenclatureImpl extends PackageImpl implements Nomenclature {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -66,175 +62,170 @@ public class NomenclatureImpl extends PackageImpl implements Nomenclature {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Nomenclature getParent() {
-        if (eContainerFeatureID() != BusinessnomenclaturePackage.NOMENCLATURE__PARENT) return null;
-        return (Nomenclature)eContainer();
+        if (eContainerFeatureID() != BusinessnomenclaturePackage.NOMENCLATURE__PARENT)
+            return null;
+        return (Nomenclature) eContainer();
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public NotificationChain basicSetParent(Nomenclature newParent, NotificationChain msgs) {
-        msgs = eBasicSetContainer((InternalEObject)newParent, BusinessnomenclaturePackage.NOMENCLATURE__PARENT, msgs);
+        msgs = eBasicSetContainer((InternalEObject) newParent, BusinessnomenclaturePackage.NOMENCLATURE__PARENT, msgs);
         return msgs;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setParent(Nomenclature newParent) {
-        if (newParent != eInternalContainer() || (eContainerFeatureID() != BusinessnomenclaturePackage.NOMENCLATURE__PARENT && newParent != null)) {
+        if (newParent != eInternalContainer()
+                || (eContainerFeatureID() != BusinessnomenclaturePackage.NOMENCLATURE__PARENT && newParent != null)) {
             if (EcoreUtil.isAncestor(this, newParent))
                 throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
             NotificationChain msgs = null;
             if (eInternalContainer() != null)
                 msgs = eBasicRemoveFromContainer(msgs);
             if (newParent != null)
-                msgs = ((InternalEObject)newParent).eInverseAdd(this, BusinessnomenclaturePackage.NOMENCLATURE__CHILD, Nomenclature.class, msgs);
+                msgs = ((InternalEObject) newParent).eInverseAdd(this, BusinessnomenclaturePackage.NOMENCLATURE__CHILD,
+                        Nomenclature.class, msgs);
             msgs = basicSetParent(newParent, msgs);
-            if (msgs != null) msgs.dispatch();
-        }
-        else if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, BusinessnomenclaturePackage.NOMENCLATURE__PARENT, newParent, newParent));
+            if (msgs != null)
+                msgs.dispatch();
+        } else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, BusinessnomenclaturePackage.NOMENCLATURE__PARENT, newParent,
+                    newParent));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<Nomenclature> getChild() {
         if (child == null) {
-            child = new EObjectContainmentWithInverseEList<Nomenclature>(Nomenclature.class, this, BusinessnomenclaturePackage.NOMENCLATURE__CHILD, BusinessnomenclaturePackage.NOMENCLATURE__PARENT);
+            child = new EObjectContainmentWithInverseEList<Nomenclature>(Nomenclature.class, this,
+                    BusinessnomenclaturePackage.NOMENCLATURE__CHILD, BusinessnomenclaturePackage.NOMENCLATURE__PARENT);
         }
         return child;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case BusinessnomenclaturePackage.NOMENCLATURE__PARENT:
-                if (eInternalContainer() != null)
-                    msgs = eBasicRemoveFromContainer(msgs);
-                return basicSetParent((Nomenclature)otherEnd, msgs);
-            case BusinessnomenclaturePackage.NOMENCLATURE__CHILD:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getChild()).basicAdd(otherEnd, msgs);
+        case BusinessnomenclaturePackage.NOMENCLATURE__PARENT:
+            if (eInternalContainer() != null)
+                msgs = eBasicRemoveFromContainer(msgs);
+            return basicSetParent((Nomenclature) otherEnd, msgs);
+        case BusinessnomenclaturePackage.NOMENCLATURE__CHILD:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getChild()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case BusinessnomenclaturePackage.NOMENCLATURE__PARENT:
-                return basicSetParent(null, msgs);
-            case BusinessnomenclaturePackage.NOMENCLATURE__CHILD:
-                return ((InternalEList<?>)getChild()).basicRemove(otherEnd, msgs);
+        case BusinessnomenclaturePackage.NOMENCLATURE__PARENT:
+            return basicSetParent(null, msgs);
+        case BusinessnomenclaturePackage.NOMENCLATURE__CHILD:
+            return ((InternalEList<?>) getChild()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
         switch (eContainerFeatureID()) {
-            case BusinessnomenclaturePackage.NOMENCLATURE__PARENT:
-                return eInternalContainer().eInverseRemove(this, BusinessnomenclaturePackage.NOMENCLATURE__CHILD, Nomenclature.class, msgs);
+        case BusinessnomenclaturePackage.NOMENCLATURE__PARENT:
+            return eInternalContainer().eInverseRemove(this, BusinessnomenclaturePackage.NOMENCLATURE__CHILD, Nomenclature.class,
+                    msgs);
         }
         return super.eBasicRemoveFromContainerFeature(msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case BusinessnomenclaturePackage.NOMENCLATURE__PARENT:
-                return getParent();
-            case BusinessnomenclaturePackage.NOMENCLATURE__CHILD:
-                return getChild();
+        case BusinessnomenclaturePackage.NOMENCLATURE__PARENT:
+            return getParent();
+        case BusinessnomenclaturePackage.NOMENCLATURE__CHILD:
+            return getChild();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case BusinessnomenclaturePackage.NOMENCLATURE__PARENT:
-                setParent((Nomenclature)newValue);
-                return;
-            case BusinessnomenclaturePackage.NOMENCLATURE__CHILD:
-                getChild().clear();
-                getChild().addAll((Collection<? extends Nomenclature>)newValue);
-                return;
+        case BusinessnomenclaturePackage.NOMENCLATURE__PARENT:
+            setParent((Nomenclature) newValue);
+            return;
+        case BusinessnomenclaturePackage.NOMENCLATURE__CHILD:
+            getChild().clear();
+            getChild().addAll((Collection<? extends Nomenclature>) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case BusinessnomenclaturePackage.NOMENCLATURE__PARENT:
-                setParent((Nomenclature)null);
-                return;
-            case BusinessnomenclaturePackage.NOMENCLATURE__CHILD:
-                getChild().clear();
-                return;
+        case BusinessnomenclaturePackage.NOMENCLATURE__PARENT:
+            setParent((Nomenclature) null);
+            return;
+        case BusinessnomenclaturePackage.NOMENCLATURE__CHILD:
+            getChild().clear();
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case BusinessnomenclaturePackage.NOMENCLATURE__PARENT:
-                return getParent() != null;
-            case BusinessnomenclaturePackage.NOMENCLATURE__CHILD:
-                return child != null && !child.isEmpty();
+        case BusinessnomenclaturePackage.NOMENCLATURE__PARENT:
+            return getParent() != null;
+        case BusinessnomenclaturePackage.NOMENCLATURE__CHILD:
+            return child != null && !child.isEmpty();
         }
         return super.eIsSet(featureID);
     }
 
-} //NomenclatureImpl
+} // NomenclatureImpl

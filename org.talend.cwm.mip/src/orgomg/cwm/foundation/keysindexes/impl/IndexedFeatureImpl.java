@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.foundation.keysindexes.impl;
@@ -20,9 +19,8 @@ import orgomg.cwm.objectmodel.core.StructuralFeature;
 import orgomg.cwm.objectmodel.core.impl.ModelElementImpl;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Indexed Feature</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Indexed Feature</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -35,10 +33,10 @@ import orgomg.cwm.objectmodel.core.impl.ModelElementImpl;
  * @generated
  */
 public class IndexedFeatureImpl extends ModelElementImpl implements IndexedFeature {
+
     /**
      * The default value of the '{@link #isIsAscending() <em>Is Ascending</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #isIsAscending()
      * @generated
      * @ordered
@@ -47,8 +45,7 @@ public class IndexedFeatureImpl extends ModelElementImpl implements IndexedFeatu
 
     /**
      * The cached value of the '{@link #isIsAscending() <em>Is Ascending</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #isIsAscending()
      * @generated
      * @ordered
@@ -57,8 +54,7 @@ public class IndexedFeatureImpl extends ModelElementImpl implements IndexedFeatu
 
     /**
      * The cached value of the '{@link #getFeature() <em>Feature</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getFeature()
      * @generated
      * @ordered
@@ -66,8 +62,7 @@ public class IndexedFeatureImpl extends ModelElementImpl implements IndexedFeatu
     protected StructuralFeature feature;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected IndexedFeatureImpl() {
@@ -75,8 +70,7 @@ public class IndexedFeatureImpl extends ModelElementImpl implements IndexedFeatu
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -85,8 +79,7 @@ public class IndexedFeatureImpl extends ModelElementImpl implements IndexedFeatu
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isIsAscending() {
@@ -94,37 +87,36 @@ public class IndexedFeatureImpl extends ModelElementImpl implements IndexedFeatu
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setIsAscending(boolean newIsAscending) {
         boolean oldIsAscending = isAscending;
         isAscending = newIsAscending;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, KeysindexesPackage.INDEXED_FEATURE__IS_ASCENDING, oldIsAscending, isAscending));
+            eNotify(new ENotificationImpl(this, Notification.SET, KeysindexesPackage.INDEXED_FEATURE__IS_ASCENDING,
+                    oldIsAscending, isAscending));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public StructuralFeature getFeature() {
         if (feature != null && feature.eIsProxy()) {
-            InternalEObject oldFeature = (InternalEObject)feature;
-            feature = (StructuralFeature)eResolveProxy(oldFeature);
+            InternalEObject oldFeature = (InternalEObject) feature;
+            feature = (StructuralFeature) eResolveProxy(oldFeature);
             if (feature != oldFeature) {
                 if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, KeysindexesPackage.INDEXED_FEATURE__FEATURE, oldFeature, feature));
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, KeysindexesPackage.INDEXED_FEATURE__FEATURE,
+                            oldFeature, feature));
             }
         }
         return feature;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public StructuralFeature basicGetFeature() {
@@ -132,217 +124,217 @@ public class IndexedFeatureImpl extends ModelElementImpl implements IndexedFeatu
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public NotificationChain basicSetFeature(StructuralFeature newFeature, NotificationChain msgs) {
         StructuralFeature oldFeature = feature;
         feature = newFeature;
         if (eNotificationRequired()) {
-            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, KeysindexesPackage.INDEXED_FEATURE__FEATURE, oldFeature, newFeature);
-            if (msgs == null) msgs = notification; else msgs.add(notification);
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+                    KeysindexesPackage.INDEXED_FEATURE__FEATURE, oldFeature, newFeature);
+            if (msgs == null)
+                msgs = notification;
+            else
+                msgs.add(notification);
         }
         return msgs;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setFeature(StructuralFeature newFeature) {
         if (newFeature != feature) {
             NotificationChain msgs = null;
             if (feature != null)
-                msgs = ((InternalEObject)feature).eInverseRemove(this, CorePackage.STRUCTURAL_FEATURE__INDEXED_FEATURE, StructuralFeature.class, msgs);
+                msgs = ((InternalEObject) feature).eInverseRemove(this, CorePackage.STRUCTURAL_FEATURE__INDEXED_FEATURE,
+                        StructuralFeature.class, msgs);
             if (newFeature != null)
-                msgs = ((InternalEObject)newFeature).eInverseAdd(this, CorePackage.STRUCTURAL_FEATURE__INDEXED_FEATURE, StructuralFeature.class, msgs);
+                msgs = ((InternalEObject) newFeature).eInverseAdd(this, CorePackage.STRUCTURAL_FEATURE__INDEXED_FEATURE,
+                        StructuralFeature.class, msgs);
             msgs = basicSetFeature(newFeature, msgs);
-            if (msgs != null) msgs.dispatch();
-        }
-        else if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, KeysindexesPackage.INDEXED_FEATURE__FEATURE, newFeature, newFeature));
+            if (msgs != null)
+                msgs.dispatch();
+        } else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, KeysindexesPackage.INDEXED_FEATURE__FEATURE, newFeature,
+                    newFeature));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Index getIndex() {
-        if (eContainerFeatureID() != KeysindexesPackage.INDEXED_FEATURE__INDEX) return null;
-        return (Index)eContainer();
+        if (eContainerFeatureID() != KeysindexesPackage.INDEXED_FEATURE__INDEX)
+            return null;
+        return (Index) eContainer();
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public NotificationChain basicSetIndex(Index newIndex, NotificationChain msgs) {
-        msgs = eBasicSetContainer((InternalEObject)newIndex, KeysindexesPackage.INDEXED_FEATURE__INDEX, msgs);
+        msgs = eBasicSetContainer((InternalEObject) newIndex, KeysindexesPackage.INDEXED_FEATURE__INDEX, msgs);
         return msgs;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setIndex(Index newIndex) {
-        if (newIndex != eInternalContainer() || (eContainerFeatureID() != KeysindexesPackage.INDEXED_FEATURE__INDEX && newIndex != null)) {
+        if (newIndex != eInternalContainer()
+                || (eContainerFeatureID() != KeysindexesPackage.INDEXED_FEATURE__INDEX && newIndex != null)) {
             if (EcoreUtil.isAncestor(this, newIndex))
                 throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
             NotificationChain msgs = null;
             if (eInternalContainer() != null)
                 msgs = eBasicRemoveFromContainer(msgs);
             if (newIndex != null)
-                msgs = ((InternalEObject)newIndex).eInverseAdd(this, KeysindexesPackage.INDEX__INDEXED_FEATURE, Index.class, msgs);
+                msgs = ((InternalEObject) newIndex).eInverseAdd(this, KeysindexesPackage.INDEX__INDEXED_FEATURE, Index.class,
+                        msgs);
             msgs = basicSetIndex(newIndex, msgs);
-            if (msgs != null) msgs.dispatch();
-        }
-        else if (eNotificationRequired())
+            if (msgs != null)
+                msgs.dispatch();
+        } else if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, KeysindexesPackage.INDEXED_FEATURE__INDEX, newIndex, newIndex));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case KeysindexesPackage.INDEXED_FEATURE__FEATURE:
-                if (feature != null)
-                    msgs = ((InternalEObject)feature).eInverseRemove(this, CorePackage.STRUCTURAL_FEATURE__INDEXED_FEATURE, StructuralFeature.class, msgs);
-                return basicSetFeature((StructuralFeature)otherEnd, msgs);
-            case KeysindexesPackage.INDEXED_FEATURE__INDEX:
-                if (eInternalContainer() != null)
-                    msgs = eBasicRemoveFromContainer(msgs);
-                return basicSetIndex((Index)otherEnd, msgs);
+        case KeysindexesPackage.INDEXED_FEATURE__FEATURE:
+            if (feature != null)
+                msgs = ((InternalEObject) feature).eInverseRemove(this, CorePackage.STRUCTURAL_FEATURE__INDEXED_FEATURE,
+                        StructuralFeature.class, msgs);
+            return basicSetFeature((StructuralFeature) otherEnd, msgs);
+        case KeysindexesPackage.INDEXED_FEATURE__INDEX:
+            if (eInternalContainer() != null)
+                msgs = eBasicRemoveFromContainer(msgs);
+            return basicSetIndex((Index) otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case KeysindexesPackage.INDEXED_FEATURE__FEATURE:
-                return basicSetFeature(null, msgs);
-            case KeysindexesPackage.INDEXED_FEATURE__INDEX:
-                return basicSetIndex(null, msgs);
+        case KeysindexesPackage.INDEXED_FEATURE__FEATURE:
+            return basicSetFeature(null, msgs);
+        case KeysindexesPackage.INDEXED_FEATURE__INDEX:
+            return basicSetIndex(null, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
         switch (eContainerFeatureID()) {
-            case KeysindexesPackage.INDEXED_FEATURE__INDEX:
-                return eInternalContainer().eInverseRemove(this, KeysindexesPackage.INDEX__INDEXED_FEATURE, Index.class, msgs);
+        case KeysindexesPackage.INDEXED_FEATURE__INDEX:
+            return eInternalContainer().eInverseRemove(this, KeysindexesPackage.INDEX__INDEXED_FEATURE, Index.class, msgs);
         }
         return super.eBasicRemoveFromContainerFeature(msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case KeysindexesPackage.INDEXED_FEATURE__IS_ASCENDING:
-                return isIsAscending();
-            case KeysindexesPackage.INDEXED_FEATURE__FEATURE:
-                if (resolve) return getFeature();
-                return basicGetFeature();
-            case KeysindexesPackage.INDEXED_FEATURE__INDEX:
-                return getIndex();
+        case KeysindexesPackage.INDEXED_FEATURE__IS_ASCENDING:
+            return isIsAscending();
+        case KeysindexesPackage.INDEXED_FEATURE__FEATURE:
+            if (resolve)
+                return getFeature();
+            return basicGetFeature();
+        case KeysindexesPackage.INDEXED_FEATURE__INDEX:
+            return getIndex();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case KeysindexesPackage.INDEXED_FEATURE__IS_ASCENDING:
-                setIsAscending((Boolean)newValue);
-                return;
-            case KeysindexesPackage.INDEXED_FEATURE__FEATURE:
-                setFeature((StructuralFeature)newValue);
-                return;
-            case KeysindexesPackage.INDEXED_FEATURE__INDEX:
-                setIndex((Index)newValue);
-                return;
+        case KeysindexesPackage.INDEXED_FEATURE__IS_ASCENDING:
+            setIsAscending((Boolean) newValue);
+            return;
+        case KeysindexesPackage.INDEXED_FEATURE__FEATURE:
+            setFeature((StructuralFeature) newValue);
+            return;
+        case KeysindexesPackage.INDEXED_FEATURE__INDEX:
+            setIndex((Index) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case KeysindexesPackage.INDEXED_FEATURE__IS_ASCENDING:
-                setIsAscending(IS_ASCENDING_EDEFAULT);
-                return;
-            case KeysindexesPackage.INDEXED_FEATURE__FEATURE:
-                setFeature((StructuralFeature)null);
-                return;
-            case KeysindexesPackage.INDEXED_FEATURE__INDEX:
-                setIndex((Index)null);
-                return;
+        case KeysindexesPackage.INDEXED_FEATURE__IS_ASCENDING:
+            setIsAscending(IS_ASCENDING_EDEFAULT);
+            return;
+        case KeysindexesPackage.INDEXED_FEATURE__FEATURE:
+            setFeature((StructuralFeature) null);
+            return;
+        case KeysindexesPackage.INDEXED_FEATURE__INDEX:
+            setIndex((Index) null);
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case KeysindexesPackage.INDEXED_FEATURE__IS_ASCENDING:
-                return isAscending != IS_ASCENDING_EDEFAULT;
-            case KeysindexesPackage.INDEXED_FEATURE__FEATURE:
-                return feature != null;
-            case KeysindexesPackage.INDEXED_FEATURE__INDEX:
-                return getIndex() != null;
+        case KeysindexesPackage.INDEXED_FEATURE__IS_ASCENDING:
+            return isAscending != IS_ASCENDING_EDEFAULT;
+        case KeysindexesPackage.INDEXED_FEATURE__FEATURE:
+            return feature != null;
+        case KeysindexesPackage.INDEXED_FEATURE__INDEX:
+            return getIndex() != null;
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (isAscending: ");
@@ -351,4 +343,4 @@ public class IndexedFeatureImpl extends ModelElementImpl implements IndexedFeatu
         return result.toString();
     }
 
-} //IndexedFeatureImpl
+} // IndexedFeatureImpl

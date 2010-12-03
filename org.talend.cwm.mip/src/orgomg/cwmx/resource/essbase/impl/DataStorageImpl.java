@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.essbase.impl;
@@ -12,18 +11,17 @@ import orgomg.cwmx.resource.essbase.DataStorage;
 import orgomg.cwmx.resource.essbase.EssbasePackage;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Data Storage</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Data Storage</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
 public class DataStorageImpl extends DimensionedObjectImpl implements DataStorage {
+
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected DataStorageImpl() {
@@ -31,8 +29,7 @@ public class DataStorageImpl extends DimensionedObjectImpl implements DataStorag
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -40,4 +37,4 @@ public class DataStorageImpl extends DimensionedObjectImpl implements DataStorag
         return EssbasePackage.Literals.DATA_STORAGE;
     }
 
-} //DataStorageImpl
+} // DataStorageImpl

@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.objectmodel.instance;
@@ -9,9 +8,8 @@ package orgomg.cwm.objectmodel.instance;
 import org.eclipse.emf.common.util.EList;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Object</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Object</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * An object is an instance that originates from a class.
@@ -33,15 +31,16 @@ import org.eclipse.emf.common.util.EList;
  * @generated
  */
 public interface Object extends Instance {
+
     /**
-     * Returns the value of the '<em><b>Slot</b></em>' containment reference list.
-     * The list contents are of type {@link orgomg.cwm.objectmodel.instance.Slot}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.objectmodel.instance.Slot#getObject <em>Object</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the set of Slot instances owned by the Object instance.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Slot</b></em>' containment reference
+     * list. The list contents are of type
+     * {@link orgomg.cwm.objectmodel.instance.Slot}. It is bidirectional and its
+     * opposite is '{@link orgomg.cwm.objectmodel.instance.Slot#getObject
+     * <em>Object</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> Identifies the set of Slot instances owned by the
+     * Object instance. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Slot</em>' containment reference list.
      * @see orgomg.cwm.objectmodel.instance.InstancePackage#getObject_Slot()
      * @see orgomg.cwm.objectmodel.instance.Slot#getObject

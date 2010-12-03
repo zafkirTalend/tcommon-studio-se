@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.dmsii;
@@ -9,9 +8,8 @@ package orgomg.cwmx.resource.dmsii;
 import orgomg.cwm.foundation.businessinformation.Description;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>DASDL Comment</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>DASDL Comment</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * Contains the text of the single DASDL <comment> that nearly every object in a DASDL source may have. These comments differ from Remarks in that there is only one instance per DASDL object, their position in the source is constrained, and they

@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.dmsii.impl;
@@ -14,9 +13,8 @@ import orgomg.cwmx.resource.dmsii.DmsiiPackage;
 import orgomg.cwmx.resource.dmsii.Remark;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Remark</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Remark</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -27,10 +25,10 @@ import orgomg.cwmx.resource.dmsii.Remark;
  * @generated
  */
 public class RemarkImpl extends StructuralFeatureImpl implements Remark {
+
     /**
      * The default value of the '{@link #getText() <em>Text</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getText()
      * @generated
      * @ordered
@@ -39,8 +37,7 @@ public class RemarkImpl extends StructuralFeatureImpl implements Remark {
 
     /**
      * The cached value of the '{@link #getText() <em>Text</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getText()
      * @generated
      * @ordered
@@ -48,8 +45,7 @@ public class RemarkImpl extends StructuralFeatureImpl implements Remark {
     protected String text = TEXT_EDEFAULT;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected RemarkImpl() {
@@ -57,8 +53,7 @@ public class RemarkImpl extends StructuralFeatureImpl implements Remark {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -67,8 +62,7 @@ public class RemarkImpl extends StructuralFeatureImpl implements Remark {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getText() {
@@ -76,8 +70,7 @@ public class RemarkImpl extends StructuralFeatureImpl implements Remark {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setText(String newText) {
@@ -88,71 +81,67 @@ public class RemarkImpl extends StructuralFeatureImpl implements Remark {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case DmsiiPackage.REMARK__TEXT:
-                return getText();
+        case DmsiiPackage.REMARK__TEXT:
+            return getText();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case DmsiiPackage.REMARK__TEXT:
-                setText((String)newValue);
-                return;
+        case DmsiiPackage.REMARK__TEXT:
+            setText((String) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case DmsiiPackage.REMARK__TEXT:
-                setText(TEXT_EDEFAULT);
-                return;
+        case DmsiiPackage.REMARK__TEXT:
+            setText(TEXT_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case DmsiiPackage.REMARK__TEXT:
-                return TEXT_EDEFAULT == null ? text != null : !TEXT_EDEFAULT.equals(text);
+        case DmsiiPackage.REMARK__TEXT:
+            return TEXT_EDEFAULT == null ? text != null : !TEXT_EDEFAULT.equals(text);
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (text: ");
@@ -161,4 +150,4 @@ public class RemarkImpl extends StructuralFeatureImpl implements Remark {
         return result.toString();
     }
 
-} //RemarkImpl
+} // RemarkImpl

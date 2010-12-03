@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.resource.relational;
@@ -9,9 +8,8 @@ package orgomg.cwm.resource.relational;
 import orgomg.cwm.foundation.keysindexes.Index;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>SQL Index</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>SQL Index</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * An Index on a table.
@@ -31,13 +29,12 @@ import orgomg.cwm.foundation.keysindexes.Index;
  * @generated
  */
 public interface SQLIndex extends Index {
+
     /**
      * Returns the value of the '<em><b>Filter Condition</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Which subset of the table is indexed
-     * <!-- end-model-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * Which subset of the table is indexed <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Filter Condition</em>' attribute.
      * @see #setFilterCondition(String)
      * @see orgomg.cwm.resource.relational.RelationalPackage#getSQLIndex_FilterCondition()
@@ -48,8 +45,8 @@ public interface SQLIndex extends Index {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.resource.relational.SQLIndex#getFilterCondition <em>Filter Condition</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Filter Condition</em>' attribute.
      * @see #getFilterCondition()
      * @generated
@@ -57,12 +54,10 @@ public interface SQLIndex extends Index {
     void setFilterCondition(String value);
 
     /**
-     * Returns the value of the '<em><b>Is Nullable</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Entries in this index can be null
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Is Nullable</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> Entries
+     * in this index can be null <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Is Nullable</em>' attribute.
      * @see #setIsNullable(boolean)
      * @see orgomg.cwm.resource.relational.RelationalPackage#getSQLIndex_IsNullable()
@@ -73,8 +68,8 @@ public interface SQLIndex extends Index {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.resource.relational.SQLIndex#isIsNullable <em>Is Nullable</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Is Nullable</em>' attribute.
      * @see #isIsNullable()
      * @generated
@@ -82,12 +77,10 @@ public interface SQLIndex extends Index {
     void setIsNullable(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Auto Update</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The index is updated automatically
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Auto Update</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> The
+     * index is updated automatically <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Auto Update</em>' attribute.
      * @see #setAutoUpdate(boolean)
      * @see orgomg.cwm.resource.relational.RelationalPackage#getSQLIndex_AutoUpdate()
@@ -98,8 +91,8 @@ public interface SQLIndex extends Index {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.resource.relational.SQLIndex#isAutoUpdate <em>Auto Update</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Auto Update</em>' attribute.
      * @see #isAutoUpdate()
      * @generated

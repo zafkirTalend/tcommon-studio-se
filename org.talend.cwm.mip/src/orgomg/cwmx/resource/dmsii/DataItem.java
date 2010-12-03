@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.dmsii;
@@ -12,9 +11,8 @@ import orgomg.cwm.objectmodel.core.StructuralFeature;
 import orgomg.cwm.resource.record.Field;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Data Item</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Data Item</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * Instances of DataItem represent the individual data fields within a DataSet. The Group class in the CWM Foundation?s DataTypes package is also available for constructing collections of fields in a DataSet.
@@ -57,13 +55,13 @@ import orgomg.cwm.resource.record.Field;
  * @generated
  */
 public interface DataItem extends Field {
+
     /**
-     * Returns the value of the '<em><b>Null Value</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies a value of a data item that is treated as representing a null value.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Null Value</b></em>' containment
+     * reference. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> Identifies a value of a data item that is treated as
+     * representing a null value. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Null Value</em>' containment reference.
      * @see #setNullValue(ExpressionNode)
      * @see orgomg.cwmx.resource.dmsii.DmsiiPackage#getDataItem_NullValue()
@@ -74,8 +72,8 @@ public interface DataItem extends Field {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.dmsii.DataItem#getNullValue <em>Null Value</em>}' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Null Value</em>' containment reference.
      * @see #getNullValue()
      * @generated
@@ -83,12 +81,11 @@ public interface DataItem extends Field {
     void setNullValue(ExpressionNode value);
 
     /**
-     * Returns the value of the '<em><b>Is Required</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * If True, the data item must have a value when the corresponding Dataset record is stored.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Is Required</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> If
+     * True, the data item must have a value when the corresponding Dataset
+     * record is stored. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Is Required</em>' attribute.
      * @see #setIsRequired(boolean)
      * @see orgomg.cwmx.resource.dmsii.DmsiiPackage#getDataItem_IsRequired()
@@ -99,8 +96,8 @@ public interface DataItem extends Field {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.dmsii.DataItem#isIsRequired <em>Is Required</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Is Required</em>' attribute.
      * @see #isIsRequired()
      * @generated
@@ -108,12 +105,12 @@ public interface DataItem extends Field {
     void setIsRequired(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Size</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Contains the declared size of a data type. The precise meaning of the attribute depends on the type of the DMS II data type being declared.
+     * Returns the value of the '<em><b>Size</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * Contains the declared size of a data type. The precise meaning of the
+     * attribute depends on the type of the DMS II data type being declared.
      * <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Size</em>' attribute.
      * @see #setSize(long)
      * @see orgomg.cwmx.resource.dmsii.DmsiiPackage#getDataItem_Size()
@@ -124,8 +121,7 @@ public interface DataItem extends Field {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.dmsii.DataItem#getSize <em>Size</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Size</em>' attribute.
      * @see #getSize()
      * @generated
@@ -133,12 +129,11 @@ public interface DataItem extends Field {
     void setSize(long value);
 
     /**
-     * Returns the value of the '<em><b>Scale Factor</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Contains the <scale factor> value for DMS II data types.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Scale Factor</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * Contains the <scale factor> value for DMS II data types. <!--
+     * end-model-doc -->
+     * 
      * @return the value of the '<em>Scale Factor</em>' attribute.
      * @see #setScaleFactor(long)
      * @see orgomg.cwmx.resource.dmsii.DmsiiPackage#getDataItem_ScaleFactor()
@@ -149,8 +144,8 @@ public interface DataItem extends Field {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.dmsii.DataItem#getScaleFactor <em>Scale Factor</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Scale Factor</em>' attribute.
      * @see #getScaleFactor()
      * @generated
@@ -158,12 +153,11 @@ public interface DataItem extends Field {
     void setScaleFactor(long value);
 
     /**
-     * Returns the value of the '<em><b>Is Signed</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Contains the state of the signed indication ("S") for REAL and NUMERIC data types. Not relevant for other data types.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Is Signed</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * Contains the state of the signed indication ("S") for REAL and NUMERIC
+     * data types. Not relevant for other data types. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Is Signed</em>' attribute.
      * @see #setIsSigned(boolean)
      * @see orgomg.cwmx.resource.dmsii.DmsiiPackage#getDataItem_IsSigned()
@@ -174,8 +168,7 @@ public interface DataItem extends Field {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.dmsii.DataItem#isIsSigned <em>Is Signed</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Is Signed</em>' attribute.
      * @see #isIsSigned()
      * @generated
@@ -183,12 +176,12 @@ public interface DataItem extends Field {
     void setIsSigned(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Occurs</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Indicates the number of times the data item occurs in the DataSet record. The occurs attribute is optional, existing only for data items that have an OCCURS clause in their definition.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Occurs</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * Indicates the number of times the data item occurs in the DataSet record.
+     * The occurs attribute is optional, existing only for data items that have
+     * an OCCURS clause in their definition. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Occurs</em>' attribute.
      * @see #setOccurs(long)
      * @see orgomg.cwmx.resource.dmsii.DmsiiPackage#getDataItem_Occurs()
@@ -199,8 +192,7 @@ public interface DataItem extends Field {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.dmsii.DataItem#getOccurs <em>Occurs</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Occurs</em>' attribute.
      * @see #getOccurs()
      * @generated
@@ -208,12 +200,12 @@ public interface DataItem extends Field {
     void setOccurs(long value);
 
     /**
-     * Returns the value of the '<em><b>Is Virtual</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * If True, the DataItem instance is calculated when accessed using the expression stored in the virtualExpression attribute.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Is Virtual</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> If
+     * True, the DataItem instance is calculated when accessed using the
+     * expression stored in the virtualExpression attribute. <!-- end-model-doc
+     * -->
+     * 
      * @return the value of the '<em>Is Virtual</em>' attribute.
      * @see #setIsVirtual(boolean)
      * @see orgomg.cwmx.resource.dmsii.DmsiiPackage#getDataItem_IsVirtual()
@@ -224,8 +216,8 @@ public interface DataItem extends Field {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.dmsii.DataItem#isIsVirtual <em>Is Virtual</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Is Virtual</em>' attribute.
      * @see #isIsVirtual()
      * @generated
@@ -233,13 +225,13 @@ public interface DataItem extends Field {
     void setIsVirtual(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Virtual Expression</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The expression used to calculate the value of a virtual DataItem.
-     * <!-- end-model-doc -->
-     * @return the value of the '<em>Virtual Expression</em>' containment reference.
+     * Returns the value of the '<em><b>Virtual Expression</b></em>' containment
+     * reference. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> The expression used to calculate the value of a
+     * virtual DataItem. <!-- end-model-doc -->
+     * 
+     * @return the value of the '<em>Virtual Expression</em>' containment
+     *         reference.
      * @see #setVirtualExpression(ExpressionNode)
      * @see orgomg.cwmx.resource.dmsii.DmsiiPackage#getDataItem_VirtualExpression()
      * @model containment="true"
@@ -249,8 +241,8 @@ public interface DataItem extends Field {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.dmsii.DataItem#getVirtualExpression <em>Virtual Expression</em>}' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Virtual Expression</em>' containment reference.
      * @see #getVirtualExpression()
      * @generated
@@ -258,12 +250,11 @@ public interface DataItem extends Field {
     void setVirtualExpression(ExpressionNode value);
 
     /**
-     * Returns the value of the '<em><b>Is Kanji</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * True if the USAGE=KANJI clause was used. Otherwise USAGE=EBCDIC is assumed. Relevant only for ALPHA data items.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Is Kanji</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> True if
+     * the USAGE=KANJI clause was used. Otherwise USAGE=EBCDIC is assumed.
+     * Relevant only for ALPHA data items. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Is Kanji</em>' attribute.
      * @see #setIsKanji(boolean)
      * @see orgomg.cwmx.resource.dmsii.DmsiiPackage#getDataItem_IsKanji()
@@ -274,8 +265,7 @@ public interface DataItem extends Field {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.dmsii.DataItem#isIsKanji <em>Is Kanji</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Is Kanji</em>' attribute.
      * @see #isIsKanji()
      * @generated
@@ -283,12 +273,11 @@ public interface DataItem extends Field {
     void setIsKanji(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Ccs Version</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the CCSVersion specification of a data item.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Ccs Version</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * Identifies the CCSVersion specification of a data item. <!--
+     * end-model-doc -->
+     * 
      * @return the value of the '<em>Ccs Version</em>' attribute.
      * @see #setCcsVersion(String)
      * @see orgomg.cwmx.resource.dmsii.DmsiiPackage#getDataItem_CcsVersion()
@@ -299,8 +288,8 @@ public interface DataItem extends Field {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.dmsii.DataItem#getCcsVersion <em>Ccs Version</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Ccs Version</em>' attribute.
      * @see #getCcsVersion()
      * @generated
@@ -309,11 +298,10 @@ public interface DataItem extends Field {
 
     /**
      * Returns the value of the '<em><b>Is Gemcos Literal</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * If True, the DataItem instance was defined with the GEMCOS LITERAL clause.
+     * <!-- begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> If
+     * True, the DataItem instance was defined with the GEMCOS LITERAL clause.
      * <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Is Gemcos Literal</em>' attribute.
      * @see #setIsGemcosLiteral(boolean)
      * @see orgomg.cwmx.resource.dmsii.DmsiiPackage#getDataItem_IsGemcosLiteral()
@@ -324,8 +312,8 @@ public interface DataItem extends Field {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.dmsii.DataItem#isIsGemcosLiteral <em>Is Gemcos Literal</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Is Gemcos Literal</em>' attribute.
      * @see #isIsGemcosLiteral()
      * @generated
@@ -333,12 +321,11 @@ public interface DataItem extends Field {
     void setIsGemcosLiteral(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Is Gemcos Data</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * If True, the DataItem instance was defined with the GEMCOS DATA clause.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Is Gemcos Data</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> If
+     * True, the DataItem instance was defined with the GEMCOS DATA clause. <!--
+     * end-model-doc -->
+     * 
      * @return the value of the '<em>Is Gemcos Data</em>' attribute.
      * @see #setIsGemcosData(boolean)
      * @see orgomg.cwmx.resource.dmsii.DmsiiPackage#getDataItem_IsGemcosData()
@@ -349,8 +336,8 @@ public interface DataItem extends Field {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.dmsii.DataItem#isIsGemcosData <em>Is Gemcos Data</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Is Gemcos Data</em>' attribute.
      * @see #isIsGemcosData()
      * @generated
@@ -358,12 +345,11 @@ public interface DataItem extends Field {
     void setIsGemcosData(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Is Gemcos SSN</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * If True, the DataItem instance was defined with the GEMCOS SSN clause.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Is Gemcos SSN</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> If
+     * True, the DataItem instance was defined with the GEMCOS SSN clause. <!--
+     * end-model-doc -->
+     * 
      * @return the value of the '<em>Is Gemcos SSN</em>' attribute.
      * @see #setIsGemcosSSN(boolean)
      * @see orgomg.cwmx.resource.dmsii.DmsiiPackage#getDataItem_IsGemcosSSN()
@@ -374,8 +360,8 @@ public interface DataItem extends Field {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.dmsii.DataItem#isIsGemcosSSN <em>Is Gemcos SSN</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Is Gemcos SSN</em>' attribute.
      * @see #isIsGemcosSSN()
      * @generated
@@ -383,12 +369,11 @@ public interface DataItem extends Field {
     void setIsGemcosSSN(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Is Gemcos DBSN</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * If True, the DataItem instance was defined with the GEMCOS DBSN clause.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Is Gemcos DBSN</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> If
+     * True, the DataItem instance was defined with the GEMCOS DBSN clause. <!--
+     * end-model-doc -->
+     * 
      * @return the value of the '<em>Is Gemcos DBSN</em>' attribute.
      * @see #setIsGemcosDBSN(boolean)
      * @see orgomg.cwmx.resource.dmsii.DmsiiPackage#getDataItem_IsGemcosDBSN()
@@ -399,8 +384,8 @@ public interface DataItem extends Field {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.dmsii.DataItem#isIsGemcosDBSN <em>Is Gemcos DBSN</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Is Gemcos DBSN</em>' attribute.
      * @see #isIsGemcosDBSN()
      * @generated
@@ -409,11 +394,10 @@ public interface DataItem extends Field {
 
     /**
      * Returns the value of the '<em><b>Is Coms Program</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * If True, the DataItem instance was defined with the COMS PROGRAM clause.
+     * <!-- begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> If
+     * True, the DataItem instance was defined with the COMS PROGRAM clause.
      * <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Is Coms Program</em>' attribute.
      * @see #setIsComsProgram(boolean)
      * @see orgomg.cwmx.resource.dmsii.DmsiiPackage#getDataItem_IsComsProgram()
@@ -424,8 +408,8 @@ public interface DataItem extends Field {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.dmsii.DataItem#isIsComsProgram <em>Is Coms Program</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Is Coms Program</em>' attribute.
      * @see #isIsComsProgram()
      * @generated
@@ -433,12 +417,11 @@ public interface DataItem extends Field {
     void setIsComsProgram(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Is Coms ID</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * If True, the DataItem instance was defined with the COMS ID clause.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Is Coms ID</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> If
+     * True, the DataItem instance was defined with the COMS ID clause. <!--
+     * end-model-doc -->
+     * 
      * @return the value of the '<em>Is Coms ID</em>' attribute.
      * @see #setIsComsID(boolean)
      * @see orgomg.cwmx.resource.dmsii.DmsiiPackage#getDataItem_IsComsID()
@@ -449,8 +432,8 @@ public interface DataItem extends Field {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.dmsii.DataItem#isIsComsID <em>Is Coms ID</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Is Coms ID</em>' attribute.
      * @see #isIsComsID()
      * @generated
@@ -459,11 +442,10 @@ public interface DataItem extends Field {
 
     /**
      * Returns the value of the '<em><b>Is Coms Locator</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * If True, the DataItem instance was defined with the COMS LOCATOR clause.
+     * <!-- begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> If
+     * True, the DataItem instance was defined with the COMS LOCATOR clause.
      * <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Is Coms Locator</em>' attribute.
      * @see #setIsComsLocator(boolean)
      * @see orgomg.cwmx.resource.dmsii.DmsiiPackage#getDataItem_IsComsLocator()
@@ -474,8 +456,8 @@ public interface DataItem extends Field {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.dmsii.DataItem#isIsComsLocator <em>Is Coms Locator</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Is Coms Locator</em>' attribute.
      * @see #isIsComsLocator()
      * @generated
@@ -483,12 +465,11 @@ public interface DataItem extends Field {
     void setIsComsLocator(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Is Coms Outp Q</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * If True, the DataItem instance was defined with the COMS OUTPQ clause.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Is Coms Outp Q</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> If
+     * True, the DataItem instance was defined with the COMS OUTPQ clause. <!--
+     * end-model-doc -->
+     * 
      * @return the value of the '<em>Is Coms Outp Q</em>' attribute.
      * @see #setIsComsOutpQ(boolean)
      * @see orgomg.cwmx.resource.dmsii.DmsiiPackage#getDataItem_IsComsOutpQ()
@@ -499,8 +480,8 @@ public interface DataItem extends Field {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.dmsii.DataItem#isIsComsOutpQ <em>Is Coms Outp Q</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Is Coms Outp Q</em>' attribute.
      * @see #isIsComsOutpQ()
      * @generated
@@ -508,14 +489,15 @@ public interface DataItem extends Field {
     void setIsComsOutpQ(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Occuring Data Item</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwmx.resource.dmsii.DataItem}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.dmsii.DataItem#getOccursDataItem <em>Occurs Data Item</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the occurring DataItem (i.e., the array).
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Occuring Data Item</b></em>' reference
+     * list. The list contents are of type
+     * {@link orgomg.cwmx.resource.dmsii.DataItem}. It is bidirectional and its
+     * opposite is '
+     * {@link orgomg.cwmx.resource.dmsii.DataItem#getOccursDataItem
+     * <em>Occurs Data Item</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * --> <!-- begin-model-doc --> Identifies the occurring DataItem (i.e., the
+     * array). <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Occuring Data Item</em>' reference list.
      * @see orgomg.cwmx.resource.dmsii.DmsiiPackage#getDataItem_OccuringDataItem()
      * @see orgomg.cwmx.resource.dmsii.DataItem#getOccursDataItem
@@ -525,13 +507,13 @@ public interface DataItem extends Field {
     EList<DataItem> getOccuringDataItem();
 
     /**
-     * Returns the value of the '<em><b>Occurs Data Item</b></em>' reference.
-     * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.dmsii.DataItem#getOccuringDataItem <em>Occuring Data Item</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the DataItem that contains the number of elements in the array.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Occurs Data Item</b></em>' reference. It
+     * is bidirectional and its opposite is '
+     * {@link orgomg.cwmx.resource.dmsii.DataItem#getOccuringDataItem
+     * <em>Occuring Data Item</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * --> <!-- begin-model-doc --> Identifies the DataItem that contains the
+     * number of elements in the array. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Occurs Data Item</em>' reference.
      * @see #setOccursDataItem(DataItem)
      * @see orgomg.cwmx.resource.dmsii.DmsiiPackage#getDataItem_OccursDataItem()
@@ -543,8 +525,8 @@ public interface DataItem extends Field {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.dmsii.DataItem#getOccursDataItem <em>Occurs Data Item</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Occurs Data Item</em>' reference.
      * @see #getOccursDataItem()
      * @generated
@@ -555,8 +537,7 @@ public interface DataItem extends Field {
      * Returns the value of the '<em><b>Key Data Set</b></em>' reference list.
      * The list contents are of type {@link orgomg.cwmx.resource.dmsii.Set}.
      * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.dmsii.Set#getKeyDataItem <em>Key Data Item</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Identifies the Set instances in which this DataItem instance participates in the Set's key data.
      * <!-- end-model-doc -->
@@ -569,14 +550,14 @@ public interface DataItem extends Field {
     EList<Set> getKeyDataSet();
 
     /**
-     * Returns the value of the '<em><b>Field Bit</b></em>' containment reference list.
-     * The list contents are of type {@link orgomg.cwmx.resource.dmsii.FieldBit}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.dmsii.FieldBit#getDataItem <em>Data Item</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the FieldBits for a dataItem whose type is BIT.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Field Bit</b></em>' containment
+     * reference list. The list contents are of type
+     * {@link orgomg.cwmx.resource.dmsii.FieldBit}. It is bidirectional and its
+     * opposite is '{@link orgomg.cwmx.resource.dmsii.FieldBit#getDataItem
+     * <em>Data Item</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> Identifies the FieldBits for a dataItem whose type is
+     * BIT. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Field Bit</em>' containment reference list.
      * @see orgomg.cwmx.resource.dmsii.DmsiiPackage#getDataItem_FieldBit()
      * @see orgomg.cwmx.resource.dmsii.FieldBit#getDataItem
@@ -586,13 +567,13 @@ public interface DataItem extends Field {
     EList<FieldBit> getFieldBit();
 
     /**
-     * Returns the value of the '<em><b>Structure</b></em>' reference.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.objectmodel.core.StructuralFeature#getDataItem <em>Data Item</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the feature referenced by the data item.
+     * Returns the value of the '<em><b>Structure</b></em>' reference. It is
+     * bidirectional and its opposite is '
+     * {@link orgomg.cwm.objectmodel.core.StructuralFeature#getDataItem
+     * <em>Data Item</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> Identifies the feature referenced by the data item.
      * <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Structure</em>' reference.
      * @see #setStructure(StructuralFeature)
      * @see orgomg.cwmx.resource.dmsii.DmsiiPackage#getDataItem_Structure()
@@ -603,10 +584,13 @@ public interface DataItem extends Field {
     StructuralFeature getStructure();
 
     /**
-     * Sets the value of the '{@link orgomg.cwmx.resource.dmsii.DataItem#getStructure <em>Structure</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Structure</em>' reference.
+     * Sets the value of the '
+     * {@link orgomg.cwmx.resource.dmsii.DataItem#getStructure
+     * <em>Structure</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @param value
+     *            the new value of the '<em>Structure</em>' reference.
      * @see #getStructure()
      * @generated
      */

@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.essbase.impl;
@@ -12,18 +11,17 @@ import orgomg.cwmx.resource.essbase.CurrencyConversion;
 import orgomg.cwmx.resource.essbase.EssbasePackage;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Currency Conversion</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Currency Conversion</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
 public class CurrencyConversionImpl extends DimensionedObjectImpl implements CurrencyConversion {
+
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected CurrencyConversionImpl() {
@@ -31,8 +29,7 @@ public class CurrencyConversionImpl extends DimensionedObjectImpl implements Cur
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -40,4 +37,4 @@ public class CurrencyConversionImpl extends DimensionedObjectImpl implements Cur
         return EssbasePackage.Literals.CURRENCY_CONVERSION;
     }
 
-} //CurrencyConversionImpl
+} // CurrencyConversionImpl

@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.express;
@@ -10,9 +9,8 @@ import org.eclipse.emf.common.util.EList;
 import orgomg.cwm.objectmodel.core.Classifier;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Simple Dimension</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Simple Dimension</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * This represents an Express simple dimension.
@@ -38,13 +36,15 @@ import orgomg.cwm.objectmodel.core.Classifier;
  * @generated
  */
 public interface SimpleDimension extends Dimension {
+
     /**
-     * Returns the value of the '<em><b>Width</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * If specified, this defines a fixed width, in bytes, for the storage area for each value of the SimpleDimension. Fixed widths can be specified for TEXT dimensions only. Valid width values are 1 through 256.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Width</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> If
+     * specified, this defines a fixed width, in bytes, for the storage area for
+     * each value of the SimpleDimension. Fixed widths can be specified for TEXT
+     * dimensions only. Valid width values are 1 through 256. <!-- end-model-doc
+     * -->
+     * 
      * @return the value of the '<em>Width</em>' attribute.
      * @see #setWidth(long)
      * @see orgomg.cwmx.resource.express.ExpressPackage#getSimpleDimension_Width()
@@ -55,8 +55,7 @@ public interface SimpleDimension extends Dimension {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.express.SimpleDimension#getWidth <em>Width</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Width</em>' attribute.
      * @see #getWidth()
      * @generated
@@ -64,12 +63,11 @@ public interface SimpleDimension extends Dimension {
     void setWidth(long value);
 
     /**
-     * Returns the value of the '<em><b>Is Time</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * If set, indicates that the SimpleDimension is a time dimension.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Is Time</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> If set,
+     * indicates that the SimpleDimension is a time dimension. <!--
+     * end-model-doc -->
+     * 
      * @return the value of the '<em>Is Time</em>' attribute.
      * @see #setIsTime(boolean)
      * @see orgomg.cwmx.resource.express.ExpressPackage#getSimpleDimension_IsTime()
@@ -79,22 +77,26 @@ public interface SimpleDimension extends Dimension {
     boolean isIsTime();
 
     /**
-     * Sets the value of the '{@link orgomg.cwmx.resource.express.SimpleDimension#isIsTime <em>Is Time</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Is Time</em>' attribute.
+     * Sets the value of the '
+     * {@link orgomg.cwmx.resource.express.SimpleDimension#isIsTime
+     * <em>Is Time</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @param value
+     *            the new value of the '<em>Is Time</em>' attribute.
      * @see #isIsTime()
      * @generated
      */
     void setIsTime(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Multiple</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * This may be used for SimpleDimensions whose data type is WEEK or MONTH, to define time periods that span a multiple number of weeks or months.  With the WEEK data type, multiple can be an integer from 2 to 52. With the MONTH data type, multiple can be 2, 3, 4, or 6.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Multiple</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> This
+     * may be used for SimpleDimensions whose data type is WEEK or MONTH, to
+     * define time periods that span a multiple number of weeks or months. With
+     * the WEEK data type, multiple can be an integer from 2 to 52. With the
+     * MONTH data type, multiple can be 2, 3, 4, or 6. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Multiple</em>' attribute.
      * @see #setMultiple(long)
      * @see orgomg.cwmx.resource.express.ExpressPackage#getSimpleDimension_Multiple()
@@ -104,10 +106,13 @@ public interface SimpleDimension extends Dimension {
     long getMultiple();
 
     /**
-     * Sets the value of the '{@link orgomg.cwmx.resource.express.SimpleDimension#getMultiple <em>Multiple</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Multiple</em>' attribute.
+     * Sets the value of the '
+     * {@link orgomg.cwmx.resource.express.SimpleDimension#getMultiple
+     * <em>Multiple</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @param value
+     *            the new value of the '<em>Multiple</em>' attribute.
      * @see #getMultiple()
      * @generated
      */
@@ -115,12 +120,13 @@ public interface SimpleDimension extends Dimension {
 
     /**
      * Returns the value of the '<em><b>Beginning Phase</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * This may be used for any time data type except DAY, to specify the beginning phase of the Dimension.
-     * For single weeks, beginningPhase can be a day of the week or a date. For multiple weeks, beginningPhase must be a date. For months, quarters, or years, beginningPhase must be a month, expressed as a month name or as a date.
-     * <!-- end-model-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * This may be used for any time data type except DAY, to specify the
+     * beginning phase of the Dimension. For single weeks, beginningPhase can be
+     * a day of the week or a date. For multiple weeks, beginningPhase must be a
+     * date. For months, quarters, or years, beginningPhase must be a month,
+     * expressed as a month name or as a date. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Beginning Phase</em>' attribute.
      * @see #setBeginningPhase(String)
      * @see orgomg.cwmx.resource.express.ExpressPackage#getSimpleDimension_BeginningPhase()
@@ -131,8 +137,8 @@ public interface SimpleDimension extends Dimension {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.express.SimpleDimension#getBeginningPhase <em>Beginning Phase</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Beginning Phase</em>' attribute.
      * @see #getBeginningPhase()
      * @generated
@@ -140,12 +146,14 @@ public interface SimpleDimension extends Dimension {
     void setBeginningPhase(String value);
 
     /**
-     * Returns the value of the '<em><b>Ending Phase</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * This may be used for any time data type except DAY, to specify the ending phase of the Dimension. For single weeks, endingPhase can be a day of the week or a date. For multiple weeks, endingPhase must be a date. For months, quarters, or years, endingPhase must be a month, expressed as a month name or as a date.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Ending Phase</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> This
+     * may be used for any time data type except DAY, to specify the ending
+     * phase of the Dimension. For single weeks, endingPhase can be a day of the
+     * week or a date. For multiple weeks, endingPhase must be a date. For
+     * months, quarters, or years, endingPhase must be a month, expressed as a
+     * month name or as a date. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Ending Phase</em>' attribute.
      * @see #setEndingPhase(String)
      * @see orgomg.cwmx.resource.express.ExpressPackage#getSimpleDimension_EndingPhase()
@@ -156,8 +164,8 @@ public interface SimpleDimension extends Dimension {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.express.SimpleDimension#getEndingPhase <em>Ending Phase</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Ending Phase</em>' attribute.
      * @see #getEndingPhase()
      * @generated
@@ -166,11 +174,11 @@ public interface SimpleDimension extends Dimension {
 
     /**
      * Returns the value of the '<em><b>Search Algorithm</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Indicates the type of algorithm Express should use for loading and accessing the values of the SimpleDimension. The valid values are HASH, BTREE.
-     * <!-- end-model-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * Indicates the type of algorithm Express should use for loading and
+     * accessing the values of the SimpleDimension. The valid values are HASH,
+     * BTREE. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Search Algorithm</em>' attribute.
      * @see #setSearchAlgorithm(String)
      * @see orgomg.cwmx.resource.express.ExpressPackage#getSimpleDimension_SearchAlgorithm()
@@ -181,8 +189,8 @@ public interface SimpleDimension extends Dimension {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.express.SimpleDimension#getSearchAlgorithm <em>Search Algorithm</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Search Algorithm</em>' attribute.
      * @see #getSearchAlgorithm()
      * @generated
@@ -190,15 +198,15 @@ public interface SimpleDimension extends Dimension {
     void setSearchAlgorithm(String value);
 
     /**
-     * Returns the value of the '<em><b>Page Space</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * If specified, this defines the type of page space to be allocated to values of the SimpleDimension:
+     * Returns the value of the '<em><b>Page Space</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> If
+     * specified, this defines the type of page space to be allocated to values
+     * of the SimpleDimension:
      * 
-     *     OWNSPACE specifies that the data will be stored in private page space.
-     *     SHAREDSPACE specifies that the data will be stored in the database?s global page space.
-     * <!-- end-model-doc -->
+     * OWNSPACE specifies that the data will be stored in private page space.
+     * SHAREDSPACE specifies that the data will be stored in the database?s
+     * global page space. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Page Space</em>' attribute.
      * @see #setPageSpace(String)
      * @see orgomg.cwmx.resource.express.ExpressPackage#getSimpleDimension_PageSpace()
@@ -209,8 +217,8 @@ public interface SimpleDimension extends Dimension {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.express.SimpleDimension#getPageSpace <em>Page Space</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Page Space</em>' attribute.
      * @see #getPageSpace()
      * @generated
@@ -221,8 +229,7 @@ public interface SimpleDimension extends Dimension {
      * Returns the value of the '<em><b>Alias Dimension</b></em>' reference list.
      * The list contents are of type {@link orgomg.cwmx.resource.express.AliasDimension}.
      * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.express.AliasDimension#getBaseDimension <em>Base Dimension</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Identifies an AliasDimension that is based on the SimpleDimension.
      * <!-- end-model-doc -->
@@ -235,13 +242,13 @@ public interface SimpleDimension extends Dimension {
     EList<AliasDimension> getAliasDimension();
 
     /**
-     * Returns the value of the '<em><b>Data Type</b></em>' reference.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.objectmodel.core.Classifier#getSimpleDimension <em>Simple Dimension</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the data type for the SimpleDimension.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Data Type</b></em>' reference. It is
+     * bidirectional and its opposite is '
+     * {@link orgomg.cwm.objectmodel.core.Classifier#getSimpleDimension
+     * <em>Simple Dimension</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * --> <!-- begin-model-doc --> Identifies the data type for the
+     * SimpleDimension. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Data Type</em>' reference.
      * @see #setDataType(Classifier)
      * @see orgomg.cwmx.resource.express.ExpressPackage#getSimpleDimension_DataType()
@@ -252,10 +259,13 @@ public interface SimpleDimension extends Dimension {
     Classifier getDataType();
 
     /**
-     * Sets the value of the '{@link orgomg.cwmx.resource.express.SimpleDimension#getDataType <em>Data Type</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Data Type</em>' reference.
+     * Sets the value of the '
+     * {@link orgomg.cwmx.resource.express.SimpleDimension#getDataType
+     * <em>Data Type</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @param value
+     *            the new value of the '<em>Data Type</em>' reference.
      * @see #getDataType()
      * @generated
      */

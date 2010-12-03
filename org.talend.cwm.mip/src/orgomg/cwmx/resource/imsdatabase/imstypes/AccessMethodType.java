@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.imsdatabase.imstypes;
@@ -13,13 +12,11 @@ import java.util.List;
 import org.eclipse.emf.common.util.Enumerator;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the literals of the enumeration '<em><b>Access Method Type</b></em>',
- * and utility methods for working with them.
- * <!-- end-user-doc -->
- * <!-- begin-model-doc -->
- * Access method types
- * <!-- end-model-doc -->
+ * <!-- begin-user-doc --> A representation of the literals of the enumeration '
+ * <em><b>Access Method Type</b></em>', and utility methods for working with
+ * them. <!-- end-user-doc --> <!-- begin-model-doc --> Access method types <!--
+ * end-model-doc -->
+ * 
  * @see orgomg.cwmx.resource.imsdatabase.imstypes.ImstypesPackage#getAccessMethodType()
  * @model
  * @generated
@@ -97,8 +94,8 @@ public enum AccessMethodType implements Enumerator {
 
     /**
      * The '<em><b>Imsam LOGICAL</b></em>' literal object.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @see #IMSAM_LOGICAL_VALUE
      * @generated
      * @ordered
@@ -117,8 +114,8 @@ public enum AccessMethodType implements Enumerator {
 
     /**
      * The '<em><b>Imsam PSINDEX</b></em>' literal object.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @see #IMSAM_PSINDEX_VALUE
      * @generated
      * @ordered
@@ -137,8 +134,8 @@ public enum AccessMethodType implements Enumerator {
 
     /**
      * The '<em><b>Imsam PHIDAM</b></em>' literal object.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @see #IMSAM_PHIDAM_VALUE
      * @generated
      * @ordered
@@ -157,8 +154,8 @@ public enum AccessMethodType implements Enumerator {
 
     /**
      * The '<em><b>Imsam SHISAM</b></em>' literal object.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @see #IMSAM_SHISAM_VALUE
      * @generated
      * @ordered
@@ -166,12 +163,10 @@ public enum AccessMethodType implements Enumerator {
     IMSAM_SHISAM(13, "imsam_SHISAM", "imsam_SHISAM");
 
     /**
-     * The '<em><b>Imsam DEDB</b></em>' literal value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Data Entry Data Base 
-     * <!-- end-model-doc -->
+     * The '<em><b>Imsam DEDB</b></em>' literal value. <!-- begin-user-doc -->
+     * <!-- end-user-doc --> <!-- begin-model-doc --> Data Entry Data Base <!--
+     * end-model-doc -->
+     * 
      * @see #IMSAM_DEDB
      * @model name="imsam_DEDB"
      * @generated
@@ -180,12 +175,10 @@ public enum AccessMethodType implements Enumerator {
     public static final int IMSAM_DEDB_VALUE = 0;
 
     /**
-     * The '<em><b>Imsam GSAM</b></em>' literal value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Generalized Sequential Access Method
-     * <!-- end-model-doc -->
+     * The '<em><b>Imsam GSAM</b></em>' literal value. <!-- begin-user-doc -->
+     * <!-- end-user-doc --> <!-- begin-model-doc --> Generalized Sequential
+     * Access Method <!-- end-model-doc -->
+     * 
      * @see #IMSAM_GSAM
      * @model name="imsam_GSAM"
      * @generated
@@ -194,12 +187,10 @@ public enum AccessMethodType implements Enumerator {
     public static final int IMSAM_GSAM_VALUE = 1;
 
     /**
-     * The '<em><b>Imsam HDAM</b></em>' literal value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Hierarchical Direct Access Method
-     * <!-- end-model-doc -->
+     * The '<em><b>Imsam HDAM</b></em>' literal value. <!-- begin-user-doc -->
+     * <!-- end-user-doc --> <!-- begin-model-doc --> Hierarchical Direct Access
+     * Method <!-- end-model-doc -->
+     * 
      * @see #IMSAM_HDAM
      * @model name="imsam_HDAM"
      * @generated
@@ -208,12 +199,10 @@ public enum AccessMethodType implements Enumerator {
     public static final int IMSAM_HDAM_VALUE = 2;
 
     /**
-     * The '<em><b>Imsam HIDAM</b></em>' literal value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Hierarchical Indexed Direct Access Method 
-     * <!-- end-model-doc -->
+     * The '<em><b>Imsam HIDAM</b></em>' literal value. <!-- begin-user-doc -->
+     * <!-- end-user-doc --> <!-- begin-model-doc --> Hierarchical Indexed
+     * Direct Access Method <!-- end-model-doc -->
+     * 
      * @see #IMSAM_HIDAM
      * @model name="imsam_HIDAM"
      * @generated
@@ -222,12 +211,10 @@ public enum AccessMethodType implements Enumerator {
     public static final int IMSAM_HIDAM_VALUE = 3;
 
     /**
-     * The '<em><b>Imsam HISAM</b></em>' literal value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Hierarchical Indexed Sequential Access Method 
-     * <!-- end-model-doc -->
+     * The '<em><b>Imsam HISAM</b></em>' literal value. <!-- begin-user-doc -->
+     * <!-- end-user-doc --> <!-- begin-model-doc --> Hierarchical Indexed
+     * Sequential Access Method <!-- end-model-doc -->
+     * 
      * @see #IMSAM_HISAM
      * @model name="imsam_HISAM"
      * @generated
@@ -236,12 +223,10 @@ public enum AccessMethodType implements Enumerator {
     public static final int IMSAM_HISAM_VALUE = 4;
 
     /**
-     * The '<em><b>Imsam HSAM</b></em>' literal value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Hierarchical Sequential Access Method
-     * <!-- end-model-doc -->
+     * The '<em><b>Imsam HSAM</b></em>' literal value. <!-- begin-user-doc -->
+     * <!-- end-user-doc --> <!-- begin-model-doc --> Hierarchical Sequential
+     * Access Method <!-- end-model-doc -->
+     * 
      * @see #IMSAM_HSAM
      * @model name="imsam_HSAM"
      * @generated
@@ -250,12 +235,10 @@ public enum AccessMethodType implements Enumerator {
     public static final int IMSAM_HSAM_VALUE = 5;
 
     /**
-     * The '<em><b>Imsam INDEX</b></em>' literal value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * index database 
-     * <!-- end-model-doc -->
+     * The '<em><b>Imsam INDEX</b></em>' literal value. <!-- begin-user-doc -->
+     * <!-- end-user-doc --> <!-- begin-model-doc --> index database <!--
+     * end-model-doc -->
+     * 
      * @see #IMSAM_INDEX
      * @model name="imsam_INDEX"
      * @generated
@@ -264,12 +247,10 @@ public enum AccessMethodType implements Enumerator {
     public static final int IMSAM_INDEX_VALUE = 6;
 
     /**
-     * The '<em><b>Imsam LOGICAL</b></em>' literal value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Logical database
-     * <!-- end-model-doc -->
+     * The '<em><b>Imsam LOGICAL</b></em>' literal value. <!-- begin-user-doc
+     * --> <!-- end-user-doc --> <!-- begin-model-doc --> Logical database <!--
+     * end-model-doc -->
+     * 
      * @see #IMSAM_LOGICAL
      * @model name="imsam_LOGICAL"
      * @generated
@@ -278,12 +259,10 @@ public enum AccessMethodType implements Enumerator {
     public static final int IMSAM_LOGICAL_VALUE = 7;
 
     /**
-     * The '<em><b>Imsam MSDB</b></em>' literal value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Mass Storage Data Base 
+     * The '<em><b>Imsam MSDB</b></em>' literal value. <!-- begin-user-doc -->
+     * <!-- end-user-doc --> <!-- begin-model-doc --> Mass Storage Data Base
      * <!-- end-model-doc -->
+     * 
      * @see #IMSAM_MSDB
      * @model name="imsam_MSDB"
      * @generated
@@ -292,12 +271,10 @@ public enum AccessMethodType implements Enumerator {
     public static final int IMSAM_MSDB_VALUE = 8;
 
     /**
-     * The '<em><b>Imsam PSINDEX</b></em>' literal value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Partitioned Index 
-     * <!-- end-model-doc -->
+     * The '<em><b>Imsam PSINDEX</b></em>' literal value. <!-- begin-user-doc
+     * --> <!-- end-user-doc --> <!-- begin-model-doc --> Partitioned Index <!--
+     * end-model-doc -->
+     * 
      * @see #IMSAM_PSINDEX
      * @model name="imsam_PSINDEX"
      * @generated
@@ -306,12 +283,10 @@ public enum AccessMethodType implements Enumerator {
     public static final int IMSAM_PSINDEX_VALUE = 9;
 
     /**
-     * The '<em><b>Imsam PHDAM</b></em>' literal value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Partitioned HDAM
-     * <!-- end-model-doc -->
+     * The '<em><b>Imsam PHDAM</b></em>' literal value. <!-- begin-user-doc -->
+     * <!-- end-user-doc --> <!-- begin-model-doc --> Partitioned HDAM <!--
+     * end-model-doc -->
+     * 
      * @see #IMSAM_PHDAM
      * @model name="imsam_PHDAM"
      * @generated
@@ -320,12 +295,10 @@ public enum AccessMethodType implements Enumerator {
     public static final int IMSAM_PHDAM_VALUE = 10;
 
     /**
-     * The '<em><b>Imsam PHIDAM</b></em>' literal value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Partitioned HIDAM
-     * <!-- end-model-doc -->
+     * The '<em><b>Imsam PHIDAM</b></em>' literal value. <!-- begin-user-doc -->
+     * <!-- end-user-doc --> <!-- begin-model-doc --> Partitioned HIDAM <!--
+     * end-model-doc -->
+     * 
      * @see #IMSAM_PHIDAM
      * @model name="imsam_PHIDAM"
      * @generated
@@ -334,12 +307,10 @@ public enum AccessMethodType implements Enumerator {
     public static final int IMSAM_PHIDAM_VALUE = 11;
 
     /**
-     * The '<em><b>Imsam SHSAM</b></em>' literal value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Simple (single segment) HSAM
-     * <!-- end-model-doc -->
+     * The '<em><b>Imsam SHSAM</b></em>' literal value. <!-- begin-user-doc -->
+     * <!-- end-user-doc --> <!-- begin-model-doc --> Simple (single segment)
+     * HSAM <!-- end-model-doc -->
+     * 
      * @see #IMSAM_SHSAM
      * @model name="imsam_SHSAM"
      * @generated
@@ -348,12 +319,10 @@ public enum AccessMethodType implements Enumerator {
     public static final int IMSAM_SHSAM_VALUE = 12;
 
     /**
-     * The '<em><b>Imsam SHISAM</b></em>' literal value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Simple (single segment)  HISAM
-     * <!-- end-model-doc -->
+     * The '<em><b>Imsam SHISAM</b></em>' literal value. <!-- begin-user-doc -->
+     * <!-- end-user-doc --> <!-- begin-model-doc --> Simple (single segment)
+     * HISAM <!-- end-model-doc -->
+     * 
      * @see #IMSAM_SHISAM
      * @model name="imsam_SHISAM"
      * @generated
@@ -363,40 +332,23 @@ public enum AccessMethodType implements Enumerator {
 
     /**
      * An array of all the '<em><b>Access Method Type</b></em>' enumerators.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    private static final AccessMethodType[] VALUES_ARRAY =
-        new AccessMethodType[] {
-            IMSAM_DEDB,
-            IMSAM_GSAM,
-            IMSAM_HDAM,
-            IMSAM_HIDAM,
-            IMSAM_HISAM,
-            IMSAM_HSAM,
-            IMSAM_INDEX,
-            IMSAM_LOGICAL,
-            IMSAM_MSDB,
-            IMSAM_PSINDEX,
-            IMSAM_PHDAM,
-            IMSAM_PHIDAM,
-            IMSAM_SHSAM,
-            IMSAM_SHISAM,
-        };
+    private static final AccessMethodType[] VALUES_ARRAY = new AccessMethodType[] { IMSAM_DEDB, IMSAM_GSAM, IMSAM_HDAM,
+            IMSAM_HIDAM, IMSAM_HISAM, IMSAM_HSAM, IMSAM_INDEX, IMSAM_LOGICAL, IMSAM_MSDB, IMSAM_PSINDEX, IMSAM_PHDAM,
+            IMSAM_PHIDAM, IMSAM_SHSAM, IMSAM_SHISAM, };
 
     /**
      * A public read-only list of all the '<em><b>Access Method Type</b></em>' enumerators.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static final List<AccessMethodType> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
     /**
      * Returns the '<em><b>Access Method Type</b></em>' literal with the specified literal value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static AccessMethodType get(String literal) {
@@ -411,8 +363,7 @@ public enum AccessMethodType implements Enumerator {
 
     /**
      * Returns the '<em><b>Access Method Type</b></em>' literal with the specified name.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static AccessMethodType getByName(String name) {
@@ -427,55 +378,65 @@ public enum AccessMethodType implements Enumerator {
 
     /**
      * Returns the '<em><b>Access Method Type</b></em>' literal with the specified integer value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static AccessMethodType get(int value) {
         switch (value) {
-            case IMSAM_DEDB_VALUE: return IMSAM_DEDB;
-            case IMSAM_GSAM_VALUE: return IMSAM_GSAM;
-            case IMSAM_HDAM_VALUE: return IMSAM_HDAM;
-            case IMSAM_HIDAM_VALUE: return IMSAM_HIDAM;
-            case IMSAM_HISAM_VALUE: return IMSAM_HISAM;
-            case IMSAM_HSAM_VALUE: return IMSAM_HSAM;
-            case IMSAM_INDEX_VALUE: return IMSAM_INDEX;
-            case IMSAM_LOGICAL_VALUE: return IMSAM_LOGICAL;
-            case IMSAM_MSDB_VALUE: return IMSAM_MSDB;
-            case IMSAM_PSINDEX_VALUE: return IMSAM_PSINDEX;
-            case IMSAM_PHDAM_VALUE: return IMSAM_PHDAM;
-            case IMSAM_PHIDAM_VALUE: return IMSAM_PHIDAM;
-            case IMSAM_SHSAM_VALUE: return IMSAM_SHSAM;
-            case IMSAM_SHISAM_VALUE: return IMSAM_SHISAM;
+        case IMSAM_DEDB_VALUE:
+            return IMSAM_DEDB;
+        case IMSAM_GSAM_VALUE:
+            return IMSAM_GSAM;
+        case IMSAM_HDAM_VALUE:
+            return IMSAM_HDAM;
+        case IMSAM_HIDAM_VALUE:
+            return IMSAM_HIDAM;
+        case IMSAM_HISAM_VALUE:
+            return IMSAM_HISAM;
+        case IMSAM_HSAM_VALUE:
+            return IMSAM_HSAM;
+        case IMSAM_INDEX_VALUE:
+            return IMSAM_INDEX;
+        case IMSAM_LOGICAL_VALUE:
+            return IMSAM_LOGICAL;
+        case IMSAM_MSDB_VALUE:
+            return IMSAM_MSDB;
+        case IMSAM_PSINDEX_VALUE:
+            return IMSAM_PSINDEX;
+        case IMSAM_PHDAM_VALUE:
+            return IMSAM_PHDAM;
+        case IMSAM_PHIDAM_VALUE:
+            return IMSAM_PHIDAM;
+        case IMSAM_SHSAM_VALUE:
+            return IMSAM_SHSAM;
+        case IMSAM_SHISAM_VALUE:
+            return IMSAM_SHISAM;
         }
         return null;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private final int value;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private final String name;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private final String literal;
 
     /**
      * Only this class can construct instances.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     private AccessMethodType(int value, String name, String literal) {
@@ -485,41 +446,37 @@ public enum AccessMethodType implements Enumerator {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public int getValue() {
-      return value;
+        return value;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getName() {
-      return name;
+        return name;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getLiteral() {
-      return literal;
+        return literal;
     }
 
     /**
      * Returns the literal value of the enumerator, which is its string representation.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
         return literal;
     }
-    
-} //AccessMethodType
+
+} // AccessMethodType

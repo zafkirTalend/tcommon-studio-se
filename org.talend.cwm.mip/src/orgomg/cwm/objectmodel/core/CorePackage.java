@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.objectmodel.core;
@@ -14,146 +13,146 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
 /**
- * <!-- begin-user-doc -->
- * The <b>Package</b> for the model.
- * It contains accessors for the meta objects to represent
+ * <!-- begin-user-doc --> The <b>Package</b> for the model. It contains
+ * accessors for the meta objects to represent
  * <ul>
- *   <li>each class,</li>
- *   <li>each feature of each class,</li>
- *   <li>each enum,</li>
- *   <li>and each data type</li>
+ * <li>each class,</li>
+ * <li>each feature of each class,</li>
+ * <li>each enum,</li>
+ * <li>and each data type</li>
  * </ul>
- * <!-- end-user-doc -->
- * <!-- begin-model-doc -->
- * The Core metamodel depends on no other packages.
+ * <!-- end-user-doc --> <!-- begin-model-doc --> The Core metamodel depends on
+ * no other packages.
  * 
- * The ObjectModel Core metamodel contains basic metamodel classes and associations used by all other CWM metamodel packages, including other ObjectModel packages
+ * The ObjectModel Core metamodel contains basic metamodel classes and
+ * associations used by all other CWM metamodel packages, including other
+ * ObjectModel packages
  * 
  * OCL Representation of Core Constraints
  * 
  * Operations
  * 
- * The operation allFeatures results in a Set containing all Features of the Classifier itself and all its inherited Features.
- *    allFeatures : Set(Feature);
- *    allFeatures = self.feature->union(self.parent.oclAsType(Classifier).allFeatures)
+ * The operation allFeatures results in a Set containing all Features of the
+ * Classifier itself and all its inherited Features. allFeatures : Set(Feature);
+ * allFeatures =
+ * self.feature->union(self.parent.oclAsType(Classifier).allFeatures)
  * 
- * The operation allAttributes results in a Set containing all Attributes of the Classifier itself and all its inherited Attributes.
- *    allAttributes : set(Attribute);
- *    allAttributes = self.allFeatures->select(f | f.oclIsKindOf(Attribute))
+ * The operation allAttributes results in a Set containing all Attributes of the
+ * Classifier itself and all its inherited Attributes. allAttributes :
+ * set(Attribute); allAttributes = self.allFeatures->select(f |
+ * f.oclIsKindOf(Attribute))
  * 
- * The operation specification yields the set of Classifiers that the current Classifier realizes.
- *    specification: Set(Classifier)
- *    specification = self.clientDependency->
- *    select(d | d.stereotype.name = "realization"
- *       and d.supplier.oclIsKindOf(Classifier)).supplier.oclAsType(Classifier)
+ * The operation specification yields the set of Classifiers that the current
+ * Classifier realizes. specification: Set(Classifier) specification =
+ * self.clientDependency-> select(d | d.stereotype.name = "realization" and
+ * d.supplier.oclIsKindOf(Classifier)).supplier.oclAsType(Classifier)
  * 
- * The operation parent returns a Set containing all direct parents of a Classifier.
- *    parent : Set(Classifier);
- *    parent = self.generalization.parent
+ * The operation parent returns a Set containing all direct parents of a
+ * Classifier. parent : Set(Classifier); parent = self.generalization.parent
  * 
- * The operation allParents returns a Set containing all the Classifiers inherited by this Classifier (the transitive closure), excluding the Classifier itself.
- *    allParents : Set(Classifier);
- *    allParents = self.parent->union(self.parent.allParents)
+ * The operation allParents returns a Set containing all the Classifiers
+ * inherited by this Classifier (the transitive closure), excluding the
+ * Classifier itself. allParents : Set(Classifier); allParents =
+ * self.parent->union(self.parent.allParents)
  * 
- * The operation allContents returns a Set containing all ModelElements contained in the Classifier together with the contents inherited from its parents.
- *    allContents : Set(ModelElement);
- *    allContents = self.contents->union(self.parent.allContents->
- *    select(e | e.elementOwnership.visibility = #public or 
- *       e.elementOwnership.visibility = #protected))
+ * The operation allContents returns a Set containing all ModelElements
+ * contained in the Classifier together with the contents inherited from its
+ * parents. allContents : Set(ModelElement); allContents =
+ * self.contents->union(self.parent.allContents-> select(e |
+ * e.elementOwnership.visibility = #public or e.elementOwnership.visibility =
+ * #protected))
  * 
- * The operation supplier results in a Set containing all direct suppliers of the ModelElement.
- *    supplier : Set(ModelElement);
- *    supplier = self.clientDependency.supplier
+ * The operation supplier results in a Set containing all direct suppliers of
+ * the ModelElement. supplier : Set(ModelElement); supplier =
+ * self.clientDependency.supplier
  * 
- * The operation allSuppliers results in a Set containing all the ModelElements that are suppliers of this ModelElement, including the suppliers of these Model Elements. This is the transitive closure.
- *    allSuppliers : Set(ModelElement);
- *    allSuppliers = self.supplier->union(self.supplier.allSuppliers)
+ * The operation allSuppliers results in a Set containing all the ModelElements
+ * that are suppliers of this ModelElement, including the suppliers of these
+ * Model Elements. This is the transitive closure. allSuppliers :
+ * Set(ModelElement); allSuppliers =
+ * self.supplier->union(self.supplier.allSuppliers)
  * 
- * The operation contents results in a Set containing all ModelElements contained by the Namespace.
- *    contents : Set(ModelElement)
- *    contents = self.ownedElement -> union(self.namespace.contents)
+ * The operation contents results in a Set containing all ModelElements
+ * contained by the Namespace. contents : Set(ModelElement) contents =
+ * self.ownedElement -> union(self.namespace.contents)
  * 
- * The operation allContents results in a Set containing all ModelElements contained by the Namespace.
- *    allContents : Set(ModelElement);
- *    allContents = self.contents
+ * The operation allContents results in a Set containing all ModelElements
+ * contained by the Namespace. allContents : Set(ModelElement); allContents =
+ * self.contents
  * 
- * The operation allVisibleElements results in a Set containing all ModelElements visible outside of the Namespace.
- *    allVisibleElements : Set(ModelElement)
- *    allVisibleElements = self.allContents -> select(e |
- *       e.elementOwnership.visibility = #public)
+ * The operation allVisibleElements results in a Set containing all
+ * ModelElements visible outside of the Namespace. allVisibleElements :
+ * Set(ModelElement) allVisibleElements = self.allContents -> select(e |
+ * e.elementOwnership.visibility = #public)
  * 
- * The operation allSurroundingNamespaces results in a Set containing all surrounding Namespaces.
- *    allSurroundingNamespaces : Set(Namespace)
- *    allSurroundingNamespaces =
- *       self.namespace->union(self.namespace.allSurroundingNamespaces)
+ * The operation allSurroundingNamespaces results in a Set containing all
+ * surrounding Namespaces. allSurroundingNamespaces : Set(Namespace)
+ * allSurroundingNamespaces =
+ * self.namespace->union(self.namespace.allSurroundingNamespaces)
  * 
- * The operation contents results in a Set containing the ModelElements owned by or imported by the Package.
- *    contents : Set(ModelElement)
- *    contents = self.ownedElement->union(self.importedElement)
+ * The operation contents results in a Set containing the ModelElements owned by
+ * or imported by the Package. contents : Set(ModelElement) contents =
+ * self.ownedElement->union(self.importedElement)
  * 
- * The operation allImportedElements results in a Set containing the ModelElements imported by the Package.
- *    allImportedElements : Set(ModelElement)
- *    allImportedElements = self.importedElement
+ * The operation allImportedElements results in a Set containing the
+ * ModelElements imported by the Package. allImportedElements :
+ * Set(ModelElement) allImportedElements = self.importedElement
  * 
- * The operation allContents results in a Set containing the ModelElements owned by or imported by the Package.
- *    allContents : Set(ModelElement)
- *    allContents = self.contents
+ * The operation allContents results in a Set containing the ModelElements owned
+ * by or imported by the Package. allContents : Set(ModelElement) allContents =
+ * self.contents
  * 
  * Constraints
  * 
- * [C-3-1] A Constraint cannot be applied to itself.
- * context Constraint inv:
- * not self.constrainedElement->includes (self)
+ * [C-3-1] A Constraint cannot be applied to itself. context Constraint inv: not
+ * self.constrainedElement->includes (self)
  * 
- * [C-3-2] A DataType cannot contain any other ModelElements.
- * context DataType inv:
- * self.ownedElement->isEmpty
+ * [C-3-2] A DataType cannot contain any other ModelElements. context DataType
+ * inv: self.ownedElement->isEmpty
  * 
- * [C-3-3] Tags associated with a model element (directly via a property list or indirectly via a stereotype) must not clash with any meta attributes associated with the model element.
- * context ModelElement inv:
- * -- cannot be specified with OCL
- * <!-- end-model-doc -->
+ * [C-3-3] Tags associated with a model element (directly via a property list or
+ * indirectly via a stereotype) must not clash with any meta attributes
+ * associated with the model element. context ModelElement inv: -- cannot be
+ * specified with OCL <!-- end-model-doc -->
+ * 
  * @see orgomg.cwm.objectmodel.core.CoreFactory
  * @model kind="package"
  * @generated
  */
 public interface CorePackage extends EPackage {
+
     /**
      * The package name.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     String eNAME = "core";
 
     /**
      * The package namespace URI.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     String eNS_URI = "http:///orgomg/cwm/objectmodel/core.ecore";
 
     /**
      * The package namespace name.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     String eNS_PREFIX = "orgomg.cwm.objectmodel.core";
 
     /**
      * The singleton instance of the package.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     CorePackage eINSTANCE = orgomg.cwm.objectmodel.core.impl.CorePackageImpl.init();
 
     /**
      * The meta object id for the '{@link orgomg.cwm.objectmodel.core.impl.ElementImpl <em>Element</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see orgomg.cwm.objectmodel.core.impl.ElementImpl
      * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getElement()
      * @generated
@@ -161,18 +160,20 @@ public interface CorePackage extends EPackage {
     int ELEMENT = 0;
 
     /**
-     * The number of structural features of the '<em>Element</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The number of structural features of the '<em>Element</em>' class. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ELEMENT_FEATURE_COUNT = 0;
 
     /**
-     * The meta object id for the '{@link orgomg.cwm.objectmodel.core.impl.ModelElementImpl <em>Model Element</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The meta object id for the '
+     * {@link orgomg.cwm.objectmodel.core.impl.ModelElementImpl
+     * <em>Model Element</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @see orgomg.cwm.objectmodel.core.impl.ModelElementImpl
      * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getModelElement()
      * @generated
@@ -180,18 +181,18 @@ public interface CorePackage extends EPackage {
     int MODEL_ELEMENT = 1;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int MODEL_ELEMENT__NAME = ELEMENT_FEATURE_COUNT + 0;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -199,8 +200,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -208,17 +208,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int MODEL_ELEMENT__SUPPLIER_DEPENDENCY = ELEMENT_FEATURE_COUNT + 3;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -226,26 +225,25 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int MODEL_ELEMENT__NAMESPACE = ELEMENT_FEATURE_COUNT + 5;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int MODEL_ELEMENT__IMPORTER = ELEMENT_FEATURE_COUNT + 6;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -253,26 +251,25 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int MODEL_ELEMENT__TAGGED_VALUE = ELEMENT_FEATURE_COUNT + 8;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int MODEL_ELEMENT__DOCUMENT = ELEMENT_FEATURE_COUNT + 9;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -280,8 +277,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -289,17 +285,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int MODEL_ELEMENT__ELEMENT_NODE = ELEMENT_FEATURE_COUNT + 12;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -307,8 +302,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -316,17 +310,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int MODEL_ELEMENT__VOCABULARY_ELEMENT = ELEMENT_FEATURE_COUNT + 15;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -334,8 +327,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -343,8 +335,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -352,8 +343,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Model Element</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -361,8 +351,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwm.objectmodel.core.impl.NamespaceImpl <em>Namespace</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see orgomg.cwm.objectmodel.core.impl.NamespaceImpl
      * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getNamespace()
      * @generated
@@ -370,18 +359,18 @@ public interface CorePackage extends EPackage {
     int NAMESPACE = 2;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int NAMESPACE__NAME = MODEL_ELEMENT__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -389,8 +378,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -398,17 +386,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int NAMESPACE__SUPPLIER_DEPENDENCY = MODEL_ELEMENT__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -416,26 +403,25 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int NAMESPACE__NAMESPACE = MODEL_ELEMENT__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int NAMESPACE__IMPORTER = MODEL_ELEMENT__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -443,26 +429,25 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int NAMESPACE__TAGGED_VALUE = MODEL_ELEMENT__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int NAMESPACE__DOCUMENT = MODEL_ELEMENT__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -470,8 +455,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -479,17 +463,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int NAMESPACE__ELEMENT_NODE = MODEL_ELEMENT__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -497,8 +480,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -506,17 +488,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int NAMESPACE__VOCABULARY_ELEMENT = MODEL_ELEMENT__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -524,8 +505,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -533,8 +513,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -542,26 +521,27 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int NAMESPACE__OWNED_ELEMENT = MODEL_ELEMENT_FEATURE_COUNT + 0;
 
     /**
-     * The number of structural features of the '<em>Namespace</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The number of structural features of the '<em>Namespace</em>' class. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int NAMESPACE_FEATURE_COUNT = MODEL_ELEMENT_FEATURE_COUNT + 1;
 
     /**
-     * The meta object id for the '{@link orgomg.cwm.objectmodel.core.impl.ClassifierImpl <em>Classifier</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The meta object id for the '
+     * {@link orgomg.cwm.objectmodel.core.impl.ClassifierImpl
+     * <em>Classifier</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @see orgomg.cwm.objectmodel.core.impl.ClassifierImpl
      * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getClassifier()
      * @generated
@@ -569,18 +549,18 @@ public interface CorePackage extends EPackage {
     int CLASSIFIER = 3;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int CLASSIFIER__NAME = NAMESPACE__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -588,8 +568,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -597,17 +576,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CLASSIFIER__SUPPLIER_DEPENDENCY = NAMESPACE__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -615,26 +593,25 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CLASSIFIER__NAMESPACE = NAMESPACE__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int CLASSIFIER__IMPORTER = NAMESPACE__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -642,26 +619,25 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CLASSIFIER__TAGGED_VALUE = NAMESPACE__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int CLASSIFIER__DOCUMENT = NAMESPACE__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -669,8 +645,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -678,17 +653,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CLASSIFIER__ELEMENT_NODE = NAMESPACE__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -696,8 +670,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -705,17 +678,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CLASSIFIER__VOCABULARY_ELEMENT = NAMESPACE__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -723,8 +695,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -732,8 +703,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -741,17 +711,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CLASSIFIER__OWNED_ELEMENT = NAMESPACE__OWNED_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Is Abstract</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is Abstract</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -759,8 +728,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Feature</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -768,17 +736,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Structural Feature</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CLASSIFIER__STRUCTURAL_FEATURE = NAMESPACE_FEATURE_COUNT + 2;
 
     /**
-     * The feature id for the '<em><b>Parameter</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Parameter</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -786,8 +753,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Generalization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -795,26 +761,25 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Specialization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CLASSIFIER__SPECIALIZATION = NAMESPACE_FEATURE_COUNT + 5;
 
     /**
-     * The feature id for the '<em><b>Instance</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Instance</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int CLASSIFIER__INSTANCE = NAMESPACE_FEATURE_COUNT + 6;
 
     /**
-     * The feature id for the '<em><b>Alias</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Alias</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -822,8 +787,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Expression Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -831,17 +795,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Mapping From</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CLASSIFIER__MAPPING_FROM = NAMESPACE_FEATURE_COUNT + 9;
 
     /**
-     * The feature id for the '<em><b>Mapping To</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Mapping To</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -849,26 +812,25 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Classifier Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CLASSIFIER__CLASSIFIER_MAP = NAMESPACE_FEATURE_COUNT + 11;
 
     /**
-     * The feature id for the '<em><b>Cf Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Cf Map</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int CLASSIFIER__CF_MAP = NAMESPACE_FEATURE_COUNT + 12;
 
     /**
-     * The feature id for the '<em><b>Domain</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Domain</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -876,8 +838,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Simple Dimension</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -885,8 +846,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Classifier</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -894,8 +854,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwm.objectmodel.core.impl.ClassImpl <em>Class</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see orgomg.cwm.objectmodel.core.impl.ClassImpl
      * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getClass_()
      * @generated
@@ -903,18 +862,18 @@ public interface CorePackage extends EPackage {
     int CLASS = 4;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int CLASS__NAME = CLASSIFIER__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -922,8 +881,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -931,17 +889,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CLASS__SUPPLIER_DEPENDENCY = CLASSIFIER__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -949,26 +906,25 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CLASS__NAMESPACE = CLASSIFIER__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int CLASS__IMPORTER = CLASSIFIER__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -976,26 +932,25 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CLASS__TAGGED_VALUE = CLASSIFIER__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int CLASS__DOCUMENT = CLASSIFIER__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1003,8 +958,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1012,17 +966,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CLASS__ELEMENT_NODE = CLASSIFIER__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1030,8 +983,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1039,17 +991,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CLASS__VOCABULARY_ELEMENT = CLASSIFIER__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1057,8 +1008,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1066,8 +1016,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1075,17 +1024,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CLASS__OWNED_ELEMENT = CLASSIFIER__OWNED_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Is Abstract</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is Abstract</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1093,8 +1041,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Feature</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1102,17 +1049,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Structural Feature</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CLASS__STRUCTURAL_FEATURE = CLASSIFIER__STRUCTURAL_FEATURE;
 
     /**
-     * The feature id for the '<em><b>Parameter</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Parameter</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1120,8 +1066,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Generalization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1129,26 +1074,25 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Specialization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CLASS__SPECIALIZATION = CLASSIFIER__SPECIALIZATION;
 
     /**
-     * The feature id for the '<em><b>Instance</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Instance</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int CLASS__INSTANCE = CLASSIFIER__INSTANCE;
 
     /**
-     * The feature id for the '<em><b>Alias</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Alias</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1156,8 +1100,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Expression Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1165,17 +1108,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Mapping From</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CLASS__MAPPING_FROM = CLASSIFIER__MAPPING_FROM;
 
     /**
-     * The feature id for the '<em><b>Mapping To</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Mapping To</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1183,26 +1125,25 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Classifier Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CLASS__CLASSIFIER_MAP = CLASSIFIER__CLASSIFIER_MAP;
 
     /**
-     * The feature id for the '<em><b>Cf Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Cf Map</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int CLASS__CF_MAP = CLASSIFIER__CF_MAP;
 
     /**
-     * The feature id for the '<em><b>Domain</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Domain</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1210,26 +1151,25 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Simple Dimension</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CLASS__SIMPLE_DIMENSION = CLASSIFIER__SIMPLE_DIMENSION;
 
     /**
-     * The feature id for the '<em><b>Index</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Index</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int CLASS__INDEX = CLASSIFIER_FEATURE_COUNT + 0;
 
     /**
-     * The number of structural features of the '<em>Class</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The number of structural features of the '<em>Class</em>' class. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1237,8 +1177,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwm.objectmodel.core.impl.DataTypeImpl <em>Data Type</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see orgomg.cwm.objectmodel.core.impl.DataTypeImpl
      * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getDataType()
      * @generated
@@ -1246,18 +1185,18 @@ public interface CorePackage extends EPackage {
     int DATA_TYPE = 5;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int DATA_TYPE__NAME = CLASSIFIER__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1265,8 +1204,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1274,17 +1212,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DATA_TYPE__SUPPLIER_DEPENDENCY = CLASSIFIER__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1292,26 +1229,25 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DATA_TYPE__NAMESPACE = CLASSIFIER__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int DATA_TYPE__IMPORTER = CLASSIFIER__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1319,26 +1255,25 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DATA_TYPE__TAGGED_VALUE = CLASSIFIER__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int DATA_TYPE__DOCUMENT = CLASSIFIER__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1346,8 +1281,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1355,17 +1289,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DATA_TYPE__ELEMENT_NODE = CLASSIFIER__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1373,8 +1306,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1382,17 +1314,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DATA_TYPE__VOCABULARY_ELEMENT = CLASSIFIER__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1400,8 +1331,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1409,8 +1339,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1418,17 +1347,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DATA_TYPE__OWNED_ELEMENT = CLASSIFIER__OWNED_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Is Abstract</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is Abstract</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1436,8 +1364,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Feature</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1445,17 +1372,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Structural Feature</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DATA_TYPE__STRUCTURAL_FEATURE = CLASSIFIER__STRUCTURAL_FEATURE;
 
     /**
-     * The feature id for the '<em><b>Parameter</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Parameter</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1463,8 +1389,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Generalization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1472,26 +1397,25 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Specialization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DATA_TYPE__SPECIALIZATION = CLASSIFIER__SPECIALIZATION;
 
     /**
-     * The feature id for the '<em><b>Instance</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Instance</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int DATA_TYPE__INSTANCE = CLASSIFIER__INSTANCE;
 
     /**
-     * The feature id for the '<em><b>Alias</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Alias</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1499,8 +1423,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Expression Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1508,17 +1431,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Mapping From</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DATA_TYPE__MAPPING_FROM = CLASSIFIER__MAPPING_FROM;
 
     /**
-     * The feature id for the '<em><b>Mapping To</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Mapping To</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1526,26 +1448,25 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Classifier Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DATA_TYPE__CLASSIFIER_MAP = CLASSIFIER__CLASSIFIER_MAP;
 
     /**
-     * The feature id for the '<em><b>Cf Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Cf Map</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int DATA_TYPE__CF_MAP = CLASSIFIER__CF_MAP;
 
     /**
-     * The feature id for the '<em><b>Domain</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Domain</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1553,17 +1474,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Simple Dimension</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DATA_TYPE__SIMPLE_DIMENSION = CLASSIFIER__SIMPLE_DIMENSION;
 
     /**
-     * The number of structural features of the '<em>Data Type</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The number of structural features of the '<em>Data Type</em>' class. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1571,8 +1491,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwm.objectmodel.core.impl.PackageImpl <em>Package</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see orgomg.cwm.objectmodel.core.impl.PackageImpl
      * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getPackage()
      * @generated
@@ -1580,18 +1499,18 @@ public interface CorePackage extends EPackage {
     int PACKAGE = 6;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int PACKAGE__NAME = NAMESPACE__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1599,8 +1518,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1608,17 +1526,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int PACKAGE__SUPPLIER_DEPENDENCY = NAMESPACE__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1626,26 +1543,25 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int PACKAGE__NAMESPACE = NAMESPACE__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int PACKAGE__IMPORTER = NAMESPACE__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1653,26 +1569,25 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int PACKAGE__TAGGED_VALUE = NAMESPACE__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int PACKAGE__DOCUMENT = NAMESPACE__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1680,8 +1595,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1689,17 +1603,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int PACKAGE__ELEMENT_NODE = NAMESPACE__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1707,8 +1620,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1716,17 +1628,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int PACKAGE__VOCABULARY_ELEMENT = NAMESPACE__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1734,8 +1645,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1743,8 +1653,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1752,8 +1661,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1761,8 +1669,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Imported Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1770,17 +1677,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Data Manager</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int PACKAGE__DATA_MANAGER = NAMESPACE_FEATURE_COUNT + 1;
 
     /**
-     * The number of structural features of the '<em>Package</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The number of structural features of the '<em>Package</em>' class. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1788,8 +1694,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwm.objectmodel.core.impl.SubsystemImpl <em>Subsystem</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see orgomg.cwm.objectmodel.core.impl.SubsystemImpl
      * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getSubsystem()
      * @generated
@@ -1797,18 +1702,18 @@ public interface CorePackage extends EPackage {
     int SUBSYSTEM = 7;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SUBSYSTEM__NAME = CLASSIFIER__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1816,8 +1721,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1825,17 +1729,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SUBSYSTEM__SUPPLIER_DEPENDENCY = CLASSIFIER__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1843,26 +1746,25 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SUBSYSTEM__NAMESPACE = CLASSIFIER__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SUBSYSTEM__IMPORTER = CLASSIFIER__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1870,26 +1772,25 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SUBSYSTEM__TAGGED_VALUE = CLASSIFIER__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SUBSYSTEM__DOCUMENT = CLASSIFIER__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1897,8 +1798,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1906,17 +1806,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SUBSYSTEM__ELEMENT_NODE = CLASSIFIER__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1924,8 +1823,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1933,17 +1831,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SUBSYSTEM__VOCABULARY_ELEMENT = CLASSIFIER__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1951,8 +1848,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1960,8 +1856,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1969,17 +1864,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SUBSYSTEM__OWNED_ELEMENT = CLASSIFIER__OWNED_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Is Abstract</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is Abstract</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1987,8 +1881,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Feature</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1996,17 +1889,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Structural Feature</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SUBSYSTEM__STRUCTURAL_FEATURE = CLASSIFIER__STRUCTURAL_FEATURE;
 
     /**
-     * The feature id for the '<em><b>Parameter</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Parameter</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2014,8 +1906,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Generalization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2023,26 +1914,25 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Specialization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SUBSYSTEM__SPECIALIZATION = CLASSIFIER__SPECIALIZATION;
 
     /**
-     * The feature id for the '<em><b>Instance</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Instance</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SUBSYSTEM__INSTANCE = CLASSIFIER__INSTANCE;
 
     /**
-     * The feature id for the '<em><b>Alias</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Alias</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2050,8 +1940,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Expression Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2059,17 +1948,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Mapping From</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SUBSYSTEM__MAPPING_FROM = CLASSIFIER__MAPPING_FROM;
 
     /**
-     * The feature id for the '<em><b>Mapping To</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Mapping To</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2077,26 +1965,25 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Classifier Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SUBSYSTEM__CLASSIFIER_MAP = CLASSIFIER__CLASSIFIER_MAP;
 
     /**
-     * The feature id for the '<em><b>Cf Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Cf Map</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SUBSYSTEM__CF_MAP = CLASSIFIER__CF_MAP;
 
     /**
-     * The feature id for the '<em><b>Domain</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Domain</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2104,8 +1991,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Simple Dimension</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2113,8 +1999,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Imported Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2122,17 +2007,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Data Manager</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SUBSYSTEM__DATA_MANAGER = CLASSIFIER_FEATURE_COUNT + 1;
 
     /**
-     * The number of structural features of the '<em>Subsystem</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The number of structural features of the '<em>Subsystem</em>' class. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2140,8 +2024,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwm.objectmodel.core.impl.ModelImpl <em>Model</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see orgomg.cwm.objectmodel.core.impl.ModelImpl
      * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getModel()
      * @generated
@@ -2149,18 +2032,18 @@ public interface CorePackage extends EPackage {
     int MODEL = 8;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int MODEL__NAME = PACKAGE__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2168,8 +2051,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2177,17 +2059,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int MODEL__SUPPLIER_DEPENDENCY = PACKAGE__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2195,26 +2076,25 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int MODEL__NAMESPACE = PACKAGE__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int MODEL__IMPORTER = PACKAGE__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2222,26 +2102,25 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int MODEL__TAGGED_VALUE = PACKAGE__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int MODEL__DOCUMENT = PACKAGE__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2249,8 +2128,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2258,17 +2136,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int MODEL__ELEMENT_NODE = PACKAGE__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2276,8 +2153,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2285,17 +2161,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int MODEL__VOCABULARY_ELEMENT = PACKAGE__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2303,8 +2178,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2312,8 +2186,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2321,8 +2194,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2330,8 +2202,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Imported Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2339,17 +2210,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Data Manager</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int MODEL__DATA_MANAGER = PACKAGE__DATA_MANAGER;
 
     /**
-     * The number of structural features of the '<em>Model</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The number of structural features of the '<em>Model</em>' class. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2357,8 +2227,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwm.objectmodel.core.impl.FeatureImpl <em>Feature</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see orgomg.cwm.objectmodel.core.impl.FeatureImpl
      * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getFeature()
      * @generated
@@ -2366,18 +2235,18 @@ public interface CorePackage extends EPackage {
     int FEATURE = 9;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int FEATURE__NAME = MODEL_ELEMENT__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2385,8 +2254,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2394,17 +2262,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int FEATURE__SUPPLIER_DEPENDENCY = MODEL_ELEMENT__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2412,26 +2279,25 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int FEATURE__NAMESPACE = MODEL_ELEMENT__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int FEATURE__IMPORTER = MODEL_ELEMENT__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2439,26 +2305,25 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int FEATURE__TAGGED_VALUE = MODEL_ELEMENT__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int FEATURE__DOCUMENT = MODEL_ELEMENT__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2466,8 +2331,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2475,17 +2339,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int FEATURE__ELEMENT_NODE = MODEL_ELEMENT__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2493,8 +2356,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2502,17 +2364,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int FEATURE__VOCABULARY_ELEMENT = MODEL_ELEMENT__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2520,8 +2381,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2529,26 +2389,25 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int FEATURE__DASDL_PROPERTY = MODEL_ELEMENT__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Owner Scope</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Owner Scope</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int FEATURE__OWNER_SCOPE = MODEL_ELEMENT_FEATURE_COUNT + 0;
 
     /**
-     * The feature id for the '<em><b>Owner</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Owner</b></em>' container reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2556,35 +2415,34 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Feature Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int FEATURE__FEATURE_NODE = MODEL_ELEMENT_FEATURE_COUNT + 2;
 
     /**
-     * The feature id for the '<em><b>Feature Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Feature Map</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int FEATURE__FEATURE_MAP = MODEL_ELEMENT_FEATURE_COUNT + 3;
 
     /**
-     * The feature id for the '<em><b>Cf Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Cf Map</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int FEATURE__CF_MAP = MODEL_ELEMENT_FEATURE_COUNT + 4;
 
     /**
-     * The number of structural features of the '<em>Feature</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The number of structural features of the '<em>Feature</em>' class. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2592,8 +2450,8 @@ public interface CorePackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwm.objectmodel.core.impl.StructuralFeatureImpl <em>Structural Feature</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see orgomg.cwm.objectmodel.core.impl.StructuralFeatureImpl
      * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getStructuralFeature()
      * @generated
@@ -2601,18 +2459,18 @@ public interface CorePackage extends EPackage {
     int STRUCTURAL_FEATURE = 10;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int STRUCTURAL_FEATURE__NAME = FEATURE__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2620,8 +2478,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2629,17 +2486,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int STRUCTURAL_FEATURE__SUPPLIER_DEPENDENCY = FEATURE__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2647,26 +2503,25 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int STRUCTURAL_FEATURE__NAMESPACE = FEATURE__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int STRUCTURAL_FEATURE__IMPORTER = FEATURE__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2674,26 +2529,25 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int STRUCTURAL_FEATURE__TAGGED_VALUE = FEATURE__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int STRUCTURAL_FEATURE__DOCUMENT = FEATURE__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2701,8 +2555,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2710,17 +2563,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int STRUCTURAL_FEATURE__ELEMENT_NODE = FEATURE__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2728,8 +2580,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2737,17 +2588,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int STRUCTURAL_FEATURE__VOCABULARY_ELEMENT = FEATURE__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2755,8 +2605,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2764,26 +2613,25 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int STRUCTURAL_FEATURE__DASDL_PROPERTY = FEATURE__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Owner Scope</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Owner Scope</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int STRUCTURAL_FEATURE__OWNER_SCOPE = FEATURE__OWNER_SCOPE;
 
     /**
-     * The feature id for the '<em><b>Owner</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Owner</b></em>' container reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2791,35 +2639,34 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Feature Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int STRUCTURAL_FEATURE__FEATURE_NODE = FEATURE__FEATURE_NODE;
 
     /**
-     * The feature id for the '<em><b>Feature Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Feature Map</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int STRUCTURAL_FEATURE__FEATURE_MAP = FEATURE__FEATURE_MAP;
 
     /**
-     * The feature id for the '<em><b>Cf Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Cf Map</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int STRUCTURAL_FEATURE__CF_MAP = FEATURE__CF_MAP;
 
     /**
-     * The feature id for the '<em><b>Changeability</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Changeability</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2827,44 +2674,43 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Multiplicity</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int STRUCTURAL_FEATURE__MULTIPLICITY = FEATURE_FEATURE_COUNT + 1;
 
     /**
-     * The feature id for the '<em><b>Ordering</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Ordering</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int STRUCTURAL_FEATURE__ORDERING = FEATURE_FEATURE_COUNT + 2;
 
     /**
-     * The feature id for the '<em><b>Target Scope</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Target Scope</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int STRUCTURAL_FEATURE__TARGET_SCOPE = FEATURE_FEATURE_COUNT + 3;
 
     /**
-     * The feature id for the '<em><b>Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Type</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int STRUCTURAL_FEATURE__TYPE = FEATURE_FEATURE_COUNT + 4;
 
     /**
-     * The feature id for the '<em><b>Slot</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Slot</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2872,8 +2718,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Discriminated Union</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2881,8 +2726,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Indexed Feature</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2890,35 +2734,34 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Key Relationship</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int STRUCTURAL_FEATURE__KEY_RELATIONSHIP = FEATURE_FEATURE_COUNT + 8;
 
     /**
-     * The feature id for the '<em><b>Unique Key</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Unique Key</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int STRUCTURAL_FEATURE__UNIQUE_KEY = FEATURE_FEATURE_COUNT + 9;
 
     /**
-     * The feature id for the '<em><b>Data Item</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Data Item</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int STRUCTURAL_FEATURE__DATA_ITEM = FEATURE_FEATURE_COUNT + 10;
 
     /**
-     * The feature id for the '<em><b>Remap</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Remap</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2926,8 +2769,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Structural Feature</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2935,8 +2777,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwm.objectmodel.core.impl.AttributeImpl <em>Attribute</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see orgomg.cwm.objectmodel.core.impl.AttributeImpl
      * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getAttribute()
      * @generated
@@ -2944,18 +2785,18 @@ public interface CorePackage extends EPackage {
     int ATTRIBUTE = 11;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ATTRIBUTE__NAME = STRUCTURAL_FEATURE__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2963,8 +2804,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2972,17 +2812,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ATTRIBUTE__SUPPLIER_DEPENDENCY = STRUCTURAL_FEATURE__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2990,26 +2829,25 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ATTRIBUTE__NAMESPACE = STRUCTURAL_FEATURE__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ATTRIBUTE__IMPORTER = STRUCTURAL_FEATURE__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3017,26 +2855,25 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ATTRIBUTE__TAGGED_VALUE = STRUCTURAL_FEATURE__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ATTRIBUTE__DOCUMENT = STRUCTURAL_FEATURE__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3044,8 +2881,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3053,17 +2889,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ATTRIBUTE__ELEMENT_NODE = STRUCTURAL_FEATURE__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3071,8 +2906,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3080,17 +2914,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ATTRIBUTE__VOCABULARY_ELEMENT = STRUCTURAL_FEATURE__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3098,8 +2931,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3107,26 +2939,25 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ATTRIBUTE__DASDL_PROPERTY = STRUCTURAL_FEATURE__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Owner Scope</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Owner Scope</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ATTRIBUTE__OWNER_SCOPE = STRUCTURAL_FEATURE__OWNER_SCOPE;
 
     /**
-     * The feature id for the '<em><b>Owner</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Owner</b></em>' container reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3134,35 +2965,34 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Feature Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ATTRIBUTE__FEATURE_NODE = STRUCTURAL_FEATURE__FEATURE_NODE;
 
     /**
-     * The feature id for the '<em><b>Feature Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Feature Map</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ATTRIBUTE__FEATURE_MAP = STRUCTURAL_FEATURE__FEATURE_MAP;
 
     /**
-     * The feature id for the '<em><b>Cf Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Cf Map</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ATTRIBUTE__CF_MAP = STRUCTURAL_FEATURE__CF_MAP;
 
     /**
-     * The feature id for the '<em><b>Changeability</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Changeability</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3170,44 +3000,43 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Multiplicity</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ATTRIBUTE__MULTIPLICITY = STRUCTURAL_FEATURE__MULTIPLICITY;
 
     /**
-     * The feature id for the '<em><b>Ordering</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Ordering</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ATTRIBUTE__ORDERING = STRUCTURAL_FEATURE__ORDERING;
 
     /**
-     * The feature id for the '<em><b>Target Scope</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Target Scope</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ATTRIBUTE__TARGET_SCOPE = STRUCTURAL_FEATURE__TARGET_SCOPE;
 
     /**
-     * The feature id for the '<em><b>Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Type</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ATTRIBUTE__TYPE = STRUCTURAL_FEATURE__TYPE;
 
     /**
-     * The feature id for the '<em><b>Slot</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Slot</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3215,8 +3044,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Discriminated Union</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3224,8 +3052,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Indexed Feature</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3233,35 +3060,34 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Key Relationship</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ATTRIBUTE__KEY_RELATIONSHIP = STRUCTURAL_FEATURE__KEY_RELATIONSHIP;
 
     /**
-     * The feature id for the '<em><b>Unique Key</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Unique Key</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ATTRIBUTE__UNIQUE_KEY = STRUCTURAL_FEATURE__UNIQUE_KEY;
 
     /**
-     * The feature id for the '<em><b>Data Item</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Data Item</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ATTRIBUTE__DATA_ITEM = STRUCTURAL_FEATURE__DATA_ITEM;
 
     /**
-     * The feature id for the '<em><b>Remap</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Remap</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3269,26 +3095,27 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Initial Value</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ATTRIBUTE__INITIAL_VALUE = STRUCTURAL_FEATURE_FEATURE_COUNT + 0;
 
     /**
-     * The number of structural features of the '<em>Attribute</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The number of structural features of the '<em>Attribute</em>' class. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ATTRIBUTE_FEATURE_COUNT = STRUCTURAL_FEATURE_FEATURE_COUNT + 1;
 
     /**
-     * The meta object id for the '{@link orgomg.cwm.objectmodel.core.impl.ConstraintImpl <em>Constraint</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The meta object id for the '
+     * {@link orgomg.cwm.objectmodel.core.impl.ConstraintImpl
+     * <em>Constraint</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @see orgomg.cwm.objectmodel.core.impl.ConstraintImpl
      * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getConstraint()
      * @generated
@@ -3296,18 +3123,18 @@ public interface CorePackage extends EPackage {
     int CONSTRAINT = 12;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int CONSTRAINT__NAME = MODEL_ELEMENT__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3315,8 +3142,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3324,17 +3150,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CONSTRAINT__SUPPLIER_DEPENDENCY = MODEL_ELEMENT__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3342,26 +3167,25 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CONSTRAINT__NAMESPACE = MODEL_ELEMENT__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int CONSTRAINT__IMPORTER = MODEL_ELEMENT__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3369,26 +3193,25 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CONSTRAINT__TAGGED_VALUE = MODEL_ELEMENT__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int CONSTRAINT__DOCUMENT = MODEL_ELEMENT__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3396,8 +3219,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3405,17 +3227,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CONSTRAINT__ELEMENT_NODE = MODEL_ELEMENT__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3423,8 +3244,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3432,17 +3252,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CONSTRAINT__VOCABULARY_ELEMENT = MODEL_ELEMENT__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3450,8 +3269,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3459,17 +3277,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CONSTRAINT__DASDL_PROPERTY = MODEL_ELEMENT__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Body</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Body</b></em>' containment reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3477,8 +3294,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Constrained Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3486,8 +3302,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Constrained Stereotype</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3495,17 +3310,18 @@ public interface CorePackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Constraint</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CONSTRAINT_FEATURE_COUNT = MODEL_ELEMENT_FEATURE_COUNT + 3;
 
     /**
-     * The meta object id for the '{@link orgomg.cwm.objectmodel.core.impl.DependencyImpl <em>Dependency</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The meta object id for the '
+     * {@link orgomg.cwm.objectmodel.core.impl.DependencyImpl
+     * <em>Dependency</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @see orgomg.cwm.objectmodel.core.impl.DependencyImpl
      * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getDependency()
      * @generated
@@ -3513,18 +3329,18 @@ public interface CorePackage extends EPackage {
     int DEPENDENCY = 13;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int DEPENDENCY__NAME = MODEL_ELEMENT__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3532,8 +3348,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3541,17 +3356,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DEPENDENCY__SUPPLIER_DEPENDENCY = MODEL_ELEMENT__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3559,26 +3373,25 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DEPENDENCY__NAMESPACE = MODEL_ELEMENT__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int DEPENDENCY__IMPORTER = MODEL_ELEMENT__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3586,26 +3399,25 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DEPENDENCY__TAGGED_VALUE = MODEL_ELEMENT__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int DEPENDENCY__DOCUMENT = MODEL_ELEMENT__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3613,8 +3425,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3622,17 +3433,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DEPENDENCY__ELEMENT_NODE = MODEL_ELEMENT__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3640,8 +3450,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3649,17 +3458,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DEPENDENCY__VOCABULARY_ELEMENT = MODEL_ELEMENT__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3667,8 +3475,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3676,35 +3483,34 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DEPENDENCY__DASDL_PROPERTY = MODEL_ELEMENT__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Kind</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Kind</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int DEPENDENCY__KIND = MODEL_ELEMENT_FEATURE_COUNT + 0;
 
     /**
-     * The feature id for the '<em><b>Client</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Client</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int DEPENDENCY__CLIENT = MODEL_ELEMENT_FEATURE_COUNT + 1;
 
     /**
-     * The feature id for the '<em><b>Supplier</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Supplier</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3712,17 +3518,18 @@ public interface CorePackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Dependency</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DEPENDENCY_FEATURE_COUNT = MODEL_ELEMENT_FEATURE_COUNT + 3;
 
     /**
-     * The meta object id for the '{@link orgomg.cwm.objectmodel.core.impl.ExpressionImpl <em>Expression</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The meta object id for the '
+     * {@link orgomg.cwm.objectmodel.core.impl.ExpressionImpl
+     * <em>Expression</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @see orgomg.cwm.objectmodel.core.impl.ExpressionImpl
      * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getExpression()
      * @generated
@@ -3730,18 +3537,18 @@ public interface CorePackage extends EPackage {
     int EXPRESSION = 14;
 
     /**
-     * The feature id for the '<em><b>Body</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Body</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int EXPRESSION__BODY = ELEMENT_FEATURE_COUNT + 0;
 
     /**
-     * The feature id for the '<em><b>Language</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Language</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3749,8 +3556,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Expression</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3758,8 +3564,8 @@ public interface CorePackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwm.objectmodel.core.impl.BooleanExpressionImpl <em>Boolean Expression</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see orgomg.cwm.objectmodel.core.impl.BooleanExpressionImpl
      * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getBooleanExpression()
      * @generated
@@ -3767,18 +3573,18 @@ public interface CorePackage extends EPackage {
     int BOOLEAN_EXPRESSION = 15;
 
     /**
-     * The feature id for the '<em><b>Body</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Body</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int BOOLEAN_EXPRESSION__BODY = EXPRESSION__BODY;
 
     /**
-     * The feature id for the '<em><b>Language</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Language</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3786,8 +3592,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Boolean Expression</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3795,8 +3600,8 @@ public interface CorePackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwm.objectmodel.core.impl.ProcedureExpressionImpl <em>Procedure Expression</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see orgomg.cwm.objectmodel.core.impl.ProcedureExpressionImpl
      * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getProcedureExpression()
      * @generated
@@ -3804,18 +3609,18 @@ public interface CorePackage extends EPackage {
     int PROCEDURE_EXPRESSION = 16;
 
     /**
-     * The feature id for the '<em><b>Body</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Body</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int PROCEDURE_EXPRESSION__BODY = EXPRESSION__BODY;
 
     /**
-     * The feature id for the '<em><b>Language</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Language</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3823,17 +3628,18 @@ public interface CorePackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Procedure Expression</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int PROCEDURE_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 0;
 
     /**
-     * The meta object id for the '{@link orgomg.cwm.objectmodel.core.impl.MultiplicityImpl <em>Multiplicity</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The meta object id for the '
+     * {@link orgomg.cwm.objectmodel.core.impl.MultiplicityImpl
+     * <em>Multiplicity</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @see orgomg.cwm.objectmodel.core.impl.MultiplicityImpl
      * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getMultiplicity()
      * @generated
@@ -3842,8 +3648,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Range</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3851,8 +3656,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Multiplicity</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3860,8 +3664,8 @@ public interface CorePackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwm.objectmodel.core.impl.MultiplicityRangeImpl <em>Multiplicity Range</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see orgomg.cwm.objectmodel.core.impl.MultiplicityRangeImpl
      * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getMultiplicityRange()
      * @generated
@@ -3869,18 +3673,18 @@ public interface CorePackage extends EPackage {
     int MULTIPLICITY_RANGE = 18;
 
     /**
-     * The feature id for the '<em><b>Lower</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Lower</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int MULTIPLICITY_RANGE__LOWER = ELEMENT_FEATURE_COUNT + 0;
 
     /**
-     * The feature id for the '<em><b>Upper</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Upper</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3888,8 +3692,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Multiplicity</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3897,17 +3700,18 @@ public interface CorePackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Multiplicity Range</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int MULTIPLICITY_RANGE_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 3;
 
     /**
-     * The meta object id for the '{@link orgomg.cwm.objectmodel.core.impl.StereotypeImpl <em>Stereotype</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The meta object id for the '
+     * {@link orgomg.cwm.objectmodel.core.impl.StereotypeImpl
+     * <em>Stereotype</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @see orgomg.cwm.objectmodel.core.impl.StereotypeImpl
      * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getStereotype()
      * @generated
@@ -3915,18 +3719,18 @@ public interface CorePackage extends EPackage {
     int STEREOTYPE = 19;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int STEREOTYPE__NAME = MODEL_ELEMENT__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3934,8 +3738,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3943,17 +3746,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int STEREOTYPE__SUPPLIER_DEPENDENCY = MODEL_ELEMENT__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3961,26 +3763,25 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int STEREOTYPE__NAMESPACE = MODEL_ELEMENT__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int STEREOTYPE__IMPORTER = MODEL_ELEMENT__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3988,26 +3789,25 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int STEREOTYPE__TAGGED_VALUE = MODEL_ELEMENT__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int STEREOTYPE__DOCUMENT = MODEL_ELEMENT__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4015,8 +3815,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4024,17 +3823,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int STEREOTYPE__ELEMENT_NODE = MODEL_ELEMENT__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4042,8 +3840,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4051,17 +3848,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int STEREOTYPE__VOCABULARY_ELEMENT = MODEL_ELEMENT__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4069,8 +3865,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4078,17 +3873,16 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int STEREOTYPE__DASDL_PROPERTY = MODEL_ELEMENT__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Base Class</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Base Class</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4096,8 +3890,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Stereotype Constraint</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4105,8 +3898,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Extended Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4114,8 +3906,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Required Tag</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4123,17 +3914,18 @@ public interface CorePackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Stereotype</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int STEREOTYPE_FEATURE_COUNT = MODEL_ELEMENT_FEATURE_COUNT + 4;
 
     /**
-     * The meta object id for the '{@link orgomg.cwm.objectmodel.core.impl.TaggedValueImpl <em>Tagged Value</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The meta object id for the '
+     * {@link orgomg.cwm.objectmodel.core.impl.TaggedValueImpl
+     * <em>Tagged Value</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @see orgomg.cwm.objectmodel.core.impl.TaggedValueImpl
      * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getTaggedValue()
      * @generated
@@ -4141,18 +3933,18 @@ public interface CorePackage extends EPackage {
     int TAGGED_VALUE = 20;
 
     /**
-     * The feature id for the '<em><b>Tag</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Tag</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int TAGGED_VALUE__TAG = ELEMENT_FEATURE_COUNT + 0;
 
     /**
-     * The feature id for the '<em><b>Value</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Value</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4160,8 +3952,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Stereotype</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4169,8 +3960,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Model Element</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4178,8 +3968,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Tagged Value</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4187,8 +3976,8 @@ public interface CorePackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwm.objectmodel.core.ChangeableKind <em>Changeable Kind</em>}' enum.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see orgomg.cwm.objectmodel.core.ChangeableKind
      * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getChangeableKind()
      * @generated
@@ -4197,8 +3986,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwm.objectmodel.core.OrderingKind <em>Ordering Kind</em>}' enum.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see orgomg.cwm.objectmodel.core.OrderingKind
      * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getOrderingKind()
      * @generated
@@ -4207,8 +3995,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwm.objectmodel.core.ScopeKind <em>Scope Kind</em>}' enum.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see orgomg.cwm.objectmodel.core.ScopeKind
      * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getScopeKind()
      * @generated
@@ -4217,8 +4004,8 @@ public interface CorePackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwm.objectmodel.core.VisibilityKind <em>Visibility Kind</em>}' enum.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see orgomg.cwm.objectmodel.core.VisibilityKind
      * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getVisibilityKind()
      * @generated
@@ -4227,8 +4014,8 @@ public interface CorePackage extends EPackage {
 
     /**
      * The meta object id for the '<em>Any</em>' data type.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @see java.lang.String
      * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getAny()
      * @generated
@@ -4236,18 +4023,18 @@ public interface CorePackage extends EPackage {
     int ANY = 25;
 
     /**
-     * The meta object id for the '<em>Boolean</em>' data type.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The meta object id for the '<em>Boolean</em>' data type. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getBoolean()
      * @generated
      */
     int BOOLEAN = 26;
 
     /**
-     * The meta object id for the '<em>Float</em>' data type.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The meta object id for the '<em>Float</em>' data type. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see java.lang.String
      * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getFloat()
      * @generated
@@ -4255,9 +4042,9 @@ public interface CorePackage extends EPackage {
     int FLOAT = 27;
 
     /**
-     * The meta object id for the '<em>Integer</em>' data type.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The meta object id for the '<em>Integer</em>' data type. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getInteger()
      * @generated
      */
@@ -4265,8 +4052,8 @@ public interface CorePackage extends EPackage {
 
     /**
      * The meta object id for the '<em>Name</em>' data type.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @see java.lang.String
      * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getName_()
      * @generated
@@ -4274,9 +4061,9 @@ public interface CorePackage extends EPackage {
     int NAME = 29;
 
     /**
-     * The meta object id for the '<em>String</em>' data type.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The meta object id for the '<em>String</em>' data type. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see java.lang.String
      * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getString()
      * @generated
@@ -4285,8 +4072,8 @@ public interface CorePackage extends EPackage {
 
     /**
      * The meta object id for the '<em>Time</em>' data type.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @see java.lang.String
      * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getTime()
      * @generated
@@ -4294,19 +4081,19 @@ public interface CorePackage extends EPackage {
     int TIME = 31;
 
     /**
-     * The meta object id for the '<em>Unlimited Integer</em>' data type.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The meta object id for the '<em>Unlimited Integer</em>' data type. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getUnlimitedInteger()
      * @generated
      */
     int UNLIMITED_INTEGER = 32;
 
-
     /**
-     * Returns the meta object for class '{@link orgomg.cwm.objectmodel.core.Element <em>Element</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for class '
+     * {@link orgomg.cwm.objectmodel.core.Element <em>Element</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for class '<em>Element</em>'.
      * @see orgomg.cwm.objectmodel.core.Element
      * @generated
@@ -4315,8 +4102,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link orgomg.cwm.objectmodel.core.ModelElement <em>Model Element</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Model Element</em>'.
      * @see orgomg.cwm.objectmodel.core.ModelElement
      * @generated
@@ -4325,8 +4111,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.objectmodel.core.ModelElement#getName <em>Name</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Name</em>'.
      * @see orgomg.cwm.objectmodel.core.ModelElement#getName()
      * @see #getModelElement()
@@ -4336,8 +4121,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.objectmodel.core.ModelElement#getVisibility <em>Visibility</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Visibility</em>'.
      * @see orgomg.cwm.objectmodel.core.ModelElement#getVisibility()
      * @see #getModelElement()
@@ -4346,10 +4130,13 @@ public interface CorePackage extends EPackage {
     EAttribute getModelElement_Visibility();
 
     /**
-     * Returns the meta object for the reference list '{@link orgomg.cwm.objectmodel.core.ModelElement#getClientDependency <em>Client Dependency</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the reference list '<em>Client Dependency</em>'.
+     * Returns the meta object for the reference list '
+     * {@link orgomg.cwm.objectmodel.core.ModelElement#getClientDependency
+     * <em>Client Dependency</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @return the meta object for the reference list '
+     *         <em>Client Dependency</em>'.
      * @see orgomg.cwm.objectmodel.core.ModelElement#getClientDependency()
      * @see #getModelElement()
      * @generated
@@ -4357,10 +4144,13 @@ public interface CorePackage extends EPackage {
     EReference getModelElement_ClientDependency();
 
     /**
-     * Returns the meta object for the reference list '{@link orgomg.cwm.objectmodel.core.ModelElement#getSupplierDependency <em>Supplier Dependency</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the reference list '<em>Supplier Dependency</em>'.
+     * Returns the meta object for the reference list '
+     * {@link orgomg.cwm.objectmodel.core.ModelElement#getSupplierDependency
+     * <em>Supplier Dependency</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @return the meta object for the reference list '
+     *         <em>Supplier Dependency</em>'.
      * @see orgomg.cwm.objectmodel.core.ModelElement#getSupplierDependency()
      * @see #getModelElement()
      * @generated
@@ -4369,8 +4159,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the reference list '{@link orgomg.cwm.objectmodel.core.ModelElement#getConstraint <em>Constraint</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference list '<em>Constraint</em>'.
      * @see orgomg.cwm.objectmodel.core.ModelElement#getConstraint()
      * @see #getModelElement()
@@ -4380,8 +4169,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the container reference '{@link orgomg.cwm.objectmodel.core.ModelElement#getNamespace <em>Namespace</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the container reference '<em>Namespace</em>'.
      * @see orgomg.cwm.objectmodel.core.ModelElement#getNamespace()
      * @see #getModelElement()
@@ -4391,8 +4179,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the reference list '{@link orgomg.cwm.objectmodel.core.ModelElement#getImporter <em>Importer</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference list '<em>Importer</em>'.
      * @see orgomg.cwm.objectmodel.core.ModelElement#getImporter()
      * @see #getModelElement()
@@ -4402,8 +4189,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the reference '{@link orgomg.cwm.objectmodel.core.ModelElement#getStereotype <em>Stereotype</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference '<em>Stereotype</em>'.
      * @see orgomg.cwm.objectmodel.core.ModelElement#getStereotype()
      * @see #getModelElement()
@@ -4413,8 +4199,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the containment reference list '{@link orgomg.cwm.objectmodel.core.ModelElement#getTaggedValue <em>Tagged Value</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the containment reference list '<em>Tagged Value</em>'.
      * @see orgomg.cwm.objectmodel.core.ModelElement#getTaggedValue()
      * @see #getModelElement()
@@ -4424,8 +4209,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the reference list '{@link orgomg.cwm.objectmodel.core.ModelElement#getDocument <em>Document</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference list '<em>Document</em>'.
      * @see orgomg.cwm.objectmodel.core.ModelElement#getDocument()
      * @see #getModelElement()
@@ -4435,8 +4219,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the reference list '{@link orgomg.cwm.objectmodel.core.ModelElement#getDescription <em>Description</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference list '<em>Description</em>'.
      * @see orgomg.cwm.objectmodel.core.ModelElement#getDescription()
      * @see #getModelElement()
@@ -4445,10 +4228,13 @@ public interface CorePackage extends EPackage {
     EReference getModelElement_Description();
 
     /**
-     * Returns the meta object for the reference list '{@link orgomg.cwm.objectmodel.core.ModelElement#getResponsibleParty <em>Responsible Party</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the reference list '<em>Responsible Party</em>'.
+     * Returns the meta object for the reference list '
+     * {@link orgomg.cwm.objectmodel.core.ModelElement#getResponsibleParty
+     * <em>Responsible Party</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @return the meta object for the reference list '
+     *         <em>Responsible Party</em>'.
      * @see orgomg.cwm.objectmodel.core.ModelElement#getResponsibleParty()
      * @see #getModelElement()
      * @generated
@@ -4457,8 +4243,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the reference list '{@link orgomg.cwm.objectmodel.core.ModelElement#getElementNode <em>Element Node</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference list '<em>Element Node</em>'.
      * @see orgomg.cwm.objectmodel.core.ModelElement#getElementNode()
      * @see #getModelElement()
@@ -4468,8 +4253,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the reference list '{@link orgomg.cwm.objectmodel.core.ModelElement#getSet <em>Set</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference list '<em>Set</em>'.
      * @see orgomg.cwm.objectmodel.core.ModelElement#getSet()
      * @see #getModelElement()
@@ -4479,8 +4263,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the reference list '{@link orgomg.cwm.objectmodel.core.ModelElement#getRenderedObject <em>Rendered Object</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference list '<em>Rendered Object</em>'.
      * @see orgomg.cwm.objectmodel.core.ModelElement#getRenderedObject()
      * @see #getModelElement()
@@ -4489,10 +4272,13 @@ public interface CorePackage extends EPackage {
     EReference getModelElement_RenderedObject();
 
     /**
-     * Returns the meta object for the reference list '{@link orgomg.cwm.objectmodel.core.ModelElement#getVocabularyElement <em>Vocabulary Element</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the reference list '<em>Vocabulary Element</em>'.
+     * Returns the meta object for the reference list '
+     * {@link orgomg.cwm.objectmodel.core.ModelElement#getVocabularyElement
+     * <em>Vocabulary Element</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @return the meta object for the reference list '
+     *         <em>Vocabulary Element</em>'.
      * @see orgomg.cwm.objectmodel.core.ModelElement#getVocabularyElement()
      * @see #getModelElement()
      * @generated
@@ -4501,8 +4287,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the reference list '{@link orgomg.cwm.objectmodel.core.ModelElement#getMeasurement <em>Measurement</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference list '<em>Measurement</em>'.
      * @see orgomg.cwm.objectmodel.core.ModelElement#getMeasurement()
      * @see #getModelElement()
@@ -4512,8 +4297,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the reference list '{@link orgomg.cwm.objectmodel.core.ModelElement#getChangeRequest <em>Change Request</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference list '<em>Change Request</em>'.
      * @see orgomg.cwm.objectmodel.core.ModelElement#getChangeRequest()
      * @see #getModelElement()
@@ -4523,8 +4307,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the reference list '{@link orgomg.cwm.objectmodel.core.ModelElement#getDasdlProperty <em>Dasdl Property</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference list '<em>Dasdl Property</em>'.
      * @see orgomg.cwm.objectmodel.core.ModelElement#getDasdlProperty()
      * @see #getModelElement()
@@ -4533,9 +4316,10 @@ public interface CorePackage extends EPackage {
     EReference getModelElement_DasdlProperty();
 
     /**
-     * Returns the meta object for class '{@link orgomg.cwm.objectmodel.core.Namespace <em>Namespace</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for class '
+     * {@link orgomg.cwm.objectmodel.core.Namespace <em>Namespace</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for class '<em>Namespace</em>'.
      * @see orgomg.cwm.objectmodel.core.Namespace
      * @generated
@@ -4544,8 +4328,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the containment reference list '{@link orgomg.cwm.objectmodel.core.Namespace#getOwnedElement <em>Owned Element</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the containment reference list '<em>Owned Element</em>'.
      * @see orgomg.cwm.objectmodel.core.Namespace#getOwnedElement()
      * @see #getNamespace()
@@ -4554,9 +4337,10 @@ public interface CorePackage extends EPackage {
     EReference getNamespace_OwnedElement();
 
     /**
-     * Returns the meta object for class '{@link orgomg.cwm.objectmodel.core.Classifier <em>Classifier</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for class '
+     * {@link orgomg.cwm.objectmodel.core.Classifier <em>Classifier</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for class '<em>Classifier</em>'.
      * @see orgomg.cwm.objectmodel.core.Classifier
      * @generated
@@ -4565,8 +4349,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.objectmodel.core.Classifier#isIsAbstract <em>Is Abstract</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Is Abstract</em>'.
      * @see orgomg.cwm.objectmodel.core.Classifier#isIsAbstract()
      * @see #getClassifier()
@@ -4576,8 +4359,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the containment reference list '{@link orgomg.cwm.objectmodel.core.Classifier#getFeature <em>Feature</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the containment reference list '<em>Feature</em>'.
      * @see orgomg.cwm.objectmodel.core.Classifier#getFeature()
      * @see #getClassifier()
@@ -4586,10 +4368,13 @@ public interface CorePackage extends EPackage {
     EReference getClassifier_Feature();
 
     /**
-     * Returns the meta object for the reference list '{@link orgomg.cwm.objectmodel.core.Classifier#getStructuralFeature <em>Structural Feature</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the reference list '<em>Structural Feature</em>'.
+     * Returns the meta object for the reference list '
+     * {@link orgomg.cwm.objectmodel.core.Classifier#getStructuralFeature
+     * <em>Structural Feature</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @return the meta object for the reference list '
+     *         <em>Structural Feature</em>'.
      * @see orgomg.cwm.objectmodel.core.Classifier#getStructuralFeature()
      * @see #getClassifier()
      * @generated
@@ -4598,8 +4383,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the reference list '{@link orgomg.cwm.objectmodel.core.Classifier#getParameter <em>Parameter</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference list '<em>Parameter</em>'.
      * @see orgomg.cwm.objectmodel.core.Classifier#getParameter()
      * @see #getClassifier()
@@ -4609,8 +4393,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the reference list '{@link orgomg.cwm.objectmodel.core.Classifier#getGeneralization <em>Generalization</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference list '<em>Generalization</em>'.
      * @see orgomg.cwm.objectmodel.core.Classifier#getGeneralization()
      * @see #getClassifier()
@@ -4620,8 +4403,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the reference list '{@link orgomg.cwm.objectmodel.core.Classifier#getSpecialization <em>Specialization</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference list '<em>Specialization</em>'.
      * @see orgomg.cwm.objectmodel.core.Classifier#getSpecialization()
      * @see #getClassifier()
@@ -4631,8 +4413,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the reference list '{@link orgomg.cwm.objectmodel.core.Classifier#getInstance <em>Instance</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference list '<em>Instance</em>'.
      * @see orgomg.cwm.objectmodel.core.Classifier#getInstance()
      * @see #getClassifier()
@@ -4642,8 +4423,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the reference list '{@link orgomg.cwm.objectmodel.core.Classifier#getAlias <em>Alias</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference list '<em>Alias</em>'.
      * @see orgomg.cwm.objectmodel.core.Classifier#getAlias()
      * @see #getClassifier()
@@ -4653,8 +4433,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the reference list '{@link orgomg.cwm.objectmodel.core.Classifier#getExpressionNode <em>Expression Node</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference list '<em>Expression Node</em>'.
      * @see orgomg.cwm.objectmodel.core.Classifier#getExpressionNode()
      * @see #getClassifier()
@@ -4664,8 +4443,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the reference list '{@link orgomg.cwm.objectmodel.core.Classifier#getMappingFrom <em>Mapping From</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference list '<em>Mapping From</em>'.
      * @see orgomg.cwm.objectmodel.core.Classifier#getMappingFrom()
      * @see #getClassifier()
@@ -4675,8 +4453,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the reference list '{@link orgomg.cwm.objectmodel.core.Classifier#getMappingTo <em>Mapping To</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference list '<em>Mapping To</em>'.
      * @see orgomg.cwm.objectmodel.core.Classifier#getMappingTo()
      * @see #getClassifier()
@@ -4686,8 +4463,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the reference list '{@link orgomg.cwm.objectmodel.core.Classifier#getClassifierMap <em>Classifier Map</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference list '<em>Classifier Map</em>'.
      * @see orgomg.cwm.objectmodel.core.Classifier#getClassifierMap()
      * @see #getClassifier()
@@ -4697,8 +4473,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the reference list '{@link orgomg.cwm.objectmodel.core.Classifier#getCfMap <em>Cf Map</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference list '<em>Cf Map</em>'.
      * @see orgomg.cwm.objectmodel.core.Classifier#getCfMap()
      * @see #getClassifier()
@@ -4708,8 +4483,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the reference list '{@link orgomg.cwm.objectmodel.core.Classifier#getDomain <em>Domain</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference list '<em>Domain</em>'.
      * @see orgomg.cwm.objectmodel.core.Classifier#getDomain()
      * @see #getClassifier()
@@ -4718,10 +4492,13 @@ public interface CorePackage extends EPackage {
     EReference getClassifier_Domain();
 
     /**
-     * Returns the meta object for the reference list '{@link orgomg.cwm.objectmodel.core.Classifier#getSimpleDimension <em>Simple Dimension</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the reference list '<em>Simple Dimension</em>'.
+     * Returns the meta object for the reference list '
+     * {@link orgomg.cwm.objectmodel.core.Classifier#getSimpleDimension
+     * <em>Simple Dimension</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @return the meta object for the reference list '<em>Simple Dimension</em>
+     *         '.
      * @see orgomg.cwm.objectmodel.core.Classifier#getSimpleDimension()
      * @see #getClassifier()
      * @generated
@@ -4729,9 +4506,10 @@ public interface CorePackage extends EPackage {
     EReference getClassifier_SimpleDimension();
 
     /**
-     * Returns the meta object for class '{@link orgomg.cwm.objectmodel.core.Class <em>Class</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for class '
+     * {@link orgomg.cwm.objectmodel.core.Class <em>Class</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for class '<em>Class</em>'.
      * @see orgomg.cwm.objectmodel.core.Class
      * @generated
@@ -4739,9 +4517,10 @@ public interface CorePackage extends EPackage {
     EClass getClass_();
 
     /**
-     * Returns the meta object for the reference list '{@link orgomg.cwm.objectmodel.core.Class#getIndex <em>Index</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the reference list '
+     * {@link orgomg.cwm.objectmodel.core.Class#getIndex <em>Index</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the reference list '<em>Index</em>'.
      * @see orgomg.cwm.objectmodel.core.Class#getIndex()
      * @see #getClass_()
@@ -4750,9 +4529,10 @@ public interface CorePackage extends EPackage {
     EReference getClass_Index();
 
     /**
-     * Returns the meta object for class '{@link orgomg.cwm.objectmodel.core.DataType <em>Data Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for class '
+     * {@link orgomg.cwm.objectmodel.core.DataType <em>Data Type</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for class '<em>Data Type</em>'.
      * @see orgomg.cwm.objectmodel.core.DataType
      * @generated
@@ -4760,9 +4540,10 @@ public interface CorePackage extends EPackage {
     EClass getDataType();
 
     /**
-     * Returns the meta object for class '{@link orgomg.cwm.objectmodel.core.Package <em>Package</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for class '
+     * {@link orgomg.cwm.objectmodel.core.Package <em>Package</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for class '<em>Package</em>'.
      * @see orgomg.cwm.objectmodel.core.Package
      * @generated
@@ -4770,10 +4551,13 @@ public interface CorePackage extends EPackage {
     EClass getPackage();
 
     /**
-     * Returns the meta object for the reference list '{@link orgomg.cwm.objectmodel.core.Package#getImportedElement <em>Imported Element</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the reference list '<em>Imported Element</em>'.
+     * Returns the meta object for the reference list '
+     * {@link orgomg.cwm.objectmodel.core.Package#getImportedElement
+     * <em>Imported Element</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @return the meta object for the reference list '<em>Imported Element</em>
+     *         '.
      * @see orgomg.cwm.objectmodel.core.Package#getImportedElement()
      * @see #getPackage()
      * @generated
@@ -4782,8 +4566,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the reference list '{@link orgomg.cwm.objectmodel.core.Package#getDataManager <em>Data Manager</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference list '<em>Data Manager</em>'.
      * @see orgomg.cwm.objectmodel.core.Package#getDataManager()
      * @see #getPackage()
@@ -4792,9 +4575,10 @@ public interface CorePackage extends EPackage {
     EReference getPackage_DataManager();
 
     /**
-     * Returns the meta object for class '{@link orgomg.cwm.objectmodel.core.Subsystem <em>Subsystem</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for class '
+     * {@link orgomg.cwm.objectmodel.core.Subsystem <em>Subsystem</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for class '<em>Subsystem</em>'.
      * @see orgomg.cwm.objectmodel.core.Subsystem
      * @generated
@@ -4802,9 +4586,10 @@ public interface CorePackage extends EPackage {
     EClass getSubsystem();
 
     /**
-     * Returns the meta object for class '{@link orgomg.cwm.objectmodel.core.Model <em>Model</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for class '
+     * {@link orgomg.cwm.objectmodel.core.Model <em>Model</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for class '<em>Model</em>'.
      * @see orgomg.cwm.objectmodel.core.Model
      * @generated
@@ -4812,9 +4597,10 @@ public interface CorePackage extends EPackage {
     EClass getModel();
 
     /**
-     * Returns the meta object for class '{@link orgomg.cwm.objectmodel.core.Feature <em>Feature</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for class '
+     * {@link orgomg.cwm.objectmodel.core.Feature <em>Feature</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for class '<em>Feature</em>'.
      * @see orgomg.cwm.objectmodel.core.Feature
      * @generated
@@ -4823,8 +4609,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.objectmodel.core.Feature#getOwnerScope <em>Owner Scope</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Owner Scope</em>'.
      * @see orgomg.cwm.objectmodel.core.Feature#getOwnerScope()
      * @see #getFeature()
@@ -4834,8 +4619,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the container reference '{@link orgomg.cwm.objectmodel.core.Feature#getOwner <em>Owner</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the container reference '<em>Owner</em>'.
      * @see orgomg.cwm.objectmodel.core.Feature#getOwner()
      * @see #getFeature()
@@ -4845,8 +4629,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the reference list '{@link orgomg.cwm.objectmodel.core.Feature#getFeatureNode <em>Feature Node</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference list '<em>Feature Node</em>'.
      * @see orgomg.cwm.objectmodel.core.Feature#getFeatureNode()
      * @see #getFeature()
@@ -4856,8 +4639,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the reference list '{@link orgomg.cwm.objectmodel.core.Feature#getFeatureMap <em>Feature Map</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference list '<em>Feature Map</em>'.
      * @see orgomg.cwm.objectmodel.core.Feature#getFeatureMap()
      * @see #getFeature()
@@ -4867,8 +4649,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the reference list '{@link orgomg.cwm.objectmodel.core.Feature#getCfMap <em>Cf Map</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference list '<em>Cf Map</em>'.
      * @see orgomg.cwm.objectmodel.core.Feature#getCfMap()
      * @see #getFeature()
@@ -4877,9 +4658,11 @@ public interface CorePackage extends EPackage {
     EReference getFeature_CfMap();
 
     /**
-     * Returns the meta object for class '{@link orgomg.cwm.objectmodel.core.StructuralFeature <em>Structural Feature</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for class '
+     * {@link orgomg.cwm.objectmodel.core.StructuralFeature
+     * <em>Structural Feature</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @return the meta object for class '<em>Structural Feature</em>'.
      * @see orgomg.cwm.objectmodel.core.StructuralFeature
      * @generated
@@ -4888,8 +4671,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.objectmodel.core.StructuralFeature#getChangeability <em>Changeability</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Changeability</em>'.
      * @see orgomg.cwm.objectmodel.core.StructuralFeature#getChangeability()
      * @see #getStructuralFeature()
@@ -4899,8 +4681,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the containment reference '{@link orgomg.cwm.objectmodel.core.StructuralFeature#getMultiplicity <em>Multiplicity</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the containment reference '<em>Multiplicity</em>'.
      * @see orgomg.cwm.objectmodel.core.StructuralFeature#getMultiplicity()
      * @see #getStructuralFeature()
@@ -4910,8 +4691,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.objectmodel.core.StructuralFeature#getOrdering <em>Ordering</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Ordering</em>'.
      * @see orgomg.cwm.objectmodel.core.StructuralFeature#getOrdering()
      * @see #getStructuralFeature()
@@ -4921,8 +4701,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.objectmodel.core.StructuralFeature#getTargetScope <em>Target Scope</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Target Scope</em>'.
      * @see orgomg.cwm.objectmodel.core.StructuralFeature#getTargetScope()
      * @see #getStructuralFeature()
@@ -4932,8 +4711,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the reference '{@link orgomg.cwm.objectmodel.core.StructuralFeature#getType <em>Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference '<em>Type</em>'.
      * @see orgomg.cwm.objectmodel.core.StructuralFeature#getType()
      * @see #getStructuralFeature()
@@ -4943,8 +4721,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the reference list '{@link orgomg.cwm.objectmodel.core.StructuralFeature#getSlot <em>Slot</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference list '<em>Slot</em>'.
      * @see orgomg.cwm.objectmodel.core.StructuralFeature#getSlot()
      * @see #getStructuralFeature()
@@ -4953,10 +4730,13 @@ public interface CorePackage extends EPackage {
     EReference getStructuralFeature_Slot();
 
     /**
-     * Returns the meta object for the reference list '{@link orgomg.cwm.objectmodel.core.StructuralFeature#getDiscriminatedUnion <em>Discriminated Union</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the reference list '<em>Discriminated Union</em>'.
+     * Returns the meta object for the reference list '
+     * {@link orgomg.cwm.objectmodel.core.StructuralFeature#getDiscriminatedUnion
+     * <em>Discriminated Union</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @return the meta object for the reference list '
+     *         <em>Discriminated Union</em>'.
      * @see orgomg.cwm.objectmodel.core.StructuralFeature#getDiscriminatedUnion()
      * @see #getStructuralFeature()
      * @generated
@@ -4965,8 +4745,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the reference list '{@link orgomg.cwm.objectmodel.core.StructuralFeature#getIndexedFeature <em>Indexed Feature</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference list '<em>Indexed Feature</em>'.
      * @see orgomg.cwm.objectmodel.core.StructuralFeature#getIndexedFeature()
      * @see #getStructuralFeature()
@@ -4975,10 +4754,13 @@ public interface CorePackage extends EPackage {
     EReference getStructuralFeature_IndexedFeature();
 
     /**
-     * Returns the meta object for the reference list '{@link orgomg.cwm.objectmodel.core.StructuralFeature#getKeyRelationship <em>Key Relationship</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the reference list '<em>Key Relationship</em>'.
+     * Returns the meta object for the reference list '
+     * {@link orgomg.cwm.objectmodel.core.StructuralFeature#getKeyRelationship
+     * <em>Key Relationship</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @return the meta object for the reference list '<em>Key Relationship</em>
+     *         '.
      * @see orgomg.cwm.objectmodel.core.StructuralFeature#getKeyRelationship()
      * @see #getStructuralFeature()
      * @generated
@@ -4987,8 +4769,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the reference list '{@link orgomg.cwm.objectmodel.core.StructuralFeature#getUniqueKey <em>Unique Key</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference list '<em>Unique Key</em>'.
      * @see orgomg.cwm.objectmodel.core.StructuralFeature#getUniqueKey()
      * @see #getStructuralFeature()
@@ -4998,8 +4779,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the reference list '{@link orgomg.cwm.objectmodel.core.StructuralFeature#getDataItem <em>Data Item</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference list '<em>Data Item</em>'.
      * @see orgomg.cwm.objectmodel.core.StructuralFeature#getDataItem()
      * @see #getStructuralFeature()
@@ -5009,8 +4789,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the reference list '{@link orgomg.cwm.objectmodel.core.StructuralFeature#getRemap <em>Remap</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference list '<em>Remap</em>'.
      * @see orgomg.cwm.objectmodel.core.StructuralFeature#getRemap()
      * @see #getStructuralFeature()
@@ -5019,9 +4798,10 @@ public interface CorePackage extends EPackage {
     EReference getStructuralFeature_Remap();
 
     /**
-     * Returns the meta object for class '{@link orgomg.cwm.objectmodel.core.Attribute <em>Attribute</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for class '
+     * {@link orgomg.cwm.objectmodel.core.Attribute <em>Attribute</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for class '<em>Attribute</em>'.
      * @see orgomg.cwm.objectmodel.core.Attribute
      * @generated
@@ -5030,8 +4810,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the containment reference '{@link orgomg.cwm.objectmodel.core.Attribute#getInitialValue <em>Initial Value</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the containment reference '<em>Initial Value</em>'.
      * @see orgomg.cwm.objectmodel.core.Attribute#getInitialValue()
      * @see #getAttribute()
@@ -5040,9 +4819,10 @@ public interface CorePackage extends EPackage {
     EReference getAttribute_InitialValue();
 
     /**
-     * Returns the meta object for class '{@link orgomg.cwm.objectmodel.core.Constraint <em>Constraint</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for class '
+     * {@link orgomg.cwm.objectmodel.core.Constraint <em>Constraint</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for class '<em>Constraint</em>'.
      * @see orgomg.cwm.objectmodel.core.Constraint
      * @generated
@@ -5051,8 +4831,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the containment reference '{@link orgomg.cwm.objectmodel.core.Constraint#getBody <em>Body</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the containment reference '<em>Body</em>'.
      * @see orgomg.cwm.objectmodel.core.Constraint#getBody()
      * @see #getConstraint()
@@ -5061,10 +4840,13 @@ public interface CorePackage extends EPackage {
     EReference getConstraint_Body();
 
     /**
-     * Returns the meta object for the reference list '{@link orgomg.cwm.objectmodel.core.Constraint#getConstrainedElement <em>Constrained Element</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the reference list '<em>Constrained Element</em>'.
+     * Returns the meta object for the reference list '
+     * {@link orgomg.cwm.objectmodel.core.Constraint#getConstrainedElement
+     * <em>Constrained Element</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @return the meta object for the reference list '
+     *         <em>Constrained Element</em>'.
      * @see orgomg.cwm.objectmodel.core.Constraint#getConstrainedElement()
      * @see #getConstraint()
      * @generated
@@ -5073,8 +4855,8 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the container reference '{@link orgomg.cwm.objectmodel.core.Constraint#getConstrainedStereotype <em>Constrained Stereotype</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @return the meta object for the container reference '<em>Constrained Stereotype</em>'.
      * @see orgomg.cwm.objectmodel.core.Constraint#getConstrainedStereotype()
      * @see #getConstraint()
@@ -5083,9 +4865,10 @@ public interface CorePackage extends EPackage {
     EReference getConstraint_ConstrainedStereotype();
 
     /**
-     * Returns the meta object for class '{@link orgomg.cwm.objectmodel.core.Dependency <em>Dependency</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for class '
+     * {@link orgomg.cwm.objectmodel.core.Dependency <em>Dependency</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for class '<em>Dependency</em>'.
      * @see orgomg.cwm.objectmodel.core.Dependency
      * @generated
@@ -5094,8 +4877,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.objectmodel.core.Dependency#getKind <em>Kind</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Kind</em>'.
      * @see orgomg.cwm.objectmodel.core.Dependency#getKind()
      * @see #getDependency()
@@ -5105,8 +4887,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the reference list '{@link orgomg.cwm.objectmodel.core.Dependency#getClient <em>Client</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference list '<em>Client</em>'.
      * @see orgomg.cwm.objectmodel.core.Dependency#getClient()
      * @see #getDependency()
@@ -5116,8 +4897,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the reference list '{@link orgomg.cwm.objectmodel.core.Dependency#getSupplier <em>Supplier</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference list '<em>Supplier</em>'.
      * @see orgomg.cwm.objectmodel.core.Dependency#getSupplier()
      * @see #getDependency()
@@ -5126,9 +4906,10 @@ public interface CorePackage extends EPackage {
     EReference getDependency_Supplier();
 
     /**
-     * Returns the meta object for class '{@link orgomg.cwm.objectmodel.core.Expression <em>Expression</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for class '
+     * {@link orgomg.cwm.objectmodel.core.Expression <em>Expression</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for class '<em>Expression</em>'.
      * @see orgomg.cwm.objectmodel.core.Expression
      * @generated
@@ -5137,8 +4918,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.objectmodel.core.Expression#getBody <em>Body</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Body</em>'.
      * @see orgomg.cwm.objectmodel.core.Expression#getBody()
      * @see #getExpression()
@@ -5148,8 +4928,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.objectmodel.core.Expression#getLanguage <em>Language</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Language</em>'.
      * @see orgomg.cwm.objectmodel.core.Expression#getLanguage()
      * @see #getExpression()
@@ -5158,9 +4937,11 @@ public interface CorePackage extends EPackage {
     EAttribute getExpression_Language();
 
     /**
-     * Returns the meta object for class '{@link orgomg.cwm.objectmodel.core.BooleanExpression <em>Boolean Expression</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for class '
+     * {@link orgomg.cwm.objectmodel.core.BooleanExpression
+     * <em>Boolean Expression</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @return the meta object for class '<em>Boolean Expression</em>'.
      * @see orgomg.cwm.objectmodel.core.BooleanExpression
      * @generated
@@ -5169,8 +4950,8 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link orgomg.cwm.objectmodel.core.ProcedureExpression <em>Procedure Expression</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @return the meta object for class '<em>Procedure Expression</em>'.
      * @see orgomg.cwm.objectmodel.core.ProcedureExpression
      * @generated
@@ -5179,8 +4960,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link orgomg.cwm.objectmodel.core.Multiplicity <em>Multiplicity</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Multiplicity</em>'.
      * @see orgomg.cwm.objectmodel.core.Multiplicity
      * @generated
@@ -5189,8 +4969,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the containment reference list '{@link orgomg.cwm.objectmodel.core.Multiplicity#getRange <em>Range</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the containment reference list '<em>Range</em>'.
      * @see orgomg.cwm.objectmodel.core.Multiplicity#getRange()
      * @see #getMultiplicity()
@@ -5199,9 +4978,11 @@ public interface CorePackage extends EPackage {
     EReference getMultiplicity_Range();
 
     /**
-     * Returns the meta object for class '{@link orgomg.cwm.objectmodel.core.MultiplicityRange <em>Multiplicity Range</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for class '
+     * {@link orgomg.cwm.objectmodel.core.MultiplicityRange
+     * <em>Multiplicity Range</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @return the meta object for class '<em>Multiplicity Range</em>'.
      * @see orgomg.cwm.objectmodel.core.MultiplicityRange
      * @generated
@@ -5210,8 +4991,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.objectmodel.core.MultiplicityRange#getLower <em>Lower</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Lower</em>'.
      * @see orgomg.cwm.objectmodel.core.MultiplicityRange#getLower()
      * @see #getMultiplicityRange()
@@ -5221,8 +5001,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.objectmodel.core.MultiplicityRange#getUpper <em>Upper</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Upper</em>'.
      * @see orgomg.cwm.objectmodel.core.MultiplicityRange#getUpper()
      * @see #getMultiplicityRange()
@@ -5232,8 +5011,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the container reference '{@link orgomg.cwm.objectmodel.core.MultiplicityRange#getMultiplicity <em>Multiplicity</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the container reference '<em>Multiplicity</em>'.
      * @see orgomg.cwm.objectmodel.core.MultiplicityRange#getMultiplicity()
      * @see #getMultiplicityRange()
@@ -5242,9 +5020,10 @@ public interface CorePackage extends EPackage {
     EReference getMultiplicityRange_Multiplicity();
 
     /**
-     * Returns the meta object for class '{@link orgomg.cwm.objectmodel.core.Stereotype <em>Stereotype</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for class '
+     * {@link orgomg.cwm.objectmodel.core.Stereotype <em>Stereotype</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for class '<em>Stereotype</em>'.
      * @see orgomg.cwm.objectmodel.core.Stereotype
      * @generated
@@ -5253,8 +5032,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.objectmodel.core.Stereotype#getBaseClass <em>Base Class</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Base Class</em>'.
      * @see orgomg.cwm.objectmodel.core.Stereotype#getBaseClass()
      * @see #getStereotype()
@@ -5264,8 +5042,8 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the containment reference list '{@link orgomg.cwm.objectmodel.core.Stereotype#getStereotypeConstraint <em>Stereotype Constraint</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @return the meta object for the containment reference list '<em>Stereotype Constraint</em>'.
      * @see orgomg.cwm.objectmodel.core.Stereotype#getStereotypeConstraint()
      * @see #getStereotype()
@@ -5274,10 +5052,13 @@ public interface CorePackage extends EPackage {
     EReference getStereotype_StereotypeConstraint();
 
     /**
-     * Returns the meta object for the reference list '{@link orgomg.cwm.objectmodel.core.Stereotype#getExtendedElement <em>Extended Element</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the reference list '<em>Extended Element</em>'.
+     * Returns the meta object for the reference list '
+     * {@link orgomg.cwm.objectmodel.core.Stereotype#getExtendedElement
+     * <em>Extended Element</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @return the meta object for the reference list '<em>Extended Element</em>
+     *         '.
      * @see orgomg.cwm.objectmodel.core.Stereotype#getExtendedElement()
      * @see #getStereotype()
      * @generated
@@ -5286,8 +5067,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the containment reference list '{@link orgomg.cwm.objectmodel.core.Stereotype#getRequiredTag <em>Required Tag</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the containment reference list '<em>Required Tag</em>'.
      * @see orgomg.cwm.objectmodel.core.Stereotype#getRequiredTag()
      * @see #getStereotype()
@@ -5297,8 +5077,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link orgomg.cwm.objectmodel.core.TaggedValue <em>Tagged Value</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Tagged Value</em>'.
      * @see orgomg.cwm.objectmodel.core.TaggedValue
      * @generated
@@ -5307,8 +5086,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.objectmodel.core.TaggedValue#getTag <em>Tag</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Tag</em>'.
      * @see orgomg.cwm.objectmodel.core.TaggedValue#getTag()
      * @see #getTaggedValue()
@@ -5318,8 +5096,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.objectmodel.core.TaggedValue#getValue <em>Value</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Value</em>'.
      * @see orgomg.cwm.objectmodel.core.TaggedValue#getValue()
      * @see #getTaggedValue()
@@ -5329,8 +5106,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the container reference '{@link orgomg.cwm.objectmodel.core.TaggedValue#getStereotype <em>Stereotype</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the container reference '<em>Stereotype</em>'.
      * @see orgomg.cwm.objectmodel.core.TaggedValue#getStereotype()
      * @see #getTaggedValue()
@@ -5340,8 +5116,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for the container reference '{@link orgomg.cwm.objectmodel.core.TaggedValue#getModelElement <em>Model Element</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the container reference '<em>Model Element</em>'.
      * @see orgomg.cwm.objectmodel.core.TaggedValue#getModelElement()
      * @see #getTaggedValue()
@@ -5351,8 +5126,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for enum '{@link orgomg.cwm.objectmodel.core.ChangeableKind <em>Changeable Kind</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for enum '<em>Changeable Kind</em>'.
      * @see orgomg.cwm.objectmodel.core.ChangeableKind
      * @generated
@@ -5361,8 +5135,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for enum '{@link orgomg.cwm.objectmodel.core.OrderingKind <em>Ordering Kind</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for enum '<em>Ordering Kind</em>'.
      * @see orgomg.cwm.objectmodel.core.OrderingKind
      * @generated
@@ -5370,9 +5143,10 @@ public interface CorePackage extends EPackage {
     EEnum getOrderingKind();
 
     /**
-     * Returns the meta object for enum '{@link orgomg.cwm.objectmodel.core.ScopeKind <em>Scope Kind</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for enum '
+     * {@link orgomg.cwm.objectmodel.core.ScopeKind <em>Scope Kind</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for enum '<em>Scope Kind</em>'.
      * @see orgomg.cwm.objectmodel.core.ScopeKind
      * @generated
@@ -5381,8 +5155,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for enum '{@link orgomg.cwm.objectmodel.core.VisibilityKind <em>Visibility Kind</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for enum '<em>Visibility Kind</em>'.
      * @see orgomg.cwm.objectmodel.core.VisibilityKind
      * @generated
@@ -5391,8 +5164,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for data type '{@link java.lang.String <em>Any</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for data type '<em>Any</em>'.
      * @see java.lang.String
      * @model instanceClass="java.lang.String"
@@ -5401,9 +5173,9 @@ public interface CorePackage extends EPackage {
     EDataType getAny();
 
     /**
-     * Returns the meta object for data type '<em>Boolean</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for data type '<em>Boolean</em>'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for data type '<em>Boolean</em>'.
      * @model instanceClass="boolean"
      * @generated
@@ -5412,8 +5184,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for data type '{@link java.lang.String <em>Float</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for data type '<em>Float</em>'.
      * @see java.lang.String
      * @model instanceClass="java.lang.String"
@@ -5422,9 +5193,9 @@ public interface CorePackage extends EPackage {
     EDataType getFloat();
 
     /**
-     * Returns the meta object for data type '<em>Integer</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for data type '<em>Integer</em>'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for data type '<em>Integer</em>'.
      * @model instanceClass="long"
      * @generated
@@ -5433,8 +5204,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for data type '{@link java.lang.String <em>Name</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for data type '<em>Name</em>'.
      * @see java.lang.String
      * @model instanceClass="java.lang.String"
@@ -5444,8 +5214,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for data type '{@link java.lang.String <em>String</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for data type '<em>String</em>'.
      * @see java.lang.String
      * @model instanceClass="java.lang.String"
@@ -5455,8 +5224,7 @@ public interface CorePackage extends EPackage {
 
     /**
      * Returns the meta object for data type '{@link java.lang.String <em>Time</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for data type '<em>Time</em>'.
      * @see java.lang.String
      * @model instanceClass="java.lang.String"
@@ -5465,9 +5233,9 @@ public interface CorePackage extends EPackage {
     EDataType getTime();
 
     /**
-     * Returns the meta object for data type '<em>Unlimited Integer</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for data type '<em>Unlimited Integer</em>'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for data type '<em>Unlimited Integer</em>'.
      * @model instanceClass="long"
      * @generated
@@ -5475,31 +5243,31 @@ public interface CorePackage extends EPackage {
     EDataType getUnlimitedInteger();
 
     /**
-     * Returns the factory that creates the instances of the model.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the factory that creates the instances of the model. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the factory that creates the instances of the model.
      * @generated
      */
     CoreFactory getCoreFactory();
 
     /**
-     * <!-- begin-user-doc -->
-     * Defines literals for the meta objects that represent
+     * <!-- begin-user-doc --> Defines literals for the meta objects that
+     * represent
      * <ul>
-     *   <li>each class,</li>
-     *   <li>each feature of each class,</li>
-     *   <li>each enum,</li>
-     *   <li>and each data type</li>
+     * <li>each class,</li>
+     * <li>each feature of each class,</li>
+     * <li>each enum,</li>
+     * <li>and each data type</li>
      * </ul>
      * <!-- end-user-doc -->
      * @generated
      */
     interface Literals {
+
         /**
          * The meta object literal for the '{@link orgomg.cwm.objectmodel.core.impl.ElementImpl <em>Element</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see orgomg.cwm.objectmodel.core.impl.ElementImpl
          * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getElement()
          * @generated
@@ -5508,8 +5276,8 @@ public interface CorePackage extends EPackage {
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.objectmodel.core.impl.ModelElementImpl <em>Model Element</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwm.objectmodel.core.impl.ModelElementImpl
          * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getModelElement()
          * @generated
@@ -5518,160 +5286,144 @@ public interface CorePackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute MODEL_ELEMENT__NAME = eINSTANCE.getModelElement_Name();
 
         /**
          * The meta object literal for the '<em><b>Visibility</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute MODEL_ELEMENT__VISIBILITY = eINSTANCE.getModelElement_Visibility();
 
         /**
          * The meta object literal for the '<em><b>Client Dependency</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference MODEL_ELEMENT__CLIENT_DEPENDENCY = eINSTANCE.getModelElement_ClientDependency();
 
         /**
          * The meta object literal for the '<em><b>Supplier Dependency</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference MODEL_ELEMENT__SUPPLIER_DEPENDENCY = eINSTANCE.getModelElement_SupplierDependency();
 
         /**
          * The meta object literal for the '<em><b>Constraint</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference MODEL_ELEMENT__CONSTRAINT = eINSTANCE.getModelElement_Constraint();
 
         /**
          * The meta object literal for the '<em><b>Namespace</b></em>' container reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference MODEL_ELEMENT__NAMESPACE = eINSTANCE.getModelElement_Namespace();
 
         /**
          * The meta object literal for the '<em><b>Importer</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference MODEL_ELEMENT__IMPORTER = eINSTANCE.getModelElement_Importer();
 
         /**
          * The meta object literal for the '<em><b>Stereotype</b></em>' reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference MODEL_ELEMENT__STEREOTYPE = eINSTANCE.getModelElement_Stereotype();
 
         /**
          * The meta object literal for the '<em><b>Tagged Value</b></em>' containment reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EReference MODEL_ELEMENT__TAGGED_VALUE = eINSTANCE.getModelElement_TaggedValue();
 
         /**
          * The meta object literal for the '<em><b>Document</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference MODEL_ELEMENT__DOCUMENT = eINSTANCE.getModelElement_Document();
 
         /**
          * The meta object literal for the '<em><b>Description</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference MODEL_ELEMENT__DESCRIPTION = eINSTANCE.getModelElement_Description();
 
         /**
          * The meta object literal for the '<em><b>Responsible Party</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference MODEL_ELEMENT__RESPONSIBLE_PARTY = eINSTANCE.getModelElement_ResponsibleParty();
 
         /**
          * The meta object literal for the '<em><b>Element Node</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference MODEL_ELEMENT__ELEMENT_NODE = eINSTANCE.getModelElement_ElementNode();
 
         /**
          * The meta object literal for the '<em><b>Set</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference MODEL_ELEMENT__SET = eINSTANCE.getModelElement_Set();
 
         /**
          * The meta object literal for the '<em><b>Rendered Object</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference MODEL_ELEMENT__RENDERED_OBJECT = eINSTANCE.getModelElement_RenderedObject();
 
         /**
          * The meta object literal for the '<em><b>Vocabulary Element</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference MODEL_ELEMENT__VOCABULARY_ELEMENT = eINSTANCE.getModelElement_VocabularyElement();
 
         /**
          * The meta object literal for the '<em><b>Measurement</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference MODEL_ELEMENT__MEASUREMENT = eINSTANCE.getModelElement_Measurement();
 
         /**
          * The meta object literal for the '<em><b>Change Request</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference MODEL_ELEMENT__CHANGE_REQUEST = eINSTANCE.getModelElement_ChangeRequest();
 
         /**
          * The meta object literal for the '<em><b>Dasdl Property</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference MODEL_ELEMENT__DASDL_PROPERTY = eINSTANCE.getModelElement_DasdlProperty();
 
         /**
-         * The meta object literal for the '{@link orgomg.cwm.objectmodel.core.impl.NamespaceImpl <em>Namespace</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '
+         * {@link orgomg.cwm.objectmodel.core.impl.NamespaceImpl
+         * <em>Namespace</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
+         * -->
+         * 
          * @see orgomg.cwm.objectmodel.core.impl.NamespaceImpl
          * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getNamespace()
          * @generated
@@ -5680,16 +5432,16 @@ public interface CorePackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Owned Element</b></em>' containment reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EReference NAMESPACE__OWNED_ELEMENT = eINSTANCE.getNamespace_OwnedElement();
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.objectmodel.core.impl.ClassifierImpl <em>Classifier</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwm.objectmodel.core.impl.ClassifierImpl
          * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getClassifier()
          * @generated
@@ -5698,128 +5450,112 @@ public interface CorePackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Is Abstract</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute CLASSIFIER__IS_ABSTRACT = eINSTANCE.getClassifier_IsAbstract();
 
         /**
          * The meta object literal for the '<em><b>Feature</b></em>' containment reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference CLASSIFIER__FEATURE = eINSTANCE.getClassifier_Feature();
 
         /**
          * The meta object literal for the '<em><b>Structural Feature</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference CLASSIFIER__STRUCTURAL_FEATURE = eINSTANCE.getClassifier_StructuralFeature();
 
         /**
          * The meta object literal for the '<em><b>Parameter</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference CLASSIFIER__PARAMETER = eINSTANCE.getClassifier_Parameter();
 
         /**
          * The meta object literal for the '<em><b>Generalization</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference CLASSIFIER__GENERALIZATION = eINSTANCE.getClassifier_Generalization();
 
         /**
          * The meta object literal for the '<em><b>Specialization</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference CLASSIFIER__SPECIALIZATION = eINSTANCE.getClassifier_Specialization();
 
         /**
          * The meta object literal for the '<em><b>Instance</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference CLASSIFIER__INSTANCE = eINSTANCE.getClassifier_Instance();
 
         /**
          * The meta object literal for the '<em><b>Alias</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference CLASSIFIER__ALIAS = eINSTANCE.getClassifier_Alias();
 
         /**
          * The meta object literal for the '<em><b>Expression Node</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference CLASSIFIER__EXPRESSION_NODE = eINSTANCE.getClassifier_ExpressionNode();
 
         /**
          * The meta object literal for the '<em><b>Mapping From</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference CLASSIFIER__MAPPING_FROM = eINSTANCE.getClassifier_MappingFrom();
 
         /**
          * The meta object literal for the '<em><b>Mapping To</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference CLASSIFIER__MAPPING_TO = eINSTANCE.getClassifier_MappingTo();
 
         /**
          * The meta object literal for the '<em><b>Classifier Map</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference CLASSIFIER__CLASSIFIER_MAP = eINSTANCE.getClassifier_ClassifierMap();
 
         /**
          * The meta object literal for the '<em><b>Cf Map</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference CLASSIFIER__CF_MAP = eINSTANCE.getClassifier_CfMap();
 
         /**
          * The meta object literal for the '<em><b>Domain</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference CLASSIFIER__DOMAIN = eINSTANCE.getClassifier_Domain();
 
         /**
          * The meta object literal for the '<em><b>Simple Dimension</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference CLASSIFIER__SIMPLE_DIMENSION = eINSTANCE.getClassifier_SimpleDimension();
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.objectmodel.core.impl.ClassImpl <em>Class</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see orgomg.cwm.objectmodel.core.impl.ClassImpl
          * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getClass_()
          * @generated
@@ -5828,16 +5564,17 @@ public interface CorePackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Index</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference CLASS__INDEX = eINSTANCE.getClass_Index();
 
         /**
-         * The meta object literal for the '{@link orgomg.cwm.objectmodel.core.impl.DataTypeImpl <em>Data Type</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '
+         * {@link orgomg.cwm.objectmodel.core.impl.DataTypeImpl
+         * <em>Data Type</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
+         * -->
+         * 
          * @see orgomg.cwm.objectmodel.core.impl.DataTypeImpl
          * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getDataType()
          * @generated
@@ -5846,8 +5583,7 @@ public interface CorePackage extends EPackage {
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.objectmodel.core.impl.PackageImpl <em>Package</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see orgomg.cwm.objectmodel.core.impl.PackageImpl
          * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getPackage()
          * @generated
@@ -5856,24 +5592,24 @@ public interface CorePackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Imported Element</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference PACKAGE__IMPORTED_ELEMENT = eINSTANCE.getPackage_ImportedElement();
 
         /**
          * The meta object literal for the '<em><b>Data Manager</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference PACKAGE__DATA_MANAGER = eINSTANCE.getPackage_DataManager();
 
         /**
-         * The meta object literal for the '{@link orgomg.cwm.objectmodel.core.impl.SubsystemImpl <em>Subsystem</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '
+         * {@link orgomg.cwm.objectmodel.core.impl.SubsystemImpl
+         * <em>Subsystem</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
+         * -->
+         * 
          * @see orgomg.cwm.objectmodel.core.impl.SubsystemImpl
          * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getSubsystem()
          * @generated
@@ -5882,8 +5618,7 @@ public interface CorePackage extends EPackage {
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.objectmodel.core.impl.ModelImpl <em>Model</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see orgomg.cwm.objectmodel.core.impl.ModelImpl
          * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getModel()
          * @generated
@@ -5892,8 +5627,7 @@ public interface CorePackage extends EPackage {
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.objectmodel.core.impl.FeatureImpl <em>Feature</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see orgomg.cwm.objectmodel.core.impl.FeatureImpl
          * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getFeature()
          * @generated
@@ -5902,48 +5636,43 @@ public interface CorePackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Owner Scope</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute FEATURE__OWNER_SCOPE = eINSTANCE.getFeature_OwnerScope();
 
         /**
          * The meta object literal for the '<em><b>Owner</b></em>' container reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference FEATURE__OWNER = eINSTANCE.getFeature_Owner();
 
         /**
          * The meta object literal for the '<em><b>Feature Node</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference FEATURE__FEATURE_NODE = eINSTANCE.getFeature_FeatureNode();
 
         /**
          * The meta object literal for the '<em><b>Feature Map</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference FEATURE__FEATURE_MAP = eINSTANCE.getFeature_FeatureMap();
 
         /**
          * The meta object literal for the '<em><b>Cf Map</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference FEATURE__CF_MAP = eINSTANCE.getFeature_CfMap();
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.objectmodel.core.impl.StructuralFeatureImpl <em>Structural Feature</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwm.objectmodel.core.impl.StructuralFeatureImpl
          * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getStructuralFeature()
          * @generated
@@ -5952,104 +5681,95 @@ public interface CorePackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Changeability</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute STRUCTURAL_FEATURE__CHANGEABILITY = eINSTANCE.getStructuralFeature_Changeability();
 
         /**
          * The meta object literal for the '<em><b>Multiplicity</b></em>' containment reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EReference STRUCTURAL_FEATURE__MULTIPLICITY = eINSTANCE.getStructuralFeature_Multiplicity();
 
         /**
          * The meta object literal for the '<em><b>Ordering</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute STRUCTURAL_FEATURE__ORDERING = eINSTANCE.getStructuralFeature_Ordering();
 
         /**
          * The meta object literal for the '<em><b>Target Scope</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute STRUCTURAL_FEATURE__TARGET_SCOPE = eINSTANCE.getStructuralFeature_TargetScope();
 
         /**
          * The meta object literal for the '<em><b>Type</b></em>' reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference STRUCTURAL_FEATURE__TYPE = eINSTANCE.getStructuralFeature_Type();
 
         /**
          * The meta object literal for the '<em><b>Slot</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference STRUCTURAL_FEATURE__SLOT = eINSTANCE.getStructuralFeature_Slot();
 
         /**
          * The meta object literal for the '<em><b>Discriminated Union</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference STRUCTURAL_FEATURE__DISCRIMINATED_UNION = eINSTANCE.getStructuralFeature_DiscriminatedUnion();
 
         /**
          * The meta object literal for the '<em><b>Indexed Feature</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference STRUCTURAL_FEATURE__INDEXED_FEATURE = eINSTANCE.getStructuralFeature_IndexedFeature();
 
         /**
          * The meta object literal for the '<em><b>Key Relationship</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference STRUCTURAL_FEATURE__KEY_RELATIONSHIP = eINSTANCE.getStructuralFeature_KeyRelationship();
 
         /**
          * The meta object literal for the '<em><b>Unique Key</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference STRUCTURAL_FEATURE__UNIQUE_KEY = eINSTANCE.getStructuralFeature_UniqueKey();
 
         /**
          * The meta object literal for the '<em><b>Data Item</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference STRUCTURAL_FEATURE__DATA_ITEM = eINSTANCE.getStructuralFeature_DataItem();
 
         /**
          * The meta object literal for the '<em><b>Remap</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference STRUCTURAL_FEATURE__REMAP = eINSTANCE.getStructuralFeature_Remap();
 
         /**
-         * The meta object literal for the '{@link orgomg.cwm.objectmodel.core.impl.AttributeImpl <em>Attribute</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '
+         * {@link orgomg.cwm.objectmodel.core.impl.AttributeImpl
+         * <em>Attribute</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
+         * -->
+         * 
          * @see orgomg.cwm.objectmodel.core.impl.AttributeImpl
          * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getAttribute()
          * @generated
@@ -6058,16 +5778,16 @@ public interface CorePackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Initial Value</b></em>' containment reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EReference ATTRIBUTE__INITIAL_VALUE = eINSTANCE.getAttribute_InitialValue();
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.objectmodel.core.impl.ConstraintImpl <em>Constraint</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwm.objectmodel.core.impl.ConstraintImpl
          * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getConstraint()
          * @generated
@@ -6076,32 +5796,29 @@ public interface CorePackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Body</b></em>' containment reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference CONSTRAINT__BODY = eINSTANCE.getConstraint_Body();
 
         /**
          * The meta object literal for the '<em><b>Constrained Element</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference CONSTRAINT__CONSTRAINED_ELEMENT = eINSTANCE.getConstraint_ConstrainedElement();
 
         /**
          * The meta object literal for the '<em><b>Constrained Stereotype</b></em>' container reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference CONSTRAINT__CONSTRAINED_STEREOTYPE = eINSTANCE.getConstraint_ConstrainedStereotype();
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.objectmodel.core.impl.DependencyImpl <em>Dependency</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwm.objectmodel.core.impl.DependencyImpl
          * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getDependency()
          * @generated
@@ -6110,32 +5827,29 @@ public interface CorePackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Kind</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute DEPENDENCY__KIND = eINSTANCE.getDependency_Kind();
 
         /**
          * The meta object literal for the '<em><b>Client</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference DEPENDENCY__CLIENT = eINSTANCE.getDependency_Client();
 
         /**
          * The meta object literal for the '<em><b>Supplier</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference DEPENDENCY__SUPPLIER = eINSTANCE.getDependency_Supplier();
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.objectmodel.core.impl.ExpressionImpl <em>Expression</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwm.objectmodel.core.impl.ExpressionImpl
          * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getExpression()
          * @generated
@@ -6144,24 +5858,22 @@ public interface CorePackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Body</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute EXPRESSION__BODY = eINSTANCE.getExpression_Body();
 
         /**
          * The meta object literal for the '<em><b>Language</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute EXPRESSION__LANGUAGE = eINSTANCE.getExpression_Language();
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.objectmodel.core.impl.BooleanExpressionImpl <em>Boolean Expression</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwm.objectmodel.core.impl.BooleanExpressionImpl
          * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getBooleanExpression()
          * @generated
@@ -6170,8 +5882,8 @@ public interface CorePackage extends EPackage {
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.objectmodel.core.impl.ProcedureExpressionImpl <em>Procedure Expression</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwm.objectmodel.core.impl.ProcedureExpressionImpl
          * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getProcedureExpression()
          * @generated
@@ -6180,8 +5892,8 @@ public interface CorePackage extends EPackage {
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.objectmodel.core.impl.MultiplicityImpl <em>Multiplicity</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwm.objectmodel.core.impl.MultiplicityImpl
          * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getMultiplicity()
          * @generated
@@ -6190,16 +5902,15 @@ public interface CorePackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Range</b></em>' containment reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference MULTIPLICITY__RANGE = eINSTANCE.getMultiplicity_Range();
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.objectmodel.core.impl.MultiplicityRangeImpl <em>Multiplicity Range</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwm.objectmodel.core.impl.MultiplicityRangeImpl
          * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getMultiplicityRange()
          * @generated
@@ -6208,32 +5919,30 @@ public interface CorePackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Lower</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute MULTIPLICITY_RANGE__LOWER = eINSTANCE.getMultiplicityRange_Lower();
 
         /**
          * The meta object literal for the '<em><b>Upper</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute MULTIPLICITY_RANGE__UPPER = eINSTANCE.getMultiplicityRange_Upper();
 
         /**
          * The meta object literal for the '<em><b>Multiplicity</b></em>' container reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EReference MULTIPLICITY_RANGE__MULTIPLICITY = eINSTANCE.getMultiplicityRange_Multiplicity();
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.objectmodel.core.impl.StereotypeImpl <em>Stereotype</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwm.objectmodel.core.impl.StereotypeImpl
          * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getStereotype()
          * @generated
@@ -6242,40 +5951,37 @@ public interface CorePackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Base Class</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute STEREOTYPE__BASE_CLASS = eINSTANCE.getStereotype_BaseClass();
 
         /**
          * The meta object literal for the '<em><b>Stereotype Constraint</b></em>' containment reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference STEREOTYPE__STEREOTYPE_CONSTRAINT = eINSTANCE.getStereotype_StereotypeConstraint();
 
         /**
          * The meta object literal for the '<em><b>Extended Element</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference STEREOTYPE__EXTENDED_ELEMENT = eINSTANCE.getStereotype_ExtendedElement();
 
         /**
          * The meta object literal for the '<em><b>Required Tag</b></em>' containment reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EReference STEREOTYPE__REQUIRED_TAG = eINSTANCE.getStereotype_RequiredTag();
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.objectmodel.core.impl.TaggedValueImpl <em>Tagged Value</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwm.objectmodel.core.impl.TaggedValueImpl
          * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getTaggedValue()
          * @generated
@@ -6284,40 +5990,38 @@ public interface CorePackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Tag</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute TAGGED_VALUE__TAG = eINSTANCE.getTaggedValue_Tag();
 
         /**
          * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute TAGGED_VALUE__VALUE = eINSTANCE.getTaggedValue_Value();
 
         /**
          * The meta object literal for the '<em><b>Stereotype</b></em>' container reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EReference TAGGED_VALUE__STEREOTYPE = eINSTANCE.getTaggedValue_Stereotype();
 
         /**
          * The meta object literal for the '<em><b>Model Element</b></em>' container reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EReference TAGGED_VALUE__MODEL_ELEMENT = eINSTANCE.getTaggedValue_ModelElement();
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.objectmodel.core.ChangeableKind <em>Changeable Kind</em>}' enum.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwm.objectmodel.core.ChangeableKind
          * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getChangeableKind()
          * @generated
@@ -6326,8 +6030,8 @@ public interface CorePackage extends EPackage {
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.objectmodel.core.OrderingKind <em>Ordering Kind</em>}' enum.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwm.objectmodel.core.OrderingKind
          * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getOrderingKind()
          * @generated
@@ -6336,8 +6040,7 @@ public interface CorePackage extends EPackage {
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.objectmodel.core.ScopeKind <em>Scope Kind</em>}' enum.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see orgomg.cwm.objectmodel.core.ScopeKind
          * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getScopeKind()
          * @generated
@@ -6346,8 +6049,8 @@ public interface CorePackage extends EPackage {
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.objectmodel.core.VisibilityKind <em>Visibility Kind</em>}' enum.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwm.objectmodel.core.VisibilityKind
          * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getVisibilityKind()
          * @generated
@@ -6355,9 +6058,9 @@ public interface CorePackage extends EPackage {
         EEnum VISIBILITY_KIND = eINSTANCE.getVisibilityKind();
 
         /**
-         * The meta object literal for the '<em>Any</em>' data type.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '<em>Any</em>' data type. <!--
+         * begin-user-doc --> <!-- end-user-doc -->
+         * 
          * @see java.lang.String
          * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getAny()
          * @generated
@@ -6365,18 +6068,18 @@ public interface CorePackage extends EPackage {
         EDataType ANY = eINSTANCE.getAny();
 
         /**
-         * The meta object literal for the '<em>Boolean</em>' data type.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '<em>Boolean</em>' data type. <!--
+         * begin-user-doc --> <!-- end-user-doc -->
+         * 
          * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getBoolean()
          * @generated
          */
         EDataType BOOLEAN = eINSTANCE.getBoolean();
 
         /**
-         * The meta object literal for the '<em>Float</em>' data type.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '<em>Float</em>' data type. <!--
+         * begin-user-doc --> <!-- end-user-doc -->
+         * 
          * @see java.lang.String
          * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getFloat()
          * @generated
@@ -6384,18 +6087,18 @@ public interface CorePackage extends EPackage {
         EDataType FLOAT = eINSTANCE.getFloat();
 
         /**
-         * The meta object literal for the '<em>Integer</em>' data type.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '<em>Integer</em>' data type. <!--
+         * begin-user-doc --> <!-- end-user-doc -->
+         * 
          * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getInteger()
          * @generated
          */
         EDataType INTEGER = eINSTANCE.getInteger();
 
         /**
-         * The meta object literal for the '<em>Name</em>' data type.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '<em>Name</em>' data type. <!--
+         * begin-user-doc --> <!-- end-user-doc -->
+         * 
          * @see java.lang.String
          * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getName_()
          * @generated
@@ -6403,9 +6106,9 @@ public interface CorePackage extends EPackage {
         EDataType NAME = eINSTANCE.getName_();
 
         /**
-         * The meta object literal for the '<em>String</em>' data type.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '<em>String</em>' data type. <!--
+         * begin-user-doc --> <!-- end-user-doc -->
+         * 
          * @see java.lang.String
          * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getString()
          * @generated
@@ -6413,9 +6116,9 @@ public interface CorePackage extends EPackage {
         EDataType STRING = eINSTANCE.getString();
 
         /**
-         * The meta object literal for the '<em>Time</em>' data type.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '<em>Time</em>' data type. <!--
+         * begin-user-doc --> <!-- end-user-doc -->
+         * 
          * @see java.lang.String
          * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getTime()
          * @generated
@@ -6424,8 +6127,7 @@ public interface CorePackage extends EPackage {
 
         /**
          * The meta object literal for the '<em>Unlimited Integer</em>' data type.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see orgomg.cwm.objectmodel.core.impl.CorePackageImpl#getUnlimitedInteger()
          * @generated
          */
@@ -6433,4 +6135,4 @@ public interface CorePackage extends EPackage {
 
     }
 
-} //CorePackage
+} // CorePackage

@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.dmsii.impl;
@@ -12,18 +11,17 @@ import orgomg.cwmx.resource.dmsii.DmsiiPackage;
 import orgomg.cwmx.resource.dmsii.PhysicalSet;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Physical Set</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Physical Set</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
 public class PhysicalSetImpl extends ModelElementImpl implements PhysicalSet {
+
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected PhysicalSetImpl() {
@@ -31,8 +29,7 @@ public class PhysicalSetImpl extends ModelElementImpl implements PhysicalSet {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -40,4 +37,4 @@ public class PhysicalSetImpl extends ModelElementImpl implements PhysicalSet {
         return DmsiiPackage.Literals.PHYSICAL_SET;
     }
 
-} //PhysicalSetImpl
+} // PhysicalSetImpl

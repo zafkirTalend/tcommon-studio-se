@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmmip;
@@ -9,9 +8,8 @@ package orgomg.cwmmip;
 import orgomg.mof.model.ModelElement;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Modeled Graph Subset</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Modeled Graph Subset</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * ModeledGraphSubset is a subclass of GraphSubset that adds a reference to a single instance of MOF ModelElement.
@@ -31,13 +29,14 @@ import orgomg.mof.model.ModelElement;
  * @generated
  */
 public interface ModeledGraphSubset extends GraphSubset {
+
     /**
      * Returns the value of the '<em><b>Mof Element</b></em>' reference.
      * It is bidirectional and its opposite is '{@link orgomg.mof.model.ModelElement#getModeledGraphSubset <em>Modeled Graph Subset</em>}'.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Mof Element</em>' reference isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of the '<em>Mof Element</em>' reference isn't clear, there
+     * really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Mof Element</em>' reference.
@@ -51,8 +50,8 @@ public interface ModeledGraphSubset extends GraphSubset {
 
     /**
      * Sets the value of the '{@link orgomg.cwmmip.ModeledGraphSubset#getMofElement <em>Mof Element</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Mof Element</em>' reference.
      * @see #getMofElement()
      * @generated

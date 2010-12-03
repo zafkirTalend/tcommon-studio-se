@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.coboldata.impl;
@@ -21,9 +20,8 @@ import orgomg.cwmx.resource.coboldata.CoboldataPackage;
 import orgomg.cwmx.resource.coboldata.Section;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Section</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Section</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -34,10 +32,10 @@ import orgomg.cwmx.resource.coboldata.Section;
  * @generated
  */
 public class SectionImpl extends ClassifierImpl implements Section {
+
     /**
      * The cached value of the '{@link #getRecord() <em>Record</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getRecord()
      * @generated
      * @ordered
@@ -45,8 +43,7 @@ public class SectionImpl extends ClassifierImpl implements Section {
     protected EList<RecordDef> record;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected SectionImpl() {
@@ -54,8 +51,7 @@ public class SectionImpl extends ClassifierImpl implements Section {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -64,104 +60,98 @@ public class SectionImpl extends ClassifierImpl implements Section {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<RecordDef> getRecord() {
         if (record == null) {
-            record = new EObjectWithInverseResolvingEList.ManyInverse<RecordDef>(RecordDef.class, this, CoboldataPackage.SECTION__RECORD, RecordPackage.RECORD_DEF__SECTION);
+            record = new EObjectWithInverseResolvingEList.ManyInverse<RecordDef>(RecordDef.class, this,
+                    CoboldataPackage.SECTION__RECORD, RecordPackage.RECORD_DEF__SECTION);
         }
         return record;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case CoboldataPackage.SECTION__RECORD:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getRecord()).basicAdd(otherEnd, msgs);
+        case CoboldataPackage.SECTION__RECORD:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getRecord()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case CoboldataPackage.SECTION__RECORD:
-                return ((InternalEList<?>)getRecord()).basicRemove(otherEnd, msgs);
+        case CoboldataPackage.SECTION__RECORD:
+            return ((InternalEList<?>) getRecord()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case CoboldataPackage.SECTION__RECORD:
-                return getRecord();
+        case CoboldataPackage.SECTION__RECORD:
+            return getRecord();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case CoboldataPackage.SECTION__RECORD:
-                getRecord().clear();
-                getRecord().addAll((Collection<? extends RecordDef>)newValue);
-                return;
+        case CoboldataPackage.SECTION__RECORD:
+            getRecord().clear();
+            getRecord().addAll((Collection<? extends RecordDef>) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case CoboldataPackage.SECTION__RECORD:
-                getRecord().clear();
-                return;
+        case CoboldataPackage.SECTION__RECORD:
+            getRecord().clear();
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case CoboldataPackage.SECTION__RECORD:
-                return record != null && !record.isEmpty();
+        case CoboldataPackage.SECTION__RECORD:
+            return record != null && !record.isEmpty();
         }
         return super.eIsSet(featureID);
     }
 
-} //SectionImpl
+} // SectionImpl

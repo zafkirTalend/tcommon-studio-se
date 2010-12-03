@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.analysis.businessnomenclature.impl;
@@ -19,9 +18,8 @@ import orgomg.cwm.analysis.businessnomenclature.Glossary;
 import orgomg.cwm.analysis.businessnomenclature.Taxonomy;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Taxonomy</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Taxonomy</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -32,10 +30,10 @@ import orgomg.cwm.analysis.businessnomenclature.Taxonomy;
  * @generated
  */
 public class TaxonomyImpl extends NomenclatureImpl implements Taxonomy {
+
     /**
      * The cached value of the '{@link #getGlossary() <em>Glossary</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getGlossary()
      * @generated
      * @ordered
@@ -43,8 +41,7 @@ public class TaxonomyImpl extends NomenclatureImpl implements Taxonomy {
     protected EList<Glossary> glossary;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected TaxonomyImpl() {
@@ -52,8 +49,7 @@ public class TaxonomyImpl extends NomenclatureImpl implements Taxonomy {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -62,104 +58,98 @@ public class TaxonomyImpl extends NomenclatureImpl implements Taxonomy {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<Glossary> getGlossary() {
         if (glossary == null) {
-            glossary = new EObjectWithInverseResolvingEList.ManyInverse<Glossary>(Glossary.class, this, BusinessnomenclaturePackage.TAXONOMY__GLOSSARY, BusinessnomenclaturePackage.GLOSSARY__TAXONOMY);
+            glossary = new EObjectWithInverseResolvingEList.ManyInverse<Glossary>(Glossary.class, this,
+                    BusinessnomenclaturePackage.TAXONOMY__GLOSSARY, BusinessnomenclaturePackage.GLOSSARY__TAXONOMY);
         }
         return glossary;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case BusinessnomenclaturePackage.TAXONOMY__GLOSSARY:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getGlossary()).basicAdd(otherEnd, msgs);
+        case BusinessnomenclaturePackage.TAXONOMY__GLOSSARY:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getGlossary()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case BusinessnomenclaturePackage.TAXONOMY__GLOSSARY:
-                return ((InternalEList<?>)getGlossary()).basicRemove(otherEnd, msgs);
+        case BusinessnomenclaturePackage.TAXONOMY__GLOSSARY:
+            return ((InternalEList<?>) getGlossary()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case BusinessnomenclaturePackage.TAXONOMY__GLOSSARY:
-                return getGlossary();
+        case BusinessnomenclaturePackage.TAXONOMY__GLOSSARY:
+            return getGlossary();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case BusinessnomenclaturePackage.TAXONOMY__GLOSSARY:
-                getGlossary().clear();
-                getGlossary().addAll((Collection<? extends Glossary>)newValue);
-                return;
+        case BusinessnomenclaturePackage.TAXONOMY__GLOSSARY:
+            getGlossary().clear();
+            getGlossary().addAll((Collection<? extends Glossary>) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case BusinessnomenclaturePackage.TAXONOMY__GLOSSARY:
-                getGlossary().clear();
-                return;
+        case BusinessnomenclaturePackage.TAXONOMY__GLOSSARY:
+            getGlossary().clear();
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case BusinessnomenclaturePackage.TAXONOMY__GLOSSARY:
-                return glossary != null && !glossary.isEmpty();
+        case BusinessnomenclaturePackage.TAXONOMY__GLOSSARY:
+            return glossary != null && !glossary.isEmpty();
         }
         return super.eIsSet(featureID);
     }
 
-} //TaxonomyImpl
+} // TaxonomyImpl

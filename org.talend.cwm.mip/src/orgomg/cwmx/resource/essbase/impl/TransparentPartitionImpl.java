@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.essbase.impl;
@@ -11,18 +10,17 @@ import orgomg.cwmx.resource.essbase.EssbasePackage;
 import orgomg.cwmx.resource.essbase.TransparentPartition;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Transparent Partition</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Transparent Partition</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
 public class TransparentPartitionImpl extends PartitionImpl implements TransparentPartition {
+
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected TransparentPartitionImpl() {
@@ -30,8 +28,7 @@ public class TransparentPartitionImpl extends PartitionImpl implements Transpare
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -39,4 +36,4 @@ public class TransparentPartitionImpl extends PartitionImpl implements Transpare
         return EssbasePackage.Literals.TRANSPARENT_PARTITION;
     }
 
-} //TransparentPartitionImpl
+} // TransparentPartitionImpl

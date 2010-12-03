@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.essbase.impl;
@@ -12,6 +11,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import orgomg.cwmx.resource.essbase.*;
 import orgomg.cwmx.resource.essbase.Alias;
 import orgomg.cwmx.resource.essbase.Application;
 import orgomg.cwmx.resource.essbase.Comment;
@@ -39,26 +39,26 @@ import orgomg.cwmx.resource.essbase.UDA;
 import orgomg.cwmx.resource.essbase.VarianceReporting;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model <b>Factory</b>.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!--
+ * end-user-doc -->
  * @generated
  */
 public class EssbaseFactoryImpl extends EFactoryImpl implements EssbaseFactory {
+
     /**
      * Creates the default factory implementation.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     public static EssbaseFactory init() {
         try {
-            EssbaseFactory theEssbaseFactory = (EssbaseFactory)EPackage.Registry.INSTANCE.getEFactory("http:///orgomg/cwmx/resource/essbase.ecore"); 
+            EssbaseFactory theEssbaseFactory = (EssbaseFactory) EPackage.Registry.INSTANCE
+                    .getEFactory("http:///orgomg/cwmx/resource/essbase.ecore");
             if (theEssbaseFactory != null) {
                 return theEssbaseFactory;
             }
-        }
-        catch (Exception exception) {
+        } catch (Exception exception) {
             EcorePlugin.INSTANCE.log(exception);
         }
         return new EssbaseFactoryImpl();
@@ -66,8 +66,8 @@ public class EssbaseFactoryImpl extends EFactoryImpl implements EssbaseFactory {
 
     /**
      * Creates an instance of the factory.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     public EssbaseFactoryImpl() {
@@ -75,73 +75,91 @@ public class EssbaseFactoryImpl extends EFactoryImpl implements EssbaseFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public EObject create(EClass eClass) {
         switch (eClass.getClassifierID()) {
-            case EssbasePackage.ALIAS: return createAlias();
-            case EssbasePackage.APPLICATION: return createApplication();
-            case EssbasePackage.COMMENT: return createComment();
-            case EssbasePackage.CONSOLIDATION: return createConsolidation();
-            case EssbasePackage.CURRENCY_CONVERSION: return createCurrencyConversion();
-            case EssbasePackage.DATA_STORAGE: return createDataStorage();
-            case EssbasePackage.DATABASE: return createDatabase();
-            case EssbasePackage.DIMENSION: return createDimension();
-            case EssbasePackage.FORMULA: return createFormula();
-            case EssbasePackage.GENERATION: return createGeneration();
-            case EssbasePackage.IMMEDIATE_PARENT: return createImmediateParent();
-            case EssbasePackage.LEVEL: return createLevel();
-            case EssbasePackage.MEMBER_NAME: return createMemberName();
-            case EssbasePackage.OLAP_SERVER: return createOLAPServer();
-            case EssbasePackage.OUTLINE: return createOutline();
-            case EssbasePackage.REPLICATED_PARTITION: return createReplicatedPartition();
-            case EssbasePackage.TIME_BALANCE: return createTimeBalance();
-            case EssbasePackage.TRANSPARENT_PARTITION: return createTransparentPartition();
-            case EssbasePackage.TWO_PASS_CALCULATION: return createTwoPassCalculation();
-            case EssbasePackage.UDA: return createUDA();
-            case EssbasePackage.VARIANCE_REPORTING: return createVarianceReporting();
-            case EssbasePackage.LINKED_PARTITION: return createLinkedPartition();
-            default:
-                throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+        case EssbasePackage.ALIAS:
+            return createAlias();
+        case EssbasePackage.APPLICATION:
+            return createApplication();
+        case EssbasePackage.COMMENT:
+            return createComment();
+        case EssbasePackage.CONSOLIDATION:
+            return createConsolidation();
+        case EssbasePackage.CURRENCY_CONVERSION:
+            return createCurrencyConversion();
+        case EssbasePackage.DATA_STORAGE:
+            return createDataStorage();
+        case EssbasePackage.DATABASE:
+            return createDatabase();
+        case EssbasePackage.DIMENSION:
+            return createDimension();
+        case EssbasePackage.FORMULA:
+            return createFormula();
+        case EssbasePackage.GENERATION:
+            return createGeneration();
+        case EssbasePackage.IMMEDIATE_PARENT:
+            return createImmediateParent();
+        case EssbasePackage.LEVEL:
+            return createLevel();
+        case EssbasePackage.MEMBER_NAME:
+            return createMemberName();
+        case EssbasePackage.OLAP_SERVER:
+            return createOLAPServer();
+        case EssbasePackage.OUTLINE:
+            return createOutline();
+        case EssbasePackage.REPLICATED_PARTITION:
+            return createReplicatedPartition();
+        case EssbasePackage.TIME_BALANCE:
+            return createTimeBalance();
+        case EssbasePackage.TRANSPARENT_PARTITION:
+            return createTransparentPartition();
+        case EssbasePackage.TWO_PASS_CALCULATION:
+            return createTwoPassCalculation();
+        case EssbasePackage.UDA:
+            return createUDA();
+        case EssbasePackage.VARIANCE_REPORTING:
+            return createVarianceReporting();
+        case EssbasePackage.LINKED_PARTITION:
+            return createLinkedPartition();
+        default:
+            throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object createFromString(EDataType eDataType, String initialValue) {
         switch (eDataType.getClassifierID()) {
-            case EssbasePackage.DIMENSION_TYPE:
-                return createDimensionTypeFromString(eDataType, initialValue);
-            default:
-                throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+        case EssbasePackage.DIMENSION_TYPE:
+            return createDimensionTypeFromString(eDataType, initialValue);
+        default:
+            throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
         }
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String convertToString(EDataType eDataType, Object instanceValue) {
         switch (eDataType.getClassifierID()) {
-            case EssbasePackage.DIMENSION_TYPE:
-                return convertDimensionTypeToString(eDataType, instanceValue);
-            default:
-                throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+        case EssbasePackage.DIMENSION_TYPE:
+            return convertDimensionTypeToString(eDataType, instanceValue);
+        default:
+            throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
         }
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Alias createAlias() {
@@ -150,8 +168,7 @@ public class EssbaseFactoryImpl extends EFactoryImpl implements EssbaseFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Application createApplication() {
@@ -160,8 +177,7 @@ public class EssbaseFactoryImpl extends EFactoryImpl implements EssbaseFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Comment createComment() {
@@ -170,8 +186,7 @@ public class EssbaseFactoryImpl extends EFactoryImpl implements EssbaseFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Consolidation createConsolidation() {
@@ -180,8 +195,7 @@ public class EssbaseFactoryImpl extends EFactoryImpl implements EssbaseFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public CurrencyConversion createCurrencyConversion() {
@@ -190,8 +204,7 @@ public class EssbaseFactoryImpl extends EFactoryImpl implements EssbaseFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public DataStorage createDataStorage() {
@@ -200,8 +213,7 @@ public class EssbaseFactoryImpl extends EFactoryImpl implements EssbaseFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Database createDatabase() {
@@ -210,8 +222,7 @@ public class EssbaseFactoryImpl extends EFactoryImpl implements EssbaseFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Dimension createDimension() {
@@ -220,8 +231,7 @@ public class EssbaseFactoryImpl extends EFactoryImpl implements EssbaseFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Formula createFormula() {
@@ -230,8 +240,7 @@ public class EssbaseFactoryImpl extends EFactoryImpl implements EssbaseFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Generation createGeneration() {
@@ -240,8 +249,7 @@ public class EssbaseFactoryImpl extends EFactoryImpl implements EssbaseFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public ImmediateParent createImmediateParent() {
@@ -250,8 +258,7 @@ public class EssbaseFactoryImpl extends EFactoryImpl implements EssbaseFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Level createLevel() {
@@ -260,8 +267,7 @@ public class EssbaseFactoryImpl extends EFactoryImpl implements EssbaseFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public MemberName createMemberName() {
@@ -270,8 +276,7 @@ public class EssbaseFactoryImpl extends EFactoryImpl implements EssbaseFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public OLAPServer createOLAPServer() {
@@ -280,8 +285,7 @@ public class EssbaseFactoryImpl extends EFactoryImpl implements EssbaseFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Outline createOutline() {
@@ -290,8 +294,7 @@ public class EssbaseFactoryImpl extends EFactoryImpl implements EssbaseFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public ReplicatedPartition createReplicatedPartition() {
@@ -300,8 +303,7 @@ public class EssbaseFactoryImpl extends EFactoryImpl implements EssbaseFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public TimeBalance createTimeBalance() {
@@ -310,8 +312,7 @@ public class EssbaseFactoryImpl extends EFactoryImpl implements EssbaseFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public TransparentPartition createTransparentPartition() {
@@ -320,8 +321,7 @@ public class EssbaseFactoryImpl extends EFactoryImpl implements EssbaseFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public TwoPassCalculation createTwoPassCalculation() {
@@ -330,8 +330,7 @@ public class EssbaseFactoryImpl extends EFactoryImpl implements EssbaseFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public UDA createUDA() {
@@ -340,8 +339,7 @@ public class EssbaseFactoryImpl extends EFactoryImpl implements EssbaseFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public VarianceReporting createVarianceReporting() {
@@ -350,8 +348,7 @@ public class EssbaseFactoryImpl extends EFactoryImpl implements EssbaseFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public LinkedPartition createLinkedPartition() {
@@ -360,19 +357,19 @@ public class EssbaseFactoryImpl extends EFactoryImpl implements EssbaseFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public DimensionType createDimensionTypeFromString(EDataType eDataType, String initialValue) {
         DimensionType result = DimensionType.get(initialValue);
-        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+        if (result == null)
+            throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
+                    + eDataType.getName() + "'");
         return result;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String convertDimensionTypeToString(EDataType eDataType, Object instanceValue) {
@@ -380,17 +377,15 @@ public class EssbaseFactoryImpl extends EFactoryImpl implements EssbaseFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EssbasePackage getEssbasePackage() {
-        return (EssbasePackage)getEPackage();
+        return (EssbasePackage) getEPackage();
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @deprecated
      * @generated
      */
@@ -399,4 +394,4 @@ public class EssbaseFactoryImpl extends EFactoryImpl implements EssbaseFactory {
         return EssbasePackage.eINSTANCE;
     }
 
-} //EssbaseFactoryImpl
+} // EssbaseFactoryImpl

@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.foundation.keysindexes;
@@ -10,9 +9,8 @@ import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.StructuralFeature;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Indexed Feature</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Indexed Feature</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * Instances of the IndexedFeature class map StructuralFeature instances of the spanned Class instance to the Index instances that employ them as (part of) their key. Attributes of IndexedFeature instances indicate how specific StructuralFeature instance are used in Index keys.
@@ -32,13 +30,13 @@ import orgomg.cwm.objectmodel.core.StructuralFeature;
  * @generated
  */
 public interface IndexedFeature extends ModelElement {
+
     /**
-     * Returns the value of the '<em><b>Is Ascending</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The isAscending attribute is true if the feature is sorted in ascending order and false, if descending order.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Is Ascending</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> The
+     * isAscending attribute is true if the feature is sorted in ascending order
+     * and false, if descending order. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Is Ascending</em>' attribute.
      * @see #setIsAscending(boolean)
      * @see orgomg.cwm.foundation.keysindexes.KeysindexesPackage#getIndexedFeature_IsAscending()
@@ -49,8 +47,8 @@ public interface IndexedFeature extends ModelElement {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.foundation.keysindexes.IndexedFeature#isIsAscending <em>Is Ascending</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Is Ascending</em>' attribute.
      * @see #isIsAscending()
      * @generated
@@ -60,8 +58,7 @@ public interface IndexedFeature extends ModelElement {
     /**
      * Returns the value of the '<em><b>Feature</b></em>' reference.
      * It is bidirectional and its opposite is '{@link orgomg.cwm.objectmodel.core.StructuralFeature#getIndexedFeature <em>Indexed Feature</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Identifies the StructuralFeature instance for which this IndexedFeature instance is relevant.
      * <!-- end-model-doc -->
@@ -75,10 +72,13 @@ public interface IndexedFeature extends ModelElement {
     StructuralFeature getFeature();
 
     /**
-     * Sets the value of the '{@link orgomg.cwm.foundation.keysindexes.IndexedFeature#getFeature <em>Feature</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Feature</em>' reference.
+     * Sets the value of the '
+     * {@link orgomg.cwm.foundation.keysindexes.IndexedFeature#getFeature
+     * <em>Feature</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @param value
+     *            the new value of the '<em>Feature</em>' reference.
      * @see #getFeature()
      * @generated
      */
@@ -87,8 +87,7 @@ public interface IndexedFeature extends ModelElement {
     /**
      * Returns the value of the '<em><b>Index</b></em>' container reference.
      * It is bidirectional and its opposite is '{@link orgomg.cwm.foundation.keysindexes.Index#getIndexedFeature <em>Indexed Feature</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Identifies the Index instance for which this IndexedFeature instance is relevant.
      * <!-- end-model-doc -->
@@ -103,8 +102,8 @@ public interface IndexedFeature extends ModelElement {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.foundation.keysindexes.IndexedFeature#getIndex <em>Index</em>}' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Index</em>' container reference.
      * @see #getIndex()
      * @generated

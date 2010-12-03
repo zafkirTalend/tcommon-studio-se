@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.analysis.datamining.impl;
@@ -14,9 +13,8 @@ import orgomg.cwm.analysis.datamining.OrderType;
 import orgomg.cwm.analysis.datamining.OrdinalAttribute;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Ordinal Attribute</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Ordinal Attribute</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -28,10 +26,10 @@ import orgomg.cwm.analysis.datamining.OrdinalAttribute;
  * @generated
  */
 public class OrdinalAttributeImpl extends CategoricalAttributeImpl implements OrdinalAttribute {
+
     /**
      * The default value of the '{@link #isIsCyclic() <em>Is Cyclic</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #isIsCyclic()
      * @generated
      * @ordered
@@ -40,8 +38,7 @@ public class OrdinalAttributeImpl extends CategoricalAttributeImpl implements Or
 
     /**
      * The cached value of the '{@link #isIsCyclic() <em>Is Cyclic</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #isIsCyclic()
      * @generated
      * @ordered
@@ -50,8 +47,8 @@ public class OrdinalAttributeImpl extends CategoricalAttributeImpl implements Or
 
     /**
      * The default value of the '{@link #getOrderingType() <em>Ordering Type</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getOrderingType()
      * @generated
      * @ordered
@@ -60,8 +57,8 @@ public class OrdinalAttributeImpl extends CategoricalAttributeImpl implements Or
 
     /**
      * The cached value of the '{@link #getOrderingType() <em>Ordering Type</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getOrderingType()
      * @generated
      * @ordered
@@ -69,8 +66,7 @@ public class OrdinalAttributeImpl extends CategoricalAttributeImpl implements Or
     protected OrderType orderingType = ORDERING_TYPE_EDEFAULT;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected OrdinalAttributeImpl() {
@@ -78,8 +74,7 @@ public class OrdinalAttributeImpl extends CategoricalAttributeImpl implements Or
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -88,8 +83,7 @@ public class OrdinalAttributeImpl extends CategoricalAttributeImpl implements Or
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isIsCyclic() {
@@ -97,20 +91,19 @@ public class OrdinalAttributeImpl extends CategoricalAttributeImpl implements Or
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setIsCyclic(boolean newIsCyclic) {
         boolean oldIsCyclic = isCyclic;
         isCyclic = newIsCyclic;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, DataminingPackage.ORDINAL_ATTRIBUTE__IS_CYCLIC, oldIsCyclic, isCyclic));
+            eNotify(new ENotificationImpl(this, Notification.SET, DataminingPackage.ORDINAL_ATTRIBUTE__IS_CYCLIC, oldIsCyclic,
+                    isCyclic));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public OrderType getOrderingType() {
@@ -118,93 +111,89 @@ public class OrdinalAttributeImpl extends CategoricalAttributeImpl implements Or
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setOrderingType(OrderType newOrderingType) {
         OrderType oldOrderingType = orderingType;
         orderingType = newOrderingType == null ? ORDERING_TYPE_EDEFAULT : newOrderingType;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, DataminingPackage.ORDINAL_ATTRIBUTE__ORDERING_TYPE, oldOrderingType, orderingType));
+            eNotify(new ENotificationImpl(this, Notification.SET, DataminingPackage.ORDINAL_ATTRIBUTE__ORDERING_TYPE,
+                    oldOrderingType, orderingType));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case DataminingPackage.ORDINAL_ATTRIBUTE__IS_CYCLIC:
-                return isIsCyclic();
-            case DataminingPackage.ORDINAL_ATTRIBUTE__ORDERING_TYPE:
-                return getOrderingType();
+        case DataminingPackage.ORDINAL_ATTRIBUTE__IS_CYCLIC:
+            return isIsCyclic();
+        case DataminingPackage.ORDINAL_ATTRIBUTE__ORDERING_TYPE:
+            return getOrderingType();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case DataminingPackage.ORDINAL_ATTRIBUTE__IS_CYCLIC:
-                setIsCyclic((Boolean)newValue);
-                return;
-            case DataminingPackage.ORDINAL_ATTRIBUTE__ORDERING_TYPE:
-                setOrderingType((OrderType)newValue);
-                return;
+        case DataminingPackage.ORDINAL_ATTRIBUTE__IS_CYCLIC:
+            setIsCyclic((Boolean) newValue);
+            return;
+        case DataminingPackage.ORDINAL_ATTRIBUTE__ORDERING_TYPE:
+            setOrderingType((OrderType) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case DataminingPackage.ORDINAL_ATTRIBUTE__IS_CYCLIC:
-                setIsCyclic(IS_CYCLIC_EDEFAULT);
-                return;
-            case DataminingPackage.ORDINAL_ATTRIBUTE__ORDERING_TYPE:
-                setOrderingType(ORDERING_TYPE_EDEFAULT);
-                return;
+        case DataminingPackage.ORDINAL_ATTRIBUTE__IS_CYCLIC:
+            setIsCyclic(IS_CYCLIC_EDEFAULT);
+            return;
+        case DataminingPackage.ORDINAL_ATTRIBUTE__ORDERING_TYPE:
+            setOrderingType(ORDERING_TYPE_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case DataminingPackage.ORDINAL_ATTRIBUTE__IS_CYCLIC:
-                return isCyclic != IS_CYCLIC_EDEFAULT;
-            case DataminingPackage.ORDINAL_ATTRIBUTE__ORDERING_TYPE:
-                return orderingType != ORDERING_TYPE_EDEFAULT;
+        case DataminingPackage.ORDINAL_ATTRIBUTE__IS_CYCLIC:
+            return isCyclic != IS_CYCLIC_EDEFAULT;
+        case DataminingPackage.ORDINAL_ATTRIBUTE__ORDERING_TYPE:
+            return orderingType != ORDERING_TYPE_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (isCyclic: ");
@@ -215,4 +204,4 @@ public class OrdinalAttributeImpl extends CategoricalAttributeImpl implements Or
         return result.toString();
     }
 
-} //OrdinalAttributeImpl
+} // OrdinalAttributeImpl

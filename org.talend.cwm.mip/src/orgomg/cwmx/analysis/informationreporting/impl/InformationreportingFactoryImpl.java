@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.analysis.informationreporting.impl;
@@ -12,6 +11,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import orgomg.cwmx.analysis.informationreporting.*;
 import orgomg.cwmx.analysis.informationreporting.InformationreportingFactory;
 import orgomg.cwmx.analysis.informationreporting.InformationreportingPackage;
 import orgomg.cwmx.analysis.informationreporting.Report;
@@ -23,26 +23,26 @@ import orgomg.cwmx.analysis.informationreporting.ReportGroupType;
 import orgomg.cwmx.analysis.informationreporting.ReportPackage;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model <b>Factory</b>.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!--
+ * end-user-doc -->
  * @generated
  */
 public class InformationreportingFactoryImpl extends EFactoryImpl implements InformationreportingFactory {
+
     /**
      * Creates the default factory implementation.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     public static InformationreportingFactory init() {
         try {
-            InformationreportingFactory theInformationreportingFactory = (InformationreportingFactory)EPackage.Registry.INSTANCE.getEFactory("http:///orgomg/cwmx/analysis/informationreporting.ecore"); 
+            InformationreportingFactory theInformationreportingFactory = (InformationreportingFactory) EPackage.Registry.INSTANCE
+                    .getEFactory("http:///orgomg/cwmx/analysis/informationreporting.ecore");
             if (theInformationreportingFactory != null) {
                 return theInformationreportingFactory;
             }
-        }
-        catch (Exception exception) {
+        } catch (Exception exception) {
             EcorePlugin.INSTANCE.log(exception);
         }
         return new InformationreportingFactoryImpl();
@@ -50,8 +50,8 @@ public class InformationreportingFactoryImpl extends EFactoryImpl implements Inf
 
     /**
      * Creates an instance of the factory.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     public InformationreportingFactoryImpl() {
@@ -59,57 +59,59 @@ public class InformationreportingFactoryImpl extends EFactoryImpl implements Inf
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public EObject create(EClass eClass) {
         switch (eClass.getClassifierID()) {
-            case InformationreportingPackage.REPORT: return createReport();
-            case InformationreportingPackage.REPORT_ATTRIBUTE: return createReportAttribute();
-            case InformationreportingPackage.REPORT_EXECUTION: return createReportExecution();
-            case InformationreportingPackage.REPORT_FIELD: return createReportField();
-            case InformationreportingPackage.REPORT_GROUP: return createReportGroup();
-            case InformationreportingPackage.REPORT_PACKAGE: return createReportPackage();
-            default:
-                throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+        case InformationreportingPackage.REPORT:
+            return createReport();
+        case InformationreportingPackage.REPORT_ATTRIBUTE:
+            return createReportAttribute();
+        case InformationreportingPackage.REPORT_EXECUTION:
+            return createReportExecution();
+        case InformationreportingPackage.REPORT_FIELD:
+            return createReportField();
+        case InformationreportingPackage.REPORT_GROUP:
+            return createReportGroup();
+        case InformationreportingPackage.REPORT_PACKAGE:
+            return createReportPackage();
+        default:
+            throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object createFromString(EDataType eDataType, String initialValue) {
         switch (eDataType.getClassifierID()) {
-            case InformationreportingPackage.REPORT_GROUP_TYPE:
-                return createReportGroupTypeFromString(eDataType, initialValue);
-            default:
-                throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+        case InformationreportingPackage.REPORT_GROUP_TYPE:
+            return createReportGroupTypeFromString(eDataType, initialValue);
+        default:
+            throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
         }
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String convertToString(EDataType eDataType, Object instanceValue) {
         switch (eDataType.getClassifierID()) {
-            case InformationreportingPackage.REPORT_GROUP_TYPE:
-                return convertReportGroupTypeToString(eDataType, instanceValue);
-            default:
-                throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+        case InformationreportingPackage.REPORT_GROUP_TYPE:
+            return convertReportGroupTypeToString(eDataType, instanceValue);
+        default:
+            throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
         }
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Report createReport() {
@@ -118,8 +120,7 @@ public class InformationreportingFactoryImpl extends EFactoryImpl implements Inf
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public ReportAttribute createReportAttribute() {
@@ -128,8 +129,7 @@ public class InformationreportingFactoryImpl extends EFactoryImpl implements Inf
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public ReportExecution createReportExecution() {
@@ -138,8 +138,7 @@ public class InformationreportingFactoryImpl extends EFactoryImpl implements Inf
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public ReportField createReportField() {
@@ -148,8 +147,7 @@ public class InformationreportingFactoryImpl extends EFactoryImpl implements Inf
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public ReportGroup createReportGroup() {
@@ -158,8 +156,7 @@ public class InformationreportingFactoryImpl extends EFactoryImpl implements Inf
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public ReportPackage createReportPackage() {
@@ -168,19 +165,19 @@ public class InformationreportingFactoryImpl extends EFactoryImpl implements Inf
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public ReportGroupType createReportGroupTypeFromString(EDataType eDataType, String initialValue) {
         ReportGroupType result = ReportGroupType.get(initialValue);
-        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+        if (result == null)
+            throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
+                    + eDataType.getName() + "'");
         return result;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String convertReportGroupTypeToString(EDataType eDataType, Object instanceValue) {
@@ -188,17 +185,15 @@ public class InformationreportingFactoryImpl extends EFactoryImpl implements Inf
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public InformationreportingPackage getInformationreportingPackage() {
-        return (InformationreportingPackage)getEPackage();
+        return (InformationreportingPackage) getEPackage();
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @deprecated
      * @generated
      */
@@ -207,4 +202,4 @@ public class InformationreportingFactoryImpl extends EFactoryImpl implements Inf
         return InformationreportingPackage.eINSTANCE;
     }
 
-} //InformationreportingFactoryImpl
+} // InformationreportingFactoryImpl

@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.objectmodel.core.impl;
@@ -21,9 +20,8 @@ import orgomg.cwm.objectmodel.core.Dependency;
 import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Dependency</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Dependency</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -36,10 +34,10 @@ import orgomg.cwm.objectmodel.core.ModelElement;
  * @generated
  */
 public class DependencyImpl extends ModelElementImpl implements Dependency {
+
     /**
      * The default value of the '{@link #getKind() <em>Kind</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getKind()
      * @generated
      * @ordered
@@ -48,8 +46,7 @@ public class DependencyImpl extends ModelElementImpl implements Dependency {
 
     /**
      * The cached value of the '{@link #getKind() <em>Kind</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getKind()
      * @generated
      * @ordered
@@ -58,8 +55,7 @@ public class DependencyImpl extends ModelElementImpl implements Dependency {
 
     /**
      * The cached value of the '{@link #getClient() <em>Client</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getClient()
      * @generated
      * @ordered
@@ -68,8 +64,7 @@ public class DependencyImpl extends ModelElementImpl implements Dependency {
 
     /**
      * The cached value of the '{@link #getSupplier() <em>Supplier</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getSupplier()
      * @generated
      * @ordered
@@ -77,8 +72,7 @@ public class DependencyImpl extends ModelElementImpl implements Dependency {
     protected EList<ModelElement> supplier;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected DependencyImpl() {
@@ -86,8 +80,7 @@ public class DependencyImpl extends ModelElementImpl implements Dependency {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -96,8 +89,7 @@ public class DependencyImpl extends ModelElementImpl implements Dependency {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getKind() {
@@ -105,8 +97,7 @@ public class DependencyImpl extends ModelElementImpl implements Dependency {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setKind(String newKind) {
@@ -117,151 +108,145 @@ public class DependencyImpl extends ModelElementImpl implements Dependency {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<ModelElement> getClient() {
         if (client == null) {
-            client = new EObjectWithInverseResolvingEList.ManyInverse<ModelElement>(ModelElement.class, this, CorePackage.DEPENDENCY__CLIENT, CorePackage.MODEL_ELEMENT__CLIENT_DEPENDENCY);
+            client = new EObjectWithInverseResolvingEList.ManyInverse<ModelElement>(ModelElement.class, this,
+                    CorePackage.DEPENDENCY__CLIENT, CorePackage.MODEL_ELEMENT__CLIENT_DEPENDENCY);
         }
         return client;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<ModelElement> getSupplier() {
         if (supplier == null) {
-            supplier = new EObjectWithInverseResolvingEList.ManyInverse<ModelElement>(ModelElement.class, this, CorePackage.DEPENDENCY__SUPPLIER, CorePackage.MODEL_ELEMENT__SUPPLIER_DEPENDENCY);
+            supplier = new EObjectWithInverseResolvingEList.ManyInverse<ModelElement>(ModelElement.class, this,
+                    CorePackage.DEPENDENCY__SUPPLIER, CorePackage.MODEL_ELEMENT__SUPPLIER_DEPENDENCY);
         }
         return supplier;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case CorePackage.DEPENDENCY__CLIENT:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getClient()).basicAdd(otherEnd, msgs);
-            case CorePackage.DEPENDENCY__SUPPLIER:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getSupplier()).basicAdd(otherEnd, msgs);
+        case CorePackage.DEPENDENCY__CLIENT:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getClient()).basicAdd(otherEnd, msgs);
+        case CorePackage.DEPENDENCY__SUPPLIER:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getSupplier()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case CorePackage.DEPENDENCY__CLIENT:
-                return ((InternalEList<?>)getClient()).basicRemove(otherEnd, msgs);
-            case CorePackage.DEPENDENCY__SUPPLIER:
-                return ((InternalEList<?>)getSupplier()).basicRemove(otherEnd, msgs);
+        case CorePackage.DEPENDENCY__CLIENT:
+            return ((InternalEList<?>) getClient()).basicRemove(otherEnd, msgs);
+        case CorePackage.DEPENDENCY__SUPPLIER:
+            return ((InternalEList<?>) getSupplier()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case CorePackage.DEPENDENCY__KIND:
-                return getKind();
-            case CorePackage.DEPENDENCY__CLIENT:
-                return getClient();
-            case CorePackage.DEPENDENCY__SUPPLIER:
-                return getSupplier();
+        case CorePackage.DEPENDENCY__KIND:
+            return getKind();
+        case CorePackage.DEPENDENCY__CLIENT:
+            return getClient();
+        case CorePackage.DEPENDENCY__SUPPLIER:
+            return getSupplier();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case CorePackage.DEPENDENCY__KIND:
-                setKind((String)newValue);
-                return;
-            case CorePackage.DEPENDENCY__CLIENT:
-                getClient().clear();
-                getClient().addAll((Collection<? extends ModelElement>)newValue);
-                return;
-            case CorePackage.DEPENDENCY__SUPPLIER:
-                getSupplier().clear();
-                getSupplier().addAll((Collection<? extends ModelElement>)newValue);
-                return;
+        case CorePackage.DEPENDENCY__KIND:
+            setKind((String) newValue);
+            return;
+        case CorePackage.DEPENDENCY__CLIENT:
+            getClient().clear();
+            getClient().addAll((Collection<? extends ModelElement>) newValue);
+            return;
+        case CorePackage.DEPENDENCY__SUPPLIER:
+            getSupplier().clear();
+            getSupplier().addAll((Collection<? extends ModelElement>) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case CorePackage.DEPENDENCY__KIND:
-                setKind(KIND_EDEFAULT);
-                return;
-            case CorePackage.DEPENDENCY__CLIENT:
-                getClient().clear();
-                return;
-            case CorePackage.DEPENDENCY__SUPPLIER:
-                getSupplier().clear();
-                return;
+        case CorePackage.DEPENDENCY__KIND:
+            setKind(KIND_EDEFAULT);
+            return;
+        case CorePackage.DEPENDENCY__CLIENT:
+            getClient().clear();
+            return;
+        case CorePackage.DEPENDENCY__SUPPLIER:
+            getSupplier().clear();
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case CorePackage.DEPENDENCY__KIND:
-                return KIND_EDEFAULT == null ? kind != null : !KIND_EDEFAULT.equals(kind);
-            case CorePackage.DEPENDENCY__CLIENT:
-                return client != null && !client.isEmpty();
-            case CorePackage.DEPENDENCY__SUPPLIER:
-                return supplier != null && !supplier.isEmpty();
+        case CorePackage.DEPENDENCY__KIND:
+            return KIND_EDEFAULT == null ? kind != null : !KIND_EDEFAULT.equals(kind);
+        case CorePackage.DEPENDENCY__CLIENT:
+            return client != null && !client.isEmpty();
+        case CorePackage.DEPENDENCY__SUPPLIER:
+            return supplier != null && !supplier.isEmpty();
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (kind: ");
@@ -270,4 +255,4 @@ public class DependencyImpl extends ModelElementImpl implements Dependency {
         return result.toString();
     }
 
-} //DependencyImpl
+} // DependencyImpl

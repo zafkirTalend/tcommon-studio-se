@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.management.warehouseprocess.events;
@@ -14,14 +13,13 @@ import orgomg.cwm.objectmodel.behavioral.BehavioralPackage;
 import orgomg.cwm.objectmodel.core.CorePackage;
 
 /**
- * <!-- begin-user-doc -->
- * The <b>Package</b> for the model.
- * It contains accessors for the meta objects to represent
+ * <!-- begin-user-doc --> The <b>Package</b> for the model. It contains
+ * accessors for the meta objects to represent
  * <ul>
- *   <li>each class,</li>
- *   <li>each feature of each class,</li>
- *   <li>each enum,</li>
- *   <li>and each data type</li>
+ * <li>each class,</li>
+ * <li>each feature of each class,</li>
+ * <li>each enum,</li>
+ * <li>and each data type</li>
  * </ul>
  * <!-- end-user-doc -->
  * @see orgomg.cwm.management.warehouseprocess.events.EventsFactory
@@ -29,42 +27,40 @@ import orgomg.cwm.objectmodel.core.CorePackage;
  * @generated
  */
 public interface EventsPackage extends EPackage {
+
     /**
      * The package name.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     String eNAME = "events";
 
     /**
      * The package namespace URI.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     String eNS_URI = "http:///orgomg/cwm/management/warehouseprocess/events.ecore";
 
     /**
      * The package namespace name.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     String eNS_PREFIX = "orgomg.cwm.management.warehouseprocess.events";
 
     /**
      * The singleton instance of the package.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     EventsPackage eINSTANCE = orgomg.cwm.management.warehouseprocess.events.impl.EventsPackageImpl.init();
 
     /**
      * The meta object id for the '{@link orgomg.cwm.management.warehouseprocess.events.impl.WarehouseEventImpl <em>Warehouse Event</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see orgomg.cwm.management.warehouseprocess.events.impl.WarehouseEventImpl
      * @see orgomg.cwm.management.warehouseprocess.events.impl.EventsPackageImpl#getWarehouseEvent()
      * @generated
@@ -72,18 +68,18 @@ public interface EventsPackage extends EPackage {
     int WAREHOUSE_EVENT = 0;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int WAREHOUSE_EVENT__NAME = BehavioralPackage.EVENT__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -91,8 +87,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -100,17 +95,16 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int WAREHOUSE_EVENT__SUPPLIER_DEPENDENCY = BehavioralPackage.EVENT__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -118,26 +112,25 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int WAREHOUSE_EVENT__NAMESPACE = BehavioralPackage.EVENT__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int WAREHOUSE_EVENT__IMPORTER = BehavioralPackage.EVENT__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -145,26 +138,25 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int WAREHOUSE_EVENT__TAGGED_VALUE = BehavioralPackage.EVENT__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int WAREHOUSE_EVENT__DOCUMENT = BehavioralPackage.EVENT__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -172,8 +164,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -181,17 +172,16 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int WAREHOUSE_EVENT__ELEMENT_NODE = BehavioralPackage.EVENT__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -199,8 +189,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -208,17 +197,16 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int WAREHOUSE_EVENT__VOCABULARY_ELEMENT = BehavioralPackage.EVENT__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -226,8 +214,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -235,8 +222,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -244,8 +230,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Parameter</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -253,8 +238,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Warehouse Process</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -262,8 +246,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Warehouse Event</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -271,8 +254,8 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwm.management.warehouseprocess.events.impl.ScheduleEventImpl <em>Schedule Event</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see orgomg.cwm.management.warehouseprocess.events.impl.ScheduleEventImpl
      * @see orgomg.cwm.management.warehouseprocess.events.impl.EventsPackageImpl#getScheduleEvent()
      * @generated
@@ -280,18 +263,18 @@ public interface EventsPackage extends EPackage {
     int SCHEDULE_EVENT = 1;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SCHEDULE_EVENT__NAME = WAREHOUSE_EVENT__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -299,8 +282,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -308,17 +290,16 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SCHEDULE_EVENT__SUPPLIER_DEPENDENCY = WAREHOUSE_EVENT__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -326,26 +307,25 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SCHEDULE_EVENT__NAMESPACE = WAREHOUSE_EVENT__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SCHEDULE_EVENT__IMPORTER = WAREHOUSE_EVENT__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -353,26 +333,25 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SCHEDULE_EVENT__TAGGED_VALUE = WAREHOUSE_EVENT__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SCHEDULE_EVENT__DOCUMENT = WAREHOUSE_EVENT__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -380,8 +359,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -389,17 +367,16 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SCHEDULE_EVENT__ELEMENT_NODE = WAREHOUSE_EVENT__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -407,8 +384,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -416,17 +392,16 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SCHEDULE_EVENT__VOCABULARY_ELEMENT = WAREHOUSE_EVENT__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -434,8 +409,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -443,8 +417,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -452,8 +425,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Parameter</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -461,8 +433,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Warehouse Process</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -470,8 +441,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Schedule Event</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -479,8 +449,8 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwm.management.warehouseprocess.events.impl.PointInTimeEventImpl <em>Point In Time Event</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see orgomg.cwm.management.warehouseprocess.events.impl.PointInTimeEventImpl
      * @see orgomg.cwm.management.warehouseprocess.events.impl.EventsPackageImpl#getPointInTimeEvent()
      * @generated
@@ -488,18 +458,18 @@ public interface EventsPackage extends EPackage {
     int POINT_IN_TIME_EVENT = 2;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int POINT_IN_TIME_EVENT__NAME = SCHEDULE_EVENT__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -507,8 +477,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -516,17 +485,16 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int POINT_IN_TIME_EVENT__SUPPLIER_DEPENDENCY = SCHEDULE_EVENT__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -534,26 +502,25 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int POINT_IN_TIME_EVENT__NAMESPACE = SCHEDULE_EVENT__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int POINT_IN_TIME_EVENT__IMPORTER = SCHEDULE_EVENT__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -561,26 +528,25 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int POINT_IN_TIME_EVENT__TAGGED_VALUE = SCHEDULE_EVENT__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int POINT_IN_TIME_EVENT__DOCUMENT = SCHEDULE_EVENT__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -588,8 +554,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -597,17 +562,16 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int POINT_IN_TIME_EVENT__ELEMENT_NODE = SCHEDULE_EVENT__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -615,8 +579,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -624,17 +587,16 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int POINT_IN_TIME_EVENT__VOCABULARY_ELEMENT = SCHEDULE_EVENT__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -642,8 +604,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -651,8 +612,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -660,8 +620,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Parameter</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -669,8 +628,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Warehouse Process</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -678,8 +636,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Point In Time Event</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -687,8 +644,8 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwm.management.warehouseprocess.events.impl.CustomCalendarEventImpl <em>Custom Calendar Event</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see orgomg.cwm.management.warehouseprocess.events.impl.CustomCalendarEventImpl
      * @see orgomg.cwm.management.warehouseprocess.events.impl.EventsPackageImpl#getCustomCalendarEvent()
      * @generated
@@ -696,18 +653,18 @@ public interface EventsPackage extends EPackage {
     int CUSTOM_CALENDAR_EVENT = 3;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int CUSTOM_CALENDAR_EVENT__NAME = POINT_IN_TIME_EVENT__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -715,8 +672,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -724,17 +680,16 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CUSTOM_CALENDAR_EVENT__SUPPLIER_DEPENDENCY = POINT_IN_TIME_EVENT__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -742,26 +697,25 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CUSTOM_CALENDAR_EVENT__NAMESPACE = POINT_IN_TIME_EVENT__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int CUSTOM_CALENDAR_EVENT__IMPORTER = POINT_IN_TIME_EVENT__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -769,26 +723,25 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CUSTOM_CALENDAR_EVENT__TAGGED_VALUE = POINT_IN_TIME_EVENT__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int CUSTOM_CALENDAR_EVENT__DOCUMENT = POINT_IN_TIME_EVENT__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -796,8 +749,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -805,17 +757,16 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CUSTOM_CALENDAR_EVENT__ELEMENT_NODE = POINT_IN_TIME_EVENT__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -823,8 +774,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -832,17 +782,16 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CUSTOM_CALENDAR_EVENT__VOCABULARY_ELEMENT = POINT_IN_TIME_EVENT__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -850,8 +799,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -859,8 +807,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -868,8 +815,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Parameter</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -877,17 +823,16 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Warehouse Process</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CUSTOM_CALENDAR_EVENT__WAREHOUSE_PROCESS = POINT_IN_TIME_EVENT__WAREHOUSE_PROCESS;
 
     /**
-     * The feature id for the '<em><b>Custom Calendar</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Custom Calendar</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -895,8 +840,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Custom Calendar Event</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -904,8 +848,8 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwm.management.warehouseprocess.events.impl.CustomCalendarImpl <em>Custom Calendar</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see orgomg.cwm.management.warehouseprocess.events.impl.CustomCalendarImpl
      * @see orgomg.cwm.management.warehouseprocess.events.impl.EventsPackageImpl#getCustomCalendar()
      * @generated
@@ -913,18 +857,18 @@ public interface EventsPackage extends EPackage {
     int CUSTOM_CALENDAR = 4;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int CUSTOM_CALENDAR__NAME = CorePackage.PACKAGE__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -932,8 +876,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -941,17 +884,16 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CUSTOM_CALENDAR__SUPPLIER_DEPENDENCY = CorePackage.PACKAGE__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -959,26 +901,25 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CUSTOM_CALENDAR__NAMESPACE = CorePackage.PACKAGE__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int CUSTOM_CALENDAR__IMPORTER = CorePackage.PACKAGE__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -986,26 +927,25 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CUSTOM_CALENDAR__TAGGED_VALUE = CorePackage.PACKAGE__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int CUSTOM_CALENDAR__DOCUMENT = CorePackage.PACKAGE__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1013,8 +953,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1022,17 +961,16 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CUSTOM_CALENDAR__ELEMENT_NODE = CorePackage.PACKAGE__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1040,8 +978,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1049,17 +986,16 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CUSTOM_CALENDAR__VOCABULARY_ELEMENT = CorePackage.PACKAGE__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1067,8 +1003,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1076,8 +1011,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1085,8 +1019,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1094,8 +1027,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Imported Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1103,8 +1035,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Data Manager</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1112,8 +1043,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Custom Calendar Event</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1121,17 +1051,18 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Custom Calendar</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CUSTOM_CALENDAR_FEATURE_COUNT = CorePackage.PACKAGE_FEATURE_COUNT + 1;
 
     /**
-     * The meta object id for the '{@link orgomg.cwm.management.warehouseprocess.events.impl.CalendarDateImpl <em>Calendar Date</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The meta object id for the '
+     * {@link orgomg.cwm.management.warehouseprocess.events.impl.CalendarDateImpl
+     * <em>Calendar Date</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @see orgomg.cwm.management.warehouseprocess.events.impl.CalendarDateImpl
      * @see orgomg.cwm.management.warehouseprocess.events.impl.EventsPackageImpl#getCalendarDate()
      * @generated
@@ -1139,18 +1070,18 @@ public interface EventsPackage extends EPackage {
     int CALENDAR_DATE = 5;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int CALENDAR_DATE__NAME = CorePackage.MODEL_ELEMENT__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1158,8 +1089,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1167,17 +1097,16 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CALENDAR_DATE__SUPPLIER_DEPENDENCY = CorePackage.MODEL_ELEMENT__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1185,26 +1114,25 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CALENDAR_DATE__NAMESPACE = CorePackage.MODEL_ELEMENT__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int CALENDAR_DATE__IMPORTER = CorePackage.MODEL_ELEMENT__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1212,26 +1140,25 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CALENDAR_DATE__TAGGED_VALUE = CorePackage.MODEL_ELEMENT__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int CALENDAR_DATE__DOCUMENT = CorePackage.MODEL_ELEMENT__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1239,8 +1166,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1248,17 +1174,16 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CALENDAR_DATE__ELEMENT_NODE = CorePackage.MODEL_ELEMENT__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1266,8 +1191,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1275,17 +1199,16 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CALENDAR_DATE__VOCABULARY_ELEMENT = CorePackage.MODEL_ELEMENT__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1293,8 +1216,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1302,17 +1224,16 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CALENDAR_DATE__DASDL_PROPERTY = CorePackage.MODEL_ELEMENT__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Specific Date</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Specific Date</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1320,8 +1241,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Calendar Date</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1329,8 +1249,8 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwm.management.warehouseprocess.events.impl.IntervalEventImpl <em>Interval Event</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see orgomg.cwm.management.warehouseprocess.events.impl.IntervalEventImpl
      * @see orgomg.cwm.management.warehouseprocess.events.impl.EventsPackageImpl#getIntervalEvent()
      * @generated
@@ -1338,18 +1258,18 @@ public interface EventsPackage extends EPackage {
     int INTERVAL_EVENT = 6;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int INTERVAL_EVENT__NAME = SCHEDULE_EVENT__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1357,8 +1277,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1366,17 +1285,16 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int INTERVAL_EVENT__SUPPLIER_DEPENDENCY = SCHEDULE_EVENT__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1384,26 +1302,25 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int INTERVAL_EVENT__NAMESPACE = SCHEDULE_EVENT__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int INTERVAL_EVENT__IMPORTER = SCHEDULE_EVENT__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1411,26 +1328,25 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int INTERVAL_EVENT__TAGGED_VALUE = SCHEDULE_EVENT__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int INTERVAL_EVENT__DOCUMENT = SCHEDULE_EVENT__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1438,8 +1354,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1447,17 +1362,16 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int INTERVAL_EVENT__ELEMENT_NODE = SCHEDULE_EVENT__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1465,8 +1379,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1474,17 +1387,16 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int INTERVAL_EVENT__VOCABULARY_ELEMENT = SCHEDULE_EVENT__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1492,8 +1404,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1501,8 +1412,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1510,8 +1420,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Parameter</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1519,17 +1428,16 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Warehouse Process</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int INTERVAL_EVENT__WAREHOUSE_PROCESS = SCHEDULE_EVENT__WAREHOUSE_PROCESS;
 
     /**
-     * The feature id for the '<em><b>Duration</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Duration</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1537,8 +1445,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Interval Event</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1546,8 +1453,8 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwm.management.warehouseprocess.events.impl.ExternalEventImpl <em>External Event</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see orgomg.cwm.management.warehouseprocess.events.impl.ExternalEventImpl
      * @see orgomg.cwm.management.warehouseprocess.events.impl.EventsPackageImpl#getExternalEvent()
      * @generated
@@ -1555,18 +1462,18 @@ public interface EventsPackage extends EPackage {
     int EXTERNAL_EVENT = 7;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int EXTERNAL_EVENT__NAME = WAREHOUSE_EVENT__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1574,8 +1481,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1583,17 +1489,16 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int EXTERNAL_EVENT__SUPPLIER_DEPENDENCY = WAREHOUSE_EVENT__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1601,26 +1506,25 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int EXTERNAL_EVENT__NAMESPACE = WAREHOUSE_EVENT__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int EXTERNAL_EVENT__IMPORTER = WAREHOUSE_EVENT__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1628,26 +1532,25 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int EXTERNAL_EVENT__TAGGED_VALUE = WAREHOUSE_EVENT__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int EXTERNAL_EVENT__DOCUMENT = WAREHOUSE_EVENT__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1655,8 +1558,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1664,17 +1566,16 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int EXTERNAL_EVENT__ELEMENT_NODE = WAREHOUSE_EVENT__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1682,8 +1583,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1691,17 +1591,16 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int EXTERNAL_EVENT__VOCABULARY_ELEMENT = WAREHOUSE_EVENT__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1709,8 +1608,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1718,8 +1616,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1727,8 +1624,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Parameter</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1736,8 +1632,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Warehouse Process</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1745,8 +1640,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>External Event</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1754,8 +1648,8 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwm.management.warehouseprocess.events.impl.InternalEventImpl <em>Internal Event</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see orgomg.cwm.management.warehouseprocess.events.impl.InternalEventImpl
      * @see orgomg.cwm.management.warehouseprocess.events.impl.EventsPackageImpl#getInternalEvent()
      * @generated
@@ -1763,18 +1657,18 @@ public interface EventsPackage extends EPackage {
     int INTERNAL_EVENT = 8;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int INTERNAL_EVENT__NAME = WAREHOUSE_EVENT__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1782,8 +1676,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1791,17 +1684,16 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int INTERNAL_EVENT__SUPPLIER_DEPENDENCY = WAREHOUSE_EVENT__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1809,26 +1701,25 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int INTERNAL_EVENT__NAMESPACE = WAREHOUSE_EVENT__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int INTERNAL_EVENT__IMPORTER = WAREHOUSE_EVENT__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1836,26 +1727,25 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int INTERNAL_EVENT__TAGGED_VALUE = WAREHOUSE_EVENT__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int INTERNAL_EVENT__DOCUMENT = WAREHOUSE_EVENT__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1863,8 +1753,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1872,17 +1761,16 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int INTERNAL_EVENT__ELEMENT_NODE = WAREHOUSE_EVENT__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1890,8 +1778,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1899,17 +1786,16 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int INTERNAL_EVENT__VOCABULARY_ELEMENT = WAREHOUSE_EVENT__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1917,8 +1803,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1926,8 +1811,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1935,8 +1819,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Parameter</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1944,8 +1827,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Warehouse Process</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1953,8 +1835,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Triggering WP</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1962,8 +1843,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Condition</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1971,17 +1851,18 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Internal Event</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int INTERNAL_EVENT_FEATURE_COUNT = WAREHOUSE_EVENT_FEATURE_COUNT + 2;
 
     /**
-     * The meta object id for the '{@link orgomg.cwm.management.warehouseprocess.events.impl.CascadeEventImpl <em>Cascade Event</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The meta object id for the '
+     * {@link orgomg.cwm.management.warehouseprocess.events.impl.CascadeEventImpl
+     * <em>Cascade Event</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @see orgomg.cwm.management.warehouseprocess.events.impl.CascadeEventImpl
      * @see orgomg.cwm.management.warehouseprocess.events.impl.EventsPackageImpl#getCascadeEvent()
      * @generated
@@ -1989,18 +1870,18 @@ public interface EventsPackage extends EPackage {
     int CASCADE_EVENT = 9;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int CASCADE_EVENT__NAME = INTERNAL_EVENT__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2008,8 +1889,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2017,17 +1897,16 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CASCADE_EVENT__SUPPLIER_DEPENDENCY = INTERNAL_EVENT__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2035,26 +1914,25 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CASCADE_EVENT__NAMESPACE = INTERNAL_EVENT__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int CASCADE_EVENT__IMPORTER = INTERNAL_EVENT__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2062,26 +1940,25 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CASCADE_EVENT__TAGGED_VALUE = INTERNAL_EVENT__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int CASCADE_EVENT__DOCUMENT = INTERNAL_EVENT__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2089,8 +1966,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2098,17 +1974,16 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CASCADE_EVENT__ELEMENT_NODE = INTERNAL_EVENT__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2116,8 +1991,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2125,17 +1999,16 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CASCADE_EVENT__VOCABULARY_ELEMENT = INTERNAL_EVENT__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2143,8 +2016,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2152,8 +2024,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2161,8 +2032,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Parameter</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2170,8 +2040,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Warehouse Process</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2179,8 +2048,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Triggering WP</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2188,17 +2056,16 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Condition</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CASCADE_EVENT__CONDITION = INTERNAL_EVENT__CONDITION;
 
     /**
-     * The feature id for the '<em><b>Wait Rule</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Wait Rule</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2206,17 +2073,18 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Cascade Event</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CASCADE_EVENT_FEATURE_COUNT = INTERNAL_EVENT_FEATURE_COUNT + 1;
 
     /**
-     * The meta object id for the '{@link orgomg.cwm.management.warehouseprocess.events.impl.RetryEventImpl <em>Retry Event</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The meta object id for the '
+     * {@link orgomg.cwm.management.warehouseprocess.events.impl.RetryEventImpl
+     * <em>Retry Event</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @see orgomg.cwm.management.warehouseprocess.events.impl.RetryEventImpl
      * @see orgomg.cwm.management.warehouseprocess.events.impl.EventsPackageImpl#getRetryEvent()
      * @generated
@@ -2224,18 +2092,18 @@ public interface EventsPackage extends EPackage {
     int RETRY_EVENT = 10;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int RETRY_EVENT__NAME = INTERNAL_EVENT__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2243,8 +2111,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2252,17 +2119,16 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int RETRY_EVENT__SUPPLIER_DEPENDENCY = INTERNAL_EVENT__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2270,26 +2136,25 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int RETRY_EVENT__NAMESPACE = INTERNAL_EVENT__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int RETRY_EVENT__IMPORTER = INTERNAL_EVENT__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2297,26 +2162,25 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int RETRY_EVENT__TAGGED_VALUE = INTERNAL_EVENT__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int RETRY_EVENT__DOCUMENT = INTERNAL_EVENT__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2324,8 +2188,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2333,17 +2196,16 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int RETRY_EVENT__ELEMENT_NODE = INTERNAL_EVENT__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2351,8 +2213,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2360,17 +2221,16 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int RETRY_EVENT__VOCABULARY_ELEMENT = INTERNAL_EVENT__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2378,8 +2238,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2387,8 +2246,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2396,8 +2254,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Parameter</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2405,8 +2262,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Warehouse Process</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2414,8 +2270,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Triggering WP</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2423,26 +2278,25 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Condition</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int RETRY_EVENT__CONDITION = INTERNAL_EVENT__CONDITION;
 
     /**
-     * The feature id for the '<em><b>Wait Duration</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Wait Duration</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int RETRY_EVENT__WAIT_DURATION = INTERNAL_EVENT_FEATURE_COUNT + 0;
 
     /**
-     * The feature id for the '<em><b>Max Count</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Max Count</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2450,8 +2304,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Retry Event</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2468,18 +2321,18 @@ public interface EventsPackage extends EPackage {
     int RECURRING_POINT_IN_TIME_EVENT = 11;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int RECURRING_POINT_IN_TIME_EVENT__NAME = POINT_IN_TIME_EVENT__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2487,8 +2340,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2496,17 +2348,16 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int RECURRING_POINT_IN_TIME_EVENT__SUPPLIER_DEPENDENCY = POINT_IN_TIME_EVENT__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2514,26 +2365,25 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int RECURRING_POINT_IN_TIME_EVENT__NAMESPACE = POINT_IN_TIME_EVENT__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int RECURRING_POINT_IN_TIME_EVENT__IMPORTER = POINT_IN_TIME_EVENT__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2541,26 +2391,25 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int RECURRING_POINT_IN_TIME_EVENT__TAGGED_VALUE = POINT_IN_TIME_EVENT__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int RECURRING_POINT_IN_TIME_EVENT__DOCUMENT = POINT_IN_TIME_EVENT__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2568,8 +2417,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2577,17 +2425,16 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int RECURRING_POINT_IN_TIME_EVENT__ELEMENT_NODE = POINT_IN_TIME_EVENT__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2595,8 +2442,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2604,17 +2450,16 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int RECURRING_POINT_IN_TIME_EVENT__VOCABULARY_ELEMENT = POINT_IN_TIME_EVENT__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2622,8 +2467,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2631,8 +2475,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2640,8 +2483,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Parameter</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2649,80 +2491,79 @@ public interface EventsPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Warehouse Process</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int RECURRING_POINT_IN_TIME_EVENT__WAREHOUSE_PROCESS = POINT_IN_TIME_EVENT__WAREHOUSE_PROCESS;
 
     /**
-     * The feature id for the '<em><b>Recurring Type</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Recurring Type</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int RECURRING_POINT_IN_TIME_EVENT__RECURRING_TYPE = POINT_IN_TIME_EVENT_FEATURE_COUNT + 0;
 
     /**
-     * The feature id for the '<em><b>Frequency Factor</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Frequency Factor</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int RECURRING_POINT_IN_TIME_EVENT__FREQUENCY_FACTOR = POINT_IN_TIME_EVENT_FEATURE_COUNT + 1;
 
     /**
-     * The feature id for the '<em><b>Month</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Month</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int RECURRING_POINT_IN_TIME_EVENT__MONTH = POINT_IN_TIME_EVENT_FEATURE_COUNT + 2;
 
     /**
-     * The feature id for the '<em><b>Day Of Month</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Day Of Month</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int RECURRING_POINT_IN_TIME_EVENT__DAY_OF_MONTH = POINT_IN_TIME_EVENT_FEATURE_COUNT + 3;
 
     /**
-     * The feature id for the '<em><b>Day Of Week</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Day Of Week</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int RECURRING_POINT_IN_TIME_EVENT__DAY_OF_WEEK = POINT_IN_TIME_EVENT_FEATURE_COUNT + 4;
 
     /**
-     * The feature id for the '<em><b>Hour</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Hour</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int RECURRING_POINT_IN_TIME_EVENT__HOUR = POINT_IN_TIME_EVENT_FEATURE_COUNT + 5;
 
     /**
-     * The feature id for the '<em><b>Minute</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Minute</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int RECURRING_POINT_IN_TIME_EVENT__MINUTE = POINT_IN_TIME_EVENT_FEATURE_COUNT + 6;
 
     /**
-     * The feature id for the '<em><b>Second</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Second</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2737,11 +2578,9 @@ public interface EventsPackage extends EPackage {
      */
     int RECURRING_POINT_IN_TIME_EVENT_FEATURE_COUNT = POINT_IN_TIME_EVENT_FEATURE_COUNT + 8;
 
-
     /**
      * Returns the meta object for class '{@link orgomg.cwm.management.warehouseprocess.events.WarehouseEvent <em>Warehouse Event</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Warehouse Event</em>'.
      * @see orgomg.cwm.management.warehouseprocess.events.WarehouseEvent
      * @generated
@@ -2749,10 +2588,13 @@ public interface EventsPackage extends EPackage {
     EClass getWarehouseEvent();
 
     /**
-     * Returns the meta object for the container reference '{@link orgomg.cwm.management.warehouseprocess.events.WarehouseEvent#getWarehouseProcess <em>Warehouse Process</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the container reference '<em>Warehouse Process</em>'.
+     * Returns the meta object for the container reference '
+     * {@link orgomg.cwm.management.warehouseprocess.events.WarehouseEvent#getWarehouseProcess
+     * <em>Warehouse Process</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @return the meta object for the container reference '
+     *         <em>Warehouse Process</em>'.
      * @see orgomg.cwm.management.warehouseprocess.events.WarehouseEvent#getWarehouseProcess()
      * @see #getWarehouseEvent()
      * @generated
@@ -2761,8 +2603,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link orgomg.cwm.management.warehouseprocess.events.ScheduleEvent <em>Schedule Event</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Schedule Event</em>'.
      * @see orgomg.cwm.management.warehouseprocess.events.ScheduleEvent
      * @generated
@@ -2770,9 +2611,11 @@ public interface EventsPackage extends EPackage {
     EClass getScheduleEvent();
 
     /**
-     * Returns the meta object for class '{@link orgomg.cwm.management.warehouseprocess.events.PointInTimeEvent <em>Point In Time Event</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for class '
+     * {@link orgomg.cwm.management.warehouseprocess.events.PointInTimeEvent
+     * <em>Point In Time Event</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @return the meta object for class '<em>Point In Time Event</em>'.
      * @see orgomg.cwm.management.warehouseprocess.events.PointInTimeEvent
      * @generated
@@ -2781,8 +2624,8 @@ public interface EventsPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link orgomg.cwm.management.warehouseprocess.events.CustomCalendarEvent <em>Custom Calendar Event</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @return the meta object for class '<em>Custom Calendar Event</em>'.
      * @see orgomg.cwm.management.warehouseprocess.events.CustomCalendarEvent
      * @generated
@@ -2791,8 +2634,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * Returns the meta object for the reference '{@link orgomg.cwm.management.warehouseprocess.events.CustomCalendarEvent#getCustomCalendar <em>Custom Calendar</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference '<em>Custom Calendar</em>'.
      * @see orgomg.cwm.management.warehouseprocess.events.CustomCalendarEvent#getCustomCalendar()
      * @see #getCustomCalendarEvent()
@@ -2802,8 +2644,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link orgomg.cwm.management.warehouseprocess.events.CustomCalendar <em>Custom Calendar</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Custom Calendar</em>'.
      * @see orgomg.cwm.management.warehouseprocess.events.CustomCalendar
      * @generated
@@ -2812,8 +2653,8 @@ public interface EventsPackage extends EPackage {
 
     /**
      * Returns the meta object for the reference list '{@link orgomg.cwm.management.warehouseprocess.events.CustomCalendar#getCustomCalendarEvent <em>Custom Calendar Event</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @return the meta object for the reference list '<em>Custom Calendar Event</em>'.
      * @see orgomg.cwm.management.warehouseprocess.events.CustomCalendar#getCustomCalendarEvent()
      * @see #getCustomCalendar()
@@ -2823,8 +2664,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link orgomg.cwm.management.warehouseprocess.events.CalendarDate <em>Calendar Date</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Calendar Date</em>'.
      * @see orgomg.cwm.management.warehouseprocess.events.CalendarDate
      * @generated
@@ -2833,8 +2673,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.management.warehouseprocess.events.CalendarDate#getSpecificDate <em>Specific Date</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Specific Date</em>'.
      * @see orgomg.cwm.management.warehouseprocess.events.CalendarDate#getSpecificDate()
      * @see #getCalendarDate()
@@ -2844,8 +2683,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link orgomg.cwm.management.warehouseprocess.events.IntervalEvent <em>Interval Event</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Interval Event</em>'.
      * @see orgomg.cwm.management.warehouseprocess.events.IntervalEvent
      * @generated
@@ -2854,8 +2692,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.management.warehouseprocess.events.IntervalEvent#getDuration <em>Duration</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Duration</em>'.
      * @see orgomg.cwm.management.warehouseprocess.events.IntervalEvent#getDuration()
      * @see #getIntervalEvent()
@@ -2865,8 +2702,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link orgomg.cwm.management.warehouseprocess.events.ExternalEvent <em>External Event</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>External Event</em>'.
      * @see orgomg.cwm.management.warehouseprocess.events.ExternalEvent
      * @generated
@@ -2875,8 +2711,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link orgomg.cwm.management.warehouseprocess.events.InternalEvent <em>Internal Event</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Internal Event</em>'.
      * @see orgomg.cwm.management.warehouseprocess.events.InternalEvent
      * @generated
@@ -2885,8 +2720,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * Returns the meta object for the reference list '{@link orgomg.cwm.management.warehouseprocess.events.InternalEvent#getTriggeringWP <em>Triggering WP</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference list '<em>Triggering WP</em>'.
      * @see orgomg.cwm.management.warehouseprocess.events.InternalEvent#getTriggeringWP()
      * @see #getInternalEvent()
@@ -2896,8 +2730,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * Returns the meta object for the containment reference '{@link orgomg.cwm.management.warehouseprocess.events.InternalEvent#getCondition <em>Condition</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the containment reference '<em>Condition</em>'.
      * @see orgomg.cwm.management.warehouseprocess.events.InternalEvent#getCondition()
      * @see #getInternalEvent()
@@ -2907,8 +2740,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link orgomg.cwm.management.warehouseprocess.events.CascadeEvent <em>Cascade Event</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Cascade Event</em>'.
      * @see orgomg.cwm.management.warehouseprocess.events.CascadeEvent
      * @generated
@@ -2917,8 +2749,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.management.warehouseprocess.events.CascadeEvent#getWaitRule <em>Wait Rule</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Wait Rule</em>'.
      * @see orgomg.cwm.management.warehouseprocess.events.CascadeEvent#getWaitRule()
      * @see #getCascadeEvent()
@@ -2928,8 +2759,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link orgomg.cwm.management.warehouseprocess.events.RetryEvent <em>Retry Event</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Retry Event</em>'.
      * @see orgomg.cwm.management.warehouseprocess.events.RetryEvent
      * @generated
@@ -2938,8 +2768,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.management.warehouseprocess.events.RetryEvent#getWaitDuration <em>Wait Duration</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Wait Duration</em>'.
      * @see orgomg.cwm.management.warehouseprocess.events.RetryEvent#getWaitDuration()
      * @see #getRetryEvent()
@@ -2949,8 +2778,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.management.warehouseprocess.events.RetryEvent#getMaxCount <em>Max Count</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Max Count</em>'.
      * @see orgomg.cwm.management.warehouseprocess.events.RetryEvent#getMaxCount()
      * @see #getRetryEvent()
@@ -2960,8 +2788,8 @@ public interface EventsPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link orgomg.cwm.management.warehouseprocess.events.RecurringPointInTimeEvent <em>Recurring Point In Time Event</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @return the meta object for class '<em>Recurring Point In Time Event</em>'.
      * @see orgomg.cwm.management.warehouseprocess.events.RecurringPointInTimeEvent
      * @generated
@@ -2970,8 +2798,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.management.warehouseprocess.events.RecurringPointInTimeEvent#getRecurringType <em>Recurring Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Recurring Type</em>'.
      * @see orgomg.cwm.management.warehouseprocess.events.RecurringPointInTimeEvent#getRecurringType()
      * @see #getRecurringPointInTimeEvent()
@@ -2980,9 +2807,11 @@ public interface EventsPackage extends EPackage {
     EAttribute getRecurringPointInTimeEvent_RecurringType();
 
     /**
-     * Returns the meta object for the attribute '{@link orgomg.cwm.management.warehouseprocess.events.RecurringPointInTimeEvent#getFrequencyFactor <em>Frequency Factor</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link orgomg.cwm.management.warehouseprocess.events.RecurringPointInTimeEvent#getFrequencyFactor
+     * <em>Frequency Factor</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @return the meta object for the attribute '<em>Frequency Factor</em>'.
      * @see orgomg.cwm.management.warehouseprocess.events.RecurringPointInTimeEvent#getFrequencyFactor()
      * @see #getRecurringPointInTimeEvent()
@@ -2992,8 +2821,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.management.warehouseprocess.events.RecurringPointInTimeEvent#getMonth <em>Month</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Month</em>'.
      * @see orgomg.cwm.management.warehouseprocess.events.RecurringPointInTimeEvent#getMonth()
      * @see #getRecurringPointInTimeEvent()
@@ -3003,8 +2831,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.management.warehouseprocess.events.RecurringPointInTimeEvent#getDayOfMonth <em>Day Of Month</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Day Of Month</em>'.
      * @see orgomg.cwm.management.warehouseprocess.events.RecurringPointInTimeEvent#getDayOfMonth()
      * @see #getRecurringPointInTimeEvent()
@@ -3014,8 +2841,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.management.warehouseprocess.events.RecurringPointInTimeEvent#getDayOfWeek <em>Day Of Week</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Day Of Week</em>'.
      * @see orgomg.cwm.management.warehouseprocess.events.RecurringPointInTimeEvent#getDayOfWeek()
      * @see #getRecurringPointInTimeEvent()
@@ -3025,8 +2851,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.management.warehouseprocess.events.RecurringPointInTimeEvent#getHour <em>Hour</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Hour</em>'.
      * @see orgomg.cwm.management.warehouseprocess.events.RecurringPointInTimeEvent#getHour()
      * @see #getRecurringPointInTimeEvent()
@@ -3036,8 +2861,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.management.warehouseprocess.events.RecurringPointInTimeEvent#getMinute <em>Minute</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Minute</em>'.
      * @see orgomg.cwm.management.warehouseprocess.events.RecurringPointInTimeEvent#getMinute()
      * @see #getRecurringPointInTimeEvent()
@@ -3047,8 +2871,7 @@ public interface EventsPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.management.warehouseprocess.events.RecurringPointInTimeEvent#getSecond <em>Second</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Second</em>'.
      * @see orgomg.cwm.management.warehouseprocess.events.RecurringPointInTimeEvent#getSecond()
      * @see #getRecurringPointInTimeEvent()
@@ -3057,31 +2880,32 @@ public interface EventsPackage extends EPackage {
     EAttribute getRecurringPointInTimeEvent_Second();
 
     /**
-     * Returns the factory that creates the instances of the model.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the factory that creates the instances of the model. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the factory that creates the instances of the model.
      * @generated
      */
     EventsFactory getEventsFactory();
 
     /**
-     * <!-- begin-user-doc -->
-     * Defines literals for the meta objects that represent
+     * <!-- begin-user-doc --> Defines literals for the meta objects that
+     * represent
      * <ul>
-     *   <li>each class,</li>
-     *   <li>each feature of each class,</li>
-     *   <li>each enum,</li>
-     *   <li>and each data type</li>
+     * <li>each class,</li>
+     * <li>each feature of each class,</li>
+     * <li>each enum,</li>
+     * <li>and each data type</li>
      * </ul>
      * <!-- end-user-doc -->
      * @generated
      */
     interface Literals {
+
         /**
          * The meta object literal for the '{@link orgomg.cwm.management.warehouseprocess.events.impl.WarehouseEventImpl <em>Warehouse Event</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwm.management.warehouseprocess.events.impl.WarehouseEventImpl
          * @see orgomg.cwm.management.warehouseprocess.events.impl.EventsPackageImpl#getWarehouseEvent()
          * @generated
@@ -3090,16 +2914,16 @@ public interface EventsPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Warehouse Process</b></em>' container reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EReference WAREHOUSE_EVENT__WAREHOUSE_PROCESS = eINSTANCE.getWarehouseEvent_WarehouseProcess();
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.management.warehouseprocess.events.impl.ScheduleEventImpl <em>Schedule Event</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwm.management.warehouseprocess.events.impl.ScheduleEventImpl
          * @see orgomg.cwm.management.warehouseprocess.events.impl.EventsPackageImpl#getScheduleEvent()
          * @generated
@@ -3108,8 +2932,8 @@ public interface EventsPackage extends EPackage {
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.management.warehouseprocess.events.impl.PointInTimeEventImpl <em>Point In Time Event</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwm.management.warehouseprocess.events.impl.PointInTimeEventImpl
          * @see orgomg.cwm.management.warehouseprocess.events.impl.EventsPackageImpl#getPointInTimeEvent()
          * @generated
@@ -3118,8 +2942,8 @@ public interface EventsPackage extends EPackage {
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.management.warehouseprocess.events.impl.CustomCalendarEventImpl <em>Custom Calendar Event</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwm.management.warehouseprocess.events.impl.CustomCalendarEventImpl
          * @see orgomg.cwm.management.warehouseprocess.events.impl.EventsPackageImpl#getCustomCalendarEvent()
          * @generated
@@ -3128,16 +2952,15 @@ public interface EventsPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Custom Calendar</b></em>' reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference CUSTOM_CALENDAR_EVENT__CUSTOM_CALENDAR = eINSTANCE.getCustomCalendarEvent_CustomCalendar();
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.management.warehouseprocess.events.impl.CustomCalendarImpl <em>Custom Calendar</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwm.management.warehouseprocess.events.impl.CustomCalendarImpl
          * @see orgomg.cwm.management.warehouseprocess.events.impl.EventsPackageImpl#getCustomCalendar()
          * @generated
@@ -3145,17 +2968,18 @@ public interface EventsPackage extends EPackage {
         EClass CUSTOM_CALENDAR = eINSTANCE.getCustomCalendar();
 
         /**
-         * The meta object literal for the '<em><b>Custom Calendar Event</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '
+         * <em><b>Custom Calendar Event</b></em>' reference list feature. <!--
+         * begin-user-doc --> <!-- end-user-doc -->
+         * 
          * @generated
          */
         EReference CUSTOM_CALENDAR__CUSTOM_CALENDAR_EVENT = eINSTANCE.getCustomCalendar_CustomCalendarEvent();
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.management.warehouseprocess.events.impl.CalendarDateImpl <em>Calendar Date</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwm.management.warehouseprocess.events.impl.CalendarDateImpl
          * @see orgomg.cwm.management.warehouseprocess.events.impl.EventsPackageImpl#getCalendarDate()
          * @generated
@@ -3164,16 +2988,15 @@ public interface EventsPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Specific Date</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute CALENDAR_DATE__SPECIFIC_DATE = eINSTANCE.getCalendarDate_SpecificDate();
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.management.warehouseprocess.events.impl.IntervalEventImpl <em>Interval Event</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwm.management.warehouseprocess.events.impl.IntervalEventImpl
          * @see orgomg.cwm.management.warehouseprocess.events.impl.EventsPackageImpl#getIntervalEvent()
          * @generated
@@ -3182,16 +3005,15 @@ public interface EventsPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Duration</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute INTERVAL_EVENT__DURATION = eINSTANCE.getIntervalEvent_Duration();
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.management.warehouseprocess.events.impl.ExternalEventImpl <em>External Event</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwm.management.warehouseprocess.events.impl.ExternalEventImpl
          * @see orgomg.cwm.management.warehouseprocess.events.impl.EventsPackageImpl#getExternalEvent()
          * @generated
@@ -3200,8 +3022,8 @@ public interface EventsPackage extends EPackage {
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.management.warehouseprocess.events.impl.InternalEventImpl <em>Internal Event</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwm.management.warehouseprocess.events.impl.InternalEventImpl
          * @see orgomg.cwm.management.warehouseprocess.events.impl.EventsPackageImpl#getInternalEvent()
          * @generated
@@ -3210,24 +3032,23 @@ public interface EventsPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Triggering WP</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference INTERNAL_EVENT__TRIGGERING_WP = eINSTANCE.getInternalEvent_TriggeringWP();
 
         /**
          * The meta object literal for the '<em><b>Condition</b></em>' containment reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EReference INTERNAL_EVENT__CONDITION = eINSTANCE.getInternalEvent_Condition();
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.management.warehouseprocess.events.impl.CascadeEventImpl <em>Cascade Event</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwm.management.warehouseprocess.events.impl.CascadeEventImpl
          * @see orgomg.cwm.management.warehouseprocess.events.impl.EventsPackageImpl#getCascadeEvent()
          * @generated
@@ -3236,16 +3057,15 @@ public interface EventsPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Wait Rule</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute CASCADE_EVENT__WAIT_RULE = eINSTANCE.getCascadeEvent_WaitRule();
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.management.warehouseprocess.events.impl.RetryEventImpl <em>Retry Event</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwm.management.warehouseprocess.events.impl.RetryEventImpl
          * @see orgomg.cwm.management.warehouseprocess.events.impl.EventsPackageImpl#getRetryEvent()
          * @generated
@@ -3254,24 +3074,22 @@ public interface EventsPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Wait Duration</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute RETRY_EVENT__WAIT_DURATION = eINSTANCE.getRetryEvent_WaitDuration();
 
         /**
          * The meta object literal for the '<em><b>Max Count</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute RETRY_EVENT__MAX_COUNT = eINSTANCE.getRetryEvent_MaxCount();
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.management.warehouseprocess.events.impl.RecurringPointInTimeEventImpl <em>Recurring Point In Time Event</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc
+         * --> <!-- end-user-doc -->
          * @see orgomg.cwm.management.warehouseprocess.events.impl.RecurringPointInTimeEventImpl
          * @see orgomg.cwm.management.warehouseprocess.events.impl.EventsPackageImpl#getRecurringPointInTimeEvent()
          * @generated
@@ -3280,68 +3098,60 @@ public interface EventsPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Recurring Type</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute RECURRING_POINT_IN_TIME_EVENT__RECURRING_TYPE = eINSTANCE.getRecurringPointInTimeEvent_RecurringType();
 
         /**
          * The meta object literal for the '<em><b>Frequency Factor</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute RECURRING_POINT_IN_TIME_EVENT__FREQUENCY_FACTOR = eINSTANCE.getRecurringPointInTimeEvent_FrequencyFactor();
 
         /**
          * The meta object literal for the '<em><b>Month</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute RECURRING_POINT_IN_TIME_EVENT__MONTH = eINSTANCE.getRecurringPointInTimeEvent_Month();
 
         /**
          * The meta object literal for the '<em><b>Day Of Month</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute RECURRING_POINT_IN_TIME_EVENT__DAY_OF_MONTH = eINSTANCE.getRecurringPointInTimeEvent_DayOfMonth();
 
         /**
          * The meta object literal for the '<em><b>Day Of Week</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute RECURRING_POINT_IN_TIME_EVENT__DAY_OF_WEEK = eINSTANCE.getRecurringPointInTimeEvent_DayOfWeek();
 
         /**
          * The meta object literal for the '<em><b>Hour</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute RECURRING_POINT_IN_TIME_EVENT__HOUR = eINSTANCE.getRecurringPointInTimeEvent_Hour();
 
         /**
          * The meta object literal for the '<em><b>Minute</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute RECURRING_POINT_IN_TIME_EVENT__MINUTE = eINSTANCE.getRecurringPointInTimeEvent_Minute();
 
         /**
          * The meta object literal for the '<em><b>Second</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute RECURRING_POINT_IN_TIME_EVENT__SECOND = eINSTANCE.getRecurringPointInTimeEvent_Second();
 
     }
 
-} //EventsPackage
+} // EventsPackage

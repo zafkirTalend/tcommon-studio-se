@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.objectmodel.core.impl;
@@ -19,9 +18,8 @@ import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.Namespace;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Namespace</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Namespace</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -32,10 +30,11 @@ import orgomg.cwm.objectmodel.core.Namespace;
  * @generated
  */
 public abstract class NamespaceImpl extends ModelElementImpl implements Namespace {
+
     /**
      * The cached value of the '{@link #getOwnedElement() <em>Owned Element</em>}' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @see #getOwnedElement()
      * @generated
      * @ordered
@@ -43,8 +42,7 @@ public abstract class NamespaceImpl extends ModelElementImpl implements Namespac
     protected EList<ModelElement> ownedElement;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected NamespaceImpl() {
@@ -52,8 +50,7 @@ public abstract class NamespaceImpl extends ModelElementImpl implements Namespac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -62,104 +59,98 @@ public abstract class NamespaceImpl extends ModelElementImpl implements Namespac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<ModelElement> getOwnedElement() {
         if (ownedElement == null) {
-            ownedElement = new EObjectContainmentWithInverseEList<ModelElement>(ModelElement.class, this, CorePackage.NAMESPACE__OWNED_ELEMENT, CorePackage.MODEL_ELEMENT__NAMESPACE);
+            ownedElement = new EObjectContainmentWithInverseEList<ModelElement>(ModelElement.class, this,
+                    CorePackage.NAMESPACE__OWNED_ELEMENT, CorePackage.MODEL_ELEMENT__NAMESPACE);
         }
         return ownedElement;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case CorePackage.NAMESPACE__OWNED_ELEMENT:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getOwnedElement()).basicAdd(otherEnd, msgs);
+        case CorePackage.NAMESPACE__OWNED_ELEMENT:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getOwnedElement()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case CorePackage.NAMESPACE__OWNED_ELEMENT:
-                return ((InternalEList<?>)getOwnedElement()).basicRemove(otherEnd, msgs);
+        case CorePackage.NAMESPACE__OWNED_ELEMENT:
+            return ((InternalEList<?>) getOwnedElement()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case CorePackage.NAMESPACE__OWNED_ELEMENT:
-                return getOwnedElement();
+        case CorePackage.NAMESPACE__OWNED_ELEMENT:
+            return getOwnedElement();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case CorePackage.NAMESPACE__OWNED_ELEMENT:
-                getOwnedElement().clear();
-                getOwnedElement().addAll((Collection<? extends ModelElement>)newValue);
-                return;
+        case CorePackage.NAMESPACE__OWNED_ELEMENT:
+            getOwnedElement().clear();
+            getOwnedElement().addAll((Collection<? extends ModelElement>) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case CorePackage.NAMESPACE__OWNED_ELEMENT:
-                getOwnedElement().clear();
-                return;
+        case CorePackage.NAMESPACE__OWNED_ELEMENT:
+            getOwnedElement().clear();
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case CorePackage.NAMESPACE__OWNED_ELEMENT:
-                return ownedElement != null && !ownedElement.isEmpty();
+        case CorePackage.NAMESPACE__OWNED_ELEMENT:
+            return ownedElement != null && !ownedElement.isEmpty();
         }
         return super.eIsSet(featureID);
     }
 
-} //NamespaceImpl
+} // NamespaceImpl

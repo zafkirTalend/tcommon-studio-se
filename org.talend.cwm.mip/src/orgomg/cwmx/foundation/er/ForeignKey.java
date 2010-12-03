@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.foundation.er;
@@ -9,9 +8,8 @@ package orgomg.cwmx.foundation.er;
 import orgomg.cwm.foundation.keysindexes.KeyRelationship;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Foreign Key</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Foreign Key</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * A ForeignKey instance identifies a set of attributes in one Entity instance that uniquely identifies an instance of another Entity containing a matching primary or candidate key value.
@@ -29,11 +27,11 @@ import orgomg.cwm.foundation.keysindexes.KeyRelationship;
  * @generated
  */
 public interface ForeignKey extends KeyRelationship {
+
     /**
      * Returns the value of the '<em><b>Relationship End</b></em>' reference.
      * It is bidirectional and its opposite is '{@link orgomg.cwmx.foundation.er.RelationshipEnd#getForeignKey <em>Foreign Key</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Identifies the RelationshipEnd instance that this ForeignKey instance implements.
      * <!-- end-model-doc -->
@@ -48,8 +46,8 @@ public interface ForeignKey extends KeyRelationship {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.foundation.er.ForeignKey#getRelationshipEnd <em>Relationship End</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Relationship End</em>' reference.
      * @see #getRelationshipEnd()
      * @generated

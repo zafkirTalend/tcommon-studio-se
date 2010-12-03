@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.objectmodel.core.impl;
@@ -42,9 +41,8 @@ import orgomg.cwmx.resource.express.ExpressPackage;
 import orgomg.cwmx.resource.express.SimpleDimension;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Classifier</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Classifier</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -69,10 +67,10 @@ import orgomg.cwmx.resource.express.SimpleDimension;
  * @generated
  */
 public abstract class ClassifierImpl extends NamespaceImpl implements Classifier {
+
     /**
      * The default value of the '{@link #isIsAbstract() <em>Is Abstract</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #isIsAbstract()
      * @generated
      * @ordered
@@ -81,8 +79,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 
     /**
      * The cached value of the '{@link #isIsAbstract() <em>Is Abstract</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #isIsAbstract()
      * @generated
      * @ordered
@@ -91,8 +88,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 
     /**
      * The cached value of the '{@link #getFeature() <em>Feature</em>}' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getFeature()
      * @generated
      * @ordered
@@ -111,8 +107,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 
     /**
      * The cached value of the '{@link #getParameter() <em>Parameter</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getParameter()
      * @generated
      * @ordered
@@ -121,8 +116,8 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 
     /**
      * The cached value of the '{@link #getGeneralization() <em>Generalization</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getGeneralization()
      * @generated
      * @ordered
@@ -131,8 +126,8 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 
     /**
      * The cached value of the '{@link #getSpecialization() <em>Specialization</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getSpecialization()
      * @generated
      * @ordered
@@ -141,8 +136,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 
     /**
      * The cached value of the '{@link #getInstance() <em>Instance</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getInstance()
      * @generated
      * @ordered
@@ -151,8 +145,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 
     /**
      * The cached value of the '{@link #getAlias() <em>Alias</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getAlias()
      * @generated
      * @ordered
@@ -161,8 +154,8 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 
     /**
      * The cached value of the '{@link #getExpressionNode() <em>Expression Node</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getExpressionNode()
      * @generated
      * @ordered
@@ -171,8 +164,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 
     /**
      * The cached value of the '{@link #getMappingFrom() <em>Mapping From</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getMappingFrom()
      * @generated
      * @ordered
@@ -181,8 +173,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 
     /**
      * The cached value of the '{@link #getMappingTo() <em>Mapping To</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getMappingTo()
      * @generated
      * @ordered
@@ -191,8 +182,8 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 
     /**
      * The cached value of the '{@link #getClassifierMap() <em>Classifier Map</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getClassifierMap()
      * @generated
      * @ordered
@@ -201,8 +192,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 
     /**
      * The cached value of the '{@link #getCfMap() <em>Cf Map</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getCfMap()
      * @generated
      * @ordered
@@ -211,8 +201,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 
     /**
      * The cached value of the '{@link #getDomain() <em>Domain</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getDomain()
      * @generated
      * @ordered
@@ -221,8 +210,8 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 
     /**
      * The cached value of the '{@link #getSimpleDimension() <em>Simple Dimension</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getSimpleDimension()
      * @generated
      * @ordered
@@ -230,8 +219,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
     protected EList<SimpleDimension> simpleDimension;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected ClassifierImpl() {
@@ -239,8 +227,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -249,8 +236,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isIsAbstract() {
@@ -258,8 +244,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setIsAbstract(boolean newIsAbstract) {
@@ -270,475 +255,469 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<Feature> getFeature() {
         if (feature == null) {
-            feature = new EObjectContainmentWithInverseEList<Feature>(Feature.class, this, CorePackage.CLASSIFIER__FEATURE, CorePackage.FEATURE__OWNER);
+            feature = new EObjectContainmentWithInverseEList<Feature>(Feature.class, this, CorePackage.CLASSIFIER__FEATURE,
+                    CorePackage.FEATURE__OWNER);
         }
         return feature;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<StructuralFeature> getStructuralFeature() {
         if (structuralFeature == null) {
-            structuralFeature = new EObjectWithInverseResolvingEList<StructuralFeature>(StructuralFeature.class, this, CorePackage.CLASSIFIER__STRUCTURAL_FEATURE, CorePackage.STRUCTURAL_FEATURE__TYPE);
+            structuralFeature = new EObjectWithInverseResolvingEList<StructuralFeature>(StructuralFeature.class, this,
+                    CorePackage.CLASSIFIER__STRUCTURAL_FEATURE, CorePackage.STRUCTURAL_FEATURE__TYPE);
         }
         return structuralFeature;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<Parameter> getParameter() {
         if (parameter == null) {
-            parameter = new EObjectWithInverseResolvingEList<Parameter>(Parameter.class, this, CorePackage.CLASSIFIER__PARAMETER, BehavioralPackage.PARAMETER__TYPE);
+            parameter = new EObjectWithInverseResolvingEList<Parameter>(Parameter.class, this, CorePackage.CLASSIFIER__PARAMETER,
+                    BehavioralPackage.PARAMETER__TYPE);
         }
         return parameter;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<Generalization> getGeneralization() {
         if (generalization == null) {
-            generalization = new EObjectWithInverseResolvingEList<Generalization>(Generalization.class, this, CorePackage.CLASSIFIER__GENERALIZATION, RelationshipsPackage.GENERALIZATION__CHILD);
+            generalization = new EObjectWithInverseResolvingEList<Generalization>(Generalization.class, this,
+                    CorePackage.CLASSIFIER__GENERALIZATION, RelationshipsPackage.GENERALIZATION__CHILD);
         }
         return generalization;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<Generalization> getSpecialization() {
         if (specialization == null) {
-            specialization = new EObjectWithInverseResolvingEList<Generalization>(Generalization.class, this, CorePackage.CLASSIFIER__SPECIALIZATION, RelationshipsPackage.GENERALIZATION__PARENT);
+            specialization = new EObjectWithInverseResolvingEList<Generalization>(Generalization.class, this,
+                    CorePackage.CLASSIFIER__SPECIALIZATION, RelationshipsPackage.GENERALIZATION__PARENT);
         }
         return specialization;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<Instance> getInstance() {
         if (instance == null) {
-            instance = new EObjectWithInverseResolvingEList<Instance>(Instance.class, this, CorePackage.CLASSIFIER__INSTANCE, InstancePackage.INSTANCE__CLASSIFIER);
+            instance = new EObjectWithInverseResolvingEList<Instance>(Instance.class, this, CorePackage.CLASSIFIER__INSTANCE,
+                    InstancePackage.INSTANCE__CLASSIFIER);
         }
         return instance;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<TypeAlias> getAlias() {
         if (alias == null) {
-            alias = new EObjectWithInverseResolvingEList<TypeAlias>(TypeAlias.class, this, CorePackage.CLASSIFIER__ALIAS, DatatypesPackage.TYPE_ALIAS__TYPE);
+            alias = new EObjectWithInverseResolvingEList<TypeAlias>(TypeAlias.class, this, CorePackage.CLASSIFIER__ALIAS,
+                    DatatypesPackage.TYPE_ALIAS__TYPE);
         }
         return alias;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<ExpressionNode> getExpressionNode() {
         if (expressionNode == null) {
-            expressionNode = new EObjectWithInverseResolvingEList<ExpressionNode>(ExpressionNode.class, this, CorePackage.CLASSIFIER__EXPRESSION_NODE, ExpressionsPackage.EXPRESSION_NODE__TYPE);
+            expressionNode = new EObjectWithInverseResolvingEList<ExpressionNode>(ExpressionNode.class, this,
+                    CorePackage.CLASSIFIER__EXPRESSION_NODE, ExpressionsPackage.EXPRESSION_NODE__TYPE);
         }
         return expressionNode;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<TypeMapping> getMappingFrom() {
         if (mappingFrom == null) {
-            mappingFrom = new EObjectWithInverseResolvingEList<TypeMapping>(TypeMapping.class, this, CorePackage.CLASSIFIER__MAPPING_FROM, TypemappingPackage.TYPE_MAPPING__SOURCE_TYPE);
+            mappingFrom = new EObjectWithInverseResolvingEList<TypeMapping>(TypeMapping.class, this,
+                    CorePackage.CLASSIFIER__MAPPING_FROM, TypemappingPackage.TYPE_MAPPING__SOURCE_TYPE);
         }
         return mappingFrom;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<TypeMapping> getMappingTo() {
         if (mappingTo == null) {
-            mappingTo = new EObjectWithInverseResolvingEList<TypeMapping>(TypeMapping.class, this, CorePackage.CLASSIFIER__MAPPING_TO, TypemappingPackage.TYPE_MAPPING__TARGET_TYPE);
+            mappingTo = new EObjectWithInverseResolvingEList<TypeMapping>(TypeMapping.class, this,
+                    CorePackage.CLASSIFIER__MAPPING_TO, TypemappingPackage.TYPE_MAPPING__TARGET_TYPE);
         }
         return mappingTo;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<ClassifierMap> getClassifierMap() {
         if (classifierMap == null) {
-            classifierMap = new EObjectWithInverseResolvingEList.ManyInverse<ClassifierMap>(ClassifierMap.class, this, CorePackage.CLASSIFIER__CLASSIFIER_MAP, TransformationPackage.CLASSIFIER_MAP__SOURCE);
+            classifierMap = new EObjectWithInverseResolvingEList.ManyInverse<ClassifierMap>(ClassifierMap.class, this,
+                    CorePackage.CLASSIFIER__CLASSIFIER_MAP, TransformationPackage.CLASSIFIER_MAP__SOURCE);
         }
         return classifierMap;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<ClassifierFeatureMap> getCfMap() {
         if (cfMap == null) {
-            cfMap = new EObjectWithInverseResolvingEList.ManyInverse<ClassifierFeatureMap>(ClassifierFeatureMap.class, this, CorePackage.CLASSIFIER__CF_MAP, TransformationPackage.CLASSIFIER_FEATURE_MAP__CLASSIFIER);
+            cfMap = new EObjectWithInverseResolvingEList.ManyInverse<ClassifierFeatureMap>(ClassifierFeatureMap.class, this,
+                    CorePackage.CLASSIFIER__CF_MAP, TransformationPackage.CLASSIFIER_FEATURE_MAP__CLASSIFIER);
         }
         return cfMap;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<Domain> getDomain() {
         if (domain == null) {
-            domain = new EObjectWithInverseResolvingEList<Domain>(Domain.class, this, CorePackage.CLASSIFIER__DOMAIN, ErPackage.DOMAIN__BASE_TYPE);
+            domain = new EObjectWithInverseResolvingEList<Domain>(Domain.class, this, CorePackage.CLASSIFIER__DOMAIN,
+                    ErPackage.DOMAIN__BASE_TYPE);
         }
         return domain;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<SimpleDimension> getSimpleDimension() {
         if (simpleDimension == null) {
-            simpleDimension = new EObjectWithInverseResolvingEList<SimpleDimension>(SimpleDimension.class, this, CorePackage.CLASSIFIER__SIMPLE_DIMENSION, ExpressPackage.SIMPLE_DIMENSION__DATA_TYPE);
+            simpleDimension = new EObjectWithInverseResolvingEList<SimpleDimension>(SimpleDimension.class, this,
+                    CorePackage.CLASSIFIER__SIMPLE_DIMENSION, ExpressPackage.SIMPLE_DIMENSION__DATA_TYPE);
         }
         return simpleDimension;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case CorePackage.CLASSIFIER__FEATURE:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getFeature()).basicAdd(otherEnd, msgs);
-            case CorePackage.CLASSIFIER__STRUCTURAL_FEATURE:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getStructuralFeature()).basicAdd(otherEnd, msgs);
-            case CorePackage.CLASSIFIER__PARAMETER:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getParameter()).basicAdd(otherEnd, msgs);
-            case CorePackage.CLASSIFIER__GENERALIZATION:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getGeneralization()).basicAdd(otherEnd, msgs);
-            case CorePackage.CLASSIFIER__SPECIALIZATION:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getSpecialization()).basicAdd(otherEnd, msgs);
-            case CorePackage.CLASSIFIER__INSTANCE:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getInstance()).basicAdd(otherEnd, msgs);
-            case CorePackage.CLASSIFIER__ALIAS:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getAlias()).basicAdd(otherEnd, msgs);
-            case CorePackage.CLASSIFIER__EXPRESSION_NODE:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getExpressionNode()).basicAdd(otherEnd, msgs);
-            case CorePackage.CLASSIFIER__MAPPING_FROM:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getMappingFrom()).basicAdd(otherEnd, msgs);
-            case CorePackage.CLASSIFIER__MAPPING_TO:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getMappingTo()).basicAdd(otherEnd, msgs);
-            case CorePackage.CLASSIFIER__CLASSIFIER_MAP:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getClassifierMap()).basicAdd(otherEnd, msgs);
-            case CorePackage.CLASSIFIER__CF_MAP:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getCfMap()).basicAdd(otherEnd, msgs);
-            case CorePackage.CLASSIFIER__DOMAIN:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getDomain()).basicAdd(otherEnd, msgs);
-            case CorePackage.CLASSIFIER__SIMPLE_DIMENSION:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getSimpleDimension()).basicAdd(otherEnd, msgs);
+        case CorePackage.CLASSIFIER__FEATURE:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getFeature()).basicAdd(otherEnd, msgs);
+        case CorePackage.CLASSIFIER__STRUCTURAL_FEATURE:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getStructuralFeature()).basicAdd(otherEnd, msgs);
+        case CorePackage.CLASSIFIER__PARAMETER:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getParameter()).basicAdd(otherEnd, msgs);
+        case CorePackage.CLASSIFIER__GENERALIZATION:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getGeneralization()).basicAdd(otherEnd, msgs);
+        case CorePackage.CLASSIFIER__SPECIALIZATION:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getSpecialization()).basicAdd(otherEnd, msgs);
+        case CorePackage.CLASSIFIER__INSTANCE:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getInstance()).basicAdd(otherEnd, msgs);
+        case CorePackage.CLASSIFIER__ALIAS:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getAlias()).basicAdd(otherEnd, msgs);
+        case CorePackage.CLASSIFIER__EXPRESSION_NODE:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getExpressionNode()).basicAdd(otherEnd, msgs);
+        case CorePackage.CLASSIFIER__MAPPING_FROM:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getMappingFrom()).basicAdd(otherEnd, msgs);
+        case CorePackage.CLASSIFIER__MAPPING_TO:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getMappingTo()).basicAdd(otherEnd, msgs);
+        case CorePackage.CLASSIFIER__CLASSIFIER_MAP:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getClassifierMap()).basicAdd(otherEnd, msgs);
+        case CorePackage.CLASSIFIER__CF_MAP:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getCfMap()).basicAdd(otherEnd, msgs);
+        case CorePackage.CLASSIFIER__DOMAIN:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getDomain()).basicAdd(otherEnd, msgs);
+        case CorePackage.CLASSIFIER__SIMPLE_DIMENSION:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getSimpleDimension()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case CorePackage.CLASSIFIER__FEATURE:
-                return ((InternalEList<?>)getFeature()).basicRemove(otherEnd, msgs);
-            case CorePackage.CLASSIFIER__STRUCTURAL_FEATURE:
-                return ((InternalEList<?>)getStructuralFeature()).basicRemove(otherEnd, msgs);
-            case CorePackage.CLASSIFIER__PARAMETER:
-                return ((InternalEList<?>)getParameter()).basicRemove(otherEnd, msgs);
-            case CorePackage.CLASSIFIER__GENERALIZATION:
-                return ((InternalEList<?>)getGeneralization()).basicRemove(otherEnd, msgs);
-            case CorePackage.CLASSIFIER__SPECIALIZATION:
-                return ((InternalEList<?>)getSpecialization()).basicRemove(otherEnd, msgs);
-            case CorePackage.CLASSIFIER__INSTANCE:
-                return ((InternalEList<?>)getInstance()).basicRemove(otherEnd, msgs);
-            case CorePackage.CLASSIFIER__ALIAS:
-                return ((InternalEList<?>)getAlias()).basicRemove(otherEnd, msgs);
-            case CorePackage.CLASSIFIER__EXPRESSION_NODE:
-                return ((InternalEList<?>)getExpressionNode()).basicRemove(otherEnd, msgs);
-            case CorePackage.CLASSIFIER__MAPPING_FROM:
-                return ((InternalEList<?>)getMappingFrom()).basicRemove(otherEnd, msgs);
-            case CorePackage.CLASSIFIER__MAPPING_TO:
-                return ((InternalEList<?>)getMappingTo()).basicRemove(otherEnd, msgs);
-            case CorePackage.CLASSIFIER__CLASSIFIER_MAP:
-                return ((InternalEList<?>)getClassifierMap()).basicRemove(otherEnd, msgs);
-            case CorePackage.CLASSIFIER__CF_MAP:
-                return ((InternalEList<?>)getCfMap()).basicRemove(otherEnd, msgs);
-            case CorePackage.CLASSIFIER__DOMAIN:
-                return ((InternalEList<?>)getDomain()).basicRemove(otherEnd, msgs);
-            case CorePackage.CLASSIFIER__SIMPLE_DIMENSION:
-                return ((InternalEList<?>)getSimpleDimension()).basicRemove(otherEnd, msgs);
+        case CorePackage.CLASSIFIER__FEATURE:
+            return ((InternalEList<?>) getFeature()).basicRemove(otherEnd, msgs);
+        case CorePackage.CLASSIFIER__STRUCTURAL_FEATURE:
+            return ((InternalEList<?>) getStructuralFeature()).basicRemove(otherEnd, msgs);
+        case CorePackage.CLASSIFIER__PARAMETER:
+            return ((InternalEList<?>) getParameter()).basicRemove(otherEnd, msgs);
+        case CorePackage.CLASSIFIER__GENERALIZATION:
+            return ((InternalEList<?>) getGeneralization()).basicRemove(otherEnd, msgs);
+        case CorePackage.CLASSIFIER__SPECIALIZATION:
+            return ((InternalEList<?>) getSpecialization()).basicRemove(otherEnd, msgs);
+        case CorePackage.CLASSIFIER__INSTANCE:
+            return ((InternalEList<?>) getInstance()).basicRemove(otherEnd, msgs);
+        case CorePackage.CLASSIFIER__ALIAS:
+            return ((InternalEList<?>) getAlias()).basicRemove(otherEnd, msgs);
+        case CorePackage.CLASSIFIER__EXPRESSION_NODE:
+            return ((InternalEList<?>) getExpressionNode()).basicRemove(otherEnd, msgs);
+        case CorePackage.CLASSIFIER__MAPPING_FROM:
+            return ((InternalEList<?>) getMappingFrom()).basicRemove(otherEnd, msgs);
+        case CorePackage.CLASSIFIER__MAPPING_TO:
+            return ((InternalEList<?>) getMappingTo()).basicRemove(otherEnd, msgs);
+        case CorePackage.CLASSIFIER__CLASSIFIER_MAP:
+            return ((InternalEList<?>) getClassifierMap()).basicRemove(otherEnd, msgs);
+        case CorePackage.CLASSIFIER__CF_MAP:
+            return ((InternalEList<?>) getCfMap()).basicRemove(otherEnd, msgs);
+        case CorePackage.CLASSIFIER__DOMAIN:
+            return ((InternalEList<?>) getDomain()).basicRemove(otherEnd, msgs);
+        case CorePackage.CLASSIFIER__SIMPLE_DIMENSION:
+            return ((InternalEList<?>) getSimpleDimension()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case CorePackage.CLASSIFIER__IS_ABSTRACT:
-                return isIsAbstract();
-            case CorePackage.CLASSIFIER__FEATURE:
-                return getFeature();
-            case CorePackage.CLASSIFIER__STRUCTURAL_FEATURE:
-                return getStructuralFeature();
-            case CorePackage.CLASSIFIER__PARAMETER:
-                return getParameter();
-            case CorePackage.CLASSIFIER__GENERALIZATION:
-                return getGeneralization();
-            case CorePackage.CLASSIFIER__SPECIALIZATION:
-                return getSpecialization();
-            case CorePackage.CLASSIFIER__INSTANCE:
-                return getInstance();
-            case CorePackage.CLASSIFIER__ALIAS:
-                return getAlias();
-            case CorePackage.CLASSIFIER__EXPRESSION_NODE:
-                return getExpressionNode();
-            case CorePackage.CLASSIFIER__MAPPING_FROM:
-                return getMappingFrom();
-            case CorePackage.CLASSIFIER__MAPPING_TO:
-                return getMappingTo();
-            case CorePackage.CLASSIFIER__CLASSIFIER_MAP:
-                return getClassifierMap();
-            case CorePackage.CLASSIFIER__CF_MAP:
-                return getCfMap();
-            case CorePackage.CLASSIFIER__DOMAIN:
-                return getDomain();
-            case CorePackage.CLASSIFIER__SIMPLE_DIMENSION:
-                return getSimpleDimension();
+        case CorePackage.CLASSIFIER__IS_ABSTRACT:
+            return isIsAbstract();
+        case CorePackage.CLASSIFIER__FEATURE:
+            return getFeature();
+        case CorePackage.CLASSIFIER__STRUCTURAL_FEATURE:
+            return getStructuralFeature();
+        case CorePackage.CLASSIFIER__PARAMETER:
+            return getParameter();
+        case CorePackage.CLASSIFIER__GENERALIZATION:
+            return getGeneralization();
+        case CorePackage.CLASSIFIER__SPECIALIZATION:
+            return getSpecialization();
+        case CorePackage.CLASSIFIER__INSTANCE:
+            return getInstance();
+        case CorePackage.CLASSIFIER__ALIAS:
+            return getAlias();
+        case CorePackage.CLASSIFIER__EXPRESSION_NODE:
+            return getExpressionNode();
+        case CorePackage.CLASSIFIER__MAPPING_FROM:
+            return getMappingFrom();
+        case CorePackage.CLASSIFIER__MAPPING_TO:
+            return getMappingTo();
+        case CorePackage.CLASSIFIER__CLASSIFIER_MAP:
+            return getClassifierMap();
+        case CorePackage.CLASSIFIER__CF_MAP:
+            return getCfMap();
+        case CorePackage.CLASSIFIER__DOMAIN:
+            return getDomain();
+        case CorePackage.CLASSIFIER__SIMPLE_DIMENSION:
+            return getSimpleDimension();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case CorePackage.CLASSIFIER__IS_ABSTRACT:
-                setIsAbstract((Boolean)newValue);
-                return;
-            case CorePackage.CLASSIFIER__FEATURE:
-                getFeature().clear();
-                getFeature().addAll((Collection<? extends Feature>)newValue);
-                return;
-            case CorePackage.CLASSIFIER__STRUCTURAL_FEATURE:
-                getStructuralFeature().clear();
-                getStructuralFeature().addAll((Collection<? extends StructuralFeature>)newValue);
-                return;
-            case CorePackage.CLASSIFIER__PARAMETER:
-                getParameter().clear();
-                getParameter().addAll((Collection<? extends Parameter>)newValue);
-                return;
-            case CorePackage.CLASSIFIER__GENERALIZATION:
-                getGeneralization().clear();
-                getGeneralization().addAll((Collection<? extends Generalization>)newValue);
-                return;
-            case CorePackage.CLASSIFIER__SPECIALIZATION:
-                getSpecialization().clear();
-                getSpecialization().addAll((Collection<? extends Generalization>)newValue);
-                return;
-            case CorePackage.CLASSIFIER__INSTANCE:
-                getInstance().clear();
-                getInstance().addAll((Collection<? extends Instance>)newValue);
-                return;
-            case CorePackage.CLASSIFIER__ALIAS:
-                getAlias().clear();
-                getAlias().addAll((Collection<? extends TypeAlias>)newValue);
-                return;
-            case CorePackage.CLASSIFIER__EXPRESSION_NODE:
-                getExpressionNode().clear();
-                getExpressionNode().addAll((Collection<? extends ExpressionNode>)newValue);
-                return;
-            case CorePackage.CLASSIFIER__MAPPING_FROM:
-                getMappingFrom().clear();
-                getMappingFrom().addAll((Collection<? extends TypeMapping>)newValue);
-                return;
-            case CorePackage.CLASSIFIER__MAPPING_TO:
-                getMappingTo().clear();
-                getMappingTo().addAll((Collection<? extends TypeMapping>)newValue);
-                return;
-            case CorePackage.CLASSIFIER__CLASSIFIER_MAP:
-                getClassifierMap().clear();
-                getClassifierMap().addAll((Collection<? extends ClassifierMap>)newValue);
-                return;
-            case CorePackage.CLASSIFIER__CF_MAP:
-                getCfMap().clear();
-                getCfMap().addAll((Collection<? extends ClassifierFeatureMap>)newValue);
-                return;
-            case CorePackage.CLASSIFIER__DOMAIN:
-                getDomain().clear();
-                getDomain().addAll((Collection<? extends Domain>)newValue);
-                return;
-            case CorePackage.CLASSIFIER__SIMPLE_DIMENSION:
-                getSimpleDimension().clear();
-                getSimpleDimension().addAll((Collection<? extends SimpleDimension>)newValue);
-                return;
+        case CorePackage.CLASSIFIER__IS_ABSTRACT:
+            setIsAbstract((Boolean) newValue);
+            return;
+        case CorePackage.CLASSIFIER__FEATURE:
+            getFeature().clear();
+            getFeature().addAll((Collection<? extends Feature>) newValue);
+            return;
+        case CorePackage.CLASSIFIER__STRUCTURAL_FEATURE:
+            getStructuralFeature().clear();
+            getStructuralFeature().addAll((Collection<? extends StructuralFeature>) newValue);
+            return;
+        case CorePackage.CLASSIFIER__PARAMETER:
+            getParameter().clear();
+            getParameter().addAll((Collection<? extends Parameter>) newValue);
+            return;
+        case CorePackage.CLASSIFIER__GENERALIZATION:
+            getGeneralization().clear();
+            getGeneralization().addAll((Collection<? extends Generalization>) newValue);
+            return;
+        case CorePackage.CLASSIFIER__SPECIALIZATION:
+            getSpecialization().clear();
+            getSpecialization().addAll((Collection<? extends Generalization>) newValue);
+            return;
+        case CorePackage.CLASSIFIER__INSTANCE:
+            getInstance().clear();
+            getInstance().addAll((Collection<? extends Instance>) newValue);
+            return;
+        case CorePackage.CLASSIFIER__ALIAS:
+            getAlias().clear();
+            getAlias().addAll((Collection<? extends TypeAlias>) newValue);
+            return;
+        case CorePackage.CLASSIFIER__EXPRESSION_NODE:
+            getExpressionNode().clear();
+            getExpressionNode().addAll((Collection<? extends ExpressionNode>) newValue);
+            return;
+        case CorePackage.CLASSIFIER__MAPPING_FROM:
+            getMappingFrom().clear();
+            getMappingFrom().addAll((Collection<? extends TypeMapping>) newValue);
+            return;
+        case CorePackage.CLASSIFIER__MAPPING_TO:
+            getMappingTo().clear();
+            getMappingTo().addAll((Collection<? extends TypeMapping>) newValue);
+            return;
+        case CorePackage.CLASSIFIER__CLASSIFIER_MAP:
+            getClassifierMap().clear();
+            getClassifierMap().addAll((Collection<? extends ClassifierMap>) newValue);
+            return;
+        case CorePackage.CLASSIFIER__CF_MAP:
+            getCfMap().clear();
+            getCfMap().addAll((Collection<? extends ClassifierFeatureMap>) newValue);
+            return;
+        case CorePackage.CLASSIFIER__DOMAIN:
+            getDomain().clear();
+            getDomain().addAll((Collection<? extends Domain>) newValue);
+            return;
+        case CorePackage.CLASSIFIER__SIMPLE_DIMENSION:
+            getSimpleDimension().clear();
+            getSimpleDimension().addAll((Collection<? extends SimpleDimension>) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case CorePackage.CLASSIFIER__IS_ABSTRACT:
-                setIsAbstract(IS_ABSTRACT_EDEFAULT);
-                return;
-            case CorePackage.CLASSIFIER__FEATURE:
-                getFeature().clear();
-                return;
-            case CorePackage.CLASSIFIER__STRUCTURAL_FEATURE:
-                getStructuralFeature().clear();
-                return;
-            case CorePackage.CLASSIFIER__PARAMETER:
-                getParameter().clear();
-                return;
-            case CorePackage.CLASSIFIER__GENERALIZATION:
-                getGeneralization().clear();
-                return;
-            case CorePackage.CLASSIFIER__SPECIALIZATION:
-                getSpecialization().clear();
-                return;
-            case CorePackage.CLASSIFIER__INSTANCE:
-                getInstance().clear();
-                return;
-            case CorePackage.CLASSIFIER__ALIAS:
-                getAlias().clear();
-                return;
-            case CorePackage.CLASSIFIER__EXPRESSION_NODE:
-                getExpressionNode().clear();
-                return;
-            case CorePackage.CLASSIFIER__MAPPING_FROM:
-                getMappingFrom().clear();
-                return;
-            case CorePackage.CLASSIFIER__MAPPING_TO:
-                getMappingTo().clear();
-                return;
-            case CorePackage.CLASSIFIER__CLASSIFIER_MAP:
-                getClassifierMap().clear();
-                return;
-            case CorePackage.CLASSIFIER__CF_MAP:
-                getCfMap().clear();
-                return;
-            case CorePackage.CLASSIFIER__DOMAIN:
-                getDomain().clear();
-                return;
-            case CorePackage.CLASSIFIER__SIMPLE_DIMENSION:
-                getSimpleDimension().clear();
-                return;
+        case CorePackage.CLASSIFIER__IS_ABSTRACT:
+            setIsAbstract(IS_ABSTRACT_EDEFAULT);
+            return;
+        case CorePackage.CLASSIFIER__FEATURE:
+            getFeature().clear();
+            return;
+        case CorePackage.CLASSIFIER__STRUCTURAL_FEATURE:
+            getStructuralFeature().clear();
+            return;
+        case CorePackage.CLASSIFIER__PARAMETER:
+            getParameter().clear();
+            return;
+        case CorePackage.CLASSIFIER__GENERALIZATION:
+            getGeneralization().clear();
+            return;
+        case CorePackage.CLASSIFIER__SPECIALIZATION:
+            getSpecialization().clear();
+            return;
+        case CorePackage.CLASSIFIER__INSTANCE:
+            getInstance().clear();
+            return;
+        case CorePackage.CLASSIFIER__ALIAS:
+            getAlias().clear();
+            return;
+        case CorePackage.CLASSIFIER__EXPRESSION_NODE:
+            getExpressionNode().clear();
+            return;
+        case CorePackage.CLASSIFIER__MAPPING_FROM:
+            getMappingFrom().clear();
+            return;
+        case CorePackage.CLASSIFIER__MAPPING_TO:
+            getMappingTo().clear();
+            return;
+        case CorePackage.CLASSIFIER__CLASSIFIER_MAP:
+            getClassifierMap().clear();
+            return;
+        case CorePackage.CLASSIFIER__CF_MAP:
+            getCfMap().clear();
+            return;
+        case CorePackage.CLASSIFIER__DOMAIN:
+            getDomain().clear();
+            return;
+        case CorePackage.CLASSIFIER__SIMPLE_DIMENSION:
+            getSimpleDimension().clear();
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case CorePackage.CLASSIFIER__IS_ABSTRACT:
-                return isAbstract != IS_ABSTRACT_EDEFAULT;
-            case CorePackage.CLASSIFIER__FEATURE:
-                return feature != null && !feature.isEmpty();
-            case CorePackage.CLASSIFIER__STRUCTURAL_FEATURE:
-                return structuralFeature != null && !structuralFeature.isEmpty();
-            case CorePackage.CLASSIFIER__PARAMETER:
-                return parameter != null && !parameter.isEmpty();
-            case CorePackage.CLASSIFIER__GENERALIZATION:
-                return generalization != null && !generalization.isEmpty();
-            case CorePackage.CLASSIFIER__SPECIALIZATION:
-                return specialization != null && !specialization.isEmpty();
-            case CorePackage.CLASSIFIER__INSTANCE:
-                return instance != null && !instance.isEmpty();
-            case CorePackage.CLASSIFIER__ALIAS:
-                return alias != null && !alias.isEmpty();
-            case CorePackage.CLASSIFIER__EXPRESSION_NODE:
-                return expressionNode != null && !expressionNode.isEmpty();
-            case CorePackage.CLASSIFIER__MAPPING_FROM:
-                return mappingFrom != null && !mappingFrom.isEmpty();
-            case CorePackage.CLASSIFIER__MAPPING_TO:
-                return mappingTo != null && !mappingTo.isEmpty();
-            case CorePackage.CLASSIFIER__CLASSIFIER_MAP:
-                return classifierMap != null && !classifierMap.isEmpty();
-            case CorePackage.CLASSIFIER__CF_MAP:
-                return cfMap != null && !cfMap.isEmpty();
-            case CorePackage.CLASSIFIER__DOMAIN:
-                return domain != null && !domain.isEmpty();
-            case CorePackage.CLASSIFIER__SIMPLE_DIMENSION:
-                return simpleDimension != null && !simpleDimension.isEmpty();
+        case CorePackage.CLASSIFIER__IS_ABSTRACT:
+            return isAbstract != IS_ABSTRACT_EDEFAULT;
+        case CorePackage.CLASSIFIER__FEATURE:
+            return feature != null && !feature.isEmpty();
+        case CorePackage.CLASSIFIER__STRUCTURAL_FEATURE:
+            return structuralFeature != null && !structuralFeature.isEmpty();
+        case CorePackage.CLASSIFIER__PARAMETER:
+            return parameter != null && !parameter.isEmpty();
+        case CorePackage.CLASSIFIER__GENERALIZATION:
+            return generalization != null && !generalization.isEmpty();
+        case CorePackage.CLASSIFIER__SPECIALIZATION:
+            return specialization != null && !specialization.isEmpty();
+        case CorePackage.CLASSIFIER__INSTANCE:
+            return instance != null && !instance.isEmpty();
+        case CorePackage.CLASSIFIER__ALIAS:
+            return alias != null && !alias.isEmpty();
+        case CorePackage.CLASSIFIER__EXPRESSION_NODE:
+            return expressionNode != null && !expressionNode.isEmpty();
+        case CorePackage.CLASSIFIER__MAPPING_FROM:
+            return mappingFrom != null && !mappingFrom.isEmpty();
+        case CorePackage.CLASSIFIER__MAPPING_TO:
+            return mappingTo != null && !mappingTo.isEmpty();
+        case CorePackage.CLASSIFIER__CLASSIFIER_MAP:
+            return classifierMap != null && !classifierMap.isEmpty();
+        case CorePackage.CLASSIFIER__CF_MAP:
+            return cfMap != null && !cfMap.isEmpty();
+        case CorePackage.CLASSIFIER__DOMAIN:
+            return domain != null && !domain.isEmpty();
+        case CorePackage.CLASSIFIER__SIMPLE_DIMENSION:
+            return simpleDimension != null && !simpleDimension.isEmpty();
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (isAbstract: ");
@@ -747,4 +726,4 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
         return result.toString();
     }
 
-} //ClassifierImpl
+} // ClassifierImpl

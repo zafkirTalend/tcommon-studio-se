@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.management.warehouseprocess.events;
@@ -9,9 +8,8 @@ package orgomg.cwm.management.warehouseprocess.events;
 import orgomg.cwm.management.warehouseprocess.datatype.WaitRuleType;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Cascade Event</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Cascade Event</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * A CascadeEvent indicates that completion of one or more triggering WarehouseProcesses triggers another WarehouseProcess.
@@ -29,14 +27,18 @@ import orgomg.cwm.management.warehouseprocess.datatype.WaitRuleType;
  * @generated
  */
 public interface CascadeEvent extends InternalEvent {
+
     /**
-     * Returns the value of the '<em><b>Wait Rule</b></em>' attribute.
-     * The literals are from the enumeration {@link orgomg.cwm.management.warehouseprocess.datatype.WaitRuleType}.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Indicates if the event should be triggered as soon as any of the triggering WarehouseProcesses has completed that satisfies the condition (inherited from InternalEvent) or only when all the triggering WarehouseProcesses have completed (provided the condition is satisfied).
+     * Returns the value of the '<em><b>Wait Rule</b></em>' attribute. The
+     * literals are from the enumeration
+     * {@link orgomg.cwm.management.warehouseprocess.datatype.WaitRuleType}.
+     * <!-- begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * Indicates if the event should be triggered as soon as any of the
+     * triggering WarehouseProcesses has completed that satisfies the condition
+     * (inherited from InternalEvent) or only when all the triggering
+     * WarehouseProcesses have completed (provided the condition is satisfied).
      * <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Wait Rule</em>' attribute.
      * @see orgomg.cwm.management.warehouseprocess.datatype.WaitRuleType
      * @see #setWaitRule(WaitRuleType)
@@ -47,10 +49,13 @@ public interface CascadeEvent extends InternalEvent {
     WaitRuleType getWaitRule();
 
     /**
-     * Sets the value of the '{@link orgomg.cwm.management.warehouseprocess.events.CascadeEvent#getWaitRule <em>Wait Rule</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Wait Rule</em>' attribute.
+     * Sets the value of the '
+     * {@link orgomg.cwm.management.warehouseprocess.events.CascadeEvent#getWaitRule
+     * <em>Wait Rule</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @param value
+     *            the new value of the '<em>Wait Rule</em>' attribute.
      * @see orgomg.cwm.management.warehouseprocess.datatype.WaitRuleType
      * @see #getWaitRule()
      * @generated

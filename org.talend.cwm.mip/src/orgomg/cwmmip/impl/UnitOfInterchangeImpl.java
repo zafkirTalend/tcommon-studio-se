@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmmip.impl;
@@ -17,9 +16,8 @@ import orgomg.cwmmip.InterchangePattern;
 import orgomg.cwmmip.UnitOfInterchange;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Unit Of Interchange</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Unit Of Interchange</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -30,10 +28,11 @@ import orgomg.cwmmip.UnitOfInterchange;
  * @generated
  */
 public class UnitOfInterchangeImpl extends NamespaceImpl implements UnitOfInterchange {
+
     /**
      * The cached value of the '{@link #getInterchangePattern() <em>Interchange Pattern</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getInterchangePattern()
      * @generated
      * @ordered
@@ -41,8 +40,7 @@ public class UnitOfInterchangeImpl extends NamespaceImpl implements UnitOfInterc
     protected InterchangePattern interchangePattern;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected UnitOfInterchangeImpl() {
@@ -50,8 +48,7 @@ public class UnitOfInterchangeImpl extends NamespaceImpl implements UnitOfInterc
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -60,25 +57,24 @@ public class UnitOfInterchangeImpl extends NamespaceImpl implements UnitOfInterc
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public InterchangePattern getInterchangePattern() {
         if (interchangePattern != null && interchangePattern.eIsProxy()) {
-            InternalEObject oldInterchangePattern = (InternalEObject)interchangePattern;
-            interchangePattern = (InterchangePattern)eResolveProxy(oldInterchangePattern);
+            InternalEObject oldInterchangePattern = (InternalEObject) interchangePattern;
+            interchangePattern = (InterchangePattern) eResolveProxy(oldInterchangePattern);
             if (interchangePattern != oldInterchangePattern) {
                 if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, CwmmipPackage.UNIT_OF_INTERCHANGE__INTERCHANGE_PATTERN, oldInterchangePattern, interchangePattern));
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+                            CwmmipPackage.UNIT_OF_INTERCHANGE__INTERCHANGE_PATTERN, oldInterchangePattern, interchangePattern));
             }
         }
         return interchangePattern;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public InterchangePattern basicGetInterchangePattern() {
@@ -86,126 +82,127 @@ public class UnitOfInterchangeImpl extends NamespaceImpl implements UnitOfInterc
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public NotificationChain basicSetInterchangePattern(InterchangePattern newInterchangePattern, NotificationChain msgs) {
         InterchangePattern oldInterchangePattern = interchangePattern;
         interchangePattern = newInterchangePattern;
         if (eNotificationRequired()) {
-            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CwmmipPackage.UNIT_OF_INTERCHANGE__INTERCHANGE_PATTERN, oldInterchangePattern, newInterchangePattern);
-            if (msgs == null) msgs = notification; else msgs.add(notification);
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+                    CwmmipPackage.UNIT_OF_INTERCHANGE__INTERCHANGE_PATTERN, oldInterchangePattern, newInterchangePattern);
+            if (msgs == null)
+                msgs = notification;
+            else
+                msgs.add(notification);
         }
         return msgs;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setInterchangePattern(InterchangePattern newInterchangePattern) {
         if (newInterchangePattern != interchangePattern) {
             NotificationChain msgs = null;
             if (interchangePattern != null)
-                msgs = ((InternalEObject)interchangePattern).eInverseRemove(this, CwmmipPackage.INTERCHANGE_PATTERN__UNIT_OF_INTERCHANGE, InterchangePattern.class, msgs);
+                msgs = ((InternalEObject) interchangePattern).eInverseRemove(this,
+                        CwmmipPackage.INTERCHANGE_PATTERN__UNIT_OF_INTERCHANGE, InterchangePattern.class, msgs);
             if (newInterchangePattern != null)
-                msgs = ((InternalEObject)newInterchangePattern).eInverseAdd(this, CwmmipPackage.INTERCHANGE_PATTERN__UNIT_OF_INTERCHANGE, InterchangePattern.class, msgs);
+                msgs = ((InternalEObject) newInterchangePattern).eInverseAdd(this,
+                        CwmmipPackage.INTERCHANGE_PATTERN__UNIT_OF_INTERCHANGE, InterchangePattern.class, msgs);
             msgs = basicSetInterchangePattern(newInterchangePattern, msgs);
-            if (msgs != null) msgs.dispatch();
-        }
-        else if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, CwmmipPackage.UNIT_OF_INTERCHANGE__INTERCHANGE_PATTERN, newInterchangePattern, newInterchangePattern));
+            if (msgs != null)
+                msgs.dispatch();
+        } else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, CwmmipPackage.UNIT_OF_INTERCHANGE__INTERCHANGE_PATTERN,
+                    newInterchangePattern, newInterchangePattern));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case CwmmipPackage.UNIT_OF_INTERCHANGE__INTERCHANGE_PATTERN:
-                if (interchangePattern != null)
-                    msgs = ((InternalEObject)interchangePattern).eInverseRemove(this, CwmmipPackage.INTERCHANGE_PATTERN__UNIT_OF_INTERCHANGE, InterchangePattern.class, msgs);
-                return basicSetInterchangePattern((InterchangePattern)otherEnd, msgs);
+        case CwmmipPackage.UNIT_OF_INTERCHANGE__INTERCHANGE_PATTERN:
+            if (interchangePattern != null)
+                msgs = ((InternalEObject) interchangePattern).eInverseRemove(this,
+                        CwmmipPackage.INTERCHANGE_PATTERN__UNIT_OF_INTERCHANGE, InterchangePattern.class, msgs);
+            return basicSetInterchangePattern((InterchangePattern) otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case CwmmipPackage.UNIT_OF_INTERCHANGE__INTERCHANGE_PATTERN:
-                return basicSetInterchangePattern(null, msgs);
+        case CwmmipPackage.UNIT_OF_INTERCHANGE__INTERCHANGE_PATTERN:
+            return basicSetInterchangePattern(null, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case CwmmipPackage.UNIT_OF_INTERCHANGE__INTERCHANGE_PATTERN:
-                if (resolve) return getInterchangePattern();
-                return basicGetInterchangePattern();
+        case CwmmipPackage.UNIT_OF_INTERCHANGE__INTERCHANGE_PATTERN:
+            if (resolve)
+                return getInterchangePattern();
+            return basicGetInterchangePattern();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case CwmmipPackage.UNIT_OF_INTERCHANGE__INTERCHANGE_PATTERN:
-                setInterchangePattern((InterchangePattern)newValue);
-                return;
+        case CwmmipPackage.UNIT_OF_INTERCHANGE__INTERCHANGE_PATTERN:
+            setInterchangePattern((InterchangePattern) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case CwmmipPackage.UNIT_OF_INTERCHANGE__INTERCHANGE_PATTERN:
-                setInterchangePattern((InterchangePattern)null);
-                return;
+        case CwmmipPackage.UNIT_OF_INTERCHANGE__INTERCHANGE_PATTERN:
+            setInterchangePattern((InterchangePattern) null);
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case CwmmipPackage.UNIT_OF_INTERCHANGE__INTERCHANGE_PATTERN:
-                return interchangePattern != null;
+        case CwmmipPackage.UNIT_OF_INTERCHANGE__INTERCHANGE_PATTERN:
+            return interchangePattern != null;
         }
         return super.eIsSet(featureID);
     }
 
-} //UnitOfInterchangeImpl
+} // UnitOfInterchangeImpl

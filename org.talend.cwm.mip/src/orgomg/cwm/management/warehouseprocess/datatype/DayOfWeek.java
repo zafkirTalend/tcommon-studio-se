@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.management.warehouseprocess.datatype;
@@ -13,13 +12,12 @@ import java.util.List;
 import org.eclipse.emf.common.util.Enumerator;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the literals of the enumeration '<em><b>Day Of Week</b></em>',
- * and utility methods for working with them.
- * <!-- end-user-doc -->
- * <!-- begin-model-doc -->
- * Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday, workingDay, nonworkingDay
- * <!-- end-model-doc -->
+ * <!-- begin-user-doc --> A representation of the literals of the enumeration '
+ * <em><b>Day Of Week</b></em>', and utility methods for working with them. <!--
+ * end-user-doc --> <!-- begin-model-doc --> Monday, Tuesday, Wednesday,
+ * Thursday, Friday, Saturday, Sunday, workingDay, nonworkingDay <!--
+ * end-model-doc -->
+ * 
  * @see orgomg.cwm.management.warehouseprocess.datatype.DatatypePackage#getDayOfWeek()
  * @model
  * @generated
@@ -27,8 +25,8 @@ import org.eclipse.emf.common.util.Enumerator;
 public enum DayOfWeek implements Enumerator {
     /**
      * The '<em><b>Monday</b></em>' literal object.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #MONDAY_VALUE
      * @generated
      * @ordered
@@ -67,8 +65,8 @@ public enum DayOfWeek implements Enumerator {
 
     /**
      * The '<em><b>Friday</b></em>' literal object.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #FRIDAY_VALUE
      * @generated
      * @ordered
@@ -87,8 +85,8 @@ public enum DayOfWeek implements Enumerator {
 
     /**
      * The '<em><b>Sunday</b></em>' literal object.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #SUNDAY_VALUE
      * @generated
      * @ordered
@@ -107,8 +105,8 @@ public enum DayOfWeek implements Enumerator {
 
     /**
      * The '<em><b>Nonworking Day</b></em>' literal object.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @see #NONWORKING_DAY_VALUE
      * @generated
      * @ordered
@@ -224,8 +222,8 @@ public enum DayOfWeek implements Enumerator {
      * The '<em><b>Working Day</b></em>' literal value.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of '<em><b>Working Day</b></em>' literal object isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of '<em><b>Working Day</b></em>' literal object isn't
+     * clear, there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
      * @see #WORKING_DAY
@@ -237,10 +235,11 @@ public enum DayOfWeek implements Enumerator {
 
     /**
      * The '<em><b>Nonworking Day</b></em>' literal value.
-     * <!-- begin-user-doc -->
+     * <!-- begin-user-doc
+     * -->
      * <p>
-     * If the meaning of '<em><b>Nonworking Day</b></em>' literal object isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of '<em><b>Nonworking Day</b></em>' literal object isn't
+     * clear, there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
      * @see #NONWORKING_DAY
@@ -251,36 +250,24 @@ public enum DayOfWeek implements Enumerator {
     public static final int NONWORKING_DAY_VALUE = 8;
 
     /**
-     * An array of all the '<em><b>Day Of Week</b></em>' enumerators.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * An array of all the '<em><b>Day Of Week</b></em>' enumerators. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
-    private static final DayOfWeek[] VALUES_ARRAY =
-        new DayOfWeek[] {
-            MONDAY,
-            TUESDAY,
-            WEDNESDAY,
-            THURSDAY,
-            FRIDAY,
-            SATURDAY,
-            SUNDAY,
-            WORKING_DAY,
-            NONWORKING_DAY,
-        };
+    private static final DayOfWeek[] VALUES_ARRAY = new DayOfWeek[] { MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY,
+            SUNDAY, WORKING_DAY, NONWORKING_DAY, };
 
     /**
      * A public read-only list of all the '<em><b>Day Of Week</b></em>' enumerators.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static final List<DayOfWeek> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
     /**
      * Returns the '<em><b>Day Of Week</b></em>' literal with the specified literal value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static DayOfWeek get(String literal) {
@@ -295,8 +282,7 @@ public enum DayOfWeek implements Enumerator {
 
     /**
      * Returns the '<em><b>Day Of Week</b></em>' literal with the specified name.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static DayOfWeek getByName(String name) {
@@ -311,50 +297,55 @@ public enum DayOfWeek implements Enumerator {
 
     /**
      * Returns the '<em><b>Day Of Week</b></em>' literal with the specified integer value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static DayOfWeek get(int value) {
         switch (value) {
-            case MONDAY_VALUE: return MONDAY;
-            case TUESDAY_VALUE: return TUESDAY;
-            case WEDNESDAY_VALUE: return WEDNESDAY;
-            case THURSDAY_VALUE: return THURSDAY;
-            case FRIDAY_VALUE: return FRIDAY;
-            case SATURDAY_VALUE: return SATURDAY;
-            case SUNDAY_VALUE: return SUNDAY;
-            case WORKING_DAY_VALUE: return WORKING_DAY;
-            case NONWORKING_DAY_VALUE: return NONWORKING_DAY;
+        case MONDAY_VALUE:
+            return MONDAY;
+        case TUESDAY_VALUE:
+            return TUESDAY;
+        case WEDNESDAY_VALUE:
+            return WEDNESDAY;
+        case THURSDAY_VALUE:
+            return THURSDAY;
+        case FRIDAY_VALUE:
+            return FRIDAY;
+        case SATURDAY_VALUE:
+            return SATURDAY;
+        case SUNDAY_VALUE:
+            return SUNDAY;
+        case WORKING_DAY_VALUE:
+            return WORKING_DAY;
+        case NONWORKING_DAY_VALUE:
+            return NONWORKING_DAY;
         }
         return null;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private final int value;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private final String name;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private final String literal;
 
     /**
      * Only this class can construct instances.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     private DayOfWeek(int value, String name, String literal) {
@@ -364,41 +355,37 @@ public enum DayOfWeek implements Enumerator {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public int getValue() {
-      return value;
+        return value;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getName() {
-      return name;
+        return name;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getLiteral() {
-      return literal;
+        return literal;
     }
 
     /**
      * Returns the literal value of the enumerator, which is its string representation.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
         return literal;
     }
-    
-} //DayOfWeek
+
+} // DayOfWeek

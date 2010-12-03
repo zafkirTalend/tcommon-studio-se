@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.analysis.transformation;
@@ -11,9 +10,8 @@ import orgomg.cwm.objectmodel.core.Namespace;
 import orgomg.cwm.objectmodel.core.ProcedureExpression;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Transformation</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Transformation</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * This represents a transformation from a set of sources to a set of targets. 
@@ -39,13 +37,13 @@ import orgomg.cwm.objectmodel.core.ProcedureExpression;
  * @generated
  */
 public interface Transformation extends Namespace {
+
     /**
-     * Returns the value of the '<em><b>Function</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Any code or script for the Transformation.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Function</b></em>' containment
+     * reference. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> Any code or script for the Transformation. <!--
+     * end-model-doc -->
+     * 
      * @return the value of the '<em>Function</em>' containment reference.
      * @see #setFunction(ProcedureExpression)
      * @see orgomg.cwm.analysis.transformation.TransformationPackage#getTransformation_Function()
@@ -56,8 +54,8 @@ public interface Transformation extends Namespace {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.analysis.transformation.Transformation#getFunction <em>Function</em>}' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Function</em>' containment reference.
      * @see #getFunction()
      * @generated
@@ -65,12 +63,11 @@ public interface Transformation extends Namespace {
     void setFunction(ProcedureExpression value);
 
     /**
-     * Returns the value of the '<em><b>Function Description</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * A short description for any code or script performed by the Transformation.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Function Description</b></em>'
+     * attribute. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> A short description for any code or script performed
+     * by the Transformation. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Function Description</em>' attribute.
      * @see #setFunctionDescription(String)
      * @see orgomg.cwm.analysis.transformation.TransformationPackage#getTransformation_FunctionDescription()
@@ -81,8 +78,8 @@ public interface Transformation extends Namespace {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.analysis.transformation.Transformation#getFunctionDescription <em>Function Description</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Function Description</em>' attribute.
      * @see #getFunctionDescription()
      * @generated
@@ -90,12 +87,11 @@ public interface Transformation extends Namespace {
     void setFunctionDescription(String value);
 
     /**
-     * Returns the value of the '<em><b>Is Primary</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * This Transformation is the primary transformation for the associated TransformationTask.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Is Primary</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> This
+     * Transformation is the primary transformation for the associated
+     * TransformationTask. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Is Primary</em>' attribute.
      * @see #setIsPrimary(boolean)
      * @see orgomg.cwm.analysis.transformation.TransformationPackage#getTransformation_IsPrimary()
@@ -106,8 +102,8 @@ public interface Transformation extends Namespace {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.analysis.transformation.Transformation#isIsPrimary <em>Is Primary</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Is Primary</em>' attribute.
      * @see #isIsPrimary()
      * @generated
@@ -115,14 +111,15 @@ public interface Transformation extends Namespace {
     void setIsPrimary(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Source</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwm.analysis.transformation.DataObjectSet}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.analysis.transformation.DataObjectSet#getSourceTransformation <em>Source Transformation</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the sources of the Transformation
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Source</b></em>' reference list. The
+     * list contents are of type
+     * {@link orgomg.cwm.analysis.transformation.DataObjectSet}. It is
+     * bidirectional and its opposite is '
+     * {@link orgomg.cwm.analysis.transformation.DataObjectSet#getSourceTransformation
+     * <em>Source Transformation</em>}'. <!-- begin-user-doc --> <!--
+     * end-user-doc --> <!-- begin-model-doc --> Identifies the sources of the
+     * Transformation <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Source</em>' reference list.
      * @see orgomg.cwm.analysis.transformation.TransformationPackage#getTransformation_Source()
      * @see orgomg.cwm.analysis.transformation.DataObjectSet#getSourceTransformation
@@ -132,14 +129,15 @@ public interface Transformation extends Namespace {
     EList<DataObjectSet> getSource();
 
     /**
-     * Returns the value of the '<em><b>Target</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwm.analysis.transformation.DataObjectSet}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.analysis.transformation.DataObjectSet#getTargetTransformation <em>Target Transformation</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the targets of the Transformation
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Target</b></em>' reference list. The
+     * list contents are of type
+     * {@link orgomg.cwm.analysis.transformation.DataObjectSet}. It is
+     * bidirectional and its opposite is '
+     * {@link orgomg.cwm.analysis.transformation.DataObjectSet#getTargetTransformation
+     * <em>Target Transformation</em>}'. <!-- begin-user-doc --> <!--
+     * end-user-doc --> <!-- begin-model-doc --> Identifies the targets of the
+     * Transformation <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Target</em>' reference list.
      * @see orgomg.cwm.analysis.transformation.TransformationPackage#getTransformation_Target()
      * @see orgomg.cwm.analysis.transformation.DataObjectSet#getTargetTransformation
@@ -152,8 +150,7 @@ public interface Transformation extends Namespace {
      * Returns the value of the '<em><b>Task</b></em>' reference list.
      * The list contents are of type {@link orgomg.cwm.analysis.transformation.TransformationTask}.
      * It is bidirectional and its opposite is '{@link orgomg.cwm.analysis.transformation.TransformationTask#getTransformation <em>Transformation</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Identifies the TransformationTask
      * <!-- end-model-doc -->

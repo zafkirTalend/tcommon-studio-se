@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.imsdatabase.impl;
@@ -30,9 +29,8 @@ import orgomg.cwmx.resource.imsdatabase.Segment;
 import orgomg.cwmx.resource.imsdatabase.imstypes.AccessMethodType;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>DBD</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>DBD</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -53,10 +51,10 @@ import orgomg.cwmx.resource.imsdatabase.imstypes.AccessMethodType;
  * @generated
  */
 public class DBDImpl extends RecordFileImpl implements DBD {
+
     /**
      * The default value of the '{@link #getDliAccess() <em>Dli Access</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getDliAccess()
      * @generated
      * @ordered
@@ -65,8 +63,7 @@ public class DBDImpl extends RecordFileImpl implements DBD {
 
     /**
      * The cached value of the '{@link #getDliAccess() <em>Dli Access</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getDliAccess()
      * @generated
      * @ordered
@@ -75,8 +72,7 @@ public class DBDImpl extends RecordFileImpl implements DBD {
 
     /**
      * The default value of the '{@link #isIsVSAM() <em>Is VSAM</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #isIsVSAM()
      * @generated
      * @ordered
@@ -85,8 +81,7 @@ public class DBDImpl extends RecordFileImpl implements DBD {
 
     /**
      * The cached value of the '{@link #isIsVSAM() <em>Is VSAM</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #isIsVSAM()
      * @generated
      * @ordered
@@ -95,8 +90,8 @@ public class DBDImpl extends RecordFileImpl implements DBD {
 
     /**
      * The default value of the '{@link #isPasswordFlag() <em>Password Flag</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #isPasswordFlag()
      * @generated
      * @ordered
@@ -105,8 +100,7 @@ public class DBDImpl extends RecordFileImpl implements DBD {
 
     /**
      * The cached value of the '{@link #isPasswordFlag() <em>Password Flag</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #isPasswordFlag()
      * @generated
      * @ordered
@@ -115,8 +109,8 @@ public class DBDImpl extends RecordFileImpl implements DBD {
 
     /**
      * The default value of the '{@link #getVersionString() <em>Version String</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getVersionString()
      * @generated
      * @ordered
@@ -125,8 +119,8 @@ public class DBDImpl extends RecordFileImpl implements DBD {
 
     /**
      * The cached value of the '{@link #getVersionString() <em>Version String</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getVersionString()
      * @generated
      * @ordered
@@ -145,8 +139,7 @@ public class DBDImpl extends RecordFileImpl implements DBD {
 
     /**
      * The cached value of the '{@link #getAcblib() <em>Acblib</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getAcblib()
      * @generated
      * @ordered
@@ -155,8 +148,7 @@ public class DBDImpl extends RecordFileImpl implements DBD {
 
     /**
      * The cached value of the '{@link #getDataset() <em>Dataset</em>}' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getDataset()
      * @generated
      * @ordered
@@ -165,8 +157,7 @@ public class DBDImpl extends RecordFileImpl implements DBD {
 
     /**
      * The cached value of the '{@link #getSegment() <em>Segment</em>}' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getSegment()
      * @generated
      * @ordered
@@ -175,8 +166,7 @@ public class DBDImpl extends RecordFileImpl implements DBD {
 
     /**
      * The cached value of the '{@link #getPcb() <em>Pcb</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getPcb()
      * @generated
      * @ordered
@@ -185,8 +175,7 @@ public class DBDImpl extends RecordFileImpl implements DBD {
 
     /**
      * The cached value of the '{@link #getExit() <em>Exit</em>}' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getExit()
      * @generated
      * @ordered
@@ -195,8 +184,7 @@ public class DBDImpl extends RecordFileImpl implements DBD {
 
     /**
      * The cached value of the '{@link #getLibrary() <em>Library</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getLibrary()
      * @generated
      * @ordered
@@ -204,8 +192,7 @@ public class DBDImpl extends RecordFileImpl implements DBD {
     protected EList<DBDLib> library;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected DBDImpl() {
@@ -213,8 +200,7 @@ public class DBDImpl extends RecordFileImpl implements DBD {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -223,8 +209,7 @@ public class DBDImpl extends RecordFileImpl implements DBD {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public AccessMethodType getDliAccess() {
@@ -232,8 +217,7 @@ public class DBDImpl extends RecordFileImpl implements DBD {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setDliAccess(AccessMethodType newDliAccess) {
@@ -244,8 +228,7 @@ public class DBDImpl extends RecordFileImpl implements DBD {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isIsVSAM() {
@@ -253,8 +236,7 @@ public class DBDImpl extends RecordFileImpl implements DBD {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setIsVSAM(boolean newIsVSAM) {
@@ -265,8 +247,7 @@ public class DBDImpl extends RecordFileImpl implements DBD {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isPasswordFlag() {
@@ -274,20 +255,19 @@ public class DBDImpl extends RecordFileImpl implements DBD {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setPasswordFlag(boolean newPasswordFlag) {
         boolean oldPasswordFlag = passwordFlag;
         passwordFlag = newPasswordFlag;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.DBD__PASSWORD_FLAG, oldPasswordFlag, passwordFlag));
+            eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.DBD__PASSWORD_FLAG, oldPasswordFlag,
+                    passwordFlag));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getVersionString() {
@@ -295,20 +275,19 @@ public class DBDImpl extends RecordFileImpl implements DBD {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setVersionString(String newVersionString) {
         String oldVersionString = versionString;
         versionString = newVersionString;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.DBD__VERSION_STRING, oldVersionString, versionString));
+            eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.DBD__VERSION_STRING, oldVersionString,
+                    versionString));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public AccessMethod getAccessMethod() {
@@ -316,339 +295,339 @@ public class DBDImpl extends RecordFileImpl implements DBD {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public NotificationChain basicSetAccessMethod(AccessMethod newAccessMethod, NotificationChain msgs) {
         AccessMethod oldAccessMethod = accessMethod;
         accessMethod = newAccessMethod;
         if (eNotificationRequired()) {
-            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.DBD__ACCESS_METHOD, oldAccessMethod, newAccessMethod);
-            if (msgs == null) msgs = notification; else msgs.add(notification);
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.DBD__ACCESS_METHOD,
+                    oldAccessMethod, newAccessMethod);
+            if (msgs == null)
+                msgs = notification;
+            else
+                msgs.add(notification);
         }
         return msgs;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setAccessMethod(AccessMethod newAccessMethod) {
         if (newAccessMethod != accessMethod) {
             NotificationChain msgs = null;
             if (accessMethod != null)
-                msgs = ((InternalEObject)accessMethod).eInverseRemove(this, ImsdatabasePackage.ACCESS_METHOD__DBD, AccessMethod.class, msgs);
+                msgs = ((InternalEObject) accessMethod).eInverseRemove(this, ImsdatabasePackage.ACCESS_METHOD__DBD,
+                        AccessMethod.class, msgs);
             if (newAccessMethod != null)
-                msgs = ((InternalEObject)newAccessMethod).eInverseAdd(this, ImsdatabasePackage.ACCESS_METHOD__DBD, AccessMethod.class, msgs);
+                msgs = ((InternalEObject) newAccessMethod).eInverseAdd(this, ImsdatabasePackage.ACCESS_METHOD__DBD,
+                        AccessMethod.class, msgs);
             msgs = basicSetAccessMethod(newAccessMethod, msgs);
-            if (msgs != null) msgs.dispatch();
-        }
-        else if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.DBD__ACCESS_METHOD, newAccessMethod, newAccessMethod));
+            if (msgs != null)
+                msgs.dispatch();
+        } else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.DBD__ACCESS_METHOD, newAccessMethod,
+                    newAccessMethod));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<ACBLIB> getAcblib() {
         if (acblib == null) {
-            acblib = new EObjectWithInverseResolvingEList.ManyInverse<ACBLIB>(ACBLIB.class, this, ImsdatabasePackage.DBD__ACBLIB, ImsdatabasePackage.ACBLIB__DBD);
+            acblib = new EObjectWithInverseResolvingEList.ManyInverse<ACBLIB>(ACBLIB.class, this, ImsdatabasePackage.DBD__ACBLIB,
+                    ImsdatabasePackage.ACBLIB__DBD);
         }
         return acblib;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<Dataset> getDataset() {
         if (dataset == null) {
-            dataset = new EObjectContainmentWithInverseEList<Dataset>(Dataset.class, this, ImsdatabasePackage.DBD__DATASET, ImsdatabasePackage.DATASET__DBD);
+            dataset = new EObjectContainmentWithInverseEList<Dataset>(Dataset.class, this, ImsdatabasePackage.DBD__DATASET,
+                    ImsdatabasePackage.DATASET__DBD);
         }
         return dataset;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<Segment> getSegment() {
         if (segment == null) {
-            segment = new EObjectContainmentWithInverseEList<Segment>(Segment.class, this, ImsdatabasePackage.DBD__SEGMENT, ImsdatabasePackage.SEGMENT__DBD);
+            segment = new EObjectContainmentWithInverseEList<Segment>(Segment.class, this, ImsdatabasePackage.DBD__SEGMENT,
+                    ImsdatabasePackage.SEGMENT__DBD);
         }
         return segment;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<PCB> getPcb() {
         if (pcb == null) {
-            pcb = new EObjectWithInverseResolvingEList<PCB>(PCB.class, this, ImsdatabasePackage.DBD__PCB, ImsdatabasePackage.PCB__DBD);
+            pcb = new EObjectWithInverseResolvingEList<PCB>(PCB.class, this, ImsdatabasePackage.DBD__PCB,
+                    ImsdatabasePackage.PCB__DBD);
         }
         return pcb;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<Exit> getExit() {
         if (exit == null) {
-            exit = new EObjectContainmentWithInverseEList<Exit>(Exit.class, this, ImsdatabasePackage.DBD__EXIT, ImsdatabasePackage.EXIT__DBD);
+            exit = new EObjectContainmentWithInverseEList<Exit>(Exit.class, this, ImsdatabasePackage.DBD__EXIT,
+                    ImsdatabasePackage.EXIT__DBD);
         }
         return exit;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<DBDLib> getLibrary() {
         if (library == null) {
-            library = new EObjectWithInverseResolvingEList.ManyInverse<DBDLib>(DBDLib.class, this, ImsdatabasePackage.DBD__LIBRARY, ImsdatabasePackage.DBD_LIB__DBD);
+            library = new EObjectWithInverseResolvingEList.ManyInverse<DBDLib>(DBDLib.class, this,
+                    ImsdatabasePackage.DBD__LIBRARY, ImsdatabasePackage.DBD_LIB__DBD);
         }
         return library;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case ImsdatabasePackage.DBD__ACCESS_METHOD:
-                if (accessMethod != null)
-                    msgs = ((InternalEObject)accessMethod).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ImsdatabasePackage.DBD__ACCESS_METHOD, null, msgs);
-                return basicSetAccessMethod((AccessMethod)otherEnd, msgs);
-            case ImsdatabasePackage.DBD__ACBLIB:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getAcblib()).basicAdd(otherEnd, msgs);
-            case ImsdatabasePackage.DBD__DATASET:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getDataset()).basicAdd(otherEnd, msgs);
-            case ImsdatabasePackage.DBD__SEGMENT:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getSegment()).basicAdd(otherEnd, msgs);
-            case ImsdatabasePackage.DBD__PCB:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getPcb()).basicAdd(otherEnd, msgs);
-            case ImsdatabasePackage.DBD__EXIT:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getExit()).basicAdd(otherEnd, msgs);
-            case ImsdatabasePackage.DBD__LIBRARY:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getLibrary()).basicAdd(otherEnd, msgs);
+        case ImsdatabasePackage.DBD__ACCESS_METHOD:
+            if (accessMethod != null)
+                msgs = ((InternalEObject) accessMethod).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
+                        - ImsdatabasePackage.DBD__ACCESS_METHOD, null, msgs);
+            return basicSetAccessMethod((AccessMethod) otherEnd, msgs);
+        case ImsdatabasePackage.DBD__ACBLIB:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getAcblib()).basicAdd(otherEnd, msgs);
+        case ImsdatabasePackage.DBD__DATASET:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getDataset()).basicAdd(otherEnd, msgs);
+        case ImsdatabasePackage.DBD__SEGMENT:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getSegment()).basicAdd(otherEnd, msgs);
+        case ImsdatabasePackage.DBD__PCB:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getPcb()).basicAdd(otherEnd, msgs);
+        case ImsdatabasePackage.DBD__EXIT:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getExit()).basicAdd(otherEnd, msgs);
+        case ImsdatabasePackage.DBD__LIBRARY:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getLibrary()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case ImsdatabasePackage.DBD__ACCESS_METHOD:
-                return basicSetAccessMethod(null, msgs);
-            case ImsdatabasePackage.DBD__ACBLIB:
-                return ((InternalEList<?>)getAcblib()).basicRemove(otherEnd, msgs);
-            case ImsdatabasePackage.DBD__DATASET:
-                return ((InternalEList<?>)getDataset()).basicRemove(otherEnd, msgs);
-            case ImsdatabasePackage.DBD__SEGMENT:
-                return ((InternalEList<?>)getSegment()).basicRemove(otherEnd, msgs);
-            case ImsdatabasePackage.DBD__PCB:
-                return ((InternalEList<?>)getPcb()).basicRemove(otherEnd, msgs);
-            case ImsdatabasePackage.DBD__EXIT:
-                return ((InternalEList<?>)getExit()).basicRemove(otherEnd, msgs);
-            case ImsdatabasePackage.DBD__LIBRARY:
-                return ((InternalEList<?>)getLibrary()).basicRemove(otherEnd, msgs);
+        case ImsdatabasePackage.DBD__ACCESS_METHOD:
+            return basicSetAccessMethod(null, msgs);
+        case ImsdatabasePackage.DBD__ACBLIB:
+            return ((InternalEList<?>) getAcblib()).basicRemove(otherEnd, msgs);
+        case ImsdatabasePackage.DBD__DATASET:
+            return ((InternalEList<?>) getDataset()).basicRemove(otherEnd, msgs);
+        case ImsdatabasePackage.DBD__SEGMENT:
+            return ((InternalEList<?>) getSegment()).basicRemove(otherEnd, msgs);
+        case ImsdatabasePackage.DBD__PCB:
+            return ((InternalEList<?>) getPcb()).basicRemove(otherEnd, msgs);
+        case ImsdatabasePackage.DBD__EXIT:
+            return ((InternalEList<?>) getExit()).basicRemove(otherEnd, msgs);
+        case ImsdatabasePackage.DBD__LIBRARY:
+            return ((InternalEList<?>) getLibrary()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case ImsdatabasePackage.DBD__DLI_ACCESS:
-                return getDliAccess();
-            case ImsdatabasePackage.DBD__IS_VSAM:
-                return isIsVSAM();
-            case ImsdatabasePackage.DBD__PASSWORD_FLAG:
-                return isPasswordFlag();
-            case ImsdatabasePackage.DBD__VERSION_STRING:
-                return getVersionString();
-            case ImsdatabasePackage.DBD__ACCESS_METHOD:
-                return getAccessMethod();
-            case ImsdatabasePackage.DBD__ACBLIB:
-                return getAcblib();
-            case ImsdatabasePackage.DBD__DATASET:
-                return getDataset();
-            case ImsdatabasePackage.DBD__SEGMENT:
-                return getSegment();
-            case ImsdatabasePackage.DBD__PCB:
-                return getPcb();
-            case ImsdatabasePackage.DBD__EXIT:
-                return getExit();
-            case ImsdatabasePackage.DBD__LIBRARY:
-                return getLibrary();
+        case ImsdatabasePackage.DBD__DLI_ACCESS:
+            return getDliAccess();
+        case ImsdatabasePackage.DBD__IS_VSAM:
+            return isIsVSAM();
+        case ImsdatabasePackage.DBD__PASSWORD_FLAG:
+            return isPasswordFlag();
+        case ImsdatabasePackage.DBD__VERSION_STRING:
+            return getVersionString();
+        case ImsdatabasePackage.DBD__ACCESS_METHOD:
+            return getAccessMethod();
+        case ImsdatabasePackage.DBD__ACBLIB:
+            return getAcblib();
+        case ImsdatabasePackage.DBD__DATASET:
+            return getDataset();
+        case ImsdatabasePackage.DBD__SEGMENT:
+            return getSegment();
+        case ImsdatabasePackage.DBD__PCB:
+            return getPcb();
+        case ImsdatabasePackage.DBD__EXIT:
+            return getExit();
+        case ImsdatabasePackage.DBD__LIBRARY:
+            return getLibrary();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case ImsdatabasePackage.DBD__DLI_ACCESS:
-                setDliAccess((AccessMethodType)newValue);
-                return;
-            case ImsdatabasePackage.DBD__IS_VSAM:
-                setIsVSAM((Boolean)newValue);
-                return;
-            case ImsdatabasePackage.DBD__PASSWORD_FLAG:
-                setPasswordFlag((Boolean)newValue);
-                return;
-            case ImsdatabasePackage.DBD__VERSION_STRING:
-                setVersionString((String)newValue);
-                return;
-            case ImsdatabasePackage.DBD__ACCESS_METHOD:
-                setAccessMethod((AccessMethod)newValue);
-                return;
-            case ImsdatabasePackage.DBD__ACBLIB:
-                getAcblib().clear();
-                getAcblib().addAll((Collection<? extends ACBLIB>)newValue);
-                return;
-            case ImsdatabasePackage.DBD__DATASET:
-                getDataset().clear();
-                getDataset().addAll((Collection<? extends Dataset>)newValue);
-                return;
-            case ImsdatabasePackage.DBD__SEGMENT:
-                getSegment().clear();
-                getSegment().addAll((Collection<? extends Segment>)newValue);
-                return;
-            case ImsdatabasePackage.DBD__PCB:
-                getPcb().clear();
-                getPcb().addAll((Collection<? extends PCB>)newValue);
-                return;
-            case ImsdatabasePackage.DBD__EXIT:
-                getExit().clear();
-                getExit().addAll((Collection<? extends Exit>)newValue);
-                return;
-            case ImsdatabasePackage.DBD__LIBRARY:
-                getLibrary().clear();
-                getLibrary().addAll((Collection<? extends DBDLib>)newValue);
-                return;
+        case ImsdatabasePackage.DBD__DLI_ACCESS:
+            setDliAccess((AccessMethodType) newValue);
+            return;
+        case ImsdatabasePackage.DBD__IS_VSAM:
+            setIsVSAM((Boolean) newValue);
+            return;
+        case ImsdatabasePackage.DBD__PASSWORD_FLAG:
+            setPasswordFlag((Boolean) newValue);
+            return;
+        case ImsdatabasePackage.DBD__VERSION_STRING:
+            setVersionString((String) newValue);
+            return;
+        case ImsdatabasePackage.DBD__ACCESS_METHOD:
+            setAccessMethod((AccessMethod) newValue);
+            return;
+        case ImsdatabasePackage.DBD__ACBLIB:
+            getAcblib().clear();
+            getAcblib().addAll((Collection<? extends ACBLIB>) newValue);
+            return;
+        case ImsdatabasePackage.DBD__DATASET:
+            getDataset().clear();
+            getDataset().addAll((Collection<? extends Dataset>) newValue);
+            return;
+        case ImsdatabasePackage.DBD__SEGMENT:
+            getSegment().clear();
+            getSegment().addAll((Collection<? extends Segment>) newValue);
+            return;
+        case ImsdatabasePackage.DBD__PCB:
+            getPcb().clear();
+            getPcb().addAll((Collection<? extends PCB>) newValue);
+            return;
+        case ImsdatabasePackage.DBD__EXIT:
+            getExit().clear();
+            getExit().addAll((Collection<? extends Exit>) newValue);
+            return;
+        case ImsdatabasePackage.DBD__LIBRARY:
+            getLibrary().clear();
+            getLibrary().addAll((Collection<? extends DBDLib>) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case ImsdatabasePackage.DBD__DLI_ACCESS:
-                setDliAccess(DLI_ACCESS_EDEFAULT);
-                return;
-            case ImsdatabasePackage.DBD__IS_VSAM:
-                setIsVSAM(IS_VSAM_EDEFAULT);
-                return;
-            case ImsdatabasePackage.DBD__PASSWORD_FLAG:
-                setPasswordFlag(PASSWORD_FLAG_EDEFAULT);
-                return;
-            case ImsdatabasePackage.DBD__VERSION_STRING:
-                setVersionString(VERSION_STRING_EDEFAULT);
-                return;
-            case ImsdatabasePackage.DBD__ACCESS_METHOD:
-                setAccessMethod((AccessMethod)null);
-                return;
-            case ImsdatabasePackage.DBD__ACBLIB:
-                getAcblib().clear();
-                return;
-            case ImsdatabasePackage.DBD__DATASET:
-                getDataset().clear();
-                return;
-            case ImsdatabasePackage.DBD__SEGMENT:
-                getSegment().clear();
-                return;
-            case ImsdatabasePackage.DBD__PCB:
-                getPcb().clear();
-                return;
-            case ImsdatabasePackage.DBD__EXIT:
-                getExit().clear();
-                return;
-            case ImsdatabasePackage.DBD__LIBRARY:
-                getLibrary().clear();
-                return;
+        case ImsdatabasePackage.DBD__DLI_ACCESS:
+            setDliAccess(DLI_ACCESS_EDEFAULT);
+            return;
+        case ImsdatabasePackage.DBD__IS_VSAM:
+            setIsVSAM(IS_VSAM_EDEFAULT);
+            return;
+        case ImsdatabasePackage.DBD__PASSWORD_FLAG:
+            setPasswordFlag(PASSWORD_FLAG_EDEFAULT);
+            return;
+        case ImsdatabasePackage.DBD__VERSION_STRING:
+            setVersionString(VERSION_STRING_EDEFAULT);
+            return;
+        case ImsdatabasePackage.DBD__ACCESS_METHOD:
+            setAccessMethod((AccessMethod) null);
+            return;
+        case ImsdatabasePackage.DBD__ACBLIB:
+            getAcblib().clear();
+            return;
+        case ImsdatabasePackage.DBD__DATASET:
+            getDataset().clear();
+            return;
+        case ImsdatabasePackage.DBD__SEGMENT:
+            getSegment().clear();
+            return;
+        case ImsdatabasePackage.DBD__PCB:
+            getPcb().clear();
+            return;
+        case ImsdatabasePackage.DBD__EXIT:
+            getExit().clear();
+            return;
+        case ImsdatabasePackage.DBD__LIBRARY:
+            getLibrary().clear();
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case ImsdatabasePackage.DBD__DLI_ACCESS:
-                return dliAccess != DLI_ACCESS_EDEFAULT;
-            case ImsdatabasePackage.DBD__IS_VSAM:
-                return isVSAM != IS_VSAM_EDEFAULT;
-            case ImsdatabasePackage.DBD__PASSWORD_FLAG:
-                return passwordFlag != PASSWORD_FLAG_EDEFAULT;
-            case ImsdatabasePackage.DBD__VERSION_STRING:
-                return VERSION_STRING_EDEFAULT == null ? versionString != null : !VERSION_STRING_EDEFAULT.equals(versionString);
-            case ImsdatabasePackage.DBD__ACCESS_METHOD:
-                return accessMethod != null;
-            case ImsdatabasePackage.DBD__ACBLIB:
-                return acblib != null && !acblib.isEmpty();
-            case ImsdatabasePackage.DBD__DATASET:
-                return dataset != null && !dataset.isEmpty();
-            case ImsdatabasePackage.DBD__SEGMENT:
-                return segment != null && !segment.isEmpty();
-            case ImsdatabasePackage.DBD__PCB:
-                return pcb != null && !pcb.isEmpty();
-            case ImsdatabasePackage.DBD__EXIT:
-                return exit != null && !exit.isEmpty();
-            case ImsdatabasePackage.DBD__LIBRARY:
-                return library != null && !library.isEmpty();
+        case ImsdatabasePackage.DBD__DLI_ACCESS:
+            return dliAccess != DLI_ACCESS_EDEFAULT;
+        case ImsdatabasePackage.DBD__IS_VSAM:
+            return isVSAM != IS_VSAM_EDEFAULT;
+        case ImsdatabasePackage.DBD__PASSWORD_FLAG:
+            return passwordFlag != PASSWORD_FLAG_EDEFAULT;
+        case ImsdatabasePackage.DBD__VERSION_STRING:
+            return VERSION_STRING_EDEFAULT == null ? versionString != null : !VERSION_STRING_EDEFAULT.equals(versionString);
+        case ImsdatabasePackage.DBD__ACCESS_METHOD:
+            return accessMethod != null;
+        case ImsdatabasePackage.DBD__ACBLIB:
+            return acblib != null && !acblib.isEmpty();
+        case ImsdatabasePackage.DBD__DATASET:
+            return dataset != null && !dataset.isEmpty();
+        case ImsdatabasePackage.DBD__SEGMENT:
+            return segment != null && !segment.isEmpty();
+        case ImsdatabasePackage.DBD__PCB:
+            return pcb != null && !pcb.isEmpty();
+        case ImsdatabasePackage.DBD__EXIT:
+            return exit != null && !exit.isEmpty();
+        case ImsdatabasePackage.DBD__LIBRARY:
+            return library != null && !library.isEmpty();
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (dliAccess: ");
@@ -663,4 +642,4 @@ public class DBDImpl extends RecordFileImpl implements DBD {
         return result.toString();
     }
 
-} //DBDImpl
+} // DBDImpl

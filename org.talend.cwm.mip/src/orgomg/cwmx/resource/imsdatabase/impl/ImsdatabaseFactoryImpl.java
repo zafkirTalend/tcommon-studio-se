@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.imsdatabase.impl;
@@ -11,6 +10,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import orgomg.cwmx.resource.imsdatabase.*;
 import orgomg.cwmx.resource.imsdatabase.ACBLIB;
 import orgomg.cwmx.resource.imsdatabase.AccessMethod;
 import orgomg.cwmx.resource.imsdatabase.DBD;
@@ -37,26 +37,26 @@ import orgomg.cwmx.resource.imsdatabase.SenField;
 import orgomg.cwmx.resource.imsdatabase.SenSegment;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model <b>Factory</b>.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!--
+ * end-user-doc -->
  * @generated
  */
 public class ImsdatabaseFactoryImpl extends EFactoryImpl implements ImsdatabaseFactory {
+
     /**
      * Creates the default factory implementation.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     public static ImsdatabaseFactory init() {
         try {
-            ImsdatabaseFactory theImsdatabaseFactory = (ImsdatabaseFactory)EPackage.Registry.INSTANCE.getEFactory("http:///orgomg/cwmx/resource/imsdatabase.ecore"); 
+            ImsdatabaseFactory theImsdatabaseFactory = (ImsdatabaseFactory) EPackage.Registry.INSTANCE
+                    .getEFactory("http:///orgomg/cwmx/resource/imsdatabase.ecore");
             if (theImsdatabaseFactory != null) {
                 return theImsdatabaseFactory;
             }
-        }
-        catch (Exception exception) {
+        } catch (Exception exception) {
             EcorePlugin.INSTANCE.log(exception);
         }
         return new ImsdatabaseFactoryImpl();
@@ -64,8 +64,8 @@ public class ImsdatabaseFactoryImpl extends EFactoryImpl implements ImsdatabaseF
 
     /**
      * Creates an instance of the factory.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     public ImsdatabaseFactoryImpl() {
@@ -73,43 +73,63 @@ public class ImsdatabaseFactoryImpl extends EFactoryImpl implements ImsdatabaseF
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public EObject create(EClass eClass) {
         switch (eClass.getClassifierID()) {
-            case ImsdatabasePackage.DBD: return createDBD();
-            case ImsdatabasePackage.PSB: return createPSB();
-            case ImsdatabasePackage.PCB: return createPCB();
-            case ImsdatabasePackage.SEGMENT: return createSegment();
-            case ImsdatabasePackage.SEGMENT_COMPLEX: return createSegmentComplex();
-            case ImsdatabasePackage.SEGMENT_LOGICAL: return createSegmentLogical();
-            case ImsdatabasePackage.FIELD: return createField();
-            case ImsdatabasePackage.DATASET: return createDataset();
-            case ImsdatabasePackage.SEN_SEGMENT: return createSenSegment();
-            case ImsdatabasePackage.SEN_FIELD: return createSenField();
-            case ImsdatabasePackage.ACBLIB: return createACBLIB();
-            case ImsdatabasePackage.ACCESS_METHOD: return createAccessMethod();
-            case ImsdatabasePackage.INDEX: return createINDEX();
-            case ImsdatabasePackage.HIDAM: return createHIDAM();
-            case ImsdatabasePackage.DEDB: return createDEDB();
-            case ImsdatabasePackage.HDAM: return createHDAM();
-            case ImsdatabasePackage.MSDB: return createMSDB();
-            case ImsdatabasePackage.SECONDARY_INDEX: return createSecondaryIndex();
-            case ImsdatabasePackage.EXIT: return createExit();
-            case ImsdatabasePackage.LCHILD: return createLCHILD();
-            case ImsdatabasePackage.PSB_LIB: return createPSBLib();
-            case ImsdatabasePackage.DBD_LIB: return createDBDLib();
-            default:
-                throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+        case ImsdatabasePackage.DBD:
+            return createDBD();
+        case ImsdatabasePackage.PSB:
+            return createPSB();
+        case ImsdatabasePackage.PCB:
+            return createPCB();
+        case ImsdatabasePackage.SEGMENT:
+            return createSegment();
+        case ImsdatabasePackage.SEGMENT_COMPLEX:
+            return createSegmentComplex();
+        case ImsdatabasePackage.SEGMENT_LOGICAL:
+            return createSegmentLogical();
+        case ImsdatabasePackage.FIELD:
+            return createField();
+        case ImsdatabasePackage.DATASET:
+            return createDataset();
+        case ImsdatabasePackage.SEN_SEGMENT:
+            return createSenSegment();
+        case ImsdatabasePackage.SEN_FIELD:
+            return createSenField();
+        case ImsdatabasePackage.ACBLIB:
+            return createACBLIB();
+        case ImsdatabasePackage.ACCESS_METHOD:
+            return createAccessMethod();
+        case ImsdatabasePackage.INDEX:
+            return createINDEX();
+        case ImsdatabasePackage.HIDAM:
+            return createHIDAM();
+        case ImsdatabasePackage.DEDB:
+            return createDEDB();
+        case ImsdatabasePackage.HDAM:
+            return createHDAM();
+        case ImsdatabasePackage.MSDB:
+            return createMSDB();
+        case ImsdatabasePackage.SECONDARY_INDEX:
+            return createSecondaryIndex();
+        case ImsdatabasePackage.EXIT:
+            return createExit();
+        case ImsdatabasePackage.LCHILD:
+            return createLCHILD();
+        case ImsdatabasePackage.PSB_LIB:
+            return createPSBLib();
+        case ImsdatabasePackage.DBD_LIB:
+            return createDBDLib();
+        default:
+            throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public DBD createDBD() {
@@ -118,8 +138,7 @@ public class ImsdatabaseFactoryImpl extends EFactoryImpl implements ImsdatabaseF
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public PSB createPSB() {
@@ -128,8 +147,7 @@ public class ImsdatabaseFactoryImpl extends EFactoryImpl implements ImsdatabaseF
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public PCB createPCB() {
@@ -138,8 +156,7 @@ public class ImsdatabaseFactoryImpl extends EFactoryImpl implements ImsdatabaseF
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Segment createSegment() {
@@ -148,8 +165,7 @@ public class ImsdatabaseFactoryImpl extends EFactoryImpl implements ImsdatabaseF
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public SegmentComplex createSegmentComplex() {
@@ -158,8 +174,7 @@ public class ImsdatabaseFactoryImpl extends EFactoryImpl implements ImsdatabaseF
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public SegmentLogical createSegmentLogical() {
@@ -168,8 +183,7 @@ public class ImsdatabaseFactoryImpl extends EFactoryImpl implements ImsdatabaseF
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Field createField() {
@@ -178,8 +192,7 @@ public class ImsdatabaseFactoryImpl extends EFactoryImpl implements ImsdatabaseF
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Dataset createDataset() {
@@ -188,8 +201,7 @@ public class ImsdatabaseFactoryImpl extends EFactoryImpl implements ImsdatabaseF
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public SenSegment createSenSegment() {
@@ -198,8 +210,7 @@ public class ImsdatabaseFactoryImpl extends EFactoryImpl implements ImsdatabaseF
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public SenField createSenField() {
@@ -208,8 +219,7 @@ public class ImsdatabaseFactoryImpl extends EFactoryImpl implements ImsdatabaseF
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public ACBLIB createACBLIB() {
@@ -218,8 +228,7 @@ public class ImsdatabaseFactoryImpl extends EFactoryImpl implements ImsdatabaseF
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public AccessMethod createAccessMethod() {
@@ -228,8 +237,7 @@ public class ImsdatabaseFactoryImpl extends EFactoryImpl implements ImsdatabaseF
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public INDEX createINDEX() {
@@ -238,8 +246,7 @@ public class ImsdatabaseFactoryImpl extends EFactoryImpl implements ImsdatabaseF
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public HIDAM createHIDAM() {
@@ -248,8 +255,7 @@ public class ImsdatabaseFactoryImpl extends EFactoryImpl implements ImsdatabaseF
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public DEDB createDEDB() {
@@ -258,8 +264,7 @@ public class ImsdatabaseFactoryImpl extends EFactoryImpl implements ImsdatabaseF
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public HDAM createHDAM() {
@@ -268,8 +273,7 @@ public class ImsdatabaseFactoryImpl extends EFactoryImpl implements ImsdatabaseF
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public MSDB createMSDB() {
@@ -278,8 +282,7 @@ public class ImsdatabaseFactoryImpl extends EFactoryImpl implements ImsdatabaseF
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public SecondaryIndex createSecondaryIndex() {
@@ -288,8 +291,7 @@ public class ImsdatabaseFactoryImpl extends EFactoryImpl implements ImsdatabaseF
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Exit createExit() {
@@ -298,8 +300,7 @@ public class ImsdatabaseFactoryImpl extends EFactoryImpl implements ImsdatabaseF
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public LCHILD createLCHILD() {
@@ -308,8 +309,7 @@ public class ImsdatabaseFactoryImpl extends EFactoryImpl implements ImsdatabaseF
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public PSBLib createPSBLib() {
@@ -318,8 +318,7 @@ public class ImsdatabaseFactoryImpl extends EFactoryImpl implements ImsdatabaseF
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public DBDLib createDBDLib() {
@@ -328,17 +327,15 @@ public class ImsdatabaseFactoryImpl extends EFactoryImpl implements ImsdatabaseF
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public ImsdatabasePackage getImsdatabasePackage() {
-        return (ImsdatabasePackage)getEPackage();
+        return (ImsdatabasePackage) getEPackage();
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @deprecated
      * @generated
      */
@@ -347,4 +344,4 @@ public class ImsdatabaseFactoryImpl extends EFactoryImpl implements ImsdatabaseF
         return ImsdatabasePackage.eINSTANCE;
     }
 
-} //ImsdatabaseFactoryImpl
+} // ImsdatabaseFactoryImpl

@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.resource.multidimensional.impl;
@@ -11,6 +10,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import orgomg.cwm.resource.multidimensional.*;
 import orgomg.cwm.resource.multidimensional.Dimension;
 import orgomg.cwm.resource.multidimensional.DimensionedObject;
 import orgomg.cwm.resource.multidimensional.Member;
@@ -21,26 +21,26 @@ import orgomg.cwm.resource.multidimensional.MultidimensionalPackage;
 import orgomg.cwm.resource.multidimensional.Schema;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model <b>Factory</b>.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!--
+ * end-user-doc -->
  * @generated
  */
 public class MultidimensionalFactoryImpl extends EFactoryImpl implements MultidimensionalFactory {
+
     /**
      * Creates the default factory implementation.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     public static MultidimensionalFactory init() {
         try {
-            MultidimensionalFactory theMultidimensionalFactory = (MultidimensionalFactory)EPackage.Registry.INSTANCE.getEFactory("http:///orgomg/cwm/resource/multidimensional.ecore"); 
+            MultidimensionalFactory theMultidimensionalFactory = (MultidimensionalFactory) EPackage.Registry.INSTANCE
+                    .getEFactory("http:///orgomg/cwm/resource/multidimensional.ecore");
             if (theMultidimensionalFactory != null) {
                 return theMultidimensionalFactory;
             }
-        }
-        catch (Exception exception) {
+        } catch (Exception exception) {
             EcorePlugin.INSTANCE.log(exception);
         }
         return new MultidimensionalFactoryImpl();
@@ -48,8 +48,8 @@ public class MultidimensionalFactoryImpl extends EFactoryImpl implements Multidi
 
     /**
      * Creates an instance of the factory.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     public MultidimensionalFactoryImpl() {
@@ -57,27 +57,31 @@ public class MultidimensionalFactoryImpl extends EFactoryImpl implements Multidi
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public EObject create(EClass eClass) {
         switch (eClass.getClassifierID()) {
-            case MultidimensionalPackage.DIMENSION: return createDimension();
-            case MultidimensionalPackage.DIMENSIONED_OBJECT: return createDimensionedObject();
-            case MultidimensionalPackage.MEMBER: return createMember();
-            case MultidimensionalPackage.MEMBER_SET: return createMemberSet();
-            case MultidimensionalPackage.MEMBER_VALUE: return createMemberValue();
-            case MultidimensionalPackage.SCHEMA: return createSchema();
-            default:
-                throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+        case MultidimensionalPackage.DIMENSION:
+            return createDimension();
+        case MultidimensionalPackage.DIMENSIONED_OBJECT:
+            return createDimensionedObject();
+        case MultidimensionalPackage.MEMBER:
+            return createMember();
+        case MultidimensionalPackage.MEMBER_SET:
+            return createMemberSet();
+        case MultidimensionalPackage.MEMBER_VALUE:
+            return createMemberValue();
+        case MultidimensionalPackage.SCHEMA:
+            return createSchema();
+        default:
+            throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Dimension createDimension() {
@@ -86,8 +90,7 @@ public class MultidimensionalFactoryImpl extends EFactoryImpl implements Multidi
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public DimensionedObject createDimensionedObject() {
@@ -96,8 +99,7 @@ public class MultidimensionalFactoryImpl extends EFactoryImpl implements Multidi
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Member createMember() {
@@ -106,8 +108,7 @@ public class MultidimensionalFactoryImpl extends EFactoryImpl implements Multidi
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public MemberSet createMemberSet() {
@@ -116,8 +117,7 @@ public class MultidimensionalFactoryImpl extends EFactoryImpl implements Multidi
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public MemberValue createMemberValue() {
@@ -126,8 +126,7 @@ public class MultidimensionalFactoryImpl extends EFactoryImpl implements Multidi
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Schema createSchema() {
@@ -136,17 +135,15 @@ public class MultidimensionalFactoryImpl extends EFactoryImpl implements Multidi
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public MultidimensionalPackage getMultidimensionalPackage() {
-        return (MultidimensionalPackage)getEPackage();
+        return (MultidimensionalPackage) getEPackage();
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @deprecated
      * @generated
      */
@@ -155,4 +152,4 @@ public class MultidimensionalFactoryImpl extends EFactoryImpl implements Multidi
         return MultidimensionalPackage.eINSTANCE;
     }
 
-} //MultidimensionalFactoryImpl
+} // MultidimensionalFactoryImpl

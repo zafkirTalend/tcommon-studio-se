@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.objectmodel.core;
@@ -19,9 +18,8 @@ import orgomg.cwmx.foundation.er.Domain;
 import orgomg.cwmx.resource.express.SimpleDimension;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Classifier</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Classifier</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * A classifier is an element that describes structural and behavioral features; it comes in several specific forms, including class, data type, interface, component, and others that are defined in other metamodel packages.
@@ -59,13 +57,12 @@ import orgomg.cwmx.resource.express.SimpleDimension;
  * @generated
  */
 public interface Classifier extends Namespace {
+
     /**
-     * Returns the value of the '<em><b>Is Abstract</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * An abstract Classifier is not instantiable.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Is Abstract</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> An
+     * abstract Classifier is not instantiable. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Is Abstract</em>' attribute.
      * @see #setIsAbstract(boolean)
      * @see orgomg.cwm.objectmodel.core.CorePackage#getClassifier_IsAbstract()
@@ -76,8 +73,8 @@ public interface Classifier extends Namespace {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.objectmodel.core.Classifier#isIsAbstract <em>Is Abstract</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Is Abstract</em>' attribute.
      * @see #isIsAbstract()
      * @generated
@@ -85,14 +82,14 @@ public interface Classifier extends Namespace {
     void setIsAbstract(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Feature</b></em>' containment reference list.
-     * The list contents are of type {@link orgomg.cwm.objectmodel.core.Feature}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.objectmodel.core.Feature#getOwner <em>Owner</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the Features owned by a Classifier instance and provides their ordering.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Feature</b></em>' containment reference
+     * list. The list contents are of type
+     * {@link orgomg.cwm.objectmodel.core.Feature}. It is bidirectional and its
+     * opposite is '{@link orgomg.cwm.objectmodel.core.Feature#getOwner
+     * <em>Owner</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> Identifies the Features owned by a Classifier
+     * instance and provides their ordering. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Feature</em>' containment reference list.
      * @see orgomg.cwm.objectmodel.core.CorePackage#getClassifier_Feature()
      * @see orgomg.cwm.objectmodel.core.Feature#getOwner
@@ -102,14 +99,15 @@ public interface Classifier extends Namespace {
     EList<Feature> getFeature();
 
     /**
-     * Returns the value of the '<em><b>Structural Feature</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwm.objectmodel.core.StructuralFeature}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.objectmodel.core.StructuralFeature#getType <em>Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the set of StructuralFeatures for which the Classifier defines the type.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Structural Feature</b></em>' reference
+     * list. The list contents are of type
+     * {@link orgomg.cwm.objectmodel.core.StructuralFeature}. It is
+     * bidirectional and its opposite is '
+     * {@link orgomg.cwm.objectmodel.core.StructuralFeature#getType
+     * <em>Type</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> Identifies the set of StructuralFeatures for which
+     * the Classifier defines the type. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Structural Feature</em>' reference list.
      * @see orgomg.cwm.objectmodel.core.CorePackage#getClassifier_StructuralFeature()
      * @see orgomg.cwm.objectmodel.core.StructuralFeature#getType
@@ -119,14 +117,15 @@ public interface Classifier extends Namespace {
     EList<StructuralFeature> getStructuralFeature();
 
     /**
-     * Returns the value of the '<em><b>Parameter</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwm.objectmodel.behavioral.Parameter}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.objectmodel.behavioral.Parameter#getType <em>Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the set of Parameter instances for which a particular Classifier acts as a type definition.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Parameter</b></em>' reference list. The
+     * list contents are of type
+     * {@link orgomg.cwm.objectmodel.behavioral.Parameter}. It is bidirectional
+     * and its opposite is '
+     * {@link orgomg.cwm.objectmodel.behavioral.Parameter#getType <em>Type</em>}
+     * '. <!-- begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * Identifies the set of Parameter instances for which a particular
+     * Classifier acts as a type definition. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Parameter</em>' reference list.
      * @see orgomg.cwm.objectmodel.core.CorePackage#getClassifier_Parameter()
      * @see orgomg.cwm.objectmodel.behavioral.Parameter#getType
@@ -137,14 +136,15 @@ public interface Classifier extends Namespace {
 
     /**
      * Returns the value of the '<em><b>Generalization</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwm.objectmodel.relationships.Generalization}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.objectmodel.relationships.Generalization#getChild <em>Child</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the set of Generalization instances in which the Classifier acts as a child
-     * in the inheritance hierarchy.
-     * <!-- end-model-doc -->
+     * The list contents are of type
+     * {@link orgomg.cwm.objectmodel.relationships.Generalization}. It is
+     * bidirectional and its opposite is '
+     * {@link orgomg.cwm.objectmodel.relationships.Generalization#getChild
+     * <em>Child</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> Identifies the set of Generalization instances in
+     * which the Classifier acts as a child in the inheritance hierarchy. <!--
+     * end-model-doc -->
+     * 
      * @return the value of the '<em>Generalization</em>' reference list.
      * @see orgomg.cwm.objectmodel.core.CorePackage#getClassifier_Generalization()
      * @see orgomg.cwm.objectmodel.relationships.Generalization#getChild
@@ -155,13 +155,15 @@ public interface Classifier extends Namespace {
 
     /**
      * Returns the value of the '<em><b>Specialization</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwm.objectmodel.relationships.Generalization}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.objectmodel.relationships.Generalization#getParent <em>Parent</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the set of Generalization instances in which the Classifier acts a parent in the inheritance hierarchy.
-     * <!-- end-model-doc -->
+     * The list contents are of type
+     * {@link orgomg.cwm.objectmodel.relationships.Generalization}. It is
+     * bidirectional and its opposite is '
+     * {@link orgomg.cwm.objectmodel.relationships.Generalization#getParent
+     * <em>Parent</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> Identifies the set of Generalization instances in
+     * which the Classifier acts a parent in the inheritance hierarchy. <!--
+     * end-model-doc -->
+     * 
      * @return the value of the '<em>Specialization</em>' reference list.
      * @see orgomg.cwm.objectmodel.core.CorePackage#getClassifier_Specialization()
      * @see orgomg.cwm.objectmodel.relationships.Generalization#getParent
@@ -171,14 +173,15 @@ public interface Classifier extends Namespace {
     EList<Generalization> getSpecialization();
 
     /**
-     * Returns the value of the '<em><b>Instance</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwm.objectmodel.instance.Instance}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.objectmodel.instance.Instance#getClassifier <em>Classifier</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the set of Instances described by the Classifier.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Instance</b></em>' reference list. The
+     * list contents are of type
+     * {@link orgomg.cwm.objectmodel.instance.Instance}. It is bidirectional and
+     * its opposite is '
+     * {@link orgomg.cwm.objectmodel.instance.Instance#getClassifier
+     * <em>Classifier</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> Identifies the set of Instances described by the
+     * Classifier. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Instance</em>' reference list.
      * @see orgomg.cwm.objectmodel.core.CorePackage#getClassifier_Instance()
      * @see orgomg.cwm.objectmodel.instance.Instance#getClassifier
@@ -188,14 +191,14 @@ public interface Classifier extends Namespace {
     EList<Instance> getInstance();
 
     /**
-     * Returns the value of the '<em><b>Alias</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwm.foundation.datatypes.TypeAlias}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.foundation.datatypes.TypeAlias#getType <em>Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the TypeAliases that have be defined for a particular Classifier instance.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Alias</b></em>' reference list. The list
+     * contents are of type {@link orgomg.cwm.foundation.datatypes.TypeAlias}.
+     * It is bidirectional and its opposite is '
+     * {@link orgomg.cwm.foundation.datatypes.TypeAlias#getType <em>Type</em>}'.
+     * <!-- begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * Identifies the TypeAliases that have be defined for a particular
+     * Classifier instance. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Alias</em>' reference list.
      * @see orgomg.cwm.objectmodel.core.CorePackage#getClassifier_Alias()
      * @see orgomg.cwm.foundation.datatypes.TypeAlias#getType
@@ -205,14 +208,15 @@ public interface Classifier extends Namespace {
     EList<TypeAlias> getAlias();
 
     /**
-     * Returns the value of the '<em><b>Expression Node</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwm.foundation.expressions.ExpressionNode}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.foundation.expressions.ExpressionNode#getType <em>Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the ExpressionNode instances for which this Classifier acts as the type.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Expression Node</b></em>' reference
+     * list. The list contents are of type
+     * {@link orgomg.cwm.foundation.expressions.ExpressionNode}. It is
+     * bidirectional and its opposite is '
+     * {@link orgomg.cwm.foundation.expressions.ExpressionNode#getType
+     * <em>Type</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> Identifies the ExpressionNode instances for which
+     * this Classifier acts as the type. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Expression Node</em>' reference list.
      * @see orgomg.cwm.objectmodel.core.CorePackage#getClassifier_ExpressionNode()
      * @see orgomg.cwm.foundation.expressions.ExpressionNode#getType
@@ -225,8 +229,7 @@ public interface Classifier extends Namespace {
      * Returns the value of the '<em><b>Mapping From</b></em>' reference list.
      * The list contents are of type {@link orgomg.cwm.foundation.typemapping.TypeMapping}.
      * It is bidirectional and its opposite is '{@link orgomg.cwm.foundation.typemapping.TypeMapping#getSourceType <em>Source Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Identifies the TypeMapping instances in which a particular Classifier participates.
      * <!-- end-model-doc -->
@@ -242,8 +245,7 @@ public interface Classifier extends Namespace {
      * Returns the value of the '<em><b>Mapping To</b></em>' reference list.
      * The list contents are of type {@link orgomg.cwm.foundation.typemapping.TypeMapping}.
      * It is bidirectional and its opposite is '{@link orgomg.cwm.foundation.typemapping.TypeMapping#getTargetType <em>Target Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Identifies the TypeMapping instance of a particular Classifier instance.
      * <!-- end-model-doc -->
@@ -257,13 +259,13 @@ public interface Classifier extends Namespace {
 
     /**
      * Returns the value of the '<em><b>Classifier Map</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwm.analysis.transformation.ClassifierMap}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.analysis.transformation.ClassifierMap#getSource <em>Source</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the ClassifierMap
-     * <!-- end-model-doc -->
+     * The list contents are of type
+     * {@link orgomg.cwm.analysis.transformation.ClassifierMap}. It is
+     * bidirectional and its opposite is '
+     * {@link orgomg.cwm.analysis.transformation.ClassifierMap#getSource
+     * <em>Source</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> Identifies the ClassifierMap <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Classifier Map</em>' reference list.
      * @see orgomg.cwm.objectmodel.core.CorePackage#getClassifier_ClassifierMap()
      * @see orgomg.cwm.analysis.transformation.ClassifierMap#getSource
@@ -273,14 +275,15 @@ public interface Classifier extends Namespace {
     EList<ClassifierMap> getClassifierMap();
 
     /**
-     * Returns the value of the '<em><b>Cf Map</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwm.analysis.transformation.ClassifierFeatureMap}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.analysis.transformation.ClassifierFeatureMap#getClassifier <em>Classifier</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the ClassifierFeatureMap
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Cf Map</b></em>' reference list. The
+     * list contents are of type
+     * {@link orgomg.cwm.analysis.transformation.ClassifierFeatureMap}. It is
+     * bidirectional and its opposite is '
+     * {@link orgomg.cwm.analysis.transformation.ClassifierFeatureMap#getClassifier
+     * <em>Classifier</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> Identifies the ClassifierFeatureMap <!--
+     * end-model-doc -->
+     * 
      * @return the value of the '<em>Cf Map</em>' reference list.
      * @see orgomg.cwm.objectmodel.core.CorePackage#getClassifier_CfMap()
      * @see orgomg.cwm.analysis.transformation.ClassifierFeatureMap#getClassifier
@@ -290,14 +293,14 @@ public interface Classifier extends Namespace {
     EList<ClassifierFeatureMap> getCfMap();
 
     /**
-     * Returns the value of the '<em><b>Domain</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwmx.foundation.er.Domain}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwmx.foundation.er.Domain#getBaseType <em>Base Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the Domains for which a Classifier instance acts as the base type.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Domain</b></em>' reference list. The
+     * list contents are of type {@link orgomg.cwmx.foundation.er.Domain}. It is
+     * bidirectional and its opposite is '
+     * {@link orgomg.cwmx.foundation.er.Domain#getBaseType <em>Base Type</em>}'.
+     * <!-- begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * Identifies the Domains for which a Classifier instance acts as the base
+     * type. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Domain</em>' reference list.
      * @see orgomg.cwm.objectmodel.core.CorePackage#getClassifier_Domain()
      * @see orgomg.cwmx.foundation.er.Domain#getBaseType
@@ -307,14 +310,15 @@ public interface Classifier extends Namespace {
     EList<Domain> getDomain();
 
     /**
-     * Returns the value of the '<em><b>Simple Dimension</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwmx.resource.express.SimpleDimension}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.express.SimpleDimension#getDataType <em>Data Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the SimpleDimension.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Simple Dimension</b></em>' reference
+     * list. The list contents are of type
+     * {@link orgomg.cwmx.resource.express.SimpleDimension}. It is bidirectional
+     * and its opposite is '
+     * {@link orgomg.cwmx.resource.express.SimpleDimension#getDataType
+     * <em>Data Type</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> Identifies the SimpleDimension. <!-- end-model-doc
+     * -->
+     * 
      * @return the value of the '<em>Simple Dimension</em>' reference list.
      * @see orgomg.cwm.objectmodel.core.CorePackage#getClassifier_SimpleDimension()
      * @see orgomg.cwmx.resource.express.SimpleDimension#getDataType

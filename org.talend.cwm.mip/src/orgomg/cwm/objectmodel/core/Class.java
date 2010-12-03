@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.objectmodel.core;
@@ -10,9 +9,8 @@ import org.eclipse.emf.common.util.EList;
 import orgomg.cwm.foundation.keysindexes.Index;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Class</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Class</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * A class is a description of a set of objects that share the same attributes, operations, methods, relationships, and semantics. A class may use a set of interfaces to specify collections of operations it provides to its environment. In the metamodel, a Class describes a set of objects sharing a collection of Features that are common to the set of objects.
@@ -34,12 +32,12 @@ import orgomg.cwm.foundation.keysindexes.Index;
  * @generated
  */
 public interface Class extends Classifier {
+
     /**
      * Returns the value of the '<em><b>Index</b></em>' reference list.
      * The list contents are of type {@link orgomg.cwm.foundation.keysindexes.Index}.
      * It is bidirectional and its opposite is '{@link orgomg.cwm.foundation.keysindexes.Index#getSpannedClass <em>Spanned Class</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Identifies Index instances that span this Class instance.
      * <!-- end-model-doc -->

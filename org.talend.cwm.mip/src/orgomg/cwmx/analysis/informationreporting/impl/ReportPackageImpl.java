@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.analysis.informationreporting.impl;
@@ -12,18 +11,17 @@ import orgomg.cwmx.analysis.informationreporting.InformationreportingPackage;
 import orgomg.cwmx.analysis.informationreporting.ReportPackage;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Report Package</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Report Package</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
 public class ReportPackageImpl extends RenderedObjectSetImpl implements ReportPackage {
+
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected ReportPackageImpl() {
@@ -31,8 +29,7 @@ public class ReportPackageImpl extends RenderedObjectSetImpl implements ReportPa
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -40,4 +37,4 @@ public class ReportPackageImpl extends RenderedObjectSetImpl implements ReportPa
         return InformationreportingPackage.Literals.REPORT_PACKAGE;
     }
 
-} //ReportPackageImpl
+} // ReportPackageImpl

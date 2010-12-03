@@ -1,16 +1,13 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.essbase;
 
-
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Dimension</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Dimension</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * An Essbase Dimension is the primary physical object used in the construction of Essbase Databases.
@@ -30,14 +27,14 @@ package orgomg.cwmx.resource.essbase;
  * @generated
  */
 public interface Dimension extends orgomg.cwm.resource.multidimensional.Dimension {
+
     /**
-     * Returns the value of the '<em><b>Type</b></em>' attribute.
-     * The literals are from the enumeration {@link orgomg.cwmx.resource.essbase.DimensionType}.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The type of the Essbase Dimension.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Type</b></em>' attribute. The literals
+     * are from the enumeration
+     * {@link orgomg.cwmx.resource.essbase.DimensionType}. <!-- begin-user-doc
+     * --> <!-- end-user-doc --> <!-- begin-model-doc --> The type of the
+     * Essbase Dimension. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Type</em>' attribute.
      * @see orgomg.cwmx.resource.essbase.DimensionType
      * @see #setType(DimensionType)
@@ -49,8 +46,7 @@ public interface Dimension extends orgomg.cwm.resource.multidimensional.Dimensio
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.essbase.Dimension#getType <em>Type</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Type</em>' attribute.
      * @see orgomg.cwmx.resource.essbase.DimensionType
      * @see #getType()
@@ -59,12 +55,12 @@ public interface Dimension extends orgomg.cwm.resource.multidimensional.Dimensio
     void setType(DimensionType value);
 
     /**
-     * Returns the value of the '<em><b>Is Dense</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Specifies if this Essbase Dimension is sparse or dense.  Generally affected by Dimension type (e.g., Accounts and Time Dimensions are usually dense).
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Is Dense</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * Specifies if this Essbase Dimension is sparse or dense. Generally
+     * affected by Dimension type (e.g., Accounts and Time Dimensions are
+     * usually dense). <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Is Dense</em>' attribute.
      * @see #setIsDense(boolean)
      * @see orgomg.cwmx.resource.essbase.EssbasePackage#getDimension_IsDense()
@@ -74,23 +70,26 @@ public interface Dimension extends orgomg.cwm.resource.multidimensional.Dimensio
     boolean isIsDense();
 
     /**
-     * Sets the value of the '{@link orgomg.cwmx.resource.essbase.Dimension#isIsDense <em>Is Dense</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Is Dense</em>' attribute.
+     * Sets the value of the '
+     * {@link orgomg.cwmx.resource.essbase.Dimension#isIsDense
+     * <em>Is Dense</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @param value
+     *            the new value of the '<em>Is Dense</em>' attribute.
      * @see #isIsDense()
      * @generated
      */
     void setIsDense(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Outline</b></em>' reference.
-     * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.essbase.Outline#getDimension <em>Dimension</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The Outline that organizes the Dimensions.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Outline</b></em>' reference. It is
+     * bidirectional and its opposite is '
+     * {@link orgomg.cwmx.resource.essbase.Outline#getDimension
+     * <em>Dimension</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> The Outline that organizes the Dimensions. <!--
+     * end-model-doc -->
+     * 
      * @return the value of the '<em>Outline</em>' reference.
      * @see #setOutline(Outline)
      * @see orgomg.cwmx.resource.essbase.EssbasePackage#getDimension_Outline()
@@ -101,10 +100,13 @@ public interface Dimension extends orgomg.cwm.resource.multidimensional.Dimensio
     Outline getOutline();
 
     /**
-     * Sets the value of the '{@link orgomg.cwmx.resource.essbase.Dimension#getOutline <em>Outline</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Outline</em>' reference.
+     * Sets the value of the '
+     * {@link orgomg.cwmx.resource.essbase.Dimension#getOutline
+     * <em>Outline</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @param value
+     *            the new value of the '<em>Outline</em>' reference.
      * @see #getOutline()
      * @generated
      */

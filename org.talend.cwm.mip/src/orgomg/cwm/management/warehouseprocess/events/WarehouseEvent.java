@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.management.warehouseprocess.events;
@@ -10,9 +9,8 @@ import orgomg.cwm.management.warehouseprocess.WarehouseProcess;
 import orgomg.cwm.objectmodel.behavioral.Event;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Warehouse Event</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Warehouse Event</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * A virtual class to refer to any Event.
@@ -32,11 +30,11 @@ import orgomg.cwm.objectmodel.behavioral.Event;
  * @generated
  */
 public interface WarehouseEvent extends Event {
+
     /**
      * Returns the value of the '<em><b>Warehouse Process</b></em>' container reference.
      * It is bidirectional and its opposite is '{@link orgomg.cwm.management.warehouseprocess.WarehouseProcess#getWarehouseEvent <em>Warehouse Event</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Identifies the warehouse process which will triggered by the event.
      * <!-- end-model-doc -->

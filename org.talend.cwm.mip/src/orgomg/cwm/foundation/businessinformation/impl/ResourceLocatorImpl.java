@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.foundation.businessinformation.impl;
@@ -22,9 +21,8 @@ import orgomg.cwm.foundation.businessinformation.ResourceLocator;
 import orgomg.cwm.objectmodel.core.impl.ModelElementImpl;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Resource Locator</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Resource Locator</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -36,10 +34,11 @@ import orgomg.cwm.objectmodel.core.impl.ModelElementImpl;
  * @generated
  */
 public class ResourceLocatorImpl extends ModelElementImpl implements ResourceLocator {
+
     /**
-     * The default value of the '{@link #getUrl() <em>Url</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The default value of the '{@link #getUrl() <em>Url</em>}' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #getUrl()
      * @generated
      * @ordered
@@ -47,9 +46,9 @@ public class ResourceLocatorImpl extends ModelElementImpl implements ResourceLoc
     protected static final String URL_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getUrl() <em>Url</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getUrl() <em>Url</em>}' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #getUrl()
      * @generated
      * @ordered
@@ -58,8 +57,7 @@ public class ResourceLocatorImpl extends ModelElementImpl implements ResourceLoc
 
     /**
      * The cached value of the '{@link #getContact() <em>Contact</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getContact()
      * @generated
      * @ordered
@@ -67,8 +65,7 @@ public class ResourceLocatorImpl extends ModelElementImpl implements ResourceLoc
     protected EList<Contact> contact;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected ResourceLocatorImpl() {
@@ -76,8 +73,7 @@ public class ResourceLocatorImpl extends ModelElementImpl implements ResourceLoc
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -86,8 +82,7 @@ public class ResourceLocatorImpl extends ModelElementImpl implements ResourceLoc
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getUrl() {
@@ -95,8 +90,7 @@ public class ResourceLocatorImpl extends ModelElementImpl implements ResourceLoc
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setUrl(String newUrl) {
@@ -107,124 +101,118 @@ public class ResourceLocatorImpl extends ModelElementImpl implements ResourceLoc
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<Contact> getContact() {
         if (contact == null) {
-            contact = new EObjectWithInverseResolvingEList.ManyInverse<Contact>(Contact.class, this, BusinessinformationPackage.RESOURCE_LOCATOR__CONTACT, BusinessinformationPackage.CONTACT__URL);
+            contact = new EObjectWithInverseResolvingEList.ManyInverse<Contact>(Contact.class, this,
+                    BusinessinformationPackage.RESOURCE_LOCATOR__CONTACT, BusinessinformationPackage.CONTACT__URL);
         }
         return contact;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case BusinessinformationPackage.RESOURCE_LOCATOR__CONTACT:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getContact()).basicAdd(otherEnd, msgs);
+        case BusinessinformationPackage.RESOURCE_LOCATOR__CONTACT:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getContact()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case BusinessinformationPackage.RESOURCE_LOCATOR__CONTACT:
-                return ((InternalEList<?>)getContact()).basicRemove(otherEnd, msgs);
+        case BusinessinformationPackage.RESOURCE_LOCATOR__CONTACT:
+            return ((InternalEList<?>) getContact()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case BusinessinformationPackage.RESOURCE_LOCATOR__URL:
-                return getUrl();
-            case BusinessinformationPackage.RESOURCE_LOCATOR__CONTACT:
-                return getContact();
+        case BusinessinformationPackage.RESOURCE_LOCATOR__URL:
+            return getUrl();
+        case BusinessinformationPackage.RESOURCE_LOCATOR__CONTACT:
+            return getContact();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case BusinessinformationPackage.RESOURCE_LOCATOR__URL:
-                setUrl((String)newValue);
-                return;
-            case BusinessinformationPackage.RESOURCE_LOCATOR__CONTACT:
-                getContact().clear();
-                getContact().addAll((Collection<? extends Contact>)newValue);
-                return;
+        case BusinessinformationPackage.RESOURCE_LOCATOR__URL:
+            setUrl((String) newValue);
+            return;
+        case BusinessinformationPackage.RESOURCE_LOCATOR__CONTACT:
+            getContact().clear();
+            getContact().addAll((Collection<? extends Contact>) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case BusinessinformationPackage.RESOURCE_LOCATOR__URL:
-                setUrl(URL_EDEFAULT);
-                return;
-            case BusinessinformationPackage.RESOURCE_LOCATOR__CONTACT:
-                getContact().clear();
-                return;
+        case BusinessinformationPackage.RESOURCE_LOCATOR__URL:
+            setUrl(URL_EDEFAULT);
+            return;
+        case BusinessinformationPackage.RESOURCE_LOCATOR__CONTACT:
+            getContact().clear();
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case BusinessinformationPackage.RESOURCE_LOCATOR__URL:
-                return URL_EDEFAULT == null ? url != null : !URL_EDEFAULT.equals(url);
-            case BusinessinformationPackage.RESOURCE_LOCATOR__CONTACT:
-                return contact != null && !contact.isEmpty();
+        case BusinessinformationPackage.RESOURCE_LOCATOR__URL:
+            return URL_EDEFAULT == null ? url != null : !URL_EDEFAULT.equals(url);
+        case BusinessinformationPackage.RESOURCE_LOCATOR__CONTACT:
+            return contact != null && !contact.isEmpty();
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (url: ");
@@ -233,4 +221,4 @@ public class ResourceLocatorImpl extends ModelElementImpl implements ResourceLoc
         return result.toString();
     }
 
-} //ResourceLocatorImpl
+} // ResourceLocatorImpl

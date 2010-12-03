@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.analysis.datamining.impl;
@@ -11,18 +10,17 @@ import orgomg.cwm.analysis.datamining.DataminingPackage;
 import orgomg.cwm.analysis.datamining.StatisticsSettings;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Statistics Settings</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Statistics Settings</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
 public class StatisticsSettingsImpl extends MiningSettingsImpl implements StatisticsSettings {
+
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected StatisticsSettingsImpl() {
@@ -30,8 +28,7 @@ public class StatisticsSettingsImpl extends MiningSettingsImpl implements Statis
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -39,4 +36,4 @@ public class StatisticsSettingsImpl extends MiningSettingsImpl implements Statis
         return DataminingPackage.Literals.STATISTICS_SETTINGS;
     }
 
-} //StatisticsSettingsImpl
+} // StatisticsSettingsImpl

@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.objectmodel.instance;
@@ -9,18 +8,17 @@ package orgomg.cwm.objectmodel.instance;
 import org.eclipse.emf.ecore.EFactory;
 
 /**
- * <!-- begin-user-doc -->
- * The <b>Factory</b> for the model.
- * It provides a create method for each non-abstract class of the model.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> The <b>Factory</b> for the model. It provides a
+ * create method for each non-abstract class of the model. <!-- end-user-doc -->
  * @see orgomg.cwm.objectmodel.instance.InstancePackage
  * @generated
  */
 public interface InstanceFactory extends EFactory {
+
     /**
      * The singleton instance of the factory.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     InstanceFactory eINSTANCE = orgomg.cwm.objectmodel.instance.impl.InstanceFactoryImpl.init();
@@ -36,8 +34,8 @@ public interface InstanceFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Data Value</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @return a new object of class '<em>Data Value</em>'.
      * @generated
      */
@@ -70,4 +68,4 @@ public interface InstanceFactory extends EFactory {
      */
     InstancePackage getInstancePackage();
 
-} //InstanceFactory
+} // InstanceFactory

@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.express;
@@ -15,91 +14,81 @@ import orgomg.cwm.objectmodel.core.CorePackage;
 import orgomg.cwm.resource.multidimensional.MultidimensionalPackage;
 
 /**
- * <!-- begin-user-doc -->
- * The <b>Package</b> for the model.
- * It contains accessors for the meta objects to represent
+ * <!-- begin-user-doc --> The <b>Package</b> for the model. It contains
+ * accessors for the meta objects to represent
  * <ul>
- *   <li>each class,</li>
- *   <li>each feature of each class,</li>
- *   <li>each enum,</li>
- *   <li>and each data type</li>
+ * <li>each class,</li>
+ * <li>each feature of each class,</li>
+ * <li>each enum,</li>
+ * <li>and each data type</li>
  * </ul>
- * <!-- end-user-doc -->
- * <!-- begin-model-doc -->
- * The Oracle Express package is an extension of the Multidimensional package. It represents the physical data model for an Oracle Express Database.
+ * <!-- end-user-doc --> <!-- begin-model-doc --> The Oracle Express package is
+ * an extension of the Multidimensional package. It represents the physical data
+ * model for an Oracle Express Database.
  * 
- * The classes in this package can be used as either sources or targets of data in the data warehouse, and are available to provide a physical implementation of the OLAP data model.
+ * The classes in this package can be used as either sources or targets of data
+ * in the data warehouse, and are available to provide a physical implementation
+ * of the OLAP data model.
  * 
  * The Express package depends on the following packages:
  * 
- *     org.omg::CWM::ObjectModel::Core
- *     org.omg::CWM::Foundation::SoftwareDeployment
- *     org.omg::CWM::Resource::Multidimensional
+ * org.omg::CWM::ObjectModel::Core org.omg::CWM::Foundation::SoftwareDeployment
+ * org.omg::CWM::Resource::Multidimensional
  * 
  * OCL Representation of Express Constraints
  * 
- * [C-1] An AggMap must be owned by a Database
- * context AggMap
- * inv: self.namespace->size = 1 and
- * self.namespace.oclIsKindOf(Database)
+ * [C-1] An AggMap must be owned by a Database context AggMap inv:
+ * self.namespace->size = 1 and self.namespace.oclIsKindOf(Database)
  * 
- * [C-2] A Model must be owned by a Database
- * context Model
- * inv: self.namespace->size = 1 and
- * self.namespace.oclIsKindOf(Database)
+ * [C-2] A Model must be owned by a Database context Model inv:
+ * self.namespace->size = 1 and self.namespace.oclIsKindOf(Database)
  * 
- * [C-3] A Program must be owned by a Database
- * context Program
- * inv: self.namespace->size = 1 and
- * self.namespace.oclIsKindOf(Database)
+ * [C-3] A Program must be owned by a Database context Program inv:
+ * self.namespace->size = 1 and self.namespace.oclIsKindOf(Database)
  * 
- * [C-4] A Worksheet must be owned by a Database
- * context Wor ksheet
- * inv: self.namespace->size = 1 and
- * self.namespace.oclIsKindOf(Database)
+ * [C-4] A Worksheet must be owned by a Database context Wor ksheet inv:
+ * self.namespace->size = 1 and self.namespace.oclIsKindOf(Database)
  * 
  * <!-- end-model-doc -->
+ * 
  * @see orgomg.cwmx.resource.express.ExpressFactory
  * @model kind="package"
  * @generated
  */
 public interface ExpressPackage extends EPackage {
+
     /**
      * The package name.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     String eNAME = "express";
 
     /**
      * The package namespace URI.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     String eNS_URI = "http:///orgomg/cwmx/resource/express.ecore";
 
     /**
      * The package namespace name.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     String eNS_PREFIX = "orgomg.cwmx.resource.express";
 
     /**
      * The singleton instance of the package.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     ExpressPackage eINSTANCE = orgomg.cwmx.resource.express.impl.ExpressPackageImpl.init();
 
     /**
      * The meta object id for the '{@link orgomg.cwmx.resource.express.impl.DimensionImpl <em>Dimension</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see orgomg.cwmx.resource.express.impl.DimensionImpl
      * @see orgomg.cwmx.resource.express.impl.ExpressPackageImpl#getDimension()
      * @generated
@@ -107,18 +96,18 @@ public interface ExpressPackage extends EPackage {
     int DIMENSION = 0;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int DIMENSION__NAME = MultidimensionalPackage.DIMENSION__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -126,8 +115,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -135,17 +123,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DIMENSION__SUPPLIER_DEPENDENCY = MultidimensionalPackage.DIMENSION__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -153,26 +140,25 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DIMENSION__NAMESPACE = MultidimensionalPackage.DIMENSION__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int DIMENSION__IMPORTER = MultidimensionalPackage.DIMENSION__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -180,26 +166,25 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DIMENSION__TAGGED_VALUE = MultidimensionalPackage.DIMENSION__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int DIMENSION__DOCUMENT = MultidimensionalPackage.DIMENSION__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -207,8 +192,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -216,17 +200,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DIMENSION__ELEMENT_NODE = MultidimensionalPackage.DIMENSION__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -234,8 +217,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -243,17 +225,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DIMENSION__VOCABULARY_ELEMENT = MultidimensionalPackage.DIMENSION__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -261,8 +242,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -270,8 +250,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -279,17 +258,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DIMENSION__OWNED_ELEMENT = MultidimensionalPackage.DIMENSION__OWNED_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Is Abstract</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is Abstract</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -297,8 +275,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Feature</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -306,17 +283,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Structural Feature</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DIMENSION__STRUCTURAL_FEATURE = MultidimensionalPackage.DIMENSION__STRUCTURAL_FEATURE;
 
     /**
-     * The feature id for the '<em><b>Parameter</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Parameter</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -324,8 +300,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Generalization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -333,26 +308,25 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Specialization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DIMENSION__SPECIALIZATION = MultidimensionalPackage.DIMENSION__SPECIALIZATION;
 
     /**
-     * The feature id for the '<em><b>Instance</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Instance</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int DIMENSION__INSTANCE = MultidimensionalPackage.DIMENSION__INSTANCE;
 
     /**
-     * The feature id for the '<em><b>Alias</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Alias</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -360,8 +334,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Expression Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -369,17 +342,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Mapping From</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DIMENSION__MAPPING_FROM = MultidimensionalPackage.DIMENSION__MAPPING_FROM;
 
     /**
-     * The feature id for the '<em><b>Mapping To</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Mapping To</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -387,26 +359,25 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Classifier Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DIMENSION__CLASSIFIER_MAP = MultidimensionalPackage.DIMENSION__CLASSIFIER_MAP;
 
     /**
-     * The feature id for the '<em><b>Cf Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Cf Map</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int DIMENSION__CF_MAP = MultidimensionalPackage.DIMENSION__CF_MAP;
 
     /**
-     * The feature id for the '<em><b>Domain</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Domain</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -414,17 +385,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Simple Dimension</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DIMENSION__SIMPLE_DIMENSION = MultidimensionalPackage.DIMENSION__SIMPLE_DIMENSION;
 
     /**
-     * The feature id for the '<em><b>Index</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Index</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -432,35 +402,34 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dimensioned Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DIMENSION__DIMENSIONED_OBJECT = MultidimensionalPackage.DIMENSION__DIMENSIONED_OBJECT;
 
     /**
-     * The feature id for the '<em><b>Composite</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Composite</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int DIMENSION__COMPOSITE = MultidimensionalPackage.DIMENSION__COMPOSITE;
 
     /**
-     * The feature id for the '<em><b>Component</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Component</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int DIMENSION__COMPONENT = MultidimensionalPackage.DIMENSION__COMPONENT;
 
     /**
-     * The feature id for the '<em><b>Schema</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Schema</b></em>' container reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -468,17 +437,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Member Set</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DIMENSION__MEMBER_SET = MultidimensionalPackage.DIMENSION__MEMBER_SET;
 
     /**
-     * The feature id for the '<em><b>Relation</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Relation</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -486,8 +454,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Column Dimension In Worksheet</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -495,17 +462,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Row Dimension In Worksheet</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DIMENSION__ROW_DIMENSION_IN_WORKSHEET = MultidimensionalPackage.DIMENSION_FEATURE_COUNT + 2;
 
     /**
-     * The feature id for the '<em><b>Value Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Value Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -513,17 +479,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Agg Map Component</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DIMENSION__AGG_MAP_COMPONENT = MultidimensionalPackage.DIMENSION_FEATURE_COUNT + 4;
 
     /**
-     * The number of structural features of the '<em>Dimension</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The number of structural features of the '<em>Dimension</em>' class. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -531,8 +496,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwmx.resource.express.impl.DatabaseImpl <em>Database</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see orgomg.cwmx.resource.express.impl.DatabaseImpl
      * @see orgomg.cwmx.resource.express.impl.ExpressPackageImpl#getDatabase()
      * @generated
@@ -540,18 +504,18 @@ public interface ExpressPackage extends EPackage {
     int DATABASE = 1;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int DATABASE__NAME = MultidimensionalPackage.SCHEMA__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -559,8 +523,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -568,17 +531,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DATABASE__SUPPLIER_DEPENDENCY = MultidimensionalPackage.SCHEMA__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -586,26 +548,25 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DATABASE__NAMESPACE = MultidimensionalPackage.SCHEMA__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int DATABASE__IMPORTER = MultidimensionalPackage.SCHEMA__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -613,26 +574,25 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DATABASE__TAGGED_VALUE = MultidimensionalPackage.SCHEMA__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int DATABASE__DOCUMENT = MultidimensionalPackage.SCHEMA__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -640,8 +600,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -649,17 +608,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DATABASE__ELEMENT_NODE = MultidimensionalPackage.SCHEMA__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -667,8 +625,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -676,17 +633,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DATABASE__VOCABULARY_ELEMENT = MultidimensionalPackage.SCHEMA__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -694,8 +650,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -703,8 +658,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -712,8 +666,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -721,8 +674,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Imported Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -730,8 +682,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Data Manager</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -739,8 +690,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dimensioned Object</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -748,17 +698,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dimension</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DATABASE__DIMENSION = MultidimensionalPackage.SCHEMA__DIMENSION;
 
     /**
-     * The number of structural features of the '<em>Database</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The number of structural features of the '<em>Database</em>' class. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -766,8 +715,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwmx.resource.express.impl.ConjointImpl <em>Conjoint</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see orgomg.cwmx.resource.express.impl.ConjointImpl
      * @see orgomg.cwmx.resource.express.impl.ExpressPackageImpl#getConjoint()
      * @generated
@@ -775,18 +723,18 @@ public interface ExpressPackage extends EPackage {
     int CONJOINT = 2;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int CONJOINT__NAME = DIMENSION__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -794,8 +742,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -803,17 +750,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CONJOINT__SUPPLIER_DEPENDENCY = DIMENSION__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -821,26 +767,25 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CONJOINT__NAMESPACE = DIMENSION__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int CONJOINT__IMPORTER = DIMENSION__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -848,26 +793,25 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CONJOINT__TAGGED_VALUE = DIMENSION__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int CONJOINT__DOCUMENT = DIMENSION__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -875,8 +819,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -884,17 +827,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CONJOINT__ELEMENT_NODE = DIMENSION__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -902,8 +844,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -911,17 +852,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CONJOINT__VOCABULARY_ELEMENT = DIMENSION__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -929,8 +869,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -938,8 +877,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -947,17 +885,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CONJOINT__OWNED_ELEMENT = DIMENSION__OWNED_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Is Abstract</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is Abstract</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -965,8 +902,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Feature</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -974,17 +910,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Structural Feature</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CONJOINT__STRUCTURAL_FEATURE = DIMENSION__STRUCTURAL_FEATURE;
 
     /**
-     * The feature id for the '<em><b>Parameter</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Parameter</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -992,8 +927,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Generalization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1001,26 +935,25 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Specialization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CONJOINT__SPECIALIZATION = DIMENSION__SPECIALIZATION;
 
     /**
-     * The feature id for the '<em><b>Instance</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Instance</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int CONJOINT__INSTANCE = DIMENSION__INSTANCE;
 
     /**
-     * The feature id for the '<em><b>Alias</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Alias</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1028,8 +961,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Expression Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1037,17 +969,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Mapping From</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CONJOINT__MAPPING_FROM = DIMENSION__MAPPING_FROM;
 
     /**
-     * The feature id for the '<em><b>Mapping To</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Mapping To</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1055,26 +986,25 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Classifier Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CONJOINT__CLASSIFIER_MAP = DIMENSION__CLASSIFIER_MAP;
 
     /**
-     * The feature id for the '<em><b>Cf Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Cf Map</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int CONJOINT__CF_MAP = DIMENSION__CF_MAP;
 
     /**
-     * The feature id for the '<em><b>Domain</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Domain</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1082,17 +1012,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Simple Dimension</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CONJOINT__SIMPLE_DIMENSION = DIMENSION__SIMPLE_DIMENSION;
 
     /**
-     * The feature id for the '<em><b>Index</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Index</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1100,35 +1029,34 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dimensioned Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CONJOINT__DIMENSIONED_OBJECT = DIMENSION__DIMENSIONED_OBJECT;
 
     /**
-     * The feature id for the '<em><b>Composite</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Composite</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int CONJOINT__COMPOSITE = DIMENSION__COMPOSITE;
 
     /**
-     * The feature id for the '<em><b>Component</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Component</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int CONJOINT__COMPONENT = DIMENSION__COMPONENT;
 
     /**
-     * The feature id for the '<em><b>Schema</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Schema</b></em>' container reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1136,17 +1064,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Member Set</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CONJOINT__MEMBER_SET = DIMENSION__MEMBER_SET;
 
     /**
-     * The feature id for the '<em><b>Relation</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Relation</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1154,8 +1081,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Column Dimension In Worksheet</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1163,17 +1089,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Row Dimension In Worksheet</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CONJOINT__ROW_DIMENSION_IN_WORKSHEET = DIMENSION__ROW_DIMENSION_IN_WORKSHEET;
 
     /**
-     * The feature id for the '<em><b>Value Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Value Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1181,35 +1106,34 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Agg Map Component</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CONJOINT__AGG_MAP_COMPONENT = DIMENSION__AGG_MAP_COMPONENT;
 
     /**
-     * The feature id for the '<em><b>Search Algorithm</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Search Algorithm</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int CONJOINT__SEARCH_ALGORITHM = DIMENSION_FEATURE_COUNT + 0;
 
     /**
-     * The feature id for the '<em><b>Page Space</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Page Space</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int CONJOINT__PAGE_SPACE = DIMENSION_FEATURE_COUNT + 1;
 
     /**
-     * The number of structural features of the '<em>Conjoint</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The number of structural features of the '<em>Conjoint</em>' class. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1217,8 +1141,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwmx.resource.express.impl.ProgramImpl <em>Program</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see orgomg.cwmx.resource.express.impl.ProgramImpl
      * @see orgomg.cwmx.resource.express.impl.ExpressPackageImpl#getProgram()
      * @generated
@@ -1226,18 +1149,18 @@ public interface ExpressPackage extends EPackage {
     int PROGRAM = 3;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int PROGRAM__NAME = SoftwaredeploymentPackage.COMPONENT__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1245,8 +1168,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1254,17 +1176,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int PROGRAM__SUPPLIER_DEPENDENCY = SoftwaredeploymentPackage.COMPONENT__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1272,26 +1193,25 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int PROGRAM__NAMESPACE = SoftwaredeploymentPackage.COMPONENT__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int PROGRAM__IMPORTER = SoftwaredeploymentPackage.COMPONENT__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1299,26 +1219,25 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int PROGRAM__TAGGED_VALUE = SoftwaredeploymentPackage.COMPONENT__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int PROGRAM__DOCUMENT = SoftwaredeploymentPackage.COMPONENT__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1326,8 +1245,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1335,17 +1253,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int PROGRAM__ELEMENT_NODE = SoftwaredeploymentPackage.COMPONENT__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1353,8 +1270,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1362,17 +1278,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int PROGRAM__VOCABULARY_ELEMENT = SoftwaredeploymentPackage.COMPONENT__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1380,8 +1295,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1389,8 +1303,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1398,17 +1311,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int PROGRAM__OWNED_ELEMENT = SoftwaredeploymentPackage.COMPONENT__OWNED_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Is Abstract</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is Abstract</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1416,8 +1328,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Feature</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1425,17 +1336,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Structural Feature</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int PROGRAM__STRUCTURAL_FEATURE = SoftwaredeploymentPackage.COMPONENT__STRUCTURAL_FEATURE;
 
     /**
-     * The feature id for the '<em><b>Parameter</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Parameter</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1443,8 +1353,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Generalization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1452,26 +1361,25 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Specialization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int PROGRAM__SPECIALIZATION = SoftwaredeploymentPackage.COMPONENT__SPECIALIZATION;
 
     /**
-     * The feature id for the '<em><b>Instance</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Instance</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int PROGRAM__INSTANCE = SoftwaredeploymentPackage.COMPONENT__INSTANCE;
 
     /**
-     * The feature id for the '<em><b>Alias</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Alias</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1479,8 +1387,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Expression Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1488,17 +1395,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Mapping From</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int PROGRAM__MAPPING_FROM = SoftwaredeploymentPackage.COMPONENT__MAPPING_FROM;
 
     /**
-     * The feature id for the '<em><b>Mapping To</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Mapping To</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1506,26 +1412,25 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Classifier Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int PROGRAM__CLASSIFIER_MAP = SoftwaredeploymentPackage.COMPONENT__CLASSIFIER_MAP;
 
     /**
-     * The feature id for the '<em><b>Cf Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Cf Map</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int PROGRAM__CF_MAP = SoftwaredeploymentPackage.COMPONENT__CF_MAP;
 
     /**
-     * The feature id for the '<em><b>Domain</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Domain</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1533,44 +1438,43 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Simple Dimension</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int PROGRAM__SIMPLE_DIMENSION = SoftwaredeploymentPackage.COMPONENT__SIMPLE_DIMENSION;
 
     /**
-     * The feature id for the '<em><b>Deployment</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Deployment</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int PROGRAM__DEPLOYMENT = SoftwaredeploymentPackage.COMPONENT__DEPLOYMENT;
 
     /**
-     * The feature id for the '<em><b>Program</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Program</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int PROGRAM__PROGRAM = SoftwaredeploymentPackage.COMPONENT_FEATURE_COUNT + 0;
 
     /**
-     * The feature id for the '<em><b>Return Dimension</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Return Dimension</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int PROGRAM__RETURN_DIMENSION = SoftwaredeploymentPackage.COMPONENT_FEATURE_COUNT + 1;
 
     /**
-     * The number of structural features of the '<em>Program</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The number of structural features of the '<em>Program</em>' class. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1578,8 +1482,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwmx.resource.express.impl.ModelImpl <em>Model</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see orgomg.cwmx.resource.express.impl.ModelImpl
      * @see orgomg.cwmx.resource.express.impl.ExpressPackageImpl#getModel()
      * @generated
@@ -1587,18 +1490,18 @@ public interface ExpressPackage extends EPackage {
     int MODEL = 4;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int MODEL__NAME = SoftwaredeploymentPackage.COMPONENT__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1606,8 +1509,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1615,17 +1517,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int MODEL__SUPPLIER_DEPENDENCY = SoftwaredeploymentPackage.COMPONENT__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1633,26 +1534,25 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int MODEL__NAMESPACE = SoftwaredeploymentPackage.COMPONENT__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int MODEL__IMPORTER = SoftwaredeploymentPackage.COMPONENT__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1660,26 +1560,25 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int MODEL__TAGGED_VALUE = SoftwaredeploymentPackage.COMPONENT__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int MODEL__DOCUMENT = SoftwaredeploymentPackage.COMPONENT__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1687,8 +1586,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1696,17 +1594,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int MODEL__ELEMENT_NODE = SoftwaredeploymentPackage.COMPONENT__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1714,8 +1611,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1723,17 +1619,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int MODEL__VOCABULARY_ELEMENT = SoftwaredeploymentPackage.COMPONENT__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1741,8 +1636,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1750,8 +1644,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1759,17 +1652,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int MODEL__OWNED_ELEMENT = SoftwaredeploymentPackage.COMPONENT__OWNED_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Is Abstract</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is Abstract</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1777,8 +1669,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Feature</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1786,17 +1677,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Structural Feature</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int MODEL__STRUCTURAL_FEATURE = SoftwaredeploymentPackage.COMPONENT__STRUCTURAL_FEATURE;
 
     /**
-     * The feature id for the '<em><b>Parameter</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Parameter</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1804,8 +1694,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Generalization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1813,26 +1702,25 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Specialization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int MODEL__SPECIALIZATION = SoftwaredeploymentPackage.COMPONENT__SPECIALIZATION;
 
     /**
-     * The feature id for the '<em><b>Instance</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Instance</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int MODEL__INSTANCE = SoftwaredeploymentPackage.COMPONENT__INSTANCE;
 
     /**
-     * The feature id for the '<em><b>Alias</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Alias</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1840,8 +1728,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Expression Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1849,17 +1736,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Mapping From</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int MODEL__MAPPING_FROM = SoftwaredeploymentPackage.COMPONENT__MAPPING_FROM;
 
     /**
-     * The feature id for the '<em><b>Mapping To</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Mapping To</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1867,26 +1753,25 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Classifier Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int MODEL__CLASSIFIER_MAP = SoftwaredeploymentPackage.COMPONENT__CLASSIFIER_MAP;
 
     /**
-     * The feature id for the '<em><b>Cf Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Cf Map</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int MODEL__CF_MAP = SoftwaredeploymentPackage.COMPONENT__CF_MAP;
 
     /**
-     * The feature id for the '<em><b>Domain</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Domain</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1894,35 +1779,34 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Simple Dimension</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int MODEL__SIMPLE_DIMENSION = SoftwaredeploymentPackage.COMPONENT__SIMPLE_DIMENSION;
 
     /**
-     * The feature id for the '<em><b>Deployment</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Deployment</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int MODEL__DEPLOYMENT = SoftwaredeploymentPackage.COMPONENT__DEPLOYMENT;
 
     /**
-     * The feature id for the '<em><b>Content</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Content</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int MODEL__CONTENT = SoftwaredeploymentPackage.COMPONENT_FEATURE_COUNT + 0;
 
     /**
-     * The number of structural features of the '<em>Model</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The number of structural features of the '<em>Model</em>' class. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1930,8 +1814,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwmx.resource.express.impl.VariableImpl <em>Variable</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see orgomg.cwmx.resource.express.impl.VariableImpl
      * @see orgomg.cwmx.resource.express.impl.ExpressPackageImpl#getVariable()
      * @generated
@@ -1939,18 +1822,18 @@ public interface ExpressPackage extends EPackage {
     int VARIABLE = 5;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int VARIABLE__NAME = MultidimensionalPackage.DIMENSIONED_OBJECT__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1958,8 +1841,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1967,17 +1849,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int VARIABLE__SUPPLIER_DEPENDENCY = MultidimensionalPackage.DIMENSIONED_OBJECT__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1985,26 +1866,25 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int VARIABLE__NAMESPACE = MultidimensionalPackage.DIMENSIONED_OBJECT__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int VARIABLE__IMPORTER = MultidimensionalPackage.DIMENSIONED_OBJECT__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2012,26 +1892,25 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int VARIABLE__TAGGED_VALUE = MultidimensionalPackage.DIMENSIONED_OBJECT__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int VARIABLE__DOCUMENT = MultidimensionalPackage.DIMENSIONED_OBJECT__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2039,8 +1918,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2048,17 +1926,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int VARIABLE__ELEMENT_NODE = MultidimensionalPackage.DIMENSIONED_OBJECT__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2066,8 +1943,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2075,17 +1951,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int VARIABLE__VOCABULARY_ELEMENT = MultidimensionalPackage.DIMENSIONED_OBJECT__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2093,8 +1968,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2102,26 +1976,25 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int VARIABLE__DASDL_PROPERTY = MultidimensionalPackage.DIMENSIONED_OBJECT__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Owner Scope</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Owner Scope</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int VARIABLE__OWNER_SCOPE = MultidimensionalPackage.DIMENSIONED_OBJECT__OWNER_SCOPE;
 
     /**
-     * The feature id for the '<em><b>Owner</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Owner</b></em>' container reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2129,35 +2002,34 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Feature Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int VARIABLE__FEATURE_NODE = MultidimensionalPackage.DIMENSIONED_OBJECT__FEATURE_NODE;
 
     /**
-     * The feature id for the '<em><b>Feature Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Feature Map</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int VARIABLE__FEATURE_MAP = MultidimensionalPackage.DIMENSIONED_OBJECT__FEATURE_MAP;
 
     /**
-     * The feature id for the '<em><b>Cf Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Cf Map</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int VARIABLE__CF_MAP = MultidimensionalPackage.DIMENSIONED_OBJECT__CF_MAP;
 
     /**
-     * The feature id for the '<em><b>Changeability</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Changeability</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2165,44 +2037,43 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Multiplicity</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int VARIABLE__MULTIPLICITY = MultidimensionalPackage.DIMENSIONED_OBJECT__MULTIPLICITY;
 
     /**
-     * The feature id for the '<em><b>Ordering</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Ordering</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int VARIABLE__ORDERING = MultidimensionalPackage.DIMENSIONED_OBJECT__ORDERING;
 
     /**
-     * The feature id for the '<em><b>Target Scope</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Target Scope</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int VARIABLE__TARGET_SCOPE = MultidimensionalPackage.DIMENSIONED_OBJECT__TARGET_SCOPE;
 
     /**
-     * The feature id for the '<em><b>Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Type</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int VARIABLE__TYPE = MultidimensionalPackage.DIMENSIONED_OBJECT__TYPE;
 
     /**
-     * The feature id for the '<em><b>Slot</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Slot</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2210,8 +2081,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Discriminated Union</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2219,8 +2089,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Indexed Feature</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2228,35 +2097,34 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Key Relationship</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int VARIABLE__KEY_RELATIONSHIP = MultidimensionalPackage.DIMENSIONED_OBJECT__KEY_RELATIONSHIP;
 
     /**
-     * The feature id for the '<em><b>Unique Key</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Unique Key</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int VARIABLE__UNIQUE_KEY = MultidimensionalPackage.DIMENSIONED_OBJECT__UNIQUE_KEY;
 
     /**
-     * The feature id for the '<em><b>Data Item</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Data Item</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int VARIABLE__DATA_ITEM = MultidimensionalPackage.DIMENSIONED_OBJECT__DATA_ITEM;
 
     /**
-     * The feature id for the '<em><b>Remap</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Remap</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2264,62 +2132,61 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Initial Value</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int VARIABLE__INITIAL_VALUE = MultidimensionalPackage.DIMENSIONED_OBJECT__INITIAL_VALUE;
 
     /**
-     * The feature id for the '<em><b>Dimension</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Dimension</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int VARIABLE__DIMENSION = MultidimensionalPackage.DIMENSIONED_OBJECT__DIMENSION;
 
     /**
-     * The feature id for the '<em><b>Schema</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Schema</b></em>' container reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int VARIABLE__SCHEMA = MultidimensionalPackage.DIMENSIONED_OBJECT__SCHEMA;
 
     /**
-     * The feature id for the '<em><b>Storage Type</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Storage Type</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int VARIABLE__STORAGE_TYPE = MultidimensionalPackage.DIMENSIONED_OBJECT_FEATURE_COUNT + 0;
 
     /**
-     * The feature id for the '<em><b>Page Space</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Page Space</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int VARIABLE__PAGE_SPACE = MultidimensionalPackage.DIMENSIONED_OBJECT_FEATURE_COUNT + 1;
 
     /**
-     * The feature id for the '<em><b>Width</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Width</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int VARIABLE__WIDTH = MultidimensionalPackage.DIMENSIONED_OBJECT_FEATURE_COUNT + 2;
 
     /**
-     * The number of structural features of the '<em>Variable</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The number of structural features of the '<em>Variable</em>' class. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2327,8 +2194,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwmx.resource.express.impl.FormulaImpl <em>Formula</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see orgomg.cwmx.resource.express.impl.FormulaImpl
      * @see orgomg.cwmx.resource.express.impl.ExpressPackageImpl#getFormula()
      * @generated
@@ -2336,18 +2202,18 @@ public interface ExpressPackage extends EPackage {
     int FORMULA = 6;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int FORMULA__NAME = MultidimensionalPackage.DIMENSIONED_OBJECT__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2355,8 +2221,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2364,17 +2229,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int FORMULA__SUPPLIER_DEPENDENCY = MultidimensionalPackage.DIMENSIONED_OBJECT__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2382,26 +2246,25 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int FORMULA__NAMESPACE = MultidimensionalPackage.DIMENSIONED_OBJECT__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int FORMULA__IMPORTER = MultidimensionalPackage.DIMENSIONED_OBJECT__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2409,26 +2272,25 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int FORMULA__TAGGED_VALUE = MultidimensionalPackage.DIMENSIONED_OBJECT__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int FORMULA__DOCUMENT = MultidimensionalPackage.DIMENSIONED_OBJECT__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2436,8 +2298,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2445,17 +2306,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int FORMULA__ELEMENT_NODE = MultidimensionalPackage.DIMENSIONED_OBJECT__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2463,8 +2323,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2472,17 +2331,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int FORMULA__VOCABULARY_ELEMENT = MultidimensionalPackage.DIMENSIONED_OBJECT__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2490,8 +2348,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2499,26 +2356,25 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int FORMULA__DASDL_PROPERTY = MultidimensionalPackage.DIMENSIONED_OBJECT__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Owner Scope</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Owner Scope</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int FORMULA__OWNER_SCOPE = MultidimensionalPackage.DIMENSIONED_OBJECT__OWNER_SCOPE;
 
     /**
-     * The feature id for the '<em><b>Owner</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Owner</b></em>' container reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2526,35 +2382,34 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Feature Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int FORMULA__FEATURE_NODE = MultidimensionalPackage.DIMENSIONED_OBJECT__FEATURE_NODE;
 
     /**
-     * The feature id for the '<em><b>Feature Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Feature Map</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int FORMULA__FEATURE_MAP = MultidimensionalPackage.DIMENSIONED_OBJECT__FEATURE_MAP;
 
     /**
-     * The feature id for the '<em><b>Cf Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Cf Map</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int FORMULA__CF_MAP = MultidimensionalPackage.DIMENSIONED_OBJECT__CF_MAP;
 
     /**
-     * The feature id for the '<em><b>Changeability</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Changeability</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2562,44 +2417,43 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Multiplicity</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int FORMULA__MULTIPLICITY = MultidimensionalPackage.DIMENSIONED_OBJECT__MULTIPLICITY;
 
     /**
-     * The feature id for the '<em><b>Ordering</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Ordering</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int FORMULA__ORDERING = MultidimensionalPackage.DIMENSIONED_OBJECT__ORDERING;
 
     /**
-     * The feature id for the '<em><b>Target Scope</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Target Scope</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int FORMULA__TARGET_SCOPE = MultidimensionalPackage.DIMENSIONED_OBJECT__TARGET_SCOPE;
 
     /**
-     * The feature id for the '<em><b>Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Type</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int FORMULA__TYPE = MultidimensionalPackage.DIMENSIONED_OBJECT__TYPE;
 
     /**
-     * The feature id for the '<em><b>Slot</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Slot</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2607,8 +2461,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Discriminated Union</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2616,8 +2469,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Indexed Feature</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2625,35 +2477,34 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Key Relationship</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int FORMULA__KEY_RELATIONSHIP = MultidimensionalPackage.DIMENSIONED_OBJECT__KEY_RELATIONSHIP;
 
     /**
-     * The feature id for the '<em><b>Unique Key</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Unique Key</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int FORMULA__UNIQUE_KEY = MultidimensionalPackage.DIMENSIONED_OBJECT__UNIQUE_KEY;
 
     /**
-     * The feature id for the '<em><b>Data Item</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Data Item</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int FORMULA__DATA_ITEM = MultidimensionalPackage.DIMENSIONED_OBJECT__DATA_ITEM;
 
     /**
-     * The feature id for the '<em><b>Remap</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Remap</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2661,44 +2512,43 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Initial Value</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int FORMULA__INITIAL_VALUE = MultidimensionalPackage.DIMENSIONED_OBJECT__INITIAL_VALUE;
 
     /**
-     * The feature id for the '<em><b>Dimension</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Dimension</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int FORMULA__DIMENSION = MultidimensionalPackage.DIMENSIONED_OBJECT__DIMENSION;
 
     /**
-     * The feature id for the '<em><b>Schema</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Schema</b></em>' container reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int FORMULA__SCHEMA = MultidimensionalPackage.DIMENSIONED_OBJECT__SCHEMA;
 
     /**
-     * The feature id for the '<em><b>Expression</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Expression</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int FORMULA__EXPRESSION = MultidimensionalPackage.DIMENSIONED_OBJECT_FEATURE_COUNT + 0;
 
     /**
-     * The number of structural features of the '<em>Formula</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The number of structural features of the '<em>Formula</em>' class. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2706,8 +2556,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwmx.resource.express.impl.ValueSetImpl <em>Value Set</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see orgomg.cwmx.resource.express.impl.ValueSetImpl
      * @see orgomg.cwmx.resource.express.impl.ExpressPackageImpl#getValueSet()
      * @generated
@@ -2715,18 +2564,18 @@ public interface ExpressPackage extends EPackage {
     int VALUE_SET = 7;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int VALUE_SET__NAME = MultidimensionalPackage.DIMENSIONED_OBJECT__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2734,8 +2583,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2743,17 +2591,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int VALUE_SET__SUPPLIER_DEPENDENCY = MultidimensionalPackage.DIMENSIONED_OBJECT__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2761,26 +2608,25 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int VALUE_SET__NAMESPACE = MultidimensionalPackage.DIMENSIONED_OBJECT__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int VALUE_SET__IMPORTER = MultidimensionalPackage.DIMENSIONED_OBJECT__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2788,26 +2634,25 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int VALUE_SET__TAGGED_VALUE = MultidimensionalPackage.DIMENSIONED_OBJECT__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int VALUE_SET__DOCUMENT = MultidimensionalPackage.DIMENSIONED_OBJECT__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2815,8 +2660,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2824,17 +2668,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int VALUE_SET__ELEMENT_NODE = MultidimensionalPackage.DIMENSIONED_OBJECT__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2842,8 +2685,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2851,17 +2693,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int VALUE_SET__VOCABULARY_ELEMENT = MultidimensionalPackage.DIMENSIONED_OBJECT__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2869,8 +2710,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2878,26 +2718,25 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int VALUE_SET__DASDL_PROPERTY = MultidimensionalPackage.DIMENSIONED_OBJECT__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Owner Scope</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Owner Scope</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int VALUE_SET__OWNER_SCOPE = MultidimensionalPackage.DIMENSIONED_OBJECT__OWNER_SCOPE;
 
     /**
-     * The feature id for the '<em><b>Owner</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Owner</b></em>' container reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2905,35 +2744,34 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Feature Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int VALUE_SET__FEATURE_NODE = MultidimensionalPackage.DIMENSIONED_OBJECT__FEATURE_NODE;
 
     /**
-     * The feature id for the '<em><b>Feature Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Feature Map</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int VALUE_SET__FEATURE_MAP = MultidimensionalPackage.DIMENSIONED_OBJECT__FEATURE_MAP;
 
     /**
-     * The feature id for the '<em><b>Cf Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Cf Map</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int VALUE_SET__CF_MAP = MultidimensionalPackage.DIMENSIONED_OBJECT__CF_MAP;
 
     /**
-     * The feature id for the '<em><b>Changeability</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Changeability</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2941,44 +2779,43 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Multiplicity</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int VALUE_SET__MULTIPLICITY = MultidimensionalPackage.DIMENSIONED_OBJECT__MULTIPLICITY;
 
     /**
-     * The feature id for the '<em><b>Ordering</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Ordering</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int VALUE_SET__ORDERING = MultidimensionalPackage.DIMENSIONED_OBJECT__ORDERING;
 
     /**
-     * The feature id for the '<em><b>Target Scope</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Target Scope</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int VALUE_SET__TARGET_SCOPE = MultidimensionalPackage.DIMENSIONED_OBJECT__TARGET_SCOPE;
 
     /**
-     * The feature id for the '<em><b>Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Type</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int VALUE_SET__TYPE = MultidimensionalPackage.DIMENSIONED_OBJECT__TYPE;
 
     /**
-     * The feature id for the '<em><b>Slot</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Slot</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2986,8 +2823,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Discriminated Union</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2995,8 +2831,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Indexed Feature</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3004,35 +2839,34 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Key Relationship</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int VALUE_SET__KEY_RELATIONSHIP = MultidimensionalPackage.DIMENSIONED_OBJECT__KEY_RELATIONSHIP;
 
     /**
-     * The feature id for the '<em><b>Unique Key</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Unique Key</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int VALUE_SET__UNIQUE_KEY = MultidimensionalPackage.DIMENSIONED_OBJECT__UNIQUE_KEY;
 
     /**
-     * The feature id for the '<em><b>Data Item</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Data Item</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int VALUE_SET__DATA_ITEM = MultidimensionalPackage.DIMENSIONED_OBJECT__DATA_ITEM;
 
     /**
-     * The feature id for the '<em><b>Remap</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Remap</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3040,35 +2874,34 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Initial Value</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int VALUE_SET__INITIAL_VALUE = MultidimensionalPackage.DIMENSIONED_OBJECT__INITIAL_VALUE;
 
     /**
-     * The feature id for the '<em><b>Dimension</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Dimension</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int VALUE_SET__DIMENSION = MultidimensionalPackage.DIMENSIONED_OBJECT__DIMENSION;
 
     /**
-     * The feature id for the '<em><b>Schema</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Schema</b></em>' container reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int VALUE_SET__SCHEMA = MultidimensionalPackage.DIMENSIONED_OBJECT__SCHEMA;
 
     /**
-     * The feature id for the '<em><b>Is Temp</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is Temp</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3076,17 +2909,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Reference Dimension</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int VALUE_SET__REFERENCE_DIMENSION = MultidimensionalPackage.DIMENSIONED_OBJECT_FEATURE_COUNT + 1;
 
     /**
-     * The number of structural features of the '<em>Value Set</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The number of structural features of the '<em>Value Set</em>' class. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3094,8 +2926,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwmx.resource.express.impl.RelationImpl <em>Relation</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see orgomg.cwmx.resource.express.impl.RelationImpl
      * @see orgomg.cwmx.resource.express.impl.ExpressPackageImpl#getRelation()
      * @generated
@@ -3103,18 +2934,18 @@ public interface ExpressPackage extends EPackage {
     int RELATION = 8;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int RELATION__NAME = MultidimensionalPackage.DIMENSIONED_OBJECT__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3122,8 +2953,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3131,17 +2961,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int RELATION__SUPPLIER_DEPENDENCY = MultidimensionalPackage.DIMENSIONED_OBJECT__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3149,26 +2978,25 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int RELATION__NAMESPACE = MultidimensionalPackage.DIMENSIONED_OBJECT__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int RELATION__IMPORTER = MultidimensionalPackage.DIMENSIONED_OBJECT__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3176,26 +3004,25 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int RELATION__TAGGED_VALUE = MultidimensionalPackage.DIMENSIONED_OBJECT__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int RELATION__DOCUMENT = MultidimensionalPackage.DIMENSIONED_OBJECT__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3203,8 +3030,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3212,17 +3038,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int RELATION__ELEMENT_NODE = MultidimensionalPackage.DIMENSIONED_OBJECT__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3230,8 +3055,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3239,17 +3063,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int RELATION__VOCABULARY_ELEMENT = MultidimensionalPackage.DIMENSIONED_OBJECT__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3257,8 +3080,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3266,26 +3088,25 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int RELATION__DASDL_PROPERTY = MultidimensionalPackage.DIMENSIONED_OBJECT__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Owner Scope</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Owner Scope</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int RELATION__OWNER_SCOPE = MultidimensionalPackage.DIMENSIONED_OBJECT__OWNER_SCOPE;
 
     /**
-     * The feature id for the '<em><b>Owner</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Owner</b></em>' container reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3293,35 +3114,34 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Feature Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int RELATION__FEATURE_NODE = MultidimensionalPackage.DIMENSIONED_OBJECT__FEATURE_NODE;
 
     /**
-     * The feature id for the '<em><b>Feature Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Feature Map</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int RELATION__FEATURE_MAP = MultidimensionalPackage.DIMENSIONED_OBJECT__FEATURE_MAP;
 
     /**
-     * The feature id for the '<em><b>Cf Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Cf Map</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int RELATION__CF_MAP = MultidimensionalPackage.DIMENSIONED_OBJECT__CF_MAP;
 
     /**
-     * The feature id for the '<em><b>Changeability</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Changeability</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3329,44 +3149,43 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Multiplicity</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int RELATION__MULTIPLICITY = MultidimensionalPackage.DIMENSIONED_OBJECT__MULTIPLICITY;
 
     /**
-     * The feature id for the '<em><b>Ordering</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Ordering</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int RELATION__ORDERING = MultidimensionalPackage.DIMENSIONED_OBJECT__ORDERING;
 
     /**
-     * The feature id for the '<em><b>Target Scope</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Target Scope</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int RELATION__TARGET_SCOPE = MultidimensionalPackage.DIMENSIONED_OBJECT__TARGET_SCOPE;
 
     /**
-     * The feature id for the '<em><b>Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Type</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int RELATION__TYPE = MultidimensionalPackage.DIMENSIONED_OBJECT__TYPE;
 
     /**
-     * The feature id for the '<em><b>Slot</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Slot</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3374,8 +3193,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Discriminated Union</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3383,8 +3201,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Indexed Feature</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3392,35 +3209,34 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Key Relationship</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int RELATION__KEY_RELATIONSHIP = MultidimensionalPackage.DIMENSIONED_OBJECT__KEY_RELATIONSHIP;
 
     /**
-     * The feature id for the '<em><b>Unique Key</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Unique Key</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int RELATION__UNIQUE_KEY = MultidimensionalPackage.DIMENSIONED_OBJECT__UNIQUE_KEY;
 
     /**
-     * The feature id for the '<em><b>Data Item</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Data Item</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int RELATION__DATA_ITEM = MultidimensionalPackage.DIMENSIONED_OBJECT__DATA_ITEM;
 
     /**
-     * The feature id for the '<em><b>Remap</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Remap</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3428,44 +3244,43 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Initial Value</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int RELATION__INITIAL_VALUE = MultidimensionalPackage.DIMENSIONED_OBJECT__INITIAL_VALUE;
 
     /**
-     * The feature id for the '<em><b>Dimension</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Dimension</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int RELATION__DIMENSION = MultidimensionalPackage.DIMENSIONED_OBJECT__DIMENSION;
 
     /**
-     * The feature id for the '<em><b>Schema</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Schema</b></em>' container reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int RELATION__SCHEMA = MultidimensionalPackage.DIMENSIONED_OBJECT__SCHEMA;
 
     /**
-     * The feature id for the '<em><b>Is Temp</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is Temp</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int RELATION__IS_TEMP = MultidimensionalPackage.DIMENSIONED_OBJECT_FEATURE_COUNT + 0;
 
     /**
-     * The feature id for the '<em><b>Page Space</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Page Space</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3473,8 +3288,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Reference Dimension</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3482,17 +3296,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Agg Map Component</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int RELATION__AGG_MAP_COMPONENT = MultidimensionalPackage.DIMENSIONED_OBJECT_FEATURE_COUNT + 3;
 
     /**
-     * The number of structural features of the '<em>Relation</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The number of structural features of the '<em>Relation</em>' class. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3500,8 +3313,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwmx.resource.express.impl.WorksheetImpl <em>Worksheet</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see orgomg.cwmx.resource.express.impl.WorksheetImpl
      * @see orgomg.cwmx.resource.express.impl.ExpressPackageImpl#getWorksheet()
      * @generated
@@ -3509,18 +3321,18 @@ public interface ExpressPackage extends EPackage {
     int WORKSHEET = 9;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int WORKSHEET__NAME = CorePackage.CLASS__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3528,8 +3340,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3537,17 +3348,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int WORKSHEET__SUPPLIER_DEPENDENCY = CorePackage.CLASS__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3555,26 +3365,25 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int WORKSHEET__NAMESPACE = CorePackage.CLASS__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int WORKSHEET__IMPORTER = CorePackage.CLASS__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3582,26 +3391,25 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int WORKSHEET__TAGGED_VALUE = CorePackage.CLASS__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int WORKSHEET__DOCUMENT = CorePackage.CLASS__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3609,8 +3417,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3618,17 +3425,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int WORKSHEET__ELEMENT_NODE = CorePackage.CLASS__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3636,8 +3442,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3645,17 +3450,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int WORKSHEET__VOCABULARY_ELEMENT = CorePackage.CLASS__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3663,8 +3467,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3672,8 +3475,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3681,17 +3483,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int WORKSHEET__OWNED_ELEMENT = CorePackage.CLASS__OWNED_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Is Abstract</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is Abstract</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3699,8 +3500,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Feature</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3708,17 +3508,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Structural Feature</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int WORKSHEET__STRUCTURAL_FEATURE = CorePackage.CLASS__STRUCTURAL_FEATURE;
 
     /**
-     * The feature id for the '<em><b>Parameter</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Parameter</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3726,8 +3525,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Generalization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3735,26 +3533,25 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Specialization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int WORKSHEET__SPECIALIZATION = CorePackage.CLASS__SPECIALIZATION;
 
     /**
-     * The feature id for the '<em><b>Instance</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Instance</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int WORKSHEET__INSTANCE = CorePackage.CLASS__INSTANCE;
 
     /**
-     * The feature id for the '<em><b>Alias</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Alias</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3762,8 +3559,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Expression Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3771,17 +3567,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Mapping From</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int WORKSHEET__MAPPING_FROM = CorePackage.CLASS__MAPPING_FROM;
 
     /**
-     * The feature id for the '<em><b>Mapping To</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Mapping To</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3789,26 +3584,25 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Classifier Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int WORKSHEET__CLASSIFIER_MAP = CorePackage.CLASS__CLASSIFIER_MAP;
 
     /**
-     * The feature id for the '<em><b>Cf Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Cf Map</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int WORKSHEET__CF_MAP = CorePackage.CLASS__CF_MAP;
 
     /**
-     * The feature id for the '<em><b>Domain</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Domain</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3816,53 +3610,52 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Simple Dimension</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int WORKSHEET__SIMPLE_DIMENSION = CorePackage.CLASS__SIMPLE_DIMENSION;
 
     /**
-     * The feature id for the '<em><b>Index</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Index</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int WORKSHEET__INDEX = CorePackage.CLASS__INDEX;
 
     /**
-     * The feature id for the '<em><b>Is Temp</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is Temp</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int WORKSHEET__IS_TEMP = CorePackage.CLASS_FEATURE_COUNT + 0;
 
     /**
-     * The feature id for the '<em><b>Column Dimension</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Column Dimension</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int WORKSHEET__COLUMN_DIMENSION = CorePackage.CLASS_FEATURE_COUNT + 1;
 
     /**
-     * The feature id for the '<em><b>Row Dimension</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Row Dimension</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int WORKSHEET__ROW_DIMENSION = CorePackage.CLASS_FEATURE_COUNT + 2;
 
     /**
-     * The number of structural features of the '<em>Worksheet</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The number of structural features of the '<em>Worksheet</em>' class. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3870,8 +3663,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwmx.resource.express.impl.CompositeImpl <em>Composite</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see orgomg.cwmx.resource.express.impl.CompositeImpl
      * @see orgomg.cwmx.resource.express.impl.ExpressPackageImpl#getComposite()
      * @generated
@@ -3879,18 +3671,18 @@ public interface ExpressPackage extends EPackage {
     int COMPOSITE = 10;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int COMPOSITE__NAME = DIMENSION__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3898,8 +3690,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3907,17 +3698,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int COMPOSITE__SUPPLIER_DEPENDENCY = DIMENSION__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3925,26 +3715,25 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int COMPOSITE__NAMESPACE = DIMENSION__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int COMPOSITE__IMPORTER = DIMENSION__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3952,26 +3741,25 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int COMPOSITE__TAGGED_VALUE = DIMENSION__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int COMPOSITE__DOCUMENT = DIMENSION__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3979,8 +3767,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3988,17 +3775,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int COMPOSITE__ELEMENT_NODE = DIMENSION__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4006,8 +3792,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4015,17 +3800,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int COMPOSITE__VOCABULARY_ELEMENT = DIMENSION__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4033,8 +3817,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4042,8 +3825,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4051,17 +3833,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int COMPOSITE__OWNED_ELEMENT = DIMENSION__OWNED_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Is Abstract</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is Abstract</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4069,8 +3850,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Feature</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4078,17 +3858,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Structural Feature</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int COMPOSITE__STRUCTURAL_FEATURE = DIMENSION__STRUCTURAL_FEATURE;
 
     /**
-     * The feature id for the '<em><b>Parameter</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Parameter</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4096,8 +3875,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Generalization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4105,26 +3883,25 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Specialization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int COMPOSITE__SPECIALIZATION = DIMENSION__SPECIALIZATION;
 
     /**
-     * The feature id for the '<em><b>Instance</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Instance</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int COMPOSITE__INSTANCE = DIMENSION__INSTANCE;
 
     /**
-     * The feature id for the '<em><b>Alias</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Alias</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4132,8 +3909,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Expression Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4141,17 +3917,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Mapping From</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int COMPOSITE__MAPPING_FROM = DIMENSION__MAPPING_FROM;
 
     /**
-     * The feature id for the '<em><b>Mapping To</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Mapping To</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4159,26 +3934,25 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Classifier Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int COMPOSITE__CLASSIFIER_MAP = DIMENSION__CLASSIFIER_MAP;
 
     /**
-     * The feature id for the '<em><b>Cf Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Cf Map</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int COMPOSITE__CF_MAP = DIMENSION__CF_MAP;
 
     /**
-     * The feature id for the '<em><b>Domain</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Domain</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4186,17 +3960,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Simple Dimension</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int COMPOSITE__SIMPLE_DIMENSION = DIMENSION__SIMPLE_DIMENSION;
 
     /**
-     * The feature id for the '<em><b>Index</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Index</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4204,35 +3977,34 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dimensioned Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int COMPOSITE__DIMENSIONED_OBJECT = DIMENSION__DIMENSIONED_OBJECT;
 
     /**
-     * The feature id for the '<em><b>Composite</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Composite</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int COMPOSITE__COMPOSITE = DIMENSION__COMPOSITE;
 
     /**
-     * The feature id for the '<em><b>Component</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Component</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int COMPOSITE__COMPONENT = DIMENSION__COMPONENT;
 
     /**
-     * The feature id for the '<em><b>Schema</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Schema</b></em>' container reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4240,17 +4012,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Member Set</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int COMPOSITE__MEMBER_SET = DIMENSION__MEMBER_SET;
 
     /**
-     * The feature id for the '<em><b>Relation</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Relation</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4258,8 +4029,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Column Dimension In Worksheet</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4267,17 +4037,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Row Dimension In Worksheet</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int COMPOSITE__ROW_DIMENSION_IN_WORKSHEET = DIMENSION__ROW_DIMENSION_IN_WORKSHEET;
 
     /**
-     * The feature id for the '<em><b>Value Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Value Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4285,35 +4054,34 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Agg Map Component</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int COMPOSITE__AGG_MAP_COMPONENT = DIMENSION__AGG_MAP_COMPONENT;
 
     /**
-     * The feature id for the '<em><b>Search Algorithm</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Search Algorithm</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int COMPOSITE__SEARCH_ALGORITHM = DIMENSION_FEATURE_COUNT + 0;
 
     /**
-     * The feature id for the '<em><b>Page Space</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Page Space</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int COMPOSITE__PAGE_SPACE = DIMENSION_FEATURE_COUNT + 1;
 
     /**
-     * The number of structural features of the '<em>Composite</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The number of structural features of the '<em>Composite</em>' class. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4321,8 +4089,8 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwmx.resource.express.impl.SimpleDimensionImpl <em>Simple Dimension</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see orgomg.cwmx.resource.express.impl.SimpleDimensionImpl
      * @see orgomg.cwmx.resource.express.impl.ExpressPackageImpl#getSimpleDimension()
      * @generated
@@ -4330,18 +4098,18 @@ public interface ExpressPackage extends EPackage {
     int SIMPLE_DIMENSION = 11;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SIMPLE_DIMENSION__NAME = DIMENSION__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4349,8 +4117,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4358,17 +4125,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SIMPLE_DIMENSION__SUPPLIER_DEPENDENCY = DIMENSION__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4376,26 +4142,25 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SIMPLE_DIMENSION__NAMESPACE = DIMENSION__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SIMPLE_DIMENSION__IMPORTER = DIMENSION__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4403,26 +4168,25 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SIMPLE_DIMENSION__TAGGED_VALUE = DIMENSION__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SIMPLE_DIMENSION__DOCUMENT = DIMENSION__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4430,8 +4194,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4439,17 +4202,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SIMPLE_DIMENSION__ELEMENT_NODE = DIMENSION__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4457,8 +4219,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4466,17 +4227,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SIMPLE_DIMENSION__VOCABULARY_ELEMENT = DIMENSION__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4484,8 +4244,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4493,8 +4252,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4502,17 +4260,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SIMPLE_DIMENSION__OWNED_ELEMENT = DIMENSION__OWNED_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Is Abstract</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is Abstract</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4520,8 +4277,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Feature</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4529,17 +4285,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Structural Feature</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SIMPLE_DIMENSION__STRUCTURAL_FEATURE = DIMENSION__STRUCTURAL_FEATURE;
 
     /**
-     * The feature id for the '<em><b>Parameter</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Parameter</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4547,8 +4302,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Generalization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4556,26 +4310,25 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Specialization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SIMPLE_DIMENSION__SPECIALIZATION = DIMENSION__SPECIALIZATION;
 
     /**
-     * The feature id for the '<em><b>Instance</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Instance</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SIMPLE_DIMENSION__INSTANCE = DIMENSION__INSTANCE;
 
     /**
-     * The feature id for the '<em><b>Alias</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Alias</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4583,8 +4336,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Expression Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4592,17 +4344,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Mapping From</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SIMPLE_DIMENSION__MAPPING_FROM = DIMENSION__MAPPING_FROM;
 
     /**
-     * The feature id for the '<em><b>Mapping To</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Mapping To</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4610,26 +4361,25 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Classifier Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SIMPLE_DIMENSION__CLASSIFIER_MAP = DIMENSION__CLASSIFIER_MAP;
 
     /**
-     * The feature id for the '<em><b>Cf Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Cf Map</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SIMPLE_DIMENSION__CF_MAP = DIMENSION__CF_MAP;
 
     /**
-     * The feature id for the '<em><b>Domain</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Domain</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4637,17 +4387,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Simple Dimension</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SIMPLE_DIMENSION__SIMPLE_DIMENSION = DIMENSION__SIMPLE_DIMENSION;
 
     /**
-     * The feature id for the '<em><b>Index</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Index</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4655,35 +4404,34 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dimensioned Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SIMPLE_DIMENSION__DIMENSIONED_OBJECT = DIMENSION__DIMENSIONED_OBJECT;
 
     /**
-     * The feature id for the '<em><b>Composite</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Composite</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SIMPLE_DIMENSION__COMPOSITE = DIMENSION__COMPOSITE;
 
     /**
-     * The feature id for the '<em><b>Component</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Component</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SIMPLE_DIMENSION__COMPONENT = DIMENSION__COMPONENT;
 
     /**
-     * The feature id for the '<em><b>Schema</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Schema</b></em>' container reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4691,17 +4439,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Member Set</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SIMPLE_DIMENSION__MEMBER_SET = DIMENSION__MEMBER_SET;
 
     /**
-     * The feature id for the '<em><b>Relation</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Relation</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4709,8 +4456,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Column Dimension In Worksheet</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4718,17 +4464,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Row Dimension In Worksheet</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SIMPLE_DIMENSION__ROW_DIMENSION_IN_WORKSHEET = DIMENSION__ROW_DIMENSION_IN_WORKSHEET;
 
     /**
-     * The feature id for the '<em><b>Value Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Value Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4736,71 +4481,70 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Agg Map Component</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SIMPLE_DIMENSION__AGG_MAP_COMPONENT = DIMENSION__AGG_MAP_COMPONENT;
 
     /**
-     * The feature id for the '<em><b>Width</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Width</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SIMPLE_DIMENSION__WIDTH = DIMENSION_FEATURE_COUNT + 0;
 
     /**
-     * The feature id for the '<em><b>Is Time</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is Time</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SIMPLE_DIMENSION__IS_TIME = DIMENSION_FEATURE_COUNT + 1;
 
     /**
-     * The feature id for the '<em><b>Multiple</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Multiple</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SIMPLE_DIMENSION__MULTIPLE = DIMENSION_FEATURE_COUNT + 2;
 
     /**
-     * The feature id for the '<em><b>Beginning Phase</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Beginning Phase</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SIMPLE_DIMENSION__BEGINNING_PHASE = DIMENSION_FEATURE_COUNT + 3;
 
     /**
-     * The feature id for the '<em><b>Ending Phase</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Ending Phase</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SIMPLE_DIMENSION__ENDING_PHASE = DIMENSION_FEATURE_COUNT + 4;
 
     /**
-     * The feature id for the '<em><b>Search Algorithm</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Search Algorithm</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SIMPLE_DIMENSION__SEARCH_ALGORITHM = DIMENSION_FEATURE_COUNT + 5;
 
     /**
-     * The feature id for the '<em><b>Page Space</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Page Space</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4808,17 +4552,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Alias Dimension</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SIMPLE_DIMENSION__ALIAS_DIMENSION = DIMENSION_FEATURE_COUNT + 7;
 
     /**
-     * The feature id for the '<em><b>Data Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Data Type</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4826,8 +4569,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Simple Dimension</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4835,8 +4577,8 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwmx.resource.express.impl.AliasDimensionImpl <em>Alias Dimension</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see orgomg.cwmx.resource.express.impl.AliasDimensionImpl
      * @see orgomg.cwmx.resource.express.impl.ExpressPackageImpl#getAliasDimension()
      * @generated
@@ -4844,18 +4586,18 @@ public interface ExpressPackage extends EPackage {
     int ALIAS_DIMENSION = 12;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ALIAS_DIMENSION__NAME = DIMENSION__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4863,8 +4605,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4872,17 +4613,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ALIAS_DIMENSION__SUPPLIER_DEPENDENCY = DIMENSION__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4890,26 +4630,25 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ALIAS_DIMENSION__NAMESPACE = DIMENSION__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ALIAS_DIMENSION__IMPORTER = DIMENSION__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4917,26 +4656,25 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ALIAS_DIMENSION__TAGGED_VALUE = DIMENSION__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ALIAS_DIMENSION__DOCUMENT = DIMENSION__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4944,8 +4682,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4953,17 +4690,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ALIAS_DIMENSION__ELEMENT_NODE = DIMENSION__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4971,8 +4707,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4980,17 +4715,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ALIAS_DIMENSION__VOCABULARY_ELEMENT = DIMENSION__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4998,8 +4732,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5007,8 +4740,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5016,17 +4748,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ALIAS_DIMENSION__OWNED_ELEMENT = DIMENSION__OWNED_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Is Abstract</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is Abstract</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5034,8 +4765,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Feature</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5043,17 +4773,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Structural Feature</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ALIAS_DIMENSION__STRUCTURAL_FEATURE = DIMENSION__STRUCTURAL_FEATURE;
 
     /**
-     * The feature id for the '<em><b>Parameter</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Parameter</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5061,8 +4790,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Generalization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5070,26 +4798,25 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Specialization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ALIAS_DIMENSION__SPECIALIZATION = DIMENSION__SPECIALIZATION;
 
     /**
-     * The feature id for the '<em><b>Instance</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Instance</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ALIAS_DIMENSION__INSTANCE = DIMENSION__INSTANCE;
 
     /**
-     * The feature id for the '<em><b>Alias</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Alias</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5097,8 +4824,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Expression Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5106,17 +4832,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Mapping From</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ALIAS_DIMENSION__MAPPING_FROM = DIMENSION__MAPPING_FROM;
 
     /**
-     * The feature id for the '<em><b>Mapping To</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Mapping To</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5124,26 +4849,25 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Classifier Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ALIAS_DIMENSION__CLASSIFIER_MAP = DIMENSION__CLASSIFIER_MAP;
 
     /**
-     * The feature id for the '<em><b>Cf Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Cf Map</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ALIAS_DIMENSION__CF_MAP = DIMENSION__CF_MAP;
 
     /**
-     * The feature id for the '<em><b>Domain</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Domain</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5151,17 +4875,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Simple Dimension</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ALIAS_DIMENSION__SIMPLE_DIMENSION = DIMENSION__SIMPLE_DIMENSION;
 
     /**
-     * The feature id for the '<em><b>Index</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Index</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5169,35 +4892,34 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dimensioned Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ALIAS_DIMENSION__DIMENSIONED_OBJECT = DIMENSION__DIMENSIONED_OBJECT;
 
     /**
-     * The feature id for the '<em><b>Composite</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Composite</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ALIAS_DIMENSION__COMPOSITE = DIMENSION__COMPOSITE;
 
     /**
-     * The feature id for the '<em><b>Component</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Component</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ALIAS_DIMENSION__COMPONENT = DIMENSION__COMPONENT;
 
     /**
-     * The feature id for the '<em><b>Schema</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Schema</b></em>' container reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5205,17 +4927,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Member Set</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ALIAS_DIMENSION__MEMBER_SET = DIMENSION__MEMBER_SET;
 
     /**
-     * The feature id for the '<em><b>Relation</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Relation</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5223,8 +4944,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Column Dimension In Worksheet</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5232,17 +4952,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Row Dimension In Worksheet</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ALIAS_DIMENSION__ROW_DIMENSION_IN_WORKSHEET = DIMENSION__ROW_DIMENSION_IN_WORKSHEET;
 
     /**
-     * The feature id for the '<em><b>Value Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Value Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5250,17 +4969,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Agg Map Component</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ALIAS_DIMENSION__AGG_MAP_COMPONENT = DIMENSION__AGG_MAP_COMPONENT;
 
     /**
-     * The feature id for the '<em><b>Base Dimension</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Base Dimension</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5268,8 +4986,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Alias Dimension</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5277,8 +4994,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwmx.resource.express.impl.AggMapImpl <em>Agg Map</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see orgomg.cwmx.resource.express.impl.AggMapImpl
      * @see orgomg.cwmx.resource.express.impl.ExpressPackageImpl#getAggMap()
      * @generated
@@ -5286,18 +5002,18 @@ public interface ExpressPackage extends EPackage {
     int AGG_MAP = 13;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int AGG_MAP__NAME = CorePackage.CLASS__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5305,8 +5021,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5314,17 +5029,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int AGG_MAP__SUPPLIER_DEPENDENCY = CorePackage.CLASS__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5332,26 +5046,25 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int AGG_MAP__NAMESPACE = CorePackage.CLASS__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int AGG_MAP__IMPORTER = CorePackage.CLASS__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5359,26 +5072,25 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int AGG_MAP__TAGGED_VALUE = CorePackage.CLASS__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int AGG_MAP__DOCUMENT = CorePackage.CLASS__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5386,8 +5098,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5395,17 +5106,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int AGG_MAP__ELEMENT_NODE = CorePackage.CLASS__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5413,8 +5123,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5422,17 +5131,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int AGG_MAP__VOCABULARY_ELEMENT = CorePackage.CLASS__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5440,8 +5148,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5449,8 +5156,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5458,17 +5164,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int AGG_MAP__OWNED_ELEMENT = CorePackage.CLASS__OWNED_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Is Abstract</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is Abstract</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5476,8 +5181,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Feature</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5485,17 +5189,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Structural Feature</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int AGG_MAP__STRUCTURAL_FEATURE = CorePackage.CLASS__STRUCTURAL_FEATURE;
 
     /**
-     * The feature id for the '<em><b>Parameter</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Parameter</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5503,8 +5206,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Generalization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5512,26 +5214,25 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Specialization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int AGG_MAP__SPECIALIZATION = CorePackage.CLASS__SPECIALIZATION;
 
     /**
-     * The feature id for the '<em><b>Instance</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Instance</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int AGG_MAP__INSTANCE = CorePackage.CLASS__INSTANCE;
 
     /**
-     * The feature id for the '<em><b>Alias</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Alias</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5539,8 +5240,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Expression Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5548,17 +5248,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Mapping From</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int AGG_MAP__MAPPING_FROM = CorePackage.CLASS__MAPPING_FROM;
 
     /**
-     * The feature id for the '<em><b>Mapping To</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Mapping To</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5566,26 +5265,25 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Classifier Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int AGG_MAP__CLASSIFIER_MAP = CorePackage.CLASS__CLASSIFIER_MAP;
 
     /**
-     * The feature id for the '<em><b>Cf Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Cf Map</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int AGG_MAP__CF_MAP = CorePackage.CLASS__CF_MAP;
 
     /**
-     * The feature id for the '<em><b>Domain</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Domain</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5593,17 +5291,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Simple Dimension</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int AGG_MAP__SIMPLE_DIMENSION = CorePackage.CLASS__SIMPLE_DIMENSION;
 
     /**
-     * The feature id for the '<em><b>Index</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Index</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5611,17 +5308,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Agg Map Component</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int AGG_MAP__AGG_MAP_COMPONENT = CorePackage.CLASS_FEATURE_COUNT + 0;
 
     /**
-     * The number of structural features of the '<em>Agg Map</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The number of structural features of the '<em>Agg Map</em>' class. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5629,8 +5325,8 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwmx.resource.express.impl.AggMapComponentImpl <em>Agg Map Component</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see orgomg.cwmx.resource.express.impl.AggMapComponentImpl
      * @see orgomg.cwmx.resource.express.impl.ExpressPackageImpl#getAggMapComponent()
      * @generated
@@ -5638,18 +5334,18 @@ public interface ExpressPackage extends EPackage {
     int AGG_MAP_COMPONENT = 14;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int AGG_MAP_COMPONENT__NAME = CorePackage.MODEL_ELEMENT__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5657,8 +5353,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5666,17 +5361,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int AGG_MAP_COMPONENT__SUPPLIER_DEPENDENCY = CorePackage.MODEL_ELEMENT__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5684,26 +5378,25 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int AGG_MAP_COMPONENT__NAMESPACE = CorePackage.MODEL_ELEMENT__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int AGG_MAP_COMPONENT__IMPORTER = CorePackage.MODEL_ELEMENT__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5711,26 +5404,25 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int AGG_MAP_COMPONENT__TAGGED_VALUE = CorePackage.MODEL_ELEMENT__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int AGG_MAP_COMPONENT__DOCUMENT = CorePackage.MODEL_ELEMENT__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5738,8 +5430,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5747,17 +5438,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int AGG_MAP_COMPONENT__ELEMENT_NODE = CorePackage.MODEL_ELEMENT__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5765,8 +5455,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5774,17 +5463,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int AGG_MAP_COMPONENT__VOCABULARY_ELEMENT = CorePackage.MODEL_ELEMENT__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5792,8 +5480,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5801,35 +5488,34 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int AGG_MAP_COMPONENT__DASDL_PROPERTY = CorePackage.MODEL_ELEMENT__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Agg Operator</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Agg Operator</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int AGG_MAP_COMPONENT__AGG_OPERATOR = CorePackage.MODEL_ELEMENT_FEATURE_COUNT + 0;
 
     /**
-     * The feature id for the '<em><b>Relation</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Relation</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int AGG_MAP_COMPONENT__RELATION = CorePackage.MODEL_ELEMENT_FEATURE_COUNT + 1;
 
     /**
-     * The feature id for the '<em><b>Dimension</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Dimension</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5837,8 +5523,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Compute Clause</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5846,8 +5531,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Agg Map</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5855,8 +5539,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Agg Map Component</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5864,8 +5547,8 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwmx.resource.express.impl.PreComputeClauseImpl <em>Pre Compute Clause</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see orgomg.cwmx.resource.express.impl.PreComputeClauseImpl
      * @see orgomg.cwmx.resource.express.impl.ExpressPackageImpl#getPreComputeClause()
      * @generated
@@ -5873,18 +5556,18 @@ public interface ExpressPackage extends EPackage {
     int PRE_COMPUTE_CLAUSE = 15;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int PRE_COMPUTE_CLAUSE__NAME = CorePackage.MODEL_ELEMENT__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5892,8 +5575,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5901,17 +5583,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int PRE_COMPUTE_CLAUSE__SUPPLIER_DEPENDENCY = CorePackage.MODEL_ELEMENT__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5919,26 +5600,25 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int PRE_COMPUTE_CLAUSE__NAMESPACE = CorePackage.MODEL_ELEMENT__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int PRE_COMPUTE_CLAUSE__IMPORTER = CorePackage.MODEL_ELEMENT__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5946,26 +5626,25 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int PRE_COMPUTE_CLAUSE__TAGGED_VALUE = CorePackage.MODEL_ELEMENT__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int PRE_COMPUTE_CLAUSE__DOCUMENT = CorePackage.MODEL_ELEMENT__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5973,8 +5652,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5982,17 +5660,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int PRE_COMPUTE_CLAUSE__ELEMENT_NODE = CorePackage.MODEL_ELEMENT__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -6000,8 +5677,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6009,17 +5685,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int PRE_COMPUTE_CLAUSE__VOCABULARY_ELEMENT = CorePackage.MODEL_ELEMENT__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -6027,8 +5702,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6036,17 +5710,16 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int PRE_COMPUTE_CLAUSE__DASDL_PROPERTY = CorePackage.MODEL_ELEMENT__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Status List</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Status List</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -6054,8 +5727,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Agg Map Component</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6063,18 +5735,17 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Pre Compute Clause</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int PRE_COMPUTE_CLAUSE_FEATURE_COUNT = CorePackage.MODEL_ELEMENT_FEATURE_COUNT + 2;
 
-
     /**
-     * Returns the meta object for class '{@link orgomg.cwmx.resource.express.Dimension <em>Dimension</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for class '
+     * {@link orgomg.cwmx.resource.express.Dimension <em>Dimension</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for class '<em>Dimension</em>'.
      * @see orgomg.cwmx.resource.express.Dimension
      * @generated
@@ -6083,8 +5754,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * Returns the meta object for the reference list '{@link orgomg.cwmx.resource.express.Dimension#getRelation <em>Relation</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference list '<em>Relation</em>'.
      * @see orgomg.cwmx.resource.express.Dimension#getRelation()
      * @see #getDimension()
@@ -6094,8 +5764,8 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * Returns the meta object for the reference list '{@link orgomg.cwmx.resource.express.Dimension#getColumnDimensionInWorksheet <em>Column Dimension In Worksheet</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @return the meta object for the reference list '<em>Column Dimension In Worksheet</em>'.
      * @see orgomg.cwmx.resource.express.Dimension#getColumnDimensionInWorksheet()
      * @see #getDimension()
@@ -6105,8 +5775,8 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * Returns the meta object for the reference list '{@link orgomg.cwmx.resource.express.Dimension#getRowDimensionInWorksheet <em>Row Dimension In Worksheet</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @return the meta object for the reference list '<em>Row Dimension In Worksheet</em>'.
      * @see orgomg.cwmx.resource.express.Dimension#getRowDimensionInWorksheet()
      * @see #getDimension()
@@ -6116,8 +5786,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * Returns the meta object for the reference list '{@link orgomg.cwmx.resource.express.Dimension#getValueSet <em>Value Set</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference list '<em>Value Set</em>'.
      * @see orgomg.cwmx.resource.express.Dimension#getValueSet()
      * @see #getDimension()
@@ -6126,10 +5795,13 @@ public interface ExpressPackage extends EPackage {
     EReference getDimension_ValueSet();
 
     /**
-     * Returns the meta object for the reference list '{@link orgomg.cwmx.resource.express.Dimension#getAggMapComponent <em>Agg Map Component</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the reference list '<em>Agg Map Component</em>'.
+     * Returns the meta object for the reference list '
+     * {@link orgomg.cwmx.resource.express.Dimension#getAggMapComponent
+     * <em>Agg Map Component</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @return the meta object for the reference list '
+     *         <em>Agg Map Component</em>'.
      * @see orgomg.cwmx.resource.express.Dimension#getAggMapComponent()
      * @see #getDimension()
      * @generated
@@ -6137,9 +5809,10 @@ public interface ExpressPackage extends EPackage {
     EReference getDimension_AggMapComponent();
 
     /**
-     * Returns the meta object for class '{@link orgomg.cwmx.resource.express.Database <em>Database</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for class '
+     * {@link orgomg.cwmx.resource.express.Database <em>Database</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for class '<em>Database</em>'.
      * @see orgomg.cwmx.resource.express.Database
      * @generated
@@ -6147,9 +5820,10 @@ public interface ExpressPackage extends EPackage {
     EClass getDatabase();
 
     /**
-     * Returns the meta object for class '{@link orgomg.cwmx.resource.express.Conjoint <em>Conjoint</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for class '
+     * {@link orgomg.cwmx.resource.express.Conjoint <em>Conjoint</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for class '<em>Conjoint</em>'.
      * @see orgomg.cwmx.resource.express.Conjoint
      * @generated
@@ -6157,9 +5831,11 @@ public interface ExpressPackage extends EPackage {
     EClass getConjoint();
 
     /**
-     * Returns the meta object for the attribute '{@link orgomg.cwmx.resource.express.Conjoint#getSearchAlgorithm <em>Search Algorithm</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link orgomg.cwmx.resource.express.Conjoint#getSearchAlgorithm
+     * <em>Search Algorithm</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @return the meta object for the attribute '<em>Search Algorithm</em>'.
      * @see orgomg.cwmx.resource.express.Conjoint#getSearchAlgorithm()
      * @see #getConjoint()
@@ -6169,8 +5845,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwmx.resource.express.Conjoint#getPageSpace <em>Page Space</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Page Space</em>'.
      * @see orgomg.cwmx.resource.express.Conjoint#getPageSpace()
      * @see #getConjoint()
@@ -6179,9 +5854,10 @@ public interface ExpressPackage extends EPackage {
     EAttribute getConjoint_PageSpace();
 
     /**
-     * Returns the meta object for class '{@link orgomg.cwmx.resource.express.Program <em>Program</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for class '
+     * {@link orgomg.cwmx.resource.express.Program <em>Program</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for class '<em>Program</em>'.
      * @see orgomg.cwmx.resource.express.Program
      * @generated
@@ -6190,8 +5866,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwmx.resource.express.Program#getProgram <em>Program</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Program</em>'.
      * @see orgomg.cwmx.resource.express.Program#getProgram()
      * @see #getProgram()
@@ -6200,9 +5875,11 @@ public interface ExpressPackage extends EPackage {
     EAttribute getProgram_Program();
 
     /**
-     * Returns the meta object for the attribute '{@link orgomg.cwmx.resource.express.Program#getReturnDimension <em>Return Dimension</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link orgomg.cwmx.resource.express.Program#getReturnDimension
+     * <em>Return Dimension</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @return the meta object for the attribute '<em>Return Dimension</em>'.
      * @see orgomg.cwmx.resource.express.Program#getReturnDimension()
      * @see #getProgram()
@@ -6211,9 +5888,10 @@ public interface ExpressPackage extends EPackage {
     EAttribute getProgram_ReturnDimension();
 
     /**
-     * Returns the meta object for class '{@link orgomg.cwmx.resource.express.Model <em>Model</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for class '
+     * {@link orgomg.cwmx.resource.express.Model <em>Model</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for class '<em>Model</em>'.
      * @see orgomg.cwmx.resource.express.Model
      * @generated
@@ -6222,8 +5900,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwmx.resource.express.Model#getContent <em>Content</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Content</em>'.
      * @see orgomg.cwmx.resource.express.Model#getContent()
      * @see #getModel()
@@ -6232,9 +5909,10 @@ public interface ExpressPackage extends EPackage {
     EAttribute getModel_Content();
 
     /**
-     * Returns the meta object for class '{@link orgomg.cwmx.resource.express.Variable <em>Variable</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for class '
+     * {@link orgomg.cwmx.resource.express.Variable <em>Variable</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for class '<em>Variable</em>'.
      * @see orgomg.cwmx.resource.express.Variable
      * @generated
@@ -6243,8 +5921,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwmx.resource.express.Variable#getStorageType <em>Storage Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Storage Type</em>'.
      * @see orgomg.cwmx.resource.express.Variable#getStorageType()
      * @see #getVariable()
@@ -6254,8 +5931,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwmx.resource.express.Variable#getPageSpace <em>Page Space</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Page Space</em>'.
      * @see orgomg.cwmx.resource.express.Variable#getPageSpace()
      * @see #getVariable()
@@ -6265,8 +5941,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwmx.resource.express.Variable#getWidth <em>Width</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Width</em>'.
      * @see orgomg.cwmx.resource.express.Variable#getWidth()
      * @see #getVariable()
@@ -6275,9 +5950,10 @@ public interface ExpressPackage extends EPackage {
     EAttribute getVariable_Width();
 
     /**
-     * Returns the meta object for class '{@link orgomg.cwmx.resource.express.Formula <em>Formula</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for class '
+     * {@link orgomg.cwmx.resource.express.Formula <em>Formula</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for class '<em>Formula</em>'.
      * @see orgomg.cwmx.resource.express.Formula
      * @generated
@@ -6286,8 +5962,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwmx.resource.express.Formula#getExpression <em>Expression</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Expression</em>'.
      * @see orgomg.cwmx.resource.express.Formula#getExpression()
      * @see #getFormula()
@@ -6296,9 +5971,10 @@ public interface ExpressPackage extends EPackage {
     EAttribute getFormula_Expression();
 
     /**
-     * Returns the meta object for class '{@link orgomg.cwmx.resource.express.ValueSet <em>Value Set</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for class '
+     * {@link orgomg.cwmx.resource.express.ValueSet <em>Value Set</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for class '<em>Value Set</em>'.
      * @see orgomg.cwmx.resource.express.ValueSet
      * @generated
@@ -6307,8 +5983,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwmx.resource.express.ValueSet#isIsTemp <em>Is Temp</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Is Temp</em>'.
      * @see orgomg.cwmx.resource.express.ValueSet#isIsTemp()
      * @see #getValueSet()
@@ -6317,9 +5992,11 @@ public interface ExpressPackage extends EPackage {
     EAttribute getValueSet_IsTemp();
 
     /**
-     * Returns the meta object for the reference '{@link orgomg.cwmx.resource.express.ValueSet#getReferenceDimension <em>Reference Dimension</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the reference '
+     * {@link orgomg.cwmx.resource.express.ValueSet#getReferenceDimension
+     * <em>Reference Dimension</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @return the meta object for the reference '<em>Reference Dimension</em>'.
      * @see orgomg.cwmx.resource.express.ValueSet#getReferenceDimension()
      * @see #getValueSet()
@@ -6328,9 +6005,10 @@ public interface ExpressPackage extends EPackage {
     EReference getValueSet_ReferenceDimension();
 
     /**
-     * Returns the meta object for class '{@link orgomg.cwmx.resource.express.Relation <em>Relation</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for class '
+     * {@link orgomg.cwmx.resource.express.Relation <em>Relation</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for class '<em>Relation</em>'.
      * @see orgomg.cwmx.resource.express.Relation
      * @generated
@@ -6339,8 +6017,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwmx.resource.express.Relation#isIsTemp <em>Is Temp</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Is Temp</em>'.
      * @see orgomg.cwmx.resource.express.Relation#isIsTemp()
      * @see #getRelation()
@@ -6350,8 +6027,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwmx.resource.express.Relation#getPageSpace <em>Page Space</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Page Space</em>'.
      * @see orgomg.cwmx.resource.express.Relation#getPageSpace()
      * @see #getRelation()
@@ -6360,9 +6036,11 @@ public interface ExpressPackage extends EPackage {
     EAttribute getRelation_PageSpace();
 
     /**
-     * Returns the meta object for the reference '{@link orgomg.cwmx.resource.express.Relation#getReferenceDimension <em>Reference Dimension</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the reference '
+     * {@link orgomg.cwmx.resource.express.Relation#getReferenceDimension
+     * <em>Reference Dimension</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @return the meta object for the reference '<em>Reference Dimension</em>'.
      * @see orgomg.cwmx.resource.express.Relation#getReferenceDimension()
      * @see #getRelation()
@@ -6371,10 +6049,13 @@ public interface ExpressPackage extends EPackage {
     EReference getRelation_ReferenceDimension();
 
     /**
-     * Returns the meta object for the reference list '{@link orgomg.cwmx.resource.express.Relation#getAggMapComponent <em>Agg Map Component</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the reference list '<em>Agg Map Component</em>'.
+     * Returns the meta object for the reference list '
+     * {@link orgomg.cwmx.resource.express.Relation#getAggMapComponent
+     * <em>Agg Map Component</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @return the meta object for the reference list '
+     *         <em>Agg Map Component</em>'.
      * @see orgomg.cwmx.resource.express.Relation#getAggMapComponent()
      * @see #getRelation()
      * @generated
@@ -6382,9 +6063,10 @@ public interface ExpressPackage extends EPackage {
     EReference getRelation_AggMapComponent();
 
     /**
-     * Returns the meta object for class '{@link orgomg.cwmx.resource.express.Worksheet <em>Worksheet</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for class '
+     * {@link orgomg.cwmx.resource.express.Worksheet <em>Worksheet</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for class '<em>Worksheet</em>'.
      * @see orgomg.cwmx.resource.express.Worksheet
      * @generated
@@ -6393,8 +6075,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwmx.resource.express.Worksheet#isIsTemp <em>Is Temp</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Is Temp</em>'.
      * @see orgomg.cwmx.resource.express.Worksheet#isIsTemp()
      * @see #getWorksheet()
@@ -6403,9 +6084,11 @@ public interface ExpressPackage extends EPackage {
     EAttribute getWorksheet_IsTemp();
 
     /**
-     * Returns the meta object for the reference '{@link orgomg.cwmx.resource.express.Worksheet#getColumnDimension <em>Column Dimension</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the reference '
+     * {@link orgomg.cwmx.resource.express.Worksheet#getColumnDimension
+     * <em>Column Dimension</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @return the meta object for the reference '<em>Column Dimension</em>'.
      * @see orgomg.cwmx.resource.express.Worksheet#getColumnDimension()
      * @see #getWorksheet()
@@ -6415,8 +6098,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * Returns the meta object for the reference '{@link orgomg.cwmx.resource.express.Worksheet#getRowDimension <em>Row Dimension</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference '<em>Row Dimension</em>'.
      * @see orgomg.cwmx.resource.express.Worksheet#getRowDimension()
      * @see #getWorksheet()
@@ -6425,9 +6107,10 @@ public interface ExpressPackage extends EPackage {
     EReference getWorksheet_RowDimension();
 
     /**
-     * Returns the meta object for class '{@link orgomg.cwmx.resource.express.Composite <em>Composite</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for class '
+     * {@link orgomg.cwmx.resource.express.Composite <em>Composite</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for class '<em>Composite</em>'.
      * @see orgomg.cwmx.resource.express.Composite
      * @generated
@@ -6435,9 +6118,11 @@ public interface ExpressPackage extends EPackage {
     EClass getComposite();
 
     /**
-     * Returns the meta object for the attribute '{@link orgomg.cwmx.resource.express.Composite#getSearchAlgorithm <em>Search Algorithm</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link orgomg.cwmx.resource.express.Composite#getSearchAlgorithm
+     * <em>Search Algorithm</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @return the meta object for the attribute '<em>Search Algorithm</em>'.
      * @see orgomg.cwmx.resource.express.Composite#getSearchAlgorithm()
      * @see #getComposite()
@@ -6447,8 +6132,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwmx.resource.express.Composite#getPageSpace <em>Page Space</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Page Space</em>'.
      * @see orgomg.cwmx.resource.express.Composite#getPageSpace()
      * @see #getComposite()
@@ -6457,9 +6141,11 @@ public interface ExpressPackage extends EPackage {
     EAttribute getComposite_PageSpace();
 
     /**
-     * Returns the meta object for class '{@link orgomg.cwmx.resource.express.SimpleDimension <em>Simple Dimension</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for class '
+     * {@link orgomg.cwmx.resource.express.SimpleDimension
+     * <em>Simple Dimension</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @return the meta object for class '<em>Simple Dimension</em>'.
      * @see orgomg.cwmx.resource.express.SimpleDimension
      * @generated
@@ -6468,8 +6154,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwmx.resource.express.SimpleDimension#getWidth <em>Width</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Width</em>'.
      * @see orgomg.cwmx.resource.express.SimpleDimension#getWidth()
      * @see #getSimpleDimension()
@@ -6479,8 +6164,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwmx.resource.express.SimpleDimension#isIsTime <em>Is Time</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Is Time</em>'.
      * @see orgomg.cwmx.resource.express.SimpleDimension#isIsTime()
      * @see #getSimpleDimension()
@@ -6490,8 +6174,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwmx.resource.express.SimpleDimension#getMultiple <em>Multiple</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Multiple</em>'.
      * @see orgomg.cwmx.resource.express.SimpleDimension#getMultiple()
      * @see #getSimpleDimension()
@@ -6501,8 +6184,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwmx.resource.express.SimpleDimension#getBeginningPhase <em>Beginning Phase</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Beginning Phase</em>'.
      * @see orgomg.cwmx.resource.express.SimpleDimension#getBeginningPhase()
      * @see #getSimpleDimension()
@@ -6512,8 +6194,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwmx.resource.express.SimpleDimension#getEndingPhase <em>Ending Phase</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Ending Phase</em>'.
      * @see orgomg.cwmx.resource.express.SimpleDimension#getEndingPhase()
      * @see #getSimpleDimension()
@@ -6522,9 +6203,11 @@ public interface ExpressPackage extends EPackage {
     EAttribute getSimpleDimension_EndingPhase();
 
     /**
-     * Returns the meta object for the attribute '{@link orgomg.cwmx.resource.express.SimpleDimension#getSearchAlgorithm <em>Search Algorithm</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link orgomg.cwmx.resource.express.SimpleDimension#getSearchAlgorithm
+     * <em>Search Algorithm</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @return the meta object for the attribute '<em>Search Algorithm</em>'.
      * @see orgomg.cwmx.resource.express.SimpleDimension#getSearchAlgorithm()
      * @see #getSimpleDimension()
@@ -6534,8 +6217,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwmx.resource.express.SimpleDimension#getPageSpace <em>Page Space</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Page Space</em>'.
      * @see orgomg.cwmx.resource.express.SimpleDimension#getPageSpace()
      * @see #getSimpleDimension()
@@ -6545,8 +6227,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * Returns the meta object for the reference list '{@link orgomg.cwmx.resource.express.SimpleDimension#getAliasDimension <em>Alias Dimension</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference list '<em>Alias Dimension</em>'.
      * @see orgomg.cwmx.resource.express.SimpleDimension#getAliasDimension()
      * @see #getSimpleDimension()
@@ -6556,8 +6237,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * Returns the meta object for the reference '{@link orgomg.cwmx.resource.express.SimpleDimension#getDataType <em>Data Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference '<em>Data Type</em>'.
      * @see orgomg.cwmx.resource.express.SimpleDimension#getDataType()
      * @see #getSimpleDimension()
@@ -6567,8 +6247,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link orgomg.cwmx.resource.express.AliasDimension <em>Alias Dimension</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Alias Dimension</em>'.
      * @see orgomg.cwmx.resource.express.AliasDimension
      * @generated
@@ -6577,8 +6256,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * Returns the meta object for the reference '{@link orgomg.cwmx.resource.express.AliasDimension#getBaseDimension <em>Base Dimension</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference '<em>Base Dimension</em>'.
      * @see orgomg.cwmx.resource.express.AliasDimension#getBaseDimension()
      * @see #getAliasDimension()
@@ -6587,9 +6265,10 @@ public interface ExpressPackage extends EPackage {
     EReference getAliasDimension_BaseDimension();
 
     /**
-     * Returns the meta object for class '{@link orgomg.cwmx.resource.express.AggMap <em>Agg Map</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for class '
+     * {@link orgomg.cwmx.resource.express.AggMap <em>Agg Map</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for class '<em>Agg Map</em>'.
      * @see orgomg.cwmx.resource.express.AggMap
      * @generated
@@ -6597,10 +6276,13 @@ public interface ExpressPackage extends EPackage {
     EClass getAggMap();
 
     /**
-     * Returns the meta object for the containment reference list '{@link orgomg.cwmx.resource.express.AggMap#getAggMapComponent <em>Agg Map Component</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the containment reference list '<em>Agg Map Component</em>'.
+     * Returns the meta object for the containment reference list '
+     * {@link orgomg.cwmx.resource.express.AggMap#getAggMapComponent
+     * <em>Agg Map Component</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @return the meta object for the containment reference list '
+     *         <em>Agg Map Component</em>'.
      * @see orgomg.cwmx.resource.express.AggMap#getAggMapComponent()
      * @see #getAggMap()
      * @generated
@@ -6608,9 +6290,11 @@ public interface ExpressPackage extends EPackage {
     EReference getAggMap_AggMapComponent();
 
     /**
-     * Returns the meta object for class '{@link orgomg.cwmx.resource.express.AggMapComponent <em>Agg Map Component</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for class '
+     * {@link orgomg.cwmx.resource.express.AggMapComponent
+     * <em>Agg Map Component</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @return the meta object for class '<em>Agg Map Component</em>'.
      * @see orgomg.cwmx.resource.express.AggMapComponent
      * @generated
@@ -6619,8 +6303,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwmx.resource.express.AggMapComponent#getAggOperator <em>Agg Operator</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Agg Operator</em>'.
      * @see orgomg.cwmx.resource.express.AggMapComponent#getAggOperator()
      * @see #getAggMapComponent()
@@ -6630,8 +6313,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * Returns the meta object for the reference '{@link orgomg.cwmx.resource.express.AggMapComponent#getRelation <em>Relation</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference '<em>Relation</em>'.
      * @see orgomg.cwmx.resource.express.AggMapComponent#getRelation()
      * @see #getAggMapComponent()
@@ -6641,8 +6323,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * Returns the meta object for the reference '{@link orgomg.cwmx.resource.express.AggMapComponent#getDimension <em>Dimension</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference '<em>Dimension</em>'.
      * @see orgomg.cwmx.resource.express.AggMapComponent#getDimension()
      * @see #getAggMapComponent()
@@ -6652,8 +6333,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * Returns the meta object for the containment reference '{@link orgomg.cwmx.resource.express.AggMapComponent#getComputeClause <em>Compute Clause</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the containment reference '<em>Compute Clause</em>'.
      * @see orgomg.cwmx.resource.express.AggMapComponent#getComputeClause()
      * @see #getAggMapComponent()
@@ -6663,8 +6343,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * Returns the meta object for the container reference '{@link orgomg.cwmx.resource.express.AggMapComponent#getAggMap <em>Agg Map</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the container reference '<em>Agg Map</em>'.
      * @see orgomg.cwmx.resource.express.AggMapComponent#getAggMap()
      * @see #getAggMapComponent()
@@ -6673,9 +6352,11 @@ public interface ExpressPackage extends EPackage {
     EReference getAggMapComponent_AggMap();
 
     /**
-     * Returns the meta object for class '{@link orgomg.cwmx.resource.express.PreComputeClause <em>Pre Compute Clause</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for class '
+     * {@link orgomg.cwmx.resource.express.PreComputeClause
+     * <em>Pre Compute Clause</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @return the meta object for class '<em>Pre Compute Clause</em>'.
      * @see orgomg.cwmx.resource.express.PreComputeClause
      * @generated
@@ -6684,8 +6365,7 @@ public interface ExpressPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwmx.resource.express.PreComputeClause#getStatusList <em>Status List</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Status List</em>'.
      * @see orgomg.cwmx.resource.express.PreComputeClause#getStatusList()
      * @see #getPreComputeClause()
@@ -6694,10 +6374,13 @@ public interface ExpressPackage extends EPackage {
     EAttribute getPreComputeClause_StatusList();
 
     /**
-     * Returns the meta object for the container reference '{@link orgomg.cwmx.resource.express.PreComputeClause#getAggMapComponent <em>Agg Map Component</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the container reference '<em>Agg Map Component</em>'.
+     * Returns the meta object for the container reference '
+     * {@link orgomg.cwmx.resource.express.PreComputeClause#getAggMapComponent
+     * <em>Agg Map Component</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @return the meta object for the container reference '
+     *         <em>Agg Map Component</em>'.
      * @see orgomg.cwmx.resource.express.PreComputeClause#getAggMapComponent()
      * @see #getPreComputeClause()
      * @generated
@@ -6705,31 +6388,34 @@ public interface ExpressPackage extends EPackage {
     EReference getPreComputeClause_AggMapComponent();
 
     /**
-     * Returns the factory that creates the instances of the model.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the factory that creates the instances of the model. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the factory that creates the instances of the model.
      * @generated
      */
     ExpressFactory getExpressFactory();
 
     /**
-     * <!-- begin-user-doc -->
-     * Defines literals for the meta objects that represent
+     * <!-- begin-user-doc --> Defines literals for the meta objects that
+     * represent
      * <ul>
-     *   <li>each class,</li>
-     *   <li>each feature of each class,</li>
-     *   <li>each enum,</li>
-     *   <li>and each data type</li>
+     * <li>each class,</li>
+     * <li>each feature of each class,</li>
+     * <li>each enum,</li>
+     * <li>and each data type</li>
      * </ul>
      * <!-- end-user-doc -->
      * @generated
      */
     interface Literals {
+
         /**
-         * The meta object literal for the '{@link orgomg.cwmx.resource.express.impl.DimensionImpl <em>Dimension</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '
+         * {@link orgomg.cwmx.resource.express.impl.DimensionImpl
+         * <em>Dimension</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
+         * -->
+         * 
          * @see orgomg.cwmx.resource.express.impl.DimensionImpl
          * @see orgomg.cwmx.resource.express.impl.ExpressPackageImpl#getDimension()
          * @generated
@@ -6738,48 +6424,45 @@ public interface ExpressPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Relation</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference DIMENSION__RELATION = eINSTANCE.getDimension_Relation();
 
         /**
          * The meta object literal for the '<em><b>Column Dimension In Worksheet</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference DIMENSION__COLUMN_DIMENSION_IN_WORKSHEET = eINSTANCE.getDimension_ColumnDimensionInWorksheet();
 
         /**
          * The meta object literal for the '<em><b>Row Dimension In Worksheet</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference DIMENSION__ROW_DIMENSION_IN_WORKSHEET = eINSTANCE.getDimension_RowDimensionInWorksheet();
 
         /**
          * The meta object literal for the '<em><b>Value Set</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference DIMENSION__VALUE_SET = eINSTANCE.getDimension_ValueSet();
 
         /**
          * The meta object literal for the '<em><b>Agg Map Component</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference DIMENSION__AGG_MAP_COMPONENT = eINSTANCE.getDimension_AggMapComponent();
 
         /**
-         * The meta object literal for the '{@link orgomg.cwmx.resource.express.impl.DatabaseImpl <em>Database</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '
+         * {@link orgomg.cwmx.resource.express.impl.DatabaseImpl
+         * <em>Database</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
+         * -->
+         * 
          * @see orgomg.cwmx.resource.express.impl.DatabaseImpl
          * @see orgomg.cwmx.resource.express.impl.ExpressPackageImpl#getDatabase()
          * @generated
@@ -6787,9 +6470,11 @@ public interface ExpressPackage extends EPackage {
         EClass DATABASE = eINSTANCE.getDatabase();
 
         /**
-         * The meta object literal for the '{@link orgomg.cwmx.resource.express.impl.ConjointImpl <em>Conjoint</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '
+         * {@link orgomg.cwmx.resource.express.impl.ConjointImpl
+         * <em>Conjoint</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
+         * -->
+         * 
          * @see orgomg.cwmx.resource.express.impl.ConjointImpl
          * @see orgomg.cwmx.resource.express.impl.ExpressPackageImpl#getConjoint()
          * @generated
@@ -6798,24 +6483,24 @@ public interface ExpressPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Search Algorithm</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute CONJOINT__SEARCH_ALGORITHM = eINSTANCE.getConjoint_SearchAlgorithm();
 
         /**
          * The meta object literal for the '<em><b>Page Space</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute CONJOINT__PAGE_SPACE = eINSTANCE.getConjoint_PageSpace();
 
         /**
-         * The meta object literal for the '{@link orgomg.cwmx.resource.express.impl.ProgramImpl <em>Program</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '
+         * {@link orgomg.cwmx.resource.express.impl.ProgramImpl
+         * <em>Program</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
+         * -->
+         * 
          * @see orgomg.cwmx.resource.express.impl.ProgramImpl
          * @see orgomg.cwmx.resource.express.impl.ExpressPackageImpl#getProgram()
          * @generated
@@ -6824,24 +6509,21 @@ public interface ExpressPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Program</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute PROGRAM__PROGRAM = eINSTANCE.getProgram_Program();
 
         /**
          * The meta object literal for the '<em><b>Return Dimension</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute PROGRAM__RETURN_DIMENSION = eINSTANCE.getProgram_ReturnDimension();
 
         /**
          * The meta object literal for the '{@link orgomg.cwmx.resource.express.impl.ModelImpl <em>Model</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see orgomg.cwmx.resource.express.impl.ModelImpl
          * @see orgomg.cwmx.resource.express.impl.ExpressPackageImpl#getModel()
          * @generated
@@ -6850,16 +6532,17 @@ public interface ExpressPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Content</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute MODEL__CONTENT = eINSTANCE.getModel_Content();
 
         /**
-         * The meta object literal for the '{@link orgomg.cwmx.resource.express.impl.VariableImpl <em>Variable</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '
+         * {@link orgomg.cwmx.resource.express.impl.VariableImpl
+         * <em>Variable</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
+         * -->
+         * 
          * @see orgomg.cwmx.resource.express.impl.VariableImpl
          * @see orgomg.cwmx.resource.express.impl.ExpressPackageImpl#getVariable()
          * @generated
@@ -6868,32 +6551,31 @@ public interface ExpressPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Storage Type</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute VARIABLE__STORAGE_TYPE = eINSTANCE.getVariable_StorageType();
 
         /**
          * The meta object literal for the '<em><b>Page Space</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute VARIABLE__PAGE_SPACE = eINSTANCE.getVariable_PageSpace();
 
         /**
          * The meta object literal for the '<em><b>Width</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute VARIABLE__WIDTH = eINSTANCE.getVariable_Width();
 
         /**
-         * The meta object literal for the '{@link orgomg.cwmx.resource.express.impl.FormulaImpl <em>Formula</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '
+         * {@link orgomg.cwmx.resource.express.impl.FormulaImpl
+         * <em>Formula</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
+         * -->
+         * 
          * @see orgomg.cwmx.resource.express.impl.FormulaImpl
          * @see orgomg.cwmx.resource.express.impl.ExpressPackageImpl#getFormula()
          * @generated
@@ -6902,16 +6584,17 @@ public interface ExpressPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Expression</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute FORMULA__EXPRESSION = eINSTANCE.getFormula_Expression();
 
         /**
-         * The meta object literal for the '{@link orgomg.cwmx.resource.express.impl.ValueSetImpl <em>Value Set</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '
+         * {@link orgomg.cwmx.resource.express.impl.ValueSetImpl
+         * <em>Value Set</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
+         * -->
+         * 
          * @see orgomg.cwmx.resource.express.impl.ValueSetImpl
          * @see orgomg.cwmx.resource.express.impl.ExpressPackageImpl#getValueSet()
          * @generated
@@ -6920,24 +6603,24 @@ public interface ExpressPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Is Temp</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute VALUE_SET__IS_TEMP = eINSTANCE.getValueSet_IsTemp();
 
         /**
          * The meta object literal for the '<em><b>Reference Dimension</b></em>' reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference VALUE_SET__REFERENCE_DIMENSION = eINSTANCE.getValueSet_ReferenceDimension();
 
         /**
-         * The meta object literal for the '{@link orgomg.cwmx.resource.express.impl.RelationImpl <em>Relation</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '
+         * {@link orgomg.cwmx.resource.express.impl.RelationImpl
+         * <em>Relation</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
+         * -->
+         * 
          * @see orgomg.cwmx.resource.express.impl.RelationImpl
          * @see orgomg.cwmx.resource.express.impl.ExpressPackageImpl#getRelation()
          * @generated
@@ -6946,40 +6629,38 @@ public interface ExpressPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Is Temp</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute RELATION__IS_TEMP = eINSTANCE.getRelation_IsTemp();
 
         /**
          * The meta object literal for the '<em><b>Page Space</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute RELATION__PAGE_SPACE = eINSTANCE.getRelation_PageSpace();
 
         /**
          * The meta object literal for the '<em><b>Reference Dimension</b></em>' reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference RELATION__REFERENCE_DIMENSION = eINSTANCE.getRelation_ReferenceDimension();
 
         /**
          * The meta object literal for the '<em><b>Agg Map Component</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference RELATION__AGG_MAP_COMPONENT = eINSTANCE.getRelation_AggMapComponent();
 
         /**
-         * The meta object literal for the '{@link orgomg.cwmx.resource.express.impl.WorksheetImpl <em>Worksheet</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '
+         * {@link orgomg.cwmx.resource.express.impl.WorksheetImpl
+         * <em>Worksheet</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
+         * -->
+         * 
          * @see orgomg.cwmx.resource.express.impl.WorksheetImpl
          * @see orgomg.cwmx.resource.express.impl.ExpressPackageImpl#getWorksheet()
          * @generated
@@ -6988,32 +6669,31 @@ public interface ExpressPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Is Temp</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute WORKSHEET__IS_TEMP = eINSTANCE.getWorksheet_IsTemp();
 
         /**
          * The meta object literal for the '<em><b>Column Dimension</b></em>' reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference WORKSHEET__COLUMN_DIMENSION = eINSTANCE.getWorksheet_ColumnDimension();
 
         /**
          * The meta object literal for the '<em><b>Row Dimension</b></em>' reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference WORKSHEET__ROW_DIMENSION = eINSTANCE.getWorksheet_RowDimension();
 
         /**
-         * The meta object literal for the '{@link orgomg.cwmx.resource.express.impl.CompositeImpl <em>Composite</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '
+         * {@link orgomg.cwmx.resource.express.impl.CompositeImpl
+         * <em>Composite</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
+         * -->
+         * 
          * @see orgomg.cwmx.resource.express.impl.CompositeImpl
          * @see orgomg.cwmx.resource.express.impl.ExpressPackageImpl#getComposite()
          * @generated
@@ -7022,24 +6702,22 @@ public interface ExpressPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Search Algorithm</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute COMPOSITE__SEARCH_ALGORITHM = eINSTANCE.getComposite_SearchAlgorithm();
 
         /**
          * The meta object literal for the '<em><b>Page Space</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute COMPOSITE__PAGE_SPACE = eINSTANCE.getComposite_PageSpace();
 
         /**
          * The meta object literal for the '{@link orgomg.cwmx.resource.express.impl.SimpleDimensionImpl <em>Simple Dimension</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwmx.resource.express.impl.SimpleDimensionImpl
          * @see orgomg.cwmx.resource.express.impl.ExpressPackageImpl#getSimpleDimension()
          * @generated
@@ -7048,80 +6726,71 @@ public interface ExpressPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Width</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute SIMPLE_DIMENSION__WIDTH = eINSTANCE.getSimpleDimension_Width();
 
         /**
          * The meta object literal for the '<em><b>Is Time</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute SIMPLE_DIMENSION__IS_TIME = eINSTANCE.getSimpleDimension_IsTime();
 
         /**
          * The meta object literal for the '<em><b>Multiple</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute SIMPLE_DIMENSION__MULTIPLE = eINSTANCE.getSimpleDimension_Multiple();
 
         /**
          * The meta object literal for the '<em><b>Beginning Phase</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute SIMPLE_DIMENSION__BEGINNING_PHASE = eINSTANCE.getSimpleDimension_BeginningPhase();
 
         /**
          * The meta object literal for the '<em><b>Ending Phase</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute SIMPLE_DIMENSION__ENDING_PHASE = eINSTANCE.getSimpleDimension_EndingPhase();
 
         /**
          * The meta object literal for the '<em><b>Search Algorithm</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute SIMPLE_DIMENSION__SEARCH_ALGORITHM = eINSTANCE.getSimpleDimension_SearchAlgorithm();
 
         /**
          * The meta object literal for the '<em><b>Page Space</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute SIMPLE_DIMENSION__PAGE_SPACE = eINSTANCE.getSimpleDimension_PageSpace();
 
         /**
          * The meta object literal for the '<em><b>Alias Dimension</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference SIMPLE_DIMENSION__ALIAS_DIMENSION = eINSTANCE.getSimpleDimension_AliasDimension();
 
         /**
          * The meta object literal for the '<em><b>Data Type</b></em>' reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference SIMPLE_DIMENSION__DATA_TYPE = eINSTANCE.getSimpleDimension_DataType();
 
         /**
          * The meta object literal for the '{@link orgomg.cwmx.resource.express.impl.AliasDimensionImpl <em>Alias Dimension</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwmx.resource.express.impl.AliasDimensionImpl
          * @see orgomg.cwmx.resource.express.impl.ExpressPackageImpl#getAliasDimension()
          * @generated
@@ -7130,16 +6799,14 @@ public interface ExpressPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Base Dimension</b></em>' reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference ALIAS_DIMENSION__BASE_DIMENSION = eINSTANCE.getAliasDimension_BaseDimension();
 
         /**
          * The meta object literal for the '{@link orgomg.cwmx.resource.express.impl.AggMapImpl <em>Agg Map</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see orgomg.cwmx.resource.express.impl.AggMapImpl
          * @see orgomg.cwmx.resource.express.impl.ExpressPackageImpl#getAggMap()
          * @generated
@@ -7148,16 +6815,16 @@ public interface ExpressPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Agg Map Component</b></em>' containment reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EReference AGG_MAP__AGG_MAP_COMPONENT = eINSTANCE.getAggMap_AggMapComponent();
 
         /**
          * The meta object literal for the '{@link orgomg.cwmx.resource.express.impl.AggMapComponentImpl <em>Agg Map Component</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwmx.resource.express.impl.AggMapComponentImpl
          * @see orgomg.cwmx.resource.express.impl.ExpressPackageImpl#getAggMapComponent()
          * @generated
@@ -7166,48 +6833,44 @@ public interface ExpressPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Agg Operator</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute AGG_MAP_COMPONENT__AGG_OPERATOR = eINSTANCE.getAggMapComponent_AggOperator();
 
         /**
          * The meta object literal for the '<em><b>Relation</b></em>' reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference AGG_MAP_COMPONENT__RELATION = eINSTANCE.getAggMapComponent_Relation();
 
         /**
          * The meta object literal for the '<em><b>Dimension</b></em>' reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference AGG_MAP_COMPONENT__DIMENSION = eINSTANCE.getAggMapComponent_Dimension();
 
         /**
          * The meta object literal for the '<em><b>Compute Clause</b></em>' containment reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EReference AGG_MAP_COMPONENT__COMPUTE_CLAUSE = eINSTANCE.getAggMapComponent_ComputeClause();
 
         /**
          * The meta object literal for the '<em><b>Agg Map</b></em>' container reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference AGG_MAP_COMPONENT__AGG_MAP = eINSTANCE.getAggMapComponent_AggMap();
 
         /**
          * The meta object literal for the '{@link orgomg.cwmx.resource.express.impl.PreComputeClauseImpl <em>Pre Compute Clause</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwmx.resource.express.impl.PreComputeClauseImpl
          * @see orgomg.cwmx.resource.express.impl.ExpressPackageImpl#getPreComputeClause()
          * @generated
@@ -7216,20 +6879,19 @@ public interface ExpressPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Status List</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute PRE_COMPUTE_CLAUSE__STATUS_LIST = eINSTANCE.getPreComputeClause_StatusList();
 
         /**
          * The meta object literal for the '<em><b>Agg Map Component</b></em>' container reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EReference PRE_COMPUTE_CLAUSE__AGG_MAP_COMPONENT = eINSTANCE.getPreComputeClause_AggMapComponent();
 
     }
 
-} //ExpressPackage
+} // ExpressPackage

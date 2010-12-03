@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.resource.relational.impl;
@@ -21,9 +20,8 @@ import orgomg.cwm.resource.relational.SQLDistinctType;
 import orgomg.cwm.resource.relational.SQLSimpleType;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>SQL Simple Type</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>SQL Simple Type</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -40,6 +38,7 @@ import orgomg.cwm.resource.relational.SQLSimpleType;
  * @generated
  */
 public class SQLSimpleTypeImpl extends SQLDataTypeImpl implements SQLSimpleType {
+
     /**
      * The default value of the '{@link #getCharacterMaximumLength() <em>Character Maximum Length</em>}' attribute.
      * <!-- begin-user-doc -->
@@ -62,8 +61,8 @@ public class SQLSimpleTypeImpl extends SQLDataTypeImpl implements SQLSimpleType 
 
     /**
      * The default value of the '{@link #getCharacterOctetLength() <em>Character Octet Length</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getCharacterOctetLength()
      * @generated
      * @ordered
@@ -72,8 +71,8 @@ public class SQLSimpleTypeImpl extends SQLDataTypeImpl implements SQLSimpleType 
 
     /**
      * The cached value of the '{@link #getCharacterOctetLength() <em>Character Octet Length</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getCharacterOctetLength()
      * @generated
      * @ordered
@@ -82,8 +81,8 @@ public class SQLSimpleTypeImpl extends SQLDataTypeImpl implements SQLSimpleType 
 
     /**
      * The default value of the '{@link #getNumericPrecision() <em>Numeric Precision</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getNumericPrecision()
      * @generated
      * @ordered
@@ -92,8 +91,8 @@ public class SQLSimpleTypeImpl extends SQLDataTypeImpl implements SQLSimpleType 
 
     /**
      * The cached value of the '{@link #getNumericPrecision() <em>Numeric Precision</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getNumericPrecision()
      * @generated
      * @ordered
@@ -122,8 +121,8 @@ public class SQLSimpleTypeImpl extends SQLDataTypeImpl implements SQLSimpleType 
 
     /**
      * The default value of the '{@link #getNumericScale() <em>Numeric Scale</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getNumericScale()
      * @generated
      * @ordered
@@ -132,8 +131,8 @@ public class SQLSimpleTypeImpl extends SQLDataTypeImpl implements SQLSimpleType 
 
     /**
      * The cached value of the '{@link #getNumericScale() <em>Numeric Scale</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getNumericScale()
      * @generated
      * @ordered
@@ -142,8 +141,8 @@ public class SQLSimpleTypeImpl extends SQLDataTypeImpl implements SQLSimpleType 
 
     /**
      * The default value of the '{@link #getDateTimePrecision() <em>Date Time Precision</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getDateTimePrecision()
      * @generated
      * @ordered
@@ -152,8 +151,8 @@ public class SQLSimpleTypeImpl extends SQLDataTypeImpl implements SQLSimpleType 
 
     /**
      * The cached value of the '{@link #getDateTimePrecision() <em>Date Time Precision</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getDateTimePrecision()
      * @generated
      * @ordered
@@ -162,8 +161,8 @@ public class SQLSimpleTypeImpl extends SQLDataTypeImpl implements SQLSimpleType 
 
     /**
      * The cached value of the '{@link #getSqlDistinctType() <em>Sql Distinct Type</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getSqlDistinctType()
      * @generated
      * @ordered
@@ -171,8 +170,7 @@ public class SQLSimpleTypeImpl extends SQLDataTypeImpl implements SQLSimpleType 
     protected EList<SQLDistinctType> sqlDistinctType;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected SQLSimpleTypeImpl() {
@@ -180,8 +178,7 @@ public class SQLSimpleTypeImpl extends SQLDataTypeImpl implements SQLSimpleType 
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -190,8 +187,7 @@ public class SQLSimpleTypeImpl extends SQLDataTypeImpl implements SQLSimpleType 
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public long getCharacterMaximumLength() {
@@ -199,20 +195,19 @@ public class SQLSimpleTypeImpl extends SQLDataTypeImpl implements SQLSimpleType 
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setCharacterMaximumLength(long newCharacterMaximumLength) {
         long oldCharacterMaximumLength = characterMaximumLength;
         characterMaximumLength = newCharacterMaximumLength;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, RelationalPackage.SQL_SIMPLE_TYPE__CHARACTER_MAXIMUM_LENGTH, oldCharacterMaximumLength, characterMaximumLength));
+            eNotify(new ENotificationImpl(this, Notification.SET, RelationalPackage.SQL_SIMPLE_TYPE__CHARACTER_MAXIMUM_LENGTH,
+                    oldCharacterMaximumLength, characterMaximumLength));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public long getCharacterOctetLength() {
@@ -220,20 +215,19 @@ public class SQLSimpleTypeImpl extends SQLDataTypeImpl implements SQLSimpleType 
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setCharacterOctetLength(long newCharacterOctetLength) {
         long oldCharacterOctetLength = characterOctetLength;
         characterOctetLength = newCharacterOctetLength;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, RelationalPackage.SQL_SIMPLE_TYPE__CHARACTER_OCTET_LENGTH, oldCharacterOctetLength, characterOctetLength));
+            eNotify(new ENotificationImpl(this, Notification.SET, RelationalPackage.SQL_SIMPLE_TYPE__CHARACTER_OCTET_LENGTH,
+                    oldCharacterOctetLength, characterOctetLength));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public long getNumericPrecision() {
@@ -241,20 +235,19 @@ public class SQLSimpleTypeImpl extends SQLDataTypeImpl implements SQLSimpleType 
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setNumericPrecision(long newNumericPrecision) {
         long oldNumericPrecision = numericPrecision;
         numericPrecision = newNumericPrecision;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, RelationalPackage.SQL_SIMPLE_TYPE__NUMERIC_PRECISION, oldNumericPrecision, numericPrecision));
+            eNotify(new ENotificationImpl(this, Notification.SET, RelationalPackage.SQL_SIMPLE_TYPE__NUMERIC_PRECISION,
+                    oldNumericPrecision, numericPrecision));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public long getNumericPrecisionRadix() {
@@ -262,20 +255,19 @@ public class SQLSimpleTypeImpl extends SQLDataTypeImpl implements SQLSimpleType 
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setNumericPrecisionRadix(long newNumericPrecisionRadix) {
         long oldNumericPrecisionRadix = numericPrecisionRadix;
         numericPrecisionRadix = newNumericPrecisionRadix;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, RelationalPackage.SQL_SIMPLE_TYPE__NUMERIC_PRECISION_RADIX, oldNumericPrecisionRadix, numericPrecisionRadix));
+            eNotify(new ENotificationImpl(this, Notification.SET, RelationalPackage.SQL_SIMPLE_TYPE__NUMERIC_PRECISION_RADIX,
+                    oldNumericPrecisionRadix, numericPrecisionRadix));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public long getNumericScale() {
@@ -283,20 +275,19 @@ public class SQLSimpleTypeImpl extends SQLDataTypeImpl implements SQLSimpleType 
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setNumericScale(long newNumericScale) {
         long oldNumericScale = numericScale;
         numericScale = newNumericScale;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, RelationalPackage.SQL_SIMPLE_TYPE__NUMERIC_SCALE, oldNumericScale, numericScale));
+            eNotify(new ENotificationImpl(this, Notification.SET, RelationalPackage.SQL_SIMPLE_TYPE__NUMERIC_SCALE,
+                    oldNumericScale, numericScale));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public long getDateTimePrecision() {
@@ -304,186 +295,180 @@ public class SQLSimpleTypeImpl extends SQLDataTypeImpl implements SQLSimpleType 
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setDateTimePrecision(long newDateTimePrecision) {
         long oldDateTimePrecision = dateTimePrecision;
         dateTimePrecision = newDateTimePrecision;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, RelationalPackage.SQL_SIMPLE_TYPE__DATE_TIME_PRECISION, oldDateTimePrecision, dateTimePrecision));
+            eNotify(new ENotificationImpl(this, Notification.SET, RelationalPackage.SQL_SIMPLE_TYPE__DATE_TIME_PRECISION,
+                    oldDateTimePrecision, dateTimePrecision));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<SQLDistinctType> getSqlDistinctType() {
         if (sqlDistinctType == null) {
-            sqlDistinctType = new EObjectWithInverseResolvingEList<SQLDistinctType>(SQLDistinctType.class, this, RelationalPackage.SQL_SIMPLE_TYPE__SQL_DISTINCT_TYPE, RelationalPackage.SQL_DISTINCT_TYPE__SQL_SIMPLE_TYPE);
+            sqlDistinctType = new EObjectWithInverseResolvingEList<SQLDistinctType>(SQLDistinctType.class, this,
+                    RelationalPackage.SQL_SIMPLE_TYPE__SQL_DISTINCT_TYPE, RelationalPackage.SQL_DISTINCT_TYPE__SQL_SIMPLE_TYPE);
         }
         return sqlDistinctType;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case RelationalPackage.SQL_SIMPLE_TYPE__SQL_DISTINCT_TYPE:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getSqlDistinctType()).basicAdd(otherEnd, msgs);
+        case RelationalPackage.SQL_SIMPLE_TYPE__SQL_DISTINCT_TYPE:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getSqlDistinctType()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case RelationalPackage.SQL_SIMPLE_TYPE__SQL_DISTINCT_TYPE:
-                return ((InternalEList<?>)getSqlDistinctType()).basicRemove(otherEnd, msgs);
+        case RelationalPackage.SQL_SIMPLE_TYPE__SQL_DISTINCT_TYPE:
+            return ((InternalEList<?>) getSqlDistinctType()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case RelationalPackage.SQL_SIMPLE_TYPE__CHARACTER_MAXIMUM_LENGTH:
-                return getCharacterMaximumLength();
-            case RelationalPackage.SQL_SIMPLE_TYPE__CHARACTER_OCTET_LENGTH:
-                return getCharacterOctetLength();
-            case RelationalPackage.SQL_SIMPLE_TYPE__NUMERIC_PRECISION:
-                return getNumericPrecision();
-            case RelationalPackage.SQL_SIMPLE_TYPE__NUMERIC_PRECISION_RADIX:
-                return getNumericPrecisionRadix();
-            case RelationalPackage.SQL_SIMPLE_TYPE__NUMERIC_SCALE:
-                return getNumericScale();
-            case RelationalPackage.SQL_SIMPLE_TYPE__DATE_TIME_PRECISION:
-                return getDateTimePrecision();
-            case RelationalPackage.SQL_SIMPLE_TYPE__SQL_DISTINCT_TYPE:
-                return getSqlDistinctType();
+        case RelationalPackage.SQL_SIMPLE_TYPE__CHARACTER_MAXIMUM_LENGTH:
+            return getCharacterMaximumLength();
+        case RelationalPackage.SQL_SIMPLE_TYPE__CHARACTER_OCTET_LENGTH:
+            return getCharacterOctetLength();
+        case RelationalPackage.SQL_SIMPLE_TYPE__NUMERIC_PRECISION:
+            return getNumericPrecision();
+        case RelationalPackage.SQL_SIMPLE_TYPE__NUMERIC_PRECISION_RADIX:
+            return getNumericPrecisionRadix();
+        case RelationalPackage.SQL_SIMPLE_TYPE__NUMERIC_SCALE:
+            return getNumericScale();
+        case RelationalPackage.SQL_SIMPLE_TYPE__DATE_TIME_PRECISION:
+            return getDateTimePrecision();
+        case RelationalPackage.SQL_SIMPLE_TYPE__SQL_DISTINCT_TYPE:
+            return getSqlDistinctType();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case RelationalPackage.SQL_SIMPLE_TYPE__CHARACTER_MAXIMUM_LENGTH:
-                setCharacterMaximumLength((Long)newValue);
-                return;
-            case RelationalPackage.SQL_SIMPLE_TYPE__CHARACTER_OCTET_LENGTH:
-                setCharacterOctetLength((Long)newValue);
-                return;
-            case RelationalPackage.SQL_SIMPLE_TYPE__NUMERIC_PRECISION:
-                setNumericPrecision((Long)newValue);
-                return;
-            case RelationalPackage.SQL_SIMPLE_TYPE__NUMERIC_PRECISION_RADIX:
-                setNumericPrecisionRadix((Long)newValue);
-                return;
-            case RelationalPackage.SQL_SIMPLE_TYPE__NUMERIC_SCALE:
-                setNumericScale((Long)newValue);
-                return;
-            case RelationalPackage.SQL_SIMPLE_TYPE__DATE_TIME_PRECISION:
-                setDateTimePrecision((Long)newValue);
-                return;
-            case RelationalPackage.SQL_SIMPLE_TYPE__SQL_DISTINCT_TYPE:
-                getSqlDistinctType().clear();
-                getSqlDistinctType().addAll((Collection<? extends SQLDistinctType>)newValue);
-                return;
+        case RelationalPackage.SQL_SIMPLE_TYPE__CHARACTER_MAXIMUM_LENGTH:
+            setCharacterMaximumLength((Long) newValue);
+            return;
+        case RelationalPackage.SQL_SIMPLE_TYPE__CHARACTER_OCTET_LENGTH:
+            setCharacterOctetLength((Long) newValue);
+            return;
+        case RelationalPackage.SQL_SIMPLE_TYPE__NUMERIC_PRECISION:
+            setNumericPrecision((Long) newValue);
+            return;
+        case RelationalPackage.SQL_SIMPLE_TYPE__NUMERIC_PRECISION_RADIX:
+            setNumericPrecisionRadix((Long) newValue);
+            return;
+        case RelationalPackage.SQL_SIMPLE_TYPE__NUMERIC_SCALE:
+            setNumericScale((Long) newValue);
+            return;
+        case RelationalPackage.SQL_SIMPLE_TYPE__DATE_TIME_PRECISION:
+            setDateTimePrecision((Long) newValue);
+            return;
+        case RelationalPackage.SQL_SIMPLE_TYPE__SQL_DISTINCT_TYPE:
+            getSqlDistinctType().clear();
+            getSqlDistinctType().addAll((Collection<? extends SQLDistinctType>) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case RelationalPackage.SQL_SIMPLE_TYPE__CHARACTER_MAXIMUM_LENGTH:
-                setCharacterMaximumLength(CHARACTER_MAXIMUM_LENGTH_EDEFAULT);
-                return;
-            case RelationalPackage.SQL_SIMPLE_TYPE__CHARACTER_OCTET_LENGTH:
-                setCharacterOctetLength(CHARACTER_OCTET_LENGTH_EDEFAULT);
-                return;
-            case RelationalPackage.SQL_SIMPLE_TYPE__NUMERIC_PRECISION:
-                setNumericPrecision(NUMERIC_PRECISION_EDEFAULT);
-                return;
-            case RelationalPackage.SQL_SIMPLE_TYPE__NUMERIC_PRECISION_RADIX:
-                setNumericPrecisionRadix(NUMERIC_PRECISION_RADIX_EDEFAULT);
-                return;
-            case RelationalPackage.SQL_SIMPLE_TYPE__NUMERIC_SCALE:
-                setNumericScale(NUMERIC_SCALE_EDEFAULT);
-                return;
-            case RelationalPackage.SQL_SIMPLE_TYPE__DATE_TIME_PRECISION:
-                setDateTimePrecision(DATE_TIME_PRECISION_EDEFAULT);
-                return;
-            case RelationalPackage.SQL_SIMPLE_TYPE__SQL_DISTINCT_TYPE:
-                getSqlDistinctType().clear();
-                return;
+        case RelationalPackage.SQL_SIMPLE_TYPE__CHARACTER_MAXIMUM_LENGTH:
+            setCharacterMaximumLength(CHARACTER_MAXIMUM_LENGTH_EDEFAULT);
+            return;
+        case RelationalPackage.SQL_SIMPLE_TYPE__CHARACTER_OCTET_LENGTH:
+            setCharacterOctetLength(CHARACTER_OCTET_LENGTH_EDEFAULT);
+            return;
+        case RelationalPackage.SQL_SIMPLE_TYPE__NUMERIC_PRECISION:
+            setNumericPrecision(NUMERIC_PRECISION_EDEFAULT);
+            return;
+        case RelationalPackage.SQL_SIMPLE_TYPE__NUMERIC_PRECISION_RADIX:
+            setNumericPrecisionRadix(NUMERIC_PRECISION_RADIX_EDEFAULT);
+            return;
+        case RelationalPackage.SQL_SIMPLE_TYPE__NUMERIC_SCALE:
+            setNumericScale(NUMERIC_SCALE_EDEFAULT);
+            return;
+        case RelationalPackage.SQL_SIMPLE_TYPE__DATE_TIME_PRECISION:
+            setDateTimePrecision(DATE_TIME_PRECISION_EDEFAULT);
+            return;
+        case RelationalPackage.SQL_SIMPLE_TYPE__SQL_DISTINCT_TYPE:
+            getSqlDistinctType().clear();
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case RelationalPackage.SQL_SIMPLE_TYPE__CHARACTER_MAXIMUM_LENGTH:
-                return characterMaximumLength != CHARACTER_MAXIMUM_LENGTH_EDEFAULT;
-            case RelationalPackage.SQL_SIMPLE_TYPE__CHARACTER_OCTET_LENGTH:
-                return characterOctetLength != CHARACTER_OCTET_LENGTH_EDEFAULT;
-            case RelationalPackage.SQL_SIMPLE_TYPE__NUMERIC_PRECISION:
-                return numericPrecision != NUMERIC_PRECISION_EDEFAULT;
-            case RelationalPackage.SQL_SIMPLE_TYPE__NUMERIC_PRECISION_RADIX:
-                return numericPrecisionRadix != NUMERIC_PRECISION_RADIX_EDEFAULT;
-            case RelationalPackage.SQL_SIMPLE_TYPE__NUMERIC_SCALE:
-                return numericScale != NUMERIC_SCALE_EDEFAULT;
-            case RelationalPackage.SQL_SIMPLE_TYPE__DATE_TIME_PRECISION:
-                return dateTimePrecision != DATE_TIME_PRECISION_EDEFAULT;
-            case RelationalPackage.SQL_SIMPLE_TYPE__SQL_DISTINCT_TYPE:
-                return sqlDistinctType != null && !sqlDistinctType.isEmpty();
+        case RelationalPackage.SQL_SIMPLE_TYPE__CHARACTER_MAXIMUM_LENGTH:
+            return characterMaximumLength != CHARACTER_MAXIMUM_LENGTH_EDEFAULT;
+        case RelationalPackage.SQL_SIMPLE_TYPE__CHARACTER_OCTET_LENGTH:
+            return characterOctetLength != CHARACTER_OCTET_LENGTH_EDEFAULT;
+        case RelationalPackage.SQL_SIMPLE_TYPE__NUMERIC_PRECISION:
+            return numericPrecision != NUMERIC_PRECISION_EDEFAULT;
+        case RelationalPackage.SQL_SIMPLE_TYPE__NUMERIC_PRECISION_RADIX:
+            return numericPrecisionRadix != NUMERIC_PRECISION_RADIX_EDEFAULT;
+        case RelationalPackage.SQL_SIMPLE_TYPE__NUMERIC_SCALE:
+            return numericScale != NUMERIC_SCALE_EDEFAULT;
+        case RelationalPackage.SQL_SIMPLE_TYPE__DATE_TIME_PRECISION:
+            return dateTimePrecision != DATE_TIME_PRECISION_EDEFAULT;
+        case RelationalPackage.SQL_SIMPLE_TYPE__SQL_DISTINCT_TYPE:
+            return sqlDistinctType != null && !sqlDistinctType.isEmpty();
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (characterMaximumLength: ");
@@ -502,4 +487,4 @@ public class SQLSimpleTypeImpl extends SQLDataTypeImpl implements SQLSimpleType 
         return result.toString();
     }
 
-} //SQLSimpleTypeImpl
+} // SQLSimpleTypeImpl

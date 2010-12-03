@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.foundation.keysindexes;
@@ -9,26 +8,25 @@ package orgomg.cwm.foundation.keysindexes;
 import org.eclipse.emf.ecore.EFactory;
 
 /**
- * <!-- begin-user-doc -->
- * The <b>Factory</b> for the model.
- * It provides a create method for each non-abstract class of the model.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> The <b>Factory</b> for the model. It provides a
+ * create method for each non-abstract class of the model. <!-- end-user-doc -->
  * @see orgomg.cwm.foundation.keysindexes.KeysindexesPackage
  * @generated
  */
 public interface KeysindexesFactory extends EFactory {
+
     /**
      * The singleton instance of the factory.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     KeysindexesFactory eINSTANCE = orgomg.cwm.foundation.keysindexes.impl.KeysindexesFactoryImpl.init();
 
     /**
      * Returns a new object of class '<em>Unique Key</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @return a new object of class '<em>Unique Key</em>'.
      * @generated
      */
@@ -44,18 +42,18 @@ public interface KeysindexesFactory extends EFactory {
     Index createIndex();
 
     /**
-     * Returns a new object of class '<em>Key Relationship</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns a new object of class '<em>Key Relationship</em>'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return a new object of class '<em>Key Relationship</em>'.
      * @generated
      */
     KeyRelationship createKeyRelationship();
 
     /**
-     * Returns a new object of class '<em>Indexed Feature</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns a new object of class '<em>Indexed Feature</em>'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return a new object of class '<em>Indexed Feature</em>'.
      * @generated
      */
@@ -70,4 +68,4 @@ public interface KeysindexesFactory extends EFactory {
      */
     KeysindexesPackage getKeysindexesPackage();
 
-} //KeysindexesFactory
+} // KeysindexesFactory

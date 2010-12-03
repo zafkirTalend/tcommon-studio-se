@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.foundation.er.impl;
@@ -11,18 +10,17 @@ import orgomg.cwmx.foundation.er.ErPackage;
 import orgomg.cwmx.foundation.er.Model;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Model</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Model</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
 public class ModelImpl extends orgomg.cwm.objectmodel.core.impl.ModelImpl implements Model {
+
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected ModelImpl() {
@@ -30,8 +28,7 @@ public class ModelImpl extends orgomg.cwm.objectmodel.core.impl.ModelImpl implem
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -39,4 +36,4 @@ public class ModelImpl extends orgomg.cwm.objectmodel.core.impl.ModelImpl implem
         return ErPackage.Literals.MODEL;
     }
 
-} //ModelImpl
+} // ModelImpl

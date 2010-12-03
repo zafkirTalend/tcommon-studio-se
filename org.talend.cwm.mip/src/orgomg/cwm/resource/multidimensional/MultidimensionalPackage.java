@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.resource.multidimensional;
@@ -13,106 +12,132 @@ import orgomg.cwm.objectmodel.core.CorePackage;
 import orgomg.cwm.objectmodel.instance.InstancePackage;
 
 /**
- * <!-- begin-user-doc -->
- * The <b>Package</b> for the model.
- * It contains accessors for the meta objects to represent
+ * <!-- begin-user-doc --> The <b>Package</b> for the model. It contains
+ * accessors for the meta objects to represent
  * <ul>
- *   <li>each class,</li>
- *   <li>each feature of each class,</li>
- *   <li>each enum,</li>
- *   <li>and each data type</li>
+ * <li>each class,</li>
+ * <li>each feature of each class,</li>
+ * <li>each enum,</li>
+ * <li>and each data type</li>
  * </ul>
- * <!-- end-user-doc -->
- * <!-- begin-model-doc -->
- * The CWM Multidimensional metamodel is a generic representation of a multidimensional database.
+ * <!-- end-user-doc --> <!-- begin-model-doc --> The CWM Multidimensional
+ * metamodel is a generic representation of a multidimensional database.
  * 
- * Multidimensional databases are OLAP databases that are directly implemented by multidimensional database systems. In a multidimensional database, key OLAP constructs (dimensions, hierarchies, etc.) are represented by the internal data structures of a ultidimensional database server, and common OLAP operations (consolidation, drill-down, etc.) are performed by the server acting on those data structures. 
+ * Multidimensional databases are OLAP databases that are directly implemented
+ * by multidimensional database systems. In a multidimensional database, key
+ * OLAP constructs (dimensions, hierarchies, etc.) are represented by the
+ * internal data structures of a ultidimensional database server, and common
+ * OLAP operations (consolidation, drill-down, etc.) are performed by the server
+ * acting on those data structures.
  * 
- * Multidimensional databases are often classified as "physical OLAP" or "MOLAP" (memory-based OLAP) databases.
+ * Multidimensional databases are often classified as "physical OLAP" or "MOLAP"
+ * (memory-based OLAP) databases.
  * 
- * Multidimensional databases offer enhanced performance and flexibility over OLAP systems that simulate multidimensional functionality using other technologies (e.g., relational database or spreadsheet):
+ * Multidimensional databases offer enhanced performance and flexibility over
+ * OLAP systems that simulate multidimensional functionality using other
+ * technologies (e.g., relational database or spreadsheet):
  * 
- * Performance: Multidimensional databases provide rapid consolidation times and formula calculations, and consistent query response times regardless of query complexity. This is accomplished, in part, through the use of efficient cell storage techniques and highly-optimized index paths.
+ * Performance: Multidimensional databases provide rapid consolidation times and
+ * formula calculations, and consistent query response times regardless of query
+ * complexity. This is accomplished, in part, through the use of efficient cell
+ * storage techniques and highly-optimized index paths.
  * 
- * Flexibility: The specification and use of multidimensional schemas and queries (including the design of cubes, dimensions, hierarchies, member formulas, the manipulation of query result sets, etc.) can be accomplished in a relatively straight-forward manner, since the server directly supports (and exposes) the multidimensional paradigm.
+ * Flexibility: The specification and use of multidimensional schemas and
+ * queries (including the design of cubes, dimensions, hierarchies, member
+ * formulas, the manipulation of query result sets, etc.) can be accomplished in
+ * a relatively straight-forward manner, since the server directly supports (and
+ * exposes) the multidimensional paradigm.
  * 
- * The CWM Multidimensional metamodel does not attempt to provide a complete representation of all aspects of commercially available, multidimensional databases. Unlike relational database management systems, multidimensional databases tend to be proprietary in structure, and there are no published, widely agreed upon, standard representations of the logical schema of a multidimensional database. Therefore, the CWM Multidimensional Database metamodel is oriented toward complete generality of specification. Tool-specific extensions to the metamodel are relatively easy to formulate, and several examples are provided in Volume 2, Extensions, of the CWM Specification.
+ * The CWM Multidimensional metamodel does not attempt to provide a complete
+ * representation of all aspects of commercially available, multidimensional
+ * databases. Unlike relational database management systems, multidimensional
+ * databases tend to be proprietary in structure, and there are no published,
+ * widely agreed upon, standard representations of the logical schema of a
+ * multidimensional database. Therefore, the CWM Multidimensional Database
+ * metamodel is oriented toward complete generality of specification.
+ * Tool-specific extensions to the metamodel are relatively easy to formulate,
+ * and several examples are provided in Volume 2, Extensions, of the CWM
+ * Specification.
  * 
  * The Multidimensional package depends on the following packages:
  * 
- *     org.omg::CWM::ObjectModel::Core
- *     org.omg::CWM::ObjectModel::Instance
+ * org.omg::CWM::ObjectModel::Core org.omg::CWM::ObjectModel::Instance
  * 
- * The major classes and associations of the Multidimensional metamodel are shown in Figure 11-1.
+ * The major classes and associations of the Multidimensional metamodel are
+ * shown in Figure 11-1.
  * 
- * Schema is the container of all elements comprising a Multidimensional model. It also represents the logical unit of deployment of a Multidimensional database instance.
- * Dimension represents a physical dimension in a Multidimensional database. Whereas
- * the OLAP metamodel defines ?dimension? as a purely conceptual entity, this
- * Dimension represents the dimension object exposed by the programming model of a
- * Multidimensional database.
- * A Dimension may reference other instances of Dimension to form arbitrarily complex
+ * Schema is the container of all elements comprising a Multidimensional model.
+ * It also represents the logical unit of deployment of a Multidimensional
+ * database instance. Dimension represents a physical dimension in a
+ * Multidimensional database. Whereas the OLAP metamodel defines ?dimension? as
+ * a purely conceptual entity, this Dimension represents the dimension object
+ * exposed by the programming model of a Multidimensional database. A Dimension
+ * may reference other instances of Dimension to form arbitrarily complex
  * dimensional structures (e.g., hierarchies with varying levels of detail).
  * 
- * DimensionedObject represents an attribute of Dimension. Examples of DimensionedObjects include measures (variables), formulas, consolidation functions, member alias names, etc. DimensionedObjects are contained by the Schema and referenced by the Dimensions that use them. 
+ * DimensionedObject represents an attribute of Dimension. Examples of
+ * DimensionedObjects include measures (variables), formulas, consolidation
+ * functions, member alias names, etc. DimensionedObjects are contained by the
+ * Schema and referenced by the Dimensions that use them.
  * 
- * MemberSet represents the collection of Members associated with an instance of Dimension, and MemberValue represents an instance value of a Member. MemberSet, Member and MemberValue enable the specification and interchange of both M1-level Multidimensional models and associated M0-level data values.
+ * MemberSet represents the collection of Members associated with an instance of
+ * Dimension, and MemberValue represents an instance value of a Member.
+ * MemberSet, Member and MemberValue enable the specification and interchange of
+ * both M1-level Multidimensional models and associated M0-level data values.
  * 
- * Figure 11-2 illustrates the inheritance of the Multidimensional classes from metaclasses of the Object Model.
+ * Figure 11-2 illustrates the inheritance of the Multidimensional classes from
+ * metaclasses of the Object Model.
  * 
  * OCL Representation of Multidimensional Constraints
  * 
- * [C-1] A Dimension may not reference itself as a component, nor as a composite.
- * context Dimension
- * inv: self.component->excludes( self )
- * inv: self.composite->excludes( self )
+ * [C-1] A Dimension may not reference itself as a component, nor as a
+ * composite. context Dimension inv: self.component->excludes( self ) inv:
+ * self.composite->excludes( self )
  * 
- * The transitive closure of components of an instance of Dimension must not include the
- * Dimension instance.
+ * The transitive closure of components of an instance of Dimension must not
+ * include the Dimension instance.
  * 
- * The transitive closure of composites of an instance of Dimension must not include the
- * Dimension instance.
- * <!-- end-model-doc -->
+ * The transitive closure of composites of an instance of Dimension must not
+ * include the Dimension instance. <!-- end-model-doc -->
+ * 
  * @see orgomg.cwm.resource.multidimensional.MultidimensionalFactory
  * @model kind="package"
  * @generated
  */
 public interface MultidimensionalPackage extends EPackage {
+
     /**
      * The package name.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     String eNAME = "multidimensional";
 
     /**
      * The package namespace URI.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     String eNS_URI = "http:///orgomg/cwm/resource/multidimensional.ecore";
 
     /**
      * The package namespace name.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     String eNS_PREFIX = "orgomg.cwm.resource.multidimensional";
 
     /**
      * The singleton instance of the package.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     MultidimensionalPackage eINSTANCE = orgomg.cwm.resource.multidimensional.impl.MultidimensionalPackageImpl.init();
 
     /**
      * The meta object id for the '{@link orgomg.cwm.resource.multidimensional.impl.DimensionImpl <em>Dimension</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see orgomg.cwm.resource.multidimensional.impl.DimensionImpl
      * @see orgomg.cwm.resource.multidimensional.impl.MultidimensionalPackageImpl#getDimension()
      * @generated
@@ -120,18 +145,18 @@ public interface MultidimensionalPackage extends EPackage {
     int DIMENSION = 0;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int DIMENSION__NAME = CorePackage.CLASS__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -139,8 +164,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -148,17 +172,16 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DIMENSION__SUPPLIER_DEPENDENCY = CorePackage.CLASS__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -166,26 +189,25 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DIMENSION__NAMESPACE = CorePackage.CLASS__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int DIMENSION__IMPORTER = CorePackage.CLASS__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -193,26 +215,25 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DIMENSION__TAGGED_VALUE = CorePackage.CLASS__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int DIMENSION__DOCUMENT = CorePackage.CLASS__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -220,8 +241,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -229,17 +249,16 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DIMENSION__ELEMENT_NODE = CorePackage.CLASS__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -247,8 +266,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -256,17 +274,16 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DIMENSION__VOCABULARY_ELEMENT = CorePackage.CLASS__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -274,8 +291,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -283,8 +299,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -292,17 +307,16 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DIMENSION__OWNED_ELEMENT = CorePackage.CLASS__OWNED_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Is Abstract</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is Abstract</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -310,8 +324,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Feature</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -319,17 +332,16 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Structural Feature</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DIMENSION__STRUCTURAL_FEATURE = CorePackage.CLASS__STRUCTURAL_FEATURE;
 
     /**
-     * The feature id for the '<em><b>Parameter</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Parameter</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -337,8 +349,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Generalization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -346,26 +357,25 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Specialization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DIMENSION__SPECIALIZATION = CorePackage.CLASS__SPECIALIZATION;
 
     /**
-     * The feature id for the '<em><b>Instance</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Instance</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int DIMENSION__INSTANCE = CorePackage.CLASS__INSTANCE;
 
     /**
-     * The feature id for the '<em><b>Alias</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Alias</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -373,8 +383,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Expression Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -382,17 +391,16 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Mapping From</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DIMENSION__MAPPING_FROM = CorePackage.CLASS__MAPPING_FROM;
 
     /**
-     * The feature id for the '<em><b>Mapping To</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Mapping To</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -400,26 +408,25 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Classifier Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DIMENSION__CLASSIFIER_MAP = CorePackage.CLASS__CLASSIFIER_MAP;
 
     /**
-     * The feature id for the '<em><b>Cf Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Cf Map</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int DIMENSION__CF_MAP = CorePackage.CLASS__CF_MAP;
 
     /**
-     * The feature id for the '<em><b>Domain</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Domain</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -427,17 +434,16 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Simple Dimension</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DIMENSION__SIMPLE_DIMENSION = CorePackage.CLASS__SIMPLE_DIMENSION;
 
     /**
-     * The feature id for the '<em><b>Index</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Index</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -445,35 +451,34 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dimensioned Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DIMENSION__DIMENSIONED_OBJECT = CorePackage.CLASS_FEATURE_COUNT + 0;
 
     /**
-     * The feature id for the '<em><b>Composite</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Composite</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int DIMENSION__COMPOSITE = CorePackage.CLASS_FEATURE_COUNT + 1;
 
     /**
-     * The feature id for the '<em><b>Component</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Component</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int DIMENSION__COMPONENT = CorePackage.CLASS_FEATURE_COUNT + 2;
 
     /**
-     * The feature id for the '<em><b>Schema</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Schema</b></em>' container reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -481,17 +486,16 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Member Set</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DIMENSION__MEMBER_SET = CorePackage.CLASS_FEATURE_COUNT + 4;
 
     /**
-     * The number of structural features of the '<em>Dimension</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The number of structural features of the '<em>Dimension</em>' class. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -499,8 +503,8 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwm.resource.multidimensional.impl.DimensionedObjectImpl <em>Dimensioned Object</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see orgomg.cwm.resource.multidimensional.impl.DimensionedObjectImpl
      * @see orgomg.cwm.resource.multidimensional.impl.MultidimensionalPackageImpl#getDimensionedObject()
      * @generated
@@ -508,18 +512,18 @@ public interface MultidimensionalPackage extends EPackage {
     int DIMENSIONED_OBJECT = 1;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int DIMENSIONED_OBJECT__NAME = CorePackage.ATTRIBUTE__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -527,8 +531,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -536,17 +539,16 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DIMENSIONED_OBJECT__SUPPLIER_DEPENDENCY = CorePackage.ATTRIBUTE__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -554,26 +556,25 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DIMENSIONED_OBJECT__NAMESPACE = CorePackage.ATTRIBUTE__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int DIMENSIONED_OBJECT__IMPORTER = CorePackage.ATTRIBUTE__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -581,26 +582,25 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DIMENSIONED_OBJECT__TAGGED_VALUE = CorePackage.ATTRIBUTE__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int DIMENSIONED_OBJECT__DOCUMENT = CorePackage.ATTRIBUTE__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -608,8 +608,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -617,17 +616,16 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DIMENSIONED_OBJECT__ELEMENT_NODE = CorePackage.ATTRIBUTE__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -635,8 +633,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -644,17 +641,16 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DIMENSIONED_OBJECT__VOCABULARY_ELEMENT = CorePackage.ATTRIBUTE__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -662,8 +658,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -671,26 +666,25 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DIMENSIONED_OBJECT__DASDL_PROPERTY = CorePackage.ATTRIBUTE__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Owner Scope</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Owner Scope</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int DIMENSIONED_OBJECT__OWNER_SCOPE = CorePackage.ATTRIBUTE__OWNER_SCOPE;
 
     /**
-     * The feature id for the '<em><b>Owner</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Owner</b></em>' container reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -698,35 +692,34 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Feature Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DIMENSIONED_OBJECT__FEATURE_NODE = CorePackage.ATTRIBUTE__FEATURE_NODE;
 
     /**
-     * The feature id for the '<em><b>Feature Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Feature Map</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int DIMENSIONED_OBJECT__FEATURE_MAP = CorePackage.ATTRIBUTE__FEATURE_MAP;
 
     /**
-     * The feature id for the '<em><b>Cf Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Cf Map</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int DIMENSIONED_OBJECT__CF_MAP = CorePackage.ATTRIBUTE__CF_MAP;
 
     /**
-     * The feature id for the '<em><b>Changeability</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Changeability</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -734,44 +727,43 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Multiplicity</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DIMENSIONED_OBJECT__MULTIPLICITY = CorePackage.ATTRIBUTE__MULTIPLICITY;
 
     /**
-     * The feature id for the '<em><b>Ordering</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Ordering</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int DIMENSIONED_OBJECT__ORDERING = CorePackage.ATTRIBUTE__ORDERING;
 
     /**
-     * The feature id for the '<em><b>Target Scope</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Target Scope</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int DIMENSIONED_OBJECT__TARGET_SCOPE = CorePackage.ATTRIBUTE__TARGET_SCOPE;
 
     /**
-     * The feature id for the '<em><b>Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Type</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int DIMENSIONED_OBJECT__TYPE = CorePackage.ATTRIBUTE__TYPE;
 
     /**
-     * The feature id for the '<em><b>Slot</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Slot</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -779,8 +771,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Discriminated Union</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -788,8 +779,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Indexed Feature</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -797,35 +787,34 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Key Relationship</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DIMENSIONED_OBJECT__KEY_RELATIONSHIP = CorePackage.ATTRIBUTE__KEY_RELATIONSHIP;
 
     /**
-     * The feature id for the '<em><b>Unique Key</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Unique Key</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int DIMENSIONED_OBJECT__UNIQUE_KEY = CorePackage.ATTRIBUTE__UNIQUE_KEY;
 
     /**
-     * The feature id for the '<em><b>Data Item</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Data Item</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int DIMENSIONED_OBJECT__DATA_ITEM = CorePackage.ATTRIBUTE__DATA_ITEM;
 
     /**
-     * The feature id for the '<em><b>Remap</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Remap</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -833,26 +822,25 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Initial Value</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DIMENSIONED_OBJECT__INITIAL_VALUE = CorePackage.ATTRIBUTE__INITIAL_VALUE;
 
     /**
-     * The feature id for the '<em><b>Dimension</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Dimension</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int DIMENSIONED_OBJECT__DIMENSION = CorePackage.ATTRIBUTE_FEATURE_COUNT + 0;
 
     /**
-     * The feature id for the '<em><b>Schema</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Schema</b></em>' container reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -860,8 +848,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Dimensioned Object</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -869,8 +856,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwm.resource.multidimensional.impl.MemberImpl <em>Member</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see orgomg.cwm.resource.multidimensional.impl.MemberImpl
      * @see orgomg.cwm.resource.multidimensional.impl.MultidimensionalPackageImpl#getMember()
      * @generated
@@ -878,18 +864,18 @@ public interface MultidimensionalPackage extends EPackage {
     int MEMBER = 2;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int MEMBER__NAME = InstancePackage.OBJECT__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -897,8 +883,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -906,17 +891,16 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int MEMBER__SUPPLIER_DEPENDENCY = InstancePackage.OBJECT__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -924,26 +908,25 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int MEMBER__NAMESPACE = InstancePackage.OBJECT__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int MEMBER__IMPORTER = InstancePackage.OBJECT__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -951,26 +934,25 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int MEMBER__TAGGED_VALUE = InstancePackage.OBJECT__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int MEMBER__DOCUMENT = InstancePackage.OBJECT__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -978,8 +960,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -987,17 +968,16 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int MEMBER__ELEMENT_NODE = InstancePackage.OBJECT__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1005,8 +985,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1014,17 +993,16 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int MEMBER__VOCABULARY_ELEMENT = InstancePackage.OBJECT__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1032,8 +1010,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1041,26 +1018,25 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int MEMBER__DASDL_PROPERTY = InstancePackage.OBJECT__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Value Slot</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Value Slot</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int MEMBER__VALUE_SLOT = InstancePackage.OBJECT__VALUE_SLOT;
 
     /**
-     * The feature id for the '<em><b>Classifier</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Classifier</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1068,26 +1044,27 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Slot</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int MEMBER__SLOT = InstancePackage.OBJECT__SLOT;
 
     /**
-     * The number of structural features of the '<em>Member</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The number of structural features of the '<em>Member</em>' class. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int MEMBER_FEATURE_COUNT = InstancePackage.OBJECT_FEATURE_COUNT + 0;
 
     /**
-     * The meta object id for the '{@link orgomg.cwm.resource.multidimensional.impl.MemberSetImpl <em>Member Set</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The meta object id for the '
+     * {@link orgomg.cwm.resource.multidimensional.impl.MemberSetImpl
+     * <em>Member Set</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @see orgomg.cwm.resource.multidimensional.impl.MemberSetImpl
      * @see orgomg.cwm.resource.multidimensional.impl.MultidimensionalPackageImpl#getMemberSet()
      * @generated
@@ -1095,18 +1072,18 @@ public interface MultidimensionalPackage extends EPackage {
     int MEMBER_SET = 3;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int MEMBER_SET__NAME = InstancePackage.EXTENT__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1114,8 +1091,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1123,17 +1099,16 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int MEMBER_SET__SUPPLIER_DEPENDENCY = InstancePackage.EXTENT__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1141,26 +1116,25 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int MEMBER_SET__NAMESPACE = InstancePackage.EXTENT__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int MEMBER_SET__IMPORTER = InstancePackage.EXTENT__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1168,26 +1142,25 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int MEMBER_SET__TAGGED_VALUE = InstancePackage.EXTENT__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int MEMBER_SET__DOCUMENT = InstancePackage.EXTENT__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1195,8 +1168,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1204,17 +1176,16 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int MEMBER_SET__ELEMENT_NODE = InstancePackage.EXTENT__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1222,8 +1193,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1231,17 +1201,16 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int MEMBER_SET__VOCABULARY_ELEMENT = InstancePackage.EXTENT__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1249,8 +1218,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1258,8 +1226,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1267,8 +1234,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1276,8 +1242,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Imported Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1285,8 +1250,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Data Manager</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1294,8 +1258,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dimension</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1303,17 +1266,18 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Member Set</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int MEMBER_SET_FEATURE_COUNT = InstancePackage.EXTENT_FEATURE_COUNT + 1;
 
     /**
-     * The meta object id for the '{@link orgomg.cwm.resource.multidimensional.impl.MemberValueImpl <em>Member Value</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The meta object id for the '
+     * {@link orgomg.cwm.resource.multidimensional.impl.MemberValueImpl
+     * <em>Member Value</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @see orgomg.cwm.resource.multidimensional.impl.MemberValueImpl
      * @see orgomg.cwm.resource.multidimensional.impl.MultidimensionalPackageImpl#getMemberValue()
      * @generated
@@ -1321,18 +1285,18 @@ public interface MultidimensionalPackage extends EPackage {
     int MEMBER_VALUE = 4;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int MEMBER_VALUE__NAME = InstancePackage.DATA_VALUE__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1340,8 +1304,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1349,17 +1312,16 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int MEMBER_VALUE__SUPPLIER_DEPENDENCY = InstancePackage.DATA_VALUE__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1367,26 +1329,25 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int MEMBER_VALUE__NAMESPACE = InstancePackage.DATA_VALUE__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int MEMBER_VALUE__IMPORTER = InstancePackage.DATA_VALUE__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1394,26 +1355,25 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int MEMBER_VALUE__TAGGED_VALUE = InstancePackage.DATA_VALUE__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int MEMBER_VALUE__DOCUMENT = InstancePackage.DATA_VALUE__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1421,8 +1381,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1430,17 +1389,16 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int MEMBER_VALUE__ELEMENT_NODE = InstancePackage.DATA_VALUE__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1448,8 +1406,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1457,17 +1414,16 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int MEMBER_VALUE__VOCABULARY_ELEMENT = InstancePackage.DATA_VALUE__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1475,8 +1431,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1484,35 +1439,34 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int MEMBER_VALUE__DASDL_PROPERTY = InstancePackage.DATA_VALUE__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Value Slot</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Value Slot</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int MEMBER_VALUE__VALUE_SLOT = InstancePackage.DATA_VALUE__VALUE_SLOT;
 
     /**
-     * The feature id for the '<em><b>Classifier</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Classifier</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int MEMBER_VALUE__CLASSIFIER = InstancePackage.DATA_VALUE__CLASSIFIER;
 
     /**
-     * The feature id for the '<em><b>Value</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Value</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1520,8 +1474,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Member Value</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1529,8 +1482,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwm.resource.multidimensional.impl.SchemaImpl <em>Schema</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see orgomg.cwm.resource.multidimensional.impl.SchemaImpl
      * @see orgomg.cwm.resource.multidimensional.impl.MultidimensionalPackageImpl#getSchema()
      * @generated
@@ -1538,18 +1490,18 @@ public interface MultidimensionalPackage extends EPackage {
     int SCHEMA = 5;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SCHEMA__NAME = CorePackage.PACKAGE__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1557,8 +1509,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1566,17 +1517,16 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SCHEMA__SUPPLIER_DEPENDENCY = CorePackage.PACKAGE__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1584,26 +1534,25 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SCHEMA__NAMESPACE = CorePackage.PACKAGE__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SCHEMA__IMPORTER = CorePackage.PACKAGE__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1611,26 +1560,25 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SCHEMA__TAGGED_VALUE = CorePackage.PACKAGE__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SCHEMA__DOCUMENT = CorePackage.PACKAGE__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1638,8 +1586,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1647,17 +1594,16 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SCHEMA__ELEMENT_NODE = CorePackage.PACKAGE__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1665,8 +1611,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1674,17 +1619,16 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SCHEMA__VOCABULARY_ELEMENT = CorePackage.PACKAGE__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1692,8 +1636,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1701,8 +1644,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1710,8 +1652,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1719,8 +1660,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Imported Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1728,8 +1668,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Data Manager</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1737,8 +1676,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dimensioned Object</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1746,27 +1684,24 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dimension</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SCHEMA__DIMENSION = CorePackage.PACKAGE_FEATURE_COUNT + 1;
 
     /**
-     * The number of structural features of the '<em>Schema</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The number of structural features of the '<em>Schema</em>' class. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SCHEMA_FEATURE_COUNT = CorePackage.PACKAGE_FEATURE_COUNT + 2;
 
-
     /**
      * Returns the meta object for class '{@link orgomg.cwm.resource.multidimensional.Dimension <em>Dimension</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Dimension</em>'.
      * @see orgomg.cwm.resource.multidimensional.Dimension
      * @generated
@@ -1774,10 +1709,13 @@ public interface MultidimensionalPackage extends EPackage {
     EClass getDimension();
 
     /**
-     * Returns the meta object for the reference list '{@link orgomg.cwm.resource.multidimensional.Dimension#getDimensionedObject <em>Dimensioned Object</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the reference list '<em>Dimensioned Object</em>'.
+     * Returns the meta object for the reference list '
+     * {@link orgomg.cwm.resource.multidimensional.Dimension#getDimensionedObject
+     * <em>Dimensioned Object</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @return the meta object for the reference list '
+     *         <em>Dimensioned Object</em>'.
      * @see orgomg.cwm.resource.multidimensional.Dimension#getDimensionedObject()
      * @see #getDimension()
      * @generated
@@ -1786,8 +1724,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * Returns the meta object for the reference list '{@link orgomg.cwm.resource.multidimensional.Dimension#getComposite <em>Composite</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference list '<em>Composite</em>'.
      * @see orgomg.cwm.resource.multidimensional.Dimension#getComposite()
      * @see #getDimension()
@@ -1797,8 +1734,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * Returns the meta object for the reference list '{@link orgomg.cwm.resource.multidimensional.Dimension#getComponent <em>Component</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference list '<em>Component</em>'.
      * @see orgomg.cwm.resource.multidimensional.Dimension#getComponent()
      * @see #getDimension()
@@ -1808,8 +1744,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * Returns the meta object for the container reference '{@link orgomg.cwm.resource.multidimensional.Dimension#getSchema <em>Schema</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the container reference '<em>Schema</em>'.
      * @see orgomg.cwm.resource.multidimensional.Dimension#getSchema()
      * @see #getDimension()
@@ -1819,8 +1754,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * Returns the meta object for the containment reference list '{@link orgomg.cwm.resource.multidimensional.Dimension#getMemberSet <em>Member Set</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the containment reference list '<em>Member Set</em>'.
      * @see orgomg.cwm.resource.multidimensional.Dimension#getMemberSet()
      * @see #getDimension()
@@ -1829,9 +1763,11 @@ public interface MultidimensionalPackage extends EPackage {
     EReference getDimension_MemberSet();
 
     /**
-     * Returns the meta object for class '{@link orgomg.cwm.resource.multidimensional.DimensionedObject <em>Dimensioned Object</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for class '
+     * {@link orgomg.cwm.resource.multidimensional.DimensionedObject
+     * <em>Dimensioned Object</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @return the meta object for class '<em>Dimensioned Object</em>'.
      * @see orgomg.cwm.resource.multidimensional.DimensionedObject
      * @generated
@@ -1840,8 +1776,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * Returns the meta object for the reference list '{@link orgomg.cwm.resource.multidimensional.DimensionedObject#getDimension <em>Dimension</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference list '<em>Dimension</em>'.
      * @see orgomg.cwm.resource.multidimensional.DimensionedObject#getDimension()
      * @see #getDimensionedObject()
@@ -1851,8 +1786,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * Returns the meta object for the container reference '{@link orgomg.cwm.resource.multidimensional.DimensionedObject#getSchema <em>Schema</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the container reference '<em>Schema</em>'.
      * @see orgomg.cwm.resource.multidimensional.DimensionedObject#getSchema()
      * @see #getDimensionedObject()
@@ -1862,8 +1796,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link orgomg.cwm.resource.multidimensional.Member <em>Member</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Member</em>'.
      * @see orgomg.cwm.resource.multidimensional.Member
      * @generated
@@ -1872,8 +1805,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link orgomg.cwm.resource.multidimensional.MemberSet <em>Member Set</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Member Set</em>'.
      * @see orgomg.cwm.resource.multidimensional.MemberSet
      * @generated
@@ -1882,8 +1814,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * Returns the meta object for the container reference '{@link orgomg.cwm.resource.multidimensional.MemberSet#getDimension <em>Dimension</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the container reference '<em>Dimension</em>'.
      * @see orgomg.cwm.resource.multidimensional.MemberSet#getDimension()
      * @see #getMemberSet()
@@ -1893,8 +1824,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link orgomg.cwm.resource.multidimensional.MemberValue <em>Member Value</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Member Value</em>'.
      * @see orgomg.cwm.resource.multidimensional.MemberValue
      * @generated
@@ -1903,8 +1833,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link orgomg.cwm.resource.multidimensional.Schema <em>Schema</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Schema</em>'.
      * @see orgomg.cwm.resource.multidimensional.Schema
      * @generated
@@ -1912,10 +1841,13 @@ public interface MultidimensionalPackage extends EPackage {
     EClass getSchema();
 
     /**
-     * Returns the meta object for the containment reference list '{@link orgomg.cwm.resource.multidimensional.Schema#getDimensionedObject <em>Dimensioned Object</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the containment reference list '<em>Dimensioned Object</em>'.
+     * Returns the meta object for the containment reference list '
+     * {@link orgomg.cwm.resource.multidimensional.Schema#getDimensionedObject
+     * <em>Dimensioned Object</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @return the meta object for the containment reference list '
+     *         <em>Dimensioned Object</em>'.
      * @see orgomg.cwm.resource.multidimensional.Schema#getDimensionedObject()
      * @see #getSchema()
      * @generated
@@ -1924,8 +1856,7 @@ public interface MultidimensionalPackage extends EPackage {
 
     /**
      * Returns the meta object for the containment reference list '{@link orgomg.cwm.resource.multidimensional.Schema#getDimension <em>Dimension</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the containment reference list '<em>Dimension</em>'.
      * @see orgomg.cwm.resource.multidimensional.Schema#getDimension()
      * @see #getSchema()
@@ -1934,31 +1865,34 @@ public interface MultidimensionalPackage extends EPackage {
     EReference getSchema_Dimension();
 
     /**
-     * Returns the factory that creates the instances of the model.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the factory that creates the instances of the model. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the factory that creates the instances of the model.
      * @generated
      */
     MultidimensionalFactory getMultidimensionalFactory();
 
     /**
-     * <!-- begin-user-doc -->
-     * Defines literals for the meta objects that represent
+     * <!-- begin-user-doc --> Defines literals for the meta objects that
+     * represent
      * <ul>
-     *   <li>each class,</li>
-     *   <li>each feature of each class,</li>
-     *   <li>each enum,</li>
-     *   <li>and each data type</li>
+     * <li>each class,</li>
+     * <li>each feature of each class,</li>
+     * <li>each enum,</li>
+     * <li>and each data type</li>
      * </ul>
      * <!-- end-user-doc -->
      * @generated
      */
     interface Literals {
+
         /**
-         * The meta object literal for the '{@link orgomg.cwm.resource.multidimensional.impl.DimensionImpl <em>Dimension</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '
+         * {@link orgomg.cwm.resource.multidimensional.impl.DimensionImpl
+         * <em>Dimension</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
+         * -->
+         * 
          * @see orgomg.cwm.resource.multidimensional.impl.DimensionImpl
          * @see orgomg.cwm.resource.multidimensional.impl.MultidimensionalPackageImpl#getDimension()
          * @generated
@@ -1967,48 +1901,44 @@ public interface MultidimensionalPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Dimensioned Object</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference DIMENSION__DIMENSIONED_OBJECT = eINSTANCE.getDimension_DimensionedObject();
 
         /**
          * The meta object literal for the '<em><b>Composite</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference DIMENSION__COMPOSITE = eINSTANCE.getDimension_Composite();
 
         /**
          * The meta object literal for the '<em><b>Component</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference DIMENSION__COMPONENT = eINSTANCE.getDimension_Component();
 
         /**
          * The meta object literal for the '<em><b>Schema</b></em>' container reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference DIMENSION__SCHEMA = eINSTANCE.getDimension_Schema();
 
         /**
          * The meta object literal for the '<em><b>Member Set</b></em>' containment reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EReference DIMENSION__MEMBER_SET = eINSTANCE.getDimension_MemberSet();
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.resource.multidimensional.impl.DimensionedObjectImpl <em>Dimensioned Object</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwm.resource.multidimensional.impl.DimensionedObjectImpl
          * @see orgomg.cwm.resource.multidimensional.impl.MultidimensionalPackageImpl#getDimensionedObject()
          * @generated
@@ -2017,24 +1947,24 @@ public interface MultidimensionalPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Dimension</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference DIMENSIONED_OBJECT__DIMENSION = eINSTANCE.getDimensionedObject_Dimension();
 
         /**
          * The meta object literal for the '<em><b>Schema</b></em>' container reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference DIMENSIONED_OBJECT__SCHEMA = eINSTANCE.getDimensionedObject_Schema();
 
         /**
-         * The meta object literal for the '{@link orgomg.cwm.resource.multidimensional.impl.MemberImpl <em>Member</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '
+         * {@link orgomg.cwm.resource.multidimensional.impl.MemberImpl
+         * <em>Member</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
+         * -->
+         * 
          * @see orgomg.cwm.resource.multidimensional.impl.MemberImpl
          * @see orgomg.cwm.resource.multidimensional.impl.MultidimensionalPackageImpl#getMember()
          * @generated
@@ -2043,8 +1973,8 @@ public interface MultidimensionalPackage extends EPackage {
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.resource.multidimensional.impl.MemberSetImpl <em>Member Set</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwm.resource.multidimensional.impl.MemberSetImpl
          * @see orgomg.cwm.resource.multidimensional.impl.MultidimensionalPackageImpl#getMemberSet()
          * @generated
@@ -2053,16 +1983,15 @@ public interface MultidimensionalPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Dimension</b></em>' container reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference MEMBER_SET__DIMENSION = eINSTANCE.getMemberSet_Dimension();
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.resource.multidimensional.impl.MemberValueImpl <em>Member Value</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwm.resource.multidimensional.impl.MemberValueImpl
          * @see orgomg.cwm.resource.multidimensional.impl.MultidimensionalPackageImpl#getMemberValue()
          * @generated
@@ -2070,9 +1999,11 @@ public interface MultidimensionalPackage extends EPackage {
         EClass MEMBER_VALUE = eINSTANCE.getMemberValue();
 
         /**
-         * The meta object literal for the '{@link orgomg.cwm.resource.multidimensional.impl.SchemaImpl <em>Schema</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '
+         * {@link orgomg.cwm.resource.multidimensional.impl.SchemaImpl
+         * <em>Schema</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
+         * -->
+         * 
          * @see orgomg.cwm.resource.multidimensional.impl.SchemaImpl
          * @see orgomg.cwm.resource.multidimensional.impl.MultidimensionalPackageImpl#getSchema()
          * @generated
@@ -2081,20 +2012,20 @@ public interface MultidimensionalPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Dimensioned Object</b></em>' containment reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EReference SCHEMA__DIMENSIONED_OBJECT = eINSTANCE.getSchema_DimensionedObject();
 
         /**
          * The meta object literal for the '<em><b>Dimension</b></em>' containment reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EReference SCHEMA__DIMENSION = eINSTANCE.getSchema_Dimension();
 
     }
 
-} //MultidimensionalPackage
+} // MultidimensionalPackage

@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.objectmodel.core.impl;
@@ -110,253 +109,220 @@ import orgomg.mof.model.ModelPackage;
 import orgomg.mof.model.impl.ModelPackageImpl;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model <b>Package</b>.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model <b>Package</b>. <!--
+ * end-user-doc -->
  * @generated
  */
 public class CorePackageImpl extends EPackageImpl implements CorePackage {
+
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass elementEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass modelElementEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass namespaceEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass classifierEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass classEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass dataTypeEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass packageEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass subsystemEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass modelEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass featureEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass structuralFeatureEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass attributeEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass constraintEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass dependencyEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass expressionEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass booleanExpressionEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass procedureExpressionEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass multiplicityEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass multiplicityRangeEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass stereotypeEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass taggedValueEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EEnum changeableKindEEnum = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EEnum orderingKindEEnum = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EEnum scopeKindEEnum = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EEnum visibilityKindEEnum = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EDataType anyEDataType = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EDataType booleanEDataType = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EDataType floatEDataType = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EDataType integerEDataType = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EDataType nameEDataType = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EDataType stringEDataType = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EDataType timeEDataType = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EDataType unlimitedIntegerEDataType = null;
 
     /**
      * Creates an instance of the model <b>Package</b>, registered with
-     * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
-     * package URI value.
-     * <p>Note: the correct way to create the package is via the static
-     * factory method {@link #init init()}, which also performs
-     * initialization of the package, or returns the registered package,
-     * if one already exists.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the
+     * package package URI value.
+     * <p>
+     * Note: the correct way to create the package is via the static factory
+     * method {@link #init init()}, which also performs initialization of the
+     * package, or returns the registered package, if one already exists. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see org.eclipse.emf.ecore.EPackage.Registry
      * @see orgomg.cwm.objectmodel.core.CorePackage#eNS_URI
      * @see #init()
@@ -367,67 +333,131 @@ public class CorePackageImpl extends EPackageImpl implements CorePackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private static boolean isInited = false;
 
     /**
-     * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
+     * Creates, registers, and initializes the <b>Package</b> for this model,
+     * and for any others upon which it depends.
      * 
-     * <p>This method is used to initialize {@link CorePackage#eINSTANCE} when that field is accessed.
-     * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <p>
+     * This method is used to initialize {@link CorePackage#eINSTANCE} when that
+     * field is accessed. Clients should not invoke it directly. Instead, they
+     * should simply access that field to obtain the package. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #eNS_URI
      * @see #createPackageContents()
      * @see #initializePackageContents()
      * @generated
      */
     public static CorePackage init() {
-        if (isInited) return (CorePackage)EPackage.Registry.INSTANCE.getEPackage(CorePackage.eNS_URI);
+        if (isInited)
+            return (CorePackage) EPackage.Registry.INSTANCE.getEPackage(CorePackage.eNS_URI);
 
         // Obtain or create and register package
-        CorePackageImpl theCorePackage = (CorePackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof CorePackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new CorePackageImpl());
+        CorePackageImpl theCorePackage = (CorePackageImpl) (EPackage.Registry.INSTANCE.get(eNS_URI) instanceof CorePackageImpl ? EPackage.Registry.INSTANCE
+                .get(eNS_URI) : new CorePackageImpl());
 
         isInited = true;
 
         // Obtain or create and register interdependencies
-        BehavioralPackageImpl theBehavioralPackage = (BehavioralPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(BehavioralPackage.eNS_URI) instanceof BehavioralPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(BehavioralPackage.eNS_URI) : BehavioralPackage.eINSTANCE);
-        RelationshipsPackageImpl theRelationshipsPackage = (RelationshipsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(RelationshipsPackage.eNS_URI) instanceof RelationshipsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(RelationshipsPackage.eNS_URI) : RelationshipsPackage.eINSTANCE);
-        InstancePackageImpl theInstancePackage = (InstancePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(InstancePackage.eNS_URI) instanceof InstancePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(InstancePackage.eNS_URI) : InstancePackage.eINSTANCE);
-        BusinessinformationPackageImpl theBusinessinformationPackage = (BusinessinformationPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(BusinessinformationPackage.eNS_URI) instanceof BusinessinformationPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(BusinessinformationPackage.eNS_URI) : BusinessinformationPackage.eINSTANCE);
-        DatatypesPackageImpl theDatatypesPackage = (DatatypesPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(DatatypesPackage.eNS_URI) instanceof DatatypesPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(DatatypesPackage.eNS_URI) : DatatypesPackage.eINSTANCE);
-        ExpressionsPackageImpl theExpressionsPackage = (ExpressionsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ExpressionsPackage.eNS_URI) instanceof ExpressionsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ExpressionsPackage.eNS_URI) : ExpressionsPackage.eINSTANCE);
-        KeysindexesPackageImpl theKeysindexesPackage = (KeysindexesPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(KeysindexesPackage.eNS_URI) instanceof KeysindexesPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(KeysindexesPackage.eNS_URI) : KeysindexesPackage.eINSTANCE);
-        SoftwaredeploymentPackageImpl theSoftwaredeploymentPackage = (SoftwaredeploymentPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(SoftwaredeploymentPackage.eNS_URI) instanceof SoftwaredeploymentPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(SoftwaredeploymentPackage.eNS_URI) : SoftwaredeploymentPackage.eINSTANCE);
-        TypemappingPackageImpl theTypemappingPackage = (TypemappingPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(TypemappingPackage.eNS_URI) instanceof TypemappingPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(TypemappingPackage.eNS_URI) : TypemappingPackage.eINSTANCE);
-        RelationalPackageImpl theRelationalPackage = (RelationalPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(RelationalPackage.eNS_URI) instanceof RelationalPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(RelationalPackage.eNS_URI) : RelationalPackage.eINSTANCE);
-        EnumerationsPackageImpl theEnumerationsPackage = (EnumerationsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(EnumerationsPackage.eNS_URI) instanceof EnumerationsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(EnumerationsPackage.eNS_URI) : EnumerationsPackage.eINSTANCE);
-        RecordPackageImpl theRecordPackage = (RecordPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(RecordPackage.eNS_URI) instanceof RecordPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(RecordPackage.eNS_URI) : RecordPackage.eINSTANCE);
-        MultidimensionalPackageImpl theMultidimensionalPackage = (MultidimensionalPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(MultidimensionalPackage.eNS_URI) instanceof MultidimensionalPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(MultidimensionalPackage.eNS_URI) : MultidimensionalPackage.eINSTANCE);
-        XmlPackageImpl theXmlPackage = (XmlPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(XmlPackage.eNS_URI) instanceof XmlPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(XmlPackage.eNS_URI) : XmlPackage.eINSTANCE);
-        TransformationPackageImpl theTransformationPackage = (TransformationPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(TransformationPackage.eNS_URI) instanceof TransformationPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(TransformationPackage.eNS_URI) : TransformationPackage.eINSTANCE);
-        OlapPackageImpl theOlapPackage = (OlapPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(OlapPackage.eNS_URI) instanceof OlapPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(OlapPackage.eNS_URI) : OlapPackage.eINSTANCE);
-        DataminingPackageImpl theDataminingPackage = (DataminingPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(DataminingPackage.eNS_URI) instanceof DataminingPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(DataminingPackage.eNS_URI) : DataminingPackage.eINSTANCE);
-        InformationvisualizationPackageImpl theInformationvisualizationPackage = (InformationvisualizationPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(InformationvisualizationPackage.eNS_URI) instanceof InformationvisualizationPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(InformationvisualizationPackage.eNS_URI) : InformationvisualizationPackage.eINSTANCE);
-        BusinessnomenclaturePackageImpl theBusinessnomenclaturePackage = (BusinessnomenclaturePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(BusinessnomenclaturePackage.eNS_URI) instanceof BusinessnomenclaturePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(BusinessnomenclaturePackage.eNS_URI) : BusinessnomenclaturePackage.eINSTANCE);
-        WarehouseprocessPackageImpl theWarehouseprocessPackage = (WarehouseprocessPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(WarehouseprocessPackage.eNS_URI) instanceof WarehouseprocessPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(WarehouseprocessPackage.eNS_URI) : WarehouseprocessPackage.eINSTANCE);
-        DatatypePackageImpl theDatatypePackage = (DatatypePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(DatatypePackage.eNS_URI) instanceof DatatypePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(DatatypePackage.eNS_URI) : DatatypePackage.eINSTANCE);
-        EventsPackageImpl theEventsPackage = (EventsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(EventsPackage.eNS_URI) instanceof EventsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(EventsPackage.eNS_URI) : EventsPackage.eINSTANCE);
-        WarehouseoperationPackageImpl theWarehouseoperationPackage = (WarehouseoperationPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(WarehouseoperationPackage.eNS_URI) instanceof WarehouseoperationPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(WarehouseoperationPackage.eNS_URI) : WarehouseoperationPackage.eINSTANCE);
-        ErPackageImpl theErPackage = (ErPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ErPackage.eNS_URI) instanceof ErPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ErPackage.eNS_URI) : ErPackage.eINSTANCE);
-        CoboldataPackageImpl theCoboldataPackage = (CoboldataPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CoboldataPackage.eNS_URI) instanceof CoboldataPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CoboldataPackage.eNS_URI) : CoboldataPackage.eINSTANCE);
-        DmsiiPackageImpl theDmsiiPackage = (DmsiiPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(DmsiiPackage.eNS_URI) instanceof DmsiiPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(DmsiiPackage.eNS_URI) : DmsiiPackage.eINSTANCE);
-        ImsdatabasePackageImpl theImsdatabasePackage = (ImsdatabasePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ImsdatabasePackage.eNS_URI) instanceof ImsdatabasePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ImsdatabasePackage.eNS_URI) : ImsdatabasePackage.eINSTANCE);
-        ImstypesPackageImpl theImstypesPackage = (ImstypesPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ImstypesPackage.eNS_URI) instanceof ImstypesPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ImstypesPackage.eNS_URI) : ImstypesPackage.eINSTANCE);
-        EssbasePackageImpl theEssbasePackage = (EssbasePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(EssbasePackage.eNS_URI) instanceof EssbasePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(EssbasePackage.eNS_URI) : EssbasePackage.eINSTANCE);
-        ExpressPackageImpl theExpressPackage = (ExpressPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ExpressPackage.eNS_URI) instanceof ExpressPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ExpressPackage.eNS_URI) : ExpressPackage.eINSTANCE);
-        InformationsetPackageImpl theInformationsetPackage = (InformationsetPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(InformationsetPackage.eNS_URI) instanceof InformationsetPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(InformationsetPackage.eNS_URI) : InformationsetPackage.eINSTANCE);
-        InformationreportingPackageImpl theInformationreportingPackage = (InformationreportingPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(InformationreportingPackage.eNS_URI) instanceof InformationreportingPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(InformationreportingPackage.eNS_URI) : InformationreportingPackage.eINSTANCE);
-        CwmmipPackageImpl theCwmmipPackage = (CwmmipPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CwmmipPackage.eNS_URI) instanceof CwmmipPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CwmmipPackage.eNS_URI) : CwmmipPackage.eINSTANCE);
-        ModelPackageImpl theModelPackage = (ModelPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ModelPackage.eNS_URI) instanceof ModelPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ModelPackage.eNS_URI) : ModelPackage.eINSTANCE);
+        BehavioralPackageImpl theBehavioralPackage = (BehavioralPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(BehavioralPackage.eNS_URI) instanceof BehavioralPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(BehavioralPackage.eNS_URI) : BehavioralPackage.eINSTANCE);
+        RelationshipsPackageImpl theRelationshipsPackage = (RelationshipsPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(RelationshipsPackage.eNS_URI) instanceof RelationshipsPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(RelationshipsPackage.eNS_URI) : RelationshipsPackage.eINSTANCE);
+        InstancePackageImpl theInstancePackage = (InstancePackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(InstancePackage.eNS_URI) instanceof InstancePackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(InstancePackage.eNS_URI) : InstancePackage.eINSTANCE);
+        BusinessinformationPackageImpl theBusinessinformationPackage = (BusinessinformationPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(BusinessinformationPackage.eNS_URI) instanceof BusinessinformationPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(BusinessinformationPackage.eNS_URI) : BusinessinformationPackage.eINSTANCE);
+        DatatypesPackageImpl theDatatypesPackage = (DatatypesPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(DatatypesPackage.eNS_URI) instanceof DatatypesPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(DatatypesPackage.eNS_URI) : DatatypesPackage.eINSTANCE);
+        ExpressionsPackageImpl theExpressionsPackage = (ExpressionsPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(ExpressionsPackage.eNS_URI) instanceof ExpressionsPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(ExpressionsPackage.eNS_URI) : ExpressionsPackage.eINSTANCE);
+        KeysindexesPackageImpl theKeysindexesPackage = (KeysindexesPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(KeysindexesPackage.eNS_URI) instanceof KeysindexesPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(KeysindexesPackage.eNS_URI) : KeysindexesPackage.eINSTANCE);
+        SoftwaredeploymentPackageImpl theSoftwaredeploymentPackage = (SoftwaredeploymentPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(SoftwaredeploymentPackage.eNS_URI) instanceof SoftwaredeploymentPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(SoftwaredeploymentPackage.eNS_URI) : SoftwaredeploymentPackage.eINSTANCE);
+        TypemappingPackageImpl theTypemappingPackage = (TypemappingPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(TypemappingPackage.eNS_URI) instanceof TypemappingPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(TypemappingPackage.eNS_URI) : TypemappingPackage.eINSTANCE);
+        RelationalPackageImpl theRelationalPackage = (RelationalPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(RelationalPackage.eNS_URI) instanceof RelationalPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(RelationalPackage.eNS_URI) : RelationalPackage.eINSTANCE);
+        EnumerationsPackageImpl theEnumerationsPackage = (EnumerationsPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(EnumerationsPackage.eNS_URI) instanceof EnumerationsPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(EnumerationsPackage.eNS_URI) : EnumerationsPackage.eINSTANCE);
+        RecordPackageImpl theRecordPackage = (RecordPackageImpl) (EPackage.Registry.INSTANCE.getEPackage(RecordPackage.eNS_URI) instanceof RecordPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(RecordPackage.eNS_URI) : RecordPackage.eINSTANCE);
+        MultidimensionalPackageImpl theMultidimensionalPackage = (MultidimensionalPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(MultidimensionalPackage.eNS_URI) instanceof MultidimensionalPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(MultidimensionalPackage.eNS_URI) : MultidimensionalPackage.eINSTANCE);
+        XmlPackageImpl theXmlPackage = (XmlPackageImpl) (EPackage.Registry.INSTANCE.getEPackage(XmlPackage.eNS_URI) instanceof XmlPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(XmlPackage.eNS_URI) : XmlPackage.eINSTANCE);
+        TransformationPackageImpl theTransformationPackage = (TransformationPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(TransformationPackage.eNS_URI) instanceof TransformationPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(TransformationPackage.eNS_URI) : TransformationPackage.eINSTANCE);
+        OlapPackageImpl theOlapPackage = (OlapPackageImpl) (EPackage.Registry.INSTANCE.getEPackage(OlapPackage.eNS_URI) instanceof OlapPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(OlapPackage.eNS_URI) : OlapPackage.eINSTANCE);
+        DataminingPackageImpl theDataminingPackage = (DataminingPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(DataminingPackage.eNS_URI) instanceof DataminingPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(DataminingPackage.eNS_URI) : DataminingPackage.eINSTANCE);
+        InformationvisualizationPackageImpl theInformationvisualizationPackage = (InformationvisualizationPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(InformationvisualizationPackage.eNS_URI) instanceof InformationvisualizationPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(InformationvisualizationPackage.eNS_URI) : InformationvisualizationPackage.eINSTANCE);
+        BusinessnomenclaturePackageImpl theBusinessnomenclaturePackage = (BusinessnomenclaturePackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(BusinessnomenclaturePackage.eNS_URI) instanceof BusinessnomenclaturePackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(BusinessnomenclaturePackage.eNS_URI) : BusinessnomenclaturePackage.eINSTANCE);
+        WarehouseprocessPackageImpl theWarehouseprocessPackage = (WarehouseprocessPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(WarehouseprocessPackage.eNS_URI) instanceof WarehouseprocessPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(WarehouseprocessPackage.eNS_URI) : WarehouseprocessPackage.eINSTANCE);
+        DatatypePackageImpl theDatatypePackage = (DatatypePackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(DatatypePackage.eNS_URI) instanceof DatatypePackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(DatatypePackage.eNS_URI) : DatatypePackage.eINSTANCE);
+        EventsPackageImpl theEventsPackage = (EventsPackageImpl) (EPackage.Registry.INSTANCE.getEPackage(EventsPackage.eNS_URI) instanceof EventsPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(EventsPackage.eNS_URI) : EventsPackage.eINSTANCE);
+        WarehouseoperationPackageImpl theWarehouseoperationPackage = (WarehouseoperationPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(WarehouseoperationPackage.eNS_URI) instanceof WarehouseoperationPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(WarehouseoperationPackage.eNS_URI) : WarehouseoperationPackage.eINSTANCE);
+        ErPackageImpl theErPackage = (ErPackageImpl) (EPackage.Registry.INSTANCE.getEPackage(ErPackage.eNS_URI) instanceof ErPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(ErPackage.eNS_URI) : ErPackage.eINSTANCE);
+        CoboldataPackageImpl theCoboldataPackage = (CoboldataPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(CoboldataPackage.eNS_URI) instanceof CoboldataPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(CoboldataPackage.eNS_URI) : CoboldataPackage.eINSTANCE);
+        DmsiiPackageImpl theDmsiiPackage = (DmsiiPackageImpl) (EPackage.Registry.INSTANCE.getEPackage(DmsiiPackage.eNS_URI) instanceof DmsiiPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(DmsiiPackage.eNS_URI) : DmsiiPackage.eINSTANCE);
+        ImsdatabasePackageImpl theImsdatabasePackage = (ImsdatabasePackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(ImsdatabasePackage.eNS_URI) instanceof ImsdatabasePackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(ImsdatabasePackage.eNS_URI) : ImsdatabasePackage.eINSTANCE);
+        ImstypesPackageImpl theImstypesPackage = (ImstypesPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(ImstypesPackage.eNS_URI) instanceof ImstypesPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(ImstypesPackage.eNS_URI) : ImstypesPackage.eINSTANCE);
+        EssbasePackageImpl theEssbasePackage = (EssbasePackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(EssbasePackage.eNS_URI) instanceof EssbasePackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(EssbasePackage.eNS_URI) : EssbasePackage.eINSTANCE);
+        ExpressPackageImpl theExpressPackage = (ExpressPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(ExpressPackage.eNS_URI) instanceof ExpressPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(ExpressPackage.eNS_URI) : ExpressPackage.eINSTANCE);
+        InformationsetPackageImpl theInformationsetPackage = (InformationsetPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(InformationsetPackage.eNS_URI) instanceof InformationsetPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(InformationsetPackage.eNS_URI) : InformationsetPackage.eINSTANCE);
+        InformationreportingPackageImpl theInformationreportingPackage = (InformationreportingPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(InformationreportingPackage.eNS_URI) instanceof InformationreportingPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(InformationreportingPackage.eNS_URI) : InformationreportingPackage.eINSTANCE);
+        CwmmipPackageImpl theCwmmipPackage = (CwmmipPackageImpl) (EPackage.Registry.INSTANCE.getEPackage(CwmmipPackage.eNS_URI) instanceof CwmmipPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(CwmmipPackage.eNS_URI) : CwmmipPackage.eINSTANCE);
+        ModelPackageImpl theModelPackage = (ModelPackageImpl) (EPackage.Registry.INSTANCE.getEPackage(ModelPackage.eNS_URI) instanceof ModelPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(ModelPackage.eNS_URI) : ModelPackage.eINSTANCE);
 
         // Create package meta-data objects
         theCorePackage.createPackageContents();
@@ -506,15 +536,13 @@ public class CorePackageImpl extends EPackageImpl implements CorePackage {
         // Mark meta-data to indicate it can't be changed
         theCorePackage.freeze();
 
-  
         // Update the registry and return the package
         EPackage.Registry.INSTANCE.put(CorePackage.eNS_URI, theCorePackage);
         return theCorePackage;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getElement() {
@@ -522,8 +550,7 @@ public class CorePackageImpl extends EPackageImpl implements CorePackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getModelElement() {
@@ -531,179 +558,159 @@ public class CorePackageImpl extends EPackageImpl implements CorePackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getModelElement_Name() {
-        return (EAttribute)modelElementEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) modelElementEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getModelElement_Visibility() {
-        return (EAttribute)modelElementEClass.getEStructuralFeatures().get(1);
+        return (EAttribute) modelElementEClass.getEStructuralFeatures().get(1);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getModelElement_ClientDependency() {
-        return (EReference)modelElementEClass.getEStructuralFeatures().get(2);
+        return (EReference) modelElementEClass.getEStructuralFeatures().get(2);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getModelElement_SupplierDependency() {
-        return (EReference)modelElementEClass.getEStructuralFeatures().get(3);
+        return (EReference) modelElementEClass.getEStructuralFeatures().get(3);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getModelElement_Constraint() {
-        return (EReference)modelElementEClass.getEStructuralFeatures().get(4);
+        return (EReference) modelElementEClass.getEStructuralFeatures().get(4);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getModelElement_Namespace() {
-        return (EReference)modelElementEClass.getEStructuralFeatures().get(5);
+        return (EReference) modelElementEClass.getEStructuralFeatures().get(5);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getModelElement_Importer() {
-        return (EReference)modelElementEClass.getEStructuralFeatures().get(6);
+        return (EReference) modelElementEClass.getEStructuralFeatures().get(6);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getModelElement_Stereotype() {
-        return (EReference)modelElementEClass.getEStructuralFeatures().get(7);
+        return (EReference) modelElementEClass.getEStructuralFeatures().get(7);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getModelElement_TaggedValue() {
-        return (EReference)modelElementEClass.getEStructuralFeatures().get(8);
+        return (EReference) modelElementEClass.getEStructuralFeatures().get(8);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getModelElement_Document() {
-        return (EReference)modelElementEClass.getEStructuralFeatures().get(9);
+        return (EReference) modelElementEClass.getEStructuralFeatures().get(9);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getModelElement_Description() {
-        return (EReference)modelElementEClass.getEStructuralFeatures().get(10);
+        return (EReference) modelElementEClass.getEStructuralFeatures().get(10);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getModelElement_ResponsibleParty() {
-        return (EReference)modelElementEClass.getEStructuralFeatures().get(11);
+        return (EReference) modelElementEClass.getEStructuralFeatures().get(11);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getModelElement_ElementNode() {
-        return (EReference)modelElementEClass.getEStructuralFeatures().get(12);
+        return (EReference) modelElementEClass.getEStructuralFeatures().get(12);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getModelElement_Set() {
-        return (EReference)modelElementEClass.getEStructuralFeatures().get(13);
+        return (EReference) modelElementEClass.getEStructuralFeatures().get(13);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getModelElement_RenderedObject() {
-        return (EReference)modelElementEClass.getEStructuralFeatures().get(14);
+        return (EReference) modelElementEClass.getEStructuralFeatures().get(14);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getModelElement_VocabularyElement() {
-        return (EReference)modelElementEClass.getEStructuralFeatures().get(15);
+        return (EReference) modelElementEClass.getEStructuralFeatures().get(15);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getModelElement_Measurement() {
-        return (EReference)modelElementEClass.getEStructuralFeatures().get(16);
+        return (EReference) modelElementEClass.getEStructuralFeatures().get(16);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getModelElement_ChangeRequest() {
-        return (EReference)modelElementEClass.getEStructuralFeatures().get(17);
+        return (EReference) modelElementEClass.getEStructuralFeatures().get(17);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getModelElement_DasdlProperty() {
-        return (EReference)modelElementEClass.getEStructuralFeatures().get(18);
+        return (EReference) modelElementEClass.getEStructuralFeatures().get(18);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getNamespace() {
@@ -711,17 +718,15 @@ public class CorePackageImpl extends EPackageImpl implements CorePackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getNamespace_OwnedElement() {
-        return (EReference)namespaceEClass.getEStructuralFeatures().get(0);
+        return (EReference) namespaceEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getClassifier() {
@@ -729,143 +734,127 @@ public class CorePackageImpl extends EPackageImpl implements CorePackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getClassifier_IsAbstract() {
-        return (EAttribute)classifierEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) classifierEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getClassifier_Feature() {
-        return (EReference)classifierEClass.getEStructuralFeatures().get(1);
+        return (EReference) classifierEClass.getEStructuralFeatures().get(1);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getClassifier_StructuralFeature() {
-        return (EReference)classifierEClass.getEStructuralFeatures().get(2);
+        return (EReference) classifierEClass.getEStructuralFeatures().get(2);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getClassifier_Parameter() {
-        return (EReference)classifierEClass.getEStructuralFeatures().get(3);
+        return (EReference) classifierEClass.getEStructuralFeatures().get(3);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getClassifier_Generalization() {
-        return (EReference)classifierEClass.getEStructuralFeatures().get(4);
+        return (EReference) classifierEClass.getEStructuralFeatures().get(4);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getClassifier_Specialization() {
-        return (EReference)classifierEClass.getEStructuralFeatures().get(5);
+        return (EReference) classifierEClass.getEStructuralFeatures().get(5);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getClassifier_Instance() {
-        return (EReference)classifierEClass.getEStructuralFeatures().get(6);
+        return (EReference) classifierEClass.getEStructuralFeatures().get(6);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getClassifier_Alias() {
-        return (EReference)classifierEClass.getEStructuralFeatures().get(7);
+        return (EReference) classifierEClass.getEStructuralFeatures().get(7);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getClassifier_ExpressionNode() {
-        return (EReference)classifierEClass.getEStructuralFeatures().get(8);
+        return (EReference) classifierEClass.getEStructuralFeatures().get(8);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getClassifier_MappingFrom() {
-        return (EReference)classifierEClass.getEStructuralFeatures().get(9);
+        return (EReference) classifierEClass.getEStructuralFeatures().get(9);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getClassifier_MappingTo() {
-        return (EReference)classifierEClass.getEStructuralFeatures().get(10);
+        return (EReference) classifierEClass.getEStructuralFeatures().get(10);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getClassifier_ClassifierMap() {
-        return (EReference)classifierEClass.getEStructuralFeatures().get(11);
+        return (EReference) classifierEClass.getEStructuralFeatures().get(11);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getClassifier_CfMap() {
-        return (EReference)classifierEClass.getEStructuralFeatures().get(12);
+        return (EReference) classifierEClass.getEStructuralFeatures().get(12);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getClassifier_Domain() {
-        return (EReference)classifierEClass.getEStructuralFeatures().get(13);
+        return (EReference) classifierEClass.getEStructuralFeatures().get(13);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getClassifier_SimpleDimension() {
-        return (EReference)classifierEClass.getEStructuralFeatures().get(14);
+        return (EReference) classifierEClass.getEStructuralFeatures().get(14);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getClass_() {
@@ -873,17 +862,15 @@ public class CorePackageImpl extends EPackageImpl implements CorePackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getClass_Index() {
-        return (EReference)classEClass.getEStructuralFeatures().get(0);
+        return (EReference) classEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getDataType() {
@@ -891,8 +878,7 @@ public class CorePackageImpl extends EPackageImpl implements CorePackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getPackage() {
@@ -900,26 +886,23 @@ public class CorePackageImpl extends EPackageImpl implements CorePackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getPackage_ImportedElement() {
-        return (EReference)packageEClass.getEStructuralFeatures().get(0);
+        return (EReference) packageEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getPackage_DataManager() {
-        return (EReference)packageEClass.getEStructuralFeatures().get(1);
+        return (EReference) packageEClass.getEStructuralFeatures().get(1);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getSubsystem() {
@@ -927,8 +910,7 @@ public class CorePackageImpl extends EPackageImpl implements CorePackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getModel() {
@@ -936,8 +918,7 @@ public class CorePackageImpl extends EPackageImpl implements CorePackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getFeature() {
@@ -945,53 +926,47 @@ public class CorePackageImpl extends EPackageImpl implements CorePackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getFeature_OwnerScope() {
-        return (EAttribute)featureEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) featureEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getFeature_Owner() {
-        return (EReference)featureEClass.getEStructuralFeatures().get(1);
+        return (EReference) featureEClass.getEStructuralFeatures().get(1);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getFeature_FeatureNode() {
-        return (EReference)featureEClass.getEStructuralFeatures().get(2);
+        return (EReference) featureEClass.getEStructuralFeatures().get(2);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getFeature_FeatureMap() {
-        return (EReference)featureEClass.getEStructuralFeatures().get(3);
+        return (EReference) featureEClass.getEStructuralFeatures().get(3);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getFeature_CfMap() {
-        return (EReference)featureEClass.getEStructuralFeatures().get(4);
+        return (EReference) featureEClass.getEStructuralFeatures().get(4);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getStructuralFeature() {
@@ -999,116 +974,103 @@ public class CorePackageImpl extends EPackageImpl implements CorePackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getStructuralFeature_Changeability() {
-        return (EAttribute)structuralFeatureEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) structuralFeatureEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getStructuralFeature_Multiplicity() {
-        return (EReference)structuralFeatureEClass.getEStructuralFeatures().get(1);
+        return (EReference) structuralFeatureEClass.getEStructuralFeatures().get(1);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getStructuralFeature_Ordering() {
-        return (EAttribute)structuralFeatureEClass.getEStructuralFeatures().get(2);
+        return (EAttribute) structuralFeatureEClass.getEStructuralFeatures().get(2);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getStructuralFeature_TargetScope() {
-        return (EAttribute)structuralFeatureEClass.getEStructuralFeatures().get(3);
+        return (EAttribute) structuralFeatureEClass.getEStructuralFeatures().get(3);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getStructuralFeature_Type() {
-        return (EReference)structuralFeatureEClass.getEStructuralFeatures().get(4);
+        return (EReference) structuralFeatureEClass.getEStructuralFeatures().get(4);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getStructuralFeature_Slot() {
-        return (EReference)structuralFeatureEClass.getEStructuralFeatures().get(5);
+        return (EReference) structuralFeatureEClass.getEStructuralFeatures().get(5);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getStructuralFeature_DiscriminatedUnion() {
-        return (EReference)structuralFeatureEClass.getEStructuralFeatures().get(6);
+        return (EReference) structuralFeatureEClass.getEStructuralFeatures().get(6);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getStructuralFeature_IndexedFeature() {
-        return (EReference)structuralFeatureEClass.getEStructuralFeatures().get(7);
+        return (EReference) structuralFeatureEClass.getEStructuralFeatures().get(7);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getStructuralFeature_KeyRelationship() {
-        return (EReference)structuralFeatureEClass.getEStructuralFeatures().get(8);
+        return (EReference) structuralFeatureEClass.getEStructuralFeatures().get(8);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getStructuralFeature_UniqueKey() {
-        return (EReference)structuralFeatureEClass.getEStructuralFeatures().get(9);
+        return (EReference) structuralFeatureEClass.getEStructuralFeatures().get(9);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getStructuralFeature_DataItem() {
-        return (EReference)structuralFeatureEClass.getEStructuralFeatures().get(10);
+        return (EReference) structuralFeatureEClass.getEStructuralFeatures().get(10);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getStructuralFeature_Remap() {
-        return (EReference)structuralFeatureEClass.getEStructuralFeatures().get(11);
+        return (EReference) structuralFeatureEClass.getEStructuralFeatures().get(11);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getAttribute() {
@@ -1116,17 +1078,15 @@ public class CorePackageImpl extends EPackageImpl implements CorePackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getAttribute_InitialValue() {
-        return (EReference)attributeEClass.getEStructuralFeatures().get(0);
+        return (EReference) attributeEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getConstraint() {
@@ -1134,35 +1094,31 @@ public class CorePackageImpl extends EPackageImpl implements CorePackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getConstraint_Body() {
-        return (EReference)constraintEClass.getEStructuralFeatures().get(0);
+        return (EReference) constraintEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getConstraint_ConstrainedElement() {
-        return (EReference)constraintEClass.getEStructuralFeatures().get(1);
+        return (EReference) constraintEClass.getEStructuralFeatures().get(1);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getConstraint_ConstrainedStereotype() {
-        return (EReference)constraintEClass.getEStructuralFeatures().get(2);
+        return (EReference) constraintEClass.getEStructuralFeatures().get(2);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getDependency() {
@@ -1170,35 +1126,31 @@ public class CorePackageImpl extends EPackageImpl implements CorePackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getDependency_Kind() {
-        return (EAttribute)dependencyEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) dependencyEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getDependency_Client() {
-        return (EReference)dependencyEClass.getEStructuralFeatures().get(1);
+        return (EReference) dependencyEClass.getEStructuralFeatures().get(1);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getDependency_Supplier() {
-        return (EReference)dependencyEClass.getEStructuralFeatures().get(2);
+        return (EReference) dependencyEClass.getEStructuralFeatures().get(2);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getExpression() {
@@ -1206,26 +1158,23 @@ public class CorePackageImpl extends EPackageImpl implements CorePackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getExpression_Body() {
-        return (EAttribute)expressionEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) expressionEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getExpression_Language() {
-        return (EAttribute)expressionEClass.getEStructuralFeatures().get(1);
+        return (EAttribute) expressionEClass.getEStructuralFeatures().get(1);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getBooleanExpression() {
@@ -1233,8 +1182,7 @@ public class CorePackageImpl extends EPackageImpl implements CorePackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getProcedureExpression() {
@@ -1242,8 +1190,7 @@ public class CorePackageImpl extends EPackageImpl implements CorePackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getMultiplicity() {
@@ -1251,17 +1198,15 @@ public class CorePackageImpl extends EPackageImpl implements CorePackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getMultiplicity_Range() {
-        return (EReference)multiplicityEClass.getEStructuralFeatures().get(0);
+        return (EReference) multiplicityEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getMultiplicityRange() {
@@ -1269,35 +1214,31 @@ public class CorePackageImpl extends EPackageImpl implements CorePackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getMultiplicityRange_Lower() {
-        return (EAttribute)multiplicityRangeEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) multiplicityRangeEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getMultiplicityRange_Upper() {
-        return (EAttribute)multiplicityRangeEClass.getEStructuralFeatures().get(1);
+        return (EAttribute) multiplicityRangeEClass.getEStructuralFeatures().get(1);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getMultiplicityRange_Multiplicity() {
-        return (EReference)multiplicityRangeEClass.getEStructuralFeatures().get(2);
+        return (EReference) multiplicityRangeEClass.getEStructuralFeatures().get(2);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getStereotype() {
@@ -1305,44 +1246,39 @@ public class CorePackageImpl extends EPackageImpl implements CorePackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getStereotype_BaseClass() {
-        return (EAttribute)stereotypeEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) stereotypeEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getStereotype_StereotypeConstraint() {
-        return (EReference)stereotypeEClass.getEStructuralFeatures().get(1);
+        return (EReference) stereotypeEClass.getEStructuralFeatures().get(1);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getStereotype_ExtendedElement() {
-        return (EReference)stereotypeEClass.getEStructuralFeatures().get(2);
+        return (EReference) stereotypeEClass.getEStructuralFeatures().get(2);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getStereotype_RequiredTag() {
-        return (EReference)stereotypeEClass.getEStructuralFeatures().get(3);
+        return (EReference) stereotypeEClass.getEStructuralFeatures().get(3);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getTaggedValue() {
@@ -1350,44 +1286,39 @@ public class CorePackageImpl extends EPackageImpl implements CorePackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getTaggedValue_Tag() {
-        return (EAttribute)taggedValueEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) taggedValueEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getTaggedValue_Value() {
-        return (EAttribute)taggedValueEClass.getEStructuralFeatures().get(1);
+        return (EAttribute) taggedValueEClass.getEStructuralFeatures().get(1);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getTaggedValue_Stereotype() {
-        return (EReference)taggedValueEClass.getEStructuralFeatures().get(2);
+        return (EReference) taggedValueEClass.getEStructuralFeatures().get(2);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getTaggedValue_ModelElement() {
-        return (EReference)taggedValueEClass.getEStructuralFeatures().get(3);
+        return (EReference) taggedValueEClass.getEStructuralFeatures().get(3);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EEnum getChangeableKind() {
@@ -1395,8 +1326,7 @@ public class CorePackageImpl extends EPackageImpl implements CorePackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EEnum getOrderingKind() {
@@ -1404,8 +1334,7 @@ public class CorePackageImpl extends EPackageImpl implements CorePackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EEnum getScopeKind() {
@@ -1413,8 +1342,7 @@ public class CorePackageImpl extends EPackageImpl implements CorePackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EEnum getVisibilityKind() {
@@ -1422,8 +1350,7 @@ public class CorePackageImpl extends EPackageImpl implements CorePackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EDataType getAny() {
@@ -1431,8 +1358,7 @@ public class CorePackageImpl extends EPackageImpl implements CorePackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EDataType getBoolean() {
@@ -1440,8 +1366,7 @@ public class CorePackageImpl extends EPackageImpl implements CorePackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EDataType getFloat() {
@@ -1449,8 +1374,7 @@ public class CorePackageImpl extends EPackageImpl implements CorePackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EDataType getInteger() {
@@ -1458,8 +1382,7 @@ public class CorePackageImpl extends EPackageImpl implements CorePackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EDataType getName_() {
@@ -1467,8 +1390,7 @@ public class CorePackageImpl extends EPackageImpl implements CorePackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EDataType getString() {
@@ -1476,8 +1398,7 @@ public class CorePackageImpl extends EPackageImpl implements CorePackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EDataType getTime() {
@@ -1485,8 +1406,7 @@ public class CorePackageImpl extends EPackageImpl implements CorePackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EDataType getUnlimitedInteger() {
@@ -1494,17 +1414,15 @@ public class CorePackageImpl extends EPackageImpl implements CorePackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public CoreFactory getCoreFactory() {
-        return (CoreFactory)getEFactoryInstance();
+        return (CoreFactory) getEFactoryInstance();
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private boolean isCreated = false;
@@ -1517,7 +1435,8 @@ public class CorePackageImpl extends EPackageImpl implements CorePackage {
      * @generated
      */
     public void createPackageContents() {
-        if (isCreated) return;
+        if (isCreated)
+            return;
         isCreated = true;
 
         // Create classes and their features
@@ -1657,21 +1576,21 @@ public class CorePackageImpl extends EPackageImpl implements CorePackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private boolean isInitialized = false;
 
     /**
-     * Complete the initialization of the package and its meta-model.  This
-     * method is guarded to have no affect on any invocation but its first.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Complete the initialization of the package and its meta-model. This
+     * method is guarded to have no affect on any invocation but its first. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void initializePackageContents() {
-        if (isInitialized) return;
+        if (isInitialized)
+            return;
         isInitialized = true;
 
         // Initialize package
@@ -1680,22 +1599,34 @@ public class CorePackageImpl extends EPackageImpl implements CorePackage {
         setNsURI(eNS_URI);
 
         // Obtain other dependent packages
-        BusinessinformationPackage theBusinessinformationPackage = (BusinessinformationPackage)EPackage.Registry.INSTANCE.getEPackage(BusinessinformationPackage.eNS_URI);
-        ExpressionsPackage theExpressionsPackage = (ExpressionsPackage)EPackage.Registry.INSTANCE.getEPackage(ExpressionsPackage.eNS_URI);
-        TransformationPackage theTransformationPackage = (TransformationPackage)EPackage.Registry.INSTANCE.getEPackage(TransformationPackage.eNS_URI);
-        InformationvisualizationPackage theInformationvisualizationPackage = (InformationvisualizationPackage)EPackage.Registry.INSTANCE.getEPackage(InformationvisualizationPackage.eNS_URI);
-        BusinessnomenclaturePackage theBusinessnomenclaturePackage = (BusinessnomenclaturePackage)EPackage.Registry.INSTANCE.getEPackage(BusinessnomenclaturePackage.eNS_URI);
-        WarehouseoperationPackage theWarehouseoperationPackage = (WarehouseoperationPackage)EPackage.Registry.INSTANCE.getEPackage(WarehouseoperationPackage.eNS_URI);
-        DmsiiPackage theDmsiiPackage = (DmsiiPackage)EPackage.Registry.INSTANCE.getEPackage(DmsiiPackage.eNS_URI);
-        BehavioralPackage theBehavioralPackage = (BehavioralPackage)EPackage.Registry.INSTANCE.getEPackage(BehavioralPackage.eNS_URI);
-        RelationshipsPackage theRelationshipsPackage = (RelationshipsPackage)EPackage.Registry.INSTANCE.getEPackage(RelationshipsPackage.eNS_URI);
-        InstancePackage theInstancePackage = (InstancePackage)EPackage.Registry.INSTANCE.getEPackage(InstancePackage.eNS_URI);
-        DatatypesPackage theDatatypesPackage = (DatatypesPackage)EPackage.Registry.INSTANCE.getEPackage(DatatypesPackage.eNS_URI);
-        TypemappingPackage theTypemappingPackage = (TypemappingPackage)EPackage.Registry.INSTANCE.getEPackage(TypemappingPackage.eNS_URI);
-        ErPackage theErPackage = (ErPackage)EPackage.Registry.INSTANCE.getEPackage(ErPackage.eNS_URI);
-        ExpressPackage theExpressPackage = (ExpressPackage)EPackage.Registry.INSTANCE.getEPackage(ExpressPackage.eNS_URI);
-        KeysindexesPackage theKeysindexesPackage = (KeysindexesPackage)EPackage.Registry.INSTANCE.getEPackage(KeysindexesPackage.eNS_URI);
-        SoftwaredeploymentPackage theSoftwaredeploymentPackage = (SoftwaredeploymentPackage)EPackage.Registry.INSTANCE.getEPackage(SoftwaredeploymentPackage.eNS_URI);
+        BusinessinformationPackage theBusinessinformationPackage = (BusinessinformationPackage) EPackage.Registry.INSTANCE
+                .getEPackage(BusinessinformationPackage.eNS_URI);
+        ExpressionsPackage theExpressionsPackage = (ExpressionsPackage) EPackage.Registry.INSTANCE
+                .getEPackage(ExpressionsPackage.eNS_URI);
+        TransformationPackage theTransformationPackage = (TransformationPackage) EPackage.Registry.INSTANCE
+                .getEPackage(TransformationPackage.eNS_URI);
+        InformationvisualizationPackage theInformationvisualizationPackage = (InformationvisualizationPackage) EPackage.Registry.INSTANCE
+                .getEPackage(InformationvisualizationPackage.eNS_URI);
+        BusinessnomenclaturePackage theBusinessnomenclaturePackage = (BusinessnomenclaturePackage) EPackage.Registry.INSTANCE
+                .getEPackage(BusinessnomenclaturePackage.eNS_URI);
+        WarehouseoperationPackage theWarehouseoperationPackage = (WarehouseoperationPackage) EPackage.Registry.INSTANCE
+                .getEPackage(WarehouseoperationPackage.eNS_URI);
+        DmsiiPackage theDmsiiPackage = (DmsiiPackage) EPackage.Registry.INSTANCE.getEPackage(DmsiiPackage.eNS_URI);
+        BehavioralPackage theBehavioralPackage = (BehavioralPackage) EPackage.Registry.INSTANCE
+                .getEPackage(BehavioralPackage.eNS_URI);
+        RelationshipsPackage theRelationshipsPackage = (RelationshipsPackage) EPackage.Registry.INSTANCE
+                .getEPackage(RelationshipsPackage.eNS_URI);
+        InstancePackage theInstancePackage = (InstancePackage) EPackage.Registry.INSTANCE.getEPackage(InstancePackage.eNS_URI);
+        DatatypesPackage theDatatypesPackage = (DatatypesPackage) EPackage.Registry.INSTANCE
+                .getEPackage(DatatypesPackage.eNS_URI);
+        TypemappingPackage theTypemappingPackage = (TypemappingPackage) EPackage.Registry.INSTANCE
+                .getEPackage(TypemappingPackage.eNS_URI);
+        ErPackage theErPackage = (ErPackage) EPackage.Registry.INSTANCE.getEPackage(ErPackage.eNS_URI);
+        ExpressPackage theExpressPackage = (ExpressPackage) EPackage.Registry.INSTANCE.getEPackage(ExpressPackage.eNS_URI);
+        KeysindexesPackage theKeysindexesPackage = (KeysindexesPackage) EPackage.Registry.INSTANCE
+                .getEPackage(KeysindexesPackage.eNS_URI);
+        SoftwaredeploymentPackage theSoftwaredeploymentPackage = (SoftwaredeploymentPackage) EPackage.Registry.INSTANCE
+                .getEPackage(SoftwaredeploymentPackage.eNS_URI);
 
         // Create type parameters
 
@@ -1727,121 +1658,294 @@ public class CorePackageImpl extends EPackageImpl implements CorePackage {
         // Initialize classes and features; add operations and parameters
         initEClass(elementEClass, Element.class, "Element", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-        initEClass(modelElementEClass, ModelElement.class, "ModelElement", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getModelElement_Name(), this.getName_(), "name", null, 0, 1, ModelElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getModelElement_Visibility(), this.getVisibilityKind(), "visibility", null, 0, 1, ModelElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getModelElement_ClientDependency(), this.getDependency(), this.getDependency_Client(), "clientDependency", null, 0, -1, ModelElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getModelElement_SupplierDependency(), this.getDependency(), this.getDependency_Supplier(), "supplierDependency", null, 0, -1, ModelElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getModelElement_Constraint(), this.getConstraint(), this.getConstraint_ConstrainedElement(), "constraint", null, 0, -1, ModelElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getModelElement_Namespace(), this.getNamespace(), this.getNamespace_OwnedElement(), "namespace", null, 0, 1, ModelElement.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getModelElement_Importer(), this.getPackage(), this.getPackage_ImportedElement(), "importer", null, 0, -1, ModelElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getModelElement_Stereotype(), this.getStereotype(), this.getStereotype_ExtendedElement(), "stereotype", null, 0, 1, ModelElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getModelElement_TaggedValue(), this.getTaggedValue(), this.getTaggedValue_ModelElement(), "taggedValue", null, 0, -1, ModelElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getModelElement_Document(), theBusinessinformationPackage.getDocument(), theBusinessinformationPackage.getDocument_ModelElement(), "document", null, 0, -1, ModelElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getModelElement_Description(), theBusinessinformationPackage.getDescription(), theBusinessinformationPackage.getDescription_ModelElement(), "description", null, 0, -1, ModelElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getModelElement_ResponsibleParty(), theBusinessinformationPackage.getResponsibleParty(), theBusinessinformationPackage.getResponsibleParty_ModelElement(), "responsibleParty", null, 0, -1, ModelElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getModelElement_ElementNode(), theExpressionsPackage.getElementNode(), theExpressionsPackage.getElementNode_ModelElement(), "elementNode", null, 0, -1, ModelElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getModelElement_Set(), theTransformationPackage.getDataObjectSet(), theTransformationPackage.getDataObjectSet_Element(), "set", null, 0, -1, ModelElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getModelElement_RenderedObject(), theInformationvisualizationPackage.getRenderedObject(), theInformationvisualizationPackage.getRenderedObject_ModelElement(), "renderedObject", null, 0, -1, ModelElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getModelElement_VocabularyElement(), theBusinessnomenclaturePackage.getVocabularyElement(), theBusinessnomenclaturePackage.getVocabularyElement_ModelElement(), "vocabularyElement", null, 0, -1, ModelElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getModelElement_Measurement(), theWarehouseoperationPackage.getMeasurement(), theWarehouseoperationPackage.getMeasurement_ModelElement(), "measurement", null, 0, -1, ModelElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getModelElement_ChangeRequest(), theWarehouseoperationPackage.getChangeRequest(), theWarehouseoperationPackage.getChangeRequest_ModelElement(), "changeRequest", null, 0, -1, ModelElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getModelElement_DasdlProperty(), theDmsiiPackage.getDASDLProperty(), theDmsiiPackage.getDASDLProperty_Owner(), "dasdlProperty", null, 0, -1, ModelElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(modelElementEClass, ModelElement.class, "ModelElement", IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getModelElement_Name(), this.getName_(), "name", null, 0, 1, ModelElement.class, !IS_TRANSIENT,
+                !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getModelElement_Visibility(), this.getVisibilityKind(), "visibility", null, 0, 1, ModelElement.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getModelElement_ClientDependency(), this.getDependency(), this.getDependency_Client(), "clientDependency",
+                null, 0, -1, ModelElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getModelElement_SupplierDependency(), this.getDependency(), this.getDependency_Supplier(),
+                "supplierDependency", null, 0, -1, ModelElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+                IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getModelElement_Constraint(), this.getConstraint(), this.getConstraint_ConstrainedElement(), "constraint",
+                null, 0, -1, ModelElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getModelElement_Namespace(), this.getNamespace(), this.getNamespace_OwnedElement(), "namespace", null, 0,
+                1, ModelElement.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getModelElement_Importer(), this.getPackage(), this.getPackage_ImportedElement(), "importer", null, 0, -1,
+                ModelElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getModelElement_Stereotype(), this.getStereotype(), this.getStereotype_ExtendedElement(), "stereotype",
+                null, 0, 1, ModelElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getModelElement_TaggedValue(), this.getTaggedValue(), this.getTaggedValue_ModelElement(), "taggedValue",
+                null, 0, -1, ModelElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getModelElement_Document(), theBusinessinformationPackage.getDocument(),
+                theBusinessinformationPackage.getDocument_ModelElement(), "document", null, 0, -1, ModelElement.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEReference(getModelElement_Description(), theBusinessinformationPackage.getDescription(),
+                theBusinessinformationPackage.getDescription_ModelElement(), "description", null, 0, -1, ModelElement.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEReference(getModelElement_ResponsibleParty(), theBusinessinformationPackage.getResponsibleParty(),
+                theBusinessinformationPackage.getResponsibleParty_ModelElement(), "responsibleParty", null, 0, -1,
+                ModelElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getModelElement_ElementNode(), theExpressionsPackage.getElementNode(),
+                theExpressionsPackage.getElementNode_ModelElement(), "elementNode", null, 0, -1, ModelElement.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEReference(getModelElement_Set(), theTransformationPackage.getDataObjectSet(),
+                theTransformationPackage.getDataObjectSet_Element(), "set", null, 0, -1, ModelElement.class, !IS_TRANSIENT,
+                !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
+        initEReference(getModelElement_RenderedObject(), theInformationvisualizationPackage.getRenderedObject(),
+                theInformationvisualizationPackage.getRenderedObject_ModelElement(), "renderedObject", null, 0, -1,
+                ModelElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getModelElement_VocabularyElement(), theBusinessnomenclaturePackage.getVocabularyElement(),
+                theBusinessnomenclaturePackage.getVocabularyElement_ModelElement(), "vocabularyElement", null, 0, -1,
+                ModelElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getModelElement_Measurement(), theWarehouseoperationPackage.getMeasurement(),
+                theWarehouseoperationPackage.getMeasurement_ModelElement(), "measurement", null, 0, -1, ModelElement.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEReference(getModelElement_ChangeRequest(), theWarehouseoperationPackage.getChangeRequest(),
+                theWarehouseoperationPackage.getChangeRequest_ModelElement(), "changeRequest", null, 0, -1, ModelElement.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEReference(getModelElement_DasdlProperty(), theDmsiiPackage.getDASDLProperty(),
+                theDmsiiPackage.getDASDLProperty_Owner(), "dasdlProperty", null, 0, -1, ModelElement.class, !IS_TRANSIENT,
+                !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
 
         initEClass(namespaceEClass, Namespace.class, "Namespace", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getNamespace_OwnedElement(), this.getModelElement(), this.getModelElement_Namespace(), "ownedElement", null, 0, -1, Namespace.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getNamespace_OwnedElement(), this.getModelElement(), this.getModelElement_Namespace(), "ownedElement",
+                null, 0, -1, Namespace.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(classifierEClass, Classifier.class, "Classifier", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getClassifier_IsAbstract(), this.getBoolean(), "isAbstract", null, 0, 1, Classifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getClassifier_Feature(), this.getFeature(), this.getFeature_Owner(), "feature", null, 0, -1, Classifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getClassifier_StructuralFeature(), this.getStructuralFeature(), this.getStructuralFeature_Type(), "structuralFeature", null, 0, -1, Classifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getClassifier_Parameter(), theBehavioralPackage.getParameter(), theBehavioralPackage.getParameter_Type(), "parameter", null, 0, -1, Classifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getClassifier_Generalization(), theRelationshipsPackage.getGeneralization(), theRelationshipsPackage.getGeneralization_Child(), "generalization", null, 0, -1, Classifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getClassifier_Specialization(), theRelationshipsPackage.getGeneralization(), theRelationshipsPackage.getGeneralization_Parent(), "specialization", null, 0, -1, Classifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getClassifier_Instance(), theInstancePackage.getInstance(), theInstancePackage.getInstance_Classifier(), "instance", null, 0, -1, Classifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getClassifier_Alias(), theDatatypesPackage.getTypeAlias(), theDatatypesPackage.getTypeAlias_Type(), "alias", null, 0, -1, Classifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getClassifier_ExpressionNode(), theExpressionsPackage.getExpressionNode(), theExpressionsPackage.getExpressionNode_Type(), "expressionNode", null, 0, -1, Classifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getClassifier_MappingFrom(), theTypemappingPackage.getTypeMapping(), theTypemappingPackage.getTypeMapping_SourceType(), "mappingFrom", null, 0, -1, Classifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getClassifier_MappingTo(), theTypemappingPackage.getTypeMapping(), theTypemappingPackage.getTypeMapping_TargetType(), "mappingTo", null, 0, -1, Classifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getClassifier_ClassifierMap(), theTransformationPackage.getClassifierMap(), theTransformationPackage.getClassifierMap_Source(), "classifierMap", null, 0, -1, Classifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getClassifier_CfMap(), theTransformationPackage.getClassifierFeatureMap(), theTransformationPackage.getClassifierFeatureMap_Classifier(), "cfMap", null, 0, -1, Classifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getClassifier_Domain(), theErPackage.getDomain(), theErPackage.getDomain_BaseType(), "domain", null, 0, -1, Classifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getClassifier_SimpleDimension(), theExpressPackage.getSimpleDimension(), theExpressPackage.getSimpleDimension_DataType(), "simpleDimension", null, 0, -1, Classifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getClassifier_IsAbstract(), this.getBoolean(), "isAbstract", null, 0, 1, Classifier.class, !IS_TRANSIENT,
+                !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getClassifier_Feature(), this.getFeature(), this.getFeature_Owner(), "feature", null, 0, -1,
+                Classifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+                IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getClassifier_StructuralFeature(), this.getStructuralFeature(), this.getStructuralFeature_Type(),
+                "structuralFeature", null, 0, -1, Classifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+                IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getClassifier_Parameter(), theBehavioralPackage.getParameter(), theBehavioralPackage.getParameter_Type(),
+                "parameter", null, 0, -1, Classifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+                IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getClassifier_Generalization(), theRelationshipsPackage.getGeneralization(),
+                theRelationshipsPackage.getGeneralization_Child(), "generalization", null, 0, -1, Classifier.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEReference(getClassifier_Specialization(), theRelationshipsPackage.getGeneralization(),
+                theRelationshipsPackage.getGeneralization_Parent(), "specialization", null, 0, -1, Classifier.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEReference(getClassifier_Instance(), theInstancePackage.getInstance(), theInstancePackage.getInstance_Classifier(),
+                "instance", null, 0, -1, Classifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+                IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getClassifier_Alias(), theDatatypesPackage.getTypeAlias(), theDatatypesPackage.getTypeAlias_Type(),
+                "alias", null, 0, -1, Classifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+                IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getClassifier_ExpressionNode(), theExpressionsPackage.getExpressionNode(),
+                theExpressionsPackage.getExpressionNode_Type(), "expressionNode", null, 0, -1, Classifier.class, !IS_TRANSIENT,
+                !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
+        initEReference(getClassifier_MappingFrom(), theTypemappingPackage.getTypeMapping(),
+                theTypemappingPackage.getTypeMapping_SourceType(), "mappingFrom", null, 0, -1, Classifier.class, !IS_TRANSIENT,
+                !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
+        initEReference(getClassifier_MappingTo(), theTypemappingPackage.getTypeMapping(),
+                theTypemappingPackage.getTypeMapping_TargetType(), "mappingTo", null, 0, -1, Classifier.class, !IS_TRANSIENT,
+                !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
+        initEReference(getClassifier_ClassifierMap(), theTransformationPackage.getClassifierMap(),
+                theTransformationPackage.getClassifierMap_Source(), "classifierMap", null, 0, -1, Classifier.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEReference(getClassifier_CfMap(), theTransformationPackage.getClassifierFeatureMap(),
+                theTransformationPackage.getClassifierFeatureMap_Classifier(), "cfMap", null, 0, -1, Classifier.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEReference(getClassifier_Domain(), theErPackage.getDomain(), theErPackage.getDomain_BaseType(), "domain", null, 0,
+                -1, Classifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getClassifier_SimpleDimension(), theExpressPackage.getSimpleDimension(),
+                theExpressPackage.getSimpleDimension_DataType(), "simpleDimension", null, 0, -1, Classifier.class, !IS_TRANSIENT,
+                !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
 
-        initEClass(classEClass, orgomg.cwm.objectmodel.core.Class.class, "Class", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getClass_Index(), theKeysindexesPackage.getIndex(), theKeysindexesPackage.getIndex_SpannedClass(), "index", null, 0, -1, orgomg.cwm.objectmodel.core.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(classEClass, orgomg.cwm.objectmodel.core.Class.class, "Class", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getClass_Index(), theKeysindexesPackage.getIndex(), theKeysindexesPackage.getIndex_SpannedClass(),
+                "index", null, 0, -1, orgomg.cwm.objectmodel.core.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+                !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(dataTypeEClass, DataType.class, "DataType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-        initEClass(packageEClass, orgomg.cwm.objectmodel.core.Package.class, "Package", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getPackage_ImportedElement(), this.getModelElement(), this.getModelElement_Importer(), "importedElement", null, 0, -1, orgomg.cwm.objectmodel.core.Package.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getPackage_DataManager(), theSoftwaredeploymentPackage.getDataManager(), theSoftwaredeploymentPackage.getDataManager_DataPackage(), "dataManager", null, 0, -1, orgomg.cwm.objectmodel.core.Package.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(packageEClass, orgomg.cwm.objectmodel.core.Package.class, "Package", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getPackage_ImportedElement(), this.getModelElement(), this.getModelElement_Importer(), "importedElement",
+                null, 0, -1, orgomg.cwm.objectmodel.core.Package.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+                !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getPackage_DataManager(), theSoftwaredeploymentPackage.getDataManager(),
+                theSoftwaredeploymentPackage.getDataManager_DataPackage(), "dataManager", null, 0, -1,
+                orgomg.cwm.objectmodel.core.Package.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+                IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(subsystemEClass, Subsystem.class, "Subsystem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(modelEClass, Model.class, "Model", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(featureEClass, Feature.class, "Feature", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getFeature_OwnerScope(), this.getScopeKind(), "ownerScope", null, 0, 1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getFeature_Owner(), this.getClassifier(), this.getClassifier_Feature(), "owner", null, 0, 1, Feature.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getFeature_FeatureNode(), theExpressionsPackage.getFeatureNode(), theExpressionsPackage.getFeatureNode_Feature(), "featureNode", null, 0, -1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getFeature_FeatureMap(), theTransformationPackage.getFeatureMap(), theTransformationPackage.getFeatureMap_Target(), "featureMap", null, 0, -1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getFeature_CfMap(), theTransformationPackage.getClassifierFeatureMap(), theTransformationPackage.getClassifierFeatureMap_Feature(), "cfMap", null, 0, -1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFeature_OwnerScope(), this.getScopeKind(), "ownerScope", null, 0, 1, Feature.class, !IS_TRANSIENT,
+                !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getFeature_Owner(), this.getClassifier(), this.getClassifier_Feature(), "owner", null, 0, 1,
+                Feature.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+                IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getFeature_FeatureNode(), theExpressionsPackage.getFeatureNode(),
+                theExpressionsPackage.getFeatureNode_Feature(), "featureNode", null, 0, -1, Feature.class, !IS_TRANSIENT,
+                !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
+        initEReference(getFeature_FeatureMap(), theTransformationPackage.getFeatureMap(),
+                theTransformationPackage.getFeatureMap_Target(), "featureMap", null, 0, -1, Feature.class, !IS_TRANSIENT,
+                !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
+        initEReference(getFeature_CfMap(), theTransformationPackage.getClassifierFeatureMap(),
+                theTransformationPackage.getClassifierFeatureMap_Feature(), "cfMap", null, 0, -1, Feature.class, !IS_TRANSIENT,
+                !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
 
-        initEClass(structuralFeatureEClass, StructuralFeature.class, "StructuralFeature", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getStructuralFeature_Changeability(), this.getChangeableKind(), "changeability", null, 0, 1, StructuralFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getStructuralFeature_Multiplicity(), this.getMultiplicity(), null, "multiplicity", null, 0, 1, StructuralFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getStructuralFeature_Ordering(), this.getOrderingKind(), "ordering", null, 0, 1, StructuralFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getStructuralFeature_TargetScope(), this.getScopeKind(), "targetScope", null, 0, 1, StructuralFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getStructuralFeature_Type(), this.getClassifier(), this.getClassifier_StructuralFeature(), "type", null, 1, 1, StructuralFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getStructuralFeature_Slot(), theInstancePackage.getSlot(), theInstancePackage.getSlot_Feature(), "slot", null, 0, -1, StructuralFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getStructuralFeature_DiscriminatedUnion(), theDatatypesPackage.getUnion(), theDatatypesPackage.getUnion_Discriminator(), "discriminatedUnion", null, 0, -1, StructuralFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getStructuralFeature_IndexedFeature(), theKeysindexesPackage.getIndexedFeature(), theKeysindexesPackage.getIndexedFeature_Feature(), "indexedFeature", null, 0, -1, StructuralFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getStructuralFeature_KeyRelationship(), theKeysindexesPackage.getKeyRelationship(), theKeysindexesPackage.getKeyRelationship_Feature(), "keyRelationship", null, 0, -1, StructuralFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getStructuralFeature_UniqueKey(), theKeysindexesPackage.getUniqueKey(), theKeysindexesPackage.getUniqueKey_Feature(), "uniqueKey", null, 0, -1, StructuralFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getStructuralFeature_DataItem(), theDmsiiPackage.getDataItem(), theDmsiiPackage.getDataItem_Structure(), "dataItem", null, 0, -1, StructuralFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getStructuralFeature_Remap(), theDmsiiPackage.getRemap(), theDmsiiPackage.getRemap_Structure(), "remap", null, 0, -1, StructuralFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(structuralFeatureEClass, StructuralFeature.class, "StructuralFeature", IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getStructuralFeature_Changeability(), this.getChangeableKind(), "changeability", null, 0, 1,
+                StructuralFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEReference(getStructuralFeature_Multiplicity(), this.getMultiplicity(), null, "multiplicity", null, 0, 1,
+                StructuralFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getStructuralFeature_Ordering(), this.getOrderingKind(), "ordering", null, 0, 1, StructuralFeature.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getStructuralFeature_TargetScope(), this.getScopeKind(), "targetScope", null, 0, 1,
+                StructuralFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEReference(getStructuralFeature_Type(), this.getClassifier(), this.getClassifier_StructuralFeature(), "type", null,
+                1, 1, StructuralFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getStructuralFeature_Slot(), theInstancePackage.getSlot(), theInstancePackage.getSlot_Feature(), "slot",
+                null, 0, -1, StructuralFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+                IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getStructuralFeature_DiscriminatedUnion(), theDatatypesPackage.getUnion(),
+                theDatatypesPackage.getUnion_Discriminator(), "discriminatedUnion", null, 0, -1, StructuralFeature.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEReference(getStructuralFeature_IndexedFeature(), theKeysindexesPackage.getIndexedFeature(),
+                theKeysindexesPackage.getIndexedFeature_Feature(), "indexedFeature", null, 0, -1, StructuralFeature.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEReference(getStructuralFeature_KeyRelationship(), theKeysindexesPackage.getKeyRelationship(),
+                theKeysindexesPackage.getKeyRelationship_Feature(), "keyRelationship", null, 0, -1, StructuralFeature.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEReference(getStructuralFeature_UniqueKey(), theKeysindexesPackage.getUniqueKey(),
+                theKeysindexesPackage.getUniqueKey_Feature(), "uniqueKey", null, 0, -1, StructuralFeature.class, !IS_TRANSIENT,
+                !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
+        initEReference(getStructuralFeature_DataItem(), theDmsiiPackage.getDataItem(), theDmsiiPackage.getDataItem_Structure(),
+                "dataItem", null, 0, -1, StructuralFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+                IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getStructuralFeature_Remap(), theDmsiiPackage.getRemap(), theDmsiiPackage.getRemap_Structure(), "remap",
+                null, 0, -1, StructuralFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+                IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(attributeEClass, Attribute.class, "Attribute", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getAttribute_InitialValue(), this.getExpression(), null, "initialValue", null, 0, 1, Attribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getAttribute_InitialValue(), this.getExpression(), null, "initialValue", null, 0, 1, Attribute.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
 
         initEClass(constraintEClass, Constraint.class, "Constraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getConstraint_Body(), this.getBooleanExpression(), null, "body", null, 0, 1, Constraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getConstraint_ConstrainedElement(), this.getModelElement(), this.getModelElement_Constraint(), "constrainedElement", null, 0, -1, Constraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getConstraint_ConstrainedStereotype(), this.getStereotype(), this.getStereotype_StereotypeConstraint(), "constrainedStereotype", null, 0, 1, Constraint.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getConstraint_Body(), this.getBooleanExpression(), null, "body", null, 0, 1, Constraint.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEReference(getConstraint_ConstrainedElement(), this.getModelElement(), this.getModelElement_Constraint(),
+                "constrainedElement", null, 0, -1, Constraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+                IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getConstraint_ConstrainedStereotype(), this.getStereotype(), this.getStereotype_StereotypeConstraint(),
+                "constrainedStereotype", null, 0, 1, Constraint.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+                !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(dependencyEClass, Dependency.class, "Dependency", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getDependency_Kind(), this.getString(), "kind", null, 0, 1, Dependency.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getDependency_Client(), this.getModelElement(), this.getModelElement_ClientDependency(), "client", null, 1, -1, Dependency.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getDependency_Supplier(), this.getModelElement(), this.getModelElement_SupplierDependency(), "supplier", null, 1, -1, Dependency.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getDependency_Kind(), this.getString(), "kind", null, 0, 1, Dependency.class, !IS_TRANSIENT, !IS_VOLATILE,
+                IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getDependency_Client(), this.getModelElement(), this.getModelElement_ClientDependency(), "client", null,
+                1, -1, Dependency.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getDependency_Supplier(), this.getModelElement(), this.getModelElement_SupplierDependency(), "supplier",
+                null, 1, -1, Dependency.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(expressionEClass, Expression.class, "Expression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getExpression_Body(), this.getString(), "body", null, 0, 1, Expression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getExpression_Language(), this.getName_(), "language", null, 0, 1, Expression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExpression_Body(), this.getString(), "body", null, 0, 1, Expression.class, !IS_TRANSIENT, !IS_VOLATILE,
+                IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExpression_Language(), this.getName_(), "language", null, 0, 1, Expression.class, !IS_TRANSIENT,
+                !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-        initEClass(booleanExpressionEClass, BooleanExpression.class, "BooleanExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEClass(booleanExpressionEClass, BooleanExpression.class, "BooleanExpression", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
 
-        initEClass(procedureExpressionEClass, ProcedureExpression.class, "ProcedureExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEClass(procedureExpressionEClass, ProcedureExpression.class, "ProcedureExpression", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
 
-        initEClass(multiplicityEClass, Multiplicity.class, "Multiplicity", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getMultiplicity_Range(), this.getMultiplicityRange(), this.getMultiplicityRange_Multiplicity(), "range", null, 1, -1, Multiplicity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(multiplicityEClass, Multiplicity.class, "Multiplicity", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getMultiplicity_Range(), this.getMultiplicityRange(), this.getMultiplicityRange_Multiplicity(), "range",
+                null, 1, -1, Multiplicity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-        initEClass(multiplicityRangeEClass, MultiplicityRange.class, "MultiplicityRange", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getMultiplicityRange_Lower(), this.getInteger(), "lower", null, 0, 1, MultiplicityRange.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getMultiplicityRange_Upper(), this.getUnlimitedInteger(), "upper", null, 0, 1, MultiplicityRange.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getMultiplicityRange_Multiplicity(), this.getMultiplicity(), this.getMultiplicity_Range(), "multiplicity", null, 1, 1, MultiplicityRange.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(multiplicityRangeEClass, MultiplicityRange.class, "MultiplicityRange", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getMultiplicityRange_Lower(), this.getInteger(), "lower", null, 0, 1, MultiplicityRange.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getMultiplicityRange_Upper(), this.getUnlimitedInteger(), "upper", null, 0, 1, MultiplicityRange.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getMultiplicityRange_Multiplicity(), this.getMultiplicity(), this.getMultiplicity_Range(), "multiplicity",
+                null, 1, 1, MultiplicityRange.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+                !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(stereotypeEClass, Stereotype.class, "Stereotype", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getStereotype_BaseClass(), this.getName_(), "baseClass", null, 0, 1, Stereotype.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getStereotype_StereotypeConstraint(), this.getConstraint(), this.getConstraint_ConstrainedStereotype(), "stereotypeConstraint", null, 0, -1, Stereotype.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getStereotype_ExtendedElement(), this.getModelElement(), this.getModelElement_Stereotype(), "extendedElement", null, 0, -1, Stereotype.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getStereotype_RequiredTag(), this.getTaggedValue(), this.getTaggedValue_Stereotype(), "requiredTag", null, 0, -1, Stereotype.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getStereotype_BaseClass(), this.getName_(), "baseClass", null, 0, 1, Stereotype.class, !IS_TRANSIENT,
+                !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getStereotype_StereotypeConstraint(), this.getConstraint(), this.getConstraint_ConstrainedStereotype(),
+                "stereotypeConstraint", null, 0, -1, Stereotype.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+                !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getStereotype_ExtendedElement(), this.getModelElement(), this.getModelElement_Stereotype(),
+                "extendedElement", null, 0, -1, Stereotype.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+                IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getStereotype_RequiredTag(), this.getTaggedValue(), this.getTaggedValue_Stereotype(), "requiredTag", null,
+                0, -1, Stereotype.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(taggedValueEClass, TaggedValue.class, "TaggedValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getTaggedValue_Tag(), this.getName_(), "tag", null, 0, 1, TaggedValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getTaggedValue_Value(), this.getString(), "value", null, 0, 1, TaggedValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getTaggedValue_Stereotype(), this.getStereotype(), this.getStereotype_RequiredTag(), "stereotype", null, 0, 1, TaggedValue.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getTaggedValue_ModelElement(), this.getModelElement(), this.getModelElement_TaggedValue(), "modelElement", null, 0, 1, TaggedValue.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getTaggedValue_Tag(), this.getName_(), "tag", null, 0, 1, TaggedValue.class, !IS_TRANSIENT, !IS_VOLATILE,
+                IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getTaggedValue_Value(), this.getString(), "value", null, 0, 1, TaggedValue.class, !IS_TRANSIENT,
+                !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getTaggedValue_Stereotype(), this.getStereotype(), this.getStereotype_RequiredTag(), "stereotype", null,
+                0, 1, TaggedValue.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getTaggedValue_ModelElement(), this.getModelElement(), this.getModelElement_TaggedValue(), "modelElement",
+                null, 0, 1, TaggedValue.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Initialize enums and add enum literals
         initEEnum(changeableKindEEnum, ChangeableKind.class, "ChangeableKind");
@@ -1884,26 +1988,14 @@ public class CorePackageImpl extends EPackageImpl implements CorePackage {
 
     /**
      * Initializes the annotations for <b>htttp://talend.org/UiConstraints</b>.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected void createUiConstraintsAnnotations() {
-        String source = "htttp://talend.org/UiConstraints";						
-        addAnnotation
-          (getModelElement_Name(), 
-           source, 
-           new String[] {
-             "string.max.size", "255"
-           });										
-        addAnnotation
-          (getModelElement_TaggedValue(), 
-           source, 
-           new String[] {
-             "string.max.size.Description", "1000",
-             "string.max.size.Purpose", "255",
-             "string.max.size.Author", "255"
-           });																																																																																																													
+        String source = "htttp://talend.org/UiConstraints";
+        addAnnotation(getModelElement_Name(), source, new String[] { "string.max.size", "255" });
+        addAnnotation(getModelElement_TaggedValue(), source, new String[] { "string.max.size.Description", "1000",
+                "string.max.size.Purpose", "255", "string.max.size.Author", "255" });
     }
 
-} //CorePackageImpl
+} // CorePackageImpl

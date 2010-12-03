@@ -1,16 +1,13 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.objectmodel.core;
 
-
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Expression</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Expression</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * In the metamodel an Expression defines a statement which will evaluate to a (possibly empty) set of instances when executed in a context. An Expression does not modify the environment in which it is evaluated. An expression contains an expression string and the name of an interpretation language with which to evaluate the string.
@@ -29,13 +26,13 @@ package orgomg.cwm.objectmodel.core;
  * @generated
  */
 public interface Expression extends Element {
+
     /**
-     * Returns the value of the '<em><b>Body</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The text of the expression expressed in the given language.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Body</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> The
+     * text of the expression expressed in the given language. <!--
+     * end-model-doc -->
+     * 
      * @return the value of the '<em>Body</em>' attribute.
      * @see #setBody(String)
      * @see orgomg.cwm.objectmodel.core.CorePackage#getExpression_Body()
@@ -46,8 +43,7 @@ public interface Expression extends Element {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.objectmodel.core.Expression#getBody <em>Body</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Body</em>' attribute.
      * @see #getBody()
      * @generated
@@ -55,12 +51,16 @@ public interface Expression extends Element {
     void setBody(String value);
 
     /**
-     * Returns the value of the '<em><b>Language</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Names the language in which the expression body is represented. The interpretation of the expression depends on the language. If the language name is omitted, no interpretation for the expression can be assumed. In general, a language name should be spelled and capitalized exactly as it appears in the document defining the language. For example, use COBOL, not Cobol; use Ada, not ADA; use PostScript, not Postscript.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Language</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> Names
+     * the language in which the expression body is represented. The
+     * interpretation of the expression depends on the language. If the language
+     * name is omitted, no interpretation for the expression can be assumed. In
+     * general, a language name should be spelled and capitalized exactly as it
+     * appears in the document defining the language. For example, use COBOL,
+     * not Cobol; use Ada, not ADA; use PostScript, not Postscript. <!--
+     * end-model-doc -->
+     * 
      * @return the value of the '<em>Language</em>' attribute.
      * @see #setLanguage(String)
      * @see orgomg.cwm.objectmodel.core.CorePackage#getExpression_Language()
@@ -70,10 +70,13 @@ public interface Expression extends Element {
     String getLanguage();
 
     /**
-     * Sets the value of the '{@link orgomg.cwm.objectmodel.core.Expression#getLanguage <em>Language</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Language</em>' attribute.
+     * Sets the value of the '
+     * {@link orgomg.cwm.objectmodel.core.Expression#getLanguage
+     * <em>Language</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @param value
+     *            the new value of the '<em>Language</em>' attribute.
      * @see #getLanguage()
      * @generated
      */

@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.management.warehouseprocess.events.impl;
@@ -15,9 +14,8 @@ import orgomg.cwm.management.warehouseprocess.events.EventsPackage;
 import orgomg.cwm.management.warehouseprocess.events.RecurringPointInTimeEvent;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Recurring Point In Time Event</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Recurring Point In Time Event</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -35,10 +33,11 @@ import orgomg.cwm.management.warehouseprocess.events.RecurringPointInTimeEvent;
  * @generated
  */
 public class RecurringPointInTimeEventImpl extends PointInTimeEventImpl implements RecurringPointInTimeEvent {
+
     /**
      * The default value of the '{@link #getRecurringType() <em>Recurring Type</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getRecurringType()
      * @generated
      * @ordered
@@ -47,8 +46,8 @@ public class RecurringPointInTimeEventImpl extends PointInTimeEventImpl implemen
 
     /**
      * The cached value of the '{@link #getRecurringType() <em>Recurring Type</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getRecurringType()
      * @generated
      * @ordered
@@ -57,8 +56,8 @@ public class RecurringPointInTimeEventImpl extends PointInTimeEventImpl implemen
 
     /**
      * The default value of the '{@link #getFrequencyFactor() <em>Frequency Factor</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getFrequencyFactor()
      * @generated
      * @ordered
@@ -67,8 +66,8 @@ public class RecurringPointInTimeEventImpl extends PointInTimeEventImpl implemen
 
     /**
      * The cached value of the '{@link #getFrequencyFactor() <em>Frequency Factor</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getFrequencyFactor()
      * @generated
      * @ordered
@@ -77,8 +76,7 @@ public class RecurringPointInTimeEventImpl extends PointInTimeEventImpl implemen
 
     /**
      * The default value of the '{@link #getMonth() <em>Month</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getMonth()
      * @generated
      * @ordered
@@ -87,8 +85,7 @@ public class RecurringPointInTimeEventImpl extends PointInTimeEventImpl implemen
 
     /**
      * The cached value of the '{@link #getMonth() <em>Month</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getMonth()
      * @generated
      * @ordered
@@ -97,8 +94,7 @@ public class RecurringPointInTimeEventImpl extends PointInTimeEventImpl implemen
 
     /**
      * The default value of the '{@link #getDayOfMonth() <em>Day Of Month</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getDayOfMonth()
      * @generated
      * @ordered
@@ -107,8 +103,7 @@ public class RecurringPointInTimeEventImpl extends PointInTimeEventImpl implemen
 
     /**
      * The cached value of the '{@link #getDayOfMonth() <em>Day Of Month</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getDayOfMonth()
      * @generated
      * @ordered
@@ -117,8 +112,7 @@ public class RecurringPointInTimeEventImpl extends PointInTimeEventImpl implemen
 
     /**
      * The default value of the '{@link #getDayOfWeek() <em>Day Of Week</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getDayOfWeek()
      * @generated
      * @ordered
@@ -127,8 +121,7 @@ public class RecurringPointInTimeEventImpl extends PointInTimeEventImpl implemen
 
     /**
      * The cached value of the '{@link #getDayOfWeek() <em>Day Of Week</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getDayOfWeek()
      * @generated
      * @ordered
@@ -137,8 +130,7 @@ public class RecurringPointInTimeEventImpl extends PointInTimeEventImpl implemen
 
     /**
      * The default value of the '{@link #getHour() <em>Hour</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getHour()
      * @generated
      * @ordered
@@ -147,8 +139,7 @@ public class RecurringPointInTimeEventImpl extends PointInTimeEventImpl implemen
 
     /**
      * The cached value of the '{@link #getHour() <em>Hour</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getHour()
      * @generated
      * @ordered
@@ -157,8 +148,7 @@ public class RecurringPointInTimeEventImpl extends PointInTimeEventImpl implemen
 
     /**
      * The default value of the '{@link #getMinute() <em>Minute</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getMinute()
      * @generated
      * @ordered
@@ -167,8 +157,7 @@ public class RecurringPointInTimeEventImpl extends PointInTimeEventImpl implemen
 
     /**
      * The cached value of the '{@link #getMinute() <em>Minute</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getMinute()
      * @generated
      * @ordered
@@ -177,8 +166,7 @@ public class RecurringPointInTimeEventImpl extends PointInTimeEventImpl implemen
 
     /**
      * The default value of the '{@link #getSecond() <em>Second</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getSecond()
      * @generated
      * @ordered
@@ -187,8 +175,7 @@ public class RecurringPointInTimeEventImpl extends PointInTimeEventImpl implemen
 
     /**
      * The cached value of the '{@link #getSecond() <em>Second</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getSecond()
      * @generated
      * @ordered
@@ -196,8 +183,7 @@ public class RecurringPointInTimeEventImpl extends PointInTimeEventImpl implemen
     protected long second = SECOND_EDEFAULT;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected RecurringPointInTimeEventImpl() {
@@ -205,8 +191,7 @@ public class RecurringPointInTimeEventImpl extends PointInTimeEventImpl implemen
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -215,8 +200,7 @@ public class RecurringPointInTimeEventImpl extends PointInTimeEventImpl implemen
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public RecurringType getRecurringType() {
@@ -224,20 +208,19 @@ public class RecurringPointInTimeEventImpl extends PointInTimeEventImpl implemen
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setRecurringType(RecurringType newRecurringType) {
         RecurringType oldRecurringType = recurringType;
         recurringType = newRecurringType == null ? RECURRING_TYPE_EDEFAULT : newRecurringType;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, EventsPackage.RECURRING_POINT_IN_TIME_EVENT__RECURRING_TYPE, oldRecurringType, recurringType));
+            eNotify(new ENotificationImpl(this, Notification.SET, EventsPackage.RECURRING_POINT_IN_TIME_EVENT__RECURRING_TYPE,
+                    oldRecurringType, recurringType));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public long getFrequencyFactor() {
@@ -245,20 +228,19 @@ public class RecurringPointInTimeEventImpl extends PointInTimeEventImpl implemen
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setFrequencyFactor(long newFrequencyFactor) {
         long oldFrequencyFactor = frequencyFactor;
         frequencyFactor = newFrequencyFactor;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, EventsPackage.RECURRING_POINT_IN_TIME_EVENT__FREQUENCY_FACTOR, oldFrequencyFactor, frequencyFactor));
+            eNotify(new ENotificationImpl(this, Notification.SET, EventsPackage.RECURRING_POINT_IN_TIME_EVENT__FREQUENCY_FACTOR,
+                    oldFrequencyFactor, frequencyFactor));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public long getMonth() {
@@ -266,20 +248,19 @@ public class RecurringPointInTimeEventImpl extends PointInTimeEventImpl implemen
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setMonth(long newMonth) {
         long oldMonth = month;
         month = newMonth;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, EventsPackage.RECURRING_POINT_IN_TIME_EVENT__MONTH, oldMonth, month));
+            eNotify(new ENotificationImpl(this, Notification.SET, EventsPackage.RECURRING_POINT_IN_TIME_EVENT__MONTH, oldMonth,
+                    month));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public long getDayOfMonth() {
@@ -287,20 +268,19 @@ public class RecurringPointInTimeEventImpl extends PointInTimeEventImpl implemen
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setDayOfMonth(long newDayOfMonth) {
         long oldDayOfMonth = dayOfMonth;
         dayOfMonth = newDayOfMonth;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, EventsPackage.RECURRING_POINT_IN_TIME_EVENT__DAY_OF_MONTH, oldDayOfMonth, dayOfMonth));
+            eNotify(new ENotificationImpl(this, Notification.SET, EventsPackage.RECURRING_POINT_IN_TIME_EVENT__DAY_OF_MONTH,
+                    oldDayOfMonth, dayOfMonth));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public DayOfWeek getDayOfWeek() {
@@ -308,20 +288,19 @@ public class RecurringPointInTimeEventImpl extends PointInTimeEventImpl implemen
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setDayOfWeek(DayOfWeek newDayOfWeek) {
         DayOfWeek oldDayOfWeek = dayOfWeek;
         dayOfWeek = newDayOfWeek == null ? DAY_OF_WEEK_EDEFAULT : newDayOfWeek;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, EventsPackage.RECURRING_POINT_IN_TIME_EVENT__DAY_OF_WEEK, oldDayOfWeek, dayOfWeek));
+            eNotify(new ENotificationImpl(this, Notification.SET, EventsPackage.RECURRING_POINT_IN_TIME_EVENT__DAY_OF_WEEK,
+                    oldDayOfWeek, dayOfWeek));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public long getHour() {
@@ -329,20 +308,19 @@ public class RecurringPointInTimeEventImpl extends PointInTimeEventImpl implemen
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setHour(long newHour) {
         long oldHour = hour;
         hour = newHour;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, EventsPackage.RECURRING_POINT_IN_TIME_EVENT__HOUR, oldHour, hour));
+            eNotify(new ENotificationImpl(this, Notification.SET, EventsPackage.RECURRING_POINT_IN_TIME_EVENT__HOUR, oldHour,
+                    hour));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public long getMinute() {
@@ -350,20 +328,19 @@ public class RecurringPointInTimeEventImpl extends PointInTimeEventImpl implemen
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setMinute(long newMinute) {
         long oldMinute = minute;
         minute = newMinute;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, EventsPackage.RECURRING_POINT_IN_TIME_EVENT__MINUTE, oldMinute, minute));
+            eNotify(new ENotificationImpl(this, Notification.SET, EventsPackage.RECURRING_POINT_IN_TIME_EVENT__MINUTE, oldMinute,
+                    minute));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public long getSecond() {
@@ -371,153 +348,149 @@ public class RecurringPointInTimeEventImpl extends PointInTimeEventImpl implemen
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setSecond(long newSecond) {
         long oldSecond = second;
         second = newSecond;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, EventsPackage.RECURRING_POINT_IN_TIME_EVENT__SECOND, oldSecond, second));
+            eNotify(new ENotificationImpl(this, Notification.SET, EventsPackage.RECURRING_POINT_IN_TIME_EVENT__SECOND, oldSecond,
+                    second));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__RECURRING_TYPE:
-                return getRecurringType();
-            case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__FREQUENCY_FACTOR:
-                return getFrequencyFactor();
-            case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__MONTH:
-                return getMonth();
-            case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__DAY_OF_MONTH:
-                return getDayOfMonth();
-            case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__DAY_OF_WEEK:
-                return getDayOfWeek();
-            case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__HOUR:
-                return getHour();
-            case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__MINUTE:
-                return getMinute();
-            case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__SECOND:
-                return getSecond();
+        case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__RECURRING_TYPE:
+            return getRecurringType();
+        case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__FREQUENCY_FACTOR:
+            return getFrequencyFactor();
+        case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__MONTH:
+            return getMonth();
+        case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__DAY_OF_MONTH:
+            return getDayOfMonth();
+        case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__DAY_OF_WEEK:
+            return getDayOfWeek();
+        case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__HOUR:
+            return getHour();
+        case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__MINUTE:
+            return getMinute();
+        case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__SECOND:
+            return getSecond();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__RECURRING_TYPE:
-                setRecurringType((RecurringType)newValue);
-                return;
-            case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__FREQUENCY_FACTOR:
-                setFrequencyFactor((Long)newValue);
-                return;
-            case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__MONTH:
-                setMonth((Long)newValue);
-                return;
-            case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__DAY_OF_MONTH:
-                setDayOfMonth((Long)newValue);
-                return;
-            case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__DAY_OF_WEEK:
-                setDayOfWeek((DayOfWeek)newValue);
-                return;
-            case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__HOUR:
-                setHour((Long)newValue);
-                return;
-            case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__MINUTE:
-                setMinute((Long)newValue);
-                return;
-            case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__SECOND:
-                setSecond((Long)newValue);
-                return;
+        case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__RECURRING_TYPE:
+            setRecurringType((RecurringType) newValue);
+            return;
+        case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__FREQUENCY_FACTOR:
+            setFrequencyFactor((Long) newValue);
+            return;
+        case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__MONTH:
+            setMonth((Long) newValue);
+            return;
+        case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__DAY_OF_MONTH:
+            setDayOfMonth((Long) newValue);
+            return;
+        case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__DAY_OF_WEEK:
+            setDayOfWeek((DayOfWeek) newValue);
+            return;
+        case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__HOUR:
+            setHour((Long) newValue);
+            return;
+        case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__MINUTE:
+            setMinute((Long) newValue);
+            return;
+        case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__SECOND:
+            setSecond((Long) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__RECURRING_TYPE:
-                setRecurringType(RECURRING_TYPE_EDEFAULT);
-                return;
-            case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__FREQUENCY_FACTOR:
-                setFrequencyFactor(FREQUENCY_FACTOR_EDEFAULT);
-                return;
-            case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__MONTH:
-                setMonth(MONTH_EDEFAULT);
-                return;
-            case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__DAY_OF_MONTH:
-                setDayOfMonth(DAY_OF_MONTH_EDEFAULT);
-                return;
-            case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__DAY_OF_WEEK:
-                setDayOfWeek(DAY_OF_WEEK_EDEFAULT);
-                return;
-            case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__HOUR:
-                setHour(HOUR_EDEFAULT);
-                return;
-            case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__MINUTE:
-                setMinute(MINUTE_EDEFAULT);
-                return;
-            case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__SECOND:
-                setSecond(SECOND_EDEFAULT);
-                return;
+        case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__RECURRING_TYPE:
+            setRecurringType(RECURRING_TYPE_EDEFAULT);
+            return;
+        case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__FREQUENCY_FACTOR:
+            setFrequencyFactor(FREQUENCY_FACTOR_EDEFAULT);
+            return;
+        case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__MONTH:
+            setMonth(MONTH_EDEFAULT);
+            return;
+        case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__DAY_OF_MONTH:
+            setDayOfMonth(DAY_OF_MONTH_EDEFAULT);
+            return;
+        case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__DAY_OF_WEEK:
+            setDayOfWeek(DAY_OF_WEEK_EDEFAULT);
+            return;
+        case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__HOUR:
+            setHour(HOUR_EDEFAULT);
+            return;
+        case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__MINUTE:
+            setMinute(MINUTE_EDEFAULT);
+            return;
+        case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__SECOND:
+            setSecond(SECOND_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__RECURRING_TYPE:
-                return recurringType != RECURRING_TYPE_EDEFAULT;
-            case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__FREQUENCY_FACTOR:
-                return frequencyFactor != FREQUENCY_FACTOR_EDEFAULT;
-            case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__MONTH:
-                return month != MONTH_EDEFAULT;
-            case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__DAY_OF_MONTH:
-                return dayOfMonth != DAY_OF_MONTH_EDEFAULT;
-            case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__DAY_OF_WEEK:
-                return dayOfWeek != DAY_OF_WEEK_EDEFAULT;
-            case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__HOUR:
-                return hour != HOUR_EDEFAULT;
-            case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__MINUTE:
-                return minute != MINUTE_EDEFAULT;
-            case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__SECOND:
-                return second != SECOND_EDEFAULT;
+        case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__RECURRING_TYPE:
+            return recurringType != RECURRING_TYPE_EDEFAULT;
+        case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__FREQUENCY_FACTOR:
+            return frequencyFactor != FREQUENCY_FACTOR_EDEFAULT;
+        case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__MONTH:
+            return month != MONTH_EDEFAULT;
+        case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__DAY_OF_MONTH:
+            return dayOfMonth != DAY_OF_MONTH_EDEFAULT;
+        case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__DAY_OF_WEEK:
+            return dayOfWeek != DAY_OF_WEEK_EDEFAULT;
+        case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__HOUR:
+            return hour != HOUR_EDEFAULT;
+        case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__MINUTE:
+            return minute != MINUTE_EDEFAULT;
+        case EventsPackage.RECURRING_POINT_IN_TIME_EVENT__SECOND:
+            return second != SECOND_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (recurringType: ");
@@ -540,4 +513,4 @@ public class RecurringPointInTimeEventImpl extends PointInTimeEventImpl implemen
         return result.toString();
     }
 
-} //RecurringPointInTimeEventImpl
+} // RecurringPointInTimeEventImpl

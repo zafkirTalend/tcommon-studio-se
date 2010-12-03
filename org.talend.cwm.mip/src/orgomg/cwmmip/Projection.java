@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmmip;
@@ -9,9 +8,8 @@ package orgomg.cwmmip;
 import orgomg.cwm.objectmodel.core.Element;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Projection</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Projection</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * Projection is an abstract base class that models the semantic context of the pattern, where by semantic context we mean a well-defined subset of the CWM metamodel graph.

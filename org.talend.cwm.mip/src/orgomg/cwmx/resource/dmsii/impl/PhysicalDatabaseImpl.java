@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.dmsii.impl;
@@ -12,18 +11,17 @@ import orgomg.cwmx.resource.dmsii.DmsiiPackage;
 import orgomg.cwmx.resource.dmsii.PhysicalDatabase;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Physical Database</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Physical Database</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
 public class PhysicalDatabaseImpl extends PackageImpl implements PhysicalDatabase {
+
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected PhysicalDatabaseImpl() {
@@ -31,8 +29,7 @@ public class PhysicalDatabaseImpl extends PackageImpl implements PhysicalDatabas
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -40,4 +37,4 @@ public class PhysicalDatabaseImpl extends PackageImpl implements PhysicalDatabas
         return DmsiiPackage.Literals.PHYSICAL_DATABASE;
     }
 
-} //PhysicalDatabaseImpl
+} // PhysicalDatabaseImpl

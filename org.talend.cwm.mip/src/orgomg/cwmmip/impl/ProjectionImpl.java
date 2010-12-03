@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmmip.impl;
@@ -12,18 +11,17 @@ import orgomg.cwmmip.CwmmipPackage;
 import orgomg.cwmmip.Projection;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Projection</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Projection</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
 public abstract class ProjectionImpl extends ElementImpl implements Projection {
+
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected ProjectionImpl() {
@@ -31,8 +29,7 @@ public abstract class ProjectionImpl extends ElementImpl implements Projection {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -40,4 +37,4 @@ public abstract class ProjectionImpl extends ElementImpl implements Projection {
         return CwmmipPackage.Literals.PROJECTION;
     }
 
-} //ProjectionImpl
+} // ProjectionImpl

@@ -1,16 +1,13 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.analysis.datamining;
 
-
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Numeric Attribute</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Numeric Attribute</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * Attribute containing numbers, for which numeric operations are meaningful.
@@ -33,13 +30,12 @@ package orgomg.cwm.analysis.datamining;
  * @generated
  */
 public interface NumericAttribute extends MiningAttribute {
+
     /**
-     * Returns the value of the '<em><b>Lower Bound</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Least non-outlier value.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Lower Bound</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> Least
+     * non-outlier value. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Lower Bound</em>' attribute.
      * @see #setLowerBound(String)
      * @see orgomg.cwm.analysis.datamining.DataminingPackage#getNumericAttribute_LowerBound()
@@ -50,8 +46,8 @@ public interface NumericAttribute extends MiningAttribute {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.analysis.datamining.NumericAttribute#getLowerBound <em>Lower Bound</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Lower Bound</em>' attribute.
      * @see #getLowerBound()
      * @generated
@@ -59,12 +55,10 @@ public interface NumericAttribute extends MiningAttribute {
     void setLowerBound(String value);
 
     /**
-     * Returns the value of the '<em><b>Upper Bound</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Greatest non-outlier value.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Upper Bound</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * Greatest non-outlier value. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Upper Bound</em>' attribute.
      * @see #setUpperBound(String)
      * @see orgomg.cwm.analysis.datamining.DataminingPackage#getNumericAttribute_UpperBound()
@@ -75,8 +69,8 @@ public interface NumericAttribute extends MiningAttribute {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.analysis.datamining.NumericAttribute#getUpperBound <em>Upper Bound</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Upper Bound</em>' attribute.
      * @see #getUpperBound()
      * @generated
@@ -84,12 +78,12 @@ public interface NumericAttribute extends MiningAttribute {
     void setUpperBound(String value);
 
     /**
-     * Returns the value of the '<em><b>Is Cyclic</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Indicates attributes with cyclic value range such as angles or numbers representing the day of the week. If true, lowerBound and upperBound define the base interval.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Is Cyclic</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * Indicates attributes with cyclic value range such as angles or numbers
+     * representing the day of the week. If true, lowerBound and upperBound
+     * define the base interval. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Is Cyclic</em>' attribute.
      * @see #setIsCyclic(boolean)
      * @see orgomg.cwm.analysis.datamining.DataminingPackage#getNumericAttribute_IsCyclic()
@@ -99,22 +93,24 @@ public interface NumericAttribute extends MiningAttribute {
     boolean isIsCyclic();
 
     /**
-     * Sets the value of the '{@link orgomg.cwm.analysis.datamining.NumericAttribute#isIsCyclic <em>Is Cyclic</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Is Cyclic</em>' attribute.
+     * Sets the value of the '
+     * {@link orgomg.cwm.analysis.datamining.NumericAttribute#isIsCyclic
+     * <em>Is Cyclic</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @param value
+     *            the new value of the '<em>Is Cyclic</em>' attribute.
      * @see #isIsCyclic()
      * @generated
      */
     void setIsCyclic(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Is Discrete</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Tells the algorithms whether to deal with the numbers as discrete values.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Is Discrete</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> Tells
+     * the algorithms whether to deal with the numbers as discrete values. <!--
+     * end-model-doc -->
+     * 
      * @return the value of the '<em>Is Discrete</em>' attribute.
      * @see #setIsDiscrete(boolean)
      * @see orgomg.cwm.analysis.datamining.DataminingPackage#getNumericAttribute_IsDiscrete()
@@ -125,8 +121,8 @@ public interface NumericAttribute extends MiningAttribute {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.analysis.datamining.NumericAttribute#isIsDiscrete <em>Is Discrete</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Is Discrete</em>' attribute.
      * @see #isIsDiscrete()
      * @generated

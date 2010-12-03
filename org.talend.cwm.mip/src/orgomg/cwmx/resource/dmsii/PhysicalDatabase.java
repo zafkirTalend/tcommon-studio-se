@@ -1,16 +1,13 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.dmsii;
 
-
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Physical Database</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Physical Database</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * Instances represent deployed physical DMS II databases.

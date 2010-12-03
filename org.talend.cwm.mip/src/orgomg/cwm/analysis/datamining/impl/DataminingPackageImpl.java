@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.analysis.datamining.impl;
@@ -109,197 +108,172 @@ import orgomg.mof.model.ModelPackage;
 import orgomg.mof.model.impl.ModelPackageImpl;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model <b>Package</b>.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model <b>Package</b>. <!--
+ * end-user-doc -->
  * @generated
  */
 public class DataminingPackageImpl extends EPackageImpl implements DataminingPackage {
+
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass applicationInputSpecificationEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass attributeUsageRelationEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass categoryEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass categoryHierarchyEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass costMatrixEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass miningAttributeEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass miningDataSpecificationEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass miningModelEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass miningModelResultEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass numericAttributeEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass supervisedMiningModelEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass categoricalAttributeEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass ordinalAttributeEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass miningSettingsEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass clusteringSettingsEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass statisticsSettingsEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass supervisedMiningSettingsEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass classificationSettingsEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass regressionSettingsEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass associationRulesSettingsEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass applicationAttributeEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EEnum attributeTypeEEnum = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EEnum attributeUsageEEnum = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EEnum categoryPropertyEEnum = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EEnum orderTypeEEnum = null;
 
     /**
      * Creates an instance of the model <b>Package</b>, registered with
-     * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
-     * package URI value.
-     * <p>Note: the correct way to create the package is via the static
-     * factory method {@link #init init()}, which also performs
-     * initialization of the package, or returns the registered package,
-     * if one already exists.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the
+     * package package URI value.
+     * <p>
+     * Note: the correct way to create the package is via the static factory
+     * method {@link #init init()}, which also performs initialization of the
+     * package, or returns the registered package, if one already exists. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see org.eclipse.emf.ecore.EPackage.Registry
      * @see orgomg.cwm.analysis.datamining.DataminingPackage#eNS_URI
      * @see #init()
@@ -310,67 +284,130 @@ public class DataminingPackageImpl extends EPackageImpl implements DataminingPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private static boolean isInited = false;
 
     /**
-     * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
+     * Creates, registers, and initializes the <b>Package</b> for this model,
+     * and for any others upon which it depends.
      * 
-     * <p>This method is used to initialize {@link DataminingPackage#eINSTANCE} when that field is accessed.
-     * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <p>
+     * This method is used to initialize {@link DataminingPackage#eINSTANCE}
+     * when that field is accessed. Clients should not invoke it directly.
+     * Instead, they should simply access that field to obtain the package. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #eNS_URI
      * @see #createPackageContents()
      * @see #initializePackageContents()
      * @generated
      */
     public static DataminingPackage init() {
-        if (isInited) return (DataminingPackage)EPackage.Registry.INSTANCE.getEPackage(DataminingPackage.eNS_URI);
+        if (isInited)
+            return (DataminingPackage) EPackage.Registry.INSTANCE.getEPackage(DataminingPackage.eNS_URI);
 
         // Obtain or create and register package
-        DataminingPackageImpl theDataminingPackage = (DataminingPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof DataminingPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new DataminingPackageImpl());
+        DataminingPackageImpl theDataminingPackage = (DataminingPackageImpl) (EPackage.Registry.INSTANCE.get(eNS_URI) instanceof DataminingPackageImpl ? EPackage.Registry.INSTANCE
+                .get(eNS_URI) : new DataminingPackageImpl());
 
         isInited = true;
 
         // Obtain or create and register interdependencies
-        CorePackageImpl theCorePackage = (CorePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CorePackage.eNS_URI) instanceof CorePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CorePackage.eNS_URI) : CorePackage.eINSTANCE);
-        BehavioralPackageImpl theBehavioralPackage = (BehavioralPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(BehavioralPackage.eNS_URI) instanceof BehavioralPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(BehavioralPackage.eNS_URI) : BehavioralPackage.eINSTANCE);
-        RelationshipsPackageImpl theRelationshipsPackage = (RelationshipsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(RelationshipsPackage.eNS_URI) instanceof RelationshipsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(RelationshipsPackage.eNS_URI) : RelationshipsPackage.eINSTANCE);
-        InstancePackageImpl theInstancePackage = (InstancePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(InstancePackage.eNS_URI) instanceof InstancePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(InstancePackage.eNS_URI) : InstancePackage.eINSTANCE);
-        BusinessinformationPackageImpl theBusinessinformationPackage = (BusinessinformationPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(BusinessinformationPackage.eNS_URI) instanceof BusinessinformationPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(BusinessinformationPackage.eNS_URI) : BusinessinformationPackage.eINSTANCE);
-        DatatypesPackageImpl theDatatypesPackage = (DatatypesPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(DatatypesPackage.eNS_URI) instanceof DatatypesPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(DatatypesPackage.eNS_URI) : DatatypesPackage.eINSTANCE);
-        ExpressionsPackageImpl theExpressionsPackage = (ExpressionsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ExpressionsPackage.eNS_URI) instanceof ExpressionsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ExpressionsPackage.eNS_URI) : ExpressionsPackage.eINSTANCE);
-        KeysindexesPackageImpl theKeysindexesPackage = (KeysindexesPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(KeysindexesPackage.eNS_URI) instanceof KeysindexesPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(KeysindexesPackage.eNS_URI) : KeysindexesPackage.eINSTANCE);
-        SoftwaredeploymentPackageImpl theSoftwaredeploymentPackage = (SoftwaredeploymentPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(SoftwaredeploymentPackage.eNS_URI) instanceof SoftwaredeploymentPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(SoftwaredeploymentPackage.eNS_URI) : SoftwaredeploymentPackage.eINSTANCE);
-        TypemappingPackageImpl theTypemappingPackage = (TypemappingPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(TypemappingPackage.eNS_URI) instanceof TypemappingPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(TypemappingPackage.eNS_URI) : TypemappingPackage.eINSTANCE);
-        RelationalPackageImpl theRelationalPackage = (RelationalPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(RelationalPackage.eNS_URI) instanceof RelationalPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(RelationalPackage.eNS_URI) : RelationalPackage.eINSTANCE);
-        EnumerationsPackageImpl theEnumerationsPackage = (EnumerationsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(EnumerationsPackage.eNS_URI) instanceof EnumerationsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(EnumerationsPackage.eNS_URI) : EnumerationsPackage.eINSTANCE);
-        RecordPackageImpl theRecordPackage = (RecordPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(RecordPackage.eNS_URI) instanceof RecordPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(RecordPackage.eNS_URI) : RecordPackage.eINSTANCE);
-        MultidimensionalPackageImpl theMultidimensionalPackage = (MultidimensionalPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(MultidimensionalPackage.eNS_URI) instanceof MultidimensionalPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(MultidimensionalPackage.eNS_URI) : MultidimensionalPackage.eINSTANCE);
-        XmlPackageImpl theXmlPackage = (XmlPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(XmlPackage.eNS_URI) instanceof XmlPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(XmlPackage.eNS_URI) : XmlPackage.eINSTANCE);
-        TransformationPackageImpl theTransformationPackage = (TransformationPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(TransformationPackage.eNS_URI) instanceof TransformationPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(TransformationPackage.eNS_URI) : TransformationPackage.eINSTANCE);
-        OlapPackageImpl theOlapPackage = (OlapPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(OlapPackage.eNS_URI) instanceof OlapPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(OlapPackage.eNS_URI) : OlapPackage.eINSTANCE);
-        InformationvisualizationPackageImpl theInformationvisualizationPackage = (InformationvisualizationPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(InformationvisualizationPackage.eNS_URI) instanceof InformationvisualizationPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(InformationvisualizationPackage.eNS_URI) : InformationvisualizationPackage.eINSTANCE);
-        BusinessnomenclaturePackageImpl theBusinessnomenclaturePackage = (BusinessnomenclaturePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(BusinessnomenclaturePackage.eNS_URI) instanceof BusinessnomenclaturePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(BusinessnomenclaturePackage.eNS_URI) : BusinessnomenclaturePackage.eINSTANCE);
-        WarehouseprocessPackageImpl theWarehouseprocessPackage = (WarehouseprocessPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(WarehouseprocessPackage.eNS_URI) instanceof WarehouseprocessPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(WarehouseprocessPackage.eNS_URI) : WarehouseprocessPackage.eINSTANCE);
-        DatatypePackageImpl theDatatypePackage = (DatatypePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(DatatypePackage.eNS_URI) instanceof DatatypePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(DatatypePackage.eNS_URI) : DatatypePackage.eINSTANCE);
-        EventsPackageImpl theEventsPackage = (EventsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(EventsPackage.eNS_URI) instanceof EventsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(EventsPackage.eNS_URI) : EventsPackage.eINSTANCE);
-        WarehouseoperationPackageImpl theWarehouseoperationPackage = (WarehouseoperationPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(WarehouseoperationPackage.eNS_URI) instanceof WarehouseoperationPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(WarehouseoperationPackage.eNS_URI) : WarehouseoperationPackage.eINSTANCE);
-        ErPackageImpl theErPackage = (ErPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ErPackage.eNS_URI) instanceof ErPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ErPackage.eNS_URI) : ErPackage.eINSTANCE);
-        CoboldataPackageImpl theCoboldataPackage = (CoboldataPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CoboldataPackage.eNS_URI) instanceof CoboldataPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CoboldataPackage.eNS_URI) : CoboldataPackage.eINSTANCE);
-        DmsiiPackageImpl theDmsiiPackage = (DmsiiPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(DmsiiPackage.eNS_URI) instanceof DmsiiPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(DmsiiPackage.eNS_URI) : DmsiiPackage.eINSTANCE);
-        ImsdatabasePackageImpl theImsdatabasePackage = (ImsdatabasePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ImsdatabasePackage.eNS_URI) instanceof ImsdatabasePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ImsdatabasePackage.eNS_URI) : ImsdatabasePackage.eINSTANCE);
-        ImstypesPackageImpl theImstypesPackage = (ImstypesPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ImstypesPackage.eNS_URI) instanceof ImstypesPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ImstypesPackage.eNS_URI) : ImstypesPackage.eINSTANCE);
-        EssbasePackageImpl theEssbasePackage = (EssbasePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(EssbasePackage.eNS_URI) instanceof EssbasePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(EssbasePackage.eNS_URI) : EssbasePackage.eINSTANCE);
-        ExpressPackageImpl theExpressPackage = (ExpressPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ExpressPackage.eNS_URI) instanceof ExpressPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ExpressPackage.eNS_URI) : ExpressPackage.eINSTANCE);
-        InformationsetPackageImpl theInformationsetPackage = (InformationsetPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(InformationsetPackage.eNS_URI) instanceof InformationsetPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(InformationsetPackage.eNS_URI) : InformationsetPackage.eINSTANCE);
-        InformationreportingPackageImpl theInformationreportingPackage = (InformationreportingPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(InformationreportingPackage.eNS_URI) instanceof InformationreportingPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(InformationreportingPackage.eNS_URI) : InformationreportingPackage.eINSTANCE);
-        CwmmipPackageImpl theCwmmipPackage = (CwmmipPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CwmmipPackage.eNS_URI) instanceof CwmmipPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CwmmipPackage.eNS_URI) : CwmmipPackage.eINSTANCE);
-        ModelPackageImpl theModelPackage = (ModelPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ModelPackage.eNS_URI) instanceof ModelPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ModelPackage.eNS_URI) : ModelPackage.eINSTANCE);
+        CorePackageImpl theCorePackage = (CorePackageImpl) (EPackage.Registry.INSTANCE.getEPackage(CorePackage.eNS_URI) instanceof CorePackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(CorePackage.eNS_URI) : CorePackage.eINSTANCE);
+        BehavioralPackageImpl theBehavioralPackage = (BehavioralPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(BehavioralPackage.eNS_URI) instanceof BehavioralPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(BehavioralPackage.eNS_URI) : BehavioralPackage.eINSTANCE);
+        RelationshipsPackageImpl theRelationshipsPackage = (RelationshipsPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(RelationshipsPackage.eNS_URI) instanceof RelationshipsPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(RelationshipsPackage.eNS_URI) : RelationshipsPackage.eINSTANCE);
+        InstancePackageImpl theInstancePackage = (InstancePackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(InstancePackage.eNS_URI) instanceof InstancePackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(InstancePackage.eNS_URI) : InstancePackage.eINSTANCE);
+        BusinessinformationPackageImpl theBusinessinformationPackage = (BusinessinformationPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(BusinessinformationPackage.eNS_URI) instanceof BusinessinformationPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(BusinessinformationPackage.eNS_URI) : BusinessinformationPackage.eINSTANCE);
+        DatatypesPackageImpl theDatatypesPackage = (DatatypesPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(DatatypesPackage.eNS_URI) instanceof DatatypesPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(DatatypesPackage.eNS_URI) : DatatypesPackage.eINSTANCE);
+        ExpressionsPackageImpl theExpressionsPackage = (ExpressionsPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(ExpressionsPackage.eNS_URI) instanceof ExpressionsPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(ExpressionsPackage.eNS_URI) : ExpressionsPackage.eINSTANCE);
+        KeysindexesPackageImpl theKeysindexesPackage = (KeysindexesPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(KeysindexesPackage.eNS_URI) instanceof KeysindexesPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(KeysindexesPackage.eNS_URI) : KeysindexesPackage.eINSTANCE);
+        SoftwaredeploymentPackageImpl theSoftwaredeploymentPackage = (SoftwaredeploymentPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(SoftwaredeploymentPackage.eNS_URI) instanceof SoftwaredeploymentPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(SoftwaredeploymentPackage.eNS_URI) : SoftwaredeploymentPackage.eINSTANCE);
+        TypemappingPackageImpl theTypemappingPackage = (TypemappingPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(TypemappingPackage.eNS_URI) instanceof TypemappingPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(TypemappingPackage.eNS_URI) : TypemappingPackage.eINSTANCE);
+        RelationalPackageImpl theRelationalPackage = (RelationalPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(RelationalPackage.eNS_URI) instanceof RelationalPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(RelationalPackage.eNS_URI) : RelationalPackage.eINSTANCE);
+        EnumerationsPackageImpl theEnumerationsPackage = (EnumerationsPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(EnumerationsPackage.eNS_URI) instanceof EnumerationsPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(EnumerationsPackage.eNS_URI) : EnumerationsPackage.eINSTANCE);
+        RecordPackageImpl theRecordPackage = (RecordPackageImpl) (EPackage.Registry.INSTANCE.getEPackage(RecordPackage.eNS_URI) instanceof RecordPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(RecordPackage.eNS_URI) : RecordPackage.eINSTANCE);
+        MultidimensionalPackageImpl theMultidimensionalPackage = (MultidimensionalPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(MultidimensionalPackage.eNS_URI) instanceof MultidimensionalPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(MultidimensionalPackage.eNS_URI) : MultidimensionalPackage.eINSTANCE);
+        XmlPackageImpl theXmlPackage = (XmlPackageImpl) (EPackage.Registry.INSTANCE.getEPackage(XmlPackage.eNS_URI) instanceof XmlPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(XmlPackage.eNS_URI) : XmlPackage.eINSTANCE);
+        TransformationPackageImpl theTransformationPackage = (TransformationPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(TransformationPackage.eNS_URI) instanceof TransformationPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(TransformationPackage.eNS_URI) : TransformationPackage.eINSTANCE);
+        OlapPackageImpl theOlapPackage = (OlapPackageImpl) (EPackage.Registry.INSTANCE.getEPackage(OlapPackage.eNS_URI) instanceof OlapPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(OlapPackage.eNS_URI) : OlapPackage.eINSTANCE);
+        InformationvisualizationPackageImpl theInformationvisualizationPackage = (InformationvisualizationPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(InformationvisualizationPackage.eNS_URI) instanceof InformationvisualizationPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(InformationvisualizationPackage.eNS_URI) : InformationvisualizationPackage.eINSTANCE);
+        BusinessnomenclaturePackageImpl theBusinessnomenclaturePackage = (BusinessnomenclaturePackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(BusinessnomenclaturePackage.eNS_URI) instanceof BusinessnomenclaturePackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(BusinessnomenclaturePackage.eNS_URI) : BusinessnomenclaturePackage.eINSTANCE);
+        WarehouseprocessPackageImpl theWarehouseprocessPackage = (WarehouseprocessPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(WarehouseprocessPackage.eNS_URI) instanceof WarehouseprocessPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(WarehouseprocessPackage.eNS_URI) : WarehouseprocessPackage.eINSTANCE);
+        DatatypePackageImpl theDatatypePackage = (DatatypePackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(DatatypePackage.eNS_URI) instanceof DatatypePackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(DatatypePackage.eNS_URI) : DatatypePackage.eINSTANCE);
+        EventsPackageImpl theEventsPackage = (EventsPackageImpl) (EPackage.Registry.INSTANCE.getEPackage(EventsPackage.eNS_URI) instanceof EventsPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(EventsPackage.eNS_URI) : EventsPackage.eINSTANCE);
+        WarehouseoperationPackageImpl theWarehouseoperationPackage = (WarehouseoperationPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(WarehouseoperationPackage.eNS_URI) instanceof WarehouseoperationPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(WarehouseoperationPackage.eNS_URI) : WarehouseoperationPackage.eINSTANCE);
+        ErPackageImpl theErPackage = (ErPackageImpl) (EPackage.Registry.INSTANCE.getEPackage(ErPackage.eNS_URI) instanceof ErPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(ErPackage.eNS_URI) : ErPackage.eINSTANCE);
+        CoboldataPackageImpl theCoboldataPackage = (CoboldataPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(CoboldataPackage.eNS_URI) instanceof CoboldataPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(CoboldataPackage.eNS_URI) : CoboldataPackage.eINSTANCE);
+        DmsiiPackageImpl theDmsiiPackage = (DmsiiPackageImpl) (EPackage.Registry.INSTANCE.getEPackage(DmsiiPackage.eNS_URI) instanceof DmsiiPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(DmsiiPackage.eNS_URI) : DmsiiPackage.eINSTANCE);
+        ImsdatabasePackageImpl theImsdatabasePackage = (ImsdatabasePackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(ImsdatabasePackage.eNS_URI) instanceof ImsdatabasePackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(ImsdatabasePackage.eNS_URI) : ImsdatabasePackage.eINSTANCE);
+        ImstypesPackageImpl theImstypesPackage = (ImstypesPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(ImstypesPackage.eNS_URI) instanceof ImstypesPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(ImstypesPackage.eNS_URI) : ImstypesPackage.eINSTANCE);
+        EssbasePackageImpl theEssbasePackage = (EssbasePackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(EssbasePackage.eNS_URI) instanceof EssbasePackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(EssbasePackage.eNS_URI) : EssbasePackage.eINSTANCE);
+        ExpressPackageImpl theExpressPackage = (ExpressPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(ExpressPackage.eNS_URI) instanceof ExpressPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(ExpressPackage.eNS_URI) : ExpressPackage.eINSTANCE);
+        InformationsetPackageImpl theInformationsetPackage = (InformationsetPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(InformationsetPackage.eNS_URI) instanceof InformationsetPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(InformationsetPackage.eNS_URI) : InformationsetPackage.eINSTANCE);
+        InformationreportingPackageImpl theInformationreportingPackage = (InformationreportingPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(InformationreportingPackage.eNS_URI) instanceof InformationreportingPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(InformationreportingPackage.eNS_URI) : InformationreportingPackage.eINSTANCE);
+        CwmmipPackageImpl theCwmmipPackage = (CwmmipPackageImpl) (EPackage.Registry.INSTANCE.getEPackage(CwmmipPackage.eNS_URI) instanceof CwmmipPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(CwmmipPackage.eNS_URI) : CwmmipPackage.eINSTANCE);
+        ModelPackageImpl theModelPackage = (ModelPackageImpl) (EPackage.Registry.INSTANCE.getEPackage(ModelPackage.eNS_URI) instanceof ModelPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(ModelPackage.eNS_URI) : ModelPackage.eINSTANCE);
 
         // Create package meta-data objects
         theDataminingPackage.createPackageContents();
@@ -449,15 +486,13 @@ public class DataminingPackageImpl extends EPackageImpl implements DataminingPac
         // Mark meta-data to indicate it can't be changed
         theDataminingPackage.freeze();
 
-  
         // Update the registry and return the package
         EPackage.Registry.INSTANCE.put(DataminingPackage.eNS_URI, theDataminingPackage);
         return theDataminingPackage;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getApplicationInputSpecification() {
@@ -465,26 +500,23 @@ public class DataminingPackageImpl extends EPackageImpl implements DataminingPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getApplicationInputSpecification_InputAttribute() {
-        return (EReference)applicationInputSpecificationEClass.getEStructuralFeatures().get(0);
+        return (EReference) applicationInputSpecificationEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getApplicationInputSpecification_MiningModel() {
-        return (EReference)applicationInputSpecificationEClass.getEStructuralFeatures().get(1);
+        return (EReference) applicationInputSpecificationEClass.getEStructuralFeatures().get(1);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getAttributeUsageRelation() {
@@ -492,62 +524,55 @@ public class DataminingPackageImpl extends EPackageImpl implements DataminingPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getAttributeUsageRelation_UsageType() {
-        return (EAttribute)attributeUsageRelationEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) attributeUsageRelationEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getAttributeUsageRelation_IncludeInApplyResult() {
-        return (EAttribute)attributeUsageRelationEClass.getEStructuralFeatures().get(1);
+        return (EAttribute) attributeUsageRelationEClass.getEStructuralFeatures().get(1);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getAttributeUsageRelation_Weight() {
-        return (EAttribute)attributeUsageRelationEClass.getEStructuralFeatures().get(2);
+        return (EAttribute) attributeUsageRelationEClass.getEStructuralFeatures().get(2);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getAttributeUsageRelation_SuppressNormalization() {
-        return (EAttribute)attributeUsageRelationEClass.getEStructuralFeatures().get(3);
+        return (EAttribute) attributeUsageRelationEClass.getEStructuralFeatures().get(3);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getAttributeUsageRelation_Settings() {
-        return (EReference)attributeUsageRelationEClass.getEStructuralFeatures().get(4);
+        return (EReference) attributeUsageRelationEClass.getEStructuralFeatures().get(4);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getAttributeUsageRelation_Attribute() {
-        return (EReference)attributeUsageRelationEClass.getEStructuralFeatures().get(5);
+        return (EReference) attributeUsageRelationEClass.getEStructuralFeatures().get(5);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getCategory() {
@@ -555,44 +580,39 @@ public class DataminingPackageImpl extends EPackageImpl implements DataminingPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getCategory_DisplayValue() {
-        return (EAttribute)categoryEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) categoryEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getCategory_Property() {
-        return (EAttribute)categoryEClass.getEStructuralFeatures().get(1);
+        return (EAttribute) categoryEClass.getEStructuralFeatures().get(1);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getCategory_Value() {
-        return (EAttribute)categoryEClass.getEStructuralFeatures().get(2);
+        return (EAttribute) categoryEClass.getEStructuralFeatures().get(2);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getCategory_CategoricalAttribute() {
-        return (EReference)categoryEClass.getEStructuralFeatures().get(3);
+        return (EReference) categoryEClass.getEStructuralFeatures().get(3);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getCategoryHierarchy() {
@@ -600,17 +620,15 @@ public class DataminingPackageImpl extends EPackageImpl implements DataminingPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getCategoryHierarchy_CategoricalAttribute() {
-        return (EReference)categoryHierarchyEClass.getEStructuralFeatures().get(0);
+        return (EReference) categoryHierarchyEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getCostMatrix() {
@@ -618,17 +636,15 @@ public class DataminingPackageImpl extends EPackageImpl implements DataminingPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getCostMatrix_Settings() {
-        return (EReference)costMatrixEClass.getEStructuralFeatures().get(0);
+        return (EReference) costMatrixEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getMiningAttribute() {
@@ -636,35 +652,31 @@ public class DataminingPackageImpl extends EPackageImpl implements DataminingPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getMiningAttribute_DataSpecification() {
-        return (EReference)miningAttributeEClass.getEStructuralFeatures().get(0);
+        return (EReference) miningAttributeEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getMiningAttribute_AttributeUsage() {
-        return (EReference)miningAttributeEClass.getEStructuralFeatures().get(1);
+        return (EReference) miningAttributeEClass.getEStructuralFeatures().get(1);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getMiningAttribute_Settings() {
-        return (EReference)miningAttributeEClass.getEStructuralFeatures().get(2);
+        return (EReference) miningAttributeEClass.getEStructuralFeatures().get(2);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getMiningDataSpecification() {
@@ -672,26 +684,23 @@ public class DataminingPackageImpl extends EPackageImpl implements DataminingPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getMiningDataSpecification_Attribute() {
-        return (EReference)miningDataSpecificationEClass.getEStructuralFeatures().get(0);
+        return (EReference) miningDataSpecificationEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getMiningDataSpecification_Settings() {
-        return (EReference)miningDataSpecificationEClass.getEStructuralFeatures().get(1);
+        return (EReference) miningDataSpecificationEClass.getEStructuralFeatures().get(1);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getMiningModel() {
@@ -699,53 +708,47 @@ public class DataminingPackageImpl extends EPackageImpl implements DataminingPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getMiningModel_Function() {
-        return (EAttribute)miningModelEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) miningModelEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getMiningModel_Algorithm() {
-        return (EAttribute)miningModelEClass.getEStructuralFeatures().get(1);
+        return (EAttribute) miningModelEClass.getEStructuralFeatures().get(1);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getMiningModel_Settings() {
-        return (EReference)miningModelEClass.getEStructuralFeatures().get(2);
+        return (EReference) miningModelEClass.getEStructuralFeatures().get(2);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getMiningModel_MiningResult() {
-        return (EReference)miningModelEClass.getEStructuralFeatures().get(3);
+        return (EReference) miningModelEClass.getEStructuralFeatures().get(3);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getMiningModel_InputSpec() {
-        return (EReference)miningModelEClass.getEStructuralFeatures().get(4);
+        return (EReference) miningModelEClass.getEStructuralFeatures().get(4);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getMiningModelResult() {
@@ -753,26 +756,23 @@ public class DataminingPackageImpl extends EPackageImpl implements DataminingPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getMiningModelResult_Type() {
-        return (EAttribute)miningModelResultEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) miningModelResultEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getMiningModelResult_Model() {
-        return (EReference)miningModelResultEClass.getEStructuralFeatures().get(1);
+        return (EReference) miningModelResultEClass.getEStructuralFeatures().get(1);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getNumericAttribute() {
@@ -780,44 +780,39 @@ public class DataminingPackageImpl extends EPackageImpl implements DataminingPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getNumericAttribute_LowerBound() {
-        return (EAttribute)numericAttributeEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) numericAttributeEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getNumericAttribute_UpperBound() {
-        return (EAttribute)numericAttributeEClass.getEStructuralFeatures().get(1);
+        return (EAttribute) numericAttributeEClass.getEStructuralFeatures().get(1);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getNumericAttribute_IsCyclic() {
-        return (EAttribute)numericAttributeEClass.getEStructuralFeatures().get(2);
+        return (EAttribute) numericAttributeEClass.getEStructuralFeatures().get(2);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getNumericAttribute_IsDiscrete() {
-        return (EAttribute)numericAttributeEClass.getEStructuralFeatures().get(3);
+        return (EAttribute) numericAttributeEClass.getEStructuralFeatures().get(3);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getSupervisedMiningModel() {
@@ -825,17 +820,15 @@ public class DataminingPackageImpl extends EPackageImpl implements DataminingPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getSupervisedMiningModel_Target() {
-        return (EReference)supervisedMiningModelEClass.getEStructuralFeatures().get(0);
+        return (EReference) supervisedMiningModelEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getCategoricalAttribute() {
@@ -843,26 +836,23 @@ public class DataminingPackageImpl extends EPackageImpl implements DataminingPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getCategoricalAttribute_Taxonomy() {
-        return (EReference)categoricalAttributeEClass.getEStructuralFeatures().get(0);
+        return (EReference) categoricalAttributeEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getCategoricalAttribute_Category() {
-        return (EReference)categoricalAttributeEClass.getEStructuralFeatures().get(1);
+        return (EReference) categoricalAttributeEClass.getEStructuralFeatures().get(1);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getOrdinalAttribute() {
@@ -870,26 +860,23 @@ public class DataminingPackageImpl extends EPackageImpl implements DataminingPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getOrdinalAttribute_IsCyclic() {
-        return (EAttribute)ordinalAttributeEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) ordinalAttributeEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getOrdinalAttribute_OrderingType() {
-        return (EAttribute)ordinalAttributeEClass.getEStructuralFeatures().get(1);
+        return (EAttribute) ordinalAttributeEClass.getEStructuralFeatures().get(1);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getMiningSettings() {
@@ -897,53 +884,47 @@ public class DataminingPackageImpl extends EPackageImpl implements DataminingPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getMiningSettings_Function() {
-        return (EAttribute)miningSettingsEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) miningSettingsEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getMiningSettings_Algorithm() {
-        return (EAttribute)miningSettingsEClass.getEStructuralFeatures().get(1);
+        return (EAttribute) miningSettingsEClass.getEStructuralFeatures().get(1);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getMiningSettings_MiningModel() {
-        return (EReference)miningSettingsEClass.getEStructuralFeatures().get(2);
+        return (EReference) miningSettingsEClass.getEStructuralFeatures().get(2);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getMiningSettings_AttributeUsage() {
-        return (EReference)miningSettingsEClass.getEStructuralFeatures().get(3);
+        return (EReference) miningSettingsEClass.getEStructuralFeatures().get(3);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getMiningSettings_DataSpecification() {
-        return (EReference)miningSettingsEClass.getEStructuralFeatures().get(4);
+        return (EReference) miningSettingsEClass.getEStructuralFeatures().get(4);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getClusteringSettings() {
@@ -951,26 +932,23 @@ public class DataminingPackageImpl extends EPackageImpl implements DataminingPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getClusteringSettings_MaxNumberOfClusters() {
-        return (EAttribute)clusteringSettingsEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) clusteringSettingsEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getClusteringSettings_ClusterIdAttributeName() {
-        return (EAttribute)clusteringSettingsEClass.getEStructuralFeatures().get(1);
+        return (EAttribute) clusteringSettingsEClass.getEStructuralFeatures().get(1);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getStatisticsSettings() {
@@ -978,8 +956,7 @@ public class DataminingPackageImpl extends EPackageImpl implements DataminingPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getSupervisedMiningSettings() {
@@ -987,35 +964,31 @@ public class DataminingPackageImpl extends EPackageImpl implements DataminingPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getSupervisedMiningSettings_ConfidenceAttributeName() {
-        return (EAttribute)supervisedMiningSettingsEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) supervisedMiningSettingsEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getSupervisedMiningSettings_PredictedAttributeName() {
-        return (EAttribute)supervisedMiningSettingsEClass.getEStructuralFeatures().get(1);
+        return (EAttribute) supervisedMiningSettingsEClass.getEStructuralFeatures().get(1);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getSupervisedMiningSettings_CostFunction() {
-        return (EAttribute)supervisedMiningSettingsEClass.getEStructuralFeatures().get(2);
+        return (EAttribute) supervisedMiningSettingsEClass.getEStructuralFeatures().get(2);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getClassificationSettings() {
@@ -1023,17 +996,15 @@ public class DataminingPackageImpl extends EPackageImpl implements DataminingPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getClassificationSettings_CostMatrix() {
-        return (EReference)classificationSettingsEClass.getEStructuralFeatures().get(0);
+        return (EReference) classificationSettingsEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getRegressionSettings() {
@@ -1041,8 +1012,7 @@ public class DataminingPackageImpl extends EPackageImpl implements DataminingPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getAssociationRulesSettings() {
@@ -1050,35 +1020,31 @@ public class DataminingPackageImpl extends EPackageImpl implements DataminingPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getAssociationRulesSettings_MinimumSupport() {
-        return (EAttribute)associationRulesSettingsEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) associationRulesSettingsEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getAssociationRulesSettings_MinimumConfidence() {
-        return (EAttribute)associationRulesSettingsEClass.getEStructuralFeatures().get(1);
+        return (EAttribute) associationRulesSettingsEClass.getEStructuralFeatures().get(1);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getAssociationRulesSettings_ItemId() {
-        return (EReference)associationRulesSettingsEClass.getEStructuralFeatures().get(2);
+        return (EReference) associationRulesSettingsEClass.getEStructuralFeatures().get(2);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getApplicationAttribute() {
@@ -1086,44 +1052,39 @@ public class DataminingPackageImpl extends EPackageImpl implements DataminingPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getApplicationAttribute_UsageType() {
-        return (EAttribute)applicationAttributeEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) applicationAttributeEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getApplicationAttribute_AttributeType() {
-        return (EAttribute)applicationAttributeEClass.getEStructuralFeatures().get(1);
+        return (EAttribute) applicationAttributeEClass.getEStructuralFeatures().get(1);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getApplicationAttribute_InputSpec() {
-        return (EReference)applicationAttributeEClass.getEStructuralFeatures().get(2);
+        return (EReference) applicationAttributeEClass.getEStructuralFeatures().get(2);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getApplicationAttribute_SupervisedMiningModel() {
-        return (EReference)applicationAttributeEClass.getEStructuralFeatures().get(3);
+        return (EReference) applicationAttributeEClass.getEStructuralFeatures().get(3);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EEnum getAttributeType() {
@@ -1131,8 +1092,7 @@ public class DataminingPackageImpl extends EPackageImpl implements DataminingPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EEnum getAttributeUsage() {
@@ -1140,8 +1100,7 @@ public class DataminingPackageImpl extends EPackageImpl implements DataminingPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EEnum getCategoryProperty() {
@@ -1149,8 +1108,7 @@ public class DataminingPackageImpl extends EPackageImpl implements DataminingPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EEnum getOrderType() {
@@ -1158,17 +1116,15 @@ public class DataminingPackageImpl extends EPackageImpl implements DataminingPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public DataminingFactory getDataminingFactory() {
-        return (DataminingFactory)getEFactoryInstance();
+        return (DataminingFactory) getEFactoryInstance();
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private boolean isCreated = false;
@@ -1181,7 +1137,8 @@ public class DataminingPackageImpl extends EPackageImpl implements DataminingPac
      * @generated
      */
     public void createPackageContents() {
-        if (isCreated) return;
+        if (isCreated)
+            return;
         isCreated = true;
 
         // Create classes and their features
@@ -1288,21 +1245,21 @@ public class DataminingPackageImpl extends EPackageImpl implements DataminingPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private boolean isInitialized = false;
 
     /**
-     * Complete the initialization of the package and its meta-model.  This
-     * method is guarded to have no affect on any invocation but its first.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Complete the initialization of the package and its meta-model. This
+     * method is guarded to have no affect on any invocation but its first. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void initializePackageContents() {
-        if (isInitialized) return;
+        if (isInitialized)
+            return;
         isInitialized = true;
 
         // Initialize package
@@ -1311,7 +1268,7 @@ public class DataminingPackageImpl extends EPackageImpl implements DataminingPac
         setNsURI(eNS_URI);
 
         // Obtain other dependent packages
-        CorePackage theCorePackage = (CorePackage)EPackage.Registry.INSTANCE.getEPackage(CorePackage.eNS_URI);
+        CorePackage theCorePackage = (CorePackage) EPackage.Registry.INSTANCE.getEPackage(CorePackage.eNS_URI);
 
         // Create type parameters
 
@@ -1341,100 +1298,232 @@ public class DataminingPackageImpl extends EPackageImpl implements DataminingPac
         applicationAttributeEClass.getESuperTypes().add(theCorePackage.getAttribute());
 
         // Initialize classes and features; add operations and parameters
-        initEClass(applicationInputSpecificationEClass, ApplicationInputSpecification.class, "ApplicationInputSpecification", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getApplicationInputSpecification_InputAttribute(), this.getApplicationAttribute(), this.getApplicationAttribute_InputSpec(), "inputAttribute", null, 1, -1, ApplicationInputSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getApplicationInputSpecification_MiningModel(), this.getMiningModel(), this.getMiningModel_InputSpec(), "miningModel", null, 0, 1, ApplicationInputSpecification.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(applicationInputSpecificationEClass, ApplicationInputSpecification.class, "ApplicationInputSpecification",
+                !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getApplicationInputSpecification_InputAttribute(), this.getApplicationAttribute(),
+                this.getApplicationAttribute_InputSpec(), "inputAttribute", null, 1, -1, ApplicationInputSpecification.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEReference(getApplicationInputSpecification_MiningModel(), this.getMiningModel(), this.getMiningModel_InputSpec(),
+                "miningModel", null, 0, 1, ApplicationInputSpecification.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+                !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-        initEClass(attributeUsageRelationEClass, AttributeUsageRelation.class, "AttributeUsageRelation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getAttributeUsageRelation_UsageType(), this.getAttributeUsage(), "usageType", null, 0, 1, AttributeUsageRelation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getAttributeUsageRelation_IncludeInApplyResult(), theCorePackage.getBoolean(), "includeInApplyResult", null, 0, 1, AttributeUsageRelation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getAttributeUsageRelation_Weight(), theCorePackage.getFloat(), "weight", null, 0, 1, AttributeUsageRelation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getAttributeUsageRelation_SuppressNormalization(), theCorePackage.getBoolean(), "suppressNormalization", null, 0, 1, AttributeUsageRelation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getAttributeUsageRelation_Settings(), this.getMiningSettings(), this.getMiningSettings_AttributeUsage(), "settings", null, 1, 1, AttributeUsageRelation.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getAttributeUsageRelation_Attribute(), this.getMiningAttribute(), this.getMiningAttribute_AttributeUsage(), "attribute", null, 1, 1, AttributeUsageRelation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(attributeUsageRelationEClass, AttributeUsageRelation.class, "AttributeUsageRelation", !IS_ABSTRACT,
+                !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getAttributeUsageRelation_UsageType(), this.getAttributeUsage(), "usageType", null, 0, 1,
+                AttributeUsageRelation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getAttributeUsageRelation_IncludeInApplyResult(), theCorePackage.getBoolean(), "includeInApplyResult",
+                null, 0, 1, AttributeUsageRelation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
+                IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getAttributeUsageRelation_Weight(), theCorePackage.getFloat(), "weight", null, 0, 1,
+                AttributeUsageRelation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getAttributeUsageRelation_SuppressNormalization(), theCorePackage.getBoolean(), "suppressNormalization",
+                null, 0, 1, AttributeUsageRelation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
+                IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getAttributeUsageRelation_Settings(), this.getMiningSettings(), this.getMiningSettings_AttributeUsage(),
+                "settings", null, 1, 1, AttributeUsageRelation.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+                !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getAttributeUsageRelation_Attribute(), this.getMiningAttribute(),
+                this.getMiningAttribute_AttributeUsage(), "attribute", null, 1, 1, AttributeUsageRelation.class, !IS_TRANSIENT,
+                !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
 
         initEClass(categoryEClass, Category.class, "Category", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getCategory_DisplayValue(), theCorePackage.getString(), "displayValue", null, 0, 1, Category.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getCategory_Property(), this.getCategoryProperty(), "property", null, 0, 1, Category.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getCategory_Value(), theCorePackage.getAny(), "value", null, 0, 1, Category.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getCategory_CategoricalAttribute(), this.getCategoricalAttribute(), this.getCategoricalAttribute_Category(), "categoricalAttribute", null, 0, 1, Category.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getCategory_DisplayValue(), theCorePackage.getString(), "displayValue", null, 0, 1, Category.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getCategory_Property(), this.getCategoryProperty(), "property", null, 0, 1, Category.class, !IS_TRANSIENT,
+                !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getCategory_Value(), theCorePackage.getAny(), "value", null, 0, 1, Category.class, !IS_TRANSIENT,
+                !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getCategory_CategoricalAttribute(), this.getCategoricalAttribute(),
+                this.getCategoricalAttribute_Category(), "categoricalAttribute", null, 0, 1, Category.class, IS_TRANSIENT,
+                !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
 
-        initEClass(categoryHierarchyEClass, CategoryHierarchy.class, "CategoryHierarchy", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getCategoryHierarchy_CategoricalAttribute(), this.getCategoricalAttribute(), this.getCategoricalAttribute_Taxonomy(), "categoricalAttribute", null, 0, -1, CategoryHierarchy.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(categoryHierarchyEClass, CategoryHierarchy.class, "CategoryHierarchy", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getCategoryHierarchy_CategoricalAttribute(), this.getCategoricalAttribute(),
+                this.getCategoricalAttribute_Taxonomy(), "categoricalAttribute", null, 0, -1, CategoryHierarchy.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
 
         initEClass(costMatrixEClass, CostMatrix.class, "CostMatrix", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getCostMatrix_Settings(), this.getClassificationSettings(), this.getClassificationSettings_CostMatrix(), "settings", null, 0, -1, CostMatrix.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getCostMatrix_Settings(), this.getClassificationSettings(), this.getClassificationSettings_CostMatrix(),
+                "settings", null, 0, -1, CostMatrix.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+                IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-        initEClass(miningAttributeEClass, MiningAttribute.class, "MiningAttribute", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getMiningAttribute_DataSpecification(), this.getMiningDataSpecification(), this.getMiningDataSpecification_Attribute(), "dataSpecification", null, 1, 1, MiningAttribute.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getMiningAttribute_AttributeUsage(), this.getAttributeUsageRelation(), this.getAttributeUsageRelation_Attribute(), "attributeUsage", null, 0, -1, MiningAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getMiningAttribute_Settings(), this.getAssociationRulesSettings(), this.getAssociationRulesSettings_ItemId(), "settings", null, 0, -1, MiningAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(miningAttributeEClass, MiningAttribute.class, "MiningAttribute", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getMiningAttribute_DataSpecification(), this.getMiningDataSpecification(),
+                this.getMiningDataSpecification_Attribute(), "dataSpecification", null, 1, 1, MiningAttribute.class,
+                IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEReference(getMiningAttribute_AttributeUsage(), this.getAttributeUsageRelation(),
+                this.getAttributeUsageRelation_Attribute(), "attributeUsage", null, 0, -1, MiningAttribute.class, !IS_TRANSIENT,
+                !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
+        initEReference(getMiningAttribute_Settings(), this.getAssociationRulesSettings(),
+                this.getAssociationRulesSettings_ItemId(), "settings", null, 0, -1, MiningAttribute.class, !IS_TRANSIENT,
+                !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
 
-        initEClass(miningDataSpecificationEClass, MiningDataSpecification.class, "MiningDataSpecification", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getMiningDataSpecification_Attribute(), this.getMiningAttribute(), this.getMiningAttribute_DataSpecification(), "attribute", null, 1, -1, MiningDataSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getMiningDataSpecification_Settings(), this.getMiningSettings(), this.getMiningSettings_DataSpecification(), "settings", null, 0, -1, MiningDataSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(miningDataSpecificationEClass, MiningDataSpecification.class, "MiningDataSpecification", !IS_ABSTRACT,
+                !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getMiningDataSpecification_Attribute(), this.getMiningAttribute(),
+                this.getMiningAttribute_DataSpecification(), "attribute", null, 1, -1, MiningDataSpecification.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEReference(getMiningDataSpecification_Settings(), this.getMiningSettings(),
+                this.getMiningSettings_DataSpecification(), "settings", null, 0, -1, MiningDataSpecification.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
 
         initEClass(miningModelEClass, MiningModel.class, "MiningModel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getMiningModel_Function(), theCorePackage.getString(), "function", null, 0, 1, MiningModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getMiningModel_Algorithm(), theCorePackage.getString(), "algorithm", null, 0, 1, MiningModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getMiningModel_Settings(), this.getMiningSettings(), this.getMiningSettings_MiningModel(), "settings", null, 0, 1, MiningModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getMiningModel_MiningResult(), this.getMiningModelResult(), this.getMiningModelResult_Model(), "miningResult", null, 0, -1, MiningModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getMiningModel_InputSpec(), this.getApplicationInputSpecification(), this.getApplicationInputSpecification_MiningModel(), "inputSpec", null, 1, -1, MiningModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getMiningModel_Function(), theCorePackage.getString(), "function", null, 0, 1, MiningModel.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getMiningModel_Algorithm(), theCorePackage.getString(), "algorithm", null, 0, 1, MiningModel.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getMiningModel_Settings(), this.getMiningSettings(), this.getMiningSettings_MiningModel(), "settings",
+                null, 0, 1, MiningModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getMiningModel_MiningResult(), this.getMiningModelResult(), this.getMiningModelResult_Model(),
+                "miningResult", null, 0, -1, MiningModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+                IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getMiningModel_InputSpec(), this.getApplicationInputSpecification(),
+                this.getApplicationInputSpecification_MiningModel(), "inputSpec", null, 1, -1, MiningModel.class, !IS_TRANSIENT,
+                !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
 
-        initEClass(miningModelResultEClass, MiningModelResult.class, "MiningModelResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getMiningModelResult_Type(), theCorePackage.getString(), "type", null, 0, 1, MiningModelResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getMiningModelResult_Model(), this.getMiningModel(), this.getMiningModel_MiningResult(), "model", null, 1, 1, MiningModelResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(miningModelResultEClass, MiningModelResult.class, "MiningModelResult", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getMiningModelResult_Type(), theCorePackage.getString(), "type", null, 0, 1, MiningModelResult.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getMiningModelResult_Model(), this.getMiningModel(), this.getMiningModel_MiningResult(), "model", null, 1,
+                1, MiningModelResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-        initEClass(numericAttributeEClass, NumericAttribute.class, "NumericAttribute", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getNumericAttribute_LowerBound(), theCorePackage.getFloat(), "lowerBound", null, 0, 1, NumericAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getNumericAttribute_UpperBound(), theCorePackage.getFloat(), "upperBound", null, 0, 1, NumericAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getNumericAttribute_IsCyclic(), theCorePackage.getBoolean(), "isCyclic", null, 0, 1, NumericAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getNumericAttribute_IsDiscrete(), theCorePackage.getBoolean(), "isDiscrete", null, 0, 1, NumericAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(numericAttributeEClass, NumericAttribute.class, "NumericAttribute", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getNumericAttribute_LowerBound(), theCorePackage.getFloat(), "lowerBound", null, 0, 1,
+                NumericAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getNumericAttribute_UpperBound(), theCorePackage.getFloat(), "upperBound", null, 0, 1,
+                NumericAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getNumericAttribute_IsCyclic(), theCorePackage.getBoolean(), "isCyclic", null, 0, 1,
+                NumericAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getNumericAttribute_IsDiscrete(), theCorePackage.getBoolean(), "isDiscrete", null, 0, 1,
+                NumericAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
 
-        initEClass(supervisedMiningModelEClass, SupervisedMiningModel.class, "SupervisedMiningModel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getSupervisedMiningModel_Target(), this.getApplicationAttribute(), this.getApplicationAttribute_SupervisedMiningModel(), "target", null, 1, 1, SupervisedMiningModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(supervisedMiningModelEClass, SupervisedMiningModel.class, "SupervisedMiningModel", !IS_ABSTRACT,
+                !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getSupervisedMiningModel_Target(), this.getApplicationAttribute(),
+                this.getApplicationAttribute_SupervisedMiningModel(), "target", null, 1, 1, SupervisedMiningModel.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
 
-        initEClass(categoricalAttributeEClass, CategoricalAttribute.class, "CategoricalAttribute", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getCategoricalAttribute_Taxonomy(), this.getCategoryHierarchy(), this.getCategoryHierarchy_CategoricalAttribute(), "taxonomy", null, 0, 1, CategoricalAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getCategoricalAttribute_Category(), this.getCategory(), this.getCategory_CategoricalAttribute(), "category", null, 0, -1, CategoricalAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(categoricalAttributeEClass, CategoricalAttribute.class, "CategoricalAttribute", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getCategoricalAttribute_Taxonomy(), this.getCategoryHierarchy(),
+                this.getCategoryHierarchy_CategoricalAttribute(), "taxonomy", null, 0, 1, CategoricalAttribute.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEReference(getCategoricalAttribute_Category(), this.getCategory(), this.getCategory_CategoricalAttribute(),
+                "category", null, 0, -1, CategoricalAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+                !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-        initEClass(ordinalAttributeEClass, OrdinalAttribute.class, "OrdinalAttribute", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getOrdinalAttribute_IsCyclic(), theCorePackage.getBoolean(), "isCyclic", null, 0, 1, OrdinalAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getOrdinalAttribute_OrderingType(), this.getOrderType(), "orderingType", null, 0, 1, OrdinalAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(ordinalAttributeEClass, OrdinalAttribute.class, "OrdinalAttribute", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getOrdinalAttribute_IsCyclic(), theCorePackage.getBoolean(), "isCyclic", null, 0, 1,
+                OrdinalAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getOrdinalAttribute_OrderingType(), this.getOrderType(), "orderingType", null, 0, 1,
+                OrdinalAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
 
-        initEClass(miningSettingsEClass, MiningSettings.class, "MiningSettings", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getMiningSettings_Function(), theCorePackage.getString(), "function", null, 0, 1, MiningSettings.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getMiningSettings_Algorithm(), theCorePackage.getString(), "algorithm", null, 0, 1, MiningSettings.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getMiningSettings_MiningModel(), this.getMiningModel(), this.getMiningModel_Settings(), "miningModel", null, 1, 1, MiningSettings.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getMiningSettings_AttributeUsage(), this.getAttributeUsageRelation(), this.getAttributeUsageRelation_Settings(), "attributeUsage", null, 1, -1, MiningSettings.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getMiningSettings_DataSpecification(), this.getMiningDataSpecification(), this.getMiningDataSpecification_Settings(), "dataSpecification", null, 1, 1, MiningSettings.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(miningSettingsEClass, MiningSettings.class, "MiningSettings", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getMiningSettings_Function(), theCorePackage.getString(), "function", null, 0, 1, MiningSettings.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getMiningSettings_Algorithm(), theCorePackage.getString(), "algorithm", null, 0, 1, MiningSettings.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getMiningSettings_MiningModel(), this.getMiningModel(), this.getMiningModel_Settings(), "miningModel",
+                null, 1, 1, MiningSettings.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getMiningSettings_AttributeUsage(), this.getAttributeUsageRelation(),
+                this.getAttributeUsageRelation_Settings(), "attributeUsage", null, 1, -1, MiningSettings.class, !IS_TRANSIENT,
+                !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
+        initEReference(getMiningSettings_DataSpecification(), this.getMiningDataSpecification(),
+                this.getMiningDataSpecification_Settings(), "dataSpecification", null, 1, 1, MiningSettings.class, !IS_TRANSIENT,
+                !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
 
-        initEClass(clusteringSettingsEClass, ClusteringSettings.class, "ClusteringSettings", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getClusteringSettings_MaxNumberOfClusters(), theCorePackage.getInteger(), "maxNumberOfClusters", null, 0, 1, ClusteringSettings.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getClusteringSettings_ClusterIdAttributeName(), theCorePackage.getString(), "clusterIdAttributeName", null, 0, 1, ClusteringSettings.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(clusteringSettingsEClass, ClusteringSettings.class, "ClusteringSettings", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getClusteringSettings_MaxNumberOfClusters(), theCorePackage.getInteger(), "maxNumberOfClusters", null, 0,
+                1, ClusteringSettings.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getClusteringSettings_ClusterIdAttributeName(), theCorePackage.getString(), "clusterIdAttributeName",
+                null, 0, 1, ClusteringSettings.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
+                IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-        initEClass(statisticsSettingsEClass, StatisticsSettings.class, "StatisticsSettings", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEClass(statisticsSettingsEClass, StatisticsSettings.class, "StatisticsSettings", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
 
-        initEClass(supervisedMiningSettingsEClass, SupervisedMiningSettings.class, "SupervisedMiningSettings", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getSupervisedMiningSettings_ConfidenceAttributeName(), theCorePackage.getString(), "confidenceAttributeName", null, 0, 1, SupervisedMiningSettings.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getSupervisedMiningSettings_PredictedAttributeName(), theCorePackage.getString(), "predictedAttributeName", null, 0, 1, SupervisedMiningSettings.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getSupervisedMiningSettings_CostFunction(), theCorePackage.getString(), "costFunction", null, 0, 1, SupervisedMiningSettings.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(supervisedMiningSettingsEClass, SupervisedMiningSettings.class, "SupervisedMiningSettings", !IS_ABSTRACT,
+                !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getSupervisedMiningSettings_ConfidenceAttributeName(), theCorePackage.getString(),
+                "confidenceAttributeName", null, 0, 1, SupervisedMiningSettings.class, !IS_TRANSIENT, !IS_VOLATILE,
+                IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSupervisedMiningSettings_PredictedAttributeName(), theCorePackage.getString(),
+                "predictedAttributeName", null, 0, 1, SupervisedMiningSettings.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+                !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSupervisedMiningSettings_CostFunction(), theCorePackage.getString(), "costFunction", null, 0, 1,
+                SupervisedMiningSettings.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
 
-        initEClass(classificationSettingsEClass, ClassificationSettings.class, "ClassificationSettings", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getClassificationSettings_CostMatrix(), this.getCostMatrix(), this.getCostMatrix_Settings(), "costMatrix", null, 0, 1, ClassificationSettings.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(classificationSettingsEClass, ClassificationSettings.class, "ClassificationSettings", !IS_ABSTRACT,
+                !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getClassificationSettings_CostMatrix(), this.getCostMatrix(), this.getCostMatrix_Settings(), "costMatrix",
+                null, 0, 1, ClassificationSettings.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+                IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-        initEClass(regressionSettingsEClass, RegressionSettings.class, "RegressionSettings", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEClass(regressionSettingsEClass, RegressionSettings.class, "RegressionSettings", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
 
-        initEClass(associationRulesSettingsEClass, AssociationRulesSettings.class, "AssociationRulesSettings", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getAssociationRulesSettings_MinimumSupport(), theCorePackage.getFloat(), "minimumSupport", null, 0, 1, AssociationRulesSettings.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getAssociationRulesSettings_MinimumConfidence(), theCorePackage.getFloat(), "minimumConfidence", null, 0, 1, AssociationRulesSettings.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getAssociationRulesSettings_ItemId(), this.getMiningAttribute(), this.getMiningAttribute_Settings(), "itemId", null, 1, 1, AssociationRulesSettings.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(associationRulesSettingsEClass, AssociationRulesSettings.class, "AssociationRulesSettings", !IS_ABSTRACT,
+                !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getAssociationRulesSettings_MinimumSupport(), theCorePackage.getFloat(), "minimumSupport", null, 0, 1,
+                AssociationRulesSettings.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getAssociationRulesSettings_MinimumConfidence(), theCorePackage.getFloat(), "minimumConfidence", null, 0,
+                1, AssociationRulesSettings.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEReference(getAssociationRulesSettings_ItemId(), this.getMiningAttribute(), this.getMiningAttribute_Settings(),
+                "itemId", null, 1, 1, AssociationRulesSettings.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+                IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-        initEClass(applicationAttributeEClass, ApplicationAttribute.class, "ApplicationAttribute", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getApplicationAttribute_UsageType(), this.getAttributeUsage(), "usageType", null, 0, 1, ApplicationAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getApplicationAttribute_AttributeType(), this.getAttributeType(), "attributeType", null, 0, 1, ApplicationAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getApplicationAttribute_InputSpec(), this.getApplicationInputSpecification(), this.getApplicationInputSpecification_InputAttribute(), "inputSpec", null, 1, 1, ApplicationAttribute.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getApplicationAttribute_SupervisedMiningModel(), this.getSupervisedMiningModel(), this.getSupervisedMiningModel_Target(), "supervisedMiningModel", null, 0, -1, ApplicationAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(applicationAttributeEClass, ApplicationAttribute.class, "ApplicationAttribute", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getApplicationAttribute_UsageType(), this.getAttributeUsage(), "usageType", null, 0, 1,
+                ApplicationAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getApplicationAttribute_AttributeType(), this.getAttributeType(), "attributeType", null, 0, 1,
+                ApplicationAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEReference(getApplicationAttribute_InputSpec(), this.getApplicationInputSpecification(),
+                this.getApplicationInputSpecification_InputAttribute(), "inputSpec", null, 1, 1, ApplicationAttribute.class,
+                IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEReference(getApplicationAttribute_SupervisedMiningModel(), this.getSupervisedMiningModel(),
+                this.getSupervisedMiningModel_Target(), "supervisedMiningModel", null, 0, -1, ApplicationAttribute.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
 
         // Initialize enums and add enum literals
         initEEnum(attributeTypeEEnum, AttributeType.class, "AttributeType");
@@ -1463,4 +1552,4 @@ public class DataminingPackageImpl extends EPackageImpl implements DataminingPac
         createResource(eNS_URI);
     }
 
-} //DataminingPackageImpl
+} // DataminingPackageImpl

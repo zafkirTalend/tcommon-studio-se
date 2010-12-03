@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.dmsii.impl;
@@ -11,6 +10,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import orgomg.cwmx.resource.dmsii.*;
 import orgomg.cwmx.resource.dmsii.Access;
 import orgomg.cwmx.resource.dmsii.AutomaticSubset;
 import orgomg.cwmx.resource.dmsii.DASDLComment;
@@ -37,26 +37,26 @@ import orgomg.cwmx.resource.dmsii.Subset;
 import orgomg.cwmx.resource.dmsii.VariableFormatPart;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model <b>Factory</b>.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!--
+ * end-user-doc -->
  * @generated
  */
 public class DmsiiFactoryImpl extends EFactoryImpl implements DmsiiFactory {
+
     /**
      * Creates the default factory implementation.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     public static DmsiiFactory init() {
         try {
-            DmsiiFactory theDmsiiFactory = (DmsiiFactory)EPackage.Registry.INSTANCE.getEFactory("http:///orgomg/cwmx/resource/dmsii.ecore"); 
+            DmsiiFactory theDmsiiFactory = (DmsiiFactory) EPackage.Registry.INSTANCE
+                    .getEFactory("http:///orgomg/cwmx/resource/dmsii.ecore");
             if (theDmsiiFactory != null) {
                 return theDmsiiFactory;
             }
-        }
-        catch (Exception exception) {
+        } catch (Exception exception) {
             EcorePlugin.INSTANCE.log(exception);
         }
         return new DmsiiFactoryImpl();
@@ -64,8 +64,8 @@ public class DmsiiFactoryImpl extends EFactoryImpl implements DmsiiFactory {
 
     /**
      * Creates an instance of the factory.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     public DmsiiFactoryImpl() {
@@ -73,43 +73,63 @@ public class DmsiiFactoryImpl extends EFactoryImpl implements DmsiiFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public EObject create(EClass eClass) {
         switch (eClass.getClassifierID()) {
-            case DmsiiPackage.DATABASE: return createDatabase();
-            case DmsiiPackage.REMAP: return createRemap();
-            case DmsiiPackage.DATA_SET: return createDataSet();
-            case DmsiiPackage.DATA_ITEM: return createDataItem();
-            case DmsiiPackage.VARIABLE_FORMAT_PART: return createVariableFormatPart();
-            case DmsiiPackage.SET_STRUCTURE: return createSetStructure();
-            case DmsiiPackage.SET: return createSet();
-            case DmsiiPackage.ACCESS: return createAccess();
-            case DmsiiPackage.SUBSET: return createSubset();
-            case DmsiiPackage.AUTOMATIC_SUBSET: return createAutomaticSubset();
-            case DmsiiPackage.KEY_ITEM: return createKeyItem();
-            case DmsiiPackage.REMAP_ITEM: return createRemapItem();
-            case DmsiiPackage.FIELD_BIT: return createFieldBit();
-            case DmsiiPackage.REMARK: return createRemark();
-            case DmsiiPackage.PHYSICAL_DATABASE: return createPhysicalDatabase();
-            case DmsiiPackage.PHYSICAL_DATA_SET: return createPhysicalDataSet();
-            case DmsiiPackage.DASDL_COMMENT: return createDASDLComment();
-            case DmsiiPackage.PHYSICAL_SET: return createPhysicalSet();
-            case DmsiiPackage.PHYSICAL_DATA_SET_OVERRIDE: return createPhysicalDataSetOverride();
-            case DmsiiPackage.PHYSICAL_SET_OVERRIDE: return createPhysicalSetOverride();
-            case DmsiiPackage.PHYSICAL_ACCESS_OVERRIDE: return createPhysicalAccessOverride();
-            case DmsiiPackage.DASDL_PROPERTY: return createDASDLProperty();
-            default:
-                throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+        case DmsiiPackage.DATABASE:
+            return createDatabase();
+        case DmsiiPackage.REMAP:
+            return createRemap();
+        case DmsiiPackage.DATA_SET:
+            return createDataSet();
+        case DmsiiPackage.DATA_ITEM:
+            return createDataItem();
+        case DmsiiPackage.VARIABLE_FORMAT_PART:
+            return createVariableFormatPart();
+        case DmsiiPackage.SET_STRUCTURE:
+            return createSetStructure();
+        case DmsiiPackage.SET:
+            return createSet();
+        case DmsiiPackage.ACCESS:
+            return createAccess();
+        case DmsiiPackage.SUBSET:
+            return createSubset();
+        case DmsiiPackage.AUTOMATIC_SUBSET:
+            return createAutomaticSubset();
+        case DmsiiPackage.KEY_ITEM:
+            return createKeyItem();
+        case DmsiiPackage.REMAP_ITEM:
+            return createRemapItem();
+        case DmsiiPackage.FIELD_BIT:
+            return createFieldBit();
+        case DmsiiPackage.REMARK:
+            return createRemark();
+        case DmsiiPackage.PHYSICAL_DATABASE:
+            return createPhysicalDatabase();
+        case DmsiiPackage.PHYSICAL_DATA_SET:
+            return createPhysicalDataSet();
+        case DmsiiPackage.DASDL_COMMENT:
+            return createDASDLComment();
+        case DmsiiPackage.PHYSICAL_SET:
+            return createPhysicalSet();
+        case DmsiiPackage.PHYSICAL_DATA_SET_OVERRIDE:
+            return createPhysicalDataSetOverride();
+        case DmsiiPackage.PHYSICAL_SET_OVERRIDE:
+            return createPhysicalSetOverride();
+        case DmsiiPackage.PHYSICAL_ACCESS_OVERRIDE:
+            return createPhysicalAccessOverride();
+        case DmsiiPackage.DASDL_PROPERTY:
+            return createDASDLProperty();
+        default:
+            throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Database createDatabase() {
@@ -118,8 +138,7 @@ public class DmsiiFactoryImpl extends EFactoryImpl implements DmsiiFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Remap createRemap() {
@@ -128,8 +147,7 @@ public class DmsiiFactoryImpl extends EFactoryImpl implements DmsiiFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public DataSet createDataSet() {
@@ -138,8 +156,7 @@ public class DmsiiFactoryImpl extends EFactoryImpl implements DmsiiFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public DataItem createDataItem() {
@@ -148,8 +165,7 @@ public class DmsiiFactoryImpl extends EFactoryImpl implements DmsiiFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public VariableFormatPart createVariableFormatPart() {
@@ -158,8 +174,7 @@ public class DmsiiFactoryImpl extends EFactoryImpl implements DmsiiFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public SetStructure createSetStructure() {
@@ -168,8 +183,7 @@ public class DmsiiFactoryImpl extends EFactoryImpl implements DmsiiFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Set createSet() {
@@ -178,8 +192,7 @@ public class DmsiiFactoryImpl extends EFactoryImpl implements DmsiiFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Access createAccess() {
@@ -188,8 +201,7 @@ public class DmsiiFactoryImpl extends EFactoryImpl implements DmsiiFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Subset createSubset() {
@@ -198,8 +210,7 @@ public class DmsiiFactoryImpl extends EFactoryImpl implements DmsiiFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public AutomaticSubset createAutomaticSubset() {
@@ -208,8 +219,7 @@ public class DmsiiFactoryImpl extends EFactoryImpl implements DmsiiFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public KeyItem createKeyItem() {
@@ -218,8 +228,7 @@ public class DmsiiFactoryImpl extends EFactoryImpl implements DmsiiFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public RemapItem createRemapItem() {
@@ -228,8 +237,7 @@ public class DmsiiFactoryImpl extends EFactoryImpl implements DmsiiFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public FieldBit createFieldBit() {
@@ -238,8 +246,7 @@ public class DmsiiFactoryImpl extends EFactoryImpl implements DmsiiFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Remark createRemark() {
@@ -248,8 +255,7 @@ public class DmsiiFactoryImpl extends EFactoryImpl implements DmsiiFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public PhysicalDatabase createPhysicalDatabase() {
@@ -258,8 +264,7 @@ public class DmsiiFactoryImpl extends EFactoryImpl implements DmsiiFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public PhysicalDataSet createPhysicalDataSet() {
@@ -268,8 +273,7 @@ public class DmsiiFactoryImpl extends EFactoryImpl implements DmsiiFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public DASDLComment createDASDLComment() {
@@ -278,8 +282,7 @@ public class DmsiiFactoryImpl extends EFactoryImpl implements DmsiiFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public PhysicalSet createPhysicalSet() {
@@ -288,8 +291,7 @@ public class DmsiiFactoryImpl extends EFactoryImpl implements DmsiiFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public PhysicalDataSetOverride createPhysicalDataSetOverride() {
@@ -298,8 +300,7 @@ public class DmsiiFactoryImpl extends EFactoryImpl implements DmsiiFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public PhysicalSetOverride createPhysicalSetOverride() {
@@ -308,8 +309,7 @@ public class DmsiiFactoryImpl extends EFactoryImpl implements DmsiiFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public PhysicalAccessOverride createPhysicalAccessOverride() {
@@ -318,8 +318,7 @@ public class DmsiiFactoryImpl extends EFactoryImpl implements DmsiiFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public DASDLProperty createDASDLProperty() {
@@ -328,17 +327,15 @@ public class DmsiiFactoryImpl extends EFactoryImpl implements DmsiiFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public DmsiiPackage getDmsiiPackage() {
-        return (DmsiiPackage)getEPackage();
+        return (DmsiiPackage) getEPackage();
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @deprecated
      * @generated
      */
@@ -347,4 +344,4 @@ public class DmsiiFactoryImpl extends EFactoryImpl implements DmsiiFactory {
         return DmsiiPackage.eINSTANCE;
     }
 
-} //DmsiiFactoryImpl
+} // DmsiiFactoryImpl

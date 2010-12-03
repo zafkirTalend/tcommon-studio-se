@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.essbase.impl;
@@ -12,18 +11,17 @@ import orgomg.cwmx.resource.essbase.EssbasePackage;
 import orgomg.cwmx.resource.essbase.TwoPassCalculation;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Two Pass Calculation</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Two Pass Calculation</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
 public class TwoPassCalculationImpl extends DimensionedObjectImpl implements TwoPassCalculation {
+
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected TwoPassCalculationImpl() {
@@ -31,8 +29,7 @@ public class TwoPassCalculationImpl extends DimensionedObjectImpl implements Two
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -40,4 +37,4 @@ public class TwoPassCalculationImpl extends DimensionedObjectImpl implements Two
         return EssbasePackage.Literals.TWO_PASS_CALCULATION;
     }
 
-} //TwoPassCalculationImpl
+} // TwoPassCalculationImpl

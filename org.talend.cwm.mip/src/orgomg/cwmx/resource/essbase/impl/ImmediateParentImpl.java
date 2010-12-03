@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.essbase.impl;
@@ -12,18 +11,17 @@ import orgomg.cwmx.resource.essbase.EssbasePackage;
 import orgomg.cwmx.resource.essbase.ImmediateParent;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Immediate Parent</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Immediate Parent</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
 public class ImmediateParentImpl extends DimensionedObjectImpl implements ImmediateParent {
+
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected ImmediateParentImpl() {
@@ -31,8 +29,7 @@ public class ImmediateParentImpl extends DimensionedObjectImpl implements Immedi
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -40,4 +37,4 @@ public class ImmediateParentImpl extends DimensionedObjectImpl implements Immedi
         return EssbasePackage.Literals.IMMEDIATE_PARENT;
     }
 
-} //ImmediateParentImpl
+} // ImmediateParentImpl

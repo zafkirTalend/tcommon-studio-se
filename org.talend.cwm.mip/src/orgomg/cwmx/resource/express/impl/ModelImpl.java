@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.express.impl;
@@ -14,9 +13,8 @@ import orgomg.cwmx.resource.express.ExpressPackage;
 import orgomg.cwmx.resource.express.Model;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Model</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Model</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -27,10 +25,10 @@ import orgomg.cwmx.resource.express.Model;
  * @generated
  */
 public class ModelImpl extends ComponentImpl implements Model {
+
     /**
      * The default value of the '{@link #getContent() <em>Content</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getContent()
      * @generated
      * @ordered
@@ -39,8 +37,7 @@ public class ModelImpl extends ComponentImpl implements Model {
 
     /**
      * The cached value of the '{@link #getContent() <em>Content</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getContent()
      * @generated
      * @ordered
@@ -48,8 +45,7 @@ public class ModelImpl extends ComponentImpl implements Model {
     protected String content = CONTENT_EDEFAULT;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected ModelImpl() {
@@ -57,8 +53,7 @@ public class ModelImpl extends ComponentImpl implements Model {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -67,8 +62,7 @@ public class ModelImpl extends ComponentImpl implements Model {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getContent() {
@@ -76,8 +70,7 @@ public class ModelImpl extends ComponentImpl implements Model {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setContent(String newContent) {
@@ -88,71 +81,67 @@ public class ModelImpl extends ComponentImpl implements Model {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case ExpressPackage.MODEL__CONTENT:
-                return getContent();
+        case ExpressPackage.MODEL__CONTENT:
+            return getContent();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case ExpressPackage.MODEL__CONTENT:
-                setContent((String)newValue);
-                return;
+        case ExpressPackage.MODEL__CONTENT:
+            setContent((String) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case ExpressPackage.MODEL__CONTENT:
-                setContent(CONTENT_EDEFAULT);
-                return;
+        case ExpressPackage.MODEL__CONTENT:
+            setContent(CONTENT_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case ExpressPackage.MODEL__CONTENT:
-                return CONTENT_EDEFAULT == null ? content != null : !CONTENT_EDEFAULT.equals(content);
+        case ExpressPackage.MODEL__CONTENT:
+            return CONTENT_EDEFAULT == null ? content != null : !CONTENT_EDEFAULT.equals(content);
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (content: ");
@@ -161,4 +150,4 @@ public class ModelImpl extends ComponentImpl implements Model {
         return result.toString();
     }
 
-} //ModelImpl
+} // ModelImpl

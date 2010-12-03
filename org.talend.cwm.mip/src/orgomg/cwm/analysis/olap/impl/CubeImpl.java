@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.analysis.olap.impl;
@@ -25,9 +24,8 @@ import orgomg.cwm.analysis.olap.Schema;
 import orgomg.cwm.objectmodel.core.impl.ClassImpl;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Cube</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Cube</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -41,10 +39,10 @@ import orgomg.cwm.objectmodel.core.impl.ClassImpl;
  * @generated
  */
 public class CubeImpl extends ClassImpl implements Cube {
+
     /**
      * The default value of the '{@link #isIsVirtual() <em>Is Virtual</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #isIsVirtual()
      * @generated
      * @ordered
@@ -53,8 +51,7 @@ public class CubeImpl extends ClassImpl implements Cube {
 
     /**
      * The cached value of the '{@link #isIsVirtual() <em>Is Virtual</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #isIsVirtual()
      * @generated
      * @ordered
@@ -62,9 +59,10 @@ public class CubeImpl extends ClassImpl implements Cube {
     protected boolean isVirtual = IS_VIRTUAL_EDEFAULT;
 
     /**
-     * The cached value of the '{@link #getCubeDimensionAssociation() <em>Cube Dimension Association</em>}' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getCubeDimensionAssociation()
+     * <em>Cube Dimension Association</em>}' containment reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #getCubeDimensionAssociation()
      * @generated
      * @ordered
@@ -73,8 +71,7 @@ public class CubeImpl extends ClassImpl implements Cube {
 
     /**
      * The cached value of the '{@link #getCubeRegion() <em>Cube Region</em>}' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getCubeRegion()
      * @generated
      * @ordered
@@ -82,8 +79,7 @@ public class CubeImpl extends ClassImpl implements Cube {
     protected EList<CubeRegion> cubeRegion;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected CubeImpl() {
@@ -91,8 +87,7 @@ public class CubeImpl extends ClassImpl implements Cube {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -101,8 +96,7 @@ public class CubeImpl extends ClassImpl implements Cube {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isIsVirtual() {
@@ -110,8 +104,7 @@ public class CubeImpl extends ClassImpl implements Cube {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setIsVirtual(boolean newIsVirtual) {
@@ -122,40 +115,39 @@ public class CubeImpl extends ClassImpl implements Cube {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<CubeDimensionAssociation> getCubeDimensionAssociation() {
         if (cubeDimensionAssociation == null) {
-            cubeDimensionAssociation = new EObjectContainmentWithInverseEList<CubeDimensionAssociation>(CubeDimensionAssociation.class, this, OlapPackage.CUBE__CUBE_DIMENSION_ASSOCIATION, OlapPackage.CUBE_DIMENSION_ASSOCIATION__CUBE);
+            cubeDimensionAssociation = new EObjectContainmentWithInverseEList<CubeDimensionAssociation>(
+                    CubeDimensionAssociation.class, this, OlapPackage.CUBE__CUBE_DIMENSION_ASSOCIATION,
+                    OlapPackage.CUBE_DIMENSION_ASSOCIATION__CUBE);
         }
         return cubeDimensionAssociation;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Schema getSchema() {
-        if (eContainerFeatureID() != OlapPackage.CUBE__SCHEMA) return null;
-        return (Schema)eContainer();
+        if (eContainerFeatureID() != OlapPackage.CUBE__SCHEMA)
+            return null;
+        return (Schema) eContainer();
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public NotificationChain basicSetSchema(Schema newSchema, NotificationChain msgs) {
-        msgs = eBasicSetContainer((InternalEObject)newSchema, OlapPackage.CUBE__SCHEMA, msgs);
+        msgs = eBasicSetContainer((InternalEObject) newSchema, OlapPackage.CUBE__SCHEMA, msgs);
         return msgs;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setSchema(Schema newSchema) {
@@ -166,178 +158,171 @@ public class CubeImpl extends ClassImpl implements Cube {
             if (eInternalContainer() != null)
                 msgs = eBasicRemoveFromContainer(msgs);
             if (newSchema != null)
-                msgs = ((InternalEObject)newSchema).eInverseAdd(this, OlapPackage.SCHEMA__CUBE, Schema.class, msgs);
+                msgs = ((InternalEObject) newSchema).eInverseAdd(this, OlapPackage.SCHEMA__CUBE, Schema.class, msgs);
             msgs = basicSetSchema(newSchema, msgs);
-            if (msgs != null) msgs.dispatch();
-        }
-        else if (eNotificationRequired())
+            if (msgs != null)
+                msgs.dispatch();
+        } else if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, OlapPackage.CUBE__SCHEMA, newSchema, newSchema));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<CubeRegion> getCubeRegion() {
         if (cubeRegion == null) {
-            cubeRegion = new EObjectContainmentWithInverseEList<CubeRegion>(CubeRegion.class, this, OlapPackage.CUBE__CUBE_REGION, OlapPackage.CUBE_REGION__CUBE);
+            cubeRegion = new EObjectContainmentWithInverseEList<CubeRegion>(CubeRegion.class, this,
+                    OlapPackage.CUBE__CUBE_REGION, OlapPackage.CUBE_REGION__CUBE);
         }
         return cubeRegion;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case OlapPackage.CUBE__CUBE_DIMENSION_ASSOCIATION:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getCubeDimensionAssociation()).basicAdd(otherEnd, msgs);
-            case OlapPackage.CUBE__SCHEMA:
-                if (eInternalContainer() != null)
-                    msgs = eBasicRemoveFromContainer(msgs);
-                return basicSetSchema((Schema)otherEnd, msgs);
-            case OlapPackage.CUBE__CUBE_REGION:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getCubeRegion()).basicAdd(otherEnd, msgs);
+        case OlapPackage.CUBE__CUBE_DIMENSION_ASSOCIATION:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getCubeDimensionAssociation()).basicAdd(otherEnd, msgs);
+        case OlapPackage.CUBE__SCHEMA:
+            if (eInternalContainer() != null)
+                msgs = eBasicRemoveFromContainer(msgs);
+            return basicSetSchema((Schema) otherEnd, msgs);
+        case OlapPackage.CUBE__CUBE_REGION:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getCubeRegion()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case OlapPackage.CUBE__CUBE_DIMENSION_ASSOCIATION:
-                return ((InternalEList<?>)getCubeDimensionAssociation()).basicRemove(otherEnd, msgs);
-            case OlapPackage.CUBE__SCHEMA:
-                return basicSetSchema(null, msgs);
-            case OlapPackage.CUBE__CUBE_REGION:
-                return ((InternalEList<?>)getCubeRegion()).basicRemove(otherEnd, msgs);
+        case OlapPackage.CUBE__CUBE_DIMENSION_ASSOCIATION:
+            return ((InternalEList<?>) getCubeDimensionAssociation()).basicRemove(otherEnd, msgs);
+        case OlapPackage.CUBE__SCHEMA:
+            return basicSetSchema(null, msgs);
+        case OlapPackage.CUBE__CUBE_REGION:
+            return ((InternalEList<?>) getCubeRegion()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
         switch (eContainerFeatureID()) {
-            case OlapPackage.CUBE__SCHEMA:
-                return eInternalContainer().eInverseRemove(this, OlapPackage.SCHEMA__CUBE, Schema.class, msgs);
+        case OlapPackage.CUBE__SCHEMA:
+            return eInternalContainer().eInverseRemove(this, OlapPackage.SCHEMA__CUBE, Schema.class, msgs);
         }
         return super.eBasicRemoveFromContainerFeature(msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case OlapPackage.CUBE__IS_VIRTUAL:
-                return isIsVirtual();
-            case OlapPackage.CUBE__CUBE_DIMENSION_ASSOCIATION:
-                return getCubeDimensionAssociation();
-            case OlapPackage.CUBE__SCHEMA:
-                return getSchema();
-            case OlapPackage.CUBE__CUBE_REGION:
-                return getCubeRegion();
+        case OlapPackage.CUBE__IS_VIRTUAL:
+            return isIsVirtual();
+        case OlapPackage.CUBE__CUBE_DIMENSION_ASSOCIATION:
+            return getCubeDimensionAssociation();
+        case OlapPackage.CUBE__SCHEMA:
+            return getSchema();
+        case OlapPackage.CUBE__CUBE_REGION:
+            return getCubeRegion();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case OlapPackage.CUBE__IS_VIRTUAL:
-                setIsVirtual((Boolean)newValue);
-                return;
-            case OlapPackage.CUBE__CUBE_DIMENSION_ASSOCIATION:
-                getCubeDimensionAssociation().clear();
-                getCubeDimensionAssociation().addAll((Collection<? extends CubeDimensionAssociation>)newValue);
-                return;
-            case OlapPackage.CUBE__SCHEMA:
-                setSchema((Schema)newValue);
-                return;
-            case OlapPackage.CUBE__CUBE_REGION:
-                getCubeRegion().clear();
-                getCubeRegion().addAll((Collection<? extends CubeRegion>)newValue);
-                return;
+        case OlapPackage.CUBE__IS_VIRTUAL:
+            setIsVirtual((Boolean) newValue);
+            return;
+        case OlapPackage.CUBE__CUBE_DIMENSION_ASSOCIATION:
+            getCubeDimensionAssociation().clear();
+            getCubeDimensionAssociation().addAll((Collection<? extends CubeDimensionAssociation>) newValue);
+            return;
+        case OlapPackage.CUBE__SCHEMA:
+            setSchema((Schema) newValue);
+            return;
+        case OlapPackage.CUBE__CUBE_REGION:
+            getCubeRegion().clear();
+            getCubeRegion().addAll((Collection<? extends CubeRegion>) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case OlapPackage.CUBE__IS_VIRTUAL:
-                setIsVirtual(IS_VIRTUAL_EDEFAULT);
-                return;
-            case OlapPackage.CUBE__CUBE_DIMENSION_ASSOCIATION:
-                getCubeDimensionAssociation().clear();
-                return;
-            case OlapPackage.CUBE__SCHEMA:
-                setSchema((Schema)null);
-                return;
-            case OlapPackage.CUBE__CUBE_REGION:
-                getCubeRegion().clear();
-                return;
+        case OlapPackage.CUBE__IS_VIRTUAL:
+            setIsVirtual(IS_VIRTUAL_EDEFAULT);
+            return;
+        case OlapPackage.CUBE__CUBE_DIMENSION_ASSOCIATION:
+            getCubeDimensionAssociation().clear();
+            return;
+        case OlapPackage.CUBE__SCHEMA:
+            setSchema((Schema) null);
+            return;
+        case OlapPackage.CUBE__CUBE_REGION:
+            getCubeRegion().clear();
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case OlapPackage.CUBE__IS_VIRTUAL:
-                return isVirtual != IS_VIRTUAL_EDEFAULT;
-            case OlapPackage.CUBE__CUBE_DIMENSION_ASSOCIATION:
-                return cubeDimensionAssociation != null && !cubeDimensionAssociation.isEmpty();
-            case OlapPackage.CUBE__SCHEMA:
-                return getSchema() != null;
-            case OlapPackage.CUBE__CUBE_REGION:
-                return cubeRegion != null && !cubeRegion.isEmpty();
+        case OlapPackage.CUBE__IS_VIRTUAL:
+            return isVirtual != IS_VIRTUAL_EDEFAULT;
+        case OlapPackage.CUBE__CUBE_DIMENSION_ASSOCIATION:
+            return cubeDimensionAssociation != null && !cubeDimensionAssociation.isEmpty();
+        case OlapPackage.CUBE__SCHEMA:
+            return getSchema() != null;
+        case OlapPackage.CUBE__CUBE_REGION:
+            return cubeRegion != null && !cubeRegion.isEmpty();
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (isVirtual: ");
@@ -346,4 +331,4 @@ public class CubeImpl extends ClassImpl implements Cube {
         return result.toString();
     }
 
-} //CubeImpl
+} // CubeImpl

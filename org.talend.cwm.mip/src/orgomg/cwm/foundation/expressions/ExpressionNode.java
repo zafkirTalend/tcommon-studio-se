@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.foundation.expressions;
@@ -11,9 +10,8 @@ import orgomg.cwm.objectmodel.core.Element;
 import orgomg.cwm.objectmodel.core.Expression;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Expression Node</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Expression Node</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * All node types within an expression are derived from the ExpressionNode type.
@@ -39,13 +37,13 @@ import orgomg.cwm.objectmodel.core.Expression;
  * @generated
  */
 public interface ExpressionNode extends Element {
+
     /**
-     * Returns the value of the '<em><b>Expression</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Contains a textual representation of the expression relevant for this ExpressionNode instance.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Expression</b></em>' containment
+     * reference. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> Contains a textual representation of the expression
+     * relevant for this ExpressionNode instance. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Expression</em>' containment reference.
      * @see #setExpression(Expression)
      * @see orgomg.cwm.foundation.expressions.ExpressionsPackage#getExpressionNode_Expression()
@@ -56,8 +54,8 @@ public interface ExpressionNode extends Element {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.foundation.expressions.ExpressionNode#getExpression <em>Expression</em>}' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Expression</em>' containment reference.
      * @see #getExpression()
      * @generated
@@ -67,8 +65,7 @@ public interface ExpressionNode extends Element {
     /**
      * Returns the value of the '<em><b>Type</b></em>' reference.
      * It is bidirectional and its opposite is '{@link orgomg.cwm.objectmodel.core.Classifier#getExpressionNode <em>Expression Node</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Identifies the Classifier instance that represents the type of the expression at this level in the expression hierarchy. Although, formally, each node within an expression tree is capable of having a value and therefore, a data type, this reference is optional because modeling the data type of intermediate nodes in an expression tree is not always interesting, thereby reducing the effort required to create expression trees.
      * <!-- end-model-doc -->
@@ -83,8 +80,7 @@ public interface ExpressionNode extends Element {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.foundation.expressions.ExpressionNode#getType <em>Type</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Type</em>' reference.
      * @see #getType()
      * @generated
@@ -92,13 +88,17 @@ public interface ExpressionNode extends Element {
     void setType(Classifier value);
 
     /**
-     * Returns the value of the '<em><b>Feature Node</b></em>' container reference.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.foundation.expressions.FeatureNode#getArgument <em>Argument</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the FeatureNode for which this ExpressionNode instance represents the value of an argument. Because arguments can themselves represent entire expression sub-trees, this reference is used to create hierarchies of expression nodes, permitting representation of entire expression trees within the CWM.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Feature Node</b></em>' container
+     * reference. It is bidirectional and its opposite is '
+     * {@link orgomg.cwm.foundation.expressions.FeatureNode#getArgument
+     * <em>Argument</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> Identifies the FeatureNode for which this
+     * ExpressionNode instance represents the value of an argument. Because
+     * arguments can themselves represent entire expression sub-trees, this
+     * reference is used to create hierarchies of expression nodes, permitting
+     * representation of entire expression trees within the CWM. <!--
+     * end-model-doc -->
+     * 
      * @return the value of the '<em>Feature Node</em>' container reference.
      * @see #setFeatureNode(FeatureNode)
      * @see orgomg.cwm.foundation.expressions.ExpressionsPackage#getExpressionNode_FeatureNode()
@@ -110,8 +110,8 @@ public interface ExpressionNode extends Element {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.foundation.expressions.ExpressionNode#getFeatureNode <em>Feature Node</em>}' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Feature Node</em>' container reference.
      * @see #getFeatureNode()
      * @generated

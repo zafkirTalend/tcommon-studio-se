@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.resource.relational;
@@ -9,9 +8,8 @@ package orgomg.cwm.resource.relational;
 import orgomg.cwm.foundation.datatypes.TypeAlias;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>SQL Distinct Type</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>SQL Distinct Type</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * A datatype defined as a Distinct Type, per [SQL] standard.
@@ -32,14 +30,13 @@ import orgomg.cwm.foundation.datatypes.TypeAlias;
  * @generated
  */
 public interface SQLDistinctType extends SQLDataType, TypeAlias {
+
     /**
-     * Returns the value of the '<em><b>Length</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The length of fixed length character or byte strings. Maximum length if length is
-     * variable.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Length</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> The
+     * length of fixed length character or byte strings. Maximum length if
+     * length is variable. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Length</em>' attribute.
      * @see #setLength(long)
      * @see orgomg.cwm.resource.relational.RelationalPackage#getSQLDistinctType_Length()
@@ -49,22 +46,23 @@ public interface SQLDistinctType extends SQLDataType, TypeAlias {
     long getLength();
 
     /**
-     * Sets the value of the '{@link orgomg.cwm.resource.relational.SQLDistinctType#getLength <em>Length</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Length</em>' attribute.
+     * Sets the value of the '
+     * {@link orgomg.cwm.resource.relational.SQLDistinctType#getLength
+     * <em>Length</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @param value
+     *            the new value of the '<em>Length</em>' attribute.
      * @see #getLength()
      * @generated
      */
     void setLength(long value);
 
     /**
-     * Returns the value of the '<em><b>Precision</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The total number of digits in the field
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Precision</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> The
+     * total number of digits in the field <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Precision</em>' attribute.
      * @see #setPrecision(long)
      * @see orgomg.cwm.resource.relational.RelationalPackage#getSQLDistinctType_Precision()
@@ -74,22 +72,24 @@ public interface SQLDistinctType extends SQLDataType, TypeAlias {
     long getPrecision();
 
     /**
-     * Sets the value of the '{@link orgomg.cwm.resource.relational.SQLDistinctType#getPrecision <em>Precision</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Precision</em>' attribute.
+     * Sets the value of the '
+     * {@link orgomg.cwm.resource.relational.SQLDistinctType#getPrecision
+     * <em>Precision</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @param value
+     *            the new value of the '<em>Precision</em>' attribute.
      * @see #getPrecision()
      * @generated
      */
     void setPrecision(long value);
 
     /**
-     * Returns the value of the '<em><b>Scale</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The number of digits on the right of the decimal separator.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Scale</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> The
+     * number of digits on the right of the decimal separator. <!--
+     * end-model-doc -->
+     * 
      * @return the value of the '<em>Scale</em>' attribute.
      * @see #setScale(long)
      * @see orgomg.cwm.resource.relational.RelationalPackage#getSQLDistinctType_Scale()
@@ -100,8 +100,7 @@ public interface SQLDistinctType extends SQLDataType, TypeAlias {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.resource.relational.SQLDistinctType#getScale <em>Scale</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Scale</em>' attribute.
      * @see #getScale()
      * @generated
@@ -109,13 +108,13 @@ public interface SQLDistinctType extends SQLDataType, TypeAlias {
     void setScale(long value);
 
     /**
-     * Returns the value of the '<em><b>Sql Simple Type</b></em>' reference.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.resource.relational.SQLSimpleType#getSqlDistinctType <em>Sql Distinct Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The Simple type used to define the distinct class.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Sql Simple Type</b></em>' reference. It
+     * is bidirectional and its opposite is '
+     * {@link orgomg.cwm.resource.relational.SQLSimpleType#getSqlDistinctType
+     * <em>Sql Distinct Type</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * --> <!-- begin-model-doc --> The Simple type used to define the distinct
+     * class. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Sql Simple Type</em>' reference.
      * @see #setSqlSimpleType(SQLSimpleType)
      * @see orgomg.cwm.resource.relational.RelationalPackage#getSQLDistinctType_SqlSimpleType()
@@ -127,8 +126,8 @@ public interface SQLDistinctType extends SQLDataType, TypeAlias {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.resource.relational.SQLDistinctType#getSqlSimpleType <em>Sql Simple Type</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Sql Simple Type</em>' reference.
      * @see #getSqlSimpleType()
      * @generated

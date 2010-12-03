@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.express.impl;
@@ -14,9 +13,8 @@ import orgomg.cwmx.resource.express.ExpressPackage;
 import orgomg.cwmx.resource.express.Variable;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Variable</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Variable</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -29,10 +27,10 @@ import orgomg.cwmx.resource.express.Variable;
  * @generated
  */
 public class VariableImpl extends DimensionedObjectImpl implements Variable {
+
     /**
      * The default value of the '{@link #getStorageType() <em>Storage Type</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getStorageType()
      * @generated
      * @ordered
@@ -41,8 +39,7 @@ public class VariableImpl extends DimensionedObjectImpl implements Variable {
 
     /**
      * The cached value of the '{@link #getStorageType() <em>Storage Type</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getStorageType()
      * @generated
      * @ordered
@@ -51,8 +48,7 @@ public class VariableImpl extends DimensionedObjectImpl implements Variable {
 
     /**
      * The default value of the '{@link #getPageSpace() <em>Page Space</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getPageSpace()
      * @generated
      * @ordered
@@ -61,8 +57,7 @@ public class VariableImpl extends DimensionedObjectImpl implements Variable {
 
     /**
      * The cached value of the '{@link #getPageSpace() <em>Page Space</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getPageSpace()
      * @generated
      * @ordered
@@ -71,8 +66,7 @@ public class VariableImpl extends DimensionedObjectImpl implements Variable {
 
     /**
      * The default value of the '{@link #getWidth() <em>Width</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getWidth()
      * @generated
      * @ordered
@@ -81,8 +75,7 @@ public class VariableImpl extends DimensionedObjectImpl implements Variable {
 
     /**
      * The cached value of the '{@link #getWidth() <em>Width</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getWidth()
      * @generated
      * @ordered
@@ -90,8 +83,7 @@ public class VariableImpl extends DimensionedObjectImpl implements Variable {
     protected long width = WIDTH_EDEFAULT;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected VariableImpl() {
@@ -99,8 +91,7 @@ public class VariableImpl extends DimensionedObjectImpl implements Variable {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -109,8 +100,7 @@ public class VariableImpl extends DimensionedObjectImpl implements Variable {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getStorageType() {
@@ -118,20 +108,19 @@ public class VariableImpl extends DimensionedObjectImpl implements Variable {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setStorageType(String newStorageType) {
         String oldStorageType = storageType;
         storageType = newStorageType;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ExpressPackage.VARIABLE__STORAGE_TYPE, oldStorageType, storageType));
+            eNotify(new ENotificationImpl(this, Notification.SET, ExpressPackage.VARIABLE__STORAGE_TYPE, oldStorageType,
+                    storageType));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getPageSpace() {
@@ -139,8 +128,7 @@ public class VariableImpl extends DimensionedObjectImpl implements Variable {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setPageSpace(String newPageSpace) {
@@ -151,8 +139,7 @@ public class VariableImpl extends DimensionedObjectImpl implements Variable {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public long getWidth() {
@@ -160,8 +147,7 @@ public class VariableImpl extends DimensionedObjectImpl implements Variable {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setWidth(long newWidth) {
@@ -172,91 +158,87 @@ public class VariableImpl extends DimensionedObjectImpl implements Variable {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case ExpressPackage.VARIABLE__STORAGE_TYPE:
-                return getStorageType();
-            case ExpressPackage.VARIABLE__PAGE_SPACE:
-                return getPageSpace();
-            case ExpressPackage.VARIABLE__WIDTH:
-                return getWidth();
+        case ExpressPackage.VARIABLE__STORAGE_TYPE:
+            return getStorageType();
+        case ExpressPackage.VARIABLE__PAGE_SPACE:
+            return getPageSpace();
+        case ExpressPackage.VARIABLE__WIDTH:
+            return getWidth();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case ExpressPackage.VARIABLE__STORAGE_TYPE:
-                setStorageType((String)newValue);
-                return;
-            case ExpressPackage.VARIABLE__PAGE_SPACE:
-                setPageSpace((String)newValue);
-                return;
-            case ExpressPackage.VARIABLE__WIDTH:
-                setWidth((Long)newValue);
-                return;
+        case ExpressPackage.VARIABLE__STORAGE_TYPE:
+            setStorageType((String) newValue);
+            return;
+        case ExpressPackage.VARIABLE__PAGE_SPACE:
+            setPageSpace((String) newValue);
+            return;
+        case ExpressPackage.VARIABLE__WIDTH:
+            setWidth((Long) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case ExpressPackage.VARIABLE__STORAGE_TYPE:
-                setStorageType(STORAGE_TYPE_EDEFAULT);
-                return;
-            case ExpressPackage.VARIABLE__PAGE_SPACE:
-                setPageSpace(PAGE_SPACE_EDEFAULT);
-                return;
-            case ExpressPackage.VARIABLE__WIDTH:
-                setWidth(WIDTH_EDEFAULT);
-                return;
+        case ExpressPackage.VARIABLE__STORAGE_TYPE:
+            setStorageType(STORAGE_TYPE_EDEFAULT);
+            return;
+        case ExpressPackage.VARIABLE__PAGE_SPACE:
+            setPageSpace(PAGE_SPACE_EDEFAULT);
+            return;
+        case ExpressPackage.VARIABLE__WIDTH:
+            setWidth(WIDTH_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case ExpressPackage.VARIABLE__STORAGE_TYPE:
-                return STORAGE_TYPE_EDEFAULT == null ? storageType != null : !STORAGE_TYPE_EDEFAULT.equals(storageType);
-            case ExpressPackage.VARIABLE__PAGE_SPACE:
-                return PAGE_SPACE_EDEFAULT == null ? pageSpace != null : !PAGE_SPACE_EDEFAULT.equals(pageSpace);
-            case ExpressPackage.VARIABLE__WIDTH:
-                return width != WIDTH_EDEFAULT;
+        case ExpressPackage.VARIABLE__STORAGE_TYPE:
+            return STORAGE_TYPE_EDEFAULT == null ? storageType != null : !STORAGE_TYPE_EDEFAULT.equals(storageType);
+        case ExpressPackage.VARIABLE__PAGE_SPACE:
+            return PAGE_SPACE_EDEFAULT == null ? pageSpace != null : !PAGE_SPACE_EDEFAULT.equals(pageSpace);
+        case ExpressPackage.VARIABLE__WIDTH:
+            return width != WIDTH_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (storageType: ");
@@ -269,4 +251,4 @@ public class VariableImpl extends DimensionedObjectImpl implements Variable {
         return result.toString();
     }
 
-} //VariableImpl
+} // VariableImpl

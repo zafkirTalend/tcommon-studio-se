@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.analysis.transformation;
@@ -9,9 +8,8 @@ package orgomg.cwm.analysis.transformation;
 import orgomg.cwm.objectmodel.core.Constraint;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Precedence Constraint</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Precedence Constraint</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * This is used to define order-of-execution constraint among TransformationSteps. It may be used independent of or in conjunction with StepPrecedence.

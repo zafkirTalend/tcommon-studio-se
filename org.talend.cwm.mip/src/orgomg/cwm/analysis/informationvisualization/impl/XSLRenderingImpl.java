@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.analysis.informationvisualization.impl;
@@ -11,18 +10,17 @@ import orgomg.cwm.analysis.informationvisualization.InformationvisualizationPack
 import orgomg.cwm.analysis.informationvisualization.XSLRendering;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>XSL Rendering</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>XSL Rendering</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
 public class XSLRenderingImpl extends RenderingImpl implements XSLRendering {
+
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected XSLRenderingImpl() {
@@ -30,8 +28,7 @@ public class XSLRenderingImpl extends RenderingImpl implements XSLRendering {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -39,4 +36,4 @@ public class XSLRenderingImpl extends RenderingImpl implements XSLRendering {
         return InformationvisualizationPackage.Literals.XSL_RENDERING;
     }
 
-} //XSLRenderingImpl
+} // XSLRenderingImpl

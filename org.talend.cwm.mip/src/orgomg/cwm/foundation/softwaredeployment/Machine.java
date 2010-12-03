@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.foundation.softwaredeployment;
@@ -10,9 +9,8 @@ import org.eclipse.emf.common.util.EList;
 import orgomg.cwm.objectmodel.core.Namespace;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Machine</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Machine</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * A Machine represents a computer. The Site at which the Machine is located and the Components deployed on the Machine may be recorded.
@@ -34,13 +32,12 @@ import orgomg.cwm.objectmodel.core.Namespace;
  * @generated
  */
 public interface Machine extends Namespace {
+
     /**
-     * Returns the value of the '<em><b>Ip Address</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * A fixed IP address for the Machine.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Ip Address</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> A fixed
+     * IP address for the Machine. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Ip Address</em>' attribute.
      * @see #setIpAddress(String)
      * @see orgomg.cwm.foundation.softwaredeployment.SoftwaredeploymentPackage#getMachine_IpAddress()
@@ -51,8 +48,8 @@ public interface Machine extends Namespace {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.foundation.softwaredeployment.Machine#getIpAddress <em>Ip Address</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Ip Address</em>' attribute.
      * @see #getIpAddress()
      * @generated
@@ -60,12 +57,12 @@ public interface Machine extends Namespace {
     void setIpAddress(String value);
 
     /**
-     * Returns the value of the '<em><b>Host Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * A Host Name for the Machine. This may be used to identify the Machine on the network when IP addresses are dynamically allocated.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Host Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> A Host
+     * Name for the Machine. This may be used to identify the Machine on the
+     * network when IP addresses are dynamically allocated. <!-- end-model-doc
+     * -->
+     * 
      * @return the value of the '<em>Host Name</em>' attribute.
      * @see #setHostName(String)
      * @see orgomg.cwm.foundation.softwaredeployment.SoftwaredeploymentPackage#getMachine_HostName()
@@ -75,22 +72,23 @@ public interface Machine extends Namespace {
     String getHostName();
 
     /**
-     * Sets the value of the '{@link orgomg.cwm.foundation.softwaredeployment.Machine#getHostName <em>Host Name</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Host Name</em>' attribute.
+     * Sets the value of the '
+     * {@link orgomg.cwm.foundation.softwaredeployment.Machine#getHostName
+     * <em>Host Name</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @param value
+     *            the new value of the '<em>Host Name</em>' attribute.
      * @see #getHostName()
      * @generated
      */
     void setHostName(String value);
 
     /**
-     * Returns the value of the '<em><b>Machine ID</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * An identification code for the Machine.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Machine ID</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> An
+     * identification code for the Machine. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Machine ID</em>' attribute.
      * @see #setMachineID(String)
      * @see orgomg.cwm.foundation.softwaredeployment.SoftwaredeploymentPackage#getMachine_MachineID()
@@ -101,8 +99,8 @@ public interface Machine extends Namespace {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.foundation.softwaredeployment.Machine#getMachineID <em>Machine ID</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Machine ID</em>' attribute.
      * @see #getMachineID()
      * @generated
@@ -110,15 +108,17 @@ public interface Machine extends Namespace {
     void setMachineID(String value);
 
     /**
-     * Returns the value of the '<em><b>Deployed Component</b></em>' containment reference list.
-     * The list contents are of type {@link orgomg.cwm.foundation.softwaredeployment.DeployedComponent}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.foundation.softwaredeployment.DeployedComponent#getMachine <em>Machine</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the DeployedComponents on the Machine.
+     * Returns the value of the '<em><b>Deployed Component</b></em>' containment
+     * reference list. The list contents are of type
+     * {@link orgomg.cwm.foundation.softwaredeployment.DeployedComponent}. It is
+     * bidirectional and its opposite is '
+     * {@link orgomg.cwm.foundation.softwaredeployment.DeployedComponent#getMachine
+     * <em>Machine</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> Identifies the DeployedComponents on the Machine.
      * <!-- end-model-doc -->
-     * @return the value of the '<em>Deployed Component</em>' containment reference list.
+     * 
+     * @return the value of the '<em>Deployed Component</em>' containment
+     *         reference list.
      * @see orgomg.cwm.foundation.softwaredeployment.SoftwaredeploymentPackage#getMachine_DeployedComponent()
      * @see orgomg.cwm.foundation.softwaredeployment.DeployedComponent#getMachine
      * @model opposite="machine" containment="true"
@@ -127,13 +127,13 @@ public interface Machine extends Namespace {
     EList<DeployedComponent> getDeployedComponent();
 
     /**
-     * Returns the value of the '<em><b>Site</b></em>' reference.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.foundation.softwaredeployment.Site#getMachine <em>Machine</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the Site on which the Machine is located.
+     * Returns the value of the '<em><b>Site</b></em>' reference. It is
+     * bidirectional and its opposite is '
+     * {@link orgomg.cwm.foundation.softwaredeployment.Site#getMachine
+     * <em>Machine</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> Identifies the Site on which the Machine is located.
      * <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Site</em>' reference.
      * @see #setSite(Site)
      * @see orgomg.cwm.foundation.softwaredeployment.SoftwaredeploymentPackage#getMachine_Site()
@@ -145,8 +145,7 @@ public interface Machine extends Namespace {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.foundation.softwaredeployment.Machine#getSite <em>Site</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Site</em>' reference.
      * @see #getSite()
      * @generated

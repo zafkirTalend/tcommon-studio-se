@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.management.warehouseprocess.events.impl;
@@ -13,9 +12,8 @@ import orgomg.cwm.management.warehouseprocess.events.EventsPackage;
 import orgomg.cwm.management.warehouseprocess.events.RetryEvent;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Retry Event</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Retry Event</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -27,10 +25,11 @@ import orgomg.cwm.management.warehouseprocess.events.RetryEvent;
  * @generated
  */
 public class RetryEventImpl extends InternalEventImpl implements RetryEvent {
+
     /**
      * The default value of the '{@link #getWaitDuration() <em>Wait Duration</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getWaitDuration()
      * @generated
      * @ordered
@@ -39,8 +38,8 @@ public class RetryEventImpl extends InternalEventImpl implements RetryEvent {
 
     /**
      * The cached value of the '{@link #getWaitDuration() <em>Wait Duration</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getWaitDuration()
      * @generated
      * @ordered
@@ -49,8 +48,7 @@ public class RetryEventImpl extends InternalEventImpl implements RetryEvent {
 
     /**
      * The default value of the '{@link #getMaxCount() <em>Max Count</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getMaxCount()
      * @generated
      * @ordered
@@ -59,8 +57,7 @@ public class RetryEventImpl extends InternalEventImpl implements RetryEvent {
 
     /**
      * The cached value of the '{@link #getMaxCount() <em>Max Count</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getMaxCount()
      * @generated
      * @ordered
@@ -68,8 +65,7 @@ public class RetryEventImpl extends InternalEventImpl implements RetryEvent {
     protected long maxCount = MAX_COUNT_EDEFAULT;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected RetryEventImpl() {
@@ -77,8 +73,7 @@ public class RetryEventImpl extends InternalEventImpl implements RetryEvent {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -87,8 +82,7 @@ public class RetryEventImpl extends InternalEventImpl implements RetryEvent {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getWaitDuration() {
@@ -96,20 +90,19 @@ public class RetryEventImpl extends InternalEventImpl implements RetryEvent {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setWaitDuration(String newWaitDuration) {
         String oldWaitDuration = waitDuration;
         waitDuration = newWaitDuration;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, EventsPackage.RETRY_EVENT__WAIT_DURATION, oldWaitDuration, waitDuration));
+            eNotify(new ENotificationImpl(this, Notification.SET, EventsPackage.RETRY_EVENT__WAIT_DURATION, oldWaitDuration,
+                    waitDuration));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public long getMaxCount() {
@@ -117,8 +110,7 @@ public class RetryEventImpl extends InternalEventImpl implements RetryEvent {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setMaxCount(long newMaxCount) {
@@ -129,81 +121,77 @@ public class RetryEventImpl extends InternalEventImpl implements RetryEvent {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case EventsPackage.RETRY_EVENT__WAIT_DURATION:
-                return getWaitDuration();
-            case EventsPackage.RETRY_EVENT__MAX_COUNT:
-                return getMaxCount();
+        case EventsPackage.RETRY_EVENT__WAIT_DURATION:
+            return getWaitDuration();
+        case EventsPackage.RETRY_EVENT__MAX_COUNT:
+            return getMaxCount();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case EventsPackage.RETRY_EVENT__WAIT_DURATION:
-                setWaitDuration((String)newValue);
-                return;
-            case EventsPackage.RETRY_EVENT__MAX_COUNT:
-                setMaxCount((Long)newValue);
-                return;
+        case EventsPackage.RETRY_EVENT__WAIT_DURATION:
+            setWaitDuration((String) newValue);
+            return;
+        case EventsPackage.RETRY_EVENT__MAX_COUNT:
+            setMaxCount((Long) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case EventsPackage.RETRY_EVENT__WAIT_DURATION:
-                setWaitDuration(WAIT_DURATION_EDEFAULT);
-                return;
-            case EventsPackage.RETRY_EVENT__MAX_COUNT:
-                setMaxCount(MAX_COUNT_EDEFAULT);
-                return;
+        case EventsPackage.RETRY_EVENT__WAIT_DURATION:
+            setWaitDuration(WAIT_DURATION_EDEFAULT);
+            return;
+        case EventsPackage.RETRY_EVENT__MAX_COUNT:
+            setMaxCount(MAX_COUNT_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case EventsPackage.RETRY_EVENT__WAIT_DURATION:
-                return WAIT_DURATION_EDEFAULT == null ? waitDuration != null : !WAIT_DURATION_EDEFAULT.equals(waitDuration);
-            case EventsPackage.RETRY_EVENT__MAX_COUNT:
-                return maxCount != MAX_COUNT_EDEFAULT;
+        case EventsPackage.RETRY_EVENT__WAIT_DURATION:
+            return WAIT_DURATION_EDEFAULT == null ? waitDuration != null : !WAIT_DURATION_EDEFAULT.equals(waitDuration);
+        case EventsPackage.RETRY_EVENT__MAX_COUNT:
+            return maxCount != MAX_COUNT_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (waitDuration: ");
@@ -214,4 +202,4 @@ public class RetryEventImpl extends InternalEventImpl implements RetryEvent {
         return result.toString();
     }
 
-} //RetryEventImpl
+} // RetryEventImpl

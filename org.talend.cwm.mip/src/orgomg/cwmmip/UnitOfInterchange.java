@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmmip;
@@ -9,9 +8,8 @@ package orgomg.cwmmip;
 import orgomg.cwm.objectmodel.core.Namespace;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Unit Of Interchange</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Unit Of Interchange</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * UnitOfInterchange is a subclass of CWM Namespace that contains the complete CWM instance (model/metadata) being interchanged.
@@ -29,13 +27,14 @@ import orgomg.cwm.objectmodel.core.Namespace;
  * @generated
  */
 public interface UnitOfInterchange extends Namespace {
+
     /**
      * Returns the value of the '<em><b>Interchange Pattern</b></em>' reference.
      * It is bidirectional and its opposite is '{@link orgomg.cwmmip.InterchangePattern#getUnitOfInterchange <em>Unit Of Interchange</em>}'.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Interchange Pattern</em>' reference isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of the '<em>Interchange Pattern</em>' reference isn't
+     * clear, there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Interchange Pattern</em>' reference.
@@ -49,8 +48,8 @@ public interface UnitOfInterchange extends Namespace {
 
     /**
      * Sets the value of the '{@link orgomg.cwmmip.UnitOfInterchange#getInterchangePattern <em>Interchange Pattern</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Interchange Pattern</em>' reference.
      * @see #getInterchangePattern()
      * @generated

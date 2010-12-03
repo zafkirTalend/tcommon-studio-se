@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.imsdatabase.imstypes;
@@ -13,13 +12,11 @@ import java.util.List;
 import org.eclipse.emf.common.util.Enumerator;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the literals of the enumeration '<em><b>Child Pointer Type</b></em>',
- * and utility methods for working with them.
- * <!-- end-user-doc -->
- * <!-- begin-model-doc -->
- * Child pointer types
- * <!-- end-model-doc -->
+ * <!-- begin-user-doc --> A representation of the literals of the enumeration '
+ * <em><b>Child Pointer Type</b></em>', and utility methods for working with
+ * them. <!-- end-user-doc --> <!-- begin-model-doc --> Child pointer types <!--
+ * end-model-doc -->
+ * 
  * @see orgomg.cwmx.resource.imsdatabase.imstypes.ImstypesPackage#getChildPointerType()
  * @model
  * @generated
@@ -56,12 +53,10 @@ public enum ChildPointerType implements Enumerator {
     IMSCP_NONE(2, "imscp_NONE", "imscp_NONE");
 
     /**
-     * The '<em><b>Imscp SNGL</b></em>' literal value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Use single pointers in the prefix area (SNGL parameter). 
-     * <!-- end-model-doc -->
+     * The '<em><b>Imscp SNGL</b></em>' literal value. <!-- begin-user-doc -->
+     * <!-- end-user-doc --> <!-- begin-model-doc --> Use single pointers in the
+     * prefix area (SNGL parameter). <!-- end-model-doc -->
+     * 
      * @see #IMSCP_SNGL
      * @model name="imscp_SNGL"
      * @generated
@@ -70,12 +65,10 @@ public enum ChildPointerType implements Enumerator {
     public static final int IMSCP_SNGL_VALUE = 0;
 
     /**
-     * The '<em><b>Imscp DBLE</b></em>' literal value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Use double pointers in the prefix area (DBLE parameter). 
-     * <!-- end-model-doc -->
+     * The '<em><b>Imscp DBLE</b></em>' literal value. <!-- begin-user-doc -->
+     * <!-- end-user-doc --> <!-- begin-model-doc --> Use double pointers in the
+     * prefix area (DBLE parameter). <!-- end-model-doc -->
+     * 
      * @see #IMSCP_DBLE
      * @model name="imscp_DBLE"
      * @generated
@@ -84,12 +77,10 @@ public enum ChildPointerType implements Enumerator {
     public static final int IMSCP_DBLE_VALUE = 1;
 
     /**
-     * The '<em><b>Imscp NONE</b></em>' literal value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Use no pointers in the prefix area. 
-     * <!-- end-model-doc -->
+     * The '<em><b>Imscp NONE</b></em>' literal value. <!-- begin-user-doc -->
+     * <!-- end-user-doc --> <!-- begin-model-doc --> Use no pointers in the
+     * prefix area. <!-- end-model-doc -->
+     * 
      * @see #IMSCP_NONE
      * @model name="imscp_NONE"
      * @generated
@@ -99,29 +90,21 @@ public enum ChildPointerType implements Enumerator {
 
     /**
      * An array of all the '<em><b>Child Pointer Type</b></em>' enumerators.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    private static final ChildPointerType[] VALUES_ARRAY =
-        new ChildPointerType[] {
-            IMSCP_SNGL,
-            IMSCP_DBLE,
-            IMSCP_NONE,
-        };
+    private static final ChildPointerType[] VALUES_ARRAY = new ChildPointerType[] { IMSCP_SNGL, IMSCP_DBLE, IMSCP_NONE, };
 
     /**
      * A public read-only list of all the '<em><b>Child Pointer Type</b></em>' enumerators.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static final List<ChildPointerType> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
     /**
      * Returns the '<em><b>Child Pointer Type</b></em>' literal with the specified literal value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static ChildPointerType get(String literal) {
@@ -136,8 +119,7 @@ public enum ChildPointerType implements Enumerator {
 
     /**
      * Returns the '<em><b>Child Pointer Type</b></em>' literal with the specified name.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static ChildPointerType getByName(String name) {
@@ -152,44 +134,43 @@ public enum ChildPointerType implements Enumerator {
 
     /**
      * Returns the '<em><b>Child Pointer Type</b></em>' literal with the specified integer value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static ChildPointerType get(int value) {
         switch (value) {
-            case IMSCP_SNGL_VALUE: return IMSCP_SNGL;
-            case IMSCP_DBLE_VALUE: return IMSCP_DBLE;
-            case IMSCP_NONE_VALUE: return IMSCP_NONE;
+        case IMSCP_SNGL_VALUE:
+            return IMSCP_SNGL;
+        case IMSCP_DBLE_VALUE:
+            return IMSCP_DBLE;
+        case IMSCP_NONE_VALUE:
+            return IMSCP_NONE;
         }
         return null;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private final int value;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private final String name;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private final String literal;
 
     /**
      * Only this class can construct instances.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     private ChildPointerType(int value, String name, String literal) {
@@ -199,41 +180,37 @@ public enum ChildPointerType implements Enumerator {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public int getValue() {
-      return value;
+        return value;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getName() {
-      return name;
+        return name;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getLiteral() {
-      return literal;
+        return literal;
     }
 
     /**
      * Returns the literal value of the enumerator, which is its string representation.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
         return literal;
     }
-    
-} //ChildPointerType
+
+} // ChildPointerType

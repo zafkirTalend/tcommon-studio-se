@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.resource.relational;
@@ -9,9 +8,8 @@ package orgomg.cwm.resource.relational;
 import orgomg.cwm.objectmodel.instance.Extent;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Row Set</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Row Set</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * Each instance of RowSet owns a collection of Row instances. The inherited association between Namespace (a superclass of Package) and ModelElement is used to contain Instances.

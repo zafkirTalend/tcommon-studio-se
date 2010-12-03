@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.foundation.businessinformation.impl;
@@ -22,9 +21,8 @@ import orgomg.cwm.foundation.businessinformation.Location;
 import orgomg.cwm.objectmodel.core.impl.ModelElementImpl;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Location</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Location</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -41,10 +39,11 @@ import orgomg.cwm.objectmodel.core.impl.ModelElementImpl;
  * @generated
  */
 public class LocationImpl extends ModelElementImpl implements Location {
+
     /**
      * The default value of the '{@link #getLocationType() <em>Location Type</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getLocationType()
      * @generated
      * @ordered
@@ -53,8 +52,8 @@ public class LocationImpl extends ModelElementImpl implements Location {
 
     /**
      * The cached value of the '{@link #getLocationType() <em>Location Type</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getLocationType()
      * @generated
      * @ordered
@@ -63,8 +62,7 @@ public class LocationImpl extends ModelElementImpl implements Location {
 
     /**
      * The default value of the '{@link #getAddress() <em>Address</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getAddress()
      * @generated
      * @ordered
@@ -73,8 +71,7 @@ public class LocationImpl extends ModelElementImpl implements Location {
 
     /**
      * The cached value of the '{@link #getAddress() <em>Address</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getAddress()
      * @generated
      * @ordered
@@ -83,8 +80,7 @@ public class LocationImpl extends ModelElementImpl implements Location {
 
     /**
      * The default value of the '{@link #getCity() <em>City</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getCity()
      * @generated
      * @ordered
@@ -93,8 +89,7 @@ public class LocationImpl extends ModelElementImpl implements Location {
 
     /**
      * The cached value of the '{@link #getCity() <em>City</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getCity()
      * @generated
      * @ordered
@@ -103,8 +98,7 @@ public class LocationImpl extends ModelElementImpl implements Location {
 
     /**
      * The default value of the '{@link #getPostCode() <em>Post Code</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getPostCode()
      * @generated
      * @ordered
@@ -113,8 +107,7 @@ public class LocationImpl extends ModelElementImpl implements Location {
 
     /**
      * The cached value of the '{@link #getPostCode() <em>Post Code</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getPostCode()
      * @generated
      * @ordered
@@ -123,8 +116,7 @@ public class LocationImpl extends ModelElementImpl implements Location {
 
     /**
      * The default value of the '{@link #getArea() <em>Area</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getArea()
      * @generated
      * @ordered
@@ -133,8 +125,7 @@ public class LocationImpl extends ModelElementImpl implements Location {
 
     /**
      * The cached value of the '{@link #getArea() <em>Area</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getArea()
      * @generated
      * @ordered
@@ -143,8 +134,7 @@ public class LocationImpl extends ModelElementImpl implements Location {
 
     /**
      * The default value of the '{@link #getCountry() <em>Country</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getCountry()
      * @generated
      * @ordered
@@ -153,8 +143,7 @@ public class LocationImpl extends ModelElementImpl implements Location {
 
     /**
      * The cached value of the '{@link #getCountry() <em>Country</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getCountry()
      * @generated
      * @ordered
@@ -163,8 +152,7 @@ public class LocationImpl extends ModelElementImpl implements Location {
 
     /**
      * The cached value of the '{@link #getContact() <em>Contact</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getContact()
      * @generated
      * @ordered
@@ -172,8 +160,7 @@ public class LocationImpl extends ModelElementImpl implements Location {
     protected EList<Contact> contact;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected LocationImpl() {
@@ -181,8 +168,7 @@ public class LocationImpl extends ModelElementImpl implements Location {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -191,8 +177,7 @@ public class LocationImpl extends ModelElementImpl implements Location {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getLocationType() {
@@ -200,20 +185,19 @@ public class LocationImpl extends ModelElementImpl implements Location {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setLocationType(String newLocationType) {
         String oldLocationType = locationType;
         locationType = newLocationType;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, BusinessinformationPackage.LOCATION__LOCATION_TYPE, oldLocationType, locationType));
+            eNotify(new ENotificationImpl(this, Notification.SET, BusinessinformationPackage.LOCATION__LOCATION_TYPE,
+                    oldLocationType, locationType));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getAddress() {
@@ -221,20 +205,19 @@ public class LocationImpl extends ModelElementImpl implements Location {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setAddress(String newAddress) {
         String oldAddress = address;
         address = newAddress;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, BusinessinformationPackage.LOCATION__ADDRESS, oldAddress, address));
+            eNotify(new ENotificationImpl(this, Notification.SET, BusinessinformationPackage.LOCATION__ADDRESS, oldAddress,
+                    address));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getCity() {
@@ -242,8 +225,7 @@ public class LocationImpl extends ModelElementImpl implements Location {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setCity(String newCity) {
@@ -254,8 +236,7 @@ public class LocationImpl extends ModelElementImpl implements Location {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getPostCode() {
@@ -263,20 +244,19 @@ public class LocationImpl extends ModelElementImpl implements Location {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setPostCode(String newPostCode) {
         String oldPostCode = postCode;
         postCode = newPostCode;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, BusinessinformationPackage.LOCATION__POST_CODE, oldPostCode, postCode));
+            eNotify(new ENotificationImpl(this, Notification.SET, BusinessinformationPackage.LOCATION__POST_CODE, oldPostCode,
+                    postCode));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getArea() {
@@ -284,8 +264,7 @@ public class LocationImpl extends ModelElementImpl implements Location {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setArea(String newArea) {
@@ -296,8 +275,7 @@ public class LocationImpl extends ModelElementImpl implements Location {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getCountry() {
@@ -305,186 +283,180 @@ public class LocationImpl extends ModelElementImpl implements Location {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setCountry(String newCountry) {
         String oldCountry = country;
         country = newCountry;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, BusinessinformationPackage.LOCATION__COUNTRY, oldCountry, country));
+            eNotify(new ENotificationImpl(this, Notification.SET, BusinessinformationPackage.LOCATION__COUNTRY, oldCountry,
+                    country));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<Contact> getContact() {
         if (contact == null) {
-            contact = new EObjectWithInverseResolvingEList.ManyInverse<Contact>(Contact.class, this, BusinessinformationPackage.LOCATION__CONTACT, BusinessinformationPackage.CONTACT__LOCATION);
+            contact = new EObjectWithInverseResolvingEList.ManyInverse<Contact>(Contact.class, this,
+                    BusinessinformationPackage.LOCATION__CONTACT, BusinessinformationPackage.CONTACT__LOCATION);
         }
         return contact;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case BusinessinformationPackage.LOCATION__CONTACT:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getContact()).basicAdd(otherEnd, msgs);
+        case BusinessinformationPackage.LOCATION__CONTACT:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getContact()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case BusinessinformationPackage.LOCATION__CONTACT:
-                return ((InternalEList<?>)getContact()).basicRemove(otherEnd, msgs);
+        case BusinessinformationPackage.LOCATION__CONTACT:
+            return ((InternalEList<?>) getContact()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case BusinessinformationPackage.LOCATION__LOCATION_TYPE:
-                return getLocationType();
-            case BusinessinformationPackage.LOCATION__ADDRESS:
-                return getAddress();
-            case BusinessinformationPackage.LOCATION__CITY:
-                return getCity();
-            case BusinessinformationPackage.LOCATION__POST_CODE:
-                return getPostCode();
-            case BusinessinformationPackage.LOCATION__AREA:
-                return getArea();
-            case BusinessinformationPackage.LOCATION__COUNTRY:
-                return getCountry();
-            case BusinessinformationPackage.LOCATION__CONTACT:
-                return getContact();
+        case BusinessinformationPackage.LOCATION__LOCATION_TYPE:
+            return getLocationType();
+        case BusinessinformationPackage.LOCATION__ADDRESS:
+            return getAddress();
+        case BusinessinformationPackage.LOCATION__CITY:
+            return getCity();
+        case BusinessinformationPackage.LOCATION__POST_CODE:
+            return getPostCode();
+        case BusinessinformationPackage.LOCATION__AREA:
+            return getArea();
+        case BusinessinformationPackage.LOCATION__COUNTRY:
+            return getCountry();
+        case BusinessinformationPackage.LOCATION__CONTACT:
+            return getContact();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case BusinessinformationPackage.LOCATION__LOCATION_TYPE:
-                setLocationType((String)newValue);
-                return;
-            case BusinessinformationPackage.LOCATION__ADDRESS:
-                setAddress((String)newValue);
-                return;
-            case BusinessinformationPackage.LOCATION__CITY:
-                setCity((String)newValue);
-                return;
-            case BusinessinformationPackage.LOCATION__POST_CODE:
-                setPostCode((String)newValue);
-                return;
-            case BusinessinformationPackage.LOCATION__AREA:
-                setArea((String)newValue);
-                return;
-            case BusinessinformationPackage.LOCATION__COUNTRY:
-                setCountry((String)newValue);
-                return;
-            case BusinessinformationPackage.LOCATION__CONTACT:
-                getContact().clear();
-                getContact().addAll((Collection<? extends Contact>)newValue);
-                return;
+        case BusinessinformationPackage.LOCATION__LOCATION_TYPE:
+            setLocationType((String) newValue);
+            return;
+        case BusinessinformationPackage.LOCATION__ADDRESS:
+            setAddress((String) newValue);
+            return;
+        case BusinessinformationPackage.LOCATION__CITY:
+            setCity((String) newValue);
+            return;
+        case BusinessinformationPackage.LOCATION__POST_CODE:
+            setPostCode((String) newValue);
+            return;
+        case BusinessinformationPackage.LOCATION__AREA:
+            setArea((String) newValue);
+            return;
+        case BusinessinformationPackage.LOCATION__COUNTRY:
+            setCountry((String) newValue);
+            return;
+        case BusinessinformationPackage.LOCATION__CONTACT:
+            getContact().clear();
+            getContact().addAll((Collection<? extends Contact>) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case BusinessinformationPackage.LOCATION__LOCATION_TYPE:
-                setLocationType(LOCATION_TYPE_EDEFAULT);
-                return;
-            case BusinessinformationPackage.LOCATION__ADDRESS:
-                setAddress(ADDRESS_EDEFAULT);
-                return;
-            case BusinessinformationPackage.LOCATION__CITY:
-                setCity(CITY_EDEFAULT);
-                return;
-            case BusinessinformationPackage.LOCATION__POST_CODE:
-                setPostCode(POST_CODE_EDEFAULT);
-                return;
-            case BusinessinformationPackage.LOCATION__AREA:
-                setArea(AREA_EDEFAULT);
-                return;
-            case BusinessinformationPackage.LOCATION__COUNTRY:
-                setCountry(COUNTRY_EDEFAULT);
-                return;
-            case BusinessinformationPackage.LOCATION__CONTACT:
-                getContact().clear();
-                return;
+        case BusinessinformationPackage.LOCATION__LOCATION_TYPE:
+            setLocationType(LOCATION_TYPE_EDEFAULT);
+            return;
+        case BusinessinformationPackage.LOCATION__ADDRESS:
+            setAddress(ADDRESS_EDEFAULT);
+            return;
+        case BusinessinformationPackage.LOCATION__CITY:
+            setCity(CITY_EDEFAULT);
+            return;
+        case BusinessinformationPackage.LOCATION__POST_CODE:
+            setPostCode(POST_CODE_EDEFAULT);
+            return;
+        case BusinessinformationPackage.LOCATION__AREA:
+            setArea(AREA_EDEFAULT);
+            return;
+        case BusinessinformationPackage.LOCATION__COUNTRY:
+            setCountry(COUNTRY_EDEFAULT);
+            return;
+        case BusinessinformationPackage.LOCATION__CONTACT:
+            getContact().clear();
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case BusinessinformationPackage.LOCATION__LOCATION_TYPE:
-                return LOCATION_TYPE_EDEFAULT == null ? locationType != null : !LOCATION_TYPE_EDEFAULT.equals(locationType);
-            case BusinessinformationPackage.LOCATION__ADDRESS:
-                return ADDRESS_EDEFAULT == null ? address != null : !ADDRESS_EDEFAULT.equals(address);
-            case BusinessinformationPackage.LOCATION__CITY:
-                return CITY_EDEFAULT == null ? city != null : !CITY_EDEFAULT.equals(city);
-            case BusinessinformationPackage.LOCATION__POST_CODE:
-                return POST_CODE_EDEFAULT == null ? postCode != null : !POST_CODE_EDEFAULT.equals(postCode);
-            case BusinessinformationPackage.LOCATION__AREA:
-                return AREA_EDEFAULT == null ? area != null : !AREA_EDEFAULT.equals(area);
-            case BusinessinformationPackage.LOCATION__COUNTRY:
-                return COUNTRY_EDEFAULT == null ? country != null : !COUNTRY_EDEFAULT.equals(country);
-            case BusinessinformationPackage.LOCATION__CONTACT:
-                return contact != null && !contact.isEmpty();
+        case BusinessinformationPackage.LOCATION__LOCATION_TYPE:
+            return LOCATION_TYPE_EDEFAULT == null ? locationType != null : !LOCATION_TYPE_EDEFAULT.equals(locationType);
+        case BusinessinformationPackage.LOCATION__ADDRESS:
+            return ADDRESS_EDEFAULT == null ? address != null : !ADDRESS_EDEFAULT.equals(address);
+        case BusinessinformationPackage.LOCATION__CITY:
+            return CITY_EDEFAULT == null ? city != null : !CITY_EDEFAULT.equals(city);
+        case BusinessinformationPackage.LOCATION__POST_CODE:
+            return POST_CODE_EDEFAULT == null ? postCode != null : !POST_CODE_EDEFAULT.equals(postCode);
+        case BusinessinformationPackage.LOCATION__AREA:
+            return AREA_EDEFAULT == null ? area != null : !AREA_EDEFAULT.equals(area);
+        case BusinessinformationPackage.LOCATION__COUNTRY:
+            return COUNTRY_EDEFAULT == null ? country != null : !COUNTRY_EDEFAULT.equals(country);
+        case BusinessinformationPackage.LOCATION__CONTACT:
+            return contact != null && !contact.isEmpty();
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (locationType: ");
@@ -503,4 +475,4 @@ public class LocationImpl extends ModelElementImpl implements Location {
         return result.toString();
     }
 
-} //LocationImpl
+} // LocationImpl

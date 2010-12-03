@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.imsdatabase.impl;
@@ -29,9 +28,8 @@ import orgomg.cwmx.resource.imsdatabase.imstypes.ChildPointerType;
 import orgomg.cwmx.resource.imsdatabase.imstypes.RulesType;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Segment</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Segment</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -55,10 +53,10 @@ import orgomg.cwmx.resource.imsdatabase.imstypes.RulesType;
  * @generated
  */
 public class SegmentImpl extends RecordDefImpl implements Segment {
+
     /**
      * The default value of the '{@link #isExitFlag() <em>Exit Flag</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #isExitFlag()
      * @generated
      * @ordered
@@ -67,8 +65,7 @@ public class SegmentImpl extends RecordDefImpl implements Segment {
 
     /**
      * The cached value of the '{@link #isExitFlag() <em>Exit Flag</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #isExitFlag()
      * @generated
      * @ordered
@@ -77,8 +74,7 @@ public class SegmentImpl extends RecordDefImpl implements Segment {
 
     /**
      * The default value of the '{@link #getFrequency() <em>Frequency</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getFrequency()
      * @generated
      * @ordered
@@ -87,8 +83,7 @@ public class SegmentImpl extends RecordDefImpl implements Segment {
 
     /**
      * The cached value of the '{@link #getFrequency() <em>Frequency</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getFrequency()
      * @generated
      * @ordered
@@ -97,8 +92,8 @@ public class SegmentImpl extends RecordDefImpl implements Segment {
 
     /**
      * The default value of the '{@link #getMaximumLength() <em>Maximum Length</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getMaximumLength()
      * @generated
      * @ordered
@@ -107,8 +102,8 @@ public class SegmentImpl extends RecordDefImpl implements Segment {
 
     /**
      * The cached value of the '{@link #getMaximumLength() <em>Maximum Length</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getMaximumLength()
      * @generated
      * @ordered
@@ -117,8 +112,8 @@ public class SegmentImpl extends RecordDefImpl implements Segment {
 
     /**
      * The default value of the '{@link #getMinimumLength() <em>Minimum Length</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getMinimumLength()
      * @generated
      * @ordered
@@ -127,8 +122,8 @@ public class SegmentImpl extends RecordDefImpl implements Segment {
 
     /**
      * The cached value of the '{@link #getMinimumLength() <em>Minimum Length</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getMinimumLength()
      * @generated
      * @ordered
@@ -137,8 +132,7 @@ public class SegmentImpl extends RecordDefImpl implements Segment {
 
     /**
      * The default value of the '{@link #getRules() <em>Rules</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getRules()
      * @generated
      * @ordered
@@ -147,8 +141,7 @@ public class SegmentImpl extends RecordDefImpl implements Segment {
 
     /**
      * The cached value of the '{@link #getRules() <em>Rules</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getRules()
      * @generated
      * @ordered
@@ -157,8 +150,8 @@ public class SegmentImpl extends RecordDefImpl implements Segment {
 
     /**
      * The default value of the '{@link #getSubsetPointers() <em>Subset Pointers</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getSubsetPointers()
      * @generated
      * @ordered
@@ -167,8 +160,8 @@ public class SegmentImpl extends RecordDefImpl implements Segment {
 
     /**
      * The cached value of the '{@link #getSubsetPointers() <em>Subset Pointers</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getSubsetPointers()
      * @generated
      * @ordered
@@ -177,8 +170,8 @@ public class SegmentImpl extends RecordDefImpl implements Segment {
 
     /**
      * The default value of the '{@link #isDirectDependent() <em>Direct Dependent</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #isDirectDependent()
      * @generated
      * @ordered
@@ -187,8 +180,8 @@ public class SegmentImpl extends RecordDefImpl implements Segment {
 
     /**
      * The cached value of the '{@link #isDirectDependent() <em>Direct Dependent</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #isDirectDependent()
      * @generated
      * @ordered
@@ -197,8 +190,7 @@ public class SegmentImpl extends RecordDefImpl implements Segment {
 
     /**
      * The default value of the '{@link #getPcPointer() <em>Pc Pointer</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getPcPointer()
      * @generated
      * @ordered
@@ -207,8 +199,7 @@ public class SegmentImpl extends RecordDefImpl implements Segment {
 
     /**
      * The cached value of the '{@link #getPcPointer() <em>Pc Pointer</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getPcPointer()
      * @generated
      * @ordered
@@ -217,8 +208,7 @@ public class SegmentImpl extends RecordDefImpl implements Segment {
 
     /**
      * The cached value of the '{@link #getLogical() <em>Logical</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getLogical()
      * @generated
      * @ordered
@@ -227,8 +217,7 @@ public class SegmentImpl extends RecordDefImpl implements Segment {
 
     /**
      * The cached value of the '{@link #getSenseg() <em>Senseg</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getSenseg()
      * @generated
      * @ordered
@@ -237,8 +226,7 @@ public class SegmentImpl extends RecordDefImpl implements Segment {
 
     /**
      * The cached value of the '{@link #getChild() <em>Child</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getChild()
      * @generated
      * @ordered
@@ -247,8 +235,7 @@ public class SegmentImpl extends RecordDefImpl implements Segment {
 
     /**
      * The cached value of the '{@link #getParent() <em>Parent</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getParent()
      * @generated
      * @ordered
@@ -257,8 +244,7 @@ public class SegmentImpl extends RecordDefImpl implements Segment {
 
     /**
      * The cached value of the '{@link #getExit() <em>Exit</em>}' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getExit()
      * @generated
      * @ordered
@@ -266,8 +252,7 @@ public class SegmentImpl extends RecordDefImpl implements Segment {
     protected EList<Exit> exit;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected SegmentImpl() {
@@ -275,8 +260,7 @@ public class SegmentImpl extends RecordDefImpl implements Segment {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -285,8 +269,7 @@ public class SegmentImpl extends RecordDefImpl implements Segment {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isExitFlag() {
@@ -294,8 +277,7 @@ public class SegmentImpl extends RecordDefImpl implements Segment {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setExitFlag(boolean newExitFlag) {
@@ -306,8 +288,7 @@ public class SegmentImpl extends RecordDefImpl implements Segment {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getFrequency() {
@@ -315,8 +296,7 @@ public class SegmentImpl extends RecordDefImpl implements Segment {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setFrequency(String newFrequency) {
@@ -327,8 +307,7 @@ public class SegmentImpl extends RecordDefImpl implements Segment {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public long getMaximumLength() {
@@ -336,20 +315,19 @@ public class SegmentImpl extends RecordDefImpl implements Segment {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setMaximumLength(long newMaximumLength) {
         long oldMaximumLength = maximumLength;
         maximumLength = newMaximumLength;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.SEGMENT__MAXIMUM_LENGTH, oldMaximumLength, maximumLength));
+            eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.SEGMENT__MAXIMUM_LENGTH, oldMaximumLength,
+                    maximumLength));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public long getMinimumLength() {
@@ -357,20 +335,19 @@ public class SegmentImpl extends RecordDefImpl implements Segment {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setMinimumLength(long newMinimumLength) {
         long oldMinimumLength = minimumLength;
         minimumLength = newMinimumLength;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.SEGMENT__MINIMUM_LENGTH, oldMinimumLength, minimumLength));
+            eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.SEGMENT__MINIMUM_LENGTH, oldMinimumLength,
+                    minimumLength));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public RulesType getRules() {
@@ -378,8 +355,7 @@ public class SegmentImpl extends RecordDefImpl implements Segment {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setRules(RulesType newRules) {
@@ -390,8 +366,7 @@ public class SegmentImpl extends RecordDefImpl implements Segment {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getSubsetPointers() {
@@ -399,20 +374,19 @@ public class SegmentImpl extends RecordDefImpl implements Segment {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setSubsetPointers(String newSubsetPointers) {
         String oldSubsetPointers = subsetPointers;
         subsetPointers = newSubsetPointers;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.SEGMENT__SUBSET_POINTERS, oldSubsetPointers, subsetPointers));
+            eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.SEGMENT__SUBSET_POINTERS, oldSubsetPointers,
+                    subsetPointers));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isDirectDependent() {
@@ -420,20 +394,19 @@ public class SegmentImpl extends RecordDefImpl implements Segment {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setDirectDependent(boolean newDirectDependent) {
         boolean oldDirectDependent = directDependent;
         directDependent = newDirectDependent;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.SEGMENT__DIRECT_DEPENDENT, oldDirectDependent, directDependent));
+            eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.SEGMENT__DIRECT_DEPENDENT,
+                    oldDirectDependent, directDependent));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public ChildPointerType getPcPointer() {
@@ -441,8 +414,7 @@ public class SegmentImpl extends RecordDefImpl implements Segment {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setPcPointer(ChildPointerType newPcPointer) {
@@ -453,40 +425,38 @@ public class SegmentImpl extends RecordDefImpl implements Segment {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<SegmentLogical> getLogical() {
         if (logical == null) {
-            logical = new EObjectWithInverseResolvingEList.ManyInverse<SegmentLogical>(SegmentLogical.class, this, ImsdatabasePackage.SEGMENT__LOGICAL, ImsdatabasePackage.SEGMENT_LOGICAL__PHYSICAL);
+            logical = new EObjectWithInverseResolvingEList.ManyInverse<SegmentLogical>(SegmentLogical.class, this,
+                    ImsdatabasePackage.SEGMENT__LOGICAL, ImsdatabasePackage.SEGMENT_LOGICAL__PHYSICAL);
         }
         return logical;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public DBD getDbd() {
-        if (eContainerFeatureID() != ImsdatabasePackage.SEGMENT__DBD) return null;
-        return (DBD)eContainer();
+        if (eContainerFeatureID() != ImsdatabasePackage.SEGMENT__DBD)
+            return null;
+        return (DBD) eContainer();
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public NotificationChain basicSetDbd(DBD newDbd, NotificationChain msgs) {
-        msgs = eBasicSetContainer((InternalEObject)newDbd, ImsdatabasePackage.SEGMENT__DBD, msgs);
+        msgs = eBasicSetContainer((InternalEObject) newDbd, ImsdatabasePackage.SEGMENT__DBD, msgs);
         return msgs;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setDbd(DBD newDbd) {
@@ -497,58 +467,57 @@ public class SegmentImpl extends RecordDefImpl implements Segment {
             if (eInternalContainer() != null)
                 msgs = eBasicRemoveFromContainer(msgs);
             if (newDbd != null)
-                msgs = ((InternalEObject)newDbd).eInverseAdd(this, ImsdatabasePackage.DBD__SEGMENT, DBD.class, msgs);
+                msgs = ((InternalEObject) newDbd).eInverseAdd(this, ImsdatabasePackage.DBD__SEGMENT, DBD.class, msgs);
             msgs = basicSetDbd(newDbd, msgs);
-            if (msgs != null) msgs.dispatch();
-        }
-        else if (eNotificationRequired())
+            if (msgs != null)
+                msgs.dispatch();
+        } else if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.SEGMENT__DBD, newDbd, newDbd));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<SenSegment> getSenseg() {
         if (senseg == null) {
-            senseg = new EObjectWithInverseResolvingEList<SenSegment>(SenSegment.class, this, ImsdatabasePackage.SEGMENT__SENSEG, ImsdatabasePackage.SEN_SEGMENT__SEGMENT);
+            senseg = new EObjectWithInverseResolvingEList<SenSegment>(SenSegment.class, this, ImsdatabasePackage.SEGMENT__SENSEG,
+                    ImsdatabasePackage.SEN_SEGMENT__SEGMENT);
         }
         return senseg;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<Segment> getChild() {
         if (child == null) {
-            child = new EObjectWithInverseResolvingEList<Segment>(Segment.class, this, ImsdatabasePackage.SEGMENT__CHILD, ImsdatabasePackage.SEGMENT__PARENT);
+            child = new EObjectWithInverseResolvingEList<Segment>(Segment.class, this, ImsdatabasePackage.SEGMENT__CHILD,
+                    ImsdatabasePackage.SEGMENT__PARENT);
         }
         return child;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Segment getParent() {
         if (parent != null && parent.eIsProxy()) {
-            InternalEObject oldParent = (InternalEObject)parent;
-            parent = (Segment)eResolveProxy(oldParent);
+            InternalEObject oldParent = (InternalEObject) parent;
+            parent = (Segment) eResolveProxy(oldParent);
             if (parent != oldParent) {
                 if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, ImsdatabasePackage.SEGMENT__PARENT, oldParent, parent));
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, ImsdatabasePackage.SEGMENT__PARENT, oldParent,
+                            parent));
             }
         }
         return parent;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Segment basicGetParent() {
@@ -556,320 +525,316 @@ public class SegmentImpl extends RecordDefImpl implements Segment {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public NotificationChain basicSetParent(Segment newParent, NotificationChain msgs) {
         Segment oldParent = parent;
         parent = newParent;
         if (eNotificationRequired()) {
-            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.SEGMENT__PARENT, oldParent, newParent);
-            if (msgs == null) msgs = notification; else msgs.add(notification);
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.SEGMENT__PARENT,
+                    oldParent, newParent);
+            if (msgs == null)
+                msgs = notification;
+            else
+                msgs.add(notification);
         }
         return msgs;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setParent(Segment newParent) {
         if (newParent != parent) {
             NotificationChain msgs = null;
             if (parent != null)
-                msgs = ((InternalEObject)parent).eInverseRemove(this, ImsdatabasePackage.SEGMENT__CHILD, Segment.class, msgs);
+                msgs = ((InternalEObject) parent).eInverseRemove(this, ImsdatabasePackage.SEGMENT__CHILD, Segment.class, msgs);
             if (newParent != null)
-                msgs = ((InternalEObject)newParent).eInverseAdd(this, ImsdatabasePackage.SEGMENT__CHILD, Segment.class, msgs);
+                msgs = ((InternalEObject) newParent).eInverseAdd(this, ImsdatabasePackage.SEGMENT__CHILD, Segment.class, msgs);
             msgs = basicSetParent(newParent, msgs);
-            if (msgs != null) msgs.dispatch();
-        }
-        else if (eNotificationRequired())
+            if (msgs != null)
+                msgs.dispatch();
+        } else if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, ImsdatabasePackage.SEGMENT__PARENT, newParent, newParent));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<Exit> getExit() {
         if (exit == null) {
-            exit = new EObjectContainmentWithInverseEList<Exit>(Exit.class, this, ImsdatabasePackage.SEGMENT__EXIT, ImsdatabasePackage.EXIT__SEGMENT);
+            exit = new EObjectContainmentWithInverseEList<Exit>(Exit.class, this, ImsdatabasePackage.SEGMENT__EXIT,
+                    ImsdatabasePackage.EXIT__SEGMENT);
         }
         return exit;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case ImsdatabasePackage.SEGMENT__LOGICAL:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getLogical()).basicAdd(otherEnd, msgs);
-            case ImsdatabasePackage.SEGMENT__DBD:
-                if (eInternalContainer() != null)
-                    msgs = eBasicRemoveFromContainer(msgs);
-                return basicSetDbd((DBD)otherEnd, msgs);
-            case ImsdatabasePackage.SEGMENT__SENSEG:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getSenseg()).basicAdd(otherEnd, msgs);
-            case ImsdatabasePackage.SEGMENT__CHILD:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getChild()).basicAdd(otherEnd, msgs);
-            case ImsdatabasePackage.SEGMENT__PARENT:
-                if (parent != null)
-                    msgs = ((InternalEObject)parent).eInverseRemove(this, ImsdatabasePackage.SEGMENT__CHILD, Segment.class, msgs);
-                return basicSetParent((Segment)otherEnd, msgs);
-            case ImsdatabasePackage.SEGMENT__EXIT:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getExit()).basicAdd(otherEnd, msgs);
+        case ImsdatabasePackage.SEGMENT__LOGICAL:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getLogical()).basicAdd(otherEnd, msgs);
+        case ImsdatabasePackage.SEGMENT__DBD:
+            if (eInternalContainer() != null)
+                msgs = eBasicRemoveFromContainer(msgs);
+            return basicSetDbd((DBD) otherEnd, msgs);
+        case ImsdatabasePackage.SEGMENT__SENSEG:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getSenseg()).basicAdd(otherEnd, msgs);
+        case ImsdatabasePackage.SEGMENT__CHILD:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getChild()).basicAdd(otherEnd, msgs);
+        case ImsdatabasePackage.SEGMENT__PARENT:
+            if (parent != null)
+                msgs = ((InternalEObject) parent).eInverseRemove(this, ImsdatabasePackage.SEGMENT__CHILD, Segment.class, msgs);
+            return basicSetParent((Segment) otherEnd, msgs);
+        case ImsdatabasePackage.SEGMENT__EXIT:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getExit()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case ImsdatabasePackage.SEGMENT__LOGICAL:
-                return ((InternalEList<?>)getLogical()).basicRemove(otherEnd, msgs);
-            case ImsdatabasePackage.SEGMENT__DBD:
-                return basicSetDbd(null, msgs);
-            case ImsdatabasePackage.SEGMENT__SENSEG:
-                return ((InternalEList<?>)getSenseg()).basicRemove(otherEnd, msgs);
-            case ImsdatabasePackage.SEGMENT__CHILD:
-                return ((InternalEList<?>)getChild()).basicRemove(otherEnd, msgs);
-            case ImsdatabasePackage.SEGMENT__PARENT:
-                return basicSetParent(null, msgs);
-            case ImsdatabasePackage.SEGMENT__EXIT:
-                return ((InternalEList<?>)getExit()).basicRemove(otherEnd, msgs);
+        case ImsdatabasePackage.SEGMENT__LOGICAL:
+            return ((InternalEList<?>) getLogical()).basicRemove(otherEnd, msgs);
+        case ImsdatabasePackage.SEGMENT__DBD:
+            return basicSetDbd(null, msgs);
+        case ImsdatabasePackage.SEGMENT__SENSEG:
+            return ((InternalEList<?>) getSenseg()).basicRemove(otherEnd, msgs);
+        case ImsdatabasePackage.SEGMENT__CHILD:
+            return ((InternalEList<?>) getChild()).basicRemove(otherEnd, msgs);
+        case ImsdatabasePackage.SEGMENT__PARENT:
+            return basicSetParent(null, msgs);
+        case ImsdatabasePackage.SEGMENT__EXIT:
+            return ((InternalEList<?>) getExit()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
         switch (eContainerFeatureID()) {
-            case ImsdatabasePackage.SEGMENT__DBD:
-                return eInternalContainer().eInverseRemove(this, ImsdatabasePackage.DBD__SEGMENT, DBD.class, msgs);
+        case ImsdatabasePackage.SEGMENT__DBD:
+            return eInternalContainer().eInverseRemove(this, ImsdatabasePackage.DBD__SEGMENT, DBD.class, msgs);
         }
         return super.eBasicRemoveFromContainerFeature(msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case ImsdatabasePackage.SEGMENT__EXIT_FLAG:
-                return isExitFlag();
-            case ImsdatabasePackage.SEGMENT__FREQUENCY:
-                return getFrequency();
-            case ImsdatabasePackage.SEGMENT__MAXIMUM_LENGTH:
-                return getMaximumLength();
-            case ImsdatabasePackage.SEGMENT__MINIMUM_LENGTH:
-                return getMinimumLength();
-            case ImsdatabasePackage.SEGMENT__RULES:
-                return getRules();
-            case ImsdatabasePackage.SEGMENT__SUBSET_POINTERS:
-                return getSubsetPointers();
-            case ImsdatabasePackage.SEGMENT__DIRECT_DEPENDENT:
-                return isDirectDependent();
-            case ImsdatabasePackage.SEGMENT__PC_POINTER:
-                return getPcPointer();
-            case ImsdatabasePackage.SEGMENT__LOGICAL:
-                return getLogical();
-            case ImsdatabasePackage.SEGMENT__DBD:
-                return getDbd();
-            case ImsdatabasePackage.SEGMENT__SENSEG:
-                return getSenseg();
-            case ImsdatabasePackage.SEGMENT__CHILD:
-                return getChild();
-            case ImsdatabasePackage.SEGMENT__PARENT:
-                if (resolve) return getParent();
-                return basicGetParent();
-            case ImsdatabasePackage.SEGMENT__EXIT:
-                return getExit();
+        case ImsdatabasePackage.SEGMENT__EXIT_FLAG:
+            return isExitFlag();
+        case ImsdatabasePackage.SEGMENT__FREQUENCY:
+            return getFrequency();
+        case ImsdatabasePackage.SEGMENT__MAXIMUM_LENGTH:
+            return getMaximumLength();
+        case ImsdatabasePackage.SEGMENT__MINIMUM_LENGTH:
+            return getMinimumLength();
+        case ImsdatabasePackage.SEGMENT__RULES:
+            return getRules();
+        case ImsdatabasePackage.SEGMENT__SUBSET_POINTERS:
+            return getSubsetPointers();
+        case ImsdatabasePackage.SEGMENT__DIRECT_DEPENDENT:
+            return isDirectDependent();
+        case ImsdatabasePackage.SEGMENT__PC_POINTER:
+            return getPcPointer();
+        case ImsdatabasePackage.SEGMENT__LOGICAL:
+            return getLogical();
+        case ImsdatabasePackage.SEGMENT__DBD:
+            return getDbd();
+        case ImsdatabasePackage.SEGMENT__SENSEG:
+            return getSenseg();
+        case ImsdatabasePackage.SEGMENT__CHILD:
+            return getChild();
+        case ImsdatabasePackage.SEGMENT__PARENT:
+            if (resolve)
+                return getParent();
+            return basicGetParent();
+        case ImsdatabasePackage.SEGMENT__EXIT:
+            return getExit();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case ImsdatabasePackage.SEGMENT__EXIT_FLAG:
-                setExitFlag((Boolean)newValue);
-                return;
-            case ImsdatabasePackage.SEGMENT__FREQUENCY:
-                setFrequency((String)newValue);
-                return;
-            case ImsdatabasePackage.SEGMENT__MAXIMUM_LENGTH:
-                setMaximumLength((Long)newValue);
-                return;
-            case ImsdatabasePackage.SEGMENT__MINIMUM_LENGTH:
-                setMinimumLength((Long)newValue);
-                return;
-            case ImsdatabasePackage.SEGMENT__RULES:
-                setRules((RulesType)newValue);
-                return;
-            case ImsdatabasePackage.SEGMENT__SUBSET_POINTERS:
-                setSubsetPointers((String)newValue);
-                return;
-            case ImsdatabasePackage.SEGMENT__DIRECT_DEPENDENT:
-                setDirectDependent((Boolean)newValue);
-                return;
-            case ImsdatabasePackage.SEGMENT__PC_POINTER:
-                setPcPointer((ChildPointerType)newValue);
-                return;
-            case ImsdatabasePackage.SEGMENT__LOGICAL:
-                getLogical().clear();
-                getLogical().addAll((Collection<? extends SegmentLogical>)newValue);
-                return;
-            case ImsdatabasePackage.SEGMENT__DBD:
-                setDbd((DBD)newValue);
-                return;
-            case ImsdatabasePackage.SEGMENT__SENSEG:
-                getSenseg().clear();
-                getSenseg().addAll((Collection<? extends SenSegment>)newValue);
-                return;
-            case ImsdatabasePackage.SEGMENT__CHILD:
-                getChild().clear();
-                getChild().addAll((Collection<? extends Segment>)newValue);
-                return;
-            case ImsdatabasePackage.SEGMENT__PARENT:
-                setParent((Segment)newValue);
-                return;
-            case ImsdatabasePackage.SEGMENT__EXIT:
-                getExit().clear();
-                getExit().addAll((Collection<? extends Exit>)newValue);
-                return;
+        case ImsdatabasePackage.SEGMENT__EXIT_FLAG:
+            setExitFlag((Boolean) newValue);
+            return;
+        case ImsdatabasePackage.SEGMENT__FREQUENCY:
+            setFrequency((String) newValue);
+            return;
+        case ImsdatabasePackage.SEGMENT__MAXIMUM_LENGTH:
+            setMaximumLength((Long) newValue);
+            return;
+        case ImsdatabasePackage.SEGMENT__MINIMUM_LENGTH:
+            setMinimumLength((Long) newValue);
+            return;
+        case ImsdatabasePackage.SEGMENT__RULES:
+            setRules((RulesType) newValue);
+            return;
+        case ImsdatabasePackage.SEGMENT__SUBSET_POINTERS:
+            setSubsetPointers((String) newValue);
+            return;
+        case ImsdatabasePackage.SEGMENT__DIRECT_DEPENDENT:
+            setDirectDependent((Boolean) newValue);
+            return;
+        case ImsdatabasePackage.SEGMENT__PC_POINTER:
+            setPcPointer((ChildPointerType) newValue);
+            return;
+        case ImsdatabasePackage.SEGMENT__LOGICAL:
+            getLogical().clear();
+            getLogical().addAll((Collection<? extends SegmentLogical>) newValue);
+            return;
+        case ImsdatabasePackage.SEGMENT__DBD:
+            setDbd((DBD) newValue);
+            return;
+        case ImsdatabasePackage.SEGMENT__SENSEG:
+            getSenseg().clear();
+            getSenseg().addAll((Collection<? extends SenSegment>) newValue);
+            return;
+        case ImsdatabasePackage.SEGMENT__CHILD:
+            getChild().clear();
+            getChild().addAll((Collection<? extends Segment>) newValue);
+            return;
+        case ImsdatabasePackage.SEGMENT__PARENT:
+            setParent((Segment) newValue);
+            return;
+        case ImsdatabasePackage.SEGMENT__EXIT:
+            getExit().clear();
+            getExit().addAll((Collection<? extends Exit>) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case ImsdatabasePackage.SEGMENT__EXIT_FLAG:
-                setExitFlag(EXIT_FLAG_EDEFAULT);
-                return;
-            case ImsdatabasePackage.SEGMENT__FREQUENCY:
-                setFrequency(FREQUENCY_EDEFAULT);
-                return;
-            case ImsdatabasePackage.SEGMENT__MAXIMUM_LENGTH:
-                setMaximumLength(MAXIMUM_LENGTH_EDEFAULT);
-                return;
-            case ImsdatabasePackage.SEGMENT__MINIMUM_LENGTH:
-                setMinimumLength(MINIMUM_LENGTH_EDEFAULT);
-                return;
-            case ImsdatabasePackage.SEGMENT__RULES:
-                setRules(RULES_EDEFAULT);
-                return;
-            case ImsdatabasePackage.SEGMENT__SUBSET_POINTERS:
-                setSubsetPointers(SUBSET_POINTERS_EDEFAULT);
-                return;
-            case ImsdatabasePackage.SEGMENT__DIRECT_DEPENDENT:
-                setDirectDependent(DIRECT_DEPENDENT_EDEFAULT);
-                return;
-            case ImsdatabasePackage.SEGMENT__PC_POINTER:
-                setPcPointer(PC_POINTER_EDEFAULT);
-                return;
-            case ImsdatabasePackage.SEGMENT__LOGICAL:
-                getLogical().clear();
-                return;
-            case ImsdatabasePackage.SEGMENT__DBD:
-                setDbd((DBD)null);
-                return;
-            case ImsdatabasePackage.SEGMENT__SENSEG:
-                getSenseg().clear();
-                return;
-            case ImsdatabasePackage.SEGMENT__CHILD:
-                getChild().clear();
-                return;
-            case ImsdatabasePackage.SEGMENT__PARENT:
-                setParent((Segment)null);
-                return;
-            case ImsdatabasePackage.SEGMENT__EXIT:
-                getExit().clear();
-                return;
+        case ImsdatabasePackage.SEGMENT__EXIT_FLAG:
+            setExitFlag(EXIT_FLAG_EDEFAULT);
+            return;
+        case ImsdatabasePackage.SEGMENT__FREQUENCY:
+            setFrequency(FREQUENCY_EDEFAULT);
+            return;
+        case ImsdatabasePackage.SEGMENT__MAXIMUM_LENGTH:
+            setMaximumLength(MAXIMUM_LENGTH_EDEFAULT);
+            return;
+        case ImsdatabasePackage.SEGMENT__MINIMUM_LENGTH:
+            setMinimumLength(MINIMUM_LENGTH_EDEFAULT);
+            return;
+        case ImsdatabasePackage.SEGMENT__RULES:
+            setRules(RULES_EDEFAULT);
+            return;
+        case ImsdatabasePackage.SEGMENT__SUBSET_POINTERS:
+            setSubsetPointers(SUBSET_POINTERS_EDEFAULT);
+            return;
+        case ImsdatabasePackage.SEGMENT__DIRECT_DEPENDENT:
+            setDirectDependent(DIRECT_DEPENDENT_EDEFAULT);
+            return;
+        case ImsdatabasePackage.SEGMENT__PC_POINTER:
+            setPcPointer(PC_POINTER_EDEFAULT);
+            return;
+        case ImsdatabasePackage.SEGMENT__LOGICAL:
+            getLogical().clear();
+            return;
+        case ImsdatabasePackage.SEGMENT__DBD:
+            setDbd((DBD) null);
+            return;
+        case ImsdatabasePackage.SEGMENT__SENSEG:
+            getSenseg().clear();
+            return;
+        case ImsdatabasePackage.SEGMENT__CHILD:
+            getChild().clear();
+            return;
+        case ImsdatabasePackage.SEGMENT__PARENT:
+            setParent((Segment) null);
+            return;
+        case ImsdatabasePackage.SEGMENT__EXIT:
+            getExit().clear();
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case ImsdatabasePackage.SEGMENT__EXIT_FLAG:
-                return exitFlag != EXIT_FLAG_EDEFAULT;
-            case ImsdatabasePackage.SEGMENT__FREQUENCY:
-                return FREQUENCY_EDEFAULT == null ? frequency != null : !FREQUENCY_EDEFAULT.equals(frequency);
-            case ImsdatabasePackage.SEGMENT__MAXIMUM_LENGTH:
-                return maximumLength != MAXIMUM_LENGTH_EDEFAULT;
-            case ImsdatabasePackage.SEGMENT__MINIMUM_LENGTH:
-                return minimumLength != MINIMUM_LENGTH_EDEFAULT;
-            case ImsdatabasePackage.SEGMENT__RULES:
-                return rules != RULES_EDEFAULT;
-            case ImsdatabasePackage.SEGMENT__SUBSET_POINTERS:
-                return SUBSET_POINTERS_EDEFAULT == null ? subsetPointers != null : !SUBSET_POINTERS_EDEFAULT.equals(subsetPointers);
-            case ImsdatabasePackage.SEGMENT__DIRECT_DEPENDENT:
-                return directDependent != DIRECT_DEPENDENT_EDEFAULT;
-            case ImsdatabasePackage.SEGMENT__PC_POINTER:
-                return pcPointer != PC_POINTER_EDEFAULT;
-            case ImsdatabasePackage.SEGMENT__LOGICAL:
-                return logical != null && !logical.isEmpty();
-            case ImsdatabasePackage.SEGMENT__DBD:
-                return getDbd() != null;
-            case ImsdatabasePackage.SEGMENT__SENSEG:
-                return senseg != null && !senseg.isEmpty();
-            case ImsdatabasePackage.SEGMENT__CHILD:
-                return child != null && !child.isEmpty();
-            case ImsdatabasePackage.SEGMENT__PARENT:
-                return parent != null;
-            case ImsdatabasePackage.SEGMENT__EXIT:
-                return exit != null && !exit.isEmpty();
+        case ImsdatabasePackage.SEGMENT__EXIT_FLAG:
+            return exitFlag != EXIT_FLAG_EDEFAULT;
+        case ImsdatabasePackage.SEGMENT__FREQUENCY:
+            return FREQUENCY_EDEFAULT == null ? frequency != null : !FREQUENCY_EDEFAULT.equals(frequency);
+        case ImsdatabasePackage.SEGMENT__MAXIMUM_LENGTH:
+            return maximumLength != MAXIMUM_LENGTH_EDEFAULT;
+        case ImsdatabasePackage.SEGMENT__MINIMUM_LENGTH:
+            return minimumLength != MINIMUM_LENGTH_EDEFAULT;
+        case ImsdatabasePackage.SEGMENT__RULES:
+            return rules != RULES_EDEFAULT;
+        case ImsdatabasePackage.SEGMENT__SUBSET_POINTERS:
+            return SUBSET_POINTERS_EDEFAULT == null ? subsetPointers != null : !SUBSET_POINTERS_EDEFAULT.equals(subsetPointers);
+        case ImsdatabasePackage.SEGMENT__DIRECT_DEPENDENT:
+            return directDependent != DIRECT_DEPENDENT_EDEFAULT;
+        case ImsdatabasePackage.SEGMENT__PC_POINTER:
+            return pcPointer != PC_POINTER_EDEFAULT;
+        case ImsdatabasePackage.SEGMENT__LOGICAL:
+            return logical != null && !logical.isEmpty();
+        case ImsdatabasePackage.SEGMENT__DBD:
+            return getDbd() != null;
+        case ImsdatabasePackage.SEGMENT__SENSEG:
+            return senseg != null && !senseg.isEmpty();
+        case ImsdatabasePackage.SEGMENT__CHILD:
+            return child != null && !child.isEmpty();
+        case ImsdatabasePackage.SEGMENT__PARENT:
+            return parent != null;
+        case ImsdatabasePackage.SEGMENT__EXIT:
+            return exit != null && !exit.isEmpty();
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (exitFlag: ");
@@ -892,4 +857,4 @@ public class SegmentImpl extends RecordDefImpl implements Segment {
         return result.toString();
     }
 
-} //SegmentImpl
+} // SegmentImpl

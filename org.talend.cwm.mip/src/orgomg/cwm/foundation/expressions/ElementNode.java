@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.foundation.expressions;
@@ -9,9 +8,8 @@ package orgomg.cwm.foundation.expressions;
 import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Element Node</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Element Node</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * An ElementNode is a node in an expression that references some ModelElement instance. This subclass of ExpressionNode allows an expression to reference any CWM model element that is not a Feature and cannot, therefore, be represented as a FeatureNode.
@@ -32,11 +30,11 @@ import orgomg.cwm.objectmodel.core.ModelElement;
  * @generated
  */
 public interface ElementNode extends ExpressionNode {
+
     /**
      * Returns the value of the '<em><b>Model Element</b></em>' reference.
      * It is bidirectional and its opposite is '{@link orgomg.cwm.objectmodel.core.ModelElement#getElementNode <em>Element Node</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Identifies the ModelElement instance which this ElementNode references.
      * <!-- end-model-doc -->
@@ -51,8 +49,8 @@ public interface ElementNode extends ExpressionNode {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.foundation.expressions.ElementNode#getModelElement <em>Model Element</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Model Element</em>' reference.
      * @see #getModelElement()
      * @generated

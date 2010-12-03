@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.dmsii.impl;
@@ -17,9 +16,8 @@ import orgomg.cwmx.resource.dmsii.DmsiiPackage;
 import orgomg.cwmx.resource.dmsii.VariableFormatPart;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Variable Format Part</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Variable Format Part</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -31,10 +29,10 @@ import orgomg.cwmx.resource.dmsii.VariableFormatPart;
  * @generated
  */
 public class VariableFormatPartImpl extends RecordDefImpl implements VariableFormatPart {
+
     /**
      * The default value of the '{@link #getVfLabel() <em>Vf Label</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getVfLabel()
      * @generated
      * @ordered
@@ -43,8 +41,7 @@ public class VariableFormatPartImpl extends RecordDefImpl implements VariableFor
 
     /**
      * The cached value of the '{@link #getVfLabel() <em>Vf Label</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getVfLabel()
      * @generated
      * @ordered
@@ -53,8 +50,8 @@ public class VariableFormatPartImpl extends RecordDefImpl implements VariableFor
 
     /**
      * The cached value of the '{@link #getSelectCondition() <em>Select Condition</em>}' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @see #getSelectCondition()
      * @generated
      * @ordered
@@ -62,8 +59,7 @@ public class VariableFormatPartImpl extends RecordDefImpl implements VariableFor
     protected BooleanExpression selectCondition;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected VariableFormatPartImpl() {
@@ -71,8 +67,7 @@ public class VariableFormatPartImpl extends RecordDefImpl implements VariableFor
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -81,8 +76,7 @@ public class VariableFormatPartImpl extends RecordDefImpl implements VariableFor
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public long getVfLabel() {
@@ -90,20 +84,19 @@ public class VariableFormatPartImpl extends RecordDefImpl implements VariableFor
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setVfLabel(long newVfLabel) {
         long oldVfLabel = vfLabel;
         vfLabel = newVfLabel;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, DmsiiPackage.VARIABLE_FORMAT_PART__VF_LABEL, oldVfLabel, vfLabel));
+            eNotify(new ENotificationImpl(this, Notification.SET, DmsiiPackage.VARIABLE_FORMAT_PART__VF_LABEL, oldVfLabel,
+                    vfLabel));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public BooleanExpression getSelectCondition() {
@@ -111,129 +104,129 @@ public class VariableFormatPartImpl extends RecordDefImpl implements VariableFor
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public NotificationChain basicSetSelectCondition(BooleanExpression newSelectCondition, NotificationChain msgs) {
         BooleanExpression oldSelectCondition = selectCondition;
         selectCondition = newSelectCondition;
         if (eNotificationRequired()) {
-            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DmsiiPackage.VARIABLE_FORMAT_PART__SELECT_CONDITION, oldSelectCondition, newSelectCondition);
-            if (msgs == null) msgs = notification; else msgs.add(notification);
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+                    DmsiiPackage.VARIABLE_FORMAT_PART__SELECT_CONDITION, oldSelectCondition, newSelectCondition);
+            if (msgs == null)
+                msgs = notification;
+            else
+                msgs.add(notification);
         }
         return msgs;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setSelectCondition(BooleanExpression newSelectCondition) {
         if (newSelectCondition != selectCondition) {
             NotificationChain msgs = null;
             if (selectCondition != null)
-                msgs = ((InternalEObject)selectCondition).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DmsiiPackage.VARIABLE_FORMAT_PART__SELECT_CONDITION, null, msgs);
+                msgs = ((InternalEObject) selectCondition).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
+                        - DmsiiPackage.VARIABLE_FORMAT_PART__SELECT_CONDITION, null, msgs);
             if (newSelectCondition != null)
-                msgs = ((InternalEObject)newSelectCondition).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DmsiiPackage.VARIABLE_FORMAT_PART__SELECT_CONDITION, null, msgs);
+                msgs = ((InternalEObject) newSelectCondition).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
+                        - DmsiiPackage.VARIABLE_FORMAT_PART__SELECT_CONDITION, null, msgs);
             msgs = basicSetSelectCondition(newSelectCondition, msgs);
-            if (msgs != null) msgs.dispatch();
-        }
-        else if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, DmsiiPackage.VARIABLE_FORMAT_PART__SELECT_CONDITION, newSelectCondition, newSelectCondition));
+            if (msgs != null)
+                msgs.dispatch();
+        } else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, DmsiiPackage.VARIABLE_FORMAT_PART__SELECT_CONDITION,
+                    newSelectCondition, newSelectCondition));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case DmsiiPackage.VARIABLE_FORMAT_PART__SELECT_CONDITION:
-                return basicSetSelectCondition(null, msgs);
+        case DmsiiPackage.VARIABLE_FORMAT_PART__SELECT_CONDITION:
+            return basicSetSelectCondition(null, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case DmsiiPackage.VARIABLE_FORMAT_PART__VF_LABEL:
-                return getVfLabel();
-            case DmsiiPackage.VARIABLE_FORMAT_PART__SELECT_CONDITION:
-                return getSelectCondition();
+        case DmsiiPackage.VARIABLE_FORMAT_PART__VF_LABEL:
+            return getVfLabel();
+        case DmsiiPackage.VARIABLE_FORMAT_PART__SELECT_CONDITION:
+            return getSelectCondition();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case DmsiiPackage.VARIABLE_FORMAT_PART__VF_LABEL:
-                setVfLabel((Long)newValue);
-                return;
-            case DmsiiPackage.VARIABLE_FORMAT_PART__SELECT_CONDITION:
-                setSelectCondition((BooleanExpression)newValue);
-                return;
+        case DmsiiPackage.VARIABLE_FORMAT_PART__VF_LABEL:
+            setVfLabel((Long) newValue);
+            return;
+        case DmsiiPackage.VARIABLE_FORMAT_PART__SELECT_CONDITION:
+            setSelectCondition((BooleanExpression) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case DmsiiPackage.VARIABLE_FORMAT_PART__VF_LABEL:
-                setVfLabel(VF_LABEL_EDEFAULT);
-                return;
-            case DmsiiPackage.VARIABLE_FORMAT_PART__SELECT_CONDITION:
-                setSelectCondition((BooleanExpression)null);
-                return;
+        case DmsiiPackage.VARIABLE_FORMAT_PART__VF_LABEL:
+            setVfLabel(VF_LABEL_EDEFAULT);
+            return;
+        case DmsiiPackage.VARIABLE_FORMAT_PART__SELECT_CONDITION:
+            setSelectCondition((BooleanExpression) null);
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case DmsiiPackage.VARIABLE_FORMAT_PART__VF_LABEL:
-                return vfLabel != VF_LABEL_EDEFAULT;
-            case DmsiiPackage.VARIABLE_FORMAT_PART__SELECT_CONDITION:
-                return selectCondition != null;
+        case DmsiiPackage.VARIABLE_FORMAT_PART__VF_LABEL:
+            return vfLabel != VF_LABEL_EDEFAULT;
+        case DmsiiPackage.VARIABLE_FORMAT_PART__SELECT_CONDITION:
+            return selectCondition != null;
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (vfLabel: ");
@@ -242,4 +235,4 @@ public class VariableFormatPartImpl extends RecordDefImpl implements VariableFor
         return result.toString();
     }
 
-} //VariableFormatPartImpl
+} // VariableFormatPartImpl

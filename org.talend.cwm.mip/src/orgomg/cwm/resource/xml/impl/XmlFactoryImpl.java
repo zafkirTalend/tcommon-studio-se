@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.resource.xml.impl;
@@ -12,6 +11,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import orgomg.cwm.resource.xml.*;
 import orgomg.cwm.resource.xml.Attribute;
 import orgomg.cwm.resource.xml.AttributeDefault;
 import orgomg.cwm.resource.xml.Content;
@@ -30,26 +30,26 @@ import orgomg.cwm.resource.xml.XmlFactory;
 import orgomg.cwm.resource.xml.XmlPackage;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model <b>Factory</b>.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!--
+ * end-user-doc -->
  * @generated
  */
 public class XmlFactoryImpl extends EFactoryImpl implements XmlFactory {
+
     /**
      * Creates the default factory implementation.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     public static XmlFactory init() {
         try {
-            XmlFactory theXmlFactory = (XmlFactory)EPackage.Registry.INSTANCE.getEFactory("http:///orgomg/cwm/resource/xml.ecore"); 
+            XmlFactory theXmlFactory = (XmlFactory) EPackage.Registry.INSTANCE
+                    .getEFactory("http:///orgomg/cwm/resource/xml.ecore");
             if (theXmlFactory != null) {
                 return theXmlFactory;
             }
-        }
-        catch (Exception exception) {
+        } catch (Exception exception) {
             EcorePlugin.INSTANCE.log(exception);
         }
         return new XmlFactoryImpl();
@@ -57,8 +57,8 @@ public class XmlFactoryImpl extends EFactoryImpl implements XmlFactory {
 
     /**
      * Creates an instance of the factory.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     public XmlFactoryImpl() {
@@ -66,73 +66,79 @@ public class XmlFactoryImpl extends EFactoryImpl implements XmlFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public EObject create(EClass eClass) {
         switch (eClass.getClassifierID()) {
-            case XmlPackage.SCHEMA: return createSchema();
-            case XmlPackage.ELEMENT_TYPE: return createElementType();
-            case XmlPackage.ATTRIBUTE: return createAttribute();
-            case XmlPackage.CONTENT: return createContent();
-            case XmlPackage.ELEMENT_CONTENT: return createElementContent();
-            case XmlPackage.MIXED_CONTENT: return createMixedContent();
-            case XmlPackage.ELEMENT_TYPE_REFERENCE: return createElementTypeReference();
-            case XmlPackage.TEXT: return createText();
-            case XmlPackage.ELEMENT: return createElement();
-            case XmlPackage.DOCUMENT: return createDocument();
-            default:
-                throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+        case XmlPackage.SCHEMA:
+            return createSchema();
+        case XmlPackage.ELEMENT_TYPE:
+            return createElementType();
+        case XmlPackage.ATTRIBUTE:
+            return createAttribute();
+        case XmlPackage.CONTENT:
+            return createContent();
+        case XmlPackage.ELEMENT_CONTENT:
+            return createElementContent();
+        case XmlPackage.MIXED_CONTENT:
+            return createMixedContent();
+        case XmlPackage.ELEMENT_TYPE_REFERENCE:
+            return createElementTypeReference();
+        case XmlPackage.TEXT:
+            return createText();
+        case XmlPackage.ELEMENT:
+            return createElement();
+        case XmlPackage.DOCUMENT:
+            return createDocument();
+        default:
+            throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object createFromString(EDataType eDataType, String initialValue) {
         switch (eDataType.getClassifierID()) {
-            case XmlPackage.ATTRIBUTE_DEFAULT:
-                return createAttributeDefaultFromString(eDataType, initialValue);
-            case XmlPackage.CONTENT_TYPE:
-                return createContentTypeFromString(eDataType, initialValue);
-            case XmlPackage.OCCURRENCE_TYPE:
-                return createOccurrenceTypeFromString(eDataType, initialValue);
-            case XmlPackage.ELEMENT_ORDER_TYPE:
-                return createElementOrderTypeFromString(eDataType, initialValue);
-            default:
-                throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+        case XmlPackage.ATTRIBUTE_DEFAULT:
+            return createAttributeDefaultFromString(eDataType, initialValue);
+        case XmlPackage.CONTENT_TYPE:
+            return createContentTypeFromString(eDataType, initialValue);
+        case XmlPackage.OCCURRENCE_TYPE:
+            return createOccurrenceTypeFromString(eDataType, initialValue);
+        case XmlPackage.ELEMENT_ORDER_TYPE:
+            return createElementOrderTypeFromString(eDataType, initialValue);
+        default:
+            throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
         }
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String convertToString(EDataType eDataType, Object instanceValue) {
         switch (eDataType.getClassifierID()) {
-            case XmlPackage.ATTRIBUTE_DEFAULT:
-                return convertAttributeDefaultToString(eDataType, instanceValue);
-            case XmlPackage.CONTENT_TYPE:
-                return convertContentTypeToString(eDataType, instanceValue);
-            case XmlPackage.OCCURRENCE_TYPE:
-                return convertOccurrenceTypeToString(eDataType, instanceValue);
-            case XmlPackage.ELEMENT_ORDER_TYPE:
-                return convertElementOrderTypeToString(eDataType, instanceValue);
-            default:
-                throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+        case XmlPackage.ATTRIBUTE_DEFAULT:
+            return convertAttributeDefaultToString(eDataType, instanceValue);
+        case XmlPackage.CONTENT_TYPE:
+            return convertContentTypeToString(eDataType, instanceValue);
+        case XmlPackage.OCCURRENCE_TYPE:
+            return convertOccurrenceTypeToString(eDataType, instanceValue);
+        case XmlPackage.ELEMENT_ORDER_TYPE:
+            return convertElementOrderTypeToString(eDataType, instanceValue);
+        default:
+            throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
         }
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Schema createSchema() {
@@ -141,8 +147,7 @@ public class XmlFactoryImpl extends EFactoryImpl implements XmlFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public ElementType createElementType() {
@@ -151,8 +156,7 @@ public class XmlFactoryImpl extends EFactoryImpl implements XmlFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Attribute createAttribute() {
@@ -161,8 +165,7 @@ public class XmlFactoryImpl extends EFactoryImpl implements XmlFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Content createContent() {
@@ -171,8 +174,7 @@ public class XmlFactoryImpl extends EFactoryImpl implements XmlFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public ElementContent createElementContent() {
@@ -181,8 +183,7 @@ public class XmlFactoryImpl extends EFactoryImpl implements XmlFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public MixedContent createMixedContent() {
@@ -191,8 +192,7 @@ public class XmlFactoryImpl extends EFactoryImpl implements XmlFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public ElementTypeReference createElementTypeReference() {
@@ -201,8 +201,7 @@ public class XmlFactoryImpl extends EFactoryImpl implements XmlFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Text createText() {
@@ -211,8 +210,7 @@ public class XmlFactoryImpl extends EFactoryImpl implements XmlFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Element createElement() {
@@ -221,8 +219,7 @@ public class XmlFactoryImpl extends EFactoryImpl implements XmlFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Document createDocument() {
@@ -231,19 +228,19 @@ public class XmlFactoryImpl extends EFactoryImpl implements XmlFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public AttributeDefault createAttributeDefaultFromString(EDataType eDataType, String initialValue) {
         AttributeDefault result = AttributeDefault.get(initialValue);
-        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+        if (result == null)
+            throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
+                    + eDataType.getName() + "'");
         return result;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String convertAttributeDefaultToString(EDataType eDataType, Object instanceValue) {
@@ -251,19 +248,19 @@ public class XmlFactoryImpl extends EFactoryImpl implements XmlFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public ContentType createContentTypeFromString(EDataType eDataType, String initialValue) {
         ContentType result = ContentType.get(initialValue);
-        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+        if (result == null)
+            throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
+                    + eDataType.getName() + "'");
         return result;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String convertContentTypeToString(EDataType eDataType, Object instanceValue) {
@@ -271,19 +268,19 @@ public class XmlFactoryImpl extends EFactoryImpl implements XmlFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public OccurrenceType createOccurrenceTypeFromString(EDataType eDataType, String initialValue) {
         OccurrenceType result = OccurrenceType.get(initialValue);
-        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+        if (result == null)
+            throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
+                    + eDataType.getName() + "'");
         return result;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String convertOccurrenceTypeToString(EDataType eDataType, Object instanceValue) {
@@ -291,19 +288,19 @@ public class XmlFactoryImpl extends EFactoryImpl implements XmlFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public ElementOrderType createElementOrderTypeFromString(EDataType eDataType, String initialValue) {
         ElementOrderType result = ElementOrderType.get(initialValue);
-        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+        if (result == null)
+            throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
+                    + eDataType.getName() + "'");
         return result;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String convertElementOrderTypeToString(EDataType eDataType, Object instanceValue) {
@@ -311,17 +308,15 @@ public class XmlFactoryImpl extends EFactoryImpl implements XmlFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public XmlPackage getXmlPackage() {
-        return (XmlPackage)getEPackage();
+        return (XmlPackage) getEPackage();
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @deprecated
      * @generated
      */
@@ -330,4 +325,4 @@ public class XmlFactoryImpl extends EFactoryImpl implements XmlFactory {
         return XmlPackage.eINSTANCE;
     }
 
-} //XmlFactoryImpl
+} // XmlFactoryImpl

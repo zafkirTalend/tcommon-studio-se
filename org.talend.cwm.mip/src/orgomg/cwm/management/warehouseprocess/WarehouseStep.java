@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.management.warehouseprocess;
@@ -9,9 +8,8 @@ package orgomg.cwm.management.warehouseprocess;
 import orgomg.cwm.analysis.transformation.TransformationStep;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Warehouse Step</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Warehouse Step</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * A WarehouseStep is a component of a WarehouseActivity. It represents the processing of an individual TransformationStep. It may be used to identify WarehouseEvents that trigger the processing of the TransformationStep and/or InternalEvents that are
@@ -33,11 +31,11 @@ import orgomg.cwm.analysis.transformation.TransformationStep;
  * @generated
  */
 public interface WarehouseStep extends WarehouseProcess {
+
     /**
      * Returns the value of the '<em><b>Transformation Step</b></em>' reference.
      * It is bidirectional and its opposite is '{@link orgomg.cwm.analysis.transformation.TransformationStep#getWarehouseStep <em>Warehouse Step</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Associates a WarehouseStep with the TransformationStep it performs.
      * <!-- end-model-doc -->
@@ -52,8 +50,8 @@ public interface WarehouseStep extends WarehouseProcess {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.management.warehouseprocess.WarehouseStep#getTransformationStep <em>Transformation Step</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Transformation Step</em>' reference.
      * @see #getTransformationStep()
      * @generated
@@ -63,8 +61,7 @@ public interface WarehouseStep extends WarehouseProcess {
     /**
      * Returns the value of the '<em><b>Warehouse Activity</b></em>' container reference.
      * It is bidirectional and its opposite is '{@link orgomg.cwm.management.warehouseprocess.WarehouseActivity#getWarehouseStep <em>Warehouse Step</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Identifies the WarehouseActivity of which a WarehouseStep is a component.
      * <!-- end-model-doc -->
@@ -79,8 +76,8 @@ public interface WarehouseStep extends WarehouseProcess {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.management.warehouseprocess.WarehouseStep#getWarehouseActivity <em>Warehouse Activity</em>}' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Warehouse Activity</em>' container reference.
      * @see #getWarehouseActivity()
      * @generated

@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.dmsii.util;
@@ -21,6 +20,7 @@ import orgomg.cwm.objectmodel.core.Namespace;
 import orgomg.cwm.objectmodel.core.StructuralFeature;
 import orgomg.cwm.resource.record.Field;
 import orgomg.cwm.resource.record.RecordDef;
+import orgomg.cwmx.resource.dmsii.*;
 import orgomg.cwmx.resource.dmsii.Access;
 import orgomg.cwmx.resource.dmsii.AutomaticSubset;
 import orgomg.cwmx.resource.dmsii.DASDLComment;
@@ -46,31 +46,28 @@ import orgomg.cwmx.resource.dmsii.Subset;
 import orgomg.cwmx.resource.dmsii.VariableFormatPart;
 
 /**
- * <!-- begin-user-doc -->
- * The <b>Switch</b> for the model's inheritance hierarchy.
- * It supports the call {@link #doSwitch(EObject) doSwitch(object)}
+ * <!-- begin-user-doc --> The <b>Switch</b> for the model's inheritance
+ * hierarchy. It supports the call {@link #doSwitch(EObject) doSwitch(object)}
  * to invoke the <code>caseXXX</code> method for each class of the model,
- * starting with the actual class of the object
- * and proceeding up the inheritance hierarchy
- * until a non-null result is returned,
- * which is the result of the switch.
- * <!-- end-user-doc -->
+ * starting with the actual class of the object and proceeding up the
+ * inheritance hierarchy until a non-null result is returned, which is the
+ * result of the switch. <!-- end-user-doc -->
  * @see orgomg.cwmx.resource.dmsii.DmsiiPackage
  * @generated
  */
 public class DmsiiSwitch<T> {
+
     /**
      * The cached model package
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected static DmsiiPackage modelPackage;
 
     /**
      * Creates an instance of the switch.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     public DmsiiSwitch() {
@@ -81,8 +78,8 @@ public class DmsiiSwitch<T> {
 
     /**
      * Calls <code>caseXXX</code> for each class of the model until one returns a non null result; it yields that result.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @return the first non-null result returned by a <code>caseXXX</code> call.
      * @generated
      */
@@ -92,270 +89,383 @@ public class DmsiiSwitch<T> {
 
     /**
      * Calls <code>caseXXX</code> for each class of the model until one returns a non null result; it yields that result.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @return the first non-null result returned by a <code>caseXXX</code> call.
      * @generated
      */
     protected T doSwitch(EClass theEClass, EObject theEObject) {
         if (theEClass.eContainer() == modelPackage) {
             return doSwitch(theEClass.getClassifierID(), theEObject);
-        }
-        else {
+        } else {
             List<EClass> eSuperTypes = theEClass.getESuperTypes();
-            return
-                eSuperTypes.isEmpty() ?
-                    defaultCase(theEObject) :
-                    doSwitch(eSuperTypes.get(0), theEObject);
+            return eSuperTypes.isEmpty() ? defaultCase(theEObject) : doSwitch(eSuperTypes.get(0), theEObject);
         }
     }
 
     /**
      * Calls <code>caseXXX</code> for each class of the model until one returns a non null result; it yields that result.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @return the first non-null result returned by a <code>caseXXX</code> call.
      * @generated
      */
     protected T doSwitch(int classifierID, EObject theEObject) {
         switch (classifierID) {
-            case DmsiiPackage.DATABASE: {
-                Database database = (Database)theEObject;
-                T result = caseDatabase(database);
-                if (result == null) result = caseStructuralFeature(database);
-                if (result == null) result = casePackage(database);
-                if (result == null) result = caseFeature(database);
-                if (result == null) result = caseNamespace(database);
-                if (result == null) result = caseModelElement(database);
-                if (result == null) result = caseElement(database);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case DmsiiPackage.REMAP: {
-                Remap remap = (Remap)theEObject;
-                T result = caseRemap(remap);
-                if (result == null) result = caseRecordDef(remap);
-                if (result == null) result = caseClass(remap);
-                if (result == null) result = caseClassifier(remap);
-                if (result == null) result = caseNamespace(remap);
-                if (result == null) result = caseModelElement(remap);
-                if (result == null) result = caseElement(remap);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case DmsiiPackage.DATA_SET: {
-                DataSet dataSet = (DataSet)theEObject;
-                T result = caseDataSet(dataSet);
-                if (result == null) result = caseRecordDef(dataSet);
-                if (result == null) result = caseClass(dataSet);
-                if (result == null) result = caseClassifier(dataSet);
-                if (result == null) result = caseNamespace(dataSet);
-                if (result == null) result = caseModelElement(dataSet);
-                if (result == null) result = caseElement(dataSet);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case DmsiiPackage.DATA_ITEM: {
-                DataItem dataItem = (DataItem)theEObject;
-                T result = caseDataItem(dataItem);
-                if (result == null) result = caseField(dataItem);
-                if (result == null) result = caseAttribute(dataItem);
-                if (result == null) result = caseStructuralFeature(dataItem);
-                if (result == null) result = caseFeature(dataItem);
-                if (result == null) result = caseModelElement(dataItem);
-                if (result == null) result = caseElement(dataItem);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case DmsiiPackage.VARIABLE_FORMAT_PART: {
-                VariableFormatPart variableFormatPart = (VariableFormatPart)theEObject;
-                T result = caseVariableFormatPart(variableFormatPart);
-                if (result == null) result = caseRecordDef(variableFormatPart);
-                if (result == null) result = caseClass(variableFormatPart);
-                if (result == null) result = caseClassifier(variableFormatPart);
-                if (result == null) result = caseNamespace(variableFormatPart);
-                if (result == null) result = caseModelElement(variableFormatPart);
-                if (result == null) result = caseElement(variableFormatPart);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case DmsiiPackage.SET_STRUCTURE: {
-                SetStructure setStructure = (SetStructure)theEObject;
-                T result = caseSetStructure(setStructure);
-                if (result == null) result = caseStructuralFeature(setStructure);
-                if (result == null) result = caseFeature(setStructure);
-                if (result == null) result = caseModelElement(setStructure);
-                if (result == null) result = caseElement(setStructure);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case DmsiiPackage.SET: {
-                Set set = (Set)theEObject;
-                T result = caseSet(set);
-                if (result == null) result = caseSetStructure(set);
-                if (result == null) result = caseStructuralFeature(set);
-                if (result == null) result = caseFeature(set);
-                if (result == null) result = caseModelElement(set);
-                if (result == null) result = caseElement(set);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case DmsiiPackage.ACCESS: {
-                Access access = (Access)theEObject;
-                T result = caseAccess(access);
-                if (result == null) result = caseSetStructure(access);
-                if (result == null) result = caseStructuralFeature(access);
-                if (result == null) result = caseFeature(access);
-                if (result == null) result = caseModelElement(access);
-                if (result == null) result = caseElement(access);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case DmsiiPackage.SUBSET: {
-                Subset subset = (Subset)theEObject;
-                T result = caseSubset(subset);
-                if (result == null) result = caseSet(subset);
-                if (result == null) result = caseSetStructure(subset);
-                if (result == null) result = caseStructuralFeature(subset);
-                if (result == null) result = caseFeature(subset);
-                if (result == null) result = caseModelElement(subset);
-                if (result == null) result = caseElement(subset);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case DmsiiPackage.AUTOMATIC_SUBSET: {
-                AutomaticSubset automaticSubset = (AutomaticSubset)theEObject;
-                T result = caseAutomaticSubset(automaticSubset);
-                if (result == null) result = caseSubset(automaticSubset);
-                if (result == null) result = caseSet(automaticSubset);
-                if (result == null) result = caseSetStructure(automaticSubset);
-                if (result == null) result = caseStructuralFeature(automaticSubset);
-                if (result == null) result = caseFeature(automaticSubset);
-                if (result == null) result = caseModelElement(automaticSubset);
-                if (result == null) result = caseElement(automaticSubset);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case DmsiiPackage.KEY_ITEM: {
-                KeyItem keyItem = (KeyItem)theEObject;
-                T result = caseKeyItem(keyItem);
-                if (result == null) result = caseIndexedFeature(keyItem);
-                if (result == null) result = caseModelElement(keyItem);
-                if (result == null) result = caseElement(keyItem);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case DmsiiPackage.REMAP_ITEM: {
-                RemapItem remapItem = (RemapItem)theEObject;
-                T result = caseRemapItem(remapItem);
-                if (result == null) result = caseField(remapItem);
-                if (result == null) result = caseAttribute(remapItem);
-                if (result == null) result = caseStructuralFeature(remapItem);
-                if (result == null) result = caseFeature(remapItem);
-                if (result == null) result = caseModelElement(remapItem);
-                if (result == null) result = caseElement(remapItem);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case DmsiiPackage.FIELD_BIT: {
-                FieldBit fieldBit = (FieldBit)theEObject;
-                T result = caseFieldBit(fieldBit);
-                if (result == null) result = caseModelElement(fieldBit);
-                if (result == null) result = caseElement(fieldBit);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case DmsiiPackage.REMARK: {
-                Remark remark = (Remark)theEObject;
-                T result = caseRemark(remark);
-                if (result == null) result = caseStructuralFeature(remark);
-                if (result == null) result = caseFeature(remark);
-                if (result == null) result = caseModelElement(remark);
-                if (result == null) result = caseElement(remark);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case DmsiiPackage.PHYSICAL_DATABASE: {
-                PhysicalDatabase physicalDatabase = (PhysicalDatabase)theEObject;
-                T result = casePhysicalDatabase(physicalDatabase);
-                if (result == null) result = casePackage(physicalDatabase);
-                if (result == null) result = caseNamespace(physicalDatabase);
-                if (result == null) result = caseModelElement(physicalDatabase);
-                if (result == null) result = caseElement(physicalDatabase);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case DmsiiPackage.PHYSICAL_DATA_SET: {
-                PhysicalDataSet physicalDataSet = (PhysicalDataSet)theEObject;
-                T result = casePhysicalDataSet(physicalDataSet);
-                if (result == null) result = caseModelElement(physicalDataSet);
-                if (result == null) result = caseElement(physicalDataSet);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case DmsiiPackage.DASDL_COMMENT: {
-                DASDLComment dasdlComment = (DASDLComment)theEObject;
-                T result = caseDASDLComment(dasdlComment);
-                if (result == null) result = caseDescription(dasdlComment);
-                if (result == null) result = caseNamespace(dasdlComment);
-                if (result == null) result = caseModelElement(dasdlComment);
-                if (result == null) result = caseElement(dasdlComment);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case DmsiiPackage.PHYSICAL_SET: {
-                PhysicalSet physicalSet = (PhysicalSet)theEObject;
-                T result = casePhysicalSet(physicalSet);
-                if (result == null) result = caseModelElement(physicalSet);
-                if (result == null) result = caseElement(physicalSet);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case DmsiiPackage.PHYSICAL_DATA_SET_OVERRIDE: {
-                PhysicalDataSetOverride physicalDataSetOverride = (PhysicalDataSetOverride)theEObject;
-                T result = casePhysicalDataSetOverride(physicalDataSetOverride);
-                if (result == null) result = caseFeature(physicalDataSetOverride);
-                if (result == null) result = caseModelElement(physicalDataSetOverride);
-                if (result == null) result = caseElement(physicalDataSetOverride);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case DmsiiPackage.PHYSICAL_SET_OVERRIDE: {
-                PhysicalSetOverride physicalSetOverride = (PhysicalSetOverride)theEObject;
-                T result = casePhysicalSetOverride(physicalSetOverride);
-                if (result == null) result = caseFeature(physicalSetOverride);
-                if (result == null) result = caseModelElement(physicalSetOverride);
-                if (result == null) result = caseElement(physicalSetOverride);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case DmsiiPackage.PHYSICAL_ACCESS_OVERRIDE: {
-                PhysicalAccessOverride physicalAccessOverride = (PhysicalAccessOverride)theEObject;
-                T result = casePhysicalAccessOverride(physicalAccessOverride);
-                if (result == null) result = caseFeature(physicalAccessOverride);
-                if (result == null) result = caseModelElement(physicalAccessOverride);
-                if (result == null) result = caseElement(physicalAccessOverride);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case DmsiiPackage.DASDL_PROPERTY: {
-                DASDLProperty dasdlProperty = (DASDLProperty)theEObject;
-                T result = caseDASDLProperty(dasdlProperty);
-                if (result == null) result = caseModelElement(dasdlProperty);
-                if (result == null) result = caseElement(dasdlProperty);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            default: return defaultCase(theEObject);
+        case DmsiiPackage.DATABASE: {
+            Database database = (Database) theEObject;
+            T result = caseDatabase(database);
+            if (result == null)
+                result = caseStructuralFeature(database);
+            if (result == null)
+                result = casePackage(database);
+            if (result == null)
+                result = caseFeature(database);
+            if (result == null)
+                result = caseNamespace(database);
+            if (result == null)
+                result = caseModelElement(database);
+            if (result == null)
+                result = caseElement(database);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case DmsiiPackage.REMAP: {
+            Remap remap = (Remap) theEObject;
+            T result = caseRemap(remap);
+            if (result == null)
+                result = caseRecordDef(remap);
+            if (result == null)
+                result = caseClass(remap);
+            if (result == null)
+                result = caseClassifier(remap);
+            if (result == null)
+                result = caseNamespace(remap);
+            if (result == null)
+                result = caseModelElement(remap);
+            if (result == null)
+                result = caseElement(remap);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case DmsiiPackage.DATA_SET: {
+            DataSet dataSet = (DataSet) theEObject;
+            T result = caseDataSet(dataSet);
+            if (result == null)
+                result = caseRecordDef(dataSet);
+            if (result == null)
+                result = caseClass(dataSet);
+            if (result == null)
+                result = caseClassifier(dataSet);
+            if (result == null)
+                result = caseNamespace(dataSet);
+            if (result == null)
+                result = caseModelElement(dataSet);
+            if (result == null)
+                result = caseElement(dataSet);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case DmsiiPackage.DATA_ITEM: {
+            DataItem dataItem = (DataItem) theEObject;
+            T result = caseDataItem(dataItem);
+            if (result == null)
+                result = caseField(dataItem);
+            if (result == null)
+                result = caseAttribute(dataItem);
+            if (result == null)
+                result = caseStructuralFeature(dataItem);
+            if (result == null)
+                result = caseFeature(dataItem);
+            if (result == null)
+                result = caseModelElement(dataItem);
+            if (result == null)
+                result = caseElement(dataItem);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case DmsiiPackage.VARIABLE_FORMAT_PART: {
+            VariableFormatPart variableFormatPart = (VariableFormatPart) theEObject;
+            T result = caseVariableFormatPart(variableFormatPart);
+            if (result == null)
+                result = caseRecordDef(variableFormatPart);
+            if (result == null)
+                result = caseClass(variableFormatPart);
+            if (result == null)
+                result = caseClassifier(variableFormatPart);
+            if (result == null)
+                result = caseNamespace(variableFormatPart);
+            if (result == null)
+                result = caseModelElement(variableFormatPart);
+            if (result == null)
+                result = caseElement(variableFormatPart);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case DmsiiPackage.SET_STRUCTURE: {
+            SetStructure setStructure = (SetStructure) theEObject;
+            T result = caseSetStructure(setStructure);
+            if (result == null)
+                result = caseStructuralFeature(setStructure);
+            if (result == null)
+                result = caseFeature(setStructure);
+            if (result == null)
+                result = caseModelElement(setStructure);
+            if (result == null)
+                result = caseElement(setStructure);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case DmsiiPackage.SET: {
+            Set set = (Set) theEObject;
+            T result = caseSet(set);
+            if (result == null)
+                result = caseSetStructure(set);
+            if (result == null)
+                result = caseStructuralFeature(set);
+            if (result == null)
+                result = caseFeature(set);
+            if (result == null)
+                result = caseModelElement(set);
+            if (result == null)
+                result = caseElement(set);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case DmsiiPackage.ACCESS: {
+            Access access = (Access) theEObject;
+            T result = caseAccess(access);
+            if (result == null)
+                result = caseSetStructure(access);
+            if (result == null)
+                result = caseStructuralFeature(access);
+            if (result == null)
+                result = caseFeature(access);
+            if (result == null)
+                result = caseModelElement(access);
+            if (result == null)
+                result = caseElement(access);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case DmsiiPackage.SUBSET: {
+            Subset subset = (Subset) theEObject;
+            T result = caseSubset(subset);
+            if (result == null)
+                result = caseSet(subset);
+            if (result == null)
+                result = caseSetStructure(subset);
+            if (result == null)
+                result = caseStructuralFeature(subset);
+            if (result == null)
+                result = caseFeature(subset);
+            if (result == null)
+                result = caseModelElement(subset);
+            if (result == null)
+                result = caseElement(subset);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case DmsiiPackage.AUTOMATIC_SUBSET: {
+            AutomaticSubset automaticSubset = (AutomaticSubset) theEObject;
+            T result = caseAutomaticSubset(automaticSubset);
+            if (result == null)
+                result = caseSubset(automaticSubset);
+            if (result == null)
+                result = caseSet(automaticSubset);
+            if (result == null)
+                result = caseSetStructure(automaticSubset);
+            if (result == null)
+                result = caseStructuralFeature(automaticSubset);
+            if (result == null)
+                result = caseFeature(automaticSubset);
+            if (result == null)
+                result = caseModelElement(automaticSubset);
+            if (result == null)
+                result = caseElement(automaticSubset);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case DmsiiPackage.KEY_ITEM: {
+            KeyItem keyItem = (KeyItem) theEObject;
+            T result = caseKeyItem(keyItem);
+            if (result == null)
+                result = caseIndexedFeature(keyItem);
+            if (result == null)
+                result = caseModelElement(keyItem);
+            if (result == null)
+                result = caseElement(keyItem);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case DmsiiPackage.REMAP_ITEM: {
+            RemapItem remapItem = (RemapItem) theEObject;
+            T result = caseRemapItem(remapItem);
+            if (result == null)
+                result = caseField(remapItem);
+            if (result == null)
+                result = caseAttribute(remapItem);
+            if (result == null)
+                result = caseStructuralFeature(remapItem);
+            if (result == null)
+                result = caseFeature(remapItem);
+            if (result == null)
+                result = caseModelElement(remapItem);
+            if (result == null)
+                result = caseElement(remapItem);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case DmsiiPackage.FIELD_BIT: {
+            FieldBit fieldBit = (FieldBit) theEObject;
+            T result = caseFieldBit(fieldBit);
+            if (result == null)
+                result = caseModelElement(fieldBit);
+            if (result == null)
+                result = caseElement(fieldBit);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case DmsiiPackage.REMARK: {
+            Remark remark = (Remark) theEObject;
+            T result = caseRemark(remark);
+            if (result == null)
+                result = caseStructuralFeature(remark);
+            if (result == null)
+                result = caseFeature(remark);
+            if (result == null)
+                result = caseModelElement(remark);
+            if (result == null)
+                result = caseElement(remark);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case DmsiiPackage.PHYSICAL_DATABASE: {
+            PhysicalDatabase physicalDatabase = (PhysicalDatabase) theEObject;
+            T result = casePhysicalDatabase(physicalDatabase);
+            if (result == null)
+                result = casePackage(physicalDatabase);
+            if (result == null)
+                result = caseNamespace(physicalDatabase);
+            if (result == null)
+                result = caseModelElement(physicalDatabase);
+            if (result == null)
+                result = caseElement(physicalDatabase);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case DmsiiPackage.PHYSICAL_DATA_SET: {
+            PhysicalDataSet physicalDataSet = (PhysicalDataSet) theEObject;
+            T result = casePhysicalDataSet(physicalDataSet);
+            if (result == null)
+                result = caseModelElement(physicalDataSet);
+            if (result == null)
+                result = caseElement(physicalDataSet);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case DmsiiPackage.DASDL_COMMENT: {
+            DASDLComment dasdlComment = (DASDLComment) theEObject;
+            T result = caseDASDLComment(dasdlComment);
+            if (result == null)
+                result = caseDescription(dasdlComment);
+            if (result == null)
+                result = caseNamespace(dasdlComment);
+            if (result == null)
+                result = caseModelElement(dasdlComment);
+            if (result == null)
+                result = caseElement(dasdlComment);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case DmsiiPackage.PHYSICAL_SET: {
+            PhysicalSet physicalSet = (PhysicalSet) theEObject;
+            T result = casePhysicalSet(physicalSet);
+            if (result == null)
+                result = caseModelElement(physicalSet);
+            if (result == null)
+                result = caseElement(physicalSet);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case DmsiiPackage.PHYSICAL_DATA_SET_OVERRIDE: {
+            PhysicalDataSetOverride physicalDataSetOverride = (PhysicalDataSetOverride) theEObject;
+            T result = casePhysicalDataSetOverride(physicalDataSetOverride);
+            if (result == null)
+                result = caseFeature(physicalDataSetOverride);
+            if (result == null)
+                result = caseModelElement(physicalDataSetOverride);
+            if (result == null)
+                result = caseElement(physicalDataSetOverride);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case DmsiiPackage.PHYSICAL_SET_OVERRIDE: {
+            PhysicalSetOverride physicalSetOverride = (PhysicalSetOverride) theEObject;
+            T result = casePhysicalSetOverride(physicalSetOverride);
+            if (result == null)
+                result = caseFeature(physicalSetOverride);
+            if (result == null)
+                result = caseModelElement(physicalSetOverride);
+            if (result == null)
+                result = caseElement(physicalSetOverride);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case DmsiiPackage.PHYSICAL_ACCESS_OVERRIDE: {
+            PhysicalAccessOverride physicalAccessOverride = (PhysicalAccessOverride) theEObject;
+            T result = casePhysicalAccessOverride(physicalAccessOverride);
+            if (result == null)
+                result = caseFeature(physicalAccessOverride);
+            if (result == null)
+                result = caseModelElement(physicalAccessOverride);
+            if (result == null)
+                result = caseElement(physicalAccessOverride);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case DmsiiPackage.DASDL_PROPERTY: {
+            DASDLProperty dasdlProperty = (DASDLProperty) theEObject;
+            T result = caseDASDLProperty(dasdlProperty);
+            if (result == null)
+                result = caseModelElement(dasdlProperty);
+            if (result == null)
+                result = caseElement(dasdlProperty);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        default:
+            return defaultCase(theEObject);
         }
     }
 
     /**
      * Returns the result of interpreting the object as an instance of '<em>Database</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> This implementation returns
+     * null; returning a non-null result will terminate the switch. <!--
+     * end-user-doc -->
      * @param object the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>Database</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -367,10 +477,9 @@ public class DmsiiSwitch<T> {
 
     /**
      * Returns the result of interpreting the object as an instance of '<em>Remap</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> This implementation returns
+     * null; returning a non-null result will terminate the switch. <!--
+     * end-user-doc -->
      * @param object the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>Remap</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -382,10 +491,9 @@ public class DmsiiSwitch<T> {
 
     /**
      * Returns the result of interpreting the object as an instance of '<em>Data Set</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> This implementation returns
+     * null; returning a non-null result will terminate the switch. <!--
+     * end-user-doc -->
      * @param object the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>Data Set</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -397,10 +505,9 @@ public class DmsiiSwitch<T> {
 
     /**
      * Returns the result of interpreting the object as an instance of '<em>Data Item</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> This implementation returns
+     * null; returning a non-null result will terminate the switch. <!--
+     * end-user-doc -->
      * @param object the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>Data Item</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -412,10 +519,9 @@ public class DmsiiSwitch<T> {
 
     /**
      * Returns the result of interpreting the object as an instance of '<em>Variable Format Part</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> This
+     * implementation returns null; returning a non-null result will terminate
+     * the switch. <!-- end-user-doc -->
      * @param object the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>Variable Format Part</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -427,10 +533,9 @@ public class DmsiiSwitch<T> {
 
     /**
      * Returns the result of interpreting the object as an instance of '<em>Set Structure</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> This implementation
+     * returns null; returning a non-null result will terminate the switch. <!--
+     * end-user-doc -->
      * @param object the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>Set Structure</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -441,13 +546,15 @@ public class DmsiiSwitch<T> {
     }
 
     /**
-     * Returns the result of interpreting the object as an instance of '<em>Set</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
-     * @param object the target of the switch.
-     * @return the result of interpreting the object as an instance of '<em>Set</em>'.
+     * Returns the result of interpreting the object as an instance of '
+     * <em>Set</em>'. <!-- begin-user-doc --> This implementation returns null;
+     * returning a non-null result will terminate the switch. <!-- end-user-doc
+     * -->
+     * 
+     * @param object
+     *            the target of the switch.
+     * @return the result of interpreting the object as an instance of '
+     *         <em>Set</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -457,10 +564,9 @@ public class DmsiiSwitch<T> {
 
     /**
      * Returns the result of interpreting the object as an instance of '<em>Access</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> This implementation returns
+     * null; returning a non-null result will terminate the switch. <!--
+     * end-user-doc -->
      * @param object the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>Access</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -472,10 +578,9 @@ public class DmsiiSwitch<T> {
 
     /**
      * Returns the result of interpreting the object as an instance of '<em>Subset</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> This implementation returns
+     * null; returning a non-null result will terminate the switch. <!--
+     * end-user-doc -->
      * @param object the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>Subset</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -487,10 +592,9 @@ public class DmsiiSwitch<T> {
 
     /**
      * Returns the result of interpreting the object as an instance of '<em>Automatic Subset</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> This implementation
+     * returns null; returning a non-null result will terminate the switch. <!--
+     * end-user-doc -->
      * @param object the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>Automatic Subset</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -502,10 +606,9 @@ public class DmsiiSwitch<T> {
 
     /**
      * Returns the result of interpreting the object as an instance of '<em>Key Item</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> This implementation returns
+     * null; returning a non-null result will terminate the switch. <!--
+     * end-user-doc -->
      * @param object the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>Key Item</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -517,10 +620,9 @@ public class DmsiiSwitch<T> {
 
     /**
      * Returns the result of interpreting the object as an instance of '<em>Remap Item</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> This implementation returns
+     * null; returning a non-null result will terminate the switch. <!--
+     * end-user-doc -->
      * @param object the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>Remap Item</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -532,10 +634,9 @@ public class DmsiiSwitch<T> {
 
     /**
      * Returns the result of interpreting the object as an instance of '<em>Field Bit</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> This implementation returns
+     * null; returning a non-null result will terminate the switch. <!--
+     * end-user-doc -->
      * @param object the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>Field Bit</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -547,10 +648,9 @@ public class DmsiiSwitch<T> {
 
     /**
      * Returns the result of interpreting the object as an instance of '<em>Remark</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> This implementation returns
+     * null; returning a non-null result will terminate the switch. <!--
+     * end-user-doc -->
      * @param object the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>Remark</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -562,10 +662,9 @@ public class DmsiiSwitch<T> {
 
     /**
      * Returns the result of interpreting the object as an instance of '<em>Physical Database</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> This implementation
+     * returns null; returning a non-null result will terminate the switch. <!--
+     * end-user-doc -->
      * @param object the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>Physical Database</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -577,10 +676,9 @@ public class DmsiiSwitch<T> {
 
     /**
      * Returns the result of interpreting the object as an instance of '<em>Physical Data Set</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> This implementation
+     * returns null; returning a non-null result will terminate the switch. <!--
+     * end-user-doc -->
      * @param object the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>Physical Data Set</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -592,10 +690,9 @@ public class DmsiiSwitch<T> {
 
     /**
      * Returns the result of interpreting the object as an instance of '<em>DASDL Comment</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> This implementation
+     * returns null; returning a non-null result will terminate the switch. <!--
+     * end-user-doc -->
      * @param object the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>DASDL Comment</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -607,10 +704,9 @@ public class DmsiiSwitch<T> {
 
     /**
      * Returns the result of interpreting the object as an instance of '<em>Physical Set</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> This implementation
+     * returns null; returning a non-null result will terminate the switch. <!--
+     * end-user-doc -->
      * @param object the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>Physical Set</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -622,10 +718,9 @@ public class DmsiiSwitch<T> {
 
     /**
      * Returns the result of interpreting the object as an instance of '<em>Physical Data Set Override</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> This
+     * implementation returns null; returning a non-null result will terminate
+     * the switch. <!-- end-user-doc -->
      * @param object the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>Physical Data Set Override</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -637,10 +732,9 @@ public class DmsiiSwitch<T> {
 
     /**
      * Returns the result of interpreting the object as an instance of '<em>Physical Set Override</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> This
+     * implementation returns null; returning a non-null result will terminate
+     * the switch. <!-- end-user-doc -->
      * @param object the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>Physical Set Override</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -652,10 +746,9 @@ public class DmsiiSwitch<T> {
 
     /**
      * Returns the result of interpreting the object as an instance of '<em>Physical Access Override</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> This
+     * implementation returns null; returning a non-null result will terminate
+     * the switch. <!-- end-user-doc -->
      * @param object the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>Physical Access Override</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -667,10 +760,9 @@ public class DmsiiSwitch<T> {
 
     /**
      * Returns the result of interpreting the object as an instance of '<em>DASDL Property</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> This implementation
+     * returns null; returning a non-null result will terminate the switch. <!--
+     * end-user-doc -->
      * @param object the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>DASDL Property</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -682,10 +774,9 @@ public class DmsiiSwitch<T> {
 
     /**
      * Returns the result of interpreting the object as an instance of '<em>Element</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> This implementation returns
+     * null; returning a non-null result will terminate the switch. <!--
+     * end-user-doc -->
      * @param object the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>Element</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -697,10 +788,9 @@ public class DmsiiSwitch<T> {
 
     /**
      * Returns the result of interpreting the object as an instance of '<em>Model Element</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> This implementation
+     * returns null; returning a non-null result will terminate the switch. <!--
+     * end-user-doc -->
      * @param object the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>Model Element</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -712,10 +802,9 @@ public class DmsiiSwitch<T> {
 
     /**
      * Returns the result of interpreting the object as an instance of '<em>Feature</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> This implementation returns
+     * null; returning a non-null result will terminate the switch. <!--
+     * end-user-doc -->
      * @param object the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>Feature</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -727,10 +816,9 @@ public class DmsiiSwitch<T> {
 
     /**
      * Returns the result of interpreting the object as an instance of '<em>Structural Feature</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> This implementation
+     * returns null; returning a non-null result will terminate the switch. <!--
+     * end-user-doc -->
      * @param object the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>Structural Feature</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -742,10 +830,9 @@ public class DmsiiSwitch<T> {
 
     /**
      * Returns the result of interpreting the object as an instance of '<em>Namespace</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> This implementation returns
+     * null; returning a non-null result will terminate the switch. <!--
+     * end-user-doc -->
      * @param object the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>Namespace</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -757,10 +844,9 @@ public class DmsiiSwitch<T> {
 
     /**
      * Returns the result of interpreting the object as an instance of '<em>Package</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> This implementation returns
+     * null; returning a non-null result will terminate the switch. <!--
+     * end-user-doc -->
      * @param object the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>Package</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -772,10 +858,9 @@ public class DmsiiSwitch<T> {
 
     /**
      * Returns the result of interpreting the object as an instance of '<em>Classifier</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> This implementation returns
+     * null; returning a non-null result will terminate the switch. <!--
+     * end-user-doc -->
      * @param object the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>Classifier</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -787,10 +872,9 @@ public class DmsiiSwitch<T> {
 
     /**
      * Returns the result of interpreting the object as an instance of '<em>Class</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> This implementation returns
+     * null; returning a non-null result will terminate the switch. <!--
+     * end-user-doc -->
      * @param object the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>Class</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -801,13 +885,15 @@ public class DmsiiSwitch<T> {
     }
 
     /**
-     * Returns the result of interpreting the object as an instance of '<em>Def</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
-     * @param object the target of the switch.
-     * @return the result of interpreting the object as an instance of '<em>Def</em>'.
+     * Returns the result of interpreting the object as an instance of '
+     * <em>Def</em>'. <!-- begin-user-doc --> This implementation returns null;
+     * returning a non-null result will terminate the switch. <!-- end-user-doc
+     * -->
+     * 
+     * @param object
+     *            the target of the switch.
+     * @return the result of interpreting the object as an instance of '
+     *         <em>Def</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -817,10 +903,9 @@ public class DmsiiSwitch<T> {
 
     /**
      * Returns the result of interpreting the object as an instance of '<em>Attribute</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> This implementation returns
+     * null; returning a non-null result will terminate the switch. <!--
+     * end-user-doc -->
      * @param object the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>Attribute</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -832,10 +917,9 @@ public class DmsiiSwitch<T> {
 
     /**
      * Returns the result of interpreting the object as an instance of '<em>Field</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> This implementation returns
+     * null; returning a non-null result will terminate the switch. <!--
+     * end-user-doc -->
      * @param object the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>Field</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -847,10 +931,9 @@ public class DmsiiSwitch<T> {
 
     /**
      * Returns the result of interpreting the object as an instance of '<em>Indexed Feature</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> This implementation
+     * returns null; returning a non-null result will terminate the switch. <!--
+     * end-user-doc -->
      * @param object the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>Indexed Feature</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -862,10 +945,9 @@ public class DmsiiSwitch<T> {
 
     /**
      * Returns the result of interpreting the object as an instance of '<em>Description</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> This implementation
+     * returns null; returning a non-null result will terminate the switch. <!--
+     * end-user-doc -->
      * @param object the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>Description</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -877,10 +959,9 @@ public class DmsiiSwitch<T> {
 
     /**
      * Returns the result of interpreting the object as an instance of '<em>EObject</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch, but this is the last case anyway.
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> This implementation returns
+     * null; returning a non-null result will terminate the switch, but this is
+     * the last case anyway. <!-- end-user-doc -->
      * @param object the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>EObject</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject)
@@ -890,4 +971,4 @@ public class DmsiiSwitch<T> {
         return null;
     }
 
-} //DmsiiSwitch
+} // DmsiiSwitch

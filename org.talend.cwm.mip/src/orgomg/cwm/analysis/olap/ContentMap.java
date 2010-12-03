@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.analysis.olap;
@@ -9,9 +8,8 @@ package orgomg.cwm.analysis.olap;
 import orgomg.cwm.analysis.transformation.TransformationMap;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Content Map</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Content Map</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * ContentMap is a subclass of TransformationMap that maps CubeRegion attributes to their physical data sources.
@@ -29,11 +27,11 @@ import orgomg.cwm.analysis.transformation.TransformationMap;
  * @generated
  */
 public interface ContentMap extends TransformationMap {
+
     /**
      * Returns the value of the '<em><b>Cube Deployment</b></em>' container reference.
      * It is bidirectional and its opposite is '{@link orgomg.cwm.analysis.olap.CubeDeployment#getContentMap <em>Content Map</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * The CubeDeployment owning a ContentMap.
      * <!-- end-model-doc -->

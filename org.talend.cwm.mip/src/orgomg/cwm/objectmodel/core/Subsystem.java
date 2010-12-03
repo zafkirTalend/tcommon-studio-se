@@ -1,16 +1,13 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.objectmodel.core;
 
-
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Subsystem</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Subsystem</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * A subsystem is a grouping of model elements that represents a behavioral unit in a physical system. A subsystem offers interfaces and has operations.

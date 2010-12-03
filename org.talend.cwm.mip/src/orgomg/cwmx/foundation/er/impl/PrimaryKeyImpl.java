@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.foundation.er.impl;
@@ -11,18 +10,17 @@ import orgomg.cwmx.foundation.er.ErPackage;
 import orgomg.cwmx.foundation.er.PrimaryKey;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Primary Key</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Primary Key</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
 public class PrimaryKeyImpl extends CandidateKeyImpl implements PrimaryKey {
+
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected PrimaryKeyImpl() {
@@ -30,8 +28,7 @@ public class PrimaryKeyImpl extends CandidateKeyImpl implements PrimaryKey {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -39,4 +36,4 @@ public class PrimaryKeyImpl extends CandidateKeyImpl implements PrimaryKey {
         return ErPackage.Literals.PRIMARY_KEY;
     }
 
-} //PrimaryKeyImpl
+} // PrimaryKeyImpl

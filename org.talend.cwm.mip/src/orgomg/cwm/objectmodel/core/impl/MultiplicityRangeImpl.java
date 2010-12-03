@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.objectmodel.core.impl;
@@ -17,9 +16,8 @@ import orgomg.cwm.objectmodel.core.Multiplicity;
 import orgomg.cwm.objectmodel.core.MultiplicityRange;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Multiplicity Range</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Multiplicity Range</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -32,10 +30,10 @@ import orgomg.cwm.objectmodel.core.MultiplicityRange;
  * @generated
  */
 public class MultiplicityRangeImpl extends ElementImpl implements MultiplicityRange {
+
     /**
      * The default value of the '{@link #getLower() <em>Lower</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getLower()
      * @generated
      * @ordered
@@ -44,8 +42,7 @@ public class MultiplicityRangeImpl extends ElementImpl implements MultiplicityRa
 
     /**
      * The cached value of the '{@link #getLower() <em>Lower</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getLower()
      * @generated
      * @ordered
@@ -54,8 +51,7 @@ public class MultiplicityRangeImpl extends ElementImpl implements MultiplicityRa
 
     /**
      * The default value of the '{@link #getUpper() <em>Upper</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getUpper()
      * @generated
      * @ordered
@@ -64,8 +60,7 @@ public class MultiplicityRangeImpl extends ElementImpl implements MultiplicityRa
 
     /**
      * The cached value of the '{@link #getUpper() <em>Upper</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getUpper()
      * @generated
      * @ordered
@@ -73,8 +68,7 @@ public class MultiplicityRangeImpl extends ElementImpl implements MultiplicityRa
     protected long upper = UPPER_EDEFAULT;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected MultiplicityRangeImpl() {
@@ -82,8 +76,7 @@ public class MultiplicityRangeImpl extends ElementImpl implements MultiplicityRa
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -92,8 +85,7 @@ public class MultiplicityRangeImpl extends ElementImpl implements MultiplicityRa
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public long getLower() {
@@ -101,8 +93,7 @@ public class MultiplicityRangeImpl extends ElementImpl implements MultiplicityRa
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setLower(long newLower) {
@@ -113,8 +104,7 @@ public class MultiplicityRangeImpl extends ElementImpl implements MultiplicityRa
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public long getUpper() {
@@ -122,8 +112,7 @@ public class MultiplicityRangeImpl extends ElementImpl implements MultiplicityRa
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setUpper(long newUpper) {
@@ -134,176 +123,170 @@ public class MultiplicityRangeImpl extends ElementImpl implements MultiplicityRa
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Multiplicity getMultiplicity() {
-        if (eContainerFeatureID() != CorePackage.MULTIPLICITY_RANGE__MULTIPLICITY) return null;
-        return (Multiplicity)eContainer();
+        if (eContainerFeatureID() != CorePackage.MULTIPLICITY_RANGE__MULTIPLICITY)
+            return null;
+        return (Multiplicity) eContainer();
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public NotificationChain basicSetMultiplicity(Multiplicity newMultiplicity, NotificationChain msgs) {
-        msgs = eBasicSetContainer((InternalEObject)newMultiplicity, CorePackage.MULTIPLICITY_RANGE__MULTIPLICITY, msgs);
+        msgs = eBasicSetContainer((InternalEObject) newMultiplicity, CorePackage.MULTIPLICITY_RANGE__MULTIPLICITY, msgs);
         return msgs;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setMultiplicity(Multiplicity newMultiplicity) {
-        if (newMultiplicity != eInternalContainer() || (eContainerFeatureID() != CorePackage.MULTIPLICITY_RANGE__MULTIPLICITY && newMultiplicity != null)) {
+        if (newMultiplicity != eInternalContainer()
+                || (eContainerFeatureID() != CorePackage.MULTIPLICITY_RANGE__MULTIPLICITY && newMultiplicity != null)) {
             if (EcoreUtil.isAncestor(this, newMultiplicity))
                 throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
             NotificationChain msgs = null;
             if (eInternalContainer() != null)
                 msgs = eBasicRemoveFromContainer(msgs);
             if (newMultiplicity != null)
-                msgs = ((InternalEObject)newMultiplicity).eInverseAdd(this, CorePackage.MULTIPLICITY__RANGE, Multiplicity.class, msgs);
+                msgs = ((InternalEObject) newMultiplicity).eInverseAdd(this, CorePackage.MULTIPLICITY__RANGE, Multiplicity.class,
+                        msgs);
             msgs = basicSetMultiplicity(newMultiplicity, msgs);
-            if (msgs != null) msgs.dispatch();
-        }
-        else if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, CorePackage.MULTIPLICITY_RANGE__MULTIPLICITY, newMultiplicity, newMultiplicity));
+            if (msgs != null)
+                msgs.dispatch();
+        } else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, CorePackage.MULTIPLICITY_RANGE__MULTIPLICITY, newMultiplicity,
+                    newMultiplicity));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case CorePackage.MULTIPLICITY_RANGE__MULTIPLICITY:
-                if (eInternalContainer() != null)
-                    msgs = eBasicRemoveFromContainer(msgs);
-                return basicSetMultiplicity((Multiplicity)otherEnd, msgs);
+        case CorePackage.MULTIPLICITY_RANGE__MULTIPLICITY:
+            if (eInternalContainer() != null)
+                msgs = eBasicRemoveFromContainer(msgs);
+            return basicSetMultiplicity((Multiplicity) otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case CorePackage.MULTIPLICITY_RANGE__MULTIPLICITY:
-                return basicSetMultiplicity(null, msgs);
+        case CorePackage.MULTIPLICITY_RANGE__MULTIPLICITY:
+            return basicSetMultiplicity(null, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
         switch (eContainerFeatureID()) {
-            case CorePackage.MULTIPLICITY_RANGE__MULTIPLICITY:
-                return eInternalContainer().eInverseRemove(this, CorePackage.MULTIPLICITY__RANGE, Multiplicity.class, msgs);
+        case CorePackage.MULTIPLICITY_RANGE__MULTIPLICITY:
+            return eInternalContainer().eInverseRemove(this, CorePackage.MULTIPLICITY__RANGE, Multiplicity.class, msgs);
         }
         return super.eBasicRemoveFromContainerFeature(msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case CorePackage.MULTIPLICITY_RANGE__LOWER:
-                return getLower();
-            case CorePackage.MULTIPLICITY_RANGE__UPPER:
-                return getUpper();
-            case CorePackage.MULTIPLICITY_RANGE__MULTIPLICITY:
-                return getMultiplicity();
+        case CorePackage.MULTIPLICITY_RANGE__LOWER:
+            return getLower();
+        case CorePackage.MULTIPLICITY_RANGE__UPPER:
+            return getUpper();
+        case CorePackage.MULTIPLICITY_RANGE__MULTIPLICITY:
+            return getMultiplicity();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case CorePackage.MULTIPLICITY_RANGE__LOWER:
-                setLower((Long)newValue);
-                return;
-            case CorePackage.MULTIPLICITY_RANGE__UPPER:
-                setUpper((Long)newValue);
-                return;
-            case CorePackage.MULTIPLICITY_RANGE__MULTIPLICITY:
-                setMultiplicity((Multiplicity)newValue);
-                return;
+        case CorePackage.MULTIPLICITY_RANGE__LOWER:
+            setLower((Long) newValue);
+            return;
+        case CorePackage.MULTIPLICITY_RANGE__UPPER:
+            setUpper((Long) newValue);
+            return;
+        case CorePackage.MULTIPLICITY_RANGE__MULTIPLICITY:
+            setMultiplicity((Multiplicity) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case CorePackage.MULTIPLICITY_RANGE__LOWER:
-                setLower(LOWER_EDEFAULT);
-                return;
-            case CorePackage.MULTIPLICITY_RANGE__UPPER:
-                setUpper(UPPER_EDEFAULT);
-                return;
-            case CorePackage.MULTIPLICITY_RANGE__MULTIPLICITY:
-                setMultiplicity((Multiplicity)null);
-                return;
+        case CorePackage.MULTIPLICITY_RANGE__LOWER:
+            setLower(LOWER_EDEFAULT);
+            return;
+        case CorePackage.MULTIPLICITY_RANGE__UPPER:
+            setUpper(UPPER_EDEFAULT);
+            return;
+        case CorePackage.MULTIPLICITY_RANGE__MULTIPLICITY:
+            setMultiplicity((Multiplicity) null);
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case CorePackage.MULTIPLICITY_RANGE__LOWER:
-                return lower != LOWER_EDEFAULT;
-            case CorePackage.MULTIPLICITY_RANGE__UPPER:
-                return upper != UPPER_EDEFAULT;
-            case CorePackage.MULTIPLICITY_RANGE__MULTIPLICITY:
-                return getMultiplicity() != null;
+        case CorePackage.MULTIPLICITY_RANGE__LOWER:
+            return lower != LOWER_EDEFAULT;
+        case CorePackage.MULTIPLICITY_RANGE__UPPER:
+            return upper != UPPER_EDEFAULT;
+        case CorePackage.MULTIPLICITY_RANGE__MULTIPLICITY:
+            return getMultiplicity() != null;
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (lower: ");
@@ -314,4 +297,4 @@ public class MultiplicityRangeImpl extends ElementImpl implements MultiplicityRa
         return result.toString();
     }
 
-} //MultiplicityRangeImpl
+} // MultiplicityRangeImpl

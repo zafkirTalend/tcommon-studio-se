@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.analysis.datamining.impl;
@@ -11,18 +10,17 @@ import orgomg.cwm.analysis.datamining.DataminingPackage;
 import orgomg.cwm.analysis.datamining.RegressionSettings;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Regression Settings</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Regression Settings</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
 public class RegressionSettingsImpl extends SupervisedMiningSettingsImpl implements RegressionSettings {
+
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected RegressionSettingsImpl() {
@@ -30,8 +28,7 @@ public class RegressionSettingsImpl extends SupervisedMiningSettingsImpl impleme
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -39,4 +36,4 @@ public class RegressionSettingsImpl extends SupervisedMiningSettingsImpl impleme
         return DataminingPackage.Literals.REGRESSION_SETTINGS;
     }
 
-} //RegressionSettingsImpl
+} // RegressionSettingsImpl

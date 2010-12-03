@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.analysis.informationreporting.util;
@@ -21,6 +20,7 @@ import orgomg.cwm.objectmodel.core.Feature;
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.Namespace;
 import orgomg.cwm.objectmodel.core.StructuralFeature;
+import orgomg.cwmx.analysis.informationreporting.*;
 import orgomg.cwmx.analysis.informationreporting.InformationreportingPackage;
 import orgomg.cwmx.analysis.informationreporting.Report;
 import orgomg.cwmx.analysis.informationreporting.ReportAttribute;
@@ -30,26 +30,25 @@ import orgomg.cwmx.analysis.informationreporting.ReportGroup;
 import orgomg.cwmx.analysis.informationreporting.ReportPackage;
 
 /**
- * <!-- begin-user-doc -->
- * The <b>Adapter Factory</b> for the model.
- * It provides an adapter <code>createXXX</code> method for each class of the model.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> The <b>Adapter Factory</b> for the model. It provides
+ * an adapter <code>createXXX</code> method for each class of the model. <!--
+ * end-user-doc -->
  * @see orgomg.cwmx.analysis.informationreporting.InformationreportingPackage
  * @generated
  */
 public class InformationreportingAdapterFactory extends AdapterFactoryImpl {
+
     /**
      * The cached model package.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected static InformationreportingPackage modelPackage;
 
     /**
      * Creates an instance of the adapter factory.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     public InformationreportingAdapterFactory() {
@@ -60,9 +59,9 @@ public class InformationreportingAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Returns whether this factory is applicable for the type of the object.
-     * <!-- begin-user-doc -->
-     * This implementation returns <code>true</code> if the object is either the model's package or is an instance object of the model.
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> This implementation returns <code>true</code> if
+     * the object is either the model's package or is an instance object of the
+     * model. <!-- end-user-doc -->
      * @return whether this factory is applicable for the type of the object.
      * @generated
      */
@@ -72,96 +71,114 @@ public class InformationreportingAdapterFactory extends AdapterFactoryImpl {
             return true;
         }
         if (object instanceof EObject) {
-            return ((EObject)object).eClass().getEPackage() == modelPackage;
+            return ((EObject) object).eClass().getEPackage() == modelPackage;
         }
         return false;
     }
 
     /**
-     * The switch that delegates to the <code>createXXX</code> methods.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The switch that delegates to the <code>createXXX</code> methods. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
-    protected InformationreportingSwitch<Adapter> modelSwitch =
-        new InformationreportingSwitch<Adapter>() {
-            @Override
-            public Adapter caseReport(Report object) {
-                return createReportAdapter();
-            }
-            @Override
-            public Adapter caseReportAttribute(ReportAttribute object) {
-                return createReportAttributeAdapter();
-            }
-            @Override
-            public Adapter caseReportExecution(ReportExecution object) {
-                return createReportExecutionAdapter();
-            }
-            @Override
-            public Adapter caseReportField(ReportField object) {
-                return createReportFieldAdapter();
-            }
-            @Override
-            public Adapter caseReportGroup(ReportGroup object) {
-                return createReportGroupAdapter();
-            }
-            @Override
-            public Adapter caseReportPackage(ReportPackage object) {
-                return createReportPackageAdapter();
-            }
-            @Override
-            public Adapter caseElement(Element object) {
-                return createElementAdapter();
-            }
-            @Override
-            public Adapter caseModelElement(ModelElement object) {
-                return createModelElementAdapter();
-            }
-            @Override
-            public Adapter caseNamespace(Namespace object) {
-                return createNamespaceAdapter();
-            }
-            @Override
-            public Adapter caseClassifier(Classifier object) {
-                return createClassifierAdapter();
-            }
-            @Override
-            public Adapter caseRenderedObject(RenderedObject object) {
-                return createRenderedObjectAdapter();
-            }
-            @Override
-            public Adapter caseFeature(Feature object) {
-                return createFeatureAdapter();
-            }
-            @Override
-            public Adapter caseStructuralFeature(StructuralFeature object) {
-                return createStructuralFeatureAdapter();
-            }
-            @Override
-            public Adapter caseAttribute(Attribute object) {
-                return createAttributeAdapter();
-            }
-            @Override
-            public Adapter caseTransformation(Transformation object) {
-                return createTransformationAdapter();
-            }
-            @Override
-            public Adapter caseTransformationMap(TransformationMap object) {
-                return createTransformationMapAdapter();
-            }
-            @Override
-            public Adapter casePackage(orgomg.cwm.objectmodel.core.Package object) {
-                return createPackageAdapter();
-            }
-            @Override
-            public Adapter caseRenderedObjectSet(RenderedObjectSet object) {
-                return createRenderedObjectSetAdapter();
-            }
-            @Override
-            public Adapter defaultCase(EObject object) {
-                return createEObjectAdapter();
-            }
-        };
+    protected InformationreportingSwitch<Adapter> modelSwitch = new InformationreportingSwitch<Adapter>() {
+
+        @Override
+        public Adapter caseReport(Report object) {
+            return createReportAdapter();
+        }
+
+        @Override
+        public Adapter caseReportAttribute(ReportAttribute object) {
+            return createReportAttributeAdapter();
+        }
+
+        @Override
+        public Adapter caseReportExecution(ReportExecution object) {
+            return createReportExecutionAdapter();
+        }
+
+        @Override
+        public Adapter caseReportField(ReportField object) {
+            return createReportFieldAdapter();
+        }
+
+        @Override
+        public Adapter caseReportGroup(ReportGroup object) {
+            return createReportGroupAdapter();
+        }
+
+        @Override
+        public Adapter caseReportPackage(ReportPackage object) {
+            return createReportPackageAdapter();
+        }
+
+        @Override
+        public Adapter caseElement(Element object) {
+            return createElementAdapter();
+        }
+
+        @Override
+        public Adapter caseModelElement(ModelElement object) {
+            return createModelElementAdapter();
+        }
+
+        @Override
+        public Adapter caseNamespace(Namespace object) {
+            return createNamespaceAdapter();
+        }
+
+        @Override
+        public Adapter caseClassifier(Classifier object) {
+            return createClassifierAdapter();
+        }
+
+        @Override
+        public Adapter caseRenderedObject(RenderedObject object) {
+            return createRenderedObjectAdapter();
+        }
+
+        @Override
+        public Adapter caseFeature(Feature object) {
+            return createFeatureAdapter();
+        }
+
+        @Override
+        public Adapter caseStructuralFeature(StructuralFeature object) {
+            return createStructuralFeatureAdapter();
+        }
+
+        @Override
+        public Adapter caseAttribute(Attribute object) {
+            return createAttributeAdapter();
+        }
+
+        @Override
+        public Adapter caseTransformation(Transformation object) {
+            return createTransformationAdapter();
+        }
+
+        @Override
+        public Adapter caseTransformationMap(TransformationMap object) {
+            return createTransformationMapAdapter();
+        }
+
+        @Override
+        public Adapter casePackage(orgomg.cwm.objectmodel.core.Package object) {
+            return createPackageAdapter();
+        }
+
+        @Override
+        public Adapter caseRenderedObjectSet(RenderedObjectSet object) {
+            return createRenderedObjectSetAdapter();
+        }
+
+        @Override
+        public Adapter defaultCase(EObject object) {
+            return createEObjectAdapter();
+        }
+    };
 
     /**
      * Creates an adapter for the <code>target</code>.
@@ -173,16 +190,14 @@ public class InformationreportingAdapterFactory extends AdapterFactoryImpl {
      */
     @Override
     public Adapter createAdapter(Notifier target) {
-        return modelSwitch.doSwitch((EObject)target);
+        return modelSwitch.doSwitch((EObject) target);
     }
-
 
     /**
      * Creates a new adapter for an object of class '{@link orgomg.cwmx.analysis.informationreporting.Report <em>Report</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> This default implementation returns null so
+     * that we can easily ignore cases; it's useful to ignore a case when
+     * inheritance will catch all the cases anyway. <!-- end-user-doc -->
      * @return the new adapter.
      * @see orgomg.cwmx.analysis.informationreporting.Report
      * @generated
@@ -193,9 +208,9 @@ public class InformationreportingAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Creates a new adapter for an object of class '{@link orgomg.cwmx.analysis.informationreporting.ReportAttribute <em>Report Attribute</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- begin-user-doc --> This default
+     * implementation returns null so that we can easily ignore cases; it's
+     * useful to ignore a case when inheritance will catch all the cases anyway.
      * <!-- end-user-doc -->
      * @return the new adapter.
      * @see orgomg.cwmx.analysis.informationreporting.ReportAttribute
@@ -207,9 +222,9 @@ public class InformationreportingAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Creates a new adapter for an object of class '{@link orgomg.cwmx.analysis.informationreporting.ReportExecution <em>Report Execution</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- begin-user-doc --> This default
+     * implementation returns null so that we can easily ignore cases; it's
+     * useful to ignore a case when inheritance will catch all the cases anyway.
      * <!-- end-user-doc -->
      * @return the new adapter.
      * @see orgomg.cwmx.analysis.informationreporting.ReportExecution
@@ -221,9 +236,9 @@ public class InformationreportingAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Creates a new adapter for an object of class '{@link orgomg.cwmx.analysis.informationreporting.ReportField <em>Report Field</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- begin-user-doc --> This default
+     * implementation returns null so that we can easily ignore cases; it's
+     * useful to ignore a case when inheritance will catch all the cases anyway.
      * <!-- end-user-doc -->
      * @return the new adapter.
      * @see orgomg.cwmx.analysis.informationreporting.ReportField
@@ -235,9 +250,9 @@ public class InformationreportingAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Creates a new adapter for an object of class '{@link orgomg.cwmx.analysis.informationreporting.ReportGroup <em>Report Group</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- begin-user-doc --> This default
+     * implementation returns null so that we can easily ignore cases; it's
+     * useful to ignore a case when inheritance will catch all the cases anyway.
      * <!-- end-user-doc -->
      * @return the new adapter.
      * @see orgomg.cwmx.analysis.informationreporting.ReportGroup
@@ -249,9 +264,9 @@ public class InformationreportingAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Creates a new adapter for an object of class '{@link orgomg.cwmx.analysis.informationreporting.ReportPackage <em>Report Package</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- begin-user-doc --> This default
+     * implementation returns null so that we can easily ignore cases; it's
+     * useful to ignore a case when inheritance will catch all the cases anyway.
      * <!-- end-user-doc -->
      * @return the new adapter.
      * @see orgomg.cwmx.analysis.informationreporting.ReportPackage
@@ -262,11 +277,12 @@ public class InformationreportingAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.core.Element <em>Element</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
+     * Creates a new adapter for an object of class '
+     * {@link orgomg.cwm.objectmodel.core.Element <em>Element</em>}'. <!--
+     * begin-user-doc --> This default implementation returns null so that we
+     * can easily ignore cases; it's useful to ignore a case when inheritance
+     * will catch all the cases anyway. <!-- end-user-doc -->
+     * 
      * @return the new adapter.
      * @see orgomg.cwm.objectmodel.core.Element
      * @generated
@@ -277,10 +293,9 @@ public class InformationreportingAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.core.ModelElement <em>Model Element</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> This default implementation returns null so that
+     * we can easily ignore cases; it's useful to ignore a case when inheritance
+     * will catch all the cases anyway. <!-- end-user-doc -->
      * @return the new adapter.
      * @see orgomg.cwm.objectmodel.core.ModelElement
      * @generated
@@ -290,11 +305,12 @@ public class InformationreportingAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.core.Namespace <em>Namespace</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
+     * Creates a new adapter for an object of class '
+     * {@link orgomg.cwm.objectmodel.core.Namespace <em>Namespace</em>}'. <!--
+     * begin-user-doc --> This default implementation returns null so that we
+     * can easily ignore cases; it's useful to ignore a case when inheritance
+     * will catch all the cases anyway. <!-- end-user-doc -->
+     * 
      * @return the new adapter.
      * @see orgomg.cwm.objectmodel.core.Namespace
      * @generated
@@ -304,11 +320,12 @@ public class InformationreportingAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.core.Classifier <em>Classifier</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
+     * Creates a new adapter for an object of class '
+     * {@link orgomg.cwm.objectmodel.core.Classifier <em>Classifier</em>}'. <!--
+     * begin-user-doc --> This default implementation returns null so that we
+     * can easily ignore cases; it's useful to ignore a case when inheritance
+     * will catch all the cases anyway. <!-- end-user-doc -->
+     * 
      * @return the new adapter.
      * @see orgomg.cwm.objectmodel.core.Classifier
      * @generated
@@ -319,9 +336,9 @@ public class InformationreportingAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Creates a new adapter for an object of class '{@link orgomg.cwm.analysis.informationvisualization.RenderedObject <em>Rendered Object</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- begin-user-doc --> This default
+     * implementation returns null so that we can easily ignore cases; it's
+     * useful to ignore a case when inheritance will catch all the cases anyway.
      * <!-- end-user-doc -->
      * @return the new adapter.
      * @see orgomg.cwm.analysis.informationvisualization.RenderedObject
@@ -332,11 +349,12 @@ public class InformationreportingAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.core.Feature <em>Feature</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
+     * Creates a new adapter for an object of class '
+     * {@link orgomg.cwm.objectmodel.core.Feature <em>Feature</em>}'. <!--
+     * begin-user-doc --> This default implementation returns null so that we
+     * can easily ignore cases; it's useful to ignore a case when inheritance
+     * will catch all the cases anyway. <!-- end-user-doc -->
+     * 
      * @return the new adapter.
      * @see orgomg.cwm.objectmodel.core.Feature
      * @generated
@@ -347,9 +365,9 @@ public class InformationreportingAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.core.StructuralFeature <em>Structural Feature</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- begin-user-doc --> This default
+     * implementation returns null so that we can easily ignore cases; it's
+     * useful to ignore a case when inheritance will catch all the cases anyway.
      * <!-- end-user-doc -->
      * @return the new adapter.
      * @see orgomg.cwm.objectmodel.core.StructuralFeature
@@ -360,11 +378,12 @@ public class InformationreportingAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.core.Attribute <em>Attribute</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
+     * Creates a new adapter for an object of class '
+     * {@link orgomg.cwm.objectmodel.core.Attribute <em>Attribute</em>}'. <!--
+     * begin-user-doc --> This default implementation returns null so that we
+     * can easily ignore cases; it's useful to ignore a case when inheritance
+     * will catch all the cases anyway. <!-- end-user-doc -->
+     * 
      * @return the new adapter.
      * @see orgomg.cwm.objectmodel.core.Attribute
      * @generated
@@ -375,9 +394,9 @@ public class InformationreportingAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Creates a new adapter for an object of class '{@link orgomg.cwm.analysis.transformation.Transformation <em>Transformation</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- begin-user-doc --> This default
+     * implementation returns null so that we can easily ignore cases; it's
+     * useful to ignore a case when inheritance will catch all the cases anyway.
      * <!-- end-user-doc -->
      * @return the new adapter.
      * @see orgomg.cwm.analysis.transformation.Transformation
@@ -389,10 +408,9 @@ public class InformationreportingAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Creates a new adapter for an object of class '{@link orgomg.cwm.analysis.transformation.TransformationMap <em>Map</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> This default implementation returns null so
+     * that we can easily ignore cases; it's useful to ignore a case when
+     * inheritance will catch all the cases anyway. <!-- end-user-doc -->
      * @return the new adapter.
      * @see orgomg.cwm.analysis.transformation.TransformationMap
      * @generated
@@ -402,11 +420,12 @@ public class InformationreportingAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.core.Package <em>Package</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
+     * Creates a new adapter for an object of class '
+     * {@link orgomg.cwm.objectmodel.core.Package <em>Package</em>}'. <!--
+     * begin-user-doc --> This default implementation returns null so that we
+     * can easily ignore cases; it's useful to ignore a case when inheritance
+     * will catch all the cases anyway. <!-- end-user-doc -->
+     * 
      * @return the new adapter.
      * @see orgomg.cwm.objectmodel.core.Package
      * @generated
@@ -417,9 +436,9 @@ public class InformationreportingAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Creates a new adapter for an object of class '{@link orgomg.cwm.analysis.informationvisualization.RenderedObjectSet <em>Rendered Object Set</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- begin-user-doc --> This default
+     * implementation returns null so that we can easily ignore cases; it's
+     * useful to ignore a case when inheritance will catch all the cases anyway.
      * <!-- end-user-doc -->
      * @return the new adapter.
      * @see orgomg.cwm.analysis.informationvisualization.RenderedObjectSet
@@ -431,9 +450,8 @@ public class InformationreportingAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Creates a new adapter for the default case.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null.
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> This
+     * default implementation returns null. <!-- end-user-doc -->
      * @return the new adapter.
      * @generated
      */
@@ -441,4 +459,4 @@ public class InformationreportingAdapterFactory extends AdapterFactoryImpl {
         return null;
     }
 
-} //InformationreportingAdapterFactory
+} // InformationreportingAdapterFactory

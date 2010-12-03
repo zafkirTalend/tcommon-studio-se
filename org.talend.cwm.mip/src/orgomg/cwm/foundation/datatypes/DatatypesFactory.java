@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.foundation.datatypes;
@@ -9,44 +8,43 @@ package orgomg.cwm.foundation.datatypes;
 import org.eclipse.emf.ecore.EFactory;
 
 /**
- * <!-- begin-user-doc -->
- * The <b>Factory</b> for the model.
- * It provides a create method for each non-abstract class of the model.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> The <b>Factory</b> for the model. It provides a
+ * create method for each non-abstract class of the model. <!-- end-user-doc -->
  * @see orgomg.cwm.foundation.datatypes.DatatypesPackage
  * @generated
  */
 public interface DatatypesFactory extends EFactory {
+
     /**
      * The singleton instance of the factory.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     DatatypesFactory eINSTANCE = orgomg.cwm.foundation.datatypes.impl.DatatypesFactoryImpl.init();
 
     /**
      * Returns a new object of class '<em>Enumeration</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @return a new object of class '<em>Enumeration</em>'.
      * @generated
      */
     Enumeration createEnumeration();
 
     /**
-     * Returns a new object of class '<em>Enumeration Literal</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns a new object of class '<em>Enumeration Literal</em>'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return a new object of class '<em>Enumeration Literal</em>'.
      * @generated
      */
     EnumerationLiteral createEnumerationLiteral();
 
     /**
-     * Returns a new object of class '<em>Query Expression</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns a new object of class '<em>Query Expression</em>'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return a new object of class '<em>Query Expression</em>'.
      * @generated
      */
@@ -54,8 +52,8 @@ public interface DatatypesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Type Alias</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @return a new object of class '<em>Type Alias</em>'.
      * @generated
      */
@@ -71,9 +69,9 @@ public interface DatatypesFactory extends EFactory {
     Union createUnion();
 
     /**
-     * Returns a new object of class '<em>Union Member</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns a new object of class '<em>Union Member</em>'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return a new object of class '<em>Union Member</em>'.
      * @generated
      */
@@ -88,4 +86,4 @@ public interface DatatypesFactory extends EFactory {
      */
     DatatypesPackage getDatatypesPackage();
 
-} //DatatypesFactory
+} // DatatypesFactory

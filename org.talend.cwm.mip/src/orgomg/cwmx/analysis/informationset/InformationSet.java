@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.analysis.informationset;
@@ -10,9 +9,8 @@ import org.eclipse.emf.common.util.EList;
 import orgomg.cwm.analysis.olap.Schema;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Information Set</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Information Set</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * InformationSet contains all elements comprising an InformationSet database model.
@@ -32,13 +30,12 @@ import orgomg.cwm.analysis.olap.Schema;
  * @generated
  */
 public interface InformationSet extends Schema {
+
     /**
-     * Returns the value of the '<em><b>Version</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The version of an Information Set.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Version</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> The
+     * version of an Information Set. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Version</em>' attribute.
      * @see #setVersion(String)
      * @see orgomg.cwmx.analysis.informationset.InformationsetPackage#getInformationSet_Version()
@@ -48,10 +45,13 @@ public interface InformationSet extends Schema {
     String getVersion();
 
     /**
-     * Sets the value of the '{@link orgomg.cwmx.analysis.informationset.InformationSet#getVersion <em>Version</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Version</em>' attribute.
+     * Sets the value of the '
+     * {@link orgomg.cwmx.analysis.informationset.InformationSet#getVersion
+     * <em>Version</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @param value
+     *            the new value of the '<em>Version</em>' attribute.
      * @see #getVersion()
      * @generated
      */
@@ -61,8 +61,7 @@ public interface InformationSet extends Schema {
      * Returns the value of the '<em><b>Rule</b></em>' reference list.
      * The list contents are of type {@link orgomg.cwmx.analysis.informationset.Rule}.
      * It is bidirectional and its opposite is '{@link orgomg.cwmx.analysis.informationset.Rule#getInformationSet <em>Information Set</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * The Rule for an InformationSet.
      * <!-- end-model-doc -->
@@ -78,8 +77,7 @@ public interface InformationSet extends Schema {
      * Returns the value of the '<em><b>Info Set Admin</b></em>' containment reference list.
      * The list contents are of type {@link orgomg.cwmx.analysis.informationset.InfoSetAdministration}.
      * It is bidirectional and its opposite is '{@link orgomg.cwmx.analysis.informationset.InfoSetAdministration#getInformationSet <em>Information Set</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Administrative details for an InformationSet.
      * <!-- end-model-doc -->

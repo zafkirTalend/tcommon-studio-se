@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.analysis.olap;
@@ -9,9 +8,8 @@ package orgomg.cwm.analysis.olap;
 import org.eclipse.emf.common.util.EList;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Cube Deployment</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Cube Deployment</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * CubeDeployment represents a particular implementation strategy for the data portions of an OLAP model.  It does so by organizing a collection of ContentMaps, which in turn define a mapping to an implementation model.
@@ -31,11 +29,11 @@ import org.eclipse.emf.common.util.EList;
  * @generated
  */
 public interface CubeDeployment extends orgomg.cwm.objectmodel.core.Class {
+
     /**
      * Returns the value of the '<em><b>Cube Region</b></em>' container reference.
      * It is bidirectional and its opposite is '{@link orgomg.cwm.analysis.olap.CubeRegion#getCubeDeployment <em>Cube Deployment</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * The CubeRegion owning a CubeDeployment.
      * <!-- end-model-doc -->
@@ -50,8 +48,8 @@ public interface CubeDeployment extends orgomg.cwm.objectmodel.core.Class {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.analysis.olap.CubeDeployment#getCubeRegion <em>Cube Region</em>}' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Cube Region</em>' container reference.
      * @see #getCubeRegion()
      * @generated
@@ -61,8 +59,7 @@ public interface CubeDeployment extends orgomg.cwm.objectmodel.core.Class {
     /**
      * Returns the value of the '<em><b>Deployment Group</b></em>' reference.
      * It is bidirectional and its opposite is '{@link orgomg.cwm.analysis.olap.DeploymentGroup#getCubeDeployment <em>Cube Deployment</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * The DeploymentGroups referencing a CubeDeployment.
      * <!-- end-model-doc -->
@@ -77,8 +74,8 @@ public interface CubeDeployment extends orgomg.cwm.objectmodel.core.Class {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.analysis.olap.CubeDeployment#getDeploymentGroup <em>Deployment Group</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Deployment Group</em>' reference.
      * @see #getDeploymentGroup()
      * @generated
@@ -89,8 +86,7 @@ public interface CubeDeployment extends orgomg.cwm.objectmodel.core.Class {
      * Returns the value of the '<em><b>Content Map</b></em>' containment reference list.
      * The list contents are of type {@link orgomg.cwm.analysis.olap.ContentMap}.
      * It is bidirectional and its opposite is '{@link orgomg.cwm.analysis.olap.ContentMap#getCubeDeployment <em>Cube Deployment</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * The collection of ContentMaps owned by a CubeDeployment.
      * <!-- end-model-doc -->

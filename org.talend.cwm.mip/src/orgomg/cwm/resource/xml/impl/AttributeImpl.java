@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.resource.xml.impl;
@@ -14,9 +13,8 @@ import orgomg.cwm.resource.xml.AttributeDefault;
 import orgomg.cwm.resource.xml.XmlPackage;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Attribute</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Attribute</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -27,10 +25,10 @@ import orgomg.cwm.resource.xml.XmlPackage;
  * @generated
  */
 public class AttributeImpl extends orgomg.cwm.objectmodel.core.impl.AttributeImpl implements Attribute {
+
     /**
      * The default value of the '{@link #getDefaultKind() <em>Default Kind</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getDefaultKind()
      * @generated
      * @ordered
@@ -39,8 +37,7 @@ public class AttributeImpl extends orgomg.cwm.objectmodel.core.impl.AttributeImp
 
     /**
      * The cached value of the '{@link #getDefaultKind() <em>Default Kind</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getDefaultKind()
      * @generated
      * @ordered
@@ -48,8 +45,7 @@ public class AttributeImpl extends orgomg.cwm.objectmodel.core.impl.AttributeImp
     protected AttributeDefault defaultKind = DEFAULT_KIND_EDEFAULT;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected AttributeImpl() {
@@ -57,8 +53,7 @@ public class AttributeImpl extends orgomg.cwm.objectmodel.core.impl.AttributeImp
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -67,8 +62,7 @@ public class AttributeImpl extends orgomg.cwm.objectmodel.core.impl.AttributeImp
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public AttributeDefault getDefaultKind() {
@@ -76,8 +70,7 @@ public class AttributeImpl extends orgomg.cwm.objectmodel.core.impl.AttributeImp
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setDefaultKind(AttributeDefault newDefaultKind) {
@@ -88,71 +81,67 @@ public class AttributeImpl extends orgomg.cwm.objectmodel.core.impl.AttributeImp
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case XmlPackage.ATTRIBUTE__DEFAULT_KIND:
-                return getDefaultKind();
+        case XmlPackage.ATTRIBUTE__DEFAULT_KIND:
+            return getDefaultKind();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case XmlPackage.ATTRIBUTE__DEFAULT_KIND:
-                setDefaultKind((AttributeDefault)newValue);
-                return;
+        case XmlPackage.ATTRIBUTE__DEFAULT_KIND:
+            setDefaultKind((AttributeDefault) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case XmlPackage.ATTRIBUTE__DEFAULT_KIND:
-                setDefaultKind(DEFAULT_KIND_EDEFAULT);
-                return;
+        case XmlPackage.ATTRIBUTE__DEFAULT_KIND:
+            setDefaultKind(DEFAULT_KIND_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case XmlPackage.ATTRIBUTE__DEFAULT_KIND:
-                return defaultKind != DEFAULT_KIND_EDEFAULT;
+        case XmlPackage.ATTRIBUTE__DEFAULT_KIND:
+            return defaultKind != DEFAULT_KIND_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (defaultKind: ");
@@ -161,4 +150,4 @@ public class AttributeImpl extends orgomg.cwm.objectmodel.core.impl.AttributeImp
         return result.toString();
     }
 
-} //AttributeImpl
+} // AttributeImpl

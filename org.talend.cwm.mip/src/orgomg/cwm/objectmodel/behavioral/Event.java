@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.objectmodel.behavioral;
@@ -10,9 +9,8 @@ import org.eclipse.emf.common.util.EList;
 import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Event</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Event</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * Event is a specification of an observable occurrence. The occurrence that generates an event instance is assumed to take place at an instant in time.
@@ -30,15 +28,18 @@ import orgomg.cwm.objectmodel.core.ModelElement;
  * @generated
  */
 public interface Event extends ModelElement {
+
     /**
-     * Returns the value of the '<em><b>Parameter</b></em>' containment reference list.
-     * The list contents are of type {@link orgomg.cwm.objectmodel.behavioral.Parameter}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.objectmodel.behavioral.Parameter#getEvent <em>Event</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the ordered set of Parameter instances owned by an Event that describe the Event?s parameters.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Parameter</b></em>' containment
+     * reference list. The list contents are of type
+     * {@link orgomg.cwm.objectmodel.behavioral.Parameter}. It is bidirectional
+     * and its opposite is '
+     * {@link orgomg.cwm.objectmodel.behavioral.Parameter#getEvent
+     * <em>Event</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> Identifies the ordered set of Parameter instances
+     * owned by an Event that describe the Event?s parameters. <!--
+     * end-model-doc -->
+     * 
      * @return the value of the '<em>Parameter</em>' containment reference list.
      * @see orgomg.cwm.objectmodel.behavioral.BehavioralPackage#getEvent_Parameter()
      * @see orgomg.cwm.objectmodel.behavioral.Parameter#getEvent

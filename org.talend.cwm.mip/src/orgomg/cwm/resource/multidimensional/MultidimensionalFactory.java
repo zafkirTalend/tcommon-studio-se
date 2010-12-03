@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.resource.multidimensional;
@@ -9,35 +8,34 @@ package orgomg.cwm.resource.multidimensional;
 import org.eclipse.emf.ecore.EFactory;
 
 /**
- * <!-- begin-user-doc -->
- * The <b>Factory</b> for the model.
- * It provides a create method for each non-abstract class of the model.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> The <b>Factory</b> for the model. It provides a
+ * create method for each non-abstract class of the model. <!-- end-user-doc -->
  * @see orgomg.cwm.resource.multidimensional.MultidimensionalPackage
  * @generated
  */
 public interface MultidimensionalFactory extends EFactory {
+
     /**
      * The singleton instance of the factory.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     MultidimensionalFactory eINSTANCE = orgomg.cwm.resource.multidimensional.impl.MultidimensionalFactoryImpl.init();
 
     /**
      * Returns a new object of class '<em>Dimension</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @return a new object of class '<em>Dimension</em>'.
      * @generated
      */
     Dimension createDimension();
 
     /**
-     * Returns a new object of class '<em>Dimensioned Object</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns a new object of class '<em>Dimensioned Object</em>'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return a new object of class '<em>Dimensioned Object</em>'.
      * @generated
      */
@@ -54,17 +52,17 @@ public interface MultidimensionalFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Member Set</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @return a new object of class '<em>Member Set</em>'.
      * @generated
      */
     MemberSet createMemberSet();
 
     /**
-     * Returns a new object of class '<em>Member Value</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns a new object of class '<em>Member Value</em>'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return a new object of class '<em>Member Value</em>'.
      * @generated
      */
@@ -88,4 +86,4 @@ public interface MultidimensionalFactory extends EFactory {
      */
     MultidimensionalPackage getMultidimensionalPackage();
 
-} //MultidimensionalFactory
+} // MultidimensionalFactory

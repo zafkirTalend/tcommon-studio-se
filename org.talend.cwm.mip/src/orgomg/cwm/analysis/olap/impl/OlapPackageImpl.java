@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.analysis.olap.impl;
@@ -102,155 +101,136 @@ import orgomg.mof.model.ModelPackage;
 import orgomg.mof.model.impl.ModelPackageImpl;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model <b>Package</b>.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model <b>Package</b>. <!--
+ * end-user-doc -->
  * @generated
  */
 public class OlapPackageImpl extends EPackageImpl implements OlapPackage {
+
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass contentMapEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass cubeEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass cubeDeploymentEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass cubeDimensionAssociationEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass cubeRegionEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass deploymentGroupEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass dimensionEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass dimensionDeploymentEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass hierarchyEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass hierarchyLevelAssociationEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass levelBasedHierarchyEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass memberSelectionGroupEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass memberSelectionEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass schemaEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass valueBasedHierarchyEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass levelEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass codedLevelEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass measureEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass structureMapEClass = null;
 
     /**
      * Creates an instance of the model <b>Package</b>, registered with
-     * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
-     * package URI value.
-     * <p>Note: the correct way to create the package is via the static
-     * factory method {@link #init init()}, which also performs
-     * initialization of the package, or returns the registered package,
-     * if one already exists.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the
+     * package package URI value.
+     * <p>
+     * Note: the correct way to create the package is via the static factory
+     * method {@link #init init()}, which also performs initialization of the
+     * package, or returns the registered package, if one already exists. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see org.eclipse.emf.ecore.EPackage.Registry
      * @see orgomg.cwm.analysis.olap.OlapPackage#eNS_URI
      * @see #init()
@@ -261,67 +241,131 @@ public class OlapPackageImpl extends EPackageImpl implements OlapPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private static boolean isInited = false;
 
     /**
-     * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
+     * Creates, registers, and initializes the <b>Package</b> for this model,
+     * and for any others upon which it depends.
      * 
-     * <p>This method is used to initialize {@link OlapPackage#eINSTANCE} when that field is accessed.
-     * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <p>
+     * This method is used to initialize {@link OlapPackage#eINSTANCE} when that
+     * field is accessed. Clients should not invoke it directly. Instead, they
+     * should simply access that field to obtain the package. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #eNS_URI
      * @see #createPackageContents()
      * @see #initializePackageContents()
      * @generated
      */
     public static OlapPackage init() {
-        if (isInited) return (OlapPackage)EPackage.Registry.INSTANCE.getEPackage(OlapPackage.eNS_URI);
+        if (isInited)
+            return (OlapPackage) EPackage.Registry.INSTANCE.getEPackage(OlapPackage.eNS_URI);
 
         // Obtain or create and register package
-        OlapPackageImpl theOlapPackage = (OlapPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof OlapPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new OlapPackageImpl());
+        OlapPackageImpl theOlapPackage = (OlapPackageImpl) (EPackage.Registry.INSTANCE.get(eNS_URI) instanceof OlapPackageImpl ? EPackage.Registry.INSTANCE
+                .get(eNS_URI) : new OlapPackageImpl());
 
         isInited = true;
 
         // Obtain or create and register interdependencies
-        CorePackageImpl theCorePackage = (CorePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CorePackage.eNS_URI) instanceof CorePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CorePackage.eNS_URI) : CorePackage.eINSTANCE);
-        BehavioralPackageImpl theBehavioralPackage = (BehavioralPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(BehavioralPackage.eNS_URI) instanceof BehavioralPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(BehavioralPackage.eNS_URI) : BehavioralPackage.eINSTANCE);
-        RelationshipsPackageImpl theRelationshipsPackage = (RelationshipsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(RelationshipsPackage.eNS_URI) instanceof RelationshipsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(RelationshipsPackage.eNS_URI) : RelationshipsPackage.eINSTANCE);
-        InstancePackageImpl theInstancePackage = (InstancePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(InstancePackage.eNS_URI) instanceof InstancePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(InstancePackage.eNS_URI) : InstancePackage.eINSTANCE);
-        BusinessinformationPackageImpl theBusinessinformationPackage = (BusinessinformationPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(BusinessinformationPackage.eNS_URI) instanceof BusinessinformationPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(BusinessinformationPackage.eNS_URI) : BusinessinformationPackage.eINSTANCE);
-        DatatypesPackageImpl theDatatypesPackage = (DatatypesPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(DatatypesPackage.eNS_URI) instanceof DatatypesPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(DatatypesPackage.eNS_URI) : DatatypesPackage.eINSTANCE);
-        ExpressionsPackageImpl theExpressionsPackage = (ExpressionsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ExpressionsPackage.eNS_URI) instanceof ExpressionsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ExpressionsPackage.eNS_URI) : ExpressionsPackage.eINSTANCE);
-        KeysindexesPackageImpl theKeysindexesPackage = (KeysindexesPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(KeysindexesPackage.eNS_URI) instanceof KeysindexesPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(KeysindexesPackage.eNS_URI) : KeysindexesPackage.eINSTANCE);
-        SoftwaredeploymentPackageImpl theSoftwaredeploymentPackage = (SoftwaredeploymentPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(SoftwaredeploymentPackage.eNS_URI) instanceof SoftwaredeploymentPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(SoftwaredeploymentPackage.eNS_URI) : SoftwaredeploymentPackage.eINSTANCE);
-        TypemappingPackageImpl theTypemappingPackage = (TypemappingPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(TypemappingPackage.eNS_URI) instanceof TypemappingPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(TypemappingPackage.eNS_URI) : TypemappingPackage.eINSTANCE);
-        RelationalPackageImpl theRelationalPackage = (RelationalPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(RelationalPackage.eNS_URI) instanceof RelationalPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(RelationalPackage.eNS_URI) : RelationalPackage.eINSTANCE);
-        EnumerationsPackageImpl theEnumerationsPackage = (EnumerationsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(EnumerationsPackage.eNS_URI) instanceof EnumerationsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(EnumerationsPackage.eNS_URI) : EnumerationsPackage.eINSTANCE);
-        RecordPackageImpl theRecordPackage = (RecordPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(RecordPackage.eNS_URI) instanceof RecordPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(RecordPackage.eNS_URI) : RecordPackage.eINSTANCE);
-        MultidimensionalPackageImpl theMultidimensionalPackage = (MultidimensionalPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(MultidimensionalPackage.eNS_URI) instanceof MultidimensionalPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(MultidimensionalPackage.eNS_URI) : MultidimensionalPackage.eINSTANCE);
-        XmlPackageImpl theXmlPackage = (XmlPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(XmlPackage.eNS_URI) instanceof XmlPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(XmlPackage.eNS_URI) : XmlPackage.eINSTANCE);
-        TransformationPackageImpl theTransformationPackage = (TransformationPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(TransformationPackage.eNS_URI) instanceof TransformationPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(TransformationPackage.eNS_URI) : TransformationPackage.eINSTANCE);
-        DataminingPackageImpl theDataminingPackage = (DataminingPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(DataminingPackage.eNS_URI) instanceof DataminingPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(DataminingPackage.eNS_URI) : DataminingPackage.eINSTANCE);
-        InformationvisualizationPackageImpl theInformationvisualizationPackage = (InformationvisualizationPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(InformationvisualizationPackage.eNS_URI) instanceof InformationvisualizationPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(InformationvisualizationPackage.eNS_URI) : InformationvisualizationPackage.eINSTANCE);
-        BusinessnomenclaturePackageImpl theBusinessnomenclaturePackage = (BusinessnomenclaturePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(BusinessnomenclaturePackage.eNS_URI) instanceof BusinessnomenclaturePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(BusinessnomenclaturePackage.eNS_URI) : BusinessnomenclaturePackage.eINSTANCE);
-        WarehouseprocessPackageImpl theWarehouseprocessPackage = (WarehouseprocessPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(WarehouseprocessPackage.eNS_URI) instanceof WarehouseprocessPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(WarehouseprocessPackage.eNS_URI) : WarehouseprocessPackage.eINSTANCE);
-        DatatypePackageImpl theDatatypePackage = (DatatypePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(DatatypePackage.eNS_URI) instanceof DatatypePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(DatatypePackage.eNS_URI) : DatatypePackage.eINSTANCE);
-        EventsPackageImpl theEventsPackage = (EventsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(EventsPackage.eNS_URI) instanceof EventsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(EventsPackage.eNS_URI) : EventsPackage.eINSTANCE);
-        WarehouseoperationPackageImpl theWarehouseoperationPackage = (WarehouseoperationPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(WarehouseoperationPackage.eNS_URI) instanceof WarehouseoperationPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(WarehouseoperationPackage.eNS_URI) : WarehouseoperationPackage.eINSTANCE);
-        ErPackageImpl theErPackage = (ErPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ErPackage.eNS_URI) instanceof ErPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ErPackage.eNS_URI) : ErPackage.eINSTANCE);
-        CoboldataPackageImpl theCoboldataPackage = (CoboldataPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CoboldataPackage.eNS_URI) instanceof CoboldataPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CoboldataPackage.eNS_URI) : CoboldataPackage.eINSTANCE);
-        DmsiiPackageImpl theDmsiiPackage = (DmsiiPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(DmsiiPackage.eNS_URI) instanceof DmsiiPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(DmsiiPackage.eNS_URI) : DmsiiPackage.eINSTANCE);
-        ImsdatabasePackageImpl theImsdatabasePackage = (ImsdatabasePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ImsdatabasePackage.eNS_URI) instanceof ImsdatabasePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ImsdatabasePackage.eNS_URI) : ImsdatabasePackage.eINSTANCE);
-        ImstypesPackageImpl theImstypesPackage = (ImstypesPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ImstypesPackage.eNS_URI) instanceof ImstypesPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ImstypesPackage.eNS_URI) : ImstypesPackage.eINSTANCE);
-        EssbasePackageImpl theEssbasePackage = (EssbasePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(EssbasePackage.eNS_URI) instanceof EssbasePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(EssbasePackage.eNS_URI) : EssbasePackage.eINSTANCE);
-        ExpressPackageImpl theExpressPackage = (ExpressPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ExpressPackage.eNS_URI) instanceof ExpressPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ExpressPackage.eNS_URI) : ExpressPackage.eINSTANCE);
-        InformationsetPackageImpl theInformationsetPackage = (InformationsetPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(InformationsetPackage.eNS_URI) instanceof InformationsetPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(InformationsetPackage.eNS_URI) : InformationsetPackage.eINSTANCE);
-        InformationreportingPackageImpl theInformationreportingPackage = (InformationreportingPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(InformationreportingPackage.eNS_URI) instanceof InformationreportingPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(InformationreportingPackage.eNS_URI) : InformationreportingPackage.eINSTANCE);
-        CwmmipPackageImpl theCwmmipPackage = (CwmmipPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CwmmipPackage.eNS_URI) instanceof CwmmipPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CwmmipPackage.eNS_URI) : CwmmipPackage.eINSTANCE);
-        ModelPackageImpl theModelPackage = (ModelPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ModelPackage.eNS_URI) instanceof ModelPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ModelPackage.eNS_URI) : ModelPackage.eINSTANCE);
+        CorePackageImpl theCorePackage = (CorePackageImpl) (EPackage.Registry.INSTANCE.getEPackage(CorePackage.eNS_URI) instanceof CorePackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(CorePackage.eNS_URI) : CorePackage.eINSTANCE);
+        BehavioralPackageImpl theBehavioralPackage = (BehavioralPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(BehavioralPackage.eNS_URI) instanceof BehavioralPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(BehavioralPackage.eNS_URI) : BehavioralPackage.eINSTANCE);
+        RelationshipsPackageImpl theRelationshipsPackage = (RelationshipsPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(RelationshipsPackage.eNS_URI) instanceof RelationshipsPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(RelationshipsPackage.eNS_URI) : RelationshipsPackage.eINSTANCE);
+        InstancePackageImpl theInstancePackage = (InstancePackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(InstancePackage.eNS_URI) instanceof InstancePackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(InstancePackage.eNS_URI) : InstancePackage.eINSTANCE);
+        BusinessinformationPackageImpl theBusinessinformationPackage = (BusinessinformationPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(BusinessinformationPackage.eNS_URI) instanceof BusinessinformationPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(BusinessinformationPackage.eNS_URI) : BusinessinformationPackage.eINSTANCE);
+        DatatypesPackageImpl theDatatypesPackage = (DatatypesPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(DatatypesPackage.eNS_URI) instanceof DatatypesPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(DatatypesPackage.eNS_URI) : DatatypesPackage.eINSTANCE);
+        ExpressionsPackageImpl theExpressionsPackage = (ExpressionsPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(ExpressionsPackage.eNS_URI) instanceof ExpressionsPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(ExpressionsPackage.eNS_URI) : ExpressionsPackage.eINSTANCE);
+        KeysindexesPackageImpl theKeysindexesPackage = (KeysindexesPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(KeysindexesPackage.eNS_URI) instanceof KeysindexesPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(KeysindexesPackage.eNS_URI) : KeysindexesPackage.eINSTANCE);
+        SoftwaredeploymentPackageImpl theSoftwaredeploymentPackage = (SoftwaredeploymentPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(SoftwaredeploymentPackage.eNS_URI) instanceof SoftwaredeploymentPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(SoftwaredeploymentPackage.eNS_URI) : SoftwaredeploymentPackage.eINSTANCE);
+        TypemappingPackageImpl theTypemappingPackage = (TypemappingPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(TypemappingPackage.eNS_URI) instanceof TypemappingPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(TypemappingPackage.eNS_URI) : TypemappingPackage.eINSTANCE);
+        RelationalPackageImpl theRelationalPackage = (RelationalPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(RelationalPackage.eNS_URI) instanceof RelationalPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(RelationalPackage.eNS_URI) : RelationalPackage.eINSTANCE);
+        EnumerationsPackageImpl theEnumerationsPackage = (EnumerationsPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(EnumerationsPackage.eNS_URI) instanceof EnumerationsPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(EnumerationsPackage.eNS_URI) : EnumerationsPackage.eINSTANCE);
+        RecordPackageImpl theRecordPackage = (RecordPackageImpl) (EPackage.Registry.INSTANCE.getEPackage(RecordPackage.eNS_URI) instanceof RecordPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(RecordPackage.eNS_URI) : RecordPackage.eINSTANCE);
+        MultidimensionalPackageImpl theMultidimensionalPackage = (MultidimensionalPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(MultidimensionalPackage.eNS_URI) instanceof MultidimensionalPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(MultidimensionalPackage.eNS_URI) : MultidimensionalPackage.eINSTANCE);
+        XmlPackageImpl theXmlPackage = (XmlPackageImpl) (EPackage.Registry.INSTANCE.getEPackage(XmlPackage.eNS_URI) instanceof XmlPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(XmlPackage.eNS_URI) : XmlPackage.eINSTANCE);
+        TransformationPackageImpl theTransformationPackage = (TransformationPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(TransformationPackage.eNS_URI) instanceof TransformationPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(TransformationPackage.eNS_URI) : TransformationPackage.eINSTANCE);
+        DataminingPackageImpl theDataminingPackage = (DataminingPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(DataminingPackage.eNS_URI) instanceof DataminingPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(DataminingPackage.eNS_URI) : DataminingPackage.eINSTANCE);
+        InformationvisualizationPackageImpl theInformationvisualizationPackage = (InformationvisualizationPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(InformationvisualizationPackage.eNS_URI) instanceof InformationvisualizationPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(InformationvisualizationPackage.eNS_URI) : InformationvisualizationPackage.eINSTANCE);
+        BusinessnomenclaturePackageImpl theBusinessnomenclaturePackage = (BusinessnomenclaturePackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(BusinessnomenclaturePackage.eNS_URI) instanceof BusinessnomenclaturePackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(BusinessnomenclaturePackage.eNS_URI) : BusinessnomenclaturePackage.eINSTANCE);
+        WarehouseprocessPackageImpl theWarehouseprocessPackage = (WarehouseprocessPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(WarehouseprocessPackage.eNS_URI) instanceof WarehouseprocessPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(WarehouseprocessPackage.eNS_URI) : WarehouseprocessPackage.eINSTANCE);
+        DatatypePackageImpl theDatatypePackage = (DatatypePackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(DatatypePackage.eNS_URI) instanceof DatatypePackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(DatatypePackage.eNS_URI) : DatatypePackage.eINSTANCE);
+        EventsPackageImpl theEventsPackage = (EventsPackageImpl) (EPackage.Registry.INSTANCE.getEPackage(EventsPackage.eNS_URI) instanceof EventsPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(EventsPackage.eNS_URI) : EventsPackage.eINSTANCE);
+        WarehouseoperationPackageImpl theWarehouseoperationPackage = (WarehouseoperationPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(WarehouseoperationPackage.eNS_URI) instanceof WarehouseoperationPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(WarehouseoperationPackage.eNS_URI) : WarehouseoperationPackage.eINSTANCE);
+        ErPackageImpl theErPackage = (ErPackageImpl) (EPackage.Registry.INSTANCE.getEPackage(ErPackage.eNS_URI) instanceof ErPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(ErPackage.eNS_URI) : ErPackage.eINSTANCE);
+        CoboldataPackageImpl theCoboldataPackage = (CoboldataPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(CoboldataPackage.eNS_URI) instanceof CoboldataPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(CoboldataPackage.eNS_URI) : CoboldataPackage.eINSTANCE);
+        DmsiiPackageImpl theDmsiiPackage = (DmsiiPackageImpl) (EPackage.Registry.INSTANCE.getEPackage(DmsiiPackage.eNS_URI) instanceof DmsiiPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(DmsiiPackage.eNS_URI) : DmsiiPackage.eINSTANCE);
+        ImsdatabasePackageImpl theImsdatabasePackage = (ImsdatabasePackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(ImsdatabasePackage.eNS_URI) instanceof ImsdatabasePackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(ImsdatabasePackage.eNS_URI) : ImsdatabasePackage.eINSTANCE);
+        ImstypesPackageImpl theImstypesPackage = (ImstypesPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(ImstypesPackage.eNS_URI) instanceof ImstypesPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(ImstypesPackage.eNS_URI) : ImstypesPackage.eINSTANCE);
+        EssbasePackageImpl theEssbasePackage = (EssbasePackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(EssbasePackage.eNS_URI) instanceof EssbasePackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(EssbasePackage.eNS_URI) : EssbasePackage.eINSTANCE);
+        ExpressPackageImpl theExpressPackage = (ExpressPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(ExpressPackage.eNS_URI) instanceof ExpressPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(ExpressPackage.eNS_URI) : ExpressPackage.eINSTANCE);
+        InformationsetPackageImpl theInformationsetPackage = (InformationsetPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(InformationsetPackage.eNS_URI) instanceof InformationsetPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(InformationsetPackage.eNS_URI) : InformationsetPackage.eINSTANCE);
+        InformationreportingPackageImpl theInformationreportingPackage = (InformationreportingPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(InformationreportingPackage.eNS_URI) instanceof InformationreportingPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(InformationreportingPackage.eNS_URI) : InformationreportingPackage.eINSTANCE);
+        CwmmipPackageImpl theCwmmipPackage = (CwmmipPackageImpl) (EPackage.Registry.INSTANCE.getEPackage(CwmmipPackage.eNS_URI) instanceof CwmmipPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(CwmmipPackage.eNS_URI) : CwmmipPackage.eINSTANCE);
+        ModelPackageImpl theModelPackage = (ModelPackageImpl) (EPackage.Registry.INSTANCE.getEPackage(ModelPackage.eNS_URI) instanceof ModelPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(ModelPackage.eNS_URI) : ModelPackage.eINSTANCE);
 
         // Create package meta-data objects
         theOlapPackage.createPackageContents();
@@ -400,15 +444,13 @@ public class OlapPackageImpl extends EPackageImpl implements OlapPackage {
         // Mark meta-data to indicate it can't be changed
         theOlapPackage.freeze();
 
-  
         // Update the registry and return the package
         EPackage.Registry.INSTANCE.put(OlapPackage.eNS_URI, theOlapPackage);
         return theOlapPackage;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getContentMap() {
@@ -416,17 +458,15 @@ public class OlapPackageImpl extends EPackageImpl implements OlapPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getContentMap_CubeDeployment() {
-        return (EReference)contentMapEClass.getEStructuralFeatures().get(0);
+        return (EReference) contentMapEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getCube() {
@@ -434,44 +474,39 @@ public class OlapPackageImpl extends EPackageImpl implements OlapPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getCube_IsVirtual() {
-        return (EAttribute)cubeEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) cubeEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getCube_CubeDimensionAssociation() {
-        return (EReference)cubeEClass.getEStructuralFeatures().get(1);
+        return (EReference) cubeEClass.getEStructuralFeatures().get(1);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getCube_Schema() {
-        return (EReference)cubeEClass.getEStructuralFeatures().get(2);
+        return (EReference) cubeEClass.getEStructuralFeatures().get(2);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getCube_CubeRegion() {
-        return (EReference)cubeEClass.getEStructuralFeatures().get(3);
+        return (EReference) cubeEClass.getEStructuralFeatures().get(3);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getCubeDeployment() {
@@ -479,35 +514,31 @@ public class OlapPackageImpl extends EPackageImpl implements OlapPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getCubeDeployment_CubeRegion() {
-        return (EReference)cubeDeploymentEClass.getEStructuralFeatures().get(0);
+        return (EReference) cubeDeploymentEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getCubeDeployment_DeploymentGroup() {
-        return (EReference)cubeDeploymentEClass.getEStructuralFeatures().get(1);
+        return (EReference) cubeDeploymentEClass.getEStructuralFeatures().get(1);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getCubeDeployment_ContentMap() {
-        return (EReference)cubeDeploymentEClass.getEStructuralFeatures().get(2);
+        return (EReference) cubeDeploymentEClass.getEStructuralFeatures().get(2);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getCubeDimensionAssociation() {
@@ -515,35 +546,31 @@ public class OlapPackageImpl extends EPackageImpl implements OlapPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getCubeDimensionAssociation_Cube() {
-        return (EReference)cubeDimensionAssociationEClass.getEStructuralFeatures().get(0);
+        return (EReference) cubeDimensionAssociationEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getCubeDimensionAssociation_Dimension() {
-        return (EReference)cubeDimensionAssociationEClass.getEStructuralFeatures().get(1);
+        return (EReference) cubeDimensionAssociationEClass.getEStructuralFeatures().get(1);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getCubeDimensionAssociation_CalcHierarchy() {
-        return (EReference)cubeDimensionAssociationEClass.getEStructuralFeatures().get(2);
+        return (EReference) cubeDimensionAssociationEClass.getEStructuralFeatures().get(2);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getCubeRegion() {
@@ -551,53 +578,47 @@ public class OlapPackageImpl extends EPackageImpl implements OlapPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getCubeRegion_IsReadOnly() {
-        return (EAttribute)cubeRegionEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) cubeRegionEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getCubeRegion_IsFullyRealized() {
-        return (EAttribute)cubeRegionEClass.getEStructuralFeatures().get(1);
+        return (EAttribute) cubeRegionEClass.getEStructuralFeatures().get(1);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getCubeRegion_Cube() {
-        return (EReference)cubeRegionEClass.getEStructuralFeatures().get(2);
+        return (EReference) cubeRegionEClass.getEStructuralFeatures().get(2);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getCubeRegion_MemberSelectionGroup() {
-        return (EReference)cubeRegionEClass.getEStructuralFeatures().get(3);
+        return (EReference) cubeRegionEClass.getEStructuralFeatures().get(3);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getCubeRegion_CubeDeployment() {
-        return (EReference)cubeRegionEClass.getEStructuralFeatures().get(4);
+        return (EReference) cubeRegionEClass.getEStructuralFeatures().get(4);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getDeploymentGroup() {
@@ -605,35 +626,31 @@ public class OlapPackageImpl extends EPackageImpl implements OlapPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getDeploymentGroup_Schema() {
-        return (EReference)deploymentGroupEClass.getEStructuralFeatures().get(0);
+        return (EReference) deploymentGroupEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getDeploymentGroup_CubeDeployment() {
-        return (EReference)deploymentGroupEClass.getEStructuralFeatures().get(1);
+        return (EReference) deploymentGroupEClass.getEStructuralFeatures().get(1);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getDeploymentGroup_DimensionDeployment() {
-        return (EReference)deploymentGroupEClass.getEStructuralFeatures().get(2);
+        return (EReference) deploymentGroupEClass.getEStructuralFeatures().get(2);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getDimension() {
@@ -641,71 +658,63 @@ public class OlapPackageImpl extends EPackageImpl implements OlapPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getDimension_IsTime() {
-        return (EAttribute)dimensionEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) dimensionEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getDimension_IsMeasure() {
-        return (EAttribute)dimensionEClass.getEStructuralFeatures().get(1);
+        return (EAttribute) dimensionEClass.getEStructuralFeatures().get(1);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getDimension_MemberSelection() {
-        return (EReference)dimensionEClass.getEStructuralFeatures().get(2);
+        return (EReference) dimensionEClass.getEStructuralFeatures().get(2);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getDimension_CubeDimensionAssociation() {
-        return (EReference)dimensionEClass.getEStructuralFeatures().get(3);
+        return (EReference) dimensionEClass.getEStructuralFeatures().get(3);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getDimension_Hierarchy() {
-        return (EReference)dimensionEClass.getEStructuralFeatures().get(4);
+        return (EReference) dimensionEClass.getEStructuralFeatures().get(4);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getDimension_DisplayDefault() {
-        return (EReference)dimensionEClass.getEStructuralFeatures().get(5);
+        return (EReference) dimensionEClass.getEStructuralFeatures().get(5);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getDimension_Schema() {
-        return (EReference)dimensionEClass.getEStructuralFeatures().get(6);
+        return (EReference) dimensionEClass.getEStructuralFeatures().get(6);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getDimensionDeployment() {
@@ -713,62 +722,55 @@ public class OlapPackageImpl extends EPackageImpl implements OlapPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getDimensionDeployment_HierarchyLevelAssociation() {
-        return (EReference)dimensionDeploymentEClass.getEStructuralFeatures().get(0);
+        return (EReference) dimensionDeploymentEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getDimensionDeployment_ValueBasedHierarchy() {
-        return (EReference)dimensionDeploymentEClass.getEStructuralFeatures().get(1);
+        return (EReference) dimensionDeploymentEClass.getEStructuralFeatures().get(1);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getDimensionDeployment_StructureMap() {
-        return (EReference)dimensionDeploymentEClass.getEStructuralFeatures().get(2);
+        return (EReference) dimensionDeploymentEClass.getEStructuralFeatures().get(2);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getDimensionDeployment_ListOfValues() {
-        return (EReference)dimensionDeploymentEClass.getEStructuralFeatures().get(3);
+        return (EReference) dimensionDeploymentEClass.getEStructuralFeatures().get(3);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getDimensionDeployment_ImmediateParent() {
-        return (EReference)dimensionDeploymentEClass.getEStructuralFeatures().get(4);
+        return (EReference) dimensionDeploymentEClass.getEStructuralFeatures().get(4);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getDimensionDeployment_DeploymentGroup() {
-        return (EReference)dimensionDeploymentEClass.getEStructuralFeatures().get(5);
+        return (EReference) dimensionDeploymentEClass.getEStructuralFeatures().get(5);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getHierarchy() {
@@ -776,35 +778,31 @@ public class OlapPackageImpl extends EPackageImpl implements OlapPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getHierarchy_Dimension() {
-        return (EReference)hierarchyEClass.getEStructuralFeatures().get(0);
+        return (EReference) hierarchyEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getHierarchy_DefaultedDimension() {
-        return (EReference)hierarchyEClass.getEStructuralFeatures().get(1);
+        return (EReference) hierarchyEClass.getEStructuralFeatures().get(1);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getHierarchy_CubeDimensionAssociation() {
-        return (EReference)hierarchyEClass.getEStructuralFeatures().get(2);
+        return (EReference) hierarchyEClass.getEStructuralFeatures().get(2);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getHierarchyLevelAssociation() {
@@ -812,35 +810,31 @@ public class OlapPackageImpl extends EPackageImpl implements OlapPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getHierarchyLevelAssociation_LevelBasedHierarchy() {
-        return (EReference)hierarchyLevelAssociationEClass.getEStructuralFeatures().get(0);
+        return (EReference) hierarchyLevelAssociationEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getHierarchyLevelAssociation_CurrentLevel() {
-        return (EReference)hierarchyLevelAssociationEClass.getEStructuralFeatures().get(1);
+        return (EReference) hierarchyLevelAssociationEClass.getEStructuralFeatures().get(1);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getHierarchyLevelAssociation_DimensionDeployment() {
-        return (EReference)hierarchyLevelAssociationEClass.getEStructuralFeatures().get(2);
+        return (EReference) hierarchyLevelAssociationEClass.getEStructuralFeatures().get(2);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getLevelBasedHierarchy() {
@@ -848,17 +842,15 @@ public class OlapPackageImpl extends EPackageImpl implements OlapPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getLevelBasedHierarchy_HierarchyLevelAssociation() {
-        return (EReference)levelBasedHierarchyEClass.getEStructuralFeatures().get(0);
+        return (EReference) levelBasedHierarchyEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getMemberSelectionGroup() {
@@ -866,26 +858,23 @@ public class OlapPackageImpl extends EPackageImpl implements OlapPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getMemberSelectionGroup_MemberSelection() {
-        return (EReference)memberSelectionGroupEClass.getEStructuralFeatures().get(0);
+        return (EReference) memberSelectionGroupEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getMemberSelectionGroup_CubeRegion() {
-        return (EReference)memberSelectionGroupEClass.getEStructuralFeatures().get(1);
+        return (EReference) memberSelectionGroupEClass.getEStructuralFeatures().get(1);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getMemberSelection() {
@@ -893,26 +882,23 @@ public class OlapPackageImpl extends EPackageImpl implements OlapPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getMemberSelection_Dimension() {
-        return (EReference)memberSelectionEClass.getEStructuralFeatures().get(0);
+        return (EReference) memberSelectionEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getMemberSelection_MemberSelectionGroup() {
-        return (EReference)memberSelectionEClass.getEStructuralFeatures().get(1);
+        return (EReference) memberSelectionEClass.getEStructuralFeatures().get(1);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getSchema() {
@@ -920,35 +906,31 @@ public class OlapPackageImpl extends EPackageImpl implements OlapPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getSchema_Cube() {
-        return (EReference)schemaEClass.getEStructuralFeatures().get(0);
+        return (EReference) schemaEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getSchema_Dimension() {
-        return (EReference)schemaEClass.getEStructuralFeatures().get(1);
+        return (EReference) schemaEClass.getEStructuralFeatures().get(1);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getSchema_DeploymentGroup() {
-        return (EReference)schemaEClass.getEStructuralFeatures().get(2);
+        return (EReference) schemaEClass.getEStructuralFeatures().get(2);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getValueBasedHierarchy() {
@@ -956,17 +938,15 @@ public class OlapPackageImpl extends EPackageImpl implements OlapPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getValueBasedHierarchy_DimensionDeployment() {
-        return (EReference)valueBasedHierarchyEClass.getEStructuralFeatures().get(0);
+        return (EReference) valueBasedHierarchyEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getLevel() {
@@ -974,17 +954,15 @@ public class OlapPackageImpl extends EPackageImpl implements OlapPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getLevel_HierarchyLevelAssociation() {
-        return (EReference)levelEClass.getEStructuralFeatures().get(0);
+        return (EReference) levelEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getCodedLevel() {
@@ -992,17 +970,15 @@ public class OlapPackageImpl extends EPackageImpl implements OlapPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getCodedLevel_Encoding() {
-        return (EReference)codedLevelEClass.getEStructuralFeatures().get(0);
+        return (EReference) codedLevelEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getMeasure() {
@@ -1010,8 +986,7 @@ public class OlapPackageImpl extends EPackageImpl implements OlapPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getStructureMap() {
@@ -1019,44 +994,39 @@ public class OlapPackageImpl extends EPackageImpl implements OlapPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getStructureMap_DimensionDeployment() {
-        return (EReference)structureMapEClass.getEStructuralFeatures().get(0);
+        return (EReference) structureMapEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getStructureMap_DimensionDeploymentLV() {
-        return (EReference)structureMapEClass.getEStructuralFeatures().get(1);
+        return (EReference) structureMapEClass.getEStructuralFeatures().get(1);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getStructureMap_DimensionDeploymentIP() {
-        return (EReference)structureMapEClass.getEStructuralFeatures().get(2);
+        return (EReference) structureMapEClass.getEStructuralFeatures().get(2);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public OlapFactory getOlapFactory() {
-        return (OlapFactory)getEFactoryInstance();
+        return (OlapFactory) getEFactoryInstance();
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private boolean isCreated = false;
@@ -1069,7 +1039,8 @@ public class OlapPackageImpl extends EPackageImpl implements OlapPackage {
      * @generated
      */
     public void createPackageContents() {
-        if (isCreated) return;
+        if (isCreated)
+            return;
         isCreated = true;
 
         // Create classes and their features
@@ -1165,21 +1136,21 @@ public class OlapPackageImpl extends EPackageImpl implements OlapPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private boolean isInitialized = false;
 
     /**
-     * Complete the initialization of the package and its meta-model.  This
-     * method is guarded to have no affect on any invocation but its first.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Complete the initialization of the package and its meta-model. This
+     * method is guarded to have no affect on any invocation but its first. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void initializePackageContents() {
-        if (isInitialized) return;
+        if (isInitialized)
+            return;
         isInitialized = true;
 
         // Initialize package
@@ -1188,9 +1159,11 @@ public class OlapPackageImpl extends EPackageImpl implements OlapPackage {
         setNsURI(eNS_URI);
 
         // Obtain other dependent packages
-        TransformationPackage theTransformationPackage = (TransformationPackage)EPackage.Registry.INSTANCE.getEPackage(TransformationPackage.eNS_URI);
-        CorePackage theCorePackage = (CorePackage)EPackage.Registry.INSTANCE.getEPackage(CorePackage.eNS_URI);
-        ExpressionsPackage theExpressionsPackage = (ExpressionsPackage)EPackage.Registry.INSTANCE.getEPackage(ExpressionsPackage.eNS_URI);
+        TransformationPackage theTransformationPackage = (TransformationPackage) EPackage.Registry.INSTANCE
+                .getEPackage(TransformationPackage.eNS_URI);
+        CorePackage theCorePackage = (CorePackage) EPackage.Registry.INSTANCE.getEPackage(CorePackage.eNS_URI);
+        ExpressionsPackage theExpressionsPackage = (ExpressionsPackage) EPackage.Registry.INSTANCE
+                .getEPackage(ExpressionsPackage.eNS_URI);
 
         // Create type parameters
 
@@ -1219,97 +1192,229 @@ public class OlapPackageImpl extends EPackageImpl implements OlapPackage {
 
         // Initialize classes and features; add operations and parameters
         initEClass(contentMapEClass, ContentMap.class, "ContentMap", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getContentMap_CubeDeployment(), this.getCubeDeployment(), this.getCubeDeployment_ContentMap(), "cubeDeployment", null, 1, 1, ContentMap.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getContentMap_CubeDeployment(), this.getCubeDeployment(), this.getCubeDeployment_ContentMap(),
+                "cubeDeployment", null, 1, 1, ContentMap.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+                !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(cubeEClass, Cube.class, "Cube", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getCube_IsVirtual(), theCorePackage.getBoolean(), "isVirtual", null, 0, 1, Cube.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getCube_CubeDimensionAssociation(), this.getCubeDimensionAssociation(), this.getCubeDimensionAssociation_Cube(), "cubeDimensionAssociation", null, 0, -1, Cube.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getCube_Schema(), this.getSchema(), this.getSchema_Cube(), "schema", null, 1, 1, Cube.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getCube_CubeRegion(), this.getCubeRegion(), this.getCubeRegion_Cube(), "cubeRegion", null, 0, -1, Cube.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getCube_IsVirtual(), theCorePackage.getBoolean(), "isVirtual", null, 0, 1, Cube.class, !IS_TRANSIENT,
+                !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getCube_CubeDimensionAssociation(), this.getCubeDimensionAssociation(),
+                this.getCubeDimensionAssociation_Cube(), "cubeDimensionAssociation", null, 0, -1, Cube.class, !IS_TRANSIENT,
+                !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
+        initEReference(getCube_Schema(), this.getSchema(), this.getSchema_Cube(), "schema", null, 1, 1, Cube.class, IS_TRANSIENT,
+                !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
+        initEReference(getCube_CubeRegion(), this.getCubeRegion(), this.getCubeRegion_Cube(), "cubeRegion", null, 0, -1,
+                Cube.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+                IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-        initEClass(cubeDeploymentEClass, CubeDeployment.class, "CubeDeployment", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getCubeDeployment_CubeRegion(), this.getCubeRegion(), this.getCubeRegion_CubeDeployment(), "cubeRegion", null, 1, 1, CubeDeployment.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getCubeDeployment_DeploymentGroup(), this.getDeploymentGroup(), this.getDeploymentGroup_CubeDeployment(), "deploymentGroup", null, 1, 1, CubeDeployment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getCubeDeployment_ContentMap(), this.getContentMap(), this.getContentMap_CubeDeployment(), "contentMap", null, 0, -1, CubeDeployment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(cubeDeploymentEClass, CubeDeployment.class, "CubeDeployment", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getCubeDeployment_CubeRegion(), this.getCubeRegion(), this.getCubeRegion_CubeDeployment(), "cubeRegion",
+                null, 1, 1, CubeDeployment.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getCubeDeployment_DeploymentGroup(), this.getDeploymentGroup(), this.getDeploymentGroup_CubeDeployment(),
+                "deploymentGroup", null, 1, 1, CubeDeployment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+                IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getCubeDeployment_ContentMap(), this.getContentMap(), this.getContentMap_CubeDeployment(), "contentMap",
+                null, 0, -1, CubeDeployment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-        initEClass(cubeDimensionAssociationEClass, CubeDimensionAssociation.class, "CubeDimensionAssociation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getCubeDimensionAssociation_Cube(), this.getCube(), this.getCube_CubeDimensionAssociation(), "cube", null, 1, 1, CubeDimensionAssociation.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getCubeDimensionAssociation_Dimension(), this.getDimension(), this.getDimension_CubeDimensionAssociation(), "dimension", null, 1, 1, CubeDimensionAssociation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getCubeDimensionAssociation_CalcHierarchy(), this.getHierarchy(), this.getHierarchy_CubeDimensionAssociation(), "calcHierarchy", null, 0, 1, CubeDimensionAssociation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(cubeDimensionAssociationEClass, CubeDimensionAssociation.class, "CubeDimensionAssociation", !IS_ABSTRACT,
+                !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getCubeDimensionAssociation_Cube(), this.getCube(), this.getCube_CubeDimensionAssociation(), "cube", null,
+                1, 1, CubeDimensionAssociation.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+                !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getCubeDimensionAssociation_Dimension(), this.getDimension(),
+                this.getDimension_CubeDimensionAssociation(), "dimension", null, 1, 1, CubeDimensionAssociation.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEReference(getCubeDimensionAssociation_CalcHierarchy(), this.getHierarchy(),
+                this.getHierarchy_CubeDimensionAssociation(), "calcHierarchy", null, 0, 1, CubeDimensionAssociation.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
 
         initEClass(cubeRegionEClass, CubeRegion.class, "CubeRegion", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getCubeRegion_IsReadOnly(), theCorePackage.getBoolean(), "isReadOnly", null, 0, 1, CubeRegion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getCubeRegion_IsFullyRealized(), theCorePackage.getBoolean(), "isFullyRealized", null, 0, 1, CubeRegion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getCubeRegion_Cube(), this.getCube(), this.getCube_CubeRegion(), "cube", null, 1, 1, CubeRegion.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getCubeRegion_MemberSelectionGroup(), this.getMemberSelectionGroup(), this.getMemberSelectionGroup_CubeRegion(), "memberSelectionGroup", null, 0, -1, CubeRegion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getCubeRegion_CubeDeployment(), this.getCubeDeployment(), this.getCubeDeployment_CubeRegion(), "cubeDeployment", null, 0, -1, CubeRegion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getCubeRegion_IsReadOnly(), theCorePackage.getBoolean(), "isReadOnly", null, 0, 1, CubeRegion.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getCubeRegion_IsFullyRealized(), theCorePackage.getBoolean(), "isFullyRealized", null, 0, 1,
+                CubeRegion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
+        initEReference(getCubeRegion_Cube(), this.getCube(), this.getCube_CubeRegion(), "cube", null, 1, 1, CubeRegion.class,
+                IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEReference(getCubeRegion_MemberSelectionGroup(), this.getMemberSelectionGroup(),
+                this.getMemberSelectionGroup_CubeRegion(), "memberSelectionGroup", null, 0, -1, CubeRegion.class, !IS_TRANSIENT,
+                !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
+        initEReference(getCubeRegion_CubeDeployment(), this.getCubeDeployment(), this.getCubeDeployment_CubeRegion(),
+                "cubeDeployment", null, 0, -1, CubeRegion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+                !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-        initEClass(deploymentGroupEClass, DeploymentGroup.class, "DeploymentGroup", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getDeploymentGroup_Schema(), this.getSchema(), this.getSchema_DeploymentGroup(), "schema", null, 1, 1, DeploymentGroup.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getDeploymentGroup_CubeDeployment(), this.getCubeDeployment(), this.getCubeDeployment_DeploymentGroup(), "cubeDeployment", null, 0, -1, DeploymentGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getDeploymentGroup_DimensionDeployment(), this.getDimensionDeployment(), this.getDimensionDeployment_DeploymentGroup(), "dimensionDeployment", null, 0, -1, DeploymentGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(deploymentGroupEClass, DeploymentGroup.class, "DeploymentGroup", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getDeploymentGroup_Schema(), this.getSchema(), this.getSchema_DeploymentGroup(), "schema", null, 1, 1,
+                DeploymentGroup.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getDeploymentGroup_CubeDeployment(), this.getCubeDeployment(), this.getCubeDeployment_DeploymentGroup(),
+                "cubeDeployment", null, 0, -1, DeploymentGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+                IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getDeploymentGroup_DimensionDeployment(), this.getDimensionDeployment(),
+                this.getDimensionDeployment_DeploymentGroup(), "dimensionDeployment", null, 0, -1, DeploymentGroup.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
 
         initEClass(dimensionEClass, Dimension.class, "Dimension", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getDimension_IsTime(), theCorePackage.getBoolean(), "isTime", null, 0, 1, Dimension.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getDimension_IsMeasure(), theCorePackage.getBoolean(), "isMeasure", null, 0, 1, Dimension.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getDimension_MemberSelection(), this.getMemberSelection(), this.getMemberSelection_Dimension(), "memberSelection", null, 0, -1, Dimension.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getDimension_CubeDimensionAssociation(), this.getCubeDimensionAssociation(), this.getCubeDimensionAssociation_Dimension(), "cubeDimensionAssociation", null, 0, -1, Dimension.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getDimension_Hierarchy(), this.getHierarchy(), this.getHierarchy_Dimension(), "hierarchy", null, 0, -1, Dimension.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getDimension_DisplayDefault(), this.getHierarchy(), this.getHierarchy_DefaultedDimension(), "displayDefault", null, 0, 1, Dimension.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getDimension_Schema(), this.getSchema(), this.getSchema_Dimension(), "schema", null, 1, 1, Dimension.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getDimension_IsTime(), theCorePackage.getBoolean(), "isTime", null, 0, 1, Dimension.class, !IS_TRANSIENT,
+                !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getDimension_IsMeasure(), theCorePackage.getBoolean(), "isMeasure", null, 0, 1, Dimension.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getDimension_MemberSelection(), this.getMemberSelection(), this.getMemberSelection_Dimension(),
+                "memberSelection", null, 0, -1, Dimension.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+                !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getDimension_CubeDimensionAssociation(), this.getCubeDimensionAssociation(),
+                this.getCubeDimensionAssociation_Dimension(), "cubeDimensionAssociation", null, 0, -1, Dimension.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEReference(getDimension_Hierarchy(), this.getHierarchy(), this.getHierarchy_Dimension(), "hierarchy", null, 0, -1,
+                Dimension.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+                IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getDimension_DisplayDefault(), this.getHierarchy(), this.getHierarchy_DefaultedDimension(),
+                "displayDefault", null, 0, 1, Dimension.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+                IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getDimension_Schema(), this.getSchema(), this.getSchema_Dimension(), "schema", null, 1, 1,
+                Dimension.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+                IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-        initEClass(dimensionDeploymentEClass, DimensionDeployment.class, "DimensionDeployment", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getDimensionDeployment_HierarchyLevelAssociation(), this.getHierarchyLevelAssociation(), this.getHierarchyLevelAssociation_DimensionDeployment(), "hierarchyLevelAssociation", null, 0, 1, DimensionDeployment.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getDimensionDeployment_ValueBasedHierarchy(), this.getValueBasedHierarchy(), this.getValueBasedHierarchy_DimensionDeployment(), "valueBasedHierarchy", null, 0, 1, DimensionDeployment.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getDimensionDeployment_StructureMap(), this.getStructureMap(), this.getStructureMap_DimensionDeployment(), "structureMap", null, 0, -1, DimensionDeployment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getDimensionDeployment_ListOfValues(), this.getStructureMap(), this.getStructureMap_DimensionDeploymentLV(), "listOfValues", null, 0, 1, DimensionDeployment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getDimensionDeployment_ImmediateParent(), this.getStructureMap(), this.getStructureMap_DimensionDeploymentIP(), "immediateParent", null, 0, 1, DimensionDeployment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getDimensionDeployment_DeploymentGroup(), this.getDeploymentGroup(), this.getDeploymentGroup_DimensionDeployment(), "deploymentGroup", null, 1, 1, DimensionDeployment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(dimensionDeploymentEClass, DimensionDeployment.class, "DimensionDeployment", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getDimensionDeployment_HierarchyLevelAssociation(), this.getHierarchyLevelAssociation(),
+                this.getHierarchyLevelAssociation_DimensionDeployment(), "hierarchyLevelAssociation", null, 0, 1,
+                DimensionDeployment.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getDimensionDeployment_ValueBasedHierarchy(), this.getValueBasedHierarchy(),
+                this.getValueBasedHierarchy_DimensionDeployment(), "valueBasedHierarchy", null, 0, 1, DimensionDeployment.class,
+                IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEReference(getDimensionDeployment_StructureMap(), this.getStructureMap(), this.getStructureMap_DimensionDeployment(),
+                "structureMap", null, 0, -1, DimensionDeployment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+                !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getDimensionDeployment_ListOfValues(), this.getStructureMap(),
+                this.getStructureMap_DimensionDeploymentLV(), "listOfValues", null, 0, 1, DimensionDeployment.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEReference(getDimensionDeployment_ImmediateParent(), this.getStructureMap(),
+                this.getStructureMap_DimensionDeploymentIP(), "immediateParent", null, 0, 1, DimensionDeployment.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEReference(getDimensionDeployment_DeploymentGroup(), this.getDeploymentGroup(),
+                this.getDeploymentGroup_DimensionDeployment(), "deploymentGroup", null, 1, 1, DimensionDeployment.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
 
         initEClass(hierarchyEClass, Hierarchy.class, "Hierarchy", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getHierarchy_Dimension(), this.getDimension(), this.getDimension_Hierarchy(), "dimension", null, 1, 1, Hierarchy.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getHierarchy_DefaultedDimension(), this.getDimension(), this.getDimension_DisplayDefault(), "defaultedDimension", null, 0, 1, Hierarchy.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getHierarchy_CubeDimensionAssociation(), this.getCubeDimensionAssociation(), this.getCubeDimensionAssociation_CalcHierarchy(), "cubeDimensionAssociation", null, 0, -1, Hierarchy.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getHierarchy_Dimension(), this.getDimension(), this.getDimension_Hierarchy(), "dimension", null, 1, 1,
+                Hierarchy.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+                IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getHierarchy_DefaultedDimension(), this.getDimension(), this.getDimension_DisplayDefault(),
+                "defaultedDimension", null, 0, 1, Hierarchy.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+                IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getHierarchy_CubeDimensionAssociation(), this.getCubeDimensionAssociation(),
+                this.getCubeDimensionAssociation_CalcHierarchy(), "cubeDimensionAssociation", null, 0, -1, Hierarchy.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
 
-        initEClass(hierarchyLevelAssociationEClass, HierarchyLevelAssociation.class, "HierarchyLevelAssociation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getHierarchyLevelAssociation_LevelBasedHierarchy(), this.getLevelBasedHierarchy(), this.getLevelBasedHierarchy_HierarchyLevelAssociation(), "levelBasedHierarchy", null, 1, 1, HierarchyLevelAssociation.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getHierarchyLevelAssociation_CurrentLevel(), this.getLevel(), this.getLevel_HierarchyLevelAssociation(), "currentLevel", null, 1, 1, HierarchyLevelAssociation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getHierarchyLevelAssociation_DimensionDeployment(), this.getDimensionDeployment(), this.getDimensionDeployment_HierarchyLevelAssociation(), "dimensionDeployment", null, 0, -1, HierarchyLevelAssociation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(hierarchyLevelAssociationEClass, HierarchyLevelAssociation.class, "HierarchyLevelAssociation", !IS_ABSTRACT,
+                !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getHierarchyLevelAssociation_LevelBasedHierarchy(), this.getLevelBasedHierarchy(),
+                this.getLevelBasedHierarchy_HierarchyLevelAssociation(), "levelBasedHierarchy", null, 1, 1,
+                HierarchyLevelAssociation.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getHierarchyLevelAssociation_CurrentLevel(), this.getLevel(), this.getLevel_HierarchyLevelAssociation(),
+                "currentLevel", null, 1, 1, HierarchyLevelAssociation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+                !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getHierarchyLevelAssociation_DimensionDeployment(), this.getDimensionDeployment(),
+                this.getDimensionDeployment_HierarchyLevelAssociation(), "dimensionDeployment", null, 0, -1,
+                HierarchyLevelAssociation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-        initEClass(levelBasedHierarchyEClass, LevelBasedHierarchy.class, "LevelBasedHierarchy", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getLevelBasedHierarchy_HierarchyLevelAssociation(), this.getHierarchyLevelAssociation(), this.getHierarchyLevelAssociation_LevelBasedHierarchy(), "hierarchyLevelAssociation", null, 0, -1, LevelBasedHierarchy.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(levelBasedHierarchyEClass, LevelBasedHierarchy.class, "LevelBasedHierarchy", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getLevelBasedHierarchy_HierarchyLevelAssociation(), this.getHierarchyLevelAssociation(),
+                this.getHierarchyLevelAssociation_LevelBasedHierarchy(), "hierarchyLevelAssociation", null, 0, -1,
+                LevelBasedHierarchy.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-        initEClass(memberSelectionGroupEClass, MemberSelectionGroup.class, "MemberSelectionGroup", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getMemberSelectionGroup_MemberSelection(), this.getMemberSelection(), this.getMemberSelection_MemberSelectionGroup(), "memberSelection", null, 1, -1, MemberSelectionGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getMemberSelectionGroup_CubeRegion(), this.getCubeRegion(), this.getCubeRegion_MemberSelectionGroup(), "cubeRegion", null, 1, 1, MemberSelectionGroup.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(memberSelectionGroupEClass, MemberSelectionGroup.class, "MemberSelectionGroup", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getMemberSelectionGroup_MemberSelection(), this.getMemberSelection(),
+                this.getMemberSelection_MemberSelectionGroup(), "memberSelection", null, 1, -1, MemberSelectionGroup.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEReference(getMemberSelectionGroup_CubeRegion(), this.getCubeRegion(), this.getCubeRegion_MemberSelectionGroup(),
+                "cubeRegion", null, 1, 1, MemberSelectionGroup.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+                !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-        initEClass(memberSelectionEClass, MemberSelection.class, "MemberSelection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getMemberSelection_Dimension(), this.getDimension(), this.getDimension_MemberSelection(), "dimension", null, 1, 1, MemberSelection.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getMemberSelection_MemberSelectionGroup(), this.getMemberSelectionGroup(), this.getMemberSelectionGroup_MemberSelection(), "memberSelectionGroup", null, 0, -1, MemberSelection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(memberSelectionEClass, MemberSelection.class, "MemberSelection", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getMemberSelection_Dimension(), this.getDimension(), this.getDimension_MemberSelection(), "dimension",
+                null, 1, 1, MemberSelection.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getMemberSelection_MemberSelectionGroup(), this.getMemberSelectionGroup(),
+                this.getMemberSelectionGroup_MemberSelection(), "memberSelectionGroup", null, 0, -1, MemberSelection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
 
         initEClass(schemaEClass, Schema.class, "Schema", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getSchema_Cube(), this.getCube(), this.getCube_Schema(), "cube", null, 0, -1, Schema.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getSchema_Dimension(), this.getDimension(), this.getDimension_Schema(), "dimension", null, 0, -1, Schema.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getSchema_DeploymentGroup(), this.getDeploymentGroup(), this.getDeploymentGroup_Schema(), "deploymentGroup", null, 0, -1, Schema.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getSchema_Cube(), this.getCube(), this.getCube_Schema(), "cube", null, 0, -1, Schema.class, !IS_TRANSIENT,
+                !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
+        initEReference(getSchema_Dimension(), this.getDimension(), this.getDimension_Schema(), "dimension", null, 0, -1,
+                Schema.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+                IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getSchema_DeploymentGroup(), this.getDeploymentGroup(), this.getDeploymentGroup_Schema(),
+                "deploymentGroup", null, 0, -1, Schema.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+                !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-        initEClass(valueBasedHierarchyEClass, ValueBasedHierarchy.class, "ValueBasedHierarchy", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getValueBasedHierarchy_DimensionDeployment(), this.getDimensionDeployment(), this.getDimensionDeployment_ValueBasedHierarchy(), "dimensionDeployment", null, 0, -1, ValueBasedHierarchy.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(valueBasedHierarchyEClass, ValueBasedHierarchy.class, "ValueBasedHierarchy", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getValueBasedHierarchy_DimensionDeployment(), this.getDimensionDeployment(),
+                this.getDimensionDeployment_ValueBasedHierarchy(), "dimensionDeployment", null, 0, -1, ValueBasedHierarchy.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
 
         initEClass(levelEClass, Level.class, "Level", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getLevel_HierarchyLevelAssociation(), this.getHierarchyLevelAssociation(), this.getHierarchyLevelAssociation_CurrentLevel(), "hierarchyLevelAssociation", null, 0, -1, Level.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getLevel_HierarchyLevelAssociation(), this.getHierarchyLevelAssociation(),
+                this.getHierarchyLevelAssociation_CurrentLevel(), "hierarchyLevelAssociation", null, 0, -1, Level.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
 
         initEClass(codedLevelEClass, CodedLevel.class, "CodedLevel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getCodedLevel_Encoding(), theExpressionsPackage.getExpressionNode(), null, "encoding", null, 0, 1, CodedLevel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getCodedLevel_Encoding(), theExpressionsPackage.getExpressionNode(), null, "encoding", null, 0, 1,
+                CodedLevel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+                IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(measureEClass, Measure.class, "Measure", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-        initEClass(structureMapEClass, StructureMap.class, "StructureMap", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getStructureMap_DimensionDeployment(), this.getDimensionDeployment(), this.getDimensionDeployment_StructureMap(), "dimensionDeployment", null, 1, 1, StructureMap.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getStructureMap_DimensionDeploymentLV(), this.getDimensionDeployment(), this.getDimensionDeployment_ListOfValues(), "dimensionDeploymentLV", null, 0, 1, StructureMap.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getStructureMap_DimensionDeploymentIP(), this.getDimensionDeployment(), this.getDimensionDeployment_ImmediateParent(), "dimensionDeploymentIP", null, 0, 1, StructureMap.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(structureMapEClass, StructureMap.class, "StructureMap", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getStructureMap_DimensionDeployment(), this.getDimensionDeployment(),
+                this.getDimensionDeployment_StructureMap(), "dimensionDeployment", null, 1, 1, StructureMap.class, IS_TRANSIENT,
+                !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
+        initEReference(getStructureMap_DimensionDeploymentLV(), this.getDimensionDeployment(),
+                this.getDimensionDeployment_ListOfValues(), "dimensionDeploymentLV", null, 0, 1, StructureMap.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEReference(getStructureMap_DimensionDeploymentIP(), this.getDimensionDeployment(),
+                this.getDimensionDeployment_ImmediateParent(), "dimensionDeploymentIP", null, 0, 1, StructureMap.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
 
         // Create resource
         createResource(eNS_URI);
     }
 
-} //OlapPackageImpl
+} // OlapPackageImpl

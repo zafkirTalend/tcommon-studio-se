@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.management.warehouseprocess.events;
@@ -9,9 +8,8 @@ package orgomg.cwm.management.warehouseprocess.events;
 import org.eclipse.emf.common.util.EList;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Custom Calendar</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Custom Calendar</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * A named list of dates and times. 
@@ -29,12 +27,12 @@ import org.eclipse.emf.common.util.EList;
  * @generated
  */
 public interface CustomCalendar extends orgomg.cwm.objectmodel.core.Package {
+
     /**
      * Returns the value of the '<em><b>Custom Calendar Event</b></em>' reference list.
      * The list contents are of type {@link orgomg.cwm.management.warehouseprocess.events.CustomCalendarEvent}.
      * It is bidirectional and its opposite is '{@link orgomg.cwm.management.warehouseprocess.events.CustomCalendarEvent#getCustomCalendar <em>Custom Calendar</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Indicates which event uses this custom calendar.
      * <!-- end-model-doc -->

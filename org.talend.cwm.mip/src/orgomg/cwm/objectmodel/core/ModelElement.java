@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.objectmodel.core;
@@ -19,9 +18,8 @@ import orgomg.cwm.management.warehouseoperation.Measurement;
 import orgomg.cwmx.resource.dmsii.DASDLProperty;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Model Element</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Model Element</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * A model element is an element that is an abstraction drawn from the system being modeled.
@@ -59,13 +57,13 @@ import orgomg.cwmx.resource.dmsii.DASDLProperty;
  * @generated
  */
 public interface ModelElement extends Element {
+
     /**
-     * Returns the value of the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * An identifier for the ModelElement within its containing Namespace.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> An
+     * identifier for the ModelElement within its containing Namespace. <!--
+     * end-model-doc -->
+     * 
      * @return the value of the '<em>Name</em>' attribute.
      * @see #setName(String)
      * @see orgomg.cwm.objectmodel.core.CorePackage#getModelElement_Name()
@@ -77,8 +75,7 @@ public interface ModelElement extends Element {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.objectmodel.core.ModelElement#getName <em>Name</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Name</em>' attribute.
      * @see #getName()
      * @generated
@@ -86,13 +83,13 @@ public interface ModelElement extends Element {
     void setName(String value);
 
     /**
-     * Returns the value of the '<em><b>Visibility</b></em>' attribute.
-     * The literals are from the enumeration {@link orgomg.cwm.objectmodel.core.VisibilityKind}.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Specifies extent of the visibility of the ModelElement within its owning Namespace.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Visibility</b></em>' attribute. The
+     * literals are from the enumeration
+     * {@link orgomg.cwm.objectmodel.core.VisibilityKind}. <!-- begin-user-doc
+     * --> <!-- end-user-doc --> <!-- begin-model-doc --> Specifies extent of
+     * the visibility of the ModelElement within its owning Namespace. <!--
+     * end-model-doc -->
+     * 
      * @return the value of the '<em>Visibility</em>' attribute.
      * @see orgomg.cwm.objectmodel.core.VisibilityKind
      * @see #setVisibility(VisibilityKind)
@@ -104,8 +101,8 @@ public interface ModelElement extends Element {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.objectmodel.core.ModelElement#getVisibility <em>Visibility</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Visibility</em>' attribute.
      * @see orgomg.cwm.objectmodel.core.VisibilityKind
      * @see #getVisibility()
@@ -114,14 +111,14 @@ public interface ModelElement extends Element {
     void setVisibility(VisibilityKind value);
 
     /**
-     * Returns the value of the '<em><b>Client Dependency</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwm.objectmodel.core.Dependency}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.objectmodel.core.Dependency#getClient <em>Client</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies Dependency instances in which the ModelElement acts as a client.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Client Dependency</b></em>' reference
+     * list. The list contents are of type
+     * {@link orgomg.cwm.objectmodel.core.Dependency}. It is bidirectional and
+     * its opposite is '{@link orgomg.cwm.objectmodel.core.Dependency#getClient
+     * <em>Client</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> Identifies Dependency instances in which the
+     * ModelElement acts as a client. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Client Dependency</em>' reference list.
      * @see orgomg.cwm.objectmodel.core.CorePackage#getModelElement_ClientDependency()
      * @see orgomg.cwm.objectmodel.core.Dependency#getClient
@@ -131,14 +128,16 @@ public interface ModelElement extends Element {
     EList<Dependency> getClientDependency();
 
     /**
-     * Returns the value of the '<em><b>Supplier Dependency</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwm.objectmodel.core.Dependency}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.objectmodel.core.Dependency#getSupplier <em>Supplier</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The DependencySupplier association links Dependency instances with ModelElements that act as suppliers in the represented dependency relationship.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Supplier Dependency</b></em>' reference
+     * list. The list contents are of type
+     * {@link orgomg.cwm.objectmodel.core.Dependency}. It is bidirectional and
+     * its opposite is '
+     * {@link orgomg.cwm.objectmodel.core.Dependency#getSupplier
+     * <em>Supplier</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> The DependencySupplier association links Dependency
+     * instances with ModelElements that act as suppliers in the represented
+     * dependency relationship. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Supplier Dependency</em>' reference list.
      * @see orgomg.cwm.objectmodel.core.CorePackage#getModelElement_SupplierDependency()
      * @see orgomg.cwm.objectmodel.core.Dependency#getSupplier
@@ -148,14 +147,15 @@ public interface ModelElement extends Element {
     EList<Dependency> getSupplierDependency();
 
     /**
-     * Returns the value of the '<em><b>Constraint</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwm.objectmodel.core.Constraint}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.objectmodel.core.Constraint#getConstrainedElement <em>Constrained Element</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the Constraint instances that restrict the possible states that a ModelElement may take.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Constraint</b></em>' reference list. The
+     * list contents are of type {@link orgomg.cwm.objectmodel.core.Constraint}.
+     * It is bidirectional and its opposite is '
+     * {@link orgomg.cwm.objectmodel.core.Constraint#getConstrainedElement
+     * <em>Constrained Element</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * --> <!-- begin-model-doc --> Identifies the Constraint instances that
+     * restrict the possible states that a ModelElement may take. <!--
+     * end-model-doc -->
+     * 
      * @return the value of the '<em>Constraint</em>' reference list.
      * @see orgomg.cwm.objectmodel.core.CorePackage#getModelElement_Constraint()
      * @see orgomg.cwm.objectmodel.core.Constraint#getConstrainedElement
@@ -167,8 +167,7 @@ public interface ModelElement extends Element {
     /**
      * Returns the value of the '<em><b>Namespace</b></em>' container reference.
      * It is bidirectional and its opposite is '{@link orgomg.cwm.objectmodel.core.Namespace#getOwnedElement <em>Owned Element</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Identifies the Namespace, if any, that owns the ModelElement.
      * <!-- end-model-doc -->
@@ -183,8 +182,8 @@ public interface ModelElement extends Element {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.objectmodel.core.ModelElement#getNamespace <em>Namespace</em>}' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Namespace</em>' container reference.
      * @see #getNamespace()
      * @generated
@@ -192,14 +191,14 @@ public interface ModelElement extends Element {
     void setNamespace(Namespace value);
 
     /**
-     * Returns the value of the '<em><b>Importer</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwm.objectmodel.core.Package}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.objectmodel.core.Package#getImportedElement <em>Imported Element</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the Packages that import a ModelElement.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Importer</b></em>' reference list. The
+     * list contents are of type {@link orgomg.cwm.objectmodel.core.Package}. It
+     * is bidirectional and its opposite is '
+     * {@link orgomg.cwm.objectmodel.core.Package#getImportedElement
+     * <em>Imported Element</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * --> <!-- begin-model-doc --> Identifies the Packages that import a
+     * ModelElement. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Importer</em>' reference list.
      * @see orgomg.cwm.objectmodel.core.CorePackage#getModelElement_Importer()
      * @see orgomg.cwm.objectmodel.core.Package#getImportedElement
@@ -209,13 +208,13 @@ public interface ModelElement extends Element {
     EList<orgomg.cwm.objectmodel.core.Package> getImporter();
 
     /**
-     * Returns the value of the '<em><b>Stereotype</b></em>' reference.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.objectmodel.core.Stereotype#getExtendedElement <em>Extended Element</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the Stereotype instance that further defines the semantics of the ModelElement.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Stereotype</b></em>' reference. It is
+     * bidirectional and its opposite is '
+     * {@link orgomg.cwm.objectmodel.core.Stereotype#getExtendedElement
+     * <em>Extended Element</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * --> <!-- begin-model-doc --> Identifies the Stereotype instance that
+     * further defines the semantics of the ModelElement. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Stereotype</em>' reference.
      * @see #setStereotype(Stereotype)
      * @see orgomg.cwm.objectmodel.core.CorePackage#getModelElement_Stereotype()
@@ -227,8 +226,8 @@ public interface ModelElement extends Element {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.objectmodel.core.ModelElement#getStereotype <em>Stereotype</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Stereotype</em>' reference.
      * @see #getStereotype()
      * @generated
@@ -239,8 +238,7 @@ public interface ModelElement extends Element {
      * Returns the value of the '<em><b>Tagged Value</b></em>' containment reference list.
      * The list contents are of type {@link orgomg.cwm.objectmodel.core.TaggedValue}.
      * It is bidirectional and its opposite is '{@link orgomg.cwm.objectmodel.core.TaggedValue#getModelElement <em>Model Element</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Identifies the set of TaggedValue instances that extend a ModelElement.
      * <!-- end-model-doc -->
@@ -257,8 +255,7 @@ public interface ModelElement extends Element {
      * Returns the value of the '<em><b>Document</b></em>' reference list.
      * The list contents are of type {@link orgomg.cwm.foundation.businessinformation.Document}.
      * It is bidirectional and its opposite is '{@link orgomg.cwm.foundation.businessinformation.Document#getModelElement <em>Model Element</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Identifies the Document instances relevant to a particular ModelElement.
      * <!-- end-model-doc -->
@@ -274,8 +271,7 @@ public interface ModelElement extends Element {
      * Returns the value of the '<em><b>Description</b></em>' reference list.
      * The list contents are of type {@link orgomg.cwm.foundation.businessinformation.Description}.
      * It is bidirectional and its opposite is '{@link orgomg.cwm.foundation.businessinformation.Description#getModelElement <em>Model Element</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Identifies the Description instances relevant for a particular ModelElement instance.
      * <!-- end-model-doc -->
@@ -291,8 +287,7 @@ public interface ModelElement extends Element {
      * Returns the value of the '<em><b>Responsible Party</b></em>' reference list.
      * The list contents are of type {@link orgomg.cwm.foundation.businessinformation.ResponsibleParty}.
      * It is bidirectional and its opposite is '{@link orgomg.cwm.foundation.businessinformation.ResponsibleParty#getModelElement <em>Model Element</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Identifies the ResponsibleParty instances relevant for a particular ModelElement instance.
      * <!-- end-model-doc -->
@@ -308,8 +303,7 @@ public interface ModelElement extends Element {
      * Returns the value of the '<em><b>Element Node</b></em>' reference list.
      * The list contents are of type {@link orgomg.cwm.foundation.expressions.ElementNode}.
      * It is bidirectional and its opposite is '{@link orgomg.cwm.foundation.expressions.ElementNode#getModelElement <em>Model Element</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Identifies the ElementNode instances that represent a particular ModelElement in expressions.
      * <!-- end-model-doc -->
@@ -322,14 +316,14 @@ public interface ModelElement extends Element {
     EList<ElementNode> getElementNode();
 
     /**
-     * Returns the value of the '<em><b>Set</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwm.analysis.transformation.DataObjectSet}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.analysis.transformation.DataObjectSet#getElement <em>Element</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the DataObjectSet
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Set</b></em>' reference list. The list
+     * contents are of type
+     * {@link orgomg.cwm.analysis.transformation.DataObjectSet}. It is
+     * bidirectional and its opposite is '
+     * {@link orgomg.cwm.analysis.transformation.DataObjectSet#getElement
+     * <em>Element</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> Identifies the DataObjectSet <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Set</em>' reference list.
      * @see orgomg.cwm.objectmodel.core.CorePackage#getModelElement_Set()
      * @see orgomg.cwm.analysis.transformation.DataObjectSet#getElement
@@ -342,8 +336,7 @@ public interface ModelElement extends Element {
      * Returns the value of the '<em><b>Rendered Object</b></em>' reference list.
      * The list contents are of type {@link orgomg.cwm.analysis.informationvisualization.RenderedObject}.
      * It is bidirectional and its opposite is '{@link orgomg.cwm.analysis.informationvisualization.RenderedObject#getModelElement <em>Model Element</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Rendered Objects referencing the Model Element.
      * <!-- end-model-doc -->
@@ -359,8 +352,7 @@ public interface ModelElement extends Element {
      * Returns the value of the '<em><b>Vocabulary Element</b></em>' reference list.
      * The list contents are of type {@link orgomg.cwm.analysis.businessnomenclature.VocabularyElement}.
      * It is bidirectional and its opposite is '{@link orgomg.cwm.analysis.businessnomenclature.VocabularyElement#getModelElement <em>Model Element</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Identifies a VocabularyElement.
      * <!-- end-model-doc -->
@@ -376,8 +368,7 @@ public interface ModelElement extends Element {
      * Returns the value of the '<em><b>Measurement</b></em>' reference list.
      * The list contents are of type {@link orgomg.cwm.management.warehouseoperation.Measurement}.
      * It is bidirectional and its opposite is '{@link orgomg.cwm.management.warehouseoperation.Measurement#getModelElement <em>Model Element</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Identifies a Measurement for a ModelElement.
      * <!-- end-model-doc -->
@@ -393,8 +384,7 @@ public interface ModelElement extends Element {
      * Returns the value of the '<em><b>Change Request</b></em>' reference list.
      * The list contents are of type {@link orgomg.cwm.management.warehouseoperation.ChangeRequest}.
      * It is bidirectional and its opposite is '{@link orgomg.cwm.management.warehouseoperation.ChangeRequest#getModelElement <em>Model Element</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Identifies a ChangeRequest for a ModelElement.
      * <!-- end-model-doc -->
@@ -408,13 +398,14 @@ public interface ModelElement extends Element {
 
     /**
      * Returns the value of the '<em><b>Dasdl Property</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwmx.resource.dmsii.DASDLProperty}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.dmsii.DASDLProperty#getOwner <em>Owner</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the DASDLProperties that apply to a ModelElement.
-     * <!-- end-model-doc -->
+     * The list contents are of type
+     * {@link orgomg.cwmx.resource.dmsii.DASDLProperty}. It is bidirectional and
+     * its opposite is '
+     * {@link orgomg.cwmx.resource.dmsii.DASDLProperty#getOwner <em>Owner</em>}
+     * '. <!-- begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * Identifies the DASDLProperties that apply to a ModelElement. <!--
+     * end-model-doc -->
+     * 
      * @return the value of the '<em>Dasdl Property</em>' reference list.
      * @see orgomg.cwm.objectmodel.core.CorePackage#getModelElement_DasdlProperty()
      * @see orgomg.cwmx.resource.dmsii.DASDLProperty#getOwner

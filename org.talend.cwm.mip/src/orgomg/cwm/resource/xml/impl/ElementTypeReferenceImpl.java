@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.resource.xml.impl;
@@ -23,9 +22,8 @@ import orgomg.cwm.resource.xml.OccurrenceType;
 import orgomg.cwm.resource.xml.XmlPackage;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Element Type Reference</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Element Type Reference</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -37,10 +35,10 @@ import orgomg.cwm.resource.xml.XmlPackage;
  * @generated
  */
 public class ElementTypeReferenceImpl extends AttributeImpl implements ElementTypeReference {
+
     /**
      * The default value of the '{@link #getOccurrence() <em>Occurrence</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getOccurrence()
      * @generated
      * @ordered
@@ -49,8 +47,7 @@ public class ElementTypeReferenceImpl extends AttributeImpl implements ElementTy
 
     /**
      * The cached value of the '{@link #getOccurrence() <em>Occurrence</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getOccurrence()
      * @generated
      * @ordered
@@ -59,8 +56,8 @@ public class ElementTypeReferenceImpl extends AttributeImpl implements ElementTy
 
     /**
      * The cached value of the '{@link #getOwnerContent() <em>Owner Content</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getOwnerContent()
      * @generated
      * @ordered
@@ -68,8 +65,7 @@ public class ElementTypeReferenceImpl extends AttributeImpl implements ElementTy
     protected EList<Content> ownerContent;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected ElementTypeReferenceImpl() {
@@ -77,8 +73,7 @@ public class ElementTypeReferenceImpl extends AttributeImpl implements ElementTy
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -87,8 +82,7 @@ public class ElementTypeReferenceImpl extends AttributeImpl implements ElementTy
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public OccurrenceType getOccurrence() {
@@ -96,136 +90,130 @@ public class ElementTypeReferenceImpl extends AttributeImpl implements ElementTy
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setOccurrence(OccurrenceType newOccurrence) {
         OccurrenceType oldOccurrence = occurrence;
         occurrence = newOccurrence == null ? OCCURRENCE_EDEFAULT : newOccurrence;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, XmlPackage.ELEMENT_TYPE_REFERENCE__OCCURRENCE, oldOccurrence, occurrence));
+            eNotify(new ENotificationImpl(this, Notification.SET, XmlPackage.ELEMENT_TYPE_REFERENCE__OCCURRENCE, oldOccurrence,
+                    occurrence));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<Content> getOwnerContent() {
         if (ownerContent == null) {
-            ownerContent = new EObjectWithInverseResolvingEList.ManyInverse<Content>(Content.class, this, XmlPackage.ELEMENT_TYPE_REFERENCE__OWNER_CONTENT, XmlPackage.CONTENT__OWNED_ELEMENT_TYPE);
+            ownerContent = new EObjectWithInverseResolvingEList.ManyInverse<Content>(Content.class, this,
+                    XmlPackage.ELEMENT_TYPE_REFERENCE__OWNER_CONTENT, XmlPackage.CONTENT__OWNED_ELEMENT_TYPE);
         }
         return ownerContent;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case XmlPackage.ELEMENT_TYPE_REFERENCE__OWNER_CONTENT:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getOwnerContent()).basicAdd(otherEnd, msgs);
+        case XmlPackage.ELEMENT_TYPE_REFERENCE__OWNER_CONTENT:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getOwnerContent()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case XmlPackage.ELEMENT_TYPE_REFERENCE__OWNER_CONTENT:
-                return ((InternalEList<?>)getOwnerContent()).basicRemove(otherEnd, msgs);
+        case XmlPackage.ELEMENT_TYPE_REFERENCE__OWNER_CONTENT:
+            return ((InternalEList<?>) getOwnerContent()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case XmlPackage.ELEMENT_TYPE_REFERENCE__OCCURRENCE:
-                return getOccurrence();
-            case XmlPackage.ELEMENT_TYPE_REFERENCE__OWNER_CONTENT:
-                return getOwnerContent();
+        case XmlPackage.ELEMENT_TYPE_REFERENCE__OCCURRENCE:
+            return getOccurrence();
+        case XmlPackage.ELEMENT_TYPE_REFERENCE__OWNER_CONTENT:
+            return getOwnerContent();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case XmlPackage.ELEMENT_TYPE_REFERENCE__OCCURRENCE:
-                setOccurrence((OccurrenceType)newValue);
-                return;
-            case XmlPackage.ELEMENT_TYPE_REFERENCE__OWNER_CONTENT:
-                getOwnerContent().clear();
-                getOwnerContent().addAll((Collection<? extends Content>)newValue);
-                return;
+        case XmlPackage.ELEMENT_TYPE_REFERENCE__OCCURRENCE:
+            setOccurrence((OccurrenceType) newValue);
+            return;
+        case XmlPackage.ELEMENT_TYPE_REFERENCE__OWNER_CONTENT:
+            getOwnerContent().clear();
+            getOwnerContent().addAll((Collection<? extends Content>) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case XmlPackage.ELEMENT_TYPE_REFERENCE__OCCURRENCE:
-                setOccurrence(OCCURRENCE_EDEFAULT);
-                return;
-            case XmlPackage.ELEMENT_TYPE_REFERENCE__OWNER_CONTENT:
-                getOwnerContent().clear();
-                return;
+        case XmlPackage.ELEMENT_TYPE_REFERENCE__OCCURRENCE:
+            setOccurrence(OCCURRENCE_EDEFAULT);
+            return;
+        case XmlPackage.ELEMENT_TYPE_REFERENCE__OWNER_CONTENT:
+            getOwnerContent().clear();
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case XmlPackage.ELEMENT_TYPE_REFERENCE__OCCURRENCE:
-                return occurrence != OCCURRENCE_EDEFAULT;
-            case XmlPackage.ELEMENT_TYPE_REFERENCE__OWNER_CONTENT:
-                return ownerContent != null && !ownerContent.isEmpty();
+        case XmlPackage.ELEMENT_TYPE_REFERENCE__OCCURRENCE:
+            return occurrence != OCCURRENCE_EDEFAULT;
+        case XmlPackage.ELEMENT_TYPE_REFERENCE__OWNER_CONTENT:
+            return ownerContent != null && !ownerContent.isEmpty();
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (occurrence: ");
@@ -234,4 +222,4 @@ public class ElementTypeReferenceImpl extends AttributeImpl implements ElementTy
         return result.toString();
     }
 
-} //ElementTypeReferenceImpl
+} // ElementTypeReferenceImpl

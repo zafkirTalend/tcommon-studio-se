@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.coboldata.impl;
@@ -25,9 +24,8 @@ import orgomg.cwmx.resource.coboldata.Renames;
 import orgomg.cwmx.resource.coboldata.SignKindType;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>COBOL Field</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>COBOL Field</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -56,10 +54,10 @@ import orgomg.cwmx.resource.coboldata.SignKindType;
  * @generated
  */
 public class COBOLFieldImpl extends COBOLItemImpl implements COBOLField {
+
     /**
      * The default value of the '{@link #getLevel() <em>Level</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getLevel()
      * @generated
      * @ordered
@@ -68,8 +66,7 @@ public class COBOLFieldImpl extends COBOLItemImpl implements COBOLField {
 
     /**
      * The cached value of the '{@link #getLevel() <em>Level</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getLevel()
      * @generated
      * @ordered
@@ -78,8 +75,7 @@ public class COBOLFieldImpl extends COBOLItemImpl implements COBOLField {
 
     /**
      * The default value of the '{@link #getSignKind() <em>Sign Kind</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getSignKind()
      * @generated
      * @ordered
@@ -88,8 +84,7 @@ public class COBOLFieldImpl extends COBOLItemImpl implements COBOLField {
 
     /**
      * The cached value of the '{@link #getSignKind() <em>Sign Kind</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getSignKind()
      * @generated
      * @ordered
@@ -98,8 +93,7 @@ public class COBOLFieldImpl extends COBOLItemImpl implements COBOLField {
 
     /**
      * The default value of the '{@link #isIsFiller() <em>Is Filler</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #isIsFiller()
      * @generated
      * @ordered
@@ -108,8 +102,7 @@ public class COBOLFieldImpl extends COBOLItemImpl implements COBOLField {
 
     /**
      * The cached value of the '{@link #isIsFiller() <em>Is Filler</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #isIsFiller()
      * @generated
      * @ordered
@@ -118,8 +111,8 @@ public class COBOLFieldImpl extends COBOLItemImpl implements COBOLField {
 
     /**
      * The default value of the '{@link #isIsJustifiedRight() <em>Is Justified Right</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #isIsJustifiedRight()
      * @generated
      * @ordered
@@ -128,8 +121,8 @@ public class COBOLFieldImpl extends COBOLItemImpl implements COBOLField {
 
     /**
      * The cached value of the '{@link #isIsJustifiedRight() <em>Is Justified Right</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #isIsJustifiedRight()
      * @generated
      * @ordered
@@ -138,8 +131,8 @@ public class COBOLFieldImpl extends COBOLItemImpl implements COBOLField {
 
     /**
      * The default value of the '{@link #isIsBlankWhenZero() <em>Is Blank When Zero</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #isIsBlankWhenZero()
      * @generated
      * @ordered
@@ -148,8 +141,8 @@ public class COBOLFieldImpl extends COBOLItemImpl implements COBOLField {
 
     /**
      * The cached value of the '{@link #isIsBlankWhenZero() <em>Is Blank When Zero</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #isIsBlankWhenZero()
      * @generated
      * @ordered
@@ -158,8 +151,8 @@ public class COBOLFieldImpl extends COBOLItemImpl implements COBOLField {
 
     /**
      * The default value of the '{@link #isIsSynchronized() <em>Is Synchronized</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #isIsSynchronized()
      * @generated
      * @ordered
@@ -168,8 +161,8 @@ public class COBOLFieldImpl extends COBOLItemImpl implements COBOLField {
 
     /**
      * The cached value of the '{@link #isIsSynchronized() <em>Is Synchronized</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #isIsSynchronized()
      * @generated
      * @ordered
@@ -178,8 +171,7 @@ public class COBOLFieldImpl extends COBOLItemImpl implements COBOLField {
 
     /**
      * The default value of the '{@link #getPicture() <em>Picture</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getPicture()
      * @generated
      * @ordered
@@ -188,8 +180,7 @@ public class COBOLFieldImpl extends COBOLItemImpl implements COBOLField {
 
     /**
      * The cached value of the '{@link #getPicture() <em>Picture</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getPicture()
      * @generated
      * @ordered
@@ -198,8 +189,7 @@ public class COBOLFieldImpl extends COBOLItemImpl implements COBOLField {
 
     /**
      * The default value of the '{@link #getOccursLower() <em>Occurs Lower</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getOccursLower()
      * @generated
      * @ordered
@@ -208,8 +198,7 @@ public class COBOLFieldImpl extends COBOLItemImpl implements COBOLField {
 
     /**
      * The cached value of the '{@link #getOccursLower() <em>Occurs Lower</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getOccursLower()
      * @generated
      * @ordered
@@ -218,8 +207,7 @@ public class COBOLFieldImpl extends COBOLItemImpl implements COBOLField {
 
     /**
      * The default value of the '{@link #getOccursUpper() <em>Occurs Upper</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getOccursUpper()
      * @generated
      * @ordered
@@ -228,8 +216,7 @@ public class COBOLFieldImpl extends COBOLItemImpl implements COBOLField {
 
     /**
      * The cached value of the '{@link #getOccursUpper() <em>Occurs Upper</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getOccursUpper()
      * @generated
      * @ordered
@@ -238,8 +225,7 @@ public class COBOLFieldImpl extends COBOLItemImpl implements COBOLField {
 
     /**
      * The default value of the '{@link #getIndexName() <em>Index Name</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getIndexName()
      * @generated
      * @ordered
@@ -248,8 +234,7 @@ public class COBOLFieldImpl extends COBOLItemImpl implements COBOLField {
 
     /**
      * The cached value of the '{@link #getIndexName() <em>Index Name</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getIndexName()
      * @generated
      * @ordered
@@ -258,8 +243,7 @@ public class COBOLFieldImpl extends COBOLItemImpl implements COBOLField {
 
     /**
      * The default value of the '{@link #isIsExternal() <em>Is External</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #isIsExternal()
      * @generated
      * @ordered
@@ -268,8 +252,7 @@ public class COBOLFieldImpl extends COBOLItemImpl implements COBOLField {
 
     /**
      * The cached value of the '{@link #isIsExternal() <em>Is External</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #isIsExternal()
      * @generated
      * @ordered
@@ -278,8 +261,7 @@ public class COBOLFieldImpl extends COBOLItemImpl implements COBOLField {
 
     /**
      * The default value of the '{@link #isIsGlobal() <em>Is Global</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #isIsGlobal()
      * @generated
      * @ordered
@@ -288,8 +270,7 @@ public class COBOLFieldImpl extends COBOLItemImpl implements COBOLField {
 
     /**
      * The cached value of the '{@link #isIsGlobal() <em>Is Global</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #isIsGlobal()
      * @generated
      * @ordered
@@ -298,8 +279,8 @@ public class COBOLFieldImpl extends COBOLItemImpl implements COBOLField {
 
     /**
      * The cached value of the '{@link #getDependingOnField() <em>Depending On Field</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getDependingOnField()
      * @generated
      * @ordered
@@ -308,8 +289,8 @@ public class COBOLFieldImpl extends COBOLItemImpl implements COBOLField {
 
     /**
      * The cached value of the '{@link #getRedefinedField() <em>Redefined Field</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getRedefinedField()
      * @generated
      * @ordered
@@ -327,9 +308,10 @@ public class COBOLFieldImpl extends COBOLItemImpl implements COBOLField {
     protected EList<COBOLField> redefinedByField;
 
     /**
-     * The cached value of the '{@link #getOccursKeyInfo() <em>Occurs Key Info</em>}' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getOccursKeyInfo()
+     * <em>Occurs Key Info</em>}' containment reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #getOccursKeyInfo()
      * @generated
      * @ordered
@@ -348,8 +330,8 @@ public class COBOLFieldImpl extends COBOLItemImpl implements COBOLField {
 
     /**
      * The cached value of the '{@link #getFirstRenames() <em>First Renames</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getFirstRenames()
      * @generated
      * @ordered
@@ -358,8 +340,7 @@ public class COBOLFieldImpl extends COBOLItemImpl implements COBOLField {
 
     /**
      * The cached value of the '{@link #getThruRenames() <em>Thru Renames</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getThruRenames()
      * @generated
      * @ordered
@@ -367,8 +348,7 @@ public class COBOLFieldImpl extends COBOLItemImpl implements COBOLField {
     protected EList<Renames> thruRenames;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected COBOLFieldImpl() {
@@ -376,8 +356,7 @@ public class COBOLFieldImpl extends COBOLItemImpl implements COBOLField {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -386,8 +365,7 @@ public class COBOLFieldImpl extends COBOLItemImpl implements COBOLField {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public long getLevel() {
@@ -395,8 +373,7 @@ public class COBOLFieldImpl extends COBOLItemImpl implements COBOLField {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setLevel(long newLevel) {
@@ -407,8 +384,7 @@ public class COBOLFieldImpl extends COBOLItemImpl implements COBOLField {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public SignKindType getSignKind() {
@@ -416,8 +392,7 @@ public class COBOLFieldImpl extends COBOLItemImpl implements COBOLField {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setSignKind(SignKindType newSignKind) {
@@ -428,8 +403,7 @@ public class COBOLFieldImpl extends COBOLItemImpl implements COBOLField {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isIsFiller() {
@@ -437,8 +411,7 @@ public class COBOLFieldImpl extends COBOLItemImpl implements COBOLField {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setIsFiller(boolean newIsFiller) {
@@ -449,8 +422,7 @@ public class COBOLFieldImpl extends COBOLItemImpl implements COBOLField {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isIsJustifiedRight() {
@@ -458,20 +430,19 @@ public class COBOLFieldImpl extends COBOLItemImpl implements COBOLField {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setIsJustifiedRight(boolean newIsJustifiedRight) {
         boolean oldIsJustifiedRight = isJustifiedRight;
         isJustifiedRight = newIsJustifiedRight;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, CoboldataPackage.COBOL_FIELD__IS_JUSTIFIED_RIGHT, oldIsJustifiedRight, isJustifiedRight));
+            eNotify(new ENotificationImpl(this, Notification.SET, CoboldataPackage.COBOL_FIELD__IS_JUSTIFIED_RIGHT,
+                    oldIsJustifiedRight, isJustifiedRight));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isIsBlankWhenZero() {
@@ -479,20 +450,19 @@ public class COBOLFieldImpl extends COBOLItemImpl implements COBOLField {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setIsBlankWhenZero(boolean newIsBlankWhenZero) {
         boolean oldIsBlankWhenZero = isBlankWhenZero;
         isBlankWhenZero = newIsBlankWhenZero;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, CoboldataPackage.COBOL_FIELD__IS_BLANK_WHEN_ZERO, oldIsBlankWhenZero, isBlankWhenZero));
+            eNotify(new ENotificationImpl(this, Notification.SET, CoboldataPackage.COBOL_FIELD__IS_BLANK_WHEN_ZERO,
+                    oldIsBlankWhenZero, isBlankWhenZero));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isIsSynchronized() {
@@ -500,20 +470,19 @@ public class COBOLFieldImpl extends COBOLItemImpl implements COBOLField {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setIsSynchronized(boolean newIsSynchronized) {
         boolean oldIsSynchronized = isSynchronized;
         isSynchronized = newIsSynchronized;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, CoboldataPackage.COBOL_FIELD__IS_SYNCHRONIZED, oldIsSynchronized, isSynchronized));
+            eNotify(new ENotificationImpl(this, Notification.SET, CoboldataPackage.COBOL_FIELD__IS_SYNCHRONIZED,
+                    oldIsSynchronized, isSynchronized));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getPicture() {
@@ -521,8 +490,7 @@ public class COBOLFieldImpl extends COBOLItemImpl implements COBOLField {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setPicture(String newPicture) {
@@ -533,8 +501,7 @@ public class COBOLFieldImpl extends COBOLItemImpl implements COBOLField {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public long getOccursLower() {
@@ -542,20 +509,19 @@ public class COBOLFieldImpl extends COBOLItemImpl implements COBOLField {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setOccursLower(long newOccursLower) {
         long oldOccursLower = occursLower;
         occursLower = newOccursLower;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, CoboldataPackage.COBOL_FIELD__OCCURS_LOWER, oldOccursLower, occursLower));
+            eNotify(new ENotificationImpl(this, Notification.SET, CoboldataPackage.COBOL_FIELD__OCCURS_LOWER, oldOccursLower,
+                    occursLower));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public long getOccursUpper() {
@@ -563,20 +529,19 @@ public class COBOLFieldImpl extends COBOLItemImpl implements COBOLField {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setOccursUpper(long newOccursUpper) {
         long oldOccursUpper = occursUpper;
         occursUpper = newOccursUpper;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, CoboldataPackage.COBOL_FIELD__OCCURS_UPPER, oldOccursUpper, occursUpper));
+            eNotify(new ENotificationImpl(this, Notification.SET, CoboldataPackage.COBOL_FIELD__OCCURS_UPPER, oldOccursUpper,
+                    occursUpper));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getIndexName() {
@@ -584,20 +549,19 @@ public class COBOLFieldImpl extends COBOLItemImpl implements COBOLField {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setIndexName(String newIndexName) {
         String oldIndexName = indexName;
         indexName = newIndexName;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, CoboldataPackage.COBOL_FIELD__INDEX_NAME, oldIndexName, indexName));
+            eNotify(new ENotificationImpl(this, Notification.SET, CoboldataPackage.COBOL_FIELD__INDEX_NAME, oldIndexName,
+                    indexName));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isIsExternal() {
@@ -605,20 +569,19 @@ public class COBOLFieldImpl extends COBOLItemImpl implements COBOLField {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setIsExternal(boolean newIsExternal) {
         boolean oldIsExternal = isExternal;
         isExternal = newIsExternal;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, CoboldataPackage.COBOL_FIELD__IS_EXTERNAL, oldIsExternal, isExternal));
+            eNotify(new ENotificationImpl(this, Notification.SET, CoboldataPackage.COBOL_FIELD__IS_EXTERNAL, oldIsExternal,
+                    isExternal));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isIsGlobal() {
@@ -626,8 +589,7 @@ public class COBOLFieldImpl extends COBOLItemImpl implements COBOLField {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setIsGlobal(boolean newIsGlobal) {
@@ -638,25 +600,24 @@ public class COBOLFieldImpl extends COBOLItemImpl implements COBOLField {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public COBOLItem getDependingOnField() {
         if (dependingOnField != null && dependingOnField.eIsProxy()) {
-            InternalEObject oldDependingOnField = (InternalEObject)dependingOnField;
-            dependingOnField = (COBOLItem)eResolveProxy(oldDependingOnField);
+            InternalEObject oldDependingOnField = (InternalEObject) dependingOnField;
+            dependingOnField = (COBOLItem) eResolveProxy(oldDependingOnField);
             if (dependingOnField != oldDependingOnField) {
                 if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, CoboldataPackage.COBOL_FIELD__DEPENDING_ON_FIELD, oldDependingOnField, dependingOnField));
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, CoboldataPackage.COBOL_FIELD__DEPENDING_ON_FIELD,
+                            oldDependingOnField, dependingOnField));
             }
         }
         return dependingOnField;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public COBOLItem basicGetDependingOnField() {
@@ -664,59 +625,63 @@ public class COBOLFieldImpl extends COBOLItemImpl implements COBOLField {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public NotificationChain basicSetDependingOnField(COBOLItem newDependingOnField, NotificationChain msgs) {
         COBOLItem oldDependingOnField = dependingOnField;
         dependingOnField = newDependingOnField;
         if (eNotificationRequired()) {
-            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CoboldataPackage.COBOL_FIELD__DEPENDING_ON_FIELD, oldDependingOnField, newDependingOnField);
-            if (msgs == null) msgs = notification; else msgs.add(notification);
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+                    CoboldataPackage.COBOL_FIELD__DEPENDING_ON_FIELD, oldDependingOnField, newDependingOnField);
+            if (msgs == null)
+                msgs = notification;
+            else
+                msgs.add(notification);
         }
         return msgs;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setDependingOnField(COBOLItem newDependingOnField) {
         if (newDependingOnField != dependingOnField) {
             NotificationChain msgs = null;
             if (dependingOnField != null)
-                msgs = ((InternalEObject)dependingOnField).eInverseRemove(this, CoboldataPackage.COBOL_ITEM__OCCURRING_FIELD, COBOLItem.class, msgs);
+                msgs = ((InternalEObject) dependingOnField).eInverseRemove(this, CoboldataPackage.COBOL_ITEM__OCCURRING_FIELD,
+                        COBOLItem.class, msgs);
             if (newDependingOnField != null)
-                msgs = ((InternalEObject)newDependingOnField).eInverseAdd(this, CoboldataPackage.COBOL_ITEM__OCCURRING_FIELD, COBOLItem.class, msgs);
+                msgs = ((InternalEObject) newDependingOnField).eInverseAdd(this, CoboldataPackage.COBOL_ITEM__OCCURRING_FIELD,
+                        COBOLItem.class, msgs);
             msgs = basicSetDependingOnField(newDependingOnField, msgs);
-            if (msgs != null) msgs.dispatch();
-        }
-        else if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, CoboldataPackage.COBOL_FIELD__DEPENDING_ON_FIELD, newDependingOnField, newDependingOnField));
+            if (msgs != null)
+                msgs.dispatch();
+        } else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, CoboldataPackage.COBOL_FIELD__DEPENDING_ON_FIELD,
+                    newDependingOnField, newDependingOnField));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public COBOLField getRedefinedField() {
         if (redefinedField != null && redefinedField.eIsProxy()) {
-            InternalEObject oldRedefinedField = (InternalEObject)redefinedField;
-            redefinedField = (COBOLField)eResolveProxy(oldRedefinedField);
+            InternalEObject oldRedefinedField = (InternalEObject) redefinedField;
+            redefinedField = (COBOLField) eResolveProxy(oldRedefinedField);
             if (redefinedField != oldRedefinedField) {
                 if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, CoboldataPackage.COBOL_FIELD__REDEFINED_FIELD, oldRedefinedField, redefinedField));
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, CoboldataPackage.COBOL_FIELD__REDEFINED_FIELD,
+                            oldRedefinedField, redefinedField));
             }
         }
         return redefinedField;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public COBOLField basicGetRedefinedField() {
@@ -724,410 +689,413 @@ public class COBOLFieldImpl extends COBOLItemImpl implements COBOLField {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public NotificationChain basicSetRedefinedField(COBOLField newRedefinedField, NotificationChain msgs) {
         COBOLField oldRedefinedField = redefinedField;
         redefinedField = newRedefinedField;
         if (eNotificationRequired()) {
-            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CoboldataPackage.COBOL_FIELD__REDEFINED_FIELD, oldRedefinedField, newRedefinedField);
-            if (msgs == null) msgs = notification; else msgs.add(notification);
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+                    CoboldataPackage.COBOL_FIELD__REDEFINED_FIELD, oldRedefinedField, newRedefinedField);
+            if (msgs == null)
+                msgs = notification;
+            else
+                msgs.add(notification);
         }
         return msgs;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setRedefinedField(COBOLField newRedefinedField) {
         if (newRedefinedField != redefinedField) {
             NotificationChain msgs = null;
             if (redefinedField != null)
-                msgs = ((InternalEObject)redefinedField).eInverseRemove(this, CoboldataPackage.COBOL_FIELD__REDEFINED_BY_FIELD, COBOLField.class, msgs);
+                msgs = ((InternalEObject) redefinedField).eInverseRemove(this, CoboldataPackage.COBOL_FIELD__REDEFINED_BY_FIELD,
+                        COBOLField.class, msgs);
             if (newRedefinedField != null)
-                msgs = ((InternalEObject)newRedefinedField).eInverseAdd(this, CoboldataPackage.COBOL_FIELD__REDEFINED_BY_FIELD, COBOLField.class, msgs);
+                msgs = ((InternalEObject) newRedefinedField).eInverseAdd(this, CoboldataPackage.COBOL_FIELD__REDEFINED_BY_FIELD,
+                        COBOLField.class, msgs);
             msgs = basicSetRedefinedField(newRedefinedField, msgs);
-            if (msgs != null) msgs.dispatch();
-        }
-        else if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, CoboldataPackage.COBOL_FIELD__REDEFINED_FIELD, newRedefinedField, newRedefinedField));
+            if (msgs != null)
+                msgs.dispatch();
+        } else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, CoboldataPackage.COBOL_FIELD__REDEFINED_FIELD,
+                    newRedefinedField, newRedefinedField));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<COBOLField> getRedefinedByField() {
         if (redefinedByField == null) {
-            redefinedByField = new EObjectWithInverseResolvingEList<COBOLField>(COBOLField.class, this, CoboldataPackage.COBOL_FIELD__REDEFINED_BY_FIELD, CoboldataPackage.COBOL_FIELD__REDEFINED_FIELD);
+            redefinedByField = new EObjectWithInverseResolvingEList<COBOLField>(COBOLField.class, this,
+                    CoboldataPackage.COBOL_FIELD__REDEFINED_BY_FIELD, CoboldataPackage.COBOL_FIELD__REDEFINED_FIELD);
         }
         return redefinedByField;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<OccursKey> getOccursKeyInfo() {
         if (occursKeyInfo == null) {
-            occursKeyInfo = new EObjectContainmentWithInverseEList<OccursKey>(OccursKey.class, this, CoboldataPackage.COBOL_FIELD__OCCURS_KEY_INFO, CoboldataPackage.OCCURS_KEY__OCCURS_KEY_OF);
+            occursKeyInfo = new EObjectContainmentWithInverseEList<OccursKey>(OccursKey.class, this,
+                    CoboldataPackage.COBOL_FIELD__OCCURS_KEY_INFO, CoboldataPackage.OCCURS_KEY__OCCURS_KEY_OF);
         }
         return occursKeyInfo;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<OccursKey> getOccursKeyFieldInfo() {
         if (occursKeyFieldInfo == null) {
-            occursKeyFieldInfo = new EObjectWithInverseResolvingEList<OccursKey>(OccursKey.class, this, CoboldataPackage.COBOL_FIELD__OCCURS_KEY_FIELD_INFO, CoboldataPackage.OCCURS_KEY__OCCURS_KEY_FIELD);
+            occursKeyFieldInfo = new EObjectWithInverseResolvingEList<OccursKey>(OccursKey.class, this,
+                    CoboldataPackage.COBOL_FIELD__OCCURS_KEY_FIELD_INFO, CoboldataPackage.OCCURS_KEY__OCCURS_KEY_FIELD);
         }
         return occursKeyFieldInfo;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<Renames> getFirstRenames() {
         if (firstRenames == null) {
-            firstRenames = new EObjectWithInverseResolvingEList<Renames>(Renames.class, this, CoboldataPackage.COBOL_FIELD__FIRST_RENAMES, CoboldataPackage.RENAMES__FIRST_FIELD);
+            firstRenames = new EObjectWithInverseResolvingEList<Renames>(Renames.class, this,
+                    CoboldataPackage.COBOL_FIELD__FIRST_RENAMES, CoboldataPackage.RENAMES__FIRST_FIELD);
         }
         return firstRenames;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<Renames> getThruRenames() {
         if (thruRenames == null) {
-            thruRenames = new EObjectWithInverseResolvingEList<Renames>(Renames.class, this, CoboldataPackage.COBOL_FIELD__THRU_RENAMES, CoboldataPackage.RENAMES__THRU_FIELD);
+            thruRenames = new EObjectWithInverseResolvingEList<Renames>(Renames.class, this,
+                    CoboldataPackage.COBOL_FIELD__THRU_RENAMES, CoboldataPackage.RENAMES__THRU_FIELD);
         }
         return thruRenames;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case CoboldataPackage.COBOL_FIELD__DEPENDING_ON_FIELD:
-                if (dependingOnField != null)
-                    msgs = ((InternalEObject)dependingOnField).eInverseRemove(this, CoboldataPackage.COBOL_ITEM__OCCURRING_FIELD, COBOLItem.class, msgs);
-                return basicSetDependingOnField((COBOLItem)otherEnd, msgs);
-            case CoboldataPackage.COBOL_FIELD__REDEFINED_FIELD:
-                if (redefinedField != null)
-                    msgs = ((InternalEObject)redefinedField).eInverseRemove(this, CoboldataPackage.COBOL_FIELD__REDEFINED_BY_FIELD, COBOLField.class, msgs);
-                return basicSetRedefinedField((COBOLField)otherEnd, msgs);
-            case CoboldataPackage.COBOL_FIELD__REDEFINED_BY_FIELD:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getRedefinedByField()).basicAdd(otherEnd, msgs);
-            case CoboldataPackage.COBOL_FIELD__OCCURS_KEY_INFO:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getOccursKeyInfo()).basicAdd(otherEnd, msgs);
-            case CoboldataPackage.COBOL_FIELD__OCCURS_KEY_FIELD_INFO:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getOccursKeyFieldInfo()).basicAdd(otherEnd, msgs);
-            case CoboldataPackage.COBOL_FIELD__FIRST_RENAMES:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getFirstRenames()).basicAdd(otherEnd, msgs);
-            case CoboldataPackage.COBOL_FIELD__THRU_RENAMES:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getThruRenames()).basicAdd(otherEnd, msgs);
+        case CoboldataPackage.COBOL_FIELD__DEPENDING_ON_FIELD:
+            if (dependingOnField != null)
+                msgs = ((InternalEObject) dependingOnField).eInverseRemove(this, CoboldataPackage.COBOL_ITEM__OCCURRING_FIELD,
+                        COBOLItem.class, msgs);
+            return basicSetDependingOnField((COBOLItem) otherEnd, msgs);
+        case CoboldataPackage.COBOL_FIELD__REDEFINED_FIELD:
+            if (redefinedField != null)
+                msgs = ((InternalEObject) redefinedField).eInverseRemove(this, CoboldataPackage.COBOL_FIELD__REDEFINED_BY_FIELD,
+                        COBOLField.class, msgs);
+            return basicSetRedefinedField((COBOLField) otherEnd, msgs);
+        case CoboldataPackage.COBOL_FIELD__REDEFINED_BY_FIELD:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getRedefinedByField()).basicAdd(otherEnd, msgs);
+        case CoboldataPackage.COBOL_FIELD__OCCURS_KEY_INFO:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getOccursKeyInfo()).basicAdd(otherEnd, msgs);
+        case CoboldataPackage.COBOL_FIELD__OCCURS_KEY_FIELD_INFO:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getOccursKeyFieldInfo()).basicAdd(otherEnd, msgs);
+        case CoboldataPackage.COBOL_FIELD__FIRST_RENAMES:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getFirstRenames()).basicAdd(otherEnd, msgs);
+        case CoboldataPackage.COBOL_FIELD__THRU_RENAMES:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getThruRenames()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case CoboldataPackage.COBOL_FIELD__DEPENDING_ON_FIELD:
-                return basicSetDependingOnField(null, msgs);
-            case CoboldataPackage.COBOL_FIELD__REDEFINED_FIELD:
-                return basicSetRedefinedField(null, msgs);
-            case CoboldataPackage.COBOL_FIELD__REDEFINED_BY_FIELD:
-                return ((InternalEList<?>)getRedefinedByField()).basicRemove(otherEnd, msgs);
-            case CoboldataPackage.COBOL_FIELD__OCCURS_KEY_INFO:
-                return ((InternalEList<?>)getOccursKeyInfo()).basicRemove(otherEnd, msgs);
-            case CoboldataPackage.COBOL_FIELD__OCCURS_KEY_FIELD_INFO:
-                return ((InternalEList<?>)getOccursKeyFieldInfo()).basicRemove(otherEnd, msgs);
-            case CoboldataPackage.COBOL_FIELD__FIRST_RENAMES:
-                return ((InternalEList<?>)getFirstRenames()).basicRemove(otherEnd, msgs);
-            case CoboldataPackage.COBOL_FIELD__THRU_RENAMES:
-                return ((InternalEList<?>)getThruRenames()).basicRemove(otherEnd, msgs);
+        case CoboldataPackage.COBOL_FIELD__DEPENDING_ON_FIELD:
+            return basicSetDependingOnField(null, msgs);
+        case CoboldataPackage.COBOL_FIELD__REDEFINED_FIELD:
+            return basicSetRedefinedField(null, msgs);
+        case CoboldataPackage.COBOL_FIELD__REDEFINED_BY_FIELD:
+            return ((InternalEList<?>) getRedefinedByField()).basicRemove(otherEnd, msgs);
+        case CoboldataPackage.COBOL_FIELD__OCCURS_KEY_INFO:
+            return ((InternalEList<?>) getOccursKeyInfo()).basicRemove(otherEnd, msgs);
+        case CoboldataPackage.COBOL_FIELD__OCCURS_KEY_FIELD_INFO:
+            return ((InternalEList<?>) getOccursKeyFieldInfo()).basicRemove(otherEnd, msgs);
+        case CoboldataPackage.COBOL_FIELD__FIRST_RENAMES:
+            return ((InternalEList<?>) getFirstRenames()).basicRemove(otherEnd, msgs);
+        case CoboldataPackage.COBOL_FIELD__THRU_RENAMES:
+            return ((InternalEList<?>) getThruRenames()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case CoboldataPackage.COBOL_FIELD__LEVEL:
-                return getLevel();
-            case CoboldataPackage.COBOL_FIELD__SIGN_KIND:
-                return getSignKind();
-            case CoboldataPackage.COBOL_FIELD__IS_FILLER:
-                return isIsFiller();
-            case CoboldataPackage.COBOL_FIELD__IS_JUSTIFIED_RIGHT:
-                return isIsJustifiedRight();
-            case CoboldataPackage.COBOL_FIELD__IS_BLANK_WHEN_ZERO:
-                return isIsBlankWhenZero();
-            case CoboldataPackage.COBOL_FIELD__IS_SYNCHRONIZED:
-                return isIsSynchronized();
-            case CoboldataPackage.COBOL_FIELD__PICTURE:
-                return getPicture();
-            case CoboldataPackage.COBOL_FIELD__OCCURS_LOWER:
-                return getOccursLower();
-            case CoboldataPackage.COBOL_FIELD__OCCURS_UPPER:
-                return getOccursUpper();
-            case CoboldataPackage.COBOL_FIELD__INDEX_NAME:
-                return getIndexName();
-            case CoboldataPackage.COBOL_FIELD__IS_EXTERNAL:
-                return isIsExternal();
-            case CoboldataPackage.COBOL_FIELD__IS_GLOBAL:
-                return isIsGlobal();
-            case CoboldataPackage.COBOL_FIELD__DEPENDING_ON_FIELD:
-                if (resolve) return getDependingOnField();
-                return basicGetDependingOnField();
-            case CoboldataPackage.COBOL_FIELD__REDEFINED_FIELD:
-                if (resolve) return getRedefinedField();
-                return basicGetRedefinedField();
-            case CoboldataPackage.COBOL_FIELD__REDEFINED_BY_FIELD:
-                return getRedefinedByField();
-            case CoboldataPackage.COBOL_FIELD__OCCURS_KEY_INFO:
-                return getOccursKeyInfo();
-            case CoboldataPackage.COBOL_FIELD__OCCURS_KEY_FIELD_INFO:
-                return getOccursKeyFieldInfo();
-            case CoboldataPackage.COBOL_FIELD__FIRST_RENAMES:
-                return getFirstRenames();
-            case CoboldataPackage.COBOL_FIELD__THRU_RENAMES:
-                return getThruRenames();
+        case CoboldataPackage.COBOL_FIELD__LEVEL:
+            return getLevel();
+        case CoboldataPackage.COBOL_FIELD__SIGN_KIND:
+            return getSignKind();
+        case CoboldataPackage.COBOL_FIELD__IS_FILLER:
+            return isIsFiller();
+        case CoboldataPackage.COBOL_FIELD__IS_JUSTIFIED_RIGHT:
+            return isIsJustifiedRight();
+        case CoboldataPackage.COBOL_FIELD__IS_BLANK_WHEN_ZERO:
+            return isIsBlankWhenZero();
+        case CoboldataPackage.COBOL_FIELD__IS_SYNCHRONIZED:
+            return isIsSynchronized();
+        case CoboldataPackage.COBOL_FIELD__PICTURE:
+            return getPicture();
+        case CoboldataPackage.COBOL_FIELD__OCCURS_LOWER:
+            return getOccursLower();
+        case CoboldataPackage.COBOL_FIELD__OCCURS_UPPER:
+            return getOccursUpper();
+        case CoboldataPackage.COBOL_FIELD__INDEX_NAME:
+            return getIndexName();
+        case CoboldataPackage.COBOL_FIELD__IS_EXTERNAL:
+            return isIsExternal();
+        case CoboldataPackage.COBOL_FIELD__IS_GLOBAL:
+            return isIsGlobal();
+        case CoboldataPackage.COBOL_FIELD__DEPENDING_ON_FIELD:
+            if (resolve)
+                return getDependingOnField();
+            return basicGetDependingOnField();
+        case CoboldataPackage.COBOL_FIELD__REDEFINED_FIELD:
+            if (resolve)
+                return getRedefinedField();
+            return basicGetRedefinedField();
+        case CoboldataPackage.COBOL_FIELD__REDEFINED_BY_FIELD:
+            return getRedefinedByField();
+        case CoboldataPackage.COBOL_FIELD__OCCURS_KEY_INFO:
+            return getOccursKeyInfo();
+        case CoboldataPackage.COBOL_FIELD__OCCURS_KEY_FIELD_INFO:
+            return getOccursKeyFieldInfo();
+        case CoboldataPackage.COBOL_FIELD__FIRST_RENAMES:
+            return getFirstRenames();
+        case CoboldataPackage.COBOL_FIELD__THRU_RENAMES:
+            return getThruRenames();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case CoboldataPackage.COBOL_FIELD__LEVEL:
-                setLevel((Long)newValue);
-                return;
-            case CoboldataPackage.COBOL_FIELD__SIGN_KIND:
-                setSignKind((SignKindType)newValue);
-                return;
-            case CoboldataPackage.COBOL_FIELD__IS_FILLER:
-                setIsFiller((Boolean)newValue);
-                return;
-            case CoboldataPackage.COBOL_FIELD__IS_JUSTIFIED_RIGHT:
-                setIsJustifiedRight((Boolean)newValue);
-                return;
-            case CoboldataPackage.COBOL_FIELD__IS_BLANK_WHEN_ZERO:
-                setIsBlankWhenZero((Boolean)newValue);
-                return;
-            case CoboldataPackage.COBOL_FIELD__IS_SYNCHRONIZED:
-                setIsSynchronized((Boolean)newValue);
-                return;
-            case CoboldataPackage.COBOL_FIELD__PICTURE:
-                setPicture((String)newValue);
-                return;
-            case CoboldataPackage.COBOL_FIELD__OCCURS_LOWER:
-                setOccursLower((Long)newValue);
-                return;
-            case CoboldataPackage.COBOL_FIELD__OCCURS_UPPER:
-                setOccursUpper((Long)newValue);
-                return;
-            case CoboldataPackage.COBOL_FIELD__INDEX_NAME:
-                setIndexName((String)newValue);
-                return;
-            case CoboldataPackage.COBOL_FIELD__IS_EXTERNAL:
-                setIsExternal((Boolean)newValue);
-                return;
-            case CoboldataPackage.COBOL_FIELD__IS_GLOBAL:
-                setIsGlobal((Boolean)newValue);
-                return;
-            case CoboldataPackage.COBOL_FIELD__DEPENDING_ON_FIELD:
-                setDependingOnField((COBOLItem)newValue);
-                return;
-            case CoboldataPackage.COBOL_FIELD__REDEFINED_FIELD:
-                setRedefinedField((COBOLField)newValue);
-                return;
-            case CoboldataPackage.COBOL_FIELD__REDEFINED_BY_FIELD:
-                getRedefinedByField().clear();
-                getRedefinedByField().addAll((Collection<? extends COBOLField>)newValue);
-                return;
-            case CoboldataPackage.COBOL_FIELD__OCCURS_KEY_INFO:
-                getOccursKeyInfo().clear();
-                getOccursKeyInfo().addAll((Collection<? extends OccursKey>)newValue);
-                return;
-            case CoboldataPackage.COBOL_FIELD__OCCURS_KEY_FIELD_INFO:
-                getOccursKeyFieldInfo().clear();
-                getOccursKeyFieldInfo().addAll((Collection<? extends OccursKey>)newValue);
-                return;
-            case CoboldataPackage.COBOL_FIELD__FIRST_RENAMES:
-                getFirstRenames().clear();
-                getFirstRenames().addAll((Collection<? extends Renames>)newValue);
-                return;
-            case CoboldataPackage.COBOL_FIELD__THRU_RENAMES:
-                getThruRenames().clear();
-                getThruRenames().addAll((Collection<? extends Renames>)newValue);
-                return;
+        case CoboldataPackage.COBOL_FIELD__LEVEL:
+            setLevel((Long) newValue);
+            return;
+        case CoboldataPackage.COBOL_FIELD__SIGN_KIND:
+            setSignKind((SignKindType) newValue);
+            return;
+        case CoboldataPackage.COBOL_FIELD__IS_FILLER:
+            setIsFiller((Boolean) newValue);
+            return;
+        case CoboldataPackage.COBOL_FIELD__IS_JUSTIFIED_RIGHT:
+            setIsJustifiedRight((Boolean) newValue);
+            return;
+        case CoboldataPackage.COBOL_FIELD__IS_BLANK_WHEN_ZERO:
+            setIsBlankWhenZero((Boolean) newValue);
+            return;
+        case CoboldataPackage.COBOL_FIELD__IS_SYNCHRONIZED:
+            setIsSynchronized((Boolean) newValue);
+            return;
+        case CoboldataPackage.COBOL_FIELD__PICTURE:
+            setPicture((String) newValue);
+            return;
+        case CoboldataPackage.COBOL_FIELD__OCCURS_LOWER:
+            setOccursLower((Long) newValue);
+            return;
+        case CoboldataPackage.COBOL_FIELD__OCCURS_UPPER:
+            setOccursUpper((Long) newValue);
+            return;
+        case CoboldataPackage.COBOL_FIELD__INDEX_NAME:
+            setIndexName((String) newValue);
+            return;
+        case CoboldataPackage.COBOL_FIELD__IS_EXTERNAL:
+            setIsExternal((Boolean) newValue);
+            return;
+        case CoboldataPackage.COBOL_FIELD__IS_GLOBAL:
+            setIsGlobal((Boolean) newValue);
+            return;
+        case CoboldataPackage.COBOL_FIELD__DEPENDING_ON_FIELD:
+            setDependingOnField((COBOLItem) newValue);
+            return;
+        case CoboldataPackage.COBOL_FIELD__REDEFINED_FIELD:
+            setRedefinedField((COBOLField) newValue);
+            return;
+        case CoboldataPackage.COBOL_FIELD__REDEFINED_BY_FIELD:
+            getRedefinedByField().clear();
+            getRedefinedByField().addAll((Collection<? extends COBOLField>) newValue);
+            return;
+        case CoboldataPackage.COBOL_FIELD__OCCURS_KEY_INFO:
+            getOccursKeyInfo().clear();
+            getOccursKeyInfo().addAll((Collection<? extends OccursKey>) newValue);
+            return;
+        case CoboldataPackage.COBOL_FIELD__OCCURS_KEY_FIELD_INFO:
+            getOccursKeyFieldInfo().clear();
+            getOccursKeyFieldInfo().addAll((Collection<? extends OccursKey>) newValue);
+            return;
+        case CoboldataPackage.COBOL_FIELD__FIRST_RENAMES:
+            getFirstRenames().clear();
+            getFirstRenames().addAll((Collection<? extends Renames>) newValue);
+            return;
+        case CoboldataPackage.COBOL_FIELD__THRU_RENAMES:
+            getThruRenames().clear();
+            getThruRenames().addAll((Collection<? extends Renames>) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case CoboldataPackage.COBOL_FIELD__LEVEL:
-                setLevel(LEVEL_EDEFAULT);
-                return;
-            case CoboldataPackage.COBOL_FIELD__SIGN_KIND:
-                setSignKind(SIGN_KIND_EDEFAULT);
-                return;
-            case CoboldataPackage.COBOL_FIELD__IS_FILLER:
-                setIsFiller(IS_FILLER_EDEFAULT);
-                return;
-            case CoboldataPackage.COBOL_FIELD__IS_JUSTIFIED_RIGHT:
-                setIsJustifiedRight(IS_JUSTIFIED_RIGHT_EDEFAULT);
-                return;
-            case CoboldataPackage.COBOL_FIELD__IS_BLANK_WHEN_ZERO:
-                setIsBlankWhenZero(IS_BLANK_WHEN_ZERO_EDEFAULT);
-                return;
-            case CoboldataPackage.COBOL_FIELD__IS_SYNCHRONIZED:
-                setIsSynchronized(IS_SYNCHRONIZED_EDEFAULT);
-                return;
-            case CoboldataPackage.COBOL_FIELD__PICTURE:
-                setPicture(PICTURE_EDEFAULT);
-                return;
-            case CoboldataPackage.COBOL_FIELD__OCCURS_LOWER:
-                setOccursLower(OCCURS_LOWER_EDEFAULT);
-                return;
-            case CoboldataPackage.COBOL_FIELD__OCCURS_UPPER:
-                setOccursUpper(OCCURS_UPPER_EDEFAULT);
-                return;
-            case CoboldataPackage.COBOL_FIELD__INDEX_NAME:
-                setIndexName(INDEX_NAME_EDEFAULT);
-                return;
-            case CoboldataPackage.COBOL_FIELD__IS_EXTERNAL:
-                setIsExternal(IS_EXTERNAL_EDEFAULT);
-                return;
-            case CoboldataPackage.COBOL_FIELD__IS_GLOBAL:
-                setIsGlobal(IS_GLOBAL_EDEFAULT);
-                return;
-            case CoboldataPackage.COBOL_FIELD__DEPENDING_ON_FIELD:
-                setDependingOnField((COBOLItem)null);
-                return;
-            case CoboldataPackage.COBOL_FIELD__REDEFINED_FIELD:
-                setRedefinedField((COBOLField)null);
-                return;
-            case CoboldataPackage.COBOL_FIELD__REDEFINED_BY_FIELD:
-                getRedefinedByField().clear();
-                return;
-            case CoboldataPackage.COBOL_FIELD__OCCURS_KEY_INFO:
-                getOccursKeyInfo().clear();
-                return;
-            case CoboldataPackage.COBOL_FIELD__OCCURS_KEY_FIELD_INFO:
-                getOccursKeyFieldInfo().clear();
-                return;
-            case CoboldataPackage.COBOL_FIELD__FIRST_RENAMES:
-                getFirstRenames().clear();
-                return;
-            case CoboldataPackage.COBOL_FIELD__THRU_RENAMES:
-                getThruRenames().clear();
-                return;
+        case CoboldataPackage.COBOL_FIELD__LEVEL:
+            setLevel(LEVEL_EDEFAULT);
+            return;
+        case CoboldataPackage.COBOL_FIELD__SIGN_KIND:
+            setSignKind(SIGN_KIND_EDEFAULT);
+            return;
+        case CoboldataPackage.COBOL_FIELD__IS_FILLER:
+            setIsFiller(IS_FILLER_EDEFAULT);
+            return;
+        case CoboldataPackage.COBOL_FIELD__IS_JUSTIFIED_RIGHT:
+            setIsJustifiedRight(IS_JUSTIFIED_RIGHT_EDEFAULT);
+            return;
+        case CoboldataPackage.COBOL_FIELD__IS_BLANK_WHEN_ZERO:
+            setIsBlankWhenZero(IS_BLANK_WHEN_ZERO_EDEFAULT);
+            return;
+        case CoboldataPackage.COBOL_FIELD__IS_SYNCHRONIZED:
+            setIsSynchronized(IS_SYNCHRONIZED_EDEFAULT);
+            return;
+        case CoboldataPackage.COBOL_FIELD__PICTURE:
+            setPicture(PICTURE_EDEFAULT);
+            return;
+        case CoboldataPackage.COBOL_FIELD__OCCURS_LOWER:
+            setOccursLower(OCCURS_LOWER_EDEFAULT);
+            return;
+        case CoboldataPackage.COBOL_FIELD__OCCURS_UPPER:
+            setOccursUpper(OCCURS_UPPER_EDEFAULT);
+            return;
+        case CoboldataPackage.COBOL_FIELD__INDEX_NAME:
+            setIndexName(INDEX_NAME_EDEFAULT);
+            return;
+        case CoboldataPackage.COBOL_FIELD__IS_EXTERNAL:
+            setIsExternal(IS_EXTERNAL_EDEFAULT);
+            return;
+        case CoboldataPackage.COBOL_FIELD__IS_GLOBAL:
+            setIsGlobal(IS_GLOBAL_EDEFAULT);
+            return;
+        case CoboldataPackage.COBOL_FIELD__DEPENDING_ON_FIELD:
+            setDependingOnField((COBOLItem) null);
+            return;
+        case CoboldataPackage.COBOL_FIELD__REDEFINED_FIELD:
+            setRedefinedField((COBOLField) null);
+            return;
+        case CoboldataPackage.COBOL_FIELD__REDEFINED_BY_FIELD:
+            getRedefinedByField().clear();
+            return;
+        case CoboldataPackage.COBOL_FIELD__OCCURS_KEY_INFO:
+            getOccursKeyInfo().clear();
+            return;
+        case CoboldataPackage.COBOL_FIELD__OCCURS_KEY_FIELD_INFO:
+            getOccursKeyFieldInfo().clear();
+            return;
+        case CoboldataPackage.COBOL_FIELD__FIRST_RENAMES:
+            getFirstRenames().clear();
+            return;
+        case CoboldataPackage.COBOL_FIELD__THRU_RENAMES:
+            getThruRenames().clear();
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case CoboldataPackage.COBOL_FIELD__LEVEL:
-                return level != LEVEL_EDEFAULT;
-            case CoboldataPackage.COBOL_FIELD__SIGN_KIND:
-                return signKind != SIGN_KIND_EDEFAULT;
-            case CoboldataPackage.COBOL_FIELD__IS_FILLER:
-                return isFiller != IS_FILLER_EDEFAULT;
-            case CoboldataPackage.COBOL_FIELD__IS_JUSTIFIED_RIGHT:
-                return isJustifiedRight != IS_JUSTIFIED_RIGHT_EDEFAULT;
-            case CoboldataPackage.COBOL_FIELD__IS_BLANK_WHEN_ZERO:
-                return isBlankWhenZero != IS_BLANK_WHEN_ZERO_EDEFAULT;
-            case CoboldataPackage.COBOL_FIELD__IS_SYNCHRONIZED:
-                return isSynchronized != IS_SYNCHRONIZED_EDEFAULT;
-            case CoboldataPackage.COBOL_FIELD__PICTURE:
-                return PICTURE_EDEFAULT == null ? picture != null : !PICTURE_EDEFAULT.equals(picture);
-            case CoboldataPackage.COBOL_FIELD__OCCURS_LOWER:
-                return occursLower != OCCURS_LOWER_EDEFAULT;
-            case CoboldataPackage.COBOL_FIELD__OCCURS_UPPER:
-                return occursUpper != OCCURS_UPPER_EDEFAULT;
-            case CoboldataPackage.COBOL_FIELD__INDEX_NAME:
-                return INDEX_NAME_EDEFAULT == null ? indexName != null : !INDEX_NAME_EDEFAULT.equals(indexName);
-            case CoboldataPackage.COBOL_FIELD__IS_EXTERNAL:
-                return isExternal != IS_EXTERNAL_EDEFAULT;
-            case CoboldataPackage.COBOL_FIELD__IS_GLOBAL:
-                return isGlobal != IS_GLOBAL_EDEFAULT;
-            case CoboldataPackage.COBOL_FIELD__DEPENDING_ON_FIELD:
-                return dependingOnField != null;
-            case CoboldataPackage.COBOL_FIELD__REDEFINED_FIELD:
-                return redefinedField != null;
-            case CoboldataPackage.COBOL_FIELD__REDEFINED_BY_FIELD:
-                return redefinedByField != null && !redefinedByField.isEmpty();
-            case CoboldataPackage.COBOL_FIELD__OCCURS_KEY_INFO:
-                return occursKeyInfo != null && !occursKeyInfo.isEmpty();
-            case CoboldataPackage.COBOL_FIELD__OCCURS_KEY_FIELD_INFO:
-                return occursKeyFieldInfo != null && !occursKeyFieldInfo.isEmpty();
-            case CoboldataPackage.COBOL_FIELD__FIRST_RENAMES:
-                return firstRenames != null && !firstRenames.isEmpty();
-            case CoboldataPackage.COBOL_FIELD__THRU_RENAMES:
-                return thruRenames != null && !thruRenames.isEmpty();
+        case CoboldataPackage.COBOL_FIELD__LEVEL:
+            return level != LEVEL_EDEFAULT;
+        case CoboldataPackage.COBOL_FIELD__SIGN_KIND:
+            return signKind != SIGN_KIND_EDEFAULT;
+        case CoboldataPackage.COBOL_FIELD__IS_FILLER:
+            return isFiller != IS_FILLER_EDEFAULT;
+        case CoboldataPackage.COBOL_FIELD__IS_JUSTIFIED_RIGHT:
+            return isJustifiedRight != IS_JUSTIFIED_RIGHT_EDEFAULT;
+        case CoboldataPackage.COBOL_FIELD__IS_BLANK_WHEN_ZERO:
+            return isBlankWhenZero != IS_BLANK_WHEN_ZERO_EDEFAULT;
+        case CoboldataPackage.COBOL_FIELD__IS_SYNCHRONIZED:
+            return isSynchronized != IS_SYNCHRONIZED_EDEFAULT;
+        case CoboldataPackage.COBOL_FIELD__PICTURE:
+            return PICTURE_EDEFAULT == null ? picture != null : !PICTURE_EDEFAULT.equals(picture);
+        case CoboldataPackage.COBOL_FIELD__OCCURS_LOWER:
+            return occursLower != OCCURS_LOWER_EDEFAULT;
+        case CoboldataPackage.COBOL_FIELD__OCCURS_UPPER:
+            return occursUpper != OCCURS_UPPER_EDEFAULT;
+        case CoboldataPackage.COBOL_FIELD__INDEX_NAME:
+            return INDEX_NAME_EDEFAULT == null ? indexName != null : !INDEX_NAME_EDEFAULT.equals(indexName);
+        case CoboldataPackage.COBOL_FIELD__IS_EXTERNAL:
+            return isExternal != IS_EXTERNAL_EDEFAULT;
+        case CoboldataPackage.COBOL_FIELD__IS_GLOBAL:
+            return isGlobal != IS_GLOBAL_EDEFAULT;
+        case CoboldataPackage.COBOL_FIELD__DEPENDING_ON_FIELD:
+            return dependingOnField != null;
+        case CoboldataPackage.COBOL_FIELD__REDEFINED_FIELD:
+            return redefinedField != null;
+        case CoboldataPackage.COBOL_FIELD__REDEFINED_BY_FIELD:
+            return redefinedByField != null && !redefinedByField.isEmpty();
+        case CoboldataPackage.COBOL_FIELD__OCCURS_KEY_INFO:
+            return occursKeyInfo != null && !occursKeyInfo.isEmpty();
+        case CoboldataPackage.COBOL_FIELD__OCCURS_KEY_FIELD_INFO:
+            return occursKeyFieldInfo != null && !occursKeyFieldInfo.isEmpty();
+        case CoboldataPackage.COBOL_FIELD__FIRST_RENAMES:
+            return firstRenames != null && !firstRenames.isEmpty();
+        case CoboldataPackage.COBOL_FIELD__THRU_RENAMES:
+            return thruRenames != null && !thruRenames.isEmpty();
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (level: ");
@@ -1158,4 +1126,4 @@ public class COBOLFieldImpl extends COBOLItemImpl implements COBOLField {
         return result.toString();
     }
 
-} //COBOLFieldImpl
+} // COBOLFieldImpl

@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.resource.xml;
@@ -15,81 +14,95 @@ import orgomg.cwm.objectmodel.core.CorePackage;
 import orgomg.cwm.objectmodel.instance.InstancePackage;
 
 /**
- * <!-- begin-user-doc -->
- * The <b>Package</b> for the model.
- * It contains accessors for the meta objects to represent
+ * <!-- begin-user-doc --> The <b>Package</b> for the model. It contains
+ * accessors for the meta objects to represent
  * <ul>
- *   <li>each class,</li>
- *   <li>each feature of each class,</li>
- *   <li>each enum,</li>
- *   <li>and each data type</li>
+ * <li>each class,</li>
+ * <li>each feature of each class,</li>
+ * <li>each enum,</li>
+ * <li>and each data type</li>
  * </ul>
- * <!-- end-user-doc -->
- * <!-- begin-model-doc -->
- * XML is rapidly becoming a very important type of data resource, especially in the Internet environment. On the one hand, HTML is evolving to be XML-compliant; in the near future, all HTML documents can be expected to become valid XML documents. On the other hand, XML is quickly becoming the standard format for interchange of data and/or metadata (e.g., XMI). Therefore, XML documents (or streams) representing data and/or metadata can be expected to appear everywhere. 
+ * <!-- end-user-doc --> <!-- begin-model-doc --> XML is rapidly becoming a very
+ * important type of data resource, especially in the Internet environment. On
+ * the one hand, HTML is evolving to be XML-compliant; in the near future, all
+ * HTML documents can be expected to become valid XML documents. On the other
+ * hand, XML is quickly becoming the standard format for interchange of data
+ * and/or metadata (e.g., XMI). Therefore, XML documents (or streams)
+ * representing data and/or metadata can be expected to appear everywhere.
  * 
- * The XML package contains classes and associations that represent common metadata describing XML data resources. It is based on XML 1.0 [XML]. XML Schema is an ongoing activity in the W3C. As future standards are adopted by the W3C on XML Schema, this package will be revised and extended accordingly.
+ * The XML package contains classes and associations that represent common
+ * metadata describing XML data resources. It is based on XML 1.0 [XML]. XML
+ * Schema is an ongoing activity in the W3C. As future standards are adopted by
+ * the W3C on XML Schema, this package will be revised and extended accordingly.
  * 
  * This section provides a description of the main features of the XML package.
  * 
- * An XML schema contains a set of definitions and declarations, in the form of XML element type definitions. An XML element type may contain a set of XML attributes and/or a content model. An attribute can have one of the following defaults: required, implied, default, or fixed. The content model can be one of the following types: empty, any, mixed, or element. Except for the empty content model, a content model consists of constituent parts, particularly element type references. The allowed occurrence of the constituents can be one of the following types: one, zero or one, zero or more, or
- * one or more.
+ * An XML schema contains a set of definitions and declarations, in the form of
+ * XML element type definitions. An XML element type may contain a set of XML
+ * attributes and/or a content model. An attribute can have one of the following
+ * defaults: required, implied, default, or fixed. The content model can be one
+ * of the following types: empty, any, mixed, or element. Except for the empty
+ * content model, a content model consists of constituent parts, particularly
+ * element type references. The allowed occurrence of the constituents can be
+ * one of the following types: one, zero or one, zero or more, or one or more.
  * 
- * An any content model consists of any element types. A mixed content model consists of character data and specified element type references. An element content model consists of specified element type references and/or element content models. An element content model can be one of the following types: choice or sequence.
+ * An any content model consists of any element types. A mixed content model
+ * consists of character data and specified element type references. An element
+ * content model consists of specified element type references and/or element
+ * content models. An element content model can be one of the following types:
+ * choice or sequence.
  * 
  * The XML package depends on the following packages:
  * 
- *     omg.org::CWM::ObjectModel::Core
- *     omg.org::CWM::ObjectModel::Instance
- *     omg.org::CWM::Foundation::DataTypes
+ * omg.org::CWM::ObjectModel::Core omg.org::CWM::ObjectModel::Instance
+ * omg.org::CWM::Foundation::DataTypes
  * 
- * The metamodel diagram for the XML package is split into two parts. The first diagram shows the XML classes and associations, while the second shows the inheritance hierarchy.
+ * The metamodel diagram for the XML package is split into two parts. The first
+ * diagram shows the XML classes and associations, while the second shows the
+ * inheritance hierarchy.
  * 
  * OCL Representation of XML Constraints
  * 
- *    None
- * <!-- end-model-doc -->
+ * None <!-- end-model-doc -->
+ * 
  * @see orgomg.cwm.resource.xml.XmlFactory
  * @model kind="package"
  * @generated
  */
 public interface XmlPackage extends EPackage {
+
     /**
      * The package name.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     String eNAME = "xml";
 
     /**
      * The package namespace URI.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     String eNS_URI = "http:///orgomg/cwm/resource/xml.ecore";
 
     /**
      * The package namespace name.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     String eNS_PREFIX = "orgomg.cwm.resource.xml";
 
     /**
      * The singleton instance of the package.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     XmlPackage eINSTANCE = orgomg.cwm.resource.xml.impl.XmlPackageImpl.init();
 
     /**
      * The meta object id for the '{@link orgomg.cwm.resource.xml.impl.SchemaImpl <em>Schema</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see orgomg.cwm.resource.xml.impl.SchemaImpl
      * @see orgomg.cwm.resource.xml.impl.XmlPackageImpl#getSchema()
      * @generated
@@ -97,18 +110,18 @@ public interface XmlPackage extends EPackage {
     int SCHEMA = 0;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SCHEMA__NAME = CorePackage.PACKAGE__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -116,8 +129,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -125,17 +137,16 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SCHEMA__SUPPLIER_DEPENDENCY = CorePackage.PACKAGE__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -143,26 +154,25 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SCHEMA__NAMESPACE = CorePackage.PACKAGE__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SCHEMA__IMPORTER = CorePackage.PACKAGE__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -170,26 +180,25 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SCHEMA__TAGGED_VALUE = CorePackage.PACKAGE__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SCHEMA__DOCUMENT = CorePackage.PACKAGE__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -197,8 +206,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -206,17 +214,16 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SCHEMA__ELEMENT_NODE = CorePackage.PACKAGE__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -224,8 +231,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -233,17 +239,16 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SCHEMA__VOCABULARY_ELEMENT = CorePackage.PACKAGE__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -251,8 +256,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -260,8 +264,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -269,8 +272,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -278,8 +280,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Imported Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -287,44 +288,45 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Data Manager</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SCHEMA__DATA_MANAGER = CorePackage.PACKAGE__DATA_MANAGER;
 
     /**
-     * The feature id for the '<em><b>Version</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Version</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SCHEMA__VERSION = CorePackage.PACKAGE_FEATURE_COUNT + 0;
 
     /**
-     * The feature id for the '<em><b>Xml Namespace</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Xml Namespace</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SCHEMA__XML_NAMESPACE = CorePackage.PACKAGE_FEATURE_COUNT + 1;
 
     /**
-     * The number of structural features of the '<em>Schema</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The number of structural features of the '<em>Schema</em>' class. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SCHEMA_FEATURE_COUNT = CorePackage.PACKAGE_FEATURE_COUNT + 2;
 
     /**
-     * The meta object id for the '{@link orgomg.cwm.resource.xml.impl.ElementTypeImpl <em>Element Type</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The meta object id for the '
+     * {@link orgomg.cwm.resource.xml.impl.ElementTypeImpl
+     * <em>Element Type</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @see orgomg.cwm.resource.xml.impl.ElementTypeImpl
      * @see orgomg.cwm.resource.xml.impl.XmlPackageImpl#getElementType()
      * @generated
@@ -332,18 +334,18 @@ public interface XmlPackage extends EPackage {
     int ELEMENT_TYPE = 1;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ELEMENT_TYPE__NAME = CorePackage.CLASS__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -351,8 +353,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -360,17 +361,16 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ELEMENT_TYPE__SUPPLIER_DEPENDENCY = CorePackage.CLASS__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -378,26 +378,25 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ELEMENT_TYPE__NAMESPACE = CorePackage.CLASS__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ELEMENT_TYPE__IMPORTER = CorePackage.CLASS__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -405,26 +404,25 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ELEMENT_TYPE__TAGGED_VALUE = CorePackage.CLASS__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ELEMENT_TYPE__DOCUMENT = CorePackage.CLASS__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -432,8 +430,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -441,17 +438,16 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ELEMENT_TYPE__ELEMENT_NODE = CorePackage.CLASS__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -459,8 +455,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -468,17 +463,16 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ELEMENT_TYPE__VOCABULARY_ELEMENT = CorePackage.CLASS__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -486,8 +480,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -495,8 +488,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -504,17 +496,16 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ELEMENT_TYPE__OWNED_ELEMENT = CorePackage.CLASS__OWNED_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Is Abstract</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is Abstract</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -522,8 +513,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Feature</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -531,17 +521,16 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Structural Feature</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ELEMENT_TYPE__STRUCTURAL_FEATURE = CorePackage.CLASS__STRUCTURAL_FEATURE;
 
     /**
-     * The feature id for the '<em><b>Parameter</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Parameter</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -549,8 +538,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Generalization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -558,26 +546,25 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Specialization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ELEMENT_TYPE__SPECIALIZATION = CorePackage.CLASS__SPECIALIZATION;
 
     /**
-     * The feature id for the '<em><b>Instance</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Instance</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ELEMENT_TYPE__INSTANCE = CorePackage.CLASS__INSTANCE;
 
     /**
-     * The feature id for the '<em><b>Alias</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Alias</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -585,8 +572,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Expression Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -594,17 +580,16 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Mapping From</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ELEMENT_TYPE__MAPPING_FROM = CorePackage.CLASS__MAPPING_FROM;
 
     /**
-     * The feature id for the '<em><b>Mapping To</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Mapping To</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -612,26 +597,25 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Classifier Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ELEMENT_TYPE__CLASSIFIER_MAP = CorePackage.CLASS__CLASSIFIER_MAP;
 
     /**
-     * The feature id for the '<em><b>Cf Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Cf Map</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ELEMENT_TYPE__CF_MAP = CorePackage.CLASS__CF_MAP;
 
     /**
-     * The feature id for the '<em><b>Domain</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Domain</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -639,26 +623,25 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Simple Dimension</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ELEMENT_TYPE__SIMPLE_DIMENSION = CorePackage.CLASS__SIMPLE_DIMENSION;
 
     /**
-     * The feature id for the '<em><b>Index</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Index</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ELEMENT_TYPE__INDEX = CorePackage.CLASS__INDEX;
 
     /**
-     * The feature id for the '<em><b>Content</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Content</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -666,8 +649,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Element Type</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -675,8 +657,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwm.resource.xml.impl.AttributeImpl <em>Attribute</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see orgomg.cwm.resource.xml.impl.AttributeImpl
      * @see orgomg.cwm.resource.xml.impl.XmlPackageImpl#getAttribute()
      * @generated
@@ -684,18 +665,18 @@ public interface XmlPackage extends EPackage {
     int ATTRIBUTE = 2;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ATTRIBUTE__NAME = CorePackage.ATTRIBUTE__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -703,8 +684,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -712,17 +692,16 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ATTRIBUTE__SUPPLIER_DEPENDENCY = CorePackage.ATTRIBUTE__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -730,26 +709,25 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ATTRIBUTE__NAMESPACE = CorePackage.ATTRIBUTE__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ATTRIBUTE__IMPORTER = CorePackage.ATTRIBUTE__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -757,26 +735,25 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ATTRIBUTE__TAGGED_VALUE = CorePackage.ATTRIBUTE__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ATTRIBUTE__DOCUMENT = CorePackage.ATTRIBUTE__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -784,8 +761,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -793,17 +769,16 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ATTRIBUTE__ELEMENT_NODE = CorePackage.ATTRIBUTE__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -811,8 +786,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -820,17 +794,16 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ATTRIBUTE__VOCABULARY_ELEMENT = CorePackage.ATTRIBUTE__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -838,8 +811,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -847,26 +819,25 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ATTRIBUTE__DASDL_PROPERTY = CorePackage.ATTRIBUTE__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Owner Scope</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Owner Scope</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ATTRIBUTE__OWNER_SCOPE = CorePackage.ATTRIBUTE__OWNER_SCOPE;
 
     /**
-     * The feature id for the '<em><b>Owner</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Owner</b></em>' container reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -874,35 +845,34 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Feature Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ATTRIBUTE__FEATURE_NODE = CorePackage.ATTRIBUTE__FEATURE_NODE;
 
     /**
-     * The feature id for the '<em><b>Feature Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Feature Map</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ATTRIBUTE__FEATURE_MAP = CorePackage.ATTRIBUTE__FEATURE_MAP;
 
     /**
-     * The feature id for the '<em><b>Cf Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Cf Map</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ATTRIBUTE__CF_MAP = CorePackage.ATTRIBUTE__CF_MAP;
 
     /**
-     * The feature id for the '<em><b>Changeability</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Changeability</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -910,44 +880,43 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Multiplicity</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ATTRIBUTE__MULTIPLICITY = CorePackage.ATTRIBUTE__MULTIPLICITY;
 
     /**
-     * The feature id for the '<em><b>Ordering</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Ordering</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ATTRIBUTE__ORDERING = CorePackage.ATTRIBUTE__ORDERING;
 
     /**
-     * The feature id for the '<em><b>Target Scope</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Target Scope</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ATTRIBUTE__TARGET_SCOPE = CorePackage.ATTRIBUTE__TARGET_SCOPE;
 
     /**
-     * The feature id for the '<em><b>Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Type</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ATTRIBUTE__TYPE = CorePackage.ATTRIBUTE__TYPE;
 
     /**
-     * The feature id for the '<em><b>Slot</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Slot</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -955,8 +924,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Discriminated Union</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -964,8 +932,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Indexed Feature</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -973,35 +940,34 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Key Relationship</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ATTRIBUTE__KEY_RELATIONSHIP = CorePackage.ATTRIBUTE__KEY_RELATIONSHIP;
 
     /**
-     * The feature id for the '<em><b>Unique Key</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Unique Key</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ATTRIBUTE__UNIQUE_KEY = CorePackage.ATTRIBUTE__UNIQUE_KEY;
 
     /**
-     * The feature id for the '<em><b>Data Item</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Data Item</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ATTRIBUTE__DATA_ITEM = CorePackage.ATTRIBUTE__DATA_ITEM;
 
     /**
-     * The feature id for the '<em><b>Remap</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Remap</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1009,26 +975,25 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Initial Value</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ATTRIBUTE__INITIAL_VALUE = CorePackage.ATTRIBUTE__INITIAL_VALUE;
 
     /**
-     * The feature id for the '<em><b>Default Kind</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Default Kind</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ATTRIBUTE__DEFAULT_KIND = CorePackage.ATTRIBUTE_FEATURE_COUNT + 0;
 
     /**
-     * The number of structural features of the '<em>Attribute</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The number of structural features of the '<em>Attribute</em>' class. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1036,8 +1001,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwm.resource.xml.impl.ContentImpl <em>Content</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see orgomg.cwm.resource.xml.impl.ContentImpl
      * @see orgomg.cwm.resource.xml.impl.XmlPackageImpl#getContent()
      * @generated
@@ -1045,18 +1009,18 @@ public interface XmlPackage extends EPackage {
     int CONTENT = 3;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int CONTENT__NAME = CorePackage.MODEL_ELEMENT__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1064,8 +1028,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1073,17 +1036,16 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CONTENT__SUPPLIER_DEPENDENCY = CorePackage.MODEL_ELEMENT__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1091,26 +1053,25 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CONTENT__NAMESPACE = CorePackage.MODEL_ELEMENT__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int CONTENT__IMPORTER = CorePackage.MODEL_ELEMENT__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1118,26 +1079,25 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CONTENT__TAGGED_VALUE = CorePackage.MODEL_ELEMENT__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int CONTENT__DOCUMENT = CorePackage.MODEL_ELEMENT__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1145,8 +1105,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1154,17 +1113,16 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CONTENT__ELEMENT_NODE = CorePackage.MODEL_ELEMENT__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1172,8 +1130,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1181,17 +1138,16 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CONTENT__VOCABULARY_ELEMENT = CorePackage.MODEL_ELEMENT__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1199,8 +1155,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1208,26 +1163,25 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CONTENT__DASDL_PROPERTY = CorePackage.MODEL_ELEMENT__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Type</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Type</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int CONTENT__TYPE = CorePackage.MODEL_ELEMENT_FEATURE_COUNT + 0;
 
     /**
-     * The feature id for the '<em><b>Occurrence</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Occurrence</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1235,8 +1189,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Type</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1244,17 +1197,16 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element Type</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CONTENT__OWNED_ELEMENT_TYPE = CorePackage.MODEL_ELEMENT_FEATURE_COUNT + 3;
 
     /**
-     * The number of structural features of the '<em>Content</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The number of structural features of the '<em>Content</em>' class. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1262,8 +1214,8 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwm.resource.xml.impl.ElementContentImpl <em>Element Content</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see orgomg.cwm.resource.xml.impl.ElementContentImpl
      * @see orgomg.cwm.resource.xml.impl.XmlPackageImpl#getElementContent()
      * @generated
@@ -1271,18 +1223,18 @@ public interface XmlPackage extends EPackage {
     int ELEMENT_CONTENT = 4;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ELEMENT_CONTENT__NAME = CONTENT__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1290,8 +1242,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1299,17 +1250,16 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ELEMENT_CONTENT__SUPPLIER_DEPENDENCY = CONTENT__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1317,26 +1267,25 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ELEMENT_CONTENT__NAMESPACE = CONTENT__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ELEMENT_CONTENT__IMPORTER = CONTENT__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1344,26 +1293,25 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ELEMENT_CONTENT__TAGGED_VALUE = CONTENT__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ELEMENT_CONTENT__DOCUMENT = CONTENT__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1371,8 +1319,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1380,17 +1327,16 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ELEMENT_CONTENT__ELEMENT_NODE = CONTENT__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1398,8 +1344,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1407,17 +1352,16 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ELEMENT_CONTENT__VOCABULARY_ELEMENT = CONTENT__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1425,8 +1369,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1434,26 +1377,25 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ELEMENT_CONTENT__DASDL_PROPERTY = CONTENT__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Type</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Type</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ELEMENT_CONTENT__TYPE = CONTENT__TYPE;
 
     /**
-     * The feature id for the '<em><b>Occurrence</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Occurrence</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1461,8 +1403,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Type</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1470,17 +1411,16 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element Type</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ELEMENT_CONTENT__OWNED_ELEMENT_TYPE = CONTENT__OWNED_ELEMENT_TYPE;
 
     /**
-     * The feature id for the '<em><b>Order</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Order</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1488,8 +1428,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owner Content</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1497,8 +1436,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Content</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1506,17 +1444,18 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Element Content</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ELEMENT_CONTENT_FEATURE_COUNT = CONTENT_FEATURE_COUNT + 3;
 
     /**
-     * The meta object id for the '{@link orgomg.cwm.resource.xml.impl.MixedContentImpl <em>Mixed Content</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The meta object id for the '
+     * {@link orgomg.cwm.resource.xml.impl.MixedContentImpl
+     * <em>Mixed Content</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @see orgomg.cwm.resource.xml.impl.MixedContentImpl
      * @see orgomg.cwm.resource.xml.impl.XmlPackageImpl#getMixedContent()
      * @generated
@@ -1524,18 +1463,18 @@ public interface XmlPackage extends EPackage {
     int MIXED_CONTENT = 5;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int MIXED_CONTENT__NAME = CONTENT__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1543,8 +1482,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1552,17 +1490,16 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int MIXED_CONTENT__SUPPLIER_DEPENDENCY = CONTENT__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1570,26 +1507,25 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int MIXED_CONTENT__NAMESPACE = CONTENT__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int MIXED_CONTENT__IMPORTER = CONTENT__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1597,26 +1533,25 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int MIXED_CONTENT__TAGGED_VALUE = CONTENT__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int MIXED_CONTENT__DOCUMENT = CONTENT__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1624,8 +1559,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1633,17 +1567,16 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int MIXED_CONTENT__ELEMENT_NODE = CONTENT__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1651,8 +1584,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1660,17 +1592,16 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int MIXED_CONTENT__VOCABULARY_ELEMENT = CONTENT__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1678,8 +1609,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1687,26 +1617,25 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int MIXED_CONTENT__DASDL_PROPERTY = CONTENT__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Type</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Type</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int MIXED_CONTENT__TYPE = CONTENT__TYPE;
 
     /**
-     * The feature id for the '<em><b>Occurrence</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Occurrence</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1714,8 +1643,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Type</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1723,17 +1651,16 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element Type</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int MIXED_CONTENT__OWNED_ELEMENT_TYPE = CONTENT__OWNED_ELEMENT_TYPE;
 
     /**
-     * The feature id for the '<em><b>Text</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Text</b></em>' containment reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1741,8 +1668,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Mixed Content</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1750,8 +1676,8 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwm.resource.xml.impl.ElementTypeReferenceImpl <em>Element Type Reference</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see orgomg.cwm.resource.xml.impl.ElementTypeReferenceImpl
      * @see orgomg.cwm.resource.xml.impl.XmlPackageImpl#getElementTypeReference()
      * @generated
@@ -1759,18 +1685,18 @@ public interface XmlPackage extends EPackage {
     int ELEMENT_TYPE_REFERENCE = 6;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ELEMENT_TYPE_REFERENCE__NAME = CorePackage.ATTRIBUTE__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1778,8 +1704,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1787,17 +1712,16 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ELEMENT_TYPE_REFERENCE__SUPPLIER_DEPENDENCY = CorePackage.ATTRIBUTE__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1805,26 +1729,25 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ELEMENT_TYPE_REFERENCE__NAMESPACE = CorePackage.ATTRIBUTE__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ELEMENT_TYPE_REFERENCE__IMPORTER = CorePackage.ATTRIBUTE__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1832,26 +1755,25 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ELEMENT_TYPE_REFERENCE__TAGGED_VALUE = CorePackage.ATTRIBUTE__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ELEMENT_TYPE_REFERENCE__DOCUMENT = CorePackage.ATTRIBUTE__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1859,8 +1781,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1868,17 +1789,16 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ELEMENT_TYPE_REFERENCE__ELEMENT_NODE = CorePackage.ATTRIBUTE__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1886,8 +1806,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1895,17 +1814,16 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ELEMENT_TYPE_REFERENCE__VOCABULARY_ELEMENT = CorePackage.ATTRIBUTE__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1913,8 +1831,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1922,26 +1839,25 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ELEMENT_TYPE_REFERENCE__DASDL_PROPERTY = CorePackage.ATTRIBUTE__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Owner Scope</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Owner Scope</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ELEMENT_TYPE_REFERENCE__OWNER_SCOPE = CorePackage.ATTRIBUTE__OWNER_SCOPE;
 
     /**
-     * The feature id for the '<em><b>Owner</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Owner</b></em>' container reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1949,35 +1865,34 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Feature Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ELEMENT_TYPE_REFERENCE__FEATURE_NODE = CorePackage.ATTRIBUTE__FEATURE_NODE;
 
     /**
-     * The feature id for the '<em><b>Feature Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Feature Map</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ELEMENT_TYPE_REFERENCE__FEATURE_MAP = CorePackage.ATTRIBUTE__FEATURE_MAP;
 
     /**
-     * The feature id for the '<em><b>Cf Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Cf Map</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ELEMENT_TYPE_REFERENCE__CF_MAP = CorePackage.ATTRIBUTE__CF_MAP;
 
     /**
-     * The feature id for the '<em><b>Changeability</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Changeability</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1985,44 +1900,43 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Multiplicity</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ELEMENT_TYPE_REFERENCE__MULTIPLICITY = CorePackage.ATTRIBUTE__MULTIPLICITY;
 
     /**
-     * The feature id for the '<em><b>Ordering</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Ordering</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ELEMENT_TYPE_REFERENCE__ORDERING = CorePackage.ATTRIBUTE__ORDERING;
 
     /**
-     * The feature id for the '<em><b>Target Scope</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Target Scope</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ELEMENT_TYPE_REFERENCE__TARGET_SCOPE = CorePackage.ATTRIBUTE__TARGET_SCOPE;
 
     /**
-     * The feature id for the '<em><b>Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Type</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ELEMENT_TYPE_REFERENCE__TYPE = CorePackage.ATTRIBUTE__TYPE;
 
     /**
-     * The feature id for the '<em><b>Slot</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Slot</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2030,8 +1944,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Discriminated Union</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2039,8 +1952,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Indexed Feature</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2048,35 +1960,34 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Key Relationship</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ELEMENT_TYPE_REFERENCE__KEY_RELATIONSHIP = CorePackage.ATTRIBUTE__KEY_RELATIONSHIP;
 
     /**
-     * The feature id for the '<em><b>Unique Key</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Unique Key</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ELEMENT_TYPE_REFERENCE__UNIQUE_KEY = CorePackage.ATTRIBUTE__UNIQUE_KEY;
 
     /**
-     * The feature id for the '<em><b>Data Item</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Data Item</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ELEMENT_TYPE_REFERENCE__DATA_ITEM = CorePackage.ATTRIBUTE__DATA_ITEM;
 
     /**
-     * The feature id for the '<em><b>Remap</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Remap</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2084,17 +1995,16 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Initial Value</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ELEMENT_TYPE_REFERENCE__INITIAL_VALUE = CorePackage.ATTRIBUTE__INITIAL_VALUE;
 
     /**
-     * The feature id for the '<em><b>Occurrence</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Occurrence</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2102,8 +2012,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owner Content</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2111,8 +2020,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Element Type Reference</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2120,8 +2028,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwm.resource.xml.impl.TextImpl <em>Text</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see orgomg.cwm.resource.xml.impl.TextImpl
      * @see orgomg.cwm.resource.xml.impl.XmlPackageImpl#getText()
      * @generated
@@ -2129,18 +2036,18 @@ public interface XmlPackage extends EPackage {
     int TEXT = 7;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int TEXT__NAME = CorePackage.ATTRIBUTE__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2148,8 +2055,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2157,17 +2063,16 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int TEXT__SUPPLIER_DEPENDENCY = CorePackage.ATTRIBUTE__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2175,26 +2080,25 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int TEXT__NAMESPACE = CorePackage.ATTRIBUTE__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int TEXT__IMPORTER = CorePackage.ATTRIBUTE__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2202,26 +2106,25 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int TEXT__TAGGED_VALUE = CorePackage.ATTRIBUTE__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int TEXT__DOCUMENT = CorePackage.ATTRIBUTE__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2229,8 +2132,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2238,17 +2140,16 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int TEXT__ELEMENT_NODE = CorePackage.ATTRIBUTE__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2256,8 +2157,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2265,17 +2165,16 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int TEXT__VOCABULARY_ELEMENT = CorePackage.ATTRIBUTE__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2283,8 +2182,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2292,26 +2190,25 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int TEXT__DASDL_PROPERTY = CorePackage.ATTRIBUTE__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Owner Scope</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Owner Scope</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int TEXT__OWNER_SCOPE = CorePackage.ATTRIBUTE__OWNER_SCOPE;
 
     /**
-     * The feature id for the '<em><b>Owner</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Owner</b></em>' container reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2319,35 +2216,34 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Feature Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int TEXT__FEATURE_NODE = CorePackage.ATTRIBUTE__FEATURE_NODE;
 
     /**
-     * The feature id for the '<em><b>Feature Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Feature Map</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int TEXT__FEATURE_MAP = CorePackage.ATTRIBUTE__FEATURE_MAP;
 
     /**
-     * The feature id for the '<em><b>Cf Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Cf Map</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int TEXT__CF_MAP = CorePackage.ATTRIBUTE__CF_MAP;
 
     /**
-     * The feature id for the '<em><b>Changeability</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Changeability</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2355,44 +2251,43 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Multiplicity</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int TEXT__MULTIPLICITY = CorePackage.ATTRIBUTE__MULTIPLICITY;
 
     /**
-     * The feature id for the '<em><b>Ordering</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Ordering</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int TEXT__ORDERING = CorePackage.ATTRIBUTE__ORDERING;
 
     /**
-     * The feature id for the '<em><b>Target Scope</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Target Scope</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int TEXT__TARGET_SCOPE = CorePackage.ATTRIBUTE__TARGET_SCOPE;
 
     /**
-     * The feature id for the '<em><b>Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Type</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int TEXT__TYPE = CorePackage.ATTRIBUTE__TYPE;
 
     /**
-     * The feature id for the '<em><b>Slot</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Slot</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2400,8 +2295,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Discriminated Union</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2409,8 +2303,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Indexed Feature</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2418,35 +2311,34 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Key Relationship</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int TEXT__KEY_RELATIONSHIP = CorePackage.ATTRIBUTE__KEY_RELATIONSHIP;
 
     /**
-     * The feature id for the '<em><b>Unique Key</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Unique Key</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int TEXT__UNIQUE_KEY = CorePackage.ATTRIBUTE__UNIQUE_KEY;
 
     /**
-     * The feature id for the '<em><b>Data Item</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Data Item</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int TEXT__DATA_ITEM = CorePackage.ATTRIBUTE__DATA_ITEM;
 
     /**
-     * The feature id for the '<em><b>Remap</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Remap</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2454,8 +2346,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Initial Value</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2463,17 +2354,16 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owner Content</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int TEXT__OWNER_CONTENT = CorePackage.ATTRIBUTE_FEATURE_COUNT + 0;
 
     /**
-     * The number of structural features of the '<em>Text</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The number of structural features of the '<em>Text</em>' class. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2481,8 +2371,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwm.resource.xml.impl.ElementImpl <em>Element</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see orgomg.cwm.resource.xml.impl.ElementImpl
      * @see orgomg.cwm.resource.xml.impl.XmlPackageImpl#getElement()
      * @generated
@@ -2490,18 +2379,18 @@ public interface XmlPackage extends EPackage {
     int ELEMENT = 8;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ELEMENT__NAME = InstancePackage.OBJECT__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2509,8 +2398,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2518,17 +2406,16 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ELEMENT__SUPPLIER_DEPENDENCY = InstancePackage.OBJECT__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2536,26 +2423,25 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ELEMENT__NAMESPACE = InstancePackage.OBJECT__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ELEMENT__IMPORTER = InstancePackage.OBJECT__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2563,26 +2449,25 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ELEMENT__TAGGED_VALUE = InstancePackage.OBJECT__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ELEMENT__DOCUMENT = InstancePackage.OBJECT__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2590,8 +2475,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2599,17 +2483,16 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ELEMENT__ELEMENT_NODE = InstancePackage.OBJECT__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2617,8 +2500,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2626,17 +2508,16 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ELEMENT__VOCABULARY_ELEMENT = InstancePackage.OBJECT__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2644,8 +2525,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2653,26 +2533,25 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ELEMENT__DASDL_PROPERTY = InstancePackage.OBJECT__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Value Slot</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Value Slot</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ELEMENT__VALUE_SLOT = InstancePackage.OBJECT__VALUE_SLOT;
 
     /**
-     * The feature id for the '<em><b>Classifier</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Classifier</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2680,17 +2559,16 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Slot</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ELEMENT__SLOT = InstancePackage.OBJECT__SLOT;
 
     /**
-     * The number of structural features of the '<em>Element</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The number of structural features of the '<em>Element</em>' class. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2698,8 +2576,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwm.resource.xml.impl.DocumentImpl <em>Document</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see orgomg.cwm.resource.xml.impl.DocumentImpl
      * @see orgomg.cwm.resource.xml.impl.XmlPackageImpl#getDocument()
      * @generated
@@ -2707,18 +2584,18 @@ public interface XmlPackage extends EPackage {
     int DOCUMENT = 9;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int DOCUMENT__NAME = InstancePackage.EXTENT__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2726,8 +2603,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2735,17 +2611,16 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DOCUMENT__SUPPLIER_DEPENDENCY = InstancePackage.EXTENT__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2753,26 +2628,25 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DOCUMENT__NAMESPACE = InstancePackage.EXTENT__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int DOCUMENT__IMPORTER = InstancePackage.EXTENT__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2780,26 +2654,25 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DOCUMENT__TAGGED_VALUE = InstancePackage.EXTENT__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int DOCUMENT__DOCUMENT = InstancePackage.EXTENT__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2807,8 +2680,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2816,17 +2688,16 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DOCUMENT__ELEMENT_NODE = InstancePackage.EXTENT__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2834,8 +2705,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2843,17 +2713,16 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DOCUMENT__VOCABULARY_ELEMENT = InstancePackage.EXTENT__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2861,8 +2730,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2870,8 +2738,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2879,8 +2746,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2888,8 +2754,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Imported Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2897,17 +2762,16 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Data Manager</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DOCUMENT__DATA_MANAGER = InstancePackage.EXTENT__DATA_MANAGER;
 
     /**
-     * The number of structural features of the '<em>Document</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The number of structural features of the '<em>Document</em>' class. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2915,8 +2779,8 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwm.resource.xml.AttributeDefault <em>Attribute Default</em>}' enum.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see orgomg.cwm.resource.xml.AttributeDefault
      * @see orgomg.cwm.resource.xml.impl.XmlPackageImpl#getAttributeDefault()
      * @generated
@@ -2924,9 +2788,10 @@ public interface XmlPackage extends EPackage {
     int ATTRIBUTE_DEFAULT = 10;
 
     /**
-     * The meta object id for the '{@link orgomg.cwm.resource.xml.ContentType <em>Content Type</em>}' enum.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The meta object id for the '{@link orgomg.cwm.resource.xml.ContentType
+     * <em>Content Type</em>}' enum. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @see orgomg.cwm.resource.xml.ContentType
      * @see orgomg.cwm.resource.xml.impl.XmlPackageImpl#getContentType()
      * @generated
@@ -2935,8 +2800,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwm.resource.xml.OccurrenceType <em>Occurrence Type</em>}' enum.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see orgomg.cwm.resource.xml.OccurrenceType
      * @see orgomg.cwm.resource.xml.impl.XmlPackageImpl#getOccurrenceType()
      * @generated
@@ -2945,19 +2809,17 @@ public interface XmlPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwm.resource.xml.ElementOrderType <em>Element Order Type</em>}' enum.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see orgomg.cwm.resource.xml.ElementOrderType
      * @see orgomg.cwm.resource.xml.impl.XmlPackageImpl#getElementOrderType()
      * @generated
      */
     int ELEMENT_ORDER_TYPE = 13;
 
-
     /**
      * Returns the meta object for class '{@link orgomg.cwm.resource.xml.Schema <em>Schema</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Schema</em>'.
      * @see orgomg.cwm.resource.xml.Schema
      * @generated
@@ -2965,9 +2827,10 @@ public interface XmlPackage extends EPackage {
     EClass getSchema();
 
     /**
-     * Returns the meta object for the attribute '{@link orgomg.cwm.resource.xml.Schema#getVersion <em>Version</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link orgomg.cwm.resource.xml.Schema#getVersion <em>Version</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Version</em>'.
      * @see orgomg.cwm.resource.xml.Schema#getVersion()
      * @see #getSchema()
@@ -2977,8 +2840,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.resource.xml.Schema#getXmlNamespace <em>Xml Namespace</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Xml Namespace</em>'.
      * @see orgomg.cwm.resource.xml.Schema#getXmlNamespace()
      * @see #getSchema()
@@ -2987,9 +2849,10 @@ public interface XmlPackage extends EPackage {
     EAttribute getSchema_XmlNamespace();
 
     /**
-     * Returns the meta object for class '{@link orgomg.cwm.resource.xml.ElementType <em>Element Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for class '
+     * {@link orgomg.cwm.resource.xml.ElementType <em>Element Type</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for class '<em>Element Type</em>'.
      * @see orgomg.cwm.resource.xml.ElementType
      * @generated
@@ -2998,8 +2861,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * Returns the meta object for the reference '{@link orgomg.cwm.resource.xml.ElementType#getContent <em>Content</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference '<em>Content</em>'.
      * @see orgomg.cwm.resource.xml.ElementType#getContent()
      * @see #getElementType()
@@ -3008,9 +2870,10 @@ public interface XmlPackage extends EPackage {
     EReference getElementType_Content();
 
     /**
-     * Returns the meta object for class '{@link orgomg.cwm.resource.xml.Attribute <em>Attribute</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for class '
+     * {@link orgomg.cwm.resource.xml.Attribute <em>Attribute</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for class '<em>Attribute</em>'.
      * @see orgomg.cwm.resource.xml.Attribute
      * @generated
@@ -3019,8 +2882,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.resource.xml.Attribute#getDefaultKind <em>Default Kind</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Default Kind</em>'.
      * @see orgomg.cwm.resource.xml.Attribute#getDefaultKind()
      * @see #getAttribute()
@@ -3029,9 +2891,10 @@ public interface XmlPackage extends EPackage {
     EAttribute getAttribute_DefaultKind();
 
     /**
-     * Returns the meta object for class '{@link orgomg.cwm.resource.xml.Content <em>Content</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for class '
+     * {@link orgomg.cwm.resource.xml.Content <em>Content</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for class '<em>Content</em>'.
      * @see orgomg.cwm.resource.xml.Content
      * @generated
@@ -3039,9 +2902,10 @@ public interface XmlPackage extends EPackage {
     EClass getContent();
 
     /**
-     * Returns the meta object for the attribute '{@link orgomg.cwm.resource.xml.Content#getType <em>Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link orgomg.cwm.resource.xml.Content#getType <em>Type</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Type</em>'.
      * @see orgomg.cwm.resource.xml.Content#getType()
      * @see #getContent()
@@ -3051,8 +2915,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.resource.xml.Content#getOccurrence <em>Occurrence</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Occurrence</em>'.
      * @see orgomg.cwm.resource.xml.Content#getOccurrence()
      * @see #getContent()
@@ -3062,8 +2925,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * Returns the meta object for the reference list '{@link orgomg.cwm.resource.xml.Content#getElementType <em>Element Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference list '<em>Element Type</em>'.
      * @see orgomg.cwm.resource.xml.Content#getElementType()
      * @see #getContent()
@@ -3072,10 +2934,13 @@ public interface XmlPackage extends EPackage {
     EReference getContent_ElementType();
 
     /**
-     * Returns the meta object for the reference list '{@link orgomg.cwm.resource.xml.Content#getOwnedElementType <em>Owned Element Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the reference list '<em>Owned Element Type</em>'.
+     * Returns the meta object for the reference list '
+     * {@link orgomg.cwm.resource.xml.Content#getOwnedElementType
+     * <em>Owned Element Type</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @return the meta object for the reference list '
+     *         <em>Owned Element Type</em>'.
      * @see orgomg.cwm.resource.xml.Content#getOwnedElementType()
      * @see #getContent()
      * @generated
@@ -3084,8 +2949,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link orgomg.cwm.resource.xml.ElementContent <em>Element Content</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Element Content</em>'.
      * @see orgomg.cwm.resource.xml.ElementContent
      * @generated
@@ -3094,8 +2958,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.resource.xml.ElementContent#getOrder <em>Order</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Order</em>'.
      * @see orgomg.cwm.resource.xml.ElementContent#getOrder()
      * @see #getElementContent()
@@ -3105,8 +2968,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * Returns the meta object for the reference list '{@link orgomg.cwm.resource.xml.ElementContent#getOwnerContent <em>Owner Content</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference list '<em>Owner Content</em>'.
      * @see orgomg.cwm.resource.xml.ElementContent#getOwnerContent()
      * @see #getElementContent()
@@ -3116,8 +2978,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * Returns the meta object for the reference list '{@link orgomg.cwm.resource.xml.ElementContent#getOwnedContent <em>Owned Content</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference list '<em>Owned Content</em>'.
      * @see orgomg.cwm.resource.xml.ElementContent#getOwnedContent()
      * @see #getElementContent()
@@ -3127,8 +2988,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link orgomg.cwm.resource.xml.MixedContent <em>Mixed Content</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Mixed Content</em>'.
      * @see orgomg.cwm.resource.xml.MixedContent
      * @generated
@@ -3136,9 +2996,10 @@ public interface XmlPackage extends EPackage {
     EClass getMixedContent();
 
     /**
-     * Returns the meta object for the containment reference '{@link orgomg.cwm.resource.xml.MixedContent#getText <em>Text</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the containment reference '
+     * {@link orgomg.cwm.resource.xml.MixedContent#getText <em>Text</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the containment reference '<em>Text</em>'.
      * @see orgomg.cwm.resource.xml.MixedContent#getText()
      * @see #getMixedContent()
@@ -3148,8 +3009,8 @@ public interface XmlPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link orgomg.cwm.resource.xml.ElementTypeReference <em>Element Type Reference</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @return the meta object for class '<em>Element Type Reference</em>'.
      * @see orgomg.cwm.resource.xml.ElementTypeReference
      * @generated
@@ -3158,8 +3019,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.resource.xml.ElementTypeReference#getOccurrence <em>Occurrence</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Occurrence</em>'.
      * @see orgomg.cwm.resource.xml.ElementTypeReference#getOccurrence()
      * @see #getElementTypeReference()
@@ -3169,8 +3029,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * Returns the meta object for the reference list '{@link orgomg.cwm.resource.xml.ElementTypeReference#getOwnerContent <em>Owner Content</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference list '<em>Owner Content</em>'.
      * @see orgomg.cwm.resource.xml.ElementTypeReference#getOwnerContent()
      * @see #getElementTypeReference()
@@ -3180,8 +3039,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link orgomg.cwm.resource.xml.Text <em>Text</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Text</em>'.
      * @see orgomg.cwm.resource.xml.Text
      * @generated
@@ -3190,8 +3048,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * Returns the meta object for the container reference '{@link orgomg.cwm.resource.xml.Text#getOwnerContent <em>Owner Content</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the container reference '<em>Owner Content</em>'.
      * @see orgomg.cwm.resource.xml.Text#getOwnerContent()
      * @see #getText()
@@ -3200,9 +3057,10 @@ public interface XmlPackage extends EPackage {
     EReference getText_OwnerContent();
 
     /**
-     * Returns the meta object for class '{@link orgomg.cwm.resource.xml.Element <em>Element</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for class '
+     * {@link orgomg.cwm.resource.xml.Element <em>Element</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for class '<em>Element</em>'.
      * @see orgomg.cwm.resource.xml.Element
      * @generated
@@ -3210,9 +3068,10 @@ public interface XmlPackage extends EPackage {
     EClass getElement();
 
     /**
-     * Returns the meta object for class '{@link orgomg.cwm.resource.xml.Document <em>Document</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for class '
+     * {@link orgomg.cwm.resource.xml.Document <em>Document</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for class '<em>Document</em>'.
      * @see orgomg.cwm.resource.xml.Document
      * @generated
@@ -3220,9 +3079,11 @@ public interface XmlPackage extends EPackage {
     EClass getDocument();
 
     /**
-     * Returns the meta object for enum '{@link orgomg.cwm.resource.xml.AttributeDefault <em>Attribute Default</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for enum '
+     * {@link orgomg.cwm.resource.xml.AttributeDefault
+     * <em>Attribute Default</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @return the meta object for enum '<em>Attribute Default</em>'.
      * @see orgomg.cwm.resource.xml.AttributeDefault
      * @generated
@@ -3230,9 +3091,10 @@ public interface XmlPackage extends EPackage {
     EEnum getAttributeDefault();
 
     /**
-     * Returns the meta object for enum '{@link orgomg.cwm.resource.xml.ContentType <em>Content Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for enum '
+     * {@link orgomg.cwm.resource.xml.ContentType <em>Content Type</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for enum '<em>Content Type</em>'.
      * @see orgomg.cwm.resource.xml.ContentType
      * @generated
@@ -3241,8 +3103,7 @@ public interface XmlPackage extends EPackage {
 
     /**
      * Returns the meta object for enum '{@link orgomg.cwm.resource.xml.OccurrenceType <em>Occurrence Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for enum '<em>Occurrence Type</em>'.
      * @see orgomg.cwm.resource.xml.OccurrenceType
      * @generated
@@ -3250,9 +3111,11 @@ public interface XmlPackage extends EPackage {
     EEnum getOccurrenceType();
 
     /**
-     * Returns the meta object for enum '{@link orgomg.cwm.resource.xml.ElementOrderType <em>Element Order Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for enum '
+     * {@link orgomg.cwm.resource.xml.ElementOrderType
+     * <em>Element Order Type</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @return the meta object for enum '<em>Element Order Type</em>'.
      * @see orgomg.cwm.resource.xml.ElementOrderType
      * @generated
@@ -3260,31 +3123,31 @@ public interface XmlPackage extends EPackage {
     EEnum getElementOrderType();
 
     /**
-     * Returns the factory that creates the instances of the model.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the factory that creates the instances of the model. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the factory that creates the instances of the model.
      * @generated
      */
     XmlFactory getXmlFactory();
 
     /**
-     * <!-- begin-user-doc -->
-     * Defines literals for the meta objects that represent
+     * <!-- begin-user-doc --> Defines literals for the meta objects that
+     * represent
      * <ul>
-     *   <li>each class,</li>
-     *   <li>each feature of each class,</li>
-     *   <li>each enum,</li>
-     *   <li>and each data type</li>
+     * <li>each class,</li>
+     * <li>each feature of each class,</li>
+     * <li>each enum,</li>
+     * <li>and each data type</li>
      * </ul>
      * <!-- end-user-doc -->
      * @generated
      */
     interface Literals {
+
         /**
          * The meta object literal for the '{@link orgomg.cwm.resource.xml.impl.SchemaImpl <em>Schema</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see orgomg.cwm.resource.xml.impl.SchemaImpl
          * @see orgomg.cwm.resource.xml.impl.XmlPackageImpl#getSchema()
          * @generated
@@ -3293,24 +3156,22 @@ public interface XmlPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Version</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute SCHEMA__VERSION = eINSTANCE.getSchema_Version();
 
         /**
          * The meta object literal for the '<em><b>Xml Namespace</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute SCHEMA__XML_NAMESPACE = eINSTANCE.getSchema_XmlNamespace();
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.resource.xml.impl.ElementTypeImpl <em>Element Type</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwm.resource.xml.impl.ElementTypeImpl
          * @see orgomg.cwm.resource.xml.impl.XmlPackageImpl#getElementType()
          * @generated
@@ -3319,16 +3180,14 @@ public interface XmlPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Content</b></em>' reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference ELEMENT_TYPE__CONTENT = eINSTANCE.getElementType_Content();
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.resource.xml.impl.AttributeImpl <em>Attribute</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see orgomg.cwm.resource.xml.impl.AttributeImpl
          * @see orgomg.cwm.resource.xml.impl.XmlPackageImpl#getAttribute()
          * @generated
@@ -3337,16 +3196,14 @@ public interface XmlPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Default Kind</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute ATTRIBUTE__DEFAULT_KIND = eINSTANCE.getAttribute_DefaultKind();
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.resource.xml.impl.ContentImpl <em>Content</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see orgomg.cwm.resource.xml.impl.ContentImpl
          * @see orgomg.cwm.resource.xml.impl.XmlPackageImpl#getContent()
          * @generated
@@ -3355,40 +3212,36 @@ public interface XmlPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute CONTENT__TYPE = eINSTANCE.getContent_Type();
 
         /**
          * The meta object literal for the '<em><b>Occurrence</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute CONTENT__OCCURRENCE = eINSTANCE.getContent_Occurrence();
 
         /**
          * The meta object literal for the '<em><b>Element Type</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference CONTENT__ELEMENT_TYPE = eINSTANCE.getContent_ElementType();
 
         /**
          * The meta object literal for the '<em><b>Owned Element Type</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference CONTENT__OWNED_ELEMENT_TYPE = eINSTANCE.getContent_OwnedElementType();
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.resource.xml.impl.ElementContentImpl <em>Element Content</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwm.resource.xml.impl.ElementContentImpl
          * @see orgomg.cwm.resource.xml.impl.XmlPackageImpl#getElementContent()
          * @generated
@@ -3397,32 +3250,29 @@ public interface XmlPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Order</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute ELEMENT_CONTENT__ORDER = eINSTANCE.getElementContent_Order();
 
         /**
          * The meta object literal for the '<em><b>Owner Content</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference ELEMENT_CONTENT__OWNER_CONTENT = eINSTANCE.getElementContent_OwnerContent();
 
         /**
          * The meta object literal for the '<em><b>Owned Content</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference ELEMENT_CONTENT__OWNED_CONTENT = eINSTANCE.getElementContent_OwnedContent();
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.resource.xml.impl.MixedContentImpl <em>Mixed Content</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwm.resource.xml.impl.MixedContentImpl
          * @see orgomg.cwm.resource.xml.impl.XmlPackageImpl#getMixedContent()
          * @generated
@@ -3431,16 +3281,15 @@ public interface XmlPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Text</b></em>' containment reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference MIXED_CONTENT__TEXT = eINSTANCE.getMixedContent_Text();
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.resource.xml.impl.ElementTypeReferenceImpl <em>Element Type Reference</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwm.resource.xml.impl.ElementTypeReferenceImpl
          * @see orgomg.cwm.resource.xml.impl.XmlPackageImpl#getElementTypeReference()
          * @generated
@@ -3449,24 +3298,21 @@ public interface XmlPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Occurrence</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute ELEMENT_TYPE_REFERENCE__OCCURRENCE = eINSTANCE.getElementTypeReference_Occurrence();
 
         /**
          * The meta object literal for the '<em><b>Owner Content</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference ELEMENT_TYPE_REFERENCE__OWNER_CONTENT = eINSTANCE.getElementTypeReference_OwnerContent();
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.resource.xml.impl.TextImpl <em>Text</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see orgomg.cwm.resource.xml.impl.TextImpl
          * @see orgomg.cwm.resource.xml.impl.XmlPackageImpl#getText()
          * @generated
@@ -3475,16 +3321,15 @@ public interface XmlPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Owner Content</b></em>' container reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EReference TEXT__OWNER_CONTENT = eINSTANCE.getText_OwnerContent();
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.resource.xml.impl.ElementImpl <em>Element</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see orgomg.cwm.resource.xml.impl.ElementImpl
          * @see orgomg.cwm.resource.xml.impl.XmlPackageImpl#getElement()
          * @generated
@@ -3493,8 +3338,7 @@ public interface XmlPackage extends EPackage {
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.resource.xml.impl.DocumentImpl <em>Document</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see orgomg.cwm.resource.xml.impl.DocumentImpl
          * @see orgomg.cwm.resource.xml.impl.XmlPackageImpl#getDocument()
          * @generated
@@ -3503,8 +3347,8 @@ public interface XmlPackage extends EPackage {
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.resource.xml.AttributeDefault <em>Attribute Default</em>}' enum.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwm.resource.xml.AttributeDefault
          * @see orgomg.cwm.resource.xml.impl.XmlPackageImpl#getAttributeDefault()
          * @generated
@@ -3513,8 +3357,7 @@ public interface XmlPackage extends EPackage {
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.resource.xml.ContentType <em>Content Type</em>}' enum.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see orgomg.cwm.resource.xml.ContentType
          * @see orgomg.cwm.resource.xml.impl.XmlPackageImpl#getContentType()
          * @generated
@@ -3523,8 +3366,8 @@ public interface XmlPackage extends EPackage {
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.resource.xml.OccurrenceType <em>Occurrence Type</em>}' enum.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwm.resource.xml.OccurrenceType
          * @see orgomg.cwm.resource.xml.impl.XmlPackageImpl#getOccurrenceType()
          * @generated
@@ -3533,8 +3376,8 @@ public interface XmlPackage extends EPackage {
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.resource.xml.ElementOrderType <em>Element Order Type</em>}' enum.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwm.resource.xml.ElementOrderType
          * @see orgomg.cwm.resource.xml.impl.XmlPackageImpl#getElementOrderType()
          * @generated
@@ -3543,4 +3386,4 @@ public interface XmlPackage extends EPackage {
 
     }
 
-} //XmlPackage
+} // XmlPackage

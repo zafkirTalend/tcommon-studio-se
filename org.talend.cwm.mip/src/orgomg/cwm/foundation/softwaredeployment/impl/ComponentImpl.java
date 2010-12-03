@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.foundation.softwaredeployment.impl;
@@ -20,9 +19,8 @@ import orgomg.cwm.foundation.softwaredeployment.SoftwaredeploymentPackage;
 import orgomg.cwm.objectmodel.core.impl.ClassifierImpl;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Component</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Component</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -33,10 +31,10 @@ import orgomg.cwm.objectmodel.core.impl.ClassifierImpl;
  * @generated
  */
 public class ComponentImpl extends ClassifierImpl implements Component {
+
     /**
      * The cached value of the '{@link #getDeployment() <em>Deployment</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getDeployment()
      * @generated
      * @ordered
@@ -44,8 +42,7 @@ public class ComponentImpl extends ClassifierImpl implements Component {
     protected EList<DeployedComponent> deployment;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected ComponentImpl() {
@@ -53,8 +50,7 @@ public class ComponentImpl extends ClassifierImpl implements Component {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -63,104 +59,98 @@ public class ComponentImpl extends ClassifierImpl implements Component {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<DeployedComponent> getDeployment() {
         if (deployment == null) {
-            deployment = new EObjectWithInverseResolvingEList<DeployedComponent>(DeployedComponent.class, this, SoftwaredeploymentPackage.COMPONENT__DEPLOYMENT, SoftwaredeploymentPackage.DEPLOYED_COMPONENT__COMPONENT);
+            deployment = new EObjectWithInverseResolvingEList<DeployedComponent>(DeployedComponent.class, this,
+                    SoftwaredeploymentPackage.COMPONENT__DEPLOYMENT, SoftwaredeploymentPackage.DEPLOYED_COMPONENT__COMPONENT);
         }
         return deployment;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case SoftwaredeploymentPackage.COMPONENT__DEPLOYMENT:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getDeployment()).basicAdd(otherEnd, msgs);
+        case SoftwaredeploymentPackage.COMPONENT__DEPLOYMENT:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getDeployment()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case SoftwaredeploymentPackage.COMPONENT__DEPLOYMENT:
-                return ((InternalEList<?>)getDeployment()).basicRemove(otherEnd, msgs);
+        case SoftwaredeploymentPackage.COMPONENT__DEPLOYMENT:
+            return ((InternalEList<?>) getDeployment()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case SoftwaredeploymentPackage.COMPONENT__DEPLOYMENT:
-                return getDeployment();
+        case SoftwaredeploymentPackage.COMPONENT__DEPLOYMENT:
+            return getDeployment();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case SoftwaredeploymentPackage.COMPONENT__DEPLOYMENT:
-                getDeployment().clear();
-                getDeployment().addAll((Collection<? extends DeployedComponent>)newValue);
-                return;
+        case SoftwaredeploymentPackage.COMPONENT__DEPLOYMENT:
+            getDeployment().clear();
+            getDeployment().addAll((Collection<? extends DeployedComponent>) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case SoftwaredeploymentPackage.COMPONENT__DEPLOYMENT:
-                getDeployment().clear();
-                return;
+        case SoftwaredeploymentPackage.COMPONENT__DEPLOYMENT:
+            getDeployment().clear();
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case SoftwaredeploymentPackage.COMPONENT__DEPLOYMENT:
-                return deployment != null && !deployment.isEmpty();
+        case SoftwaredeploymentPackage.COMPONENT__DEPLOYMENT:
+            return deployment != null && !deployment.isEmpty();
         }
         return super.eIsSet(featureID);
     }
 
-} //ComponentImpl
+} // ComponentImpl

@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.resource.relational;
@@ -16,90 +15,89 @@ import orgomg.cwm.objectmodel.core.CorePackage;
 import orgomg.cwm.objectmodel.instance.InstancePackage;
 
 /**
- * <!-- begin-user-doc -->
- * The <b>Package</b> for the model.
- * It contains accessors for the meta objects to represent
+ * <!-- begin-user-doc --> The <b>Package</b> for the model. It contains
+ * accessors for the meta objects to represent
  * <ul>
- *   <li>each class,</li>
- *   <li>each feature of each class,</li>
- *   <li>each enum,</li>
- *   <li>and each data type</li>
+ * <li>each class,</li>
+ * <li>each feature of each class,</li>
+ * <li>each enum,</li>
+ * <li>and each data type</li>
  * </ul>
- * <!-- end-user-doc -->
- * <!-- begin-model-doc -->
- * The Relational package describes data accessible through a relational interface such as a native RDBMS, ODBC, or JDBC. The Relational package is based on the [SQL] standard section concerning RDBMS catalogs.
+ * <!-- end-user-doc --> <!-- begin-model-doc --> The Relational package
+ * describes data accessible through a relational interface such as a native
+ * RDBMS, ODBC, or JDBC. The Relational package is based on the [SQL] standard
+ * section concerning RDBMS catalogs.
  * 
- * The scope of the top level container, Catalog, is intended to cover all the tables a user can use in a single statement. A catalog is also the unit which is managed by a data resource. A catalog contains schemas which themselves contain tables. Tables are made of columns which have an associated data type.
+ * The scope of the top level container, Catalog, is intended to cover all the
+ * tables a user can use in a single statement. A catalog is also the unit which
+ * is managed by a data resource. A catalog contains schemas which themselves
+ * contain tables. Tables are made of columns which have an associated data
+ * type.
  * 
- * The Relational package uses constructs in the ObjectModel package to describe the object extensions added to SQL by the [SQL] standards. 
+ * The Relational package uses constructs in the ObjectModel package to describe
+ * the object extensions added to SQL by the [SQL] standards.
  * 
- * The Relational package also addresses the issues of indexing, primary keys and foreign keys by extending the corresponding concepts from the Foundation packages.
+ * The Relational package also addresses the issues of indexing, primary keys
+ * and foreign keys by extending the corresponding concepts from the Foundation
+ * packages.
  * 
  * The Relational package depends on the following packages:
  * 
- *     org.omg::CWM::ObjectModel::Behavioral
- *     org.omg::CWM::ObjectModel::Core
- *     org.omg::CWM::ObjectModel::Instance
- *     org.omg::CWM::Foundation::DataTypes
- *     org.omg::CWM::Foundation::KeysIndexes
+ * org.omg::CWM::ObjectModel::Behavioral org.omg::CWM::ObjectModel::Core
+ * org.omg::CWM::ObjectModel::Instance org.omg::CWM::Foundation::DataTypes
+ * org.omg::CWM::Foundation::KeysIndexes
  * 
  * The Relational package references the ObjectModel and Foundation packages.
  * 
  * OCL Representation of Relational Constraints
  * 
- * [C-1] temporaryScope is valid only if the isTemporary is True.
- * context Tabl e inv:
- * self.temporaryScope.notEmpty implies self.isTemporary=True
+ * [C-1] temporaryScope is valid only if the isTemporary is True. context Tabl e
+ * inv: self.temporaryScope.notEmpty implies self.isTemporary=True
  * 
- * [C-2] checkOption is valid only if isReadOnly is False.
- * context View inv:
+ * [C-2] checkOption is valid only if isReadOnly is False. context View inv:
  * self.checkOption implies self.isReadOnly=False
  * 
- * [C-3] scale is valid only if precision is specified.
- * context Column inv:
- * self.scale.nonEmpty implies self.precision.notEmpty
- * <!-- end-model-doc -->
+ * [C-3] scale is valid only if precision is specified. context Column inv:
+ * self.scale.nonEmpty implies self.precision.notEmpty <!-- end-model-doc -->
+ * 
  * @see orgomg.cwm.resource.relational.RelationalFactory
  * @model kind="package"
  * @generated
  */
 public interface RelationalPackage extends EPackage {
+
     /**
      * The package name.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     String eNAME = "relational";
 
     /**
      * The package namespace URI.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     String eNS_URI = "http:///orgomg/cwm/resource/relational.ecore";
 
     /**
      * The package namespace name.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     String eNS_PREFIX = "orgomg.cwm.resource.relational";
 
     /**
      * The singleton instance of the package.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     RelationalPackage eINSTANCE = orgomg.cwm.resource.relational.impl.RelationalPackageImpl.init();
 
     /**
      * The meta object id for the '{@link orgomg.cwm.resource.relational.impl.CatalogImpl <em>Catalog</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see orgomg.cwm.resource.relational.impl.CatalogImpl
      * @see orgomg.cwm.resource.relational.impl.RelationalPackageImpl#getCatalog()
      * @generated
@@ -107,18 +105,18 @@ public interface RelationalPackage extends EPackage {
     int CATALOG = 0;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int CATALOG__NAME = CorePackage.PACKAGE__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -126,8 +124,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -135,17 +132,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CATALOG__SUPPLIER_DEPENDENCY = CorePackage.PACKAGE__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -153,26 +149,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CATALOG__NAMESPACE = CorePackage.PACKAGE__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int CATALOG__IMPORTER = CorePackage.PACKAGE__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -180,26 +175,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CATALOG__TAGGED_VALUE = CorePackage.PACKAGE__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int CATALOG__DOCUMENT = CorePackage.PACKAGE__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -207,8 +201,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -216,17 +209,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CATALOG__ELEMENT_NODE = CorePackage.PACKAGE__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -234,8 +226,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -243,17 +234,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CATALOG__VOCABULARY_ELEMENT = CorePackage.PACKAGE__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -261,8 +251,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -270,8 +259,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -279,8 +267,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -288,8 +275,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Imported Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -297,8 +283,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Data Manager</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -306,8 +291,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Default Character Set Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -315,17 +299,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Default Collation Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CATALOG__DEFAULT_COLLATION_NAME = CorePackage.PACKAGE_FEATURE_COUNT + 1;
 
     /**
-     * The number of structural features of the '<em>Catalog</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The number of structural features of the '<em>Catalog</em>' class. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -333,8 +316,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwm.resource.relational.impl.SchemaImpl <em>Schema</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see orgomg.cwm.resource.relational.impl.SchemaImpl
      * @see orgomg.cwm.resource.relational.impl.RelationalPackageImpl#getSchema()
      * @generated
@@ -342,18 +324,18 @@ public interface RelationalPackage extends EPackage {
     int SCHEMA = 1;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SCHEMA__NAME = CorePackage.PACKAGE__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -361,8 +343,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -370,17 +351,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SCHEMA__SUPPLIER_DEPENDENCY = CorePackage.PACKAGE__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -388,26 +368,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SCHEMA__NAMESPACE = CorePackage.PACKAGE__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SCHEMA__IMPORTER = CorePackage.PACKAGE__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -415,26 +394,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SCHEMA__TAGGED_VALUE = CorePackage.PACKAGE__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SCHEMA__DOCUMENT = CorePackage.PACKAGE__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -442,8 +420,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -451,17 +428,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SCHEMA__ELEMENT_NODE = CorePackage.PACKAGE__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -469,8 +445,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -478,17 +453,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SCHEMA__VOCABULARY_ELEMENT = CorePackage.PACKAGE__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -496,8 +470,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -505,8 +478,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -514,8 +486,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -523,8 +494,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Imported Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -532,26 +502,27 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Data Manager</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SCHEMA__DATA_MANAGER = CorePackage.PACKAGE__DATA_MANAGER;
 
     /**
-     * The number of structural features of the '<em>Schema</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The number of structural features of the '<em>Schema</em>' class. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SCHEMA_FEATURE_COUNT = CorePackage.PACKAGE_FEATURE_COUNT + 0;
 
     /**
-     * The meta object id for the '{@link orgomg.cwm.resource.relational.impl.ColumnSetImpl <em>Column Set</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The meta object id for the '
+     * {@link orgomg.cwm.resource.relational.impl.ColumnSetImpl
+     * <em>Column Set</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @see orgomg.cwm.resource.relational.impl.ColumnSetImpl
      * @see orgomg.cwm.resource.relational.impl.RelationalPackageImpl#getColumnSet()
      * @generated
@@ -559,18 +530,18 @@ public interface RelationalPackage extends EPackage {
     int COLUMN_SET = 2;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int COLUMN_SET__NAME = CorePackage.CLASS__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -578,8 +549,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -587,17 +557,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int COLUMN_SET__SUPPLIER_DEPENDENCY = CorePackage.CLASS__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -605,26 +574,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int COLUMN_SET__NAMESPACE = CorePackage.CLASS__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int COLUMN_SET__IMPORTER = CorePackage.CLASS__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -632,26 +600,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int COLUMN_SET__TAGGED_VALUE = CorePackage.CLASS__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int COLUMN_SET__DOCUMENT = CorePackage.CLASS__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -659,8 +626,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -668,17 +634,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int COLUMN_SET__ELEMENT_NODE = CorePackage.CLASS__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -686,8 +651,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -695,17 +659,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int COLUMN_SET__VOCABULARY_ELEMENT = CorePackage.CLASS__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -713,8 +676,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -722,8 +684,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -731,17 +692,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int COLUMN_SET__OWNED_ELEMENT = CorePackage.CLASS__OWNED_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Is Abstract</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is Abstract</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -749,8 +709,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Feature</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -758,17 +717,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Structural Feature</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int COLUMN_SET__STRUCTURAL_FEATURE = CorePackage.CLASS__STRUCTURAL_FEATURE;
 
     /**
-     * The feature id for the '<em><b>Parameter</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Parameter</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -776,8 +734,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Generalization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -785,26 +742,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Specialization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int COLUMN_SET__SPECIALIZATION = CorePackage.CLASS__SPECIALIZATION;
 
     /**
-     * The feature id for the '<em><b>Instance</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Instance</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int COLUMN_SET__INSTANCE = CorePackage.CLASS__INSTANCE;
 
     /**
-     * The feature id for the '<em><b>Alias</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Alias</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -812,8 +768,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Expression Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -821,17 +776,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Mapping From</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int COLUMN_SET__MAPPING_FROM = CorePackage.CLASS__MAPPING_FROM;
 
     /**
-     * The feature id for the '<em><b>Mapping To</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Mapping To</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -839,26 +793,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Classifier Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int COLUMN_SET__CLASSIFIER_MAP = CorePackage.CLASS__CLASSIFIER_MAP;
 
     /**
-     * The feature id for the '<em><b>Cf Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Cf Map</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int COLUMN_SET__CF_MAP = CorePackage.CLASS__CF_MAP;
 
     /**
-     * The feature id for the '<em><b>Domain</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Domain</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -866,17 +819,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Simple Dimension</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int COLUMN_SET__SIMPLE_DIMENSION = CorePackage.CLASS__SIMPLE_DIMENSION;
 
     /**
-     * The feature id for the '<em><b>Index</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Index</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -884,8 +836,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Column Set</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -893,8 +844,8 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwm.resource.relational.impl.NamedColumnSetImpl <em>Named Column Set</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see orgomg.cwm.resource.relational.impl.NamedColumnSetImpl
      * @see orgomg.cwm.resource.relational.impl.RelationalPackageImpl#getNamedColumnSet()
      * @generated
@@ -902,18 +853,18 @@ public interface RelationalPackage extends EPackage {
     int NAMED_COLUMN_SET = 3;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int NAMED_COLUMN_SET__NAME = COLUMN_SET__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -921,8 +872,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -930,17 +880,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int NAMED_COLUMN_SET__SUPPLIER_DEPENDENCY = COLUMN_SET__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -948,26 +897,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int NAMED_COLUMN_SET__NAMESPACE = COLUMN_SET__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int NAMED_COLUMN_SET__IMPORTER = COLUMN_SET__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -975,26 +923,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int NAMED_COLUMN_SET__TAGGED_VALUE = COLUMN_SET__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int NAMED_COLUMN_SET__DOCUMENT = COLUMN_SET__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1002,8 +949,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1011,17 +957,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int NAMED_COLUMN_SET__ELEMENT_NODE = COLUMN_SET__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1029,8 +974,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1038,17 +982,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int NAMED_COLUMN_SET__VOCABULARY_ELEMENT = COLUMN_SET__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1056,8 +999,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1065,8 +1007,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1074,17 +1015,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int NAMED_COLUMN_SET__OWNED_ELEMENT = COLUMN_SET__OWNED_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Is Abstract</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is Abstract</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1092,8 +1032,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Feature</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1101,17 +1040,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Structural Feature</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int NAMED_COLUMN_SET__STRUCTURAL_FEATURE = COLUMN_SET__STRUCTURAL_FEATURE;
 
     /**
-     * The feature id for the '<em><b>Parameter</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Parameter</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1119,8 +1057,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Generalization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1128,26 +1065,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Specialization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int NAMED_COLUMN_SET__SPECIALIZATION = COLUMN_SET__SPECIALIZATION;
 
     /**
-     * The feature id for the '<em><b>Instance</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Instance</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int NAMED_COLUMN_SET__INSTANCE = COLUMN_SET__INSTANCE;
 
     /**
-     * The feature id for the '<em><b>Alias</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Alias</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1155,8 +1091,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Expression Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1164,17 +1099,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Mapping From</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int NAMED_COLUMN_SET__MAPPING_FROM = COLUMN_SET__MAPPING_FROM;
 
     /**
-     * The feature id for the '<em><b>Mapping To</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Mapping To</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1182,26 +1116,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Classifier Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int NAMED_COLUMN_SET__CLASSIFIER_MAP = COLUMN_SET__CLASSIFIER_MAP;
 
     /**
-     * The feature id for the '<em><b>Cf Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Cf Map</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int NAMED_COLUMN_SET__CF_MAP = COLUMN_SET__CF_MAP;
 
     /**
-     * The feature id for the '<em><b>Domain</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Domain</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1209,17 +1142,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Simple Dimension</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int NAMED_COLUMN_SET__SIMPLE_DIMENSION = COLUMN_SET__SIMPLE_DIMENSION;
 
     /**
-     * The feature id for the '<em><b>Index</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Index</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1227,17 +1159,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Using Trigger</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int NAMED_COLUMN_SET__USING_TRIGGER = COLUMN_SET_FEATURE_COUNT + 0;
 
     /**
-     * The feature id for the '<em><b>Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Type</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1245,8 +1176,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Option Scope Column</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1254,8 +1184,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Named Column Set</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1263,8 +1192,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwm.resource.relational.impl.TableImpl <em>Table</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see orgomg.cwm.resource.relational.impl.TableImpl
      * @see orgomg.cwm.resource.relational.impl.RelationalPackageImpl#getTable()
      * @generated
@@ -1272,18 +1200,18 @@ public interface RelationalPackage extends EPackage {
     int TABLE = 4;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int TABLE__NAME = NAMED_COLUMN_SET__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1291,8 +1219,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1300,17 +1227,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int TABLE__SUPPLIER_DEPENDENCY = NAMED_COLUMN_SET__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1318,26 +1244,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int TABLE__NAMESPACE = NAMED_COLUMN_SET__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int TABLE__IMPORTER = NAMED_COLUMN_SET__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1345,26 +1270,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int TABLE__TAGGED_VALUE = NAMED_COLUMN_SET__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int TABLE__DOCUMENT = NAMED_COLUMN_SET__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1372,8 +1296,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1381,17 +1304,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int TABLE__ELEMENT_NODE = NAMED_COLUMN_SET__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1399,8 +1321,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1408,17 +1329,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int TABLE__VOCABULARY_ELEMENT = NAMED_COLUMN_SET__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1426,8 +1346,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1435,8 +1354,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1444,17 +1362,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int TABLE__OWNED_ELEMENT = NAMED_COLUMN_SET__OWNED_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Is Abstract</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is Abstract</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1462,8 +1379,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Feature</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1471,17 +1387,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Structural Feature</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int TABLE__STRUCTURAL_FEATURE = NAMED_COLUMN_SET__STRUCTURAL_FEATURE;
 
     /**
-     * The feature id for the '<em><b>Parameter</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Parameter</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1489,8 +1404,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Generalization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1498,26 +1412,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Specialization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int TABLE__SPECIALIZATION = NAMED_COLUMN_SET__SPECIALIZATION;
 
     /**
-     * The feature id for the '<em><b>Instance</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Instance</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int TABLE__INSTANCE = NAMED_COLUMN_SET__INSTANCE;
 
     /**
-     * The feature id for the '<em><b>Alias</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Alias</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1525,8 +1438,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Expression Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1534,17 +1446,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Mapping From</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int TABLE__MAPPING_FROM = NAMED_COLUMN_SET__MAPPING_FROM;
 
     /**
-     * The feature id for the '<em><b>Mapping To</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Mapping To</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1552,26 +1463,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Classifier Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int TABLE__CLASSIFIER_MAP = NAMED_COLUMN_SET__CLASSIFIER_MAP;
 
     /**
-     * The feature id for the '<em><b>Cf Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Cf Map</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int TABLE__CF_MAP = NAMED_COLUMN_SET__CF_MAP;
 
     /**
-     * The feature id for the '<em><b>Domain</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Domain</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1579,17 +1489,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Simple Dimension</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int TABLE__SIMPLE_DIMENSION = NAMED_COLUMN_SET__SIMPLE_DIMENSION;
 
     /**
-     * The feature id for the '<em><b>Index</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Index</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1597,17 +1506,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Using Trigger</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int TABLE__USING_TRIGGER = NAMED_COLUMN_SET__USING_TRIGGER;
 
     /**
-     * The feature id for the '<em><b>Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Type</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1615,53 +1523,52 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Option Scope Column</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int TABLE__OPTION_SCOPE_COLUMN = NAMED_COLUMN_SET__OPTION_SCOPE_COLUMN;
 
     /**
-     * The feature id for the '<em><b>Is Temporary</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is Temporary</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int TABLE__IS_TEMPORARY = NAMED_COLUMN_SET_FEATURE_COUNT + 0;
 
     /**
-     * The feature id for the '<em><b>Temporary Scope</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Temporary Scope</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int TABLE__TEMPORARY_SCOPE = NAMED_COLUMN_SET_FEATURE_COUNT + 1;
 
     /**
-     * The feature id for the '<em><b>Is System</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is System</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int TABLE__IS_SYSTEM = NAMED_COLUMN_SET_FEATURE_COUNT + 2;
 
     /**
-     * The feature id for the '<em><b>Trigger</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Trigger</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int TABLE__TRIGGER = NAMED_COLUMN_SET_FEATURE_COUNT + 3;
 
     /**
-     * The number of structural features of the '<em>Table</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The number of structural features of the '<em>Table</em>' class. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1669,8 +1576,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwm.resource.relational.impl.ViewImpl <em>View</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see orgomg.cwm.resource.relational.impl.ViewImpl
      * @see orgomg.cwm.resource.relational.impl.RelationalPackageImpl#getView()
      * @generated
@@ -1678,18 +1584,18 @@ public interface RelationalPackage extends EPackage {
     int VIEW = 5;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int VIEW__NAME = NAMED_COLUMN_SET__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1697,8 +1603,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1706,17 +1611,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int VIEW__SUPPLIER_DEPENDENCY = NAMED_COLUMN_SET__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1724,26 +1628,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int VIEW__NAMESPACE = NAMED_COLUMN_SET__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int VIEW__IMPORTER = NAMED_COLUMN_SET__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1751,26 +1654,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int VIEW__TAGGED_VALUE = NAMED_COLUMN_SET__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int VIEW__DOCUMENT = NAMED_COLUMN_SET__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1778,8 +1680,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1787,17 +1688,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int VIEW__ELEMENT_NODE = NAMED_COLUMN_SET__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1805,8 +1705,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1814,17 +1713,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int VIEW__VOCABULARY_ELEMENT = NAMED_COLUMN_SET__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1832,8 +1730,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1841,8 +1738,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1850,17 +1746,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int VIEW__OWNED_ELEMENT = NAMED_COLUMN_SET__OWNED_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Is Abstract</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is Abstract</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1868,8 +1763,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Feature</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1877,17 +1771,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Structural Feature</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int VIEW__STRUCTURAL_FEATURE = NAMED_COLUMN_SET__STRUCTURAL_FEATURE;
 
     /**
-     * The feature id for the '<em><b>Parameter</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Parameter</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1895,8 +1788,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Generalization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1904,26 +1796,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Specialization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int VIEW__SPECIALIZATION = NAMED_COLUMN_SET__SPECIALIZATION;
 
     /**
-     * The feature id for the '<em><b>Instance</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Instance</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int VIEW__INSTANCE = NAMED_COLUMN_SET__INSTANCE;
 
     /**
-     * The feature id for the '<em><b>Alias</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Alias</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1931,8 +1822,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Expression Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1940,17 +1830,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Mapping From</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int VIEW__MAPPING_FROM = NAMED_COLUMN_SET__MAPPING_FROM;
 
     /**
-     * The feature id for the '<em><b>Mapping To</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Mapping To</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1958,26 +1847,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Classifier Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int VIEW__CLASSIFIER_MAP = NAMED_COLUMN_SET__CLASSIFIER_MAP;
 
     /**
-     * The feature id for the '<em><b>Cf Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Cf Map</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int VIEW__CF_MAP = NAMED_COLUMN_SET__CF_MAP;
 
     /**
-     * The feature id for the '<em><b>Domain</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Domain</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -1985,17 +1873,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Simple Dimension</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int VIEW__SIMPLE_DIMENSION = NAMED_COLUMN_SET__SIMPLE_DIMENSION;
 
     /**
-     * The feature id for the '<em><b>Index</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Index</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2003,17 +1890,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Using Trigger</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int VIEW__USING_TRIGGER = NAMED_COLUMN_SET__USING_TRIGGER;
 
     /**
-     * The feature id for the '<em><b>Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Type</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2021,26 +1907,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Option Scope Column</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int VIEW__OPTION_SCOPE_COLUMN = NAMED_COLUMN_SET__OPTION_SCOPE_COLUMN;
 
     /**
-     * The feature id for the '<em><b>Is Read Only</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is Read Only</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int VIEW__IS_READ_ONLY = NAMED_COLUMN_SET_FEATURE_COUNT + 0;
 
     /**
-     * The feature id for the '<em><b>Check Option</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Check Option</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2048,17 +1933,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Query Expression</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int VIEW__QUERY_EXPRESSION = NAMED_COLUMN_SET_FEATURE_COUNT + 2;
 
     /**
-     * The number of structural features of the '<em>View</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The number of structural features of the '<em>View</em>' class. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2066,8 +1950,8 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwm.resource.relational.impl.QueryColumnSetImpl <em>Query Column Set</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see orgomg.cwm.resource.relational.impl.QueryColumnSetImpl
      * @see orgomg.cwm.resource.relational.impl.RelationalPackageImpl#getQueryColumnSet()
      * @generated
@@ -2075,18 +1959,18 @@ public interface RelationalPackage extends EPackage {
     int QUERY_COLUMN_SET = 6;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int QUERY_COLUMN_SET__NAME = COLUMN_SET__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2094,8 +1978,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2103,17 +1986,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int QUERY_COLUMN_SET__SUPPLIER_DEPENDENCY = COLUMN_SET__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2121,26 +2003,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int QUERY_COLUMN_SET__NAMESPACE = COLUMN_SET__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int QUERY_COLUMN_SET__IMPORTER = COLUMN_SET__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2148,26 +2029,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int QUERY_COLUMN_SET__TAGGED_VALUE = COLUMN_SET__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int QUERY_COLUMN_SET__DOCUMENT = COLUMN_SET__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2175,8 +2055,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2184,17 +2063,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int QUERY_COLUMN_SET__ELEMENT_NODE = COLUMN_SET__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2202,8 +2080,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2211,17 +2088,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int QUERY_COLUMN_SET__VOCABULARY_ELEMENT = COLUMN_SET__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2229,8 +2105,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2238,8 +2113,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2247,17 +2121,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int QUERY_COLUMN_SET__OWNED_ELEMENT = COLUMN_SET__OWNED_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Is Abstract</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is Abstract</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2265,8 +2138,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Feature</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2274,17 +2146,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Structural Feature</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int QUERY_COLUMN_SET__STRUCTURAL_FEATURE = COLUMN_SET__STRUCTURAL_FEATURE;
 
     /**
-     * The feature id for the '<em><b>Parameter</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Parameter</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2292,8 +2163,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Generalization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2301,26 +2171,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Specialization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int QUERY_COLUMN_SET__SPECIALIZATION = COLUMN_SET__SPECIALIZATION;
 
     /**
-     * The feature id for the '<em><b>Instance</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Instance</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int QUERY_COLUMN_SET__INSTANCE = COLUMN_SET__INSTANCE;
 
     /**
-     * The feature id for the '<em><b>Alias</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Alias</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2328,8 +2197,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Expression Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2337,17 +2205,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Mapping From</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int QUERY_COLUMN_SET__MAPPING_FROM = COLUMN_SET__MAPPING_FROM;
 
     /**
-     * The feature id for the '<em><b>Mapping To</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Mapping To</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2355,26 +2222,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Classifier Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int QUERY_COLUMN_SET__CLASSIFIER_MAP = COLUMN_SET__CLASSIFIER_MAP;
 
     /**
-     * The feature id for the '<em><b>Cf Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Cf Map</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int QUERY_COLUMN_SET__CF_MAP = COLUMN_SET__CF_MAP;
 
     /**
-     * The feature id for the '<em><b>Domain</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Domain</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2382,17 +2248,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Simple Dimension</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int QUERY_COLUMN_SET__SIMPLE_DIMENSION = COLUMN_SET__SIMPLE_DIMENSION;
 
     /**
-     * The feature id for the '<em><b>Index</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Index</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2400,8 +2265,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Query</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2409,17 +2273,18 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Query Column Set</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int QUERY_COLUMN_SET_FEATURE_COUNT = COLUMN_SET_FEATURE_COUNT + 1;
 
     /**
-     * The meta object id for the '{@link orgomg.cwm.resource.relational.impl.SQLDataTypeImpl <em>SQL Data Type</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The meta object id for the '
+     * {@link orgomg.cwm.resource.relational.impl.SQLDataTypeImpl
+     * <em>SQL Data Type</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @see orgomg.cwm.resource.relational.impl.SQLDataTypeImpl
      * @see orgomg.cwm.resource.relational.impl.RelationalPackageImpl#getSQLDataType()
      * @generated
@@ -2427,18 +2292,18 @@ public interface RelationalPackage extends EPackage {
     int SQL_DATA_TYPE = 7;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SQL_DATA_TYPE__NAME = CorePackage.CLASSIFIER__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2446,8 +2311,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2455,17 +2319,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_DATA_TYPE__SUPPLIER_DEPENDENCY = CorePackage.CLASSIFIER__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2473,26 +2336,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_DATA_TYPE__NAMESPACE = CorePackage.CLASSIFIER__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SQL_DATA_TYPE__IMPORTER = CorePackage.CLASSIFIER__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2500,26 +2362,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_DATA_TYPE__TAGGED_VALUE = CorePackage.CLASSIFIER__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SQL_DATA_TYPE__DOCUMENT = CorePackage.CLASSIFIER__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2527,8 +2388,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2536,17 +2396,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_DATA_TYPE__ELEMENT_NODE = CorePackage.CLASSIFIER__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2554,8 +2413,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2563,17 +2421,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_DATA_TYPE__VOCABULARY_ELEMENT = CorePackage.CLASSIFIER__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2581,8 +2438,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2590,8 +2446,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2599,17 +2454,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_DATA_TYPE__OWNED_ELEMENT = CorePackage.CLASSIFIER__OWNED_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Is Abstract</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is Abstract</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2617,8 +2471,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Feature</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2626,17 +2479,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Structural Feature</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_DATA_TYPE__STRUCTURAL_FEATURE = CorePackage.CLASSIFIER__STRUCTURAL_FEATURE;
 
     /**
-     * The feature id for the '<em><b>Parameter</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Parameter</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2644,8 +2496,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Generalization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2653,26 +2504,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Specialization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_DATA_TYPE__SPECIALIZATION = CorePackage.CLASSIFIER__SPECIALIZATION;
 
     /**
-     * The feature id for the '<em><b>Instance</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Instance</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SQL_DATA_TYPE__INSTANCE = CorePackage.CLASSIFIER__INSTANCE;
 
     /**
-     * The feature id for the '<em><b>Alias</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Alias</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2680,8 +2530,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Expression Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2689,17 +2538,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Mapping From</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_DATA_TYPE__MAPPING_FROM = CorePackage.CLASSIFIER__MAPPING_FROM;
 
     /**
-     * The feature id for the '<em><b>Mapping To</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Mapping To</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2707,26 +2555,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Classifier Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_DATA_TYPE__CLASSIFIER_MAP = CorePackage.CLASSIFIER__CLASSIFIER_MAP;
 
     /**
-     * The feature id for the '<em><b>Cf Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Cf Map</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SQL_DATA_TYPE__CF_MAP = CorePackage.CLASSIFIER__CF_MAP;
 
     /**
-     * The feature id for the '<em><b>Domain</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Domain</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2734,17 +2581,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Simple Dimension</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_DATA_TYPE__SIMPLE_DIMENSION = CorePackage.CLASSIFIER__SIMPLE_DIMENSION;
 
     /**
-     * The feature id for the '<em><b>Type Number</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Type Number</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2752,8 +2598,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>SQL Data Type</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2761,8 +2606,8 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwm.resource.relational.impl.SQLDistinctTypeImpl <em>SQL Distinct Type</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see orgomg.cwm.resource.relational.impl.SQLDistinctTypeImpl
      * @see orgomg.cwm.resource.relational.impl.RelationalPackageImpl#getSQLDistinctType()
      * @generated
@@ -2770,18 +2615,18 @@ public interface RelationalPackage extends EPackage {
     int SQL_DISTINCT_TYPE = 8;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SQL_DISTINCT_TYPE__NAME = SQL_DATA_TYPE__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2789,8 +2634,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2798,17 +2642,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_DISTINCT_TYPE__SUPPLIER_DEPENDENCY = SQL_DATA_TYPE__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2816,26 +2659,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_DISTINCT_TYPE__NAMESPACE = SQL_DATA_TYPE__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SQL_DISTINCT_TYPE__IMPORTER = SQL_DATA_TYPE__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2843,26 +2685,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_DISTINCT_TYPE__TAGGED_VALUE = SQL_DATA_TYPE__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SQL_DISTINCT_TYPE__DOCUMENT = SQL_DATA_TYPE__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2870,8 +2711,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2879,17 +2719,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_DISTINCT_TYPE__ELEMENT_NODE = SQL_DATA_TYPE__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2897,8 +2736,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2906,17 +2744,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_DISTINCT_TYPE__VOCABULARY_ELEMENT = SQL_DATA_TYPE__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2924,8 +2761,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2933,8 +2769,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2942,17 +2777,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_DISTINCT_TYPE__OWNED_ELEMENT = SQL_DATA_TYPE__OWNED_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Is Abstract</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is Abstract</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2960,8 +2794,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Feature</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2969,17 +2802,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Structural Feature</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_DISTINCT_TYPE__STRUCTURAL_FEATURE = SQL_DATA_TYPE__STRUCTURAL_FEATURE;
 
     /**
-     * The feature id for the '<em><b>Parameter</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Parameter</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -2987,8 +2819,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Generalization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2996,26 +2827,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Specialization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_DISTINCT_TYPE__SPECIALIZATION = SQL_DATA_TYPE__SPECIALIZATION;
 
     /**
-     * The feature id for the '<em><b>Instance</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Instance</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SQL_DISTINCT_TYPE__INSTANCE = SQL_DATA_TYPE__INSTANCE;
 
     /**
-     * The feature id for the '<em><b>Alias</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Alias</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3023,8 +2853,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Expression Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3032,17 +2861,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Mapping From</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_DISTINCT_TYPE__MAPPING_FROM = SQL_DATA_TYPE__MAPPING_FROM;
 
     /**
-     * The feature id for the '<em><b>Mapping To</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Mapping To</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3050,26 +2878,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Classifier Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_DISTINCT_TYPE__CLASSIFIER_MAP = SQL_DATA_TYPE__CLASSIFIER_MAP;
 
     /**
-     * The feature id for the '<em><b>Cf Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Cf Map</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SQL_DISTINCT_TYPE__CF_MAP = SQL_DATA_TYPE__CF_MAP;
 
     /**
-     * The feature id for the '<em><b>Domain</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Domain</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3077,62 +2904,61 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Simple Dimension</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_DISTINCT_TYPE__SIMPLE_DIMENSION = SQL_DATA_TYPE__SIMPLE_DIMENSION;
 
     /**
-     * The feature id for the '<em><b>Type Number</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Type Number</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SQL_DISTINCT_TYPE__TYPE_NUMBER = SQL_DATA_TYPE__TYPE_NUMBER;
 
     /**
-     * The feature id for the '<em><b>Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Type</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SQL_DISTINCT_TYPE__TYPE = SQL_DATA_TYPE_FEATURE_COUNT + 0;
 
     /**
-     * The feature id for the '<em><b>Length</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Length</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SQL_DISTINCT_TYPE__LENGTH = SQL_DATA_TYPE_FEATURE_COUNT + 1;
 
     /**
-     * The feature id for the '<em><b>Precision</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Precision</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SQL_DISTINCT_TYPE__PRECISION = SQL_DATA_TYPE_FEATURE_COUNT + 2;
 
     /**
-     * The feature id for the '<em><b>Scale</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Scale</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SQL_DISTINCT_TYPE__SCALE = SQL_DATA_TYPE_FEATURE_COUNT + 3;
 
     /**
-     * The feature id for the '<em><b>Sql Simple Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Sql Simple Type</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3140,8 +2966,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>SQL Distinct Type</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3149,8 +2974,8 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwm.resource.relational.impl.SQLSimpleTypeImpl <em>SQL Simple Type</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see orgomg.cwm.resource.relational.impl.SQLSimpleTypeImpl
      * @see orgomg.cwm.resource.relational.impl.RelationalPackageImpl#getSQLSimpleType()
      * @generated
@@ -3158,18 +2983,18 @@ public interface RelationalPackage extends EPackage {
     int SQL_SIMPLE_TYPE = 9;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SQL_SIMPLE_TYPE__NAME = SQL_DATA_TYPE__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3177,8 +3002,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3186,17 +3010,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_SIMPLE_TYPE__SUPPLIER_DEPENDENCY = SQL_DATA_TYPE__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3204,26 +3027,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_SIMPLE_TYPE__NAMESPACE = SQL_DATA_TYPE__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SQL_SIMPLE_TYPE__IMPORTER = SQL_DATA_TYPE__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3231,26 +3053,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_SIMPLE_TYPE__TAGGED_VALUE = SQL_DATA_TYPE__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SQL_SIMPLE_TYPE__DOCUMENT = SQL_DATA_TYPE__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3258,8 +3079,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3267,17 +3087,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_SIMPLE_TYPE__ELEMENT_NODE = SQL_DATA_TYPE__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3285,8 +3104,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3294,17 +3112,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_SIMPLE_TYPE__VOCABULARY_ELEMENT = SQL_DATA_TYPE__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3312,8 +3129,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3321,8 +3137,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3330,17 +3145,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_SIMPLE_TYPE__OWNED_ELEMENT = SQL_DATA_TYPE__OWNED_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Is Abstract</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is Abstract</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3348,8 +3162,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Feature</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3357,17 +3170,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Structural Feature</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_SIMPLE_TYPE__STRUCTURAL_FEATURE = SQL_DATA_TYPE__STRUCTURAL_FEATURE;
 
     /**
-     * The feature id for the '<em><b>Parameter</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Parameter</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3375,8 +3187,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Generalization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3384,26 +3195,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Specialization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_SIMPLE_TYPE__SPECIALIZATION = SQL_DATA_TYPE__SPECIALIZATION;
 
     /**
-     * The feature id for the '<em><b>Instance</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Instance</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SQL_SIMPLE_TYPE__INSTANCE = SQL_DATA_TYPE__INSTANCE;
 
     /**
-     * The feature id for the '<em><b>Alias</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Alias</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3411,8 +3221,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Expression Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3420,17 +3229,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Mapping From</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_SIMPLE_TYPE__MAPPING_FROM = SQL_DATA_TYPE__MAPPING_FROM;
 
     /**
-     * The feature id for the '<em><b>Mapping To</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Mapping To</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3438,26 +3246,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Classifier Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_SIMPLE_TYPE__CLASSIFIER_MAP = SQL_DATA_TYPE__CLASSIFIER_MAP;
 
     /**
-     * The feature id for the '<em><b>Cf Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Cf Map</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SQL_SIMPLE_TYPE__CF_MAP = SQL_DATA_TYPE__CF_MAP;
 
     /**
-     * The feature id for the '<em><b>Domain</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Domain</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3465,17 +3272,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Simple Dimension</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_SIMPLE_TYPE__SIMPLE_DIMENSION = SQL_DATA_TYPE__SIMPLE_DIMENSION;
 
     /**
-     * The feature id for the '<em><b>Type Number</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Type Number</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3483,8 +3289,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Character Maximum Length</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3492,8 +3297,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Character Octet Length</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3501,8 +3305,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Numeric Precision</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3510,17 +3313,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Numeric Precision Radix</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_SIMPLE_TYPE__NUMERIC_PRECISION_RADIX = SQL_DATA_TYPE_FEATURE_COUNT + 3;
 
     /**
-     * The feature id for the '<em><b>Numeric Scale</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Numeric Scale</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3528,8 +3330,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Date Time Precision</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3537,8 +3338,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Sql Distinct Type</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3546,8 +3346,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>SQL Simple Type</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3555,8 +3354,8 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwm.resource.relational.impl.SQLStructuredTypeImpl <em>SQL Structured Type</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see orgomg.cwm.resource.relational.impl.SQLStructuredTypeImpl
      * @see orgomg.cwm.resource.relational.impl.RelationalPackageImpl#getSQLStructuredType()
      * @generated
@@ -3564,18 +3363,18 @@ public interface RelationalPackage extends EPackage {
     int SQL_STRUCTURED_TYPE = 10;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SQL_STRUCTURED_TYPE__NAME = CorePackage.CLASS__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3583,8 +3382,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3592,17 +3390,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_STRUCTURED_TYPE__SUPPLIER_DEPENDENCY = CorePackage.CLASS__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3610,26 +3407,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_STRUCTURED_TYPE__NAMESPACE = CorePackage.CLASS__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SQL_STRUCTURED_TYPE__IMPORTER = CorePackage.CLASS__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3637,26 +3433,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_STRUCTURED_TYPE__TAGGED_VALUE = CorePackage.CLASS__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SQL_STRUCTURED_TYPE__DOCUMENT = CorePackage.CLASS__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3664,8 +3459,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3673,17 +3467,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_STRUCTURED_TYPE__ELEMENT_NODE = CorePackage.CLASS__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3691,8 +3484,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3700,17 +3492,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_STRUCTURED_TYPE__VOCABULARY_ELEMENT = CorePackage.CLASS__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3718,8 +3509,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3727,8 +3517,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3736,17 +3525,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_STRUCTURED_TYPE__OWNED_ELEMENT = CorePackage.CLASS__OWNED_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Is Abstract</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is Abstract</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3754,8 +3542,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Feature</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3763,17 +3550,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Structural Feature</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_STRUCTURED_TYPE__STRUCTURAL_FEATURE = CorePackage.CLASS__STRUCTURAL_FEATURE;
 
     /**
-     * The feature id for the '<em><b>Parameter</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Parameter</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3781,8 +3567,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Generalization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3790,26 +3575,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Specialization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_STRUCTURED_TYPE__SPECIALIZATION = CorePackage.CLASS__SPECIALIZATION;
 
     /**
-     * The feature id for the '<em><b>Instance</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Instance</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SQL_STRUCTURED_TYPE__INSTANCE = CorePackage.CLASS__INSTANCE;
 
     /**
-     * The feature id for the '<em><b>Alias</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Alias</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3817,8 +3601,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Expression Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3826,17 +3609,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Mapping From</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_STRUCTURED_TYPE__MAPPING_FROM = CorePackage.CLASS__MAPPING_FROM;
 
     /**
-     * The feature id for the '<em><b>Mapping To</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Mapping To</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3844,26 +3626,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Classifier Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_STRUCTURED_TYPE__CLASSIFIER_MAP = CorePackage.CLASS__CLASSIFIER_MAP;
 
     /**
-     * The feature id for the '<em><b>Cf Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Cf Map</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SQL_STRUCTURED_TYPE__CF_MAP = CorePackage.CLASS__CF_MAP;
 
     /**
-     * The feature id for the '<em><b>Domain</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Domain</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3871,35 +3652,34 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Simple Dimension</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_STRUCTURED_TYPE__SIMPLE_DIMENSION = CorePackage.CLASS__SIMPLE_DIMENSION;
 
     /**
-     * The feature id for the '<em><b>Index</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Index</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SQL_STRUCTURED_TYPE__INDEX = CorePackage.CLASS__INDEX;
 
     /**
-     * The feature id for the '<em><b>Type Number</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Type Number</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SQL_STRUCTURED_TYPE__TYPE_NUMBER = CorePackage.CLASS_FEATURE_COUNT + 0;
 
     /**
-     * The feature id for the '<em><b>Column Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Column Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3907,8 +3687,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Referencing Column</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3916,8 +3695,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>SQL Structured Type</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3925,8 +3703,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwm.resource.relational.impl.ColumnImpl <em>Column</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see orgomg.cwm.resource.relational.impl.ColumnImpl
      * @see orgomg.cwm.resource.relational.impl.RelationalPackageImpl#getColumn()
      * @generated
@@ -3934,18 +3711,18 @@ public interface RelationalPackage extends EPackage {
     int COLUMN = 11;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int COLUMN__NAME = CorePackage.ATTRIBUTE__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3953,8 +3730,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3962,17 +3738,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int COLUMN__SUPPLIER_DEPENDENCY = CorePackage.ATTRIBUTE__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -3980,26 +3755,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int COLUMN__NAMESPACE = CorePackage.ATTRIBUTE__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int COLUMN__IMPORTER = CorePackage.ATTRIBUTE__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4007,26 +3781,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int COLUMN__TAGGED_VALUE = CorePackage.ATTRIBUTE__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int COLUMN__DOCUMENT = CorePackage.ATTRIBUTE__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4034,8 +3807,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4043,17 +3815,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int COLUMN__ELEMENT_NODE = CorePackage.ATTRIBUTE__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4061,8 +3832,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4070,17 +3840,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int COLUMN__VOCABULARY_ELEMENT = CorePackage.ATTRIBUTE__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4088,8 +3857,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4097,26 +3865,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int COLUMN__DASDL_PROPERTY = CorePackage.ATTRIBUTE__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Owner Scope</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Owner Scope</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int COLUMN__OWNER_SCOPE = CorePackage.ATTRIBUTE__OWNER_SCOPE;
 
     /**
-     * The feature id for the '<em><b>Owner</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Owner</b></em>' container reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4124,35 +3891,34 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Feature Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int COLUMN__FEATURE_NODE = CorePackage.ATTRIBUTE__FEATURE_NODE;
 
     /**
-     * The feature id for the '<em><b>Feature Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Feature Map</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int COLUMN__FEATURE_MAP = CorePackage.ATTRIBUTE__FEATURE_MAP;
 
     /**
-     * The feature id for the '<em><b>Cf Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Cf Map</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int COLUMN__CF_MAP = CorePackage.ATTRIBUTE__CF_MAP;
 
     /**
-     * The feature id for the '<em><b>Changeability</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Changeability</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4160,44 +3926,43 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Multiplicity</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int COLUMN__MULTIPLICITY = CorePackage.ATTRIBUTE__MULTIPLICITY;
 
     /**
-     * The feature id for the '<em><b>Ordering</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Ordering</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int COLUMN__ORDERING = CorePackage.ATTRIBUTE__ORDERING;
 
     /**
-     * The feature id for the '<em><b>Target Scope</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Target Scope</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int COLUMN__TARGET_SCOPE = CorePackage.ATTRIBUTE__TARGET_SCOPE;
 
     /**
-     * The feature id for the '<em><b>Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Type</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int COLUMN__TYPE = CorePackage.ATTRIBUTE__TYPE;
 
     /**
-     * The feature id for the '<em><b>Slot</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Slot</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4205,8 +3970,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Discriminated Union</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4214,8 +3978,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Indexed Feature</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4223,35 +3986,34 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Key Relationship</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int COLUMN__KEY_RELATIONSHIP = CorePackage.ATTRIBUTE__KEY_RELATIONSHIP;
 
     /**
-     * The feature id for the '<em><b>Unique Key</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Unique Key</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int COLUMN__UNIQUE_KEY = CorePackage.ATTRIBUTE__UNIQUE_KEY;
 
     /**
-     * The feature id for the '<em><b>Data Item</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Data Item</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int COLUMN__DATA_ITEM = CorePackage.ATTRIBUTE__DATA_ITEM;
 
     /**
-     * The feature id for the '<em><b>Remap</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Remap</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4259,53 +4021,52 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Initial Value</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int COLUMN__INITIAL_VALUE = CorePackage.ATTRIBUTE__INITIAL_VALUE;
 
     /**
-     * The feature id for the '<em><b>Precision</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Precision</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int COLUMN__PRECISION = CorePackage.ATTRIBUTE_FEATURE_COUNT + 0;
 
     /**
-     * The feature id for the '<em><b>Scale</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Scale</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int COLUMN__SCALE = CorePackage.ATTRIBUTE_FEATURE_COUNT + 1;
 
     /**
-     * The feature id for the '<em><b>Is Nullable</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is Nullable</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int COLUMN__IS_NULLABLE = CorePackage.ATTRIBUTE_FEATURE_COUNT + 2;
 
     /**
-     * The feature id for the '<em><b>Length</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Length</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int COLUMN__LENGTH = CorePackage.ATTRIBUTE_FEATURE_COUNT + 3;
 
     /**
-     * The feature id for the '<em><b>Collation Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Collation Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4313,8 +4074,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Character Set Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4322,8 +4082,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Referenced Table Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4331,17 +4090,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Option Scope Column Set</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int COLUMN__OPTION_SCOPE_COLUMN_SET = CorePackage.ATTRIBUTE_FEATURE_COUNT + 7;
 
     /**
-     * The number of structural features of the '<em>Column</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The number of structural features of the '<em>Column</em>' class. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4349,8 +4107,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwm.resource.relational.impl.ProcedureImpl <em>Procedure</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see orgomg.cwm.resource.relational.impl.ProcedureImpl
      * @see orgomg.cwm.resource.relational.impl.RelationalPackageImpl#getProcedure()
      * @generated
@@ -4358,18 +4115,18 @@ public interface RelationalPackage extends EPackage {
     int PROCEDURE = 12;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int PROCEDURE__NAME = BehavioralPackage.METHOD__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4377,8 +4134,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4386,17 +4142,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int PROCEDURE__SUPPLIER_DEPENDENCY = BehavioralPackage.METHOD__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4404,26 +4159,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int PROCEDURE__NAMESPACE = BehavioralPackage.METHOD__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int PROCEDURE__IMPORTER = BehavioralPackage.METHOD__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4431,26 +4185,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int PROCEDURE__TAGGED_VALUE = BehavioralPackage.METHOD__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int PROCEDURE__DOCUMENT = BehavioralPackage.METHOD__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4458,8 +4211,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4467,17 +4219,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int PROCEDURE__ELEMENT_NODE = BehavioralPackage.METHOD__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4485,8 +4236,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4494,17 +4244,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int PROCEDURE__VOCABULARY_ELEMENT = BehavioralPackage.METHOD__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4512,8 +4261,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4521,26 +4269,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int PROCEDURE__DASDL_PROPERTY = BehavioralPackage.METHOD__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Owner Scope</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Owner Scope</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int PROCEDURE__OWNER_SCOPE = BehavioralPackage.METHOD__OWNER_SCOPE;
 
     /**
-     * The feature id for the '<em><b>Owner</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Owner</b></em>' container reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4548,35 +4295,34 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Feature Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int PROCEDURE__FEATURE_NODE = BehavioralPackage.METHOD__FEATURE_NODE;
 
     /**
-     * The feature id for the '<em><b>Feature Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Feature Map</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int PROCEDURE__FEATURE_MAP = BehavioralPackage.METHOD__FEATURE_MAP;
 
     /**
-     * The feature id for the '<em><b>Cf Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Cf Map</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int PROCEDURE__CF_MAP = BehavioralPackage.METHOD__CF_MAP;
 
     /**
-     * The feature id for the '<em><b>Is Query</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is Query</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4584,44 +4330,43 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Parameter</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int PROCEDURE__PARAMETER = BehavioralPackage.METHOD__PARAMETER;
 
     /**
-     * The feature id for the '<em><b>Body</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Body</b></em>' containment reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int PROCEDURE__BODY = BehavioralPackage.METHOD__BODY;
 
     /**
-     * The feature id for the '<em><b>Specification</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Specification</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int PROCEDURE__SPECIFICATION = BehavioralPackage.METHOD__SPECIFICATION;
 
     /**
-     * The feature id for the '<em><b>Type</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Type</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int PROCEDURE__TYPE = BehavioralPackage.METHOD_FEATURE_COUNT + 0;
 
     /**
-     * The number of structural features of the '<em>Procedure</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The number of structural features of the '<em>Procedure</em>' class. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4629,8 +4374,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwm.resource.relational.impl.TriggerImpl <em>Trigger</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see orgomg.cwm.resource.relational.impl.TriggerImpl
      * @see orgomg.cwm.resource.relational.impl.RelationalPackageImpl#getTrigger()
      * @generated
@@ -4638,18 +4382,18 @@ public interface RelationalPackage extends EPackage {
     int TRIGGER = 13;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int TRIGGER__NAME = CorePackage.MODEL_ELEMENT__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4657,8 +4401,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4666,17 +4409,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int TRIGGER__SUPPLIER_DEPENDENCY = CorePackage.MODEL_ELEMENT__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4684,26 +4426,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int TRIGGER__NAMESPACE = CorePackage.MODEL_ELEMENT__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int TRIGGER__IMPORTER = CorePackage.MODEL_ELEMENT__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4711,26 +4452,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int TRIGGER__TAGGED_VALUE = CorePackage.MODEL_ELEMENT__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int TRIGGER__DOCUMENT = CorePackage.MODEL_ELEMENT__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4738,8 +4478,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4747,17 +4486,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int TRIGGER__ELEMENT_NODE = CorePackage.MODEL_ELEMENT__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4765,8 +4503,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4774,17 +4511,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int TRIGGER__VOCABULARY_ELEMENT = CorePackage.MODEL_ELEMENT__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4792,8 +4528,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4801,8 +4536,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4810,8 +4544,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Event Manipulation</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4819,8 +4552,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Action Condition</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4828,8 +4560,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Action Statement</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4837,17 +4568,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Action Orientation</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int TRIGGER__ACTION_ORIENTATION = CorePackage.MODEL_ELEMENT_FEATURE_COUNT + 3;
 
     /**
-     * The feature id for the '<em><b>Condition Timing</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Condition Timing</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4855,8 +4585,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Condition Reference New Table</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4864,8 +4593,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Condition Reference Old Table</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4873,26 +4601,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Used Column Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int TRIGGER__USED_COLUMN_SET = CorePackage.MODEL_ELEMENT_FEATURE_COUNT + 7;
 
     /**
-     * The feature id for the '<em><b>Table</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Table</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int TRIGGER__TABLE = CorePackage.MODEL_ELEMENT_FEATURE_COUNT + 8;
 
     /**
-     * The number of structural features of the '<em>Trigger</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The number of structural features of the '<em>Trigger</em>' class. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4900,8 +4627,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwm.resource.relational.impl.SQLIndexImpl <em>SQL Index</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see orgomg.cwm.resource.relational.impl.SQLIndexImpl
      * @see orgomg.cwm.resource.relational.impl.RelationalPackageImpl#getSQLIndex()
      * @generated
@@ -4909,18 +4635,18 @@ public interface RelationalPackage extends EPackage {
     int SQL_INDEX = 14;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SQL_INDEX__NAME = KeysindexesPackage.INDEX__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4928,8 +4654,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4937,17 +4662,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_INDEX__SUPPLIER_DEPENDENCY = KeysindexesPackage.INDEX__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4955,26 +4679,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_INDEX__NAMESPACE = KeysindexesPackage.INDEX__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SQL_INDEX__IMPORTER = KeysindexesPackage.INDEX__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -4982,26 +4705,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_INDEX__TAGGED_VALUE = KeysindexesPackage.INDEX__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SQL_INDEX__DOCUMENT = KeysindexesPackage.INDEX__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5009,8 +4731,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5018,17 +4739,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_INDEX__ELEMENT_NODE = KeysindexesPackage.INDEX__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5036,8 +4756,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5045,17 +4764,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_INDEX__VOCABULARY_ELEMENT = KeysindexesPackage.INDEX__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5063,8 +4781,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5072,35 +4789,34 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_INDEX__DASDL_PROPERTY = KeysindexesPackage.INDEX__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Is Partitioning</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is Partitioning</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SQL_INDEX__IS_PARTITIONING = KeysindexesPackage.INDEX__IS_PARTITIONING;
 
     /**
-     * The feature id for the '<em><b>Is Sorted</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is Sorted</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SQL_INDEX__IS_SORTED = KeysindexesPackage.INDEX__IS_SORTED;
 
     /**
-     * The feature id for the '<em><b>Is Unique</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is Unique</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5108,53 +4824,52 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Indexed Feature</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_INDEX__INDEXED_FEATURE = KeysindexesPackage.INDEX__INDEXED_FEATURE;
 
     /**
-     * The feature id for the '<em><b>Spanned Class</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Spanned Class</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SQL_INDEX__SPANNED_CLASS = KeysindexesPackage.INDEX__SPANNED_CLASS;
 
     /**
-     * The feature id for the '<em><b>Filter Condition</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Filter Condition</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SQL_INDEX__FILTER_CONDITION = KeysindexesPackage.INDEX_FEATURE_COUNT + 0;
 
     /**
-     * The feature id for the '<em><b>Is Nullable</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is Nullable</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SQL_INDEX__IS_NULLABLE = KeysindexesPackage.INDEX_FEATURE_COUNT + 1;
 
     /**
-     * The feature id for the '<em><b>Auto Update</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Auto Update</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SQL_INDEX__AUTO_UPDATE = KeysindexesPackage.INDEX_FEATURE_COUNT + 2;
 
     /**
-     * The number of structural features of the '<em>SQL Index</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The number of structural features of the '<em>SQL Index</em>' class. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5162,8 +4877,8 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwm.resource.relational.impl.UniqueConstraintImpl <em>Unique Constraint</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see orgomg.cwm.resource.relational.impl.UniqueConstraintImpl
      * @see orgomg.cwm.resource.relational.impl.RelationalPackageImpl#getUniqueConstraint()
      * @generated
@@ -5171,18 +4886,18 @@ public interface RelationalPackage extends EPackage {
     int UNIQUE_CONSTRAINT = 15;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int UNIQUE_CONSTRAINT__NAME = KeysindexesPackage.UNIQUE_KEY__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5190,8 +4905,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5199,17 +4913,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int UNIQUE_CONSTRAINT__SUPPLIER_DEPENDENCY = KeysindexesPackage.UNIQUE_KEY__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5217,26 +4930,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int UNIQUE_CONSTRAINT__NAMESPACE = KeysindexesPackage.UNIQUE_KEY__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int UNIQUE_CONSTRAINT__IMPORTER = KeysindexesPackage.UNIQUE_KEY__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5244,26 +4956,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int UNIQUE_CONSTRAINT__TAGGED_VALUE = KeysindexesPackage.UNIQUE_KEY__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int UNIQUE_CONSTRAINT__DOCUMENT = KeysindexesPackage.UNIQUE_KEY__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5271,8 +4982,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5280,17 +4990,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int UNIQUE_CONSTRAINT__ELEMENT_NODE = KeysindexesPackage.UNIQUE_KEY__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5298,8 +5007,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5307,17 +5015,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int UNIQUE_CONSTRAINT__VOCABULARY_ELEMENT = KeysindexesPackage.UNIQUE_KEY__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5325,8 +5032,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5334,17 +5040,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int UNIQUE_CONSTRAINT__DASDL_PROPERTY = KeysindexesPackage.UNIQUE_KEY__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Feature</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Feature</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5352,17 +5057,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Key Relationship</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int UNIQUE_CONSTRAINT__KEY_RELATIONSHIP = KeysindexesPackage.UNIQUE_KEY__KEY_RELATIONSHIP;
 
     /**
-     * The feature id for the '<em><b>Deferrability</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Deferrability</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5370,17 +5074,18 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Unique Constraint</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int UNIQUE_CONSTRAINT_FEATURE_COUNT = KeysindexesPackage.UNIQUE_KEY_FEATURE_COUNT + 1;
 
     /**
-     * The meta object id for the '{@link orgomg.cwm.resource.relational.impl.ForeignKeyImpl <em>Foreign Key</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The meta object id for the '
+     * {@link orgomg.cwm.resource.relational.impl.ForeignKeyImpl
+     * <em>Foreign Key</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @see orgomg.cwm.resource.relational.impl.ForeignKeyImpl
      * @see orgomg.cwm.resource.relational.impl.RelationalPackageImpl#getForeignKey()
      * @generated
@@ -5388,18 +5093,18 @@ public interface RelationalPackage extends EPackage {
     int FOREIGN_KEY = 16;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int FOREIGN_KEY__NAME = KeysindexesPackage.KEY_RELATIONSHIP__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5407,8 +5112,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5416,17 +5120,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int FOREIGN_KEY__SUPPLIER_DEPENDENCY = KeysindexesPackage.KEY_RELATIONSHIP__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5434,26 +5137,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int FOREIGN_KEY__NAMESPACE = KeysindexesPackage.KEY_RELATIONSHIP__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int FOREIGN_KEY__IMPORTER = KeysindexesPackage.KEY_RELATIONSHIP__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5461,26 +5163,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int FOREIGN_KEY__TAGGED_VALUE = KeysindexesPackage.KEY_RELATIONSHIP__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int FOREIGN_KEY__DOCUMENT = KeysindexesPackage.KEY_RELATIONSHIP__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5488,8 +5189,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5497,17 +5197,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int FOREIGN_KEY__ELEMENT_NODE = KeysindexesPackage.KEY_RELATIONSHIP__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5515,8 +5214,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5524,17 +5222,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int FOREIGN_KEY__VOCABULARY_ELEMENT = KeysindexesPackage.KEY_RELATIONSHIP__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5542,8 +5239,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5551,53 +5247,52 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int FOREIGN_KEY__DASDL_PROPERTY = KeysindexesPackage.KEY_RELATIONSHIP__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Feature</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Feature</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int FOREIGN_KEY__FEATURE = KeysindexesPackage.KEY_RELATIONSHIP__FEATURE;
 
     /**
-     * The feature id for the '<em><b>Unique Key</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Unique Key</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int FOREIGN_KEY__UNIQUE_KEY = KeysindexesPackage.KEY_RELATIONSHIP__UNIQUE_KEY;
 
     /**
-     * The feature id for the '<em><b>Delete Rule</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Delete Rule</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int FOREIGN_KEY__DELETE_RULE = KeysindexesPackage.KEY_RELATIONSHIP_FEATURE_COUNT + 0;
 
     /**
-     * The feature id for the '<em><b>Update Rule</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Update Rule</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int FOREIGN_KEY__UPDATE_RULE = KeysindexesPackage.KEY_RELATIONSHIP_FEATURE_COUNT + 1;
 
     /**
-     * The feature id for the '<em><b>Deferrability</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Deferrability</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5605,8 +5300,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Foreign Key</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5614,8 +5308,8 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwm.resource.relational.impl.SQLIndexColumnImpl <em>SQL Index Column</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see orgomg.cwm.resource.relational.impl.SQLIndexColumnImpl
      * @see orgomg.cwm.resource.relational.impl.RelationalPackageImpl#getSQLIndexColumn()
      * @generated
@@ -5623,18 +5317,18 @@ public interface RelationalPackage extends EPackage {
     int SQL_INDEX_COLUMN = 17;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SQL_INDEX_COLUMN__NAME = KeysindexesPackage.INDEXED_FEATURE__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5642,8 +5336,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5651,17 +5344,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_INDEX_COLUMN__SUPPLIER_DEPENDENCY = KeysindexesPackage.INDEXED_FEATURE__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5669,26 +5361,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_INDEX_COLUMN__NAMESPACE = KeysindexesPackage.INDEXED_FEATURE__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SQL_INDEX_COLUMN__IMPORTER = KeysindexesPackage.INDEXED_FEATURE__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5696,26 +5387,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_INDEX_COLUMN__TAGGED_VALUE = KeysindexesPackage.INDEXED_FEATURE__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SQL_INDEX_COLUMN__DOCUMENT = KeysindexesPackage.INDEXED_FEATURE__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5723,8 +5413,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5732,17 +5421,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_INDEX_COLUMN__ELEMENT_NODE = KeysindexesPackage.INDEXED_FEATURE__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5750,8 +5438,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5759,17 +5446,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_INDEX_COLUMN__VOCABULARY_ELEMENT = KeysindexesPackage.INDEXED_FEATURE__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5777,8 +5463,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5786,35 +5471,34 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_INDEX_COLUMN__DASDL_PROPERTY = KeysindexesPackage.INDEXED_FEATURE__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Is Ascending</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is Ascending</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SQL_INDEX_COLUMN__IS_ASCENDING = KeysindexesPackage.INDEXED_FEATURE__IS_ASCENDING;
 
     /**
-     * The feature id for the '<em><b>Feature</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Feature</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SQL_INDEX_COLUMN__FEATURE = KeysindexesPackage.INDEXED_FEATURE__FEATURE;
 
     /**
-     * The feature id for the '<em><b>Index</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Index</b></em>' container reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5822,17 +5506,18 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>SQL Index Column</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_INDEX_COLUMN_FEATURE_COUNT = KeysindexesPackage.INDEXED_FEATURE_FEATURE_COUNT + 0;
 
     /**
-     * The meta object id for the '{@link orgomg.cwm.resource.relational.impl.PrimaryKeyImpl <em>Primary Key</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The meta object id for the '
+     * {@link orgomg.cwm.resource.relational.impl.PrimaryKeyImpl
+     * <em>Primary Key</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @see orgomg.cwm.resource.relational.impl.PrimaryKeyImpl
      * @see orgomg.cwm.resource.relational.impl.RelationalPackageImpl#getPrimaryKey()
      * @generated
@@ -5840,18 +5525,18 @@ public interface RelationalPackage extends EPackage {
     int PRIMARY_KEY = 18;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int PRIMARY_KEY__NAME = UNIQUE_CONSTRAINT__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5859,8 +5544,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5868,17 +5552,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int PRIMARY_KEY__SUPPLIER_DEPENDENCY = UNIQUE_CONSTRAINT__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5886,26 +5569,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int PRIMARY_KEY__NAMESPACE = UNIQUE_CONSTRAINT__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int PRIMARY_KEY__IMPORTER = UNIQUE_CONSTRAINT__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5913,26 +5595,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int PRIMARY_KEY__TAGGED_VALUE = UNIQUE_CONSTRAINT__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int PRIMARY_KEY__DOCUMENT = UNIQUE_CONSTRAINT__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5940,8 +5621,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5949,17 +5629,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int PRIMARY_KEY__ELEMENT_NODE = UNIQUE_CONSTRAINT__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5967,8 +5646,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5976,17 +5654,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int PRIMARY_KEY__VOCABULARY_ELEMENT = UNIQUE_CONSTRAINT__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -5994,8 +5671,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6003,17 +5679,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int PRIMARY_KEY__DASDL_PROPERTY = UNIQUE_CONSTRAINT__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Feature</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Feature</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -6021,17 +5696,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Key Relationship</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int PRIMARY_KEY__KEY_RELATIONSHIP = UNIQUE_CONSTRAINT__KEY_RELATIONSHIP;
 
     /**
-     * The feature id for the '<em><b>Deferrability</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Deferrability</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -6039,8 +5713,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Primary Key</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6048,8 +5721,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwm.resource.relational.impl.RowImpl <em>Row</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see orgomg.cwm.resource.relational.impl.RowImpl
      * @see orgomg.cwm.resource.relational.impl.RelationalPackageImpl#getRow()
      * @generated
@@ -6057,18 +5729,18 @@ public interface RelationalPackage extends EPackage {
     int ROW = 19;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ROW__NAME = InstancePackage.OBJECT__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -6076,8 +5748,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6085,17 +5756,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ROW__SUPPLIER_DEPENDENCY = InstancePackage.OBJECT__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -6103,26 +5773,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ROW__NAMESPACE = InstancePackage.OBJECT__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ROW__IMPORTER = InstancePackage.OBJECT__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -6130,26 +5799,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ROW__TAGGED_VALUE = InstancePackage.OBJECT__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ROW__DOCUMENT = InstancePackage.OBJECT__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -6157,8 +5825,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6166,17 +5833,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ROW__ELEMENT_NODE = InstancePackage.OBJECT__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -6184,8 +5850,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6193,17 +5858,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ROW__VOCABULARY_ELEMENT = InstancePackage.OBJECT__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -6211,8 +5875,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6220,26 +5883,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ROW__DASDL_PROPERTY = InstancePackage.OBJECT__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Value Slot</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Value Slot</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ROW__VALUE_SLOT = InstancePackage.OBJECT__VALUE_SLOT;
 
     /**
-     * The feature id for the '<em><b>Classifier</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Classifier</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -6247,26 +5909,27 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Slot</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ROW__SLOT = InstancePackage.OBJECT__SLOT;
 
     /**
-     * The number of structural features of the '<em>Row</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The number of structural features of the '<em>Row</em>' class. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ROW_FEATURE_COUNT = InstancePackage.OBJECT_FEATURE_COUNT + 0;
 
     /**
-     * The meta object id for the '{@link orgomg.cwm.resource.relational.impl.ColumnValueImpl <em>Column Value</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The meta object id for the '
+     * {@link orgomg.cwm.resource.relational.impl.ColumnValueImpl
+     * <em>Column Value</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @see orgomg.cwm.resource.relational.impl.ColumnValueImpl
      * @see orgomg.cwm.resource.relational.impl.RelationalPackageImpl#getColumnValue()
      * @generated
@@ -6274,18 +5937,18 @@ public interface RelationalPackage extends EPackage {
     int COLUMN_VALUE = 20;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int COLUMN_VALUE__NAME = InstancePackage.DATA_VALUE__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -6293,8 +5956,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6302,17 +5964,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int COLUMN_VALUE__SUPPLIER_DEPENDENCY = InstancePackage.DATA_VALUE__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -6320,26 +5981,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int COLUMN_VALUE__NAMESPACE = InstancePackage.DATA_VALUE__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int COLUMN_VALUE__IMPORTER = InstancePackage.DATA_VALUE__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -6347,26 +6007,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int COLUMN_VALUE__TAGGED_VALUE = InstancePackage.DATA_VALUE__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int COLUMN_VALUE__DOCUMENT = InstancePackage.DATA_VALUE__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -6374,8 +6033,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6383,17 +6041,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int COLUMN_VALUE__ELEMENT_NODE = InstancePackage.DATA_VALUE__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -6401,8 +6058,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6410,17 +6066,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int COLUMN_VALUE__VOCABULARY_ELEMENT = InstancePackage.DATA_VALUE__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -6428,8 +6083,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6437,35 +6091,34 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int COLUMN_VALUE__DASDL_PROPERTY = InstancePackage.DATA_VALUE__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Value Slot</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Value Slot</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int COLUMN_VALUE__VALUE_SLOT = InstancePackage.DATA_VALUE__VALUE_SLOT;
 
     /**
-     * The feature id for the '<em><b>Classifier</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Classifier</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int COLUMN_VALUE__CLASSIFIER = InstancePackage.DATA_VALUE__CLASSIFIER;
 
     /**
-     * The feature id for the '<em><b>Value</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Value</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -6473,8 +6126,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Column Value</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6482,8 +6134,8 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwm.resource.relational.impl.CheckConstraintImpl <em>Check Constraint</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see orgomg.cwm.resource.relational.impl.CheckConstraintImpl
      * @see orgomg.cwm.resource.relational.impl.RelationalPackageImpl#getCheckConstraint()
      * @generated
@@ -6491,18 +6143,18 @@ public interface RelationalPackage extends EPackage {
     int CHECK_CONSTRAINT = 21;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int CHECK_CONSTRAINT__NAME = CorePackage.CONSTRAINT__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -6510,8 +6162,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6519,17 +6170,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CHECK_CONSTRAINT__SUPPLIER_DEPENDENCY = CorePackage.CONSTRAINT__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -6537,26 +6187,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CHECK_CONSTRAINT__NAMESPACE = CorePackage.CONSTRAINT__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int CHECK_CONSTRAINT__IMPORTER = CorePackage.CONSTRAINT__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -6564,26 +6213,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CHECK_CONSTRAINT__TAGGED_VALUE = CorePackage.CONSTRAINT__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int CHECK_CONSTRAINT__DOCUMENT = CorePackage.CONSTRAINT__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -6591,8 +6239,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6600,17 +6247,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CHECK_CONSTRAINT__ELEMENT_NODE = CorePackage.CONSTRAINT__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -6618,8 +6264,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6627,17 +6272,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CHECK_CONSTRAINT__VOCABULARY_ELEMENT = CorePackage.CONSTRAINT__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -6645,8 +6289,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6654,17 +6297,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CHECK_CONSTRAINT__DASDL_PROPERTY = CorePackage.CONSTRAINT__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Body</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Body</b></em>' containment reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -6672,8 +6314,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Constrained Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6681,17 +6322,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Constrained Stereotype</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CHECK_CONSTRAINT__CONSTRAINED_STEREOTYPE = CorePackage.CONSTRAINT__CONSTRAINED_STEREOTYPE;
 
     /**
-     * The feature id for the '<em><b>Deferrability</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Deferrability</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -6699,8 +6339,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Check Constraint</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6708,8 +6347,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link orgomg.cwm.resource.relational.impl.RowSetImpl <em>Row Set</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see orgomg.cwm.resource.relational.impl.RowSetImpl
      * @see orgomg.cwm.resource.relational.impl.RelationalPackageImpl#getRowSet()
      * @generated
@@ -6717,18 +6355,18 @@ public interface RelationalPackage extends EPackage {
     int ROW_SET = 22;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ROW_SET__NAME = InstancePackage.EXTENT__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -6736,8 +6374,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6745,17 +6382,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ROW_SET__SUPPLIER_DEPENDENCY = InstancePackage.EXTENT__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -6763,26 +6399,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ROW_SET__NAMESPACE = InstancePackage.EXTENT__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ROW_SET__IMPORTER = InstancePackage.EXTENT__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -6790,26 +6425,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ROW_SET__TAGGED_VALUE = InstancePackage.EXTENT__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ROW_SET__DOCUMENT = InstancePackage.EXTENT__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -6817,8 +6451,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6826,17 +6459,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ROW_SET__ELEMENT_NODE = InstancePackage.EXTENT__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -6844,8 +6476,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6853,17 +6484,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ROW_SET__VOCABULARY_ELEMENT = InstancePackage.EXTENT__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -6871,8 +6501,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6880,8 +6509,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6889,8 +6517,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6898,8 +6525,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Imported Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6907,26 +6533,27 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Data Manager</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ROW_SET__DATA_MANAGER = InstancePackage.EXTENT__DATA_MANAGER;
 
     /**
-     * The number of structural features of the '<em>Row Set</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The number of structural features of the '<em>Row Set</em>' class. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int ROW_SET_FEATURE_COUNT = InstancePackage.EXTENT_FEATURE_COUNT + 0;
 
     /**
-     * The meta object id for the '{@link orgomg.cwm.resource.relational.impl.SQLParameterImpl <em>SQL Parameter</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The meta object id for the '
+     * {@link orgomg.cwm.resource.relational.impl.SQLParameterImpl
+     * <em>SQL Parameter</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @see orgomg.cwm.resource.relational.impl.SQLParameterImpl
      * @see orgomg.cwm.resource.relational.impl.RelationalPackageImpl#getSQLParameter()
      * @generated
@@ -6934,18 +6561,18 @@ public interface RelationalPackage extends EPackage {
     int SQL_PARAMETER = 23;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SQL_PARAMETER__NAME = BehavioralPackage.PARAMETER__NAME;
 
     /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Visibility</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -6953,8 +6580,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6962,17 +6588,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_PARAMETER__SUPPLIER_DEPENDENCY = BehavioralPackage.PARAMETER__SUPPLIER_DEPENDENCY;
 
     /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Constraint</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -6980,26 +6605,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_PARAMETER__NAMESPACE = BehavioralPackage.PARAMETER__NAMESPACE;
 
     /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Importer</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SQL_PARAMETER__IMPORTER = BehavioralPackage.PARAMETER__IMPORTER;
 
     /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Stereotype</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -7007,26 +6631,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_PARAMETER__TAGGED_VALUE = BehavioralPackage.PARAMETER__TAGGED_VALUE;
 
     /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Document</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SQL_PARAMETER__DOCUMENT = BehavioralPackage.PARAMETER__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -7034,8 +6657,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7043,17 +6665,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_PARAMETER__ELEMENT_NODE = BehavioralPackage.PARAMETER__ELEMENT_NODE;
 
     /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Set</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -7061,8 +6682,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7070,17 +6690,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_PARAMETER__VOCABULARY_ELEMENT = BehavioralPackage.PARAMETER__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -7088,8 +6707,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7097,8 +6715,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7106,17 +6723,16 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Default Value</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_PARAMETER__DEFAULT_VALUE = BehavioralPackage.PARAMETER__DEFAULT_VALUE;
 
     /**
-     * The feature id for the '<em><b>Kind</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Kind</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -7124,26 +6740,25 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Behavioral Feature</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_PARAMETER__BEHAVIORAL_FEATURE = BehavioralPackage.PARAMETER__BEHAVIORAL_FEATURE;
 
     /**
-     * The feature id for the '<em><b>Event</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Event</b></em>' container reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
     int SQL_PARAMETER__EVENT = BehavioralPackage.PARAMETER__EVENT;
 
     /**
-     * The feature id for the '<em><b>Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Type</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -7151,18 +6766,17 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>SQL Parameter</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SQL_PARAMETER_FEATURE_COUNT = BehavioralPackage.PARAMETER_FEATURE_COUNT + 0;
 
-
     /**
-     * Returns the meta object for class '{@link orgomg.cwm.resource.relational.Catalog <em>Catalog</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for class '
+     * {@link orgomg.cwm.resource.relational.Catalog <em>Catalog</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for class '<em>Catalog</em>'.
      * @see orgomg.cwm.resource.relational.Catalog
      * @generated
@@ -7171,8 +6785,8 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.resource.relational.Catalog#getDefaultCharacterSetName <em>Default Character Set Name</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @return the meta object for the attribute '<em>Default Character Set Name</em>'.
      * @see orgomg.cwm.resource.relational.Catalog#getDefaultCharacterSetName()
      * @see #getCatalog()
@@ -7182,8 +6796,8 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.resource.relational.Catalog#getDefaultCollationName <em>Default Collation Name</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @return the meta object for the attribute '<em>Default Collation Name</em>'.
      * @see orgomg.cwm.resource.relational.Catalog#getDefaultCollationName()
      * @see #getCatalog()
@@ -7192,9 +6806,10 @@ public interface RelationalPackage extends EPackage {
     EAttribute getCatalog_DefaultCollationName();
 
     /**
-     * Returns the meta object for class '{@link orgomg.cwm.resource.relational.Schema <em>Schema</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for class '
+     * {@link orgomg.cwm.resource.relational.Schema <em>Schema</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for class '<em>Schema</em>'.
      * @see orgomg.cwm.resource.relational.Schema
      * @generated
@@ -7203,8 +6818,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link orgomg.cwm.resource.relational.ColumnSet <em>Column Set</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Column Set</em>'.
      * @see orgomg.cwm.resource.relational.ColumnSet
      * @generated
@@ -7212,9 +6826,11 @@ public interface RelationalPackage extends EPackage {
     EClass getColumnSet();
 
     /**
-     * Returns the meta object for class '{@link orgomg.cwm.resource.relational.NamedColumnSet <em>Named Column Set</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for class '
+     * {@link orgomg.cwm.resource.relational.NamedColumnSet
+     * <em>Named Column Set</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @return the meta object for class '<em>Named Column Set</em>'.
      * @see orgomg.cwm.resource.relational.NamedColumnSet
      * @generated
@@ -7223,8 +6839,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * Returns the meta object for the reference list '{@link orgomg.cwm.resource.relational.NamedColumnSet#getUsingTrigger <em>Using Trigger</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference list '<em>Using Trigger</em>'.
      * @see orgomg.cwm.resource.relational.NamedColumnSet#getUsingTrigger()
      * @see #getNamedColumnSet()
@@ -7234,8 +6849,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * Returns the meta object for the reference '{@link orgomg.cwm.resource.relational.NamedColumnSet#getType <em>Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference '<em>Type</em>'.
      * @see orgomg.cwm.resource.relational.NamedColumnSet#getType()
      * @see #getNamedColumnSet()
@@ -7244,10 +6858,13 @@ public interface RelationalPackage extends EPackage {
     EReference getNamedColumnSet_Type();
 
     /**
-     * Returns the meta object for the reference list '{@link orgomg.cwm.resource.relational.NamedColumnSet#getOptionScopeColumn <em>Option Scope Column</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the reference list '<em>Option Scope Column</em>'.
+     * Returns the meta object for the reference list '
+     * {@link orgomg.cwm.resource.relational.NamedColumnSet#getOptionScopeColumn
+     * <em>Option Scope Column</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @return the meta object for the reference list '
+     *         <em>Option Scope Column</em>'.
      * @see orgomg.cwm.resource.relational.NamedColumnSet#getOptionScopeColumn()
      * @see #getNamedColumnSet()
      * @generated
@@ -7255,9 +6872,10 @@ public interface RelationalPackage extends EPackage {
     EReference getNamedColumnSet_OptionScopeColumn();
 
     /**
-     * Returns the meta object for class '{@link orgomg.cwm.resource.relational.Table <em>Table</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for class '
+     * {@link orgomg.cwm.resource.relational.Table <em>Table</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for class '<em>Table</em>'.
      * @see orgomg.cwm.resource.relational.Table
      * @generated
@@ -7266,8 +6884,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.resource.relational.Table#isIsTemporary <em>Is Temporary</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Is Temporary</em>'.
      * @see orgomg.cwm.resource.relational.Table#isIsTemporary()
      * @see #getTable()
@@ -7277,8 +6894,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.resource.relational.Table#getTemporaryScope <em>Temporary Scope</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Temporary Scope</em>'.
      * @see orgomg.cwm.resource.relational.Table#getTemporaryScope()
      * @see #getTable()
@@ -7288,8 +6904,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.resource.relational.Table#isIsSystem <em>Is System</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Is System</em>'.
      * @see orgomg.cwm.resource.relational.Table#isIsSystem()
      * @see #getTable()
@@ -7299,8 +6914,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * Returns the meta object for the reference list '{@link orgomg.cwm.resource.relational.Table#getTrigger <em>Trigger</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference list '<em>Trigger</em>'.
      * @see orgomg.cwm.resource.relational.Table#getTrigger()
      * @see #getTable()
@@ -7309,9 +6923,10 @@ public interface RelationalPackage extends EPackage {
     EReference getTable_Trigger();
 
     /**
-     * Returns the meta object for class '{@link orgomg.cwm.resource.relational.View <em>View</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for class '
+     * {@link orgomg.cwm.resource.relational.View <em>View</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for class '<em>View</em>'.
      * @see orgomg.cwm.resource.relational.View
      * @generated
@@ -7320,8 +6935,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.resource.relational.View#isIsReadOnly <em>Is Read Only</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Is Read Only</em>'.
      * @see orgomg.cwm.resource.relational.View#isIsReadOnly()
      * @see #getView()
@@ -7331,8 +6945,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.resource.relational.View#isCheckOption <em>Check Option</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Check Option</em>'.
      * @see orgomg.cwm.resource.relational.View#isCheckOption()
      * @see #getView()
@@ -7341,10 +6954,13 @@ public interface RelationalPackage extends EPackage {
     EAttribute getView_CheckOption();
 
     /**
-     * Returns the meta object for the containment reference '{@link orgomg.cwm.resource.relational.View#getQueryExpression <em>Query Expression</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the containment reference '<em>Query Expression</em>'.
+     * Returns the meta object for the containment reference '
+     * {@link orgomg.cwm.resource.relational.View#getQueryExpression
+     * <em>Query Expression</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @return the meta object for the containment reference '
+     *         <em>Query Expression</em>'.
      * @see orgomg.cwm.resource.relational.View#getQueryExpression()
      * @see #getView()
      * @generated
@@ -7352,9 +6968,11 @@ public interface RelationalPackage extends EPackage {
     EReference getView_QueryExpression();
 
     /**
-     * Returns the meta object for class '{@link orgomg.cwm.resource.relational.QueryColumnSet <em>Query Column Set</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for class '
+     * {@link orgomg.cwm.resource.relational.QueryColumnSet
+     * <em>Query Column Set</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @return the meta object for class '<em>Query Column Set</em>'.
      * @see orgomg.cwm.resource.relational.QueryColumnSet
      * @generated
@@ -7363,8 +6981,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * Returns the meta object for the containment reference '{@link orgomg.cwm.resource.relational.QueryColumnSet#getQuery <em>Query</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the containment reference '<em>Query</em>'.
      * @see orgomg.cwm.resource.relational.QueryColumnSet#getQuery()
      * @see #getQueryColumnSet()
@@ -7374,8 +6991,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link orgomg.cwm.resource.relational.SQLDataType <em>SQL Data Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>SQL Data Type</em>'.
      * @see orgomg.cwm.resource.relational.SQLDataType
      * @generated
@@ -7384,8 +7000,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.resource.relational.SQLDataType#getTypeNumber <em>Type Number</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Type Number</em>'.
      * @see orgomg.cwm.resource.relational.SQLDataType#getTypeNumber()
      * @see #getSQLDataType()
@@ -7394,9 +7009,11 @@ public interface RelationalPackage extends EPackage {
     EAttribute getSQLDataType_TypeNumber();
 
     /**
-     * Returns the meta object for class '{@link orgomg.cwm.resource.relational.SQLDistinctType <em>SQL Distinct Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for class '
+     * {@link orgomg.cwm.resource.relational.SQLDistinctType
+     * <em>SQL Distinct Type</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @return the meta object for class '<em>SQL Distinct Type</em>'.
      * @see orgomg.cwm.resource.relational.SQLDistinctType
      * @generated
@@ -7405,8 +7022,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.resource.relational.SQLDistinctType#getLength <em>Length</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Length</em>'.
      * @see orgomg.cwm.resource.relational.SQLDistinctType#getLength()
      * @see #getSQLDistinctType()
@@ -7416,8 +7032,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.resource.relational.SQLDistinctType#getPrecision <em>Precision</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Precision</em>'.
      * @see orgomg.cwm.resource.relational.SQLDistinctType#getPrecision()
      * @see #getSQLDistinctType()
@@ -7427,8 +7042,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.resource.relational.SQLDistinctType#getScale <em>Scale</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Scale</em>'.
      * @see orgomg.cwm.resource.relational.SQLDistinctType#getScale()
      * @see #getSQLDistinctType()
@@ -7438,8 +7052,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * Returns the meta object for the reference '{@link orgomg.cwm.resource.relational.SQLDistinctType#getSqlSimpleType <em>Sql Simple Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference '<em>Sql Simple Type</em>'.
      * @see orgomg.cwm.resource.relational.SQLDistinctType#getSqlSimpleType()
      * @see #getSQLDistinctType()
@@ -7449,8 +7062,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link orgomg.cwm.resource.relational.SQLSimpleType <em>SQL Simple Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>SQL Simple Type</em>'.
      * @see orgomg.cwm.resource.relational.SQLSimpleType
      * @generated
@@ -7459,8 +7071,8 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.resource.relational.SQLSimpleType#getCharacterMaximumLength <em>Character Maximum Length</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @return the meta object for the attribute '<em>Character Maximum Length</em>'.
      * @see orgomg.cwm.resource.relational.SQLSimpleType#getCharacterMaximumLength()
      * @see #getSQLSimpleType()
@@ -7470,8 +7082,8 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.resource.relational.SQLSimpleType#getCharacterOctetLength <em>Character Octet Length</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @return the meta object for the attribute '<em>Character Octet Length</em>'.
      * @see orgomg.cwm.resource.relational.SQLSimpleType#getCharacterOctetLength()
      * @see #getSQLSimpleType()
@@ -7480,9 +7092,11 @@ public interface RelationalPackage extends EPackage {
     EAttribute getSQLSimpleType_CharacterOctetLength();
 
     /**
-     * Returns the meta object for the attribute '{@link orgomg.cwm.resource.relational.SQLSimpleType#getNumericPrecision <em>Numeric Precision</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link orgomg.cwm.resource.relational.SQLSimpleType#getNumericPrecision
+     * <em>Numeric Precision</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @return the meta object for the attribute '<em>Numeric Precision</em>'.
      * @see orgomg.cwm.resource.relational.SQLSimpleType#getNumericPrecision()
      * @see #getSQLSimpleType()
@@ -7492,8 +7106,8 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.resource.relational.SQLSimpleType#getNumericPrecisionRadix <em>Numeric Precision Radix</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @return the meta object for the attribute '<em>Numeric Precision Radix</em>'.
      * @see orgomg.cwm.resource.relational.SQLSimpleType#getNumericPrecisionRadix()
      * @see #getSQLSimpleType()
@@ -7503,8 +7117,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.resource.relational.SQLSimpleType#getNumericScale <em>Numeric Scale</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Numeric Scale</em>'.
      * @see orgomg.cwm.resource.relational.SQLSimpleType#getNumericScale()
      * @see #getSQLSimpleType()
@@ -7513,9 +7126,11 @@ public interface RelationalPackage extends EPackage {
     EAttribute getSQLSimpleType_NumericScale();
 
     /**
-     * Returns the meta object for the attribute '{@link orgomg.cwm.resource.relational.SQLSimpleType#getDateTimePrecision <em>Date Time Precision</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link orgomg.cwm.resource.relational.SQLSimpleType#getDateTimePrecision
+     * <em>Date Time Precision</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @return the meta object for the attribute '<em>Date Time Precision</em>'.
      * @see orgomg.cwm.resource.relational.SQLSimpleType#getDateTimePrecision()
      * @see #getSQLSimpleType()
@@ -7524,10 +7139,13 @@ public interface RelationalPackage extends EPackage {
     EAttribute getSQLSimpleType_DateTimePrecision();
 
     /**
-     * Returns the meta object for the reference list '{@link orgomg.cwm.resource.relational.SQLSimpleType#getSqlDistinctType <em>Sql Distinct Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the reference list '<em>Sql Distinct Type</em>'.
+     * Returns the meta object for the reference list '
+     * {@link orgomg.cwm.resource.relational.SQLSimpleType#getSqlDistinctType
+     * <em>Sql Distinct Type</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @return the meta object for the reference list '
+     *         <em>Sql Distinct Type</em>'.
      * @see orgomg.cwm.resource.relational.SQLSimpleType#getSqlDistinctType()
      * @see #getSQLSimpleType()
      * @generated
@@ -7535,9 +7153,11 @@ public interface RelationalPackage extends EPackage {
     EReference getSQLSimpleType_SqlDistinctType();
 
     /**
-     * Returns the meta object for class '{@link orgomg.cwm.resource.relational.SQLStructuredType <em>SQL Structured Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for class '
+     * {@link orgomg.cwm.resource.relational.SQLStructuredType
+     * <em>SQL Structured Type</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @return the meta object for class '<em>SQL Structured Type</em>'.
      * @see orgomg.cwm.resource.relational.SQLStructuredType
      * @generated
@@ -7546,8 +7166,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * Returns the meta object for the reference list '{@link orgomg.cwm.resource.relational.SQLStructuredType#getColumnSet <em>Column Set</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference list '<em>Column Set</em>'.
      * @see orgomg.cwm.resource.relational.SQLStructuredType#getColumnSet()
      * @see #getSQLStructuredType()
@@ -7556,10 +7175,13 @@ public interface RelationalPackage extends EPackage {
     EReference getSQLStructuredType_ColumnSet();
 
     /**
-     * Returns the meta object for the reference list '{@link orgomg.cwm.resource.relational.SQLStructuredType#getReferencingColumn <em>Referencing Column</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the reference list '<em>Referencing Column</em>'.
+     * Returns the meta object for the reference list '
+     * {@link orgomg.cwm.resource.relational.SQLStructuredType#getReferencingColumn
+     * <em>Referencing Column</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @return the meta object for the reference list '
+     *         <em>Referencing Column</em>'.
      * @see orgomg.cwm.resource.relational.SQLStructuredType#getReferencingColumn()
      * @see #getSQLStructuredType()
      * @generated
@@ -7567,9 +7189,10 @@ public interface RelationalPackage extends EPackage {
     EReference getSQLStructuredType_ReferencingColumn();
 
     /**
-     * Returns the meta object for class '{@link orgomg.cwm.resource.relational.Column <em>Column</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for class '
+     * {@link orgomg.cwm.resource.relational.Column <em>Column</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for class '<em>Column</em>'.
      * @see orgomg.cwm.resource.relational.Column
      * @generated
@@ -7578,8 +7201,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.resource.relational.Column#getPrecision <em>Precision</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Precision</em>'.
      * @see orgomg.cwm.resource.relational.Column#getPrecision()
      * @see #getColumn()
@@ -7589,8 +7211,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.resource.relational.Column#getScale <em>Scale</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Scale</em>'.
      * @see orgomg.cwm.resource.relational.Column#getScale()
      * @see #getColumn()
@@ -7600,8 +7221,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.resource.relational.Column#getIsNullable <em>Is Nullable</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Is Nullable</em>'.
      * @see orgomg.cwm.resource.relational.Column#getIsNullable()
      * @see #getColumn()
@@ -7611,8 +7231,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.resource.relational.Column#getLength <em>Length</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Length</em>'.
      * @see orgomg.cwm.resource.relational.Column#getLength()
      * @see #getColumn()
@@ -7622,8 +7241,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.resource.relational.Column#getCollationName <em>Collation Name</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Collation Name</em>'.
      * @see orgomg.cwm.resource.relational.Column#getCollationName()
      * @see #getColumn()
@@ -7632,9 +7250,11 @@ public interface RelationalPackage extends EPackage {
     EAttribute getColumn_CollationName();
 
     /**
-     * Returns the meta object for the attribute '{@link orgomg.cwm.resource.relational.Column#getCharacterSetName <em>Character Set Name</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link orgomg.cwm.resource.relational.Column#getCharacterSetName
+     * <em>Character Set Name</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @return the meta object for the attribute '<em>Character Set Name</em>'.
      * @see orgomg.cwm.resource.relational.Column#getCharacterSetName()
      * @see #getColumn()
@@ -7644,8 +7264,8 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * Returns the meta object for the reference '{@link orgomg.cwm.resource.relational.Column#getReferencedTableType <em>Referenced Table Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @return the meta object for the reference '<em>Referenced Table Type</em>'.
      * @see orgomg.cwm.resource.relational.Column#getReferencedTableType()
      * @see #getColumn()
@@ -7655,8 +7275,8 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * Returns the meta object for the reference '{@link orgomg.cwm.resource.relational.Column#getOptionScopeColumnSet <em>Option Scope Column Set</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @return the meta object for the reference '<em>Option Scope Column Set</em>'.
      * @see orgomg.cwm.resource.relational.Column#getOptionScopeColumnSet()
      * @see #getColumn()
@@ -7666,8 +7286,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link orgomg.cwm.resource.relational.Procedure <em>Procedure</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Procedure</em>'.
      * @see orgomg.cwm.resource.relational.Procedure
      * @generated
@@ -7676,8 +7295,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.resource.relational.Procedure#getType <em>Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Type</em>'.
      * @see orgomg.cwm.resource.relational.Procedure#getType()
      * @see #getProcedure()
@@ -7686,9 +7304,10 @@ public interface RelationalPackage extends EPackage {
     EAttribute getProcedure_Type();
 
     /**
-     * Returns the meta object for class '{@link orgomg.cwm.resource.relational.Trigger <em>Trigger</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for class '
+     * {@link orgomg.cwm.resource.relational.Trigger <em>Trigger</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for class '<em>Trigger</em>'.
      * @see orgomg.cwm.resource.relational.Trigger
      * @generated
@@ -7696,9 +7315,11 @@ public interface RelationalPackage extends EPackage {
     EClass getTrigger();
 
     /**
-     * Returns the meta object for the attribute '{@link orgomg.cwm.resource.relational.Trigger#getEventManipulation <em>Event Manipulation</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link orgomg.cwm.resource.relational.Trigger#getEventManipulation
+     * <em>Event Manipulation</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @return the meta object for the attribute '<em>Event Manipulation</em>'.
      * @see orgomg.cwm.resource.relational.Trigger#getEventManipulation()
      * @see #getTrigger()
@@ -7707,10 +7328,13 @@ public interface RelationalPackage extends EPackage {
     EAttribute getTrigger_EventManipulation();
 
     /**
-     * Returns the meta object for the containment reference '{@link orgomg.cwm.resource.relational.Trigger#getActionCondition <em>Action Condition</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the containment reference '<em>Action Condition</em>'.
+     * Returns the meta object for the containment reference '
+     * {@link orgomg.cwm.resource.relational.Trigger#getActionCondition
+     * <em>Action Condition</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @return the meta object for the containment reference '
+     *         <em>Action Condition</em>'.
      * @see orgomg.cwm.resource.relational.Trigger#getActionCondition()
      * @see #getTrigger()
      * @generated
@@ -7718,10 +7342,13 @@ public interface RelationalPackage extends EPackage {
     EReference getTrigger_ActionCondition();
 
     /**
-     * Returns the meta object for the containment reference '{@link orgomg.cwm.resource.relational.Trigger#getActionStatement <em>Action Statement</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the containment reference '<em>Action Statement</em>'.
+     * Returns the meta object for the containment reference '
+     * {@link orgomg.cwm.resource.relational.Trigger#getActionStatement
+     * <em>Action Statement</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @return the meta object for the containment reference '
+     *         <em>Action Statement</em>'.
      * @see orgomg.cwm.resource.relational.Trigger#getActionStatement()
      * @see #getTrigger()
      * @generated
@@ -7729,9 +7356,11 @@ public interface RelationalPackage extends EPackage {
     EReference getTrigger_ActionStatement();
 
     /**
-     * Returns the meta object for the attribute '{@link orgomg.cwm.resource.relational.Trigger#getActionOrientation <em>Action Orientation</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link orgomg.cwm.resource.relational.Trigger#getActionOrientation
+     * <em>Action Orientation</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @return the meta object for the attribute '<em>Action Orientation</em>'.
      * @see orgomg.cwm.resource.relational.Trigger#getActionOrientation()
      * @see #getTrigger()
@@ -7740,9 +7369,11 @@ public interface RelationalPackage extends EPackage {
     EAttribute getTrigger_ActionOrientation();
 
     /**
-     * Returns the meta object for the attribute '{@link orgomg.cwm.resource.relational.Trigger#getConditionTiming <em>Condition Timing</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link orgomg.cwm.resource.relational.Trigger#getConditionTiming
+     * <em>Condition Timing</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @return the meta object for the attribute '<em>Condition Timing</em>'.
      * @see orgomg.cwm.resource.relational.Trigger#getConditionTiming()
      * @see #getTrigger()
@@ -7752,8 +7383,8 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.resource.relational.Trigger#getConditionReferenceNewTable <em>Condition Reference New Table</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @return the meta object for the attribute '<em>Condition Reference New Table</em>'.
      * @see orgomg.cwm.resource.relational.Trigger#getConditionReferenceNewTable()
      * @see #getTrigger()
@@ -7763,8 +7394,8 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.resource.relational.Trigger#getConditionReferenceOldTable <em>Condition Reference Old Table</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @return the meta object for the attribute '<em>Condition Reference Old Table</em>'.
      * @see orgomg.cwm.resource.relational.Trigger#getConditionReferenceOldTable()
      * @see #getTrigger()
@@ -7774,8 +7405,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * Returns the meta object for the reference list '{@link orgomg.cwm.resource.relational.Trigger#getUsedColumnSet <em>Used Column Set</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference list '<em>Used Column Set</em>'.
      * @see orgomg.cwm.resource.relational.Trigger#getUsedColumnSet()
      * @see #getTrigger()
@@ -7785,8 +7415,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * Returns the meta object for the reference '{@link orgomg.cwm.resource.relational.Trigger#getTable <em>Table</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the reference '<em>Table</em>'.
      * @see orgomg.cwm.resource.relational.Trigger#getTable()
      * @see #getTrigger()
@@ -7795,9 +7424,10 @@ public interface RelationalPackage extends EPackage {
     EReference getTrigger_Table();
 
     /**
-     * Returns the meta object for class '{@link orgomg.cwm.resource.relational.SQLIndex <em>SQL Index</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for class '
+     * {@link orgomg.cwm.resource.relational.SQLIndex <em>SQL Index</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for class '<em>SQL Index</em>'.
      * @see orgomg.cwm.resource.relational.SQLIndex
      * @generated
@@ -7805,9 +7435,11 @@ public interface RelationalPackage extends EPackage {
     EClass getSQLIndex();
 
     /**
-     * Returns the meta object for the attribute '{@link orgomg.cwm.resource.relational.SQLIndex#getFilterCondition <em>Filter Condition</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link orgomg.cwm.resource.relational.SQLIndex#getFilterCondition
+     * <em>Filter Condition</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @return the meta object for the attribute '<em>Filter Condition</em>'.
      * @see orgomg.cwm.resource.relational.SQLIndex#getFilterCondition()
      * @see #getSQLIndex()
@@ -7817,8 +7449,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.resource.relational.SQLIndex#isIsNullable <em>Is Nullable</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Is Nullable</em>'.
      * @see orgomg.cwm.resource.relational.SQLIndex#isIsNullable()
      * @see #getSQLIndex()
@@ -7828,8 +7459,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.resource.relational.SQLIndex#isAutoUpdate <em>Auto Update</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Auto Update</em>'.
      * @see orgomg.cwm.resource.relational.SQLIndex#isAutoUpdate()
      * @see #getSQLIndex()
@@ -7838,9 +7468,11 @@ public interface RelationalPackage extends EPackage {
     EAttribute getSQLIndex_AutoUpdate();
 
     /**
-     * Returns the meta object for class '{@link orgomg.cwm.resource.relational.UniqueConstraint <em>Unique Constraint</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for class '
+     * {@link orgomg.cwm.resource.relational.UniqueConstraint
+     * <em>Unique Constraint</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @return the meta object for class '<em>Unique Constraint</em>'.
      * @see orgomg.cwm.resource.relational.UniqueConstraint
      * @generated
@@ -7849,8 +7481,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.resource.relational.UniqueConstraint#getDeferrability <em>Deferrability</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Deferrability</em>'.
      * @see orgomg.cwm.resource.relational.UniqueConstraint#getDeferrability()
      * @see #getUniqueConstraint()
@@ -7860,8 +7491,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link orgomg.cwm.resource.relational.ForeignKey <em>Foreign Key</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Foreign Key</em>'.
      * @see orgomg.cwm.resource.relational.ForeignKey
      * @generated
@@ -7870,8 +7500,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.resource.relational.ForeignKey#getDeleteRule <em>Delete Rule</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Delete Rule</em>'.
      * @see orgomg.cwm.resource.relational.ForeignKey#getDeleteRule()
      * @see #getForeignKey()
@@ -7881,8 +7510,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.resource.relational.ForeignKey#getUpdateRule <em>Update Rule</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Update Rule</em>'.
      * @see orgomg.cwm.resource.relational.ForeignKey#getUpdateRule()
      * @see #getForeignKey()
@@ -7892,8 +7520,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.resource.relational.ForeignKey#getDeferrability <em>Deferrability</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Deferrability</em>'.
      * @see orgomg.cwm.resource.relational.ForeignKey#getDeferrability()
      * @see #getForeignKey()
@@ -7902,9 +7529,11 @@ public interface RelationalPackage extends EPackage {
     EAttribute getForeignKey_Deferrability();
 
     /**
-     * Returns the meta object for class '{@link orgomg.cwm.resource.relational.SQLIndexColumn <em>SQL Index Column</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for class '
+     * {@link orgomg.cwm.resource.relational.SQLIndexColumn
+     * <em>SQL Index Column</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @return the meta object for class '<em>SQL Index Column</em>'.
      * @see orgomg.cwm.resource.relational.SQLIndexColumn
      * @generated
@@ -7913,8 +7542,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link orgomg.cwm.resource.relational.PrimaryKey <em>Primary Key</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Primary Key</em>'.
      * @see orgomg.cwm.resource.relational.PrimaryKey
      * @generated
@@ -7922,9 +7550,10 @@ public interface RelationalPackage extends EPackage {
     EClass getPrimaryKey();
 
     /**
-     * Returns the meta object for class '{@link orgomg.cwm.resource.relational.Row <em>Row</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for class '
+     * {@link orgomg.cwm.resource.relational.Row <em>Row</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for class '<em>Row</em>'.
      * @see orgomg.cwm.resource.relational.Row
      * @generated
@@ -7933,8 +7562,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link orgomg.cwm.resource.relational.ColumnValue <em>Column Value</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Column Value</em>'.
      * @see orgomg.cwm.resource.relational.ColumnValue
      * @generated
@@ -7942,9 +7570,11 @@ public interface RelationalPackage extends EPackage {
     EClass getColumnValue();
 
     /**
-     * Returns the meta object for class '{@link orgomg.cwm.resource.relational.CheckConstraint <em>Check Constraint</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for class '
+     * {@link orgomg.cwm.resource.relational.CheckConstraint
+     * <em>Check Constraint</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @return the meta object for class '<em>Check Constraint</em>'.
      * @see orgomg.cwm.resource.relational.CheckConstraint
      * @generated
@@ -7953,8 +7583,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link orgomg.cwm.resource.relational.CheckConstraint#getDeferrability <em>Deferrability</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Deferrability</em>'.
      * @see orgomg.cwm.resource.relational.CheckConstraint#getDeferrability()
      * @see #getCheckConstraint()
@@ -7963,9 +7592,10 @@ public interface RelationalPackage extends EPackage {
     EAttribute getCheckConstraint_Deferrability();
 
     /**
-     * Returns the meta object for class '{@link orgomg.cwm.resource.relational.RowSet <em>Row Set</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for class '
+     * {@link orgomg.cwm.resource.relational.RowSet <em>Row Set</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for class '<em>Row Set</em>'.
      * @see orgomg.cwm.resource.relational.RowSet
      * @generated
@@ -7974,8 +7604,7 @@ public interface RelationalPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link orgomg.cwm.resource.relational.SQLParameter <em>SQL Parameter</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>SQL Parameter</em>'.
      * @see orgomg.cwm.resource.relational.SQLParameter
      * @generated
@@ -7983,31 +7612,34 @@ public interface RelationalPackage extends EPackage {
     EClass getSQLParameter();
 
     /**
-     * Returns the factory that creates the instances of the model.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the factory that creates the instances of the model. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the factory that creates the instances of the model.
      * @generated
      */
     RelationalFactory getRelationalFactory();
 
     /**
-     * <!-- begin-user-doc -->
-     * Defines literals for the meta objects that represent
+     * <!-- begin-user-doc --> Defines literals for the meta objects that
+     * represent
      * <ul>
-     *   <li>each class,</li>
-     *   <li>each feature of each class,</li>
-     *   <li>each enum,</li>
-     *   <li>and each data type</li>
+     * <li>each class,</li>
+     * <li>each feature of each class,</li>
+     * <li>each enum,</li>
+     * <li>and each data type</li>
      * </ul>
      * <!-- end-user-doc -->
      * @generated
      */
     interface Literals {
+
         /**
-         * The meta object literal for the '{@link orgomg.cwm.resource.relational.impl.CatalogImpl <em>Catalog</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '
+         * {@link orgomg.cwm.resource.relational.impl.CatalogImpl
+         * <em>Catalog</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
+         * -->
+         * 
          * @see orgomg.cwm.resource.relational.impl.CatalogImpl
          * @see orgomg.cwm.resource.relational.impl.RelationalPackageImpl#getCatalog()
          * @generated
@@ -8015,25 +7647,29 @@ public interface RelationalPackage extends EPackage {
         EClass CATALOG = eINSTANCE.getCatalog();
 
         /**
-         * The meta object literal for the '<em><b>Default Character Set Name</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '
+         * <em><b>Default Character Set Name</b></em>' attribute feature. <!--
+         * begin-user-doc --> <!-- end-user-doc -->
+         * 
          * @generated
          */
         EAttribute CATALOG__DEFAULT_CHARACTER_SET_NAME = eINSTANCE.getCatalog_DefaultCharacterSetName();
 
         /**
-         * The meta object literal for the '<em><b>Default Collation Name</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '
+         * <em><b>Default Collation Name</b></em>' attribute feature. <!--
+         * begin-user-doc --> <!-- end-user-doc -->
+         * 
          * @generated
          */
         EAttribute CATALOG__DEFAULT_COLLATION_NAME = eINSTANCE.getCatalog_DefaultCollationName();
 
         /**
-         * The meta object literal for the '{@link orgomg.cwm.resource.relational.impl.SchemaImpl <em>Schema</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '
+         * {@link orgomg.cwm.resource.relational.impl.SchemaImpl
+         * <em>Schema</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
+         * -->
+         * 
          * @see orgomg.cwm.resource.relational.impl.SchemaImpl
          * @see orgomg.cwm.resource.relational.impl.RelationalPackageImpl#getSchema()
          * @generated
@@ -8042,8 +7678,8 @@ public interface RelationalPackage extends EPackage {
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.resource.relational.impl.ColumnSetImpl <em>Column Set</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwm.resource.relational.impl.ColumnSetImpl
          * @see orgomg.cwm.resource.relational.impl.RelationalPackageImpl#getColumnSet()
          * @generated
@@ -8052,8 +7688,8 @@ public interface RelationalPackage extends EPackage {
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.resource.relational.impl.NamedColumnSetImpl <em>Named Column Set</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwm.resource.relational.impl.NamedColumnSetImpl
          * @see orgomg.cwm.resource.relational.impl.RelationalPackageImpl#getNamedColumnSet()
          * @generated
@@ -8062,32 +7698,28 @@ public interface RelationalPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Using Trigger</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference NAMED_COLUMN_SET__USING_TRIGGER = eINSTANCE.getNamedColumnSet_UsingTrigger();
 
         /**
          * The meta object literal for the '<em><b>Type</b></em>' reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference NAMED_COLUMN_SET__TYPE = eINSTANCE.getNamedColumnSet_Type();
 
         /**
          * The meta object literal for the '<em><b>Option Scope Column</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference NAMED_COLUMN_SET__OPTION_SCOPE_COLUMN = eINSTANCE.getNamedColumnSet_OptionScopeColumn();
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.resource.relational.impl.TableImpl <em>Table</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see orgomg.cwm.resource.relational.impl.TableImpl
          * @see orgomg.cwm.resource.relational.impl.RelationalPackageImpl#getTable()
          * @generated
@@ -8096,40 +7728,35 @@ public interface RelationalPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Is Temporary</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute TABLE__IS_TEMPORARY = eINSTANCE.getTable_IsTemporary();
 
         /**
          * The meta object literal for the '<em><b>Temporary Scope</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute TABLE__TEMPORARY_SCOPE = eINSTANCE.getTable_TemporaryScope();
 
         /**
          * The meta object literal for the '<em><b>Is System</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute TABLE__IS_SYSTEM = eINSTANCE.getTable_IsSystem();
 
         /**
          * The meta object literal for the '<em><b>Trigger</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference TABLE__TRIGGER = eINSTANCE.getTable_Trigger();
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.resource.relational.impl.ViewImpl <em>View</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see orgomg.cwm.resource.relational.impl.ViewImpl
          * @see orgomg.cwm.resource.relational.impl.RelationalPackageImpl#getView()
          * @generated
@@ -8138,32 +7765,30 @@ public interface RelationalPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Is Read Only</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute VIEW__IS_READ_ONLY = eINSTANCE.getView_IsReadOnly();
 
         /**
          * The meta object literal for the '<em><b>Check Option</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute VIEW__CHECK_OPTION = eINSTANCE.getView_CheckOption();
 
         /**
          * The meta object literal for the '<em><b>Query Expression</b></em>' containment reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EReference VIEW__QUERY_EXPRESSION = eINSTANCE.getView_QueryExpression();
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.resource.relational.impl.QueryColumnSetImpl <em>Query Column Set</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwm.resource.relational.impl.QueryColumnSetImpl
          * @see orgomg.cwm.resource.relational.impl.RelationalPackageImpl#getQueryColumnSet()
          * @generated
@@ -8172,16 +7797,15 @@ public interface RelationalPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Query</b></em>' containment reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference QUERY_COLUMN_SET__QUERY = eINSTANCE.getQueryColumnSet_Query();
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.resource.relational.impl.SQLDataTypeImpl <em>SQL Data Type</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwm.resource.relational.impl.SQLDataTypeImpl
          * @see orgomg.cwm.resource.relational.impl.RelationalPackageImpl#getSQLDataType()
          * @generated
@@ -8190,16 +7814,15 @@ public interface RelationalPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Type Number</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute SQL_DATA_TYPE__TYPE_NUMBER = eINSTANCE.getSQLDataType_TypeNumber();
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.resource.relational.impl.SQLDistinctTypeImpl <em>SQL Distinct Type</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwm.resource.relational.impl.SQLDistinctTypeImpl
          * @see orgomg.cwm.resource.relational.impl.RelationalPackageImpl#getSQLDistinctType()
          * @generated
@@ -8208,40 +7831,36 @@ public interface RelationalPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Length</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute SQL_DISTINCT_TYPE__LENGTH = eINSTANCE.getSQLDistinctType_Length();
 
         /**
          * The meta object literal for the '<em><b>Precision</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute SQL_DISTINCT_TYPE__PRECISION = eINSTANCE.getSQLDistinctType_Precision();
 
         /**
          * The meta object literal for the '<em><b>Scale</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute SQL_DISTINCT_TYPE__SCALE = eINSTANCE.getSQLDistinctType_Scale();
 
         /**
          * The meta object literal for the '<em><b>Sql Simple Type</b></em>' reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference SQL_DISTINCT_TYPE__SQL_SIMPLE_TYPE = eINSTANCE.getSQLDistinctType_SqlSimpleType();
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.resource.relational.impl.SQLSimpleTypeImpl <em>SQL Simple Type</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwm.resource.relational.impl.SQLSimpleTypeImpl
          * @see orgomg.cwm.resource.relational.impl.RelationalPackageImpl#getSQLSimpleType()
          * @generated
@@ -8249,65 +7868,64 @@ public interface RelationalPackage extends EPackage {
         EClass SQL_SIMPLE_TYPE = eINSTANCE.getSQLSimpleType();
 
         /**
-         * The meta object literal for the '<em><b>Character Maximum Length</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '
+         * <em><b>Character Maximum Length</b></em>' attribute feature. <!--
+         * begin-user-doc --> <!-- end-user-doc -->
+         * 
          * @generated
          */
         EAttribute SQL_SIMPLE_TYPE__CHARACTER_MAXIMUM_LENGTH = eINSTANCE.getSQLSimpleType_CharacterMaximumLength();
 
         /**
-         * The meta object literal for the '<em><b>Character Octet Length</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '
+         * <em><b>Character Octet Length</b></em>' attribute feature. <!--
+         * begin-user-doc --> <!-- end-user-doc -->
+         * 
          * @generated
          */
         EAttribute SQL_SIMPLE_TYPE__CHARACTER_OCTET_LENGTH = eINSTANCE.getSQLSimpleType_CharacterOctetLength();
 
         /**
          * The meta object literal for the '<em><b>Numeric Precision</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute SQL_SIMPLE_TYPE__NUMERIC_PRECISION = eINSTANCE.getSQLSimpleType_NumericPrecision();
 
         /**
-         * The meta object literal for the '<em><b>Numeric Precision Radix</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '
+         * <em><b>Numeric Precision Radix</b></em>' attribute feature. <!--
+         * begin-user-doc --> <!-- end-user-doc -->
+         * 
          * @generated
          */
         EAttribute SQL_SIMPLE_TYPE__NUMERIC_PRECISION_RADIX = eINSTANCE.getSQLSimpleType_NumericPrecisionRadix();
 
         /**
          * The meta object literal for the '<em><b>Numeric Scale</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute SQL_SIMPLE_TYPE__NUMERIC_SCALE = eINSTANCE.getSQLSimpleType_NumericScale();
 
         /**
          * The meta object literal for the '<em><b>Date Time Precision</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute SQL_SIMPLE_TYPE__DATE_TIME_PRECISION = eINSTANCE.getSQLSimpleType_DateTimePrecision();
 
         /**
          * The meta object literal for the '<em><b>Sql Distinct Type</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference SQL_SIMPLE_TYPE__SQL_DISTINCT_TYPE = eINSTANCE.getSQLSimpleType_SqlDistinctType();
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.resource.relational.impl.SQLStructuredTypeImpl <em>SQL Structured Type</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwm.resource.relational.impl.SQLStructuredTypeImpl
          * @see orgomg.cwm.resource.relational.impl.RelationalPackageImpl#getSQLStructuredType()
          * @generated
@@ -8316,24 +7934,24 @@ public interface RelationalPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Column Set</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference SQL_STRUCTURED_TYPE__COLUMN_SET = eINSTANCE.getSQLStructuredType_ColumnSet();
 
         /**
          * The meta object literal for the '<em><b>Referencing Column</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference SQL_STRUCTURED_TYPE__REFERENCING_COLUMN = eINSTANCE.getSQLStructuredType_ReferencingColumn();
 
         /**
-         * The meta object literal for the '{@link orgomg.cwm.resource.relational.impl.ColumnImpl <em>Column</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '
+         * {@link orgomg.cwm.resource.relational.impl.ColumnImpl
+         * <em>Column</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
+         * -->
+         * 
          * @see orgomg.cwm.resource.relational.impl.ColumnImpl
          * @see orgomg.cwm.resource.relational.impl.RelationalPackageImpl#getColumn()
          * @generated
@@ -8342,72 +7960,70 @@ public interface RelationalPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Precision</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute COLUMN__PRECISION = eINSTANCE.getColumn_Precision();
 
         /**
          * The meta object literal for the '<em><b>Scale</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute COLUMN__SCALE = eINSTANCE.getColumn_Scale();
 
         /**
          * The meta object literal for the '<em><b>Is Nullable</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute COLUMN__IS_NULLABLE = eINSTANCE.getColumn_IsNullable();
 
         /**
          * The meta object literal for the '<em><b>Length</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute COLUMN__LENGTH = eINSTANCE.getColumn_Length();
 
         /**
          * The meta object literal for the '<em><b>Collation Name</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute COLUMN__COLLATION_NAME = eINSTANCE.getColumn_CollationName();
 
         /**
          * The meta object literal for the '<em><b>Character Set Name</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute COLUMN__CHARACTER_SET_NAME = eINSTANCE.getColumn_CharacterSetName();
 
         /**
-         * The meta object literal for the '<em><b>Referenced Table Type</b></em>' reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '
+         * <em><b>Referenced Table Type</b></em>' reference feature. <!--
+         * begin-user-doc --> <!-- end-user-doc -->
+         * 
          * @generated
          */
         EReference COLUMN__REFERENCED_TABLE_TYPE = eINSTANCE.getColumn_ReferencedTableType();
 
         /**
-         * The meta object literal for the '<em><b>Option Scope Column Set</b></em>' reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '
+         * <em><b>Option Scope Column Set</b></em>' reference feature. <!--
+         * begin-user-doc --> <!-- end-user-doc -->
+         * 
          * @generated
          */
         EReference COLUMN__OPTION_SCOPE_COLUMN_SET = eINSTANCE.getColumn_OptionScopeColumnSet();
 
         /**
-         * The meta object literal for the '{@link orgomg.cwm.resource.relational.impl.ProcedureImpl <em>Procedure</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '
+         * {@link orgomg.cwm.resource.relational.impl.ProcedureImpl
+         * <em>Procedure</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
+         * -->
+         * 
          * @see orgomg.cwm.resource.relational.impl.ProcedureImpl
          * @see orgomg.cwm.resource.relational.impl.RelationalPackageImpl#getProcedure()
          * @generated
@@ -8416,16 +8032,17 @@ public interface RelationalPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute PROCEDURE__TYPE = eINSTANCE.getProcedure_Type();
 
         /**
-         * The meta object literal for the '{@link orgomg.cwm.resource.relational.impl.TriggerImpl <em>Trigger</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '
+         * {@link orgomg.cwm.resource.relational.impl.TriggerImpl
+         * <em>Trigger</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
+         * -->
+         * 
          * @see orgomg.cwm.resource.relational.impl.TriggerImpl
          * @see orgomg.cwm.resource.relational.impl.RelationalPackageImpl#getTrigger()
          * @generated
@@ -8434,80 +8051,75 @@ public interface RelationalPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Event Manipulation</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute TRIGGER__EVENT_MANIPULATION = eINSTANCE.getTrigger_EventManipulation();
 
         /**
          * The meta object literal for the '<em><b>Action Condition</b></em>' containment reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EReference TRIGGER__ACTION_CONDITION = eINSTANCE.getTrigger_ActionCondition();
 
         /**
          * The meta object literal for the '<em><b>Action Statement</b></em>' containment reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EReference TRIGGER__ACTION_STATEMENT = eINSTANCE.getTrigger_ActionStatement();
 
         /**
          * The meta object literal for the '<em><b>Action Orientation</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute TRIGGER__ACTION_ORIENTATION = eINSTANCE.getTrigger_ActionOrientation();
 
         /**
          * The meta object literal for the '<em><b>Condition Timing</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute TRIGGER__CONDITION_TIMING = eINSTANCE.getTrigger_ConditionTiming();
 
         /**
          * The meta object literal for the '<em><b>Condition Reference New Table</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute TRIGGER__CONDITION_REFERENCE_NEW_TABLE = eINSTANCE.getTrigger_ConditionReferenceNewTable();
 
         /**
          * The meta object literal for the '<em><b>Condition Reference Old Table</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute TRIGGER__CONDITION_REFERENCE_OLD_TABLE = eINSTANCE.getTrigger_ConditionReferenceOldTable();
 
         /**
          * The meta object literal for the '<em><b>Used Column Set</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference TRIGGER__USED_COLUMN_SET = eINSTANCE.getTrigger_UsedColumnSet();
 
         /**
          * The meta object literal for the '<em><b>Table</b></em>' reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference TRIGGER__TABLE = eINSTANCE.getTrigger_Table();
 
         /**
-         * The meta object literal for the '{@link orgomg.cwm.resource.relational.impl.SQLIndexImpl <em>SQL Index</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '
+         * {@link orgomg.cwm.resource.relational.impl.SQLIndexImpl
+         * <em>SQL Index</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
+         * -->
+         * 
          * @see orgomg.cwm.resource.relational.impl.SQLIndexImpl
          * @see orgomg.cwm.resource.relational.impl.RelationalPackageImpl#getSQLIndex()
          * @generated
@@ -8516,32 +8128,29 @@ public interface RelationalPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Filter Condition</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute SQL_INDEX__FILTER_CONDITION = eINSTANCE.getSQLIndex_FilterCondition();
 
         /**
          * The meta object literal for the '<em><b>Is Nullable</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute SQL_INDEX__IS_NULLABLE = eINSTANCE.getSQLIndex_IsNullable();
 
         /**
          * The meta object literal for the '<em><b>Auto Update</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute SQL_INDEX__AUTO_UPDATE = eINSTANCE.getSQLIndex_AutoUpdate();
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.resource.relational.impl.UniqueConstraintImpl <em>Unique Constraint</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwm.resource.relational.impl.UniqueConstraintImpl
          * @see orgomg.cwm.resource.relational.impl.RelationalPackageImpl#getUniqueConstraint()
          * @generated
@@ -8550,16 +8159,15 @@ public interface RelationalPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Deferrability</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute UNIQUE_CONSTRAINT__DEFERRABILITY = eINSTANCE.getUniqueConstraint_Deferrability();
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.resource.relational.impl.ForeignKeyImpl <em>Foreign Key</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwm.resource.relational.impl.ForeignKeyImpl
          * @see orgomg.cwm.resource.relational.impl.RelationalPackageImpl#getForeignKey()
          * @generated
@@ -8568,32 +8176,29 @@ public interface RelationalPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Delete Rule</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute FOREIGN_KEY__DELETE_RULE = eINSTANCE.getForeignKey_DeleteRule();
 
         /**
          * The meta object literal for the '<em><b>Update Rule</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute FOREIGN_KEY__UPDATE_RULE = eINSTANCE.getForeignKey_UpdateRule();
 
         /**
          * The meta object literal for the '<em><b>Deferrability</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute FOREIGN_KEY__DEFERRABILITY = eINSTANCE.getForeignKey_Deferrability();
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.resource.relational.impl.SQLIndexColumnImpl <em>SQL Index Column</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwm.resource.relational.impl.SQLIndexColumnImpl
          * @see orgomg.cwm.resource.relational.impl.RelationalPackageImpl#getSQLIndexColumn()
          * @generated
@@ -8602,8 +8207,8 @@ public interface RelationalPackage extends EPackage {
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.resource.relational.impl.PrimaryKeyImpl <em>Primary Key</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwm.resource.relational.impl.PrimaryKeyImpl
          * @see orgomg.cwm.resource.relational.impl.RelationalPackageImpl#getPrimaryKey()
          * @generated
@@ -8612,8 +8217,7 @@ public interface RelationalPackage extends EPackage {
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.resource.relational.impl.RowImpl <em>Row</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see orgomg.cwm.resource.relational.impl.RowImpl
          * @see orgomg.cwm.resource.relational.impl.RelationalPackageImpl#getRow()
          * @generated
@@ -8622,8 +8226,8 @@ public interface RelationalPackage extends EPackage {
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.resource.relational.impl.ColumnValueImpl <em>Column Value</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwm.resource.relational.impl.ColumnValueImpl
          * @see orgomg.cwm.resource.relational.impl.RelationalPackageImpl#getColumnValue()
          * @generated
@@ -8632,8 +8236,8 @@ public interface RelationalPackage extends EPackage {
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.resource.relational.impl.CheckConstraintImpl <em>Check Constraint</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwm.resource.relational.impl.CheckConstraintImpl
          * @see orgomg.cwm.resource.relational.impl.RelationalPackageImpl#getCheckConstraint()
          * @generated
@@ -8642,16 +8246,17 @@ public interface RelationalPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Deferrability</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute CHECK_CONSTRAINT__DEFERRABILITY = eINSTANCE.getCheckConstraint_Deferrability();
 
         /**
-         * The meta object literal for the '{@link orgomg.cwm.resource.relational.impl.RowSetImpl <em>Row Set</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '
+         * {@link orgomg.cwm.resource.relational.impl.RowSetImpl
+         * <em>Row Set</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
+         * -->
+         * 
          * @see orgomg.cwm.resource.relational.impl.RowSetImpl
          * @see orgomg.cwm.resource.relational.impl.RelationalPackageImpl#getRowSet()
          * @generated
@@ -8660,8 +8265,8 @@ public interface RelationalPackage extends EPackage {
 
         /**
          * The meta object literal for the '{@link orgomg.cwm.resource.relational.impl.SQLParameterImpl <em>SQL Parameter</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @see orgomg.cwm.resource.relational.impl.SQLParameterImpl
          * @see orgomg.cwm.resource.relational.impl.RelationalPackageImpl#getSQLParameter()
          * @generated
@@ -8670,4 +8275,4 @@ public interface RelationalPackage extends EPackage {
 
     }
 
-} //RelationalPackage
+} // RelationalPackage

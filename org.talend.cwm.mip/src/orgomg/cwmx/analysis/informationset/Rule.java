@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.analysis.informationset;
@@ -10,9 +9,8 @@ import orgomg.cwm.foundation.expressions.ExpressionNode;
 import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Rule</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Rule</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * This is a rule that performs one or more of the following:
@@ -38,14 +36,15 @@ import orgomg.cwm.objectmodel.core.ModelElement;
  * @generated
  */
 public interface Rule extends ModelElement {
+
     /**
-     * Returns the value of the '<em><b>Rule Expression</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * This is the rule, which can be an expression or an expression tree.
-     * <!-- end-model-doc -->
-     * @return the value of the '<em>Rule Expression</em>' containment reference.
+     * Returns the value of the '<em><b>Rule Expression</b></em>' containment
+     * reference. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> This is the rule, which can be an expression or an
+     * expression tree. <!-- end-model-doc -->
+     * 
+     * @return the value of the '<em>Rule Expression</em>' containment
+     *         reference.
      * @see #setRuleExpression(ExpressionNode)
      * @see orgomg.cwmx.analysis.informationset.InformationsetPackage#getRule_RuleExpression()
      * @model containment="true"
@@ -64,12 +63,11 @@ public interface Rule extends ModelElement {
     void setRuleExpression(ExpressionNode value);
 
     /**
-     * Returns the value of the '<em><b>Type</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * This allows the Rule to be categorized - for example validation, calculation.
+     * Returns the value of the '<em><b>Type</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> This
+     * allows the Rule to be categorized - for example validation, calculation.
      * <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Type</em>' attribute.
      * @see #setType(String)
      * @see orgomg.cwmx.analysis.informationset.InformationsetPackage#getRule_Type()
@@ -80,8 +78,7 @@ public interface Rule extends ModelElement {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.analysis.informationset.Rule#getType <em>Type</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Type</em>' attribute.
      * @see #getType()
      * @generated
@@ -89,13 +86,12 @@ public interface Rule extends ModelElement {
     void setType(String value);
 
     /**
-     * Returns the value of the '<em><b>Information Set</b></em>' reference.
-     * It is bidirectional and its opposite is '{@link orgomg.cwmx.analysis.informationset.InformationSet#getRule <em>Rule</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The InformationSet for a Rule
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Information Set</b></em>' reference. It
+     * is bidirectional and its opposite is '
+     * {@link orgomg.cwmx.analysis.informationset.InformationSet#getRule
+     * <em>Rule</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> The InformationSet for a Rule <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Information Set</em>' reference.
      * @see #setInformationSet(InformationSet)
      * @see orgomg.cwmx.analysis.informationset.InformationsetPackage#getRule_InformationSet()
@@ -107,8 +103,8 @@ public interface Rule extends ModelElement {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.analysis.informationset.Rule#getInformationSet <em>Information Set</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Information Set</em>' reference.
      * @see #getInformationSet()
      * @generated
@@ -116,13 +112,12 @@ public interface Rule extends ModelElement {
     void setInformationSet(InformationSet value);
 
     /**
-     * Returns the value of the '<em><b>Segment</b></em>' reference.
-     * It is bidirectional and its opposite is '{@link orgomg.cwmx.analysis.informationset.Segment#getRule <em>Rule</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The Segment for a Rule
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Segment</b></em>' reference. It is
+     * bidirectional and its opposite is '
+     * {@link orgomg.cwmx.analysis.informationset.Segment#getRule <em>Rule</em>}
+     * '. <!-- begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * The Segment for a Rule <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Segment</em>' reference.
      * @see #setSegment(Segment)
      * @see orgomg.cwmx.analysis.informationset.InformationsetPackage#getRule_Segment()
@@ -133,23 +128,25 @@ public interface Rule extends ModelElement {
     Segment getSegment();
 
     /**
-     * Sets the value of the '{@link orgomg.cwmx.analysis.informationset.Rule#getSegment <em>Segment</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Segment</em>' reference.
+     * Sets the value of the '
+     * {@link orgomg.cwmx.analysis.informationset.Rule#getSegment
+     * <em>Segment</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @param value
+     *            the new value of the '<em>Segment</em>' reference.
      * @see #getSegment()
      * @generated
      */
     void setSegment(Segment value);
 
     /**
-     * Returns the value of the '<em><b>Segment Region</b></em>' reference.
-     * It is bidirectional and its opposite is '{@link orgomg.cwmx.analysis.informationset.SegmentRegion#getRule <em>Rule</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The SegmentRegion for a Rule.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Segment Region</b></em>' reference. It
+     * is bidirectional and its opposite is '
+     * {@link orgomg.cwmx.analysis.informationset.SegmentRegion#getRule
+     * <em>Rule</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> The SegmentRegion for a Rule. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Segment Region</em>' reference.
      * @see #setSegmentRegion(SegmentRegion)
      * @see orgomg.cwmx.analysis.informationset.InformationsetPackage#getRule_SegmentRegion()
@@ -161,8 +158,8 @@ public interface Rule extends ModelElement {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.analysis.informationset.Rule#getSegmentRegion <em>Segment Region</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Segment Region</em>' reference.
      * @see #getSegmentRegion()
      * @generated

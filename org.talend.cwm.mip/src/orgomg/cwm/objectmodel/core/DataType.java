@@ -1,16 +1,13 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.objectmodel.core;
 
-
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Data Type</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Data Type</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * A data type is a type whose values have no identity (i.e., they are pure values). Data types include primitive built-in types (such as integer and string) as well as definable enumeration types.

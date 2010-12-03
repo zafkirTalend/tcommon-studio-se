@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.resource.relational.impl;
@@ -12,18 +11,17 @@ import orgomg.cwm.resource.relational.RelationalPackage;
 import orgomg.cwm.resource.relational.Schema;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Schema</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Schema</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
 public class SchemaImpl extends PackageImpl implements Schema {
+
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected SchemaImpl() {
@@ -31,8 +29,7 @@ public class SchemaImpl extends PackageImpl implements Schema {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -40,4 +37,4 @@ public class SchemaImpl extends PackageImpl implements Schema {
         return RelationalPackage.Literals.SCHEMA;
     }
 
-} //SchemaImpl
+} // SchemaImpl

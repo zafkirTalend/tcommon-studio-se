@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.objectmodel.behavioral;
@@ -10,9 +9,8 @@ import orgomg.cwm.objectmodel.core.Expression;
 import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Argument</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Argument</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * Argument is an expression describing how to determine an actual value passed in a CallAction.
@@ -33,13 +31,13 @@ import orgomg.cwm.objectmodel.core.ModelElement;
  * @generated
  */
 public interface Argument extends ModelElement {
+
     /**
      * Returns the value of the '<em><b>Value</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * An expression determining the actual Argument instance when executed.
-     * <!-- end-model-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> An
+     * expression determining the actual Argument instance when executed. <!--
+     * end-model-doc -->
+     * 
      * @return the value of the '<em>Value</em>' containment reference.
      * @see #setValue(Expression)
      * @see orgomg.cwm.objectmodel.behavioral.BehavioralPackage#getArgument_Value()
@@ -50,8 +48,8 @@ public interface Argument extends ModelElement {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.objectmodel.behavioral.Argument#getValue <em>Value</em>}' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Value</em>' containment reference.
      * @see #getValue()
      * @generated
@@ -61,8 +59,7 @@ public interface Argument extends ModelElement {
     /**
      * Returns the value of the '<em><b>Call Action</b></em>' container reference.
      * It is bidirectional and its opposite is '{@link orgomg.cwm.objectmodel.behavioral.CallAction#getActualArgument <em>Actual Argument</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Identifies the CallAction instance representing a particular invocation of an Operation.
      * <!-- end-model-doc -->
@@ -77,8 +74,8 @@ public interface Argument extends ModelElement {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.objectmodel.behavioral.Argument#getCallAction <em>Call Action</em>}' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Call Action</em>' container reference.
      * @see #getCallAction()
      * @generated

@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.essbase.impl;
@@ -12,18 +11,17 @@ import orgomg.cwmx.resource.essbase.EssbasePackage;
 import orgomg.cwmx.resource.essbase.VarianceReporting;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Variance Reporting</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Variance Reporting</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
 public class VarianceReportingImpl extends DimensionedObjectImpl implements VarianceReporting {
+
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected VarianceReportingImpl() {
@@ -31,8 +29,7 @@ public class VarianceReportingImpl extends DimensionedObjectImpl implements Vari
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -40,4 +37,4 @@ public class VarianceReportingImpl extends DimensionedObjectImpl implements Vari
         return EssbasePackage.Literals.VARIANCE_REPORTING;
     }
 
-} //VarianceReportingImpl
+} // VarianceReportingImpl

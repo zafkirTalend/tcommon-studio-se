@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.coboldata;
@@ -10,9 +9,8 @@ import org.eclipse.emf.common.util.EList;
 import orgomg.cwm.resource.record.RecordFile;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>COBOLFD</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>COBOLFD</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * Represents COBOL FD definitions. FDs describe files that are used in COBOL programs. 
@@ -54,14 +52,14 @@ import orgomg.cwm.resource.record.RecordFile;
  * @generated
  */
 public interface COBOLFD extends orgomg.cwm.objectmodel.core.Class, RecordFile {
+
     /**
-     * Returns the value of the '<em><b>Organization</b></em>' attribute.
-     * The literals are from the enumeration {@link orgomg.cwmx.resource.coboldata.FileOrganization}.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Contains the physical organization of the file.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Organization</b></em>' attribute. The
+     * literals are from the enumeration
+     * {@link orgomg.cwmx.resource.coboldata.FileOrganization}. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * Contains the physical organization of the file. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Organization</em>' attribute.
      * @see orgomg.cwmx.resource.coboldata.FileOrganization
      * @see #setOrganization(FileOrganization)
@@ -73,8 +71,8 @@ public interface COBOLFD extends orgomg.cwm.objectmodel.core.Class, RecordFile {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.coboldata.COBOLFD#getOrganization <em>Organization</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Organization</em>' attribute.
      * @see orgomg.cwmx.resource.coboldata.FileOrganization
      * @see #getOrganization()
@@ -83,13 +81,12 @@ public interface COBOLFD extends orgomg.cwm.objectmodel.core.Class, RecordFile {
     void setOrganization(FileOrganization value);
 
     /**
-     * Returns the value of the '<em><b>Access Mode</b></em>' attribute.
-     * The literals are from the enumeration {@link orgomg.cwmx.resource.coboldata.AccessType}.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Contains the access mode of the file.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Access Mode</b></em>' attribute. The
+     * literals are from the enumeration
+     * {@link orgomg.cwmx.resource.coboldata.AccessType}. <!-- begin-user-doc
+     * --> <!-- end-user-doc --> <!-- begin-model-doc --> Contains the access
+     * mode of the file. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Access Mode</em>' attribute.
      * @see orgomg.cwmx.resource.coboldata.AccessType
      * @see #setAccessMode(AccessType)
@@ -101,8 +98,8 @@ public interface COBOLFD extends orgomg.cwm.objectmodel.core.Class, RecordFile {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.coboldata.COBOLFD#getAccessMode <em>Access Mode</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Access Mode</em>' attribute.
      * @see orgomg.cwmx.resource.coboldata.AccessType
      * @see #getAccessMode()
@@ -111,12 +108,10 @@ public interface COBOLFD extends orgomg.cwm.objectmodel.core.Class, RecordFile {
     void setAccessMode(AccessType value);
 
     /**
-     * Returns the value of the '<em><b>Is Optional</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * If True, the file is optional at runtime.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Is Optional</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> If
+     * True, the file is optional at runtime. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Is Optional</em>' attribute.
      * @see #setIsOptional(boolean)
      * @see orgomg.cwmx.resource.coboldata.CoboldataPackage#getCOBOLFD_IsOptional()
@@ -127,8 +122,8 @@ public interface COBOLFD extends orgomg.cwm.objectmodel.core.Class, RecordFile {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.coboldata.COBOLFD#isIsOptional <em>Is Optional</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Is Optional</em>' attribute.
      * @see #isIsOptional()
      * @generated
@@ -136,12 +131,11 @@ public interface COBOLFD extends orgomg.cwm.objectmodel.core.Class, RecordFile {
     void setIsOptional(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Reserve Areas</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Contains the number of buffer areas reserved for the file.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Reserve Areas</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * Contains the number of buffer areas reserved for the file. <!--
+     * end-model-doc -->
+     * 
      * @return the value of the '<em>Reserve Areas</em>' attribute.
      * @see #setReserveAreas(long)
      * @see orgomg.cwmx.resource.coboldata.CoboldataPackage#getCOBOLFD_ReserveAreas()
@@ -152,8 +146,8 @@ public interface COBOLFD extends orgomg.cwm.objectmodel.core.Class, RecordFile {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.coboldata.COBOLFD#getReserveAreas <em>Reserve Areas</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Reserve Areas</em>' attribute.
      * @see #getReserveAreas()
      * @generated
@@ -161,12 +155,11 @@ public interface COBOLFD extends orgomg.cwm.objectmodel.core.Class, RecordFile {
     void setReserveAreas(long value);
 
     /**
-     * Returns the value of the '<em><b>Assign To</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Contains the name of the storage medium the file is assigned to.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Assign To</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * Contains the name of the storage medium the file is assigned to. <!--
+     * end-model-doc -->
+     * 
      * @return the value of the '<em>Assign To</em>' attribute.
      * @see #setAssignTo(String)
      * @see orgomg.cwmx.resource.coboldata.CoboldataPackage#getCOBOLFD_AssignTo()
@@ -176,22 +169,23 @@ public interface COBOLFD extends orgomg.cwm.objectmodel.core.Class, RecordFile {
     String getAssignTo();
 
     /**
-     * Sets the value of the '{@link orgomg.cwmx.resource.coboldata.COBOLFD#getAssignTo <em>Assign To</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Assign To</em>' attribute.
+     * Sets the value of the '
+     * {@link orgomg.cwmx.resource.coboldata.COBOLFD#getAssignTo
+     * <em>Assign To</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @param value
+     *            the new value of the '<em>Assign To</em>' attribute.
      * @see #getAssignTo()
      * @generated
      */
     void setAssignTo(String value);
 
     /**
-     * Returns the value of the '<em><b>Code Set Lit</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Contains the name of the code set.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Code Set Lit</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * Contains the name of the code set. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Code Set Lit</em>' attribute.
      * @see #setCodeSetLit(String)
      * @see orgomg.cwmx.resource.coboldata.CoboldataPackage#getCOBOLFD_CodeSetLit()
@@ -202,8 +196,8 @@ public interface COBOLFD extends orgomg.cwm.objectmodel.core.Class, RecordFile {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.coboldata.COBOLFD#getCodeSetLit <em>Code Set Lit</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Code Set Lit</em>' attribute.
      * @see #getCodeSetLit()
      * @generated
@@ -211,13 +205,13 @@ public interface COBOLFD extends orgomg.cwm.objectmodel.core.Class, RecordFile {
     void setCodeSetLit(String value);
 
     /**
-     * Returns the value of the '<em><b>Block Size Unit</b></em>' attribute.
-     * The literals are from the enumeration {@link orgomg.cwmx.resource.coboldata.BlockKind}.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Contains the unit type for the contents of the minBlocks and maxBlocks fields.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Block Size Unit</b></em>' attribute. The
+     * literals are from the enumeration
+     * {@link orgomg.cwmx.resource.coboldata.BlockKind}. <!-- begin-user-doc -->
+     * <!-- end-user-doc --> <!-- begin-model-doc --> Contains the unit type for
+     * the contents of the minBlocks and maxBlocks fields. <!-- end-model-doc
+     * -->
+     * 
      * @return the value of the '<em>Block Size Unit</em>' attribute.
      * @see orgomg.cwmx.resource.coboldata.BlockKind
      * @see #setBlockSizeUnit(BlockKind)
@@ -229,8 +223,8 @@ public interface COBOLFD extends orgomg.cwm.objectmodel.core.Class, RecordFile {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.coboldata.COBOLFD#getBlockSizeUnit <em>Block Size Unit</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Block Size Unit</em>' attribute.
      * @see orgomg.cwmx.resource.coboldata.BlockKind
      * @see #getBlockSizeUnit()
@@ -239,12 +233,11 @@ public interface COBOLFD extends orgomg.cwm.objectmodel.core.Class, RecordFile {
     void setBlockSizeUnit(BlockKind value);
 
     /**
-     * Returns the value of the '<em><b>Min Blocks</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Contains the minimum number of <units> per block, where <unit> is specified by the blockSizeUnit attribute.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Min Blocks</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * Contains the minimum number of <units> per block, where <unit> is
+     * specified by the blockSizeUnit attribute. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Min Blocks</em>' attribute.
      * @see #setMinBlocks(long)
      * @see orgomg.cwmx.resource.coboldata.CoboldataPackage#getCOBOLFD_MinBlocks()
@@ -255,8 +248,8 @@ public interface COBOLFD extends orgomg.cwm.objectmodel.core.Class, RecordFile {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.coboldata.COBOLFD#getMinBlocks <em>Min Blocks</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Min Blocks</em>' attribute.
      * @see #getMinBlocks()
      * @generated
@@ -264,12 +257,11 @@ public interface COBOLFD extends orgomg.cwm.objectmodel.core.Class, RecordFile {
     void setMinBlocks(long value);
 
     /**
-     * Returns the value of the '<em><b>Max Blocks</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Contains the maximum number of <units> per block, where <unit> is specified by the blockSizeUnit attribute.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Max Blocks</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * Contains the maximum number of <units> per block, where <unit> is
+     * specified by the blockSizeUnit attribute. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Max Blocks</em>' attribute.
      * @see #setMaxBlocks(long)
      * @see orgomg.cwmx.resource.coboldata.CoboldataPackage#getCOBOLFD_MaxBlocks()
@@ -280,8 +272,8 @@ public interface COBOLFD extends orgomg.cwm.objectmodel.core.Class, RecordFile {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.coboldata.COBOLFD#getMaxBlocks <em>Max Blocks</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Max Blocks</em>' attribute.
      * @see #getMaxBlocks()
      * @generated
@@ -289,12 +281,11 @@ public interface COBOLFD extends orgomg.cwm.objectmodel.core.Class, RecordFile {
     void setMaxBlocks(long value);
 
     /**
-     * Returns the value of the '<em><b>Min Records</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Contains the minimum number of characters per record.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Min Records</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * Contains the minimum number of characters per record. <!-- end-model-doc
+     * -->
+     * 
      * @return the value of the '<em>Min Records</em>' attribute.
      * @see #setMinRecords(long)
      * @see orgomg.cwmx.resource.coboldata.CoboldataPackage#getCOBOLFD_MinRecords()
@@ -305,8 +296,8 @@ public interface COBOLFD extends orgomg.cwm.objectmodel.core.Class, RecordFile {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.coboldata.COBOLFD#getMinRecords <em>Min Records</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Min Records</em>' attribute.
      * @see #getMinRecords()
      * @generated
@@ -314,12 +305,11 @@ public interface COBOLFD extends orgomg.cwm.objectmodel.core.Class, RecordFile {
     void setMinRecords(long value);
 
     /**
-     * Returns the value of the '<em><b>Max Records</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Contains the maximum number of characters per record.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Max Records</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * Contains the maximum number of characters per record. <!-- end-model-doc
+     * -->
+     * 
      * @return the value of the '<em>Max Records</em>' attribute.
      * @see #setMaxRecords(long)
      * @see orgomg.cwmx.resource.coboldata.CoboldataPackage#getCOBOLFD_MaxRecords()
@@ -330,8 +320,8 @@ public interface COBOLFD extends orgomg.cwm.objectmodel.core.Class, RecordFile {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.coboldata.COBOLFD#getMaxRecords <em>Max Records</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Max Records</em>' attribute.
      * @see #getMaxRecords()
      * @generated
@@ -339,13 +329,12 @@ public interface COBOLFD extends orgomg.cwm.objectmodel.core.Class, RecordFile {
     void setMaxRecords(long value);
 
     /**
-     * Returns the value of the '<em><b>Label Kind</b></em>' attribute.
-     * The literals are from the enumeration {@link orgomg.cwmx.resource.coboldata.LabelKind}.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Contains the label kind of the file.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Label Kind</b></em>' attribute. The
+     * literals are from the enumeration
+     * {@link orgomg.cwmx.resource.coboldata.LabelKind}. <!-- begin-user-doc -->
+     * <!-- end-user-doc --> <!-- begin-model-doc --> Contains the label kind of
+     * the file. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Label Kind</em>' attribute.
      * @see orgomg.cwmx.resource.coboldata.LabelKind
      * @see #setLabelKind(LabelKind)
@@ -357,8 +346,8 @@ public interface COBOLFD extends orgomg.cwm.objectmodel.core.Class, RecordFile {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.coboldata.COBOLFD#getLabelKind <em>Label Kind</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Label Kind</em>' attribute.
      * @see orgomg.cwmx.resource.coboldata.LabelKind
      * @see #getLabelKind()
@@ -367,12 +356,10 @@ public interface COBOLFD extends orgomg.cwm.objectmodel.core.Class, RecordFile {
     void setLabelKind(LabelKind value);
 
     /**
-     * Returns the value of the '<em><b>Is External</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * If True, the file is external.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Is External</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> If
+     * True, the file is external. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Is External</em>' attribute.
      * @see #setIsExternal(boolean)
      * @see orgomg.cwmx.resource.coboldata.CoboldataPackage#getCOBOLFD_IsExternal()
@@ -383,8 +370,8 @@ public interface COBOLFD extends orgomg.cwm.objectmodel.core.Class, RecordFile {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.coboldata.COBOLFD#isIsExternal <em>Is External</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Is External</em>' attribute.
      * @see #isIsExternal()
      * @generated
@@ -392,12 +379,10 @@ public interface COBOLFD extends orgomg.cwm.objectmodel.core.Class, RecordFile {
     void setIsExternal(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Is Global</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * If True, the file is global.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Is Global</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> If
+     * True, the file is global. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Is Global</em>' attribute.
      * @see #setIsGlobal(boolean)
      * @see orgomg.cwmx.resource.coboldata.CoboldataPackage#getCOBOLFD_IsGlobal()
@@ -407,22 +392,25 @@ public interface COBOLFD extends orgomg.cwm.objectmodel.core.Class, RecordFile {
     boolean isIsGlobal();
 
     /**
-     * Sets the value of the '{@link orgomg.cwmx.resource.coboldata.COBOLFD#isIsGlobal <em>Is Global</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Is Global</em>' attribute.
+     * Sets the value of the '
+     * {@link orgomg.cwmx.resource.coboldata.COBOLFD#isIsGlobal
+     * <em>Is Global</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @param value
+     *            the new value of the '<em>Is Global</em>' attribute.
      * @see #isIsGlobal()
      * @generated
      */
     void setIsGlobal(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Pad Literal</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * If not an empty string, contains the pad character. If an empty string, the padField reference may point to a COBOLField instance that contains the pad character.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Pad Literal</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> If not
+     * an empty string, contains the pad character. If an empty string, the
+     * padField reference may point to a COBOLField instance that contains the
+     * pad character. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Pad Literal</em>' attribute.
      * @see #setPadLiteral(String)
      * @see orgomg.cwmx.resource.coboldata.CoboldataPackage#getCOBOLFD_PadLiteral()
@@ -433,8 +421,8 @@ public interface COBOLFD extends orgomg.cwm.objectmodel.core.Class, RecordFile {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.coboldata.COBOLFD#getPadLiteral <em>Pad Literal</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Pad Literal</em>' attribute.
      * @see #getPadLiteral()
      * @generated
@@ -442,13 +430,13 @@ public interface COBOLFD extends orgomg.cwm.objectmodel.core.Class, RecordFile {
     void setPadLiteral(String value);
 
     /**
-     * Returns the value of the '<em><b>Status ID</b></em>' reference.
-     * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.coboldata.COBOLItem#getStatusFD <em>Status FD</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the COBOLItem instance that contains the status ID for this COBOLFD instance.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Status ID</b></em>' reference. It is
+     * bidirectional and its opposite is '
+     * {@link orgomg.cwmx.resource.coboldata.COBOLItem#getStatusFD
+     * <em>Status FD</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> Identifies the COBOLItem instance that contains the
+     * status ID for this COBOLFD instance. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Status ID</em>' reference.
      * @see #setStatusID(COBOLItem)
      * @see orgomg.cwmx.resource.coboldata.CoboldataPackage#getCOBOLFD_StatusID()
@@ -459,25 +447,30 @@ public interface COBOLFD extends orgomg.cwm.objectmodel.core.Class, RecordFile {
     COBOLItem getStatusID();
 
     /**
-     * Sets the value of the '{@link orgomg.cwmx.resource.coboldata.COBOLFD#getStatusID <em>Status ID</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Status ID</em>' reference.
+     * Sets the value of the '
+     * {@link orgomg.cwmx.resource.coboldata.COBOLFD#getStatusID
+     * <em>Status ID</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @param value
+     *            the new value of the '<em>Status ID</em>' reference.
      * @see #getStatusID()
      * @generated
      */
     void setStatusID(COBOLItem value);
 
     /**
-     * Returns the value of the '<em><b>Linage Info</b></em>' containment reference list.
-     * The list contents are of type {@link orgomg.cwmx.resource.coboldata.LinageInfo}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.coboldata.LinageInfo#getCobolFD <em>Cobol FD</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the LinageInfo instances for this COBOLFD instance.
-     * <!-- end-model-doc -->
-     * @return the value of the '<em>Linage Info</em>' containment reference list.
+     * Returns the value of the '<em><b>Linage Info</b></em>' containment
+     * reference list. The list contents are of type
+     * {@link orgomg.cwmx.resource.coboldata.LinageInfo}. It is bidirectional
+     * and its opposite is '
+     * {@link orgomg.cwmx.resource.coboldata.LinageInfo#getCobolFD
+     * <em>Cobol FD</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> Identifies the LinageInfo instances for this COBOLFD
+     * instance. <!-- end-model-doc -->
+     * 
+     * @return the value of the '<em>Linage Info</em>' containment reference
+     *         list.
      * @see orgomg.cwmx.resource.coboldata.CoboldataPackage#getCOBOLFD_LinageInfo()
      * @see orgomg.cwmx.resource.coboldata.LinageInfo#getCobolFD
      * @model opposite="cobolFD" containment="true" upper="4"
@@ -486,13 +479,13 @@ public interface COBOLFD extends orgomg.cwm.objectmodel.core.Class, RecordFile {
     EList<LinageInfo> getLinageInfo();
 
     /**
-     * Returns the value of the '<em><b>File Section</b></em>' container reference.
-     * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.coboldata.FileSection#getCobolFD <em>Cobol FD</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the FileSection instances that contain this COBOLFD instance.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>File Section</b></em>' container
+     * reference. It is bidirectional and its opposite is '
+     * {@link orgomg.cwmx.resource.coboldata.FileSection#getCobolFD
+     * <em>Cobol FD</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> Identifies the FileSection instances that contain
+     * this COBOLFD instance. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>File Section</em>' container reference.
      * @see #setFileSection(FileSection)
      * @see orgomg.cwmx.resource.coboldata.CoboldataPackage#getCOBOLFD_FileSection()
@@ -504,8 +497,8 @@ public interface COBOLFD extends orgomg.cwm.objectmodel.core.Class, RecordFile {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.coboldata.COBOLFD#getFileSection <em>File Section</em>}' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>File Section</em>' container reference.
      * @see #getFileSection()
      * @generated
@@ -515,8 +508,7 @@ public interface COBOLFD extends orgomg.cwm.objectmodel.core.Class, RecordFile {
     /**
      * Returns the value of the '<em><b>Depends On</b></em>' reference.
      * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.coboldata.COBOLItem#getDependingFD <em>Depending FD</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Identifies the COBOLItem instance that contains the current size of the COBOLFD instance?s records.
      * <!-- end-model-doc -->
@@ -531,8 +523,8 @@ public interface COBOLFD extends orgomg.cwm.objectmodel.core.Class, RecordFile {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.coboldata.COBOLFD#getDependsOn <em>Depends On</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Depends On</em>' reference.
      * @see #getDependsOn()
      * @generated
@@ -540,13 +532,13 @@ public interface COBOLFD extends orgomg.cwm.objectmodel.core.Class, RecordFile {
     void setDependsOn(COBOLItem value);
 
     /**
-     * Returns the value of the '<em><b>Pad Field</b></em>' reference.
-     * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.coboldata.COBOLItem#getPaddedFD <em>Padded FD</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the COBOLField instance that contains the pad character for this COBOLFD.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Pad Field</b></em>' reference. It is
+     * bidirectional and its opposite is '
+     * {@link orgomg.cwmx.resource.coboldata.COBOLItem#getPaddedFD
+     * <em>Padded FD</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> Identifies the COBOLField instance that contains the
+     * pad character for this COBOLFD. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Pad Field</em>' reference.
      * @see #setPadField(COBOLItem)
      * @see orgomg.cwmx.resource.coboldata.CoboldataPackage#getCOBOLFD_PadField()
@@ -557,10 +549,13 @@ public interface COBOLFD extends orgomg.cwm.objectmodel.core.Class, RecordFile {
     COBOLItem getPadField();
 
     /**
-     * Sets the value of the '{@link orgomg.cwmx.resource.coboldata.COBOLFD#getPadField <em>Pad Field</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Pad Field</em>' reference.
+     * Sets the value of the '
+     * {@link orgomg.cwmx.resource.coboldata.COBOLFD#getPadField
+     * <em>Pad Field</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @param value
+     *            the new value of the '<em>Pad Field</em>' reference.
      * @see #getPadField()
      * @generated
      */
@@ -569,8 +564,7 @@ public interface COBOLFD extends orgomg.cwm.objectmodel.core.Class, RecordFile {
     /**
      * Returns the value of the '<em><b>Relative Field</b></em>' reference.
      * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.coboldata.COBOLItem#getRelativeFD <em>Relative FD</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Identifies the COBOLField instance containing the current relative record offset in the file represented by the COBOLFD instance.
      * <!-- end-model-doc -->
@@ -585,8 +579,8 @@ public interface COBOLFD extends orgomg.cwm.objectmodel.core.Class, RecordFile {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.coboldata.COBOLFD#getRelativeField <em>Relative Field</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Relative Field</em>' reference.
      * @see #getRelativeField()
      * @generated

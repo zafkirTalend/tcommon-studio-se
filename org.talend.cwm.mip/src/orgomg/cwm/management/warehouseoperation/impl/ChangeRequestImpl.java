@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.management.warehouseoperation.impl;
@@ -23,9 +22,8 @@ import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.impl.ModelElementImpl;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Change Request</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Change Request</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -42,10 +40,11 @@ import orgomg.cwm.objectmodel.core.impl.ModelElementImpl;
  * @generated
  */
 public class ChangeRequestImpl extends ModelElementImpl implements ChangeRequest {
+
     /**
      * The default value of the '{@link #getChangeDescription() <em>Change Description</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getChangeDescription()
      * @generated
      * @ordered
@@ -54,8 +53,8 @@ public class ChangeRequestImpl extends ModelElementImpl implements ChangeRequest
 
     /**
      * The cached value of the '{@link #getChangeDescription() <em>Change Description</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getChangeDescription()
      * @generated
      * @ordered
@@ -64,8 +63,8 @@ public class ChangeRequestImpl extends ModelElementImpl implements ChangeRequest
 
     /**
      * The default value of the '{@link #getChangeReason() <em>Change Reason</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getChangeReason()
      * @generated
      * @ordered
@@ -74,8 +73,8 @@ public class ChangeRequestImpl extends ModelElementImpl implements ChangeRequest
 
     /**
      * The cached value of the '{@link #getChangeReason() <em>Change Reason</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getChangeReason()
      * @generated
      * @ordered
@@ -84,8 +83,7 @@ public class ChangeRequestImpl extends ModelElementImpl implements ChangeRequest
 
     /**
      * The default value of the '{@link #getStatus() <em>Status</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getStatus()
      * @generated
      * @ordered
@@ -94,8 +92,7 @@ public class ChangeRequestImpl extends ModelElementImpl implements ChangeRequest
 
     /**
      * The cached value of the '{@link #getStatus() <em>Status</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getStatus()
      * @generated
      * @ordered
@@ -104,8 +101,7 @@ public class ChangeRequestImpl extends ModelElementImpl implements ChangeRequest
 
     /**
      * The default value of the '{@link #isCompleted() <em>Completed</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #isCompleted()
      * @generated
      * @ordered
@@ -114,8 +110,7 @@ public class ChangeRequestImpl extends ModelElementImpl implements ChangeRequest
 
     /**
      * The cached value of the '{@link #isCompleted() <em>Completed</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #isCompleted()
      * @generated
      * @ordered
@@ -124,8 +119,7 @@ public class ChangeRequestImpl extends ModelElementImpl implements ChangeRequest
 
     /**
      * The default value of the '{@link #getRequestDate() <em>Request Date</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getRequestDate()
      * @generated
      * @ordered
@@ -134,8 +128,7 @@ public class ChangeRequestImpl extends ModelElementImpl implements ChangeRequest
 
     /**
      * The cached value of the '{@link #getRequestDate() <em>Request Date</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getRequestDate()
      * @generated
      * @ordered
@@ -144,8 +137,8 @@ public class ChangeRequestImpl extends ModelElementImpl implements ChangeRequest
 
     /**
      * The default value of the '{@link #getCompletionDate() <em>Completion Date</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getCompletionDate()
      * @generated
      * @ordered
@@ -154,8 +147,8 @@ public class ChangeRequestImpl extends ModelElementImpl implements ChangeRequest
 
     /**
      * The cached value of the '{@link #getCompletionDate() <em>Completion Date</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getCompletionDate()
      * @generated
      * @ordered
@@ -164,8 +157,8 @@ public class ChangeRequestImpl extends ModelElementImpl implements ChangeRequest
 
     /**
      * The cached value of the '{@link #getModelElement() <em>Model Element</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getModelElement()
      * @generated
      * @ordered
@@ -173,8 +166,7 @@ public class ChangeRequestImpl extends ModelElementImpl implements ChangeRequest
     protected EList<ModelElement> modelElement;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected ChangeRequestImpl() {
@@ -182,8 +174,7 @@ public class ChangeRequestImpl extends ModelElementImpl implements ChangeRequest
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -192,8 +183,7 @@ public class ChangeRequestImpl extends ModelElementImpl implements ChangeRequest
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getChangeDescription() {
@@ -201,20 +191,19 @@ public class ChangeRequestImpl extends ModelElementImpl implements ChangeRequest
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setChangeDescription(String newChangeDescription) {
         String oldChangeDescription = changeDescription;
         changeDescription = newChangeDescription;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, WarehouseoperationPackage.CHANGE_REQUEST__CHANGE_DESCRIPTION, oldChangeDescription, changeDescription));
+            eNotify(new ENotificationImpl(this, Notification.SET, WarehouseoperationPackage.CHANGE_REQUEST__CHANGE_DESCRIPTION,
+                    oldChangeDescription, changeDescription));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getChangeReason() {
@@ -222,20 +211,19 @@ public class ChangeRequestImpl extends ModelElementImpl implements ChangeRequest
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setChangeReason(String newChangeReason) {
         String oldChangeReason = changeReason;
         changeReason = newChangeReason;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, WarehouseoperationPackage.CHANGE_REQUEST__CHANGE_REASON, oldChangeReason, changeReason));
+            eNotify(new ENotificationImpl(this, Notification.SET, WarehouseoperationPackage.CHANGE_REQUEST__CHANGE_REASON,
+                    oldChangeReason, changeReason));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getStatus() {
@@ -243,20 +231,19 @@ public class ChangeRequestImpl extends ModelElementImpl implements ChangeRequest
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setStatus(String newStatus) {
         String oldStatus = status;
         status = newStatus;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, WarehouseoperationPackage.CHANGE_REQUEST__STATUS, oldStatus, status));
+            eNotify(new ENotificationImpl(this, Notification.SET, WarehouseoperationPackage.CHANGE_REQUEST__STATUS, oldStatus,
+                    status));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isCompleted() {
@@ -264,20 +251,19 @@ public class ChangeRequestImpl extends ModelElementImpl implements ChangeRequest
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setCompleted(boolean newCompleted) {
         boolean oldCompleted = completed;
         completed = newCompleted;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, WarehouseoperationPackage.CHANGE_REQUEST__COMPLETED, oldCompleted, completed));
+            eNotify(new ENotificationImpl(this, Notification.SET, WarehouseoperationPackage.CHANGE_REQUEST__COMPLETED,
+                    oldCompleted, completed));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getRequestDate() {
@@ -285,20 +271,19 @@ public class ChangeRequestImpl extends ModelElementImpl implements ChangeRequest
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setRequestDate(String newRequestDate) {
         String oldRequestDate = requestDate;
         requestDate = newRequestDate;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, WarehouseoperationPackage.CHANGE_REQUEST__REQUEST_DATE, oldRequestDate, requestDate));
+            eNotify(new ENotificationImpl(this, Notification.SET, WarehouseoperationPackage.CHANGE_REQUEST__REQUEST_DATE,
+                    oldRequestDate, requestDate));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getCompletionDate() {
@@ -306,186 +291,181 @@ public class ChangeRequestImpl extends ModelElementImpl implements ChangeRequest
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setCompletionDate(String newCompletionDate) {
         String oldCompletionDate = completionDate;
         completionDate = newCompletionDate;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, WarehouseoperationPackage.CHANGE_REQUEST__COMPLETION_DATE, oldCompletionDate, completionDate));
+            eNotify(new ENotificationImpl(this, Notification.SET, WarehouseoperationPackage.CHANGE_REQUEST__COMPLETION_DATE,
+                    oldCompletionDate, completionDate));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<ModelElement> getModelElement() {
         if (modelElement == null) {
-            modelElement = new EObjectWithInverseResolvingEList.ManyInverse<ModelElement>(ModelElement.class, this, WarehouseoperationPackage.CHANGE_REQUEST__MODEL_ELEMENT, CorePackage.MODEL_ELEMENT__CHANGE_REQUEST);
+            modelElement = new EObjectWithInverseResolvingEList.ManyInverse<ModelElement>(ModelElement.class, this,
+                    WarehouseoperationPackage.CHANGE_REQUEST__MODEL_ELEMENT, CorePackage.MODEL_ELEMENT__CHANGE_REQUEST);
         }
         return modelElement;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case WarehouseoperationPackage.CHANGE_REQUEST__MODEL_ELEMENT:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getModelElement()).basicAdd(otherEnd, msgs);
+        case WarehouseoperationPackage.CHANGE_REQUEST__MODEL_ELEMENT:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getModelElement()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case WarehouseoperationPackage.CHANGE_REQUEST__MODEL_ELEMENT:
-                return ((InternalEList<?>)getModelElement()).basicRemove(otherEnd, msgs);
+        case WarehouseoperationPackage.CHANGE_REQUEST__MODEL_ELEMENT:
+            return ((InternalEList<?>) getModelElement()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case WarehouseoperationPackage.CHANGE_REQUEST__CHANGE_DESCRIPTION:
-                return getChangeDescription();
-            case WarehouseoperationPackage.CHANGE_REQUEST__CHANGE_REASON:
-                return getChangeReason();
-            case WarehouseoperationPackage.CHANGE_REQUEST__STATUS:
-                return getStatus();
-            case WarehouseoperationPackage.CHANGE_REQUEST__COMPLETED:
-                return isCompleted();
-            case WarehouseoperationPackage.CHANGE_REQUEST__REQUEST_DATE:
-                return getRequestDate();
-            case WarehouseoperationPackage.CHANGE_REQUEST__COMPLETION_DATE:
-                return getCompletionDate();
-            case WarehouseoperationPackage.CHANGE_REQUEST__MODEL_ELEMENT:
-                return getModelElement();
+        case WarehouseoperationPackage.CHANGE_REQUEST__CHANGE_DESCRIPTION:
+            return getChangeDescription();
+        case WarehouseoperationPackage.CHANGE_REQUEST__CHANGE_REASON:
+            return getChangeReason();
+        case WarehouseoperationPackage.CHANGE_REQUEST__STATUS:
+            return getStatus();
+        case WarehouseoperationPackage.CHANGE_REQUEST__COMPLETED:
+            return isCompleted();
+        case WarehouseoperationPackage.CHANGE_REQUEST__REQUEST_DATE:
+            return getRequestDate();
+        case WarehouseoperationPackage.CHANGE_REQUEST__COMPLETION_DATE:
+            return getCompletionDate();
+        case WarehouseoperationPackage.CHANGE_REQUEST__MODEL_ELEMENT:
+            return getModelElement();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case WarehouseoperationPackage.CHANGE_REQUEST__CHANGE_DESCRIPTION:
-                setChangeDescription((String)newValue);
-                return;
-            case WarehouseoperationPackage.CHANGE_REQUEST__CHANGE_REASON:
-                setChangeReason((String)newValue);
-                return;
-            case WarehouseoperationPackage.CHANGE_REQUEST__STATUS:
-                setStatus((String)newValue);
-                return;
-            case WarehouseoperationPackage.CHANGE_REQUEST__COMPLETED:
-                setCompleted((Boolean)newValue);
-                return;
-            case WarehouseoperationPackage.CHANGE_REQUEST__REQUEST_DATE:
-                setRequestDate((String)newValue);
-                return;
-            case WarehouseoperationPackage.CHANGE_REQUEST__COMPLETION_DATE:
-                setCompletionDate((String)newValue);
-                return;
-            case WarehouseoperationPackage.CHANGE_REQUEST__MODEL_ELEMENT:
-                getModelElement().clear();
-                getModelElement().addAll((Collection<? extends ModelElement>)newValue);
-                return;
+        case WarehouseoperationPackage.CHANGE_REQUEST__CHANGE_DESCRIPTION:
+            setChangeDescription((String) newValue);
+            return;
+        case WarehouseoperationPackage.CHANGE_REQUEST__CHANGE_REASON:
+            setChangeReason((String) newValue);
+            return;
+        case WarehouseoperationPackage.CHANGE_REQUEST__STATUS:
+            setStatus((String) newValue);
+            return;
+        case WarehouseoperationPackage.CHANGE_REQUEST__COMPLETED:
+            setCompleted((Boolean) newValue);
+            return;
+        case WarehouseoperationPackage.CHANGE_REQUEST__REQUEST_DATE:
+            setRequestDate((String) newValue);
+            return;
+        case WarehouseoperationPackage.CHANGE_REQUEST__COMPLETION_DATE:
+            setCompletionDate((String) newValue);
+            return;
+        case WarehouseoperationPackage.CHANGE_REQUEST__MODEL_ELEMENT:
+            getModelElement().clear();
+            getModelElement().addAll((Collection<? extends ModelElement>) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case WarehouseoperationPackage.CHANGE_REQUEST__CHANGE_DESCRIPTION:
-                setChangeDescription(CHANGE_DESCRIPTION_EDEFAULT);
-                return;
-            case WarehouseoperationPackage.CHANGE_REQUEST__CHANGE_REASON:
-                setChangeReason(CHANGE_REASON_EDEFAULT);
-                return;
-            case WarehouseoperationPackage.CHANGE_REQUEST__STATUS:
-                setStatus(STATUS_EDEFAULT);
-                return;
-            case WarehouseoperationPackage.CHANGE_REQUEST__COMPLETED:
-                setCompleted(COMPLETED_EDEFAULT);
-                return;
-            case WarehouseoperationPackage.CHANGE_REQUEST__REQUEST_DATE:
-                setRequestDate(REQUEST_DATE_EDEFAULT);
-                return;
-            case WarehouseoperationPackage.CHANGE_REQUEST__COMPLETION_DATE:
-                setCompletionDate(COMPLETION_DATE_EDEFAULT);
-                return;
-            case WarehouseoperationPackage.CHANGE_REQUEST__MODEL_ELEMENT:
-                getModelElement().clear();
-                return;
+        case WarehouseoperationPackage.CHANGE_REQUEST__CHANGE_DESCRIPTION:
+            setChangeDescription(CHANGE_DESCRIPTION_EDEFAULT);
+            return;
+        case WarehouseoperationPackage.CHANGE_REQUEST__CHANGE_REASON:
+            setChangeReason(CHANGE_REASON_EDEFAULT);
+            return;
+        case WarehouseoperationPackage.CHANGE_REQUEST__STATUS:
+            setStatus(STATUS_EDEFAULT);
+            return;
+        case WarehouseoperationPackage.CHANGE_REQUEST__COMPLETED:
+            setCompleted(COMPLETED_EDEFAULT);
+            return;
+        case WarehouseoperationPackage.CHANGE_REQUEST__REQUEST_DATE:
+            setRequestDate(REQUEST_DATE_EDEFAULT);
+            return;
+        case WarehouseoperationPackage.CHANGE_REQUEST__COMPLETION_DATE:
+            setCompletionDate(COMPLETION_DATE_EDEFAULT);
+            return;
+        case WarehouseoperationPackage.CHANGE_REQUEST__MODEL_ELEMENT:
+            getModelElement().clear();
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case WarehouseoperationPackage.CHANGE_REQUEST__CHANGE_DESCRIPTION:
-                return CHANGE_DESCRIPTION_EDEFAULT == null ? changeDescription != null : !CHANGE_DESCRIPTION_EDEFAULT.equals(changeDescription);
-            case WarehouseoperationPackage.CHANGE_REQUEST__CHANGE_REASON:
-                return CHANGE_REASON_EDEFAULT == null ? changeReason != null : !CHANGE_REASON_EDEFAULT.equals(changeReason);
-            case WarehouseoperationPackage.CHANGE_REQUEST__STATUS:
-                return STATUS_EDEFAULT == null ? status != null : !STATUS_EDEFAULT.equals(status);
-            case WarehouseoperationPackage.CHANGE_REQUEST__COMPLETED:
-                return completed != COMPLETED_EDEFAULT;
-            case WarehouseoperationPackage.CHANGE_REQUEST__REQUEST_DATE:
-                return REQUEST_DATE_EDEFAULT == null ? requestDate != null : !REQUEST_DATE_EDEFAULT.equals(requestDate);
-            case WarehouseoperationPackage.CHANGE_REQUEST__COMPLETION_DATE:
-                return COMPLETION_DATE_EDEFAULT == null ? completionDate != null : !COMPLETION_DATE_EDEFAULT.equals(completionDate);
-            case WarehouseoperationPackage.CHANGE_REQUEST__MODEL_ELEMENT:
-                return modelElement != null && !modelElement.isEmpty();
+        case WarehouseoperationPackage.CHANGE_REQUEST__CHANGE_DESCRIPTION:
+            return CHANGE_DESCRIPTION_EDEFAULT == null ? changeDescription != null : !CHANGE_DESCRIPTION_EDEFAULT
+                    .equals(changeDescription);
+        case WarehouseoperationPackage.CHANGE_REQUEST__CHANGE_REASON:
+            return CHANGE_REASON_EDEFAULT == null ? changeReason != null : !CHANGE_REASON_EDEFAULT.equals(changeReason);
+        case WarehouseoperationPackage.CHANGE_REQUEST__STATUS:
+            return STATUS_EDEFAULT == null ? status != null : !STATUS_EDEFAULT.equals(status);
+        case WarehouseoperationPackage.CHANGE_REQUEST__COMPLETED:
+            return completed != COMPLETED_EDEFAULT;
+        case WarehouseoperationPackage.CHANGE_REQUEST__REQUEST_DATE:
+            return REQUEST_DATE_EDEFAULT == null ? requestDate != null : !REQUEST_DATE_EDEFAULT.equals(requestDate);
+        case WarehouseoperationPackage.CHANGE_REQUEST__COMPLETION_DATE:
+            return COMPLETION_DATE_EDEFAULT == null ? completionDate != null : !COMPLETION_DATE_EDEFAULT.equals(completionDate);
+        case WarehouseoperationPackage.CHANGE_REQUEST__MODEL_ELEMENT:
+            return modelElement != null && !modelElement.isEmpty();
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (changeDescription: ");
@@ -504,4 +484,4 @@ public class ChangeRequestImpl extends ModelElementImpl implements ChangeRequest
         return result.toString();
     }
 
-} //ChangeRequestImpl
+} // ChangeRequestImpl

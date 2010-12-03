@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.analysis.transformation.impl;
@@ -14,9 +13,8 @@ import orgomg.cwm.analysis.transformation.TransformationUse;
 import orgomg.cwm.objectmodel.core.impl.DependencyImpl;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Use</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Use</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -27,10 +25,10 @@ import orgomg.cwm.objectmodel.core.impl.DependencyImpl;
  * @generated
  */
 public class TransformationUseImpl extends DependencyImpl implements TransformationUse {
+
     /**
      * The default value of the '{@link #getType() <em>Type</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getType()
      * @generated
      * @ordered
@@ -39,8 +37,7 @@ public class TransformationUseImpl extends DependencyImpl implements Transformat
 
     /**
      * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getType()
      * @generated
      * @ordered
@@ -48,8 +45,7 @@ public class TransformationUseImpl extends DependencyImpl implements Transformat
     protected String type = TYPE_EDEFAULT;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected TransformationUseImpl() {
@@ -57,8 +53,7 @@ public class TransformationUseImpl extends DependencyImpl implements Transformat
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -67,8 +62,7 @@ public class TransformationUseImpl extends DependencyImpl implements Transformat
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getType() {
@@ -76,8 +70,7 @@ public class TransformationUseImpl extends DependencyImpl implements Transformat
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setType(String newType) {
@@ -88,71 +81,67 @@ public class TransformationUseImpl extends DependencyImpl implements Transformat
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case TransformationPackage.TRANSFORMATION_USE__TYPE:
-                return getType();
+        case TransformationPackage.TRANSFORMATION_USE__TYPE:
+            return getType();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case TransformationPackage.TRANSFORMATION_USE__TYPE:
-                setType((String)newValue);
-                return;
+        case TransformationPackage.TRANSFORMATION_USE__TYPE:
+            setType((String) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case TransformationPackage.TRANSFORMATION_USE__TYPE:
-                setType(TYPE_EDEFAULT);
-                return;
+        case TransformationPackage.TRANSFORMATION_USE__TYPE:
+            setType(TYPE_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case TransformationPackage.TRANSFORMATION_USE__TYPE:
-                return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
+        case TransformationPackage.TRANSFORMATION_USE__TYPE:
+            return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (type: ");
@@ -161,4 +150,4 @@ public class TransformationUseImpl extends DependencyImpl implements Transformat
         return result.toString();
     }
 
-} //TransformationUseImpl
+} // TransformationUseImpl

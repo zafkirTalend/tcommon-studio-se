@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.imsdatabase.imstypes;
@@ -13,10 +12,9 @@ import java.util.List;
 import org.eclipse.emf.common.util.Enumerator;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the literals of the enumeration '<em><b>Parent Type</b></em>',
- * and utility methods for working with them.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the literals of the enumeration '
+ * <em><b>Parent Type</b></em>', and utility methods for working with them. <!--
+ * end-user-doc -->
  * @see orgomg.cwmx.resource.imsdatabase.imstypes.ImstypesPackage#getParentType()
  * @model
  * @generated
@@ -34,8 +32,8 @@ public enum ParentType implements Enumerator {
 
     /**
      * The '<em><b>Ims PHYSICAL</b></em>' literal object.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @see #IMS_PHYSICAL_VALUE
      * @generated
      * @ordered
@@ -43,12 +41,11 @@ public enum ParentType implements Enumerator {
     IMS_PHYSICAL(1, "ims_PHYSICAL", "ims_PHYSICAL");
 
     /**
-     * The '<em><b>Ims VIRTUAL</b></em>' literal value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * the concatenated key of the logical parent segment is not stored with each logical child segment
+     * The '<em><b>Ims VIRTUAL</b></em>' literal value. <!-- begin-user-doc -->
+     * <!-- end-user-doc --> <!-- begin-model-doc --> the concatenated key of
+     * the logical parent segment is not stored with each logical child segment
      * <!-- end-model-doc -->
+     * 
      * @see #IMS_VIRTUAL
      * @model name="ims_VIRTUAL"
      * @generated
@@ -57,12 +54,11 @@ public enum ParentType implements Enumerator {
     public static final int IMS_VIRTUAL_VALUE = 0;
 
     /**
-     * The '<em><b>Ims PHYSICAL</b></em>' literal value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * the concatenated key of the logical parent segment is physically stored with each logical child segment
-     * <!-- end-model-doc -->
+     * The '<em><b>Ims PHYSICAL</b></em>' literal value. <!-- begin-user-doc -->
+     * <!-- end-user-doc --> <!-- begin-model-doc --> the concatenated key of
+     * the logical parent segment is physically stored with each logical child
+     * segment <!-- end-model-doc -->
+     * 
      * @see #IMS_PHYSICAL
      * @model name="ims_PHYSICAL"
      * @generated
@@ -71,29 +67,23 @@ public enum ParentType implements Enumerator {
     public static final int IMS_PHYSICAL_VALUE = 1;
 
     /**
-     * An array of all the '<em><b>Parent Type</b></em>' enumerators.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * An array of all the '<em><b>Parent Type</b></em>' enumerators. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
-    private static final ParentType[] VALUES_ARRAY =
-        new ParentType[] {
-            IMS_VIRTUAL,
-            IMS_PHYSICAL,
-        };
+    private static final ParentType[] VALUES_ARRAY = new ParentType[] { IMS_VIRTUAL, IMS_PHYSICAL, };
 
     /**
      * A public read-only list of all the '<em><b>Parent Type</b></em>' enumerators.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static final List<ParentType> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
     /**
      * Returns the '<em><b>Parent Type</b></em>' literal with the specified literal value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static ParentType get(String literal) {
@@ -108,8 +98,7 @@ public enum ParentType implements Enumerator {
 
     /**
      * Returns the '<em><b>Parent Type</b></em>' literal with the specified name.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static ParentType getByName(String name) {
@@ -124,43 +113,41 @@ public enum ParentType implements Enumerator {
 
     /**
      * Returns the '<em><b>Parent Type</b></em>' literal with the specified integer value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static ParentType get(int value) {
         switch (value) {
-            case IMS_VIRTUAL_VALUE: return IMS_VIRTUAL;
-            case IMS_PHYSICAL_VALUE: return IMS_PHYSICAL;
+        case IMS_VIRTUAL_VALUE:
+            return IMS_VIRTUAL;
+        case IMS_PHYSICAL_VALUE:
+            return IMS_PHYSICAL;
         }
         return null;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private final int value;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private final String name;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private final String literal;
 
     /**
      * Only this class can construct instances.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     private ParentType(int value, String name, String literal) {
@@ -170,41 +157,37 @@ public enum ParentType implements Enumerator {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public int getValue() {
-      return value;
+        return value;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getName() {
-      return name;
+        return name;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getLiteral() {
-      return literal;
+        return literal;
     }
 
     /**
      * Returns the literal value of the enumerator, which is its string representation.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
         return literal;
     }
-    
-} //ParentType
+
+} // ParentType

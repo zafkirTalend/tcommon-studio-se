@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.resource.xml;
@@ -13,13 +12,11 @@ import java.util.List;
 import org.eclipse.emf.common.util.Enumerator;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the literals of the enumeration '<em><b>Attribute Default</b></em>',
- * and utility methods for working with them.
- * <!-- end-user-doc -->
- * <!-- begin-model-doc -->
- * required, implied, default, fixed
- * <!-- end-model-doc -->
+ * <!-- begin-user-doc --> A representation of the literals of the enumeration '
+ * <em><b>Attribute Default</b></em>', and utility methods for working with
+ * them. <!-- end-user-doc --> <!-- begin-model-doc --> required, implied,
+ * default, fixed <!-- end-model-doc -->
+ * 
  * @see orgomg.cwm.resource.xml.XmlPackage#getAttributeDefault()
  * @model
  * @generated
@@ -27,8 +24,8 @@ import org.eclipse.emf.common.util.Enumerator;
 public enum AttributeDefault implements Enumerator {
     /**
      * The '<em><b>Xml required</b></em>' literal object.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @see #XML_REQUIRED_VALUE
      * @generated
      * @ordered
@@ -69,8 +66,8 @@ public enum AttributeDefault implements Enumerator {
      * The '<em><b>Xml required</b></em>' literal value.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of '<em><b>Xml required</b></em>' literal object isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of '<em><b>Xml required</b></em>' literal object isn't
+     * clear, there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
      * @see #XML_REQUIRED
@@ -84,8 +81,8 @@ public enum AttributeDefault implements Enumerator {
      * The '<em><b>Xml implied</b></em>' literal value.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of '<em><b>Xml implied</b></em>' literal object isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of '<em><b>Xml implied</b></em>' literal object isn't
+     * clear, there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
      * @see #XML_IMPLIED
@@ -99,8 +96,8 @@ public enum AttributeDefault implements Enumerator {
      * The '<em><b>Xml default</b></em>' literal value.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of '<em><b>Xml default</b></em>' literal object isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of '<em><b>Xml default</b></em>' literal object isn't
+     * clear, there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
      * @see #XML_DEFAULT
@@ -126,31 +123,24 @@ public enum AttributeDefault implements Enumerator {
     public static final int XML_FIXED_VALUE = 3;
 
     /**
-     * An array of all the '<em><b>Attribute Default</b></em>' enumerators.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * An array of all the '<em><b>Attribute Default</b></em>' enumerators. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
-    private static final AttributeDefault[] VALUES_ARRAY =
-        new AttributeDefault[] {
-            XML_REQUIRED,
-            XML_IMPLIED,
-            XML_DEFAULT,
-            XML_FIXED,
-        };
+    private static final AttributeDefault[] VALUES_ARRAY = new AttributeDefault[] { XML_REQUIRED, XML_IMPLIED, XML_DEFAULT,
+            XML_FIXED, };
 
     /**
      * A public read-only list of all the '<em><b>Attribute Default</b></em>' enumerators.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static final List<AttributeDefault> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
     /**
      * Returns the '<em><b>Attribute Default</b></em>' literal with the specified literal value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static AttributeDefault get(String literal) {
@@ -165,8 +155,7 @@ public enum AttributeDefault implements Enumerator {
 
     /**
      * Returns the '<em><b>Attribute Default</b></em>' literal with the specified name.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static AttributeDefault getByName(String name) {
@@ -181,45 +170,45 @@ public enum AttributeDefault implements Enumerator {
 
     /**
      * Returns the '<em><b>Attribute Default</b></em>' literal with the specified integer value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static AttributeDefault get(int value) {
         switch (value) {
-            case XML_REQUIRED_VALUE: return XML_REQUIRED;
-            case XML_IMPLIED_VALUE: return XML_IMPLIED;
-            case XML_DEFAULT_VALUE: return XML_DEFAULT;
-            case XML_FIXED_VALUE: return XML_FIXED;
+        case XML_REQUIRED_VALUE:
+            return XML_REQUIRED;
+        case XML_IMPLIED_VALUE:
+            return XML_IMPLIED;
+        case XML_DEFAULT_VALUE:
+            return XML_DEFAULT;
+        case XML_FIXED_VALUE:
+            return XML_FIXED;
         }
         return null;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private final int value;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private final String name;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private final String literal;
 
     /**
      * Only this class can construct instances.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     private AttributeDefault(int value, String name, String literal) {
@@ -229,41 +218,37 @@ public enum AttributeDefault implements Enumerator {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public int getValue() {
-      return value;
+        return value;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getName() {
-      return name;
+        return name;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getLiteral() {
-      return literal;
+        return literal;
     }
 
     /**
      * Returns the literal value of the enumerator, which is its string representation.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
         return literal;
     }
-    
-} //AttributeDefault
+
+} // AttributeDefault

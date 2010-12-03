@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.mof.model;
@@ -9,18 +8,17 @@ package orgomg.mof.model;
 import org.eclipse.emf.ecore.EFactory;
 
 /**
- * <!-- begin-user-doc -->
- * The <b>Factory</b> for the model.
- * It provides a create method for each non-abstract class of the model.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> The <b>Factory</b> for the model. It provides a
+ * create method for each non-abstract class of the model. <!-- end-user-doc -->
  * @see orgomg.mof.model.ModelPackage
  * @generated
  */
 public interface ModelFactory extends EFactory {
+
     /**
      * The singleton instance of the factory.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     ModelFactory eINSTANCE = orgomg.mof.model.impl.ModelFactoryImpl.init();
@@ -36,8 +34,8 @@ public interface ModelFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Association</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @return a new object of class '<em>Association</em>'.
      * @generated
      */
@@ -52,4 +50,4 @@ public interface ModelFactory extends EFactory {
      */
     ModelPackage getModelPackage();
 
-} //ModelFactory
+} // ModelFactory

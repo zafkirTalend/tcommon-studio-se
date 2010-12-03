@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.resource.xml;
@@ -9,18 +8,17 @@ package orgomg.cwm.resource.xml;
 import org.eclipse.emf.ecore.EFactory;
 
 /**
- * <!-- begin-user-doc -->
- * The <b>Factory</b> for the model.
- * It provides a create method for each non-abstract class of the model.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> The <b>Factory</b> for the model. It provides a
+ * create method for each non-abstract class of the model. <!-- end-user-doc -->
  * @see orgomg.cwm.resource.xml.XmlPackage
  * @generated
  */
 public interface XmlFactory extends EFactory {
+
     /**
      * The singleton instance of the factory.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     XmlFactory eINSTANCE = orgomg.cwm.resource.xml.impl.XmlFactoryImpl.init();
@@ -35,9 +33,9 @@ public interface XmlFactory extends EFactory {
     Schema createSchema();
 
     /**
-     * Returns a new object of class '<em>Element Type</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns a new object of class '<em>Element Type</em>'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return a new object of class '<em>Element Type</em>'.
      * @generated
      */
@@ -45,8 +43,8 @@ public interface XmlFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Attribute</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @return a new object of class '<em>Attribute</em>'.
      * @generated
      */
@@ -62,27 +60,27 @@ public interface XmlFactory extends EFactory {
     Content createContent();
 
     /**
-     * Returns a new object of class '<em>Element Content</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns a new object of class '<em>Element Content</em>'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return a new object of class '<em>Element Content</em>'.
      * @generated
      */
     ElementContent createElementContent();
 
     /**
-     * Returns a new object of class '<em>Mixed Content</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns a new object of class '<em>Mixed Content</em>'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return a new object of class '<em>Mixed Content</em>'.
      * @generated
      */
     MixedContent createMixedContent();
 
     /**
-     * Returns a new object of class '<em>Element Type Reference</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns a new object of class '<em>Element Type Reference</em>'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return a new object of class '<em>Element Type Reference</em>'.
      * @generated
      */
@@ -108,8 +106,8 @@ public interface XmlFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Document</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @return a new object of class '<em>Document</em>'.
      * @generated
      */
@@ -124,4 +122,4 @@ public interface XmlFactory extends EFactory {
      */
     XmlPackage getXmlPackage();
 
-} //XmlFactory
+} // XmlFactory

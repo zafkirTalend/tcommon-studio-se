@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.analysis.olap;
@@ -9,9 +8,8 @@ package orgomg.cwm.analysis.olap;
 import org.eclipse.emf.common.util.EList;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Level</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Level</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * Level is a subclass of MemberSelection that assigns each member of a Dimension to a specific hierarchical level within the Dimension.
@@ -29,12 +27,12 @@ import org.eclipse.emf.common.util.EList;
  * @generated
  */
 public interface Level extends MemberSelection {
+
     /**
      * Returns the value of the '<em><b>Hierarchy Level Association</b></em>' reference list.
      * The list contents are of type {@link orgomg.cwm.analysis.olap.HierarchyLevelAssociation}.
      * It is bidirectional and its opposite is '{@link orgomg.cwm.analysis.olap.HierarchyLevelAssociation#getCurrentLevel <em>Current Level</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * The HierarchyLevelAssocs designating this Level as their current level.
      * <!-- end-model-doc -->

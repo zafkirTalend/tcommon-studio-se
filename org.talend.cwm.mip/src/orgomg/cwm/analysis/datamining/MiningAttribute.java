@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.analysis.datamining;
@@ -10,9 +9,8 @@ import org.eclipse.emf.common.util.EList;
 import orgomg.cwm.objectmodel.core.Attribute;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Mining Attribute</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Mining Attribute</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * An attribute (aka field or variable). It carries the following user specifications:
@@ -37,15 +35,17 @@ import orgomg.cwm.objectmodel.core.Attribute;
  * @generated
  */
 public interface MiningAttribute extends Attribute {
+
     /**
-     * Returns the value of the '<em><b>Data Specification</b></em>' container reference.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.analysis.datamining.MiningDataSpecification#getAttribute <em>Attribute</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The MiningDataSpecification owning MiningAttributes.
+     * Returns the value of the '<em><b>Data Specification</b></em>' container
+     * reference. It is bidirectional and its opposite is '
+     * {@link orgomg.cwm.analysis.datamining.MiningDataSpecification#getAttribute
+     * <em>Attribute</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> The MiningDataSpecification owning MiningAttributes.
      * <!-- end-model-doc -->
-     * @return the value of the '<em>Data Specification</em>' container reference.
+     * 
+     * @return the value of the '<em>Data Specification</em>' container
+     *         reference.
      * @see #setDataSpecification(MiningDataSpecification)
      * @see orgomg.cwm.analysis.datamining.DataminingPackage#getMiningAttribute_DataSpecification()
      * @see orgomg.cwm.analysis.datamining.MiningDataSpecification#getAttribute
@@ -56,8 +56,8 @@ public interface MiningAttribute extends Attribute {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.analysis.datamining.MiningAttribute#getDataSpecification <em>Data Specification</em>}' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Data Specification</em>' container reference.
      * @see #getDataSpecification()
      * @generated
@@ -65,14 +65,15 @@ public interface MiningAttribute extends Attribute {
     void setDataSpecification(MiningDataSpecification value);
 
     /**
-     * Returns the value of the '<em><b>Attribute Usage</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwm.analysis.datamining.AttributeUsageRelation}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.analysis.datamining.AttributeUsageRelation#getAttribute <em>Attribute</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * AttributeUsageRelations referencing the MiningAttribute.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Attribute Usage</b></em>' reference
+     * list. The list contents are of type
+     * {@link orgomg.cwm.analysis.datamining.AttributeUsageRelation}. It is
+     * bidirectional and its opposite is '
+     * {@link orgomg.cwm.analysis.datamining.AttributeUsageRelation#getAttribute
+     * <em>Attribute</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> AttributeUsageRelations referencing the
+     * MiningAttribute. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Attribute Usage</em>' reference list.
      * @see orgomg.cwm.analysis.datamining.DataminingPackage#getMiningAttribute_AttributeUsage()
      * @see orgomg.cwm.analysis.datamining.AttributeUsageRelation#getAttribute
@@ -82,14 +83,15 @@ public interface MiningAttribute extends Attribute {
     EList<AttributeUsageRelation> getAttributeUsage();
 
     /**
-     * Returns the value of the '<em><b>Settings</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwm.analysis.datamining.AssociationRulesSettings}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.analysis.datamining.AssociationRulesSettings#getItemId <em>Item Id</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The AssociationRulesSettings referencing the MiningAttribute as an Item ID.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Settings</b></em>' reference list. The
+     * list contents are of type
+     * {@link orgomg.cwm.analysis.datamining.AssociationRulesSettings}. It is
+     * bidirectional and its opposite is '
+     * {@link orgomg.cwm.analysis.datamining.AssociationRulesSettings#getItemId
+     * <em>Item Id</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> The AssociationRulesSettings referencing the
+     * MiningAttribute as an Item ID. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Settings</em>' reference list.
      * @see orgomg.cwm.analysis.datamining.DataminingPackage#getMiningAttribute_Settings()
      * @see orgomg.cwm.analysis.datamining.AssociationRulesSettings#getItemId

@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.objectmodel.behavioral;
@@ -9,9 +8,8 @@ package orgomg.cwm.objectmodel.behavioral;
 import orgomg.cwm.objectmodel.core.Classifier;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Interface</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Interface</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * Interface is a named set of operations that specify the behavior of an element.

@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.express.impl;
@@ -11,6 +10,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import orgomg.cwmx.resource.express.*;
 import orgomg.cwmx.resource.express.AggMap;
 import orgomg.cwmx.resource.express.AggMapComponent;
 import orgomg.cwmx.resource.express.AliasDimension;
@@ -30,26 +30,26 @@ import orgomg.cwmx.resource.express.Variable;
 import orgomg.cwmx.resource.express.Worksheet;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model <b>Factory</b>.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!--
+ * end-user-doc -->
  * @generated
  */
 public class ExpressFactoryImpl extends EFactoryImpl implements ExpressFactory {
+
     /**
      * Creates the default factory implementation.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     public static ExpressFactory init() {
         try {
-            ExpressFactory theExpressFactory = (ExpressFactory)EPackage.Registry.INSTANCE.getEFactory("http:///orgomg/cwmx/resource/express.ecore"); 
+            ExpressFactory theExpressFactory = (ExpressFactory) EPackage.Registry.INSTANCE
+                    .getEFactory("http:///orgomg/cwmx/resource/express.ecore");
             if (theExpressFactory != null) {
                 return theExpressFactory;
             }
-        }
-        catch (Exception exception) {
+        } catch (Exception exception) {
             EcorePlugin.INSTANCE.log(exception);
         }
         return new ExpressFactoryImpl();
@@ -57,8 +57,8 @@ public class ExpressFactoryImpl extends EFactoryImpl implements ExpressFactory {
 
     /**
      * Creates an instance of the factory.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     public ExpressFactoryImpl() {
@@ -66,36 +66,49 @@ public class ExpressFactoryImpl extends EFactoryImpl implements ExpressFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public EObject create(EClass eClass) {
         switch (eClass.getClassifierID()) {
-            case ExpressPackage.DATABASE: return createDatabase();
-            case ExpressPackage.CONJOINT: return createConjoint();
-            case ExpressPackage.PROGRAM: return createProgram();
-            case ExpressPackage.MODEL: return createModel();
-            case ExpressPackage.VARIABLE: return createVariable();
-            case ExpressPackage.FORMULA: return createFormula();
-            case ExpressPackage.VALUE_SET: return createValueSet();
-            case ExpressPackage.RELATION: return createRelation();
-            case ExpressPackage.WORKSHEET: return createWorksheet();
-            case ExpressPackage.COMPOSITE: return createComposite();
-            case ExpressPackage.SIMPLE_DIMENSION: return createSimpleDimension();
-            case ExpressPackage.ALIAS_DIMENSION: return createAliasDimension();
-            case ExpressPackage.AGG_MAP: return createAggMap();
-            case ExpressPackage.AGG_MAP_COMPONENT: return createAggMapComponent();
-            case ExpressPackage.PRE_COMPUTE_CLAUSE: return createPreComputeClause();
-            default:
-                throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+        case ExpressPackage.DATABASE:
+            return createDatabase();
+        case ExpressPackage.CONJOINT:
+            return createConjoint();
+        case ExpressPackage.PROGRAM:
+            return createProgram();
+        case ExpressPackage.MODEL:
+            return createModel();
+        case ExpressPackage.VARIABLE:
+            return createVariable();
+        case ExpressPackage.FORMULA:
+            return createFormula();
+        case ExpressPackage.VALUE_SET:
+            return createValueSet();
+        case ExpressPackage.RELATION:
+            return createRelation();
+        case ExpressPackage.WORKSHEET:
+            return createWorksheet();
+        case ExpressPackage.COMPOSITE:
+            return createComposite();
+        case ExpressPackage.SIMPLE_DIMENSION:
+            return createSimpleDimension();
+        case ExpressPackage.ALIAS_DIMENSION:
+            return createAliasDimension();
+        case ExpressPackage.AGG_MAP:
+            return createAggMap();
+        case ExpressPackage.AGG_MAP_COMPONENT:
+            return createAggMapComponent();
+        case ExpressPackage.PRE_COMPUTE_CLAUSE:
+            return createPreComputeClause();
+        default:
+            throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Database createDatabase() {
@@ -104,8 +117,7 @@ public class ExpressFactoryImpl extends EFactoryImpl implements ExpressFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Conjoint createConjoint() {
@@ -114,8 +126,7 @@ public class ExpressFactoryImpl extends EFactoryImpl implements ExpressFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Program createProgram() {
@@ -124,8 +135,7 @@ public class ExpressFactoryImpl extends EFactoryImpl implements ExpressFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Model createModel() {
@@ -134,8 +144,7 @@ public class ExpressFactoryImpl extends EFactoryImpl implements ExpressFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Variable createVariable() {
@@ -144,8 +153,7 @@ public class ExpressFactoryImpl extends EFactoryImpl implements ExpressFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Formula createFormula() {
@@ -154,8 +162,7 @@ public class ExpressFactoryImpl extends EFactoryImpl implements ExpressFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public ValueSet createValueSet() {
@@ -164,8 +171,7 @@ public class ExpressFactoryImpl extends EFactoryImpl implements ExpressFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Relation createRelation() {
@@ -174,8 +180,7 @@ public class ExpressFactoryImpl extends EFactoryImpl implements ExpressFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Worksheet createWorksheet() {
@@ -184,8 +189,7 @@ public class ExpressFactoryImpl extends EFactoryImpl implements ExpressFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Composite createComposite() {
@@ -194,8 +198,7 @@ public class ExpressFactoryImpl extends EFactoryImpl implements ExpressFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public SimpleDimension createSimpleDimension() {
@@ -204,8 +207,7 @@ public class ExpressFactoryImpl extends EFactoryImpl implements ExpressFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public AliasDimension createAliasDimension() {
@@ -214,8 +216,7 @@ public class ExpressFactoryImpl extends EFactoryImpl implements ExpressFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public AggMap createAggMap() {
@@ -224,8 +225,7 @@ public class ExpressFactoryImpl extends EFactoryImpl implements ExpressFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public AggMapComponent createAggMapComponent() {
@@ -234,8 +234,7 @@ public class ExpressFactoryImpl extends EFactoryImpl implements ExpressFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public PreComputeClause createPreComputeClause() {
@@ -244,17 +243,15 @@ public class ExpressFactoryImpl extends EFactoryImpl implements ExpressFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public ExpressPackage getExpressPackage() {
-        return (ExpressPackage)getEPackage();
+        return (ExpressPackage) getEPackage();
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @deprecated
      * @generated
      */
@@ -263,4 +260,4 @@ public class ExpressFactoryImpl extends EFactoryImpl implements ExpressFactory {
         return ExpressPackage.eINSTANCE;
     }
 
-} //ExpressFactoryImpl
+} // ExpressFactoryImpl

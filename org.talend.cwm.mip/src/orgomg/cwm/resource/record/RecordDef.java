@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.resource.record;
@@ -10,9 +9,8 @@ import org.eclipse.emf.common.util.EList;
 import orgomg.cwmx.resource.coboldata.Section;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Def</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Def</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * A RecordDef is an ordered collection of Fields representing the structure of a Record.
@@ -44,13 +42,13 @@ import orgomg.cwmx.resource.coboldata.Section;
  * @generated
  */
 public interface RecordDef extends orgomg.cwm.objectmodel.core.Class {
+
     /**
      * Returns the value of the '<em><b>Field Delimiter</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The value of a fieldDelimiter used to separate field values in an input stream.
-     * <!-- end-model-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * The value of a fieldDelimiter used to separate field values in an input
+     * stream. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Field Delimiter</em>' attribute.
      * @see #setFieldDelimiter(String)
      * @see orgomg.cwm.resource.record.RecordPackage#getRecordDef_FieldDelimiter()
@@ -61,8 +59,8 @@ public interface RecordDef extends orgomg.cwm.objectmodel.core.Class {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.resource.record.RecordDef#getFieldDelimiter <em>Field Delimiter</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Field Delimiter</em>' attribute.
      * @see #getFieldDelimiter()
      * @generated
@@ -70,12 +68,11 @@ public interface RecordDef extends orgomg.cwm.objectmodel.core.Class {
     void setFieldDelimiter(String value);
 
     /**
-     * Returns the value of the '<em><b>Is Fixed Width</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * True if the record is fixed length. Otherwise, the record can be of variable length.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Is Fixed Width</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> True if
+     * the record is fixed length. Otherwise, the record can be of variable
+     * length. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Is Fixed Width</em>' attribute.
      * @see #setIsFixedWidth(boolean)
      * @see orgomg.cwm.resource.record.RecordPackage#getRecordDef_IsFixedWidth()
@@ -86,8 +83,8 @@ public interface RecordDef extends orgomg.cwm.objectmodel.core.Class {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.resource.record.RecordDef#isIsFixedWidth <em>Is Fixed Width</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Is Fixed Width</em>' attribute.
      * @see #isIsFixedWidth()
      * @generated
@@ -95,12 +92,11 @@ public interface RecordDef extends orgomg.cwm.objectmodel.core.Class {
     void setIsFixedWidth(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Text Delimiter</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The delimiter of a text string in the record, such as a quote.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Text Delimiter</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> The
+     * delimiter of a text string in the record, such as a quote. <!--
+     * end-model-doc -->
+     * 
      * @return the value of the '<em>Text Delimiter</em>' attribute.
      * @see #setTextDelimiter(String)
      * @see orgomg.cwm.resource.record.RecordPackage#getRecordDef_TextDelimiter()
@@ -111,8 +107,8 @@ public interface RecordDef extends orgomg.cwm.objectmodel.core.Class {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.resource.record.RecordDef#getTextDelimiter <em>Text Delimiter</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Text Delimiter</em>' attribute.
      * @see #getTextDelimiter()
      * @generated
@@ -120,14 +116,14 @@ public interface RecordDef extends orgomg.cwm.objectmodel.core.Class {
     void setTextDelimiter(String value);
 
     /**
-     * Returns the value of the '<em><b>File</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwm.resource.record.RecordFile}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.resource.record.RecordFile#getRecord <em>Record</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the set of files in which a record is stored.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>File</b></em>' reference list. The list
+     * contents are of type {@link orgomg.cwm.resource.record.RecordFile}. It is
+     * bidirectional and its opposite is '
+     * {@link orgomg.cwm.resource.record.RecordFile#getRecord <em>Record</em>}'.
+     * <!-- begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * Identifies the set of files in which a record is stored. <!--
+     * end-model-doc -->
+     * 
      * @return the value of the '<em>File</em>' reference list.
      * @see orgomg.cwm.resource.record.RecordPackage#getRecordDef_File()
      * @see orgomg.cwm.resource.record.RecordFile#getRecord
@@ -137,14 +133,14 @@ public interface RecordDef extends orgomg.cwm.objectmodel.core.Class {
     EList<RecordFile> getFile();
 
     /**
-     * Returns the value of the '<em><b>Section</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwmx.resource.coboldata.Section}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.coboldata.Section#getRecord <em>Record</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the Section instances in which the RecordDef is used.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Section</b></em>' reference list. The
+     * list contents are of type {@link orgomg.cwmx.resource.coboldata.Section}.
+     * It is bidirectional and its opposite is '
+     * {@link orgomg.cwmx.resource.coboldata.Section#getRecord <em>Record</em>}
+     * '. <!-- begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * Identifies the Section instances in which the RecordDef is used. <!--
+     * end-model-doc -->
+     * 
      * @return the value of the '<em>Section</em>' reference list.
      * @see orgomg.cwm.resource.record.RecordPackage#getRecordDef_Section()
      * @see orgomg.cwmx.resource.coboldata.Section#getRecord

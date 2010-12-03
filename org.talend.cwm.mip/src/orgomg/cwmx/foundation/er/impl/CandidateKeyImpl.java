@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.foundation.er.impl;
@@ -12,18 +11,17 @@ import orgomg.cwmx.foundation.er.CandidateKey;
 import orgomg.cwmx.foundation.er.ErPackage;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Candidate Key</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Candidate Key</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
 public class CandidateKeyImpl extends UniqueKeyImpl implements CandidateKey {
+
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected CandidateKeyImpl() {
@@ -31,8 +29,7 @@ public class CandidateKeyImpl extends UniqueKeyImpl implements CandidateKey {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -40,4 +37,4 @@ public class CandidateKeyImpl extends UniqueKeyImpl implements CandidateKey {
         return ErPackage.Literals.CANDIDATE_KEY;
     }
 
-} //CandidateKeyImpl
+} // CandidateKeyImpl

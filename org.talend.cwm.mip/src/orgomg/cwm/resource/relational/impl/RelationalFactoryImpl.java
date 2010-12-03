@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.resource.relational.impl;
@@ -11,6 +10,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import orgomg.cwm.resource.relational.*;
 import orgomg.cwm.resource.relational.Catalog;
 import orgomg.cwm.resource.relational.CheckConstraint;
 import orgomg.cwm.resource.relational.Column;
@@ -38,26 +38,26 @@ import orgomg.cwm.resource.relational.UniqueConstraint;
 import orgomg.cwm.resource.relational.View;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model <b>Factory</b>.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!--
+ * end-user-doc -->
  * @generated
  */
 public class RelationalFactoryImpl extends EFactoryImpl implements RelationalFactory {
+
     /**
      * Creates the default factory implementation.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     public static RelationalFactory init() {
         try {
-            RelationalFactory theRelationalFactory = (RelationalFactory)EPackage.Registry.INSTANCE.getEFactory("http:///orgomg/cwm/resource/relational.ecore"); 
+            RelationalFactory theRelationalFactory = (RelationalFactory) EPackage.Registry.INSTANCE
+                    .getEFactory("http:///orgomg/cwm/resource/relational.ecore");
             if (theRelationalFactory != null) {
                 return theRelationalFactory;
             }
-        }
-        catch (Exception exception) {
+        } catch (Exception exception) {
             EcorePlugin.INSTANCE.log(exception);
         }
         return new RelationalFactoryImpl();
@@ -65,8 +65,8 @@ public class RelationalFactoryImpl extends EFactoryImpl implements RelationalFac
 
     /**
      * Creates an instance of the factory.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     public RelationalFactoryImpl() {
@@ -74,44 +74,65 @@ public class RelationalFactoryImpl extends EFactoryImpl implements RelationalFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public EObject create(EClass eClass) {
         switch (eClass.getClassifierID()) {
-            case RelationalPackage.CATALOG: return createCatalog();
-            case RelationalPackage.SCHEMA: return createSchema();
-            case RelationalPackage.COLUMN_SET: return createColumnSet();
-            case RelationalPackage.NAMED_COLUMN_SET: return createNamedColumnSet();
-            case RelationalPackage.TABLE: return createTable();
-            case RelationalPackage.VIEW: return createView();
-            case RelationalPackage.QUERY_COLUMN_SET: return createQueryColumnSet();
-            case RelationalPackage.SQL_DISTINCT_TYPE: return createSQLDistinctType();
-            case RelationalPackage.SQL_SIMPLE_TYPE: return createSQLSimpleType();
-            case RelationalPackage.SQL_STRUCTURED_TYPE: return createSQLStructuredType();
-            case RelationalPackage.COLUMN: return createColumn();
-            case RelationalPackage.PROCEDURE: return createProcedure();
-            case RelationalPackage.TRIGGER: return createTrigger();
-            case RelationalPackage.SQL_INDEX: return createSQLIndex();
-            case RelationalPackage.UNIQUE_CONSTRAINT: return createUniqueConstraint();
-            case RelationalPackage.FOREIGN_KEY: return createForeignKey();
-            case RelationalPackage.SQL_INDEX_COLUMN: return createSQLIndexColumn();
-            case RelationalPackage.PRIMARY_KEY: return createPrimaryKey();
-            case RelationalPackage.ROW: return createRow();
-            case RelationalPackage.COLUMN_VALUE: return createColumnValue();
-            case RelationalPackage.CHECK_CONSTRAINT: return createCheckConstraint();
-            case RelationalPackage.ROW_SET: return createRowSet();
-            case RelationalPackage.SQL_PARAMETER: return createSQLParameter();
-            default:
-                throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+        case RelationalPackage.CATALOG:
+            return createCatalog();
+        case RelationalPackage.SCHEMA:
+            return createSchema();
+        case RelationalPackage.COLUMN_SET:
+            return createColumnSet();
+        case RelationalPackage.NAMED_COLUMN_SET:
+            return createNamedColumnSet();
+        case RelationalPackage.TABLE:
+            return createTable();
+        case RelationalPackage.VIEW:
+            return createView();
+        case RelationalPackage.QUERY_COLUMN_SET:
+            return createQueryColumnSet();
+        case RelationalPackage.SQL_DISTINCT_TYPE:
+            return createSQLDistinctType();
+        case RelationalPackage.SQL_SIMPLE_TYPE:
+            return createSQLSimpleType();
+        case RelationalPackage.SQL_STRUCTURED_TYPE:
+            return createSQLStructuredType();
+        case RelationalPackage.COLUMN:
+            return createColumn();
+        case RelationalPackage.PROCEDURE:
+            return createProcedure();
+        case RelationalPackage.TRIGGER:
+            return createTrigger();
+        case RelationalPackage.SQL_INDEX:
+            return createSQLIndex();
+        case RelationalPackage.UNIQUE_CONSTRAINT:
+            return createUniqueConstraint();
+        case RelationalPackage.FOREIGN_KEY:
+            return createForeignKey();
+        case RelationalPackage.SQL_INDEX_COLUMN:
+            return createSQLIndexColumn();
+        case RelationalPackage.PRIMARY_KEY:
+            return createPrimaryKey();
+        case RelationalPackage.ROW:
+            return createRow();
+        case RelationalPackage.COLUMN_VALUE:
+            return createColumnValue();
+        case RelationalPackage.CHECK_CONSTRAINT:
+            return createCheckConstraint();
+        case RelationalPackage.ROW_SET:
+            return createRowSet();
+        case RelationalPackage.SQL_PARAMETER:
+            return createSQLParameter();
+        default:
+            throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Catalog createCatalog() {
@@ -120,8 +141,7 @@ public class RelationalFactoryImpl extends EFactoryImpl implements RelationalFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Schema createSchema() {
@@ -130,8 +150,7 @@ public class RelationalFactoryImpl extends EFactoryImpl implements RelationalFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public ColumnSet createColumnSet() {
@@ -140,8 +159,7 @@ public class RelationalFactoryImpl extends EFactoryImpl implements RelationalFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public NamedColumnSet createNamedColumnSet() {
@@ -150,8 +168,7 @@ public class RelationalFactoryImpl extends EFactoryImpl implements RelationalFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Table createTable() {
@@ -160,8 +177,7 @@ public class RelationalFactoryImpl extends EFactoryImpl implements RelationalFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public View createView() {
@@ -170,8 +186,7 @@ public class RelationalFactoryImpl extends EFactoryImpl implements RelationalFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public QueryColumnSet createQueryColumnSet() {
@@ -180,8 +195,7 @@ public class RelationalFactoryImpl extends EFactoryImpl implements RelationalFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public SQLDistinctType createSQLDistinctType() {
@@ -190,8 +204,7 @@ public class RelationalFactoryImpl extends EFactoryImpl implements RelationalFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public SQLSimpleType createSQLSimpleType() {
@@ -200,8 +213,7 @@ public class RelationalFactoryImpl extends EFactoryImpl implements RelationalFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public SQLStructuredType createSQLStructuredType() {
@@ -210,8 +222,7 @@ public class RelationalFactoryImpl extends EFactoryImpl implements RelationalFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Column createColumn() {
@@ -220,8 +231,7 @@ public class RelationalFactoryImpl extends EFactoryImpl implements RelationalFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Procedure createProcedure() {
@@ -230,8 +240,7 @@ public class RelationalFactoryImpl extends EFactoryImpl implements RelationalFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Trigger createTrigger() {
@@ -240,8 +249,7 @@ public class RelationalFactoryImpl extends EFactoryImpl implements RelationalFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public SQLIndex createSQLIndex() {
@@ -250,8 +258,7 @@ public class RelationalFactoryImpl extends EFactoryImpl implements RelationalFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public UniqueConstraint createUniqueConstraint() {
@@ -260,8 +267,7 @@ public class RelationalFactoryImpl extends EFactoryImpl implements RelationalFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public ForeignKey createForeignKey() {
@@ -270,8 +276,7 @@ public class RelationalFactoryImpl extends EFactoryImpl implements RelationalFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public SQLIndexColumn createSQLIndexColumn() {
@@ -280,8 +285,7 @@ public class RelationalFactoryImpl extends EFactoryImpl implements RelationalFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public PrimaryKey createPrimaryKey() {
@@ -290,8 +294,7 @@ public class RelationalFactoryImpl extends EFactoryImpl implements RelationalFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Row createRow() {
@@ -300,8 +303,7 @@ public class RelationalFactoryImpl extends EFactoryImpl implements RelationalFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public ColumnValue createColumnValue() {
@@ -310,8 +312,7 @@ public class RelationalFactoryImpl extends EFactoryImpl implements RelationalFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public CheckConstraint createCheckConstraint() {
@@ -320,8 +321,7 @@ public class RelationalFactoryImpl extends EFactoryImpl implements RelationalFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public RowSet createRowSet() {
@@ -330,8 +330,7 @@ public class RelationalFactoryImpl extends EFactoryImpl implements RelationalFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public SQLParameter createSQLParameter() {
@@ -340,17 +339,15 @@ public class RelationalFactoryImpl extends EFactoryImpl implements RelationalFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public RelationalPackage getRelationalPackage() {
-        return (RelationalPackage)getEPackage();
+        return (RelationalPackage) getEPackage();
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @deprecated
      * @generated
      */
@@ -359,4 +356,4 @@ public class RelationalFactoryImpl extends EFactoryImpl implements RelationalFac
         return RelationalPackage.eINSTANCE;
     }
 
-} //RelationalFactoryImpl
+} // RelationalFactoryImpl

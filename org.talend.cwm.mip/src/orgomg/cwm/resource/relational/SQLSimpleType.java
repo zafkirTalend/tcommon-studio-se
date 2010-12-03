@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.resource.relational;
@@ -10,9 +9,8 @@ import org.eclipse.emf.common.util.EList;
 import orgomg.cwm.objectmodel.core.DataType;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>SQL Simple Type</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>SQL Simple Type</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * A simple datatype used with an SQL column. Examples are Integer, Varchar, LOB, CLOB, etc...
@@ -36,13 +34,13 @@ import orgomg.cwm.objectmodel.core.DataType;
  * @generated
  */
 public interface SQLSimpleType extends SQLDataType, DataType {
+
     /**
-     * Returns the value of the '<em><b>Character Maximum Length</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * See [SQL], corresponding field in DATA_TYPE_DESCRIPTOR
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Character Maximum Length</b></em>'
+     * attribute. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> See [SQL], corresponding field in
+     * DATA_TYPE_DESCRIPTOR <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Character Maximum Length</em>' attribute.
      * @see #setCharacterMaximumLength(long)
      * @see orgomg.cwm.resource.relational.RelationalPackage#getSQLSimpleType_CharacterMaximumLength()
@@ -62,12 +60,11 @@ public interface SQLSimpleType extends SQLDataType, DataType {
     void setCharacterMaximumLength(long value);
 
     /**
-     * Returns the value of the '<em><b>Character Octet Length</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * See [SQL], corresponding field in DATA_TYPE_DESCRIPTOR
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Character Octet Length</b></em>'
+     * attribute. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> See [SQL], corresponding field in
+     * DATA_TYPE_DESCRIPTOR <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Character Octet Length</em>' attribute.
      * @see #setCharacterOctetLength(long)
      * @see orgomg.cwm.resource.relational.RelationalPackage#getSQLSimpleType_CharacterOctetLength()
@@ -78,8 +75,8 @@ public interface SQLSimpleType extends SQLDataType, DataType {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.resource.relational.SQLSimpleType#getCharacterOctetLength <em>Character Octet Length</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Character Octet Length</em>' attribute.
      * @see #getCharacterOctetLength()
      * @generated
@@ -88,11 +85,10 @@ public interface SQLSimpleType extends SQLDataType, DataType {
 
     /**
      * Returns the value of the '<em><b>Numeric Precision</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * See [SQL], corresponding field in DATA_TYPE_DESCRIPTOR
-     * <!-- end-model-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * See [SQL], corresponding field in DATA_TYPE_DESCRIPTOR <!-- end-model-doc
+     * -->
+     * 
      * @return the value of the '<em>Numeric Precision</em>' attribute.
      * @see #setNumericPrecision(long)
      * @see orgomg.cwm.resource.relational.RelationalPackage#getSQLSimpleType_NumericPrecision()
@@ -103,8 +99,8 @@ public interface SQLSimpleType extends SQLDataType, DataType {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.resource.relational.SQLSimpleType#getNumericPrecision <em>Numeric Precision</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Numeric Precision</em>' attribute.
      * @see #getNumericPrecision()
      * @generated
@@ -112,12 +108,11 @@ public interface SQLSimpleType extends SQLDataType, DataType {
     void setNumericPrecision(long value);
 
     /**
-     * Returns the value of the '<em><b>Numeric Precision Radix</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * See [SQL], corresponding field in DATA_TYPE_DESCRIPTOR
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Numeric Precision Radix</b></em>'
+     * attribute. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> See [SQL], corresponding field in
+     * DATA_TYPE_DESCRIPTOR <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Numeric Precision Radix</em>' attribute.
      * @see #setNumericPrecisionRadix(long)
      * @see orgomg.cwm.resource.relational.RelationalPackage#getSQLSimpleType_NumericPrecisionRadix()
@@ -137,12 +132,10 @@ public interface SQLSimpleType extends SQLDataType, DataType {
     void setNumericPrecisionRadix(long value);
 
     /**
-     * Returns the value of the '<em><b>Numeric Scale</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * See [SQL], corresponding field in DATA_TYPE_DESCRIPTOR
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Numeric Scale</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> See
+     * [SQL], corresponding field in DATA_TYPE_DESCRIPTOR <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Numeric Scale</em>' attribute.
      * @see #setNumericScale(long)
      * @see orgomg.cwm.resource.relational.RelationalPackage#getSQLSimpleType_NumericScale()
@@ -153,8 +146,8 @@ public interface SQLSimpleType extends SQLDataType, DataType {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.resource.relational.SQLSimpleType#getNumericScale <em>Numeric Scale</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Numeric Scale</em>' attribute.
      * @see #getNumericScale()
      * @generated
@@ -163,11 +156,10 @@ public interface SQLSimpleType extends SQLDataType, DataType {
 
     /**
      * Returns the value of the '<em><b>Date Time Precision</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * See [SQL], corresponding field in DATA_TYPE_DESCRIPTOR
-     * <!-- end-model-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * See [SQL], corresponding field in DATA_TYPE_DESCRIPTOR <!-- end-model-doc
+     * -->
+     * 
      * @return the value of the '<em>Date Time Precision</em>' attribute.
      * @see #setDateTimePrecision(long)
      * @see orgomg.cwm.resource.relational.RelationalPackage#getSQLSimpleType_DateTimePrecision()
@@ -178,8 +170,8 @@ public interface SQLSimpleType extends SQLDataType, DataType {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.resource.relational.SQLSimpleType#getDateTimePrecision <em>Date Time Precision</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Date Time Precision</em>' attribute.
      * @see #getDateTimePrecision()
      * @generated
@@ -190,8 +182,7 @@ public interface SQLSimpleType extends SQLDataType, DataType {
      * Returns the value of the '<em><b>Sql Distinct Type</b></em>' reference list.
      * The list contents are of type {@link orgomg.cwm.resource.relational.SQLDistinctType}.
      * It is bidirectional and its opposite is '{@link orgomg.cwm.resource.relational.SQLDistinctType#getSqlSimpleType <em>Sql Simple Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Distinct types that use this simple type.
      * <!-- end-model-doc -->

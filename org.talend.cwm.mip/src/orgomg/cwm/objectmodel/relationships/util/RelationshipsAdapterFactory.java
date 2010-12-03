@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.objectmodel.relationships.util;
@@ -16,32 +15,32 @@ import orgomg.cwm.objectmodel.core.Feature;
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.Namespace;
 import orgomg.cwm.objectmodel.core.StructuralFeature;
+import orgomg.cwm.objectmodel.relationships.*;
 import orgomg.cwm.objectmodel.relationships.Association;
 import orgomg.cwm.objectmodel.relationships.AssociationEnd;
 import orgomg.cwm.objectmodel.relationships.Generalization;
 import orgomg.cwm.objectmodel.relationships.RelationshipsPackage;
 
 /**
- * <!-- begin-user-doc -->
- * The <b>Adapter Factory</b> for the model.
- * It provides an adapter <code>createXXX</code> method for each class of the model.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> The <b>Adapter Factory</b> for the model. It provides
+ * an adapter <code>createXXX</code> method for each class of the model. <!--
+ * end-user-doc -->
  * @see orgomg.cwm.objectmodel.relationships.RelationshipsPackage
  * @generated
  */
 public class RelationshipsAdapterFactory extends AdapterFactoryImpl {
+
     /**
      * The cached model package.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected static RelationshipsPackage modelPackage;
 
     /**
      * Creates an instance of the adapter factory.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     public RelationshipsAdapterFactory() {
@@ -52,9 +51,9 @@ public class RelationshipsAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Returns whether this factory is applicable for the type of the object.
-     * <!-- begin-user-doc -->
-     * This implementation returns <code>true</code> if the object is either the model's package or is an instance object of the model.
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> This implementation returns <code>true</code> if
+     * the object is either the model's package or is an instance object of the
+     * model. <!-- end-user-doc -->
      * @return whether this factory is applicable for the type of the object.
      * @generated
      */
@@ -64,64 +63,74 @@ public class RelationshipsAdapterFactory extends AdapterFactoryImpl {
             return true;
         }
         if (object instanceof EObject) {
-            return ((EObject)object).eClass().getEPackage() == modelPackage;
+            return ((EObject) object).eClass().getEPackage() == modelPackage;
         }
         return false;
     }
 
     /**
-     * The switch that delegates to the <code>createXXX</code> methods.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The switch that delegates to the <code>createXXX</code> methods. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
-    protected RelationshipsSwitch<Adapter> modelSwitch =
-        new RelationshipsSwitch<Adapter>() {
-            @Override
-            public Adapter caseAssociation(Association object) {
-                return createAssociationAdapter();
-            }
-            @Override
-            public Adapter caseAssociationEnd(AssociationEnd object) {
-                return createAssociationEndAdapter();
-            }
-            @Override
-            public Adapter caseGeneralization(Generalization object) {
-                return createGeneralizationAdapter();
-            }
-            @Override
-            public Adapter caseElement(Element object) {
-                return createElementAdapter();
-            }
-            @Override
-            public Adapter caseModelElement(ModelElement object) {
-                return createModelElementAdapter();
-            }
-            @Override
-            public Adapter caseNamespace(Namespace object) {
-                return createNamespaceAdapter();
-            }
-            @Override
-            public Adapter caseClassifier(Classifier object) {
-                return createClassifierAdapter();
-            }
-            @Override
-            public Adapter caseClass(orgomg.cwm.objectmodel.core.Class object) {
-                return createClassAdapter();
-            }
-            @Override
-            public Adapter caseFeature(Feature object) {
-                return createFeatureAdapter();
-            }
-            @Override
-            public Adapter caseStructuralFeature(StructuralFeature object) {
-                return createStructuralFeatureAdapter();
-            }
-            @Override
-            public Adapter defaultCase(EObject object) {
-                return createEObjectAdapter();
-            }
-        };
+    protected RelationshipsSwitch<Adapter> modelSwitch = new RelationshipsSwitch<Adapter>() {
+
+        @Override
+        public Adapter caseAssociation(Association object) {
+            return createAssociationAdapter();
+        }
+
+        @Override
+        public Adapter caseAssociationEnd(AssociationEnd object) {
+            return createAssociationEndAdapter();
+        }
+
+        @Override
+        public Adapter caseGeneralization(Generalization object) {
+            return createGeneralizationAdapter();
+        }
+
+        @Override
+        public Adapter caseElement(Element object) {
+            return createElementAdapter();
+        }
+
+        @Override
+        public Adapter caseModelElement(ModelElement object) {
+            return createModelElementAdapter();
+        }
+
+        @Override
+        public Adapter caseNamespace(Namespace object) {
+            return createNamespaceAdapter();
+        }
+
+        @Override
+        public Adapter caseClassifier(Classifier object) {
+            return createClassifierAdapter();
+        }
+
+        @Override
+        public Adapter caseClass(orgomg.cwm.objectmodel.core.Class object) {
+            return createClassAdapter();
+        }
+
+        @Override
+        public Adapter caseFeature(Feature object) {
+            return createFeatureAdapter();
+        }
+
+        @Override
+        public Adapter caseStructuralFeature(StructuralFeature object) {
+            return createStructuralFeatureAdapter();
+        }
+
+        @Override
+        public Adapter defaultCase(EObject object) {
+            return createEObjectAdapter();
+        }
+    };
 
     /**
      * Creates an adapter for the <code>target</code>.
@@ -133,15 +142,14 @@ public class RelationshipsAdapterFactory extends AdapterFactoryImpl {
      */
     @Override
     public Adapter createAdapter(Notifier target) {
-        return modelSwitch.doSwitch((EObject)target);
+        return modelSwitch.doSwitch((EObject) target);
     }
-
 
     /**
      * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.relationships.Association <em>Association</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- begin-user-doc --> This default
+     * implementation returns null so that we can easily ignore cases; it's
+     * useful to ignore a case when inheritance will catch all the cases anyway.
      * <!-- end-user-doc -->
      * @return the new adapter.
      * @see orgomg.cwm.objectmodel.relationships.Association
@@ -153,9 +161,9 @@ public class RelationshipsAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.relationships.AssociationEnd <em>Association End</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- begin-user-doc --> This default
+     * implementation returns null so that we can easily ignore cases; it's
+     * useful to ignore a case when inheritance will catch all the cases anyway.
      * <!-- end-user-doc -->
      * @return the new adapter.
      * @see orgomg.cwm.objectmodel.relationships.AssociationEnd
@@ -167,9 +175,9 @@ public class RelationshipsAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.relationships.Generalization <em>Generalization</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- begin-user-doc --> This default
+     * implementation returns null so that we can easily ignore cases; it's
+     * useful to ignore a case when inheritance will catch all the cases anyway.
      * <!-- end-user-doc -->
      * @return the new adapter.
      * @see orgomg.cwm.objectmodel.relationships.Generalization
@@ -180,11 +188,12 @@ public class RelationshipsAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.core.Element <em>Element</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
+     * Creates a new adapter for an object of class '
+     * {@link orgomg.cwm.objectmodel.core.Element <em>Element</em>}'. <!--
+     * begin-user-doc --> This default implementation returns null so that we
+     * can easily ignore cases; it's useful to ignore a case when inheritance
+     * will catch all the cases anyway. <!-- end-user-doc -->
+     * 
      * @return the new adapter.
      * @see orgomg.cwm.objectmodel.core.Element
      * @generated
@@ -195,10 +204,9 @@ public class RelationshipsAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.core.ModelElement <em>Model Element</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> This default implementation returns null so that
+     * we can easily ignore cases; it's useful to ignore a case when inheritance
+     * will catch all the cases anyway. <!-- end-user-doc -->
      * @return the new adapter.
      * @see orgomg.cwm.objectmodel.core.ModelElement
      * @generated
@@ -208,11 +216,12 @@ public class RelationshipsAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.core.Namespace <em>Namespace</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
+     * Creates a new adapter for an object of class '
+     * {@link orgomg.cwm.objectmodel.core.Namespace <em>Namespace</em>}'. <!--
+     * begin-user-doc --> This default implementation returns null so that we
+     * can easily ignore cases; it's useful to ignore a case when inheritance
+     * will catch all the cases anyway. <!-- end-user-doc -->
+     * 
      * @return the new adapter.
      * @see orgomg.cwm.objectmodel.core.Namespace
      * @generated
@@ -222,11 +231,12 @@ public class RelationshipsAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.core.Classifier <em>Classifier</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
+     * Creates a new adapter for an object of class '
+     * {@link orgomg.cwm.objectmodel.core.Classifier <em>Classifier</em>}'. <!--
+     * begin-user-doc --> This default implementation returns null so that we
+     * can easily ignore cases; it's useful to ignore a case when inheritance
+     * will catch all the cases anyway. <!-- end-user-doc -->
+     * 
      * @return the new adapter.
      * @see orgomg.cwm.objectmodel.core.Classifier
      * @generated
@@ -236,11 +246,12 @@ public class RelationshipsAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.core.Class <em>Class</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
+     * Creates a new adapter for an object of class '
+     * {@link orgomg.cwm.objectmodel.core.Class <em>Class</em>}'. <!--
+     * begin-user-doc --> This default implementation returns null so that we
+     * can easily ignore cases; it's useful to ignore a case when inheritance
+     * will catch all the cases anyway. <!-- end-user-doc -->
+     * 
      * @return the new adapter.
      * @see orgomg.cwm.objectmodel.core.Class
      * @generated
@@ -250,11 +261,12 @@ public class RelationshipsAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.core.Feature <em>Feature</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
+     * Creates a new adapter for an object of class '
+     * {@link orgomg.cwm.objectmodel.core.Feature <em>Feature</em>}'. <!--
+     * begin-user-doc --> This default implementation returns null so that we
+     * can easily ignore cases; it's useful to ignore a case when inheritance
+     * will catch all the cases anyway. <!-- end-user-doc -->
+     * 
      * @return the new adapter.
      * @see orgomg.cwm.objectmodel.core.Feature
      * @generated
@@ -265,9 +277,9 @@ public class RelationshipsAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.core.StructuralFeature <em>Structural Feature</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- begin-user-doc --> This default
+     * implementation returns null so that we can easily ignore cases; it's
+     * useful to ignore a case when inheritance will catch all the cases anyway.
      * <!-- end-user-doc -->
      * @return the new adapter.
      * @see orgomg.cwm.objectmodel.core.StructuralFeature
@@ -279,9 +291,8 @@ public class RelationshipsAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Creates a new adapter for the default case.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null.
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> This
+     * default implementation returns null. <!-- end-user-doc -->
      * @return the new adapter.
      * @generated
      */
@@ -289,4 +300,4 @@ public class RelationshipsAdapterFactory extends AdapterFactoryImpl {
         return null;
     }
 
-} //RelationshipsAdapterFactory
+} // RelationshipsAdapterFactory

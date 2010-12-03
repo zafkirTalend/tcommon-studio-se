@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.resource.xml;
@@ -9,9 +8,8 @@ package orgomg.cwm.resource.xml;
 import orgomg.cwm.objectmodel.instance.Extent;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Document</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Document</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * This represents an XML document, which is a collection of XML Elements.

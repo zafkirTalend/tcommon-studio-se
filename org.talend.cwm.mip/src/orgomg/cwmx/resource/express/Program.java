@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.express;
@@ -9,9 +8,8 @@ package orgomg.cwmx.resource.express;
 import orgomg.cwm.foundation.softwaredeployment.Component;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Program</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Program</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * This represents a physical Express program. The interface to the Program may be documented as an Operation associated with the Program.
@@ -30,13 +28,12 @@ import orgomg.cwm.foundation.softwaredeployment.Component;
  * @generated
  */
 public interface Program extends Component {
+
     /**
-     * Returns the value of the '<em><b>Program</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * An Express representation of the Program.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Program</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> An
+     * Express representation of the Program. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Program</em>' attribute.
      * @see #setProgram(String)
      * @see orgomg.cwmx.resource.express.ExpressPackage#getProgram_Program()
@@ -47,8 +44,7 @@ public interface Program extends Component {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.express.Program#getProgram <em>Program</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Program</em>' attribute.
      * @see #getProgram()
      * @generated
@@ -57,11 +53,10 @@ public interface Program extends Component {
 
     /**
      * Returns the value of the '<em><b>Return Dimension</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * If present, this specifies that when the Program is called as a function it returns a value of the named Dimension.
-     * <!-- end-model-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> If
+     * present, this specifies that when the Program is called as a function it
+     * returns a value of the named Dimension. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Return Dimension</em>' attribute.
      * @see #setReturnDimension(String)
      * @see orgomg.cwmx.resource.express.ExpressPackage#getProgram_ReturnDimension()
@@ -72,8 +67,8 @@ public interface Program extends Component {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.express.Program#getReturnDimension <em>Return Dimension</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Return Dimension</em>' attribute.
      * @see #getReturnDimension()
      * @generated

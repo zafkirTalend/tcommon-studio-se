@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.analysis.olap.impl;
@@ -19,9 +18,8 @@ import orgomg.cwm.analysis.olap.OlapPackage;
 import orgomg.cwm.analysis.olap.ValueBasedHierarchy;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Value Based Hierarchy</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Value Based Hierarchy</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -32,10 +30,12 @@ import orgomg.cwm.analysis.olap.ValueBasedHierarchy;
  * @generated
  */
 public class ValueBasedHierarchyImpl extends HierarchyImpl implements ValueBasedHierarchy {
+
     /**
-     * The cached value of the '{@link #getDimensionDeployment() <em>Dimension Deployment</em>}' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getDimensionDeployment()
+     * <em>Dimension Deployment</em>}' containment reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #getDimensionDeployment()
      * @generated
      * @ordered
@@ -43,8 +43,7 @@ public class ValueBasedHierarchyImpl extends HierarchyImpl implements ValueBased
     protected EList<DimensionDeployment> dimensionDeployment;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected ValueBasedHierarchyImpl() {
@@ -52,8 +51,7 @@ public class ValueBasedHierarchyImpl extends HierarchyImpl implements ValueBased
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -62,104 +60,99 @@ public class ValueBasedHierarchyImpl extends HierarchyImpl implements ValueBased
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<DimensionDeployment> getDimensionDeployment() {
         if (dimensionDeployment == null) {
-            dimensionDeployment = new EObjectContainmentWithInverseEList<DimensionDeployment>(DimensionDeployment.class, this, OlapPackage.VALUE_BASED_HIERARCHY__DIMENSION_DEPLOYMENT, OlapPackage.DIMENSION_DEPLOYMENT__VALUE_BASED_HIERARCHY);
+            dimensionDeployment = new EObjectContainmentWithInverseEList<DimensionDeployment>(DimensionDeployment.class, this,
+                    OlapPackage.VALUE_BASED_HIERARCHY__DIMENSION_DEPLOYMENT,
+                    OlapPackage.DIMENSION_DEPLOYMENT__VALUE_BASED_HIERARCHY);
         }
         return dimensionDeployment;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case OlapPackage.VALUE_BASED_HIERARCHY__DIMENSION_DEPLOYMENT:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getDimensionDeployment()).basicAdd(otherEnd, msgs);
+        case OlapPackage.VALUE_BASED_HIERARCHY__DIMENSION_DEPLOYMENT:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getDimensionDeployment()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case OlapPackage.VALUE_BASED_HIERARCHY__DIMENSION_DEPLOYMENT:
-                return ((InternalEList<?>)getDimensionDeployment()).basicRemove(otherEnd, msgs);
+        case OlapPackage.VALUE_BASED_HIERARCHY__DIMENSION_DEPLOYMENT:
+            return ((InternalEList<?>) getDimensionDeployment()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case OlapPackage.VALUE_BASED_HIERARCHY__DIMENSION_DEPLOYMENT:
-                return getDimensionDeployment();
+        case OlapPackage.VALUE_BASED_HIERARCHY__DIMENSION_DEPLOYMENT:
+            return getDimensionDeployment();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case OlapPackage.VALUE_BASED_HIERARCHY__DIMENSION_DEPLOYMENT:
-                getDimensionDeployment().clear();
-                getDimensionDeployment().addAll((Collection<? extends DimensionDeployment>)newValue);
-                return;
+        case OlapPackage.VALUE_BASED_HIERARCHY__DIMENSION_DEPLOYMENT:
+            getDimensionDeployment().clear();
+            getDimensionDeployment().addAll((Collection<? extends DimensionDeployment>) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case OlapPackage.VALUE_BASED_HIERARCHY__DIMENSION_DEPLOYMENT:
-                getDimensionDeployment().clear();
-                return;
+        case OlapPackage.VALUE_BASED_HIERARCHY__DIMENSION_DEPLOYMENT:
+            getDimensionDeployment().clear();
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case OlapPackage.VALUE_BASED_HIERARCHY__DIMENSION_DEPLOYMENT:
-                return dimensionDeployment != null && !dimensionDeployment.isEmpty();
+        case OlapPackage.VALUE_BASED_HIERARCHY__DIMENSION_DEPLOYMENT:
+            return dimensionDeployment != null && !dimensionDeployment.isEmpty();
         }
         return super.eIsSet(featureID);
     }
 
-} //ValueBasedHierarchyImpl
+} // ValueBasedHierarchyImpl

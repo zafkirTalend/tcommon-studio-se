@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.mof.model;
@@ -12,9 +11,8 @@ import orgomg.cwmmip.ModeledGraphSubset;
 import orgomg.cwmmip.ModeledSemanticContext;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Element</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Element</b></em>'. <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
@@ -30,14 +28,15 @@ import orgomg.cwmmip.ModeledSemanticContext;
  * @generated
  */
 public interface ModelElement extends EObject {
+
     /**
      * Returns the value of the '<em><b>Modeled Graph Subset</b></em>' reference list.
      * The list contents are of type {@link orgomg.cwmmip.ModeledGraphSubset}.
      * It is bidirectional and its opposite is '{@link orgomg.cwmmip.ModeledGraphSubset#getMofElement <em>Mof Element</em>}'.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Modeled Graph Subset</em>' reference list isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of the '<em>Modeled Graph Subset</em>' reference list
+     * isn't clear, there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Modeled Graph Subset</em>' reference list.
@@ -54,8 +53,8 @@ public interface ModelElement extends EObject {
      * It is bidirectional and its opposite is '{@link orgomg.cwmmip.ModeledSemanticContext#getMofElement <em>Mof Element</em>}'.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Modeled Projection</em>' reference list isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of the '<em>Modeled Projection</em>' reference list isn't
+     * clear, there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Modeled Projection</em>' reference list.
@@ -72,8 +71,8 @@ public interface ModelElement extends EObject {
      * It is bidirectional and its opposite is '{@link orgomg.cwmmip.ModeledSemanticContext#getMofAnchorElement <em>Mof Anchor Element</em>}'.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Modeled Semantic Context</em>' reference list isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of the '<em>Modeled Semantic Context</em>' reference list
+     * isn't clear, there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Modeled Semantic Context</em>' reference list.

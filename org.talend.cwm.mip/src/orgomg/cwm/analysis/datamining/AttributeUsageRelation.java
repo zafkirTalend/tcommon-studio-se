@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.analysis.datamining;
@@ -9,9 +8,8 @@ package orgomg.cwm.analysis.datamining;
 import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Attribute Usage Relation</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Attribute Usage Relation</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * Parameters for mining activities that are specific for an attribute. Mining attribute usage is intended as a specification apart from the mining input specification itself to enable reuse of the mining input specification for different mining settings.
@@ -34,14 +32,15 @@ import orgomg.cwm.objectmodel.core.ModelElement;
  * @generated
  */
 public interface AttributeUsageRelation extends ModelElement {
+
     /**
-     * Returns the value of the '<em><b>Usage Type</b></em>' attribute.
-     * The literals are from the enumeration {@link orgomg.cwm.analysis.datamining.AttributeUsage}.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Indicates how the attribute is used by the mining function.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Usage Type</b></em>' attribute. The
+     * literals are from the enumeration
+     * {@link orgomg.cwm.analysis.datamining.AttributeUsage}. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * Indicates how the attribute is used by the mining function. <!--
+     * end-model-doc -->
+     * 
      * @return the value of the '<em>Usage Type</em>' attribute.
      * @see orgomg.cwm.analysis.datamining.AttributeUsage
      * @see #setUsageType(AttributeUsage)
@@ -53,8 +52,8 @@ public interface AttributeUsageRelation extends ModelElement {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.analysis.datamining.AttributeUsageRelation#getUsageType <em>Usage Type</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Usage Type</em>' attribute.
      * @see orgomg.cwm.analysis.datamining.AttributeUsage
      * @see #getUsageType()
@@ -63,12 +62,11 @@ public interface AttributeUsageRelation extends ModelElement {
     void setUsageType(AttributeUsage value);
 
     /**
-     * Returns the value of the '<em><b>Include In Apply Result</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Indicates whether the attribute is included in the output.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Include In Apply Result</b></em>'
+     * attribute. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> Indicates whether the attribute is included in the
+     * output. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Include In Apply Result</em>' attribute.
      * @see #setIncludeInApplyResult(boolean)
      * @see orgomg.cwm.analysis.datamining.DataminingPackage#getAttributeUsageRelation_IncludeInApplyResult()
@@ -88,12 +86,10 @@ public interface AttributeUsageRelation extends ModelElement {
     void setIncludeInApplyResult(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Weight</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Relative weight of the attribute.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Weight</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * Relative weight of the attribute. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Weight</em>' attribute.
      * @see #setWeight(String)
      * @see orgomg.cwm.analysis.datamining.DataminingPackage#getAttributeUsageRelation_Weight()
@@ -103,22 +99,24 @@ public interface AttributeUsageRelation extends ModelElement {
     String getWeight();
 
     /**
-     * Sets the value of the '{@link orgomg.cwm.analysis.datamining.AttributeUsageRelation#getWeight <em>Weight</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Weight</em>' attribute.
+     * Sets the value of the '
+     * {@link orgomg.cwm.analysis.datamining.AttributeUsageRelation#getWeight
+     * <em>Weight</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @param value
+     *            the new value of the '<em>Weight</em>' attribute.
      * @see #getWeight()
      * @generated
      */
     void setWeight(String value);
 
     /**
-     * Returns the value of the '<em><b>Suppress Normalization</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Indicates whether normalization is to be suppressed.
+     * Returns the value of the '<em><b>Suppress Normalization</b></em>'
+     * attribute. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> Indicates whether normalization is to be suppressed.
      * <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Suppress Normalization</em>' attribute.
      * @see #setSuppressNormalization(boolean)
      * @see orgomg.cwm.analysis.datamining.DataminingPackage#getAttributeUsageRelation_SuppressNormalization()
@@ -129,8 +127,8 @@ public interface AttributeUsageRelation extends ModelElement {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.analysis.datamining.AttributeUsageRelation#isSuppressNormalization <em>Suppress Normalization</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Suppress Normalization</em>' attribute.
      * @see #isSuppressNormalization()
      * @generated
@@ -140,8 +138,7 @@ public interface AttributeUsageRelation extends ModelElement {
     /**
      * Returns the value of the '<em><b>Settings</b></em>' container reference.
      * It is bidirectional and its opposite is '{@link orgomg.cwm.analysis.datamining.MiningSettings#getAttributeUsage <em>Attribute Usage</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * The Settings owning AttributeUsageRelations.
      * <!-- end-model-doc -->
@@ -156,8 +153,8 @@ public interface AttributeUsageRelation extends ModelElement {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.analysis.datamining.AttributeUsageRelation#getSettings <em>Settings</em>}' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Settings</em>' container reference.
      * @see #getSettings()
      * @generated
@@ -167,8 +164,7 @@ public interface AttributeUsageRelation extends ModelElement {
     /**
      * Returns the value of the '<em><b>Attribute</b></em>' reference.
      * It is bidirectional and its opposite is '{@link orgomg.cwm.analysis.datamining.MiningAttribute#getAttributeUsage <em>Attribute Usage</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * The MiningAttribute referenced by AttributeUsageRelations
      * <!-- end-model-doc -->
@@ -182,10 +178,13 @@ public interface AttributeUsageRelation extends ModelElement {
     MiningAttribute getAttribute();
 
     /**
-     * Sets the value of the '{@link orgomg.cwm.analysis.datamining.AttributeUsageRelation#getAttribute <em>Attribute</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Attribute</em>' reference.
+     * Sets the value of the '
+     * {@link orgomg.cwm.analysis.datamining.AttributeUsageRelation#getAttribute
+     * <em>Attribute</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @param value
+     *            the new value of the '<em>Attribute</em>' reference.
      * @see #getAttribute()
      * @generated
      */

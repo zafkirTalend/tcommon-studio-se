@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.foundation.softwaredeployment.impl;
@@ -11,6 +10,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import orgomg.cwm.foundation.softwaredeployment.*;
 import orgomg.cwm.foundation.softwaredeployment.Component;
 import orgomg.cwm.foundation.softwaredeployment.DataManager;
 import orgomg.cwm.foundation.softwaredeployment.DataProvider;
@@ -25,26 +25,26 @@ import orgomg.cwm.foundation.softwaredeployment.SoftwaredeploymentFactory;
 import orgomg.cwm.foundation.softwaredeployment.SoftwaredeploymentPackage;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model <b>Factory</b>.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!--
+ * end-user-doc -->
  * @generated
  */
 public class SoftwaredeploymentFactoryImpl extends EFactoryImpl implements SoftwaredeploymentFactory {
+
     /**
      * Creates the default factory implementation.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     public static SoftwaredeploymentFactory init() {
         try {
-            SoftwaredeploymentFactory theSoftwaredeploymentFactory = (SoftwaredeploymentFactory)EPackage.Registry.INSTANCE.getEFactory("http:///orgomg/cwm/foundation/softwaredeployment.ecore"); 
+            SoftwaredeploymentFactory theSoftwaredeploymentFactory = (SoftwaredeploymentFactory) EPackage.Registry.INSTANCE
+                    .getEFactory("http:///orgomg/cwm/foundation/softwaredeployment.ecore");
             if (theSoftwaredeploymentFactory != null) {
                 return theSoftwaredeploymentFactory;
             }
-        }
-        catch (Exception exception) {
+        } catch (Exception exception) {
             EcorePlugin.INSTANCE.log(exception);
         }
         return new SoftwaredeploymentFactoryImpl();
@@ -52,8 +52,8 @@ public class SoftwaredeploymentFactoryImpl extends EFactoryImpl implements Softw
 
     /**
      * Creates an instance of the factory.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     public SoftwaredeploymentFactoryImpl() {
@@ -61,31 +61,39 @@ public class SoftwaredeploymentFactoryImpl extends EFactoryImpl implements Softw
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public EObject create(EClass eClass) {
         switch (eClass.getClassifierID()) {
-            case SoftwaredeploymentPackage.SITE: return createSite();
-            case SoftwaredeploymentPackage.MACHINE: return createMachine();
-            case SoftwaredeploymentPackage.SOFTWARE_SYSTEM: return createSoftwareSystem();
-            case SoftwaredeploymentPackage.DEPLOYED_COMPONENT: return createDeployedComponent();
-            case SoftwaredeploymentPackage.DEPLOYED_SOFTWARE_SYSTEM: return createDeployedSoftwareSystem();
-            case SoftwaredeploymentPackage.DATA_MANAGER: return createDataManager();
-            case SoftwaredeploymentPackage.DATA_PROVIDER: return createDataProvider();
-            case SoftwaredeploymentPackage.PROVIDER_CONNECTION: return createProviderConnection();
-            case SoftwaredeploymentPackage.COMPONENT: return createComponent();
-            case SoftwaredeploymentPackage.PACKAGE_USAGE: return createPackageUsage();
-            default:
-                throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+        case SoftwaredeploymentPackage.SITE:
+            return createSite();
+        case SoftwaredeploymentPackage.MACHINE:
+            return createMachine();
+        case SoftwaredeploymentPackage.SOFTWARE_SYSTEM:
+            return createSoftwareSystem();
+        case SoftwaredeploymentPackage.DEPLOYED_COMPONENT:
+            return createDeployedComponent();
+        case SoftwaredeploymentPackage.DEPLOYED_SOFTWARE_SYSTEM:
+            return createDeployedSoftwareSystem();
+        case SoftwaredeploymentPackage.DATA_MANAGER:
+            return createDataManager();
+        case SoftwaredeploymentPackage.DATA_PROVIDER:
+            return createDataProvider();
+        case SoftwaredeploymentPackage.PROVIDER_CONNECTION:
+            return createProviderConnection();
+        case SoftwaredeploymentPackage.COMPONENT:
+            return createComponent();
+        case SoftwaredeploymentPackage.PACKAGE_USAGE:
+            return createPackageUsage();
+        default:
+            throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Site createSite() {
@@ -94,8 +102,7 @@ public class SoftwaredeploymentFactoryImpl extends EFactoryImpl implements Softw
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Machine createMachine() {
@@ -104,8 +111,7 @@ public class SoftwaredeploymentFactoryImpl extends EFactoryImpl implements Softw
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public SoftwareSystem createSoftwareSystem() {
@@ -114,8 +120,7 @@ public class SoftwaredeploymentFactoryImpl extends EFactoryImpl implements Softw
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public DeployedComponent createDeployedComponent() {
@@ -124,8 +129,7 @@ public class SoftwaredeploymentFactoryImpl extends EFactoryImpl implements Softw
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public DeployedSoftwareSystem createDeployedSoftwareSystem() {
@@ -134,8 +138,7 @@ public class SoftwaredeploymentFactoryImpl extends EFactoryImpl implements Softw
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public DataManager createDataManager() {
@@ -144,8 +147,7 @@ public class SoftwaredeploymentFactoryImpl extends EFactoryImpl implements Softw
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public DataProvider createDataProvider() {
@@ -154,8 +156,7 @@ public class SoftwaredeploymentFactoryImpl extends EFactoryImpl implements Softw
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public ProviderConnection createProviderConnection() {
@@ -164,8 +165,7 @@ public class SoftwaredeploymentFactoryImpl extends EFactoryImpl implements Softw
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Component createComponent() {
@@ -174,8 +174,7 @@ public class SoftwaredeploymentFactoryImpl extends EFactoryImpl implements Softw
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public PackageUsage createPackageUsage() {
@@ -184,17 +183,15 @@ public class SoftwaredeploymentFactoryImpl extends EFactoryImpl implements Softw
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public SoftwaredeploymentPackage getSoftwaredeploymentPackage() {
-        return (SoftwaredeploymentPackage)getEPackage();
+        return (SoftwaredeploymentPackage) getEPackage();
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @deprecated
      * @generated
      */
@@ -203,4 +200,4 @@ public class SoftwaredeploymentFactoryImpl extends EFactoryImpl implements Softw
         return SoftwaredeploymentPackage.eINSTANCE;
     }
 
-} //SoftwaredeploymentFactoryImpl
+} // SoftwaredeploymentFactoryImpl

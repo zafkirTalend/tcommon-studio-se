@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.resource.xml;
@@ -10,9 +9,8 @@ import org.eclipse.emf.common.util.EList;
 import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Content</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Content</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * This represents the content model of an ElementType. In XML, each document contains one or more elements, the boundaries of which are normally delimited by start-tags and end-tags. The body between the start-tag and end-tag is called the element?s content. An element type declaration constrains the element?s content.
@@ -33,14 +31,13 @@ import orgomg.cwm.objectmodel.core.ModelElement;
  * @generated
  */
 public interface Content extends ModelElement {
+
     /**
-     * Returns the value of the '<em><b>Type</b></em>' attribute.
-     * The literals are from the enumeration {@link orgomg.cwm.resource.xml.ContentType}.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the type of the content model.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Type</b></em>' attribute. The literals
+     * are from the enumeration {@link orgomg.cwm.resource.xml.ContentType}.
+     * <!-- begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * Identifies the type of the content model. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Type</em>' attribute.
      * @see orgomg.cwm.resource.xml.ContentType
      * @see #setType(ContentType)
@@ -52,8 +49,7 @@ public interface Content extends ModelElement {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.resource.xml.Content#getType <em>Type</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Type</em>' attribute.
      * @see orgomg.cwm.resource.xml.ContentType
      * @see #getType()
@@ -62,13 +58,12 @@ public interface Content extends ModelElement {
     void setType(ContentType value);
 
     /**
-     * Returns the value of the '<em><b>Occurrence</b></em>' attribute.
-     * The literals are from the enumeration {@link orgomg.cwm.resource.xml.OccurrenceType}.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the allowed occurrence of the content constituents.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Occurrence</b></em>' attribute. The
+     * literals are from the enumeration
+     * {@link orgomg.cwm.resource.xml.OccurrenceType}. <!-- begin-user-doc -->
+     * <!-- end-user-doc --> <!-- begin-model-doc --> Identifies the allowed
+     * occurrence of the content constituents. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Occurrence</em>' attribute.
      * @see orgomg.cwm.resource.xml.OccurrenceType
      * @see #setOccurrence(OccurrenceType)
@@ -80,8 +75,7 @@ public interface Content extends ModelElement {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.resource.xml.Content#getOccurrence <em>Occurrence</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Occurrence</em>' attribute.
      * @see orgomg.cwm.resource.xml.OccurrenceType
      * @see #getOccurrence()
@@ -91,13 +85,12 @@ public interface Content extends ModelElement {
 
     /**
      * Returns the value of the '<em><b>Element Type</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwm.resource.xml.ElementType}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.resource.xml.ElementType#getContent <em>Content</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the ElementType.
-     * <!-- end-model-doc -->
+     * The list contents are of type {@link orgomg.cwm.resource.xml.ElementType}
+     * . It is bidirectional and its opposite is '
+     * {@link orgomg.cwm.resource.xml.ElementType#getContent <em>Content</em>}'.
+     * <!-- begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * Identifies the ElementType. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Element Type</em>' reference list.
      * @see orgomg.cwm.resource.xml.XmlPackage#getContent_ElementType()
      * @see orgomg.cwm.resource.xml.ElementType#getContent
@@ -110,8 +103,7 @@ public interface Content extends ModelElement {
      * Returns the value of the '<em><b>Owned Element Type</b></em>' reference list.
      * The list contents are of type {@link orgomg.cwm.resource.xml.ElementTypeReference}.
      * It is bidirectional and its opposite is '{@link orgomg.cwm.resource.xml.ElementTypeReference#getOwnerContent <em>Owner Content</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Identifies the owned ElementTypeReferences.
      * <!-- end-model-doc -->

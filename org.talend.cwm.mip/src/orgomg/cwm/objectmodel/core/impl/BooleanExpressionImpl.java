@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.objectmodel.core.impl;
@@ -11,18 +10,17 @@ import orgomg.cwm.objectmodel.core.BooleanExpression;
 import orgomg.cwm.objectmodel.core.CorePackage;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Boolean Expression</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Boolean Expression</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
 public class BooleanExpressionImpl extends ExpressionImpl implements BooleanExpression {
+
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected BooleanExpressionImpl() {
@@ -30,8 +28,7 @@ public class BooleanExpressionImpl extends ExpressionImpl implements BooleanExpr
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -39,4 +36,4 @@ public class BooleanExpressionImpl extends ExpressionImpl implements BooleanExpr
         return CorePackage.Literals.BOOLEAN_EXPRESSION;
     }
 
-} //BooleanExpressionImpl
+} // BooleanExpressionImpl

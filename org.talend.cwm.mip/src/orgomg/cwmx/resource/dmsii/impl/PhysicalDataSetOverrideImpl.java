@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.dmsii.impl;
@@ -12,18 +11,17 @@ import orgomg.cwmx.resource.dmsii.DmsiiPackage;
 import orgomg.cwmx.resource.dmsii.PhysicalDataSetOverride;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Physical Data Set Override</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Physical Data Set Override</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
 public class PhysicalDataSetOverrideImpl extends FeatureImpl implements PhysicalDataSetOverride {
+
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected PhysicalDataSetOverrideImpl() {
@@ -31,8 +29,7 @@ public class PhysicalDataSetOverrideImpl extends FeatureImpl implements Physical
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -40,4 +37,4 @@ public class PhysicalDataSetOverrideImpl extends FeatureImpl implements Physical
         return DmsiiPackage.Literals.PHYSICAL_DATA_SET_OVERRIDE;
     }
 
-} //PhysicalDataSetOverrideImpl
+} // PhysicalDataSetOverrideImpl

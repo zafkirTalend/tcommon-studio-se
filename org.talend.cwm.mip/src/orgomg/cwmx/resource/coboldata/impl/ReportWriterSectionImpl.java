@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.coboldata.impl;
@@ -11,18 +10,17 @@ import orgomg.cwmx.resource.coboldata.CoboldataPackage;
 import orgomg.cwmx.resource.coboldata.ReportWriterSection;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Report Writer Section</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Report Writer Section</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
 public class ReportWriterSectionImpl extends SectionImpl implements ReportWriterSection {
+
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected ReportWriterSectionImpl() {
@@ -30,8 +28,7 @@ public class ReportWriterSectionImpl extends SectionImpl implements ReportWriter
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -39,4 +36,4 @@ public class ReportWriterSectionImpl extends SectionImpl implements ReportWriter
         return CoboldataPackage.Literals.REPORT_WRITER_SECTION;
     }
 
-} //ReportWriterSectionImpl
+} // ReportWriterSectionImpl

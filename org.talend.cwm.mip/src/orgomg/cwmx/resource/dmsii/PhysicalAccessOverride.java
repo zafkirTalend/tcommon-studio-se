@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.dmsii;
@@ -9,9 +8,8 @@ package orgomg.cwmx.resource.dmsii;
 import orgomg.cwm.objectmodel.core.Feature;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Physical Access Override</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Physical Access Override</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * Collects together DASDLProperty instances associate with a physical access specification in the DASDL source.

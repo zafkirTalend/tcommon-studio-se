@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.express;
@@ -9,9 +8,8 @@ package orgomg.cwmx.resource.express;
 import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Agg Map Component</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Agg Map Component</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * This represents a component of an Express aggregation map.
@@ -33,13 +31,13 @@ import orgomg.cwm.objectmodel.core.ModelElement;
  * @generated
  */
 public interface AggMapComponent extends ModelElement {
+
     /**
-     * Returns the value of the '<em><b>Agg Operator</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * A text expression indicating the type of aggregate operation.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Agg Operator</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> A text
+     * expression indicating the type of aggregate operation. <!-- end-model-doc
+     * -->
+     * 
      * @return the value of the '<em>Agg Operator</em>' attribute.
      * @see #setAggOperator(String)
      * @see orgomg.cwmx.resource.express.ExpressPackage#getAggMapComponent_AggOperator()
@@ -50,8 +48,8 @@ public interface AggMapComponent extends ModelElement {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.express.AggMapComponent#getAggOperator <em>Agg Operator</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Agg Operator</em>' attribute.
      * @see #getAggOperator()
      * @generated
@@ -59,13 +57,13 @@ public interface AggMapComponent extends ModelElement {
     void setAggOperator(String value);
 
     /**
-     * Returns the value of the '<em><b>Relation</b></em>' reference.
-     * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.express.Relation#getAggMapComponent <em>Agg Map Component</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the Relation used by the AggMapComponent.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Relation</b></em>' reference. It is
+     * bidirectional and its opposite is '
+     * {@link orgomg.cwmx.resource.express.Relation#getAggMapComponent
+     * <em>Agg Map Component</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * --> <!-- begin-model-doc --> Identifies the Relation used by the
+     * AggMapComponent. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Relation</em>' reference.
      * @see #setRelation(Relation)
      * @see orgomg.cwmx.resource.express.ExpressPackage#getAggMapComponent_Relation()
@@ -76,23 +74,26 @@ public interface AggMapComponent extends ModelElement {
     Relation getRelation();
 
     /**
-     * Sets the value of the '{@link orgomg.cwmx.resource.express.AggMapComponent#getRelation <em>Relation</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Relation</em>' reference.
+     * Sets the value of the '
+     * {@link orgomg.cwmx.resource.express.AggMapComponent#getRelation
+     * <em>Relation</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @param value
+     *            the new value of the '<em>Relation</em>' reference.
      * @see #getRelation()
      * @generated
      */
     void setRelation(Relation value);
 
     /**
-     * Returns the value of the '<em><b>Dimension</b></em>' reference.
-     * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.express.Dimension#getAggMapComponent <em>Agg Map Component</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the Dimension associated with the AggMapComponent.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Dimension</b></em>' reference. It is
+     * bidirectional and its opposite is '
+     * {@link orgomg.cwmx.resource.express.Dimension#getAggMapComponent
+     * <em>Agg Map Component</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * --> <!-- begin-model-doc --> Identifies the Dimension associated with the
+     * AggMapComponent. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Dimension</em>' reference.
      * @see #setDimension(Dimension)
      * @see orgomg.cwmx.resource.express.ExpressPackage#getAggMapComponent_Dimension()
@@ -103,23 +104,26 @@ public interface AggMapComponent extends ModelElement {
     Dimension getDimension();
 
     /**
-     * Sets the value of the '{@link orgomg.cwmx.resource.express.AggMapComponent#getDimension <em>Dimension</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Dimension</em>' reference.
+     * Sets the value of the '
+     * {@link orgomg.cwmx.resource.express.AggMapComponent#getDimension
+     * <em>Dimension</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @param value
+     *            the new value of the '<em>Dimension</em>' reference.
      * @see #getDimension()
      * @generated
      */
     void setDimension(Dimension value);
 
     /**
-     * Returns the value of the '<em><b>Compute Clause</b></em>' containment reference.
-     * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.express.PreComputeClause#getAggMapComponent <em>Agg Map Component</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the PreComputeClause associated with the AggMapComponent.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Compute Clause</b></em>' containment
+     * reference. It is bidirectional and its opposite is '
+     * {@link orgomg.cwmx.resource.express.PreComputeClause#getAggMapComponent
+     * <em>Agg Map Component</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * --> <!-- begin-model-doc --> Identifies the PreComputeClause associated
+     * with the AggMapComponent. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Compute Clause</em>' containment reference.
      * @see #setComputeClause(PreComputeClause)
      * @see orgomg.cwmx.resource.express.ExpressPackage#getAggMapComponent_ComputeClause()
@@ -141,12 +145,12 @@ public interface AggMapComponent extends ModelElement {
 
     /**
      * Returns the value of the '<em><b>Agg Map</b></em>' container reference.
-     * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.express.AggMap#getAggMapComponent <em>Agg Map Component</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the AggMap.
-     * <!-- end-model-doc -->
+     * It is bidirectional and its opposite is '
+     * {@link orgomg.cwmx.resource.express.AggMap#getAggMapComponent
+     * <em>Agg Map Component</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * --> <!-- begin-model-doc --> Identifies the AggMap. <!-- end-model-doc
+     * -->
+     * 
      * @return the value of the '<em>Agg Map</em>' container reference.
      * @see #setAggMap(AggMap)
      * @see orgomg.cwmx.resource.express.ExpressPackage#getAggMapComponent_AggMap()
@@ -158,8 +162,8 @@ public interface AggMapComponent extends ModelElement {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.express.AggMapComponent#getAggMap <em>Agg Map</em>}' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Agg Map</em>' container reference.
      * @see #getAggMap()
      * @generated

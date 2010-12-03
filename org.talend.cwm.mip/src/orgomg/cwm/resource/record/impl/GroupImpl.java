@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.resource.record.impl;
@@ -12,18 +11,17 @@ import orgomg.cwm.resource.record.Group;
 import orgomg.cwm.resource.record.RecordPackage;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Group</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Group</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
 public class GroupImpl extends ClassifierImpl implements Group {
+
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected GroupImpl() {
@@ -31,8 +29,7 @@ public class GroupImpl extends ClassifierImpl implements Group {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -40,4 +37,4 @@ public class GroupImpl extends ClassifierImpl implements Group {
         return RecordPackage.Literals.GROUP;
     }
 
-} //GroupImpl
+} // GroupImpl

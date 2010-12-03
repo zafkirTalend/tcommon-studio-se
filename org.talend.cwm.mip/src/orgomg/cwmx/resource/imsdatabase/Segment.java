@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.imsdatabase;
@@ -12,9 +11,8 @@ import orgomg.cwmx.resource.imsdatabase.imstypes.ChildPointerType;
 import orgomg.cwmx.resource.imsdatabase.imstypes.RulesType;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Segment</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Segment</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * An instance of this object class represents a segment within a DBD user object. A segment is the IMS-view of a data structure that maps the fields in the segment.
@@ -45,13 +43,15 @@ import orgomg.cwmx.resource.imsdatabase.imstypes.RulesType;
  * @generated
  */
 public interface Segment extends RecordDef {
+
     /**
-     * Returns the value of the '<em><b>Exit Flag</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * This attribute is a flag to indicate whether a segment will use the data capture exits specified on the DBD. A valid of FALSE maps to use of EXIT=NONE parameter on the SEGM macro. This flag has no meaning when exits points to any instances of PropagatedBy.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Exit Flag</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> This
+     * attribute is a flag to indicate whether a segment will use the data
+     * capture exits specified on the DBD. A valid of FALSE maps to use of
+     * EXIT=NONE parameter on the SEGM macro. This flag has no meaning when
+     * exits points to any instances of PropagatedBy. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Exit Flag</em>' attribute.
      * @see #setExitFlag(boolean)
      * @see orgomg.cwmx.resource.imsdatabase.ImsdatabasePackage#getSegment_ExitFlag()
@@ -61,22 +61,24 @@ public interface Segment extends RecordDef {
     boolean isExitFlag();
 
     /**
-     * Sets the value of the '{@link orgomg.cwmx.resource.imsdatabase.Segment#isExitFlag <em>Exit Flag</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Exit Flag</em>' attribute.
+     * Sets the value of the '
+     * {@link orgomg.cwmx.resource.imsdatabase.Segment#isExitFlag
+     * <em>Exit Flag</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @param value
+     *            the new value of the '<em>Exit Flag</em>' attribute.
      * @see #isExitFlag()
      * @generated
      */
     void setExitFlag(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Frequency</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * This attribute holds estimated number of times that this segment will occur for each occurrence of its physical parent.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Frequency</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> This
+     * attribute holds estimated number of times that this segment will occur
+     * for each occurrence of its physical parent. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Frequency</em>' attribute.
      * @see #setFrequency(String)
      * @see orgomg.cwmx.resource.imsdatabase.ImsdatabasePackage#getSegment_Frequency()
@@ -86,22 +88,24 @@ public interface Segment extends RecordDef {
     String getFrequency();
 
     /**
-     * Sets the value of the '{@link orgomg.cwmx.resource.imsdatabase.Segment#getFrequency <em>Frequency</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Frequency</em>' attribute.
+     * Sets the value of the '
+     * {@link orgomg.cwmx.resource.imsdatabase.Segment#getFrequency
+     * <em>Frequency</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @param value
+     *            the new value of the '<em>Frequency</em>' attribute.
      * @see #getFrequency()
      * @generated
      */
     void setFrequency(String value);
 
     /**
-     * Returns the value of the '<em><b>Maximum Length</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * This attribute holds the length of a fixed-length segment, or the maximum length of a variable length segment.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Maximum Length</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> This
+     * attribute holds the length of a fixed-length segment, or the maximum
+     * length of a variable length segment. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Maximum Length</em>' attribute.
      * @see #setMaximumLength(long)
      * @see orgomg.cwmx.resource.imsdatabase.ImsdatabasePackage#getSegment_MaximumLength()
@@ -112,8 +116,8 @@ public interface Segment extends RecordDef {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.imsdatabase.Segment#getMaximumLength <em>Maximum Length</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Maximum Length</em>' attribute.
      * @see #getMaximumLength()
      * @generated
@@ -121,12 +125,11 @@ public interface Segment extends RecordDef {
     void setMaximumLength(long value);
 
     /**
-     * Returns the value of the '<em><b>Minimum Length</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * This attribute holds the minimum length of a variable length segment.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Minimum Length</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> This
+     * attribute holds the minimum length of a variable length segment. <!--
+     * end-model-doc -->
+     * 
      * @return the value of the '<em>Minimum Length</em>' attribute.
      * @see #setMinimumLength(long)
      * @see orgomg.cwmx.resource.imsdatabase.ImsdatabasePackage#getSegment_MinimumLength()
@@ -137,8 +140,8 @@ public interface Segment extends RecordDef {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.imsdatabase.Segment#getMinimumLength <em>Minimum Length</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Minimum Length</em>' attribute.
      * @see #getMinimumLength()
      * @generated
@@ -146,13 +149,13 @@ public interface Segment extends RecordDef {
     void setMinimumLength(long value);
 
     /**
-     * Returns the value of the '<em><b>Rules</b></em>' attribute.
-     * The literals are from the enumeration {@link orgomg.cwmx.resource.imsdatabase.imstypes.RulesType}.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * This attributes holds the value that indicates where to place new occurrences of this segment type in the physical database.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Rules</b></em>' attribute. The literals
+     * are from the enumeration
+     * {@link orgomg.cwmx.resource.imsdatabase.imstypes.RulesType}. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> This
+     * attributes holds the value that indicates where to place new occurrences
+     * of this segment type in the physical database. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Rules</em>' attribute.
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.RulesType
      * @see #setRules(RulesType)
@@ -164,8 +167,7 @@ public interface Segment extends RecordDef {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.imsdatabase.Segment#getRules <em>Rules</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Rules</em>' attribute.
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.RulesType
      * @see #getRules()
@@ -175,11 +177,10 @@ public interface Segment extends RecordDef {
 
     /**
      * Returns the value of the '<em><b>Subset Pointers</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * This attribute holds the number of subset pointers in a direct dependent segment in a DEDB DBD. Valid values are 0-8.
-     * <!-- end-model-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * This attribute holds the number of subset pointers in a direct dependent
+     * segment in a DEDB DBD. Valid values are 0-8. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Subset Pointers</em>' attribute.
      * @see #setSubsetPointers(String)
      * @see orgomg.cwmx.resource.imsdatabase.ImsdatabasePackage#getSegment_SubsetPointers()
@@ -190,8 +191,8 @@ public interface Segment extends RecordDef {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.imsdatabase.Segment#getSubsetPointers <em>Subset Pointers</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Subset Pointers</em>' attribute.
      * @see #getSubsetPointers()
      * @generated
@@ -200,11 +201,13 @@ public interface Segment extends RecordDef {
 
     /**
      * Returns the value of the '<em><b>Direct Dependent</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * This attribute indicates whether the segment is direct dependent or sequential. A value of TRUE specifies use of DIR as the segment type on the generated DBD. A value of FALSE specifies use of SEQ on the generated DBD. This attribute is ignored for the root segment of the DBD user object.
-     * <!-- end-model-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * This attribute indicates whether the segment is direct dependent or
+     * sequential. A value of TRUE specifies use of DIR as the segment type on
+     * the generated DBD. A value of FALSE specifies use of SEQ on the generated
+     * DBD. This attribute is ignored for the root segment of the DBD user
+     * object. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Direct Dependent</em>' attribute.
      * @see #setDirectDependent(boolean)
      * @see orgomg.cwmx.resource.imsdatabase.ImsdatabasePackage#getSegment_DirectDependent()
@@ -215,8 +218,8 @@ public interface Segment extends RecordDef {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.imsdatabase.Segment#isDirectDependent <em>Direct Dependent</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Direct Dependent</em>' attribute.
      * @see #isDirectDependent()
      * @generated
@@ -224,13 +227,14 @@ public interface Segment extends RecordDef {
     void setDirectDependent(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Pc Pointer</b></em>' attribute.
-     * The literals are from the enumeration {@link orgomg.cwmx.resource.imsdatabase.imstypes.ChildPointerType}.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * This attribute describes the type of physical child pointer to be stored in the prefix area of the segment in the DBD. Valid Values are SNGL, DBLE, null
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Pc Pointer</b></em>' attribute. The
+     * literals are from the enumeration
+     * {@link orgomg.cwmx.resource.imsdatabase.imstypes.ChildPointerType}. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> This
+     * attribute describes the type of physical child pointer to be stored in
+     * the prefix area of the segment in the DBD. Valid Values are SNGL, DBLE,
+     * null <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Pc Pointer</em>' attribute.
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.ChildPointerType
      * @see #setPcPointer(ChildPointerType)
@@ -242,8 +246,8 @@ public interface Segment extends RecordDef {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.imsdatabase.Segment#getPcPointer <em>Pc Pointer</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Pc Pointer</em>' attribute.
      * @see orgomg.cwmx.resource.imsdatabase.imstypes.ChildPointerType
      * @see #getPcPointer()
@@ -252,14 +256,15 @@ public interface Segment extends RecordDef {
     void setPcPointer(ChildPointerType value);
 
     /**
-     * Returns the value of the '<em><b>Logical</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwmx.resource.imsdatabase.SegmentLogical}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.imsdatabase.SegmentLogical#getPhysical <em>Physical</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The logical segment that is based on this physical segment.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Logical</b></em>' reference list. The
+     * list contents are of type
+     * {@link orgomg.cwmx.resource.imsdatabase.SegmentLogical}. It is
+     * bidirectional and its opposite is '
+     * {@link orgomg.cwmx.resource.imsdatabase.SegmentLogical#getPhysical
+     * <em>Physical</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> The logical segment that is based on this physical
+     * segment. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Logical</em>' reference list.
      * @see orgomg.cwmx.resource.imsdatabase.ImsdatabasePackage#getSegment_Logical()
      * @see orgomg.cwmx.resource.imsdatabase.SegmentLogical#getPhysical
@@ -269,13 +274,12 @@ public interface Segment extends RecordDef {
     EList<SegmentLogical> getLogical();
 
     /**
-     * Returns the value of the '<em><b>Dbd</b></em>' container reference.
-     * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.imsdatabase.DBD#getSegment <em>Segment</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * DBD that owns this segment.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Dbd</b></em>' container reference. It is
+     * bidirectional and its opposite is '
+     * {@link orgomg.cwmx.resource.imsdatabase.DBD#getSegment <em>Segment</em>}
+     * '. <!-- begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * DBD that owns this segment. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Dbd</em>' container reference.
      * @see #setDbd(DBD)
      * @see orgomg.cwmx.resource.imsdatabase.ImsdatabasePackage#getSegment_Dbd()
@@ -287,8 +291,7 @@ public interface Segment extends RecordDef {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.imsdatabase.Segment#getDbd <em>Dbd</em>}' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Dbd</em>' container reference.
      * @see #getDbd()
      * @generated
@@ -296,14 +299,15 @@ public interface Segment extends RecordDef {
     void setDbd(DBD value);
 
     /**
-     * Returns the value of the '<em><b>Senseg</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwmx.resource.imsdatabase.SenSegment}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.imsdatabase.SenSegment#getSegment <em>Segment</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The sensitive segments that use this segment.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Senseg</b></em>' reference list. The
+     * list contents are of type
+     * {@link orgomg.cwmx.resource.imsdatabase.SenSegment}. It is bidirectional
+     * and its opposite is '
+     * {@link orgomg.cwmx.resource.imsdatabase.SenSegment#getSegment
+     * <em>Segment</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> The sensitive segments that use this segment. <!--
+     * end-model-doc -->
+     * 
      * @return the value of the '<em>Senseg</em>' reference list.
      * @see orgomg.cwmx.resource.imsdatabase.ImsdatabasePackage#getSegment_Senseg()
      * @see orgomg.cwmx.resource.imsdatabase.SenSegment#getSegment
@@ -313,14 +317,13 @@ public interface Segment extends RecordDef {
     EList<SenSegment> getSenseg();
 
     /**
-     * Returns the value of the '<em><b>Child</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwmx.resource.imsdatabase.Segment}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.imsdatabase.Segment#getParent <em>Parent</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The physical child segment.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Child</b></em>' reference list. The list
+     * contents are of type {@link orgomg.cwmx.resource.imsdatabase.Segment}. It
+     * is bidirectional and its opposite is '
+     * {@link orgomg.cwmx.resource.imsdatabase.Segment#getParent
+     * <em>Parent</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> The physical child segment. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Child</em>' reference list.
      * @see orgomg.cwmx.resource.imsdatabase.ImsdatabasePackage#getSegment_Child()
      * @see orgomg.cwmx.resource.imsdatabase.Segment#getParent
@@ -330,13 +333,12 @@ public interface Segment extends RecordDef {
     EList<Segment> getChild();
 
     /**
-     * Returns the value of the '<em><b>Parent</b></em>' reference.
-     * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.imsdatabase.Segment#getChild <em>Child</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The physical parent segment.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Parent</b></em>' reference. It is
+     * bidirectional and its opposite is '
+     * {@link orgomg.cwmx.resource.imsdatabase.Segment#getChild <em>Child</em>}
+     * '. <!-- begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * The physical parent segment. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Parent</em>' reference.
      * @see #setParent(Segment)
      * @see orgomg.cwmx.resource.imsdatabase.ImsdatabasePackage#getSegment_Parent()
@@ -347,24 +349,27 @@ public interface Segment extends RecordDef {
     Segment getParent();
 
     /**
-     * Sets the value of the '{@link orgomg.cwmx.resource.imsdatabase.Segment#getParent <em>Parent</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Parent</em>' reference.
+     * Sets the value of the '
+     * {@link orgomg.cwmx.resource.imsdatabase.Segment#getParent
+     * <em>Parent</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @param value
+     *            the new value of the '<em>Parent</em>' reference.
      * @see #getParent()
      * @generated
      */
     void setParent(Segment value);
 
     /**
-     * Returns the value of the '<em><b>Exit</b></em>' containment reference list.
-     * The list contents are of type {@link orgomg.cwmx.resource.imsdatabase.Exit}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.imsdatabase.Exit#getSegment <em>Segment</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Data capture exit used by this Segment.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Exit</b></em>' containment reference
+     * list. The list contents are of type
+     * {@link orgomg.cwmx.resource.imsdatabase.Exit}. It is bidirectional and
+     * its opposite is '{@link orgomg.cwmx.resource.imsdatabase.Exit#getSegment
+     * <em>Segment</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> Data capture exit used by this Segment. <!--
+     * end-model-doc -->
+     * 
      * @return the value of the '<em>Exit</em>' containment reference list.
      * @see orgomg.cwmx.resource.imsdatabase.ImsdatabasePackage#getSegment_Exit()
      * @see orgomg.cwmx.resource.imsdatabase.Exit#getSegment

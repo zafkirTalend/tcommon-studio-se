@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.foundation.typemapping;
@@ -10,9 +9,8 @@ import orgomg.cwm.objectmodel.core.Classifier;
 import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Type Mapping</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Type Mapping</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * TypeMapping instances permit the creation of mappings between data types defined within different environments and are used to indicate data type compatibilities that permit direct assignment of values from one environment (the "source" type) into equivalent values in another environment (the "target" type). For example, an integer field data type in a record-oriented DBMS (the source type) might be mapped to a compatible integer data type in a relational DBMS (the target type).
@@ -41,13 +39,13 @@ import orgomg.cwm.objectmodel.core.ModelElement;
  * @generated
  */
 public interface TypeMapping extends ModelElement {
+
     /**
-     * Returns the value of the '<em><b>Is Best Match</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * True if this TypeMapping instance represents the best available mapping between a pair of data types in different software systems.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Is Best Match</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> True if
+     * this TypeMapping instance represents the best available mapping between a
+     * pair of data types in different software systems. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Is Best Match</em>' attribute.
      * @see #setIsBestMatch(boolean)
      * @see orgomg.cwm.foundation.typemapping.TypemappingPackage#getTypeMapping_IsBestMatch()
@@ -58,8 +56,8 @@ public interface TypeMapping extends ModelElement {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.foundation.typemapping.TypeMapping#isIsBestMatch <em>Is Best Match</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Is Best Match</em>' attribute.
      * @see #isIsBestMatch()
      * @generated
@@ -67,12 +65,14 @@ public interface TypeMapping extends ModelElement {
     void setIsBestMatch(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Is Lossy</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * True if this TypeMapping instance may result in a data conversion error if the source data is within certain ranges. For example, storing a 32-bit unsigned integer value into a 16-bit unsigned integer container will result in a data conversion error only when the source data has a value greater than 65535.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Is Lossy</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> True if
+     * this TypeMapping instance may result in a data conversion error if the
+     * source data is within certain ranges. For example, storing a 32-bit
+     * unsigned integer value into a 16-bit unsigned integer container will
+     * result in a data conversion error only when the source data has a value
+     * greater than 65535. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Is Lossy</em>' attribute.
      * @see #setIsLossy(boolean)
      * @see orgomg.cwm.foundation.typemapping.TypemappingPackage#getTypeMapping_IsLossy()
@@ -82,10 +82,13 @@ public interface TypeMapping extends ModelElement {
     boolean isIsLossy();
 
     /**
-     * Sets the value of the '{@link orgomg.cwm.foundation.typemapping.TypeMapping#isIsLossy <em>Is Lossy</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Is Lossy</em>' attribute.
+     * Sets the value of the '
+     * {@link orgomg.cwm.foundation.typemapping.TypeMapping#isIsLossy
+     * <em>Is Lossy</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @param value
+     *            the new value of the '<em>Is Lossy</em>' attribute.
      * @see #isIsLossy()
      * @generated
      */
@@ -94,8 +97,7 @@ public interface TypeMapping extends ModelElement {
     /**
      * Returns the value of the '<em><b>Source Type</b></em>' reference.
      * It is bidirectional and its opposite is '{@link orgomg.cwm.objectmodel.core.Classifier#getMappingFrom <em>Mapping From</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Identifies the Classifier instance that is the source of information exchange.
      * <!-- end-model-doc -->
@@ -110,8 +112,8 @@ public interface TypeMapping extends ModelElement {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.foundation.typemapping.TypeMapping#getSourceType <em>Source Type</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Source Type</em>' reference.
      * @see #getSourceType()
      * @generated
@@ -119,13 +121,13 @@ public interface TypeMapping extends ModelElement {
     void setSourceType(Classifier value);
 
     /**
-     * Returns the value of the '<em><b>Target Type</b></em>' reference.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.objectmodel.core.Classifier#getMappingTo <em>Mapping To</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the Classifier instance that is the target of information exchange.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Target Type</b></em>' reference. It is
+     * bidirectional and its opposite is '
+     * {@link orgomg.cwm.objectmodel.core.Classifier#getMappingTo
+     * <em>Mapping To</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> Identifies the Classifier instance that is the target
+     * of information exchange. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Target Type</em>' reference.
      * @see #setTargetType(Classifier)
      * @see orgomg.cwm.foundation.typemapping.TypemappingPackage#getTypeMapping_TargetType()
@@ -137,8 +139,8 @@ public interface TypeMapping extends ModelElement {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.foundation.typemapping.TypeMapping#getTargetType <em>Target Type</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Target Type</em>' reference.
      * @see #getTargetType()
      * @generated

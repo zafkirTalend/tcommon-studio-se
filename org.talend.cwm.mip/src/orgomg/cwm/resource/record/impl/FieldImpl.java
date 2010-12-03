@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.resource.record.impl;
@@ -14,9 +13,8 @@ import orgomg.cwm.resource.record.Field;
 import orgomg.cwm.resource.record.RecordPackage;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Field</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Field</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -29,10 +27,10 @@ import orgomg.cwm.resource.record.RecordPackage;
  * @generated
  */
 public class FieldImpl extends AttributeImpl implements Field {
+
     /**
      * The default value of the '{@link #getLength() <em>Length</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getLength()
      * @generated
      * @ordered
@@ -41,8 +39,7 @@ public class FieldImpl extends AttributeImpl implements Field {
 
     /**
      * The cached value of the '{@link #getLength() <em>Length</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getLength()
      * @generated
      * @ordered
@@ -51,8 +48,7 @@ public class FieldImpl extends AttributeImpl implements Field {
 
     /**
      * The default value of the '{@link #getPrecision() <em>Precision</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getPrecision()
      * @generated
      * @ordered
@@ -61,8 +57,7 @@ public class FieldImpl extends AttributeImpl implements Field {
 
     /**
      * The cached value of the '{@link #getPrecision() <em>Precision</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getPrecision()
      * @generated
      * @ordered
@@ -71,8 +66,7 @@ public class FieldImpl extends AttributeImpl implements Field {
 
     /**
      * The default value of the '{@link #getScale() <em>Scale</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getScale()
      * @generated
      * @ordered
@@ -81,8 +75,7 @@ public class FieldImpl extends AttributeImpl implements Field {
 
     /**
      * The cached value of the '{@link #getScale() <em>Scale</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getScale()
      * @generated
      * @ordered
@@ -90,8 +83,7 @@ public class FieldImpl extends AttributeImpl implements Field {
     protected long scale = SCALE_EDEFAULT;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected FieldImpl() {
@@ -99,8 +91,7 @@ public class FieldImpl extends AttributeImpl implements Field {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -109,8 +100,7 @@ public class FieldImpl extends AttributeImpl implements Field {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public long getLength() {
@@ -118,8 +108,7 @@ public class FieldImpl extends AttributeImpl implements Field {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setLength(long newLength) {
@@ -130,8 +119,7 @@ public class FieldImpl extends AttributeImpl implements Field {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public long getPrecision() {
@@ -139,8 +127,7 @@ public class FieldImpl extends AttributeImpl implements Field {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setPrecision(long newPrecision) {
@@ -151,8 +138,7 @@ public class FieldImpl extends AttributeImpl implements Field {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public long getScale() {
@@ -160,8 +146,7 @@ public class FieldImpl extends AttributeImpl implements Field {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setScale(long newScale) {
@@ -172,91 +157,87 @@ public class FieldImpl extends AttributeImpl implements Field {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case RecordPackage.FIELD__LENGTH:
-                return getLength();
-            case RecordPackage.FIELD__PRECISION:
-                return getPrecision();
-            case RecordPackage.FIELD__SCALE:
-                return getScale();
+        case RecordPackage.FIELD__LENGTH:
+            return getLength();
+        case RecordPackage.FIELD__PRECISION:
+            return getPrecision();
+        case RecordPackage.FIELD__SCALE:
+            return getScale();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case RecordPackage.FIELD__LENGTH:
-                setLength((Long)newValue);
-                return;
-            case RecordPackage.FIELD__PRECISION:
-                setPrecision((Long)newValue);
-                return;
-            case RecordPackage.FIELD__SCALE:
-                setScale((Long)newValue);
-                return;
+        case RecordPackage.FIELD__LENGTH:
+            setLength((Long) newValue);
+            return;
+        case RecordPackage.FIELD__PRECISION:
+            setPrecision((Long) newValue);
+            return;
+        case RecordPackage.FIELD__SCALE:
+            setScale((Long) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case RecordPackage.FIELD__LENGTH:
-                setLength(LENGTH_EDEFAULT);
-                return;
-            case RecordPackage.FIELD__PRECISION:
-                setPrecision(PRECISION_EDEFAULT);
-                return;
-            case RecordPackage.FIELD__SCALE:
-                setScale(SCALE_EDEFAULT);
-                return;
+        case RecordPackage.FIELD__LENGTH:
+            setLength(LENGTH_EDEFAULT);
+            return;
+        case RecordPackage.FIELD__PRECISION:
+            setPrecision(PRECISION_EDEFAULT);
+            return;
+        case RecordPackage.FIELD__SCALE:
+            setScale(SCALE_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case RecordPackage.FIELD__LENGTH:
-                return length != LENGTH_EDEFAULT;
-            case RecordPackage.FIELD__PRECISION:
-                return precision != PRECISION_EDEFAULT;
-            case RecordPackage.FIELD__SCALE:
-                return scale != SCALE_EDEFAULT;
+        case RecordPackage.FIELD__LENGTH:
+            return length != LENGTH_EDEFAULT;
+        case RecordPackage.FIELD__PRECISION:
+            return precision != PRECISION_EDEFAULT;
+        case RecordPackage.FIELD__SCALE:
+            return scale != SCALE_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (length: ");
@@ -269,4 +250,4 @@ public class FieldImpl extends AttributeImpl implements Field {
         return result.toString();
     }
 
-} //FieldImpl
+} // FieldImpl

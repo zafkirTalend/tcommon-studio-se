@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.dmsii.impl;
@@ -11,18 +10,17 @@ import orgomg.cwmx.resource.dmsii.Access;
 import orgomg.cwmx.resource.dmsii.DmsiiPackage;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Access</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Access</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
 public class AccessImpl extends SetStructureImpl implements Access {
+
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected AccessImpl() {
@@ -30,8 +28,7 @@ public class AccessImpl extends SetStructureImpl implements Access {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -39,4 +36,4 @@ public class AccessImpl extends SetStructureImpl implements Access {
         return DmsiiPackage.Literals.ACCESS;
     }
 
-} //AccessImpl
+} // AccessImpl

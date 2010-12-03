@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.analysis.businessnomenclature.impl;
@@ -21,9 +20,8 @@ import orgomg.cwm.analysis.businessnomenclature.Glossary;
 import orgomg.cwm.analysis.businessnomenclature.Taxonomy;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Glossary</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Glossary</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -35,10 +33,10 @@ import orgomg.cwm.analysis.businessnomenclature.Taxonomy;
  * @generated
  */
 public class GlossaryImpl extends NomenclatureImpl implements Glossary {
+
     /**
      * The default value of the '{@link #getLanguage() <em>Language</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getLanguage()
      * @generated
      * @ordered
@@ -47,8 +45,7 @@ public class GlossaryImpl extends NomenclatureImpl implements Glossary {
 
     /**
      * The cached value of the '{@link #getLanguage() <em>Language</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getLanguage()
      * @generated
      * @ordered
@@ -57,8 +54,7 @@ public class GlossaryImpl extends NomenclatureImpl implements Glossary {
 
     /**
      * The cached value of the '{@link #getTaxonomy() <em>Taxonomy</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getTaxonomy()
      * @generated
      * @ordered
@@ -66,8 +62,7 @@ public class GlossaryImpl extends NomenclatureImpl implements Glossary {
     protected EList<Taxonomy> taxonomy;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected GlossaryImpl() {
@@ -75,8 +70,7 @@ public class GlossaryImpl extends NomenclatureImpl implements Glossary {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -85,8 +79,7 @@ public class GlossaryImpl extends NomenclatureImpl implements Glossary {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getLanguage() {
@@ -94,136 +87,130 @@ public class GlossaryImpl extends NomenclatureImpl implements Glossary {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setLanguage(String newLanguage) {
         String oldLanguage = language;
         language = newLanguage;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, BusinessnomenclaturePackage.GLOSSARY__LANGUAGE, oldLanguage, language));
+            eNotify(new ENotificationImpl(this, Notification.SET, BusinessnomenclaturePackage.GLOSSARY__LANGUAGE, oldLanguage,
+                    language));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<Taxonomy> getTaxonomy() {
         if (taxonomy == null) {
-            taxonomy = new EObjectWithInverseResolvingEList.ManyInverse<Taxonomy>(Taxonomy.class, this, BusinessnomenclaturePackage.GLOSSARY__TAXONOMY, BusinessnomenclaturePackage.TAXONOMY__GLOSSARY);
+            taxonomy = new EObjectWithInverseResolvingEList.ManyInverse<Taxonomy>(Taxonomy.class, this,
+                    BusinessnomenclaturePackage.GLOSSARY__TAXONOMY, BusinessnomenclaturePackage.TAXONOMY__GLOSSARY);
         }
         return taxonomy;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case BusinessnomenclaturePackage.GLOSSARY__TAXONOMY:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getTaxonomy()).basicAdd(otherEnd, msgs);
+        case BusinessnomenclaturePackage.GLOSSARY__TAXONOMY:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getTaxonomy()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case BusinessnomenclaturePackage.GLOSSARY__TAXONOMY:
-                return ((InternalEList<?>)getTaxonomy()).basicRemove(otherEnd, msgs);
+        case BusinessnomenclaturePackage.GLOSSARY__TAXONOMY:
+            return ((InternalEList<?>) getTaxonomy()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case BusinessnomenclaturePackage.GLOSSARY__LANGUAGE:
-                return getLanguage();
-            case BusinessnomenclaturePackage.GLOSSARY__TAXONOMY:
-                return getTaxonomy();
+        case BusinessnomenclaturePackage.GLOSSARY__LANGUAGE:
+            return getLanguage();
+        case BusinessnomenclaturePackage.GLOSSARY__TAXONOMY:
+            return getTaxonomy();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case BusinessnomenclaturePackage.GLOSSARY__LANGUAGE:
-                setLanguage((String)newValue);
-                return;
-            case BusinessnomenclaturePackage.GLOSSARY__TAXONOMY:
-                getTaxonomy().clear();
-                getTaxonomy().addAll((Collection<? extends Taxonomy>)newValue);
-                return;
+        case BusinessnomenclaturePackage.GLOSSARY__LANGUAGE:
+            setLanguage((String) newValue);
+            return;
+        case BusinessnomenclaturePackage.GLOSSARY__TAXONOMY:
+            getTaxonomy().clear();
+            getTaxonomy().addAll((Collection<? extends Taxonomy>) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case BusinessnomenclaturePackage.GLOSSARY__LANGUAGE:
-                setLanguage(LANGUAGE_EDEFAULT);
-                return;
-            case BusinessnomenclaturePackage.GLOSSARY__TAXONOMY:
-                getTaxonomy().clear();
-                return;
+        case BusinessnomenclaturePackage.GLOSSARY__LANGUAGE:
+            setLanguage(LANGUAGE_EDEFAULT);
+            return;
+        case BusinessnomenclaturePackage.GLOSSARY__TAXONOMY:
+            getTaxonomy().clear();
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case BusinessnomenclaturePackage.GLOSSARY__LANGUAGE:
-                return LANGUAGE_EDEFAULT == null ? language != null : !LANGUAGE_EDEFAULT.equals(language);
-            case BusinessnomenclaturePackage.GLOSSARY__TAXONOMY:
-                return taxonomy != null && !taxonomy.isEmpty();
+        case BusinessnomenclaturePackage.GLOSSARY__LANGUAGE:
+            return LANGUAGE_EDEFAULT == null ? language != null : !LANGUAGE_EDEFAULT.equals(language);
+        case BusinessnomenclaturePackage.GLOSSARY__TAXONOMY:
+            return taxonomy != null && !taxonomy.isEmpty();
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (language: ");
@@ -232,4 +219,4 @@ public class GlossaryImpl extends NomenclatureImpl implements Glossary {
         return result.toString();
     }
 
-} //GlossaryImpl
+} // GlossaryImpl

@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.objectmodel.behavioral.impl;
@@ -22,9 +21,8 @@ import orgomg.cwm.objectmodel.behavioral.Parameter;
 import orgomg.cwm.objectmodel.core.impl.FeatureImpl;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Feature</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Feature</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -36,10 +34,10 @@ import orgomg.cwm.objectmodel.core.impl.FeatureImpl;
  * @generated
  */
 public abstract class BehavioralFeatureImpl extends FeatureImpl implements BehavioralFeature {
+
     /**
      * The default value of the '{@link #isIsQuery() <em>Is Query</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #isIsQuery()
      * @generated
      * @ordered
@@ -48,8 +46,7 @@ public abstract class BehavioralFeatureImpl extends FeatureImpl implements Behav
 
     /**
      * The cached value of the '{@link #isIsQuery() <em>Is Query</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #isIsQuery()
      * @generated
      * @ordered
@@ -58,8 +55,7 @@ public abstract class BehavioralFeatureImpl extends FeatureImpl implements Behav
 
     /**
      * The cached value of the '{@link #getParameter() <em>Parameter</em>}' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getParameter()
      * @generated
      * @ordered
@@ -67,8 +63,7 @@ public abstract class BehavioralFeatureImpl extends FeatureImpl implements Behav
     protected EList<Parameter> parameter;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected BehavioralFeatureImpl() {
@@ -76,8 +71,7 @@ public abstract class BehavioralFeatureImpl extends FeatureImpl implements Behav
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -86,8 +80,7 @@ public abstract class BehavioralFeatureImpl extends FeatureImpl implements Behav
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isIsQuery() {
@@ -95,136 +88,130 @@ public abstract class BehavioralFeatureImpl extends FeatureImpl implements Behav
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setIsQuery(boolean newIsQuery) {
         boolean oldIsQuery = isQuery;
         isQuery = newIsQuery;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, BehavioralPackage.BEHAVIORAL_FEATURE__IS_QUERY, oldIsQuery, isQuery));
+            eNotify(new ENotificationImpl(this, Notification.SET, BehavioralPackage.BEHAVIORAL_FEATURE__IS_QUERY, oldIsQuery,
+                    isQuery));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<Parameter> getParameter() {
         if (parameter == null) {
-            parameter = new EObjectContainmentWithInverseEList<Parameter>(Parameter.class, this, BehavioralPackage.BEHAVIORAL_FEATURE__PARAMETER, BehavioralPackage.PARAMETER__BEHAVIORAL_FEATURE);
+            parameter = new EObjectContainmentWithInverseEList<Parameter>(Parameter.class, this,
+                    BehavioralPackage.BEHAVIORAL_FEATURE__PARAMETER, BehavioralPackage.PARAMETER__BEHAVIORAL_FEATURE);
         }
         return parameter;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case BehavioralPackage.BEHAVIORAL_FEATURE__PARAMETER:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getParameter()).basicAdd(otherEnd, msgs);
+        case BehavioralPackage.BEHAVIORAL_FEATURE__PARAMETER:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getParameter()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case BehavioralPackage.BEHAVIORAL_FEATURE__PARAMETER:
-                return ((InternalEList<?>)getParameter()).basicRemove(otherEnd, msgs);
+        case BehavioralPackage.BEHAVIORAL_FEATURE__PARAMETER:
+            return ((InternalEList<?>) getParameter()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case BehavioralPackage.BEHAVIORAL_FEATURE__IS_QUERY:
-                return isIsQuery();
-            case BehavioralPackage.BEHAVIORAL_FEATURE__PARAMETER:
-                return getParameter();
+        case BehavioralPackage.BEHAVIORAL_FEATURE__IS_QUERY:
+            return isIsQuery();
+        case BehavioralPackage.BEHAVIORAL_FEATURE__PARAMETER:
+            return getParameter();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case BehavioralPackage.BEHAVIORAL_FEATURE__IS_QUERY:
-                setIsQuery((Boolean)newValue);
-                return;
-            case BehavioralPackage.BEHAVIORAL_FEATURE__PARAMETER:
-                getParameter().clear();
-                getParameter().addAll((Collection<? extends Parameter>)newValue);
-                return;
+        case BehavioralPackage.BEHAVIORAL_FEATURE__IS_QUERY:
+            setIsQuery((Boolean) newValue);
+            return;
+        case BehavioralPackage.BEHAVIORAL_FEATURE__PARAMETER:
+            getParameter().clear();
+            getParameter().addAll((Collection<? extends Parameter>) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case BehavioralPackage.BEHAVIORAL_FEATURE__IS_QUERY:
-                setIsQuery(IS_QUERY_EDEFAULT);
-                return;
-            case BehavioralPackage.BEHAVIORAL_FEATURE__PARAMETER:
-                getParameter().clear();
-                return;
+        case BehavioralPackage.BEHAVIORAL_FEATURE__IS_QUERY:
+            setIsQuery(IS_QUERY_EDEFAULT);
+            return;
+        case BehavioralPackage.BEHAVIORAL_FEATURE__PARAMETER:
+            getParameter().clear();
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case BehavioralPackage.BEHAVIORAL_FEATURE__IS_QUERY:
-                return isQuery != IS_QUERY_EDEFAULT;
-            case BehavioralPackage.BEHAVIORAL_FEATURE__PARAMETER:
-                return parameter != null && !parameter.isEmpty();
+        case BehavioralPackage.BEHAVIORAL_FEATURE__IS_QUERY:
+            return isQuery != IS_QUERY_EDEFAULT;
+        case BehavioralPackage.BEHAVIORAL_FEATURE__PARAMETER:
+            return parameter != null && !parameter.isEmpty();
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (isQuery: ");
@@ -233,4 +220,4 @@ public abstract class BehavioralFeatureImpl extends FeatureImpl implements Behav
         return result.toString();
     }
 
-} //BehavioralFeatureImpl
+} // BehavioralFeatureImpl

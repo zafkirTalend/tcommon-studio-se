@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.foundation.businessinformation.impl;
@@ -11,6 +10,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import orgomg.cwm.foundation.businessinformation.*;
 import orgomg.cwm.foundation.businessinformation.BusinessinformationFactory;
 import orgomg.cwm.foundation.businessinformation.BusinessinformationPackage;
 import orgomg.cwm.foundation.businessinformation.Contact;
@@ -23,26 +23,26 @@ import orgomg.cwm.foundation.businessinformation.ResponsibleParty;
 import orgomg.cwm.foundation.businessinformation.Telephone;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model <b>Factory</b>.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!--
+ * end-user-doc -->
  * @generated
  */
 public class BusinessinformationFactoryImpl extends EFactoryImpl implements BusinessinformationFactory {
+
     /**
      * Creates the default factory implementation.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     public static BusinessinformationFactory init() {
         try {
-            BusinessinformationFactory theBusinessinformationFactory = (BusinessinformationFactory)EPackage.Registry.INSTANCE.getEFactory("http:///orgomg/cwm/foundation/businessinformation.ecore"); 
+            BusinessinformationFactory theBusinessinformationFactory = (BusinessinformationFactory) EPackage.Registry.INSTANCE
+                    .getEFactory("http:///orgomg/cwm/foundation/businessinformation.ecore");
             if (theBusinessinformationFactory != null) {
                 return theBusinessinformationFactory;
             }
-        }
-        catch (Exception exception) {
+        } catch (Exception exception) {
             EcorePlugin.INSTANCE.log(exception);
         }
         return new BusinessinformationFactoryImpl();
@@ -50,8 +50,8 @@ public class BusinessinformationFactoryImpl extends EFactoryImpl implements Busi
 
     /**
      * Creates an instance of the factory.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     public BusinessinformationFactoryImpl() {
@@ -59,29 +59,35 @@ public class BusinessinformationFactoryImpl extends EFactoryImpl implements Busi
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public EObject create(EClass eClass) {
         switch (eClass.getClassifierID()) {
-            case BusinessinformationPackage.RESPONSIBLE_PARTY: return createResponsibleParty();
-            case BusinessinformationPackage.TELEPHONE: return createTelephone();
-            case BusinessinformationPackage.EMAIL: return createEmail();
-            case BusinessinformationPackage.LOCATION: return createLocation();
-            case BusinessinformationPackage.CONTACT: return createContact();
-            case BusinessinformationPackage.DESCRIPTION: return createDescription();
-            case BusinessinformationPackage.DOCUMENT: return createDocument();
-            case BusinessinformationPackage.RESOURCE_LOCATOR: return createResourceLocator();
-            default:
-                throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+        case BusinessinformationPackage.RESPONSIBLE_PARTY:
+            return createResponsibleParty();
+        case BusinessinformationPackage.TELEPHONE:
+            return createTelephone();
+        case BusinessinformationPackage.EMAIL:
+            return createEmail();
+        case BusinessinformationPackage.LOCATION:
+            return createLocation();
+        case BusinessinformationPackage.CONTACT:
+            return createContact();
+        case BusinessinformationPackage.DESCRIPTION:
+            return createDescription();
+        case BusinessinformationPackage.DOCUMENT:
+            return createDocument();
+        case BusinessinformationPackage.RESOURCE_LOCATOR:
+            return createResourceLocator();
+        default:
+            throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public ResponsibleParty createResponsibleParty() {
@@ -90,8 +96,7 @@ public class BusinessinformationFactoryImpl extends EFactoryImpl implements Busi
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Telephone createTelephone() {
@@ -100,8 +105,7 @@ public class BusinessinformationFactoryImpl extends EFactoryImpl implements Busi
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Email createEmail() {
@@ -110,8 +114,7 @@ public class BusinessinformationFactoryImpl extends EFactoryImpl implements Busi
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Location createLocation() {
@@ -120,8 +123,7 @@ public class BusinessinformationFactoryImpl extends EFactoryImpl implements Busi
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Contact createContact() {
@@ -130,8 +132,7 @@ public class BusinessinformationFactoryImpl extends EFactoryImpl implements Busi
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Description createDescription() {
@@ -140,8 +141,7 @@ public class BusinessinformationFactoryImpl extends EFactoryImpl implements Busi
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Document createDocument() {
@@ -150,8 +150,7 @@ public class BusinessinformationFactoryImpl extends EFactoryImpl implements Busi
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public ResourceLocator createResourceLocator() {
@@ -160,17 +159,15 @@ public class BusinessinformationFactoryImpl extends EFactoryImpl implements Busi
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public BusinessinformationPackage getBusinessinformationPackage() {
-        return (BusinessinformationPackage)getEPackage();
+        return (BusinessinformationPackage) getEPackage();
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @deprecated
      * @generated
      */
@@ -179,4 +176,4 @@ public class BusinessinformationFactoryImpl extends EFactoryImpl implements Busi
         return BusinessinformationPackage.eINSTANCE;
     }
 
-} //BusinessinformationFactoryImpl
+} // BusinessinformationFactoryImpl

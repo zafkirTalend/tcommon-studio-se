@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.management.warehouseoperation;
@@ -10,9 +9,8 @@ import org.eclipse.emf.common.util.EList;
 import orgomg.cwm.analysis.transformation.TransformationActivity;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Activity Execution</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Activity Execution</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * An ActivityExecution is used to record details of a specific execution of a TransformationActivity.
@@ -31,14 +29,15 @@ import orgomg.cwm.analysis.transformation.TransformationActivity;
  * @generated
  */
 public interface ActivityExecution extends TransformationExecution {
+
     /**
-     * Returns the value of the '<em><b>Transformation Activity</b></em>' reference.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.analysis.transformation.TransformationActivity#getExecution <em>Execution</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the TransformationActivity.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Transformation Activity</b></em>'
+     * reference. It is bidirectional and its opposite is '
+     * {@link orgomg.cwm.analysis.transformation.TransformationActivity#getExecution
+     * <em>Execution</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> Identifies the TransformationActivity. <!--
+     * end-model-doc -->
+     * 
      * @return the value of the '<em>Transformation Activity</em>' reference.
      * @see #setTransformationActivity(TransformationActivity)
      * @see orgomg.cwm.management.warehouseoperation.WarehouseoperationPackage#getActivityExecution_TransformationActivity()
@@ -59,16 +58,18 @@ public interface ActivityExecution extends TransformationExecution {
     void setTransformationActivity(TransformationActivity value);
 
     /**
-     * Returns the value of the '<em><b>Step Execution</b></em>' containment reference list.
-     * The list contents are of type {@link orgomg.cwm.management.warehouseoperation.StepExecution}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.management.warehouseoperation.StepExecution#getActivityExecution <em>Activity Execution</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the StepExecutions recording the results of executing the individual
-     * TransformationSteps.
-     * <!-- end-model-doc -->
-     * @return the value of the '<em>Step Execution</em>' containment reference list.
+     * Returns the value of the '<em><b>Step Execution</b></em>' containment
+     * reference list. The list contents are of type
+     * {@link orgomg.cwm.management.warehouseoperation.StepExecution}. It is
+     * bidirectional and its opposite is '
+     * {@link orgomg.cwm.management.warehouseoperation.StepExecution#getActivityExecution
+     * <em>Activity Execution</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * --> <!-- begin-model-doc --> Identifies the StepExecutions recording the
+     * results of executing the individual TransformationSteps. <!--
+     * end-model-doc -->
+     * 
+     * @return the value of the '<em>Step Execution</em>' containment reference
+     *         list.
      * @see orgomg.cwm.management.warehouseoperation.WarehouseoperationPackage#getActivityExecution_StepExecution()
      * @see orgomg.cwm.management.warehouseoperation.StepExecution#getActivityExecution
      * @model opposite="activityExecution" containment="true"

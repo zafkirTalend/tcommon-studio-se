@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.analysis.informationvisualization.impl;
@@ -11,6 +10,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import orgomg.cwm.analysis.informationvisualization.*;
 import orgomg.cwm.analysis.informationvisualization.InformationvisualizationFactory;
 import orgomg.cwm.analysis.informationvisualization.InformationvisualizationPackage;
 import orgomg.cwm.analysis.informationvisualization.RenderedObject;
@@ -19,26 +19,26 @@ import orgomg.cwm.analysis.informationvisualization.Rendering;
 import orgomg.cwm.analysis.informationvisualization.XSLRendering;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model <b>Factory</b>.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!--
+ * end-user-doc -->
  * @generated
  */
 public class InformationvisualizationFactoryImpl extends EFactoryImpl implements InformationvisualizationFactory {
+
     /**
      * Creates the default factory implementation.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     public static InformationvisualizationFactory init() {
         try {
-            InformationvisualizationFactory theInformationvisualizationFactory = (InformationvisualizationFactory)EPackage.Registry.INSTANCE.getEFactory("http:///orgomg/cwm/analysis/informationvisualization.ecore"); 
+            InformationvisualizationFactory theInformationvisualizationFactory = (InformationvisualizationFactory) EPackage.Registry.INSTANCE
+                    .getEFactory("http:///orgomg/cwm/analysis/informationvisualization.ecore");
             if (theInformationvisualizationFactory != null) {
                 return theInformationvisualizationFactory;
             }
-        }
-        catch (Exception exception) {
+        } catch (Exception exception) {
             EcorePlugin.INSTANCE.log(exception);
         }
         return new InformationvisualizationFactoryImpl();
@@ -46,8 +46,8 @@ public class InformationvisualizationFactoryImpl extends EFactoryImpl implements
 
     /**
      * Creates an instance of the factory.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     public InformationvisualizationFactoryImpl() {
@@ -55,25 +55,27 @@ public class InformationvisualizationFactoryImpl extends EFactoryImpl implements
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public EObject create(EClass eClass) {
         switch (eClass.getClassifierID()) {
-            case InformationvisualizationPackage.RENDERED_OBJECT: return createRenderedObject();
-            case InformationvisualizationPackage.RENDERED_OBJECT_SET: return createRenderedObjectSet();
-            case InformationvisualizationPackage.RENDERING: return createRendering();
-            case InformationvisualizationPackage.XSL_RENDERING: return createXSLRendering();
-            default:
-                throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+        case InformationvisualizationPackage.RENDERED_OBJECT:
+            return createRenderedObject();
+        case InformationvisualizationPackage.RENDERED_OBJECT_SET:
+            return createRenderedObjectSet();
+        case InformationvisualizationPackage.RENDERING:
+            return createRendering();
+        case InformationvisualizationPackage.XSL_RENDERING:
+            return createXSLRendering();
+        default:
+            throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public RenderedObject createRenderedObject() {
@@ -82,8 +84,7 @@ public class InformationvisualizationFactoryImpl extends EFactoryImpl implements
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public RenderedObjectSet createRenderedObjectSet() {
@@ -92,8 +93,7 @@ public class InformationvisualizationFactoryImpl extends EFactoryImpl implements
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Rendering createRendering() {
@@ -102,8 +102,7 @@ public class InformationvisualizationFactoryImpl extends EFactoryImpl implements
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public XSLRendering createXSLRendering() {
@@ -112,17 +111,15 @@ public class InformationvisualizationFactoryImpl extends EFactoryImpl implements
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public InformationvisualizationPackage getInformationvisualizationPackage() {
-        return (InformationvisualizationPackage)getEPackage();
+        return (InformationvisualizationPackage) getEPackage();
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @deprecated
      * @generated
      */
@@ -131,4 +128,4 @@ public class InformationvisualizationFactoryImpl extends EFactoryImpl implements
         return InformationvisualizationPackage.eINSTANCE;
     }
 
-} //InformationvisualizationFactoryImpl
+} // InformationvisualizationFactoryImpl

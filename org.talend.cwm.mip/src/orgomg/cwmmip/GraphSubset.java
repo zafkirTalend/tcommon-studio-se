@@ -1,16 +1,13 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmmip;
 
-
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Graph Subset</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Graph Subset</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * GraphSubset is a concrete subclass of Projection that allows a projection to be specified by an expression which, when evaluated, describes some physical sub-graph of the CWM UML model.
@@ -32,13 +29,13 @@ package orgomg.cwmmip;
  * @generated
  */
 public interface GraphSubset extends Projection {
+
     /**
-     * Returns the value of the '<em><b>Element</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Element is the logical name of a CWM metamodel element (usually a package or class) comprising the physical projection.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Element</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> Element
+     * is the logical name of a CWM metamodel element (usually a package or
+     * class) comprising the physical projection. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Element</em>' attribute.
      * @see #setElement(String)
      * @see orgomg.cwmmip.CwmmipPackage#getGraphSubset_Element()
@@ -48,22 +45,25 @@ public interface GraphSubset extends Projection {
     String getElement();
 
     /**
-     * Sets the value of the '{@link orgomg.cwmmip.GraphSubset#getElement <em>Element</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Element</em>' attribute.
+     * Sets the value of the '{@link orgomg.cwmmip.GraphSubset#getElement
+     * <em>Element</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @param value
+     *            the new value of the '<em>Element</em>' attribute.
      * @see #getElement()
      * @generated
      */
     void setElement(String value);
 
     /**
-     * Returns the value of the '<em><b>Deep Copy</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * DeepCopy is a Boolean attribute which, when true, implies that all connected elements and their attributes, within the boundaries of the specified package, are to be included in the pattern projection.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Deep Copy</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * DeepCopy is a Boolean attribute which, when true, implies that all
+     * connected elements and their attributes, within the boundaries of the
+     * specified package, are to be included in the pattern projection. <!--
+     * end-model-doc -->
+     * 
      * @return the value of the '<em>Deep Copy</em>' attribute.
      * @see #setDeepCopy(boolean)
      * @see orgomg.cwmmip.CwmmipPackage#getGraphSubset_DeepCopy()
@@ -73,22 +73,24 @@ public interface GraphSubset extends Projection {
     boolean isDeepCopy();
 
     /**
-     * Sets the value of the '{@link orgomg.cwmmip.GraphSubset#isDeepCopy <em>Deep Copy</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Deep Copy</em>' attribute.
+     * Sets the value of the '{@link orgomg.cwmmip.GraphSubset#isDeepCopy
+     * <em>Deep Copy</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @param value
+     *            the new value of the '<em>Deep Copy</em>' attribute.
      * @see #isDeepCopy()
      * @generated
      */
     void setDeepCopy(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Copy Depth</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * CopyDepth is an integer value that specifies the number of graph edges to traverse when establishing the physical graph projection, in cases when deepCopy is false.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Copy Depth</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * CopyDepth is an integer value that specifies the number of graph edges to
+     * traverse when establishing the physical graph projection, in cases when
+     * deepCopy is false. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Copy Depth</em>' attribute.
      * @see #setCopyDepth(long)
      * @see orgomg.cwmmip.CwmmipPackage#getGraphSubset_CopyDepth()
@@ -99,8 +101,8 @@ public interface GraphSubset extends Projection {
 
     /**
      * Sets the value of the '{@link orgomg.cwmmip.GraphSubset#getCopyDepth <em>Copy Depth</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Copy Depth</em>' attribute.
      * @see #getCopyDepth()
      * @generated
@@ -109,11 +111,11 @@ public interface GraphSubset extends Projection {
 
     /**
      * Returns the value of the '<em><b>Aggregations Only</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * AggregationsOnly is a Boolean attribute which, when true, specifies that only composite elements and their components are to be included in the physical graph projection.
-     * <!-- end-model-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * AggregationsOnly is a Boolean attribute which, when true, specifies that
+     * only composite elements and their components are to be included in the
+     * physical graph projection. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Aggregations Only</em>' attribute.
      * @see #setAggregationsOnly(boolean)
      * @see orgomg.cwmmip.CwmmipPackage#getGraphSubset_AggregationsOnly()
@@ -124,8 +126,8 @@ public interface GraphSubset extends Projection {
 
     /**
      * Sets the value of the '{@link orgomg.cwmmip.GraphSubset#isAggregationsOnly <em>Aggregations Only</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Aggregations Only</em>' attribute.
      * @see #isAggregationsOnly()
      * @generated
@@ -133,12 +135,12 @@ public interface GraphSubset extends Projection {
     void setAggregationsOnly(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Include Associations</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * IncludeAssociations is a Boolean attribute which, when true, specifies that associations are to be included in the physical graph projection.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Include Associations</b></em>'
+     * attribute. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> IncludeAssociations is a Boolean attribute which,
+     * when true, specifies that associations are to be included in the physical
+     * graph projection. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Include Associations</em>' attribute.
      * @see #setIncludeAssociations(boolean)
      * @see orgomg.cwmmip.CwmmipPackage#getGraphSubset_IncludeAssociations()
@@ -149,8 +151,8 @@ public interface GraphSubset extends Projection {
 
     /**
      * Sets the value of the '{@link orgomg.cwmmip.GraphSubset#isIncludeAssociations <em>Include Associations</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Include Associations</em>' attribute.
      * @see #isIncludeAssociations()
      * @generated

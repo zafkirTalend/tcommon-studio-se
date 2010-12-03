@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmmip.impl;
@@ -14,9 +13,8 @@ import orgomg.cwmmip.CwmmipPackage;
 import orgomg.cwmmip.PatternConstraint;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Pattern Constraint</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Pattern Constraint</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -28,10 +26,10 @@ import orgomg.cwmmip.PatternConstraint;
  * @generated
  */
 public class PatternConstraintImpl extends ElementImpl implements PatternConstraint {
+
     /**
      * The default value of the '{@link #getBody() <em>Body</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getBody()
      * @generated
      * @ordered
@@ -40,8 +38,7 @@ public class PatternConstraintImpl extends ElementImpl implements PatternConstra
 
     /**
      * The cached value of the '{@link #getBody() <em>Body</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getBody()
      * @generated
      * @ordered
@@ -50,8 +47,7 @@ public class PatternConstraintImpl extends ElementImpl implements PatternConstra
 
     /**
      * The default value of the '{@link #getLanguage() <em>Language</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getLanguage()
      * @generated
      * @ordered
@@ -60,8 +56,7 @@ public class PatternConstraintImpl extends ElementImpl implements PatternConstra
 
     /**
      * The cached value of the '{@link #getLanguage() <em>Language</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getLanguage()
      * @generated
      * @ordered
@@ -69,8 +64,7 @@ public class PatternConstraintImpl extends ElementImpl implements PatternConstra
     protected String language = LANGUAGE_EDEFAULT;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected PatternConstraintImpl() {
@@ -78,8 +72,7 @@ public class PatternConstraintImpl extends ElementImpl implements PatternConstra
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -88,8 +81,7 @@ public class PatternConstraintImpl extends ElementImpl implements PatternConstra
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getBody() {
@@ -97,8 +89,7 @@ public class PatternConstraintImpl extends ElementImpl implements PatternConstra
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setBody(String newBody) {
@@ -109,8 +100,7 @@ public class PatternConstraintImpl extends ElementImpl implements PatternConstra
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getLanguage() {
@@ -118,93 +108,89 @@ public class PatternConstraintImpl extends ElementImpl implements PatternConstra
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setLanguage(String newLanguage) {
         String oldLanguage = language;
         language = newLanguage;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, CwmmipPackage.PATTERN_CONSTRAINT__LANGUAGE, oldLanguage, language));
+            eNotify(new ENotificationImpl(this, Notification.SET, CwmmipPackage.PATTERN_CONSTRAINT__LANGUAGE, oldLanguage,
+                    language));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case CwmmipPackage.PATTERN_CONSTRAINT__BODY:
-                return getBody();
-            case CwmmipPackage.PATTERN_CONSTRAINT__LANGUAGE:
-                return getLanguage();
+        case CwmmipPackage.PATTERN_CONSTRAINT__BODY:
+            return getBody();
+        case CwmmipPackage.PATTERN_CONSTRAINT__LANGUAGE:
+            return getLanguage();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case CwmmipPackage.PATTERN_CONSTRAINT__BODY:
-                setBody((String)newValue);
-                return;
-            case CwmmipPackage.PATTERN_CONSTRAINT__LANGUAGE:
-                setLanguage((String)newValue);
-                return;
+        case CwmmipPackage.PATTERN_CONSTRAINT__BODY:
+            setBody((String) newValue);
+            return;
+        case CwmmipPackage.PATTERN_CONSTRAINT__LANGUAGE:
+            setLanguage((String) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case CwmmipPackage.PATTERN_CONSTRAINT__BODY:
-                setBody(BODY_EDEFAULT);
-                return;
-            case CwmmipPackage.PATTERN_CONSTRAINT__LANGUAGE:
-                setLanguage(LANGUAGE_EDEFAULT);
-                return;
+        case CwmmipPackage.PATTERN_CONSTRAINT__BODY:
+            setBody(BODY_EDEFAULT);
+            return;
+        case CwmmipPackage.PATTERN_CONSTRAINT__LANGUAGE:
+            setLanguage(LANGUAGE_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case CwmmipPackage.PATTERN_CONSTRAINT__BODY:
-                return BODY_EDEFAULT == null ? body != null : !BODY_EDEFAULT.equals(body);
-            case CwmmipPackage.PATTERN_CONSTRAINT__LANGUAGE:
-                return LANGUAGE_EDEFAULT == null ? language != null : !LANGUAGE_EDEFAULT.equals(language);
+        case CwmmipPackage.PATTERN_CONSTRAINT__BODY:
+            return BODY_EDEFAULT == null ? body != null : !BODY_EDEFAULT.equals(body);
+        case CwmmipPackage.PATTERN_CONSTRAINT__LANGUAGE:
+            return LANGUAGE_EDEFAULT == null ? language != null : !LANGUAGE_EDEFAULT.equals(language);
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (body: ");
@@ -215,4 +201,4 @@ public class PatternConstraintImpl extends ElementImpl implements PatternConstra
         return result.toString();
     }
 
-} //PatternConstraintImpl
+} // PatternConstraintImpl

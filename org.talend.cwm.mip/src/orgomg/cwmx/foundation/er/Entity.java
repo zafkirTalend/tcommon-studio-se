@@ -1,16 +1,13 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.foundation.er;
 
-
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Entity</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Entity</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * Instances of the Entity class are the primary objects in a ER model. They represent ideas, processes, and things of interest in an application system or tool model.

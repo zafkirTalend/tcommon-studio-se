@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.resource.relational;
@@ -9,9 +8,8 @@ package orgomg.cwm.resource.relational;
 import orgomg.cwm.foundation.keysindexes.IndexedFeature;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>SQL Index Column</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>SQL Index Column</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * Associates an index with its columns.

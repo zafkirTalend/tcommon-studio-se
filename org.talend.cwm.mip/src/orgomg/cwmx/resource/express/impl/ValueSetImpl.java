@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.express.impl;
@@ -17,9 +16,8 @@ import orgomg.cwmx.resource.express.ExpressPackage;
 import orgomg.cwmx.resource.express.ValueSet;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Value Set</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Value Set</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -31,10 +29,10 @@ import orgomg.cwmx.resource.express.ValueSet;
  * @generated
  */
 public class ValueSetImpl extends DimensionedObjectImpl implements ValueSet {
+
     /**
      * The default value of the '{@link #isIsTemp() <em>Is Temp</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #isIsTemp()
      * @generated
      * @ordered
@@ -43,8 +41,7 @@ public class ValueSetImpl extends DimensionedObjectImpl implements ValueSet {
 
     /**
      * The cached value of the '{@link #isIsTemp() <em>Is Temp</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #isIsTemp()
      * @generated
      * @ordered
@@ -53,8 +50,8 @@ public class ValueSetImpl extends DimensionedObjectImpl implements ValueSet {
 
     /**
      * The cached value of the '{@link #getReferenceDimension() <em>Reference Dimension</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getReferenceDimension()
      * @generated
      * @ordered
@@ -62,8 +59,7 @@ public class ValueSetImpl extends DimensionedObjectImpl implements ValueSet {
     protected Dimension referenceDimension;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected ValueSetImpl() {
@@ -71,8 +67,7 @@ public class ValueSetImpl extends DimensionedObjectImpl implements ValueSet {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -81,8 +76,7 @@ public class ValueSetImpl extends DimensionedObjectImpl implements ValueSet {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isIsTemp() {
@@ -90,8 +84,7 @@ public class ValueSetImpl extends DimensionedObjectImpl implements ValueSet {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setIsTemp(boolean newIsTemp) {
@@ -102,25 +95,24 @@ public class ValueSetImpl extends DimensionedObjectImpl implements ValueSet {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Dimension getReferenceDimension() {
         if (referenceDimension != null && referenceDimension.eIsProxy()) {
-            InternalEObject oldReferenceDimension = (InternalEObject)referenceDimension;
-            referenceDimension = (Dimension)eResolveProxy(oldReferenceDimension);
+            InternalEObject oldReferenceDimension = (InternalEObject) referenceDimension;
+            referenceDimension = (Dimension) eResolveProxy(oldReferenceDimension);
             if (referenceDimension != oldReferenceDimension) {
                 if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, ExpressPackage.VALUE_SET__REFERENCE_DIMENSION, oldReferenceDimension, referenceDimension));
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, ExpressPackage.VALUE_SET__REFERENCE_DIMENSION,
+                            oldReferenceDimension, referenceDimension));
             }
         }
         return referenceDimension;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Dimension basicGetReferenceDimension() {
@@ -128,146 +120,147 @@ public class ValueSetImpl extends DimensionedObjectImpl implements ValueSet {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public NotificationChain basicSetReferenceDimension(Dimension newReferenceDimension, NotificationChain msgs) {
         Dimension oldReferenceDimension = referenceDimension;
         referenceDimension = newReferenceDimension;
         if (eNotificationRequired()) {
-            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ExpressPackage.VALUE_SET__REFERENCE_DIMENSION, oldReferenceDimension, newReferenceDimension);
-            if (msgs == null) msgs = notification; else msgs.add(notification);
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+                    ExpressPackage.VALUE_SET__REFERENCE_DIMENSION, oldReferenceDimension, newReferenceDimension);
+            if (msgs == null)
+                msgs = notification;
+            else
+                msgs.add(notification);
         }
         return msgs;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setReferenceDimension(Dimension newReferenceDimension) {
         if (newReferenceDimension != referenceDimension) {
             NotificationChain msgs = null;
             if (referenceDimension != null)
-                msgs = ((InternalEObject)referenceDimension).eInverseRemove(this, ExpressPackage.DIMENSION__VALUE_SET, Dimension.class, msgs);
+                msgs = ((InternalEObject) referenceDimension).eInverseRemove(this, ExpressPackage.DIMENSION__VALUE_SET,
+                        Dimension.class, msgs);
             if (newReferenceDimension != null)
-                msgs = ((InternalEObject)newReferenceDimension).eInverseAdd(this, ExpressPackage.DIMENSION__VALUE_SET, Dimension.class, msgs);
+                msgs = ((InternalEObject) newReferenceDimension).eInverseAdd(this, ExpressPackage.DIMENSION__VALUE_SET,
+                        Dimension.class, msgs);
             msgs = basicSetReferenceDimension(newReferenceDimension, msgs);
-            if (msgs != null) msgs.dispatch();
-        }
-        else if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ExpressPackage.VALUE_SET__REFERENCE_DIMENSION, newReferenceDimension, newReferenceDimension));
+            if (msgs != null)
+                msgs.dispatch();
+        } else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ExpressPackage.VALUE_SET__REFERENCE_DIMENSION,
+                    newReferenceDimension, newReferenceDimension));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case ExpressPackage.VALUE_SET__REFERENCE_DIMENSION:
-                if (referenceDimension != null)
-                    msgs = ((InternalEObject)referenceDimension).eInverseRemove(this, ExpressPackage.DIMENSION__VALUE_SET, Dimension.class, msgs);
-                return basicSetReferenceDimension((Dimension)otherEnd, msgs);
+        case ExpressPackage.VALUE_SET__REFERENCE_DIMENSION:
+            if (referenceDimension != null)
+                msgs = ((InternalEObject) referenceDimension).eInverseRemove(this, ExpressPackage.DIMENSION__VALUE_SET,
+                        Dimension.class, msgs);
+            return basicSetReferenceDimension((Dimension) otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case ExpressPackage.VALUE_SET__REFERENCE_DIMENSION:
-                return basicSetReferenceDimension(null, msgs);
+        case ExpressPackage.VALUE_SET__REFERENCE_DIMENSION:
+            return basicSetReferenceDimension(null, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case ExpressPackage.VALUE_SET__IS_TEMP:
-                return isIsTemp();
-            case ExpressPackage.VALUE_SET__REFERENCE_DIMENSION:
-                if (resolve) return getReferenceDimension();
-                return basicGetReferenceDimension();
+        case ExpressPackage.VALUE_SET__IS_TEMP:
+            return isIsTemp();
+        case ExpressPackage.VALUE_SET__REFERENCE_DIMENSION:
+            if (resolve)
+                return getReferenceDimension();
+            return basicGetReferenceDimension();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case ExpressPackage.VALUE_SET__IS_TEMP:
-                setIsTemp((Boolean)newValue);
-                return;
-            case ExpressPackage.VALUE_SET__REFERENCE_DIMENSION:
-                setReferenceDimension((Dimension)newValue);
-                return;
+        case ExpressPackage.VALUE_SET__IS_TEMP:
+            setIsTemp((Boolean) newValue);
+            return;
+        case ExpressPackage.VALUE_SET__REFERENCE_DIMENSION:
+            setReferenceDimension((Dimension) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case ExpressPackage.VALUE_SET__IS_TEMP:
-                setIsTemp(IS_TEMP_EDEFAULT);
-                return;
-            case ExpressPackage.VALUE_SET__REFERENCE_DIMENSION:
-                setReferenceDimension((Dimension)null);
-                return;
+        case ExpressPackage.VALUE_SET__IS_TEMP:
+            setIsTemp(IS_TEMP_EDEFAULT);
+            return;
+        case ExpressPackage.VALUE_SET__REFERENCE_DIMENSION:
+            setReferenceDimension((Dimension) null);
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case ExpressPackage.VALUE_SET__IS_TEMP:
-                return isTemp != IS_TEMP_EDEFAULT;
-            case ExpressPackage.VALUE_SET__REFERENCE_DIMENSION:
-                return referenceDimension != null;
+        case ExpressPackage.VALUE_SET__IS_TEMP:
+            return isTemp != IS_TEMP_EDEFAULT;
+        case ExpressPackage.VALUE_SET__REFERENCE_DIMENSION:
+            return referenceDimension != null;
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (isTemp: ");
@@ -276,4 +269,4 @@ public class ValueSetImpl extends DimensionedObjectImpl implements ValueSet {
         return result.toString();
     }
 
-} //ValueSetImpl
+} // ValueSetImpl

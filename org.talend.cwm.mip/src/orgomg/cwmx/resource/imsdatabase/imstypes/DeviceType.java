@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.imsdatabase.imstypes;
@@ -13,13 +12,10 @@ import java.util.List;
 import org.eclipse.emf.common.util.Enumerator;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the literals of the enumeration '<em><b>Device Type</b></em>',
- * and utility methods for working with them.
- * <!-- end-user-doc -->
- * <!-- begin-model-doc -->
- * Device types
- * <!-- end-model-doc -->
+ * <!-- begin-user-doc --> A representation of the literals of the enumeration '
+ * <em><b>Device Type</b></em>', and utility methods for working with them. <!--
+ * end-user-doc --> <!-- begin-model-doc --> Device types <!-- end-model-doc -->
+ * 
  * @see orgomg.cwmx.resource.imsdatabase.imstypes.ImstypesPackage#getDeviceType()
  * @model
  * @generated
@@ -129,8 +125,8 @@ public enum DeviceType implements Enumerator {
      * The '<em><b>Imsdt 2305</b></em>' literal value.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of '<em><b>Imsdt 2305</b></em>' literal object isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of '<em><b>Imsdt 2305</b></em>' literal object isn't
+     * clear, there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
      * @see #IMSDT_2305
@@ -144,8 +140,8 @@ public enum DeviceType implements Enumerator {
      * The '<em><b>Imsdt 2319</b></em>' literal value.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of '<em><b>Imsdt 2319</b></em>' literal object isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of '<em><b>Imsdt 2319</b></em>' literal object isn't
+     * clear, there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
      * @see #IMSDT_2319
@@ -159,8 +155,8 @@ public enum DeviceType implements Enumerator {
      * The '<em><b>Imsdt 3330</b></em>' literal value.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of '<em><b>Imsdt 3330</b></em>' literal object isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of '<em><b>Imsdt 3330</b></em>' literal object isn't
+     * clear, there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
      * @see #IMSDT_3330
@@ -174,8 +170,8 @@ public enum DeviceType implements Enumerator {
      * The '<em><b>Imsdt 3350</b></em>' literal value.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of '<em><b>Imsdt 3350</b></em>' literal object isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of '<em><b>Imsdt 3350</b></em>' literal object isn't
+     * clear, there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
      * @see #IMSDT_3350
@@ -189,8 +185,8 @@ public enum DeviceType implements Enumerator {
      * The '<em><b>Imsdt 3375</b></em>' literal value.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of '<em><b>Imsdt 3375</b></em>' literal object isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of '<em><b>Imsdt 3375</b></em>' literal object isn't
+     * clear, there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
      * @see #IMSDT_3375
@@ -204,8 +200,8 @@ public enum DeviceType implements Enumerator {
      * The '<em><b>Imsdt 3380</b></em>' literal value.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of '<em><b>Imsdt 3380</b></em>' literal object isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of '<em><b>Imsdt 3380</b></em>' literal object isn't
+     * clear, there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
      * @see #IMSDT_3380
@@ -219,8 +215,8 @@ public enum DeviceType implements Enumerator {
      * The '<em><b>Imsdt 3390</b></em>' literal value.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of '<em><b>Imsdt 3390</b></em>' literal object isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of '<em><b>Imsdt 3390</b></em>' literal object isn't
+     * clear, there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
      * @see #IMSDT_3390
@@ -234,8 +230,8 @@ public enum DeviceType implements Enumerator {
      * The '<em><b>Imsdt 2400</b></em>' literal value.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of '<em><b>Imsdt 2400</b></em>' literal object isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of '<em><b>Imsdt 2400</b></em>' literal object isn't
+     * clear, there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
      * @see #IMSDT_2400
@@ -249,8 +245,8 @@ public enum DeviceType implements Enumerator {
      * The '<em><b>Imsdt 3400</b></em>' literal value.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of '<em><b>Imsdt 3400</b></em>' literal object isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of '<em><b>Imsdt 3400</b></em>' literal object isn't
+     * clear, there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
      * @see #IMSDT_3400
@@ -264,8 +260,8 @@ public enum DeviceType implements Enumerator {
      * The '<em><b>Imsdt TAPE</b></em>' literal value.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of '<em><b>Imsdt TAPE</b></em>' literal object isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of '<em><b>Imsdt TAPE</b></em>' literal object isn't
+     * clear, there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
      * @see #IMSDT_TAPE
@@ -276,37 +272,24 @@ public enum DeviceType implements Enumerator {
     public static final int IMSDT_TAPE_VALUE = 9;
 
     /**
-     * An array of all the '<em><b>Device Type</b></em>' enumerators.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * An array of all the '<em><b>Device Type</b></em>' enumerators. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
-    private static final DeviceType[] VALUES_ARRAY =
-        new DeviceType[] {
-            IMSDT_2305,
-            IMSDT_2319,
-            IMSDT_3330,
-            IMSDT_3350,
-            IMSDT_3375,
-            IMSDT_3380,
-            IMSDT_3390,
-            IMSDT_2400,
-            IMSDT_3400,
-            IMSDT_TAPE,
-        };
+    private static final DeviceType[] VALUES_ARRAY = new DeviceType[] { IMSDT_2305, IMSDT_2319, IMSDT_3330, IMSDT_3350,
+            IMSDT_3375, IMSDT_3380, IMSDT_3390, IMSDT_2400, IMSDT_3400, IMSDT_TAPE, };
 
     /**
      * A public read-only list of all the '<em><b>Device Type</b></em>' enumerators.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static final List<DeviceType> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
     /**
      * Returns the '<em><b>Device Type</b></em>' literal with the specified literal value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static DeviceType get(String literal) {
@@ -321,8 +304,7 @@ public enum DeviceType implements Enumerator {
 
     /**
      * Returns the '<em><b>Device Type</b></em>' literal with the specified name.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static DeviceType getByName(String name) {
@@ -337,51 +319,57 @@ public enum DeviceType implements Enumerator {
 
     /**
      * Returns the '<em><b>Device Type</b></em>' literal with the specified integer value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static DeviceType get(int value) {
         switch (value) {
-            case IMSDT_2305_VALUE: return IMSDT_2305;
-            case IMSDT_2319_VALUE: return IMSDT_2319;
-            case IMSDT_3330_VALUE: return IMSDT_3330;
-            case IMSDT_3350_VALUE: return IMSDT_3350;
-            case IMSDT_3375_VALUE: return IMSDT_3375;
-            case IMSDT_3380_VALUE: return IMSDT_3380;
-            case IMSDT_3390_VALUE: return IMSDT_3390;
-            case IMSDT_2400_VALUE: return IMSDT_2400;
-            case IMSDT_3400_VALUE: return IMSDT_3400;
-            case IMSDT_TAPE_VALUE: return IMSDT_TAPE;
+        case IMSDT_2305_VALUE:
+            return IMSDT_2305;
+        case IMSDT_2319_VALUE:
+            return IMSDT_2319;
+        case IMSDT_3330_VALUE:
+            return IMSDT_3330;
+        case IMSDT_3350_VALUE:
+            return IMSDT_3350;
+        case IMSDT_3375_VALUE:
+            return IMSDT_3375;
+        case IMSDT_3380_VALUE:
+            return IMSDT_3380;
+        case IMSDT_3390_VALUE:
+            return IMSDT_3390;
+        case IMSDT_2400_VALUE:
+            return IMSDT_2400;
+        case IMSDT_3400_VALUE:
+            return IMSDT_3400;
+        case IMSDT_TAPE_VALUE:
+            return IMSDT_TAPE;
         }
         return null;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private final int value;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private final String name;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private final String literal;
 
     /**
      * Only this class can construct instances.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     private DeviceType(int value, String name, String literal) {
@@ -391,41 +379,37 @@ public enum DeviceType implements Enumerator {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public int getValue() {
-      return value;
+        return value;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getName() {
-      return name;
+        return name;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getLiteral() {
-      return literal;
+        return literal;
     }
 
     /**
      * Returns the literal value of the enumerator, which is its string representation.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
         return literal;
     }
-    
-} //DeviceType
+
+} // DeviceType

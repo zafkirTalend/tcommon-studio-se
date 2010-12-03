@@ -1,16 +1,13 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.management.warehouseprocess.events;
 
-
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Retry Event</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Retry Event</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * Indicates that a WarehouseProcess should be retried upon failure. This type of event is used for example when a WarehouseProcess relies on sources with uncertain availability (connection or uptime).
@@ -31,13 +28,13 @@ package orgomg.cwm.management.warehouseprocess.events;
  * @generated
  */
 public interface RetryEvent extends InternalEvent {
+
     /**
-     * Returns the value of the '<em><b>Wait Duration</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Indicates the length of time (in seconds) to wait before retrying the triggered WarehouseProcess.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Wait Duration</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * Indicates the length of time (in seconds) to wait before retrying the
+     * triggered WarehouseProcess. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Wait Duration</em>' attribute.
      * @see #setWaitDuration(String)
      * @see orgomg.cwm.management.warehouseprocess.events.EventsPackage#getRetryEvent_WaitDuration()
@@ -48,8 +45,8 @@ public interface RetryEvent extends InternalEvent {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.management.warehouseprocess.events.RetryEvent#getWaitDuration <em>Wait Duration</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Wait Duration</em>' attribute.
      * @see #getWaitDuration()
      * @generated
@@ -57,12 +54,11 @@ public interface RetryEvent extends InternalEvent {
     void setWaitDuration(String value);
 
     /**
-     * Returns the value of the '<em><b>Max Count</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Indicates how many times the triggered WarehouseProcess should be retried before being declared failed.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Max Count</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * Indicates how many times the triggered WarehouseProcess should be retried
+     * before being declared failed. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Max Count</em>' attribute.
      * @see #setMaxCount(long)
      * @see orgomg.cwm.management.warehouseprocess.events.EventsPackage#getRetryEvent_MaxCount()
@@ -72,10 +68,13 @@ public interface RetryEvent extends InternalEvent {
     long getMaxCount();
 
     /**
-     * Sets the value of the '{@link orgomg.cwm.management.warehouseprocess.events.RetryEvent#getMaxCount <em>Max Count</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Max Count</em>' attribute.
+     * Sets the value of the '
+     * {@link orgomg.cwm.management.warehouseprocess.events.RetryEvent#getMaxCount
+     * <em>Max Count</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @param value
+     *            the new value of the '<em>Max Count</em>' attribute.
      * @see #getMaxCount()
      * @generated
      */

@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.express.impl;
@@ -20,9 +19,8 @@ import orgomg.cwmx.resource.express.AggMapComponent;
 import orgomg.cwmx.resource.express.ExpressPackage;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Agg Map</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Agg Map</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -33,10 +31,12 @@ import orgomg.cwmx.resource.express.ExpressPackage;
  * @generated
  */
 public class AggMapImpl extends ClassImpl implements AggMap {
+
     /**
-     * The cached value of the '{@link #getAggMapComponent() <em>Agg Map Component</em>}' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getAggMapComponent()
+     * <em>Agg Map Component</em>}' containment reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #getAggMapComponent()
      * @generated
      * @ordered
@@ -44,8 +44,7 @@ public class AggMapImpl extends ClassImpl implements AggMap {
     protected EList<AggMapComponent> aggMapComponent;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected AggMapImpl() {
@@ -53,8 +52,7 @@ public class AggMapImpl extends ClassImpl implements AggMap {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -63,104 +61,98 @@ public class AggMapImpl extends ClassImpl implements AggMap {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<AggMapComponent> getAggMapComponent() {
         if (aggMapComponent == null) {
-            aggMapComponent = new EObjectContainmentWithInverseEList<AggMapComponent>(AggMapComponent.class, this, ExpressPackage.AGG_MAP__AGG_MAP_COMPONENT, ExpressPackage.AGG_MAP_COMPONENT__AGG_MAP);
+            aggMapComponent = new EObjectContainmentWithInverseEList<AggMapComponent>(AggMapComponent.class, this,
+                    ExpressPackage.AGG_MAP__AGG_MAP_COMPONENT, ExpressPackage.AGG_MAP_COMPONENT__AGG_MAP);
         }
         return aggMapComponent;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case ExpressPackage.AGG_MAP__AGG_MAP_COMPONENT:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getAggMapComponent()).basicAdd(otherEnd, msgs);
+        case ExpressPackage.AGG_MAP__AGG_MAP_COMPONENT:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getAggMapComponent()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case ExpressPackage.AGG_MAP__AGG_MAP_COMPONENT:
-                return ((InternalEList<?>)getAggMapComponent()).basicRemove(otherEnd, msgs);
+        case ExpressPackage.AGG_MAP__AGG_MAP_COMPONENT:
+            return ((InternalEList<?>) getAggMapComponent()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case ExpressPackage.AGG_MAP__AGG_MAP_COMPONENT:
-                return getAggMapComponent();
+        case ExpressPackage.AGG_MAP__AGG_MAP_COMPONENT:
+            return getAggMapComponent();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case ExpressPackage.AGG_MAP__AGG_MAP_COMPONENT:
-                getAggMapComponent().clear();
-                getAggMapComponent().addAll((Collection<? extends AggMapComponent>)newValue);
-                return;
+        case ExpressPackage.AGG_MAP__AGG_MAP_COMPONENT:
+            getAggMapComponent().clear();
+            getAggMapComponent().addAll((Collection<? extends AggMapComponent>) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case ExpressPackage.AGG_MAP__AGG_MAP_COMPONENT:
-                getAggMapComponent().clear();
-                return;
+        case ExpressPackage.AGG_MAP__AGG_MAP_COMPONENT:
+            getAggMapComponent().clear();
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case ExpressPackage.AGG_MAP__AGG_MAP_COMPONENT:
-                return aggMapComponent != null && !aggMapComponent.isEmpty();
+        case ExpressPackage.AGG_MAP__AGG_MAP_COMPONENT:
+            return aggMapComponent != null && !aggMapComponent.isEmpty();
         }
         return super.eIsSet(featureID);
     }
 
-} //AggMapImpl
+} // AggMapImpl

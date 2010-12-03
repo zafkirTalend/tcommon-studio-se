@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.management.warehouseprocess.events.impl;
@@ -13,9 +12,8 @@ import orgomg.cwm.management.warehouseprocess.events.EventsPackage;
 import orgomg.cwm.management.warehouseprocess.events.IntervalEvent;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Interval Event</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Interval Event</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -26,10 +24,10 @@ import orgomg.cwm.management.warehouseprocess.events.IntervalEvent;
  * @generated
  */
 public class IntervalEventImpl extends ScheduleEventImpl implements IntervalEvent {
+
     /**
      * The default value of the '{@link #getDuration() <em>Duration</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getDuration()
      * @generated
      * @ordered
@@ -38,8 +36,7 @@ public class IntervalEventImpl extends ScheduleEventImpl implements IntervalEven
 
     /**
      * The cached value of the '{@link #getDuration() <em>Duration</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getDuration()
      * @generated
      * @ordered
@@ -47,8 +44,7 @@ public class IntervalEventImpl extends ScheduleEventImpl implements IntervalEven
     protected String duration = DURATION_EDEFAULT;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected IntervalEventImpl() {
@@ -56,8 +52,7 @@ public class IntervalEventImpl extends ScheduleEventImpl implements IntervalEven
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -66,8 +61,7 @@ public class IntervalEventImpl extends ScheduleEventImpl implements IntervalEven
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getDuration() {
@@ -75,8 +69,7 @@ public class IntervalEventImpl extends ScheduleEventImpl implements IntervalEven
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setDuration(String newDuration) {
@@ -87,71 +80,67 @@ public class IntervalEventImpl extends ScheduleEventImpl implements IntervalEven
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case EventsPackage.INTERVAL_EVENT__DURATION:
-                return getDuration();
+        case EventsPackage.INTERVAL_EVENT__DURATION:
+            return getDuration();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case EventsPackage.INTERVAL_EVENT__DURATION:
-                setDuration((String)newValue);
-                return;
+        case EventsPackage.INTERVAL_EVENT__DURATION:
+            setDuration((String) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case EventsPackage.INTERVAL_EVENT__DURATION:
-                setDuration(DURATION_EDEFAULT);
-                return;
+        case EventsPackage.INTERVAL_EVENT__DURATION:
+            setDuration(DURATION_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case EventsPackage.INTERVAL_EVENT__DURATION:
-                return DURATION_EDEFAULT == null ? duration != null : !DURATION_EDEFAULT.equals(duration);
+        case EventsPackage.INTERVAL_EVENT__DURATION:
+            return DURATION_EDEFAULT == null ? duration != null : !DURATION_EDEFAULT.equals(duration);
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (duration: ");
@@ -160,4 +149,4 @@ public class IntervalEventImpl extends ScheduleEventImpl implements IntervalEven
         return result.toString();
     }
 
-} //IntervalEventImpl
+} // IntervalEventImpl

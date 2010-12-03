@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.coboldata;
@@ -9,9 +8,8 @@ package orgomg.cwmx.resource.coboldata;
 import org.eclipse.emf.common.util.EList;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>COBOL Field</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>COBOL Field</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * Represents fields that appear in COBOL record descriptions. COBOLField instances are associated with their owning RecordDef or Group instances via the UML owner/feature association between Feature and Classifier.
@@ -53,14 +51,14 @@ import org.eclipse.emf.common.util.EList;
  * @generated
  */
 public interface COBOLField extends COBOLItem {
+
     /**
-     * Returns the value of the '<em><b>Level</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The level number of a COBOLField.
+     * Returns the value of the '<em><b>Level</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> The
+     * level number of a COBOLField.
      * 
      * <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Level</em>' attribute.
      * @see #setLevel(long)
      * @see orgomg.cwmx.resource.coboldata.CoboldataPackage#getCOBOLField_Level()
@@ -71,8 +69,7 @@ public interface COBOLField extends COBOLItem {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.coboldata.COBOLField#getLevel <em>Level</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Level</em>' attribute.
      * @see #getLevel()
      * @generated
@@ -80,13 +77,12 @@ public interface COBOLField extends COBOLItem {
     void setLevel(long value);
 
     /**
-     * Returns the value of the '<em><b>Sign Kind</b></em>' attribute.
-     * The literals are from the enumeration {@link orgomg.cwmx.resource.coboldata.SignKindType}.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The type of sign for the field.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Sign Kind</b></em>' attribute. The
+     * literals are from the enumeration
+     * {@link orgomg.cwmx.resource.coboldata.SignKindType}. <!-- begin-user-doc
+     * --> <!-- end-user-doc --> <!-- begin-model-doc --> The type of sign for
+     * the field. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Sign Kind</em>' attribute.
      * @see orgomg.cwmx.resource.coboldata.SignKindType
      * @see #setSignKind(SignKindType)
@@ -97,10 +93,13 @@ public interface COBOLField extends COBOLItem {
     SignKindType getSignKind();
 
     /**
-     * Sets the value of the '{@link orgomg.cwmx.resource.coboldata.COBOLField#getSignKind <em>Sign Kind</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Sign Kind</em>' attribute.
+     * Sets the value of the '
+     * {@link orgomg.cwmx.resource.coboldata.COBOLField#getSignKind
+     * <em>Sign Kind</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @param value
+     *            the new value of the '<em>Sign Kind</em>' attribute.
      * @see orgomg.cwmx.resource.coboldata.SignKindType
      * @see #getSignKind()
      * @generated
@@ -108,12 +107,10 @@ public interface COBOLField extends COBOLItem {
     void setSignKind(SignKindType value);
 
     /**
-     * Returns the value of the '<em><b>Is Filler</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * If True, the field is a filler field.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Is Filler</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> If
+     * True, the field is a filler field. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Is Filler</em>' attribute.
      * @see #setIsFiller(boolean)
      * @see orgomg.cwmx.resource.coboldata.CoboldataPackage#getCOBOLField_IsFiller()
@@ -123,10 +120,13 @@ public interface COBOLField extends COBOLItem {
     boolean isIsFiller();
 
     /**
-     * Sets the value of the '{@link orgomg.cwmx.resource.coboldata.COBOLField#isIsFiller <em>Is Filler</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Is Filler</em>' attribute.
+     * Sets the value of the '
+     * {@link orgomg.cwmx.resource.coboldata.COBOLField#isIsFiller
+     * <em>Is Filler</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @param value
+     *            the new value of the '<em>Is Filler</em>' attribute.
      * @see #isIsFiller()
      * @generated
      */
@@ -134,11 +134,9 @@ public interface COBOLField extends COBOLItem {
 
     /**
      * Returns the value of the '<em><b>Is Justified Right</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * If True, the content of the field is right justified.
-     * <!-- end-model-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> If
+     * True, the content of the field is right justified. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Is Justified Right</em>' attribute.
      * @see #setIsJustifiedRight(boolean)
      * @see orgomg.cwmx.resource.coboldata.CoboldataPackage#getCOBOLField_IsJustifiedRight()
@@ -149,8 +147,8 @@ public interface COBOLField extends COBOLItem {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.coboldata.COBOLField#isIsJustifiedRight <em>Is Justified Right</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Is Justified Right</em>' attribute.
      * @see #isIsJustifiedRight()
      * @generated
@@ -159,11 +157,10 @@ public interface COBOLField extends COBOLItem {
 
     /**
      * Returns the value of the '<em><b>Is Blank When Zero</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * If True, the field is interpreted as having the numeric value zero when the field contains blanks.
-     * <!-- end-model-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> If
+     * True, the field is interpreted as having the numeric value zero when the
+     * field contains blanks. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Is Blank When Zero</em>' attribute.
      * @see #setIsBlankWhenZero(boolean)
      * @see orgomg.cwmx.resource.coboldata.CoboldataPackage#getCOBOLField_IsBlankWhenZero()
@@ -174,8 +171,8 @@ public interface COBOLField extends COBOLItem {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.coboldata.COBOLField#isIsBlankWhenZero <em>Is Blank When Zero</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Is Blank When Zero</em>' attribute.
      * @see #isIsBlankWhenZero()
      * @generated
@@ -184,11 +181,9 @@ public interface COBOLField extends COBOLItem {
 
     /**
      * Returns the value of the '<em><b>Is Synchronized</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * If True, the field is synchronized.
-     * <!-- end-model-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> If
+     * True, the field is synchronized. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Is Synchronized</em>' attribute.
      * @see #setIsSynchronized(boolean)
      * @see orgomg.cwmx.resource.coboldata.CoboldataPackage#getCOBOLField_IsSynchronized()
@@ -199,8 +194,8 @@ public interface COBOLField extends COBOLItem {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.coboldata.COBOLField#isIsSynchronized <em>Is Synchronized</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Is Synchronized</em>' attribute.
      * @see #isIsSynchronized()
      * @generated
@@ -208,12 +203,10 @@ public interface COBOLField extends COBOLItem {
     void setIsSynchronized(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Picture</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Contains the picture specification for the field.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Picture</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * Contains the picture specification for the field. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Picture</em>' attribute.
      * @see #setPicture(String)
      * @see orgomg.cwmx.resource.coboldata.CoboldataPackage#getCOBOLField_Picture()
@@ -223,22 +216,24 @@ public interface COBOLField extends COBOLItem {
     String getPicture();
 
     /**
-     * Sets the value of the '{@link orgomg.cwmx.resource.coboldata.COBOLField#getPicture <em>Picture</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Picture</em>' attribute.
+     * Sets the value of the '
+     * {@link orgomg.cwmx.resource.coboldata.COBOLField#getPicture
+     * <em>Picture</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @param value
+     *            the new value of the '<em>Picture</em>' attribute.
      * @see #getPicture()
      * @generated
      */
     void setPicture(String value);
 
     /**
-     * Returns the value of the '<em><b>Occurs Lower</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * If the field occurs, contains the lower bound of the number of possible occurrences.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Occurs Lower</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> If the
+     * field occurs, contains the lower bound of the number of possible
+     * occurrences. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Occurs Lower</em>' attribute.
      * @see #setOccursLower(long)
      * @see orgomg.cwmx.resource.coboldata.CoboldataPackage#getCOBOLField_OccursLower()
@@ -249,8 +244,8 @@ public interface COBOLField extends COBOLItem {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.coboldata.COBOLField#getOccursLower <em>Occurs Lower</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Occurs Lower</em>' attribute.
      * @see #getOccursLower()
      * @generated
@@ -258,12 +253,11 @@ public interface COBOLField extends COBOLItem {
     void setOccursLower(long value);
 
     /**
-     * Returns the value of the '<em><b>Occurs Upper</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * If the field occurs, contains the upper bound of the number of possible occurrences.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Occurs Upper</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> If the
+     * field occurs, contains the upper bound of the number of possible
+     * occurrences. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Occurs Upper</em>' attribute.
      * @see #setOccursUpper(long)
      * @see orgomg.cwmx.resource.coboldata.CoboldataPackage#getCOBOLField_OccursUpper()
@@ -274,8 +268,8 @@ public interface COBOLField extends COBOLItem {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.coboldata.COBOLField#getOccursUpper <em>Occurs Upper</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Occurs Upper</em>' attribute.
      * @see #getOccursUpper()
      * @generated
@@ -283,12 +277,11 @@ public interface COBOLField extends COBOLItem {
     void setOccursUpper(long value);
 
     /**
-     * Returns the value of the '<em><b>Index Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * A list of strings that are the names obtained from the INDEXED BY clause.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Index Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> A list
+     * of strings that are the names obtained from the INDEXED BY clause. <!--
+     * end-model-doc -->
+     * 
      * @return the value of the '<em>Index Name</em>' attribute.
      * @see #setIndexName(String)
      * @see orgomg.cwmx.resource.coboldata.CoboldataPackage#getCOBOLField_IndexName()
@@ -299,8 +292,8 @@ public interface COBOLField extends COBOLItem {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.coboldata.COBOLField#getIndexName <em>Index Name</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Index Name</em>' attribute.
      * @see #getIndexName()
      * @generated
@@ -308,12 +301,10 @@ public interface COBOLField extends COBOLItem {
     void setIndexName(String value);
 
     /**
-     * Returns the value of the '<em><b>Is External</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * If True, the field is external.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Is External</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> If
+     * True, the field is external. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Is External</em>' attribute.
      * @see #setIsExternal(boolean)
      * @see orgomg.cwmx.resource.coboldata.CoboldataPackage#getCOBOLField_IsExternal()
@@ -324,8 +315,8 @@ public interface COBOLField extends COBOLItem {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.coboldata.COBOLField#isIsExternal <em>Is External</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Is External</em>' attribute.
      * @see #isIsExternal()
      * @generated
@@ -333,12 +324,10 @@ public interface COBOLField extends COBOLItem {
     void setIsExternal(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Is Global</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * If True, the field is global.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Is Global</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> If
+     * True, the field is global. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Is Global</em>' attribute.
      * @see #setIsGlobal(boolean)
      * @see orgomg.cwmx.resource.coboldata.CoboldataPackage#getCOBOLField_IsGlobal()
@@ -348,10 +337,13 @@ public interface COBOLField extends COBOLItem {
     boolean isIsGlobal();
 
     /**
-     * Sets the value of the '{@link orgomg.cwmx.resource.coboldata.COBOLField#isIsGlobal <em>Is Global</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Is Global</em>' attribute.
+     * Sets the value of the '
+     * {@link orgomg.cwmx.resource.coboldata.COBOLField#isIsGlobal
+     * <em>Is Global</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @param value
+     *            the new value of the '<em>Is Global</em>' attribute.
      * @see #isIsGlobal()
      * @generated
      */
@@ -360,8 +352,7 @@ public interface COBOLField extends COBOLItem {
     /**
      * Returns the value of the '<em><b>Depending On Field</b></em>' reference.
      * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.coboldata.COBOLItem#getOccurringField <em>Occurring Field</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Identifies the COBOLField instance that contains the number of occurrences.
      * <!-- end-model-doc -->
@@ -376,8 +367,8 @@ public interface COBOLField extends COBOLItem {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.coboldata.COBOLField#getDependingOnField <em>Depending On Field</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Depending On Field</em>' reference.
      * @see #getDependingOnField()
      * @generated
@@ -385,13 +376,13 @@ public interface COBOLField extends COBOLItem {
     void setDependingOnField(COBOLItem value);
 
     /**
-     * Returns the value of the '<em><b>Redefined Field</b></em>' reference.
-     * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.coboldata.COBOLField#getRedefinedByField <em>Redefined By Field</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the COBOLField instance that is redefined.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Redefined Field</b></em>' reference. It
+     * is bidirectional and its opposite is '
+     * {@link orgomg.cwmx.resource.coboldata.COBOLField#getRedefinedByField
+     * <em>Redefined By Field</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * --> <!-- begin-model-doc --> Identifies the COBOLField instance that is
+     * redefined. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Redefined Field</em>' reference.
      * @see #setRedefinedField(COBOLField)
      * @see orgomg.cwmx.resource.coboldata.CoboldataPackage#getCOBOLField_RedefinedField()
@@ -403,8 +394,8 @@ public interface COBOLField extends COBOLItem {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.coboldata.COBOLField#getRedefinedField <em>Redefined Field</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Redefined Field</em>' reference.
      * @see #getRedefinedField()
      * @generated
@@ -415,8 +406,7 @@ public interface COBOLField extends COBOLItem {
      * Returns the value of the '<em><b>Redefined By Field</b></em>' reference list.
      * The list contents are of type {@link orgomg.cwmx.resource.coboldata.COBOLField}.
      * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.coboldata.COBOLField#getRedefinedField <em>Redefined Field</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Identifies the COBOLField instances that redefine this field.
      * <!-- end-model-doc -->
@@ -432,8 +422,7 @@ public interface COBOLField extends COBOLItem {
      * Returns the value of the '<em><b>Occurs Key Info</b></em>' containment reference list.
      * The list contents are of type {@link orgomg.cwmx.resource.coboldata.OccursKey}.
      * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.coboldata.OccursKey#getOccursKeyOf <em>Occurs Key Of</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Identifies the OccursKey instances relevant for this field.
      * <!-- end-model-doc -->
@@ -446,14 +435,15 @@ public interface COBOLField extends COBOLItem {
     EList<OccursKey> getOccursKeyInfo();
 
     /**
-     * Returns the value of the '<em><b>Occurs Key Field Info</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwmx.resource.coboldata.OccursKey}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.coboldata.OccursKey#getOccursKeyField <em>Occurs Key Field</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the OccursKey instances relevant to this COBOLField instance.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Occurs Key Field Info</b></em>'
+     * reference list. The list contents are of type
+     * {@link orgomg.cwmx.resource.coboldata.OccursKey}. It is bidirectional and
+     * its opposite is '
+     * {@link orgomg.cwmx.resource.coboldata.OccursKey#getOccursKeyField
+     * <em>Occurs Key Field</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * --> <!-- begin-model-doc --> Identifies the OccursKey instances relevant
+     * to this COBOLField instance. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Occurs Key Field Info</em>' reference list.
      * @see orgomg.cwmx.resource.coboldata.CoboldataPackage#getCOBOLField_OccursKeyFieldInfo()
      * @see orgomg.cwmx.resource.coboldata.OccursKey#getOccursKeyField
@@ -466,8 +456,7 @@ public interface COBOLField extends COBOLItem {
      * Returns the value of the '<em><b>First Renames</b></em>' reference list.
      * The list contents are of type {@link orgomg.cwmx.resource.coboldata.Renames}.
      * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.coboldata.Renames#getFirstField <em>First Field</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Identifies the Renames instances in which this COBOLField instance is the first renamed field.
      * <!-- end-model-doc -->
@@ -481,13 +470,15 @@ public interface COBOLField extends COBOLItem {
 
     /**
      * Returns the value of the '<em><b>Thru Renames</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwmx.resource.coboldata.Renames}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.coboldata.Renames#getThruField <em>Thru Field</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the Renames instances in which this COBOLField instance is the last renamed field in a range of renamed fields.
-     * <!-- end-model-doc -->
+     * The list contents are of type
+     * {@link orgomg.cwmx.resource.coboldata.Renames}. It is bidirectional and
+     * its opposite is '
+     * {@link orgomg.cwmx.resource.coboldata.Renames#getThruField
+     * <em>Thru Field</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> Identifies the Renames instances in which this
+     * COBOLField instance is the last renamed field in a range of renamed
+     * fields. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Thru Renames</em>' reference list.
      * @see orgomg.cwmx.resource.coboldata.CoboldataPackage#getCOBOLField_ThruRenames()
      * @see orgomg.cwmx.resource.coboldata.Renames#getThruField

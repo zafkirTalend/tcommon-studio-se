@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.analysis.informationreporting;
@@ -9,9 +8,8 @@ package orgomg.cwmx.analysis.informationreporting;
 import orgomg.cwm.analysis.transformation.TransformationMap;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Report Execution</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Report Execution</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * ReportExecution is a subclass of TransformationMap that defines any necessary mappings and procedures for actually generating an instance of a Report.

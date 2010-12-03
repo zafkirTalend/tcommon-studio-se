@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmmip.impl;
@@ -12,18 +11,17 @@ import orgomg.cwmmip.CwmmipPackage;
 import orgomg.cwmmip.Element;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Element</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Element</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
 public class ElementImpl extends EObjectImpl implements Element {
+
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected ElementImpl() {
@@ -31,8 +29,7 @@ public class ElementImpl extends EObjectImpl implements Element {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -40,4 +37,4 @@ public class ElementImpl extends EObjectImpl implements Element {
         return CwmmipPackage.Literals.ELEMENT;
     }
 
-} //ElementImpl
+} // ElementImpl

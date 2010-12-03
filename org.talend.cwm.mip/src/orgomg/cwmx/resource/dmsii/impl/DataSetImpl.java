@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.dmsii.impl;
@@ -17,9 +16,8 @@ import orgomg.cwmx.resource.dmsii.DmsiiPackage;
 import orgomg.cwmx.resource.dmsii.Set;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Data Set</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Data Set</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -34,10 +32,10 @@ import orgomg.cwmx.resource.dmsii.Set;
  * @generated
  */
 public class DataSetImpl extends RecordDefImpl implements DataSet {
+
     /**
      * The default value of the '{@link #isIsGlobal() <em>Is Global</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #isIsGlobal()
      * @generated
      * @ordered
@@ -46,8 +44,7 @@ public class DataSetImpl extends RecordDefImpl implements DataSet {
 
     /**
      * The cached value of the '{@link #isIsGlobal() <em>Is Global</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #isIsGlobal()
      * @generated
      * @ordered
@@ -56,8 +53,8 @@ public class DataSetImpl extends RecordDefImpl implements DataSet {
 
     /**
      * The default value of the '{@link #getOrganization() <em>Organization</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getOrganization()
      * @generated
      * @ordered
@@ -66,8 +63,7 @@ public class DataSetImpl extends RecordDefImpl implements DataSet {
 
     /**
      * The cached value of the '{@link #getOrganization() <em>Organization</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getOrganization()
      * @generated
      * @ordered
@@ -76,8 +72,7 @@ public class DataSetImpl extends RecordDefImpl implements DataSet {
 
     /**
      * The default value of the '{@link #getReorganize() <em>Reorganize</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getReorganize()
      * @generated
      * @ordered
@@ -86,8 +81,7 @@ public class DataSetImpl extends RecordDefImpl implements DataSet {
 
     /**
      * The cached value of the '{@link #getReorganize() <em>Reorganize</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getReorganize()
      * @generated
      * @ordered
@@ -96,8 +90,8 @@ public class DataSetImpl extends RecordDefImpl implements DataSet {
 
     /**
      * The default value of the '{@link #isIsRequiredAll() <em>Is Required All</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #isIsRequiredAll()
      * @generated
      * @ordered
@@ -106,8 +100,8 @@ public class DataSetImpl extends RecordDefImpl implements DataSet {
 
     /**
      * The cached value of the '{@link #isIsRequiredAll() <em>Is Required All</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #isIsRequiredAll()
      * @generated
      * @ordered
@@ -116,8 +110,8 @@ public class DataSetImpl extends RecordDefImpl implements DataSet {
 
     /**
      * The cached value of the '{@link #getPartitioningSet() <em>Partitioning Set</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getPartitioningSet()
      * @generated
      * @ordered
@@ -125,8 +119,7 @@ public class DataSetImpl extends RecordDefImpl implements DataSet {
     protected Set partitioningSet;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected DataSetImpl() {
@@ -134,8 +127,7 @@ public class DataSetImpl extends RecordDefImpl implements DataSet {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -144,8 +136,7 @@ public class DataSetImpl extends RecordDefImpl implements DataSet {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isIsGlobal() {
@@ -153,8 +144,7 @@ public class DataSetImpl extends RecordDefImpl implements DataSet {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setIsGlobal(boolean newIsGlobal) {
@@ -165,8 +155,7 @@ public class DataSetImpl extends RecordDefImpl implements DataSet {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getOrganization() {
@@ -174,20 +163,19 @@ public class DataSetImpl extends RecordDefImpl implements DataSet {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setOrganization(String newOrganization) {
         String oldOrganization = organization;
         organization = newOrganization;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, DmsiiPackage.DATA_SET__ORGANIZATION, oldOrganization, organization));
+            eNotify(new ENotificationImpl(this, Notification.SET, DmsiiPackage.DATA_SET__ORGANIZATION, oldOrganization,
+                    organization));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getReorganize() {
@@ -195,8 +183,7 @@ public class DataSetImpl extends RecordDefImpl implements DataSet {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setReorganize(String newReorganize) {
@@ -207,8 +194,7 @@ public class DataSetImpl extends RecordDefImpl implements DataSet {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isIsRequiredAll() {
@@ -216,37 +202,36 @@ public class DataSetImpl extends RecordDefImpl implements DataSet {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setIsRequiredAll(boolean newIsRequiredAll) {
         boolean oldIsRequiredAll = isRequiredAll;
         isRequiredAll = newIsRequiredAll;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, DmsiiPackage.DATA_SET__IS_REQUIRED_ALL, oldIsRequiredAll, isRequiredAll));
+            eNotify(new ENotificationImpl(this, Notification.SET, DmsiiPackage.DATA_SET__IS_REQUIRED_ALL, oldIsRequiredAll,
+                    isRequiredAll));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Set getPartitioningSet() {
         if (partitioningSet != null && partitioningSet.eIsProxy()) {
-            InternalEObject oldPartitioningSet = (InternalEObject)partitioningSet;
-            partitioningSet = (Set)eResolveProxy(oldPartitioningSet);
+            InternalEObject oldPartitioningSet = (InternalEObject) partitioningSet;
+            partitioningSet = (Set) eResolveProxy(oldPartitioningSet);
             if (partitioningSet != oldPartitioningSet) {
                 if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, DmsiiPackage.DATA_SET__PARTITIONING_SET, oldPartitioningSet, partitioningSet));
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, DmsiiPackage.DATA_SET__PARTITIONING_SET,
+                            oldPartitioningSet, partitioningSet));
             }
         }
         return partitioningSet;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Set basicGetPartitioningSet() {
@@ -254,176 +239,177 @@ public class DataSetImpl extends RecordDefImpl implements DataSet {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public NotificationChain basicSetPartitioningSet(Set newPartitioningSet, NotificationChain msgs) {
         Set oldPartitioningSet = partitioningSet;
         partitioningSet = newPartitioningSet;
         if (eNotificationRequired()) {
-            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DmsiiPackage.DATA_SET__PARTITIONING_SET, oldPartitioningSet, newPartitioningSet);
-            if (msgs == null) msgs = notification; else msgs.add(notification);
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+                    DmsiiPackage.DATA_SET__PARTITIONING_SET, oldPartitioningSet, newPartitioningSet);
+            if (msgs == null)
+                msgs = notification;
+            else
+                msgs.add(notification);
         }
         return msgs;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setPartitioningSet(Set newPartitioningSet) {
         if (newPartitioningSet != partitioningSet) {
             NotificationChain msgs = null;
             if (partitioningSet != null)
-                msgs = ((InternalEObject)partitioningSet).eInverseRemove(this, DmsiiPackage.SET__PARTITIONED_DATA_SET, Set.class, msgs);
+                msgs = ((InternalEObject) partitioningSet).eInverseRemove(this, DmsiiPackage.SET__PARTITIONED_DATA_SET,
+                        Set.class, msgs);
             if (newPartitioningSet != null)
-                msgs = ((InternalEObject)newPartitioningSet).eInverseAdd(this, DmsiiPackage.SET__PARTITIONED_DATA_SET, Set.class, msgs);
+                msgs = ((InternalEObject) newPartitioningSet).eInverseAdd(this, DmsiiPackage.SET__PARTITIONED_DATA_SET,
+                        Set.class, msgs);
             msgs = basicSetPartitioningSet(newPartitioningSet, msgs);
-            if (msgs != null) msgs.dispatch();
-        }
-        else if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, DmsiiPackage.DATA_SET__PARTITIONING_SET, newPartitioningSet, newPartitioningSet));
+            if (msgs != null)
+                msgs.dispatch();
+        } else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, DmsiiPackage.DATA_SET__PARTITIONING_SET, newPartitioningSet,
+                    newPartitioningSet));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case DmsiiPackage.DATA_SET__PARTITIONING_SET:
-                if (partitioningSet != null)
-                    msgs = ((InternalEObject)partitioningSet).eInverseRemove(this, DmsiiPackage.SET__PARTITIONED_DATA_SET, Set.class, msgs);
-                return basicSetPartitioningSet((Set)otherEnd, msgs);
+        case DmsiiPackage.DATA_SET__PARTITIONING_SET:
+            if (partitioningSet != null)
+                msgs = ((InternalEObject) partitioningSet).eInverseRemove(this, DmsiiPackage.SET__PARTITIONED_DATA_SET,
+                        Set.class, msgs);
+            return basicSetPartitioningSet((Set) otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case DmsiiPackage.DATA_SET__PARTITIONING_SET:
-                return basicSetPartitioningSet(null, msgs);
+        case DmsiiPackage.DATA_SET__PARTITIONING_SET:
+            return basicSetPartitioningSet(null, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case DmsiiPackage.DATA_SET__IS_GLOBAL:
-                return isIsGlobal();
-            case DmsiiPackage.DATA_SET__ORGANIZATION:
-                return getOrganization();
-            case DmsiiPackage.DATA_SET__REORGANIZE:
-                return getReorganize();
-            case DmsiiPackage.DATA_SET__IS_REQUIRED_ALL:
-                return isIsRequiredAll();
-            case DmsiiPackage.DATA_SET__PARTITIONING_SET:
-                if (resolve) return getPartitioningSet();
-                return basicGetPartitioningSet();
+        case DmsiiPackage.DATA_SET__IS_GLOBAL:
+            return isIsGlobal();
+        case DmsiiPackage.DATA_SET__ORGANIZATION:
+            return getOrganization();
+        case DmsiiPackage.DATA_SET__REORGANIZE:
+            return getReorganize();
+        case DmsiiPackage.DATA_SET__IS_REQUIRED_ALL:
+            return isIsRequiredAll();
+        case DmsiiPackage.DATA_SET__PARTITIONING_SET:
+            if (resolve)
+                return getPartitioningSet();
+            return basicGetPartitioningSet();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case DmsiiPackage.DATA_SET__IS_GLOBAL:
-                setIsGlobal((Boolean)newValue);
-                return;
-            case DmsiiPackage.DATA_SET__ORGANIZATION:
-                setOrganization((String)newValue);
-                return;
-            case DmsiiPackage.DATA_SET__REORGANIZE:
-                setReorganize((String)newValue);
-                return;
-            case DmsiiPackage.DATA_SET__IS_REQUIRED_ALL:
-                setIsRequiredAll((Boolean)newValue);
-                return;
-            case DmsiiPackage.DATA_SET__PARTITIONING_SET:
-                setPartitioningSet((Set)newValue);
-                return;
+        case DmsiiPackage.DATA_SET__IS_GLOBAL:
+            setIsGlobal((Boolean) newValue);
+            return;
+        case DmsiiPackage.DATA_SET__ORGANIZATION:
+            setOrganization((String) newValue);
+            return;
+        case DmsiiPackage.DATA_SET__REORGANIZE:
+            setReorganize((String) newValue);
+            return;
+        case DmsiiPackage.DATA_SET__IS_REQUIRED_ALL:
+            setIsRequiredAll((Boolean) newValue);
+            return;
+        case DmsiiPackage.DATA_SET__PARTITIONING_SET:
+            setPartitioningSet((Set) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case DmsiiPackage.DATA_SET__IS_GLOBAL:
-                setIsGlobal(IS_GLOBAL_EDEFAULT);
-                return;
-            case DmsiiPackage.DATA_SET__ORGANIZATION:
-                setOrganization(ORGANIZATION_EDEFAULT);
-                return;
-            case DmsiiPackage.DATA_SET__REORGANIZE:
-                setReorganize(REORGANIZE_EDEFAULT);
-                return;
-            case DmsiiPackage.DATA_SET__IS_REQUIRED_ALL:
-                setIsRequiredAll(IS_REQUIRED_ALL_EDEFAULT);
-                return;
-            case DmsiiPackage.DATA_SET__PARTITIONING_SET:
-                setPartitioningSet((Set)null);
-                return;
+        case DmsiiPackage.DATA_SET__IS_GLOBAL:
+            setIsGlobal(IS_GLOBAL_EDEFAULT);
+            return;
+        case DmsiiPackage.DATA_SET__ORGANIZATION:
+            setOrganization(ORGANIZATION_EDEFAULT);
+            return;
+        case DmsiiPackage.DATA_SET__REORGANIZE:
+            setReorganize(REORGANIZE_EDEFAULT);
+            return;
+        case DmsiiPackage.DATA_SET__IS_REQUIRED_ALL:
+            setIsRequiredAll(IS_REQUIRED_ALL_EDEFAULT);
+            return;
+        case DmsiiPackage.DATA_SET__PARTITIONING_SET:
+            setPartitioningSet((Set) null);
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case DmsiiPackage.DATA_SET__IS_GLOBAL:
-                return isGlobal != IS_GLOBAL_EDEFAULT;
-            case DmsiiPackage.DATA_SET__ORGANIZATION:
-                return ORGANIZATION_EDEFAULT == null ? organization != null : !ORGANIZATION_EDEFAULT.equals(organization);
-            case DmsiiPackage.DATA_SET__REORGANIZE:
-                return REORGANIZE_EDEFAULT == null ? reorganize != null : !REORGANIZE_EDEFAULT.equals(reorganize);
-            case DmsiiPackage.DATA_SET__IS_REQUIRED_ALL:
-                return isRequiredAll != IS_REQUIRED_ALL_EDEFAULT;
-            case DmsiiPackage.DATA_SET__PARTITIONING_SET:
-                return partitioningSet != null;
+        case DmsiiPackage.DATA_SET__IS_GLOBAL:
+            return isGlobal != IS_GLOBAL_EDEFAULT;
+        case DmsiiPackage.DATA_SET__ORGANIZATION:
+            return ORGANIZATION_EDEFAULT == null ? organization != null : !ORGANIZATION_EDEFAULT.equals(organization);
+        case DmsiiPackage.DATA_SET__REORGANIZE:
+            return REORGANIZE_EDEFAULT == null ? reorganize != null : !REORGANIZE_EDEFAULT.equals(reorganize);
+        case DmsiiPackage.DATA_SET__IS_REQUIRED_ALL:
+            return isRequiredAll != IS_REQUIRED_ALL_EDEFAULT;
+        case DmsiiPackage.DATA_SET__PARTITIONING_SET:
+            return partitioningSet != null;
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (isGlobal: ");
@@ -438,4 +424,4 @@ public class DataSetImpl extends RecordDefImpl implements DataSet {
         return result.toString();
     }
 
-} //DataSetImpl
+} // DataSetImpl

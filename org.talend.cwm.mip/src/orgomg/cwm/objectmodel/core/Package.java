@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.objectmodel.core;
@@ -10,9 +9,8 @@ import org.eclipse.emf.common.util.EList;
 import orgomg.cwm.foundation.softwaredeployment.DataManager;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Package</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Package</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * A package is a grouping of model elements.
@@ -47,15 +45,17 @@ import orgomg.cwm.foundation.softwaredeployment.DataManager;
  * @generated
  */
 public interface Package extends Namespace {
+
     /**
-     * Returns the value of the '<em><b>Imported Element</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwm.objectmodel.core.ModelElement}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.objectmodel.core.ModelElement#getImporter <em>Importer</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies ModelElements imported by a Package.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Imported Element</b></em>' reference
+     * list. The list contents are of type
+     * {@link orgomg.cwm.objectmodel.core.ModelElement}. It is bidirectional and
+     * its opposite is '
+     * {@link orgomg.cwm.objectmodel.core.ModelElement#getImporter
+     * <em>Importer</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> Identifies ModelElements imported by a Package. <!--
+     * end-model-doc -->
+     * 
      * @return the value of the '<em>Imported Element</em>' reference list.
      * @see orgomg.cwm.objectmodel.core.CorePackage#getPackage_ImportedElement()
      * @see orgomg.cwm.objectmodel.core.ModelElement#getImporter
@@ -68,8 +68,7 @@ public interface Package extends Namespace {
      * Returns the value of the '<em><b>Data Manager</b></em>' reference list.
      * The list contents are of type {@link orgomg.cwm.foundation.softwaredeployment.DataManager}.
      * It is bidirectional and its opposite is '{@link orgomg.cwm.foundation.softwaredeployment.DataManager#getDataPackage <em>Data Package</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Identifies a DataManager that provides access to the data defined in the Package.
      * <!-- end-model-doc -->

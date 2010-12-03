@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.resource.record.util;
@@ -20,6 +19,7 @@ import orgomg.cwm.objectmodel.core.StructuralFeature;
 import orgomg.cwm.objectmodel.instance.DataValue;
 import orgomg.cwm.objectmodel.instance.Extent;
 import orgomg.cwm.objectmodel.instance.Instance;
+import orgomg.cwm.resource.record.*;
 import orgomg.cwm.resource.record.Field;
 import orgomg.cwm.resource.record.FieldValue;
 import orgomg.cwm.resource.record.FixedOffsetField;
@@ -31,26 +31,25 @@ import orgomg.cwm.resource.record.RecordPackage;
 import orgomg.cwm.resource.record.RecordSet;
 
 /**
- * <!-- begin-user-doc -->
- * The <b>Adapter Factory</b> for the model.
- * It provides an adapter <code>createXXX</code> method for each class of the model.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> The <b>Adapter Factory</b> for the model. It provides
+ * an adapter <code>createXXX</code> method for each class of the model. <!--
+ * end-user-doc -->
  * @see orgomg.cwm.resource.record.RecordPackage
  * @generated
  */
 public class RecordAdapterFactory extends AdapterFactoryImpl {
+
     /**
      * The cached model package.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected static RecordPackage modelPackage;
 
     /**
      * Creates an instance of the adapter factory.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     public RecordAdapterFactory() {
@@ -61,9 +60,9 @@ public class RecordAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Returns whether this factory is applicable for the type of the object.
-     * <!-- begin-user-doc -->
-     * This implementation returns <code>true</code> if the object is either the model's package or is an instance object of the model.
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> This implementation returns <code>true</code> if
+     * the object is either the model's package or is an instance object of the
+     * model. <!-- end-user-doc -->
      * @return whether this factory is applicable for the type of the object.
      * @generated
      */
@@ -73,108 +72,129 @@ public class RecordAdapterFactory extends AdapterFactoryImpl {
             return true;
         }
         if (object instanceof EObject) {
-            return ((EObject)object).eClass().getEPackage() == modelPackage;
+            return ((EObject) object).eClass().getEPackage() == modelPackage;
         }
         return false;
     }
 
     /**
-     * The switch that delegates to the <code>createXXX</code> methods.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The switch that delegates to the <code>createXXX</code> methods. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
-    protected RecordSwitch<Adapter> modelSwitch =
-        new RecordSwitch<Adapter>() {
-            @Override
-            public Adapter caseField(Field object) {
-                return createFieldAdapter();
-            }
-            @Override
-            public Adapter caseRecordDef(RecordDef object) {
-                return createRecordDefAdapter();
-            }
-            @Override
-            public Adapter caseFixedOffsetField(FixedOffsetField object) {
-                return createFixedOffsetFieldAdapter();
-            }
-            @Override
-            public Adapter caseRecordFile(RecordFile object) {
-                return createRecordFileAdapter();
-            }
-            @Override
-            public Adapter caseFieldValue(FieldValue object) {
-                return createFieldValueAdapter();
-            }
-            @Override
-            public Adapter caseRecord(Record object) {
-                return createRecordAdapter();
-            }
-            @Override
-            public Adapter caseRecordSet(RecordSet object) {
-                return createRecordSetAdapter();
-            }
-            @Override
-            public Adapter caseGroup(Group object) {
-                return createGroupAdapter();
-            }
-            @Override
-            public Adapter caseElement(Element object) {
-                return createElementAdapter();
-            }
-            @Override
-            public Adapter caseModelElement(ModelElement object) {
-                return createModelElementAdapter();
-            }
-            @Override
-            public Adapter caseFeature(Feature object) {
-                return createFeatureAdapter();
-            }
-            @Override
-            public Adapter caseStructuralFeature(StructuralFeature object) {
-                return createStructuralFeatureAdapter();
-            }
-            @Override
-            public Adapter caseAttribute(Attribute object) {
-                return createAttributeAdapter();
-            }
-            @Override
-            public Adapter caseNamespace(Namespace object) {
-                return createNamespaceAdapter();
-            }
-            @Override
-            public Adapter caseClassifier(Classifier object) {
-                return createClassifierAdapter();
-            }
-            @Override
-            public Adapter caseClass(orgomg.cwm.objectmodel.core.Class object) {
-                return createClassAdapter();
-            }
-            @Override
-            public Adapter casePackage(orgomg.cwm.objectmodel.core.Package object) {
-                return createPackageAdapter();
-            }
-            @Override
-            public Adapter caseInstance(Instance object) {
-                return createInstanceAdapter();
-            }
-            @Override
-            public Adapter caseDataValue(DataValue object) {
-                return createDataValueAdapter();
-            }
-            @Override
-            public Adapter caseObject(orgomg.cwm.objectmodel.instance.Object object) {
-                return createObjectAdapter();
-            }
-            @Override
-            public Adapter caseExtent(Extent object) {
-                return createExtentAdapter();
-            }
-            @Override
-            public Adapter defaultCase(EObject object) {
-                return createEObjectAdapter();
-            }
-        };
+    protected RecordSwitch<Adapter> modelSwitch = new RecordSwitch<Adapter>() {
+
+        @Override
+        public Adapter caseField(Field object) {
+            return createFieldAdapter();
+        }
+
+        @Override
+        public Adapter caseRecordDef(RecordDef object) {
+            return createRecordDefAdapter();
+        }
+
+        @Override
+        public Adapter caseFixedOffsetField(FixedOffsetField object) {
+            return createFixedOffsetFieldAdapter();
+        }
+
+        @Override
+        public Adapter caseRecordFile(RecordFile object) {
+            return createRecordFileAdapter();
+        }
+
+        @Override
+        public Adapter caseFieldValue(FieldValue object) {
+            return createFieldValueAdapter();
+        }
+
+        @Override
+        public Adapter caseRecord(Record object) {
+            return createRecordAdapter();
+        }
+
+        @Override
+        public Adapter caseRecordSet(RecordSet object) {
+            return createRecordSetAdapter();
+        }
+
+        @Override
+        public Adapter caseGroup(Group object) {
+            return createGroupAdapter();
+        }
+
+        @Override
+        public Adapter caseElement(Element object) {
+            return createElementAdapter();
+        }
+
+        @Override
+        public Adapter caseModelElement(ModelElement object) {
+            return createModelElementAdapter();
+        }
+
+        @Override
+        public Adapter caseFeature(Feature object) {
+            return createFeatureAdapter();
+        }
+
+        @Override
+        public Adapter caseStructuralFeature(StructuralFeature object) {
+            return createStructuralFeatureAdapter();
+        }
+
+        @Override
+        public Adapter caseAttribute(Attribute object) {
+            return createAttributeAdapter();
+        }
+
+        @Override
+        public Adapter caseNamespace(Namespace object) {
+            return createNamespaceAdapter();
+        }
+
+        @Override
+        public Adapter caseClassifier(Classifier object) {
+            return createClassifierAdapter();
+        }
+
+        @Override
+        public Adapter caseClass(orgomg.cwm.objectmodel.core.Class object) {
+            return createClassAdapter();
+        }
+
+        @Override
+        public Adapter casePackage(orgomg.cwm.objectmodel.core.Package object) {
+            return createPackageAdapter();
+        }
+
+        @Override
+        public Adapter caseInstance(Instance object) {
+            return createInstanceAdapter();
+        }
+
+        @Override
+        public Adapter caseDataValue(DataValue object) {
+            return createDataValueAdapter();
+        }
+
+        @Override
+        public Adapter caseObject(orgomg.cwm.objectmodel.instance.Object object) {
+            return createObjectAdapter();
+        }
+
+        @Override
+        public Adapter caseExtent(Extent object) {
+            return createExtentAdapter();
+        }
+
+        @Override
+        public Adapter defaultCase(EObject object) {
+            return createEObjectAdapter();
+        }
+    };
 
     /**
      * Creates an adapter for the <code>target</code>.
@@ -186,16 +206,16 @@ public class RecordAdapterFactory extends AdapterFactoryImpl {
      */
     @Override
     public Adapter createAdapter(Notifier target) {
-        return modelSwitch.doSwitch((EObject)target);
+        return modelSwitch.doSwitch((EObject) target);
     }
 
-
     /**
-     * Creates a new adapter for an object of class '{@link orgomg.cwm.resource.record.Field <em>Field</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
+     * Creates a new adapter for an object of class '
+     * {@link orgomg.cwm.resource.record.Field <em>Field</em>}'. <!--
+     * begin-user-doc --> This default implementation returns null so that we
+     * can easily ignore cases; it's useful to ignore a case when inheritance
+     * will catch all the cases anyway. <!-- end-user-doc -->
+     * 
      * @return the new adapter.
      * @see orgomg.cwm.resource.record.Field
      * @generated
@@ -205,11 +225,12 @@ public class RecordAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '{@link orgomg.cwm.resource.record.RecordDef <em>Def</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
+     * Creates a new adapter for an object of class '
+     * {@link orgomg.cwm.resource.record.RecordDef <em>Def</em>}'. <!--
+     * begin-user-doc --> This default implementation returns null so that we
+     * can easily ignore cases; it's useful to ignore a case when inheritance
+     * will catch all the cases anyway. <!-- end-user-doc -->
+     * 
      * @return the new adapter.
      * @see orgomg.cwm.resource.record.RecordDef
      * @generated
@@ -220,9 +241,9 @@ public class RecordAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Creates a new adapter for an object of class '{@link orgomg.cwm.resource.record.FixedOffsetField <em>Fixed Offset Field</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- begin-user-doc --> This default
+     * implementation returns null so that we can easily ignore cases; it's
+     * useful to ignore a case when inheritance will catch all the cases anyway.
      * <!-- end-user-doc -->
      * @return the new adapter.
      * @see orgomg.cwm.resource.record.FixedOffsetField
@@ -233,11 +254,12 @@ public class RecordAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '{@link orgomg.cwm.resource.record.RecordFile <em>File</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
+     * Creates a new adapter for an object of class '
+     * {@link orgomg.cwm.resource.record.RecordFile <em>File</em>}'. <!--
+     * begin-user-doc --> This default implementation returns null so that we
+     * can easily ignore cases; it's useful to ignore a case when inheritance
+     * will catch all the cases anyway. <!-- end-user-doc -->
+     * 
      * @return the new adapter.
      * @see orgomg.cwm.resource.record.RecordFile
      * @generated
@@ -247,11 +269,12 @@ public class RecordAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '{@link orgomg.cwm.resource.record.FieldValue <em>Field Value</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
+     * Creates a new adapter for an object of class '
+     * {@link orgomg.cwm.resource.record.FieldValue <em>Field Value</em>}'. <!--
+     * begin-user-doc --> This default implementation returns null so that we
+     * can easily ignore cases; it's useful to ignore a case when inheritance
+     * will catch all the cases anyway. <!-- end-user-doc -->
+     * 
      * @return the new adapter.
      * @see orgomg.cwm.resource.record.FieldValue
      * @generated
@@ -261,11 +284,12 @@ public class RecordAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '{@link orgomg.cwm.resource.record.Record <em>Record</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
+     * Creates a new adapter for an object of class '
+     * {@link orgomg.cwm.resource.record.Record <em>Record</em>}'. <!--
+     * begin-user-doc --> This default implementation returns null so that we
+     * can easily ignore cases; it's useful to ignore a case when inheritance
+     * will catch all the cases anyway. <!-- end-user-doc -->
+     * 
      * @return the new adapter.
      * @see orgomg.cwm.resource.record.Record
      * @generated
@@ -275,11 +299,12 @@ public class RecordAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '{@link orgomg.cwm.resource.record.RecordSet <em>Set</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
+     * Creates a new adapter for an object of class '
+     * {@link orgomg.cwm.resource.record.RecordSet <em>Set</em>}'. <!--
+     * begin-user-doc --> This default implementation returns null so that we
+     * can easily ignore cases; it's useful to ignore a case when inheritance
+     * will catch all the cases anyway. <!-- end-user-doc -->
+     * 
      * @return the new adapter.
      * @see orgomg.cwm.resource.record.RecordSet
      * @generated
@@ -289,11 +314,12 @@ public class RecordAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '{@link orgomg.cwm.resource.record.Group <em>Group</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
+     * Creates a new adapter for an object of class '
+     * {@link orgomg.cwm.resource.record.Group <em>Group</em>}'. <!--
+     * begin-user-doc --> This default implementation returns null so that we
+     * can easily ignore cases; it's useful to ignore a case when inheritance
+     * will catch all the cases anyway. <!-- end-user-doc -->
+     * 
      * @return the new adapter.
      * @see orgomg.cwm.resource.record.Group
      * @generated
@@ -303,11 +329,12 @@ public class RecordAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.core.Element <em>Element</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
+     * Creates a new adapter for an object of class '
+     * {@link orgomg.cwm.objectmodel.core.Element <em>Element</em>}'. <!--
+     * begin-user-doc --> This default implementation returns null so that we
+     * can easily ignore cases; it's useful to ignore a case when inheritance
+     * will catch all the cases anyway. <!-- end-user-doc -->
+     * 
      * @return the new adapter.
      * @see orgomg.cwm.objectmodel.core.Element
      * @generated
@@ -318,10 +345,9 @@ public class RecordAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.core.ModelElement <em>Model Element</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> This default implementation returns null so that
+     * we can easily ignore cases; it's useful to ignore a case when inheritance
+     * will catch all the cases anyway. <!-- end-user-doc -->
      * @return the new adapter.
      * @see orgomg.cwm.objectmodel.core.ModelElement
      * @generated
@@ -331,11 +357,12 @@ public class RecordAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.core.Feature <em>Feature</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
+     * Creates a new adapter for an object of class '
+     * {@link orgomg.cwm.objectmodel.core.Feature <em>Feature</em>}'. <!--
+     * begin-user-doc --> This default implementation returns null so that we
+     * can easily ignore cases; it's useful to ignore a case when inheritance
+     * will catch all the cases anyway. <!-- end-user-doc -->
+     * 
      * @return the new adapter.
      * @see orgomg.cwm.objectmodel.core.Feature
      * @generated
@@ -346,9 +373,9 @@ public class RecordAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.core.StructuralFeature <em>Structural Feature</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- begin-user-doc --> This default
+     * implementation returns null so that we can easily ignore cases; it's
+     * useful to ignore a case when inheritance will catch all the cases anyway.
      * <!-- end-user-doc -->
      * @return the new adapter.
      * @see orgomg.cwm.objectmodel.core.StructuralFeature
@@ -359,11 +386,12 @@ public class RecordAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.core.Attribute <em>Attribute</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
+     * Creates a new adapter for an object of class '
+     * {@link orgomg.cwm.objectmodel.core.Attribute <em>Attribute</em>}'. <!--
+     * begin-user-doc --> This default implementation returns null so that we
+     * can easily ignore cases; it's useful to ignore a case when inheritance
+     * will catch all the cases anyway. <!-- end-user-doc -->
+     * 
      * @return the new adapter.
      * @see orgomg.cwm.objectmodel.core.Attribute
      * @generated
@@ -373,11 +401,12 @@ public class RecordAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.core.Namespace <em>Namespace</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
+     * Creates a new adapter for an object of class '
+     * {@link orgomg.cwm.objectmodel.core.Namespace <em>Namespace</em>}'. <!--
+     * begin-user-doc --> This default implementation returns null so that we
+     * can easily ignore cases; it's useful to ignore a case when inheritance
+     * will catch all the cases anyway. <!-- end-user-doc -->
+     * 
      * @return the new adapter.
      * @see orgomg.cwm.objectmodel.core.Namespace
      * @generated
@@ -387,11 +416,12 @@ public class RecordAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.core.Classifier <em>Classifier</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
+     * Creates a new adapter for an object of class '
+     * {@link orgomg.cwm.objectmodel.core.Classifier <em>Classifier</em>}'. <!--
+     * begin-user-doc --> This default implementation returns null so that we
+     * can easily ignore cases; it's useful to ignore a case when inheritance
+     * will catch all the cases anyway. <!-- end-user-doc -->
+     * 
      * @return the new adapter.
      * @see orgomg.cwm.objectmodel.core.Classifier
      * @generated
@@ -401,11 +431,12 @@ public class RecordAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.core.Class <em>Class</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
+     * Creates a new adapter for an object of class '
+     * {@link orgomg.cwm.objectmodel.core.Class <em>Class</em>}'. <!--
+     * begin-user-doc --> This default implementation returns null so that we
+     * can easily ignore cases; it's useful to ignore a case when inheritance
+     * will catch all the cases anyway. <!-- end-user-doc -->
+     * 
      * @return the new adapter.
      * @see orgomg.cwm.objectmodel.core.Class
      * @generated
@@ -415,11 +446,12 @@ public class RecordAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.core.Package <em>Package</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
+     * Creates a new adapter for an object of class '
+     * {@link orgomg.cwm.objectmodel.core.Package <em>Package</em>}'. <!--
+     * begin-user-doc --> This default implementation returns null so that we
+     * can easily ignore cases; it's useful to ignore a case when inheritance
+     * will catch all the cases anyway. <!-- end-user-doc -->
+     * 
      * @return the new adapter.
      * @see orgomg.cwm.objectmodel.core.Package
      * @generated
@@ -429,11 +461,12 @@ public class RecordAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.instance.Instance <em>Instance</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
+     * Creates a new adapter for an object of class '
+     * {@link orgomg.cwm.objectmodel.instance.Instance <em>Instance</em>}'. <!--
+     * begin-user-doc --> This default implementation returns null so that we
+     * can easily ignore cases; it's useful to ignore a case when inheritance
+     * will catch all the cases anyway. <!-- end-user-doc -->
+     * 
      * @return the new adapter.
      * @see orgomg.cwm.objectmodel.instance.Instance
      * @generated
@@ -444,10 +477,9 @@ public class RecordAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.instance.DataValue <em>Data Value</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> This default implementation returns null so that
+     * we can easily ignore cases; it's useful to ignore a case when inheritance
+     * will catch all the cases anyway. <!-- end-user-doc -->
      * @return the new adapter.
      * @see orgomg.cwm.objectmodel.instance.DataValue
      * @generated
@@ -457,11 +489,12 @@ public class RecordAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.instance.Object <em>Object</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
+     * Creates a new adapter for an object of class '
+     * {@link orgomg.cwm.objectmodel.instance.Object <em>Object</em>}'. <!--
+     * begin-user-doc --> This default implementation returns null so that we
+     * can easily ignore cases; it's useful to ignore a case when inheritance
+     * will catch all the cases anyway. <!-- end-user-doc -->
+     * 
      * @return the new adapter.
      * @see orgomg.cwm.objectmodel.instance.Object
      * @generated
@@ -471,11 +504,12 @@ public class RecordAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.instance.Extent <em>Extent</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
+     * Creates a new adapter for an object of class '
+     * {@link orgomg.cwm.objectmodel.instance.Extent <em>Extent</em>}'. <!--
+     * begin-user-doc --> This default implementation returns null so that we
+     * can easily ignore cases; it's useful to ignore a case when inheritance
+     * will catch all the cases anyway. <!-- end-user-doc -->
+     * 
      * @return the new adapter.
      * @see orgomg.cwm.objectmodel.instance.Extent
      * @generated
@@ -486,9 +520,8 @@ public class RecordAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Creates a new adapter for the default case.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null.
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> This
+     * default implementation returns null. <!-- end-user-doc -->
      * @return the new adapter.
      * @generated
      */
@@ -496,4 +529,4 @@ public class RecordAdapterFactory extends AdapterFactoryImpl {
         return null;
     }
 
-} //RecordAdapterFactory
+} // RecordAdapterFactory

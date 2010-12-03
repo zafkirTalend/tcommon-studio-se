@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.resource.record.impl;
@@ -24,9 +23,8 @@ import orgomg.cwmx.resource.coboldata.CoboldataPackage;
 import orgomg.cwmx.resource.coboldata.Section;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Def</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Def</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -41,10 +39,11 @@ import orgomg.cwmx.resource.coboldata.Section;
  * @generated
  */
 public class RecordDefImpl extends ClassImpl implements RecordDef {
+
     /**
      * The default value of the '{@link #getFieldDelimiter() <em>Field Delimiter</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getFieldDelimiter()
      * @generated
      * @ordered
@@ -53,8 +52,8 @@ public class RecordDefImpl extends ClassImpl implements RecordDef {
 
     /**
      * The cached value of the '{@link #getFieldDelimiter() <em>Field Delimiter</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getFieldDelimiter()
      * @generated
      * @ordered
@@ -63,8 +62,8 @@ public class RecordDefImpl extends ClassImpl implements RecordDef {
 
     /**
      * The default value of the '{@link #isIsFixedWidth() <em>Is Fixed Width</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #isIsFixedWidth()
      * @generated
      * @ordered
@@ -73,8 +72,8 @@ public class RecordDefImpl extends ClassImpl implements RecordDef {
 
     /**
      * The cached value of the '{@link #isIsFixedWidth() <em>Is Fixed Width</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #isIsFixedWidth()
      * @generated
      * @ordered
@@ -83,8 +82,8 @@ public class RecordDefImpl extends ClassImpl implements RecordDef {
 
     /**
      * The default value of the '{@link #getTextDelimiter() <em>Text Delimiter</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getTextDelimiter()
      * @generated
      * @ordered
@@ -93,8 +92,8 @@ public class RecordDefImpl extends ClassImpl implements RecordDef {
 
     /**
      * The cached value of the '{@link #getTextDelimiter() <em>Text Delimiter</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getTextDelimiter()
      * @generated
      * @ordered
@@ -103,8 +102,7 @@ public class RecordDefImpl extends ClassImpl implements RecordDef {
 
     /**
      * The cached value of the '{@link #getFile() <em>File</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getFile()
      * @generated
      * @ordered
@@ -113,8 +111,7 @@ public class RecordDefImpl extends ClassImpl implements RecordDef {
 
     /**
      * The cached value of the '{@link #getSection() <em>Section</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getSection()
      * @generated
      * @ordered
@@ -122,8 +119,7 @@ public class RecordDefImpl extends ClassImpl implements RecordDef {
     protected EList<Section> section;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected RecordDefImpl() {
@@ -131,8 +127,7 @@ public class RecordDefImpl extends ClassImpl implements RecordDef {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -141,8 +136,7 @@ public class RecordDefImpl extends ClassImpl implements RecordDef {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getFieldDelimiter() {
@@ -150,20 +144,19 @@ public class RecordDefImpl extends ClassImpl implements RecordDef {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setFieldDelimiter(String newFieldDelimiter) {
         String oldFieldDelimiter = fieldDelimiter;
         fieldDelimiter = newFieldDelimiter;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, RecordPackage.RECORD_DEF__FIELD_DELIMITER, oldFieldDelimiter, fieldDelimiter));
+            eNotify(new ENotificationImpl(this, Notification.SET, RecordPackage.RECORD_DEF__FIELD_DELIMITER, oldFieldDelimiter,
+                    fieldDelimiter));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isIsFixedWidth() {
@@ -171,20 +164,19 @@ public class RecordDefImpl extends ClassImpl implements RecordDef {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setIsFixedWidth(boolean newIsFixedWidth) {
         boolean oldIsFixedWidth = isFixedWidth;
         isFixedWidth = newIsFixedWidth;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, RecordPackage.RECORD_DEF__IS_FIXED_WIDTH, oldIsFixedWidth, isFixedWidth));
+            eNotify(new ENotificationImpl(this, Notification.SET, RecordPackage.RECORD_DEF__IS_FIXED_WIDTH, oldIsFixedWidth,
+                    isFixedWidth));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getTextDelimiter() {
@@ -192,183 +184,177 @@ public class RecordDefImpl extends ClassImpl implements RecordDef {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setTextDelimiter(String newTextDelimiter) {
         String oldTextDelimiter = textDelimiter;
         textDelimiter = newTextDelimiter;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, RecordPackage.RECORD_DEF__TEXT_DELIMITER, oldTextDelimiter, textDelimiter));
+            eNotify(new ENotificationImpl(this, Notification.SET, RecordPackage.RECORD_DEF__TEXT_DELIMITER, oldTextDelimiter,
+                    textDelimiter));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<RecordFile> getFile() {
         if (file == null) {
-            file = new EObjectWithInverseResolvingEList.ManyInverse<RecordFile>(RecordFile.class, this, RecordPackage.RECORD_DEF__FILE, RecordPackage.RECORD_FILE__RECORD);
+            file = new EObjectWithInverseResolvingEList.ManyInverse<RecordFile>(RecordFile.class, this,
+                    RecordPackage.RECORD_DEF__FILE, RecordPackage.RECORD_FILE__RECORD);
         }
         return file;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<Section> getSection() {
         if (section == null) {
-            section = new EObjectWithInverseResolvingEList.ManyInverse<Section>(Section.class, this, RecordPackage.RECORD_DEF__SECTION, CoboldataPackage.SECTION__RECORD);
+            section = new EObjectWithInverseResolvingEList.ManyInverse<Section>(Section.class, this,
+                    RecordPackage.RECORD_DEF__SECTION, CoboldataPackage.SECTION__RECORD);
         }
         return section;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case RecordPackage.RECORD_DEF__FILE:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getFile()).basicAdd(otherEnd, msgs);
-            case RecordPackage.RECORD_DEF__SECTION:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getSection()).basicAdd(otherEnd, msgs);
+        case RecordPackage.RECORD_DEF__FILE:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getFile()).basicAdd(otherEnd, msgs);
+        case RecordPackage.RECORD_DEF__SECTION:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getSection()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case RecordPackage.RECORD_DEF__FILE:
-                return ((InternalEList<?>)getFile()).basicRemove(otherEnd, msgs);
-            case RecordPackage.RECORD_DEF__SECTION:
-                return ((InternalEList<?>)getSection()).basicRemove(otherEnd, msgs);
+        case RecordPackage.RECORD_DEF__FILE:
+            return ((InternalEList<?>) getFile()).basicRemove(otherEnd, msgs);
+        case RecordPackage.RECORD_DEF__SECTION:
+            return ((InternalEList<?>) getSection()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case RecordPackage.RECORD_DEF__FIELD_DELIMITER:
-                return getFieldDelimiter();
-            case RecordPackage.RECORD_DEF__IS_FIXED_WIDTH:
-                return isIsFixedWidth();
-            case RecordPackage.RECORD_DEF__TEXT_DELIMITER:
-                return getTextDelimiter();
-            case RecordPackage.RECORD_DEF__FILE:
-                return getFile();
-            case RecordPackage.RECORD_DEF__SECTION:
-                return getSection();
+        case RecordPackage.RECORD_DEF__FIELD_DELIMITER:
+            return getFieldDelimiter();
+        case RecordPackage.RECORD_DEF__IS_FIXED_WIDTH:
+            return isIsFixedWidth();
+        case RecordPackage.RECORD_DEF__TEXT_DELIMITER:
+            return getTextDelimiter();
+        case RecordPackage.RECORD_DEF__FILE:
+            return getFile();
+        case RecordPackage.RECORD_DEF__SECTION:
+            return getSection();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case RecordPackage.RECORD_DEF__FIELD_DELIMITER:
-                setFieldDelimiter((String)newValue);
-                return;
-            case RecordPackage.RECORD_DEF__IS_FIXED_WIDTH:
-                setIsFixedWidth((Boolean)newValue);
-                return;
-            case RecordPackage.RECORD_DEF__TEXT_DELIMITER:
-                setTextDelimiter((String)newValue);
-                return;
-            case RecordPackage.RECORD_DEF__FILE:
-                getFile().clear();
-                getFile().addAll((Collection<? extends RecordFile>)newValue);
-                return;
-            case RecordPackage.RECORD_DEF__SECTION:
-                getSection().clear();
-                getSection().addAll((Collection<? extends Section>)newValue);
-                return;
+        case RecordPackage.RECORD_DEF__FIELD_DELIMITER:
+            setFieldDelimiter((String) newValue);
+            return;
+        case RecordPackage.RECORD_DEF__IS_FIXED_WIDTH:
+            setIsFixedWidth((Boolean) newValue);
+            return;
+        case RecordPackage.RECORD_DEF__TEXT_DELIMITER:
+            setTextDelimiter((String) newValue);
+            return;
+        case RecordPackage.RECORD_DEF__FILE:
+            getFile().clear();
+            getFile().addAll((Collection<? extends RecordFile>) newValue);
+            return;
+        case RecordPackage.RECORD_DEF__SECTION:
+            getSection().clear();
+            getSection().addAll((Collection<? extends Section>) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case RecordPackage.RECORD_DEF__FIELD_DELIMITER:
-                setFieldDelimiter(FIELD_DELIMITER_EDEFAULT);
-                return;
-            case RecordPackage.RECORD_DEF__IS_FIXED_WIDTH:
-                setIsFixedWidth(IS_FIXED_WIDTH_EDEFAULT);
-                return;
-            case RecordPackage.RECORD_DEF__TEXT_DELIMITER:
-                setTextDelimiter(TEXT_DELIMITER_EDEFAULT);
-                return;
-            case RecordPackage.RECORD_DEF__FILE:
-                getFile().clear();
-                return;
-            case RecordPackage.RECORD_DEF__SECTION:
-                getSection().clear();
-                return;
+        case RecordPackage.RECORD_DEF__FIELD_DELIMITER:
+            setFieldDelimiter(FIELD_DELIMITER_EDEFAULT);
+            return;
+        case RecordPackage.RECORD_DEF__IS_FIXED_WIDTH:
+            setIsFixedWidth(IS_FIXED_WIDTH_EDEFAULT);
+            return;
+        case RecordPackage.RECORD_DEF__TEXT_DELIMITER:
+            setTextDelimiter(TEXT_DELIMITER_EDEFAULT);
+            return;
+        case RecordPackage.RECORD_DEF__FILE:
+            getFile().clear();
+            return;
+        case RecordPackage.RECORD_DEF__SECTION:
+            getSection().clear();
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case RecordPackage.RECORD_DEF__FIELD_DELIMITER:
-                return FIELD_DELIMITER_EDEFAULT == null ? fieldDelimiter != null : !FIELD_DELIMITER_EDEFAULT.equals(fieldDelimiter);
-            case RecordPackage.RECORD_DEF__IS_FIXED_WIDTH:
-                return isFixedWidth != IS_FIXED_WIDTH_EDEFAULT;
-            case RecordPackage.RECORD_DEF__TEXT_DELIMITER:
-                return TEXT_DELIMITER_EDEFAULT == null ? textDelimiter != null : !TEXT_DELIMITER_EDEFAULT.equals(textDelimiter);
-            case RecordPackage.RECORD_DEF__FILE:
-                return file != null && !file.isEmpty();
-            case RecordPackage.RECORD_DEF__SECTION:
-                return section != null && !section.isEmpty();
+        case RecordPackage.RECORD_DEF__FIELD_DELIMITER:
+            return FIELD_DELIMITER_EDEFAULT == null ? fieldDelimiter != null : !FIELD_DELIMITER_EDEFAULT.equals(fieldDelimiter);
+        case RecordPackage.RECORD_DEF__IS_FIXED_WIDTH:
+            return isFixedWidth != IS_FIXED_WIDTH_EDEFAULT;
+        case RecordPackage.RECORD_DEF__TEXT_DELIMITER:
+            return TEXT_DELIMITER_EDEFAULT == null ? textDelimiter != null : !TEXT_DELIMITER_EDEFAULT.equals(textDelimiter);
+        case RecordPackage.RECORD_DEF__FILE:
+            return file != null && !file.isEmpty();
+        case RecordPackage.RECORD_DEF__SECTION:
+            return section != null && !section.isEmpty();
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (fieldDelimiter: ");
@@ -381,4 +367,4 @@ public class RecordDefImpl extends ClassImpl implements RecordDef {
         return result.toString();
     }
 
-} //RecordDefImpl
+} // RecordDefImpl

@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.foundation.businessinformation;
@@ -10,9 +9,8 @@ import org.eclipse.emf.common.util.EList;
 import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Telephone</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Telephone</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * Instances of the Telephone class represent telephone contact information.
@@ -34,13 +32,12 @@ import orgomg.cwm.objectmodel.core.ModelElement;
  * @generated
  */
 public interface Telephone extends ModelElement {
+
     /**
-     * Returns the value of the '<em><b>Phone Number</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * A textual representation of the telephone?s number.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Phone Number</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> A
+     * textual representation of the telephone?s number. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Phone Number</em>' attribute.
      * @see #setPhoneNumber(String)
      * @see orgomg.cwm.foundation.businessinformation.BusinessinformationPackage#getTelephone_PhoneNumber()
@@ -51,8 +48,8 @@ public interface Telephone extends ModelElement {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.foundation.businessinformation.Telephone#getPhoneNumber <em>Phone Number</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Phone Number</em>' attribute.
      * @see #getPhoneNumber()
      * @generated
@@ -60,13 +57,12 @@ public interface Telephone extends ModelElement {
     void setPhoneNumber(String value);
 
     /**
-     * Returns the value of the '<em><b>Phone Type</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * A textual representation of the telephone?s type, such as "multi-line", or its usage,
-     * such as "home", "work", "fax", or "mobile".
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Phone Type</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> A
+     * textual representation of the telephone?s type, such as "multi-line", or
+     * its usage, such as "home", "work", "fax", or "mobile". <!-- end-model-doc
+     * -->
+     * 
      * @return the value of the '<em>Phone Type</em>' attribute.
      * @see #setPhoneType(String)
      * @see orgomg.cwm.foundation.businessinformation.BusinessinformationPackage#getTelephone_PhoneType()
@@ -77,8 +73,8 @@ public interface Telephone extends ModelElement {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.foundation.businessinformation.Telephone#getPhoneType <em>Phone Type</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Phone Type</em>' attribute.
      * @see #getPhoneType()
      * @generated
@@ -86,14 +82,15 @@ public interface Telephone extends ModelElement {
     void setPhoneType(String value);
 
     /**
-     * Returns the value of the '<em><b>Contact</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwm.foundation.businessinformation.Contact}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.foundation.businessinformation.Contact#getTelephone <em>Telephone</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the Contact instance(s) for which the Telephone instance is relevant.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Contact</b></em>' reference list. The
+     * list contents are of type
+     * {@link orgomg.cwm.foundation.businessinformation.Contact}. It is
+     * bidirectional and its opposite is '
+     * {@link orgomg.cwm.foundation.businessinformation.Contact#getTelephone
+     * <em>Telephone</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> Identifies the Contact instance(s) for which the
+     * Telephone instance is relevant. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Contact</em>' reference list.
      * @see orgomg.cwm.foundation.businessinformation.BusinessinformationPackage#getTelephone_Contact()
      * @see orgomg.cwm.foundation.businessinformation.Contact#getTelephone

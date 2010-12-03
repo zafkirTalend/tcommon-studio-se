@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.dmsii;
@@ -9,9 +8,8 @@ package orgomg.cwmx.resource.dmsii;
 import orgomg.cwm.objectmodel.core.StructuralFeature;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Database</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Database</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * For a given DASDL source, there can be at most one Database instance with isLogical = False (representing an independent, free standing database) and zero or more with isLogical = True (each representing a Logical Database declared within the physical database). A logical database can be owned by at most one database.
@@ -31,15 +29,15 @@ import orgomg.cwm.objectmodel.core.StructuralFeature;
  * @generated
  */
 public interface Database extends StructuralFeature, orgomg.cwm.objectmodel.core.Package {
+
     /**
-     * Returns the value of the '<em><b>Is Logical</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * If True, this Database instance is a logical database.
+     * Returns the value of the '<em><b>Is Logical</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> If
+     * True, this Database instance is a logical database.
      * 
      * 
      * <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Is Logical</em>' attribute.
      * @see #setIsLogical(boolean)
      * @see orgomg.cwmx.resource.dmsii.DmsiiPackage#getDatabase_IsLogical()
@@ -50,8 +48,8 @@ public interface Database extends StructuralFeature, orgomg.cwm.objectmodel.core
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.dmsii.Database#isIsLogical <em>Is Logical</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Is Logical</em>' attribute.
      * @see #isIsLogical()
      * @generated
@@ -59,12 +57,11 @@ public interface Database extends StructuralFeature, orgomg.cwm.objectmodel.core
     void setIsLogical(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Guard File</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Contains the name of the database guard file that contains access control information for the database.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Guard File</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * Contains the name of the database guard file that contains access control
+     * information for the database. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Guard File</em>' attribute.
      * @see #setGuardFile(String)
      * @see orgomg.cwmx.resource.dmsii.DmsiiPackage#getDatabase_GuardFile()
@@ -75,8 +72,8 @@ public interface Database extends StructuralFeature, orgomg.cwm.objectmodel.core
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.dmsii.Database#getGuardFile <em>Guard File</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Guard File</em>' attribute.
      * @see #getGuardFile()
      * @generated
@@ -84,12 +81,11 @@ public interface Database extends StructuralFeature, orgomg.cwm.objectmodel.core
     void setGuardFile(String value);
 
     /**
-     * Returns the value of the '<em><b>Source</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Contains the text of the DASDL source from which the database was created.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Source</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * Contains the text of the DASDL source from which the database was
+     * created. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Source</em>' attribute.
      * @see #setSource(String)
      * @see orgomg.cwmx.resource.dmsii.DmsiiPackage#getDatabase_Source()
@@ -100,8 +96,7 @@ public interface Database extends StructuralFeature, orgomg.cwm.objectmodel.core
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.dmsii.Database#getSource <em>Source</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Source</em>' attribute.
      * @see #getSource()
      * @generated

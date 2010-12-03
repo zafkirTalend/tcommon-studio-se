@@ -1,16 +1,13 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.coboldata;
 
-
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Renames</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Renames</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * Renames instances define alternate identifiers for one or more contiguous COBOLField instances. Although they are not truly COBOL fields, Renames must be ordered in a record along with true COBOL fields. Because they are ObjectModel Features, they can be ordered among COBOL fields via the ClassifierFeature association.
@@ -30,11 +27,11 @@ package orgomg.cwmx.resource.coboldata;
  * @generated
  */
 public interface Renames extends COBOLItem {
+
     /**
      * Returns the value of the '<em><b>First Field</b></em>' reference.
      * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.coboldata.COBOLField#getFirstRenames <em>First Renames</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Identifies the COBOLField instance that is the first renamed field.
      * <!-- end-model-doc -->
@@ -49,8 +46,8 @@ public interface Renames extends COBOLItem {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.coboldata.Renames#getFirstField <em>First Field</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>First Field</em>' reference.
      * @see #getFirstField()
      * @generated
@@ -60,8 +57,7 @@ public interface Renames extends COBOLItem {
     /**
      * Returns the value of the '<em><b>Thru Field</b></em>' reference.
      * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.coboldata.COBOLField#getThruRenames <em>Thru Renames</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Identifies the COBOLField instance that is the last field in a range of renamed fields.
      * <!-- end-model-doc -->
@@ -76,8 +72,8 @@ public interface Renames extends COBOLItem {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.coboldata.Renames#getThruField <em>Thru Field</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Thru Field</em>' reference.
      * @see #getThruField()
      * @generated

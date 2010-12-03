@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.express.impl;
@@ -12,18 +11,17 @@ import orgomg.cwmx.resource.express.Database;
 import orgomg.cwmx.resource.express.ExpressPackage;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Database</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Database</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
 public class DatabaseImpl extends SchemaImpl implements Database {
+
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected DatabaseImpl() {
@@ -31,8 +29,7 @@ public class DatabaseImpl extends SchemaImpl implements Database {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -40,4 +37,4 @@ public class DatabaseImpl extends SchemaImpl implements Database {
         return ExpressPackage.Literals.DATABASE;
     }
 
-} //DatabaseImpl
+} // DatabaseImpl

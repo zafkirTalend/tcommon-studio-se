@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.foundation.typemapping.impl;
@@ -11,32 +10,33 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import orgomg.cwm.foundation.typemapping.*;
 import orgomg.cwm.foundation.typemapping.TypeMapping;
 import orgomg.cwm.foundation.typemapping.TypeSystem;
 import orgomg.cwm.foundation.typemapping.TypemappingFactory;
 import orgomg.cwm.foundation.typemapping.TypemappingPackage;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model <b>Factory</b>.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!--
+ * end-user-doc -->
  * @generated
  */
 public class TypemappingFactoryImpl extends EFactoryImpl implements TypemappingFactory {
+
     /**
      * Creates the default factory implementation.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     public static TypemappingFactory init() {
         try {
-            TypemappingFactory theTypemappingFactory = (TypemappingFactory)EPackage.Registry.INSTANCE.getEFactory("http:///orgomg/cwm/foundation/typemapping.ecore"); 
+            TypemappingFactory theTypemappingFactory = (TypemappingFactory) EPackage.Registry.INSTANCE
+                    .getEFactory("http:///orgomg/cwm/foundation/typemapping.ecore");
             if (theTypemappingFactory != null) {
                 return theTypemappingFactory;
             }
-        }
-        catch (Exception exception) {
+        } catch (Exception exception) {
             EcorePlugin.INSTANCE.log(exception);
         }
         return new TypemappingFactoryImpl();
@@ -44,8 +44,8 @@ public class TypemappingFactoryImpl extends EFactoryImpl implements TypemappingF
 
     /**
      * Creates an instance of the factory.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     public TypemappingFactoryImpl() {
@@ -53,23 +53,23 @@ public class TypemappingFactoryImpl extends EFactoryImpl implements TypemappingF
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public EObject create(EClass eClass) {
         switch (eClass.getClassifierID()) {
-            case TypemappingPackage.TYPE_MAPPING: return createTypeMapping();
-            case TypemappingPackage.TYPE_SYSTEM: return createTypeSystem();
-            default:
-                throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+        case TypemappingPackage.TYPE_MAPPING:
+            return createTypeMapping();
+        case TypemappingPackage.TYPE_SYSTEM:
+            return createTypeSystem();
+        default:
+            throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public TypeMapping createTypeMapping() {
@@ -78,8 +78,7 @@ public class TypemappingFactoryImpl extends EFactoryImpl implements TypemappingF
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public TypeSystem createTypeSystem() {
@@ -88,17 +87,15 @@ public class TypemappingFactoryImpl extends EFactoryImpl implements TypemappingF
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public TypemappingPackage getTypemappingPackage() {
-        return (TypemappingPackage)getEPackage();
+        return (TypemappingPackage) getEPackage();
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @deprecated
      * @generated
      */
@@ -107,4 +104,4 @@ public class TypemappingFactoryImpl extends EFactoryImpl implements TypemappingF
         return TypemappingPackage.eINSTANCE;
     }
 
-} //TypemappingFactoryImpl
+} // TypemappingFactoryImpl

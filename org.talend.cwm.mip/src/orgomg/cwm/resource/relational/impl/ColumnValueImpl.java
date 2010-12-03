@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.resource.relational.impl;
@@ -12,18 +11,17 @@ import orgomg.cwm.resource.relational.ColumnValue;
 import orgomg.cwm.resource.relational.RelationalPackage;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Column Value</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Column Value</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
 public class ColumnValueImpl extends DataValueImpl implements ColumnValue {
+
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected ColumnValueImpl() {
@@ -31,8 +29,7 @@ public class ColumnValueImpl extends DataValueImpl implements ColumnValue {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -40,4 +37,4 @@ public class ColumnValueImpl extends DataValueImpl implements ColumnValue {
         return RelationalPackage.Literals.COLUMN_VALUE;
     }
 
-} //ColumnValueImpl
+} // ColumnValueImpl

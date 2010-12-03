@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.resource.relational.impl;
@@ -14,9 +13,8 @@ import orgomg.cwm.resource.relational.RelationalPackage;
 import orgomg.cwm.resource.relational.SQLIndex;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>SQL Index</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>SQL Index</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -29,10 +27,11 @@ import orgomg.cwm.resource.relational.SQLIndex;
  * @generated
  */
 public class SQLIndexImpl extends IndexImpl implements SQLIndex {
+
     /**
      * The default value of the '{@link #getFilterCondition() <em>Filter Condition</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getFilterCondition()
      * @generated
      * @ordered
@@ -41,8 +40,8 @@ public class SQLIndexImpl extends IndexImpl implements SQLIndex {
 
     /**
      * The cached value of the '{@link #getFilterCondition() <em>Filter Condition</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getFilterCondition()
      * @generated
      * @ordered
@@ -51,8 +50,7 @@ public class SQLIndexImpl extends IndexImpl implements SQLIndex {
 
     /**
      * The default value of the '{@link #isIsNullable() <em>Is Nullable</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #isIsNullable()
      * @generated
      * @ordered
@@ -61,8 +59,7 @@ public class SQLIndexImpl extends IndexImpl implements SQLIndex {
 
     /**
      * The cached value of the '{@link #isIsNullable() <em>Is Nullable</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #isIsNullable()
      * @generated
      * @ordered
@@ -71,8 +68,7 @@ public class SQLIndexImpl extends IndexImpl implements SQLIndex {
 
     /**
      * The default value of the '{@link #isAutoUpdate() <em>Auto Update</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #isAutoUpdate()
      * @generated
      * @ordered
@@ -81,8 +77,7 @@ public class SQLIndexImpl extends IndexImpl implements SQLIndex {
 
     /**
      * The cached value of the '{@link #isAutoUpdate() <em>Auto Update</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #isAutoUpdate()
      * @generated
      * @ordered
@@ -90,8 +85,7 @@ public class SQLIndexImpl extends IndexImpl implements SQLIndex {
     protected boolean autoUpdate = AUTO_UPDATE_EDEFAULT;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected SQLIndexImpl() {
@@ -99,8 +93,7 @@ public class SQLIndexImpl extends IndexImpl implements SQLIndex {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -109,8 +102,7 @@ public class SQLIndexImpl extends IndexImpl implements SQLIndex {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getFilterCondition() {
@@ -118,20 +110,19 @@ public class SQLIndexImpl extends IndexImpl implements SQLIndex {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setFilterCondition(String newFilterCondition) {
         String oldFilterCondition = filterCondition;
         filterCondition = newFilterCondition;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, RelationalPackage.SQL_INDEX__FILTER_CONDITION, oldFilterCondition, filterCondition));
+            eNotify(new ENotificationImpl(this, Notification.SET, RelationalPackage.SQL_INDEX__FILTER_CONDITION,
+                    oldFilterCondition, filterCondition));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isIsNullable() {
@@ -139,20 +130,19 @@ public class SQLIndexImpl extends IndexImpl implements SQLIndex {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setIsNullable(boolean newIsNullable) {
         boolean oldIsNullable = isNullable;
         isNullable = newIsNullable;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, RelationalPackage.SQL_INDEX__IS_NULLABLE, oldIsNullable, isNullable));
+            eNotify(new ENotificationImpl(this, Notification.SET, RelationalPackage.SQL_INDEX__IS_NULLABLE, oldIsNullable,
+                    isNullable));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isAutoUpdate() {
@@ -160,103 +150,100 @@ public class SQLIndexImpl extends IndexImpl implements SQLIndex {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setAutoUpdate(boolean newAutoUpdate) {
         boolean oldAutoUpdate = autoUpdate;
         autoUpdate = newAutoUpdate;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, RelationalPackage.SQL_INDEX__AUTO_UPDATE, oldAutoUpdate, autoUpdate));
+            eNotify(new ENotificationImpl(this, Notification.SET, RelationalPackage.SQL_INDEX__AUTO_UPDATE, oldAutoUpdate,
+                    autoUpdate));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case RelationalPackage.SQL_INDEX__FILTER_CONDITION:
-                return getFilterCondition();
-            case RelationalPackage.SQL_INDEX__IS_NULLABLE:
-                return isIsNullable();
-            case RelationalPackage.SQL_INDEX__AUTO_UPDATE:
-                return isAutoUpdate();
+        case RelationalPackage.SQL_INDEX__FILTER_CONDITION:
+            return getFilterCondition();
+        case RelationalPackage.SQL_INDEX__IS_NULLABLE:
+            return isIsNullable();
+        case RelationalPackage.SQL_INDEX__AUTO_UPDATE:
+            return isAutoUpdate();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case RelationalPackage.SQL_INDEX__FILTER_CONDITION:
-                setFilterCondition((String)newValue);
-                return;
-            case RelationalPackage.SQL_INDEX__IS_NULLABLE:
-                setIsNullable((Boolean)newValue);
-                return;
-            case RelationalPackage.SQL_INDEX__AUTO_UPDATE:
-                setAutoUpdate((Boolean)newValue);
-                return;
+        case RelationalPackage.SQL_INDEX__FILTER_CONDITION:
+            setFilterCondition((String) newValue);
+            return;
+        case RelationalPackage.SQL_INDEX__IS_NULLABLE:
+            setIsNullable((Boolean) newValue);
+            return;
+        case RelationalPackage.SQL_INDEX__AUTO_UPDATE:
+            setAutoUpdate((Boolean) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case RelationalPackage.SQL_INDEX__FILTER_CONDITION:
-                setFilterCondition(FILTER_CONDITION_EDEFAULT);
-                return;
-            case RelationalPackage.SQL_INDEX__IS_NULLABLE:
-                setIsNullable(IS_NULLABLE_EDEFAULT);
-                return;
-            case RelationalPackage.SQL_INDEX__AUTO_UPDATE:
-                setAutoUpdate(AUTO_UPDATE_EDEFAULT);
-                return;
+        case RelationalPackage.SQL_INDEX__FILTER_CONDITION:
+            setFilterCondition(FILTER_CONDITION_EDEFAULT);
+            return;
+        case RelationalPackage.SQL_INDEX__IS_NULLABLE:
+            setIsNullable(IS_NULLABLE_EDEFAULT);
+            return;
+        case RelationalPackage.SQL_INDEX__AUTO_UPDATE:
+            setAutoUpdate(AUTO_UPDATE_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case RelationalPackage.SQL_INDEX__FILTER_CONDITION:
-                return FILTER_CONDITION_EDEFAULT == null ? filterCondition != null : !FILTER_CONDITION_EDEFAULT.equals(filterCondition);
-            case RelationalPackage.SQL_INDEX__IS_NULLABLE:
-                return isNullable != IS_NULLABLE_EDEFAULT;
-            case RelationalPackage.SQL_INDEX__AUTO_UPDATE:
-                return autoUpdate != AUTO_UPDATE_EDEFAULT;
+        case RelationalPackage.SQL_INDEX__FILTER_CONDITION:
+            return FILTER_CONDITION_EDEFAULT == null ? filterCondition != null : !FILTER_CONDITION_EDEFAULT
+                    .equals(filterCondition);
+        case RelationalPackage.SQL_INDEX__IS_NULLABLE:
+            return isNullable != IS_NULLABLE_EDEFAULT;
+        case RelationalPackage.SQL_INDEX__AUTO_UPDATE:
+            return autoUpdate != AUTO_UPDATE_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (filterCondition: ");
@@ -269,4 +256,4 @@ public class SQLIndexImpl extends IndexImpl implements SQLIndex {
         return result.toString();
     }
 
-} //SQLIndexImpl
+} // SQLIndexImpl

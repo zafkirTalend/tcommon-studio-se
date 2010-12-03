@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.dmsii;
@@ -10,9 +9,8 @@ import orgomg.cwm.foundation.expressions.ExpressionNode;
 import orgomg.cwm.resource.record.Field;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Remap Item</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Remap Item</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * Maps a Remap instance?s field to its source, which may be some DataItem or an expression.
@@ -40,13 +38,13 @@ import orgomg.cwm.resource.record.Field;
  * @generated
  */
 public interface RemapItem extends Field {
+
     /**
-     * Returns the value of the '<em><b>Occurs</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * If specified, overrides the occurs attribute of the associated DataItem instance.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Occurs</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> If
+     * specified, overrides the occurs attribute of the associated DataItem
+     * instance. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Occurs</em>' attribute.
      * @see #setOccurs(long)
      * @see orgomg.cwmx.resource.dmsii.DmsiiPackage#getRemapItem_Occurs()
@@ -57,8 +55,7 @@ public interface RemapItem extends Field {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.dmsii.RemapItem#getOccurs <em>Occurs</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Occurs</em>' attribute.
      * @see #getOccurs()
      * @generated
@@ -66,12 +63,11 @@ public interface RemapItem extends Field {
     void setOccurs(long value);
 
     /**
-     * Returns the value of the '<em><b>Is Required</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * If True, overrides the isRequired attribute of the associated DataItem instance.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Is Required</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> If
+     * True, overrides the isRequired attribute of the associated DataItem
+     * instance. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Is Required</em>' attribute.
      * @see #setIsRequired(boolean)
      * @see orgomg.cwmx.resource.dmsii.DmsiiPackage#getRemapItem_IsRequired()
@@ -82,8 +78,8 @@ public interface RemapItem extends Field {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.dmsii.RemapItem#isIsRequired <em>Is Required</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Is Required</em>' attribute.
      * @see #isIsRequired()
      * @generated
@@ -91,12 +87,11 @@ public interface RemapItem extends Field {
     void setIsRequired(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Is Hidden</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * If True, the corresponding DataItem is not visible to the user of the Remap.
+     * Returns the value of the '<em><b>Is Hidden</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> If
+     * True, the corresponding DataItem is not visible to the user of the Remap.
      * <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Is Hidden</em>' attribute.
      * @see #setIsHidden(boolean)
      * @see orgomg.cwmx.resource.dmsii.DmsiiPackage#getRemapItem_IsHidden()
@@ -106,22 +101,23 @@ public interface RemapItem extends Field {
     boolean isIsHidden();
 
     /**
-     * Sets the value of the '{@link orgomg.cwmx.resource.dmsii.RemapItem#isIsHidden <em>Is Hidden</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Is Hidden</em>' attribute.
+     * Sets the value of the '
+     * {@link orgomg.cwmx.resource.dmsii.RemapItem#isIsHidden
+     * <em>Is Hidden</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @param value
+     *            the new value of the '<em>Is Hidden</em>' attribute.
      * @see #isIsHidden()
      * @generated
      */
     void setIsHidden(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Is Read Only</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * If True, the RemapItem is readonly.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Is Read Only</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> If
+     * True, the RemapItem is readonly. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Is Read Only</em>' attribute.
      * @see #setIsReadOnly(boolean)
      * @see orgomg.cwmx.resource.dmsii.DmsiiPackage#getRemapItem_IsReadOnly()
@@ -132,8 +128,8 @@ public interface RemapItem extends Field {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.dmsii.RemapItem#isIsReadOnly <em>Is Read Only</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Is Read Only</em>' attribute.
      * @see #isIsReadOnly()
      * @generated
@@ -142,11 +138,13 @@ public interface RemapItem extends Field {
 
     /**
      * Returns the value of the '<em><b>Is Giving Exception</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The isGivingException boolean is meaningful only if isReadOnly = True. If the isGivingException boolean is absent, no exception clause was specified. If it is present, False indicates that the NO EXCEPTION clause was specified whereas True indicates the GIVING EXCEPTION clause.
-     * <!-- end-model-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * The isGivingException boolean is meaningful only if isReadOnly = True. If
+     * the isGivingException boolean is absent, no exception clause was
+     * specified. If it is present, False indicates that the NO EXCEPTION clause
+     * was specified whereas True indicates the GIVING EXCEPTION clause. <!--
+     * end-model-doc -->
+     * 
      * @return the value of the '<em>Is Giving Exception</em>' attribute.
      * @see #setIsGivingException(boolean)
      * @see orgomg.cwmx.resource.dmsii.DmsiiPackage#getRemapItem_IsGivingException()
@@ -157,8 +155,8 @@ public interface RemapItem extends Field {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.dmsii.RemapItem#isIsGivingException <em>Is Giving Exception</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Is Giving Exception</em>' attribute.
      * @see #isIsGivingException()
      * @generated
@@ -166,12 +164,12 @@ public interface RemapItem extends Field {
     void setIsGivingException(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Is Virtual</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * If True, the RemapItem instance is calculated when accessed using the expression stored in the virtualExpression attribute.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Is Virtual</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> If
+     * True, the RemapItem instance is calculated when accessed using the
+     * expression stored in the virtualExpression attribute. <!-- end-model-doc
+     * -->
+     * 
      * @return the value of the '<em>Is Virtual</em>' attribute.
      * @see #setIsVirtual(boolean)
      * @see orgomg.cwmx.resource.dmsii.DmsiiPackage#getRemapItem_IsVirtual()
@@ -182,8 +180,8 @@ public interface RemapItem extends Field {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.dmsii.RemapItem#isIsVirtual <em>Is Virtual</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Is Virtual</em>' attribute.
      * @see #isIsVirtual()
      * @generated
@@ -191,13 +189,13 @@ public interface RemapItem extends Field {
     void setIsVirtual(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Virtual Expression</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The expression used to calculate the value of a virtual RemapItem.
-     * <!-- end-model-doc -->
-     * @return the value of the '<em>Virtual Expression</em>' containment reference.
+     * Returns the value of the '<em><b>Virtual Expression</b></em>' containment
+     * reference. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> The expression used to calculate the value of a
+     * virtual RemapItem. <!-- end-model-doc -->
+     * 
+     * @return the value of the '<em>Virtual Expression</em>' containment
+     *         reference.
      * @see #setVirtualExpression(ExpressionNode)
      * @see orgomg.cwmx.resource.dmsii.DmsiiPackage#getRemapItem_VirtualExpression()
      * @model containment="true"
@@ -207,8 +205,8 @@ public interface RemapItem extends Field {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.dmsii.RemapItem#getVirtualExpression <em>Virtual Expression</em>}' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Virtual Expression</em>' containment reference.
      * @see #getVirtualExpression()
      * @generated

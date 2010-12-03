@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.analysis.olap;
@@ -9,9 +8,8 @@ package orgomg.cwm.analysis.olap;
 import orgomg.cwm.analysis.transformation.TransformationMap;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Structure Map</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Structure Map</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * StructureMap is a subclass of TransformationMap that maps Dimension attributes to their physical data sources.
@@ -33,11 +31,11 @@ import orgomg.cwm.analysis.transformation.TransformationMap;
  * @generated
  */
 public interface StructureMap extends TransformationMap {
+
     /**
      * Returns the value of the '<em><b>Dimension Deployment</b></em>' container reference.
      * It is bidirectional and its opposite is '{@link orgomg.cwm.analysis.olap.DimensionDeployment#getStructureMap <em>Structure Map</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * The DimensionDeployment owning a StructureMap.
      * <!-- end-model-doc -->
@@ -52,8 +50,8 @@ public interface StructureMap extends TransformationMap {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.analysis.olap.StructureMap#getDimensionDeployment <em>Dimension Deployment</em>}' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Dimension Deployment</em>' container reference.
      * @see #getDimensionDeployment()
      * @generated
@@ -63,8 +61,7 @@ public interface StructureMap extends TransformationMap {
     /**
      * Returns the value of the '<em><b>Dimension Deployment LV</b></em>' reference.
      * It is bidirectional and its opposite is '{@link orgomg.cwm.analysis.olap.DimensionDeployment#getListOfValues <em>List Of Values</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * The DimensionDeployment referencing a "list of values" StructureMap.
      * <!-- end-model-doc -->
@@ -88,13 +85,13 @@ public interface StructureMap extends TransformationMap {
     void setDimensionDeploymentLV(DimensionDeployment value);
 
     /**
-     * Returns the value of the '<em><b>Dimension Deployment IP</b></em>' reference.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.analysis.olap.DimensionDeployment#getImmediateParent <em>Immediate Parent</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The DimensionDeployment referencing an "immedate parent" StructureMap.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Dimension Deployment IP</b></em>'
+     * reference. It is bidirectional and its opposite is '
+     * {@link orgomg.cwm.analysis.olap.DimensionDeployment#getImmediateParent
+     * <em>Immediate Parent</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * --> <!-- begin-model-doc --> The DimensionDeployment referencing an
+     * "immedate parent" StructureMap. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Dimension Deployment IP</em>' reference.
      * @see #setDimensionDeploymentIP(DimensionDeployment)
      * @see orgomg.cwm.analysis.olap.OlapPackage#getStructureMap_DimensionDeploymentIP()

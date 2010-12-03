@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.resource.relational.impl;
@@ -15,9 +14,8 @@ import orgomg.cwm.resource.relational.UniqueConstraint;
 import orgomg.cwm.resource.relational.enumerations.DeferrabilityType;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Unique Constraint</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Unique Constraint</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -28,10 +26,11 @@ import orgomg.cwm.resource.relational.enumerations.DeferrabilityType;
  * @generated
  */
 public class UniqueConstraintImpl extends UniqueKeyImpl implements UniqueConstraint {
+
     /**
      * The default value of the '{@link #getDeferrability() <em>Deferrability</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getDeferrability()
      * @generated
      * @ordered
@@ -40,8 +39,8 @@ public class UniqueConstraintImpl extends UniqueKeyImpl implements UniqueConstra
 
     /**
      * The cached value of the '{@link #getDeferrability() <em>Deferrability</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getDeferrability()
      * @generated
      * @ordered
@@ -49,8 +48,7 @@ public class UniqueConstraintImpl extends UniqueKeyImpl implements UniqueConstra
     protected DeferrabilityType deferrability = DEFERRABILITY_EDEFAULT;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected UniqueConstraintImpl() {
@@ -58,8 +56,7 @@ public class UniqueConstraintImpl extends UniqueKeyImpl implements UniqueConstra
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -68,8 +65,7 @@ public class UniqueConstraintImpl extends UniqueKeyImpl implements UniqueConstra
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public DeferrabilityType getDeferrability() {
@@ -77,83 +73,79 @@ public class UniqueConstraintImpl extends UniqueKeyImpl implements UniqueConstra
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setDeferrability(DeferrabilityType newDeferrability) {
         DeferrabilityType oldDeferrability = deferrability;
         deferrability = newDeferrability == null ? DEFERRABILITY_EDEFAULT : newDeferrability;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, RelationalPackage.UNIQUE_CONSTRAINT__DEFERRABILITY, oldDeferrability, deferrability));
+            eNotify(new ENotificationImpl(this, Notification.SET, RelationalPackage.UNIQUE_CONSTRAINT__DEFERRABILITY,
+                    oldDeferrability, deferrability));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case RelationalPackage.UNIQUE_CONSTRAINT__DEFERRABILITY:
-                return getDeferrability();
+        case RelationalPackage.UNIQUE_CONSTRAINT__DEFERRABILITY:
+            return getDeferrability();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case RelationalPackage.UNIQUE_CONSTRAINT__DEFERRABILITY:
-                setDeferrability((DeferrabilityType)newValue);
-                return;
+        case RelationalPackage.UNIQUE_CONSTRAINT__DEFERRABILITY:
+            setDeferrability((DeferrabilityType) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case RelationalPackage.UNIQUE_CONSTRAINT__DEFERRABILITY:
-                setDeferrability(DEFERRABILITY_EDEFAULT);
-                return;
+        case RelationalPackage.UNIQUE_CONSTRAINT__DEFERRABILITY:
+            setDeferrability(DEFERRABILITY_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case RelationalPackage.UNIQUE_CONSTRAINT__DEFERRABILITY:
-                return deferrability != DEFERRABILITY_EDEFAULT;
+        case RelationalPackage.UNIQUE_CONSTRAINT__DEFERRABILITY:
+            return deferrability != DEFERRABILITY_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (deferrability: ");
@@ -162,4 +154,4 @@ public class UniqueConstraintImpl extends UniqueKeyImpl implements UniqueConstra
         return result.toString();
     }
 
-} //UniqueConstraintImpl
+} // UniqueConstraintImpl

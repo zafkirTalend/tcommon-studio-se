@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.management.warehouseoperation.util;
@@ -10,6 +9,7 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
+import orgomg.cwm.management.warehouseoperation.*;
 import orgomg.cwm.management.warehouseoperation.ActivityExecution;
 import orgomg.cwm.management.warehouseoperation.ChangeRequest;
 import orgomg.cwm.management.warehouseoperation.Measurement;
@@ -20,26 +20,25 @@ import orgomg.cwm.objectmodel.core.Element;
 import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
- * <!-- begin-user-doc -->
- * The <b>Adapter Factory</b> for the model.
- * It provides an adapter <code>createXXX</code> method for each class of the model.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> The <b>Adapter Factory</b> for the model. It provides
+ * an adapter <code>createXXX</code> method for each class of the model. <!--
+ * end-user-doc -->
  * @see orgomg.cwm.management.warehouseoperation.WarehouseoperationPackage
  * @generated
  */
 public class WarehouseoperationAdapterFactory extends AdapterFactoryImpl {
+
     /**
      * The cached model package.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected static WarehouseoperationPackage modelPackage;
 
     /**
      * Creates an instance of the adapter factory.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     public WarehouseoperationAdapterFactory() {
@@ -50,9 +49,9 @@ public class WarehouseoperationAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Returns whether this factory is applicable for the type of the object.
-     * <!-- begin-user-doc -->
-     * This implementation returns <code>true</code> if the object is either the model's package or is an instance object of the model.
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> This implementation returns <code>true</code> if
+     * the object is either the model's package or is an instance object of the
+     * model. <!-- end-user-doc -->
      * @return whether this factory is applicable for the type of the object.
      * @generated
      */
@@ -62,52 +61,59 @@ public class WarehouseoperationAdapterFactory extends AdapterFactoryImpl {
             return true;
         }
         if (object instanceof EObject) {
-            return ((EObject)object).eClass().getEPackage() == modelPackage;
+            return ((EObject) object).eClass().getEPackage() == modelPackage;
         }
         return false;
     }
 
     /**
-     * The switch that delegates to the <code>createXXX</code> methods.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The switch that delegates to the <code>createXXX</code> methods. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
-    protected WarehouseoperationSwitch<Adapter> modelSwitch =
-        new WarehouseoperationSwitch<Adapter>() {
-            @Override
-            public Adapter caseMeasurement(Measurement object) {
-                return createMeasurementAdapter();
-            }
-            @Override
-            public Adapter caseChangeRequest(ChangeRequest object) {
-                return createChangeRequestAdapter();
-            }
-            @Override
-            public Adapter caseTransformationExecution(TransformationExecution object) {
-                return createTransformationExecutionAdapter();
-            }
-            @Override
-            public Adapter caseActivityExecution(ActivityExecution object) {
-                return createActivityExecutionAdapter();
-            }
-            @Override
-            public Adapter caseStepExecution(StepExecution object) {
-                return createStepExecutionAdapter();
-            }
-            @Override
-            public Adapter caseElement(Element object) {
-                return createElementAdapter();
-            }
-            @Override
-            public Adapter caseModelElement(ModelElement object) {
-                return createModelElementAdapter();
-            }
-            @Override
-            public Adapter defaultCase(EObject object) {
-                return createEObjectAdapter();
-            }
-        };
+    protected WarehouseoperationSwitch<Adapter> modelSwitch = new WarehouseoperationSwitch<Adapter>() {
+
+        @Override
+        public Adapter caseMeasurement(Measurement object) {
+            return createMeasurementAdapter();
+        }
+
+        @Override
+        public Adapter caseChangeRequest(ChangeRequest object) {
+            return createChangeRequestAdapter();
+        }
+
+        @Override
+        public Adapter caseTransformationExecution(TransformationExecution object) {
+            return createTransformationExecutionAdapter();
+        }
+
+        @Override
+        public Adapter caseActivityExecution(ActivityExecution object) {
+            return createActivityExecutionAdapter();
+        }
+
+        @Override
+        public Adapter caseStepExecution(StepExecution object) {
+            return createStepExecutionAdapter();
+        }
+
+        @Override
+        public Adapter caseElement(Element object) {
+            return createElementAdapter();
+        }
+
+        @Override
+        public Adapter caseModelElement(ModelElement object) {
+            return createModelElementAdapter();
+        }
+
+        @Override
+        public Adapter defaultCase(EObject object) {
+            return createEObjectAdapter();
+        }
+    };
 
     /**
      * Creates an adapter for the <code>target</code>.
@@ -119,15 +125,14 @@ public class WarehouseoperationAdapterFactory extends AdapterFactoryImpl {
      */
     @Override
     public Adapter createAdapter(Notifier target) {
-        return modelSwitch.doSwitch((EObject)target);
+        return modelSwitch.doSwitch((EObject) target);
     }
-
 
     /**
      * Creates a new adapter for an object of class '{@link orgomg.cwm.management.warehouseoperation.Measurement <em>Measurement</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- begin-user-doc --> This default
+     * implementation returns null so that we can easily ignore cases; it's
+     * useful to ignore a case when inheritance will catch all the cases anyway.
      * <!-- end-user-doc -->
      * @return the new adapter.
      * @see orgomg.cwm.management.warehouseoperation.Measurement
@@ -139,9 +144,9 @@ public class WarehouseoperationAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Creates a new adapter for an object of class '{@link orgomg.cwm.management.warehouseoperation.ChangeRequest <em>Change Request</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- begin-user-doc --> This default
+     * implementation returns null so that we can easily ignore cases; it's
+     * useful to ignore a case when inheritance will catch all the cases anyway.
      * <!-- end-user-doc -->
      * @return the new adapter.
      * @see orgomg.cwm.management.warehouseoperation.ChangeRequest
@@ -153,9 +158,9 @@ public class WarehouseoperationAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Creates a new adapter for an object of class '{@link orgomg.cwm.management.warehouseoperation.TransformationExecution <em>Transformation Execution</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- begin-user-doc --> This default
+     * implementation returns null so that we can easily ignore cases; it's
+     * useful to ignore a case when inheritance will catch all the cases anyway.
      * <!-- end-user-doc -->
      * @return the new adapter.
      * @see orgomg.cwm.management.warehouseoperation.TransformationExecution
@@ -167,9 +172,9 @@ public class WarehouseoperationAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Creates a new adapter for an object of class '{@link orgomg.cwm.management.warehouseoperation.ActivityExecution <em>Activity Execution</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- begin-user-doc --> This default
+     * implementation returns null so that we can easily ignore cases; it's
+     * useful to ignore a case when inheritance will catch all the cases anyway.
      * <!-- end-user-doc -->
      * @return the new adapter.
      * @see orgomg.cwm.management.warehouseoperation.ActivityExecution
@@ -181,9 +186,9 @@ public class WarehouseoperationAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Creates a new adapter for an object of class '{@link orgomg.cwm.management.warehouseoperation.StepExecution <em>Step Execution</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- begin-user-doc --> This default
+     * implementation returns null so that we can easily ignore cases; it's
+     * useful to ignore a case when inheritance will catch all the cases anyway.
      * <!-- end-user-doc -->
      * @return the new adapter.
      * @see orgomg.cwm.management.warehouseoperation.StepExecution
@@ -194,11 +199,12 @@ public class WarehouseoperationAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.core.Element <em>Element</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
+     * Creates a new adapter for an object of class '
+     * {@link orgomg.cwm.objectmodel.core.Element <em>Element</em>}'. <!--
+     * begin-user-doc --> This default implementation returns null so that we
+     * can easily ignore cases; it's useful to ignore a case when inheritance
+     * will catch all the cases anyway. <!-- end-user-doc -->
+     * 
      * @return the new adapter.
      * @see orgomg.cwm.objectmodel.core.Element
      * @generated
@@ -209,10 +215,9 @@ public class WarehouseoperationAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.core.ModelElement <em>Model Element</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> This default implementation returns null so that
+     * we can easily ignore cases; it's useful to ignore a case when inheritance
+     * will catch all the cases anyway. <!-- end-user-doc -->
      * @return the new adapter.
      * @see orgomg.cwm.objectmodel.core.ModelElement
      * @generated
@@ -223,9 +228,8 @@ public class WarehouseoperationAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Creates a new adapter for the default case.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null.
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> This
+     * default implementation returns null. <!-- end-user-doc -->
      * @return the new adapter.
      * @generated
      */
@@ -233,4 +237,4 @@ public class WarehouseoperationAdapterFactory extends AdapterFactoryImpl {
         return null;
     }
 
-} //WarehouseoperationAdapterFactory
+} // WarehouseoperationAdapterFactory

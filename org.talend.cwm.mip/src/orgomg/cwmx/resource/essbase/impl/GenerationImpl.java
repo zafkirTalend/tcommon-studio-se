@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.essbase.impl;
@@ -12,18 +11,17 @@ import orgomg.cwmx.resource.essbase.EssbasePackage;
 import orgomg.cwmx.resource.essbase.Generation;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Generation</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Generation</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
 public class GenerationImpl extends DimensionedObjectImpl implements Generation {
+
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected GenerationImpl() {
@@ -31,8 +29,7 @@ public class GenerationImpl extends DimensionedObjectImpl implements Generation 
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -40,4 +37,4 @@ public class GenerationImpl extends DimensionedObjectImpl implements Generation 
         return EssbasePackage.Literals.GENERATION;
     }
 
-} //GenerationImpl
+} // GenerationImpl

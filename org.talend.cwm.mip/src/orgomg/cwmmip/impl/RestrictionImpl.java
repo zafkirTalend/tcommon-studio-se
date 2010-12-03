@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmmip.impl;
@@ -11,18 +10,17 @@ import orgomg.cwmmip.CwmmipPackage;
 import orgomg.cwmmip.Restriction;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Restriction</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Restriction</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
 public class RestrictionImpl extends PatternConstraintImpl implements Restriction {
+
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected RestrictionImpl() {
@@ -30,8 +28,7 @@ public class RestrictionImpl extends PatternConstraintImpl implements Restrictio
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -39,4 +36,4 @@ public class RestrictionImpl extends PatternConstraintImpl implements Restrictio
         return CwmmipPackage.Literals.RESTRICTION;
     }
 
-} //RestrictionImpl
+} // RestrictionImpl

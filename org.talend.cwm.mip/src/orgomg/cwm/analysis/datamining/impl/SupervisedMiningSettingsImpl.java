@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.analysis.datamining.impl;
@@ -13,9 +12,8 @@ import orgomg.cwm.analysis.datamining.DataminingPackage;
 import orgomg.cwm.analysis.datamining.SupervisedMiningSettings;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Supervised Mining Settings</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Supervised Mining Settings</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -28,6 +26,7 @@ import orgomg.cwm.analysis.datamining.SupervisedMiningSettings;
  * @generated
  */
 public class SupervisedMiningSettingsImpl extends MiningSettingsImpl implements SupervisedMiningSettings {
+
     /**
      * The default value of the '{@link #getConfidenceAttributeName() <em>Confidence Attribute Name</em>}' attribute.
      * <!-- begin-user-doc -->
@@ -70,8 +69,8 @@ public class SupervisedMiningSettingsImpl extends MiningSettingsImpl implements 
 
     /**
      * The default value of the '{@link #getCostFunction() <em>Cost Function</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getCostFunction()
      * @generated
      * @ordered
@@ -80,8 +79,8 @@ public class SupervisedMiningSettingsImpl extends MiningSettingsImpl implements 
 
     /**
      * The cached value of the '{@link #getCostFunction() <em>Cost Function</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getCostFunction()
      * @generated
      * @ordered
@@ -89,8 +88,7 @@ public class SupervisedMiningSettingsImpl extends MiningSettingsImpl implements 
     protected String costFunction = COST_FUNCTION_EDEFAULT;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected SupervisedMiningSettingsImpl() {
@@ -98,8 +96,7 @@ public class SupervisedMiningSettingsImpl extends MiningSettingsImpl implements 
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -108,8 +105,7 @@ public class SupervisedMiningSettingsImpl extends MiningSettingsImpl implements 
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getConfidenceAttributeName() {
@@ -117,20 +113,20 @@ public class SupervisedMiningSettingsImpl extends MiningSettingsImpl implements 
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setConfidenceAttributeName(String newConfidenceAttributeName) {
         String oldConfidenceAttributeName = confidenceAttributeName;
         confidenceAttributeName = newConfidenceAttributeName;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, DataminingPackage.SUPERVISED_MINING_SETTINGS__CONFIDENCE_ATTRIBUTE_NAME, oldConfidenceAttributeName, confidenceAttributeName));
+            eNotify(new ENotificationImpl(this, Notification.SET,
+                    DataminingPackage.SUPERVISED_MINING_SETTINGS__CONFIDENCE_ATTRIBUTE_NAME, oldConfidenceAttributeName,
+                    confidenceAttributeName));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getPredictedAttributeName() {
@@ -138,20 +134,20 @@ public class SupervisedMiningSettingsImpl extends MiningSettingsImpl implements 
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setPredictedAttributeName(String newPredictedAttributeName) {
         String oldPredictedAttributeName = predictedAttributeName;
         predictedAttributeName = newPredictedAttributeName;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, DataminingPackage.SUPERVISED_MINING_SETTINGS__PREDICTED_ATTRIBUTE_NAME, oldPredictedAttributeName, predictedAttributeName));
+            eNotify(new ENotificationImpl(this, Notification.SET,
+                    DataminingPackage.SUPERVISED_MINING_SETTINGS__PREDICTED_ATTRIBUTE_NAME, oldPredictedAttributeName,
+                    predictedAttributeName));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getCostFunction() {
@@ -159,103 +155,101 @@ public class SupervisedMiningSettingsImpl extends MiningSettingsImpl implements 
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setCostFunction(String newCostFunction) {
         String oldCostFunction = costFunction;
         costFunction = newCostFunction;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, DataminingPackage.SUPERVISED_MINING_SETTINGS__COST_FUNCTION, oldCostFunction, costFunction));
+            eNotify(new ENotificationImpl(this, Notification.SET, DataminingPackage.SUPERVISED_MINING_SETTINGS__COST_FUNCTION,
+                    oldCostFunction, costFunction));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case DataminingPackage.SUPERVISED_MINING_SETTINGS__CONFIDENCE_ATTRIBUTE_NAME:
-                return getConfidenceAttributeName();
-            case DataminingPackage.SUPERVISED_MINING_SETTINGS__PREDICTED_ATTRIBUTE_NAME:
-                return getPredictedAttributeName();
-            case DataminingPackage.SUPERVISED_MINING_SETTINGS__COST_FUNCTION:
-                return getCostFunction();
+        case DataminingPackage.SUPERVISED_MINING_SETTINGS__CONFIDENCE_ATTRIBUTE_NAME:
+            return getConfidenceAttributeName();
+        case DataminingPackage.SUPERVISED_MINING_SETTINGS__PREDICTED_ATTRIBUTE_NAME:
+            return getPredictedAttributeName();
+        case DataminingPackage.SUPERVISED_MINING_SETTINGS__COST_FUNCTION:
+            return getCostFunction();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case DataminingPackage.SUPERVISED_MINING_SETTINGS__CONFIDENCE_ATTRIBUTE_NAME:
-                setConfidenceAttributeName((String)newValue);
-                return;
-            case DataminingPackage.SUPERVISED_MINING_SETTINGS__PREDICTED_ATTRIBUTE_NAME:
-                setPredictedAttributeName((String)newValue);
-                return;
-            case DataminingPackage.SUPERVISED_MINING_SETTINGS__COST_FUNCTION:
-                setCostFunction((String)newValue);
-                return;
+        case DataminingPackage.SUPERVISED_MINING_SETTINGS__CONFIDENCE_ATTRIBUTE_NAME:
+            setConfidenceAttributeName((String) newValue);
+            return;
+        case DataminingPackage.SUPERVISED_MINING_SETTINGS__PREDICTED_ATTRIBUTE_NAME:
+            setPredictedAttributeName((String) newValue);
+            return;
+        case DataminingPackage.SUPERVISED_MINING_SETTINGS__COST_FUNCTION:
+            setCostFunction((String) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case DataminingPackage.SUPERVISED_MINING_SETTINGS__CONFIDENCE_ATTRIBUTE_NAME:
-                setConfidenceAttributeName(CONFIDENCE_ATTRIBUTE_NAME_EDEFAULT);
-                return;
-            case DataminingPackage.SUPERVISED_MINING_SETTINGS__PREDICTED_ATTRIBUTE_NAME:
-                setPredictedAttributeName(PREDICTED_ATTRIBUTE_NAME_EDEFAULT);
-                return;
-            case DataminingPackage.SUPERVISED_MINING_SETTINGS__COST_FUNCTION:
-                setCostFunction(COST_FUNCTION_EDEFAULT);
-                return;
+        case DataminingPackage.SUPERVISED_MINING_SETTINGS__CONFIDENCE_ATTRIBUTE_NAME:
+            setConfidenceAttributeName(CONFIDENCE_ATTRIBUTE_NAME_EDEFAULT);
+            return;
+        case DataminingPackage.SUPERVISED_MINING_SETTINGS__PREDICTED_ATTRIBUTE_NAME:
+            setPredictedAttributeName(PREDICTED_ATTRIBUTE_NAME_EDEFAULT);
+            return;
+        case DataminingPackage.SUPERVISED_MINING_SETTINGS__COST_FUNCTION:
+            setCostFunction(COST_FUNCTION_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case DataminingPackage.SUPERVISED_MINING_SETTINGS__CONFIDENCE_ATTRIBUTE_NAME:
-                return CONFIDENCE_ATTRIBUTE_NAME_EDEFAULT == null ? confidenceAttributeName != null : !CONFIDENCE_ATTRIBUTE_NAME_EDEFAULT.equals(confidenceAttributeName);
-            case DataminingPackage.SUPERVISED_MINING_SETTINGS__PREDICTED_ATTRIBUTE_NAME:
-                return PREDICTED_ATTRIBUTE_NAME_EDEFAULT == null ? predictedAttributeName != null : !PREDICTED_ATTRIBUTE_NAME_EDEFAULT.equals(predictedAttributeName);
-            case DataminingPackage.SUPERVISED_MINING_SETTINGS__COST_FUNCTION:
-                return COST_FUNCTION_EDEFAULT == null ? costFunction != null : !COST_FUNCTION_EDEFAULT.equals(costFunction);
+        case DataminingPackage.SUPERVISED_MINING_SETTINGS__CONFIDENCE_ATTRIBUTE_NAME:
+            return CONFIDENCE_ATTRIBUTE_NAME_EDEFAULT == null ? confidenceAttributeName != null
+                    : !CONFIDENCE_ATTRIBUTE_NAME_EDEFAULT.equals(confidenceAttributeName);
+        case DataminingPackage.SUPERVISED_MINING_SETTINGS__PREDICTED_ATTRIBUTE_NAME:
+            return PREDICTED_ATTRIBUTE_NAME_EDEFAULT == null ? predictedAttributeName != null
+                    : !PREDICTED_ATTRIBUTE_NAME_EDEFAULT.equals(predictedAttributeName);
+        case DataminingPackage.SUPERVISED_MINING_SETTINGS__COST_FUNCTION:
+            return COST_FUNCTION_EDEFAULT == null ? costFunction != null : !COST_FUNCTION_EDEFAULT.equals(costFunction);
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (confidenceAttributeName: ");
@@ -268,4 +262,4 @@ public class SupervisedMiningSettingsImpl extends MiningSettingsImpl implements 
         return result.toString();
     }
 
-} //SupervisedMiningSettingsImpl
+} // SupervisedMiningSettingsImpl

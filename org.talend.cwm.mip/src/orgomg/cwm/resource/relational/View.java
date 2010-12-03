@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.resource.relational;
@@ -9,9 +8,8 @@ package orgomg.cwm.resource.relational;
 import orgomg.cwm.foundation.datatypes.QueryExpression;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>View</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>View</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * A view is a non-materialized set of rows, defined by the associated query.
@@ -32,13 +30,13 @@ import orgomg.cwm.foundation.datatypes.QueryExpression;
  * @generated
  */
 public interface View extends NamedColumnSet {
+
     /**
-     * Returns the value of the '<em><b>Is Read Only</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Indicates whether the underlying tables can be updated through an update to this View.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Is Read Only</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * Indicates whether the underlying tables can be updated through an update
+     * to this View. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Is Read Only</em>' attribute.
      * @see #setIsReadOnly(boolean)
      * @see orgomg.cwm.resource.relational.RelationalPackage#getView_IsReadOnly()
@@ -49,8 +47,8 @@ public interface View extends NamedColumnSet {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.resource.relational.View#isIsReadOnly <em>Is Read Only</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Is Read Only</em>' attribute.
      * @see #isIsReadOnly()
      * @generated
@@ -58,12 +56,13 @@ public interface View extends NamedColumnSet {
     void setIsReadOnly(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Check Option</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * This field is meaningful only if the view is not ReadOnly. CheckOption indicates that the RDBMS will validate that changes made to the data verify the view filtering condition and belong to the view result set.
+     * Returns the value of the '<em><b>Check Option</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> This
+     * field is meaningful only if the view is not ReadOnly. CheckOption
+     * indicates that the RDBMS will validate that changes made to the data
+     * verify the view filtering condition and belong to the view result set.
      * <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Check Option</em>' attribute.
      * @see #setCheckOption(boolean)
      * @see orgomg.cwm.resource.relational.RelationalPackage#getView_CheckOption()
@@ -74,8 +73,8 @@ public interface View extends NamedColumnSet {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.resource.relational.View#isCheckOption <em>Check Option</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Check Option</em>' attribute.
      * @see #isCheckOption()
      * @generated
@@ -83,15 +82,15 @@ public interface View extends NamedColumnSet {
     void setCheckOption(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Query Expression</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The query associated with the View.
+     * Returns the value of the '<em><b>Query Expression</b></em>' containment
+     * reference. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> The query associated with the View.
      * 
-     * The query result must match the set of Columns associated with the View (in parent class ColumnSet)
-     * <!-- end-model-doc -->
-     * @return the value of the '<em>Query Expression</em>' containment reference.
+     * The query result must match the set of Columns associated with the View
+     * (in parent class ColumnSet) <!-- end-model-doc -->
+     * 
+     * @return the value of the '<em>Query Expression</em>' containment
+     *         reference.
      * @see #setQueryExpression(QueryExpression)
      * @see orgomg.cwm.resource.relational.RelationalPackage#getView_QueryExpression()
      * @model containment="true"
@@ -101,8 +100,8 @@ public interface View extends NamedColumnSet {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.resource.relational.View#getQueryExpression <em>Query Expression</em>}' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Query Expression</em>' containment reference.
      * @see #getQueryExpression()
      * @generated

@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.resource.record.impl;
@@ -22,9 +21,8 @@ import orgomg.cwm.resource.record.RecordFile;
 import orgomg.cwm.resource.record.RecordPackage;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>File</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>File</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -38,10 +36,11 @@ import orgomg.cwm.resource.record.RecordPackage;
  * @generated
  */
 public class RecordFileImpl extends PackageImpl implements RecordFile {
+
     /**
      * The default value of the '{@link #isIsSelfDescribing() <em>Is Self Describing</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #isIsSelfDescribing()
      * @generated
      * @ordered
@@ -50,8 +49,8 @@ public class RecordFileImpl extends PackageImpl implements RecordFile {
 
     /**
      * The cached value of the '{@link #isIsSelfDescribing() <em>Is Self Describing</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #isIsSelfDescribing()
      * @generated
      * @ordered
@@ -60,8 +59,8 @@ public class RecordFileImpl extends PackageImpl implements RecordFile {
 
     /**
      * The default value of the '{@link #getRecordDelimiter() <em>Record Delimiter</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getRecordDelimiter()
      * @generated
      * @ordered
@@ -70,8 +69,8 @@ public class RecordFileImpl extends PackageImpl implements RecordFile {
 
     /**
      * The cached value of the '{@link #getRecordDelimiter() <em>Record Delimiter</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getRecordDelimiter()
      * @generated
      * @ordered
@@ -80,8 +79,7 @@ public class RecordFileImpl extends PackageImpl implements RecordFile {
 
     /**
      * The default value of the '{@link #getSkipRecords() <em>Skip Records</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getSkipRecords()
      * @generated
      * @ordered
@@ -90,8 +88,7 @@ public class RecordFileImpl extends PackageImpl implements RecordFile {
 
     /**
      * The cached value of the '{@link #getSkipRecords() <em>Skip Records</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getSkipRecords()
      * @generated
      * @ordered
@@ -100,8 +97,7 @@ public class RecordFileImpl extends PackageImpl implements RecordFile {
 
     /**
      * The cached value of the '{@link #getRecord() <em>Record</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getRecord()
      * @generated
      * @ordered
@@ -109,8 +105,7 @@ public class RecordFileImpl extends PackageImpl implements RecordFile {
     protected EList<RecordDef> record;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected RecordFileImpl() {
@@ -118,8 +113,7 @@ public class RecordFileImpl extends PackageImpl implements RecordFile {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -128,8 +122,7 @@ public class RecordFileImpl extends PackageImpl implements RecordFile {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isIsSelfDescribing() {
@@ -137,20 +130,19 @@ public class RecordFileImpl extends PackageImpl implements RecordFile {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setIsSelfDescribing(boolean newIsSelfDescribing) {
         boolean oldIsSelfDescribing = isSelfDescribing;
         isSelfDescribing = newIsSelfDescribing;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, RecordPackage.RECORD_FILE__IS_SELF_DESCRIBING, oldIsSelfDescribing, isSelfDescribing));
+            eNotify(new ENotificationImpl(this, Notification.SET, RecordPackage.RECORD_FILE__IS_SELF_DESCRIBING,
+                    oldIsSelfDescribing, isSelfDescribing));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public long getRecordDelimiter() {
@@ -158,20 +150,19 @@ public class RecordFileImpl extends PackageImpl implements RecordFile {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setRecordDelimiter(long newRecordDelimiter) {
         long oldRecordDelimiter = recordDelimiter;
         recordDelimiter = newRecordDelimiter;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, RecordPackage.RECORD_FILE__RECORD_DELIMITER, oldRecordDelimiter, recordDelimiter));
+            eNotify(new ENotificationImpl(this, Notification.SET, RecordPackage.RECORD_FILE__RECORD_DELIMITER,
+                    oldRecordDelimiter, recordDelimiter));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public long getSkipRecords() {
@@ -179,156 +170,150 @@ public class RecordFileImpl extends PackageImpl implements RecordFile {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setSkipRecords(long newSkipRecords) {
         long oldSkipRecords = skipRecords;
         skipRecords = newSkipRecords;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, RecordPackage.RECORD_FILE__SKIP_RECORDS, oldSkipRecords, skipRecords));
+            eNotify(new ENotificationImpl(this, Notification.SET, RecordPackage.RECORD_FILE__SKIP_RECORDS, oldSkipRecords,
+                    skipRecords));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<RecordDef> getRecord() {
         if (record == null) {
-            record = new EObjectWithInverseResolvingEList.ManyInverse<RecordDef>(RecordDef.class, this, RecordPackage.RECORD_FILE__RECORD, RecordPackage.RECORD_DEF__FILE);
+            record = new EObjectWithInverseResolvingEList.ManyInverse<RecordDef>(RecordDef.class, this,
+                    RecordPackage.RECORD_FILE__RECORD, RecordPackage.RECORD_DEF__FILE);
         }
         return record;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case RecordPackage.RECORD_FILE__RECORD:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getRecord()).basicAdd(otherEnd, msgs);
+        case RecordPackage.RECORD_FILE__RECORD:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getRecord()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case RecordPackage.RECORD_FILE__RECORD:
-                return ((InternalEList<?>)getRecord()).basicRemove(otherEnd, msgs);
+        case RecordPackage.RECORD_FILE__RECORD:
+            return ((InternalEList<?>) getRecord()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case RecordPackage.RECORD_FILE__IS_SELF_DESCRIBING:
-                return isIsSelfDescribing();
-            case RecordPackage.RECORD_FILE__RECORD_DELIMITER:
-                return getRecordDelimiter();
-            case RecordPackage.RECORD_FILE__SKIP_RECORDS:
-                return getSkipRecords();
-            case RecordPackage.RECORD_FILE__RECORD:
-                return getRecord();
+        case RecordPackage.RECORD_FILE__IS_SELF_DESCRIBING:
+            return isIsSelfDescribing();
+        case RecordPackage.RECORD_FILE__RECORD_DELIMITER:
+            return getRecordDelimiter();
+        case RecordPackage.RECORD_FILE__SKIP_RECORDS:
+            return getSkipRecords();
+        case RecordPackage.RECORD_FILE__RECORD:
+            return getRecord();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case RecordPackage.RECORD_FILE__IS_SELF_DESCRIBING:
-                setIsSelfDescribing((Boolean)newValue);
-                return;
-            case RecordPackage.RECORD_FILE__RECORD_DELIMITER:
-                setRecordDelimiter((Long)newValue);
-                return;
-            case RecordPackage.RECORD_FILE__SKIP_RECORDS:
-                setSkipRecords((Long)newValue);
-                return;
-            case RecordPackage.RECORD_FILE__RECORD:
-                getRecord().clear();
-                getRecord().addAll((Collection<? extends RecordDef>)newValue);
-                return;
+        case RecordPackage.RECORD_FILE__IS_SELF_DESCRIBING:
+            setIsSelfDescribing((Boolean) newValue);
+            return;
+        case RecordPackage.RECORD_FILE__RECORD_DELIMITER:
+            setRecordDelimiter((Long) newValue);
+            return;
+        case RecordPackage.RECORD_FILE__SKIP_RECORDS:
+            setSkipRecords((Long) newValue);
+            return;
+        case RecordPackage.RECORD_FILE__RECORD:
+            getRecord().clear();
+            getRecord().addAll((Collection<? extends RecordDef>) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case RecordPackage.RECORD_FILE__IS_SELF_DESCRIBING:
-                setIsSelfDescribing(IS_SELF_DESCRIBING_EDEFAULT);
-                return;
-            case RecordPackage.RECORD_FILE__RECORD_DELIMITER:
-                setRecordDelimiter(RECORD_DELIMITER_EDEFAULT);
-                return;
-            case RecordPackage.RECORD_FILE__SKIP_RECORDS:
-                setSkipRecords(SKIP_RECORDS_EDEFAULT);
-                return;
-            case RecordPackage.RECORD_FILE__RECORD:
-                getRecord().clear();
-                return;
+        case RecordPackage.RECORD_FILE__IS_SELF_DESCRIBING:
+            setIsSelfDescribing(IS_SELF_DESCRIBING_EDEFAULT);
+            return;
+        case RecordPackage.RECORD_FILE__RECORD_DELIMITER:
+            setRecordDelimiter(RECORD_DELIMITER_EDEFAULT);
+            return;
+        case RecordPackage.RECORD_FILE__SKIP_RECORDS:
+            setSkipRecords(SKIP_RECORDS_EDEFAULT);
+            return;
+        case RecordPackage.RECORD_FILE__RECORD:
+            getRecord().clear();
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case RecordPackage.RECORD_FILE__IS_SELF_DESCRIBING:
-                return isSelfDescribing != IS_SELF_DESCRIBING_EDEFAULT;
-            case RecordPackage.RECORD_FILE__RECORD_DELIMITER:
-                return recordDelimiter != RECORD_DELIMITER_EDEFAULT;
-            case RecordPackage.RECORD_FILE__SKIP_RECORDS:
-                return skipRecords != SKIP_RECORDS_EDEFAULT;
-            case RecordPackage.RECORD_FILE__RECORD:
-                return record != null && !record.isEmpty();
+        case RecordPackage.RECORD_FILE__IS_SELF_DESCRIBING:
+            return isSelfDescribing != IS_SELF_DESCRIBING_EDEFAULT;
+        case RecordPackage.RECORD_FILE__RECORD_DELIMITER:
+            return recordDelimiter != RECORD_DELIMITER_EDEFAULT;
+        case RecordPackage.RECORD_FILE__SKIP_RECORDS:
+            return skipRecords != SKIP_RECORDS_EDEFAULT;
+        case RecordPackage.RECORD_FILE__RECORD:
+            return record != null && !record.isEmpty();
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (isSelfDescribing: ");
@@ -341,4 +326,4 @@ public class RecordFileImpl extends PackageImpl implements RecordFile {
         return result.toString();
     }
 
-} //RecordFileImpl
+} // RecordFileImpl

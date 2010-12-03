@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.analysis.olap.impl;
@@ -12,18 +11,17 @@ import orgomg.cwm.analysis.olap.OlapPackage;
 import orgomg.cwm.objectmodel.core.impl.AttributeImpl;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Measure</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Measure</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
 public class MeasureImpl extends AttributeImpl implements Measure {
+
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected MeasureImpl() {
@@ -31,8 +29,7 @@ public class MeasureImpl extends AttributeImpl implements Measure {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -40,4 +37,4 @@ public class MeasureImpl extends AttributeImpl implements Measure {
         return OlapPackage.Literals.MEASURE;
     }
 
-} //MeasureImpl
+} // MeasureImpl

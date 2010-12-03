@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.foundation.typemapping.impl;
@@ -23,9 +22,8 @@ import orgomg.cwm.foundation.typemapping.TypemappingPackage;
 import orgomg.cwm.objectmodel.core.impl.PackageImpl;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Type System</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Type System</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -37,10 +35,11 @@ import orgomg.cwm.objectmodel.core.impl.PackageImpl;
  * @generated
  */
 public class TypeSystemImpl extends PackageImpl implements TypeSystem {
+
     /**
      * The cached value of the '{@link #getSupportingSystem() <em>Supporting System</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getSupportingSystem()
      * @generated
      * @ordered
@@ -49,8 +48,7 @@ public class TypeSystemImpl extends PackageImpl implements TypeSystem {
 
     /**
      * The default value of the '{@link #getVersion() <em>Version</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getVersion()
      * @generated
      * @ordered
@@ -59,8 +57,7 @@ public class TypeSystemImpl extends PackageImpl implements TypeSystem {
 
     /**
      * The cached value of the '{@link #getVersion() <em>Version</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getVersion()
      * @generated
      * @ordered
@@ -68,8 +65,7 @@ public class TypeSystemImpl extends PackageImpl implements TypeSystem {
     protected String version = VERSION_EDEFAULT;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected TypeSystemImpl() {
@@ -77,8 +73,7 @@ public class TypeSystemImpl extends PackageImpl implements TypeSystem {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -87,20 +82,19 @@ public class TypeSystemImpl extends PackageImpl implements TypeSystem {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<SoftwareSystem> getSupportingSystem() {
         if (supportingSystem == null) {
-            supportingSystem = new EObjectWithInverseResolvingEList.ManyInverse<SoftwareSystem>(SoftwareSystem.class, this, TypemappingPackage.TYPE_SYSTEM__SUPPORTING_SYSTEM, SoftwaredeploymentPackage.SOFTWARE_SYSTEM__TYPESPACE);
+            supportingSystem = new EObjectWithInverseResolvingEList.ManyInverse<SoftwareSystem>(SoftwareSystem.class, this,
+                    TypemappingPackage.TYPE_SYSTEM__SUPPORTING_SYSTEM, SoftwaredeploymentPackage.SOFTWARE_SYSTEM__TYPESPACE);
         }
         return supportingSystem;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getVersion() {
@@ -108,8 +102,7 @@ public class TypeSystemImpl extends PackageImpl implements TypeSystem {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setVersion(String newVersion) {
@@ -120,112 +113,106 @@ public class TypeSystemImpl extends PackageImpl implements TypeSystem {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case TypemappingPackage.TYPE_SYSTEM__SUPPORTING_SYSTEM:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getSupportingSystem()).basicAdd(otherEnd, msgs);
+        case TypemappingPackage.TYPE_SYSTEM__SUPPORTING_SYSTEM:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getSupportingSystem()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case TypemappingPackage.TYPE_SYSTEM__SUPPORTING_SYSTEM:
-                return ((InternalEList<?>)getSupportingSystem()).basicRemove(otherEnd, msgs);
+        case TypemappingPackage.TYPE_SYSTEM__SUPPORTING_SYSTEM:
+            return ((InternalEList<?>) getSupportingSystem()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case TypemappingPackage.TYPE_SYSTEM__SUPPORTING_SYSTEM:
-                return getSupportingSystem();
-            case TypemappingPackage.TYPE_SYSTEM__VERSION:
-                return getVersion();
+        case TypemappingPackage.TYPE_SYSTEM__SUPPORTING_SYSTEM:
+            return getSupportingSystem();
+        case TypemappingPackage.TYPE_SYSTEM__VERSION:
+            return getVersion();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case TypemappingPackage.TYPE_SYSTEM__SUPPORTING_SYSTEM:
-                getSupportingSystem().clear();
-                getSupportingSystem().addAll((Collection<? extends SoftwareSystem>)newValue);
-                return;
-            case TypemappingPackage.TYPE_SYSTEM__VERSION:
-                setVersion((String)newValue);
-                return;
+        case TypemappingPackage.TYPE_SYSTEM__SUPPORTING_SYSTEM:
+            getSupportingSystem().clear();
+            getSupportingSystem().addAll((Collection<? extends SoftwareSystem>) newValue);
+            return;
+        case TypemappingPackage.TYPE_SYSTEM__VERSION:
+            setVersion((String) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case TypemappingPackage.TYPE_SYSTEM__SUPPORTING_SYSTEM:
-                getSupportingSystem().clear();
-                return;
-            case TypemappingPackage.TYPE_SYSTEM__VERSION:
-                setVersion(VERSION_EDEFAULT);
-                return;
+        case TypemappingPackage.TYPE_SYSTEM__SUPPORTING_SYSTEM:
+            getSupportingSystem().clear();
+            return;
+        case TypemappingPackage.TYPE_SYSTEM__VERSION:
+            setVersion(VERSION_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case TypemappingPackage.TYPE_SYSTEM__SUPPORTING_SYSTEM:
-                return supportingSystem != null && !supportingSystem.isEmpty();
-            case TypemappingPackage.TYPE_SYSTEM__VERSION:
-                return VERSION_EDEFAULT == null ? version != null : !VERSION_EDEFAULT.equals(version);
+        case TypemappingPackage.TYPE_SYSTEM__SUPPORTING_SYSTEM:
+            return supportingSystem != null && !supportingSystem.isEmpty();
+        case TypemappingPackage.TYPE_SYSTEM__VERSION:
+            return VERSION_EDEFAULT == null ? version != null : !VERSION_EDEFAULT.equals(version);
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (version: ");
@@ -234,4 +221,4 @@ public class TypeSystemImpl extends PackageImpl implements TypeSystem {
         return result.toString();
     }
 
-} //TypeSystemImpl
+} // TypeSystemImpl

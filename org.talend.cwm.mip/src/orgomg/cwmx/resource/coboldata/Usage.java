@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.coboldata;
@@ -9,9 +8,8 @@ package orgomg.cwmx.resource.coboldata;
 import orgomg.cwm.objectmodel.core.DataType;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Usage</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Usage</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * A subclass of UML?s DataType class representing valid COBOL usage types. The type attribute that a COBOLField inherits from StructuralFeature should point to one of the instances of Usage defined here.

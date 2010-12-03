@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.coboldata;
@@ -10,9 +9,8 @@ import org.eclipse.emf.common.util.EList;
 import orgomg.cwm.resource.record.Field;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>COBOL Item</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>COBOL Item</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * The COBOLItem class is an abstract metaclass that represents the commonalities shared by both the COBOLField and Renames metaclasses.
@@ -35,15 +33,17 @@ import orgomg.cwm.resource.record.Field;
  * @generated
  */
 public interface COBOLItem extends Field {
+
     /**
-     * Returns the value of the '<em><b>Occurring Field</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwmx.resource.coboldata.COBOLField}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.coboldata.COBOLField#getDependingOnField <em>Depending On Field</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the field that occurs (i.e., the array).
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Occurring Field</b></em>' reference
+     * list. The list contents are of type
+     * {@link orgomg.cwmx.resource.coboldata.COBOLField}. It is bidirectional
+     * and its opposite is '
+     * {@link orgomg.cwmx.resource.coboldata.COBOLField#getDependingOnField
+     * <em>Depending On Field</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+     * --> <!-- begin-model-doc --> Identifies the field that occurs (i.e., the
+     * array). <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Occurring Field</em>' reference list.
      * @see orgomg.cwmx.resource.coboldata.CoboldataPackage#getCOBOLItem_OccurringField()
      * @see orgomg.cwmx.resource.coboldata.COBOLField#getDependingOnField
@@ -53,14 +53,14 @@ public interface COBOLItem extends Field {
     EList<COBOLField> getOccurringField();
 
     /**
-     * Returns the value of the '<em><b>Status FD</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwmx.resource.coboldata.COBOLFD}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.coboldata.COBOLFD#getStatusID <em>Status ID</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the COBOLFD instance for which this COBOLItem instance contains status ID information.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Status FD</b></em>' reference list. The
+     * list contents are of type {@link orgomg.cwmx.resource.coboldata.COBOLFD}.
+     * It is bidirectional and its opposite is '
+     * {@link orgomg.cwmx.resource.coboldata.COBOLFD#getStatusID
+     * <em>Status ID</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> Identifies the COBOLFD instance for which this
+     * COBOLItem instance contains status ID information. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Status FD</em>' reference list.
      * @see orgomg.cwmx.resource.coboldata.CoboldataPackage#getCOBOLItem_StatusFD()
      * @see orgomg.cwmx.resource.coboldata.COBOLFD#getStatusID
@@ -71,13 +71,14 @@ public interface COBOLItem extends Field {
 
     /**
      * Returns the value of the '<em><b>Linage Info</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwmx.resource.coboldata.LinageInfo}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.coboldata.LinageInfo#getCobolItem <em>Cobol Item</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the linageInfo instances that reference a COBOLItem instance.
-     * <!-- end-model-doc -->
+     * The list contents are of type
+     * {@link orgomg.cwmx.resource.coboldata.LinageInfo}. It is bidirectional
+     * and its opposite is '
+     * {@link orgomg.cwmx.resource.coboldata.LinageInfo#getCobolItem
+     * <em>Cobol Item</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> Identifies the linageInfo instances that reference a
+     * COBOLItem instance. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Linage Info</em>' reference list.
      * @see orgomg.cwmx.resource.coboldata.CoboldataPackage#getCOBOLItem_LinageInfo()
      * @see orgomg.cwmx.resource.coboldata.LinageInfo#getCobolItem
@@ -88,13 +89,15 @@ public interface COBOLItem extends Field {
 
     /**
      * Returns the value of the '<em><b>Depending FD</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwmx.resource.coboldata.COBOLFD}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.coboldata.COBOLFD#getDependsOn <em>Depends On</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the COBOLFD instances for which the COBOLItem instance contains the current record size.
-     * <!-- end-model-doc -->
+     * The list contents are of type
+     * {@link orgomg.cwmx.resource.coboldata.COBOLFD}. It is bidirectional and
+     * its opposite is '
+     * {@link orgomg.cwmx.resource.coboldata.COBOLFD#getDependsOn
+     * <em>Depends On</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> Identifies the COBOLFD instances for which the
+     * COBOLItem instance contains the current record size. <!-- end-model-doc
+     * -->
+     * 
      * @return the value of the '<em>Depending FD</em>' reference list.
      * @see orgomg.cwmx.resource.coboldata.CoboldataPackage#getCOBOLItem_DependingFD()
      * @see orgomg.cwmx.resource.coboldata.COBOLFD#getDependsOn
@@ -104,14 +107,14 @@ public interface COBOLItem extends Field {
     EList<COBOLFD> getDependingFD();
 
     /**
-     * Returns the value of the '<em><b>Padded FD</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwmx.resource.coboldata.COBOLFD}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.coboldata.COBOLFD#getPadField <em>Pad Field</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the COBOLFD instance that is padded by this field.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Padded FD</b></em>' reference list. The
+     * list contents are of type {@link orgomg.cwmx.resource.coboldata.COBOLFD}.
+     * It is bidirectional and its opposite is '
+     * {@link orgomg.cwmx.resource.coboldata.COBOLFD#getPadField
+     * <em>Pad Field</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> Identifies the COBOLFD instance that is padded by
+     * this field. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Padded FD</em>' reference list.
      * @see orgomg.cwmx.resource.coboldata.CoboldataPackage#getCOBOLItem_PaddedFD()
      * @see orgomg.cwmx.resource.coboldata.COBOLFD#getPadField
@@ -124,8 +127,7 @@ public interface COBOLItem extends Field {
      * Returns the value of the '<em><b>Relative FD</b></em>' reference list.
      * The list contents are of type {@link orgomg.cwmx.resource.coboldata.COBOLFD}.
      * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.coboldata.COBOLFD#getRelativeField <em>Relative Field</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Identifies the COBOLFD instances for which this COBOLField instance acts as a relative record offset.
      * <!-- end-model-doc -->

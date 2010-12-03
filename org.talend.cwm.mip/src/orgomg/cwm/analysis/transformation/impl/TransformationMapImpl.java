@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.analysis.transformation.impl;
@@ -11,18 +10,17 @@ import orgomg.cwm.analysis.transformation.TransformationMap;
 import orgomg.cwm.analysis.transformation.TransformationPackage;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Map</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Map</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
 public class TransformationMapImpl extends TransformationImpl implements TransformationMap {
+
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected TransformationMapImpl() {
@@ -30,8 +28,7 @@ public class TransformationMapImpl extends TransformationImpl implements Transfo
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -39,4 +36,4 @@ public class TransformationMapImpl extends TransformationImpl implements Transfo
         return TransformationPackage.Literals.TRANSFORMATION_MAP;
     }
 
-} //TransformationMapImpl
+} // TransformationMapImpl

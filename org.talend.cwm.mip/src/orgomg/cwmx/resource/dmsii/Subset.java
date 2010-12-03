@@ -1,16 +1,13 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.dmsii;
 
-
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Subset</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Subset</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * Represents a subset of a DataSet instance. Because Subset instances have no membership expression, they are equivalent to DMS II's notion of a "manual" subset.

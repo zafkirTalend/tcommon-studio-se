@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.coboldata;
@@ -13,13 +12,12 @@ import java.util.List;
 import org.eclipse.emf.common.util.Enumerator;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the literals of the enumeration '<em><b>Linage Info Type</b></em>',
- * and utility methods for working with them.
- * <!-- end-user-doc -->
- * <!-- begin-model-doc -->
- * An enumeration representing the types of linage information the are maintained for a COBOLFD.
- * <!-- end-model-doc -->
+ * <!-- begin-user-doc --> A representation of the literals of the enumeration '
+ * <em><b>Linage Info Type</b></em>', and utility methods for working with them.
+ * <!-- end-user-doc --> <!-- begin-model-doc --> An enumeration representing
+ * the types of linage information the are maintained for a COBOLFD. <!--
+ * end-model-doc -->
+ * 
  * @see orgomg.cwmx.resource.coboldata.CoboldataPackage#getLinageInfoType()
  * @model
  * @generated
@@ -36,9 +34,9 @@ public enum LinageInfoType implements Enumerator {
     LI_LINAGE(0, "li_linage", "li_linage"),
 
     /**
-     * The '<em><b>Li linage Footing</b></em>' literal object.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The '<em><b>Li linage Footing</b></em>' literal object. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #LI_LINAGE_FOOTING_VALUE
      * @generated
      * @ordered
@@ -47,8 +45,8 @@ public enum LinageInfoType implements Enumerator {
 
     /**
      * The '<em><b>Li linage Top</b></em>' literal object.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @see #LI_LINAGE_TOP_VALUE
      * @generated
      * @ordered
@@ -56,9 +54,9 @@ public enum LinageInfoType implements Enumerator {
     LI_LINAGE_TOP(2, "li_linageTop", "li_linageTop"),
 
     /**
-     * The '<em><b>Li linage Bottom</b></em>' literal object.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The '<em><b>Li linage Bottom</b></em>' literal object. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #LI_LINAGE_BOTTOM_VALUE
      * @generated
      * @ordered
@@ -81,13 +79,14 @@ public enum LinageInfoType implements Enumerator {
     public static final int LI_LINAGE_VALUE = 0;
 
     /**
-     * The '<em><b>Li linage Footing</b></em>' literal value.
-     * <!-- begin-user-doc -->
+     * The '<em><b>Li linage Footing</b></em>' literal value. <!--
+     * begin-user-doc -->
      * <p>
-     * If the meaning of '<em><b>Li linage Footing</b></em>' literal object isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of '<em><b>Li linage Footing</b></em>' literal object
+     * isn't clear, there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
+     * 
      * @see #LI_LINAGE_FOOTING
      * @model name="li_linageFooting"
      * @generated
@@ -97,10 +96,11 @@ public enum LinageInfoType implements Enumerator {
 
     /**
      * The '<em><b>Li linage Top</b></em>' literal value.
-     * <!-- begin-user-doc -->
+     * <!-- begin-user-doc
+     * -->
      * <p>
-     * If the meaning of '<em><b>Li linage Top</b></em>' literal object isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of '<em><b>Li linage Top</b></em>' literal object isn't
+     * clear, there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
      * @see #LI_LINAGE_TOP
@@ -112,10 +112,11 @@ public enum LinageInfoType implements Enumerator {
 
     /**
      * The '<em><b>Li linage Bottom</b></em>' literal value.
-     * <!-- begin-user-doc -->
+     * <!-- begin-user-doc
+     * -->
      * <p>
-     * If the meaning of '<em><b>Li linage Bottom</b></em>' literal object isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of '<em><b>Li linage Bottom</b></em>' literal object isn't
+     * clear, there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
      * @see #LI_LINAGE_BOTTOM
@@ -126,31 +127,24 @@ public enum LinageInfoType implements Enumerator {
     public static final int LI_LINAGE_BOTTOM_VALUE = 3;
 
     /**
-     * An array of all the '<em><b>Linage Info Type</b></em>' enumerators.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * An array of all the '<em><b>Linage Info Type</b></em>' enumerators. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
-    private static final LinageInfoType[] VALUES_ARRAY =
-        new LinageInfoType[] {
-            LI_LINAGE,
-            LI_LINAGE_FOOTING,
-            LI_LINAGE_TOP,
-            LI_LINAGE_BOTTOM,
-        };
+    private static final LinageInfoType[] VALUES_ARRAY = new LinageInfoType[] { LI_LINAGE, LI_LINAGE_FOOTING, LI_LINAGE_TOP,
+            LI_LINAGE_BOTTOM, };
 
     /**
      * A public read-only list of all the '<em><b>Linage Info Type</b></em>' enumerators.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static final List<LinageInfoType> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
     /**
      * Returns the '<em><b>Linage Info Type</b></em>' literal with the specified literal value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static LinageInfoType get(String literal) {
@@ -165,8 +159,7 @@ public enum LinageInfoType implements Enumerator {
 
     /**
      * Returns the '<em><b>Linage Info Type</b></em>' literal with the specified name.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static LinageInfoType getByName(String name) {
@@ -181,45 +174,45 @@ public enum LinageInfoType implements Enumerator {
 
     /**
      * Returns the '<em><b>Linage Info Type</b></em>' literal with the specified integer value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static LinageInfoType get(int value) {
         switch (value) {
-            case LI_LINAGE_VALUE: return LI_LINAGE;
-            case LI_LINAGE_FOOTING_VALUE: return LI_LINAGE_FOOTING;
-            case LI_LINAGE_TOP_VALUE: return LI_LINAGE_TOP;
-            case LI_LINAGE_BOTTOM_VALUE: return LI_LINAGE_BOTTOM;
+        case LI_LINAGE_VALUE:
+            return LI_LINAGE;
+        case LI_LINAGE_FOOTING_VALUE:
+            return LI_LINAGE_FOOTING;
+        case LI_LINAGE_TOP_VALUE:
+            return LI_LINAGE_TOP;
+        case LI_LINAGE_BOTTOM_VALUE:
+            return LI_LINAGE_BOTTOM;
         }
         return null;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private final int value;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private final String name;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private final String literal;
 
     /**
      * Only this class can construct instances.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     private LinageInfoType(int value, String name, String literal) {
@@ -229,41 +222,37 @@ public enum LinageInfoType implements Enumerator {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public int getValue() {
-      return value;
+        return value;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getName() {
-      return name;
+        return name;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getLiteral() {
-      return literal;
+        return literal;
     }
 
     /**
      * Returns the literal value of the enumerator, which is its string representation.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
         return literal;
     }
-    
-} //LinageInfoType
+
+} // LinageInfoType

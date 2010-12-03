@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.essbase;
@@ -9,9 +8,8 @@ package orgomg.cwmx.resource.essbase;
 import orgomg.cwm.foundation.softwaredeployment.DataManager;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>OLAP Server</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>OLAP Server</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * A software process that implements one or more Essbase Databases.

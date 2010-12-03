@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.analysis.olap.impl;
@@ -18,9 +17,8 @@ import orgomg.cwm.analysis.olap.OlapPackage;
 import orgomg.cwm.analysis.transformation.impl.TransformationMapImpl;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Content Map</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Content Map</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -31,9 +29,9 @@ import orgomg.cwm.analysis.transformation.impl.TransformationMapImpl;
  * @generated
  */
 public class ContentMapImpl extends TransformationMapImpl implements ContentMap {
+
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected ContentMapImpl() {
@@ -41,8 +39,7 @@ public class ContentMapImpl extends TransformationMapImpl implements ContentMap 
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -51,146 +48,141 @@ public class ContentMapImpl extends TransformationMapImpl implements ContentMap 
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public CubeDeployment getCubeDeployment() {
-        if (eContainerFeatureID() != OlapPackage.CONTENT_MAP__CUBE_DEPLOYMENT) return null;
-        return (CubeDeployment)eContainer();
+        if (eContainerFeatureID() != OlapPackage.CONTENT_MAP__CUBE_DEPLOYMENT)
+            return null;
+        return (CubeDeployment) eContainer();
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public NotificationChain basicSetCubeDeployment(CubeDeployment newCubeDeployment, NotificationChain msgs) {
-        msgs = eBasicSetContainer((InternalEObject)newCubeDeployment, OlapPackage.CONTENT_MAP__CUBE_DEPLOYMENT, msgs);
+        msgs = eBasicSetContainer((InternalEObject) newCubeDeployment, OlapPackage.CONTENT_MAP__CUBE_DEPLOYMENT, msgs);
         return msgs;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setCubeDeployment(CubeDeployment newCubeDeployment) {
-        if (newCubeDeployment != eInternalContainer() || (eContainerFeatureID() != OlapPackage.CONTENT_MAP__CUBE_DEPLOYMENT && newCubeDeployment != null)) {
+        if (newCubeDeployment != eInternalContainer()
+                || (eContainerFeatureID() != OlapPackage.CONTENT_MAP__CUBE_DEPLOYMENT && newCubeDeployment != null)) {
             if (EcoreUtil.isAncestor(this, newCubeDeployment))
                 throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
             NotificationChain msgs = null;
             if (eInternalContainer() != null)
                 msgs = eBasicRemoveFromContainer(msgs);
             if (newCubeDeployment != null)
-                msgs = ((InternalEObject)newCubeDeployment).eInverseAdd(this, OlapPackage.CUBE_DEPLOYMENT__CONTENT_MAP, CubeDeployment.class, msgs);
+                msgs = ((InternalEObject) newCubeDeployment).eInverseAdd(this, OlapPackage.CUBE_DEPLOYMENT__CONTENT_MAP,
+                        CubeDeployment.class, msgs);
             msgs = basicSetCubeDeployment(newCubeDeployment, msgs);
-            if (msgs != null) msgs.dispatch();
-        }
-        else if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, OlapPackage.CONTENT_MAP__CUBE_DEPLOYMENT, newCubeDeployment, newCubeDeployment));
+            if (msgs != null)
+                msgs.dispatch();
+        } else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, OlapPackage.CONTENT_MAP__CUBE_DEPLOYMENT, newCubeDeployment,
+                    newCubeDeployment));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case OlapPackage.CONTENT_MAP__CUBE_DEPLOYMENT:
-                if (eInternalContainer() != null)
-                    msgs = eBasicRemoveFromContainer(msgs);
-                return basicSetCubeDeployment((CubeDeployment)otherEnd, msgs);
+        case OlapPackage.CONTENT_MAP__CUBE_DEPLOYMENT:
+            if (eInternalContainer() != null)
+                msgs = eBasicRemoveFromContainer(msgs);
+            return basicSetCubeDeployment((CubeDeployment) otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case OlapPackage.CONTENT_MAP__CUBE_DEPLOYMENT:
-                return basicSetCubeDeployment(null, msgs);
+        case OlapPackage.CONTENT_MAP__CUBE_DEPLOYMENT:
+            return basicSetCubeDeployment(null, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
         switch (eContainerFeatureID()) {
-            case OlapPackage.CONTENT_MAP__CUBE_DEPLOYMENT:
-                return eInternalContainer().eInverseRemove(this, OlapPackage.CUBE_DEPLOYMENT__CONTENT_MAP, CubeDeployment.class, msgs);
+        case OlapPackage.CONTENT_MAP__CUBE_DEPLOYMENT:
+            return eInternalContainer()
+                    .eInverseRemove(this, OlapPackage.CUBE_DEPLOYMENT__CONTENT_MAP, CubeDeployment.class, msgs);
         }
         return super.eBasicRemoveFromContainerFeature(msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case OlapPackage.CONTENT_MAP__CUBE_DEPLOYMENT:
-                return getCubeDeployment();
+        case OlapPackage.CONTENT_MAP__CUBE_DEPLOYMENT:
+            return getCubeDeployment();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case OlapPackage.CONTENT_MAP__CUBE_DEPLOYMENT:
-                setCubeDeployment((CubeDeployment)newValue);
-                return;
+        case OlapPackage.CONTENT_MAP__CUBE_DEPLOYMENT:
+            setCubeDeployment((CubeDeployment) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case OlapPackage.CONTENT_MAP__CUBE_DEPLOYMENT:
-                setCubeDeployment((CubeDeployment)null);
-                return;
+        case OlapPackage.CONTENT_MAP__CUBE_DEPLOYMENT:
+            setCubeDeployment((CubeDeployment) null);
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case OlapPackage.CONTENT_MAP__CUBE_DEPLOYMENT:
-                return getCubeDeployment() != null;
+        case OlapPackage.CONTENT_MAP__CUBE_DEPLOYMENT:
+            return getCubeDeployment() != null;
         }
         return super.eIsSet(featureID);
     }
 
-} //ContentMapImpl
+} // ContentMapImpl

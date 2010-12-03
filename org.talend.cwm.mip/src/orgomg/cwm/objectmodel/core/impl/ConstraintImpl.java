@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.objectmodel.core.impl;
@@ -24,9 +23,8 @@ import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.Stereotype;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Constraint</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Constraint</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -39,10 +37,10 @@ import orgomg.cwm.objectmodel.core.Stereotype;
  * @generated
  */
 public class ConstraintImpl extends ModelElementImpl implements Constraint {
+
     /**
      * The cached value of the '{@link #getBody() <em>Body</em>}' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getBody()
      * @generated
      * @ordered
@@ -60,8 +58,7 @@ public class ConstraintImpl extends ModelElementImpl implements Constraint {
     protected EList<ModelElement> constrainedElement;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected ConstraintImpl() {
@@ -69,8 +66,7 @@ public class ConstraintImpl extends ModelElementImpl implements Constraint {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -79,8 +75,7 @@ public class ConstraintImpl extends ModelElementImpl implements Constraint {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public BooleanExpression getBody() {
@@ -88,221 +83,221 @@ public class ConstraintImpl extends ModelElementImpl implements Constraint {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public NotificationChain basicSetBody(BooleanExpression newBody, NotificationChain msgs) {
         BooleanExpression oldBody = body;
         body = newBody;
         if (eNotificationRequired()) {
-            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CorePackage.CONSTRAINT__BODY, oldBody, newBody);
-            if (msgs == null) msgs = notification; else msgs.add(notification);
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CorePackage.CONSTRAINT__BODY, oldBody,
+                    newBody);
+            if (msgs == null)
+                msgs = notification;
+            else
+                msgs.add(notification);
         }
         return msgs;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setBody(BooleanExpression newBody) {
         if (newBody != body) {
             NotificationChain msgs = null;
             if (body != null)
-                msgs = ((InternalEObject)body).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CorePackage.CONSTRAINT__BODY, null, msgs);
+                msgs = ((InternalEObject) body).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CorePackage.CONSTRAINT__BODY, null,
+                        msgs);
             if (newBody != null)
-                msgs = ((InternalEObject)newBody).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CorePackage.CONSTRAINT__BODY, null, msgs);
+                msgs = ((InternalEObject) newBody).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CorePackage.CONSTRAINT__BODY, null,
+                        msgs);
             msgs = basicSetBody(newBody, msgs);
-            if (msgs != null) msgs.dispatch();
-        }
-        else if (eNotificationRequired())
+            if (msgs != null)
+                msgs.dispatch();
+        } else if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, CorePackage.CONSTRAINT__BODY, newBody, newBody));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<ModelElement> getConstrainedElement() {
         if (constrainedElement == null) {
-            constrainedElement = new EObjectWithInverseResolvingEList.ManyInverse<ModelElement>(ModelElement.class, this, CorePackage.CONSTRAINT__CONSTRAINED_ELEMENT, CorePackage.MODEL_ELEMENT__CONSTRAINT);
+            constrainedElement = new EObjectWithInverseResolvingEList.ManyInverse<ModelElement>(ModelElement.class, this,
+                    CorePackage.CONSTRAINT__CONSTRAINED_ELEMENT, CorePackage.MODEL_ELEMENT__CONSTRAINT);
         }
         return constrainedElement;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Stereotype getConstrainedStereotype() {
-        if (eContainerFeatureID() != CorePackage.CONSTRAINT__CONSTRAINED_STEREOTYPE) return null;
-        return (Stereotype)eContainer();
+        if (eContainerFeatureID() != CorePackage.CONSTRAINT__CONSTRAINED_STEREOTYPE)
+            return null;
+        return (Stereotype) eContainer();
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public NotificationChain basicSetConstrainedStereotype(Stereotype newConstrainedStereotype, NotificationChain msgs) {
-        msgs = eBasicSetContainer((InternalEObject)newConstrainedStereotype, CorePackage.CONSTRAINT__CONSTRAINED_STEREOTYPE, msgs);
+        msgs = eBasicSetContainer((InternalEObject) newConstrainedStereotype, CorePackage.CONSTRAINT__CONSTRAINED_STEREOTYPE,
+                msgs);
         return msgs;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setConstrainedStereotype(Stereotype newConstrainedStereotype) {
-        if (newConstrainedStereotype != eInternalContainer() || (eContainerFeatureID() != CorePackage.CONSTRAINT__CONSTRAINED_STEREOTYPE && newConstrainedStereotype != null)) {
+        if (newConstrainedStereotype != eInternalContainer()
+                || (eContainerFeatureID() != CorePackage.CONSTRAINT__CONSTRAINED_STEREOTYPE && newConstrainedStereotype != null)) {
             if (EcoreUtil.isAncestor(this, newConstrainedStereotype))
                 throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
             NotificationChain msgs = null;
             if (eInternalContainer() != null)
                 msgs = eBasicRemoveFromContainer(msgs);
             if (newConstrainedStereotype != null)
-                msgs = ((InternalEObject)newConstrainedStereotype).eInverseAdd(this, CorePackage.STEREOTYPE__STEREOTYPE_CONSTRAINT, Stereotype.class, msgs);
+                msgs = ((InternalEObject) newConstrainedStereotype).eInverseAdd(this,
+                        CorePackage.STEREOTYPE__STEREOTYPE_CONSTRAINT, Stereotype.class, msgs);
             msgs = basicSetConstrainedStereotype(newConstrainedStereotype, msgs);
-            if (msgs != null) msgs.dispatch();
-        }
-        else if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, CorePackage.CONSTRAINT__CONSTRAINED_STEREOTYPE, newConstrainedStereotype, newConstrainedStereotype));
+            if (msgs != null)
+                msgs.dispatch();
+        } else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, CorePackage.CONSTRAINT__CONSTRAINED_STEREOTYPE,
+                    newConstrainedStereotype, newConstrainedStereotype));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case CorePackage.CONSTRAINT__CONSTRAINED_ELEMENT:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getConstrainedElement()).basicAdd(otherEnd, msgs);
-            case CorePackage.CONSTRAINT__CONSTRAINED_STEREOTYPE:
-                if (eInternalContainer() != null)
-                    msgs = eBasicRemoveFromContainer(msgs);
-                return basicSetConstrainedStereotype((Stereotype)otherEnd, msgs);
+        case CorePackage.CONSTRAINT__CONSTRAINED_ELEMENT:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getConstrainedElement()).basicAdd(otherEnd, msgs);
+        case CorePackage.CONSTRAINT__CONSTRAINED_STEREOTYPE:
+            if (eInternalContainer() != null)
+                msgs = eBasicRemoveFromContainer(msgs);
+            return basicSetConstrainedStereotype((Stereotype) otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case CorePackage.CONSTRAINT__BODY:
-                return basicSetBody(null, msgs);
-            case CorePackage.CONSTRAINT__CONSTRAINED_ELEMENT:
-                return ((InternalEList<?>)getConstrainedElement()).basicRemove(otherEnd, msgs);
-            case CorePackage.CONSTRAINT__CONSTRAINED_STEREOTYPE:
-                return basicSetConstrainedStereotype(null, msgs);
+        case CorePackage.CONSTRAINT__BODY:
+            return basicSetBody(null, msgs);
+        case CorePackage.CONSTRAINT__CONSTRAINED_ELEMENT:
+            return ((InternalEList<?>) getConstrainedElement()).basicRemove(otherEnd, msgs);
+        case CorePackage.CONSTRAINT__CONSTRAINED_STEREOTYPE:
+            return basicSetConstrainedStereotype(null, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
         switch (eContainerFeatureID()) {
-            case CorePackage.CONSTRAINT__CONSTRAINED_STEREOTYPE:
-                return eInternalContainer().eInverseRemove(this, CorePackage.STEREOTYPE__STEREOTYPE_CONSTRAINT, Stereotype.class, msgs);
+        case CorePackage.CONSTRAINT__CONSTRAINED_STEREOTYPE:
+            return eInternalContainer().eInverseRemove(this, CorePackage.STEREOTYPE__STEREOTYPE_CONSTRAINT, Stereotype.class,
+                    msgs);
         }
         return super.eBasicRemoveFromContainerFeature(msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case CorePackage.CONSTRAINT__BODY:
-                return getBody();
-            case CorePackage.CONSTRAINT__CONSTRAINED_ELEMENT:
-                return getConstrainedElement();
-            case CorePackage.CONSTRAINT__CONSTRAINED_STEREOTYPE:
-                return getConstrainedStereotype();
+        case CorePackage.CONSTRAINT__BODY:
+            return getBody();
+        case CorePackage.CONSTRAINT__CONSTRAINED_ELEMENT:
+            return getConstrainedElement();
+        case CorePackage.CONSTRAINT__CONSTRAINED_STEREOTYPE:
+            return getConstrainedStereotype();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case CorePackage.CONSTRAINT__BODY:
-                setBody((BooleanExpression)newValue);
-                return;
-            case CorePackage.CONSTRAINT__CONSTRAINED_ELEMENT:
-                getConstrainedElement().clear();
-                getConstrainedElement().addAll((Collection<? extends ModelElement>)newValue);
-                return;
-            case CorePackage.CONSTRAINT__CONSTRAINED_STEREOTYPE:
-                setConstrainedStereotype((Stereotype)newValue);
-                return;
+        case CorePackage.CONSTRAINT__BODY:
+            setBody((BooleanExpression) newValue);
+            return;
+        case CorePackage.CONSTRAINT__CONSTRAINED_ELEMENT:
+            getConstrainedElement().clear();
+            getConstrainedElement().addAll((Collection<? extends ModelElement>) newValue);
+            return;
+        case CorePackage.CONSTRAINT__CONSTRAINED_STEREOTYPE:
+            setConstrainedStereotype((Stereotype) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case CorePackage.CONSTRAINT__BODY:
-                setBody((BooleanExpression)null);
-                return;
-            case CorePackage.CONSTRAINT__CONSTRAINED_ELEMENT:
-                getConstrainedElement().clear();
-                return;
-            case CorePackage.CONSTRAINT__CONSTRAINED_STEREOTYPE:
-                setConstrainedStereotype((Stereotype)null);
-                return;
+        case CorePackage.CONSTRAINT__BODY:
+            setBody((BooleanExpression) null);
+            return;
+        case CorePackage.CONSTRAINT__CONSTRAINED_ELEMENT:
+            getConstrainedElement().clear();
+            return;
+        case CorePackage.CONSTRAINT__CONSTRAINED_STEREOTYPE:
+            setConstrainedStereotype((Stereotype) null);
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case CorePackage.CONSTRAINT__BODY:
-                return body != null;
-            case CorePackage.CONSTRAINT__CONSTRAINED_ELEMENT:
-                return constrainedElement != null && !constrainedElement.isEmpty();
-            case CorePackage.CONSTRAINT__CONSTRAINED_STEREOTYPE:
-                return getConstrainedStereotype() != null;
+        case CorePackage.CONSTRAINT__BODY:
+            return body != null;
+        case CorePackage.CONSTRAINT__CONSTRAINED_ELEMENT:
+            return constrainedElement != null && !constrainedElement.isEmpty();
+        case CorePackage.CONSTRAINT__CONSTRAINED_STEREOTYPE:
+            return getConstrainedStereotype() != null;
         }
         return super.eIsSet(featureID);
     }
 
-} //ConstraintImpl
+} // ConstraintImpl

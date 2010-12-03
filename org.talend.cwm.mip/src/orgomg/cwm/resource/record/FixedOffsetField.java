@@ -1,16 +1,13 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.resource.record;
 
-
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Fixed Offset Field</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Fixed Offset Field</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * Instances of FixeOffsetField represent fields that have a fixed location in a record.
@@ -31,13 +28,14 @@ package orgomg.cwm.resource.record;
  * @generated
  */
 public interface FixedOffsetField extends Field {
+
     /**
-     * Returns the value of the '<em><b>Offset</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Specifies the offset of the field within its container in units of the number of bits indicated in the offsetUnitBits attribute.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Offset</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * Specifies the offset of the field within its container in units of the
+     * number of bits indicated in the offsetUnitBits attribute. <!--
+     * end-model-doc -->
+     * 
      * @return the value of the '<em>Offset</em>' attribute.
      * @see #setOffset(long)
      * @see orgomg.cwm.resource.record.RecordPackage#getFixedOffsetField_Offset()
@@ -47,10 +45,13 @@ public interface FixedOffsetField extends Field {
     long getOffset();
 
     /**
-     * Sets the value of the '{@link orgomg.cwm.resource.record.FixedOffsetField#getOffset <em>Offset</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Offset</em>' attribute.
+     * Sets the value of the '
+     * {@link orgomg.cwm.resource.record.FixedOffsetField#getOffset
+     * <em>Offset</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @param value
+     *            the new value of the '<em>Offset</em>' attribute.
      * @see #getOffset()
      * @generated
      */
@@ -58,11 +59,11 @@ public interface FixedOffsetField extends Field {
 
     /**
      * Returns the value of the '<em><b>Offset Unit Bits</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The number of bits making up one record offset unit. For example, for a byte-relative offset, the value of this attribute would typically be 8.
+     * <!-- begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * The number of bits making up one record offset unit. For example, for a
+     * byte-relative offset, the value of this attribute would typically be 8.
      * <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Offset Unit Bits</em>' attribute.
      * @see #setOffsetUnitBits(long)
      * @see orgomg.cwm.resource.record.RecordPackage#getFixedOffsetField_OffsetUnitBits()
@@ -73,8 +74,8 @@ public interface FixedOffsetField extends Field {
 
     /**
      * Sets the value of the '{@link orgomg.cwm.resource.record.FixedOffsetField#getOffsetUnitBits <em>Offset Unit Bits</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Offset Unit Bits</em>' attribute.
      * @see #getOffsetUnitBits()
      * @generated

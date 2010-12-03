@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.analysis.transformation;
@@ -10,9 +9,8 @@ import org.eclipse.emf.common.util.EList;
 import orgomg.cwm.foundation.softwaredeployment.Component;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Task</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Task</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * This represents a set of Transformations that must be executed together as a single task (logical unit).
@@ -35,15 +33,17 @@ import orgomg.cwm.foundation.softwaredeployment.Component;
  * @generated
  */
 public interface TransformationTask extends Component {
+
     /**
-     * Returns the value of the '<em><b>Step</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwm.analysis.transformation.TransformationStep}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.analysis.transformation.TransformationStep#getTask <em>Task</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the TransformationStep
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Step</b></em>' reference list. The list
+     * contents are of type
+     * {@link orgomg.cwm.analysis.transformation.TransformationStep}. It is
+     * bidirectional and its opposite is '
+     * {@link orgomg.cwm.analysis.transformation.TransformationStep#getTask
+     * <em>Task</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> Identifies the TransformationStep <!-- end-model-doc
+     * -->
+     * 
      * @return the value of the '<em>Step</em>' reference list.
      * @see orgomg.cwm.analysis.transformation.TransformationPackage#getTransformationTask_Step()
      * @see orgomg.cwm.analysis.transformation.TransformationStep#getTask
@@ -56,8 +56,7 @@ public interface TransformationTask extends Component {
      * Returns the value of the '<em><b>Original Task</b></em>' reference list.
      * The list contents are of type {@link orgomg.cwm.analysis.transformation.TransformationTask}.
      * It is bidirectional and its opposite is '{@link orgomg.cwm.analysis.transformation.TransformationTask#getInverseTask <em>Inverse Task</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Identifies the original TransformationTask
      * <!-- end-model-doc -->
@@ -73,8 +72,7 @@ public interface TransformationTask extends Component {
      * Returns the value of the '<em><b>Inverse Task</b></em>' reference list.
      * The list contents are of type {@link orgomg.cwm.analysis.transformation.TransformationTask}.
      * It is bidirectional and its opposite is '{@link orgomg.cwm.analysis.transformation.TransformationTask#getOriginalTask <em>Original Task</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Identifies the inverse TransformationTaskclass: TransformationTask
      * <!-- end-model-doc -->
@@ -88,13 +86,13 @@ public interface TransformationTask extends Component {
 
     /**
      * Returns the value of the '<em><b>Transformation</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwm.analysis.transformation.Transformation}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwm.analysis.transformation.Transformation#getTask <em>Task</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Identifies the Transformations
-     * <!-- end-model-doc -->
+     * The list contents are of type
+     * {@link orgomg.cwm.analysis.transformation.Transformation}. It is
+     * bidirectional and its opposite is '
+     * {@link orgomg.cwm.analysis.transformation.Transformation#getTask
+     * <em>Task</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> Identifies the Transformations <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Transformation</em>' reference list.
      * @see orgomg.cwm.analysis.transformation.TransformationPackage#getTransformationTask_Transformation()
      * @see orgomg.cwm.analysis.transformation.Transformation#getTask

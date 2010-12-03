@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.imsdatabase;
@@ -9,9 +8,8 @@ package orgomg.cwmx.resource.imsdatabase;
 import org.eclipse.emf.common.util.EList;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>INDEX</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>INDEX</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * An instance of the DBDindex object class represents a DBD user object that can be used to index a HIDAM database or a segment in a HDAM, HIDAM or HISAM database. The indexing relationship maps to the LCHILD statement in the macro language description of an index DBD. An INDEX DBD can also be treated as a normal single-segment DBD.
@@ -35,13 +33,13 @@ import org.eclipse.emf.common.util.EList;
  * @generated
  */
 public interface INDEX extends AccessMethod {
+
     /**
      * Returns the value of the '<em><b>Dos Compatibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * This attribute indicates whether the index DBD was created with DLI/DOS with a segment code as part of the prefix.
-     * <!-- end-model-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * This attribute indicates whether the index DBD was created with DLI/DOS
+     * with a segment code as part of the prefix. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Dos Compatibility</em>' attribute.
      * @see #setDosCompatibility(boolean)
      * @see orgomg.cwmx.resource.imsdatabase.ImsdatabasePackage#getINDEX_DosCompatibility()
@@ -52,8 +50,8 @@ public interface INDEX extends AccessMethod {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.imsdatabase.INDEX#isDosCompatibility <em>Dos Compatibility</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Dos Compatibility</em>' attribute.
      * @see #isDosCompatibility()
      * @generated
@@ -61,12 +59,11 @@ public interface INDEX extends AccessMethod {
     void setDosCompatibility(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Protect</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * This attribute is a flag for data integrity in index pointer segments.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Protect</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> This
+     * attribute is a flag for data integrity in index pointer segments. <!--
+     * end-model-doc -->
+     * 
      * @return the value of the '<em>Protect</em>' attribute.
      * @see #setProtect(boolean)
      * @see orgomg.cwmx.resource.imsdatabase.ImsdatabasePackage#getINDEX_Protect()
@@ -77,8 +74,7 @@ public interface INDEX extends AccessMethod {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.imsdatabase.INDEX#isProtect <em>Protect</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Protect</em>' attribute.
      * @see #isProtect()
      * @generated
@@ -86,13 +82,13 @@ public interface INDEX extends AccessMethod {
     void setProtect(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Primary Target</b></em>' reference.
-     * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.imsdatabase.HIDAM#getIndex <em>Index</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The HIDAM DBD for which this Index is the primary index.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Primary Target</b></em>' reference. It
+     * is bidirectional and its opposite is '
+     * {@link orgomg.cwmx.resource.imsdatabase.HIDAM#getIndex <em>Index</em>}'.
+     * <!-- begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+     * The HIDAM DBD for which this Index is the primary index. <!--
+     * end-model-doc -->
+     * 
      * @return the value of the '<em>Primary Target</em>' reference.
      * @see #setPrimaryTarget(HIDAM)
      * @see orgomg.cwmx.resource.imsdatabase.ImsdatabasePackage#getINDEX_PrimaryTarget()
@@ -104,8 +100,8 @@ public interface INDEX extends AccessMethod {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.imsdatabase.INDEX#getPrimaryTarget <em>Primary Target</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Primary Target</em>' reference.
      * @see #getPrimaryTarget()
      * @generated
@@ -113,13 +109,13 @@ public interface INDEX extends AccessMethod {
     void setPrimaryTarget(HIDAM value);
 
     /**
-     * Returns the value of the '<em><b>Secondary Target</b></em>' reference.
-     * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.imsdatabase.SecondaryIndex#getIndex <em>Index</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The secondary index relationship to a complex segment.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Secondary Target</b></em>' reference. It
+     * is bidirectional and its opposite is '
+     * {@link orgomg.cwmx.resource.imsdatabase.SecondaryIndex#getIndex
+     * <em>Index</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> The secondary index relationship to a complex
+     * segment. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Secondary Target</em>' reference.
      * @see #setSecondaryTarget(SecondaryIndex)
      * @see orgomg.cwmx.resource.imsdatabase.ImsdatabasePackage#getINDEX_SecondaryTarget()
@@ -131,8 +127,8 @@ public interface INDEX extends AccessMethod {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.imsdatabase.INDEX#getSecondaryTarget <em>Secondary Target</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Secondary Target</em>' reference.
      * @see #getSecondaryTarget()
      * @generated
@@ -143,8 +139,7 @@ public interface INDEX extends AccessMethod {
      * Returns the value of the '<em><b>Sharing Index</b></em>' reference list.
      * The list contents are of type {@link orgomg.cwmx.resource.imsdatabase.INDEX}.
      * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.imsdatabase.INDEX#getSharedIndex <em>Shared Index</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * The second and later Index DBDs that share a dataset.
      * <!-- end-model-doc -->
@@ -159,8 +154,7 @@ public interface INDEX extends AccessMethod {
     /**
      * Returns the value of the '<em><b>Shared Index</b></em>' reference.
      * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.imsdatabase.INDEX#getSharingIndex <em>Sharing Index</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * The first DBD that defines the Dataset shared by the rest of the index DBDs.
      * <!-- end-model-doc -->
@@ -175,8 +169,8 @@ public interface INDEX extends AccessMethod {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.imsdatabase.INDEX#getSharedIndex <em>Shared Index</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Shared Index</em>' reference.
      * @see #getSharedIndex()
      * @generated
@@ -185,13 +179,13 @@ public interface INDEX extends AccessMethod {
 
     /**
      * Returns the value of the '<em><b>Sequenced PCB</b></em>' reference list.
-     * The list contents are of type {@link orgomg.cwmx.resource.imsdatabase.PCB}.
-     * It is bidirectional and its opposite is '{@link orgomg.cwmx.resource.imsdatabase.PCB#getProcSeq <em>Proc Seq</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The PCB(s) that use this secondary index for processing sequence.
-     * <!-- end-model-doc -->
+     * The list contents are of type
+     * {@link orgomg.cwmx.resource.imsdatabase.PCB}. It is bidirectional and its
+     * opposite is '{@link orgomg.cwmx.resource.imsdatabase.PCB#getProcSeq
+     * <em>Proc Seq</em>}'. <!-- begin-user-doc --> <!-- end-user-doc --> <!--
+     * begin-model-doc --> The PCB(s) that use this secondary index for
+     * processing sequence. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Sequenced PCB</em>' reference list.
      * @see orgomg.cwmx.resource.imsdatabase.ImsdatabasePackage#getINDEX_SequencedPCB()
      * @see orgomg.cwmx.resource.imsdatabase.PCB#getProcSeq

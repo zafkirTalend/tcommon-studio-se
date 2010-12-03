@@ -1,16 +1,13 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwmx.resource.imsdatabase;
 
-
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>DEDB</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>DEDB</b></em>'. <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
  * An instance of this object class represents a DBD user object that has access=DEDB. A DEDB DBD is a Fast Path DBD designed for very fast transactions. It must have a randomizing module name to be valid. STAGE and XCI (Extended Call Interface) were new parameters added with IMS 5.
@@ -30,13 +27,13 @@ package orgomg.cwmx.resource.imsdatabase;
  * @generated
  */
 public interface DEDB extends AccessMethod {
+
     /**
-     * Returns the value of the '<em><b>Rm Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * This attribute is the name of the executable module used to randomize the database.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Rm Name</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> This
+     * attribute is the name of the executable module used to randomize the
+     * database. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Rm Name</em>' attribute.
      * @see #setRmName(String)
      * @see orgomg.cwmx.resource.imsdatabase.ImsdatabasePackage#getDEDB_RmName()
@@ -47,8 +44,7 @@ public interface DEDB extends AccessMethod {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.imsdatabase.DEDB#getRmName <em>Rm Name</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Rm Name</em>' attribute.
      * @see #getRmName()
      * @generated
@@ -56,12 +52,11 @@ public interface DEDB extends AccessMethod {
     void setRmName(String value);
 
     /**
-     * Returns the value of the '<em><b>Stage</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * This attribute specifies whether or not the randomizer is a 1 or 2 stage process (default is 1).
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Stage</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> This
+     * attribute specifies whether or not the randomizer is a 1 or 2 stage
+     * process (default is 1). <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Stage</em>' attribute.
      * @see #setStage(long)
      * @see orgomg.cwmx.resource.imsdatabase.ImsdatabasePackage#getDEDB_Stage()
@@ -72,8 +67,7 @@ public interface DEDB extends AccessMethod {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.imsdatabase.DEDB#getStage <em>Stage</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Stage</em>' attribute.
      * @see #getStage()
      * @generated
@@ -81,12 +75,11 @@ public interface DEDB extends AccessMethod {
     void setStage(long value);
 
     /**
-     * Returns the value of the '<em><b>Extended Call</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * This attribute specifies whether or not the ramdomizer should use the extended call interface.
-     * <!-- end-model-doc -->
+     * Returns the value of the '<em><b>Extended Call</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> This
+     * attribute specifies whether or not the ramdomizer should use the extended
+     * call interface. <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Extended Call</em>' attribute.
      * @see #setExtendedCall(boolean)
      * @see orgomg.cwmx.resource.imsdatabase.ImsdatabasePackage#getDEDB_ExtendedCall()
@@ -97,8 +90,8 @@ public interface DEDB extends AccessMethod {
 
     /**
      * Sets the value of the '{@link orgomg.cwmx.resource.imsdatabase.DEDB#isExtendedCall <em>Extended Call</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @param value the new value of the '<em>Extended Call</em>' attribute.
      * @see #isExtendedCall()
      * @generated

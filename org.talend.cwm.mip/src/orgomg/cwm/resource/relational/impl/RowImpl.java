@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.resource.relational.impl;
@@ -12,18 +11,17 @@ import orgomg.cwm.resource.relational.RelationalPackage;
 import orgomg.cwm.resource.relational.Row;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Row</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Row</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
 public class RowImpl extends ObjectImpl implements Row {
+
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected RowImpl() {
@@ -31,8 +29,7 @@ public class RowImpl extends ObjectImpl implements Row {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -40,4 +37,4 @@ public class RowImpl extends ObjectImpl implements Row {
         return RelationalPackage.Literals.ROW;
     }
 
-} //RowImpl
+} // RowImpl

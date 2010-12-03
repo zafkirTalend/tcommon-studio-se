@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.objectmodel.behavioral.impl;
@@ -22,9 +21,8 @@ import orgomg.cwm.objectmodel.behavioral.Method;
 import orgomg.cwm.objectmodel.behavioral.Operation;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Operation</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Operation</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -37,10 +35,10 @@ import orgomg.cwm.objectmodel.behavioral.Operation;
  * @generated
  */
 public class OperationImpl extends BehavioralFeatureImpl implements Operation {
+
     /**
      * The default value of the '{@link #isIsAbstract() <em>Is Abstract</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #isIsAbstract()
      * @generated
      * @ordered
@@ -49,8 +47,7 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
 
     /**
      * The cached value of the '{@link #isIsAbstract() <em>Is Abstract</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #isIsAbstract()
      * @generated
      * @ordered
@@ -59,8 +56,7 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
 
     /**
      * The cached value of the '{@link #getCallAction() <em>Call Action</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getCallAction()
      * @generated
      * @ordered
@@ -69,8 +65,7 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
 
     /**
      * The cached value of the '{@link #getMethod() <em>Method</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getMethod()
      * @generated
      * @ordered
@@ -78,8 +73,7 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
     protected EList<Method> method;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected OperationImpl() {
@@ -87,8 +81,7 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -97,8 +90,7 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isIsAbstract() {
@@ -106,163 +98,157 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setIsAbstract(boolean newIsAbstract) {
         boolean oldIsAbstract = isAbstract;
         isAbstract = newIsAbstract;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, BehavioralPackage.OPERATION__IS_ABSTRACT, oldIsAbstract, isAbstract));
+            eNotify(new ENotificationImpl(this, Notification.SET, BehavioralPackage.OPERATION__IS_ABSTRACT, oldIsAbstract,
+                    isAbstract));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<CallAction> getCallAction() {
         if (callAction == null) {
-            callAction = new EObjectWithInverseResolvingEList<CallAction>(CallAction.class, this, BehavioralPackage.OPERATION__CALL_ACTION, BehavioralPackage.CALL_ACTION__OPERATION);
+            callAction = new EObjectWithInverseResolvingEList<CallAction>(CallAction.class, this,
+                    BehavioralPackage.OPERATION__CALL_ACTION, BehavioralPackage.CALL_ACTION__OPERATION);
         }
         return callAction;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<Method> getMethod() {
         if (method == null) {
-            method = new EObjectWithInverseResolvingEList<Method>(Method.class, this, BehavioralPackage.OPERATION__METHOD, BehavioralPackage.METHOD__SPECIFICATION);
+            method = new EObjectWithInverseResolvingEList<Method>(Method.class, this, BehavioralPackage.OPERATION__METHOD,
+                    BehavioralPackage.METHOD__SPECIFICATION);
         }
         return method;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case BehavioralPackage.OPERATION__CALL_ACTION:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getCallAction()).basicAdd(otherEnd, msgs);
-            case BehavioralPackage.OPERATION__METHOD:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getMethod()).basicAdd(otherEnd, msgs);
+        case BehavioralPackage.OPERATION__CALL_ACTION:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getCallAction()).basicAdd(otherEnd, msgs);
+        case BehavioralPackage.OPERATION__METHOD:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getMethod()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case BehavioralPackage.OPERATION__CALL_ACTION:
-                return ((InternalEList<?>)getCallAction()).basicRemove(otherEnd, msgs);
-            case BehavioralPackage.OPERATION__METHOD:
-                return ((InternalEList<?>)getMethod()).basicRemove(otherEnd, msgs);
+        case BehavioralPackage.OPERATION__CALL_ACTION:
+            return ((InternalEList<?>) getCallAction()).basicRemove(otherEnd, msgs);
+        case BehavioralPackage.OPERATION__METHOD:
+            return ((InternalEList<?>) getMethod()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case BehavioralPackage.OPERATION__IS_ABSTRACT:
-                return isIsAbstract();
-            case BehavioralPackage.OPERATION__CALL_ACTION:
-                return getCallAction();
-            case BehavioralPackage.OPERATION__METHOD:
-                return getMethod();
+        case BehavioralPackage.OPERATION__IS_ABSTRACT:
+            return isIsAbstract();
+        case BehavioralPackage.OPERATION__CALL_ACTION:
+            return getCallAction();
+        case BehavioralPackage.OPERATION__METHOD:
+            return getMethod();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case BehavioralPackage.OPERATION__IS_ABSTRACT:
-                setIsAbstract((Boolean)newValue);
-                return;
-            case BehavioralPackage.OPERATION__CALL_ACTION:
-                getCallAction().clear();
-                getCallAction().addAll((Collection<? extends CallAction>)newValue);
-                return;
-            case BehavioralPackage.OPERATION__METHOD:
-                getMethod().clear();
-                getMethod().addAll((Collection<? extends Method>)newValue);
-                return;
+        case BehavioralPackage.OPERATION__IS_ABSTRACT:
+            setIsAbstract((Boolean) newValue);
+            return;
+        case BehavioralPackage.OPERATION__CALL_ACTION:
+            getCallAction().clear();
+            getCallAction().addAll((Collection<? extends CallAction>) newValue);
+            return;
+        case BehavioralPackage.OPERATION__METHOD:
+            getMethod().clear();
+            getMethod().addAll((Collection<? extends Method>) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case BehavioralPackage.OPERATION__IS_ABSTRACT:
-                setIsAbstract(IS_ABSTRACT_EDEFAULT);
-                return;
-            case BehavioralPackage.OPERATION__CALL_ACTION:
-                getCallAction().clear();
-                return;
-            case BehavioralPackage.OPERATION__METHOD:
-                getMethod().clear();
-                return;
+        case BehavioralPackage.OPERATION__IS_ABSTRACT:
+            setIsAbstract(IS_ABSTRACT_EDEFAULT);
+            return;
+        case BehavioralPackage.OPERATION__CALL_ACTION:
+            getCallAction().clear();
+            return;
+        case BehavioralPackage.OPERATION__METHOD:
+            getMethod().clear();
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case BehavioralPackage.OPERATION__IS_ABSTRACT:
-                return isAbstract != IS_ABSTRACT_EDEFAULT;
-            case BehavioralPackage.OPERATION__CALL_ACTION:
-                return callAction != null && !callAction.isEmpty();
-            case BehavioralPackage.OPERATION__METHOD:
-                return method != null && !method.isEmpty();
+        case BehavioralPackage.OPERATION__IS_ABSTRACT:
+            return isAbstract != IS_ABSTRACT_EDEFAULT;
+        case BehavioralPackage.OPERATION__CALL_ACTION:
+            return callAction != null && !callAction.isEmpty();
+        case BehavioralPackage.OPERATION__METHOD:
+            return method != null && !method.isEmpty();
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (isAbstract: ");
@@ -271,4 +257,4 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
         return result.toString();
     }
 
-} //OperationImpl
+} // OperationImpl

@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.analysis.datamining;
@@ -13,10 +12,9 @@ import java.util.List;
 import org.eclipse.emf.common.util.Enumerator;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the literals of the enumeration '<em><b>Category Property</b></em>',
- * and utility methods for working with them.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the literals of the enumeration '
+ * <em><b>Category Property</b></em>', and utility methods for working with
+ * them. <!-- end-user-doc -->
  * @see orgomg.cwm.analysis.datamining.DataminingPackage#getCategoryProperty()
  * @model
  * @generated
@@ -44,8 +42,8 @@ public enum CategoryProperty implements Enumerator {
 
     /**
      * The '<em><b>Valid</b></em>' literal object.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #VALID_VALUE
      * @generated
      * @ordered
@@ -73,12 +71,10 @@ public enum CategoryProperty implements Enumerator {
     NEGATIVE(4, "negative", "negative");
 
     /**
-     * The '<em><b>Missing</b></em>' literal value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Represents that there is no information.
-     * <!-- end-model-doc -->
+     * The '<em><b>Missing</b></em>' literal value. <!-- begin-user-doc --> <!--
+     * end-user-doc --> <!-- begin-model-doc --> Represents that there is no
+     * information. <!-- end-model-doc -->
+     * 
      * @see #MISSING
      * @model name="missing"
      * @generated
@@ -87,12 +83,10 @@ public enum CategoryProperty implements Enumerator {
     public static final int MISSING_VALUE = 0;
 
     /**
-     * The '<em><b>Invalid</b></em>' literal value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Represents that value must be treated as invalid.
-     * <!-- end-model-doc -->
+     * The '<em><b>Invalid</b></em>' literal value. <!-- begin-user-doc --> <!--
+     * end-user-doc --> <!-- begin-model-doc --> Represents that value must be
+     * treated as invalid. <!-- end-model-doc -->
+     * 
      * @see #INVALID
      * @model name="invalid"
      * @generated
@@ -101,12 +95,10 @@ public enum CategoryProperty implements Enumerator {
     public static final int INVALID_VALUE = 1;
 
     /**
-     * The '<em><b>Valid</b></em>' literal value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Represents a regular value.
+     * The '<em><b>Valid</b></em>' literal value. <!-- begin-user-doc --> <!--
+     * end-user-doc --> <!-- begin-model-doc --> Represents a regular value.
      * <!-- end-model-doc -->
+     * 
      * @see #VALID
      * @model name="valid"
      * @generated
@@ -115,12 +107,10 @@ public enum CategoryProperty implements Enumerator {
     public static final int VALID_VALUE = 2;
 
     /**
-     * The '<em><b>Positive</b></em>' literal value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Represents the logical 1 of a Boolean attribute.
-     * <!-- end-model-doc -->
+     * The '<em><b>Positive</b></em>' literal value. <!-- begin-user-doc -->
+     * <!-- end-user-doc --> <!-- begin-model-doc --> Represents the logical 1
+     * of a Boolean attribute. <!-- end-model-doc -->
+     * 
      * @see #POSITIVE
      * @model name="positive"
      * @generated
@@ -129,12 +119,10 @@ public enum CategoryProperty implements Enumerator {
     public static final int POSITIVE_VALUE = 3;
 
     /**
-     * The '<em><b>Negative</b></em>' literal value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Represents the logical 0 of a Boolean attribute.
-     * <!-- end-model-doc -->
+     * The '<em><b>Negative</b></em>' literal value. <!-- begin-user-doc -->
+     * <!-- end-user-doc --> <!-- begin-model-doc --> Represents the logical 0
+     * of a Boolean attribute. <!-- end-model-doc -->
+     * 
      * @see #NEGATIVE
      * @model name="negative"
      * @generated
@@ -143,32 +131,23 @@ public enum CategoryProperty implements Enumerator {
     public static final int NEGATIVE_VALUE = 4;
 
     /**
-     * An array of all the '<em><b>Category Property</b></em>' enumerators.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * An array of all the '<em><b>Category Property</b></em>' enumerators. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
-    private static final CategoryProperty[] VALUES_ARRAY =
-        new CategoryProperty[] {
-            MISSING,
-            INVALID,
-            VALID,
-            POSITIVE,
-            NEGATIVE,
-        };
+    private static final CategoryProperty[] VALUES_ARRAY = new CategoryProperty[] { MISSING, INVALID, VALID, POSITIVE, NEGATIVE, };
 
     /**
      * A public read-only list of all the '<em><b>Category Property</b></em>' enumerators.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static final List<CategoryProperty> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
     /**
      * Returns the '<em><b>Category Property</b></em>' literal with the specified literal value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static CategoryProperty get(String literal) {
@@ -183,8 +162,7 @@ public enum CategoryProperty implements Enumerator {
 
     /**
      * Returns the '<em><b>Category Property</b></em>' literal with the specified name.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static CategoryProperty getByName(String name) {
@@ -199,46 +177,47 @@ public enum CategoryProperty implements Enumerator {
 
     /**
      * Returns the '<em><b>Category Property</b></em>' literal with the specified integer value.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static CategoryProperty get(int value) {
         switch (value) {
-            case MISSING_VALUE: return MISSING;
-            case INVALID_VALUE: return INVALID;
-            case VALID_VALUE: return VALID;
-            case POSITIVE_VALUE: return POSITIVE;
-            case NEGATIVE_VALUE: return NEGATIVE;
+        case MISSING_VALUE:
+            return MISSING;
+        case INVALID_VALUE:
+            return INVALID;
+        case VALID_VALUE:
+            return VALID;
+        case POSITIVE_VALUE:
+            return POSITIVE;
+        case NEGATIVE_VALUE:
+            return NEGATIVE;
         }
         return null;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private final int value;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private final String name;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private final String literal;
 
     /**
      * Only this class can construct instances.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     private CategoryProperty(int value, String name, String literal) {
@@ -248,41 +227,37 @@ public enum CategoryProperty implements Enumerator {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public int getValue() {
-      return value;
+        return value;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getName() {
-      return name;
+        return name;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getLiteral() {
-      return literal;
+        return literal;
     }
 
     /**
      * Returns the literal value of the enumerator, which is its string representation.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public String toString() {
         return literal;
     }
-    
-} //CategoryProperty
+
+} // CategoryProperty
