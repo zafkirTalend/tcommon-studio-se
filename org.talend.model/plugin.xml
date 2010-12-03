@@ -63,6 +63,11 @@
           genModel="model/joblet.genmodel"
           uri="http://www.talend.com/joblet.ecore">
     </package>
+    <package
+          class="org.talend.core.model.component_cache.ComponentCachePackage"
+          genModel="model/component_cache.genmodel"
+          uri="http://www.talend.org/component_cache">
+    </package>
   </extension>
   <extension
         point="org.eclipse.emf.ecore.extension_parser">

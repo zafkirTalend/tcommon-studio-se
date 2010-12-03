@@ -39,6 +39,8 @@ public interface IComponentsFactory {
 
     public void reset();
 
+    public void resetCache();
+
     public void resetSpecificComponents(); // mainly to reload only joblets
 
     public int size();
