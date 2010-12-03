@@ -458,7 +458,7 @@ public class RepositoryToComponentProperty {
             if (isContextMode(connection, connection.getTimeOut())) {
                 return connection.getTimeOut();
             } else {
-                return TalendTextUtils.addQuotes(connection.getTimeOut());
+                return connection.getTimeOut(); // TalendTextUtils.addQuotes(connection.getTimeOut());
             }
         }
         return null;
