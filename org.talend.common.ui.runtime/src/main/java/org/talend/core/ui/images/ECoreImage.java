@@ -101,6 +101,7 @@ public enum ECoreImage implements IImage {
     METADATA_SQLPATTERN_WIZ("/icons1/defaultWizard.png"), //$NON-NLS-1$
 
     METADATA_TABLE_ICON("/icons1/table.gif"), //$NON-NLS-1$
+    METADATA_COLUMN_ICON("/icons1/columns.gif"),
     METADATA_TABLE_WIZ("/icons1/table_wiz.png"), //$NON-NLS-1$
     METADATA_VIEW_ICON("/icons1/view.gif"), //$NON-NLS-1$
     METADATA_SYNONYM_ICON("/icons1/synonym.gif"), //$NON-NLS-1$
