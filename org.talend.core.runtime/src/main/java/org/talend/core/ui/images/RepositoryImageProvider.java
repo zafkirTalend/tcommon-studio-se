@@ -54,6 +54,8 @@ public class RepositoryImageProvider {
             return ECoreImage.METADATA_SQLPATTERN_ICON;
         case METADATA_CON_TABLE:
             return ECoreImage.METADATA_TABLE_ICON;
+        case METADATA_CON_COLUMN:
+            return ECoreImage.METADATA_COLUMN_ICON;
         case METADATA_CON_QUERY:
             return ECoreImage.METADATA_QUERY_ICON;
         case METADATA_CON_VIEW:

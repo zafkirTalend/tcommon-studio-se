@@ -83,6 +83,7 @@ public enum ERepositoryObjectType {
     DOCUMENTATION("repository.documentation"), //$NON-NLS-1$
     METADATA("repository.metadata"), //$NON-NLS-1$
     METADATA_CON_TABLE("repository.metadataTable", true), //$NON-NLS-1$
+    METADATA_CON_COLUMN("repository.metadataColumn", true), //$NON-NLS-1$
     METADATA_CON_VIEW("repository.metadataView", true), //$NON-NLS-1$
     METADATA_CON_SYNONYM("repository.synonym", true), //$NON-NLS-1$
     METADATA_CON_QUERY("repository.query", true), //$NON-NLS-1$
