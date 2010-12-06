@@ -1127,13 +1127,22 @@ public interface ComponentPackage extends EPackage {
     int HEADER_TYPE__VISIBLE = 25;
 
     /**
+     * The feature id for the '<em><b>COMBINE</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HEADER_TYPE__COMBINE = 26;
+
+    /**
      * The number of structural features of the '<em>HEADER Type</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int HEADER_TYPE_FEATURE_COUNT = 26;
+    int HEADER_TYPE_FEATURE_COUNT = 27;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTSTypeImpl <em>IMPORTS Type</em>}' class.
@@ -3441,6 +3450,17 @@ public interface ComponentPackage extends EPackage {
     EAttribute getHEADERType_VISIBLE();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getCOMBINE <em>COMBINE</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>COMBINE</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.HEADERType#getCOMBINE()
+     * @see #getHEADERType()
+     * @generated
+     */
+    EAttribute getHEADERType_COMBINE();
+
+    /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.component.IMPORTSType <em>IMPORTS Type</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -5496,6 +5516,14 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute HEADER_TYPE__VISIBLE = eINSTANCE.getHEADERType_VISIBLE();
+
+        /**
+         * The meta object literal for the '<em><b>COMBINE</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute HEADER_TYPE__COMBINE = eINSTANCE.getHEADERType_COMBINE();
 
         /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTSTypeImpl <em>IMPORTS Type</em>}' class.

@@ -51,6 +51,7 @@ import org.talend.designer.core.model.utils.emf.component.HEADERType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isTSTATCATCHERSTATS <em>TSTATCATCHERSTATS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getVERSION <em>VERSION</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isVISIBLE <em>VISIBLE</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getCOMBINE <em>COMBINE</em>}</li>
  * </ul>
  * </p>
  *
@@ -683,6 +684,26 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * @ordered
      */
     protected boolean vISIBLEESet;
+
+    /**
+     * The default value of the '{@link #getCOMBINE() <em>COMBINE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getCOMBINE()
+     * @generated
+     * @ordered
+     */
+    protected static final String COMBINE_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getCOMBINE() <em>COMBINE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getCOMBINE()
+     * @generated
+     * @ordered
+     */
+    protected String cOMBINE = COMBINE_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -1601,6 +1622,27 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getCOMBINE() {
+        return cOMBINE;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setCOMBINE(String newCOMBINE) {
+        String oldCOMBINE = cOMBINE;
+        cOMBINE = newCOMBINE;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__COMBINE, oldCOMBINE, cOMBINE));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
@@ -1670,6 +1712,8 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return getVERSION();
             case ComponentPackage.HEADER_TYPE__VISIBLE:
                 return isVISIBLE() ? Boolean.TRUE : Boolean.FALSE;
+            case ComponentPackage.HEADER_TYPE__COMBINE:
+                return getCOMBINE();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -1759,6 +1803,9 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return;
             case ComponentPackage.HEADER_TYPE__VISIBLE:
                 setVISIBLE(((Boolean)newValue).booleanValue());
+                return;
+            case ComponentPackage.HEADER_TYPE__COMBINE:
+                setCOMBINE((String)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -1850,6 +1897,9 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
             case ComponentPackage.HEADER_TYPE__VISIBLE:
                 unsetVISIBLE();
                 return;
+            case ComponentPackage.HEADER_TYPE__COMBINE:
+                setCOMBINE(COMBINE_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -1914,6 +1964,8 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return VERSION_EDEFAULT == null ? vERSION != null : !VERSION_EDEFAULT.equals(vERSION);
             case ComponentPackage.HEADER_TYPE__VISIBLE:
                 return isSetVISIBLE();
+            case ComponentPackage.HEADER_TYPE__COMBINE:
+                return COMBINE_EDEFAULT == null ? cOMBINE != null : !COMBINE_EDEFAULT.equals(cOMBINE);
         }
         return super.eIsSet(featureID);
     }
@@ -1978,6 +2030,8 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
         result.append(vERSION);
         result.append(", vISIBLE: ");
         if (vISIBLEESet) result.append(vISIBLE); else result.append("<unset>");
+        result.append(", cOMBINE: ");
+        result.append(cOMBINE);
         result.append(')');
         return result.toString();
     }

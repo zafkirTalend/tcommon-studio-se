@@ -127,4 +127,7 @@ public interface IComponent {
     public boolean canParallelize();
 
     public String getShortName();
+
+    // see 17353
+    public String getCombine();
 }
