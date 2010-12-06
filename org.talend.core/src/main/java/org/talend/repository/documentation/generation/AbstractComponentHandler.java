@@ -123,7 +123,9 @@ public abstract class AbstractComponentHandler implements IComponentHandler {
             previewImagePath = node.getUniqueName() + IHTMLDocConstants.JOB_PREVIEW_PIC_SUFFIX;
             if (!previewImagePath.equals("")) { //$NON-NLS-1$
                 if (node.getExternalNode().getScreenshot() != null) {
-                    componentElement.addAttribute("preview", IHTMLDocConstants.PICTUREFOLDERPATH + previewImagePath); //$NON-NLS-1$
+                    componentElement
+                            .addAttribute(
+                                    "preview", IHTMLDocConstants.PICTUREFOLDERPATH + IHTMLDocConstants.EXTERNAL_NODE_PREVIEW + previewImagePath); //$NON-NLS-1$
                 }
             }
         }

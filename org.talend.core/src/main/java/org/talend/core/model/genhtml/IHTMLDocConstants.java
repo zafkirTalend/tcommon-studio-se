@@ -34,6 +34,8 @@ public interface IHTMLDocConstants {
 
     public static final String PICTUREFOLDERPATH = "pictures/"; //$NON-NLS-1$
 
+    public static final String EXTERNAL_NODE_PREVIEW = "external_preview_"; //$NON-NLS-1$
+
     public static final String TALEND_LOGO_FILE_NAME = "logo.jpg"; //$NON-NLS-1$
 
     public static final String MAIN_XSL_FILE_PATH = "resources/Job.xsl"; //$NON-NLS-1$

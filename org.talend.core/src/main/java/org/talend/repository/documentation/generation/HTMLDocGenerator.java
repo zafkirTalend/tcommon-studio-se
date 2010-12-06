@@ -256,7 +256,8 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
                             }
                         }
                     }
-                    String picName = uniqueName + IHTMLDocConstants.JOB_PREVIEW_PIC_SUFFIX;
+                    String picName = IHTMLDocConstants.EXTERNAL_NODE_PREVIEW + uniqueName
+                            + IHTMLDocConstants.JOB_PREVIEW_PIC_SUFFIX;
                     ImageUtils.save(imagedesc.createImage(), picFolderPath + File.separatorChar + picName, SWT.IMAGE_PNG);
                     picList.add(new File(picFolderPath + File.separatorChar + picName).toURL());
                 }
@@ -420,7 +421,7 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
                         }
                     }
                 }
-                String picName = uniqueName + IHTMLDocConstants.JOB_PREVIEW_PIC_SUFFIX;
+                String picName = IHTMLDocConstants.EXTERNAL_NODE_PREVIEW + uniqueName + IHTMLDocConstants.JOB_PREVIEW_PIC_SUFFIX;
                 ImageUtils.save(screenshot, picFolderPath + File.separatorChar + picName, SWT.IMAGE_PNG);
                 picList.add(new File(picFolderPath + File.separatorChar + picName).toURL());
             }
