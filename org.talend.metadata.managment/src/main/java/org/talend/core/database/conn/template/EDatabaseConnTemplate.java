@@ -71,7 +71,7 @@ public enum EDatabaseConnTemplate {
             new EDatabaseVersion4Drivers[] { EDatabaseVersion4Drivers.ACCESS_2003, EDatabaseVersion4Drivers.ACCESS_2007 })),
 
     SYBASEASE(new DbConnStr(EDatabaseTypeName.SYBASEASE, //
-            "jdbc:sybase:Tds:<host>:<port>/<sid>", //$NON-NLS-1$
+            "jdbc:sybase:Tds:<host>:<port>/<sid>?<property>", //$NON-NLS-1$
             "5001")), //$NON-NLS-1$
 
     IBMDB2(new DbConnStr(EDatabaseTypeName.IBMDB2, //

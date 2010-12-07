@@ -357,7 +357,8 @@ public class ExtractMetaDataFromDataBase {
                 ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(),
                         iMetadataConnection.getUsername(), iMetadataConnection.getPassword(), iMetadataConnection.getDatabase(),
                         iMetadataConnection.getSchema(), iMetadataConnection.getDriverClass(),
-                        iMetadataConnection.getDriverJarPath(), iMetadataConnection.getDbVersionString());
+                        iMetadataConnection.getDriverJarPath(), iMetadataConnection.getDbVersionString(),
+                        iMetadataConnection.getAdditionalParams());
             }
             String dbType = iMetadataConnection.getDbType();
             DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn, dbType);
@@ -810,7 +811,7 @@ public class ExtractMetaDataFromDataBase {
      * @return ConnectionStatus : the result of connection(boolean Result, String messageException)
      */
     public static ConnectionStatus testConnection(String dbType, String url, String username, String pwd, String schema,
-            final String driverClassName, final String driverJarPath, String dbVersionString) {
+            final String driverClassName, final String driverJarPath, String dbVersionString, String additionalParam) {
 
         Connection connection = null;
         ConnectionStatus connectionStatus = new ConnectionStatus();
@@ -819,7 +820,8 @@ public class ExtractMetaDataFromDataBase {
         try {
             List list = new ArrayList();
 
-            list = ExtractMetaDataUtils.connect(dbType, url, username, pwd, driverClassName, driverJarPath, dbVersionString);
+            list = ExtractMetaDataUtils.connect(dbType, url, username, pwd, driverClassName, driverJarPath, dbVersionString,
+                    additionalParam);
             if (list != null && list.size() > 0) {
                 for (int i = 0; i < list.size(); i++) {
                     if (list.get(i) instanceof Connection) {
@@ -942,7 +944,7 @@ public class ExtractMetaDataFromDataBase {
         List list = ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), url, iMetadataConnection.getUsername(),
                 iMetadataConnection.getPassword(), iMetadataConnection.getDatabase(), iMetadataConnection.getSchema(),
                 iMetadataConnection.getDriverClass(), iMetadataConnection.getDriverJarPath(),
-                iMetadataConnection.getDbVersionString());
+                iMetadataConnection.getDbVersionString(), iMetadataConnection.getAdditionalParams());
         Connection conn = null;
         DriverShim wapperDriver = null;
 
@@ -993,7 +995,7 @@ public class ExtractMetaDataFromDataBase {
         ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(),
                 iMetadataConnection.getUsername(), iMetadataConnection.getPassword(), iMetadataConnection.getDatabase(),
                 iMetadataConnection.getSchema(), iMetadataConnection.getDriverClass(), iMetadataConnection.getDriverJarPath(),
-                iMetadataConnection.getDbVersionString());
+                iMetadataConnection.getDbVersionString(), iMetadataConnection.getAdditionalParams());
         String dbType = iMetadataConnection.getDbType();
         DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn, dbType);
 
@@ -1052,7 +1054,7 @@ public class ExtractMetaDataFromDataBase {
         List connList = ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(),
                 iMetadataConnection.getUsername(), iMetadataConnection.getPassword(), iMetadataConnection.getDatabase(),
                 iMetadataConnection.getSchema(), iMetadataConnection.getDriverClass(), iMetadataConnection.getDriverJarPath(),
-                iMetadataConnection.getDbVersionString());
+                iMetadataConnection.getDbVersionString(), iMetadataConnection.getAdditionalParams());
         try {
             if (!tableInfoParameters.isUsedName()) {
                 if (tableInfoParameters.getSqlFiter() != null && !"".equals(tableInfoParameters.getSqlFiter())) { //$NON-NLS-1$

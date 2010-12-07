@@ -41,7 +41,7 @@ public class JDBCDriverLoader {
      * @return
      */
     public List getConnection(String[] jarPath, String driverClassName, String url, String username, String password,
-            String dbType, String dbVersion) throws Exception {
+            String dbType, String dbVersion, String additionalParams) throws Exception {
         // qli modified to fix the bug 7656.
         List list = new ArrayList();
         HotClassLoader loader;
@@ -69,11 +69,18 @@ public class JDBCDriverLoader {
             // Object driver = loader.loadClass(driverClassName).newInstance();
             wapperDriver = new DriverShim((Driver) (driver.newInstance()));
 
-            // DriverManager.registerDriver(wapperDriver);
             Properties info = new Properties();
             info.put("user", username); //$NON-NLS-1$
             info.put("password", password); //$NON-NLS-1$
-            connection = wapperDriver.connect(url, info);
+
+            if (additionalParams != null && !"".equals(additionalParams) && dbType.toUpperCase().contains("ORACLE")) {
+                additionalParams = additionalParams.replaceAll("&", "\n");//$NON-NLS-1$//$NON-NLS-2$
+                info.load(new java.io.ByteArrayInputStream(additionalParams.getBytes()));
+                connection = wapperDriver.connect(url, info);
+
+            } else {
+                connection = wapperDriver.connect(url, info);
+            }
             // DriverManager.deregisterDriver(wapperDriver);
             // bug 9162
             list.add(connection);
@@ -84,7 +91,6 @@ public class JDBCDriverLoader {
         }
 
     }
-
     // public static void main(String[] args) {
     // // test IBM DB2
     //        String jarPath = "D:\\YeXiaowei\\workrela\\eclipse_3_3\\lib\\java\\db2jcc.jar"; //$NON-NLS-1$

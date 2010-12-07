@@ -340,7 +340,7 @@ public class ExtractMetaDataUtils {
      * @param String schemaBase
      */
     public static List getConnection(String dbType, String url, String username, String pwd, String dataBase, String schemaBase,
-            final String driverClassName, final String driverJarPath, String dbVersion) {
+            final String driverClassName, final String driverJarPath, String dbVersion, String additionalParams) {
         boolean isColsed = false;
         List conList = new ArrayList();
         try {
@@ -358,7 +358,7 @@ public class ExtractMetaDataUtils {
                 closeConnection(true); // colse before connection.
                 checkDBConnectionTimeout();
 
-                list = connect(dbType, url, username, pwd, driverClassName, driverJarPath, dbVersion);
+                list = connect(dbType, url, username, pwd, driverClassName, driverJarPath, dbVersion, additionalParams);
                 if (list != null && list.size() > 0) {
                     for (int i = 0; i < list.size(); i++) {
                         if (list.get(i) instanceof Connection) {
@@ -562,7 +562,7 @@ public class ExtractMetaDataUtils {
      * @throws Exception
      */
     public static List connect(String dbType, String url, String username, String pwd, final String driverClassNameArg,
-            final String driverJarPathArg, String dbVersion) throws Exception {
+            final String driverJarPathArg, String dbVersion, String additionalParams) throws Exception {
         Connection connection = null;
         DriverShim wapperDriver = null;
         List conList = new ArrayList();
@@ -606,7 +606,7 @@ public class ExtractMetaDataUtils {
         ExtractMetaDataUtils.checkDBConnectionTimeout();
         if (dbType != null && dbType.equalsIgnoreCase(EDatabaseTypeName.GENERAL_JDBC.getXmlName())) {
             JDBCDriverLoader loader = new JDBCDriverLoader();
-            list = loader.getConnection(driverJarPath, driverClassName, url, username, pwd, dbType, dbVersion);
+            list = loader.getConnection(driverJarPath, driverClassName, url, username, pwd, dbType, dbVersion, additionalParams);
             if (list != null && list.size() > 0) {
                 for (int i = 0; i < list.size(); i++) {
                     if (list.get(i) instanceof Connection) {
@@ -621,7 +621,7 @@ public class ExtractMetaDataUtils {
         } else if (dbType != null && isValidJarFile(driverJarPath)) {
             // Load jdbc driver class dynamicly
             JDBCDriverLoader loader = new JDBCDriverLoader();
-            list = loader.getConnection(driverJarPath, driverClassName, url, username, pwd, dbType, dbVersion);
+            list = loader.getConnection(driverJarPath, driverClassName, url, username, pwd, dbType, dbVersion, additionalParams);
             if (list != null && list.size() > 0) {
                 for (int i = 0; i < list.size(); i++) {
                     if (list.get(i) instanceof Connection) {

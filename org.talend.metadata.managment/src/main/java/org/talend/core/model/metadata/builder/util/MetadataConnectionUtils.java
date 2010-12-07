@@ -56,9 +56,10 @@ import org.talend.utils.sugars.TypedReturnCode;
 import orgomg.cwm.foundation.softwaredeployment.Component;
 
 /**
- * DOC zshen  class global comment. Detailled comment
+ * DOC zshen class global comment. Detailled comment
  */
 public class MetadataConnectionUtils {
+
     private static Logger log = Logger.getLogger(MetadataConnectionUtils.class);
 
     // MOD mzhao 2009-06-05 Bug 7571
@@ -75,6 +76,7 @@ public class MetadataConnectionUtils {
     private static final String TOP_DRIVER_EXTENSION_ID = "org.talend.dataprofiler.core.TOPDriverService";
 
     private static List<String> sybaseDBProductsNames;
+
     /**
      * DOC xqliu Comment method "getConnectionMetadata". 2009-07-13 bug 7888.
      * 
@@ -306,19 +308,17 @@ public class MetadataConnectionUtils {
             return driver;
         }
 
-
-            IExtension extension = Platform.getExtensionRegistry().getExtension(DRIVER_EXTENSION_POINT_ID,
-                    TOP_DRIVER_EXTENSION_ID);
-            if (extension != null) {
-                IConfigurationElement[] configurationElement = extension.getConfigurationElements();
-                for (IConfigurationElement ele : configurationElement) {
-                    try {
-                        IDriverService driverService = (IDriverService) ele.createExecutableExtension("class");
-                        driver = driverService.getDriver(metadataBean);
+        IExtension extension = Platform.getExtensionRegistry().getExtension(DRIVER_EXTENSION_POINT_ID, TOP_DRIVER_EXTENSION_ID);
+        if (extension != null) {
+            IConfigurationElement[] configurationElement = extension.getConfigurationElements();
+            for (IConfigurationElement ele : configurationElement) {
+                try {
+                    IDriverService driverService = (IDriverService) ele.createExecutableExtension("class");
+                    driver = driverService.getDriver(metadataBean);
                 } catch (Exception e) {
-                        log.error(e, e);
-                    }
+                    log.error(e, e);
                 }
+            }
             // top
             if (ReponsitoryContextBridge.isDefautProject()) {
                 // waiting for return
@@ -327,9 +327,9 @@ public class MetadataConnectionUtils {
                 List<?> connList = null;
                 try {
                     connList = ExtractMetaDataUtils.getConnection(metadataBean.getDbType(), metadataBean.getUrl(),
-                        metadataBean.getUsername(), metadataBean.getPassword(), metadataBean.getDatabase(),
-                        metadataBean.getSchema(), driverClassName, metadataBean.getDriverJarPath(),
-                        metadataBean.getDbVersionString());
+                            metadataBean.getUsername(), metadataBean.getPassword(), metadataBean.getDatabase(),
+                            metadataBean.getSchema(), driverClassName, metadataBean.getDriverJarPath(),
+                            metadataBean.getDbVersionString(), metadataBean.getAdditionalParams());
                 } catch (Exception e) {
                     // do nothing
                 }
@@ -341,12 +341,13 @@ public class MetadataConnectionUtils {
         } else {
             // tos
             try {
-            List<?> connList = ExtractMetaDataUtils.getConnection(metadataBean.getDbType(), metadataBean.getUrl(),
-                    metadataBean.getUsername(), metadataBean.getPassword(), metadataBean.getDatabase(), metadataBean.getSchema(),
-                    driverClassName, metadataBean.getDriverJarPath(), metadataBean.getDbVersionString());
-            if (connList.size() > 1) {
-                driver = (Driver) connList.get(1);
-            }
+                List<?> connList = ExtractMetaDataUtils.getConnection(metadataBean.getDbType(), metadataBean.getUrl(),
+                        metadataBean.getUsername(), metadataBean.getPassword(), metadataBean.getDatabase(),
+                        metadataBean.getSchema(), driverClassName, metadataBean.getDriverJarPath(),
+                        metadataBean.getDbVersionString(), metadataBean.getAdditionalParams());
+                if (connList.size() > 1) {
+                    driver = (Driver) connList.get(1);
+                }
             } catch (Exception e) {
                 log.error(e, e);
             }
@@ -390,6 +391,7 @@ public class MetadataConnectionUtils {
         return sqlStr;
 
     }
+
     /**
      * DOC xqliu Comment method "createDataType".
      * 
@@ -432,8 +434,7 @@ public class MetadataConnectionUtils {
      */
     public static XtentisBindingStub getXtentisBindingStub(MDMConnection dataProvider) throws ServiceException {
         return getXtentisBindingStub(dataProvider.getPathname(), ConnectionHelper.getUniverse(dataProvider),
-                dataProvider.getUsername(),
-                dataProvider.getPassword());
+                dataProvider.getUsername(), dataProvider.getPassword());
     }
 
     /**
@@ -499,7 +500,5 @@ public class MetadataConnectionUtils {
         }
         return techname;
     }
-
-
 
 }
