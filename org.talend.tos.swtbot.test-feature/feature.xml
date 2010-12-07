@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="org.talend.tos.swtbot.test.feature"
+      id="org.talend.tos.swtbot.test_feature"
       label="All Swtbot test for Talend Open Studio"
       version="1.0.0.qualifier"
       provider-name="Talend.">
@@ -72,12 +72,5 @@
          download-size="0"
          install-size="0"
          version="0.0.0"/>
-
-   <plugin
-         id="org.talend.gef.swtbot.test"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
 
 </feature>
