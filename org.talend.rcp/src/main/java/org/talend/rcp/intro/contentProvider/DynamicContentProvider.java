@@ -104,7 +104,7 @@ public class DynamicContentProvider implements IIntroXHTMLContentProvider {
 
         HttpURLConnection urlConnection = null;
         try {
-            URL url = new URL("http://www.talend.com/builtin_news/index.html");
+            URL url = new URL("http://www.talend.com/builtin_news/index.php");
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("GET");
             urlConnection.setDoOutput(true);
@@ -137,7 +137,7 @@ public class DynamicContentProvider implements IIntroXHTMLContentProvider {
         div.appendChild(dom.createElement("br"));
 
         Element iFrame = dom.createElement("iframe");
-        iFrame.setAttribute("src", "http://www.talend.com/builtin_news/index.html");
+        iFrame.setAttribute("src", "http://www.talend.com/builtin_news/index.php");
         iFrame.setAttribute("frameborder", "0");
         iFrame.setAttribute("width", "240px");
         iFrame.setAttribute("height", "370px");
