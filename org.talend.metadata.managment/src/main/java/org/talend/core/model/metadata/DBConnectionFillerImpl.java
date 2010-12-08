@@ -108,7 +108,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 this.checkConnection(metadataBean);
             }
             // fill some base parameter
-            fillMetadataParams(metadataBean, connection);
+            // fillMetadataParams(metadataBean, connection);
             // software
             DatabaseMetaData dbMetadata = MetadataConnectionUtils.getConnectionMetadata(sqlConnection);
             TdSoftwareSystem softwareSystem = MetadataConnectionUtils.getSoftwareSystem(sqlConnection);
@@ -186,13 +186,17 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
     @Override
     public List<Package> fillSchemas(Connection dbConn, DatabaseMetaData dbJDBCMetadata, List<String> schemaFilter) {
         List<Schema> returnSchemas = new ArrayList<Schema>();
-
         if (dbJDBCMetadata == null || (dbConn != null && ConnectionHelper.getCatalogs(dbConn).size() > 0)) {
             return null;
         }
         ResultSet schemas = null;
-        try {
+        try{
             schemas = dbJDBCMetadata.getSchemas();
+        }catch(SQLException e){
+            log.error("This database don't contian construct of schema.");
+            return null;
+        }
+            try {
             if (schemas != null) {
 
                 boolean hasSchema = false;
@@ -240,6 +244,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         if (dbJDBCMetadata == null) {
             return null;
         }
+        boolean hasSchema = true;
         try {
             if (dbJDBCMetadata.getDatabaseProductName() != null
                     && dbJDBCMetadata.getDatabaseProductName().indexOf(EDatabaseTypeName.ORACLEFORSID.getProduct()) > -1) {
@@ -249,6 +254,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             catalogNames = dbJDBCMetadata.getCatalogs();
 
             if (catalogNames != null) {
+
 
                 // else DB support getCatalogs() method
                 while (catalogNames.next()) {
@@ -279,6 +285,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                         continue;
                     }
                     // schema in catalog
+                    if (!hasSchema) {// if not have schema in catalog
+                        continue;
+                    }
                     ResultSet schemaRs = null;
                     try {
                         // Case of JDK 1.6
@@ -293,7 +302,12 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     }
 
                     if (schemaRs == null) {
+                        try {
                         schemaRs = dbJDBCMetadata.getSchemas();
+                        } catch (SQLException e) {
+                            hasSchema = false;
+                            continue;
+                        }
                     }
 
                     List<String> schemaNameCacheTmp = new ArrayList<String>();
@@ -365,7 +379,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 String temptableType = tables.getString(GetTable.TABLE_TYPE.name());
                 if (TableType.VIEW.toString().equals(temptableType)) {
                     continue;
-                }
+                } 
 
                 String tableName = tables.getString(GetTable.TABLE_NAME.name());
                 if (!filterMetadaElement(tableFilter, tableName)) {
@@ -614,11 +628,18 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         if (orgomg.cwm.resource.relational.RelationalPackage.eINSTANCE.getTable().isSuperTypeOf(colSet.eClass())) {
             try {
                 // primary key
+                if (MetadataConnectionUtils.isOdbcExcel(dbJDBCMetadata.getConnection())) {
+                    log.info("This database don't support primary key and foreign key");
+                    return;
+                }
                 ResultSet pkResult = dbJDBCMetadata.getPrimaryKeys(catalogName, schemaName, tableName);
                 PrimaryKey primaryKey = null;
                 while (pkResult.next()) {
                     String pkName = pkResult.getString(GetPrimaryKey.PK_NAME.name());
                     String colName = pkResult.getString(GetPrimaryKey.COLUMN_NAME.name());
+                    if (pkName == null) {
+                        continue;
+                    }
                     if (primaryKey == null) {
                         primaryKey = orgomg.cwm.resource.relational.RelationalFactory.eINSTANCE.createPrimaryKey();
                         primaryKey.setName(pkName);

@@ -130,8 +130,8 @@ public class MetadataConnectionUtils {
         String password = metadataBean.getPassword();
         String userName = metadataBean.getUsername();
         Properties props = new Properties();
-        props.setProperty(TaggedValueHelper.PASSWORD, password);
-        props.setProperty(TaggedValueHelper.USER, userName);
+        props.setProperty(TaggedValueHelper.PASSWORD, password == null ? "" : password);
+        props.setProperty(TaggedValueHelper.USER, userName == null ? "" : userName);
         if (StringUtils.isNotBlank(dbUrl) && StringUtils.isNotBlank(driver)) {
             java.sql.Connection sqlConn = null;
             try {
@@ -234,6 +234,24 @@ public class MetadataConnectionUtils {
                 && connectionMetadata.getDriverName().toLowerCase().startsWith(DatabaseConstant.ODBC_DRIVER_NAME)
                 && connectionMetadata.getDatabaseProductName() != null
                 && connectionMetadata.getDatabaseProductName().toLowerCase().indexOf(DatabaseConstant.POSTGRESQL_PRODUCT_NAME) > -1) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * DOC zshen Comment method "isOdbcMssql". feature 10630
+     * 
+     * @param connection
+     * @return
+     * @throws SQLException
+     */
+    public static boolean isOdbcExcel(java.sql.Connection connection) throws SQLException {
+        DatabaseMetaData connectionMetadata = getConnectionMetadata(connection);
+        if (connectionMetadata.getDriverName() != null
+                && connectionMetadata.getDriverName().toLowerCase().startsWith(DatabaseConstant.ODBC_DRIVER_NAME)
+                && connectionMetadata.getDatabaseProductName() != null
+                && connectionMetadata.getDatabaseProductName().equals(DatabaseConstant.ODBC_EXCEL_PRODUCT_NAME)) {
             return true;
         }
         return false;
