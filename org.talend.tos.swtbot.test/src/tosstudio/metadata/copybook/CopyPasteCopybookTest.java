@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package tosstudio.metadata.filemanipulation;
+package tosstudio.metadata.copybook;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -22,7 +22,6 @@ import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
-import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
@@ -36,74 +35,58 @@ import org.talend.swtbot.Utilities;
  * DOC Administrator class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class CopyPasteRegexFileTest extends TalendSwtBotForTos {
+public class CopyPasteCopybookTest extends TalendSwtBotForTos {
 
     private SWTBotTree tree;
 
     private SWTBotView view;
 
-    private static String FILENAME = "test_regex"; //$NON-NLS-1$
+    private static String COPYBOOKNAME = "copybook1"; //$NON-NLS-1$
 
-    private static String SAMPLE_RELATIVE_FILEPATH = "test.txt"; //$NON-NLS-1$
+    private static String SAMPLE_RELATIVE_FILEPATH = "FDSUJ-formated.copybook"; //$NON-NLS-1$
+
+    private static String SAMPLE_RELATIVE_DATAFILE = "file1.txt"; //$NON-NLS-1$
 
     @Before
-    public void createRegexFile() throws IOException, URISyntaxException {
+    public void createCopybook() throws IOException, URISyntaxException {
         view = gefBot.viewByTitle("Repository");
         view.setFocus();
-
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
         tree.setFocus();
 
-        tree.expandNode("Metadata").getNode("File Regex").contextMenu("Create file regex").click();
-        gefBot.waitUntil(Conditions.shellIsActive("New RegEx File"));
-        gefBot.shell("New RegEx File").activate();
+        tree.expandNode("Metadata").getNode("Copybook").contextMenu("Create EBCDIC").click();
+        gefBot.waitUntil(Conditions.shellIsActive("EBCDIC Connection"));
+        gefBot.shell("EBCDIC Connection").activate();
 
-        gefBot.textWithLabel("Name").setText(FILENAME);
+        /* step 1 of 3 */
+        gefBot.textWithLabel("Name").setText(COPYBOOKNAME);
         gefBot.button("Next >").click();
+
+        /* step 2 of 3 */
         gefBot.textWithLabel("File").setText(
                 Utilities.getFileFromCurrentPluginSampleFolder(SAMPLE_RELATIVE_FILEPATH).getAbsolutePath());
+        gefBot.textWithLabel("Data file").setText(
+                Utilities.getFileFromCurrentPluginSampleFolder(SAMPLE_RELATIVE_DATAFILE).getAbsolutePath());
+        gefBot.button("Generate").click();
         gefBot.button("Next >").click();
-        gefBot.waitUntil(new DefaultCondition() {
 
-            public boolean test() throws Exception {
-
-                return gefBot.button("Next >").isEnabled();
-            }
-
-            public String getFailureMessage() {
-                gefBot.shell("New RegEx File").close();
-                return "next button was never enabled";
-            }
-        }, 60000);
-        gefBot.button("Next >").click();
-        gefBot.waitUntil(new DefaultCondition() {
-
-            public boolean test() throws Exception {
-
-                return gefBot.button("Finish").isEnabled();
-            }
-
-            public String getFailureMessage() {
-                gefBot.shell("New RegEx File").close();
-                return "finish button was never enabled";
-            }
-        });
+        /* step 3 of 3 */
         gefBot.button("Finish").click();
     }
 
     @Test
-    public void copyAndPasteRegexFile() {
-        tree.expandNode("Metadata", "File Regex").getNode(FILENAME + " 0.1").contextMenu("Copy").click();
-        tree.select("Metadata", "File Regex").contextMenu("Paste").click();
+    public void copyPasteCopybookTest() {
+        tree.expandNode("Metadata", "Copybook").getNode(COPYBOOKNAME + " 0.1").contextMenu("Copy").click();
+        tree.expandNode("Metadata").getNode("Copybook").contextMenu("Paste").click();
 
-        SWTBotTreeItem newRegexItem = tree.expandNode("Metadata", "File Regex").select("Copy_of_" + FILENAME + " 0.1");
-        Assert.assertNotNull(newRegexItem);
+        SWTBotTreeItem newCopybookItem = tree.expandNode("Metadata", "Copybook").select("Copy_of_" + COPYBOOKNAME + " 0.1");
+        Assert.assertNotNull(newCopybookItem);
     }
 
     @After
-    public void removePreviouslyCreateItems() {
-        tree.expandNode("Metadata", "File Regex").getNode(FILENAME + " 0.1").contextMenu("Delete").click();
-        tree.expandNode("Metadata", "File Regex").getNode("Copy_of_" + FILENAME + " 0.1").contextMenu("Delete").click();
+    public void removePreviousCreateItems() {
+        tree.expandNode("Metadata", "Copybook").getNode(COPYBOOKNAME + " 0.1").contextMenu("Delete").click();
+        tree.expandNode("Metadata", "Copybook").getNode("Copy_of_" + COPYBOOKNAME + " 0.1").contextMenu("Delete").click();
 
         tree.select("Recycle bin").contextMenu("Empty recycle bin").click();
         gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));

@@ -22,6 +22,7 @@ import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.waits.Conditions;
+import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
@@ -67,21 +68,45 @@ public class CreateHL7OutputTest extends TalendSwtBotForTos {
         gefBot.button("Next >").click();
 
         /* step 2 of 5 */
-        gefBot.radio("HL7OutPut").click();
+        gefBot.radio("HL7Output").click();
         gefBot.button("Next >").click();
 
         /* step 3 of 5 */
         gefBot.radio("Create from a file").click();
-        gefBot.textWithLabel("HL7 File path:").setText(
+        gefBot.textWithLabel("File path:").setText(
                 Utilities.getFileFromCurrentPluginSampleFolder(SAMPLE_RELATIVE_FILEPATH).getAbsolutePath());
         gefBot.textWithLabel("Output File Path").setText(
                 Utilities.getFileFromCurrentPluginSampleFolder(SAMPLE_RELATIVE_OUTPUT_FILEPATH).getAbsolutePath());
         gefBot.button("Next >").click();
 
         /* step 4 of 5 */
+        gefBot.waitUntil(new DefaultCondition() {
+
+            public boolean test() throws Exception {
+
+                return gefBot.button("Next >").isEnabled();
+            }
+
+            public String getFailureMessage() {
+                gefBot.shell("New HL7 File").close();
+                return "next button was never enabled";
+            }
+        });
         gefBot.button("Next >").click();
 
         /* step 5 of 5 */
+        gefBot.waitUntil(new DefaultCondition() {
+
+            public boolean test() throws Exception {
+
+                return gefBot.button("Finish").isEnabled();
+            }
+
+            public String getFailureMessage() {
+                gefBot.shell("New HL7 File").close();
+                return "finish button was never enabled";
+            }
+        });
         gefBot.button("Finish").click();
 
         SWTBotTreeItem newHl7Item = tree.expandNode("Metadata", "HL7").select(HL7NAME + " 0.1");

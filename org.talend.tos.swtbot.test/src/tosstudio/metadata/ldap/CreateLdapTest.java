@@ -106,17 +106,28 @@ public class CreateLdapTest extends TalendSwtBotForTos {
         gefBot.waitUntil(new DefaultCondition() {
 
             public boolean test() throws Exception {
-
                 return gefBot.button("Next >").isEnabled();
             }
 
             public String getFailureMessage() {
+                gefBot.shell("Create new LDAP schema").close();
                 return "next button was never enabled";
             }
-        }, 30000);
+        }, 60000);
         gefBot.button("Next >").click();
 
         /* step 5 of 5 */
+        gefBot.waitUntil(new DefaultCondition() {
+
+            public boolean test() throws Exception {
+                return gefBot.button("Finish").isEnabled();
+            }
+
+            public String getFailureMessage() {
+                gefBot.shell("Create new LDAP schema").close();
+                return "finish button was never enabled";
+            }
+        });
         gefBot.button("Finish").click();
 
         SWTBotTreeItem newLdapItem = tree.expandNode("Metadata", "LDAP").select(LDAPNAME + " 0.1");

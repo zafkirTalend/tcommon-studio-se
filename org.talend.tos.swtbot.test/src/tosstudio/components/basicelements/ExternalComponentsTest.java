@@ -35,7 +35,7 @@ import org.talend.swtbot.TalendSwtBotForTos;
  * DOC Administrator class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class ExternalComponentsTestingTest extends TalendSwtBotForTos {
+public class ExternalComponentsTest extends TalendSwtBotForTos {
 
     private SWTBotView view;
 
@@ -78,7 +78,7 @@ public class ExternalComponentsTestingTest extends TalendSwtBotForTos {
         SWTBotGefEditPart rowGen = getTalendComponentPart(gefEditor, "tRowGenerator_1");
         Assert.assertNotNull(rowGen);
         rowGen.doubleClick();
-        shell = gefBot.shell("Talend Open Studio - tRowGenerator - tRowGenerator_1");
+        shell = gefBot.shell("Talend Data Quality Enterprise Edition MPX - tRowGenerator - tRowGenerator_1");
         shell.activate();
         /* Add column "id" */
         gefBot.buttonWithTooltip("Add").click();
@@ -110,9 +110,9 @@ public class ExternalComponentsTestingTest extends TalendSwtBotForTos {
 
         /* Edit tMap */
         map.doubleClick();
-        shell = gefBot.shell("Talend Open Studio - tMap - tMap_1");
+        shell = gefBot.shell("Talend Data Quality Enterprise Edition MPX - tMap - tMap_1");
         shell.activate();
-        gefBot.waitUntil(Conditions.shellIsActive("Talend Open Studio - tMap - tMap_1"));
+        gefBot.waitUntil(Conditions.shellIsActive("Talend Data Quality Enterprise Edition MPX - tMap - tMap_1"));
 
         gefBot.toolbarButtonWithTooltip("Add output table").click();
         gefBot.shell("Add a output").activate();

@@ -72,7 +72,7 @@ public class LinkManagementTest extends TalendSwtBotForTos {
 
         SWTBotGefEditPart rowGen = getTalendComponentPart(gefEditor, "tRowGenerator_1");
         rowGen.doubleClick();
-        shell = gefBot.shell("Talend Open Studio - tRowGenerator - tRowGenerator_1");
+        shell = gefBot.shell("Talend Data Quality Enterprise Edition MPX - tRowGenerator - tRowGenerator_1");
         shell.activate();
         gefBot.buttonWithTooltip("Add").click();
         gefBot.buttonWithTooltip("Add").click();
@@ -85,10 +85,10 @@ public class LinkManagementTest extends TalendSwtBotForTos {
 
         gefBot.viewByTitle("Component").show();
         logRow.click();
-        gefBot.buttonWithLabel("Schema Type").click(); // label and button do not correspond
-        shell = gefBot.shell("Schema of tLogRow_1");
+        gefBot.buttonWithLabel("Schema").click(); // label and button do not correspond
+        shell = gefBot.shell("Schema oftLogRow_1");
         shell.activate();
-        gefBot.waitUntil(Conditions.shellIsActive("Schema of tLogRow_1"));
+        gefBot.waitUntil(Conditions.shellIsActive("Schema oftLogRow_1"));
         Assert.assertEquals("newColumn", gefBot.tableWithLabel("tLogRow_1 (Output)").cell(0, "Column"));
         Assert.assertEquals("newColumn1", gefBot.tableWithLabel("tLogRow_1 (Output)").cell(1, "Column"));
         gefBot.button("OK").click();

@@ -83,7 +83,7 @@ public class CopyComponentsBetweenJobTest extends TalendSwtBotForTos {
 
         SWTBotGefEditPart rowGen = getTalendComponentPart(gefEditor, "tRowGenerator_1");
         rowGen.doubleClick();
-        shell = gefBot.shell("Talend Open Studio - tRowGenerator - tRowGenerator_1");
+        shell = gefBot.shell("Talend Data Quality Enterprise Edition MPX - tRowGenerator - tRowGenerator_1");
         shell.activate();
         gefBot.buttonWithTooltip("Add").click();
         gefBot.buttonWithTooltip("Add").click();

@@ -73,10 +73,23 @@ public class DeletePositionalFileTest extends TalendSwtBotForTos {
             }
 
             public String getFailureMessage() {
+                gefBot.shell("New Positional File").close();
                 return "next button was never enabled";
             }
-        }, 30000);
+        }, 60000);
         gefBot.button("Next >").click();
+        gefBot.waitUntil(new DefaultCondition() {
+
+            public boolean test() throws Exception {
+
+                return gefBot.button("Finish").isEnabled();
+            }
+
+            public String getFailureMessage() {
+                gefBot.shell("New Positional File").close();
+                return "finish button was never enabled";
+            }
+        });
         gefBot.button("Finish").click();
     }
 

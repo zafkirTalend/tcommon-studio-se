@@ -22,6 +22,7 @@ import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
+import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
@@ -53,7 +54,7 @@ public class DeleteLdifFileTest extends TalendSwtBotForTos {
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
         tree.setFocus();
 
-        tree.expandNode("Metadata").getNode("File ldif").contextMenu("Create file ldif").click();
+        tree.expandNode("Metadata").getNode("File LDIF").contextMenu("Create file ldif").click();
         gefBot.waitUntil(Conditions.shellIsActive("New Ldif File"));
         gefBot.shell("New Ldif File").activate();
 
@@ -66,12 +67,24 @@ public class DeleteLdifFileTest extends TalendSwtBotForTos {
             gefBot.tableInGroup("List Attributes of Ldif file").getTableItem(i).check();
         }
         gefBot.button("Next >").click();
+        gefBot.waitUntil(new DefaultCondition() {
+
+            public boolean test() throws Exception {
+
+                return gefBot.button("Finish").isEnabled();
+            }
+
+            public String getFailureMessage() {
+                gefBot.shell("New Ldif File").close();
+                return "finish button was never enabled";
+            }
+        });
         gefBot.button("Finish").click();
     }
 
     @Test
     public void deleteLdifFile() {
-        tree.expandNode("Metadata", "File ldif").getNode(FILENAME + " 0.1").contextMenu("Delete").click();
+        tree.expandNode("Metadata", "File LDIF").getNode(FILENAME + " 0.1").contextMenu("Delete").click();
 
         SWTBotTreeItem newLdifItem = tree.expandNode("Recycle bin").select(FILENAME + " 0.1" + " ()");
         Assert.assertNotNull(newLdifItem);

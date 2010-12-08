@@ -81,9 +81,9 @@ public class CreateSapConnectionTest extends TalendSwtBotForTos {
         gefBot.textWithLabel("System Number").setText(SYSTEM_NUMBER);
         gefBot.textWithLabel("Language").setText(LANGUAGE);
         gefBot.button("Check").click();
-        shell = gefBot.shell("Check SAP Connection ");
+        shell = gefBot.shell("Check SAP Connection");
         shell.activate();
-        gefBot.waitUntil(Conditions.shellIsActive("Check SAP Connection "));
+        gefBot.waitUntil(Conditions.shellIsActive("Check SAP Connection"));
         gefBot.button("OK").click();
         gefBot.waitUntil(Conditions.shellCloses(shell));
 

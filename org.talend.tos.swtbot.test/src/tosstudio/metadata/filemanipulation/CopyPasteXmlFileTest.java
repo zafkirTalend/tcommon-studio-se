@@ -57,7 +57,7 @@ public class CopyPasteXmlFileTest extends TalendSwtBotForTos {
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
         tree.setFocus();
 
-        tree.expandNode("Metadata").getNode("File xml").contextMenu("Create file xml").click();
+        tree.expandNode("Metadata").getNode("File XML").contextMenu("Create file XML").click();
         gefBot.waitUntil(Conditions.shellIsActive("New Xml File"));
         gefBot.shell("New Xml File").activate();
 
@@ -84,17 +84,17 @@ public class CopyPasteXmlFileTest extends TalendSwtBotForTos {
 
     @Test
     public void copyAndPasteXmlFile() {
-        tree.expandNode("Metadata", "File xml").getNode(FILENAME + " 0.1").contextMenu("Copy").click();
-        tree.select("Metadata", "File xml").contextMenu("Paste").click();
+        tree.expandNode("Metadata", "File XML").getNode(FILENAME + " 0.1").contextMenu("Copy").click();
+        tree.select("Metadata", "File XML").contextMenu("Paste").click();
 
-        SWTBotTreeItem newXmlItem = tree.expandNode("Metadata", "File xml").select("Copy_of_" + FILENAME + " 0.1");
+        SWTBotTreeItem newXmlItem = tree.expandNode("Metadata", "File XML").select("Copy_of_" + FILENAME + " 0.1");
         Assert.assertNotNull(newXmlItem);
     }
 
     @After
     public void removePreviouslyCreateItems() {
-        tree.expandNode("Metadata", "File xml").getNode(FILENAME + " 0.1").contextMenu("Delete").click();
-        tree.expandNode("Metadata", "File xml").getNode("Copy_of_" + FILENAME + " 0.1").contextMenu("Delete").click();
+        tree.expandNode("Metadata", "File XML").getNode(FILENAME + " 0.1").contextMenu("Delete").click();
+        tree.expandNode("Metadata", "File XML").getNode("Copy_of_" + FILENAME + " 0.1").contextMenu("Delete").click();
 
         tree.select("Recycle bin").contextMenu("Empty recycle bin").click();
         gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));

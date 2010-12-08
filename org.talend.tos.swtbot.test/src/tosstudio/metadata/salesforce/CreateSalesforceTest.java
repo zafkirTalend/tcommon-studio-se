@@ -20,7 +20,6 @@ import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
@@ -36,8 +35,6 @@ import org.talend.swtbot.TalendSwtBotForTos;
 public class CreateSalesforceTest extends TalendSwtBotForTos {
 
     private SWTBotTree tree;
-
-    private SWTBotShell shell;
 
     private SWTBotView view;
 
@@ -59,8 +56,8 @@ public class CreateSalesforceTest extends TalendSwtBotForTos {
         tree.setFocus();
 
         tree.expandNode("Metadata").getNode("Salesforce").contextMenu("Create Salesforce schema").click();
-        gefBot.shell("New Salesforce ").activate();
-        gefBot.waitUntil(Conditions.shellIsActive("New Salesforce "));
+        gefBot.shell("New Salesforce").activate();
+        gefBot.waitUntil(Conditions.shellIsActive("New Salesforce"));
 
         /* step 1 of 4 */
         gefBot.textWithLabel("Name").setText(SALESFORCENAME);
@@ -68,31 +65,39 @@ public class CreateSalesforceTest extends TalendSwtBotForTos {
 
         /* step 2 of 4 */
         gefBot.textWithLabel("User name").setText(USERNAME);
-        gefBot.textWithLabel("Password ").setText(PASSWORD);
+        gefBot.textWithLabel("Password").setText(PASSWORD);
         gefBot.button("Check login").click();
 
-        shell = gefBot.shell("Check Connection ");
-        shell.activate();
-        gefBot.waitUntil(Conditions.shellIsActive("Check Connection "), 20000);
+        gefBot.waitUntil(Conditions.shellIsActive("Check Connection"), 60000);
         gefBot.button("OK").click();
-        gefBot.waitUntil(Conditions.shellCloses(shell));
         gefBot.button("Next >").click();
 
         /* step 3 of 4 */
         gefBot.waitUntil(new DefaultCondition() {
 
             public boolean test() throws Exception {
-
                 return gefBot.button("Next >").isEnabled();
             }
 
             public String getFailureMessage() {
+                gefBot.shell("New Salesforce").close();
                 return "next button was never enabled";
             }
-        });
+        }, 60000);
         gefBot.button("Next >").click();
 
         /* step 4 of 4 */
+        gefBot.waitUntil(new DefaultCondition() {
+
+            public boolean test() throws Exception {
+                return gefBot.button("Finish").isEnabled();
+            }
+
+            public String getFailureMessage() {
+                gefBot.shell("New Salesforce").close();
+                return "finish button was never enabled";
+            }
+        });
         gefBot.button("Finish").click();
 
         SWTBotTreeItem newSalesforceItem = tree.expandNode("Metadata").expandNode("Salesforce").getNode(SALESFORCENAME + " 0.1");

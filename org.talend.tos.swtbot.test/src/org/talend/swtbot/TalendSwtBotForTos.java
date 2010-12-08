@@ -77,6 +77,7 @@ public class TalendSwtBotForTos {
             gefBot.waitUntil(Conditions.shellCloses(shell), ONE_MINUTE_IN_MILLISEC * 10);
             gefBot.viewByTitle("Welcome").close();
             gefBot.menu("Window").menu("Perspective").menu("Design Workspace").click();
+            gefBot.cTabItem("Cheat Sheets").close();
             isGenerationEngineInitialised = true;
         }
     }
