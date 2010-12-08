@@ -24,6 +24,7 @@ import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.MDMConnectionItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.ui.images.ECoreImage;
 import org.talend.core.utils.XmlArray;
 import org.talend.cwm.helper.TableHelper;
@@ -33,10 +34,10 @@ import org.talend.repository.mdm.ui.wizard.concept.CreateConceptWizard;
 import org.talend.repository.mdm.util.MDMUtil;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
-import org.talend.repository.model.ProxyRepositoryFactory;
-import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
 import org.talend.repository.model.IRepositoryNode.EProperties;
+import org.talend.repository.model.ProxyRepositoryFactory;
+import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.ui.actions.metadata.AbstractCreateAction;
 import org.talend.repository.ui.utils.ConnectionContextHelper;
 
@@ -100,6 +101,16 @@ public class RetrieveMDMSchemaAction extends AbstractCreateAction {
                             return;
                         }
                     }
+                } else if (ERepositoryObjectType.METADATA_CON_COLUMN.equals(nodeType)) {
+                    setText(EDIT_LABEL);
+                    if (node.getObject() != null) {
+                        Item item = node.getObject().getProperty().getItem();
+                        if (item instanceof MDMConnectionItem) {
+                            collectSiblingNames(node);
+                            setEnabled(true);
+                            return;
+                        }
+                    }
                 }
 
                 if (ERepositoryObjectType.METADATA_MDMCONNECTION.equals(nodeType)) {
@@ -136,6 +147,12 @@ public class RetrieveMDMSchemaAction extends AbstractCreateAction {
             ConnectionItem connectionItem = (ConnectionItem) object.getProperty().getItem();
             nodeType = ERepositoryObjectType.getItemType(connectionItem);
 
+        } else if (ERepositoryObjectType.METADATA_CON_COLUMN.equals(nodeType)) {
+            this.node = node.getParent().getParent();
+            final IRepositoryViewObject object = node.getObject();
+
+            ConnectionItem connectionItem = (ConnectionItem) object.getProperty().getItem();
+            nodeType = ERepositoryObjectType.getItemType(connectionItem);
         }
         createMDMTableWizard(node, readOnly);
 
@@ -156,6 +173,7 @@ public class RetrieveMDMSchemaAction extends AbstractCreateAction {
             MDMConnectionItem item = null;
             switch (nodeType) {
             case METADATA_CON_TABLE:
+            case METADATA_CON_COLUMN:
                 item = (MDMConnectionItem) node.getObject().getProperty().getItem();
                 connection = (MDMConnection) item.getConnection();
                 metadataTable = TableHelper.findByLabel(connection, metadataTableLabel);
@@ -199,6 +217,7 @@ public class RetrieveMDMSchemaAction extends AbstractCreateAction {
             getViewPart().expand(node, true);
             refresh(node);
         }
+        RepositoryManager.refreshSavedNode(node);
         // node = null;
     }
 
