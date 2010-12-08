@@ -12,7 +12,10 @@
 // ============================================================================
 package org.talend.core.ui;
 
+import org.talend.commons.exception.PersistenceException;
 import org.talend.core.IService;
+import org.talend.core.model.properties.Property;
+import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 
 /**
  * DOC nma class global comment. Detailled comment
@@ -26,5 +29,9 @@ public interface ICreateXtextProcessService extends IService {
 
     // create the processType with a .job file created by metalanguage.
     public void addProcess(String path);
+
+    public String convertJobtoScript(ProcessType processType);
+
+    public ProcessType convertDesignerEditorInput(String path, Property property) throws PersistenceException;
 
 }

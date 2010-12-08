@@ -65,6 +65,10 @@ public abstract class JobEditorInput extends RepositoryEditorInput {
         super(initFile(item), item);
 
         loadedProcess = createProcess();
+        checkInit(lastVersion, readonly, load);
+    }
+
+    public void checkInit(Boolean lastVersion, Boolean readonly, boolean load) throws PersistenceException {
         if (loadedProcess instanceof ILastVersionChecker) {
             ((ILastVersionChecker) loadedProcess).setLastVersion(lastVersion);
         }
@@ -193,7 +197,7 @@ public abstract class JobEditorInput extends RepositoryEditorInput {
         if (getItem().getProperty().eResource() == null || getItem().eResource() == null) {
             IRepositoryService service = CorePlugin.getDefault().getRepositoryService();
             IProxyRepositoryFactory factory = service.getProxyRepositoryFactory();
-            //            
+            //
             // Property updated = factory.getUptodateProperty(getItem().getProperty());
             Property updatedProperty = null;
             try {
