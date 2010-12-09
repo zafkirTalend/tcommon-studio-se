@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.talend.commons.bridge.ReponsitoryContextBridge;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 import org.talend.core.model.metadata.builder.connection.Connection;
@@ -105,7 +106,7 @@ public abstract class MetadataFillerImpl implements IMetadataFiller {
         // set port
         ConnectionHelper.setPort(connection, metadataBean.getPort());
         // set sid
-        ConnectionHelper.setSID(connection, metadataBean.getDbName());
+        ConnectionHelper.setSID(connection, metadataBean.getDatabase());
         // status
         String status = metadataBean.getStatus();
         ConnectionHelper.setDevStatus(status, connection);
@@ -178,8 +179,10 @@ public abstract class MetadataFillerImpl implements IMetadataFiller {
                 String product = edatabasetypeInstance.getProduct();
                 metadataConnection.setProduct(product);
                 // set mapping(DbmsId)
-                String mapping = MetadataTalendType.getDefaultDbmsFromProduct(product).getId();
-                metadataConnection.setMapping(mapping);
+                if (!ReponsitoryContextBridge.isDefautProject()) {
+                    String mapping = MetadataTalendType.getDefaultDbmsFromProduct(product).getId();
+                    metadataConnection.setMapping(mapping);
+                }
                 // set dbVersionString
                 List<EDatabaseVersion4Drivers> dbTypeList = EDatabaseVersion4Drivers.indexOfByDbType(ParamValue);
                 if (dbTypeList.size() == 1) {
@@ -198,7 +201,7 @@ public abstract class MetadataFillerImpl implements IMetadataFiller {
             } else if ("port".equalsIgnoreCase(paramKey)) {
                 metadataConnection.setPort(ParamValue);
             } else if ("dbName".equalsIgnoreCase(paramKey)) {
-                metadataConnection.setDbName(ParamValue);
+                metadataConnection.setDatabase(ParamValue);
             } else if ("otherParameter".equalsIgnoreCase(paramKey)) {
                 metadataConnection.setOtherParameter(ParamValue);
             } else if ("retrieveAllMetadata".equalsIgnoreCase(paramKey)) {

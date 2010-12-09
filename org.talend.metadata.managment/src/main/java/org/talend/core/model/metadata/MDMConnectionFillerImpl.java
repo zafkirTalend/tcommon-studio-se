@@ -71,7 +71,7 @@ public class MDMConnectionFillerImpl extends MetadataFillerImpl {
 
             // create softwareSystem
             TdSoftwareSystem softwareSystem = SoftwaredeploymentFactory.eINSTANCE.createTdSoftwareSystem();
-            softwareSystem.setName(metadataBean.getDbName());
+            softwareSystem.setName(metadataBean.getDatabase());
             // system.setSubtype(databaseProductName);
             softwareSystem.setType(SoftwareSystemConstants.DBMS.toString());
             softwareSystem.setVersion(metadataBean.getVersion());

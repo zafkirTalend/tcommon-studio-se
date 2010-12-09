@@ -102,6 +102,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         dbconn.setName(metadataBean.getDataSourceName());
         dbconn.setLabel(metadataBean.getDataSourceName());
         dbconn.setVersion(metadataBean.getVersion());
+        dbconn.setUiSchema(metadataBean.getSchema());
 
         try {
             if (sqlConnection == null || sqlConnection.isClosed()) {
@@ -143,7 +144,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             }
             // uiSchema
             EDatabaseTypeName edatabasetypeInstance = EDatabaseTypeName.getTypeFromDisplayName(connectionDbType);
-            if (edatabasetypeInstance.isNeedSchema()) {
+            if (edatabasetypeInstance.isNeedSchema() && StringUtils.isEmpty(dbconn.getUiSchema())) {
                 this.setLinked(false);
                 List<Schema> schemata = ListUtils.castList(Schema.class,
                         this.fillSchemas(connection, sqlConnection.getMetaData(), null));
@@ -279,6 +280,10 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     // MOD xqliu 2010-03-03 feature 11412
                     Catalog catalog = null;
                     if (filterMetadaElement(catalogFilter, catalogName)) {
+                        // give a sid for TOS if the attribute can't be set by user on UI.
+                        if (StringUtils.isEmpty(((DatabaseConnection) dbConn).getSID())) {
+                            ((DatabaseConnection) dbConn).setSID(catalogName);
+                        }
                         catalog = CatalogHelper.createCatalog(catalogName);
                         catalogList.add(catalog);
                     } else {
@@ -437,7 +442,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             } else {// schema
                 Package parentCatalog = PackageHelper.getParentPackage(catalogOrSchema);
                 schemaPattern = catalogOrSchema.getName();
-                catalogName = parentCatalog.getName();
+                catalogName = parentCatalog == null ? null : parentCatalog.getName();
             }
         }
         try {
