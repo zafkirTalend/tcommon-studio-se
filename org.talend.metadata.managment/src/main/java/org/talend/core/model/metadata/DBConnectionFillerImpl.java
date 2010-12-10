@@ -75,13 +75,14 @@ import orgomg.cwm.resource.relational.impl.CatalogImpl;
 
 /**
  * @author zshen
- *
+ * 
  */
 public class DBConnectionFillerImpl extends MetadataFillerImpl {
 
     private static Logger log = Logger.getLogger(DBConnectionFillerImpl.class);
 
     private java.sql.Connection sqlConnection = null;
+
     @Override
     public Connection fillUIConnParams(IMetadataConnection metadataBean, Connection connection) {
         if (connection == null) {
@@ -90,7 +91,6 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         if (super.fillUIConnParams(metadataBean, connection) == null) {
             return null;
         }
-
 
         DatabaseConnection dbconn = (DatabaseConnection) connection;
         dbconn.setDriverJarPath(metadataBean.getDriverJarPath());
@@ -191,13 +191,13 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             return null;
         }
         ResultSet schemas = null;
-        try{
+        try {
             schemas = dbJDBCMetadata.getSchemas();
-        }catch(SQLException e){
+        } catch (SQLException e) {
             log.error("This database don't contian construct of schema.");
             return null;
         }
-            try {
+        try {
             if (schemas != null) {
 
                 boolean hasSchema = false;
@@ -256,7 +256,6 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
 
             if (catalogNames != null) {
 
-
                 // else DB support getCatalogs() method
                 while (catalogNames.next()) {
                     // MOD xqliu 2009-11-03 bug 9841
@@ -308,7 +307,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
 
                     if (schemaRs == null) {
                         try {
-                        schemaRs = dbJDBCMetadata.getSchemas();
+                            schemaRs = dbJDBCMetadata.getSchemas();
                         } catch (SQLException e) {
                             hasSchema = false;
                             continue;
@@ -376,7 +375,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             }
         }
         try {
-            
+
             ResultSet tables = dbJDBCMetadata.getTables(catalogName, schemaPattern, tablePattern, tableType);
             String productName = dbJDBCMetadata.getDatabaseProductName();
             while (tables.next()) {
@@ -384,7 +383,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 String temptableType = tables.getString(GetTable.TABLE_TYPE.name());
                 if (TableType.VIEW.toString().equals(temptableType)) {
                     continue;
-                } 
+                }
 
                 String tableName = tables.getString(GetTable.TABLE_NAME.name());
                 if (!filterMetadaElement(tableFilter, tableName)) {
@@ -629,51 +628,54 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
 
     private void fillPkandFk(ColumnSet colSet, Map<String, TdColumn> columnMap, DatabaseMetaData dbJDBCMetadata,
             String catalogName, String schemaName, String tableName) throws Exception {
-        Map<String, ForeignKey> foreignKeysMap = new HashMap<String, ForeignKey>();
-        if (orgomg.cwm.resource.relational.RelationalPackage.eINSTANCE.getTable().isSuperTypeOf(colSet.eClass())) {
-            try {
-                // primary key
-                if (MetadataConnectionUtils.isOdbcExcel(dbJDBCMetadata.getConnection())) {
-                    log.info("This database don't support primary key and foreign key");
-                    return;
-                }
-                ResultSet pkResult = dbJDBCMetadata.getPrimaryKeys(catalogName, schemaName, tableName);
-                PrimaryKey primaryKey = null;
-                while (pkResult.next()) {
-                    String pkName = pkResult.getString(GetPrimaryKey.PK_NAME.name());
-                    String colName = pkResult.getString(GetPrimaryKey.COLUMN_NAME.name());
-                    if (pkName == null) {
-                        continue;
-                    }
-                    if (primaryKey == null) {
-                        primaryKey = orgomg.cwm.resource.relational.RelationalFactory.eINSTANCE.createPrimaryKey();
-                        primaryKey.setName(pkName);
-                    } else if (!pkName.equals(primaryKey.getName())) {
-                        throw new Exception("the table" + colSet + " have two or more primaryKeys");
-                    }
-                    columnMap.get(colName).getUniqueKey().add(primaryKey);
-                    TableHelper.addPrimaryKey((TdTable) colSet, primaryKey);
-                }
-                pkResult.close();
-                // foreign key
-                ForeignKey foreignKey = null;
-                ResultSet fkResult = dbJDBCMetadata.getImportedKeys(catalogName, schemaName, tableName);
-                while (fkResult.next()) {
-                    String fkname = fkResult.getString(GetForeignKey.FK_NAME.name());
-                    String colName = fkResult.getString(GetForeignKey.FKCOLUMN_NAME.name());
-                    if (foreignKey == null || foreignKeysMap.get(fkname) == null) {
-                        foreignKey = orgomg.cwm.resource.relational.RelationalFactory.eINSTANCE.createForeignKey();
-                        foreignKey.setName(fkname);
-                        foreignKeysMap.put(fkname, foreignKey);
-                    }
-                    columnMap.get(colName).getKeyRelationship().add(foreignKey);
+        if (columnMap.size() > 0) {
 
+            Map<String, ForeignKey> foreignKeysMap = new HashMap<String, ForeignKey>();
+            if (orgomg.cwm.resource.relational.RelationalPackage.eINSTANCE.getTable().isSuperTypeOf(colSet.eClass())) {
+                try {
+                    // primary key
+                    if (MetadataConnectionUtils.isOdbcExcel(dbJDBCMetadata.getConnection())) {
+                        log.info("This database don't support primary key and foreign key");
+                        return;
+                    }
+                    ResultSet pkResult = dbJDBCMetadata.getPrimaryKeys(catalogName, schemaName, tableName);
+                    PrimaryKey primaryKey = null;
+                    while (pkResult.next()) {
+                        String pkName = pkResult.getString(GetPrimaryKey.PK_NAME.name());
+                        String colName = pkResult.getString(GetPrimaryKey.COLUMN_NAME.name());
+                        if (pkName == null) {
+                            continue;
+                        }
+                        if (primaryKey == null) {
+                            primaryKey = orgomg.cwm.resource.relational.RelationalFactory.eINSTANCE.createPrimaryKey();
+                            primaryKey.setName(pkName);
+                        } else if (!pkName.equals(primaryKey.getName())) {
+                            throw new Exception("the table" + colSet + " have two or more primaryKeys");
+                        }
+                        columnMap.get(colName).getUniqueKey().add(primaryKey);
+                        TableHelper.addPrimaryKey((TdTable) colSet, primaryKey);
+                    }
+                    pkResult.close();
+                    // foreign key
+                    ForeignKey foreignKey = null;
+                    ResultSet fkResult = dbJDBCMetadata.getImportedKeys(catalogName, schemaName, tableName);
+                    while (fkResult.next()) {
+                        String fkname = fkResult.getString(GetForeignKey.FK_NAME.name());
+                        String colName = fkResult.getString(GetForeignKey.FKCOLUMN_NAME.name());
+                        if (foreignKey == null || foreignKeysMap.get(fkname) == null) {
+                            foreignKey = orgomg.cwm.resource.relational.RelationalFactory.eINSTANCE.createForeignKey();
+                            foreignKey.setName(fkname);
+                            foreignKeysMap.put(fkname, foreignKey);
+                        }
+                        columnMap.get(colName).getKeyRelationship().add(foreignKey);
+
+                    }
+                    fkResult.close();
+                    TableHelper.addForeignKeys((TdTable) colSet,
+                            Arrays.asList(foreignKeysMap.values().toArray(new ForeignKey[foreignKeysMap.values().size()])));
+                } catch (SQLException e) {
+                    log.error(e, e);
                 }
-                fkResult.close();
-                TableHelper.addForeignKeys((TdTable) colSet,
-                        Arrays.asList(foreignKeysMap.values().toArray(new ForeignKey[foreignKeysMap.values().size()])));
-            } catch (SQLException e) {
-                log.error(e, e);
             }
         }
     }
