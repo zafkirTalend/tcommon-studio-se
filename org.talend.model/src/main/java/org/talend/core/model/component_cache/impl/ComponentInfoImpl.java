@@ -190,7 +190,7 @@ public class ComponentInfoImpl extends EObjectImpl implements ComponentInfo {
      * @generated
      * @ordered
      */
-    protected static final boolean IS_VISIBLE_IN_COMPONENT_DEFINITION_EDEFAULT = false;
+    protected static final boolean IS_VISIBLE_IN_COMPONENT_DEFINITION_EDEFAULT = true;
 
     /**
      * The cached value of the '{@link #isIsVisibleInComponentDefinition() <em>Is Visible In Component Definition</em>}' attribute.

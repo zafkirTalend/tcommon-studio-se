@@ -146,6 +146,7 @@ public interface ComponentInfo extends EObject {
 
     /**
      * Returns the value of the '<em><b>Is Technical</b></em>' attribute.
+     * The default value is <code>"false"</code>.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Is Technical</em>' attribute isn't clear,
@@ -155,7 +156,7 @@ public interface ComponentInfo extends EObject {
      * @return the value of the '<em>Is Technical</em>' attribute.
      * @see #setIsTechnical(boolean)
      * @see org.talend.core.model.component_cache.ComponentCachePackage#getComponentInfo_IsTechnical()
-     * @model
+     * @model default="false"
      * @generated
      */
     boolean isIsTechnical();
@@ -220,6 +221,7 @@ public interface ComponentInfo extends EObject {
 
     /**
      * Returns the value of the '<em><b>Is Visible In Component Definition</b></em>' attribute.
+     * The default value is <code>"true"</code>.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Is Visible In Component Definition</em>' attribute isn't clear,
@@ -229,7 +231,7 @@ public interface ComponentInfo extends EObject {
      * @return the value of the '<em>Is Visible In Component Definition</em>' attribute.
      * @see #setIsVisibleInComponentDefinition(boolean)
      * @see org.talend.core.model.component_cache.ComponentCachePackage#getComponentInfo_IsVisibleInComponentDefinition()
-     * @model
+     * @model default="true"
      * @generated
      */
     boolean isIsVisibleInComponentDefinition();
