@@ -52,14 +52,14 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.Folder;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.RepositoryObject;
+import org.talend.core.repository.model.FolderHelper;
+import org.talend.core.repository.model.ProxyRepositoryFactory;
+import org.talend.core.repository.model.ResourceModelUtils;
+import org.talend.core.repository.utils.XmiResourceManager;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFileFactory;
-import org.talend.repository.model.FolderHelper;
-import org.talend.repository.model.ProxyRepositoryFactory;
-import org.talend.repository.model.ResourceModelUtils;
-import org.talend.repository.utils.XmiResourceManager;
 
 /**
  * DOC talend class global comment. Detailled comment

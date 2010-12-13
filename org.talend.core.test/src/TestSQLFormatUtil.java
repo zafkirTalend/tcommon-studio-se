@@ -14,7 +14,7 @@ import java.util.Collection;
 
 import org.apache.oro.text.regex.MalformedPatternException;
 import org.junit.Test;
-import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.utils.SQLFormatUtil;
 
 /**
