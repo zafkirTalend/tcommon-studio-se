@@ -23,8 +23,8 @@ import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
+import org.talend.commons.ui.runtime.ws.WindowSystem;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
-import org.talend.commons.ui.ws.WindowSystem;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>

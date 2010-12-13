@@ -25,7 +25,7 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.swt.custom.ExtendedModifyEvent;
 import org.eclipse.swt.custom.ExtendedModifyListener;
 import org.eclipse.swt.custom.StyledText;
-import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 
 /**
  * DOC qli class global comment.

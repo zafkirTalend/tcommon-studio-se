@@ -19,7 +19,7 @@ import java.util.List;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
-import org.talend.commons.ui.i18n.Messages;
+import org.talend.commons.ui.runtime.i18n.Messages;
 import org.talend.commons.ui.swt.tableviewer.IModifiedBeanListenable;
 import org.talend.commons.ui.swt.tableviewer.IModifiedBeanListener;
 import org.talend.commons.utils.data.list.IListenableListListener;

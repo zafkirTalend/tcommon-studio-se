@@ -17,7 +17,7 @@ import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.swt.widgets.Shell;
-import org.talend.commons.ui.i18n.Messages;
+import org.talend.commons.ui.runtime.i18n.Messages;
 
 /**
  * Open an Error dialog with a details area (title = "Error Message"). This dialog box show a Details button that shows

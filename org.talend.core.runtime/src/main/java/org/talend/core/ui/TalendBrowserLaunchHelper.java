@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 
-import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 
 /**
  * DOC Administrator class global comment. Detailled comment

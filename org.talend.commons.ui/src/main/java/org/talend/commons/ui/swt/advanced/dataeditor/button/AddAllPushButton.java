@@ -16,9 +16,9 @@ import java.util.List;
 
 import org.eclipse.gef.commands.Command;
 import org.eclipse.swt.widgets.Composite;
-import org.talend.commons.ui.i18n.Messages;
-import org.talend.commons.ui.image.EImage;
-import org.talend.commons.ui.image.ImageProvider;
+import org.talend.commons.ui.runtime.i18n.Messages;
+import org.talend.commons.ui.runtime.image.EImage;
+import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.ui.swt.advanced.dataeditor.control.ExtendedPushButton;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedControlViewer;
 

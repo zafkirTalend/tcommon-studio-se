@@ -17,7 +17,7 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
-import org.talend.commons.ui.image.IImage;
+import org.talend.commons.ui.runtime.image.IImage;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.Folder;

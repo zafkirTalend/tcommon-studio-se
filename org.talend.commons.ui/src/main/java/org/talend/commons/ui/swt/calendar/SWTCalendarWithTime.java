@@ -25,7 +25,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Spinner;
-import org.talend.commons.ui.i18n.Messages;
+import org.talend.commons.ui.runtime.i18n.Messages;
 import org.vafada.swtcalendar.SWTCalendar;
 
 /**

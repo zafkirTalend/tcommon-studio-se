@@ -20,7 +20,7 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Widget;
-import org.talend.commons.ui.ws.WindowSystem;
+import org.talend.commons.ui.runtime.ws.WindowSystem;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>

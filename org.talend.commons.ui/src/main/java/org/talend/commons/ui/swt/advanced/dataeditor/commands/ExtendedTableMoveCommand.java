@@ -18,7 +18,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.eclipse.gef.commands.Command;
-import org.talend.commons.ui.i18n.Messages;
+import org.talend.commons.ui.runtime.i18n.Messages;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.commons.utils.data.list.ListenableList;
 

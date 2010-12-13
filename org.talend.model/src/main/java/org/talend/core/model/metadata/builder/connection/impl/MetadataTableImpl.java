@@ -7,6 +7,7 @@ package org.talend.core.model.metadata.builder.connection.impl;
 
 import java.util.Collection;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
@@ -16,7 +17,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.hsqldb.lib.StringUtil;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
@@ -1214,7 +1214,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
      */
     @Override
     public String getLabel() {
-        if (StringUtil.isEmpty(this.label)) {
+        if (StringUtils.isEmpty(this.label)) {
             return getName();
         }
         return this.label;

@@ -57,9 +57,9 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
-import org.talend.commons.exception.ExceptionHandler;
-import org.talend.commons.ui.i18n.Messages;
-import org.talend.commons.utils.threading.AsynchronousThreading;
+import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.commons.ui.runtime.i18n.Messages;
+import org.talend.commons.ui.utils.threading.AsynchronousThreading;
 
 /**
  * <br>

@@ -9,7 +9,10 @@ Require-Bundle: org.apache.axis,
  org.eclipse.ui,
  org.talend.core.runtime,
  org.eclipse.update.core,
- org.talend.commons
+ org.talend.commons,
+ org.eclipse.core.runtime,
+ org.eclipse.ui.forms,
+ org.talend.metadata.managment
 Export-Package: org.talend.repository,
  org.talend.repository.license,
  org.talend.repository.registeruser,

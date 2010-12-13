@@ -13,7 +13,7 @@
 package org.talend.repository.ui.wizards.register;
 
 import org.eclipse.jface.wizard.Wizard;
-import org.talend.commons.ui.image.ImageProvider;
+import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ui.branding.IBrandingService;
 import org.talend.repository.i18n.Messages;

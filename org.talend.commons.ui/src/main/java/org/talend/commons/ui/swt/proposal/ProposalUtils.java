@@ -22,7 +22,7 @@ import org.eclipse.swt.custom.VerifyKeyListener;
 import org.eclipse.swt.events.VerifyEvent;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Text;
-import org.talend.commons.ui.i18n.Messages;
+import org.talend.commons.ui.runtime.i18n.Messages;
 
 /**
  * Utilities for proposals. <br/>

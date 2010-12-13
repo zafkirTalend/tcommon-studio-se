@@ -14,7 +14,7 @@ package org.talend.commons.ui.swt.extended.table;
 
 import org.eclipse.gef.commands.Command;
 import org.eclipse.swt.widgets.Table;
-import org.talend.commons.ui.i18n.Messages;
+import org.talend.commons.ui.runtime.i18n.Messages;
 import org.talend.commons.ui.swt.tableviewer.ModifiedBeanEvent;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.data.AccessorUtils;

@@ -15,7 +15,7 @@ package org.talend.commons.ui.swt.advanced.dataeditor.commands;
 import java.util.List;
 
 import org.eclipse.gef.commands.Command;
-import org.talend.commons.ui.i18n.Messages;
+import org.talend.commons.ui.runtime.i18n.Messages;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 
 /**

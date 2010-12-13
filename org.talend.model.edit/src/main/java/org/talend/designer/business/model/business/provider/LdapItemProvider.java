@@ -16,7 +16,7 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.talend.core.ui.images.ECoreImage;
+import org.talend.commons.ui.runtime.image.ECoreImage;
 
 /**
  * This is the item provider adapter for a {@link org.talend.designer.business.model.business.Ldap} object. <!--

@@ -12,8 +12,8 @@
 // ============================================================================
 package org.talend.commons.ui.swt.tableviewer.data;
 
-import org.talend.commons.exception.ExceptionHandler;
-import org.talend.commons.ui.i18n.Messages;
+import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.commons.ui.runtime.i18n.Messages;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 
 /**

@@ -27,6 +27,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
+import org.talend.commons.ui.runtime.ws.WindowSystem;
 import org.talend.commons.ui.swt.drawing.background.IBackgroundRefresher;
 import org.talend.commons.ui.swt.drawing.background.IBgDrawableComposite;
 import org.talend.commons.ui.swt.drawing.link.BezierHorizontalLink;
@@ -37,7 +38,6 @@ import org.talend.commons.ui.swt.drawing.link.LinkDescriptor;
 import org.talend.commons.ui.swt.drawing.link.LinksManager;
 import org.talend.commons.ui.swt.drawing.link.StyleLink;
 import org.talend.commons.ui.utils.TableUtils;
-import org.talend.commons.ui.ws.WindowSystem;
 
 /**
  * bqian class global comment. Detailled comment <br/>

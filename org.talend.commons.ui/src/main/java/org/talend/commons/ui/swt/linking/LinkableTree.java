@@ -25,8 +25,8 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.ScrollBar;
 import org.eclipse.swt.widgets.Tree;
+import org.talend.commons.ui.runtime.ws.WindowSystem;
 import org.talend.commons.ui.swt.drawing.background.IBackgroundRefresher;
-import org.talend.commons.ui.ws.WindowSystem;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>

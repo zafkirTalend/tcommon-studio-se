@@ -56,6 +56,7 @@ Require-Bundle: org.eclipse.core.runtime;visibility:=reexport,
  org.talend.cwm.mip;visibility:=reexport,
  org.talend.commons,
  org.eclipse.xsd,
- org.talend.utils
+ org.talend.utils,
+ org.apache.log4j
 Eclipse-LazyStart: true
 Bundle-Activator: org.talend.core.model.ModelPlugin

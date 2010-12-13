@@ -18,7 +18,7 @@ import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.talend.core.ui.images.ECoreImage;
+import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.designer.business.model.business.BusinessFactory;
 import org.talend.designer.business.model.business.BusinessPackage;
 import org.talend.designer.business.model.business.BusinessProcess;

@@ -14,7 +14,7 @@ package org.talend.commons.ui.swt.tableviewer;
 
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
-import org.talend.commons.ui.i18n.Messages;
+import org.talend.commons.ui.runtime.i18n.Messages;
 import org.talend.commons.ui.swt.celleditor.ComboxCellEditorImproved;
 import org.talend.commons.ui.swt.tableviewer.behavior.CellEditorValueAdapter;
 import org.talend.commons.ui.swt.tableviewer.behavior.ComboEditorValueAdapter;

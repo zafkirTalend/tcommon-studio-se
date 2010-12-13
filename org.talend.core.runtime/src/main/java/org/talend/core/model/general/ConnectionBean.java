@@ -15,7 +15,7 @@ package org.talend.core.model.general;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.runtime.i18n.Messages;
 import org.talend.repository.model.RepositoryConstants;
 

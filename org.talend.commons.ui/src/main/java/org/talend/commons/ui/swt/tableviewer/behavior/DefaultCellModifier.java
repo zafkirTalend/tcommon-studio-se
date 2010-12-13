@@ -16,7 +16,7 @@ import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.ListenerList;
 import org.eclipse.jface.viewers.ICellModifier;
 import org.eclipse.swt.widgets.TableItem;
-import org.talend.commons.ui.i18n.Messages;
+import org.talend.commons.ui.runtime.i18n.Messages;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 import org.talend.commons.ui.swt.tableviewer.data.AccessorUtils;

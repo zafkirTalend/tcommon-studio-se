@@ -32,9 +32,9 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
-import org.talend.expressionbuilder.IExpressionDataBean;
-import org.talend.expressionbuilder.IExtendedCellEditorBehavior;
-import org.talend.expressionbuilder.test.shadow.Variable;
+import org.talend.commons.expressionbuilder.Variable;
+import org.talend.commons.ui.expressionbuilder.IExpressionDataBean;
+import org.talend.commons.ui.expressionbuilder.IExtendedCellEditorBehavior;
 
 /**
  * yzhang class global comment. Detailled comment <br/>

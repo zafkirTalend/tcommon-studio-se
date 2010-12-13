@@ -32,7 +32,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.talend.commons.exception.BusinessException;
-import org.talend.commons.exception.MessageBoxExceptionHandler;
+import org.talend.commons.ui.runtime.exception.MessageBoxExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ui.branding.IBrandingService;
 import org.talend.repository.i18n.Messages;

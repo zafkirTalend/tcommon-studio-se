@@ -28,7 +28,8 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
-import org.talend.commons.ui.i18n.Messages;
+import org.talend.commons.ui.runtime.i18n.Messages;
+import org.talend.commons.ui.runtime.ws.WindowSystem;
 import org.talend.commons.ui.swt.drawing.background.IBackgroundRefresher;
 import org.talend.commons.ui.swt.drawing.background.IBgDrawableComposite;
 import org.talend.commons.ui.swt.drawing.link.BezierHorizontalLink;
@@ -40,7 +41,6 @@ import org.talend.commons.ui.swt.drawing.link.LinksManager;
 import org.talend.commons.ui.swt.drawing.link.StyleLink;
 import org.talend.commons.ui.utils.TableUtils;
 import org.talend.commons.ui.utils.TreeUtils;
-import org.talend.commons.ui.ws.WindowSystem;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>

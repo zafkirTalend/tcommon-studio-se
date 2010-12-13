@@ -36,4 +36,5 @@ Require-Bundle: org.talend.commons,
  org.eclipse.core.runtime,
  org.talend.dataquality,
  org.talend.common.ui.runtime;visibility:=reexport,
- org.eclipse.ui
+ org.eclipse.ui,
+ org.talend.libraries.dom4j-jaxen

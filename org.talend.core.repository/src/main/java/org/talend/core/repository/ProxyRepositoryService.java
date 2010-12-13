@@ -12,9 +12,9 @@
 // ============================================================================
 package org.talend.core.repository;
 
+import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IProxyRepositoryService;
-import org.talend.repository.model.ProxyRepositoryFactory;
 
 /**
  * DOC nrousseau class global comment. Detailled comment

@@ -38,10 +38,10 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
+import org.talend.commons.ui.runtime.ws.WindowSystem;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
-import org.talend.commons.ui.ws.WindowSystem;
-import org.talend.commons.utils.threading.AsynchronousThreading;
+import org.talend.commons.ui.utils.threading.AsynchronousThreading;
 import org.talend.commons.utils.threading.ExecutionLimiter;
 
 /**

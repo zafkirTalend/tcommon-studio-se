@@ -57,7 +57,8 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
-import org.talend.commons.ui.i18n.Messages;
+import org.talend.commons.ui.runtime.i18n.Messages;
+import org.talend.commons.ui.runtime.ws.WindowSystem;
 import org.talend.commons.ui.swt.extended.table.ModifyBeanValueCommand;
 import org.talend.commons.ui.swt.proposal.ExtendedTextCellEditorWithProposal;
 import org.talend.commons.ui.swt.tableviewer.behavior.DefaultCellModifier;
@@ -77,9 +78,8 @@ import org.talend.commons.ui.swt.tableviewer.tableeditor.TableEditorManager;
 import org.talend.commons.ui.swt.tableviewer.tableeditor.TableEditorManagerEvent;
 import org.talend.commons.ui.swt.tableviewer.tableeditor.TableEditorManager.EVENT_TYPE;
 import org.talend.commons.ui.utils.TableUtils;
-import org.talend.commons.ui.ws.WindowSystem;
+import org.talend.commons.ui.utils.threading.AsynchronousThreading;
 import org.talend.commons.utils.data.list.ListenableList;
-import org.talend.commons.utils.threading.AsynchronousThreading;
 
 /**
  * A concrete Table viewer based on the JFace <code>TableViewer</code> and the SWT <code>Table</code> control.

@@ -25,11 +25,11 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.ScrollBar;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Tree;
-import org.talend.commons.ui.ws.WindowSystem;
+import org.talend.commons.ui.runtime.ws.WindowSystem;
+import org.talend.commons.ui.utils.threading.AsynchronousThreading;
 import org.talend.commons.utils.performance.IPerformanceEvaluatorListener;
 import org.talend.commons.utils.performance.PerformanceEvaluator;
 import org.talend.commons.utils.performance.PerformanceEvaluatorEvent;
-import org.talend.commons.utils.threading.AsynchronousThreading;
 import org.talend.commons.utils.threading.ExecutionLimiterImproved;
 
 /**

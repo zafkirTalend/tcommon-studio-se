@@ -13,9 +13,9 @@
 package org.talend.commons.ui.swt.drawing.link;
 
 import org.eclipse.swt.graphics.GC;
-import org.talend.commons.ui.geometry.Curve2DBezier;
-import org.talend.commons.ui.geometry.Point2D;
-import org.talend.commons.ui.geometry.Point2DList;
+import org.talend.commons.ui.runtime.geometry.Curve2DBezier;
+import org.talend.commons.ui.runtime.geometry.Point2D;
+import org.talend.commons.ui.runtime.geometry.Point2DList;
 
 /**
  * Draw an horizontal Bezier link. Detailled comment <br/>

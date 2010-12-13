@@ -9,10 +9,12 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.emf.ecore.xmi,
  org.talend.core.runtime,
  org.talend.model,
- org.talend.common.ui.runtime
+ org.talend.common.ui.runtime,
+ org.apache.log4j,
+ org.talend.libraries.apache
 Export-Package: org.talend.core.repository,
  org.talend.core.repository.constants,
- org.talend.repository.model,
- org.talend.repository.utils
+ org.talend.core.repository.model,
+ org.talend.core.repository.utils
 Bundle-Activator: org.talend.core.repository.CoreRepositoryPlugin
 Bundle-ActivationPolicy: lazy

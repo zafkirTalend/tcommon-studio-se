@@ -17,7 +17,7 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
-import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>

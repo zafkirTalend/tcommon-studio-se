@@ -31,7 +31,7 @@ import org.talend.commons.ui.swt.colorstyledtext.rules.CToken;
 import org.talend.commons.ui.swt.colorstyledtext.rules.CasedWordRule;
 import org.talend.commons.ui.swt.colorstyledtext.rules.ColoringWordDetector;
 import org.talend.commons.ui.swt.colorstyledtext.rules.ITokenFactory;
-import org.talend.commons.utils.data.text.rules.StringRuleBasedScanner;
+import org.talend.commons.ui.utils.data.text.rules.StringRuleBasedScanner;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>

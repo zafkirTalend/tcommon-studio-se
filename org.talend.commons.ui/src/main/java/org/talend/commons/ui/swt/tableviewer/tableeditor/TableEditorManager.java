@@ -31,12 +31,12 @@ import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 import org.talend.commons.ui.swt.tableviewer.selection.ITableColumnSelectionListener;
 import org.talend.commons.ui.swt.tableviewer.sort.IColumnSortedListener;
+import org.talend.commons.ui.utils.threading.AsynchronousThreading;
 import org.talend.commons.utils.data.list.IListenableListListener;
 import org.talend.commons.utils.data.list.ListenableList;
 import org.talend.commons.utils.data.list.ListenableListEvent;
 import org.talend.commons.utils.data.list.ListenableListEvent.TYPE;
 import org.talend.commons.utils.data.map.MultiLazyValuesMap;
-import org.talend.commons.utils.threading.AsynchronousThreading;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/> $Id: TableEditorManager.java,v 1.3 2006/06/02 15:24:10

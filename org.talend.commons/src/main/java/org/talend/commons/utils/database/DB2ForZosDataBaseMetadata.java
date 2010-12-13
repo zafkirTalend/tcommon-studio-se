@@ -19,7 +19,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.talend.fakejdbc.FakeDatabaseMetaData;
+import org.talend.commons.fakejdbc.FakeDatabaseMetaData;
 
 /**
  * DOC bqian class global comment. Detailled comment

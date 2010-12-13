@@ -32,10 +32,10 @@ import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.LAYOUT_MODE;
 import org.talend.commons.ui.swt.tableviewer.selection.ILineSelectionListener;
 import org.talend.commons.ui.swt.tableviewer.selection.LineSelectionEvent;
 import org.talend.commons.ui.swt.tableviewer.selection.SelectionHelper;
+import org.talend.commons.ui.utils.threading.AsynchronousThreading;
 import org.talend.commons.utils.data.list.IListenableListListener;
 import org.talend.commons.utils.data.list.ListenableListEvent;
 import org.talend.commons.utils.data.list.ListenableListEvent.TYPE;
-import org.talend.commons.utils.threading.AsynchronousThreading;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>

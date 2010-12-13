@@ -23,8 +23,8 @@ package org.talend.commons.ui.swt.tableviewer.behavior;
 
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.TableItem;
-import org.talend.commons.ui.image.EImage;
-import org.talend.commons.ui.image.ImageProvider;
+import org.talend.commons.ui.runtime.image.EImage;
+import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 import org.talend.commons.ui.swt.tableviewer.selection.ITableColumnSelectionListener;

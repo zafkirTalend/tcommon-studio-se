@@ -12,7 +12,7 @@
 // ============================================================================
 package org.talend.core.language;
 
-import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ICoreService;
 import org.talend.core.context.Context;

@@ -18,8 +18,8 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.emf.ecore.EObject;
-import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.IService;
 import org.talend.core.model.metadata.builder.connection.Connection;

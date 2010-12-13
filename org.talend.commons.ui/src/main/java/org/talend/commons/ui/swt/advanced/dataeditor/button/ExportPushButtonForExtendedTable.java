@@ -20,7 +20,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Table;
-import org.talend.commons.ui.i18n.Messages;
+import org.talend.commons.ui.runtime.i18n.Messages;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedControlViewer;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
 import org.talend.commons.ui.swt.extended.table.ExtendedControlEvent;

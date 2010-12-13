@@ -30,7 +30,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.browser.IWebBrowser;
 import org.eclipse.update.core.SiteManager;
 import org.talend.commons.exception.BusinessException;
-import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.general.ConnectionBean;
 import org.talend.core.prefs.PreferenceManipulator;

@@ -23,7 +23,7 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 import org.eclipse.core.runtime.Platform;
-import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.swt.colorstyledtext.scanner.ColoringEditorTools;
 
 /**
