@@ -68,12 +68,12 @@ public class CreateHL7OutputTest extends TalendSwtBotForTos {
         gefBot.button("Next >").click();
 
         /* step 2 of 5 */
-        gefBot.radio("HL7Output").click();
+        gefBot.radio("HL7OutPut").click();
         gefBot.button("Next >").click();
 
         /* step 3 of 5 */
         gefBot.radio("Create from a file").click();
-        gefBot.textWithLabel("File path:").setText(
+        gefBot.textWithLabel("HL7 File path:").setText(
                 Utilities.getFileFromCurrentPluginSampleFolder(SAMPLE_RELATIVE_FILEPATH).getAbsolutePath());
         gefBot.textWithLabel("Output File Path").setText(
                 Utilities.getFileFromCurrentPluginSampleFolder(SAMPLE_RELATIVE_OUTPUT_FILEPATH).getAbsolutePath());

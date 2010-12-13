@@ -10,14 +10,16 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package tosstudio.components.basicelements;
+package tosstudio.importexport;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
 
 import junit.framework.Assert;
 
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
-import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
@@ -28,28 +30,32 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
+import org.talend.swtbot.Utilities;
 
 /**
  * DOC Administrator class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class LinkManagementTest extends TalendSwtBotForTos {
+public class ExportJobTest extends TalendSwtBotForTos {
 
-    public SWTBotTree tree;
+    private SWTBotTree tree;
 
-    public SWTBotShell shell;
+    private SWTBotShell shell;
 
-    public SWTBotView view;
+    private SWTBotView view;
 
     private SWTBotGefEditor gefEditor;
 
-    public static String JOBNAME = "linkManagement"; //$NON-NLS-1$
+    private static String JOBNAME = "test01"; //$NON-NLS-1$
+
+    private static String SAMPLE_RELATIVE_FILEPATH = "items.zip"; //$NON-NLS-1$
+
+    private static boolean isExportAsZipFile = false;
 
     @Before
-    public void createJob() {
+    public void createAJob() {
         view = gefBot.viewByTitle("Repository");
         view.setFocus();
-
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
         tree.setFocus();
         tree.select("Job Designs").contextMenu("Create job").click();
@@ -61,45 +67,34 @@ public class LinkManagementTest extends TalendSwtBotForTos {
         gefBot.textWithLabel("Name").setText(JOBNAME);
 
         gefBot.button("Finish").click();
+        gefBot.waitUntil(Conditions.shellCloses(shell));
+
+        gefEditor = gefBot.gefEditor("Job " + JOBNAME + " 0.1");
+        gefEditor.activateTool("tMsgBox").click(100, 100);
+
+        gefBot.toolbarButtonWithTooltip("Save (Ctrl+S)").click();
     }
 
     @Test
-    public void useComponentInJob() {
-        gefEditor = gefBot.gefEditor("Job " + JOBNAME + " 0.1");
+    public void exportJob() throws IOException, URISyntaxException {
+        tree.expandNode("Job Designs").getNode(JOBNAME + " 0.1").contextMenu("Export Job").click();
+        gefBot.shell("Export Job").activate();
+        gefBot.comboBoxWithLabel("To &archive file:").setText(
+                Utilities.getFileFromCurrentPluginSampleFolder(SAMPLE_RELATIVE_FILEPATH).getParent() + "\\output_job.zip");
+        gefBot.button("Finish").click();
+        gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Progress Information")), 60000);
 
-        gefEditor.activateTool("tRowGenerator").click(100, 100);
-        gefEditor.activateTool("tLogRow").click(300, 100);
-
-        SWTBotGefEditPart rowGen = getTalendComponentPart(gefEditor, "tRowGenerator_1");
-        rowGen.doubleClick();
-        shell = gefBot.shell("Talend Data Quality Enterprise Edition MPX - tRowGenerator - tRowGenerator_1");
-        shell.activate();
-        gefBot.buttonWithTooltip("Add").click();
-        gefBot.buttonWithTooltip("Add").click();
-        gefBot.button("OK").click();
-
-        gefEditor.select(rowGen);
-        gefEditor.clickContextMenu("Row").clickContextMenu("Main");
-        SWTBotGefEditPart logRow = getTalendComponentPart(gefEditor, "tLogRow_1");
-        gefEditor.click(logRow);
-
-        gefBot.viewByTitle("Component").show();
-        logRow.click();
-        gefBot.buttonWithLabel("Schema Type").click(); // label and button do not correspond
-        shell = gefBot.shell("Schema of tLogRow_1");
-        shell.activate();
-        gefBot.waitUntil(Conditions.shellIsActive("Schema of tLogRow_1"));
-        Assert.assertEquals("newColumn", gefBot.tableWithLabel("tLogRow_1 (Output)").cell(0, "Column"));
-        Assert.assertEquals("newColumn1", gefBot.tableWithLabel("tLogRow_1 (Output)").cell(1, "Column"));
-        gefBot.button("OK").click();
-
-        gefEditor.saveAndClose();
+        isExportAsZipFile = Utilities.getFileFromCurrentPluginSampleFolder("output_job.zip").exists();
+        Assert.assertEquals(true, isExportAsZipFile);
     }
 
     @After
-    public void removePreviousCreateItems() {
+    public void removePreviouslyCreateItems() throws IOException, URISyntaxException {
+        Utilities.getFileFromCurrentPluginSampleFolder("output_job.zip").delete();
+        gefBot.cTabItem("Job " + JOBNAME + " 0.1").close();
         tree.expandNode("Job Designs").getNode(JOBNAME + " 0.1").contextMenu("Delete").click();
-        tree.select("Recycle bin").contextMenu("Empty recycle bin").click();
+
+        tree.getTreeItem("Recycle bin").contextMenu("Empty recycle bin").click();
         gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
         gefBot.button("Yes").click();
     }

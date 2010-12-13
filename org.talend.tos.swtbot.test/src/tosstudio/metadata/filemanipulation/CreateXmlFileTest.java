@@ -60,7 +60,7 @@ public class CreateXmlFileTest extends TalendSwtBotForTos {
     public void createXmlFile() throws IOException, URISyntaxException {
         tree.setFocus();
 
-        tree.expandNode("Metadata").getNode("File XML").contextMenu("Create file XML").click();
+        tree.expandNode("Metadata").getNode("File xml").contextMenu("Create file xml").click();
         gefBot.waitUntil(Conditions.shellIsActive("New Xml File"));
         gefBot.shell("New Xml File").activate();
 
@@ -84,13 +84,13 @@ public class CreateXmlFileTest extends TalendSwtBotForTos {
         gefBot.button("Next >").click();
         gefBot.button("Finish").click();
 
-        SWTBotTreeItem newXmlItem = tree.expandNode("Metadata").expandNode("File XML").getNode(FILENAME + " 0.1");
+        SWTBotTreeItem newXmlItem = tree.expandNode("Metadata").expandNode("File xml").getNode(FILENAME + " 0.1");
         Assert.assertNotNull(newXmlItem);
     }
 
     @After
     public void removePreviouslyCreateItems() {
-        tree.expandNode("Metadata").expandNode("File XML").getNode(FILENAME + " 0.1").contextMenu("Delete").click();
+        tree.expandNode("Metadata").expandNode("File xml").getNode(FILENAME + " 0.1").contextMenu("Delete").click();
         tree.getTreeItem("Recycle bin").contextMenu("Empty recycle bin").click();
         gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
         gefBot.button("Yes").click();

@@ -50,9 +50,9 @@ public class CreateWebServiceTest extends TalendSwtBotForTos {
     public void createWebService() {
         tree.setFocus();
 
-        tree.expandNode("Metadata").getNode("Web Service").contextMenu("Create Web Service schema").click();
-        gefBot.waitUntil(Conditions.shellIsActive("Create new Web Service schema"));
-        gefBot.shell("Create new Web Service schema").activate();
+        tree.expandNode("Metadata").getNode("Web Service").contextMenu("Create WSDL schema").click();
+        gefBot.waitUntil(Conditions.shellIsActive("Create new WSDL schema"));
+        gefBot.shell("Create new WSDL schema").activate();
 
         /* step 1 of 4 */
         gefBot.textWithLabel("Name").setText(WEBSERVICENAME);

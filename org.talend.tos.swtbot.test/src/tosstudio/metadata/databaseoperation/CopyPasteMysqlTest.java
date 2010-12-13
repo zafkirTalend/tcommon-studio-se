@@ -73,9 +73,9 @@ public class CopyPasteMysqlTest extends TalendSwtBotForTos {
         gefBot.textWithLabel("DataBase").setText(DB);
         gefBot.button("Check").click();
 
-        shell = gefBot.shell("Check Connection");
+        shell = gefBot.shell("Check Connection ");
         shell.activate();
-        gefBot.waitUntil(Conditions.shellIsActive("Check Connection"));
+        gefBot.waitUntil(Conditions.shellIsActive("Check Connection "));
         gefBot.button("OK").click();
         gefBot.waitUntil(Conditions.shellCloses(shell));
 

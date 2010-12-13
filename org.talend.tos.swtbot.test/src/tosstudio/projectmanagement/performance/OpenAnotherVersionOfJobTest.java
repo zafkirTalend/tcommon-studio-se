@@ -10,16 +10,16 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package tosstudio.metadata.databaseoperation;
+package tosstudio.projectmanagement.performance;
 
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotCTabItem;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -31,7 +31,7 @@ import org.talend.swtbot.TalendSwtBotForTos;
  * DOC Administrator class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class DeleteMysqlTest extends TalendSwtBotForTos {
+public class OpenAnotherVersionOfJobTest extends TalendSwtBotForTos {
 
     private SWTBotTree tree;
 
@@ -39,58 +39,58 @@ public class DeleteMysqlTest extends TalendSwtBotForTos {
 
     private SWTBotView view;
 
-    private static String DBTYPE = "MySQL"; //$NON-NLS-1$
-
-    private static String DBNAME = "test_mysql"; //$NON-NLS-1$
-
-    private static String DBLOGIN = "root"; //$NON-NLS-1$
-
-    private static String DBPASSWORD = "123456"; //$NON-NLS-1$
-
-    private static String DBSERVER = "localhost"; //$NON-NLS-1$
-
-    private static String DB = "test"; //$NON-NLS-1$
+    private static String JOBNAME = "test01"; //$NON-NLS-1$
 
     @Before
-    public void createMySQL() {
+    public void createAJob() {
         view = gefBot.viewByTitle("Repository");
         view.setFocus();
-
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
         tree.setFocus();
+        tree.select("Job Designs").contextMenu("Create job").click();
 
-        tree.expandNode("Metadata").getNode("Db Connections").contextMenu("Create connection").click();
-        gefBot.waitUntil(Conditions.shellIsActive("Database Connection"));
-        gefBot.shell("Database Connection").activate();
-
-        gefBot.textWithLabel("Name").setText(DBNAME);
-        gefBot.button("Next >").click();
-        gefBot.comboBox(0).setSelection(DBTYPE);
-        gefBot.textWithLabel("Login").setText(DBLOGIN);
-        gefBot.textWithLabel("Password").setText(DBPASSWORD);
-        gefBot.textWithLabel("Server").setText(DBSERVER);
-        gefBot.textWithLabel("DataBase").setText(DB);
-        gefBot.button("Check").click();
-
-        shell = gefBot.shell("Check Connection ");
+        gefBot.waitUntil(Conditions.shellIsActive("New job"));
+        shell = gefBot.shell("New job");
         shell.activate();
-        gefBot.waitUntil(Conditions.shellIsActive("Check Connection "));
-        gefBot.button("OK").click();
-        gefBot.waitUntil(Conditions.shellCloses(shell));
+
+        gefBot.textWithLabel("Name").setText(JOBNAME);
 
         gefBot.button("Finish").click();
+        gefBot.waitUntil(Conditions.shellCloses(shell));
+
+        gefBot.toolbarButtonWithTooltip("Save (Ctrl+S)").click();
     }
 
     @Test
-    public void deleteMysql() {
-        tree.expandNode("Metadata", "Db Connections").getNode(DBNAME + " 0.1").contextMenu("Delete").click();
+    public void openAnotherVersionOfJob() {
+        gefBot.cTabItem("Job " + JOBNAME + " 0.1").close();
+        tree.expandNode("Job Designs").getNode(JOBNAME + " 0.1").contextMenu("Open an other version").click();
 
-        SWTBotTreeItem newRecycleItem = tree.expandNode("Recycle bin").select(DBNAME + " 0.1" + " ()");
-        Assert.assertNotNull(newRecycleItem);
+        gefBot.shell("New job").activate();
+        gefBot.checkBox("Create new version and open it?").click();
+        gefBot.button("M").click();
+        gefBot.button("m").click();
+        gefBot.button("Finish").click();
+
+        SWTBotCTabItem newJobTabItem1 = gefBot.cTabItem("Job " + JOBNAME + " 1.1");
+        Assert.assertNotNull(newJobTabItem1);
+
+        tree.expandNode("Job Designs").getNode(JOBNAME + " 1.1").contextMenu("Open an other version").click();
+        gefBot.shell("New job").activate();
+        gefBot.table().select(0);
+        gefBot.button("Finish").click();
+
+        SWTBotCTabItem newJobTabItem2 = gefBot.cTabItem("Job " + JOBNAME + " 0.1");
+        Assert.assertNotNull(newJobTabItem2);
     }
 
     @After
     public void removePreviouslyCreateItems() {
+        gefBot.cTabItem("Job " + JOBNAME + " 0.1").close();
+        gefBot.toolbarButtonWithTooltip("Save (Ctrl+S)").click();
+        gefBot.cTabItem("Job " + JOBNAME + " 1.1").close();
+        tree.expandNode("Job Designs").getNode(JOBNAME + " 1.1").contextMenu("Delete").click();
+
         tree.select("Recycle bin").contextMenu("Empty recycle bin").click();
         gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
         gefBot.button("Yes").click();

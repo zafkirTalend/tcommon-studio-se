@@ -56,8 +56,8 @@ public class CreateSalesforceTest extends TalendSwtBotForTos {
         tree.setFocus();
 
         tree.expandNode("Metadata").getNode("Salesforce").contextMenu("Create Salesforce schema").click();
-        gefBot.shell("New Salesforce").activate();
-        gefBot.waitUntil(Conditions.shellIsActive("New Salesforce"));
+        gefBot.shell("New Salesforce ").activate();
+        gefBot.waitUntil(Conditions.shellIsActive("New Salesforce "));
 
         /* step 1 of 4 */
         gefBot.textWithLabel("Name").setText(SALESFORCENAME);
@@ -65,10 +65,10 @@ public class CreateSalesforceTest extends TalendSwtBotForTos {
 
         /* step 2 of 4 */
         gefBot.textWithLabel("User name").setText(USERNAME);
-        gefBot.textWithLabel("Password").setText(PASSWORD);
+        gefBot.textWithLabel("Password ").setText(PASSWORD);
         gefBot.button("Check login").click();
 
-        gefBot.waitUntil(Conditions.shellIsActive("Check Connection"), 60000);
+        gefBot.waitUntil(Conditions.shellIsActive("Check Connection "), 60000);
         gefBot.button("OK").click();
         gefBot.button("Next >").click();
 
@@ -80,7 +80,7 @@ public class CreateSalesforceTest extends TalendSwtBotForTos {
             }
 
             public String getFailureMessage() {
-                gefBot.shell("New Salesforce").close();
+                gefBot.shell("New Salesforce ").close();
                 return "next button was never enabled";
             }
         }, 60000);
@@ -94,7 +94,7 @@ public class CreateSalesforceTest extends TalendSwtBotForTos {
             }
 
             public String getFailureMessage() {
-                gefBot.shell("New Salesforce").close();
+                gefBot.shell("New Salesforce ").close();
                 return "finish button was never enabled";
             }
         });

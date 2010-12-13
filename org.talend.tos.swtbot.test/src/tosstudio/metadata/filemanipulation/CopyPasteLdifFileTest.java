@@ -54,7 +54,7 @@ public class CopyPasteLdifFileTest extends TalendSwtBotForTos {
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
         tree.setFocus();
 
-        tree.expandNode("Metadata").getNode("File LDIF").contextMenu("Create file ldif").click();
+        tree.expandNode("Metadata").getNode("File ldif").contextMenu("Create file ldif").click();
         gefBot.waitUntil(Conditions.shellIsActive("New Ldif File"));
         gefBot.shell("New Ldif File").activate();
 
@@ -84,17 +84,17 @@ public class CopyPasteLdifFileTest extends TalendSwtBotForTos {
 
     @Test
     public void copyAndPasteLdifFile() {
-        tree.expandNode("Metadata", "File LDIF").getNode(FILENAME + " 0.1").contextMenu("Copy").click();
-        tree.select("Metadata", "File LDIF").contextMenu("Paste").click();
+        tree.expandNode("Metadata", "File ldif").getNode(FILENAME + " 0.1").contextMenu("Copy").click();
+        tree.select("Metadata", "File ldif").contextMenu("Paste").click();
 
-        SWTBotTreeItem newLdifItem = tree.expandNode("Metadata", "File LDIF").select("Copy_of_" + FILENAME + " 0.1");
+        SWTBotTreeItem newLdifItem = tree.expandNode("Metadata", "File ldif").select("Copy_of_" + FILENAME + " 0.1");
         Assert.assertNotNull(newLdifItem);
     }
 
     @After
     public void removePreviouslyCreateItems() {
-        tree.expandNode("Metadata", "File LDIF").getNode(FILENAME + " 0.1").contextMenu("Delete").click();
-        tree.expandNode("Metadata", "File LDIF").getNode("Copy_of_" + FILENAME + " 0.1").contextMenu("Delete").click();
+        tree.expandNode("Metadata", "File ldif").getNode(FILENAME + " 0.1").contextMenu("Delete").click();
+        tree.expandNode("Metadata", "File ldif").getNode("Copy_of_" + FILENAME + " 0.1").contextMenu("Delete").click();
 
         tree.select("Recycle bin").contextMenu("Empty recycle bin").click();
         gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));

@@ -54,7 +54,7 @@ public class DeleteLdifFileTest extends TalendSwtBotForTos {
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
         tree.setFocus();
 
-        tree.expandNode("Metadata").getNode("File LDIF").contextMenu("Create file ldif").click();
+        tree.expandNode("Metadata").getNode("File ldif").contextMenu("Create file ldif").click();
         gefBot.waitUntil(Conditions.shellIsActive("New Ldif File"));
         gefBot.shell("New Ldif File").activate();
 
@@ -84,7 +84,7 @@ public class DeleteLdifFileTest extends TalendSwtBotForTos {
 
     @Test
     public void deleteLdifFile() {
-        tree.expandNode("Metadata", "File LDIF").getNode(FILENAME + " 0.1").contextMenu("Delete").click();
+        tree.expandNode("Metadata", "File ldif").getNode(FILENAME + " 0.1").contextMenu("Delete").click();
 
         SWTBotTreeItem newLdifItem = tree.expandNode("Recycle bin").select(FILENAME + " 0.1" + " ()");
         Assert.assertNotNull(newLdifItem);

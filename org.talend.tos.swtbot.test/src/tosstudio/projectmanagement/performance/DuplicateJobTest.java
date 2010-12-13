@@ -10,20 +10,18 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package tosstudio.components.basicelements;
-
-import junit.framework.Assert;
+package tosstudio.projectmanagement.performance;
 
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
-import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
-import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,23 +31,22 @@ import org.talend.swtbot.TalendSwtBotForTos;
  * DOC Administrator class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class LinkManagementTest extends TalendSwtBotForTos {
+public class DuplicateJobTest extends TalendSwtBotForTos {
 
-    public SWTBotTree tree;
+    private SWTBotTree tree;
 
-    public SWTBotShell shell;
+    private SWTBotShell shell;
 
-    public SWTBotView view;
+    private SWTBotView view;
 
-    private SWTBotGefEditor gefEditor;
+    private static String JOBNAME = "test01"; //$NON-NLS-1$
 
-    public static String JOBNAME = "linkManagement"; //$NON-NLS-1$
+    private static String NEW_JOBNAME = "duplicate_test01"; //$NON-NLS-1$
 
     @Before
-    public void createJob() {
+    public void createAJob() {
         view = gefBot.viewByTitle("Repository");
         view.setFocus();
-
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
         tree.setFocus();
         tree.select("Job Designs").contextMenu("Create job").click();
@@ -61,44 +58,28 @@ public class LinkManagementTest extends TalendSwtBotForTos {
         gefBot.textWithLabel("Name").setText(JOBNAME);
 
         gefBot.button("Finish").click();
+        gefBot.waitUntil(Conditions.shellCloses(shell));
+
+        gefBot.toolbarButtonWithTooltip("Save (Ctrl+S)").click();
     }
 
     @Test
-    public void useComponentInJob() {
-        gefEditor = gefBot.gefEditor("Job " + JOBNAME + " 0.1");
-
-        gefEditor.activateTool("tRowGenerator").click(100, 100);
-        gefEditor.activateTool("tLogRow").click(300, 100);
-
-        SWTBotGefEditPart rowGen = getTalendComponentPart(gefEditor, "tRowGenerator_1");
-        rowGen.doubleClick();
-        shell = gefBot.shell("Talend Data Quality Enterprise Edition MPX - tRowGenerator - tRowGenerator_1");
-        shell.activate();
-        gefBot.buttonWithTooltip("Add").click();
-        gefBot.buttonWithTooltip("Add").click();
+    public void duplicateJob() {
+        tree.expandNode("Job Designs").getNode(JOBNAME + " 0.1").contextMenu("Duplicate").click();
+        gefBot.shell("Please input new name ").activate();
+        gefBot.text("Copy_of_" + JOBNAME).setText(NEW_JOBNAME);
         gefBot.button("OK").click();
 
-        gefEditor.select(rowGen);
-        gefEditor.clickContextMenu("Row").clickContextMenu("Main");
-        SWTBotGefEditPart logRow = getTalendComponentPart(gefEditor, "tLogRow_1");
-        gefEditor.click(logRow);
-
-        gefBot.viewByTitle("Component").show();
-        logRow.click();
-        gefBot.buttonWithLabel("Schema Type").click(); // label and button do not correspond
-        shell = gefBot.shell("Schema of tLogRow_1");
-        shell.activate();
-        gefBot.waitUntil(Conditions.shellIsActive("Schema of tLogRow_1"));
-        Assert.assertEquals("newColumn", gefBot.tableWithLabel("tLogRow_1 (Output)").cell(0, "Column"));
-        Assert.assertEquals("newColumn1", gefBot.tableWithLabel("tLogRow_1 (Output)").cell(1, "Column"));
-        gefBot.button("OK").click();
-
-        gefEditor.saveAndClose();
+        SWTBotTreeItem newJobItem = tree.expandNode("Job Designs").select(NEW_JOBNAME + " 0.1");
+        Assert.assertNotNull(newJobItem);
     }
 
     @After
-    public void removePreviousCreateItems() {
+    public void removePreviouslyCreateItems() {
+        gefBot.cTabItem("Job " + JOBNAME + " 0.1").close();
         tree.expandNode("Job Designs").getNode(JOBNAME + " 0.1").contextMenu("Delete").click();
+        tree.expandNode("Job Designs").getNode(NEW_JOBNAME + " 0.1").contextMenu("Delete").click();
+
         tree.select("Recycle bin").contextMenu("Empty recycle bin").click();
         gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
         gefBot.button("Yes").click();

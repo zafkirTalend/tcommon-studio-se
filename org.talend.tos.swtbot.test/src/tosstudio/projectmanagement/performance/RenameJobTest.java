@@ -10,9 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package tisstudio.metadata.sap;
-
-import junit.framework.Assert;
+package tosstudio.projectmanagement.performance;
 
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
@@ -23,6 +21,7 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,7 +31,7 @@ import org.talend.swtbot.TalendSwtBotForTos;
  * DOC Administrator class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class CreateSapConnectionTest extends TalendSwtBotForTos {
+public class RenameJobTest extends TalendSwtBotForTos {
 
     private SWTBotTree tree;
 
@@ -40,62 +39,46 @@ public class CreateSapConnectionTest extends TalendSwtBotForTos {
 
     private SWTBotView view;
 
-    private static String SAPNAME = "sap1"; //$NON-NLS-1$
+    private static String JOBNAME = "test01"; //$NON-NLS-1$
 
-    private static String CLIENT = "000"; //$NON-NLS-1$
-
-    private static String HOST = "192.168.0.185"; //$NON-NLS-1$
-
-    private static String USER = "TALEND"; //$NON-NLS-1$
-
-    private static String PASSWORD = "FRANCE"; //$NON-NLS-1$
-
-    private static String SYSTEM_NUMBER = "00"; //$NON-NLS-1$
-
-    private static String LANGUAGE = "en"; //$NON-NLS-1$
+    private static String NEW_JOBNAME = "rename_test01"; //$NON-NLS-1$
 
     @Before
-    public void InitialisePrivateFields() {
+    public void createAJob() {
         view = gefBot.viewByTitle("Repository");
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
+        tree.setFocus();
+        tree.select("Job Designs").contextMenu("Create job").click();
+
+        gefBot.waitUntil(Conditions.shellIsActive("New job"));
+        shell = gefBot.shell("New job");
+        shell.activate();
+
+        gefBot.textWithLabel("Name").setText(JOBNAME);
+
+        gefBot.button("Finish").click();
+        gefBot.waitUntil(Conditions.shellCloses(shell));
+
+        gefBot.toolbarButtonWithTooltip("Save (Ctrl+S)").click();
     }
 
     @Test
-    public void createSapConnection() {
-        tree.setFocus();
+    public void renameJob() {
+        gefBot.cTabItem("Job " + JOBNAME + " 0.1").close();
+        tree.expandNode("Job Designs").getNode(JOBNAME + " 0.1").contextMenu("Edit properties").click();
 
-        tree.expandNode("Metadata").getNode("SAP Connections").contextMenu("Create SAP connection").click();
-        gefBot.waitUntil(Conditions.shellIsActive("SAP Connection"));
-        gefBot.shell("SAP Connection").activate();
-
-        /* step 1 of 2 */
-        gefBot.textWithLabel("Name").setText(SAPNAME);
-        gefBot.button("Next >").click();
-
-        /* step 2 of 2 */
-        gefBot.textWithLabel("Client").setText(CLIENT);
-        gefBot.textWithLabel("Host").setText(HOST);
-        gefBot.textWithLabel("User").setText(USER);
-        gefBot.textWithLabel("Password").setText(PASSWORD);
-        gefBot.textWithLabel("System Number").setText(SYSTEM_NUMBER);
-        gefBot.textWithLabel("Language").setText(LANGUAGE);
-        gefBot.button("Check").click();
-        shell = gefBot.shell("Check SAP Connection ");
-        shell.activate();
-        gefBot.waitUntil(Conditions.shellIsActive("Check SAP Connection "));
-        gefBot.button("OK").click();
-        gefBot.waitUntil(Conditions.shellCloses(shell));
-
+        gefBot.shell("Edit properties").activate();
+        gefBot.text(JOBNAME).setText(NEW_JOBNAME);
         gefBot.button("Finish").click();
 
-        SWTBotTreeItem newSapItem = tree.expandNode("Metadata", "SAP Connections").select(SAPNAME + " 0.1");
-        Assert.assertNotNull(newSapItem);
+        SWTBotTreeItem newJobItem = tree.expandNode("Job Designs").select(NEW_JOBNAME + " 0.1");
+        Assert.assertNotNull(newJobItem);
     }
 
     @After
     public void removePreviouslyCreateItems() {
-        tree.expandNode("Metadata", "SAP Connections").getNode(SAPNAME + " 0.1").contextMenu("Delete").click();
+        tree.expandNode("Job Designs").getNode(NEW_JOBNAME + " 0.1").contextMenu("Delete").click();
 
         tree.select("Recycle bin").contextMenu("Empty recycle bin").click();
         gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));

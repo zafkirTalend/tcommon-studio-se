@@ -72,7 +72,7 @@ public class CreateHL7InputTest extends TalendSwtBotForTos {
         gefBot.button("Next >").click();
 
         /* step 3 of 5 */
-        gefBot.textWithLabel("File path:").setText(
+        gefBot.textWithLabel("HL7 File path:").setText(
                 Utilities.getFileFromCurrentPluginSampleFolder(SAMPLE_RELATIVE_FILEPATH).getAbsolutePath());
         gefBot.button("Next >").click();
 
@@ -82,7 +82,7 @@ public class CreateHL7InputTest extends TalendSwtBotForTos {
             gefBot.tableInGroup("Schema View").click(i, 3);
             gefBot.text().setText(COLUMN_MSH[i]);
         }
-        gefBot.comboBoxWithLabel("Segment (As Schema)").setSelection("EVN");
+        gefBot.comboBoxWithLabel("Segment(As Schema)").setSelection("EVN");
         for (int j = 0; j < 2; j++) {
             gefBot.buttonWithTooltip("Add").click();
             gefBot.tableInGroup("Schema View").click(j, 3);

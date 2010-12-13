@@ -57,7 +57,7 @@ public class CreateLdifFileTest extends TalendSwtBotForTos {
     public void createLdifFile() throws IOException, URISyntaxException {
         tree.setFocus();
 
-        tree.expandNode("Metadata").getNode("File LDIF").contextMenu("Create file ldif").click();
+        tree.expandNode("Metadata").getNode("File ldif").contextMenu("Create file ldif").click();
         gefBot.waitUntil(Conditions.shellIsActive("New Ldif File"));
         gefBot.shell("New Ldif File").activate();
 
@@ -84,13 +84,13 @@ public class CreateLdifFileTest extends TalendSwtBotForTos {
         });
         gefBot.button("Finish").click();
 
-        SWTBotTreeItem newLdifItem = tree.expandNode("Metadata", "File LDIF").select(FILENAME + " 0.1");
+        SWTBotTreeItem newLdifItem = tree.expandNode("Metadata", "File ldif").select(FILENAME + " 0.1");
         Assert.assertNotNull(newLdifItem);
     }
 
     @After
     public void removePreviouslyCreateItems() {
-        tree.expandNode("Metadata", "File LDIF").getNode(FILENAME + " 0.1").contextMenu("Delete").click();
+        tree.expandNode("Metadata", "File ldif").getNode(FILENAME + " 0.1").contextMenu("Delete").click();
         tree.getTreeItem("Recycle bin").contextMenu("Empty recycle bin").click();
         gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
         gefBot.button("Yes").click();

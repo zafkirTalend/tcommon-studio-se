@@ -57,7 +57,7 @@ public class CreateRegexFileTest extends TalendSwtBotForTos {
     public void createRegexFile() throws IOException, URISyntaxException {
         tree.setFocus();
 
-        tree.expandNode("Metadata").getNode("File Regex").contextMenu("Create file regex").click();
+        tree.expandNode("Metadata").getNode("File regex").contextMenu("Create file regex").click();
         gefBot.waitUntil(Conditions.shellIsActive("New RegEx File"));
         gefBot.shell("New RegEx File").activate();
 
@@ -92,13 +92,13 @@ public class CreateRegexFileTest extends TalendSwtBotForTos {
         });
         gefBot.button("Finish").click();
 
-        SWTBotTreeItem newRegexItem = tree.expandNode("Metadata").expandNode("File Regex").getNode(FILENAME + " 0.1");
+        SWTBotTreeItem newRegexItem = tree.expandNode("Metadata").expandNode("File regex").getNode(FILENAME + " 0.1");
         Assert.assertNotNull(newRegexItem);
     }
 
     @After
     public void removePreviouslyCreateItems() {
-        tree.expandNode("Metadata").expandNode("File Regex").getNode(FILENAME + " 0.1").contextMenu("Delete").click();
+        tree.expandNode("Metadata").expandNode("File regex").getNode(FILENAME + " 0.1").contextMenu("Delete").click();
         tree.getTreeItem("Recycle bin").contextMenu("Empty recycle bin").click();
         gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
         gefBot.button("Yes").click();

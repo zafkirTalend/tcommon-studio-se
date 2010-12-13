@@ -57,7 +57,7 @@ public class DeleteXmlFileTest extends TalendSwtBotForTos {
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
         tree.setFocus();
 
-        tree.expandNode("Metadata").getNode("File XML").contextMenu("Create file XML").click();
+        tree.expandNode("Metadata").getNode("File xml").contextMenu("Create file xml").click();
         gefBot.waitUntil(Conditions.shellIsActive("New Xml File"));
         gefBot.shell("New Xml File").activate();
 
@@ -84,7 +84,7 @@ public class DeleteXmlFileTest extends TalendSwtBotForTos {
 
     @Test
     public void deleteXmlFile() {
-        tree.expandNode("Metadata", "File XML").getNode(FILENAME + " 0.1").contextMenu("Delete").click();
+        tree.expandNode("Metadata", "File xml").getNode(FILENAME + " 0.1").contextMenu("Delete").click();
 
         SWTBotTreeItem newXmlItem = tree.expandNode("Recycle bin").select(FILENAME + " 0.1" + " ()");
         Assert.assertNotNull(newXmlItem);

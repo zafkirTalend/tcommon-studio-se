@@ -54,7 +54,7 @@ public class CopyPasteRegexFileTest extends TalendSwtBotForTos {
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
         tree.setFocus();
 
-        tree.expandNode("Metadata").getNode("File Regex").contextMenu("Create file regex").click();
+        tree.expandNode("Metadata").getNode("File regex").contextMenu("Create file regex").click();
         gefBot.waitUntil(Conditions.shellIsActive("New RegEx File"));
         gefBot.shell("New RegEx File").activate();
 
@@ -93,17 +93,17 @@ public class CopyPasteRegexFileTest extends TalendSwtBotForTos {
 
     @Test
     public void copyAndPasteRegexFile() {
-        tree.expandNode("Metadata", "File Regex").getNode(FILENAME + " 0.1").contextMenu("Copy").click();
-        tree.select("Metadata", "File Regex").contextMenu("Paste").click();
+        tree.expandNode("Metadata", "File regex").getNode(FILENAME + " 0.1").contextMenu("Copy").click();
+        tree.select("Metadata", "File regex").contextMenu("Paste").click();
 
-        SWTBotTreeItem newRegexItem = tree.expandNode("Metadata", "File Regex").select("Copy_of_" + FILENAME + " 0.1");
+        SWTBotTreeItem newRegexItem = tree.expandNode("Metadata", "File regex").select("Copy_of_" + FILENAME + " 0.1");
         Assert.assertNotNull(newRegexItem);
     }
 
     @After
     public void removePreviouslyCreateItems() {
-        tree.expandNode("Metadata", "File Regex").getNode(FILENAME + " 0.1").contextMenu("Delete").click();
-        tree.expandNode("Metadata", "File Regex").getNode("Copy_of_" + FILENAME + " 0.1").contextMenu("Delete").click();
+        tree.expandNode("Metadata", "File regex").getNode(FILENAME + " 0.1").contextMenu("Delete").click();
+        tree.expandNode("Metadata", "File regex").getNode("Copy_of_" + FILENAME + " 0.1").contextMenu("Delete").click();
 
         tree.select("Recycle bin").contextMenu("Empty recycle bin").click();
         gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
