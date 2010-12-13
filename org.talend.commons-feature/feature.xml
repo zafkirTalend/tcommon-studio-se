@@ -30,12 +30,7 @@
          version="0.0.0"/>
 
    <requires>
-      <import plugin="org.talend.libraries.jackson"/>
-      <import plugin="org.talend.libraries.apache"/>
       <import plugin="org.eclipse.swt" version="3.2.0" match="compatible"/>
-      <import plugin="org.talend.libraries.ui"/>
-      <import plugin="org.talend.libraries.dom4j-jaxen"/>
-      <import plugin="org.talend.utils"/>
       <import plugin="org.eclipse.core.expressions" version="3.2.0" match="compatible"/>
       <import plugin="org.eclipse.core.filesystem" version="1.1.0" match="compatible"/>
       <import plugin="org.eclipse.core.runtime" version="3.2.0" match="compatible"/>
@@ -161,6 +156,7 @@
       <import plugin="org.hamcrest.core" version="1.1.0" match="greaterOrEqual"/>
       <import plugin="org.junit" version="4.8.1" match="greaterOrEqual"/>
       <import plugin="org.talend.common.ui.runtime" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.xsd"/>
    </requires>
 
    <plugin
@@ -871,5 +867,11 @@
          install-size="0"
          version="0.0.0"
          unpack="false"/>
+
+   <plugin
+         id="org.talend.libraries.jdom"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
 
 </feature>

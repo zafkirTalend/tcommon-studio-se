@@ -22,15 +22,7 @@
    </url>
 
    <requires>
-      <import plugin="org.talend.commons"/>
-      <import plugin="org.talend.commons.ui"/>
-      <import plugin="org.talend.libraries.dom4j-jaxen"/>
-      <import plugin="org.talend.libraries.apache"/>
-      <import plugin="org.talend.libraries"/>
-      <import plugin="org.talend.libraries.javacsv"/>
       <import plugin="org.eclipse.xsd"/>
-      <import plugin="org.talend.utils"/>
-      <import plugin="org.talend.common.ui.runtime"/>
       <import plugin="org.eclipse.core.runtime" version="3.2.0" match="compatible"/>
       <import plugin="org.eclipse.swt" version="3.5.0" match="compatible"/>
       <import plugin="org.eclipse.jface" version="3.5.0" match="compatible"/>
@@ -198,8 +190,6 @@
       <import plugin="org.eclipse.emf.edit" version="2.5.0" match="compatible"/>
       <import plugin="org.eclipse.emf.ecore" version="2.3.0" match="compatible"/>
       <import plugin="javax.xml.rpc"/>
-      <import plugin="org.talend.libraries.jdbc.mysql"/>
-      <import plugin="org.talend.libraries.jdbc.jtds"/>
       <import plugin="org.eclipse.m2m.atl.core"/>
       <import plugin="org.eclipse.m2m.atl.engine.emfvm"/>
       <import plugin="org.eclipse.m2m.atl.core.ui.vm"/>
@@ -209,6 +199,10 @@
       <import plugin="org.talend.core.runtime" version="1.0.0" match="greaterOrEqual"/>
       <import plugin="org.talend.model.migration" version="1.0.0" match="greaterOrEqual"/>
       <import plugin="org.talend.core.repository" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.talend.libraries.jdom"/>
+      <import plugin="org.talend.libraries.jackson"/>
+      <import plugin="org.apache.commons.httpclient"/>
+      <import plugin="org.talend.libraries.ui"/>
    </requires>
 
    <plugin
