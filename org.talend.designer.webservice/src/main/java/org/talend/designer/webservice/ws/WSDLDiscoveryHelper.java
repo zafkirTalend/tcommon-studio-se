@@ -5,8 +5,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.exolab.castor.xml.schema.SchemaException;
-import org.talend.commons.exception.ExceptionHandler;
-import org.talend.commons.exception.MessageBoxExceptionHandler;
+import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.commons.ui.runtime.exception.MessageBoxExceptionHandler;
 import org.talend.core.model.utils.TalendTextUtils;
 import org.talend.designer.webservice.ws.wsdlinfo.Function;
 import org.talend.designer.webservice.ws.wsdlinfo.OperationInfo;
