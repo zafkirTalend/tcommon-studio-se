@@ -16,11 +16,12 @@ import java.util.Arrays;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
-import org.talend.commons.ui.image.EImage;
-import org.talend.commons.ui.image.IImage;
-import org.talend.commons.ui.image.ImageProvider;
-import org.talend.commons.ui.image.OverlayImage;
-import org.talend.commons.ui.image.OverlayImage.EPosition;
+import org.talend.commons.ui.runtime.image.ECoreImage;
+import org.talend.commons.ui.runtime.image.EImage;
+import org.talend.commons.ui.runtime.image.IImage;
+import org.talend.commons.ui.runtime.image.ImageProvider;
+import org.talend.commons.ui.runtime.image.OverlayImage;
+import org.talend.commons.ui.runtime.image.OverlayImage.EPosition;
 import org.talend.repository.model.ECDCStatus;
 import org.talend.repository.model.ERepositoryStatus;
 

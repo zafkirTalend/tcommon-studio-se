@@ -29,7 +29,8 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
-import org.talend.commons.ui.image.ImageProvider;
+import org.talend.commons.ui.runtime.image.ECoreImage;
+import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.core.i18n.Messages;
 import org.talend.core.model.context.JobContext;
 import org.talend.core.model.context.JobContextManager;
@@ -37,7 +38,6 @@ import org.talend.core.model.context.JobContextParameter;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
-import org.talend.core.ui.images.ECoreImage;
 import org.talend.repository.model.RepositoryConstants;
 
 /**

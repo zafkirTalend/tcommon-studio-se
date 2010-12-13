@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.User;
-import org.talend.repository.model.FolderHelper;
+import org.talend.core.repository.model.FolderHelper;
 
 /**
  * DOC matthieu class global comment. Detailled comment <br/>

@@ -14,7 +14,7 @@ package org.talend.core.model.action;
 
 import org.apache.log4j.Logger;
 import org.eclipse.jface.action.Action;
-import org.talend.commons.ui.image.ImageProvider;
+import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.core.i18n.Messages;
 
 /**

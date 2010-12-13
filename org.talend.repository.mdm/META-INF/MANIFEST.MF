@@ -4,17 +4,23 @@ Bundle-Name: Mdm Plug-in
 Bundle-SymbolicName: org.talend.repository.mdm;singleton:=true
 Bundle-Version: 3.0.0.qualifier
 Bundle-Activator: org.talend.repository.mdm.MDMPlugin
-Require-Bundle: org.eclipse.core.runtime,
+Require-Bundle: javax.xml.rpc,
+ org.eclipse.ui.workbench,
+ org.eclipse.core.runtime,
  org.talend.commons.ui,
- org.talend.designer.core,
+ org.talend.core.repository,
  org.eclipse.xsd,
  org.eclipse.datatools.enablement.oda.xml,
  org.talend.repository,
+ org.talend.metadata.managment,
  org.talend.core,
+ org.talend.designer.core,
  org.apache.axis,
  org.talend.model,
- org.talend.metadata.managment
+ org.eclipse.jface,
+ org.talend.libraries.apache
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: .Talend SA.
 Bundle-ClassPath: lib/mdm.jar,
  .
+Import-Package: org.eclipse.gef.commands

@@ -18,8 +18,8 @@ import org.eclipse.ui.IViewReference;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.talend.core.CorePlugin;
+import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.rcp.i18n.Messages;
-import org.talend.repository.model.ProxyRepositoryFactory;
 import org.talend.repository.ui.login.LoginDialog;
 import org.talend.repository.ui.views.IRepositoryView;
 

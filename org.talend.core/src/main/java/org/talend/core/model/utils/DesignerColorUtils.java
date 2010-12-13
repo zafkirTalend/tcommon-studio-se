@@ -15,7 +15,7 @@ package org.talend.core.model.utils;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.resource.StringConverter;
 import org.eclipse.swt.graphics.RGB;
-import org.talend.commons.utils.image.ColorUtils;
+import org.talend.commons.ui.utils.image.ColorUtils;
 import org.talend.core.CorePlugin;
 import org.talend.core.model.process.EConnectionType;
 

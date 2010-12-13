@@ -18,12 +18,12 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.widgets.Shell;
-import org.talend.commons.ui.image.ImageProvider;
+import org.talend.commons.ui.runtime.image.ECoreImage;
+import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.update.EUpdateItemType;
 import org.talend.core.model.update.IUpdateManager;
-import org.talend.core.ui.images.ECoreImage;
 
 /**
  * An action that can config the contexts. <br/>

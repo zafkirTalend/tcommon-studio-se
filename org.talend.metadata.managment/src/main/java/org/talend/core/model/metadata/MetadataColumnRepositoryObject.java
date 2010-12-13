@@ -20,10 +20,10 @@ import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.User;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.core.repository.model.ISubRepositoryObject;
 import org.talend.cwm.helper.SubItemHelper;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IRepositoryNode;
-import org.talend.repository.model.ISubRepositoryObject;
 
 /**
  * DOC klliu class global comment. Detailled comment

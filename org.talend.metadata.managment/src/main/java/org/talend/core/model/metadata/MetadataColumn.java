@@ -12,7 +12,7 @@
 // ============================================================================
 package org.talend.core.model.metadata;
 
-import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 
 /**
  * Definition of a column in the Meta Data. <br/>

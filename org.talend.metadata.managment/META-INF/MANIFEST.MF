@@ -5,11 +5,16 @@ Bundle-SymbolicName: org.talend.metadata.managment;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
+ org.talend.commons,
  org.talend.common.ui.runtime,
  org.talend.core.runtime,
  org.talend.model,
  org.talend.core.repository,
- org.talend.utils
+ org.talend.utils,
+ org.apache.log4j,
+ javax.xml.rpc,
+ org.talend.libraries.jdbc.mysql,
+ org.talend.libraries.jdbc.jtds
 Bundle-ActivationPolicy: lazy
 Export-Package: org.apache.axis.client,
  org.talend.core.database,

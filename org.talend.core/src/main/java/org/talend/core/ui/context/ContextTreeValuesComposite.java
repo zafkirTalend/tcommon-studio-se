@@ -50,7 +50,7 @@ import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.internal.IWorkbenchGraphicConstants;
 import org.eclipse.ui.internal.WorkbenchImages;
 import org.eclipse.ui.internal.WorkbenchMessages;
-import org.talend.commons.ui.image.ImageProvider;
+import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.ui.swt.tooltip.AbstractTreeTooltip;
 import org.talend.core.i18n.Messages;
 import org.talend.core.language.ECodeLanguage;

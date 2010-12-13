@@ -46,8 +46,9 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.swt.widgets.TreeItem;
-import org.talend.commons.ui.image.EImage;
-import org.talend.commons.ui.image.ImageProvider;
+import org.talend.commons.ui.runtime.image.ECoreImage;
+import org.talend.commons.ui.runtime.image.EImage;
+import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.core.i18n.Messages;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
@@ -75,7 +76,6 @@ import org.talend.core.ui.context.model.template.ContextParameterSortedSon;
 import org.talend.core.ui.context.model.template.ContextViewerSorter;
 import org.talend.core.ui.context.model.template.GroupByNothingProvider;
 import org.talend.core.ui.context.model.template.GroupBySourceProvider;
-import org.talend.core.ui.images.ECoreImage;
 
 /**
  * zwang class global comment. Detailled comment <br/>

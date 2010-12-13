@@ -16,7 +16,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.talend.commons.utils.workbench.preferences.ComboFieldEditor;
+import org.talend.commons.ui.utils.workbench.preferences.ComboFieldEditor;
 
 /**
  *  

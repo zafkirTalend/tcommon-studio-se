@@ -25,7 +25,7 @@ import org.eclipse.jface.text.Region;
 import org.eclipse.jface.text.source.IAnnotationHover;
 import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.swt.graphics.Point;
-import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 
 /**
  * Modificatition of the class from epic to be able to use only in a viewer. <br>

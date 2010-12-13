@@ -13,10 +13,10 @@
 package org.talend.librariesmanager.ui.views;
 
 import org.eclipse.swt.graphics.Image;
-import org.talend.commons.ui.image.ImageProvider;
+import org.talend.commons.ui.runtime.image.ECoreImage;
+import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.ui.swt.tableviewer.behavior.IColumnImageProvider;
 import org.talend.core.model.general.ModuleNeeded;
-import org.talend.core.ui.images.ECoreImage;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>

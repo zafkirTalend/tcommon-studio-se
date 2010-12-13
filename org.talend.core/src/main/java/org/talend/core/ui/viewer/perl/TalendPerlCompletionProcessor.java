@@ -44,7 +44,7 @@ import org.epic.perleditor.templates.perl.IPerlCompletionProposal;
 import org.epic.perleditor.templates.perl.ModuleCompletionHelper;
 import org.epic.perleditor.templates.perl.SubroutineEngine;
 import org.epic.perleditor.templates.perl.VariableEngine;
-import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.ui.proposal.IExternalProposals;
 import org.talend.core.ui.proposal.ProposalFactory;
 import org.talend.core.ui.viewer.proposal.TalendCompletionProposalComputer;

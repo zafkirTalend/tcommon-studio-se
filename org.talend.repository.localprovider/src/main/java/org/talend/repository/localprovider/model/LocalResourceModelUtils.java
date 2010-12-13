@@ -18,7 +18,7 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.repository.model.ResourceModelUtils;
+import org.talend.core.repository.model.ResourceModelUtils;
 
 /**
  * Provides utilities methods relative to model on IResource.<br/>

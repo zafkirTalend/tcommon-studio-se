@@ -18,8 +18,8 @@ import java.util.Map;
 
 import org.dom4j.Element;
 import org.eclipse.swt.SWT;
-import org.talend.commons.utils.image.ImageUtils;
-import org.talend.commons.utils.image.ImageUtils.ICON_SIZE;
+import org.talend.commons.ui.runtime.image.ImageUtils;
+import org.talend.commons.ui.runtime.image.ImageUtils.ICON_SIZE;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
 import org.talend.core.language.ECodeLanguage;

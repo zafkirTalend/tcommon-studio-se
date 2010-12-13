@@ -13,8 +13,8 @@
 package org.talend.librariesmanager.ui.actions;
 
 import org.eclipse.jface.action.Action;
-import org.talend.commons.ui.image.EImage;
-import org.talend.commons.ui.image.ImageProvider;
+import org.talend.commons.ui.runtime.image.EImage;
+import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.core.CorePlugin;
 import org.talend.librariesmanager.i18n.Messages;
 

@@ -39,7 +39,7 @@ import org.epic.perleditor.PerlEditorPlugin;
 import org.epic.perleditor.editors.PerlPartitioner;
 import org.epic.perleditor.editors.PerlSourceAnnotationModel;
 import org.epic.perleditor.editors.util.PerlValidator;
-import org.talend.commons.exception.MessageBoxExceptionHandler;
+import org.talend.commons.ui.runtime.exception.MessageBoxExceptionHandler;
 import org.talend.core.CorePlugin;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.process.INode;

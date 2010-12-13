@@ -32,7 +32,7 @@ import javax.xml.transform.TransformerFactory;
 import org.apache.commons.collections.map.LRUMap;
 import org.apache.commons.io.FileUtils;
 import org.eclipse.core.runtime.Path;
-import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 
 /**
  * This class is used for transfering XML file to HTML file.

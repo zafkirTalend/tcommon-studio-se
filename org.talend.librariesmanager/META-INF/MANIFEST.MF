@@ -12,7 +12,10 @@ Require-Bundle: org.talend.model,
  org.eclipse.jdt.core,
  org.talend.commons.ui,
  org.eclipse.core.expressions,
- org.talend.metadata.managment
+ org.talend.metadata.managment,
+ org.eclipse.swt,
+ org.eclipse.ui.workbench,
+ org.talend.libraries.apache
 Eclipse-LazyStart: true
 Export-Package: org.talend.librariesmanager.model,
  org.talend.librariesmanager.prefs,
