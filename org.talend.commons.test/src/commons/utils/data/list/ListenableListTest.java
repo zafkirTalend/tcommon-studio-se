@@ -22,7 +22,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-import org.apache.poi.hssf.record.formula.functions.T;
 import org.junit.Before;
 import org.junit.Test;
 import org.talend.commons.utils.data.list.IListenableListListener;
