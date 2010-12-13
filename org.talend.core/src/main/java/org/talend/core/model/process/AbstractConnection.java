@@ -53,6 +53,8 @@ public abstract class AbstractConnection implements IConnection {
 
     private int outputId;
 
+    private boolean isMonitorConnection;
+
     public boolean isActivate() {
         return this.activate;
     }
@@ -280,8 +282,11 @@ public abstract class AbstractConnection implements IConnection {
     }
 
     public boolean isMonitorConnection() {
-        // TODO Auto-generated method stub
-        return false;
+        return this.isMonitorConnection;
+    }
+
+    public void setMonitorConnection(boolean isMonitorConnection) {
+        this.isMonitorConnection = isMonitorConnection;
     }
 
     public boolean isSubjobConnection() {
