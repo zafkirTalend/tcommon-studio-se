@@ -13,6 +13,7 @@
 package org.talend.repository.documentation.generation;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -42,9 +43,11 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import org.apache.commons.lang.StringUtils;
+import org.dom4j.Attribute;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
@@ -409,6 +412,16 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
             String picName = jobName + "_" + version + IHTMLDocConstants.JOB_PREVIEW_PIC_SUFFIX; //$NON-NLS-1$
             ImageUtils.save(innerContent, picFolderPath + File.separatorChar + picName, SWT.IMAGE_PNG);
             picList.add(new File(picFolderPath + File.separatorChar + picName).toURL());
+
+            // need to generate another pic for pdf
+            ByteArrayInputStream bais = new ByteArrayInputStream(innerContent);
+            Image pdfImage = new Image(null, bais);
+            int width = pdfImage.getImageData().width;
+            int percent = 22 * 32 * 100 / width;
+            ImageUtils.save(ImageUtils.scale(pdfImage, percent), picFolderPath + File.separatorChar + "pdf_" + picName,
+                    SWT.IMAGE_PNG);
+            picList.add(new File(picFolderPath + File.separatorChar + "pdf_" + picName).toURL());
+            pdfImage.dispose();
         }
         for (NodeType node : (List<NodeType>) processType.getNode()) {
             if (node.getScreenshot() != null && node.getScreenshot().length != 0) {
@@ -424,6 +437,16 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
                 String picName = IHTMLDocConstants.EXTERNAL_NODE_PREVIEW + uniqueName + IHTMLDocConstants.JOB_PREVIEW_PIC_SUFFIX;
                 ImageUtils.save(screenshot, picFolderPath + File.separatorChar + picName, SWT.IMAGE_PNG);
                 picList.add(new File(picFolderPath + File.separatorChar + picName).toURL());
+
+                // need to generate externalNode pic for pdf
+                ByteArrayInputStream bais = new ByteArrayInputStream(screenshot);
+                Image pdfImage = new Image(null, bais);
+                int width = pdfImage.getImageData().width;
+                int percent = 22 * 32 * 100 / width;
+                ImageUtils.save(ImageUtils.scale(pdfImage, percent), picFolderPath + File.separatorChar + "pdf_" + picName,
+                        SWT.IMAGE_PNG);
+                picList.add(new File(picFolderPath + File.separatorChar + picName).toURL());
+                pdfImage.dispose();
             }
         }
 
@@ -436,7 +459,7 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
             picList.add(new File(picFolderPath + File.separatorChar + key).toURL());
         }
 
-        List<URL> resultFiles = parseXML2HTML(targetPath, jobName + "_" + version, xslFilePath); //$NON-NLS-1$
+        List<URL> resultFiles = parseXml2HtmlPdf(targetPath, jobName + "_" + version, xslFilePath); //$NON-NLS-1$
 
         resource.addResources(resultFiles);
 
@@ -480,6 +503,46 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
         return tempDirPath;
     }
 
+    private List<URL> parseXml2HtmlPdf(String tempFolderPath, String jobName, String xslFilePath) throws Exception {
+        // clear the cache, maybe need improve it latter.
+        HTMLHandler.clearExternalNodeFileCache();
+        String htmlFilePath = tempFolderPath + File.separatorChar + jobName + IHTMLDocConstants.HTML_FILE_SUFFIX;
+        String xmlFilePath = tempFolderPath + File.separatorChar + jobName + IHTMLDocConstants.XML_FILE_SUFFIX;
+        HTMLHandler.generateHTMLFile(tempFolderPath, xslFilePath, xmlFilePath, htmlFilePath, this.externalNodeHTMLMap);
+
+        // for pdf
+        File originalXmlFile = new File(xmlFilePath);
+        if (originalXmlFile.exists()) {
+            String pdfXmlPath = tempFolderPath + File.separatorChar + "pdf_" + jobName + IHTMLDocConstants.XML_FILE_SUFFIX;
+            File pdfXmlFile = new File(pdfXmlPath);
+            if (pdfXmlFile.exists()) {
+                pdfXmlFile.delete();
+            }
+            FilesUtils.copyFile(originalXmlFile, pdfXmlFile);
+
+            SAXReader saxReader = new SAXReader();
+            Document document = saxReader.read(pdfXmlFile);
+            Attribute attri = (Attribute) document.selectNodes("/project/job/preview/@picture").get(0); //$NON-NLS-1$
+            attri.setValue(IHTMLDocConstants.PICTUREFOLDERPATH + "pdf_" + jobName + IHTMLDocConstants.JOB_PREVIEW_PIC_SUFFIX);
+
+            List attributeList = document.selectNodes("/project/job/externalNodeComponents/component/@preview"); //$NON-NLS-1$
+            for (int i = 0; i < attributeList.size(); i++) {
+                Attribute at = (Attribute) attributeList.get(i);
+                String externalValue = at.getValue().substring(at.getValue().indexOf("/") + 1); //$NON-NLS-1$
+                String value = IHTMLDocConstants.PICTUREFOLDERPATH + "pdf_" + externalValue; //$NON-NLS-1$
+                at.setValue(value);
+            }
+
+            XMLHandler.generateXMLFile(tempFolderPath, pdfXmlPath, document);
+
+            HTMLHandler.clearExternalNodeFileCache();
+            String htmlPdfPath = tempFolderPath + File.separatorChar + "pdf_" + jobName + IHTMLDocConstants.HTML_FILE_SUFFIX;
+            HTMLHandler.generateHTMLFile(tempFolderPath, xslFilePath, pdfXmlPath, htmlPdfPath, this.externalNodeHTMLMap);
+        }
+
+        return getParsedUrl(tempFolderPath);
+    }
+
     /**
      * Using xslt to parse the xml to html.
      * 
@@ -491,14 +554,18 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
      * @throws Exception
      */
     private List<URL> parseXML2HTML(String tempFolderPath, String jobName, String xslFilePath) throws Exception {
-        List<URL> list = new ArrayList<URL>(1);
         // clear the cache, maybe need improve it latter.
         HTMLHandler.clearExternalNodeFileCache();
         String htmlFilePath = tempFolderPath + File.separatorChar + jobName + IHTMLDocConstants.HTML_FILE_SUFFIX;
         String xmlFilePath = tempFolderPath + File.separatorChar + jobName + IHTMLDocConstants.XML_FILE_SUFFIX;
         HTMLHandler.generateHTMLFile(tempFolderPath, xslFilePath, xmlFilePath, htmlFilePath, this.externalNodeHTMLMap);
 
-        File tmpFolder = new File(tempFolderPath);
+        return getParsedUrl(tempFolderPath);
+    }
+
+    private List<URL> getParsedUrl(String folderPath) throws Exception {
+        List<URL> list = new ArrayList<URL>(1);
+        File tmpFolder = new File(folderPath);
 
         File[] files = tmpFolder.listFiles();
         for (int i = 0; i < files.length; i++) {
