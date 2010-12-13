@@ -200,6 +200,11 @@ public class ExtractMetaDataFromDataBase {
                 while (rsTableTypes.next()) {
                     // StringUtils.trimToEmpty(name) is because bug 4547
                     String currentTableType = StringUtils.trimToEmpty(rsTableTypes.getString("TABLE_TYPE")); //$NON-NLS-1$
+                    // Because BASE TABLE which UniJDBCClientResultSet gets is not the support type of
+                    // UniJDBCDatabaseMetaData, do this so as to dispose bug 17281.
+                    if ("BASE TABLE".equalsIgnoreCase(currentTableType)) { //$NON-NLS-1$
+                        currentTableType = ETableTypes.TABLETYPE_TABLE.getName();
+                    }
                     if (ArrayUtils.contains(neededTableTypes, currentTableType)) {
                         availableTableTypes.add(currentTableType);
                     }
@@ -1257,17 +1262,17 @@ public class ExtractMetaDataFromDataBase {
                         String driverClassName = iMetadataConnection.getDriverClass();
                         String driverJar = iMetadataConnection.getDriverJarPath();
                         if (driverJar != null && !"".equals(driverJar)) {
-                            if (driverJar.contains("\\")) {//$NON-NLS-N$
-                                driverJar = driverJar.substring(driverJar.lastIndexOf("\\") + 1, driverJar.length());//$NON-NLS-N$
+                            if (driverJar.contains("\\")) {//$NON-NLS-1$
+                                driverJar = driverJar.substring(driverJar.lastIndexOf("\\") + 1, driverJar.length());//$NON-NLS-1$
                             }
                         }
-                        if (driverJar != null && !"".equals(driverJar)) {//$NON-NLS-N$
+                        if (driverJar != null && !"".equals(driverJar)) {//$NON-NLS-1$
                             dbType = ExtractMetaDataUtils.getDbTypeByClassNameAndDriverJar(driverClassName, driverJar);
                         } else {
                             dbType = ExtractMetaDataUtils.getDbTypeByClassName(driverClassName);
                         }
                     }
-                    isDerby = dbType.equals("JavaDB Embeded") || dbType.equals("HSQLDB In-Process");//$NON-NLS-N$//$NON-NLS-N$
+                    isDerby = "JavaDB Embeded".equals(dbType) || "HSQLDB In-Process".equals(dbType);//$NON-NLS-1$//$NON-NLS-2$
                 }
                 String colComment = "";//$NON-NLS-N$
                 if (!isDerby) {
