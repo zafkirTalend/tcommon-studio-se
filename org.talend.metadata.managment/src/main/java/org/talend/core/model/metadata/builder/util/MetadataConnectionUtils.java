@@ -129,9 +129,11 @@ public class MetadataConnectionUtils {
         String dbUrl = metadataBean.getUrl();
         String password = metadataBean.getPassword();
         String userName = metadataBean.getUsername();
+
         Properties props = new Properties();
         props.setProperty(TaggedValueHelper.PASSWORD, password == null ? "" : password);
         props.setProperty(TaggedValueHelper.USER, userName == null ? "" : userName);
+
         if (StringUtils.isNotBlank(dbUrl) && StringUtils.isNotBlank(driver)) {
             java.sql.Connection sqlConn = null;
             try {
@@ -322,8 +324,12 @@ public class MetadataConnectionUtils {
         // MOD mzhao 2009-06-05,Bug 7571 Get driver from catch first, if not
         // exist then get a new instance.
         Driver driver = DRIVER_CACHE.get(driverClassName);
-        if (driver != null) {
-            return driver;
+        // The case for generalJDBC
+        String driverPath = metadataBean.getDriverJarPath();
+        if (StringUtils.isEmpty(driverPath)) {
+            if (driver != null) {
+                return driver;
+            }
         }
 
         IExtension extension = Platform.getExtensionRegistry().getExtension(DRIVER_EXTENSION_POINT_ID, TOP_DRIVER_EXTENSION_ID);
