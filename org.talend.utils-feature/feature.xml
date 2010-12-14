@@ -20,10 +20,6 @@
       <import plugin="org.apache.log4j" version="1.2.15" match="greaterOrEqual"/>
    </requires>
 
-   <includes
-		 id="org.eclipse.m2m.atl"
-         version="0.0.0"/>
-   
    <plugin
          id="org.talend.libraries.apache"
          download-size="0"
