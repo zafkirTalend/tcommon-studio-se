@@ -248,6 +248,9 @@ public class FileDirCleaner {
                 }
 
             }
+
+            boolean parentDirMatches = directoriesRegExpPattern == null || dir.getName().matches(directoriesRegExpPattern);
+
             for (int i = 0; i < listFilesDirs.length; i++) {
                 File fileDirJob = listFilesDirs[i];
                 String fileDirName = fileDirJob.getName();
@@ -255,7 +258,7 @@ public class FileDirCleaner {
                 boolean dirMatches = false;
                 boolean isDirectory = fileDirJob.isDirectory();
                 boolean tooManyDirs = (isRootDirectory || !isRootDirectory && recursively) && isDirectory
-                        && maxEntriesByDirectoryAndByType != 0 && indexDir < countDirs - maxEntriesByDirectoryAndByType;
+                        && maxEntriesByDirectoryAndByType > 0 && indexDir < countDirs - maxEntriesByDirectoryAndByType;
                 boolean tooManyFiles = !isDirectory && maxEntriesByDirectoryAndByType > 0
                         && indexFile < countFiles - maxEntriesByDirectoryAndByType;
                 boolean timeExceeded = maxDurationBeforeCleaning > 0
@@ -291,7 +294,7 @@ public class FileDirCleaner {
                             }
                         } else {
                             indexFile++;
-                            if (cleanFiles && fileMatches) {
+                            if (cleanFiles && fileMatches && parentDirMatches) {
                                 if (doAction) {
                                     org.apache.commons.io.FileUtils.forceDelete(fileDirJob);
                                 } else {

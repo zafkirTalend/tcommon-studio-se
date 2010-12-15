@@ -136,6 +136,21 @@ public class TestFileDirCleaner extends TestCase {
 
     }
 
+    @Test
+    public void testBug12804FileCleanerDoesNotCountCorrectlyTheFileOccurrencesToARelatedPattern() {
+
+        int maxEntriesByDirectoryAndByType = 1;
+        long maxDurationBeforeClean = 0;
+        SCAN_STRATEGY strategy = SCAN_STRATEGY.FILES_RECURSIVELY;
+
+        /*
+         * 2 files only by directory max, no check on elapsed time, clean files ONLY, recursive search,
+         */
+        runTest(maxEntriesByDirectoryAndByType, maxDurationBeforeClean, strategy, 12, "file_level_2_index_\\d",
+                "(dir_level_2_index_1)");
+
+    }
+
     /**
      * 
      * Tests on max entries and elapsed time
@@ -291,7 +306,7 @@ public class TestFileDirCleaner extends TestCase {
         int maxEntriesByDirectoryAndByType = 1;
         long maxDurationBeforeClean = 0;
         SCAN_STRATEGY strategy = SCAN_STRATEGY.FILES_AND_DIRECTORIES_RECURSIVELY;
-        int expectedDeletedEntries = 39;
+        int expectedDeletedEntries = 24;
         String directoriesRegExpPattern = "dir_level_2_index_\\d";
 
         /*
@@ -722,11 +737,14 @@ public class TestFileDirCleaner extends TestCase {
 
             String fileName = file.getName();
 
+            String parentDir = file.getParent();
+
+            boolean parentDirMatches = directoriesRegExpPattern == null || parentDir.matches(directoriesRegExpPattern);
             boolean fileMatches = filesRegExpPattern == null || fileName.matches(filesRegExpPattern);
 
             if (currentLevel == 1 && !recursively || recursively) {
 
-                if (exists && (recursively || !recursively && currentLevel == 0) && fileMatches
+                if (exists && parentDirMatches && (recursively || !recursively && currentLevel == 0) && fileMatches
                         && (timeExceeded || countExceeded) && cleanFiles) {
                     fail("File '" + file.getAbsolutePath() + "' SHOULD NOT exist when configuration is " + toString());
                 }
