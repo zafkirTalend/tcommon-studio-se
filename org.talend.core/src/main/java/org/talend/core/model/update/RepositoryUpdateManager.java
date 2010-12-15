@@ -48,6 +48,7 @@ import org.talend.core.model.metadata.builder.connection.QueriesConnection;
 import org.talend.core.model.metadata.builder.connection.Query;
 import org.talend.core.model.metadata.builder.connection.SAPFunctionUnit;
 import org.talend.core.model.metadata.builder.connection.SAPIDocUnit;
+import org.talend.core.model.metadata.builder.connection.impl.QueryImpl;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
@@ -149,8 +150,8 @@ public abstract class RepositoryUpdateManager {
     public abstract Set<EUpdateItemType> getTypes();
 
     private boolean openPropagationDialog() {
-        return MessageDialog.openQuestion(Display.getCurrent().getActiveShell(), Messages
-                .getString("RepositoryUpdateManager.Title"), //$NON-NLS-1$
+        return MessageDialog.openQuestion(Display.getCurrent().getActiveShell(),
+                Messages.getString("RepositoryUpdateManager.Title"), //$NON-NLS-1$
                 Messages.getString("RepositoryUpdateManager.Messages")); //$NON-NLS-1$
     }
 
@@ -172,8 +173,8 @@ public abstract class RepositoryUpdateManager {
     }
 
     private boolean openRenameCheckedDialog() {
-        return MessageDialog.openQuestion(Display.getCurrent().getActiveShell(), Messages
-                .getString("RepositoryUpdateManager.RenameContextTitle"), //$NON-NLS-1$
+        return MessageDialog.openQuestion(Display.getCurrent().getActiveShell(),
+                Messages.getString("RepositoryUpdateManager.RenameContextTitle"), //$NON-NLS-1$
                 Messages.getString("RepositoryUpdateManager.RenameContextMessages")); //$NON-NLS-1$
 
     }
@@ -201,8 +202,8 @@ public abstract class RepositoryUpdateManager {
                 showed = true;
             } else if (parameter != null && !needForcePropagation()) {
                 // see feature 4786
-                boolean deactive = Boolean.parseBoolean(CorePlugin.getDefault().getDesignerCoreService().getPreferenceStore(
-                        ITalendCorePrefConstants.DEACTIVE_REPOSITORY_UPDATE));
+                boolean deactive = Boolean.parseBoolean(CorePlugin.getDefault().getDesignerCoreService()
+                        .getPreferenceStore(ITalendCorePrefConstants.DEACTIVE_REPOSITORY_UPDATE));
                 if (deactive) {
                     return false;
                 }
@@ -354,6 +355,11 @@ public abstract class RepositoryUpdateManager {
         if (object == parameter) {
             return true;
         }
+        if ((object instanceof QueryImpl) && (parameter instanceof QueryImpl)) {
+            if (((QueryImpl) object).getId().equals(((QueryImpl) parameter).getId())) {
+                return true;
+            }
+        }
         if (object instanceof List) {
             List list = ((List) object);
             if (!list.isEmpty()) {
@@ -391,7 +397,7 @@ public abstract class RepositoryUpdateManager {
             return false;
         }
         // schema
-        if (object instanceof IMetadataTable) { // 
+        if (object instanceof IMetadataTable) { //
             if (parameter instanceof ConnectionItem) { //
                 ConnectionItem connection = (ConnectionItem) parameter;
                 String source = UpdateRepositoryUtils.getRepositorySourceName(connection);
