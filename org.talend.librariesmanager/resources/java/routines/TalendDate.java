@@ -200,7 +200,7 @@ public class TalendDate {
         if (pattern != null) {
             SimpleDateFormat sdf = new SimpleDateFormat(pattern);
             String part1 = sdf.format(date1), part2 = sdf.format(date2);
-            return part1.compareTo(part2);
+            return (part1.compareTo(part2) >= 1 ? 1 : (part1.compareTo(part2) <= -1 ? -1 : 0));
         } else {
             long time1 = date1.getTime(), time2 = date2.getTime();
             return (time1 < time2 ? -1 : (time1 == time2 ? 0 : 1));
