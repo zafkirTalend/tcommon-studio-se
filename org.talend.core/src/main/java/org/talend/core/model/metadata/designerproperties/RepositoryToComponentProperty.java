@@ -1385,7 +1385,11 @@ public class RepositoryToComponentProperty {
         for (int i = 0; i < list.size(); i++) {
             Map<String, String> map = new HashMap<String, String>();
             XMLFileNode node = (XMLFileNode) list.get(i);
-            map.put("VALUE", node.getDefaultValue());
+            String defaultValue = node.getDefaultValue();
+            if (defaultValue == null) {
+                defaultValue = "";
+            }
+            map.put("VALUE", defaultValue);
             map.put("ORDER", String.valueOf(node.getOrder()));
             map.put("PATH", node.getXMLPath());
             map.put("ATTRIBUTE", node.getAttribute());
