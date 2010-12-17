@@ -38,6 +38,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.osgi.baseadaptor.BaseData;
 import org.eclipse.osgi.baseadaptor.bundlefile.BundleFile;
@@ -110,7 +111,7 @@ public class CoreService implements ICoreService {
     }
 
     public String getLanTypeString() {
-        return CorePlugin.getDefault().getPluginPreferences().getString(CorePlugin.PROJECT_LANGUAGE_TYPE);
+        return getPreferenceStore().getString(CorePlugin.PROJECT_LANGUAGE_TYPE);
     }
 
     public Image getImageWithDocExt(String extension) {
@@ -460,4 +461,11 @@ public class CoreService implements ICoreService {
 
     }
 
+    public IPreferenceStore getPreferenceStore() {
+        return CorePlugin.getDefault().getPreferenceStore();
+    }
+
+    public boolean isOpenedItemInEditor(IRepositoryViewObject object) {
+        return RepositoryManager.isOpenedItemInEditor(object);
+    }
 }

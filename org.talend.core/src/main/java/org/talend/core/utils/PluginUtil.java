@@ -17,6 +17,7 @@ import java.net.URL;
 
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Platform;
+import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 
 /**
  * DOC ycbai class global comment. Util class about plugin.
@@ -62,7 +63,7 @@ public class PluginUtil {
         try {
             str = FileLocator.toFileURL(url).getFile();
         } catch (IOException e) {
-            e.printStackTrace();
+            ExceptionHandler.process(e);
         }
         return str;
     }

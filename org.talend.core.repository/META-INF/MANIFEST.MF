@@ -12,9 +12,13 @@ Require-Bundle: org.eclipse.ui,
  org.talend.common.ui.runtime,
  org.apache.log4j,
  org.talend.libraries.apache
-Export-Package: org.talend.core.repository,
+Export-Package: org.talend.core.ldap,
+ org.talend.core.repository,
  org.talend.core.repository.constants,
  org.talend.core.repository.model,
- org.talend.core.repository.utils
+ org.talend.core.repository.utils,
+ org.talend.repository.model,
+ org.talend.repository.preview,
+ org.talend.repository.utils
 Bundle-Activator: org.talend.core.repository.CoreRepositoryPlugin
 Bundle-ActivationPolicy: lazy

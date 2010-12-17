@@ -66,10 +66,11 @@ public class Application implements IApplication {
             /*
              * setSqlpatternUsibility(context); setRefProjectUsibility(context);
              */
-
-            IRepositoryService repositoryService = (IRepositoryService) GlobalServiceRegister.getDefault().getService(
-                    IRepositoryService.class);
-            repositoryService.setRCPMode();
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(IRepositoryService.class)) {
+                IRepositoryService repositoryService = (IRepositoryService) GlobalServiceRegister.getDefault().getService(
+                        IRepositoryService.class);
+                repositoryService.setRCPMode();
+            }
 
             if (!ArrayUtils.contains(Platform.getApplicationArgs(), "--disableLoginDialog")) {
                 openLicenseAndRegister(shell);

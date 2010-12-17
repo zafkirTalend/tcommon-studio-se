@@ -21,6 +21,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 import org.talend.commons.exception.BusinessException;
@@ -120,4 +121,7 @@ public interface ICoreService extends IService {
 
     public void synchronizeSapLib();
 
+    public IPreferenceStore getPreferenceStore();
+
+    public boolean isOpenedItemInEditor(IRepositoryViewObject object);
 }

@@ -17,6 +17,7 @@ import java.util.Map;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -130,5 +131,7 @@ public interface IRepositoryService extends IService {
     public Action getRepositoryViewDoubleClickAction();
 
     public void setInternalNodeHTMLMap(INode node, Map<String, Object> internalNodeHTMLMap);
+
+    public IDialogSettings getDialogSettings();
 
 }

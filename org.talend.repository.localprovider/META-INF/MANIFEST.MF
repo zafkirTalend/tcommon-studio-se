@@ -7,6 +7,8 @@ Bundle-Activator: org.talend.repository.localprovider.RepositoryLocalProviderPlu
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.ui.views.properties.tabbed,
  org.eclipse.emf.ecore.xmi,
+ org.talend.commons,
+ org.talend.common.ui.runtime,
  org.talend.core.repository,
  org.talend.core.runtime,
  org.talend.model,

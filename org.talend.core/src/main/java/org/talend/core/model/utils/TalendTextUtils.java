@@ -24,6 +24,7 @@ import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.QueryUtil;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.utils.KeywordsValidator;
+import org.talend.core.utils.TalendQuoteUtils;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
@@ -41,74 +42,33 @@ public class TalendTextUtils {
 
     public static final String SQL_BUILDER_TITLE_COMP_MODPREFIX = "SQL Builder - Component Mode - Job:"; //$NON-NLS-1$
 
-    public static final String SINGLE_QUOTE = "'"; //$NON-NLS-1$
+    public static final String SINGLE_QUOTE = TalendQuoteUtils.SINGLE_QUOTE;
 
-    public static final String ANTI_QUOTE = "`"; //$NON-NLS-1$
+    public static final String ANTI_QUOTE = TalendQuoteUtils.ANTI_QUOTE;
 
-    public static final String QUOTATION_MARK = "\""; //$NON-NLS-1$
+    public static final String QUOTATION_MARK = TalendQuoteUtils.QUOTATION_MARK;
 
-    public static final String LBRACKET = "["; //$NON-NLS-1$
+    public static final String LBRACKET = TalendQuoteUtils.LBRACKET;
 
-    public static final String RBRACKET = "]"; //$NON-NLS-1$
+    public static final String RBRACKET = TalendQuoteUtils.RBRACKET;
 
     public static final String JAVA_END_STRING = "."; //$NON-NLS-1$
 
     private static final int LINE_MAX_NUM = 100;
 
-    private static final String JAVA_DECLARE_STRING = "\""; //$NON-NLS-1$
-
-    private static final String PERL_DECLARE_STRING = "'"; //$NON-NLS-1$
-
-    private static final String JAVA_CONNECT_STRING = "+"; //$NON-NLS-1$
-
-    private static final String PERL_CONNECT_STRING = "."; //$NON-NLS-1$
-
     private static final String PASS_COVER = "*"; //$NON-NLS-1$
 
-    /*
-     * ((?<!\\)".*?(?<!\\)") or ((?<!\\)'.?(?<!\\)')
-     */
-    private static final String QUOTE_PATTERN = "((?<!\\\\)" + getQuoteChar() + ".*?(?<!\\\\)" + getQuoteChar() + ")"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-
     public static String addQuotes(String text) {
-        ECodeLanguage language = LanguageManager.getCurrentLanguage();
-
-        switch (language) {
-        case JAVA:
-            return addQuotes(text, QUOTATION_MARK);
-        default: // PERL
-            return addQuotes(text, SINGLE_QUOTE);
-        }
+        return TalendQuoteUtils.addQuotes(text);
     }
 
     public static String declareString(String input) {
-        if (input == null) {
-            return null;
-        }
-        ECodeLanguage language = LanguageManager.getCurrentLanguage();
-
-        switch (language) {
-        case JAVA:
-            return JAVA_DECLARE_STRING + input + JAVA_DECLARE_STRING;
-        default: // PERL
-            return PERL_DECLARE_STRING + input + PERL_DECLARE_STRING;
-        }
+        return TalendQuoteUtils.declareString(input);
 
     }
 
     public static String addQuotes(String text, String quoteStyle) {
-        String newString;
-
-        if (quoteStyle.equals(SINGLE_QUOTE)) {
-            newString = SINGLE_QUOTE + checkStringQuotes(text) + SINGLE_QUOTE;
-        } else if (quoteStyle.equals(ANTI_QUOTE)) {
-            newString = ANTI_QUOTE + checkStringQuotationMarks(text) + ANTI_QUOTE;
-        } else if (quoteStyle.equals(LBRACKET) || quoteStyle.equals(RBRACKET)) {
-            newString = LBRACKET + checkStringQuotationMarks(text) + RBRACKET;
-        } else {
-            newString = QUOTATION_MARK + checkStringQuotationMarks(text) + QUOTATION_MARK;
-        }
-        return newString;
+        return TalendQuoteUtils.addQuotes(text, quoteStyle);
     }
 
     public static String addSQLQuotes(String text) {
@@ -154,20 +114,20 @@ public class TalendTextUtils {
             if (tempText.startsWith(SINGLE_QUOTE) && tempText.endsWith(SINGLE_QUOTE)) {
                 newString = text;
             } else {
-                newString = SINGLE_QUOTE + (internal ? checkStringQuotes(text) : text) + SINGLE_QUOTE;
+                newString = SINGLE_QUOTE + (internal ? TalendQuoteUtils.checkStringQuotes(text) : text) + SINGLE_QUOTE;
             }
             if (!internal) {
-                newString = checkStringQuotes(newString);
+                newString = TalendQuoteUtils.checkStringQuotes(newString);
             }
         } else if (quoteStyle.equals(ANTI_QUOTE)) {
-            newString = ANTI_QUOTE + (internal ? checkStringQuotationMarks(text) : text) + ANTI_QUOTE;
+            newString = ANTI_QUOTE + (internal ? TalendQuoteUtils.checkStringQuotationMarks(text) : text) + ANTI_QUOTE;
             if (!internal) {
-                newString = checkStringQuotationMarks(newString);
+                newString = TalendQuoteUtils.checkStringQuotationMarks(newString);
             }
         } else if (quoteStyle.equals(LBRACKET) || quoteStyle.equals(RBRACKET)) {
-            newString = LBRACKET + (internal ? checkStringQuotationMarks(text) : text) + RBRACKET;
+            newString = LBRACKET + (internal ? TalendQuoteUtils.checkStringQuotationMarks(text) : text) + RBRACKET;
             if (!internal) {
-                newString = checkStringQuotationMarks(newString);
+                newString = TalendQuoteUtils.checkStringQuotationMarks(newString);
             }
         } else if (QueryUtil.isContextQuery) {
             newString = text;
@@ -176,10 +136,11 @@ public class TalendTextUtils {
             if (tempText.startsWith(QUOTATION_MARK) && tempText.endsWith(QUOTATION_MARK)) {
                 newString = text;
             } else {
-                newString = QUOTATION_MARK + (internal ? checkStringQuotationMarks(text) : text) + QUOTATION_MARK;
+                newString = QUOTATION_MARK + (internal ? TalendQuoteUtils.checkStringQuotationMarks(text) : text)
+                        + QUOTATION_MARK;
             }
             if (!internal) {
-                newString = checkStringQuotationMarks(newString);
+                newString = TalendQuoteUtils.checkStringQuotationMarks(newString);
             }
         }
         return newString;
@@ -220,8 +181,8 @@ public class TalendTextUtils {
             String substring = string.substring(0, LINE_MAX_NUM);
             substring = substring.substring(0, getLastWord(string, substring, quoteStyle));
             String temp = substring;
-            temp = temp.replaceAll(" ", "").replaceAll("\n", "");
-            if (!"".equals(temp)) {
+            temp = temp.replaceAll(" ", "").replaceAll("\n", ""); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+            if (!"".equals(temp)) { //$NON-NLS-1$
                 after += substring + "\"+\n\""; //$NON-NLS-1$
             } else {
                 after += substring;
@@ -257,20 +218,6 @@ public class TalendTextUtils {
             return substring.length();
 
         }
-    }
-
-    private static String checkStringQuotes(String str) {
-        if (str == null) {
-            return ""; //$NON-NLS-1$
-        }
-        return str.replace("'", "\\'"); //$NON-NLS-1$ //$NON-NLS-2$
-    }
-
-    private static String checkStringQuotationMarks(String str) {
-        if (str == null) {
-            return ""; //$NON-NLS-1$
-        }
-        return str.replace("\"", "\\\""); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     public static String addQuotesWithSpaceField(String fieldName, String dbType) {
@@ -319,7 +266,7 @@ public class TalendTextUtils {
         String newFieldName = fieldName;
         String quote = getQuoteByDBType(name);
         if (!newFieldName.contains(quote)) {
-            newFieldName = addQuotesForSQLString(newFieldName, quote, simple);
+            newFieldName = TalendQuoteUtils.addQuotesForSQLString(newFieldName, quote, simple);
         }
         return newFieldName;
     }
@@ -365,54 +312,8 @@ public class TalendTextUtils {
         }
         String newFieldName = fieldName;
 
-        newFieldName = addQuotesForSQLString(newFieldName, quote, simple);
+        newFieldName = TalendQuoteUtils.addQuotesForSQLString(newFieldName, quote, simple);
         return newFieldName;
-    }
-
-    /**
-     * 
-     * ggu Comment method "addQuotesForSQLString".
-     * 
-     * if simple is true, the text should not be the context or variables.
-     */
-    public static String addQuotesForSQLString(String text, String quoteStyle, boolean simple) {
-
-        String con = getStringConnect();
-        String newString;
-        if (simple) {
-            String declare = getStringDeclare();
-            text = removeQuotes(text, declare);
-        }
-
-        if (quoteStyle.equals(SINGLE_QUOTE)) {
-            if (simple) {
-                newString = declareString(SINGLE_QUOTE + text + SINGLE_QUOTE);
-            } else {
-                newString = declareString(SINGLE_QUOTE) + con + text + con + declareString(SINGLE_QUOTE);
-            }
-        } else if (quoteStyle.equals(ANTI_QUOTE)) {
-            if (simple) {
-                newString = declareString(ANTI_QUOTE + text + ANTI_QUOTE);
-            } else {
-                newString = declareString(ANTI_QUOTE) + con + text + con + declareString(ANTI_QUOTE);
-            }
-        } else if (quoteStyle.equals(LBRACKET) || quoteStyle.equals(RBRACKET)) {
-            if (simple) {
-                newString = declareString(LBRACKET + text + RBRACKET);
-            } else {
-                newString = declareString(LBRACKET) + con + text + con + declareString(RBRACKET);
-            }
-        } else {
-            /*
-             * quote is specific
-             */
-            if (simple) {
-                newString = declareString("\\" + QUOTATION_MARK + text + "\\" + QUOTATION_MARK); //$NON-NLS-1$ //$NON-NLS-2$
-            } else {
-                newString = declareString("\\" + QUOTATION_MARK) + con + text + con + declareString("\\" + QUOTATION_MARK); //$NON-NLS-1$ //$NON-NLS-2$
-            }
-        }
-        return newString;
     }
 
     private static boolean isLeft = true;
@@ -542,37 +443,11 @@ public class TalendTextUtils {
     }
 
     public static String removeQuotes(String text) {
-        if (text == null) {
-            return null;
-        }
-        ECodeLanguage language = LanguageManager.getCurrentLanguage();
-
-        switch (language) {
-        case JAVA:
-            return removeQuotes(text, QUOTATION_MARK);
-        default: // PERL
-            return removeQuotes(text, SINGLE_QUOTE);
-        }
+        return TalendQuoteUtils.removeQuotes(text);
     }
 
     public static String removeQuotesIfExist(String text) {
-        if (text == null) {
-            return null;
-        }
-        ECodeLanguage language = LanguageManager.getCurrentLanguage();
-
-        switch (language) {
-        case JAVA:
-            if (text.startsWith(QUOTATION_MARK))
-                return removeQuotes(text, QUOTATION_MARK);
-            else
-                return text;
-        default: // PERL
-            if (text.startsWith(SINGLE_QUOTE))
-                return removeQuotes(text, SINGLE_QUOTE);
-            else
-                return text;
-        }
+        return TalendQuoteUtils.removeQuotesIfExist(text);
     }
 
     /**
@@ -583,20 +458,7 @@ public class TalendTextUtils {
      * @return
      */
     public static String removeQuotes(String text, String quotation) {
-        if (text == null) {
-            return null;
-        }
-        if (text.length() > 1) {
-            String substring = text.substring(0, 1);
-            if (quotation.equals(substring)) {
-                text = text.substring(1, text.length());
-            }
-            substring = text.substring(text.length() - 1, text.length());
-            if (quotation.equals(substring)) {
-                text = text.substring(0, text.length() - 1);
-            }
-        }
-        return text;
+        return TalendQuoteUtils.removeQuotes(text, quotation);
     }
 
     private static boolean isPerlProject() {
@@ -611,11 +473,11 @@ public class TalendTextUtils {
     }
 
     public static String getStringConnect() {
-        return isPerlProject() ? PERL_CONNECT_STRING : JAVA_CONNECT_STRING;
+        return TalendQuoteUtils.getStringConnect();
     }
 
     public static String getStringDeclare() {
-        return isPerlProject() ? PERL_DECLARE_STRING : JAVA_DECLARE_STRING;
+        return TalendQuoteUtils.getStringDeclare();
     }
 
     public static String trimParameter(String value) {
@@ -643,7 +505,7 @@ public class TalendTextUtils {
     }
 
     public static String getQuoteChar() {
-        return isPerlProject() ? SINGLE_QUOTE : QUOTATION_MARK;
+        return TalendQuoteUtils.getQuoteChar();
     }
 
     /**
@@ -653,33 +515,7 @@ public class TalendTextUtils {
      * used for the string parsing, will ignore the char \" or \'.
      */
     public static String filterQuote(final String str) {
-        String newStr = replaceNewLine(str);
-
-        Pattern regex = Pattern.compile(QUOTE_PATTERN, Pattern.CANON_EQ | Pattern.MULTILINE);
-        Matcher regexMatcher = regex.matcher(newStr);
-        String nonQuoteStr = newStr;
-        if (regexMatcher.find()) {
-            String quoteStr = regexMatcher.group(1);
-            int index = newStr.indexOf(quoteStr);
-            nonQuoteStr = newStr.substring(0, index);
-            nonQuoteStr += newStr.substring(index + quoteStr.length());
-            return filterQuote(nonQuoteStr);
-
-        }
-        return nonQuoteStr;
-    }
-
-    private static String replaceNewLine(final String str) {
-        if (str == null) {
-            return ""; //$NON-NLS-1$
-        }
-        String newStr = str;
-
-        newStr = newStr.replaceAll("\r", " "); //$NON-NLS-1$ //$NON-NLS-2$
-        newStr = newStr.replaceAll("\n", " "); //$NON-NLS-1$ //$NON-NLS-2$
-        newStr = newStr.trim();
-
-        return newStr;
+        return TalendQuoteUtils.filterQuote(str);
     }
 
     /**
@@ -690,17 +526,7 @@ public class TalendTextUtils {
      * 
      */
     public static boolean isCommonString(final String str) {
-        String newStr = replaceNewLine(str);
-
-        Pattern regex = Pattern.compile(QUOTE_PATTERN, Pattern.CANON_EQ | Pattern.MULTILINE);
-        Matcher regexMatcher = regex.matcher(newStr);
-        if (regexMatcher.find()) { // has quote
-            String non = filterQuote(newStr);
-            if (!"".equals(non.trim())) { // has variables or is expression //$NON-NLS-1$
-                return false;
-            }
-        }
-        return true;
+        return TalendQuoteUtils.isCommonString(str);
     }
 
     /**

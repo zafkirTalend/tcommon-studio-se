@@ -33,8 +33,8 @@ import org.talend.core.PluginChecker;
 import org.talend.core.i18n.Messages;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
+import org.talend.core.model.xml.XmlArray;
 import org.talend.core.prefs.ITalendCorePrefConstants;
-import org.talend.core.utils.XmlArray;
 
 /**
  * DOC chuger class global comment. Detailled comment <br/>

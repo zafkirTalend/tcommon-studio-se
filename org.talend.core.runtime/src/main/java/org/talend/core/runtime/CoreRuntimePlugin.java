@@ -13,11 +13,14 @@
 package org.talend.core.runtime;
 
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ICoreService;
 import org.talend.core.IManagementService;
 import org.talend.core.IService;
 import org.talend.core.IStatusPreferenceInitService;
 import org.talend.core.context.Context;
 import org.talend.core.model.general.ILibrariesService;
+import org.talend.core.service.IWebService;
+import org.talend.designer.core.IDesignerCoreService;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryService;
 
@@ -25,6 +28,8 @@ import org.talend.repository.model.IRepositoryService;
  * DOC nrousseau class global comment. Detailled comment
  */
 public class CoreRuntimePlugin {
+
+    public static final String PLUGIN_ID = "org.talend.core.runtime"; //$NON-NLS-1$
 
     /** Context. */
     private final Context context;
@@ -57,8 +62,27 @@ public class CoreRuntimePlugin {
     }
 
     public IRepositoryService getRepositoryService() {
-        IService service = GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
-        return (IRepositoryService) service;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IRepositoryService.class)) {
+            IService service = GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
+            return (IRepositoryService) service;
+        }
+        return null;
+    }
+
+    public IDesignerCoreService getDesignerCoreService() {
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerCoreService.class)) {
+            IService service = GlobalServiceRegister.getDefault().getService(IDesignerCoreService.class);
+            return (IDesignerCoreService) service;
+        }
+        return null;
+    }
+
+    public ICoreService getCoreService() {
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICoreService.class)) {
+            IService service = GlobalServiceRegister.getDefault().getService(ICoreService.class);
+            return (ICoreService) service;
+        }
+        return null;
     }
 
     public ILibrariesService getLibrariesService() {
@@ -73,4 +97,12 @@ public class CoreRuntimePlugin {
     public IStatusPreferenceInitService getStatusPreferenceInitService() {
         return (IStatusPreferenceInitService) GlobalServiceRegister.getDefault().getService(IStatusPreferenceInitService.class);
     }
+
+    public IWebService getWebService() {
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IWebService.class)) {
+            return (IWebService) GlobalServiceRegister.getDefault().getService(IWebService.class);
+        }
+        return null;
+    }
+
 }

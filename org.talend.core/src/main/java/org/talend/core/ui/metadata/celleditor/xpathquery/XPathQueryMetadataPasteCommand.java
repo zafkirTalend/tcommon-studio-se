@@ -18,7 +18,7 @@ import java.util.List;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.editor.MetadataTableEditor;
-import org.talend.core.ui.extended.command.MetadataPasteCommand;
+import org.talend.core.ui.metadata.extended.command.MetadataPasteCommand;
 
 /**
  * cli class global comment. Detailled comment
