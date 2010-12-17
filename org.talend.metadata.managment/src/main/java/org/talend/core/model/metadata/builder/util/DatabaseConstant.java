@@ -54,4 +54,6 @@ public final class DatabaseConstant {
     public static final String ODBC_INGRES_DRIVER_NAME = "JDBC-ODBC Bridge (CAIIOD";
 
     public static final String ODBC_PROGRESS_PRODUCT_NAME = "progress";
+
+    public static final String ODBC_TERADATA_PRODUCT_NAME = "teradata";
 }
