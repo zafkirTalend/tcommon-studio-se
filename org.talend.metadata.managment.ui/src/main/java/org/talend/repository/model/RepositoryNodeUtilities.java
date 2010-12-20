@@ -38,6 +38,7 @@ import org.talend.metadata.managment.ui.i18n.Messages;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
 import org.talend.repository.model.IRepositoryNode.EProperties;
 import org.talend.repository.model.nodes.IProjectRepositoryNode;
+import org.talend.repository.ui.views.IRepositoryView;
 
 /**
  * Utility class to manage RepositoryNode.<br/>
