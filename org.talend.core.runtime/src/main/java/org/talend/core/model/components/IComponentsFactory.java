@@ -62,4 +62,6 @@ public interface IComponentsFactory {
     public Map<String, ImageDescriptor> getAllComponentsCanBeProvided();
 
     public void initializeComponents(IProgressMonitor monitor);
+
+    public void initializeComponents(IProgressMonitor monitor, boolean duringLogon);
 }

@@ -253,13 +253,6 @@ public interface IProcessor {
      */
     public void setCodeGenerated(boolean codeGenerated);
 
-    /**
-     * DOC nrousseau Comment method "computeLibrariesPath".
-     * 
-     * @param jobModuleList
-     */
-    public void computeLibrariesPath(Set<String> jobModuleList);
-
     public String[] getProxyParameters();
 
     public void setProxyParameters(String[] proxyParameters);

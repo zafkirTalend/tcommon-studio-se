@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.designer.runprocess;
 
+import java.util.Set;
+
 import org.apache.log4j.Level;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
@@ -103,7 +105,7 @@ public interface IRunProcessService extends IService {
      */
     public void setDelegateService(IRunProcessService delegateService);
 
-    public void updateLibraries() throws CoreException;
+    public void updateLibraries(Set<String> jobModuleList, IProcess process);
 
     public void refreshView();
 
