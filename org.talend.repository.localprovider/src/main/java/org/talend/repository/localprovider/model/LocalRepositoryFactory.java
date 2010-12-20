@@ -938,7 +938,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         for (IPath path : listFolders) {
             helper.deleteFolder(path);
         }
-        xmiResourceManager.saveResource(emfProject.eResource());
+        // xmiResourceManager.saveResource(emfProject.eResource());
     }
 
     public Folder createFolder(Project project, ERepositoryObjectType type, IPath path, String label) throws PersistenceException {
@@ -1080,8 +1080,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         for (int i = 0; i < childrens.length; i++) {
             if (childrens[i] instanceof FolderItem) {
                 FolderItem children = (FolderItem) childrens[i];
-                moveFolder(type, sourcePath.append(children.getProperty().getLabel()),
-                        targetPath.append(emfFolder.getProperty().getLabel()));
+                moveFolder(type, sourcePath.append(children.getProperty().getLabel()), targetPath.append(emfFolder.getProperty()
+                        .getLabel()));
             } else {
                 emfFolder.getChildren().remove(childrens[i]);
                 newFolder.getChildren().add(childrens[i]);
@@ -1094,8 +1094,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         for (IRepositoryViewObject object : serializableFromFolder) {
             List<Resource> affectedResources = xmiResourceManager.getAffectedResources(object.getProperty());
             for (Resource resource : affectedResources) {
-                IPath path = getPhysicalProject(project).getFullPath().append(completeNewPath)
-                        .append(resource.getURI().lastSegment());
+                IPath path = getPhysicalProject(project).getFullPath().append(completeNewPath).append(
+                        resource.getURI().lastSegment());
                 xmiResourceManager.moveResource(resource, path);
             }
         }
