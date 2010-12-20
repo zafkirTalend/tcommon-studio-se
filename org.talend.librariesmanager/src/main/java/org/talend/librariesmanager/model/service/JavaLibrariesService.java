@@ -132,7 +132,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
 
     @Override
     public void checkInstalledLibraries() {
-        // Display whole TOS project libraries status. No relitionship with dynamic project classpath
+        // Display whole TOS project libraries status. No relationship with dynamic project classpath
         List<IClasspathEntry> classpath = new ArrayList<IClasspathEntry>();
         File externalLibDirectory = new File(CorePlugin.getDefault().getLibrariesService().getLibrariesPath());
 

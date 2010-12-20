@@ -339,7 +339,7 @@ public class ModulesNeededProvider {
         }
     }
 
-    private static List<ModuleNeeded> getModulesNeededForApplication() {
+    public static List<ModuleNeeded> getModulesNeededForApplication() {
         List<ModuleNeeded> importNeedsList = new ArrayList<ModuleNeeded>();
 
         IExtensionPointLimiter actionExtensionPoint = new ExtensionPointLimiterImpl(

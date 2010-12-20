@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.designer.runprocess;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -31,12 +32,19 @@ import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jdt.internal.corext.refactoring.participants.JavaProcessors;
 import org.eclipse.ui.IEditorPart;
 import org.talend.commons.CommonsPlugin;
+import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.commons.utils.generation.JavaUtils;
+import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
@@ -45,6 +53,8 @@ import org.talend.core.context.RepositoryContext;
 import org.talend.core.i18n.Messages;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
+import org.talend.core.model.general.ModuleNeeded;
+import org.talend.core.model.general.Project;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
@@ -528,15 +538,9 @@ public class ProcessorUtilities {
         jobInfo.setProcess(null);
         if (isMainJob) {
             progressMonitor.subTask(Messages.getString("ProcessorUtilities.finalizeBuild") + currentJobName); //$NON-NLS-1$
-            if (selectedProcessItem == null) { // shadow process
-                getProcessor(currentProcess, null).computeLibrariesPath(
-                        LastGenerationInfo.getInstance().getModulesNeededWithSubjobPerJob(jobInfo.getJobId(),
-                                jobInfo.getJobVersion()));
-            } else {
-                getProcessor(currentProcess, selectedProcessItem.getProperty()).computeLibrariesPath(
-                        LastGenerationInfo.getInstance().getModulesNeededWithSubjobPerJob(jobInfo.getJobId(),
-                                jobInfo.getJobVersion()));
-            }
+            CorePlugin.getDefault().getRunProcessService().updateLibraries(
+                    LastGenerationInfo.getInstance().getModulesNeededWithSubjobPerJob(jobInfo.getJobId(),
+                            jobInfo.getJobVersion()), currentProcess);
             if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA && codeModified) {
                 try {
                     ((IJavaProject) CorePlugin.getDefault().getRunProcessService().getJavaProject()).getProject().build(
@@ -1002,4 +1006,5 @@ public class ProcessorUtilities {
         String finalCommand = commandStr.replace(ITalendCorePrefConstants.DEFAULT_COMMAND_STR, sb.toString());
         return finalCommand;
     }
+
 }
