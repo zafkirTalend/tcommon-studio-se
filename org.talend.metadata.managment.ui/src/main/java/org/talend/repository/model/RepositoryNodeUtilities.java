@@ -18,6 +18,7 @@ import java.util.Set;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredViewer;
@@ -26,6 +27,8 @@ import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.PlatformUI;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.core.model.properties.FolderItem;
+import org.talend.core.model.properties.FolderType;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.SAPConnectionItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
@@ -35,7 +38,6 @@ import org.talend.metadata.managment.ui.i18n.Messages;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
 import org.talend.repository.model.IRepositoryNode.EProperties;
 import org.talend.repository.model.nodes.IProjectRepositoryNode;
-import org.talend.repository.ui.views.IRepositoryView;
 
 /**
  * Utility class to manage RepositoryNode.<br/>
@@ -90,6 +92,23 @@ public class RepositoryNodeUtilities {
                 return getPath(node.getParent());
             }
         }
+
+    }
+
+    public static IPath getFolderPath(EObject obj) {
+        if (obj == null) {
+            return null;
+        }
+        if (!(obj instanceof FolderItem)) {
+            return null;
+        }
+        FolderItem folderItem = (FolderItem) obj;
+
+        if (folderItem.getType().getValue() == FolderType.FOLDER) {
+            String label = folderItem.getProperty().getLabel();
+            return getFolderPath(folderItem.getParent()).append(label);
+        }
+        return new Path("");
 
     }
 
