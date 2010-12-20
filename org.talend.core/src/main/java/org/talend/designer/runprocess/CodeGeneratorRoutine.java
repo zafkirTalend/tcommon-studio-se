@@ -179,6 +179,7 @@ public final class CodeGeneratorRoutine {
 
         try {
             List<IRepositoryViewObject> routinesObj = proxyRepositoryFactory.getAll(ERepositoryObjectType.ROUTINES, true);
+            getRefRoutines(routinesObj, ProjectManager.getInstance().getCurrentProject().getEmfProject());
             if (process instanceof IProcess2) { // for process
                 Item processItem = ((IProcess2) process).getProperty().getItem();
                 if (processItem instanceof ProcessItem) {
@@ -215,6 +216,22 @@ public final class CodeGeneratorRoutine {
             ExceptionHandler.process(e);
         }
         return routines;
+    }
+
+    private static void getRefRoutines(List<IRepositoryViewObject> routines, org.talend.core.model.properties.Project mainProject) {
+        IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
+        try {
+            if (mainProject.getReferencedProjects() != null) {
+                for (ProjectReference reference : (List<ProjectReference>) mainProject.getReferencedProjects()) {
+                    final org.talend.core.model.properties.Project referencedProject = reference.getReferencedProject();
+                    routines.addAll(repositoryFactory
+                            .getAll(new Project(referencedProject), ERepositoryObjectType.ROUTINES, true));
+                    getRefRoutines(routines, referencedProject);
+                }
+            }
+        } catch (PersistenceException e) {
+            ExceptionHandler.process(e);
+        }
     }
 
     private static Property findRoutinesPropery(String id, String name, List<IRepositoryViewObject> routines) {
