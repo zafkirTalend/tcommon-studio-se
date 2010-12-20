@@ -16,6 +16,7 @@ import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import org.apache.xerces.impl.dtd.DTDGrammar;
@@ -56,14 +57,17 @@ public class DTDFileSchemaTreePopulator {
             node.setValue(dtd.elementName);
             node.setType(ATreeNode.ELEMENT_TYPE);
             node.setDataType(dtd.elementName);
-            initTreeNode(dtd, node);
+            initTreeNode(dtd, node, new HashSet<DTDElement>());
         }
         root.addChild(node);
         return root;
     }
 
-    private void initTreeNode(DTDElement dtdElement, ATreeNode node) throws OdaException {
-
+    private void initTreeNode(DTDElement dtdElement, ATreeNode node, HashSet<DTDElement> nodesSet) throws OdaException {
+        if (nodesSet.contains(dtdElement)) {
+            return;
+        }
+        nodesSet.add(dtdElement);
         List<DTDElement> chds = getChildren(dtdElement);
         for (DTDElement childEle : chds) {
             ATreeNode childNode = new ATreeNode();
@@ -72,7 +76,7 @@ public class DTDFileSchemaTreePopulator {
             childNode.setDataType(childEle.elementName);
             node.addChild(childNode);
             if (getChildren(childEle) != null && getChildren(childEle).size() > 0) {
-                initTreeNode(childEle, childNode);
+                initTreeNode(childEle, childNode, nodesSet);
             }
 
         }

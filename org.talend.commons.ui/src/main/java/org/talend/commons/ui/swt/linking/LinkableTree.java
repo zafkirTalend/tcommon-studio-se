@@ -113,7 +113,7 @@ public class LinkableTree implements ILinkableControl {
             tree.addListener(SWT.Paint, new Listener() {
 
                 public void handleEvent(Event event) {
-                    paintEvent(event);
+                    // paintEvent(event);
                 }
 
             });
@@ -150,6 +150,7 @@ public class LinkableTree implements ILinkableControl {
             }
 
             public void widgetSelected(SelectionEvent e) {
+
                 controlsLinker.updateLinksStyleAndControlsSelection(tree, true);
             }
 

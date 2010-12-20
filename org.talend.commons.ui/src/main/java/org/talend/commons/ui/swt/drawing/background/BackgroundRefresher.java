@@ -77,6 +77,7 @@ public class BackgroundRefresher implements IBackgroundRefresher {
     /**
      * 
      * DOC amaumont BackgroundRefresher constructor comment.
+     * 
      * @param drawableComposite
      * @param minimalTimeBetweenEachRefresh minimal time between each refresh
      */
@@ -85,11 +86,11 @@ public class BackgroundRefresher implements IBackgroundRefresher {
         this.drawableComposite = drawableComposite;
         init(minimalTimeBetweenEachRefresh);
     }
-    
+
     private ExecutionLimiterImproved executionLimiter;
 
     private void init(long refreshTimeMax) {
-        
+
         executionLimiter = new ExecutionLimiterImproved(refreshTimeMax, true, this.getClass().getSimpleName() + ".init(long)") {
 
             /*
@@ -101,9 +102,9 @@ public class BackgroundRefresher implements IBackgroundRefresher {
                 drawableComposite.getBgDrawableComposite().getDisplay().syncExec(new Runnable() {
 
                     public void run() {
-                        // if (isFinalExecution) {
-                        refreshBackground();
-                        // }
+                        if (isFinalExecution) {
+                            refreshBackground();
+                        }
                     }
 
                 });
@@ -111,7 +112,7 @@ public class BackgroundRefresher implements IBackgroundRefresher {
             }
 
         };
-        
+
         initTimeLimitForBackgroundRefresh();
         drawableComposite.getBgDrawableComposite().addControlListener(new ControlListener() {
 
@@ -153,8 +154,8 @@ public class BackgroundRefresher implements IBackgroundRefresher {
                                 && !drawableComposite.getBgDrawableComposite().isDisposed()
                                 && drawableComposite.getBgDrawableComposite().getDisplay() != null) {
 
-                            new AsynchronousThreading(0, false,
-                                    drawableComposite.getBgDrawableComposite().getDisplay(), new Runnable() {
+                            new AsynchronousThreading(0, false, drawableComposite.getBgDrawableComposite().getDisplay(),
+                                    new Runnable() {
 
                                         public void run() {
                                             // System.out.println(antialiasAllowed);
@@ -184,15 +185,14 @@ public class BackgroundRefresher implements IBackgroundRefresher {
      * DOC amaumont Comment method "updateBackground".
      */
     public synchronized void refreshBackground() {
-//         System.out.println("refreshBackground");
+        // System.out.println("refreshBackground");
 
-//         TimeMeasure.measureActive = true;
-//         TimeMeasure.display = false;
-         
-//         TimeMeasure.begin("refreshBackground");
-         
-         
-         if (drawableComposite.getBgDrawableComposite().isDisposed()) {
+        // TimeMeasure.measureActive = true;
+        // TimeMeasure.display = false;
+
+        // TimeMeasure.begin("refreshBackground");
+
+        if (drawableComposite.getBgDrawableComposite().isDisposed()) {
             return;
         }
 
@@ -228,8 +228,8 @@ public class BackgroundRefresher implements IBackgroundRefresher {
             oldImage = newImage;
 
         }
-        
-//        TimeMeasure.end("refreshBackground");
+
+        // TimeMeasure.end("refreshBackground");
 
     }
 
