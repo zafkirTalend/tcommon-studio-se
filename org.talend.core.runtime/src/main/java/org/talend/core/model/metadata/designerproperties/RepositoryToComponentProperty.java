@@ -1676,7 +1676,7 @@ public class RepositoryToComponentProperty {
                 return TalendQuoteUtils.addQuotes(connection.getBindPrincipal()).replaceAll("\\\\", "\\\\\\\\"); //$NON-NLS-1$ //$NON-NLS-2$
             }
         }
-        if (useAuthen && value.equals("PASSWD")) { //$NON-NLS-1$
+        if (useAuthen && value.equals("PASSWORD")) { //$NON-NLS-1$
             if (isContextMode(connection, connection.getBindPassword())) {
                 return connection.getBindPassword();
             } else {
