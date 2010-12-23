@@ -75,9 +75,10 @@ public class StringHandling {
      * {example} CHANGE("hello world!","world","guy") # hello world
      */
     public static String CHANGE(String oldStr, String newStr, String replacement) {
-        String newString = null;
-        newString = oldStr.replaceAll(newStr, replacement);
-        return newString;
+        if (oldStr == null || newStr == null || replacement == null)
+        	return oldStr;
+        else 
+        	return oldStr.replaceAll(newStr, replacement);
     }
 
     /**
@@ -94,12 +95,16 @@ public class StringHandling {
      * {example} COUNT("hello world!","world") # 1
      */
     public static int COUNT(String string, String subString) {
-        int counter = 0;
-        int i = -1;
-        while ((i = string.indexOf(subString, i + 1)) != -1) {
-            counter++;
-        }
-        return counter;
+    	if (string == null || subString == null){
+    		return 0;
+    	} else{
+	        int counter = 0;
+	        int i = -1;
+	        while ((i = string.indexOf(subString, i + 1)) != -1) {
+	            counter++;
+	        }
+	        return counter;
+    	}
     }
 
     /**
@@ -114,7 +119,7 @@ public class StringHandling {
      * {example} DOWNCASE("Hello") # hello
      */
     public static String DOWNCASE(String string) {
-        return string.toLowerCase();
+         return string == null ? null : string.toLowerCase();
     }
 
     /**
@@ -129,7 +134,7 @@ public class StringHandling {
      * {example} UPCASE("Hello") # HELLO
      */
     public static String UPCASE(String string) {
-        return string.toUpperCase();
+        return string == null ? null : string.toUpperCase();
     }
 
     /**
@@ -144,7 +149,7 @@ public class StringHandling {
      * {example} DQUOTE("hello") # "hello"
      */
     public static String DQUOTE(String string) {
-        return "\"" + string + "\""; //$NON-NLS-1$ //$NON-NLS-2$
+        return string == null ? null : ("\"" + string + "\""); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     /**
@@ -163,9 +168,10 @@ public class StringHandling {
      * {example} EREPLACE("hello world!","world","guy") # hello world
      */
     public static String EREPLACE(String oldStr, String newStr, String replacement) {
-        String newString = null;
-        newString = oldStr.replaceAll(newStr, replacement);
-        return newString;
+        if (oldStr == null || newStr == null || replacement == null)
+        	return oldStr;
+        else
+        	return oldStr.replaceAll(newStr, replacement);
     }
 
     /**
@@ -183,7 +189,10 @@ public class StringHandling {
      * {example} INDEX("hello world!","hello") # 0
      */
     public static int INDEX(String string, String element) {
-        return string.indexOf(element);
+    	if (string == null || element == null)
+    		return -1;
+    	else
+    		return string.indexOf(element);
     }
 
     /**
@@ -200,7 +209,7 @@ public class StringHandling {
      * {example} LEFT("hello world!",5) # hello
      */
     public static String LEFT(String string, int index) {
-        return string.substring(0, Math.min(string.length(), index));
+        return string == null ? null : string.substring(0, Math.min(string.length(), index));
     }
 
     /**
@@ -217,7 +226,7 @@ public class StringHandling {
      * {example} RIGHT("hello world!",6) # world!
      */
     public static String RIGHT(String string, int index) {
-        return string.substring(string.length() - Math.min(string.length(), index));
+        return string == null ? null : string.substring(string.length() - Math.min(string.length(), index));
     }
 
     /**
@@ -232,7 +241,7 @@ public class StringHandling {
      * {example} LEN("hello world!") # 12
      */
     public static int LEN(String string) {
-        return string.length();
+        return string == null ? -1 : string.length();
     }
 
     /**
@@ -266,7 +275,7 @@ public class StringHandling {
      * {example} SQUOTE("hellow world!") # 'hello world!'
      */
     public static String SQUOTE(String string) {
-        return "'" + string + "'"; //$NON-NLS-1$ //$NON-NLS-2$
+        return string == null ? null : ("'" + string + "'"); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     /**
@@ -302,7 +311,7 @@ public class StringHandling {
      * {example} TRIM(" hellow world! ") # hello world!
      */
     public static String TRIM(String string) {
-        return string.trim();
+        return string == null ? null : string.trim();
     }
 
     /**
@@ -317,13 +326,16 @@ public class StringHandling {
      * {example} BTRIM("hellow world! ") # helloworld!
      */
     public static String BTRIM(String string) {
-        char[] val = string.toCharArray();
-        int len = val.length;
-        while (len > 0 && val[len - 1] <= ' ') {
-            len--;
-        }
-        return string.substring(0, len);
-
+    	if (string == null){
+    		return null;
+    	} else {
+    		char[] val = string.toCharArray();
+	        int len = val.length;
+	        while (len > 0 && val[len - 1] <= ' ') {
+	            len--;
+	        }
+	        return string.substring(0, len);
+    	}
     }
 
     /**
@@ -338,14 +350,17 @@ public class StringHandling {
      * {example} FTRIM(" hellow world!") # hello world!
      */
     public static String FTRIM(String string) {
-        char[] val = string.toCharArray();
-        int st = 0;
-        int len = val.length;
-        while ((st < len) && (val[st] <= ' ')) {
-            st++;
-        }
-        return string.substring(st);
-
+    	if (string == null){
+    		return null;
+    	} else {
+	        char[] val = string.toCharArray();
+	        int st = 0;
+	        int len = val.length;
+	        while ((st < len) && (val[st] <= ' ')) {
+	            st++;
+	        }
+	        return string.substring(st);
+    	}
     }
 
 }
