@@ -731,12 +731,12 @@ public class RepositoryToComponentProperty {
             if (databaseType.equals(EDatabaseTypeName.ORACLEFORSID.getDisplayName())) {
                 // see StatsAndLogConstants
                 // This connection is Oracle_SID
-                return EDatabaseTypeName.ORACLEFORSID.getProduct();
+                return EDatabaseTypeName.ORACLEFORSID.getXmlName();
             } else if (databaseType.equals(EDatabaseTypeName.ORACLESN.getDisplayName())) {
                 // This connection is Oracle_service_name
-                return EDatabaseTypeName.ORACLESN.getProduct();
+                return EDatabaseTypeName.ORACLESN.getXmlName();
             } else if (databaseType.equals(EDatabaseTypeName.ORACLE_OCI.getDisplayName())) {
-                return EDatabaseTypeName.ORACLE_OCI.getProduct();
+                return EDatabaseTypeName.ORACLE_OCI.getXmlName();
             } else if (databaseType.equals(EDatabaseTypeName.MSSQL.getDisplayName())) {
                 return EDatabaseTypeName.MSSQL.getXMLType(); // for component
             }

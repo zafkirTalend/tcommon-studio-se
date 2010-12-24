@@ -370,7 +370,10 @@ public class ComponentToRepositoryProperty {
         }
 
         // oracle
-        else if (EDatabaseTypeName.ORACLEFORSID.getProduct().equalsIgnoreCase((String) parameter.getValue())) {
+        else if (EDatabaseTypeName.ORACLEFORSID.getProduct().equalsIgnoreCase((String) parameter.getValue())
+                || EDatabaseTypeName.ORACLEFORSID.getXmlName().equalsIgnoreCase((String) parameter.getValue())
+                || EDatabaseTypeName.ORACLESN.getXmlName().equalsIgnoreCase((String) parameter.getValue())
+                || EDatabaseTypeName.ORACLE_OCI.getXmlName().equalsIgnoreCase((String) parameter.getValue())) {
             parameter = node.getElementParameter("CONNECTION_TYPE"); //$NON-NLS-1$
             // if ("ORACLE_OCI".equals(parameter.getValue())) {
             // }
