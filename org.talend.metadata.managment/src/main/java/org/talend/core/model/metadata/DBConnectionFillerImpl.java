@@ -518,7 +518,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 int numPrecRadix = 0;
                 String columnName = columns.getString(GetColumn.COLUMN_NAME.name());
                 TdColumn column = ColumnHelper.createTdColumn(columnName);
-                TdExpression defExpression = createTdExpression(GetColumn.COLUMN_DEF.name(), columnName);
+
                 int dataType = 0;
 
                 dataType = columns.getInt(GetColumn.DATA_TYPE.name());
@@ -554,7 +554,16 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 column.setSqlDataType(sqlDataType);
                 column.getSqlDataType().setNullable(NullableType.get(columns.getInt(GetColumn.NULLABLE.name())));
                 // TdExpression
+                Object defaultvalue = null;
+                try {
+                    defaultvalue = columns.getObject(GetColumn.COLUMN_DEF.name());
+                } catch (Exception e1) {
+                    log.warn(e1, e1);
+                }
+                String defaultStr = (defaultvalue != null) ? String.valueOf(defaultvalue) : null;
+                TdExpression defExpression = createTdExpression(GetColumn.COLUMN_DEF.name(), defaultStr);
                 column.setInitialValue(defExpression);
+
                 DatabaseConnection dbConnection = (DatabaseConnection) ConnectionHelper.getConnection(colSet);
                 String dbmsId = dbConnection == null ? null : dbConnection.getDbmsId();
                 if (dbmsId != null) {
