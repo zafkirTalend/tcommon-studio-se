@@ -26,15 +26,15 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.IntegerFieldEditor;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
-import org.epic.core.preferences.PerlMainPreferencePage;
-import org.epic.perleditor.PerlEditorPlugin;
 import org.talend.core.CorePlugin;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
 import org.talend.core.i18n.Messages;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.xml.XmlArray;
 import org.talend.core.prefs.ITalendCorePrefConstants;
+import org.talend.core.service.ICorePerlService;
 
 /**
  * DOC chuger class global comment. Detailled comment <br/>
@@ -67,21 +67,21 @@ public class CorePreferencePage extends FieldEditorPreferencePage implements IWo
         DirectoryFieldEditor filePathTemp = new DirectoryFieldEditor(ITalendCorePrefConstants.FILE_PATH_TEMP, Messages
                 .getString("CorePreferencePage.temporaryFiles"), getFieldEditorParent()); //$NON-NLS-1$
         addField(filePathTemp);
-
-        FileFieldEditor perlInterpreter = new FileFieldEditor(ITalendCorePrefConstants.PERL_INTERPRETER, Messages
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICorePerlService.class)) {
+            FileFieldEditor perlInterpreter = new FileFieldEditor(ITalendCorePrefConstants.PERL_INTERPRETER, Messages
                 .getString("CorePreferencePage.perlInterpreter"), true, getFieldEditorParent()) {//$NON-NLS-1$
 
-            protected boolean checkState() {
-                if (LanguageManager.getCurrentLanguage().equals(ECodeLanguage.JAVA)) {
-                    return true;
+                protected boolean checkState() {
+                    if (LanguageManager.getCurrentLanguage().equals(ECodeLanguage.JAVA)) {
+                        return true;
+                    }
+
+                    return super.checkState();
                 }
 
-                return super.checkState();
-            }
-
-        };
+            };
         addField(perlInterpreter);
-
+        }
         FileFieldEditor javaInterpreter = new FileFieldEditor(ITalendCorePrefConstants.JAVA_INTERPRETER, Messages
                 .getString("CorePreferencePage.javaInterpreter"), true, getFieldEditorParent()){; //$NON-NLS-1$
                 protected boolean checkState() {
@@ -142,8 +142,10 @@ public class CorePreferencePage extends FieldEditorPreferencePage implements IWo
         if (ok) {
             if (LanguageManager.getCurrentLanguage().equals(ECodeLanguage.PERL)) {
                 String perlInterpreter = getPreferenceStore().getString(ITalendCorePrefConstants.PERL_INTERPRETER);
-                PerlEditorPlugin.getDefault().setExecutablePreference("\"" + perlInterpreter + "\""); //$NON-NLS-1$ //$NON-NLS-2$
-                PerlMainPreferencePage.refreshExecutableTextValue("\"" + perlInterpreter + "\""); //$NON-NLS-1$ //$NON-NLS-2$
+                if (GlobalServiceRegister.getDefault().isServiceRegistered(ICorePerlService.class)) {
+                    ICorePerlService service= (ICorePerlService) GlobalServiceRegister.getDefault().getService(ICorePerlService.class);
+                    service.setExecutablePreference(perlInterpreter);
+                }
             }
             XmlArray.setLimitToDefault();
 

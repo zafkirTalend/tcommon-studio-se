@@ -28,6 +28,7 @@ import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
 import org.talend.core.language.ECodeLanguage;
+import org.talend.core.service.ICorePerlService;
 import org.talend.core.tis.ICoreTisService;
 import org.talend.repository.model.IRepositoryNode;
 
@@ -216,8 +217,12 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
      * @see org.talend.core.ui.branding.IBrandingConfiguration#getAvailableLanguages()
      */
     public String[] getAvailableLanguages() {
-        String[] languages = { ECodeLanguage.JAVA.getName(), ECodeLanguage.PERL.getName() };
-
+        String[] languages;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICorePerlService.class)) {
+            languages = new String[] { ECodeLanguage.JAVA.getName(), ECodeLanguage.PERL.getName() };
+        } else {
+            languages = new String[] { ECodeLanguage.JAVA.getName() };
+        }
         return languages;
     }
 
@@ -295,8 +300,8 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
 
     public void generateWelcomeHeaderImage() {
         if (PluginChecker.isCoreTISPluginLoaded()) {
-            String version = (String) CorePlugin.getDefault().getBundle().getHeaders().get(
-                    org.osgi.framework.Constants.BUNDLE_VERSION);
+            String version = (String) CorePlugin.getDefault().getBundle().getHeaders()
+                    .get(org.osgi.framework.Constants.BUNDLE_VERSION);
             ICoreTisService service = (ICoreTisService) GlobalServiceRegister.getDefault().getService(ICoreTisService.class);
             service.drawWelcomeLogo(version);
         }

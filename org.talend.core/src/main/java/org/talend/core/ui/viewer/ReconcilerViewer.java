@@ -68,7 +68,6 @@ import org.eclipse.ui.texteditor.AbstractDecoratedTextEditorPreferenceConstants;
 import org.eclipse.ui.texteditor.AnnotationPreference;
 import org.eclipse.ui.texteditor.MarkerAnnotationPreferences;
 import org.eclipse.ui.texteditor.SourceViewerDecorationSupport;
-import org.epic.core.model.SourceFile;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.utils.threading.ExecutionLimiter;
@@ -82,7 +81,7 @@ public abstract class ReconcilerViewer extends ProjectionViewer {
 
     protected IFile file = null;
 
-    private SourceFile source;
+    // private SourceFile source;
 
     private SourceViewerDecorationSupport fSourceViewerDecorationSupport;
 
@@ -487,14 +486,14 @@ public abstract class ReconcilerViewer extends ProjectionViewer {
         }
     }
 
-    /**
-     * Getter for source.
-     * 
-     * @return the source
-     */
-    public SourceFile getSource() {
-        return this.source;
-    }
+    // /**
+    // * Getter for source.
+    // *
+    // * @return the source
+    // */
+    // public SourceFile getSource() {
+    // return this.source;
+    // }
 
     /**
      * Getter for file.

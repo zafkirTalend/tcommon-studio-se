@@ -47,8 +47,10 @@ import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementValueType;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
+import org.talend.designer.core.model.utils.emf.talendfile.ParametersType;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 import org.talend.designer.core.model.utils.emf.talendfile.RoutinesParameterType;
+import org.talend.designer.core.model.utils.emf.talendfile.TalendFileFactory;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryService;
@@ -495,6 +497,10 @@ public class RelationshipItemBuilder {
                         addRelationShip(item, contextParam.getRepositoryContextId(), LATEST_VERSION, CONTEXT_RELATION);
                     }
                 }
+            }
+            if (processType.getParameters() == null || processType.getParameters().getRoutinesParameter() == null) {
+                ParametersType parameterType = TalendFileFactory.eINSTANCE.createParametersType();
+                processType.setParameters(parameterType);
             }
             for (Object o : processType.getParameters().getRoutinesParameter()) {
                 RoutinesParameterType itemInfor = (RoutinesParameterType) o;

@@ -29,9 +29,11 @@ import org.eclipse.update.internal.scheduler.SchedulerStartup;
 import org.talend.commons.CommonsPlugin;
 import org.talend.commons.ui.swt.colorstyledtext.ColorManager;
 import org.talend.core.CorePlugin;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.repository.IRepositoryPrefConstants;
 import org.talend.core.prefs.GeneralParametersProvider.GeneralParameters;
 import org.talend.core.prefs.ui.MetadataTypeLengthConstants;
+import org.talend.core.service.ICorePerlService;
 
 /**
  * Intializer of core preferences. <br/>
@@ -53,8 +55,7 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
     private static final String PERL_LINUX_INTERPRETER_PATH = GeneralParametersProvider
             .getString(GeneralParameters.DEFAULT_PERL_INTERPRETER_LINUX);
 
-    public static final String PERL_WIN32_INTERPRETER_PATH = CorePlugin.getDefault().getResourceService().getResourcesPath()
-            + PERL_EMBEDDED_INTERPRETER_DIRECTORY;
+    private String perlWin32Path = "";
 
     /**
      * Construct a new CorePreferenceInitializer.
@@ -69,6 +70,9 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
     @Override
     public void initializeDefaultPreferences() {
 
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICorePerlService.class)) {
+            perlWin32Path = CorePlugin.getDefault().getResourceService().getResourcesPath() + PERL_EMBEDDED_INTERPRETER_DIRECTORY;
+        }
         IEclipsePreferences node = new DefaultScope().getNode(CorePlugin.getDefault().getBundle().getSymbolicName());
 
         // Building temporary files directory path
@@ -84,15 +88,16 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
         String javaPath = System.getProperty("java.home"); // NON-NLS-1$ //$NON-NLS-1$
         if (os.equals(Platform.OS_WIN32)) {
             String perlPath;
-            perlPath = Platform.getInstallLocation().getURL().getFile().substring(1) + PERL_EMBEDDED_INTERPRETER_DIRECTORY;
-            File perlEmbeddedExecFile = new File(perlPath);
-            if (!perlEmbeddedExecFile.exists()) {
-                perlPath = PERL_WIN32_INTERPRETER_PATH;
+            if (!perlWin32Path.equals("")) {
+                perlPath = Platform.getInstallLocation().getURL().getFile().substring(1) + PERL_EMBEDDED_INTERPRETER_DIRECTORY;
+                File perlEmbeddedExecFile = new File(perlPath);
+                if (!perlEmbeddedExecFile.exists()) {
+                    perlPath = perlWin32Path;
 
+                }
+
+                node.put(ITalendCorePrefConstants.PERL_INTERPRETER, perlPath.replace("/", "\\"));//$NON-NLS-1$//$NON-NLS-1$ //$NON-NLS-2$
             }
-
-            node.put(ITalendCorePrefConstants.PERL_INTERPRETER, perlPath.replace("/", "\\"));//$NON-NLS-1$//$NON-NLS-1$ //$NON-NLS-2$
-
             /*
              * IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore(); String prelExecutableValue =
              * store.getString(ITalendCorePrefConstants.PERL_INTERPRETER);
@@ -150,14 +155,14 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
         CorePlugin.getDefault().getPreferenceStore().setDefault(ITalendCorePrefConstants.DOC_GENERATESOURCECODE, false);
         // CorePlugin.getDefault().getPreferenceStore().setDefault(ITalendCorePrefConstants.DOC_HIDEPASSWORDS, true);
 
-        CorePlugin.getDefault().getPreferenceStore().setDefault(ITalendCorePrefConstants.COMMAND_STR,
-                ITalendCorePrefConstants.DEFAULT_COMMAND_STR);
+        CorePlugin.getDefault().getPreferenceStore()
+                .setDefault(ITalendCorePrefConstants.COMMAND_STR, ITalendCorePrefConstants.DEFAULT_COMMAND_STR);
 
         //
         CorePlugin.getDefault().getPreferenceStore().setDefault(ITalendCorePrefConstants.SQL_ADD_WARNING, true);
 
-        CorePlugin.getDefault().getPreferenceStore().setDefault(
-                IRepositoryPrefConstants.ALLOW_SPECIFIC_CHARACTERS_FOR_SCHEMA_COLUMNS, false);
+        CorePlugin.getDefault().getPreferenceStore()
+                .setDefault(IRepositoryPrefConstants.ALLOW_SPECIFIC_CHARACTERS_FOR_SCHEMA_COLUMNS, false);
     }
 
     // unused method : call remove for 2.3

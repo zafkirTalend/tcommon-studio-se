@@ -434,8 +434,13 @@ public final class MetadataTalendType {
         String dirPath = "/" + dirName; //$NON-NLS-1$
 
         Path filePath = new Path(dirPath);
-
-        Bundle b = Platform.getBundle("org.talend.core");
+        Bundle b = null;
+        ECodeLanguage codeLanguage = MetadataTalendType.getCodeLanguage();
+        if (codeLanguage == ECodeLanguage.JAVA) {
+            b = Platform.getBundle("org.talend.core");
+        } else if (codeLanguage == ECodeLanguage.PERL) {
+            b = Platform.getBundle("org.talend.core.perl");
+        }
         URL url;
         try {
             if (b != null) {
@@ -450,6 +455,7 @@ public final class MetadataTalendType {
         } catch (IOException e) {
             throw new SystemException(e);
         }
+
         File dir = new File(url.getPath());
         metadataMappingFiles = new ArrayList<File>();
         dbmsSet.clear();
@@ -462,6 +468,7 @@ public final class MetadataTalendType {
                 }
             }
         }
+
     }
 
     private static void loadMapping(File file) throws SystemException {

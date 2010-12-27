@@ -35,23 +35,5 @@
 			<dbToTalendTypes>
 			</dbToTalendTypes>
 		</language>
-		<language name="perl">
-			<talendToDbTypes>
-				<talendType type="boolean">
-				</talendType>
-				<talendType type="int">
-				</talendType>
-				<talendType type="decimal">
-				</talendType>
-				<talendType type="string">
-				</talendType>
-				<talendType type="datetime">
-				</talendType>
-				<talendType type="date">
-				</talendType>
-			</talendToDbTypes>
-			<dbToTalendTypes>
-			</dbToTalendTypes>
-		</language>
 	</dbms>
 </mapping>

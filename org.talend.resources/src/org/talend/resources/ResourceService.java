@@ -43,6 +43,8 @@ public class ResourceService implements IResourceService {
 
     private final static String RESOURCE_LOCATION = "org.talend.resources"; //$NON-NLS-1$
 
+    private final static String PERL_RESOURCE_LOCATION = "org.talend.resources.perl";
+
     private final static String JAVA_LIBRARIE = "resources/demoprojects/java/TALENDDEMOSJAVA/lib/java"; //$NON-NLS-1$
 
     private final static String RESOURCES = "resources"; //$NON-NLS-1$
@@ -72,7 +74,7 @@ public class ResourceService implements IResourceService {
     }
 
     public String getResourcesPath() {
-        Bundle b = Platform.getBundle(RESOURCE_LOCATION);
+        Bundle b = Platform.getBundle(PERL_RESOURCE_LOCATION);
         URL url = null;
         try {
             url = FileLocator.toFileURL(FileLocator.find(b, new Path(RESOURCES), null));

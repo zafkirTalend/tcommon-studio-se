@@ -9,6 +9,8 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.CorePlugin;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.service.ICorePerlService;
 import org.talend.librariesmanager.i18n.Messages;
 
 public class LibrariesMainPreferencesPage extends FieldEditorPreferencePage implements IWorkbenchPreferencePage {
@@ -33,26 +35,28 @@ public class LibrariesMainPreferencesPage extends FieldEditorPreferencePage impl
 
     @Override
     protected void createFieldEditors() {
-        choice = new RadioGroupFieldEditor(PreferencesUtilities.EXTERNAL_LIB_PATH_MODE_SINGLE, Messages
-                .getString("MainPreferencesPage.folderSelectionMode"), 1, new String[][] { //$NON-NLS-1$
+        choice = new RadioGroupFieldEditor(PreferencesUtilities.EXTERNAL_LIB_PATH_MODE_SINGLE,
+                Messages.getString("MainPreferencesPage.folderSelectionMode"), 1, new String[][] { //$NON-NLS-1$
                 { Messages.getString("MainPreferencesPage.sameRootFolder"), SINGLE_MODE }, //$NON-NLS-1$
-                { Messages.getString("MainPreferencesPage.separateRootFolder"), SEPARATE_MODE } }, //$NON-NLS-1$
+                        { Messages.getString("MainPreferencesPage.separateRootFolder"), SEPARATE_MODE } }, //$NON-NLS-1$
                 getFieldEditorParent());
 
-        externalLibrariesPath = new DirectoryFieldEditor(PreferencesUtilities.EXTERNAL_LIB_PATH, Messages
-                .getString("MainPreferencesPage.externalLibPath"), getFieldEditorParent()); //$NON-NLS-1$
+        externalLibrariesPath = new DirectoryFieldEditor(PreferencesUtilities.EXTERNAL_LIB_PATH,
+                Messages.getString("MainPreferencesPage.externalLibPath"), getFieldEditorParent()); //$NON-NLS-1$
         addField(externalLibrariesPath);
-        externalLibrariesPathJava = new DirectoryFieldEditor(PreferencesUtilities.EXTERNAL_LIB_PATH_JAVA, Messages
-                .getString("MainPreferencesPage.externalLibPathJava"), getFieldEditorParent()); //$NON-NLS-1$
+        externalLibrariesPathJava = new DirectoryFieldEditor(PreferencesUtilities.EXTERNAL_LIB_PATH_JAVA,
+                Messages.getString("MainPreferencesPage.externalLibPathJava"), getFieldEditorParent()); //$NON-NLS-1$
         addField(externalLibrariesPath);
-        externalLibrariesPathPerl = new DirectoryFieldEditor(PreferencesUtilities.EXTERNAL_LIB_PATH_PERL, Messages
-                .getString("MainPreferencesPage.externalLibPathPerl"), getFieldEditorParent()); //$NON-NLS-1$
-
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICorePerlService.class)) {
+            externalLibrariesPathPerl = new DirectoryFieldEditor(PreferencesUtilities.EXTERNAL_LIB_PATH_PERL,
+                    Messages.getString("MainPreferencesPage.externalLibPathPerl"), getFieldEditorParent()); //$NON-NLS-1$
+        }
         addField(choice);
         addField(externalLibrariesPath);
         addField(externalLibrariesPathJava);
-        addField(externalLibrariesPathPerl);
-
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICorePerlService.class)) {
+            addField(externalLibrariesPathPerl);
+        }
         activateFields(getPreferenceStore().getBoolean(PreferencesUtilities.EXTERNAL_LIB_PATH_MODE_SINGLE));
     }
 
@@ -72,7 +76,9 @@ public class LibrariesMainPreferencesPage extends FieldEditorPreferencePage impl
     private void activateFields(boolean singleMode) {
         externalLibrariesPath.setEnabled(singleMode, getFieldEditorParent());
         externalLibrariesPathJava.setEnabled(!singleMode, getFieldEditorParent());
-        externalLibrariesPathPerl.setEnabled(!singleMode, getFieldEditorParent());
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICorePerlService.class)) {
+            externalLibrariesPathPerl.setEnabled(!singleMode, getFieldEditorParent());
+        }
     }
 
     public void init(IWorkbench workbench) {
