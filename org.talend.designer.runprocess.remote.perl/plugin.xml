@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         id="application"
+         point="org.eclipse.core.runtime.applications">
+      <application>
+         <run
+               class="org.talend.designer.runprocess.remote.perl.Application">
+         </run>
+      </application>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            name="RCP Perspective"
+            class="org.talend.designer.runprocess.remote.perl.Perspective"
+            id="org.talend.designer.runprocess.remote.perl.perspective">
+      </perspective>
+   </extension>
+   <extension
+         point="org.talend.core.runtime.service">
+      <Service
+            class="org.talend.designer.runprocess.remote.perl.RemoteRunprocessorService"
+            serviceId="IRemoteRunprocessorService">
+      </Service>
+   </extension>
+
+</plugin>
