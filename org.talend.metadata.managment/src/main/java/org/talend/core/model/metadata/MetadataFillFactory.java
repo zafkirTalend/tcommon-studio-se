@@ -25,6 +25,7 @@ import org.talend.utils.sugars.ReturnCode;
 import orgomg.cwm.objectmodel.core.Package;
 import orgomg.cwm.resource.relational.Catalog;
 import orgomg.cwm.resource.relational.ColumnSet;
+import orgomg.cwm.resource.relational.Schema;
 
 /**
  * zshen class global comment. Detailled comment
@@ -253,4 +254,8 @@ public class MetadataFillFactory {
         return metadataFiller.checkConnection(metadataBean);
     }
 
+    public List<Schema> fillSchemaToCatalog(Connection dbConn, DatabaseMetaData dbJDBCMetadata, Catalog catalog,
+            List<String> schemaFilter) {
+        return metadataFiller.fillSchemaToCatalog(dbConn, dbJDBCMetadata, catalog, schemaFilter);
+    }
 }

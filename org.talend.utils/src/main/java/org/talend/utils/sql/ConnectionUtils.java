@@ -13,12 +13,16 @@
 package org.talend.utils.sql;
 
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
+import org.apache.log4j.Logger;
 import org.talend.utils.sugars.ReturnCode;
 
 /**
@@ -26,6 +30,12 @@ import org.talend.utils.sugars.ReturnCode;
  */
 public final class ConnectionUtils {
 
+    private static Logger log = Logger.getLogger(ConnectionUtils.class);
+    private static List<String> sybaseDBProductsNames;
+
+    public static final String IBM_DB2_ZOS_PRODUCT_NAME = "DB2";
+
+    public static final String SYBASE_LANGUAGE = "Adaptive Server Enterprise | Sybase Adaptive Server IQ";
     /**
      * The query to execute in order to verify the connection.
      */
@@ -146,4 +156,76 @@ public final class ConnectionUtils {
         }
         return rc;
     }
+
+    /**
+     * DOC zshen Comment method "isSybase".
+     * 
+     * @param connection
+     * @return decide to whether is sybase connection
+     * @throws SQLException
+     */
+    public static boolean isSybase(java.sql.Connection connection) throws SQLException {
+        // DatabaseMetaData connectionMetadata = getConnectionMetadata(connection);
+        DatabaseMetaData connectionMetadata = connection.getMetaData();
+        if (connectionMetadata.getDriverName() != null && connectionMetadata.getDatabaseProductName() != null) {
+            for (String keyString : getSybaseDBProductsName()) {
+                if (keyString.equals(connectionMetadata.getDatabaseProductName().trim())) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * DOC xqliu Comment method "getConnectionMetadata". 2009-07-13 bug 7888.
+     * 
+     * @param conn
+     * @return
+     * @throws SQLException
+     */
+
+    public static DatabaseMetaData getConnectionMetadata(java.sql.Connection conn) throws SQLException {
+        DatabaseMetaData dbMetaData = conn.getMetaData();
+        // MOD xqliu 2009-11-17 bug 7888
+        if (dbMetaData != null && dbMetaData.getDatabaseProductName() != null
+                && dbMetaData.getDatabaseProductName().equals(IBM_DB2_ZOS_PRODUCT_NAME)) {
+            dbMetaData = conn.getMetaData();
+            log.info("IBM DB2 for z/OS");
+        }
+        // ~
+        return dbMetaData;
+    }
+
+    /**
+     * yyi 2010-08-25 for 14851, Sybase DB has several names with different productions and versions. For example the
+     * Sybase IQ with version 12.6 is called 'Sybase' getting by JDBC but the version 15+ it is changed to 'Sybase IQ'.
+     * it is user by org.talend.cwm.db.connection.ConnectionUtils.isSybase
+     * 
+     * @return All Sybase DB products name ,"Adaptive Server Enterprise","Sybase Adaptive Server IQ"
+     * ,"Sybase IQ","Sybase"
+     */
+    public static String[] getSybaseDBProductsName() {
+        if (null == sybaseDBProductsNames) {
+            sybaseDBProductsNames = new ArrayList<String>();
+            for (String name : SYBASE_LANGUAGE.split("\\|")) {
+                sybaseDBProductsNames.add(name.trim());
+            }
+            sybaseDBProductsNames.add("Sybase");
+            sybaseDBProductsNames.add("Sybase IQ");
+            sybaseDBProductsNames.add("Adaptive Server Enterprise | Sybase Adaptive Server IQ");
+        }
+        return sybaseDBProductsNames.toArray(new String[sybaseDBProductsNames.size()]);
+    }
+
+    /**
+     * only for db2 on z/os right now. 2009-07-13 bug 7888.
+     * 
+     * @param conn2
+     * @return
+     */
+    // private static DatabaseMetaData createFakeDatabaseMetaData(java.sql.Connection conn) {
+    // DB2ForZosDataBaseMetadata dmd = new DB2ForZosDataBaseMetadata(conn);
+    // return dmd;
+    // }
 }

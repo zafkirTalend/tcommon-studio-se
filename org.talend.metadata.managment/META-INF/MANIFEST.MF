@@ -14,7 +14,8 @@ Require-Bundle: org.eclipse.ui,
  org.apache.log4j,
  javax.xml.rpc,
  org.talend.libraries.jdbc.mysql,
- org.talend.libraries.jdbc.jtds
+ org.talend.libraries.jdbc.jtds,
+ org.eclipse.xsd
 Bundle-ActivationPolicy: lazy
 Export-Package: org.apache.axis.client,
  org.talend.core.database.utils,
@@ -22,6 +23,7 @@ Export-Package: org.apache.axis.client,
  org.talend.core.model.metadata,
  org.talend.core.model.metadata.builder,
  org.talend.core.model.metadata.builder.database,
+ org.talend.core.model.metadata.builder.database.dburl,
  org.talend.core.model.metadata.builder.util,
  org.talend.mdm.webservice
 Bundle-ClassPath: .,

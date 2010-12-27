@@ -24,6 +24,7 @@ import org.talend.utils.sugars.ReturnCode;
 import orgomg.cwm.objectmodel.core.Package;
 import orgomg.cwm.resource.relational.Catalog;
 import orgomg.cwm.resource.relational.ColumnSet;
+import orgomg.cwm.resource.relational.Schema;
 
 /**
  * zshen class global comment. The class help for fill all kinds of metadata elements
@@ -32,14 +33,12 @@ public interface IMetadataFiller {
 
     /**
      * 
-     *zshen Comment method "fillUIParams". convert a Map of UI parameter to IMetadataConnection
+     * zshen Comment method "fillUIParams". convert a Map of UI parameter to IMetadataConnection
      * 
      * @param paramMap
      * @return null only if paramMap is null
      */
     public IMetadataConnection fillUIParams(Map<String, String> paramMap);
-
-
 
     /**
      * 
@@ -51,7 +50,6 @@ public interface IMetadataFiller {
      * not right or the parameter of connection is null;
      */
     public Connection fillUIConnParams(IMetadataConnection metadataBean, Connection connection);
-
 
     /**
      * 
@@ -68,7 +66,7 @@ public interface IMetadataFiller {
 
     /**
      * 
-     *zshen Comment method "fillSchemas".
+     * zshen Comment method "fillSchemas".
      * 
      * @param dbConn the connection which you want schema to be filled.Can't be null if need to fill the schemas into
      * the object of connection.And if Linked is false everything is ok.
@@ -96,8 +94,6 @@ public interface IMetadataFiller {
     public List<TdTable> fillTables(Package pack, DatabaseMetaData dbJDBCMetadata, List<String> tableFilter, String tablePattern,
             String[] tableType);
 
-
-
     /**
      * 
      * zshen Comment method "fillViews".
@@ -112,8 +108,6 @@ public interface IMetadataFiller {
      * @return The list of views after filter.Will return null only if dbJDBCMetadata isn't normal.
      */
     public List<TdView> fillViews(Package pack, DatabaseMetaData dbJDBCMetadata, List<String> viewFilter, String viewPattern);
-
-
 
     /**
      * 
@@ -156,4 +150,17 @@ public interface IMetadataFiller {
      * it will take a error message.
      */
     public ReturnCode checkConnection(IMetadataConnection metadataBean);
+
+    /**
+     * 
+     * DOC mzhao Fill catalog with schema children.
+     * 
+     * @param dbConn
+     * @param dbJDBCMetadata
+     * @param catalog
+     * @param schemaFilter
+     * @return
+     */
+    public List<Schema> fillSchemaToCatalog(Connection dbConn, DatabaseMetaData dbJDBCMetadata, Catalog catalog,
+            List<String> schemaFilter);
 }

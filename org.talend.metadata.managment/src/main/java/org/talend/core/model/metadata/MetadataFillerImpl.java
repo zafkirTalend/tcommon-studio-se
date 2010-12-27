@@ -26,14 +26,12 @@ import org.talend.core.model.metadata.builder.util.EDataBaseType;
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.relational.TdColumn;
-import org.talend.cwm.relational.TdTable;
 import org.talend.cwm.relational.TdView;
 import org.talend.mdm.webservice.WSPing;
 import org.talend.mdm.webservice.XtentisBindingStub;
 import org.talend.utils.sugars.ReturnCode;
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.Package;
-import orgomg.cwm.resource.relational.Catalog;
 import orgomg.cwm.resource.relational.ColumnSet;
 
 
@@ -48,41 +46,7 @@ public abstract class MetadataFillerImpl implements IMetadataFiller {
 
     private boolean isLinked = true;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @seeorg.talend.core.model.metadata.IMetadataFill#fillCatalogs(org.talend.core.model.metadata.builder.connection.
-     * Connection, org.talend.designer.business.model.business.DatabaseMetadata, java.util.List)
-     */
-    public List<Catalog> fillCatalogs(Connection dbConn, DatabaseMetaData dbJDBCMetadata, List<String> catalogFilter) {
-        return null;
-    }
 
-
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.talend.core.model.metadata.IMetadataFill#fillSchemas(org.talend.core.model.metadata.builder.connection.Connection
-     * , org.talend.designer.business.model.business.DatabaseMetadata, java.util.List)
-     */
-    public List<Package> fillSchemas(Connection dbConn, DatabaseMetaData dbJDBCMetadata, List<String> schemaFilter) {
-        return null;
-    }
-
-
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.core.model.metadata.IMetadataFiller#fillTables(java.lang.Package, java.sql.DatabaseMetaData,
-     * java.util.List, java.lang.String)
-     */
-    public List<TdTable> fillTables(Package pack, DatabaseMetaData dbJDBCMetadata, List<String> tableFilter, String tablePattern,
-            String[] tableType) {
-        return null;
-    }
 
     /*
      * (non-Jsdoc)

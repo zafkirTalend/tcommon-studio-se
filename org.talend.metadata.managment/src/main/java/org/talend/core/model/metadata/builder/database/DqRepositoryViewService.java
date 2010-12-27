@@ -1,0 +1,400 @@
+// ============================================================================
+//
+// Copyright (C) 2006-2010 Talend Inc. - www.talend.com
+//
+// This source code is available under agreement available at
+// %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
+//
+// You should have received a copy of the agreement
+// along with this program; if not, write to Talend SA
+// 9 rue Pages 92150 Suresnes, France
+//
+// ============================================================================
+package org.talend.core.model.metadata.builder.database;
+
+import java.io.UnsupportedEncodingException;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
+
+import org.apache.commons.codec.binary.Base64;
+import org.apache.log4j.Logger;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.talend.commons.utils.VersionUtils;
+import org.talend.core.i18n.Messages;
+import org.talend.core.model.metadata.MetadataFillFactory;
+import org.talend.core.model.metadata.builder.connection.Connection;
+import org.talend.core.repository.model.ProxyRepositoryFactory;
+import org.talend.cwm.helper.CatalogHelper;
+import org.talend.cwm.helper.ColumnSetHelper;
+import org.talend.cwm.helper.ConnectionHelper;
+import org.talend.cwm.helper.SchemaHelper;
+import org.talend.cwm.helper.TaggedValueHelper;
+import org.talend.cwm.relational.TdColumn;
+import org.talend.cwm.relational.TdTable;
+import org.talend.cwm.relational.TdView;
+import org.talend.cwm.xml.TdXmlElementType;
+import org.talend.utils.sql.ConnectionUtils;
+import org.talend.utils.sql.metadata.constants.TableType;
+import org.talend.utils.string.AsciiUtils;
+import org.talend.utils.sugars.TypedReturnCode;
+import orgomg.cwm.objectmodel.core.ModelElement;
+import orgomg.cwm.objectmodel.core.Package;
+import orgomg.cwm.objectmodel.core.TaggedValue;
+import orgomg.cwm.resource.relational.Catalog;
+import orgomg.cwm.resource.relational.ColumnSet;
+import orgomg.cwm.resource.relational.Schema;
+
+/**
+ * @author scorreia
+ * 
+ * Services for the DQ Repository view.
+ */
+public final class DqRepositoryViewService {
+
+    private static Logger log = Logger.getLogger(DqRepositoryViewService.class);
+
+    private static final SimpleDateFormat SMPL_DATE_FMT = new SimpleDateFormat("yyyyMMddhhmmss"); //$NON-NLS-1$
+
+    /**
+     * if true, the catalogs (and schemas) are stored in the same file as the data provider. Used for tests only.
+     * 
+     * TODO scorreia (saving catalog outside data provider's file) set it to false for big databases.
+     * 
+     * In case when optimization is needed: set this boolean to false and correct code so that everything works as
+     * before (DQ Repository view must not show catalog's files and Catalogs must still be children of the Data
+     * provider). Check also that old files (.prv) are still readable by the application.
+     */
+
+    private DqRepositoryViewService() {
+    }
+
+    private static final String CHARS_TO_REMOVE = "/"; //$NON-NLS-1$
+
+    private static final String REPLACEMENT_CHARS = "_"; //$NON-NLS-1$
+
+    /**
+     * Method "createTechnicalName" creates a technical name used for file system storage. MOD mzhao make this method as
+     * public access.
+     * 
+     * @param functionalName the user friendly name
+     * @return the technical name created from the user given name.
+     */
+    public static String createTechnicalName(final String functionalName) {
+        String techname = "no_name"; //$NON-NLS-1$
+        if (functionalName == null) {
+            log.warn("A functional name should not be null");
+            return techname;
+        }
+        // encode in base 64 so that all characters such white spaces, accents,
+        // everything that is dangerous when used
+        // for file names are removed
+        try {
+            // encode
+            String b64 = new String(Base64.encodeBase64(functionalName.getBytes()), "UTF-8"); //$NON-NLS-1$
+            // replace special characters
+            String date = SMPL_DATE_FMT.format(new Date(System.currentTimeMillis()));
+            techname = AsciiUtils.replaceCharacters(b64, CHARS_TO_REMOVE, REPLACEMENT_CHARS) + date;
+        } catch (UnsupportedEncodingException e) {
+            log.error(e, e);
+        } // .replaceAll(B64ID, PREFIX);
+        if (log.isDebugEnabled()) {
+            log.debug("Functional name: " + functionalName + " -> techname: " + techname);
+        }
+        return techname;
+    }
+
+    /**
+     * Method "refreshDataProvider" reload database structure. Existing elements (catalogs, tables...) must not be
+     * replaced by new elements. Only their content must be updated because these elements can be refered to by
+     * analysis.
+     * 
+     * @param dataProvider
+     * @param catalogPattern the catalogs to load (can be null, meaning all are loaded)
+     * @param schemaPattern the schema to load (can be null, meaning all are loaded)
+     * @return true if the catalog have been reload
+     */
+    public static boolean refreshDataProvider(Connection dataProvider, String catalogPattern, String schemaPattern) {
+        // TODO scorreia implement me
+        return false;
+    }
+
+    /**
+     * DOC scorreia Comment method "refreshTables".
+     * 
+     * @param schema
+     * @param tablePattern
+     * @return
+     */
+    public static boolean refreshTables(Package schema, String tablePattern) {
+        // TODO scorreia implement me
+        return false;
+    }
+
+    /**
+     * DOC scorreia Comment method "refreshViews".
+     * 
+     * @param schema
+     * @param viewPattern
+     * @return
+     */
+    public static boolean refreshViews(Package schema, String viewPattern) {
+        // TODO scorreia implement me
+        return false;
+    }
+
+    /**
+     * DOC scorreia Comment method "refreshColumns".
+     * 
+     * @param table
+     * @param columnPattern
+     * @return
+     */
+    public static boolean refreshColumns(ColumnSet table, String columnPattern) {
+        // TODO scorreia implement me
+        return false;
+    }
+
+    /**
+     * Method "getTables" loads the tables from the database or get the tables from the catalog .
+     * 
+     * @param dataProvider the data provider
+     * @param catalog the catalog (must not be null)
+     * @param tablePattern the pattern of the tables to be loaded (from the DB)
+     * @param loadFromDB true if we want to load tables from the database. false when the tables are already in the
+     * catalog.
+     * @return the list of tables. Theses tables are not added to the given catalog. It must be done by the caller.
+     * @throws Exception
+     */
+    public static List<TdTable> getTables(Connection dataProvider, Catalog catalog, String tablePattern, boolean loadFromDB)
+            throws Exception {
+        if (loadFromDB) {
+            return loadTables(dataProvider, catalog, tablePattern);
+        } else {
+            return CatalogHelper.getTables(catalog);
+        }
+    }
+
+    public static List<TdTable> getTables(Connection dataProvider, Schema schema, String tablePattern, boolean loadFromDB)
+            throws Exception {
+        if (loadFromDB) {
+            final Catalog parentCatalog = CatalogHelper.getParentCatalog(schema);
+            return loadTables(dataProvider, parentCatalog, schema, tablePattern);
+        } else {
+            return SchemaHelper.getTables(schema);
+        }
+    }
+
+    public static List<TdView> getViews(Connection dataProvider, Catalog catalog, String viewPattern, boolean loadFromDB)
+            throws Exception {
+        if (loadFromDB) {
+            return loadViews(dataProvider, catalog, null, viewPattern);
+        } else {
+            return CatalogHelper.getViews(catalog);
+        }
+    }
+
+    public static List<TdView> getViews(Connection dataProvider, Schema schema, String viewPattern, boolean loadFromDB)
+            throws Exception {
+        if (loadFromDB) {
+            // get catalog is exists
+            final Catalog parentCatalog = CatalogHelper.getParentCatalog(schema);
+            return loadViews(dataProvider, parentCatalog, schema, viewPattern);
+        } else {
+            return SchemaHelper.getViews(schema);
+        }
+    }
+
+    /**
+     * Method "getColumns". The link between the column set and its columns is set in this method when required.
+     * 
+     * @param dataProvider the data provider for connecting to database (can be null when the columns are not loaded
+     * from the database)
+     * @param columnSet a column set (Table or View)
+     * @param columnPattern the pattern of the columns to get (can be null)
+     * @param loadFromDB true if columns must be loaded from the database
+     * @return
+     * @throws Exception
+     */
+    public static List<TdColumn> getColumns(Connection dataProvider, ColumnSet columnSet, String columnPattern, boolean loadFromDB)
+            throws Exception {
+        if (loadFromDB) {
+            // MOD by zshen use new API to fill Columns
+            List<TdColumn> columnList = new ArrayList<TdColumn>();
+            TypedReturnCode<java.sql.Connection> rcConn = JavaSqlFactory.createConnection(dataProvider);
+            if (!rcConn.isOk()) {
+                log.error(rcConn.getMessage()); // scorreia show error to the
+                                                // user
+                throw new Exception(rcConn.getMessage());
+            }
+            java.sql.Connection connection = rcConn.getObject();
+            try {
+                columnList = MetadataFillFactory.getDBInstance().fillColumns(columnSet, connection.getMetaData(), null, null);
+            } catch (SQLException e) {
+                log.error(e, e);
+            } finally {
+                ConnectionUtils.closeConnection(connection);
+            }
+            return columnList;
+            // ~
+            // return loadColumns(dataProvider, columnSet, columnPattern);
+        } else {
+            return ColumnSetHelper.getColumns(columnSet);
+        }
+    }
+
+    // private static String getName(ModelElement element) {
+    // return element != null ? element.getName() : null;
+    // }
+
+    /**
+     * Method "createFilename".
+     * 
+     * @param folder the folder
+     * @param basename the filename without extension
+     * @param extension the extension of the file
+     * @return the path "folder/basename.extension"
+     */
+    public static String createFilename(String basename, String extension) {
+        return createTechnicalName(basename) + "." + extension;//$NON-NLS-1$
+    }
+
+    /**
+     * Method "loadTables".
+     * 
+     * @param dataProvider
+     * @param catalog (must not be null)
+     * @param tablePattern
+     * @return the list of tables matching the given pattern
+     * @throws Exception
+     */
+    private static List<TdTable> loadTables(Connection dataProvider, Catalog catalog, String tablePattern) throws Exception {
+        List<TdTable> tables = new ArrayList<TdTable>();
+        assert dataProvider != null;
+        assert catalog != null;
+
+        String catalogName = catalog.getName();
+        if (catalogName == null) {
+            log.error("No catalog given. Cannot retrieve tables!");
+            return tables;
+        }
+        return loadTables(dataProvider, catalog, null, tablePattern);
+    }
+
+    private static List<TdTable> loadTables(Connection dataPloadTablesrovider, Catalog catalog, Schema schema, String tablePattern)
+            throws Exception {
+        List<TdTable> tables = new ArrayList<TdTable>();
+        // PTODO scorreia check return code
+        // MOD by zshen use new API to fill tables
+        TypedReturnCode<java.sql.Connection> rcConn = JavaSqlFactory.createConnection(dataPloadTablesrovider);
+        if (!rcConn.isOk()) {
+            log.error(rcConn.getMessage());
+            throw new Exception(rcConn.getMessage());
+        }
+
+        java.sql.Connection connection = rcConn.getObject();
+        String[] tableType = new String[] { TableType.TABLE.toString() };
+        try {
+
+            if (schema != null) {
+                tables = MetadataFillFactory.getDBInstance().fillTables(schema, connection.getMetaData(), null, tablePattern,
+                        tableType);
+            } else {
+                tables = MetadataFillFactory.getDBInstance().fillTables(catalog, connection.getMetaData(), null, tablePattern,
+                        tableType);
+            }
+        } catch (SQLException e) {
+            log.error(e, e);
+        } finally {
+            ConnectionUtils.closeConnection(connection);
+        }
+        // ~
+        // loadColumnSets(dataProvider, catalog, schema, tablePattern,
+        // RelationalPackage.TD_TABLE, tables);
+        return tables;
+    }
+
+    private static List<TdView> loadViews(Connection dataProvider, Catalog catalog, Schema schema, String viewPattern)
+            throws Exception {
+        assert schema != null : Messages.getString("DqRepositoryViewService.NoSchemaGiven"); //$NON-NLS-1$
+        List<TdView> views = new ArrayList<TdView>();
+        // PTODO scorreia check return code
+        TypedReturnCode<java.sql.Connection> rcConn = JavaSqlFactory.createConnection(dataProvider);
+        if (!rcConn.isOk()) {
+            log.error(rcConn.getMessage());
+            throw new Exception(rcConn.getMessage());
+        }
+
+        java.sql.Connection connection = rcConn.getObject();
+        try {
+            if (schema != null) {
+                views = MetadataFillFactory.getDBInstance().fillViews(schema, connection.getMetaData(), null, viewPattern);
+            } else {
+                views = MetadataFillFactory.getDBInstance().fillViews(catalog, connection.getMetaData(), null, viewPattern);
+            }
+        } catch (SQLException e) {
+            log.error(e, e);
+        } finally {
+            ConnectionUtils.closeConnection(connection);
+        }
+        // loadColumnSets(dataProvider, catalog, schema, viewPattern,
+        // RelationalPackage.TD_VIEW, views);
+        return views;
+    }
+
+
+
+
+    /**
+     * Method "readFromFile".
+     * 
+     * @param file the file to read
+     * @return the Data provider if found.
+     * @deprecated use repository API
+     */
+    public static TypedReturnCode<Connection> readFromFile(IFile file) {
+        TypedReturnCode<Connection> rc = new TypedReturnCode<Connection>();
+        URI uri = URI.createPlatformResourceURI(file.getFullPath().toString(), false);
+        Resource r = ProxyRepositoryFactory.getInstance().getRepositoryFactoryFromProvider().getResourceManager().resourceSet
+                .getResource(uri, true);
+        Collection<Connection> tdDataProviders = ConnectionHelper.getTdDataProviders(r.getContents());
+        if (tdDataProviders.isEmpty()) {
+            rc.setReturnCode(
+                    Messages.getString("DqRepositoryViewService.NoDataProviderFound", file.getFullPath().toString()), false); //$NON-NLS-1$
+        }
+        if (tdDataProviders.size() > 1) {
+            rc.setReturnCode(Messages.getString("DqRepositoryViewService.FoundTooManyDataProvider", tdDataProviders.size(), //$NON-NLS-1$
+                    file.getFullPath().toString()), false);
+        }
+        Connection prov = tdDataProviders.iterator().next();
+        rc.setObject(prov);
+        return rc;
+    }
+
+    /**
+     * DOC bZhou Comment method "buildElementName".
+     * 
+     * @param element
+     * @return
+     */
+    public static String buildElementName(ModelElement element) {
+        TaggedValue tv = TaggedValueHelper.getTaggedValue(TaggedValueHelper.VERSION, element.getTaggedValue());
+        if (tv == null) {
+            return VersionUtils.DEFAULT_VERSION;
+        }
+        return tv.getValue();
+    }
+
+ 
+
+    public static Boolean hasChildren(TdXmlElementType element) {
+        XMLSchemaBuilder xmlScheBuilder = XMLSchemaBuilder.getSchemaBuilder(element.getOwnedDocument());
+        return xmlScheBuilder.isLeafNode(element).isOk();
+    }
+
+}

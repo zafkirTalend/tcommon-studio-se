@@ -184,8 +184,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         return rc;
     }
 
-    @Override
     public List<Package> fillSchemas(Connection dbConn, DatabaseMetaData dbJDBCMetadata, List<String> schemaFilter) {
+
         List<Schema> returnSchemas = new ArrayList<Schema>();
         if (dbJDBCMetadata == null || (dbConn != null && ConnectionHelper.getCatalogs(dbConn).size() > 0)) {
             return null;
@@ -239,13 +239,11 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         return ListUtils.castList(Package.class, returnSchemas);
     }
 
-    @Override
     public List<Catalog> fillCatalogs(Connection dbConn, DatabaseMetaData dbJDBCMetadata, List<String> catalogFilter) {
         List<Catalog> catalogList = new ArrayList<Catalog>();
         if (dbJDBCMetadata == null) {
             return null;
         }
-        boolean hasSchema = true;
         try {
             if (dbJDBCMetadata.getDatabaseProductName() != null
                     && dbJDBCMetadata.getDatabaseProductName().indexOf(EDatabaseTypeName.ORACLEFORSID.getProduct()) > -1) {
@@ -288,53 +286,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     } else {
                         continue;
                     }
-                    // schema in catalog
-                    if (!hasSchema) {// if not have schema in catalog
-                        continue;
-                    }
-                    ResultSet schemaRs = null;
-                    try {
-                        // Case of JDK 1.6
-                        Method getSchemaMethod = dbJDBCMetadata.getClass().getMethod("getSchemas", String.class, String.class);
-                        schemaRs = (ResultSet) getSchemaMethod.invoke(dbJDBCMetadata, catalogName, null);
-                    } catch (SecurityException e) {
-                        // Case of JDK1.5
-                    } catch (NoSuchMethodException e) {
-                    } catch (IllegalArgumentException e) {
-                    } catch (IllegalAccessException e) {
-                    } catch (InvocationTargetException e) {
-                    }
-
-                    if (schemaRs == null) {
-                        try {
-                            schemaRs = dbJDBCMetadata.getSchemas();
-                        } catch (SQLException e) {
-                            hasSchema = false;
-                            continue;
-                        }
-                    }
-
-                    List<String> schemaNameCacheTmp = new ArrayList<String>();
-                    List<Schema> schemaList = new ArrayList<Schema>();
-                    while (schemaRs.next()) {
-                        String schemaName = null;
-                        try {
-                            schemaName = schemaRs.getString(MetaDataConstants.TABLE_CATALOG.name());
-                        } catch (Exception e) {
-                            log.warn(e.getMessage(), e);
-                        }
-                        if (schemaName == null) {
-                            continue;
-                        }
-                        // MOD mzhao bug 9606 filter duplicated schemas.
-                        if (!schemaNameCacheTmp.contains(schemaName)) {
-                            schemaNameCacheTmp.add(schemaName);
-                            Schema schema = SchemaHelper.createSchema(schemaName);
-                            schemaList.add(schema);
-                        }
-
-                    }
-                    schemaRs.close();
+                    List<Schema> schemaList = fillSchemaToCatalog(dbConn, dbJDBCMetadata, catalog, null);
                     CatalogHelper.addSchemas(schemaList, catalog);
 
                     // ~11412
@@ -352,7 +304,68 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         return catalogList;
     }
 
-    @Override
+    public List<Schema> fillSchemaToCatalog(Connection dbConn, DatabaseMetaData dbJDBCMetadata, Catalog catalog,
+            List<String> schemaFilter) {
+        ResultSet schemaRs = null;
+        try {
+            // Case of JDK 1.6
+            if (dbJDBCMetadata.getDriverName().equals(DatabaseConstant.MSSQL_DRIVER_NAME_JDBC2_0)) {
+                Method getSchemaMethod = dbJDBCMetadata.getClass().getMethod("getSchemas", String.class, String.class);
+                schemaRs = (ResultSet) getSchemaMethod.invoke(dbJDBCMetadata, catalog.getName(), null);
+            }
+        } catch (SecurityException e) {
+            // Case of JDK1.5
+        } catch (NoSuchMethodException e) {
+        } catch (IllegalArgumentException e) {
+        } catch (IllegalAccessException e) {
+        } catch (InvocationTargetException e) {
+        } catch (SQLException e) {
+            log.error(e, e);
+        }
+
+        if (schemaRs == null) {
+            try {
+                schemaRs = dbJDBCMetadata.getSchemas();
+            } catch (SQLException e) {
+                log.error(e, e);
+            }
+        }
+
+        List<String> schemaNameCacheTmp = new ArrayList<String>();
+        List<Schema> schemaList = new ArrayList<Schema>();
+        try {
+            while (schemaRs.next()) {
+                String schemaName = null;
+                try {
+                    schemaName = schemaRs.getString(MetaDataConstants.TABLE_CATALOG.name());
+                } catch (Exception e) {
+                    log.warn(e.getMessage(), e);
+                }
+                if (schemaName == null) {
+                    // try to get first column
+                    schemaName = schemaRs.getString(1);
+                }
+                if (schemaName == null) {
+                    continue;
+                }
+                // MOD mzhao bug 9606 filter duplicated schemas.
+                if (!schemaNameCacheTmp.contains(schemaName)) {
+                    schemaNameCacheTmp.add(schemaName);
+                    Schema schema = SchemaHelper.createSchema(schemaName);
+                    if (schemaFilter == null || !schemaFilter.contains(schema.getName())) {
+                        schemaList.add(schema);
+                    }
+                }
+
+            }
+            schemaRs.close();
+        } catch (SQLException e) {
+            log.error(e, e);
+        }
+
+        return schemaList;
+    }
+
     public List<TdTable> fillTables(Package pack, DatabaseMetaData dbJDBCMetadata, List<String> tableFilter, String tablePattern,
             String[] tableType) {
         List<TdTable> tableList = new ArrayList<TdTable>();

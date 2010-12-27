@@ -36,6 +36,7 @@ import org.talend.core.model.metadata.builder.util.DatabaseConstant;
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.cwm.constants.SoftwareSystemConstants;
 import org.talend.cwm.helper.ConnectionHelper;
+import org.talend.cwm.relational.TdTable;
 import org.talend.cwm.softwaredeployment.SoftwaredeploymentFactory;
 import org.talend.cwm.softwaredeployment.TdSoftwareSystem;
 import org.talend.cwm.xml.TdXmlSchema;
@@ -48,6 +49,9 @@ import org.talend.mdm.webservice.XtentisBindingStub;
 import org.talend.mdm.webservice.XtentisPort;
 import org.talend.utils.sugars.TypedReturnCode;
 import orgomg.cwm.foundation.softwaredeployment.Component;
+import orgomg.cwm.objectmodel.core.Package;
+import orgomg.cwm.resource.relational.Catalog;
+import orgomg.cwm.resource.relational.Schema;
 
 /**
  * @author zshen
@@ -107,7 +111,6 @@ public class MDMConnectionFillerImpl extends MetadataFillerImpl {
         return rc;
     }
 
-    @Override
     public List<orgomg.cwm.objectmodel.core.Package> fillSchemas(Connection dbConn, DatabaseMetaData dbJDBCMetadata,
             List<String> schemaFilter) {
         List<TdXmlSchema> xmlDocs = new ArrayList<TdXmlSchema>();
@@ -199,6 +202,22 @@ public class MDMConnectionFillerImpl extends MetadataFillerImpl {
         xmlDocCollection.add(tdXmlDoc);
     }
 
+    public List<Catalog> fillCatalogs(Connection dbConn, DatabaseMetaData dbJDBCMetadata, List<String> catalogFilter) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public List<TdTable> fillTables(Package pack, DatabaseMetaData dbJDBCMetadata, List<String> tableFilter, String tablePattern,
+            String[] tableType) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public List<Schema> fillSchemaToCatalog(Connection dbConn, DatabaseMetaData dbJDBCMetadata, Catalog catalog,
+            List<String> schemaFilter) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 
 }
