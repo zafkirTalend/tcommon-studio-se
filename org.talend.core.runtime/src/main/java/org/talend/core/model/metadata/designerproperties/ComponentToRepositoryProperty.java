@@ -599,12 +599,12 @@ public class ComponentToRepositoryProperty {
             if (param != null && "ORACLE_OCI".equals(param.getValue())) { //$NON-NLS-1$
                 String value = getParameterValue(node, "LOCAL_SERVICE_NAME"); //$NON-NLS-1$
                 if (value != null) {
-                    connection.setServerName(value);
+                    connection.setSID(value);
                 }
             } else {
                 String value = getParameterValue(node, "DBNAME"); //$NON-NLS-1$
                 if (value != null) {
-                    connection.setServerName(value);
+                    connection.setSID(value);
                 }
             }
         }
