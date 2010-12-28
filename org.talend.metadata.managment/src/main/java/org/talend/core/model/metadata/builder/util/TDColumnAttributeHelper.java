@@ -196,6 +196,22 @@ public class TDColumnAttributeHelper {
 
         column.setInitialValue(defExpression);
 
+        String mapping = databaseconnection == null ? null : databaseconnection.getDbmsId();
+        if (databaseconnection != null && mapping != null) {
+            MappingTypeRetriever mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(mapping);
+            String talendType = mappingTypeRetriever.getDefaultSelectedTalendType(typeName, ExtractMetaDataUtils
+                    .getIntMetaDataInfo(resutSet, "COLUMN_SIZE"), ExtractMetaDataUtils.getIntMetaDataInfo(resutSet, //$NON-NLS-1$
+                    "DECIMAL_DIGITS")); //$NON-NLS-1$
+            column.setTalendType(talendType);
+            // ADD xqliu 2010-12-28 bug 16538
+            column.setSourceType(MetadataTalendType.getMappingTypeRetriever(databaseconnection.getDbmsId())
+                    .getDefaultSelectedDbType(talendType));
+            // ~ 16538
+        }
+        // mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(metadataConnection.getMapping());
+        // ADD xqliu 2010-12-28 bug 16538
+        column.setNullable("YES".equals(resutSet.getString(GetColumn.IS_NULLABLE.name()))); //$NON-NLS-1$
+        // ~ 16538
         return column;
     }
 
@@ -334,7 +350,12 @@ public class TDColumnAttributeHelper {
                     .getIntMetaDataInfo(resutSet, "COLUMN_SIZE"), ExtractMetaDataUtils.getIntMetaDataInfo(resutSet, //$NON-NLS-1$
                     "DECIMAL_DIGITS")); //$NON-NLS-1$
             column.setTalendType(talendType);
+            // ADD xqliu 2010-12-28 bug 16538
+            column.setSourceType(MetadataTalendType.getMappingTypeRetriever(databaseconnection.getDbmsId())
+                    .getDefaultSelectedDbType(talendType));
         }
+        column.setNullable("YES".equals(resutSet.getString(GetColumn.IS_NULLABLE.name()))); //$NON-NLS-1$ 
+        // ~ 16538
         return column;
     }
 
@@ -465,8 +486,15 @@ public class TDColumnAttributeHelper {
                     .getIntMetaDataInfo(resutSet, "COLUMN_SIZE"), ExtractMetaDataUtils.getIntMetaDataInfo(resutSet, //$NON-NLS-1$
                     "DECIMAL_DIGITS")); //$NON-NLS-1$
             column.setTalendType(talendType);
+            // ADD xqliu 2010-12-28 bug 16538
+            column.setSourceType(MetadataTalendType.getMappingTypeRetriever(databaseconnection.getDbmsId())
+                    .getDefaultSelectedDbType(talendType));
+            // ~ 16538
         }
         // mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(metadataConnection.getMapping());
+        // ADD xqliu 2010-12-28 bug 16538
+        column.setNullable("YES".equals(resutSet.getString(GetColumn.IS_NULLABLE.name()))); //$NON-NLS-1$
+        // ~ 16538
         return column;
     }
 

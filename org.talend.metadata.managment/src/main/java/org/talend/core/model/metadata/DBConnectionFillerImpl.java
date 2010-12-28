@@ -585,7 +585,10 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                             .getIntMetaDataInfo(columns, "COLUMN_SIZE"), ExtractMetaDataUtils.getIntMetaDataInfo(columns, //$NON-NLS-1$
                             "DECIMAL_DIGITS")); //$NON-NLS-1$
                     column.setTalendType(talendType);
+                    column.setSourceType(MetadataTalendType.getMappingTypeRetriever(dbConnection.getDbmsId())
+                            .getDefaultSelectedDbType(talendType));
                 }
+                column.setNullable("YES".equals(columns.getString(GetColumn.IS_NULLABLE.name()))); //$NON-NLS-1$
                 returnColumns.add(column);
                 columnMap.put(columnName, column);
 
@@ -675,6 +678,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                             throw new Exception("the table" + colSet + " have two or more primaryKeys");
                         }
                         columnMap.get(colName).getUniqueKey().add(primaryKey);
+                        columnMap.get(colName).setKey(true);
                         TableHelper.addPrimaryKey((TdTable) colSet, primaryKey);
                     }
                     pkResult.close();
@@ -690,6 +694,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                             foreignKeysMap.put(fkname, foreignKey);
                         }
                         columnMap.get(colName).getKeyRelationship().add(foreignKey);
+                        columnMap.get(colName).setKey(true);
 
                     }
                     fkResult.close();

@@ -321,7 +321,7 @@ public final class DqRepositoryViewService {
 
     private static List<TdView> loadViews(Connection dataProvider, Catalog catalog, Schema schema, String viewPattern)
             throws Exception {
-        assert schema != null : Messages.getString("DqRepositoryViewService.NoSchemaGiven"); //$NON-NLS-1$
+        assert catalog != null : Messages.getString("DqRepositoryViewService.NoCatalogGiven"); //$NON-NLS-1$
         List<TdView> views = new ArrayList<TdView>();
         // PTODO scorreia check return code
         TypedReturnCode<java.sql.Connection> rcConn = JavaSqlFactory.createConnection(dataProvider);
@@ -346,9 +346,6 @@ public final class DqRepositoryViewService {
         // RelationalPackage.TD_VIEW, views);
         return views;
     }
-
-
-
 
     /**
      * Method "readFromFile".
@@ -389,8 +386,6 @@ public final class DqRepositoryViewService {
         }
         return tv.getValue();
     }
-
- 
 
     public static Boolean hasChildren(TdXmlElementType element) {
         XMLSchemaBuilder xmlScheBuilder = XMLSchemaBuilder.getSchemaBuilder(element.getOwnedDocument());
