@@ -21,8 +21,8 @@
 			<dbType type="MONEY" ignoreLen="true" ignorePre="true" />
 			<dbType type="NCHAR" defaultLength="50" ignorePre="true" />
 			<dbType type="NVARCHAR" ignorePre="true" />
-			<dbType type="SERIAL"/>
-			<dbType type="SERIAL8" />
+			<dbType type="SERIAL" ignorePre="true" ignoreLen="false" defaultLength="1"/>
+			<dbType type="SERIAL8"  ignorePre="true" ignoreLen="false" defaultLength="1"/>
 			<dbType type="SMALLFLOAT" ignoreLen="true" ignorePre="true" />
 			<dbType type="SMALLINT" ignoreLen="true" ignorePre="true" />
 			<dbType type="VARCHAR" default="true" defaultLength="200" ignorePre="true"/>
