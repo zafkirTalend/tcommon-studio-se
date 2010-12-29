@@ -64,13 +64,15 @@ public enum EDatabaseVersion4Drivers {
     VERTICA_3(new DbVersion4Drivers(EDatabaseTypeName.VERTICA, "VERTICA 3", "VERTICA_3", "vertica_3.0_jdk_5.jar")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     VERTICA_3_5(new DbVersion4Drivers(EDatabaseTypeName.VERTICA, "VERTICA 3.5", "VERTICA_3.5", "vertica_3.5_jdk_5.jar")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
+    // for bug 0017930
     PSQL(new DbVersion4Drivers(EDatabaseTypeName.PSQL, "postgresql-8.3-603.jdbc3.jar")), //$NON-NLS-1$ 
     PLUSPSQL(new DbVersion4Drivers(EDatabaseTypeName.PLUSPSQL, "postgresql-8.3-603.jdbc3.jar")), //$NON-NLS-1$
-
     IBMDB2(new DbVersion4Drivers(EDatabaseTypeName.IBMDB2, new String[] { "db2jcc.jar", "db2jcc_license_cu.jar", //$NON-NLS-1$ //$NON-NLS-2$
             "db2jcc_license_cisuz.jar" })), //$NON-NLS-1$ 
     IBMDB2ZOS(new DbVersion4Drivers(EDatabaseTypeName.IBMDB2ZOS, new String[] { "db2jcc.jar", "db2jcc_license_cu.jar", //$NON-NLS-1$ //$NON-NLS-2$
             "db2jcc_license_cisuz.jar" })), //$NON-NLS-1$ 
+    SYBASEASE(new DbVersion4Drivers(EDatabaseTypeName.SYBASEASE, "jconn3.jar")), //$NON-NLS-1$ 
+    SYBASEIQ(new DbVersion4Drivers(EDatabaseTypeName.SYBASEIQ, "jconn3.jar")), //$NON-NLS-1$ 
     // for bug 0013127
     PARACCEL(new DbVersion4Drivers(EDatabaseTypeName.PARACCEL, "paraccel-jdbc.jar")), //$NON-NLS-1$
     VECTORWISE(new DbVersion4Drivers(EDatabaseTypeName.VECTORWISE, "iijdbc.jar")), //$NON-NLS-1$
