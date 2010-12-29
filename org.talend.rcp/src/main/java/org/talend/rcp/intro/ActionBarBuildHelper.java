@@ -30,14 +30,19 @@ import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.jface.internal.provisional.action.IToolBarContributionItem;
 import org.eclipse.jface.preference.IPreferenceNode;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.ui.IPerspectiveDescriptor;
 import org.eclipse.ui.IWorkbenchActionConstants;
+import org.eclipse.ui.IWorkbenchCommandConstants;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
 import org.eclipse.ui.application.IActionBarConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
+import org.eclipse.ui.internal.SaveAllAction;
+import org.eclipse.ui.internal.WorkbenchMessages;
 import org.eclipse.ui.internal.WorkbenchPlugin;
+import org.eclipse.ui.internal.actions.CommandAction;
 import org.eclipse.ui.internal.ide.actions.OpenLocalFileAction;
 import org.eclipse.ui.internal.registry.ActionSetRegistry;
 import org.eclipse.ui.internal.registry.IActionSetDescriptor;
@@ -46,6 +51,8 @@ import org.eclipse.ui.internal.registry.PerspectiveRegistry;
 import org.eclipse.ui.internal.registry.ViewDescriptor;
 import org.eclipse.ui.internal.registry.ViewRegistry;
 import org.eclipse.ui.views.IViewDescriptor;
+import org.talend.commons.exception.LoginException;
+import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.workbench.extensions.ExtensionPointLimiterImpl;
 import org.talend.commons.utils.workbench.extensions.IExtensionPointLimiter;
 import org.talend.core.CorePlugin;
@@ -61,6 +68,7 @@ import org.talend.core.ui.branding.IActionBarHelper;
 import org.talend.core.ui.perspective.PerspectiveMenuManager;
 import org.talend.rcp.exportLogs.ExportLogsAction;
 import org.talend.rcp.intro.linksbar.Workbench3xImplementation4CoolBar;
+import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.ui.actions.toolbar.ProjectSettingsAction;
 
 /**
@@ -154,7 +162,47 @@ public class ActionBarBuildHelper implements IActionBarHelper {
         fileMenu.add(closeAction);
         actionBarConfigurer.registerGlobalAction(closeAction);
 
-        IWorkbenchAction closeAllAction = ActionFactory.CLOSE_ALL.create(window);
+        ActionFactory factCloseAll = new ActionFactory("closeAll",//$NON-NLS-1$
+                IWorkbenchCommandConstants.FILE_CLOSE_ALL) {
+
+            /*
+             * (non-Javadoc)
+             * 
+             * @see org.eclipse.ui.actions.ActionFactory#create(org.eclipse.ui.IWorkbenchWindow)
+             */
+            public IWorkbenchAction create(IWorkbenchWindow window) {
+                if (window == null) {
+                    throw new IllegalArgumentException();
+                }
+                WorkbenchCommandAction action = new WorkbenchCommandAction(getCommandId(), window) {
+
+                    public void doRun(final Event event) {
+                        super.runWithEvent(event);
+                    }
+
+                    @Override
+                    public void runWithEvent(final Event event) {
+                        RepositoryWorkUnit rwu = new RepositoryWorkUnit("Close All") {
+
+                            @Override
+                            protected void run() throws LoginException, PersistenceException {
+                                doRun(event);
+                            }
+                        };
+                        rwu.setAvoidUnloadResources(true);
+                        ProxyRepositoryFactory.getInstance().executeRepositoryWorkUnit(rwu);
+                    }
+
+                };
+                action.setId(getId());
+                action.setText(WorkbenchMessages.CloseAllAction_text);
+                action.setToolTipText(WorkbenchMessages.CloseAllAction_toolTip);
+                return action;
+            }
+        };
+
+        IWorkbenchAction closeAllAction = factCloseAll.create(window);
+
         fileMenu.add(closeAllAction);
         actionBarConfigurer.registerGlobalAction(closeAllAction);
         fileMenu.add(new Separator());
@@ -163,7 +211,44 @@ public class ActionBarBuildHelper implements IActionBarHelper {
 
         fileMenu.add(ActionFactory.SAVE_AS.create(window));
 
-        IWorkbenchAction saveAllAction = ActionFactory.SAVE_ALL.create(window);
+        ActionFactory factSaveAll = new ActionFactory("saveAll",//$NON-NLS-1$
+                IWorkbenchCommandConstants.FILE_SAVE_ALL) {
+
+            /*
+             * (non-Javadoc)
+             * 
+             * @see org.eclipse.ui.actions.ActionFactory#create(org.eclipse.ui.IWorkbenchWindow)
+             */
+            public IWorkbenchAction create(IWorkbenchWindow window) {
+                if (window == null) {
+                    throw new IllegalArgumentException();
+                }
+                IWorkbenchAction action = new SaveAllAction(window) {
+
+                    public void doRun() {
+                        super.run();
+                    }
+
+                    @Override
+                    public void run() {
+                        RepositoryWorkUnit rwu = new RepositoryWorkUnit("Save All") {
+
+                            @Override
+                            protected void run() throws LoginException, PersistenceException {
+                                doRun();
+                            }
+                        };
+                        rwu.setAvoidUnloadResources(true);
+                        ProxyRepositoryFactory.getInstance().executeRepositoryWorkUnit(rwu);
+                    }
+
+                };
+                action.setId(getId());
+                return action;
+            }
+        };
+
+        IWorkbenchAction saveAllAction = factSaveAll.create(window);
         fileMenu.add(saveAllAction);
         actionBarConfigurer.registerGlobalAction(saveAllAction);
 
@@ -259,7 +344,7 @@ public class ActionBarBuildHelper implements IActionBarHelper {
         IToolBarManager toolBar = new ToolBarManager(SWT.FLAT | SWT.RIGHT);
         coolBar.add(new ToolBarContributionItem(toolBar, Messages.getString("ApplicationActionBarAdvisor.save"))); //$NON-NLS-1$
         toolBar.add(ActionFactory.SAVE.create(window));
-        // 
+        //
         if (PluginChecker.isTIS() && PluginChecker.isRefProjectLoaded()) {
             IReferencedProjectService service = (IReferencedProjectService) GlobalServiceRegister.getDefault().getService(
                     IReferencedProjectService.class);
@@ -418,4 +503,19 @@ public class ActionBarBuildHelper implements IActionBarHelper {
     protected void hideEditActions() {
         // do nothing
     }
+
+    /**
+     * Copy from Eclipse code.
+     */
+    private static class WorkbenchCommandAction extends CommandAction implements IWorkbenchAction {
+
+        /**
+         * @param commandIdIn
+         * @param window
+         */
+        public WorkbenchCommandAction(String commandIdIn, IWorkbenchWindow window) {
+            super(window, commandIdIn);
+        }
+    }
+
 }
