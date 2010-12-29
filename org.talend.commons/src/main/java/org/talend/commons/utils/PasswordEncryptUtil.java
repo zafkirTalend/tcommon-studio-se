@@ -73,11 +73,14 @@ public class PasswordEncryptUtil {
     public static boolean isPasswordType(String type) {
         // should match with JavaTypesManager.PASSWORD.getLabel() and
         // JavaTypesManager.PASSWORD.getId()
+        if (type == null) {
+            return false;
+        }
         return type.equals("Password") || type.equals("id_Password");
     }
 
     // public static void main(String[] args) {
-    //		
+    //
     // try {
     // String input = PasswordEncryptUtil.encryptPassword("test");
     // System.out.println(input);
