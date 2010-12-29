@@ -54,23 +54,29 @@ public enum EDatabaseVersion4Drivers {
 
     SAS(new DbVersion4Drivers(EDatabaseTypeName.SAS, new String[] { "sas.core.jar", //$NON-NLS-1$
             "sas.intrnet.javatools.jar", "sas.svc.connection.jar" })), //$NON-NLS-1$ //$NON-NLS-2$
-    // MYSQL
-    MYSQL_5(new DbVersion4Drivers(EDatabaseTypeName.MYSQL, "MySQL 5", "MYSQL_5", "mysql-connector-java-5.1.0-bin.jar")), //$NON-NLS-N$ add for 9594 //$NON-NLS-1$ //$NON-NLS-1$
-    MYSQL_4(new DbVersion4Drivers(EDatabaseTypeName.MYSQL, "MySQL 4", "MYSQL_4", "mysql-connector-java-3.1.14-bin.jar")), //$NON-NLS-N$ //$NON-NLS-1$ //$NON-NLS-1$
+    // MYSQL, add for 9594
+    MYSQL_5(new DbVersion4Drivers(EDatabaseTypeName.MYSQL, "MySQL 5", "MYSQL_5", "mysql-connector-java-5.1.0-bin.jar")), //$NON-NLS-1$  //$NON-NLS-2$ //$NON-NLS-3$
+    MYSQL_4(new DbVersion4Drivers(EDatabaseTypeName.MYSQL, "MySQL 4", "MYSQL_4", "mysql-connector-java-3.1.14-bin.jar")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     // add for 9594
     MSSQL(new DbVersion4Drivers(EDatabaseTypeName.MSSQL, "jtds-1.2.jar")), //$NON-NLS-1$
 
-    VERTICA_4(new DbVersion4Drivers(EDatabaseTypeName.VERTICA, "VERTICA 4", "VERTICA_4", "vertica_4.0_jdk_5.jar")),
-    VERTICA_3(new DbVersion4Drivers(EDatabaseTypeName.VERTICA, "VERTICA 3", "VERTICA_3", "vertica_3.0_jdk_5.jar")),
-    VERTICA(new DbVersion4Drivers(EDatabaseTypeName.VERTICA, "VERTICA 3.5", "VERTICA_3.5", "vertica_3.5_jdk_5.jar")), //$NON-NLS-1$
+    VERTICA_4(new DbVersion4Drivers(EDatabaseTypeName.VERTICA, "VERTICA 4", "VERTICA_4", "vertica_4.0_jdk_5.jar")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    VERTICA_3(new DbVersion4Drivers(EDatabaseTypeName.VERTICA, "VERTICA 3", "VERTICA_3", "vertica_3.0_jdk_5.jar")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    VERTICA_3_5(new DbVersion4Drivers(EDatabaseTypeName.VERTICA, "VERTICA 3.5", "VERTICA_3.5", "vertica_3.5_jdk_5.jar")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
+    PSQL(new DbVersion4Drivers(EDatabaseTypeName.PSQL, "postgresql-8.3-603.jdbc3.jar")), //$NON-NLS-1$ 
+    PLUSPSQL(new DbVersion4Drivers(EDatabaseTypeName.PLUSPSQL, "postgresql-8.3-603.jdbc3.jar")), //$NON-NLS-1$
+
+    IBMDB2(new DbVersion4Drivers(EDatabaseTypeName.IBMDB2, new String[] { "db2jcc.jar", "db2jcc_license_cu.jar", //$NON-NLS-1$ //$NON-NLS-2$
+            "db2jcc_license_cisuz.jar" })), //$NON-NLS-1$ 
+    IBMDB2ZOS(new DbVersion4Drivers(EDatabaseTypeName.IBMDB2ZOS, new String[] { "db2jcc.jar", "db2jcc_license_cu.jar", //$NON-NLS-1$ //$NON-NLS-2$
+            "db2jcc_license_cisuz.jar" })), //$NON-NLS-1$ 
     // for bug 0013127
     PARACCEL(new DbVersion4Drivers(EDatabaseTypeName.PARACCEL, "paraccel-jdbc.jar")), //$NON-NLS-1$
     VECTORWISE(new DbVersion4Drivers(EDatabaseTypeName.VECTORWISE, "iijdbc.jar")), //$NON-NLS-1$
 
-    EXASOL(new DbVersion4Drivers(EDatabaseTypeName.EXASOL, "jdbc14.jar")),
-
-    MAXDB(new DbVersion4Drivers(EDatabaseTypeName.MAXDB, "sapdbc.jar")); //$NON-NLS-N$
+    EXASOL(new DbVersion4Drivers(EDatabaseTypeName.EXASOL, "jdbc14.jar")), //$NON-NLS-1$ 
+    MAXDB(new DbVersion4Drivers(EDatabaseTypeName.MAXDB, "sapdbc.jar")); //$NON-NLS-1$
 
     private DbVersion4Drivers dbVersionBean;
 
