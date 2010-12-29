@@ -41,9 +41,9 @@ public interface IRepositoryNode {
         // Represents an object such as a process or a table.
         REFERENCED_PROJECT,
         // Represents a referenced project;
-        RELATED_FOLDER;
+        RELATED_FOLDER,
         // Represents a folder related with others;
-
+        TDQ_REPOSITORY_ELEMENT;
     }
 
     /**

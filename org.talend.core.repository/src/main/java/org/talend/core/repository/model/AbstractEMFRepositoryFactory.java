@@ -254,24 +254,21 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
         return getObjectFromFolder(project, ERepositoryObjectType.METADATA_HEADER_FOOTER, true, options);
     }
 
-    // MOD sgandon 31/03/2010 : moved from local variable to static variable for optimisation purpose.
-    static final ERepositoryObjectType[] REPOSITORY_OBJECT_TYPE_LIST = new ERepositoryObjectType[] {
-            ERepositoryObjectType.PROCESS, ERepositoryObjectType.JOBLET, ERepositoryObjectType.METADATA_CONNECTIONS,
-            ERepositoryObjectType.METADATA_SAPCONNECTIONS, ERepositoryObjectType.SQLPATTERNS,
-            ERepositoryObjectType.METADATA_FILE_DELIMITED, ERepositoryObjectType.METADATA_FILE_POSITIONAL,
-            ERepositoryObjectType.METADATA_FILE_REGEXP, ERepositoryObjectType.METADATA_FILE_XML,
-            ERepositoryObjectType.METADATA_FILE_EXCEL, ERepositoryObjectType.METADATA_FILE_LDIF, ERepositoryObjectType.ROUTINES,
-            ERepositoryObjectType.JOB_SCRIPT, ERepositoryObjectType.CONTEXT, ERepositoryObjectType.METADATA_LDAP_SCHEMA,
-            ERepositoryObjectType.METADATA_GENERIC_SCHEMA, ERepositoryObjectType.METADATA_WSDL_SCHEMA,
-            ERepositoryObjectType.METADATA_SALESFORCE_SCHEMA, ERepositoryObjectType.METADATA_FILE_EBCDIC,
-            ERepositoryObjectType.METADATA_FILE_RULES, ERepositoryObjectType.METADATA_MDMCONNECTION,
-            ERepositoryObjectType.BUSINESS_PROCESS, ERepositoryObjectType.SVG_BUSINESS_PROCESS,
-            ERepositoryObjectType.DOCUMENTATION, ERepositoryObjectType.SNIPPETS, ERepositoryObjectType.METADATA_FILE_HL7,
-            ERepositoryObjectType.METADATA_FILE_FTP, ERepositoryObjectType.METADATA_FILE_BRMS,
-            ERepositoryObjectType.METADATA_HEADER_FOOTER };
-
     /*
-     * (non-Javadoc)
+     * ERepositoryObjectType.DOCUMENTATION, ERepositoryObjectType.METADATA_CONNECTIONS,
+     * ERepositoryObjectType.METADATA_SAPCONNECTIONS, ERepositoryObjectType.SQLPATTERNS,
+     * ERepositoryObjectType.METADATA_FILE_DELIMITED, ERepositoryObjectType.METADATA_FILE_POSITIONAL,
+     * ERepositoryObjectType.PROCESS, ERepositoryObjectType.CONTEXT, ERepositoryObjectType.SNIPPETS,
+     * ERepositoryObjectType.ROUTINES, ERepositoryObjectType.BUSINESS_PROCESS,
+     * ERepositoryObjectType.METADATA_FILE_REGEXP, ERepositoryObjectType.METADATA_FILE_XML,
+     * ERepositoryObjectType.METADATA_FILE_LDIF, ERepositoryObjectType.METADATA_FILE_EXCEL,
+     * ERepositoryObjectType.METADATA_LDAP_SCHEMA, ERepositoryObjectType.METADATA_GENERIC_SCHEMA,
+     * ERepositoryObjectType.METADATA_WSDL_SCHEMA, ERepositoryObjectType.METADATA_SALESFORCE_SCHEMA,
+     * ERepositoryObjectType.JOBLET, ERepositoryObjectType.METADATA_FILE_EBCDIC,
+     * ERepositoryObjectType.METADATA_FILE_RULES, ERepositoryObjectType.METADATA_FILE_HL7,
+     * ERepositoryObjectType.METADATA_FILE_FTP, ERepositoryObjectType.METADATA_FILE_BRMS,
+     * ERepositoryObjectType.METADATA_MDMCONNECTION, ERepositoryObjectType.METADATA_HEADER_FOOTER,
+     * ERepositoryObjectType.JOB_SCRIPT (non-Javadoc)
      * 
      * @see org.talend.repository.model.IRepositoryFactory#getRecycleBinItems()
      */
@@ -352,7 +349,10 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
         }
 
         // added
-        for (ERepositoryObjectType repositoryObjectType : REPOSITORY_OBJECT_TYPE_LIST) {
+        for (ERepositoryObjectType repositoryObjectType : ERepositoryObjectType.values()) {
+            if (!repositoryObjectType.isResourceItem()) {
+                continue;
+            }
             Object folder = getFolder(project, repositoryObjectType);
             if (folder != null) {
                 List<IRepositoryViewObject> itemsFound = getSerializableFromFolder(project, folder, id, repositoryObjectType,
@@ -1046,10 +1046,51 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
      * @param path
      * @return all of object under path.
      */
+
     public List<IRepositoryViewObject> getMetadataByFolder(Project project, ERepositoryObjectType itemType, IPath path) {
         return getMetadatasByFolder(project, itemType, path);
     }
 
     protected abstract <K, T> List<T> getMetadatasByFolder(Project project, ERepositoryObjectType type, IPath path);
 
+    public RootContainer<String, IRepositoryViewObject> getAnalysis(Project project, boolean... options)
+            throws PersistenceException {
+        return getObjectFromFolder(project, ERepositoryObjectType.TDQ_ANALYSIS, true, options);
+    }
+
+    /**
+     * DOC klliu Comment method "getReport".
+     * 
+     * @param project
+     * @param options
+     * @return
+     */
+    public RootContainer<String, IRepositoryViewObject> getReport(Project project, boolean[] options) throws PersistenceException {
+        return getObjectFromFolder(project, ERepositoryObjectType.TDQ_REPORT_ELEMENT, true, options);
+    }
+
+    public RootContainer<String, IRepositoryViewObject> getIndicatorDefinitions(Project project, ERepositoryObjectType type,
+            boolean[] options) throws PersistenceException {
+        return getObjectFromFolder(project, type, true, options);
+    }
+
+    public RootContainer<String, IRepositoryViewObject> getPatterns(Project project, ERepositoryObjectType type, boolean[] options)
+            throws PersistenceException {
+        return getObjectFromFolder(project, type, true, options);
+    }
+
+    public RootContainer<String, IRepositoryViewObject> getRules(Project project, ERepositoryObjectType type, boolean[] options)
+            throws PersistenceException {
+        return getObjectFromFolder(project, type, true, options);
+    }
+
+    public RootContainer<String, IRepositoryViewObject> getJrxmlTemplates(Project project, ERepositoryObjectType type,
+            boolean[] options) throws PersistenceException {
+        return getObjectFromFolder(project, type, true, options);
+    }
+
+    public RootContainer<String, IRepositoryViewObject> getSourceFiles(Project project, ERepositoryObjectType type,
+            boolean[] options) throws PersistenceException {
+        return getObjectFromFolder(project, type, true, options);
+    }
 }

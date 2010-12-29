@@ -140,9 +140,29 @@ public class XmiResourceManager {
         return (Property) EcoreUtil.getObjectByType(propertyResource.getContents(), PropertiesPackage.eINSTANCE.getProperty());
     }
 
+    /**
+     * 
+     * DOC klliu Comment method "getFolderPath".
+     * 
+     * @param project
+     * @param repositoryObjectType
+     * @param relativePath
+     * @return
+     * @throws PersistenceException
+     */
     private IPath getFolderPath(IProject project, ERepositoryObjectType repositoryObjectType, IPath relativePath)
             throws PersistenceException {
-        IFolder folder = project.getFolder(ERepositoryObjectType.getFolderName(repositoryObjectType)).getFolder(relativePath);
+        IFolder folder = null;
+        if (repositoryObjectType.getKey().equals(ERepositoryObjectType.TDQ_ANALYSIS_ELEMENT.getKey())) {
+            folder = project.getFolder(ERepositoryObjectType.getFolderName(repositoryObjectType));
+        } else if (repositoryObjectType.getKey().equals(ERepositoryObjectType.TDQ_REPORT_ELEMENT.getKey())) {
+            folder = project.getFolder(ERepositoryObjectType.getFolderName(repositoryObjectType));
+        } else if (repositoryObjectType.getKey().equals(ERepositoryObjectType.TDQ_PATTERN_ELEMENT.getKey())) {
+            folder = project.getFolder(ERepositoryObjectType.getFolderName(repositoryObjectType)).getFolder(relativePath);
+        } else {
+
+            folder = project.getFolder(ERepositoryObjectType.getFolderName(repositoryObjectType)).getFolder(relativePath);
+        }
         return folder.getFullPath();
     }
 
@@ -164,6 +184,17 @@ public class XmiResourceManager {
     public Resource createItemResource(IProject project, Item item, IPath path, ERepositoryObjectType repositoryObjectType,
             boolean byteArrayResource) throws PersistenceException {
         URI itemResourceURI = getItemResourceURI(project, repositoryObjectType, path, item);
+
+        Resource itemResource = createItemResource(byteArrayResource, itemResourceURI);
+
+        return itemResource;
+    }
+
+    // MOD mzhao 2010-11-22, suppport TDQ item file extensions.(.ana, .rep, etc)
+    public Resource createItemResourceWithExtension(IProject project, Item item, IPath path,
+            ERepositoryObjectType repositoryObjectType, boolean byteArrayResource, String fileExtension)
+            throws PersistenceException {
+        URI itemResourceURI = getItemResourceURI(project, repositoryObjectType, path, item, fileExtension);
 
         Resource itemResource = createItemResource(byteArrayResource, itemResourceURI);
 
@@ -304,20 +335,29 @@ public class XmiResourceManager {
         EmfHelper.saveResource(resource);
     }
 
-    public URI getItemResourceURI(URI propertyResourceURI) {
-        return propertyResourceURI.trimFileExtension().appendFileExtension(FileConstants.ITEM_EXTENSION);
+    // MOD mzhao 2010-11-22, suppport TDQ item file extensions.(.ana, .rep, etc)
+    public URI getItemResourceURI(URI propertyResourceURI, String... fileExtension) {
+        if (fileExtension == null || fileExtension.length == 0) {
+            return propertyResourceURI.trimFileExtension().appendFileExtension(FileConstants.ITEM_EXTENSION);
+        } else {
+            return propertyResourceURI.trimFileExtension().appendFileExtension(fileExtension[0]);
+        }
     }
 
     private URI getPropertyResourceURI(URI itemResourceURI) {
         return itemResourceURI.trimFileExtension().appendFileExtension(FileConstants.PROPERTIES_EXTENSION);
     }
 
-    private URI getItemResourceURI(IProject project, ERepositoryObjectType repositoryObjectType, IPath path, Item item)
+    // MOD mzhao 2010-11-22, suppport TDQ item file extensions.(.ana, .rep, etc)
+    private URI getItemResourceURI(IProject project, ERepositoryObjectType repositoryObjectType, IPath path, Item item,
+            String... fileExtension)
             throws PersistenceException {
         IPath folderPath = getFolderPath(project, repositoryObjectType, path);
         FileName fileName = ResourceFilenameHelper.create(item.getProperty());
         IPath resourcePath = ResourceFilenameHelper.getExpectedFilePath(fileName, folderPath, FileConstants.ITEM_EXTENSION);
-
+        if (fileExtension != null && fileExtension.length > 0) {
+            resourcePath = ResourceFilenameHelper.getExpectedFilePath(fileName, folderPath, fileExtension[0]);
+        }
         return URIHelper.convert(resourcePath);
     }
 

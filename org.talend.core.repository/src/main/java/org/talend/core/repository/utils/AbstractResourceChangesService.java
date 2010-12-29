@@ -12,8 +12,11 @@
 // ============================================================================
 package org.talend.core.repository.utils;
 
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.talend.core.IService;
+import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Property;
 import orgomg.cwm.objectmodel.core.ModelElement;
 
@@ -38,6 +41,10 @@ public class AbstractResourceChangesService implements IService {
     }
 
     public void handleRestore(Property prop) {
+    }
+
+    public Resource create(IProject project, Item item, int classID, IPath path) {
+        return null;
     }
 
 }

@@ -321,7 +321,6 @@ public final class DqRepositoryViewService {
 
     private static List<TdView> loadViews(Connection dataProvider, Catalog catalog, Schema schema, String viewPattern)
             throws Exception {
-        assert catalog != null : Messages.getString("DqRepositoryViewService.NoCatalogGiven"); //$NON-NLS-1$
         List<TdView> views = new ArrayList<TdView>();
         // PTODO scorreia check return code
         TypedReturnCode<java.sql.Connection> rcConn = JavaSqlFactory.createConnection(dataProvider);

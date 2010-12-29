@@ -76,6 +76,8 @@ public class RepositoryConstants {
 
     public static final String REPOSITORY_URL = "url"; //$NON-NLS-1$
 
+    public static final String TDQ_PAT_ITEM_PATTERN = ".*"; //$NON-NLS-1$
+
     public static String getPattern(ERepositoryObjectType type) {
         switch (type) {
         case FOLDER:
@@ -86,9 +88,16 @@ public class RepositoryConstants {
         case ROUTINES:
             // for bug 10356
             return ROUTINES_ITEM_PATTERN;
+        case TDQ_PATTERNS:
+
+            return TDQ_PAT_ITEM_PATTERN;
+        case TDQ_SOURCE_FILES:
+            return TDQ_PAT_ITEM_PATTERN;
+        case TDQ_JRXMLTEMPLATE:
+            return TDQ_PAT_ITEM_PATTERN;
         default:
-            return REPOSITORY_ITEM_PATTERN;
         }
+        return REPOSITORY_ITEM_PATTERN;
     }
 
     public static boolean isSystemFolder(String label) {

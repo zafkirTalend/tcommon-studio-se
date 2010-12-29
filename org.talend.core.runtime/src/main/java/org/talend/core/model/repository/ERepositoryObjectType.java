@@ -63,6 +63,7 @@ import org.talend.dataquality.properties.TDQIndicatorDefinitionItem;
 import org.talend.dataquality.properties.TDQJrxmlItem;
 import org.talend.dataquality.properties.TDQPatternItem;
 import org.talend.dataquality.properties.TDQReportItem;
+import org.talend.dataquality.properties.TDQSourceFileItem;
 
 /**
  * This enum represents all objects types that can be store in the repository.<br/>
@@ -85,12 +86,17 @@ public enum ERepositoryObjectType {
     METADATA_CON_TABLE("repository.metadataTable", true), //$NON-NLS-1$
     METADATA_CON_COLUMN("repository.metadataColumn", true), //$NON-NLS-1$
     METADATA_CON_VIEW("repository.metadataView", true), //$NON-NLS-1$
+    METADATA_CON_CATALOG("repository.metadataCatalog", true), //$NON-NLS-1$
+    METADATA_CON_SCHEMA("repository.metadataSchema", true), //$NON-NLS-1$
+    //    METADATA_CON_COLUMN("repository.metadataColumn"), //$NON-NLS-1$
     METADATA_CON_SYNONYM("repository.synonym", true), //$NON-NLS-1$
     METADATA_CON_QUERY("repository.query", true), //$NON-NLS-1$
     METADATA_CON_CDC("repository.CDC", true), //$NON-NLS-1$
     METADATA_SAP_FUNCTION("repository.SAPFunction", true), //$NON-NLS-1$
     METADATA_SAP_IDOC("repository.SAPIDoc", true),
     MDM_CONCEPT("repository.concept", true), //$NON-NLS-1$
+    MDM_SCHEMA("repository.xmlSchema", true), //$NON-NLS-1$
+    MDM_ELEMENT_TYPE("repository.xmlElementType", true), //$NON-NLS-1$
     RECYCLE_BIN("repository.recyclebin"),
     METADATA_COLUMN("repository.column"),
     // feature 0006484 add
@@ -133,6 +139,7 @@ public enum ERepositoryObjectType {
     TDQ_BUSINESSRULE_ELEMENT("repository.tdqelement.businessrule", "repository.tdqelement.businessrule"), //$NON-NLS-1$ //$NON-NLS-2$
     TDQ_INDICATOR_ELEMENT("repository.tdqelement.indicator", "repository.tdqelement.indicator"), //$NON-NLS-1$ //$NON-NLS-2$
     TDQ_PATTERN_ELEMENT("repository.tdqelement.pattern", "repository.tdqelement.pattern"), //$NON-NLS-1$ //$NON-NLS-2$
+    TDQ_FOLDER_NODE("repository.tdqelement.folderNode", "repository.tdqelement.folderNode"), //$NON-NLS-1$ //$NON-NLS-2$
 
     // MOD zqin feature 14507
     TDQ_JRAXML_ELEMENT("repository.tdqelement.jrxml", "repository.tdqelement.jrxml"),
@@ -140,7 +147,50 @@ public enum ERepositoryObjectType {
     TDQ_ELEMENT("repository.tdqelement", "repository.tdqelement"), //$NON-NLS-1$ //$NON-NLS-2$
 
     METADATA_HEADER_FOOTER("repository.headerFooterConnections", "repository.headerFooterConnections.alias"), //$NON-NLS-1$
-    COMPONENTS("repository.components");//$NON-NLS-1$
+    COMPONENTS("repository.components"),
+    // MOD klliu feature 15750
+    TDQ_DATA_PROFILING("repository.dataprofiling"),
+    TDQ_ANALYSIS("repository.analysis"),
+    TDQ_REPORTS("repository.reports"),
+    TDQ_LIBRARIES("repository.libraries"),
+    TDQ_PATTERNS("repository.patterns"),
+    TDQ_PATTERN_REGEX("repository.patternRegex"),
+    TDQ_PATTERN_SQL("repository.patternSql"),
+    TDQ_SOURCE_FILES("repository.sourceFile"),
+    TDQ_RULES("repository.rules"),
+    TDQ_RULES_SQL("repository.rulesSql"),
+    TDQ_JRXMLTEMPLATE("repository.jrxmlTemplate"),
+    TDQ_INDICATORS("repository.indicators"),
+    // MOD klliu 2010-11-26 definition type
+    SYSTEM_INDICATORS_ADVANCED_STATISTICS("Advanced Statistics"),
+    SYSTEM_INDICATORS_BUSINESS_RULES("Business Rules"),
+    SYSTEM_INDICATORS_CORRELATION("Correlation"),
+    SYSTEM_INDICATORS_FUNCTIONAL_DEPENDENCY("Functional Dependency"),
+    SYSTEM_INDICATORS_OVERVIEW("Overview"),
+    SYSTEM_INDICATORS_PATTERN_FINDER("Pattern Finder"),
+    SYSTEM_INDICATORS_PATTERN_MATCHING("Pattern Matching"),
+    SYSTEM_INDICATORS_ROW_COMPARISON("Row Comparison"),
+    SYSTEM_INDICATORS_SIMPLE_STATISTICS("Simple Statistics"),
+    SYSTEM_INDICATORS_SOUNDEX("Soundex"),
+    SYSTEM_INDICATORS_SUMMARY_STATISTICS("Summary Statistics"),
+    SYSTEM_INDICATORS_TEXT_STATISTICS("Text Statistics"),
+    // MOD klliu 2010-12-01 Patterns
+    TDQ_PATTERN_REGEX_CUSTOMER("repository.patternRegexCustomer"),
+    TDQ_PATTERN_REGEX_INTERNET("repository.patternRegexInternet"),
+    TDQ_PATTERN_REGEX_COLOR("repository.patternRegexColor"),
+    TDQ_PATTERN_REGEX_DATE("repository.patternRegexDate"),
+    TDQ_PATTERN_REGEX_NUMBER("repository.patternRegexNumber"),
+    TDQ_PATTERN_REGEX_CODE("repository.patternRegexCode"),
+    TDQ_PATTERN_REGEX_PHONE("repository.patternRegexPhone"),
+    TDQ_PATTERN_REGEX_ADDRESS("repository.patternRegexAddress"),
+    TDQ_PATTERN_REGEX_TEXT("repository.patternRegexText"),
+
+    TDQ_SYSTEM_INDICATORS("repository.systemIndicators"),
+    TDQ_USERDEFINE_INDICATORS("repository.userDefineIndicators"),
+    TDQ_PATTERN_SQL_INTERNET("repository.patternSqlInternet"),
+    TDQ_EXCHANGE(("repository.tdqExchange"));
+
+    // MOD klliu 2010-11-29
 
     private String key;
 
@@ -276,7 +326,83 @@ public enum ERepositoryObjectType {
             return "metadata/rules"; //$NON-NLS-1$
         case METADATA_FILE_LINKRULES:
             return "metadata/rules"; //$NON-NLS-1$
-            // MOD mzhao feature 13114, 2010-05-19
+            // MOD klliu feature 15750,2010-11-18
+        case TDQ_DATA_PROFILING:
+            return "TDQ_Data Profiling";
+        case TDQ_ANALYSIS:
+            return "TDQ_Data Profiling/Analyses";
+        case TDQ_REPORTS:
+            return "TDQ_Data Profiling/Reports";
+        case TDQ_LIBRARIES:
+            return "TDQ_Libraries";
+        case TDQ_EXCHANGE:
+            return "TDQ_Libraries/Exchange";
+        case TDQ_INDICATORS:
+            return "TDQ_Libraries/Indicators";
+        case TDQ_JRXMLTEMPLATE:
+            return "TDQ_Libraries/JRXML Template";
+        case TDQ_RULES:
+            return "TDQ_Libraries/Rules";
+        case TDQ_RULES_SQL:
+            return "TDQ_Libraries/Rules/SQL";
+        case TDQ_PATTERNS:
+            return "TDQ_Libraries/Patterns";
+        case TDQ_PATTERN_REGEX:
+            return "TDQ_Libraries/Patterns/Regex";
+            // MOD klliu 2010-12-01 patterns
+            // case TDQ_PATTERN_REGEX_CUSTOMER:
+            // return "TDQ_Libraries/Patterns/Regex/customer";
+            // case TDQ_PATTERN_REGEX_INTERNET:
+            // return "TDQ_Libraries/Patterns/Regex/internet";
+            // case TDQ_PATTERN_REGEX_COLOR:
+            // return "TDQ_Libraries/Patterns/Regex/color";
+            // case TDQ_PATTERN_REGEX_DATE:
+            // return "TDQ_Libraries/Patterns/Regex/date";
+            // case TDQ_PATTERN_REGEX_NUMBER:
+            // return "TDQ_Libraries/Patterns/Regex/number";
+            // case TDQ_PATTERN_REGEX_CODE:
+            // return "TDQ_Libraries/Patterns/Regex/code";
+            // case TDQ_PATTERN_REGEX_PHONE:
+            // return "TDQ_Libraries/Patterns/Regex/phone";
+            // case TDQ_PATTERN_REGEX_ADDRESS:
+            // return "TDQ_Libraries/Patterns/Regex/address";
+            // case TDQ_PATTERN_REGEX_TEXT:
+            // return "TDQ_Libraries/Patterns/Regex/text";
+        case TDQ_PATTERN_SQL:
+            return "TDQ_Libraries/Patterns/SQL";
+            // case TDQ_PATTERN_SQL_INTERNET:
+            // return "TDQ_Libraries/Patterns/SQL/internet";
+        case TDQ_SOURCE_FILES:
+            return "TDQ_Libraries/Source Files";
+        case TDQ_SYSTEM_INDICATORS:
+            return "TDQ_Libraries/Indicators/System Indicators";
+        case TDQ_USERDEFINE_INDICATORS:
+            return "TDQ_Libraries/Indicators/User Defined Indicators";
+            // MOD klliu 2010-11-26 definition type
+        case SYSTEM_INDICATORS_ADVANCED_STATISTICS:
+            return "TDQ_Libraries/Indicators/System Indicators/Advanced Statistics";
+        case SYSTEM_INDICATORS_BUSINESS_RULES:
+            return "TDQ_Libraries/Indicators/System Indicators/Business Rules";
+        case SYSTEM_INDICATORS_CORRELATION:
+            return "TDQ_Libraries/Indicators/System Indicators/Correlation";
+        case SYSTEM_INDICATORS_FUNCTIONAL_DEPENDENCY:
+            return "TDQ_Libraries/Indicators/System Indicators/Functional Dependency";
+        case SYSTEM_INDICATORS_OVERVIEW:
+            return "TDQ_Libraries/Indicators/System Indicators/Overview";
+        case SYSTEM_INDICATORS_PATTERN_FINDER:
+            return "TDQ_Libraries/Indicators/System Indicators/Pattern Finder";
+        case SYSTEM_INDICATORS_PATTERN_MATCHING:
+            return "TDQ_Libraries/Indicators/System Indicators/Pattern Matching";
+        case SYSTEM_INDICATORS_ROW_COMPARISON:
+            return "TDQ_Libraries/Indicators/System Indicators/Row Comparison";
+        case SYSTEM_INDICATORS_SIMPLE_STATISTICS:
+            return "TDQ_Libraries/Indicators/System Indicators/Simple Statistics";
+        case SYSTEM_INDICATORS_SOUNDEX:
+            return "TDQ_Libraries/Indicators/System Indicators/Soundex";
+        case SYSTEM_INDICATORS_SUMMARY_STATISTICS:
+            return "TDQ_Libraries/Indicators/System Indicators/Summary Statistics";
+        case SYSTEM_INDICATORS_TEXT_STATISTICS:
+            return "TDQ_Libraries/Indicators/System Indicators/Text Statistics";
         case METADATA_HEADER_FOOTER:
             return "metadata/header_footer";
         case TDQ_ANALYSIS_ELEMENT:
@@ -510,6 +636,7 @@ public enum ERepositoryObjectType {
             // MOD mzhao feature 9207
             @Override
             public Object caseTDQItem(TDQItem object) {
+
                 return TDQ_ELEMENT;
             }
 
@@ -526,32 +653,37 @@ public enum ERepositoryObjectType {
             // MOD mzhao feature 13114, 2010-05-19
             @Override
             public Object caseTDQAnalysisItem(TDQAnalysisItem object) {
-                return TDQ_ANALYSIS_ELEMENT;
+                return TDQ_ANALYSIS;
             }
 
             @Override
             public Object caseTDQBusinessRuleItem(TDQBusinessRuleItem object) {
-                return TDQ_BUSINESSRULE_ELEMENT;
+                return TDQ_RULES;
             }
 
             @Override
             public Object caseTDQIndicatorDefinitionItem(TDQIndicatorDefinitionItem object) {
-                return TDQ_INDICATOR_ELEMENT;
+                return TDQ_INDICATORS;
             }
 
             @Override
             public Object caseTDQPatternItem(TDQPatternItem object) {
-                return TDQ_PATTERN_ELEMENT;
-            }
-
-            @Override
-            public Object caseTDQJrxmlItem(TDQJrxmlItem object) {
-                return TDQ_JRAXML_ELEMENT;
+                return TDQ_PATTERNS;
             }
 
             @Override
             public Object caseTDQReportItem(TDQReportItem object) {
-                return TDQ_REPORT_ELEMENT;
+                return TDQ_REPORTS;
+            }
+
+            @Override
+            public Object caseTDQJrxmlItem(TDQJrxmlItem object) {
+                return TDQ_JRXMLTEMPLATE;
+            }
+
+            @Override
+            public Object caseTDQSourceFileItem(TDQSourceFileItem object) {
+                return TDQ_SOURCE_FILES;
             }
 
             public Object defaultCase(EObject object) {

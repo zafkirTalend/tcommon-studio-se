@@ -349,12 +349,13 @@ public class ConnectionHelper {
 
     // MOD bzhou bug 16715
     public static boolean addXMLDocuments(Collection<TdXmlSchema> xmlDocuments) {
-        TdXmlSchema xmlSchema = xmlDocuments.iterator().next();
-        DataManager dataManager = xmlSchema.getDataManager().get(0);
-        if (dataManager != null) {
-            return addPackages(xmlDocuments, (Connection) dataManager);
+        if (xmlDocuments != null && xmlDocuments.iterator().hasNext()) {
+            TdXmlSchema xmlSchema = xmlDocuments.iterator().next();
+            DataManager dataManager = xmlSchema.getDataManager().get(0);
+            if (dataManager != null) {
+                return addPackages(xmlDocuments, (Connection) dataManager);
+            }
         }
-
         return false;
     }
 

@@ -95,6 +95,7 @@ import org.talend.core.model.properties.SVGBusinessProcessItem;
 import org.talend.core.model.properties.SnippetItem;
 import org.talend.core.model.properties.SpagoBiServer;
 import org.talend.core.model.properties.Status;
+import org.talend.core.model.properties.TDQItem;
 import org.talend.core.model.properties.User;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.Folder;
@@ -1006,13 +1007,18 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         } else {
             // TODO SML Delete this ?
             IProject fsProject = ResourceModelUtils.getProject(project);
-            String completePath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + path.toString();
-
+            String completePath = null;
+            if (type.equals(ERepositoryObjectType.TDQ_PATTERN_REGEX)) {
+                completePath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + label.toString();
+            } else {
+                completePath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + path.toString();
+                completePath = completePath + IPath.SEPARATOR + label;
+            }
             // if label is "", don't need to added label into completePath (used
             // for job's documentation and for folder
             // only)
             // if (!label.equals("")) {
-            completePath = completePath + IPath.SEPARATOR + label;
+
             // }
 
             // Getting the folder :
@@ -1632,7 +1638,15 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 throw new UnsupportedOperationException();
             }
         } else {
-            throw new UnsupportedOperationException();
+            // MOD xqliu 2010-12-16 15750
+            if (item instanceof TDQItem) {
+                propagateFileName(project, item.getProperty());
+                xmiResourceManager.saveResource(item.eResource());
+                return;
+            } else {
+                throw new UnsupportedOperationException();
+            }
+            // ~ 15750
         }
 
         propagateFileName(project, item.getProperty());
@@ -1824,21 +1838,46 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             default:
                 throw new UnsupportedOperationException();
             }
+
         } else {
-            throw new UnsupportedOperationException();
+            // MOD mzhao resource change listener so that TOP can react the changes.
+            AbstractResourceChangesService resChangeService = ResourceChangesServiceRegister.getInstance()
+                    .getResourceChangeService(AbstractResourceChangesService.class);
+            itemResource = resChangeService.create(project2, item, eClass.getClassifierID(), path);
+            if (itemResource == null) {
+                throw new UnsupportedOperationException();
+            }
         }
 
         Resource propertyResource = xmiResourceManager.createPropertyResource(itemResource);
         propertyResource.getContents().add(item.getProperty());
         propertyResource.getContents().add(item.getState());
         propertyResource.getContents().add(item);
-
-        String parentPath = ERepositoryObjectType.getFolderName(ERepositoryObjectType.getItemType(item)) + IPath.SEPARATOR
-                + path.toString();
+        String parentPath = null;
+        if (ERepositoryObjectType.getItemType(item).equals(ERepositoryObjectType.TDQ_ANALYSIS)) {
+            parentPath = ERepositoryObjectType.getFolderName(ERepositoryObjectType.getItemType(item));
+        } else if (ERepositoryObjectType.getItemType(item).equals(ERepositoryObjectType.TDQ_REPORTS)) {
+            parentPath = ERepositoryObjectType.getFolderName(ERepositoryObjectType.getItemType(item));
+        } else if (ERepositoryObjectType.getItemType(item).equals(ERepositoryObjectType.TDQ_PATTERNS)) {
+            parentPath = ERepositoryObjectType.getFolderName(ERepositoryObjectType.getItemType(item)) + IPath.SEPARATOR
+                    + path.toString();
+        } else if (ERepositoryObjectType.getItemType(item).equals(ERepositoryObjectType.TDQ_SOURCE_FILES)) {
+            parentPath = ERepositoryObjectType.getFolderName(ERepositoryObjectType.getItemType(item));
+        } else if (ERepositoryObjectType.getItemType(item).equals(ERepositoryObjectType.METADATA_CONNECTIONS)) {
+            parentPath = ERepositoryObjectType.getFolderName(ERepositoryObjectType.getItemType(item));
+        } else if (ERepositoryObjectType.getItemType(item).equals(ERepositoryObjectType.METADATA_MDMCONNECTION)) {
+            parentPath = ERepositoryObjectType.getFolderName(ERepositoryObjectType.getItemType(item));
+        } else {
+            parentPath = ERepositoryObjectType.getFolderName(ERepositoryObjectType.getItemType(item)) + IPath.SEPARATOR
+                    + path.toString();
+        }
         FolderHelper folderHelper = getFolderHelper(project.getEmfProject());
         FolderItem parentFolderItem = folderHelper.getFolder(parentPath);
-        parentFolderItem.getChildren().add(item);
-        item.setParent(parentFolderItem);
+        boolean add = parentFolderItem.getChildren().add(item);
+        if (add) {
+            item.setParent(parentFolderItem);
+        }
+        // item.setParent(parentFolderItem);
 
         xmiResourceManager.saveResource(itemResource);
         xmiResourceManager.saveResource(propertyResource);
@@ -2256,4 +2295,5 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     public XmiResourceManager getResourceManager() {
         return this.xmiResourceManager;
     }
+
 }

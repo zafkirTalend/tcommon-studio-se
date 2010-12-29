@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
 import junit.framework.TestCase;
 
@@ -166,12 +165,12 @@ public class FreePortFinderTest extends TestCase {
         }
         
         threadPool.shutdown();
-        try {
-            threadPool.awaitTermination(1, TimeUnit.MINUTES);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            fail(e.getMessage());
-        }
+        // try {
+        // threadPool.awaitTermination(1, TimeUnit.MINUTES);
+        // } catch (InterruptedException e) {
+        // e.printStackTrace();
+        // fail(e.getMessage());
+        // }
 
         for (int i = 1; i < testsCount; i++) {
             if (commands[i].getPort() == commands[i - 1].getPort()) {

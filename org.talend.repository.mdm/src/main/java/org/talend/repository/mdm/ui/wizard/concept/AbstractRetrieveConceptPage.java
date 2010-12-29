@@ -19,9 +19,9 @@ import org.talend.core.model.metadata.builder.connection.Concept;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.properties.ConnectionItem;
+import org.talend.core.repository.model.repositoryObject.MetadataTableRepositoryObject;
 import org.talend.repository.mdm.i18n.Messages;
 import org.talend.repository.mdm.util.MDMUtil;
-import org.talend.repository.model.MetadataTableRepositoryObject;
 import org.talend.repository.model.RepositoryNode;
 
 /**

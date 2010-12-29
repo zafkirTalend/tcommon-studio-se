@@ -29,4 +29,5 @@ public interface ITDQPatternService extends IService {
      * @return patterns defined in TDQ as String arrays.
      */
     public String[][][] retrieveTDQPatterns();
+
 }

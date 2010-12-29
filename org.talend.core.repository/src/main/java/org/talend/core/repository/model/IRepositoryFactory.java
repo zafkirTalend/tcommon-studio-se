@@ -422,4 +422,76 @@ public interface IRepositoryFactory {
     public List<IRepositoryViewObject> getMetadataByFolder(Project project, ERepositoryObjectType itemType, IPath path);
 
     public XmiResourceManager getResourceManager();
+
+    // feature 15750
+    public RootContainer<String, IRepositoryViewObject> getAnalysis(Project project, boolean... options)
+            throws PersistenceException;
+
+    /**
+     * DOC klliu Comment method "getReport".
+     * 
+     * @param project
+     * @param options
+     * @return
+     */
+    public RootContainer<String, IRepositoryViewObject> getReport(Project project, boolean[] options) throws PersistenceException;
+
+    /**
+     * DOC klliu Comment method "getIndicatorDefinitions".
+     * 
+     * @param project
+     * @param options
+     * @return
+     * @throws PersistenceException
+     */
+    public RootContainer<String, IRepositoryViewObject> getIndicatorDefinitions(Project project, ERepositoryObjectType type,
+            boolean[] options) throws PersistenceException;
+
+    /**
+     * DOC klliu Comment method "getPatterns".
+     * 
+     * @param project
+     * @param type
+     * @param options
+     * @return
+     * @throws PersistenceException
+     */
+    public RootContainer<String, IRepositoryViewObject> getPatterns(Project project, ERepositoryObjectType type, boolean[] options)
+            throws PersistenceException;
+
+    /**
+     * DOC klliu Comment method "getRules".
+     * 
+     * @param project
+     * @param type
+     * @param options
+     * @return
+     * @throws PersistenceException
+     */
+    public RootContainer<String, IRepositoryViewObject> getRules(Project project, ERepositoryObjectType type, boolean[] options)
+            throws PersistenceException;
+
+    /**
+     * DOC klliu Comment method "getJrxmlTemplates".
+     * 
+     * @param project
+     * @param type
+     * @param options
+     * @return
+     */
+    public RootContainer<String, IRepositoryViewObject> getJrxmlTemplates(Project project, ERepositoryObjectType type,
+            boolean[] options) throws PersistenceException;
+
+    /**
+     * DOC klliu Comment method "getSourceFiles".
+     * 
+     * @param project
+     * @param type
+     * @param options
+     * @return
+     * @throws PersistenceException
+     */
+    public RootContainer<String, IRepositoryViewObject> getSourceFiles(Project project, ERepositoryObjectType type,
+            boolean[] options) throws PersistenceException;
+
 }

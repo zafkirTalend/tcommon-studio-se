@@ -226,21 +226,6 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         }
     }
 
-    /* hywang for 17295,need to migration refProjects when login using svn repository */
-    private void executeMigrationForRefProjects(Project mainProject, boolean beforeLogon, IMigrationToolService service,
-            SubMonitor monitorWrap) {
-        if (service != null) {
-            List<Project> subProjects = ProjectManager.getInstance().getReferencedProjects(mainProject);
-            if (subProjects.size() == 0) {
-                return;
-            }
-            for (Project subProject : subProjects) {
-                service.executeProjectTasks(subProject, beforeLogon, monitorWrap);
-                executeMigrationForRefProjects(subProject, beforeLogon, service, monitorWrap);
-            }
-        }
-    }
-
     private boolean checkFileNameAndPath(Project project, Item item, String pattern, IPath path, boolean folder,
             boolean... isImportItem) throws PersistenceException {
         String fileName = item.getProperty().getLabel();
@@ -375,7 +360,13 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
 
     public Folder createFolder(Project project, ERepositoryObjectType type, IPath path, String label, boolean isImportItem)
             throws PersistenceException {
-        checkFileNameAndPath(project, label, RepositoryConstants.FOLDER_PATTERN, type, path, true);
+        // MOD klliu 2010-12-01 check the type
+        if (type.equals(ERepositoryObjectType.TDQ_SYSTEM_INDICATORS) || type.equals(ERepositoryObjectType.TDQ_SOURCE_FILES)
+                || type.equals(ERepositoryObjectType.TDQ_JRXMLTEMPLATE)) {
+            checkFileNameAndPath(project, label, RepositoryConstants.TDQ_PAT_ITEM_PATTERN, type, path, true);
+        } else {
+            checkFileNameAndPath(project, label, RepositoryConstants.FOLDER_PATTERN, type, path, true);
+        }
         Folder createFolder = this.repositoryFactoryFromProvider.createFolder(project, type, path, label, isImportItem);
         if (type == ERepositoryObjectType.PROCESS || type == ERepositoryObjectType.JOBLET) {
             fireRepositoryPropertyChange(ERepositoryActionName.FOLDER_CREATE.getName(), path, new Object[] { createFolder, type });
@@ -1637,13 +1628,15 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
             currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
             currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.exec.migration.tasks"), 1); //$NON-NLS-1$
             service.executeProjectTasks(project, false, currentMonitor);
-            if (!project.isLocal() && PluginChecker.isSVNProviderPluginLoaded()) {
-                executeMigrationForRefProjects(project, false, service, currentMonitor);
-            }
             // monitorWrap.worked(1);
 
             // clean workspace
             coreService.deleteAllJobs(false);
+
+            currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
+            currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.synchronizeLibraries"), 1); //$NON-NLS-1$
+            coreService.syncLibraries(currentMonitor);
+            // monitorWrap.worked(1);
 
             currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
             currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.synch.repo.items"), 1); //$NON-NLS-1$
@@ -1656,16 +1649,6 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
             if (PluginChecker.isRulesPluginLoaded()) {
                 coreService.syncAllRules();
             }
-
-            currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
-            currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.synchronizeLibraries"), 1); //$NON-NLS-1$
-            coreService.syncLibraries(currentMonitor);
-
-            // sap
-            if (PluginChecker.isSAPWizardPluginLoaded()) {
-                coreService.synchronizeSapLib();
-            }
-
             // monitorWrap.worked(1);
             if (!CommonsPlugin.isHeadless()) {
                 coreService.initializeTemplates();
@@ -2231,4 +2214,96 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         return repositoryFactoryFromProvider.getMetadataByFolder(projectManager.getCurrentProject(), itemType, path);
     }
 
+    /*
+     * (non-Jsdoc)
+     * 
+     * @see org.talend.repository.model.IProxyRepositoryFactory#getAnalysis()
+     */
+    public RootContainer<String, IRepositoryViewObject> getAnalysis() throws PersistenceException {
+        return getAnalysis(projectManager.getCurrentProject());
+    }
+
+    public RootContainer<String, IRepositoryViewObject> getAnalysis(Project project, boolean... options)
+            throws PersistenceException {
+        return this.repositoryFactoryFromProvider.getAnalysis(project, options);
+    }
+
+    /**
+     * DOC klliu Comment method "getReport".
+     * 
+     * @return
+     * @throws PersistenceException
+     */
+    public RootContainer<String, IRepositoryViewObject> getReport() throws PersistenceException {
+        return getReport(projectManager.getCurrentProject());
+    }
+
+    public RootContainer<String, IRepositoryViewObject> getReport(Project project, boolean... options)
+            throws PersistenceException {
+        return this.repositoryFactoryFromProvider.getReport(project, options);
+    }
+
+    /**
+     * DOC klliu Comment method "getIndicatorDefinitions".
+     * 
+     * @return
+     * @throws PersistenceException
+     */
+    public RootContainer<String, IRepositoryViewObject> getIndicatorDefinitions(ERepositoryObjectType type)
+            throws PersistenceException {
+        return getIndicatorDefinitions(projectManager.getCurrentProject(), type);
+    }
+
+    public RootContainer<String, IRepositoryViewObject> getIndicatorDefinitions(Project project, ERepositoryObjectType type,
+            boolean... options) throws PersistenceException {
+        return this.repositoryFactoryFromProvider.getIndicatorDefinitions(project, type, options);
+    }
+
+    public RootContainer<String, IRepositoryViewObject> getPatterns(ERepositoryObjectType type) throws PersistenceException {
+        return getPatterns(projectManager.getCurrentProject(), type);
+    }
+
+    public RootContainer<String, IRepositoryViewObject> getPatterns(Project project, ERepositoryObjectType type,
+            boolean... options) throws PersistenceException {
+        return this.repositoryFactoryFromProvider.getPatterns(project, type, options);
+    }
+
+    /**
+     * DOC klliu Comment method "getRules".
+     * 
+     * @param type
+     */
+    public RootContainer<String, IRepositoryViewObject> getRules(ERepositoryObjectType type) throws PersistenceException {
+        return getRules(projectManager.getCurrentProject(), type);
+    }
+
+    public RootContainer<String, IRepositoryViewObject> getRules(Project project, ERepositoryObjectType type, boolean... options)
+            throws PersistenceException {
+        return this.repositoryFactoryFromProvider.getRules(project, type, options);
+    }
+
+    public RootContainer<String, IRepositoryViewObject> getJrxmlTemplates(ERepositoryObjectType type) throws PersistenceException {
+        return getJrxmlTemplates(projectManager.getCurrentProject(), type);
+    }
+
+    public RootContainer<String, IRepositoryViewObject> getJrxmlTemplates(Project project, ERepositoryObjectType type,
+            boolean... options) throws PersistenceException {
+        return this.repositoryFactoryFromProvider.getJrxmlTemplates(project, type, options);
+    }
+
+    /**
+     * DOC klliu Comment method "getSourceFiles".
+     * 
+     * @param itemType
+     * @throws PersistenceException
+     */
+    public RootContainer<String, IRepositoryViewObject> getSourceFiles(ERepositoryObjectType itemType)
+            throws PersistenceException {
+        return getSourceFiles(projectManager.getCurrentProject(), itemType);
+    }
+
+    public RootContainer<String, IRepositoryViewObject> getSourceFiles(Project project, ERepositoryObjectType type,
+            boolean... options) throws PersistenceException {
+        return this.repositoryFactoryFromProvider.getSourceFiles(project, type, options);
+    }
 }
