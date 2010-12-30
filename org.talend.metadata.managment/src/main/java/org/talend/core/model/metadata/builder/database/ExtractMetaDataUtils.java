@@ -580,7 +580,8 @@ public class ExtractMetaDataUtils {
                 driverClassName = ExtractMetaDataUtils.getDriverClassByDbType(dbType);
             }
         } else {
-            if (driverJarPathArg.contains("\\")) { //$NON-NLS-1$
+            // add another test with start with / in case of linux OS.
+            if (driverJarPathArg.contains("\\") || driverJarPathArg.startsWith("/")) { //$NON-NLS-1$ 
                 jarPathList.add(driverJarPathArg);
             } else {
                 jarPathList.add(getJavaLibPath() + driverJarPathArg);
