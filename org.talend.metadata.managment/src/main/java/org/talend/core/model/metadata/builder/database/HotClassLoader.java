@@ -30,9 +30,10 @@ public class HotClassLoader extends URLClassLoader {
     private static HotClassLoader instance;
 
     public static HotClassLoader getInstance() {
-        if (instance == null) {
-            instance = new HotClassLoader();
-        }
+        // bug 17800 fixed
+        // if (instance == null) {
+        instance = new HotClassLoader();
+        // }
         return instance;
     }
 
