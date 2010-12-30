@@ -58,7 +58,15 @@ public class JDBCDriverLoader {
         } else {
             loader = HotClassLoader.getInstance();
             for (int i = 0; i < jarPath.length; i++) {
-                loader.addPath(jarPath[i]);
+                // bug 17800 fixed: fix a problem of jdbc drivers used in the wizard.
+                if (jarPath[i].contains(";")) {
+                    String[] splittedPath = jarPath[i].split(";");
+                    for (int j = 0; j < splittedPath.length; j++) {
+                        loader.addPath(splittedPath[j]);
+                    }
+                } else {
+                    loader.addPath(jarPath[i]);
+                }
             }
         }
 
