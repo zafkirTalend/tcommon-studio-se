@@ -17,10 +17,6 @@
       [Enter License Description here.]
    </license>
 
-   <url>
-      <update label="TIS Talend update site for stables" url="http://www.talend.com/tisprof/updatesite/stable/"/>
-   </url>
-
    <plugin
          id="org.talend.designer.runprocess.remote.perl"
          download-size="0"
