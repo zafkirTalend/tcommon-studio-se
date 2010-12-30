@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.core.runtime;
 
+import org.eclipse.core.runtime.Plugin;
+import org.osgi.framework.BundleContext;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ICoreService;
 import org.talend.core.IManagementService;
@@ -27,24 +29,31 @@ import org.talend.repository.model.IRepositoryService;
 /**
  * DOC nrousseau class global comment. Detailled comment
  */
-public class CoreRuntimePlugin {
+public class CoreRuntimePlugin extends Plugin {
 
     public static final String PLUGIN_ID = "org.talend.core.runtime"; //$NON-NLS-1$
 
     /** Context. */
     private final Context context;
 
-    private static CoreRuntimePlugin instance = null;
+    private static CoreRuntimePlugin plugin = null;
 
-    private CoreRuntimePlugin() {
+    public CoreRuntimePlugin() {
         context = new Context();
     }
 
     public static CoreRuntimePlugin getInstance() {
-        if (instance == null) {
-            instance = new CoreRuntimePlugin();
-        }
-        return instance;
+        return plugin;
+    }
+
+    public void start(BundleContext context) throws Exception {
+        super.start(context);
+        plugin = this;
+    }
+
+    public void stop(BundleContext context) throws Exception {
+        super.stop(context);
+        plugin = null;
     }
 
     /**
