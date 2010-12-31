@@ -110,7 +110,7 @@ import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.repository.model.ResourceModelUtils;
 import org.talend.core.repository.model.VersionList;
 import org.talend.core.repository.utils.AbstractResourceChangesService;
-import org.talend.core.repository.utils.ResourceChangesServiceRegister;
+import org.talend.core.repository.utils.TDQServiceRegister;
 import org.talend.core.repository.utils.RoutineUtils;
 import org.talend.core.repository.utils.URIHelper;
 import org.talend.core.repository.utils.XmiResourceManager;
@@ -864,7 +864,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
     private void readProject(boolean local, List<Project> toReturn, IProject p, boolean useOldProjectFile) {
         xmiResourceManager.setUseOldProjectFile(useOldProjectFile);
-
         try {
             if (xmiResourceManager.hasTalendProjectFile(p)) {
                 org.talend.core.model.properties.Project emfProject = xmiResourceManager.loadProject(p);
@@ -1086,8 +1085,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         for (int i = 0; i < childrens.length; i++) {
             if (childrens[i] instanceof FolderItem) {
                 FolderItem children = (FolderItem) childrens[i];
-                moveFolder(type, sourcePath.append(children.getProperty().getLabel()), targetPath.append(emfFolder.getProperty()
-                        .getLabel()));
+                moveFolder(type, sourcePath.append(children.getProperty().getLabel()),
+                        targetPath.append(emfFolder.getProperty().getLabel()));
             } else {
                 emfFolder.getChildren().remove(childrens[i]);
                 newFolder.getChildren().add(childrens[i]);
@@ -1100,8 +1099,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         for (IRepositoryViewObject object : serializableFromFolder) {
             List<Resource> affectedResources = xmiResourceManager.getAffectedResources(object.getProperty());
             for (Resource resource : affectedResources) {
-                IPath path = getPhysicalProject(project).getFullPath().append(completeNewPath).append(
-                        resource.getURI().lastSegment());
+                IPath path = getPhysicalProject(project).getFullPath().append(completeNewPath)
+                        .append(resource.getURI().lastSegment());
                 xmiResourceManager.moveResource(resource, path);
             }
         }
@@ -1841,8 +1840,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
         } else {
             // MOD mzhao resource change listener so that TOP can react the changes.
-            AbstractResourceChangesService resChangeService = ResourceChangesServiceRegister.getInstance()
+            AbstractResourceChangesService resChangeService = TDQServiceRegister.getInstance()
                     .getResourceChangeService(AbstractResourceChangesService.class);
+
             itemResource = resChangeService.create(project2, item, eClass.getClassifierID(), path);
             if (itemResource == null) {
                 throw new UnsupportedOperationException();
@@ -2006,7 +2006,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         }
 
         // MOD mzhao resource change listener so that TOP can react the changes.
-        AbstractResourceChangesService resChangeService = ResourceChangesServiceRegister.getInstance().getResourceChangeService(
+        AbstractResourceChangesService resChangeService = TDQServiceRegister.getInstance().getResourceChangeService(
                 AbstractResourceChangesService.class);
         for (int i = 0; i < resourceToUnload.size(); i++) {
             Resource resource = resourceToUnload.get(i);
@@ -2038,6 +2038,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         synchronizeFolders(project2, project.getEmfProject());
         changeRoutinesPackage(project);
         saveProject(project);
+
     }
 
     private void changeRoutinesPackage(Project project) {
