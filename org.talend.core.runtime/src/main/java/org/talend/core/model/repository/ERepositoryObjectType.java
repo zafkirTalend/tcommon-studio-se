@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
+import org.talend.core.ITDQItemService;
 import org.talend.core.PluginChecker;
 import org.talend.core.model.properties.BRMSConnectionItem;
 import org.talend.core.model.properties.BusinessProcessItem;
@@ -56,14 +57,8 @@ import org.talend.core.model.properties.TDQItem;
 import org.talend.core.model.properties.WSDLSchemaConnectionItem;
 import org.talend.core.model.properties.XmlFileConnectionItem;
 import org.talend.core.model.properties.util.PropertiesSwitch;
+import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.i18n.Messages;
-import org.talend.dataquality.properties.TDQAnalysisItem;
-import org.talend.dataquality.properties.TDQBusinessRuleItem;
-import org.talend.dataquality.properties.TDQIndicatorDefinitionItem;
-import org.talend.dataquality.properties.TDQJrxmlItem;
-import org.talend.dataquality.properties.TDQPatternItem;
-import org.talend.dataquality.properties.TDQReportItem;
-import org.talend.dataquality.properties.TDQSourceFileItem;
 
 /**
  * This enum represents all objects types that can be store in the repository.<br/>
@@ -648,48 +643,8 @@ public enum ERepositoryObjectType {
     }
 
     private static ERepositoryObjectType getTDQRepObjType(Item item) {
-        return (ERepositoryObjectType) new org.talend.dataquality.properties.util.PropertiesSwitch() {
-
-            // MOD mzhao feature 13114, 2010-05-19
-            @Override
-            public Object caseTDQAnalysisItem(TDQAnalysisItem object) {
-                return TDQ_ANALYSIS;
-            }
-
-            @Override
-            public Object caseTDQBusinessRuleItem(TDQBusinessRuleItem object) {
-                return TDQ_RULES;
-            }
-
-            @Override
-            public Object caseTDQIndicatorDefinitionItem(TDQIndicatorDefinitionItem object) {
-                return TDQ_INDICATORS;
-            }
-
-            @Override
-            public Object caseTDQPatternItem(TDQPatternItem object) {
-                return TDQ_PATTERNS;
-            }
-
-            @Override
-            public Object caseTDQReportItem(TDQReportItem object) {
-                return TDQ_REPORTS;
-            }
-
-            @Override
-            public Object caseTDQJrxmlItem(TDQJrxmlItem object) {
-                return TDQ_JRXMLTEMPLATE;
-            }
-
-            @Override
-            public Object caseTDQSourceFileItem(TDQSourceFileItem object) {
-                return TDQ_SOURCE_FILES;
-            }
-
-            public Object defaultCase(EObject object) {
-                return null;
-            }
-        }.doSwitch(item);
+        ITDQItemService tdqItemService = CoreRuntimePlugin.getInstance().getTDQItemService();
+        return tdqItemService.getTDQRepObjType(item);
     }
 
     public boolean isSubItem() {

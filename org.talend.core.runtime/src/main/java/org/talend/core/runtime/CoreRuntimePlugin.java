@@ -19,6 +19,7 @@ import org.talend.core.ICoreService;
 import org.talend.core.IManagementService;
 import org.talend.core.IService;
 import org.talend.core.IStatusPreferenceInitService;
+import org.talend.core.ITDQItemService;
 import org.talend.core.context.Context;
 import org.talend.core.model.general.ILibrariesService;
 import org.talend.core.service.IWebService;
@@ -78,6 +79,13 @@ public class CoreRuntimePlugin extends Plugin {
         return null;
     }
 
+    public ITDQItemService getTDQItemService() {
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQItemService.class)) {
+            IService service = GlobalServiceRegister.getDefault().getService(ITDQItemService.class);
+            return (ITDQItemService) service;
+        }
+        return null;
+    }
     public IDesignerCoreService getDesignerCoreService() {
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerCoreService.class)) {
             IService service = GlobalServiceRegister.getDefault().getService(IDesignerCoreService.class);
@@ -93,7 +101,6 @@ public class CoreRuntimePlugin extends Plugin {
         }
         return null;
     }
-
     public ILibrariesService getLibrariesService() {
         return (ILibrariesService) GlobalServiceRegister.getDefault().getService(ILibrariesService.class);
     }

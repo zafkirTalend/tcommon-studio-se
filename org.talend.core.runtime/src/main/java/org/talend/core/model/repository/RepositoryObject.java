@@ -22,6 +22,7 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.IService;
+import org.talend.core.ITDQItemService;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
@@ -71,16 +72,10 @@ import org.talend.core.model.properties.User;
 import org.talend.core.model.properties.WSDLSchemaConnectionItem;
 import org.talend.core.model.properties.XmlFileConnectionItem;
 import org.talend.core.model.properties.util.PropertiesSwitch;
+import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.i18n.Messages;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.PackageHelper;
-import org.talend.dataquality.properties.TDQAnalysisItem;
-import org.talend.dataquality.properties.TDQBusinessRuleItem;
-import org.talend.dataquality.properties.TDQIndicatorDefinitionItem;
-import org.talend.dataquality.properties.TDQJrxmlItem;
-import org.talend.dataquality.properties.TDQPatternItem;
-import org.talend.dataquality.properties.TDQReportItem;
-import org.talend.dataquality.properties.TDQSourceFileItem;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -214,48 +209,8 @@ public class RepositoryObject implements IRepositoryObject {
         return (ERepositoryObjectType) new PropertiesSwitch() {
 
             public Object caseTDQItem(TDQItem object) {
-                return (ERepositoryObjectType) new org.talend.dataquality.properties.util.PropertiesSwitch() {
-
-                    // MOD mzhao feature 13114, 2010-05-19
-                    @Override
-                    public Object caseTDQAnalysisItem(TDQAnalysisItem object) {
-                        return ERepositoryObjectType.TDQ_ANALYSIS;
-                    }
-
-                    @Override
-                    public Object caseTDQBusinessRuleItem(TDQBusinessRuleItem object) {
-                        return ERepositoryObjectType.TDQ_BUSINESSRULE_ELEMENT;
-                    }
-
-                    @Override
-                    public Object caseTDQIndicatorDefinitionItem(TDQIndicatorDefinitionItem object) {
-                        return ERepositoryObjectType.TDQ_INDICATOR_ELEMENT;
-                    }
-
-                    @Override
-                    public Object caseTDQPatternItem(TDQPatternItem object) {
-                        return ERepositoryObjectType.TDQ_PATTERN_ELEMENT;
-                    }
-
-                    @Override
-                    public Object caseTDQReportItem(TDQReportItem object) {
-                        return ERepositoryObjectType.TDQ_REPORT_ELEMENT;
-                    }
-
-                    @Override
-                    public Object caseTDQJrxmlItem(TDQJrxmlItem object) {
-                        return ERepositoryObjectType.TDQ_JRAXML_ELEMENT;
-                    }
-
-                    @Override
-                    public Object caseTDQSourceFileItem(TDQSourceFileItem object) {
-                        return ERepositoryObjectType.TDQ_SOURCE_FILES;
-                    }
-
-                    public Object defaultCase(EObject object) {
-                        return null;
-                    }
-                }.doSwitch(object);
+                ITDQItemService tdqItemService = CoreRuntimePlugin.getInstance().getTDQItemService();
+                return tdqItemService.getTDQRepObjType(object);
             }
 
             public Object caseDocumentationItem(DocumentationItem object) {
