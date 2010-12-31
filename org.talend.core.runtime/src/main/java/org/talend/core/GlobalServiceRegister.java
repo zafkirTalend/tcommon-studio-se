@@ -47,7 +47,7 @@ public class GlobalServiceRegister {
     static {
         IExtensionRegistry registry = Platform.getExtensionRegistry();
         configurationElements = registry.getConfigurationElementsFor("org.talend.core.runtime.service"); //$NON-NLS-1$
-        configurationDQModelElements = registry.getConfigurationElementsFor("org.talend.core.repository.dq_EMFModel_provider"); //$NON-NLS-1$
+        configurationDQModelElements = registry.getConfigurationElementsFor("org.talend.core.runtime.dq_EMFModel_provider"); //$NON-NLS-1$
     }
 
 
