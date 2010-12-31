@@ -100,4 +100,4 @@ Export-Package: org.apache.commons.beanutils,
  org.exolab.castor.xml
 Bundle-Vendor: .Talend SA.
 Eclipse-BuddyPolicy: dependent
-Require-Bundle: org.apache.log4j;bundle-version="1.2.13";resolution:=optional
+Require-Bundle: org.apache.log4j;resolution:=optional

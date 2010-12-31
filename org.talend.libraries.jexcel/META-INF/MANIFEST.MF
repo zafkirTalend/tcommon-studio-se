@@ -3,10 +3,8 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Jexcel
 Bundle-SymbolicName: org.talend.libraries.jexcel
 Bundle-Version: 1.0.0.qualifier
-Bundle-Activator: org.talend.libraries.jexcel.JexcelPlugin
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime
-Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .,
  lib/jxl.jar
 Export-Package: common,
@@ -20,3 +18,4 @@ Export-Package: common,
  jxl.read.biff,
  jxl.write,
  jxl.write.biff
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
