@@ -190,16 +190,19 @@
       <import plugin="org.eclipse.emf.edit" version="2.5.0" match="compatible"/>
       <import plugin="org.eclipse.emf.ecore" version="2.3.0" match="compatible"/>
       <import plugin="javax.xml.rpc"/>
-      <import plugin="org.talend.metadata.managment" version="1.0.0" match="greaterOrEqual"/>
-      <import plugin="org.talend.core.runtime" version="1.0.0" match="greaterOrEqual"/>
-      <import plugin="org.talend.core.repository" version="1.0.0" match="greaterOrEqual"/>
       <import plugin="org.talend.libraries.jdom"/>
       <import plugin="org.talend.libraries.jackson"/>
       <import plugin="org.apache.commons.httpclient"/>
       <import plugin="org.talend.libraries.ui"/>
+      <import plugin="org.talend.libraries.css"/>
+      <import plugin="org.talend.libraries.jexcel"/>
+      <import plugin="org.w3c.css.sac"/>
       <import plugin="org.eclipse.datatools.enablement.oda.xml"/>
       <import plugin="org.apache.axis"/>
       <import plugin="org.apache.commons.lang"/>
+      <import plugin="org.talend.libraries.salesforce"/>
+      <import plugin="org.talend.libraries.jxplorer"/>
+      <import plugin="org.talend.libraries.apache.axis2"/>
    </requires>
 
    <plugin
@@ -1070,13 +1073,6 @@
          unpack="false"/>
 
    <plugin
-         id="org.talend.libraries"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.talend.libraries.apache"
          download-size="0"
          install-size="0"
@@ -1160,14 +1156,49 @@
          unpack="false"/>
 
    <plugin
-         id="org.apache.commons.httpclient"
+         id="org.talend.libraries.apache.axis2"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.apache.commons.lang"
+         id="org.talend.libraries.css"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.talend.libraries.jackson"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.talend.libraries.jdom"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.talend.libraries.jxplorer"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.talend.libraries.jexcel"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.talend.libraries.salesforce"
          download-size="0"
          install-size="0"
          version="0.0.0"
