@@ -80,9 +80,10 @@ import org.talend.core.model.repository.IRepositoryWorkUnitListener;
 import org.talend.core.model.repository.RepositoryObject;
 import org.talend.core.model.repository.RepositoryViewObject;
 import org.talend.core.repository.i18n.Messages;
+import org.talend.core.repository.utils.AbstractDQModelService;
 import org.talend.core.repository.utils.AbstractResourceChangesService;
 import org.talend.core.repository.utils.RepositoryPathProvider;
-import org.talend.core.repository.utils.ResourceChangesServiceRegister;
+import org.talend.core.repository.utils.TDQServiceRegister;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.cwm.helper.SubItemHelper;
 import org.talend.cwm.helper.TableHelper;
@@ -105,7 +106,9 @@ import org.talend.repository.model.RepositoryConstants;
  */
 public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
 
+
     private static ICoreService coreService = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
+
 
     private static final int MAX_TASKS = 9;
 
@@ -527,6 +530,12 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * @see org.talend.repository.model.IProxyRepositoryFactory#readProject()
      */
     public Project[] readProject() throws PersistenceException, BusinessException {
+        // mzhao initialize the DQ model packages.
+        AbstractDQModelService dqModelService = TDQServiceRegister.getInstance().getDQModelService(
+                AbstractDQModelService.class);
+        if (dqModelService != null) {
+            dqModelService.initTDQEMFResource();
+        }
         return this.repositoryFactoryFromProvider.readProject();
     }
 
@@ -575,7 +584,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         this.repositoryFactoryFromProvider.deleteObjectLogical(project, object);
         // MOD qiongli 2010-10-20,bug 16602.
         Item item = objToDelete.getProperty().getItem();
-        AbstractResourceChangesService resChangeService = ResourceChangesServiceRegister.getInstance().getResourceChangeService(
+        AbstractResourceChangesService resChangeService = TDQServiceRegister.getInstance().getResourceChangeService(
                 AbstractResourceChangesService.class);
         if (item instanceof ConnectionItem && resChangeService != null) {
             resChangeService.handleLogicalDelete(item.getProperty());
@@ -668,7 +677,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         // MOD qiongli 2010-10-20,bug 16602
         Item item = objToDelete.getProperty().getItem();
         this.repositoryFactoryFromProvider.deleteObjectPhysical(project, object, version, fromEmptyRecycleBin);
-        AbstractResourceChangesService resChangeService = ResourceChangesServiceRegister.getInstance().getResourceChangeService(
+        AbstractResourceChangesService resChangeService = TDQServiceRegister.getInstance().getResourceChangeService(
                 AbstractResourceChangesService.class);
         if (item instanceof ConnectionItem && resChangeService != null) {
             resChangeService.handlePhysicalDelete(item.getProperty());

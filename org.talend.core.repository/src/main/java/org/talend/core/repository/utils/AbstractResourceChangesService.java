@@ -26,6 +26,7 @@ import orgomg.cwm.objectmodel.core.ModelElement;
  */
 public class AbstractResourceChangesService implements IService {
 
+
     public void handleUnload(Resource toBeUnloadedResource) {
     }
 
