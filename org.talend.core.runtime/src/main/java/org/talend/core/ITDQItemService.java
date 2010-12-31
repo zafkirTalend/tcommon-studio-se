@@ -128,6 +128,6 @@ public interface ITDQItemService extends IService {
      */
     public void importItems(File sourceFile, List<Item> validItems, boolean overwrite, NullProgressMonitor nullProgressMonitor);
 
-    public ERepositoryObjectType getTDQRepObjType(Item item);
+
 
 }

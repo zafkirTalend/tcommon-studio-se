@@ -20,9 +20,9 @@ import java.util.Set;
 import org.eclipse.emf.ecore.EObject;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.core.AbstractDQModelService;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.IService;
-import org.talend.core.ITDQItemService;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
@@ -209,8 +209,11 @@ public class RepositoryObject implements IRepositoryObject {
         return (ERepositoryObjectType) new PropertiesSwitch() {
 
             public Object caseTDQItem(TDQItem object) {
-                ITDQItemService tdqItemService = CoreRuntimePlugin.getInstance().getTDQItemService();
-                return tdqItemService.getTDQRepObjType(object);
+                AbstractDQModelService dqModelService = CoreRuntimePlugin.getInstance().getDQModelService();
+                if (dqModelService != null) {
+                    return dqModelService.getTDQRepObjType(object);
+                }
+                return null;
             }
 
             public Object caseDocumentationItem(DocumentationItem object) {

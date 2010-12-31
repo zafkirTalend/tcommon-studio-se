@@ -10,16 +10,18 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.core.repository.utils;
+package org.talend.core;
 
-import org.talend.core.IService;
+import org.talend.core.model.properties.Item;
+import org.talend.core.model.repository.ERepositoryObjectType;
 
 
 /**
  * DOC klliu  class global comment. Detailled comment
  */
-public class AbstractDQModelService implements IService {
+public abstract class AbstractDQModelService implements IService {
 
-    public void initTDQEMFResource() {
-    }
+    public abstract void initTDQEMFResource();
+
+    public abstract ERepositoryObjectType getTDQRepObjType(Item item);
 }

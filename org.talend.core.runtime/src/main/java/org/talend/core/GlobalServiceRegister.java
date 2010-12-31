@@ -35,17 +35,44 @@ public class GlobalServiceRegister {
 
     private static IConfigurationElement[] configurationElements;
 
+    private static IConfigurationElement[] configurationDQModelElements;
     public static GlobalServiceRegister getDefault() {
         return instance;
     }
 
     private Map<Class, IService> services = new HashMap<Class, IService>();
 
+    private Map<Class<?>, AbstractDQModelService> dqModelServices = new HashMap<Class<?>, AbstractDQModelService>();
+
     static {
         IExtensionRegistry registry = Platform.getExtensionRegistry();
         configurationElements = registry.getConfigurationElementsFor("org.talend.core.runtime.service"); //$NON-NLS-1$
+        configurationDQModelElements = registry.getConfigurationElementsFor("org.talend.core.repository.dq_EMFModel_provider"); //$NON-NLS-1$
     }
 
+
+    public AbstractDQModelService getDQModelService(Class<?> klass) {
+        AbstractDQModelService dqModelserviceInst = dqModelServices.get(klass);
+        if (dqModelserviceInst == null) {
+            dqModelserviceInst = findDQModelService(klass);
+            if (dqModelserviceInst != null) {
+                dqModelServices.put(klass, dqModelserviceInst);
+            }
+        }
+        return dqModelserviceInst;
+    }
+
+    public boolean isDQModelServiceRegistered(Class klass) {
+        AbstractDQModelService service = dqModelServices.get(klass);
+        if (service == null) {
+            service = findDQModelService(klass);
+            if (service == null) {
+                return false;
+            }
+            dqModelServices.put(klass, service);
+        }
+        return true;
+    }
     public boolean isServiceRegistered(Class klass) {
         IService service = services.get(klass);
         if (service == null) {
@@ -95,6 +122,21 @@ public class GlobalServiceRegister {
                 Object service = element.createExecutableExtension("class"); //$NON-NLS-1$
                 if (klass.isInstance(service)) {
                     return (IService) service;
+                }
+            } catch (CoreException e) {
+                ExceptionHandler.process(e);
+            }
+        }
+        return null;
+    }
+
+    private AbstractDQModelService findDQModelService(Class<?> klass) {
+        for (int i = 0; i < configurationDQModelElements.length; i++) {
+            IConfigurationElement element = configurationDQModelElements[i];
+            try {
+                Object service = element.createExecutableExtension("class"); //$NON-NLS-1$
+                if (klass.isInstance(service)) {
+                    return (AbstractDQModelService) service;
                 }
             } catch (CoreException e) {
                 ExceptionHandler.process(e);

@@ -29,7 +29,6 @@ public class TDQServiceRegister {
 
     private static IConfigurationElement[] configurationElements;
 
-    private static IConfigurationElement[] configurationDQModelElements;
     private static TDQServiceRegister instance = null;
 
     private TDQServiceRegister() {
@@ -45,23 +44,11 @@ public class TDQServiceRegister {
     static {
         IExtensionRegistry registry = Platform.getExtensionRegistry();
         configurationElements = registry.getConfigurationElementsFor("org.talend.core.repository.resource_change"); //$NON-NLS-1$
-        configurationDQModelElements = registry.getConfigurationElementsFor("org.talend.core.repository.dq_EMFModel_provider"); //$NON-NLS-1$
     }
 
     private Map<Class<?>, AbstractResourceChangesService> services = new HashMap<Class<?>, AbstractResourceChangesService>();
 
-    private Map<Class<?>, AbstractDQModelService> dqModelServices = new HashMap<Class<?>, AbstractDQModelService>();
 
-    public AbstractDQModelService getDQModelService(Class<?> klass) {
-        AbstractDQModelService dqModelserviceInst = dqModelServices.get(klass);
-        if (dqModelserviceInst == null) {
-            dqModelserviceInst = findDQModelService(klass);
-            if (dqModelserviceInst != null) {
-                dqModelServices.put(klass, dqModelserviceInst);
-            }
-        }
-        return dqModelserviceInst;
-    }
 
     public AbstractResourceChangesService getResourceChangeService(Class<?> klass) {
         AbstractResourceChangesService service = services.get(klass);
@@ -95,18 +82,5 @@ public class TDQServiceRegister {
         return null;
     }
 
-    private AbstractDQModelService findDQModelService(Class<?> klass) {
-        for (int i = 0; i < configurationDQModelElements.length; i++) {
-            IConfigurationElement element = configurationDQModelElements[i];
-            try {
-                Object service = element.createExecutableExtension("class"); //$NON-NLS-1$
-                if (klass.isInstance(service)) {
-                    return (AbstractDQModelService) service;
-                }
-            } catch (CoreException e) {
-                ExceptionHandler.process(e);
-            }
-        }
-        return null;
-    }
+
 }

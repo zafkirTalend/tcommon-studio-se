@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
-import org.talend.core.ITDQItemService;
+import org.talend.core.AbstractDQModelService;
 import org.talend.core.PluginChecker;
 import org.talend.core.model.properties.BRMSConnectionItem;
 import org.talend.core.model.properties.BusinessProcessItem;
@@ -643,8 +643,11 @@ public enum ERepositoryObjectType {
     }
 
     private static ERepositoryObjectType getTDQRepObjType(Item item) {
-        ITDQItemService tdqItemService = CoreRuntimePlugin.getInstance().getTDQItemService();
-        return tdqItemService.getTDQRepObjType(item);
+        AbstractDQModelService dqModelService = CoreRuntimePlugin.getInstance().getDQModelService();
+        if (dqModelService != null) {
+            return dqModelService.getTDQRepObjType(item);
+        }
+        return null;
     }
 
     public boolean isSubItem() {

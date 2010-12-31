@@ -14,12 +14,12 @@ package org.talend.core.runtime;
 
 import org.eclipse.core.runtime.Plugin;
 import org.osgi.framework.BundleContext;
+import org.talend.core.AbstractDQModelService;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ICoreService;
 import org.talend.core.IManagementService;
 import org.talend.core.IService;
 import org.talend.core.IStatusPreferenceInitService;
-import org.talend.core.ITDQItemService;
 import org.talend.core.context.Context;
 import org.talend.core.model.general.ILibrariesService;
 import org.talend.core.service.IWebService;
@@ -79,10 +79,10 @@ public class CoreRuntimePlugin extends Plugin {
         return null;
     }
 
-    public ITDQItemService getTDQItemService() {
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQItemService.class)) {
-            IService service = GlobalServiceRegister.getDefault().getService(ITDQItemService.class);
-            return (ITDQItemService) service;
+    public AbstractDQModelService getDQModelService() {
+        if (GlobalServiceRegister.getDefault().isDQModelServiceRegistered(AbstractDQModelService.class)) {
+            IService service = GlobalServiceRegister.getDefault().getDQModelService(AbstractDQModelService.class);
+            return (AbstractDQModelService) service;
         }
         return null;
     }

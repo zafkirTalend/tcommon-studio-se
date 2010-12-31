@@ -48,6 +48,7 @@ import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.exception.MessageBoxExceptionHandler;
 import org.talend.commons.utils.data.container.RootContainer;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
+import org.talend.core.AbstractDQModelService;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ICoreService;
 import org.talend.core.PluginChecker;
@@ -80,7 +81,6 @@ import org.talend.core.model.repository.IRepositoryWorkUnitListener;
 import org.talend.core.model.repository.RepositoryObject;
 import org.talend.core.model.repository.RepositoryViewObject;
 import org.talend.core.repository.i18n.Messages;
-import org.talend.core.repository.utils.AbstractDQModelService;
 import org.talend.core.repository.utils.AbstractResourceChangesService;
 import org.talend.core.repository.utils.RepositoryPathProvider;
 import org.talend.core.repository.utils.TDQServiceRegister;
@@ -531,8 +531,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      */
     public Project[] readProject() throws PersistenceException, BusinessException {
         // mzhao initialize the DQ model packages.
-        AbstractDQModelService dqModelService = TDQServiceRegister.getInstance().getDQModelService(
-                AbstractDQModelService.class);
+        AbstractDQModelService dqModelService = CoreRuntimePlugin.getInstance().getDQModelService();
         if (dqModelService != null) {
             dqModelService.initTDQEMFResource();
         }
