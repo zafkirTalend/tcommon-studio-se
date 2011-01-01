@@ -22,6 +22,7 @@
    </url>
 
    <requires>
+      <import plugin="org.w3c.css.sac"/>
       <import plugin="org.eclipse.xsd"/>
       <import plugin="org.eclipse.core.runtime" version="3.2.0" match="compatible"/>
       <import plugin="org.eclipse.swt" version="3.5.0" match="compatible"/>
@@ -190,19 +191,14 @@
       <import plugin="org.eclipse.emf.edit" version="2.5.0" match="compatible"/>
       <import plugin="org.eclipse.emf.ecore" version="2.3.0" match="compatible"/>
       <import plugin="javax.xml.rpc"/>
-      <import plugin="org.talend.libraries.jdom"/>
-      <import plugin="org.talend.libraries.jackson"/>
       <import plugin="org.apache.commons.httpclient"/>
       <import plugin="org.talend.libraries.ui"/>
-      <import plugin="org.talend.libraries.css"/>
-      <import plugin="org.talend.libraries.jexcel"/>
-      <import plugin="org.w3c.css.sac"/>
       <import plugin="org.eclipse.datatools.enablement.oda.xml"/>
       <import plugin="org.apache.axis"/>
-      <import plugin="org.apache.commons.lang"/>
-      <import plugin="org.talend.libraries.salesforce"/>
-      <import plugin="org.talend.libraries.jxplorer"/>
-      <import plugin="org.talend.libraries.apache.axis2"/>
+      <import plugin="org.talend.metadata.managment" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.talend.core.runtime" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.talend.core.repository" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.apache.commons.logging"/>
    </requires>
 
    <plugin
@@ -1015,20 +1011,6 @@
 
    <plugin
          id="org.talend.core.runtime"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.talend.dataquality"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.talend.dataquality.matching"
          download-size="0"
          install-size="0"
          version="0.0.0"
