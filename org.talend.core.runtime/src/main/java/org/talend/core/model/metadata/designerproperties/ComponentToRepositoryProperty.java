@@ -104,6 +104,9 @@ public class ComponentToRepositoryProperty {
             String repositoryType = node.getElementParameter("PROPERTY_TYPE").getRepositoryValue(); //$NON-NLS-1$
             if (repositoryType.startsWith("DATABASE") && repositoryType.contains(":")) { //$NON-NLS-1$ //$NON-NLS-2$
                 String product = repositoryType.substring(repositoryType.indexOf(":") + 1); //$NON-NLS-1$
+                if (product.equals("JDBC")) {
+                    product = "MYSQL";
+                }
                 String mapping = MetadataTalendType.getDefaultDbmsFromProduct(product).getId();
                 conn.setDbmsId(mapping);
             }
@@ -221,6 +224,7 @@ public class ComponentToRepositoryProperty {
                 return originalList[i];
             }
         }
+
         return ""; //$NON-NLS-1$
     }
 
