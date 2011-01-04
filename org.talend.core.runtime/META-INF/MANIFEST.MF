@@ -73,9 +73,9 @@ Require-Bundle: org.eclipse.gef,
  org.talend.common.ui.runtime;visibility:=reexport,
  org.eclipse.ui,
  org.talend.libraries.dom4j-jaxen,
- org.talend.libraries.javacsv,
  org.eclipse.jface.text,
- org.eclipse.ui.editors
+ org.eclipse.ui.editors,
+ org.talend.libraries.javacsv
 Import-Package: org.eclipse.debug.core
 Bundle-Activator: org.talend.core.runtime.CoreRuntimePlugin
 Bundle-ActivationPolicy: lazy
