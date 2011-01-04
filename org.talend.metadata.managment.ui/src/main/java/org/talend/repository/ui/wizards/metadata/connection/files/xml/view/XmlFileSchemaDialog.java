@@ -67,9 +67,10 @@ public class XmlFileSchemaDialog extends Dialog {
         tableEditor = new MetadataEmfTableEditor("");
         MetadataTable metadataTable = form.getMetadataTable();
         tableEditor.setMetadataTable(metadataTable);
-        tableEditor.removeAll();
+        // tableEditor.removeAll();
         List<MetadataColumn> list = (List<MetadataColumn>) form.getSchemaViewer().getInput();
         tableEditor.addAll(list);
+
         // if (list.size() > 0) {
         // for (MetadataColumn column : list) {
         // boolean toAdd = true;
