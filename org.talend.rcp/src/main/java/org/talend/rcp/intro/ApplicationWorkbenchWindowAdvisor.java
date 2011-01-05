@@ -51,14 +51,13 @@ import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.general.Project;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.prefs.PreferenceManipulator;
+import org.talend.core.ui.ISQLBuilderService;
 import org.talend.core.ui.branding.IBrandingConfiguration;
 import org.talend.core.ui.branding.IBrandingService;
 import org.talend.rcp.Activator;
 import org.talend.rcp.i18n.Messages;
 import org.talend.rcp.util.ApplicationDeletionUtil;
 import org.talend.repository.ui.views.IRepositoryView;
-import org.talend.sqlbuilder.erdiagram.ui.ErDiagramDialog;
-import org.talend.sqlbuilder.ui.SQLBuilderDialog;
 
 /**
  * DOC ccarbone class global comment. Detailled comment <br/>
@@ -132,8 +131,8 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         IPreferenceStore preferenceStore = CorePlugin.getDefault().getPreferenceStore();
         boolean alwaysWelcome = preferenceStore.getBoolean(ITalendCorePrefConstants.ALWAYS_WELCOME);
         if (alwaysWelcome) {
-            getWindowConfigurer().getWindow().getWorkbench().getIntroManager().showIntro(getWindowConfigurer().getWindow(),
-                    !alwaysWelcome);
+            getWindowConfigurer().getWindow().getWorkbench().getIntroManager()
+                    .showIntro(getWindowConfigurer().getWindow(), !alwaysWelcome);
         }
 
         createActions();
@@ -189,13 +188,13 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
      */
     @Override
     public void postWindowClose() {
-        Shell[] shelles = Display.getDefault().getShells();
-        for (Shell shell : shelles) {
-            if (!shell.isDisposed() && shell.getData() != null) {
-                if (shell.getData() instanceof SQLBuilderDialog) {
-                    ((SQLBuilderDialog) shell.getData()).close();
-                } else if (shell.getData() instanceof ErDiagramDialog) {
-                    ((ErDiagramDialog) shell.getData()).close();
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ISQLBuilderService.class)) {
+            ISQLBuilderService service = (ISQLBuilderService) GlobalServiceRegister.getDefault().getService(
+                    IBrandingService.class);
+            Shell[] shelles = Display.getDefault().getShells();
+            for (Shell shell : shelles) {
+                if (!shell.isDisposed() && shell.getData() != null) {
+                    service.closeIfSQLBuilderDialog(shell.getData());
                 }
             }
         }
@@ -243,8 +242,8 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         // for bug 7071
         IWorkbenchWindow workbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
         if (workbenchWindow.getActivePage() != null
-                && CorePlugin.getDefault().getDiagramModelService().isBusinessDiagramEditor(
-                        workbenchWindow.getActivePage().getActiveEditor())) {
+                && CorePlugin.getDefault().getDiagramModelService()
+                        .isBusinessDiagramEditor(workbenchWindow.getActivePage().getActiveEditor())) {
             IViewReference findViewReference = workbenchWindow.getActivePage().findViewReference(IRepositoryView.VIEW_ID);
             if (findViewReference != null) {
                 findViewReference.getView(false).setFocus();
