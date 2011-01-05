@@ -494,4 +494,16 @@ public interface IRepositoryFactory {
     public RootContainer<String, IRepositoryViewObject> getSourceFiles(Project project, ERepositoryObjectType type,
             boolean[] options) throws PersistenceException;
 
+    /**
+     * DOC xqliu Comment method "getTdqRepositoryViewObjects".
+     * 
+     * @param project
+     * @param type
+     * @param folderName
+     * @param options
+     * @return
+     * @throws PersistenceException
+     */
+    public RootContainer<String, IRepositoryViewObject> getTdqRepositoryViewObjects(Project project, ERepositoryObjectType type,
+            String folderName, boolean[] options) throws PersistenceException;
 }

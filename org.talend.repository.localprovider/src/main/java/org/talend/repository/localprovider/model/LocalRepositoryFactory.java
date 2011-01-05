@@ -110,8 +110,8 @@ import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.repository.model.ResourceModelUtils;
 import org.talend.core.repository.model.VersionList;
 import org.talend.core.repository.utils.AbstractResourceChangesService;
-import org.talend.core.repository.utils.TDQServiceRegister;
 import org.talend.core.repository.utils.RoutineUtils;
+import org.talend.core.repository.utils.TDQServiceRegister;
 import org.talend.core.repository.utils.URIHelper;
 import org.talend.core.repository.utils.XmiResourceManager;
 import org.talend.repository.ProjectManager;
@@ -176,6 +176,41 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         IFolder objectFolder = null;
         try {
             objectFolder = ResourceUtils.getFolder(fsProject, ERepositoryObjectType.getFolderName(type), true);
+        } catch (ResourceNotFoundException rex) {
+            // log.info(rex.getMessage());
+            return new RootContainer<K, T>(); // return empty
+        }
+        // projectModified = false;
+        addFolderMembers(project, type, toReturn, objectFolder, onlyLastVersion, options);
+
+        // if (projectModified) {
+        // saveProject(project);
+        // }
+
+        String arg1 = toReturn.absoluteSize() + ""; //$NON-NLS-1$
+        String arg2 = (System.currentTimeMillis() - currentTime) / 1000 + ""; //$NON-NLS-1$
+
+        log.trace(Messages.getString("LocalRepositoryFactory.logRetrievingFiles", new String[] { arg1, arg2 })); //$NON-NLS-1$
+
+        return toReturn;
+    }
+
+    protected <K, T> RootContainer<K, T> getObjectFromFolder(Project project, ERepositoryObjectType type, String folderName,
+            boolean onlyLastVersion, boolean... options) throws PersistenceException {
+        long currentTime = System.currentTimeMillis();
+        // if (type.equals(ERepositoryObjectType.METADATA_CONNECTIONS)) {
+        // System.out.println("dfdfdfdfdfdf");
+        // }
+        RootContainer<K, T> toReturn = new RootContainer<K, T>();
+
+        IProject fsProject = ResourceModelUtils.getProject(project);
+        IFolder objectFolder = null;
+        try {
+            String tempFolderName = ERepositoryObjectType.getFolderName(type);
+            if (folderName != null && !"".equals(folderName)) {
+                tempFolderName = folderName;
+            }
+            objectFolder = ResourceUtils.getFolder(fsProject, tempFolderName, true);
         } catch (ResourceNotFoundException rex) {
             // log.info(rex.getMessage());
             return new RootContainer<K, T>(); // return empty

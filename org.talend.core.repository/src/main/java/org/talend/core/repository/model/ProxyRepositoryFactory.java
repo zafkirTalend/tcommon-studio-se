@@ -106,9 +106,7 @@ import org.talend.repository.model.RepositoryConstants;
  */
 public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
 
-
     private static ICoreService coreService = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
-
 
     private static final int MAX_TASKS = 9;
 
@@ -2313,5 +2311,15 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
     public RootContainer<String, IRepositoryViewObject> getSourceFiles(Project project, ERepositoryObjectType type,
             boolean... options) throws PersistenceException {
         return this.repositoryFactoryFromProvider.getSourceFiles(project, type, options);
+    }
+
+    public RootContainer<String, IRepositoryViewObject> getTdqRepositoryViewObjects(ERepositoryObjectType itemType,
+            String folderName) throws PersistenceException {
+        return getTdqRepositoryViewObjects(projectManager.getCurrentProject(), itemType, folderName);
+    }
+
+    public RootContainer<String, IRepositoryViewObject> getTdqRepositoryViewObjects(Project project, ERepositoryObjectType type,
+            String folderName, boolean... options) throws PersistenceException {
+        return this.repositoryFactoryFromProvider.getTdqRepositoryViewObjects(project, type, folderName, options);
     }
 }

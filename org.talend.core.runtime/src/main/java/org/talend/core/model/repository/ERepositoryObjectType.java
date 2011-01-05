@@ -170,19 +170,19 @@ public enum ERepositoryObjectType {
     SYSTEM_INDICATORS_SUMMARY_STATISTICS("Summary Statistics"),
     SYSTEM_INDICATORS_TEXT_STATISTICS("Text Statistics"),
     // MOD klliu 2010-12-01 Patterns
-    TDQ_PATTERN_REGEX_CUSTOMER("repository.patternRegexCustomer"),
-    TDQ_PATTERN_REGEX_INTERNET("repository.patternRegexInternet"),
-    TDQ_PATTERN_REGEX_COLOR("repository.patternRegexColor"),
-    TDQ_PATTERN_REGEX_DATE("repository.patternRegexDate"),
-    TDQ_PATTERN_REGEX_NUMBER("repository.patternRegexNumber"),
-    TDQ_PATTERN_REGEX_CODE("repository.patternRegexCode"),
-    TDQ_PATTERN_REGEX_PHONE("repository.patternRegexPhone"),
-    TDQ_PATTERN_REGEX_ADDRESS("repository.patternRegexAddress"),
-    TDQ_PATTERN_REGEX_TEXT("repository.patternRegexText"),
+    // TDQ_PATTERN_REGEX_CUSTOMER("repository.patternRegexCustomer"),
+    // TDQ_PATTERN_REGEX_INTERNET("repository.patternRegexInternet"),
+    // TDQ_PATTERN_REGEX_COLOR("repository.patternRegexColor"),
+    // TDQ_PATTERN_REGEX_DATE("repository.patternRegexDate"),
+    // TDQ_PATTERN_REGEX_NUMBER("repository.patternRegexNumber"),
+    // TDQ_PATTERN_REGEX_CODE("repository.patternRegexCode"),
+    // TDQ_PATTERN_REGEX_PHONE("repository.patternRegexPhone"),
+    // TDQ_PATTERN_REGEX_ADDRESS("repository.patternRegexAddress"),
+    // TDQ_PATTERN_REGEX_TEXT("repository.patternRegexText"),
 
     TDQ_SYSTEM_INDICATORS("repository.systemIndicators"),
     TDQ_USERDEFINE_INDICATORS("repository.userDefineIndicators"),
-    TDQ_PATTERN_SQL_INTERNET("repository.patternSqlInternet"),
+    // TDQ_PATTERN_SQL_INTERNET("repository.patternSqlInternet"),
     TDQ_EXCHANGE(("repository.tdqExchange"));
 
     // MOD klliu 2010-11-29

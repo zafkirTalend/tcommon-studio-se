@@ -444,6 +444,9 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
     protected abstract <K, T> RootContainer<K, T> getObjectFromFolder(Project project, ERepositoryObjectType type,
             boolean onlyLastVersion, boolean... options) throws PersistenceException;
 
+    protected abstract <K, T> RootContainer<K, T> getObjectFromFolder(Project project, ERepositoryObjectType type,
+            String folderName, boolean onlyLastVersion, boolean... options) throws PersistenceException;
+
     protected abstract <K, T> void addFolderMembers(Project project, ERepositoryObjectType type, Container<K, T> toReturn,
             Object objectFolder, boolean onlyLastVersion, boolean... options) throws PersistenceException;
 
@@ -1027,7 +1030,7 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
     }
 
     public FolderItem getFolderItem(Project project, ERepositoryObjectType itemType, IPath path) {
-        return getFolderHelper(project.getEmfProject()).getFolder(itemType.getFolderName(itemType) + "/" + path);
+        return getFolderHelper(project.getEmfProject()).getFolder(itemType.getFolderName(itemType) + IPath.SEPARATOR + path);
     }
 
     /*
@@ -1094,5 +1097,10 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
     public RootContainer<String, IRepositoryViewObject> getSourceFiles(Project project, ERepositoryObjectType type,
             boolean[] options) throws PersistenceException {
         return getObjectFromFolder(project, type, true, options);
+    }
+
+    public RootContainer<String, IRepositoryViewObject> getTdqRepositoryViewObjects(Project project, ERepositoryObjectType type,
+            String folderName, boolean[] options) throws PersistenceException {
+        return getObjectFromFolder(project, type, folderName, true, options);
     }
 }
