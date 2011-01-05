@@ -509,9 +509,11 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
         List<URL> routines = service.getSystemRoutines();
         Path path = new Path(RepositoryConstants.SYSTEM_DIRECTORY);
         // will automatically set the children folders
-        FolderItem folderItem = folderHelper.getFolder("code/routines/system");
+        IPath systemRoutinePath = new Path(ERepositoryObjectType.getFolderName(ERepositoryObjectType.ROUTINES));
+        systemRoutinePath = systemRoutinePath.append(RepositoryConstants.SYSTEM_DIRECTORY);
+        FolderItem folderItem = folderHelper.getFolder(systemRoutinePath);
         if (folderItem == null) {
-            folderItem = folderHelper.createFolder("code/routines/system"); //$NON-NLS-1$
+            folderItem = folderHelper.createFolder(systemRoutinePath.toString());
         }
         List<IRepositoryViewObject> repositoryObjects = getAll(project, ERepositoryObjectType.ROUTINES, false, false);
         Map<String, List<URI>> routineAndJars = coreSerivce.getRoutineAndJars();
@@ -533,7 +535,7 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
                 }
             }
             if (existingItem == null) {
-                createRoutine(url, path, routineLabel, routineAndJars.get(routineLabel));
+                createRoutine(url, path, routineLabel, routineAndJars != null ? routineAndJars.get(routineLabel) : null);
             } else {
                 updateRoutine(url, existingItem);
                 existingItem.setParent(folderItem);
