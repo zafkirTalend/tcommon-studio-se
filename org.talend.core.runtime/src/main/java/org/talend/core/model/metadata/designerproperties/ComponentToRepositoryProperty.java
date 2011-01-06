@@ -98,12 +98,19 @@ public class ComponentToRepositoryProperty {
         if (connection instanceof DatabaseConnection) {
             // add url instance ------DataStringConnection
             DatabaseConnection conn = (DatabaseConnection) connection;
-            String url = DatabaseConnStrUtil.getURLString(conn);
-            conn.setURL(url);
+            // see bug in 18011, set url and driver_jar.
+            if (conn.getDatabaseType().equals("General JDBC")) {
+                String url = conn.getURL();
+                conn.setURL(url);
+            } else {
+                String url = DatabaseConnStrUtil.getURLString(conn);
+                conn.setURL(url);
+            }
             // see bug in feature 5998, set dbmsId.
             String repositoryType = node.getElementParameter("PROPERTY_TYPE").getRepositoryValue(); //$NON-NLS-1$
             if (repositoryType.startsWith("DATABASE") && repositoryType.contains(":")) { //$NON-NLS-1$ //$NON-NLS-2$
                 String product = repositoryType.substring(repositoryType.indexOf(":") + 1); //$NON-NLS-1$
+                // see bug in feature 17761.
                 if (product.equals("JDBC")) {
                     product = "MYSQL";
                 }
@@ -186,6 +193,21 @@ public class ComponentToRepositoryProperty {
                         value = getContextOriginalValue(node, value);
                     }
                     return value;
+                } else if (o instanceof List && paramName.equals("DRIVER_JAR")) {
+                    List<Map<String, Object>> list = (List<Map<String, Object>>) o;
+                    String userDir = System.getProperty("user.dir"); //$NON-NLS-1$
+                    String pathSeparator = System.getProperty("file.separator"); //$NON-NLS-1$
+                    String defaultPath = userDir + pathSeparator + "lib" + pathSeparator + "java"; //$NON-NLS-1$ //$NON-NLS-2$
+                    Character comma = ';';
+                    String symbol = "\\";
+                    String jarspath = "";
+                    for (int i = 0; i < list.size(); i++) {
+                        jarspath = jarspath + defaultPath + symbol + list.get(i).get("JAR_NAME");
+                        if (i < list.size() - 1) {
+                            jarspath = jarspath + comma.toString();
+                        }
+                    }
+                    return jarspath;
                 }
             }
         }
