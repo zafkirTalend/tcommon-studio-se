@@ -150,6 +150,10 @@ public abstract class TreeBranchLayout extends AbstractLayout {
 
     public abstract void paintLines(Graphics g);
 
+    public void paintRows(Graphics g) {
+
+    }
+
     public void setHorizontal(boolean value) {
         horizontal = value;
     }

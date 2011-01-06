@@ -24,6 +24,7 @@ import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.types.JavaType;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.RulesItem;
 import org.talend.core.model.properties.SQLPatternItem;
@@ -37,6 +38,7 @@ import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
+import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 import org.talend.designer.runprocess.ItemCacheManager;
 import org.talend.repository.model.IProxyRepositoryFactory;
 
@@ -47,6 +49,8 @@ import org.talend.repository.model.IProxyRepositoryFactory;
  * 
  */
 public final class ElementParameterParser {
+
+    public static final String UNIQUE_NAME = "UNIQUE_NAME"; //$NON-NLS-1$
 
     private ElementParameterParser() {
     }
@@ -294,6 +298,60 @@ public final class ElementParameterParser {
             }
         }
         return newLine;
+    }
+
+    public static Object getObjectValueXMLTree(final IElement element, final String text) {
+        if (text == null) {
+            return null;
+        }
+        if (element instanceof INode) {
+            INode node = (INode) element;
+            String uniqueName = node.getUniqueName();
+            if (node.getProcess() instanceof IProcess2) {
+                IProcess2 process = (IProcess2) node.getProcess();
+                if (process.getProperty() != null && process.getProperty().getItem() != null) {
+                    Item item = process.getProperty().getItem();
+                    ProcessType processType = null;
+                    if (item instanceof ProcessItem) {
+                        processType = ((ProcessItem) item).getProcess();
+                    }
+                    if (item instanceof JobletProcessItem) {
+                        processType = ((JobletProcessItem) item).getJobletProcess();
+                    }
+                    if (processType != null) {
+                        for (Object obj : processType.getNode()) {
+                            NodeType nodeType = (NodeType) obj;
+                            if (uniqueName != null && uniqueName.equals(getNodePropertyValue(nodeType, UNIQUE_NAME))) {
+                                return nodeType.getNodeData();
+                            }
+                        }
+                    }
+
+                }
+
+            }
+        }
+
+        return null;
+    }
+
+    private static String getNodePropertyValue(NodeType node, String property) {
+        ElementParameterType prop = getNodeProperty(node, property);
+        if (prop == null) {
+            return null;
+        } else {
+            return prop.getValue();
+        }
+    }
+
+    private static ElementParameterType getNodeProperty(NodeType node, String property) {
+        for (Object o : node.getElementParameter()) {
+            ElementParameterType t = (ElementParameterType) o;
+            if (t.getName().equals(property)) {
+                return t;
+            }
+        }
+        return null;
     }
 
     public static String parse(final IElement element, final String text) {
