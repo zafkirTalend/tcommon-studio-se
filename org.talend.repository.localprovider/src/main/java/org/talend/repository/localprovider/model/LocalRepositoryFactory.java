@@ -167,9 +167,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     protected <K, T> RootContainer<K, T> getObjectFromFolder(Project project, ERepositoryObjectType type,
             boolean onlyLastVersion, boolean... options) throws PersistenceException {
         long currentTime = System.currentTimeMillis();
-        // if (type.equals(ERepositoryObjectType.METADATA_CONNECTIONS)) {
-        // System.out.println("dfdfdfdfdfdf");
-        // }
+
         RootContainer<K, T> toReturn = new RootContainer<K, T>();
 
         IProject fsProject = ResourceModelUtils.getProject(project);
