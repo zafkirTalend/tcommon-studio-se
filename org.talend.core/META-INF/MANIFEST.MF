@@ -24,9 +24,10 @@ Require-Bundle: org.talend.model,
  org.eclipse.jdt.launching,
  org.apache.log4j,
  org.talend.libraries.apache,
- org.talend.libraries.javacsv,
+ org.talend.libraries.javacsv;resolution:=optional,
  org.talend.libraries.css;resolution:=optional,
- org.talend.libraries.jexcel
+ org.talend.libraries.jexcel;resolution:=optional,
+ org.talend.libraries.w3c;resolution:=optional
 Bundle-Vendor: .Talend SA.
 Export-Package: org.talend.core,
  org.talend.core.i18n,
@@ -92,4 +93,3 @@ Export-Package: org.talend.core,
  org.talend.repository.model.extensions,
  org.talend.resource,
  org.talend.runprocess.data
-Import-Package: org.w3c.css.sac
