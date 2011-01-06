@@ -248,7 +248,7 @@ public class GroupBySourceTableProvider extends ContextProviderProxy {
                 parent.setSourceId(sourceLabel);
                 for (String paraName : nameContainers) {
                     for (IContextParameter para : contexts) {
-                        if (para.getName().equals(paraName)) {
+                        if (para.getName() != null && para.getName().equals(paraName)) {
                             index = contexts.indexOf(para);
                         }
                     }

@@ -79,8 +79,9 @@ public class GroupBySourceProvider extends ContextProviderProxy {
                     if (((ContextParameterSortedParent) element).getParameter() != null) {
                         if (getContextManager().getDefaultContext().getContextParameter(
                                 ((ContextParameterSortedParent) element).getParameter().getName()) != null) {
-                            return getContextManager().getDefaultContext().getContextParameter(
-                                    ((ContextParameterSortedParent) element).getParameter().getName()).getName();
+                            return getContextManager().getDefaultContext()
+                                    .getContextParameter(((ContextParameterSortedParent) element).getParameter().getName())
+                                    .getName();
                         } else {
                             break;
                         }
@@ -102,36 +103,44 @@ public class GroupBySourceProvider extends ContextProviderProxy {
                         if (((ContextParameterSortedParent) element).getParameter() != null) {
                             if (getContextManager().getDefaultContext().getContextParameter(
                                     ((ContextParameterSortedParent) element).getParameter().getName()) != null) {
-                                String contextParameterType = getContextManager().getDefaultContext().getContextParameter(
-                                        ((ContextParameterSortedParent) element).getParameter().getName()).getType();
+                                String contextParameterType = getContextManager().getDefaultContext()
+                                        .getContextParameter(((ContextParameterSortedParent) element).getParameter().getName())
+                                        .getType();
                                 String s = ContextManagerHelper.convertFormat(contextParameterType);
                                 String[] string = null;
                                 if (s.indexOf(ContextConstant.DOWNWARDS_STRING) != -1) {
                                     string = s.split(ContextConstant.SPLIT_CHAR);
                                     if ("".equals(getContextManager().getDefaultContext().getContextParameter( //$NON-NLS-1$
                                             ((ContextParameterSortedParent) element).getParameter().getName()).getValue())
-                                            || ContextConstant.NULL_STRING.equals(getContextManager().getDefaultContext()
+                                            || ContextConstant.NULL_STRING.equals(getContextManager()
+                                                    .getDefaultContext()
                                                     .getContextParameter(
                                                             ((ContextParameterSortedParent) element).getParameter().getName())
                                                     .getValue())) {
                                         if (ContextParameterJavaTypeManager.getJavaTypesLabels()[0].equals(s)) {
-                                            getContextManager().getDefaultContext().getContextParameter(
-                                                    ((ContextParameterSortedParent) element).getParameter().getName()).setValue(
-                                                    Boolean.FALSE.toString());
+                                            getContextManager()
+                                                    .getDefaultContext()
+                                                    .getContextParameter(
+                                                            ((ContextParameterSortedParent) element).getParameter().getName())
+                                                    .setValue(Boolean.FALSE.toString());
                                         }
                                         return string[1];
                                     } else {
                                         if (ContextParameterJavaTypeManager.getJavaTypesLabels()[0].equals(s)) {
-                                            if (!(Boolean.TRUE.toString().equals(getContextManager().getDefaultContext()
+                                            if (!(Boolean.TRUE.toString().equals(getContextManager()
+                                                    .getDefaultContext()
                                                     .getContextParameter(
                                                             ((ContextParameterSortedParent) element).getParameter().getName())
                                                     .getValue()))
-                                                    && !(Boolean.FALSE.toString().equals(getContextManager().getDefaultContext()
+                                                    && !(Boolean.FALSE.toString().equals(getContextManager()
+                                                            .getDefaultContext()
                                                             .getContextParameter(
                                                                     ((ContextParameterSortedParent) element).getParameter()
                                                                             .getName()).getValue()))) {
-                                                getContextManager().getDefaultContext().getContextParameter(
-                                                        ((ContextParameterSortedParent) element).getParameter().getName())
+                                                getContextManager()
+                                                        .getDefaultContext()
+                                                        .getContextParameter(
+                                                                ((ContextParameterSortedParent) element).getParameter().getName())
                                                         .setValue(Boolean.FALSE.toString());
                                             }
                                         }
@@ -160,36 +169,44 @@ public class GroupBySourceProvider extends ContextProviderProxy {
                         if (((ContextParameterSortedParent) element).getParameter() != null) {
                             if (getContextManager().getDefaultContext().getContextParameter(
                                     ((ContextParameterSortedParent) element).getParameter().getName()) != null) {
-                                String contextParameterType = getContextManager().getDefaultContext().getContextParameter(
-                                        ((ContextParameterSortedParent) element).getParameter().getName()).getType();
+                                String contextParameterType = getContextManager().getDefaultContext()
+                                        .getContextParameter(((ContextParameterSortedParent) element).getParameter().getName())
+                                        .getType();
                                 String s = ContextManagerHelper.convertFormat(contextParameterType);
                                 String[] string = null;
                                 if (s.indexOf(ContextConstant.DOWNWARDS_STRING) != -1) {
                                     string = s.split(ContextConstant.SPLIT_CHAR);
                                     if ("".equals(getContextManager().getDefaultContext().getContextParameter( //$NON-NLS-1$
                                             ((ContextParameterSortedParent) element).getParameter().getName()).getValue())
-                                            || ContextConstant.NULL_STRING.equals(getContextManager().getDefaultContext()
+                                            || ContextConstant.NULL_STRING.equals(getContextManager()
+                                                    .getDefaultContext()
                                                     .getContextParameter(
                                                             ((ContextParameterSortedParent) element).getParameter().getName())
                                                     .getValue())) {
                                         if (ContextParameterJavaTypeManager.getJavaTypesLabels()[0].equals(s)) {
-                                            getContextManager().getDefaultContext().getContextParameter(
-                                                    ((ContextParameterSortedParent) element).getParameter().getName()).setValue(
-                                                    Boolean.FALSE.toString());
+                                            getContextManager()
+                                                    .getDefaultContext()
+                                                    .getContextParameter(
+                                                            ((ContextParameterSortedParent) element).getParameter().getName())
+                                                    .setValue(Boolean.FALSE.toString());
                                         }
                                         return string[1];
                                     } else {
                                         if (ContextParameterJavaTypeManager.getJavaTypesLabels()[0].equals(s)) {
-                                            if (!(Boolean.TRUE.toString().equals(getContextManager().getDefaultContext()
+                                            if (!(Boolean.TRUE.toString().equals(getContextManager()
+                                                    .getDefaultContext()
                                                     .getContextParameter(
                                                             ((ContextParameterSortedParent) element).getParameter().getName())
                                                     .getValue()))
-                                                    && !(Boolean.FALSE.toString().equals(getContextManager().getDefaultContext()
+                                                    && !(Boolean.FALSE.toString().equals(getContextManager()
+                                                            .getDefaultContext()
                                                             .getContextParameter(
                                                                     ((ContextParameterSortedParent) element).getParameter()
                                                                             .getName()).getValue()))) {
-                                                getContextManager().getDefaultContext().getContextParameter(
-                                                        ((ContextParameterSortedParent) element).getParameter().getName())
+                                                getContextManager()
+                                                        .getDefaultContext()
+                                                        .getContextParameter(
+                                                                ((ContextParameterSortedParent) element).getParameter().getName())
                                                         .setValue(Boolean.FALSE.toString());
                                             }
                                         }
@@ -218,10 +235,12 @@ public class GroupBySourceProvider extends ContextProviderProxy {
                             if (((ContextParameterSortedParent) element).getParameter() != null) {
                                 if (getContextManager().getDefaultContext().getContextParameter(
                                         ((ContextParameterSortedParent) element).getParameter().getName()) != null) {
-                                    return ContextParameterUtils.getNewScriptCode(getContextManager().getDefaultContext()
-                                            .getContextParameter(
-                                                    ((ContextParameterSortedParent) element).getParameter().getName()).getName(),
-                                            codeLanguage);
+                                    return ContextParameterUtils.getNewScriptCode(
+                                            getContextManager()
+                                                    .getDefaultContext()
+                                                    .getContextParameter(
+                                                            ((ContextParameterSortedParent) element).getParameter().getName())
+                                                    .getName(), codeLanguage);
                                 } else {
                                     break;
                                 }
@@ -240,8 +259,11 @@ public class GroupBySourceProvider extends ContextProviderProxy {
                             if (((ContextParameterSortedParent) element).getParameter() != null) {
                                 if (getContextManager().getDefaultContext().getContextParameter(
                                         ((ContextParameterSortedParent) element).getParameter().getName()) != null) {
-                                    return getContextManager().getDefaultContext().getContextParameter(
-                                            ((ContextParameterSortedParent) element).getParameter().getName()).getScriptCode();
+                                    return getContextManager()
+                                            .getDefaultContext()
+                                            .getContextParameter(
+                                                    ((ContextParameterSortedParent) element).getParameter().getName())
+                                            .getScriptCode();
                                 } else {
                                     break;
                                 }
@@ -265,10 +287,12 @@ public class GroupBySourceProvider extends ContextProviderProxy {
                             if (((ContextParameterSortedParent) element).getParameter() != null) {
                                 if (getContextManager().getDefaultContext().getContextParameter(
                                         ((ContextParameterSortedParent) element).getParameter().getName()) != null) {
-                                    return ContextParameterUtils.getNewScriptCode(getContextManager().getDefaultContext()
-                                            .getContextParameter(
-                                                    ((ContextParameterSortedParent) element).getParameter().getName()).getName(),
-                                            codeLanguage);
+                                    return ContextParameterUtils.getNewScriptCode(
+                                            getContextManager()
+                                                    .getDefaultContext()
+                                                    .getContextParameter(
+                                                            ((ContextParameterSortedParent) element).getParameter().getName())
+                                                    .getName(), codeLanguage);
                                 } else {
                                     break;
                                 }
@@ -287,8 +311,11 @@ public class GroupBySourceProvider extends ContextProviderProxy {
                             if (((ContextParameterSortedParent) element).getParameter() != null) {
                                 if (getContextManager().getDefaultContext().getContextParameter(
                                         ((ContextParameterSortedParent) element).getParameter().getName()) != null) {
-                                    return getContextManager().getDefaultContext().getContextParameter(
-                                            ((ContextParameterSortedParent) element).getParameter().getName()).getScriptCode();
+                                    return getContextManager()
+                                            .getDefaultContext()
+                                            .getContextParameter(
+                                                    ((ContextParameterSortedParent) element).getParameter().getName())
+                                            .getScriptCode();
                                 } else {
                                     break;
                                 }
@@ -308,8 +335,9 @@ public class GroupBySourceProvider extends ContextProviderProxy {
                         if (((ContextParameterSortedParent) element).getParameter() != null) {
                             if (getContextManager().getDefaultContext().getContextParameter(
                                     ((ContextParameterSortedParent) element).getParameter().getName()) != null) {
-                                return getContextManager().getDefaultContext().getContextParameter(
-                                        ((ContextParameterSortedParent) element).getParameter().getName()).getComment();
+                                return getContextManager().getDefaultContext()
+                                        .getContextParameter(((ContextParameterSortedParent) element).getParameter().getName())
+                                        .getComment();
                             } else {
                                 break;
                             }
@@ -329,8 +357,9 @@ public class GroupBySourceProvider extends ContextProviderProxy {
                     if (((ContextParameterSortedParent) element).getParameter() != null) {
                         if (getContextManager().getDefaultContext().getContextParameter(
                                 ((ContextParameterSortedParent) element).getParameter().getName()) != null) {
-                            return getContextManager().getDefaultContext().getContextParameter(
-                                    ((ContextParameterSortedParent) element).getParameter().getName()).getComment();
+                            return getContextManager().getDefaultContext()
+                                    .getContextParameter(((ContextParameterSortedParent) element).getParameter().getName())
+                                    .getComment();
                         } else {
                             break;
                         }
@@ -364,8 +393,8 @@ public class GroupBySourceProvider extends ContextProviderProxy {
                 // source column
                 if (son.getParameter() != null) {
                     if (getContextManager().getDefaultContext().getContextParameter(son.getParameter().getName()) != null) {
-                        final String source = getContextManager().getDefaultContext().getContextParameter(
-                                son.getParameter().getName()).getSource();
+                        final String source = getContextManager().getDefaultContext()
+                                .getContextParameter(son.getParameter().getName()).getSource();
                         ContextItem contextItem = ContextUtils.getContextItemById2(source);
                         if (contextItem != null) {
                             String sourceLabel = contextItem.getProperty().getLabel();
@@ -543,14 +572,14 @@ public class GroupBySourceProvider extends ContextProviderProxy {
                 parent.setSourceId(sourceLabel);
                 for (String paraName : nameContainers) {
                     IContextParameter contextPara = context.getContextParameter(paraName);
-                    if (!(IContextParameter.BUILT_IN.equals(contextPara.getSource()))) {
+                    if (contextPara != null && !(IContextParameter.BUILT_IN.equals(contextPara.getSource()))) {
                         if (sourceId.equals(contextPara.getSource())) {
                             ContextParameterSortedSon son = new ContextParameterSortedSon();
                             son.setParameter(contextPara);
                             son.setParent(parent);
                             parent.getSon().add(son);
                         }
-                    } else {
+                    } else if (contextPara != null) {
                         if (IContextParameter.BUILT_IN.equals(sourceId)) {
                             if (!builtin) {
                                 b = false;

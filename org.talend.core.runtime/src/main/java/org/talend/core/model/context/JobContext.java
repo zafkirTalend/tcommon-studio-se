@@ -94,7 +94,7 @@ public class JobContext implements IContext, Cloneable {
 
     public IContextParameter getContextParameter(String parameterName) {
         for (IContextParameter contextParam : contextParameterList) {
-            if (contextParam.getName().equals(parameterName)) {
+            if (contextParam.getName() != null && contextParam.getName().equals(parameterName)) {
                 return contextParam;
             }
         }
