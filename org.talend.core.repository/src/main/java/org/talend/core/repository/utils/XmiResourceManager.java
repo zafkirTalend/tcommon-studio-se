@@ -160,7 +160,6 @@ public class XmiResourceManager {
         } else if (repositoryObjectType.getKey().equals(ERepositoryObjectType.TDQ_PATTERN_ELEMENT.getKey())) {
             folder = project.getFolder(ERepositoryObjectType.getFolderName(repositoryObjectType)).getFolder(relativePath);
         } else {
-
             folder = project.getFolder(ERepositoryObjectType.getFolderName(repositoryObjectType)).getFolder(relativePath);
         }
         return folder.getFullPath();

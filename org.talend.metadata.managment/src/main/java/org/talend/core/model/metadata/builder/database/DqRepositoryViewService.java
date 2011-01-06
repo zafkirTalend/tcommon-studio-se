@@ -383,7 +383,7 @@ public final class DqRepositoryViewService {
         if (tv == null) {
             return VersionUtils.DEFAULT_VERSION;
         }
-        return tv.getValue();
+        return element.getName() + " " + tv.getValue(); //$NON-NLS-1$
     }
 
     public static Boolean hasChildren(TdXmlElementType element) {

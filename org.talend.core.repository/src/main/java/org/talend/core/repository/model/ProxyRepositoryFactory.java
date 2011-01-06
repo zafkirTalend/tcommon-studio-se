@@ -2252,6 +2252,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
     /**
      * DOC klliu Comment method "getIndicatorDefinitions".
      * 
+     * @param type
      * @return
      * @throws PersistenceException
      */
@@ -2260,15 +2261,40 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         return getIndicatorDefinitions(projectManager.getCurrentProject(), type);
     }
 
+    /**
+     * DOC klliu Comment method "getIndicatorDefinitions".
+     * 
+     * @param project
+     * @param type
+     * @param options
+     * @return
+     * @throws PersistenceException
+     */
     public RootContainer<String, IRepositoryViewObject> getIndicatorDefinitions(Project project, ERepositoryObjectType type,
             boolean... options) throws PersistenceException {
         return this.repositoryFactoryFromProvider.getIndicatorDefinitions(project, type, options);
     }
 
+    /**
+     * DOC klliu Comment method "getPatterns".
+     * 
+     * @param type
+     * @return
+     * @throws PersistenceException
+     */
     public RootContainer<String, IRepositoryViewObject> getPatterns(ERepositoryObjectType type) throws PersistenceException {
         return getPatterns(projectManager.getCurrentProject(), type);
     }
 
+    /**
+     * DOC klliu Comment method "getPatterns".
+     * 
+     * @param project
+     * @param type
+     * @param options
+     * @return
+     * @throws PersistenceException
+     */
     public RootContainer<String, IRepositoryViewObject> getPatterns(Project project, ERepositoryObjectType type,
             boolean... options) throws PersistenceException {
         return this.repositoryFactoryFromProvider.getPatterns(project, type, options);
@@ -2278,20 +2304,49 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * DOC klliu Comment method "getRules".
      * 
      * @param type
+     * @return
+     * @throws PersistenceException
+     * @deprecated use getTdqRepositoryViewObjects() instead
      */
     public RootContainer<String, IRepositoryViewObject> getRules(ERepositoryObjectType type) throws PersistenceException {
         return getRules(projectManager.getCurrentProject(), type);
     }
 
+    /**
+     * DOC klliu Comment method "getRules".
+     * 
+     * @param project
+     * @param type
+     * @param options
+     * @return
+     * @throws PersistenceException
+     * @deprecated use getTdqRepositoryViewObjects() instead
+     */
     public RootContainer<String, IRepositoryViewObject> getRules(Project project, ERepositoryObjectType type, boolean... options)
             throws PersistenceException {
         return this.repositoryFactoryFromProvider.getRules(project, type, options);
     }
 
+    /**
+     * DOC klliu Comment method "getJrxmlTemplates".
+     * 
+     * @param type
+     * @return
+     * @throws PersistenceException
+     */
     public RootContainer<String, IRepositoryViewObject> getJrxmlTemplates(ERepositoryObjectType type) throws PersistenceException {
         return getJrxmlTemplates(projectManager.getCurrentProject(), type);
     }
 
+    /**
+     * DOC klliu Comment method "getJrxmlTemplates".
+     * 
+     * @param project
+     * @param type
+     * @param options
+     * @return
+     * @throws PersistenceException
+     */
     public RootContainer<String, IRepositoryViewObject> getJrxmlTemplates(Project project, ERepositoryObjectType type,
             boolean... options) throws PersistenceException {
         return this.repositoryFactoryFromProvider.getJrxmlTemplates(project, type, options);
@@ -2301,23 +2356,53 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * DOC klliu Comment method "getSourceFiles".
      * 
      * @param itemType
+     * @return
      * @throws PersistenceException
+     * @deprecated use getTdqRepositoryViewObjects() instead
      */
     public RootContainer<String, IRepositoryViewObject> getSourceFiles(ERepositoryObjectType itemType)
             throws PersistenceException {
         return getSourceFiles(projectManager.getCurrentProject(), itemType);
     }
 
+    /**
+     * DOC klliu Comment method "getSourceFiles".
+     * 
+     * @param project
+     * @param type
+     * @param options
+     * @return
+     * @throws PersistenceException
+     * @deprecated use getTdqRepositoryViewObjects() instead
+     */
     public RootContainer<String, IRepositoryViewObject> getSourceFiles(Project project, ERepositoryObjectType type,
             boolean... options) throws PersistenceException {
         return this.repositoryFactoryFromProvider.getSourceFiles(project, type, options);
     }
 
+    /**
+     * DOC xqliu Comment method "getTdqRepositoryViewObjects".
+     * 
+     * @param itemType
+     * @param folderName
+     * @return
+     * @throws PersistenceException
+     */
     public RootContainer<String, IRepositoryViewObject> getTdqRepositoryViewObjects(ERepositoryObjectType itemType,
             String folderName) throws PersistenceException {
         return getTdqRepositoryViewObjects(projectManager.getCurrentProject(), itemType, folderName);
     }
 
+    /**
+     * DOC xqliu Comment method "getTdqRepositoryViewObjects".
+     * 
+     * @param project
+     * @param type
+     * @param folderName
+     * @param options
+     * @return
+     * @throws PersistenceException
+     */
     public RootContainer<String, IRepositoryViewObject> getTdqRepositoryViewObjects(Project project, ERepositoryObjectType type,
             String folderName, boolean... options) throws PersistenceException {
         return this.repositoryFactoryFromProvider.getTdqRepositoryViewObjects(project, type, folderName, options);
