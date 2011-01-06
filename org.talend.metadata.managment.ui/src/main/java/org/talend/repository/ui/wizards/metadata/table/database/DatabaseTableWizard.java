@@ -190,13 +190,13 @@ public class DatabaseTableWizard extends CheckLastVersionRepositoryWizard implem
             EList<Package> dataPackageTemConnection = temConnection.getDataPackage();
             EList<Package> dataPackageFromOrignalConnection = connection.getDataPackage();
 
-            /*
-             * The first save,to make sure all the columns and tables in temConnection can has a eResource,or it can't
-             * set uuids
-             */
-            saveMetaData();
-
             if (PluginChecker.isTDQLoaded()) {
+                /*
+                 * The first save,to make sure all the columns and tables in temConnection can has a eResource,or it
+                 * can't set uuids
+                 */
+                saveMetaData();
+
                 /* generate the map contains old uuid and label for old tables and columns */
                 generateOriginalColumnsMap(dataPackageFromOrignalConnection);
                 Collection<Package> copyDataPackage = EcoreUtil.copyAll(dataPackageTemConnection);
@@ -204,6 +204,10 @@ public class DatabaseTableWizard extends CheckLastVersionRepositoryWizard implem
                 /* using the old uuid to replace the old ones which on tables and columns */
                 replaceUUidsForColumnsAndTables(copyDataPackage);
                 /* The second save is used to save the changes of uuid */
+                saveMetaData();
+            } else {
+                Collection<Package> copyDataPackage = EcoreUtil.copyAll(dataPackageTemConnection);
+                ConnectionHelper.addPackages(copyDataPackage, connection);
                 saveMetaData();
             }
             RepositoryUpdateManager.updateMultiSchema(connectionItem, oldMetadataTable, oldTableMap);
