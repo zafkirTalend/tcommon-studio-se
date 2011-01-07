@@ -2226,7 +2226,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * @see org.talend.repository.model.IProxyRepositoryFactory#getAnalysis()
      */
     public RootContainer<String, IRepositoryViewObject> getAnalysis() throws PersistenceException {
-        return getAnalysis(projectManager.getCurrentProject());
+        return getAnalysis(projectManager.getCurrentProject(), true);
     }
 
     public RootContainer<String, IRepositoryViewObject> getAnalysis(Project project, boolean... options)
@@ -2241,7 +2241,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * @throws PersistenceException
      */
     public RootContainer<String, IRepositoryViewObject> getReport() throws PersistenceException {
-        return getReport(projectManager.getCurrentProject());
+        return getReport(projectManager.getCurrentProject(), true);
     }
 
     public RootContainer<String, IRepositoryViewObject> getReport(Project project, boolean... options)
