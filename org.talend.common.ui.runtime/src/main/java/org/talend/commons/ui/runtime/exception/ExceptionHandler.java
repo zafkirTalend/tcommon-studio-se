@@ -82,4 +82,15 @@ public final class ExceptionHandler {
             return Level.ERROR;
         }
     }
+
+    /**
+     * bug 17654：import the xml file as the schema will throw error.
+     * 
+     * DOC yhch Comment method "processForSchemaImportXml".
+     * 
+     * @param ex
+     */
+    public static void processForSchemaImportXml(Throwable ex) {
+        MessageBoxExceptionHandler.showMessageForSchemaImportXml(ex, new Shell());
+    }
 }

@@ -14,6 +14,7 @@ package org.talend.commons.ui.runtime.exception;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Priority;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.talend.commons.CommonsPlugin;
 import org.talend.commons.ui.runtime.i18n.Messages;
@@ -88,5 +89,19 @@ public final class MessageBoxExceptionHandler {
         } else {
             ExceptionMessageDialog.openInformation(shell, title, msg, ex);
         }
+    }
+
+    /**
+     * bug 17654：import the xml file as the schema will throw error.
+     * 
+     * DOC yhch Comment method "showMessageForSchemaImportXml".
+     * 
+     * @param ex
+     * @param shell
+     */
+    protected static void showMessageForSchemaImportXml(Throwable ex, Shell shell) {
+        String title = Messages.getString("MessageBoxExceptionHandler.showMessageForSchemaImportXml.unParseXML.title"); //$NON-NLS-1$
+        String msg = Messages.getString("MessageBoxExceptionHandler.showMessageForSchemaImportXml.unParseXML.msg"); //$NON-NLS-1$
+        MessageDialog.openConfirm(shell, title, msg);
     }
 }
