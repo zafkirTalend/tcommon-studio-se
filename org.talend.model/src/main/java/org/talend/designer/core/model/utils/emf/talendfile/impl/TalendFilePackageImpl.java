@@ -26,6 +26,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.LogToFileType;
 import org.talend.designer.core.model.utils.emf.talendfile.LogToStdOutType;
 import org.talend.designer.core.model.utils.emf.talendfile.LogsType;
 import org.talend.designer.core.model.utils.emf.talendfile.MetadataType;
+import org.talend.designer.core.model.utils.emf.talendfile.NodeContainerType;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.core.model.utils.emf.talendfile.NoteType;
 import org.talend.designer.core.model.utils.emf.talendfile.ParametersType;
@@ -173,6 +174,13 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * @generated
      */
     private EClass routinesParameterTypeEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass nodeContainerTypeEClass = null;
 
     /**
      * Creates an instance of the model <b>Package</b>, registered with {@link org.eclipse.emf.ecore.EPackage.Registry
@@ -1028,6 +1036,15 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getNodeType_NodeContainer() {
+        return (EReference)nodeTypeEClass.getEStructuralFeatures().get(14);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1365,6 +1382,24 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getNodeContainerType() {
+        return nodeContainerTypeEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getNodeContainerType_ElementParameter() {
+        return (EReference)nodeContainerTypeEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1501,6 +1536,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
         createEAttribute(nodeTypeEClass, NODE_TYPE__SIZE_Y);
         createEAttribute(nodeTypeEClass, NODE_TYPE__SCREENSHOT);
         createEReference(nodeTypeEClass, NODE_TYPE__NODE_DATA);
+        createEReference(nodeTypeEClass, NODE_TYPE__NODE_CONTAINER);
 
         noteTypeEClass = createEClass(NOTE_TYPE);
         createEAttribute(noteTypeEClass, NOTE_TYPE__OPAQUE);
@@ -1551,6 +1587,9 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
         routinesParameterTypeEClass = createEClass(ROUTINES_PARAMETER_TYPE);
         createEAttribute(routinesParameterTypeEClass, ROUTINES_PARAMETER_TYPE__ID);
         createEAttribute(routinesParameterTypeEClass, ROUTINES_PARAMETER_TYPE__NAME);
+
+        nodeContainerTypeEClass = createEClass(NODE_CONTAINER_TYPE);
+        createEReference(nodeContainerTypeEClass, NODE_CONTAINER_TYPE__ELEMENT_PARAMETER);
     }
 
     /**
@@ -1692,6 +1731,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
         initEAttribute(getNodeType_SizeY(), theXMLTypePackage.getInt(), "sizeY", null, 0, 1, NodeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getNodeType_Screenshot(), theXMLTypePackage.getBase64Binary(), "screenshot", null, 0, 1, NodeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getNodeType_NodeData(), this.getAbstractExternalData(), null, "nodeData", null, 0, 1, NodeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+        initEReference(getNodeType_NodeContainer(), this.getNodeContainerType(), null, "nodeContainer", null, 0, 1, NodeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
         initEClass(noteTypeEClass, NoteType.class, "NoteType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getNoteType_Opaque(), theXMLTypePackage.getBoolean(), "opaque", null, 0, 1, NoteType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1742,6 +1782,9 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
         initEClass(routinesParameterTypeEClass, RoutinesParameterType.class, "RoutinesParameterType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getRoutinesParameterType_Id(), ecorePackage.getEString(), "id", null, 0, 1, RoutinesParameterType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getRoutinesParameterType_Name(), ecorePackage.getEString(), "name", null, 0, 1, RoutinesParameterType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(nodeContainerTypeEClass, NodeContainerType.class, "NodeContainerType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getNodeContainerType_ElementParameter(), this.getElementParameterType(), null, "elementParameter", null, 1, -1, NodeContainerType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Create resource
         createResource(eNS_URI);
@@ -2760,6 +2803,14 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "element",
              "name", "ElementParameter",
              "namespace", "##targetNamespace"
+           });		
+        addAnnotation
+          (getNodeContainerType_ElementParameter(), 
+           source, 
+           new String[] {
+             "kind", "element",
+             "name", "ElementParameter",
+             "namespace", "##targetNamespace"
            });
     }
 
@@ -2777,7 +2828,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "element",
              "name", "ElementParameterType",
              "namespace", "##targetNamespace"
-           });																								
+           });																									
     }
 
 } // TalendFilePackageImpl

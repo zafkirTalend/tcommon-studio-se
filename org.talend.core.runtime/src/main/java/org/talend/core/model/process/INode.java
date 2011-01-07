@@ -274,4 +274,6 @@ public interface INode extends IElement {
     public int getPosX();
 
     public int getPosY();
+
+    public INode getJobletNode();
 }

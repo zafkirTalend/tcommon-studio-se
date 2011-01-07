@@ -1083,13 +1083,22 @@ public interface TalendFilePackage extends EPackage {
     int NODE_TYPE__NODE_DATA = 13;
 
     /**
+     * The feature id for the '<em><b>Node Container</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int NODE_TYPE__NODE_CONTAINER = 14;
+
+    /**
      * The number of structural features of the '<em>Node Type</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int NODE_TYPE_FEATURE_COUNT = 14;
+    int NODE_TYPE_FEATURE_COUNT = 15;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.NoteTypeImpl <em>Note Type</em>}' class.
@@ -1553,6 +1562,34 @@ public interface TalendFilePackage extends EPackage {
      * @ordered
      */
     int ROUTINES_PARAMETER_TYPE_FEATURE_COUNT = 2;
+
+    /**
+     * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.NodeContainerTypeImpl <em>Node Container Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.designer.core.model.utils.emf.talendfile.impl.NodeContainerTypeImpl
+     * @see org.talend.designer.core.model.utils.emf.talendfile.impl.TalendFilePackageImpl#getNodeContainerType()
+     * @generated
+     */
+    int NODE_CONTAINER_TYPE = 22;
+
+    /**
+     * The feature id for the '<em><b>Element Parameter</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int NODE_CONTAINER_TYPE__ELEMENT_PARAMETER = 0;
+
+    /**
+     * The number of structural features of the '<em>Node Container Type</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int NODE_CONTAINER_TYPE_FEATURE_COUNT = 1;
 
     /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType <em>Column Type</em>}'.
@@ -2630,6 +2667,17 @@ public interface TalendFilePackage extends EPackage {
     EReference getNodeType_NodeData();
 
     /**
+     * Returns the meta object for the containment reference '{@link org.talend.designer.core.model.utils.emf.talendfile.NodeType#getNodeContainer <em>Node Container</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>Node Container</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.NodeType#getNodeContainer()
+     * @see #getNodeType()
+     * @generated
+     */
+    EReference getNodeType_NodeContainer();
+
+    /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.talendfile.NoteType <em>Note Type</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3082,6 +3130,27 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      */
     EAttribute getRoutinesParameterType_Name();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.talendfile.NodeContainerType <em>Node Container Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Node Container Type</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.NodeContainerType
+     * @generated
+     */
+    EClass getNodeContainerType();
+
+    /**
+     * Returns the meta object for the containment reference list '{@link org.talend.designer.core.model.utils.emf.talendfile.NodeContainerType#getElementParameter <em>Element Parameter</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>Element Parameter</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.NodeContainerType#getElementParameter()
+     * @see #getNodeContainerType()
+     * @generated
+     */
+    EReference getNodeContainerType_ElementParameter();
 
     /**
      * Returns the factory that creates the instances of the model.
@@ -3926,6 +3995,14 @@ public interface TalendFilePackage extends EPackage {
         EReference NODE_TYPE__NODE_DATA = eINSTANCE.getNodeType_NodeData();
 
         /**
+         * The meta object literal for the '<em><b>Node Container</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference NODE_TYPE__NODE_CONTAINER = eINSTANCE.getNodeType_NodeContainer();
+
+        /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.NoteTypeImpl <em>Note Type</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -4276,6 +4353,24 @@ public interface TalendFilePackage extends EPackage {
          * @generated
          */
         EAttribute ROUTINES_PARAMETER_TYPE__NAME = eINSTANCE.getRoutinesParameterType_Name();
+
+        /**
+         * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.NodeContainerTypeImpl <em>Node Container Type</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.designer.core.model.utils.emf.talendfile.impl.NodeContainerTypeImpl
+         * @see org.talend.designer.core.model.utils.emf.talendfile.impl.TalendFilePackageImpl#getNodeContainerType()
+         * @generated
+         */
+        EClass NODE_CONTAINER_TYPE = eINSTANCE.getNodeContainerType();
+
+        /**
+         * The meta object literal for the '<em><b>Element Parameter</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference NODE_CONTAINER_TYPE__ELEMENT_PARAMETER = eINSTANCE.getNodeContainerType_ElementParameter();
 
     }
 

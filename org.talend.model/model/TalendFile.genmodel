@@ -118,6 +118,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//NodeType/sizeY"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//NodeType/screenshot"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference TalendFile.ecore#//NodeType/nodeData"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TalendFile.ecore#//NodeType/nodeContainer"/>
     </genClasses>
     <genClasses ecoreClass="TalendFile.ecore#//NoteType">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//NoteType/opaque"/>
@@ -167,6 +168,9 @@
     <genClasses ecoreClass="TalendFile.ecore#//RoutinesParameterType">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//RoutinesParameterType/id"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//RoutinesParameterType/name"/>
+    </genClasses>
+    <genClasses ecoreClass="TalendFile.ecore#//NodeContainerType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TalendFile.ecore#//NodeContainerType/elementParameter"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

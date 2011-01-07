@@ -403,9 +403,13 @@ public class NodeUtil {
         List<IConnection> inputConnections = (List<IConnection>) getIncomingConnections(node, IConnectionCategory.MAIN);
         if (inputConnections.size() > 0) {
             IConnection input = inputConnections.get(0);
-            getLinkedMergeInfo(input.getSource(), map);
+            INode sourceNode = input.getSource();
+            if (sourceNode.getJobletNode() != null) {
+                sourceNode = sourceNode.getJobletNode();
+            }
+            getLinkedMergeInfo(sourceNode, map);
             if (map.isEmpty()) {
-                getLinkedMergeInfoFromMainLink(input.getSource(), map);
+                getLinkedMergeInfoFromMainLink(sourceNode, map);
             }
         }
 
@@ -417,10 +421,18 @@ public class NodeUtil {
             IConnection connec = outgoingConnections.get(i);
             if (connec.isActivate()) {
                 if (connec.getLineStyle().hasConnectionCategory(EConnectionType.MERGE)) {
-                    map.put(connec.getTarget(), connec.getInputId());
-                    getLinkedMergeInfo(connec.getTarget(), map);
+                    INode jNode = connec.getTarget();
+                    if (jNode.getJobletNode() != null) {
+                        jNode = jNode.getJobletNode();
+                    }
+                    map.put(jNode, connec.getInputId());
+                    getLinkedMergeInfo(jNode, map);
                 } else if (connec.getLineStyle().hasConnectionCategory(EConnectionType.MAIN) && connec.getTarget() != null) {
-                    getLinkedMergeInfo(connec.getTarget(), map);
+                    INode jNode = connec.getTarget();
+                    if (jNode.getJobletNode() != null) {
+                        jNode = jNode.getJobletNode();
+                    }
+                    getLinkedMergeInfo(jNode, map);
                 }
             }
         }

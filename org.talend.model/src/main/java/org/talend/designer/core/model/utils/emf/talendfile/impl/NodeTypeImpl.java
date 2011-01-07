@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.talend.designer.core.model.utils.emf.talendfile.AbstractExternalData;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.MetadataType;
+import org.talend.designer.core.model.utils.emf.talendfile.NodeContainerType;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
 
@@ -45,6 +46,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.NodeTypeImpl#getSizeY <em>Size Y</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.NodeTypeImpl#getScreenshot <em>Screenshot</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.NodeTypeImpl#getNodeData <em>Node Data</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.NodeTypeImpl#getNodeContainer <em>Node Container</em>}</li>
  * </ul>
  * </p>
  *
@@ -354,6 +356,16 @@ public class NodeTypeImpl extends EObjectImpl implements NodeType {
      * @ordered
      */
     protected AbstractExternalData nodeData;
+
+    /**
+     * The cached value of the '{@link #getNodeContainer() <em>Node Container</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getNodeContainer()
+     * @generated
+     * @ordered
+     */
+    protected NodeContainerType nodeContainer;
 
     /**
      * <!-- begin-user-doc -->
@@ -826,6 +838,49 @@ public class NodeTypeImpl extends EObjectImpl implements NodeType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public NodeContainerType getNodeContainer() {
+        return nodeContainer;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain basicSetNodeContainer(NodeContainerType newNodeContainer, NotificationChain msgs) {
+        NodeContainerType oldNodeContainer = nodeContainer;
+        nodeContainer = newNodeContainer;
+        if (eNotificationRequired()) {
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, TalendFilePackage.NODE_TYPE__NODE_CONTAINER, oldNodeContainer, newNodeContainer);
+            if (msgs == null) msgs = notification; else msgs.add(notification);
+        }
+        return msgs;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setNodeContainer(NodeContainerType newNodeContainer) {
+        if (newNodeContainer != nodeContainer) {
+            NotificationChain msgs = null;
+            if (nodeContainer != null)
+                msgs = ((InternalEObject)nodeContainer).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - TalendFilePackage.NODE_TYPE__NODE_CONTAINER, null, msgs);
+            if (newNodeContainer != null)
+                msgs = ((InternalEObject)newNodeContainer).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - TalendFilePackage.NODE_TYPE__NODE_CONTAINER, null, msgs);
+            msgs = basicSetNodeContainer(newNodeContainer, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.NODE_TYPE__NODE_CONTAINER, newNodeContainer, newNodeContainer));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case TalendFilePackage.NODE_TYPE__ELEMENT_PARAMETER:
@@ -834,6 +889,8 @@ public class NodeTypeImpl extends EObjectImpl implements NodeType {
                 return ((InternalEList)getMetadata()).basicRemove(otherEnd, msgs);
             case TalendFilePackage.NODE_TYPE__NODE_DATA:
                 return basicSetNodeData(null, msgs);
+            case TalendFilePackage.NODE_TYPE__NODE_CONTAINER:
+                return basicSetNodeContainer(null, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -873,6 +930,8 @@ public class NodeTypeImpl extends EObjectImpl implements NodeType {
                 return getScreenshot();
             case TalendFilePackage.NODE_TYPE__NODE_DATA:
                 return getNodeData();
+            case TalendFilePackage.NODE_TYPE__NODE_CONTAINER:
+                return getNodeContainer();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -928,6 +987,9 @@ public class NodeTypeImpl extends EObjectImpl implements NodeType {
             case TalendFilePackage.NODE_TYPE__NODE_DATA:
                 setNodeData((AbstractExternalData)newValue);
                 return;
+            case TalendFilePackage.NODE_TYPE__NODE_CONTAINER:
+                setNodeContainer((NodeContainerType)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -981,6 +1043,9 @@ public class NodeTypeImpl extends EObjectImpl implements NodeType {
             case TalendFilePackage.NODE_TYPE__NODE_DATA:
                 setNodeData((AbstractExternalData)null);
                 return;
+            case TalendFilePackage.NODE_TYPE__NODE_CONTAINER:
+                setNodeContainer((NodeContainerType)null);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -1020,6 +1085,8 @@ public class NodeTypeImpl extends EObjectImpl implements NodeType {
                 return SCREENSHOT_EDEFAULT == null ? screenshot != null : !SCREENSHOT_EDEFAULT.equals(screenshot);
             case TalendFilePackage.NODE_TYPE__NODE_DATA:
                 return nodeData != null;
+            case TalendFilePackage.NODE_TYPE__NODE_CONTAINER:
+                return nodeContainer != null;
         }
         return super.eIsSet(featureID);
     }

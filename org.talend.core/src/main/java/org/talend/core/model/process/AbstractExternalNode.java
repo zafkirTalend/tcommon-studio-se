@@ -120,4 +120,8 @@ public abstract class AbstractExternalNode extends AbstractNode implements IExte
     public void buildExternalData(AbstractExternalData abstractData) {
 
     }
+
+    public INode getJobletNode() {
+        return null;
+    }
 }

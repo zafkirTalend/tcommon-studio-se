@@ -215,6 +215,15 @@ public interface TalendFileFactory extends EFactory {
     RoutinesParameterType createRoutinesParameterType();
 
     /**
+     * Returns a new object of class '<em>Node Container Type</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Node Container Type</em>'.
+     * @generated
+     */
+    NodeContainerType createNodeContainerType();
+
+    /**
      * Returns the package supported by this factory.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

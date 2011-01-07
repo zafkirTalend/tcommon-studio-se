@@ -877,4 +877,8 @@ public abstract class AbstractNode implements INode {
         // TODO Auto-generated method stub
         return 0;
     }
+
+    public INode getJobletNode() {
+        return null;
+    }
 }

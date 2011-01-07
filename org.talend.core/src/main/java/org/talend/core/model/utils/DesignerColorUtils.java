@@ -28,6 +28,8 @@ public final class DesignerColorUtils {
 
     public static final RGB SUBJOB_COLOR = new RGB(220, 220, 250);
 
+    public static final RGB JOBLET_COLOR = new RGB(130, 240, 100);
+
     public static final String SUBJOB_TITLE_COLOR_NAME = "subjobTitleColor"; //$NON-NLS-1$
 
     public static final String SUBJOB_COLOR_NAME = "subjobColor"; //$NON-NLS-1$
@@ -68,14 +70,14 @@ public final class DesignerColorUtils {
         }
 
         // background
-        store.setDefault(DesignerColorUtils.JOBDESIGNER_EGITOR_BACKGROUND_COLOR_NAME, StringConverter
-                .asString(DesignerColorUtils.DEFAULT_EDITOR_COLOR));
-        store.setDefault(DesignerColorUtils.READONLY_BACKGROUND_COLOR_NAME, StringConverter
-                .asString(DesignerColorUtils.DEFAULT_READONLY_COLOR));
+        store.setDefault(DesignerColorUtils.JOBDESIGNER_EGITOR_BACKGROUND_COLOR_NAME,
+                StringConverter.asString(DesignerColorUtils.DEFAULT_EDITOR_COLOR));
+        store.setDefault(DesignerColorUtils.READONLY_BACKGROUND_COLOR_NAME,
+                StringConverter.asString(DesignerColorUtils.DEFAULT_READONLY_COLOR));
         // subjob
         store.setDefault(DesignerColorUtils.SUBJOB_COLOR_NAME, StringConverter.asString(DesignerColorUtils.SUBJOB_COLOR));
-        store.setDefault(DesignerColorUtils.SUBJOB_TITLE_COLOR_NAME, StringConverter
-                .asString(DesignerColorUtils.SUBJOB_TITLE_COLOR));
+        store.setDefault(DesignerColorUtils.SUBJOB_TITLE_COLOR_NAME,
+                StringConverter.asString(DesignerColorUtils.SUBJOB_TITLE_COLOR));
         // connection
         for (EConnectionType connType : EConnectionType.values()) {
             store.setDefault(getPreferenceConnectionName(connType), StringConverter.asString(connType.getRGB()));
