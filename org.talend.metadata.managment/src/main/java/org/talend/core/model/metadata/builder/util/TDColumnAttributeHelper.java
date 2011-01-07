@@ -56,18 +56,19 @@ public class TDColumnAttributeHelper {
     private static Logger log = Logger.getLogger(TDColumnAttributeHelper.class);
 
     public static TdTable addTagVale(ResultSet resutSet, TdTable table) {
+        if (table == null) {
+            table = RelationalFactory.eINSTANCE.createTdTable();
+        }
+        String colComment = null;
         try {
-            if (table == null) {
-                table = RelationalFactory.eINSTANCE.createTdTable();
-            }
-            String colComment = resutSet.getString(GetColumn.REMARKS.name());
-            if (colComment == null) {
-                colComment = "";
-            }
-            TableHelper.setComment(colComment, table);
+            colComment = resutSet.getString(GetColumn.REMARKS.name());
         } catch (Exception e) {
             log.warn(e, e);
         }
+        if (colComment == null) {
+            colComment = ""; //$NON-NLS-1$
+        }
+        TableHelper.setComment(colComment, table);
         return table;
     }
 
@@ -83,149 +84,39 @@ public class TDColumnAttributeHelper {
      * 
      */
     public static TdColumn addColumnAttribute(ResultSet resutSet, TdColumn column) throws SQLException {
-
-        // // --- add columns to table
-        // ResultSet columns = getConnectionMetadata(connection).getColumns(catalogName, schemaPattern, tablePattern,
-        // columnPattern);
-
-        // TODO scorreia other informations for columns can be retrieved here
-        // get the default value
-        // MOD mzhao 2009-04-09,Bug 6840: fetch LONG or LONG RAW column first , as these kind of columns are read as
-        // stream,if not read by select order, there will be "Stream has already been closed" error.
-        // Don't move the below block ,if you move it that emerge up bug klliu 2010-09-07
-        if (column == null) {
-            column = RelationalFactory.eINSTANCE.createTdColumn();
-        }
-        Object defaultvalue = null;
-        try {
-            defaultvalue = resutSet.getObject(GetColumn.COLUMN_DEF.name());
-        } catch (Exception e1) {
-            log.warn(e1, e1);
-        }
-        String defaultStr = (defaultvalue != null) ? String.valueOf(defaultvalue) : null;
-        TdExpression defExpression = createTdExpression(GetColumn.COLUMN_DEF.name(), defaultStr);
-
-        // MOD xqliu 2009-10-29 bug 9838
-        // MOD xqliu 2009-12-08 bug 9822, if use odbc connect to sqlserver the resultset is forward only!!!
-        String colName = null;
-        try {
-            colName = resutSet.getString(GetColumn.COLUMN_NAME.name());
-        } catch (Exception e1) {
-            log.warn(e1, e1);
-            if (colName == null) {
-                colName = e1.getMessage();
-            }
-        }
-        column.setName(colName);
-
-        int dataType = 0;
-        try {
-            dataType = resutSet.getInt(GetColumn.DATA_TYPE.name());
-            // MOD scorreia 2010-07-24 removed the call to column.getSQLDataType() here because obviously the sql
-            // data type it is null and results in a NPE
-        } catch (Exception e) {
-            log.warn(e, e);
-        }
-
-        String typeName = null;
-        try {
-            typeName = resutSet.getString(GetColumn.TYPE_NAME.name());
-            // MOD zshen when the database is mssql,the datatype for "date" and "time" is "-9" and "-2"
-            // ,respective.so change them to "91" and "92" for adapt to Java2SqlType.
-            Connection conn = ConnectionHelper.getConnection(column);
-            if (isMssql(createConnection((DatabaseConnection) conn).getObject())) {
-                if (typeName.toLowerCase().equals("date")) {
-                    dataType = 91;
-                    // MOD scorreia 2010-07-24 removed the call to column.getSQLDataType() here because obviously
-                    // the sql
-                    // data type it is null and results in a NPE
-                } else if (typeName.toLowerCase().equals("time")) {
-                    dataType = 92;
-                    // MOD scorreia 2010-07-24 removed the call to column.getSQLDataType() here because obviously
-                    // the sql
-                    // data type it is null and results in a NPE
-                }
-            }
-        } catch (Exception e1) {
-            log.warn(e1, e1);
-        }
-
-        try {
-            column.setLength(resutSet.getInt(GetColumn.COLUMN_SIZE.name()));
-        } catch (Exception e1) {
-            log.warn(e1, e1);
-        }
-
-        int decimalDigits = 0;
-        try {
-            decimalDigits = resutSet.getInt(GetColumn.DECIMAL_DIGITS.name());
-        } catch (Exception e) {
-            log.warn(e);
-        }
-
-        int numPrecRadix = 0;
-        try {
-            numPrecRadix = resutSet.getInt(GetColumn.NUM_PREC_RADIX.name());
-        } catch (Exception e) {
-            log.warn(e);
-        }
-
-        // get column description (comment)
-        try {
-            String colComment = resutSet.getString(GetColumn.REMARKS.name());
-            if (colComment == null) {
-                colComment = "";
-            }
-            ColumnHelper.setComment(colComment, column);
-        } catch (Exception e) {
-            log.warn(e, e);
-        }
-
-        // --- create and set type of column
-        // TODO scorreia get type of column on demand, not on creation of column
-        // TdSqlDataType sqlDataType = DatabaseContentRetriever.createDataType(columns);
-        TdSqlDataType sqlDataType = createDataType(dataType, typeName, decimalDigits, numPrecRadix);
-        column.setSqlDataType(sqlDataType);
-        // column.setType(sqlDataType); // it's only reference to previous sql data type
-
-        try {
-            column.getSqlDataType().setNullable(NullableType.get(resutSet.getInt(GetColumn.NULLABLE.name())));
-        } catch (Exception e1) {
-            log.warn(e1, e1);
-        }
-
-        column.setInitialValue(defExpression);
-
-        String mapping = databaseconnection == null ? null : databaseconnection.getDbmsId();
-        if (databaseconnection != null && mapping != null) {
-            MappingTypeRetriever mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(mapping);
-            String talendType = mappingTypeRetriever.getDefaultSelectedTalendType(typeName, ExtractMetaDataUtils
-                    .getIntMetaDataInfo(resutSet, "COLUMN_SIZE"), ExtractMetaDataUtils.getIntMetaDataInfo(resutSet, //$NON-NLS-1$
-                    "DECIMAL_DIGITS")); //$NON-NLS-1$
-            column.setTalendType(talendType);
-            // ADD xqliu 2010-12-28 bug 16538
-            column.setSourceType(MetadataTalendType.getMappingTypeRetriever(databaseconnection.getDbmsId())
-                    .getDefaultSelectedDbType(talendType));
-            // ~ 16538
-        }
-        // mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(metadataConnection.getMapping());
-        // ADD xqliu 2010-12-28 bug 16538
-        column.setNullable("YES".equals(resutSet.getString(GetColumn.IS_NULLABLE.name()))); //$NON-NLS-1$
-        // ~ 16538
-        return column;
+        Connection conn = ConnectionHelper.getConnection(column);
+        boolean isMssql = isMssql(createConnection((DatabaseConnection) conn).getObject());
+        return addColumnAttribute(null, null, -1, -1, null, resutSet, column, (java.sql.Connection) null, isMssql);
     }
 
     public static TdColumn addColumnAttribute(String columnName, String typeName, int columnSize, int decimalDigts,
             String columnRemark, ResultSet resutSet, TdColumn column, DatabaseConnection conn) throws SQLException {
         databaseconnection = conn;
         return addColumnAttribute(columnName, typeName, columnSize, decimalDigts, columnRemark, resutSet, column,
-                createConnection(conn).getObject());
+                createConnection(conn).getObject(), isMssql());
 
     }
 
-    public static TdColumn addColumnAttribute(String columnName, String typeName, int columnSize, int decimalDigts,
-            String columnRemark, ResultSet resutSet, TdColumn column, java.sql.Connection conn) throws SQLException {
+    public static TdColumn addColumnAttribute(ResultSet resutSet, TdColumn column, DatabaseConnection conn) throws SQLException {
+        databaseconnection = conn;
+        return addColumnAttribute(null, null, -1, -1, null, resutSet, column, createConnection(conn).getObject(), isMssql());
 
+    }
+
+    public static TdColumn addColumnAttribute(ResultSet resutSet, TdColumn column, java.sql.Connection conn) throws SQLException {
+        return addColumnAttribute(null, null, -1, -1, null, resutSet, column, conn, isMssql(conn));
+    }
+
+    public static TdColumn addColumnAttribute(String columnName, String typeName, int columnSize, int decimalDigits,
+            String columnRemark, ResultSet resutSet, TdColumn column, java.sql.Connection conn) throws SQLException {
+        return addColumnAttribute(columnName, typeName, columnSize, decimalDigits, columnRemark, resutSet, column, conn,
+                isMssql());
+
+    }
+
+    private static TdColumn addColumnAttribute(String columnName, String typeName, int columnSize, int decimalDigits,
+            String columnRemark, ResultSet resutSet, TdColumn column, java.sql.Connection conn, boolean isMssql)
+            throws SQLException {
         // // --- add columns to table
         // ResultSet columns = getConnectionMetadata(connection).getColumns(catalogName, schemaPattern, tablePattern,
         // columnPattern);
@@ -248,6 +139,8 @@ public class TDColumnAttributeHelper {
         TdExpression defExpression = createTdExpression(GetColumn.COLUMN_DEF.name(), defaultStr);
 
         // columnName
+        // MOD xqliu 2009-10-29 bug 9838
+        // MOD xqliu 2009-12-08 bug 9822, if use odbc connect to sqlserver the resultset is forward only!!!
         if (columnName == null || "".equals(columnName)) {
             try {
                 columnName = resutSet.getString(GetColumn.COLUMN_NAME.name());
@@ -279,7 +172,9 @@ public class TDColumnAttributeHelper {
                 log.warn(e1, e1);
             }
         }
-        if (isMssql()) {
+        // MOD zshen when the database is mssql,the datatype for "date" and "time" is "-9" and "-2"
+        // ,respective.so change them to "91" and "92" for adapt to Java2SqlType.
+        if (typeName != null && isMssql()) {
             if (typeName.toLowerCase().equals("date")) {
                 dataType = 91;
                 // MOD scorreia 2010-07-24 removed the call to column.getSQLDataType() here because obviously
@@ -305,9 +200,9 @@ public class TDColumnAttributeHelper {
         column.setLength(columnSize);
 
         // decimalDigts
-        if (decimalDigts < 0) {
+        if (decimalDigits < 0) {
             try {
-                decimalDigts = resutSet.getInt(GetColumn.DECIMAL_DIGITS.name());
+                decimalDigits = resutSet.getInt(GetColumn.DECIMAL_DIGITS.name());
             } catch (Exception e) {
                 log.warn(e);
             }
@@ -321,149 +216,18 @@ public class TDColumnAttributeHelper {
             log.warn(e);
         }
 
-        // columnRemark
+        // get column description (comment)
         if (columnRemark == null || "".equals(columnRemark)) {
             try {
                 columnRemark = resutSet.getString(GetColumn.REMARKS.name());
-                if (columnRemark == null) {
-                    columnRemark = "";
-                }
             } catch (Exception e) {
                 log.warn(e, e);
             }
+            if (columnRemark == null) {
+                columnRemark = "";
+            }
         }
         ColumnHelper.setComment(columnRemark, column);
-        TdSqlDataType sqlDataType = createDataType(dataType, typeName, decimalDigts, numPrecRadix);
-        column.setSqlDataType(sqlDataType);
-
-        try {
-            column.getSqlDataType().setNullable(NullableType.get(resutSet.getInt(GetColumn.NULLABLE.name())));
-        } catch (Exception e1) {
-            log.warn(e1, e1);
-        }
-
-        column.setInitialValue(defExpression);
-        String mapping = databaseconnection == null ? null : databaseconnection.getDbmsId();
-        if (databaseconnection != null && mapping != null) {
-            MappingTypeRetriever mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(mapping);
-            String talendType = mappingTypeRetriever.getDefaultSelectedTalendType(typeName, ExtractMetaDataUtils
-                    .getIntMetaDataInfo(resutSet, "COLUMN_SIZE"), ExtractMetaDataUtils.getIntMetaDataInfo(resutSet, //$NON-NLS-1$
-                    "DECIMAL_DIGITS")); //$NON-NLS-1$
-            column.setTalendType(talendType);
-            // ADD xqliu 2010-12-28 bug 16538
-            column.setSourceType(MetadataTalendType.getMappingTypeRetriever(databaseconnection.getDbmsId())
-                    .getDefaultSelectedDbType(talendType));
-        }
-        column.setNullable("YES".equals(resutSet.getString(GetColumn.IS_NULLABLE.name()))); //$NON-NLS-1$ 
-        // ~ 16538
-        return column;
-    }
-
-    public static TdColumn addColumnAttribute(ResultSet resutSet, TdColumn column, DatabaseConnection conn) throws SQLException {
-        databaseconnection = conn;
-        return addColumnAttribute(resutSet, column, createConnection(conn).getObject());
-
-    }
-
-    public static TdColumn addColumnAttribute(ResultSet resutSet, TdColumn column, java.sql.Connection conn) throws SQLException {
-
-        // // --- add columns to table
-        // ResultSet columns = getConnectionMetadata(connection).getColumns(catalogName, schemaPattern, tablePattern,
-        // columnPattern);
-
-        // TODO scorreia other informations for columns can be retrieved here
-        // get the default value
-        // MOD mzhao 2009-04-09,Bug 6840: fetch LONG or LONG RAW column first , as these kind of columns are read as
-        // stream,if not read by select order, there will be "Stream has already been closed" error.
-        // Don't move the below block ,if you move it that emerge up bug klliu 2010-09-07
-        if (column == null) {
-            column = RelationalFactory.eINSTANCE.createTdColumn();
-        }
-        Object defaultvalue = null;
-        try {
-            defaultvalue = resutSet.getObject(GetColumn.COLUMN_DEF.name());
-        } catch (Exception e1) {
-            log.warn(e1, e1);
-        }
-        String defaultStr = (defaultvalue != null) ? String.valueOf(defaultvalue) : null;
-        TdExpression defExpression = createTdExpression(GetColumn.COLUMN_DEF.name(), defaultStr);
-
-        // MOD xqliu 2009-10-29 bug 9838
-        // MOD xqliu 2009-12-08 bug 9822, if use odbc connect to sqlserver the resultset is forward only!!!
-        String colName = null;
-        try {
-            colName = resutSet.getString(GetColumn.COLUMN_NAME.name());
-        } catch (Exception e1) {
-            log.warn(e1, e1);
-            if (colName == null) {
-                colName = e1.getMessage();
-            }
-        }
-        column.setName(colName);
-        column.setLabel(colName);
-
-        int dataType = 0;
-        try {
-            dataType = resutSet.getInt(GetColumn.DATA_TYPE.name());
-            // MOD scorreia 2010-07-24 removed the call to column.getSQLDataType() here because obviously the sql
-            // data type it is null and results in a NPE
-        } catch (Exception e) {
-            log.warn(e, e);
-        }
-
-        String typeName = null;
-        try {
-            typeName = resutSet.getString(GetColumn.TYPE_NAME.name());
-            // MOD zshen when the database is mssql,the datatype for "date" and "time" is "-9" and "-2"
-            // ,respective.so change them to "91" and "92" for adapt to Java2SqlType.
-
-            if (isMssql()) {
-                if (typeName.toLowerCase().equals("date")) {
-                    dataType = 91;
-                    // MOD scorreia 2010-07-24 removed the call to column.getSQLDataType() here because obviously
-                    // the sql
-                    // data type it is null and results in a NPE
-                } else if (typeName.toLowerCase().equals("time")) {
-                    dataType = 92;
-                    // MOD scorreia 2010-07-24 removed the call to column.getSQLDataType() here because obviously
-                    // the sql
-                    // data type it is null and results in a NPE
-                }
-            }
-        } catch (Exception e1) {
-            log.warn(e1, e1);
-        }
-
-        try {
-            column.setLength(resutSet.getInt(GetColumn.COLUMN_SIZE.name()));
-        } catch (Exception e1) {
-            log.warn(e1, e1);
-        }
-
-        int decimalDigits = 0;
-        try {
-            decimalDigits = resutSet.getInt(GetColumn.DECIMAL_DIGITS.name());
-        } catch (Exception e) {
-            log.warn(e);
-        }
-
-        int numPrecRadix = 0;
-        try {
-            numPrecRadix = resutSet.getInt(GetColumn.NUM_PREC_RADIX.name());
-        } catch (Exception e) {
-            log.warn(e);
-        }
-
-        // get column description (comment)
-        try {
-            String colComment = resutSet.getString(GetColumn.REMARKS.name());
-            if (colComment == null) {
-                colComment = "";
-            }
-            ColumnHelper.setComment(colComment, column);
-        } catch (Exception e) {
-            log.warn(e, e);
-        }
 
         // --- create and set type of column
         // TODO scorreia get type of column on demand, not on creation of column
@@ -471,7 +235,6 @@ public class TDColumnAttributeHelper {
         TdSqlDataType sqlDataType = createDataType(dataType, typeName, decimalDigits, numPrecRadix);
         column.setSqlDataType(sqlDataType);
         // column.setType(sqlDataType); // it's only reference to previous sql data type
-
         try {
             column.getSqlDataType().setNullable(NullableType.get(resutSet.getInt(GetColumn.NULLABLE.name())));
         } catch (Exception e1) {
@@ -489,12 +252,15 @@ public class TDColumnAttributeHelper {
             // ADD xqliu 2010-12-28 bug 16538
             column.setSourceType(MetadataTalendType.getMappingTypeRetriever(databaseconnection.getDbmsId())
                     .getDefaultSelectedDbType(talendType));
-            // ~ 16538
         }
-        // mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(metadataConnection.getMapping());
         // ADD xqliu 2010-12-28 bug 16538
-        column.setNullable("YES".equals(resutSet.getString(GetColumn.IS_NULLABLE.name()))); //$NON-NLS-1$
-        // ~ 16538
+        try {
+            column.setNullable("YES".equals(resutSet.getString(GetColumn.IS_NULLABLE.name()))); //$NON-NLS-1$ 
+            // ~ 16538
+        } catch (Exception e) {
+            // for ORACLE synonyms
+            column.setNullable(false);//$NON-NLS-1$
+        }
         return column;
     }
 
