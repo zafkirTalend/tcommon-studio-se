@@ -70,8 +70,10 @@ public class XmlXPathLoopDescriptorItemProvider extends ItemProviderAdapter impl
      * @generated
      */
     protected void addLimitBouclePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_XmlXPathLoopDescriptor_LimitBoucle_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_XmlXPathLoopDescriptor_LimitBoucle_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_XmlXPathLoopDescriptor_LimitBoucle_feature",
                         "_UI_XmlXPathLoopDescriptor_type"), ConnectionPackage.Literals.XML_XPATH_LOOP_DESCRIPTOR__LIMIT_BOUCLE,
                 true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -84,10 +86,11 @@ public class XmlXPathLoopDescriptorItemProvider extends ItemProviderAdapter impl
      * @generated
      */
     protected void addAbsoluteXPathQueryPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(),
-                getString("_UI_XmlXPathLoopDescriptor_AbsoluteXPathQuery_feature"), getString(
-                        "_UI_PropertyDescriptor_description", "_UI_XmlXPathLoopDescriptor_AbsoluteXPathQuery_feature",
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_XmlXPathLoopDescriptor_AbsoluteXPathQuery_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_XmlXPathLoopDescriptor_AbsoluteXPathQuery_feature",
                         "_UI_XmlXPathLoopDescriptor_type"),
                 ConnectionPackage.Literals.XML_XPATH_LOOP_DESCRIPTOR__ABSOLUTE_XPATH_QUERY, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));

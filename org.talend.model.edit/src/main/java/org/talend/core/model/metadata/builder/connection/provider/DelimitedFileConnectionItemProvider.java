@@ -67,10 +67,11 @@ public class DelimitedFileConnectionItemProvider extends FileConnectionItemProvi
      * @generated
      */
     protected void addFieldSeparatorTypePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(),
-                getString("_UI_DelimitedFileConnection_FieldSeparatorType_feature"), getString(
-                        "_UI_PropertyDescriptor_description", "_UI_DelimitedFileConnection_FieldSeparatorType_feature",
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_DelimitedFileConnection_FieldSeparatorType_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_DelimitedFileConnection_FieldSeparatorType_feature",
                         "_UI_DelimitedFileConnection_type"),
                 ConnectionPackage.Literals.DELIMITED_FILE_CONNECTION__FIELD_SEPARATOR_TYPE, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -83,8 +84,10 @@ public class DelimitedFileConnectionItemProvider extends FileConnectionItemProvi
      * @generated
      */
     protected void addSplitRecordPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_DelimitedFileConnection_splitRecord_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_DelimitedFileConnection_splitRecord_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_DelimitedFileConnection_splitRecord_feature",
                         "_UI_DelimitedFileConnection_type"), ConnectionPackage.Literals.DELIMITED_FILE_CONNECTION__SPLIT_RECORD,
                 true, false, false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));

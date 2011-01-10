@@ -88,11 +88,13 @@ public class LDAPSchemaConnectionItemProvider extends ConnectionItemProvider imp
      * @generated
      */
     protected void addHostPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_LDAPSchemaConnection_Host_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_LDAPSchemaConnection_Host_feature", "_UI_LDAPSchemaConnection_type"),
-                ConnectionPackage.Literals.LDAP_SCHEMA_CONNECTION__HOST, true, false, false,
-                ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_LDAPSchemaConnection_Host_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_LDAPSchemaConnection_Host_feature",
+                        "_UI_LDAPSchemaConnection_type"), ConnectionPackage.Literals.LDAP_SCHEMA_CONNECTION__HOST, true, false,
+                false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
 
     /**
@@ -102,11 +104,13 @@ public class LDAPSchemaConnectionItemProvider extends ConnectionItemProvider imp
      * @generated
      */
     protected void addPortPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_LDAPSchemaConnection_Port_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_LDAPSchemaConnection_Port_feature", "_UI_LDAPSchemaConnection_type"),
-                ConnectionPackage.Literals.LDAP_SCHEMA_CONNECTION__PORT, true, false, false,
-                ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_LDAPSchemaConnection_Port_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_LDAPSchemaConnection_Port_feature",
+                        "_UI_LDAPSchemaConnection_type"), ConnectionPackage.Literals.LDAP_SCHEMA_CONNECTION__PORT, true, false,
+                false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
 
     /**
@@ -116,8 +120,10 @@ public class LDAPSchemaConnectionItemProvider extends ConnectionItemProvider imp
      * @generated
      */
     protected void addProtocolPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_LDAPSchemaConnection_Protocol_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_LDAPSchemaConnection_Protocol_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_LDAPSchemaConnection_Protocol_feature",
                         "_UI_LDAPSchemaConnection_type"), ConnectionPackage.Literals.LDAP_SCHEMA_CONNECTION__PROTOCOL, true,
                 false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -130,8 +136,10 @@ public class LDAPSchemaConnectionItemProvider extends ConnectionItemProvider imp
      * @generated
      */
     protected void addFilterPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_LDAPSchemaConnection_Filter_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_LDAPSchemaConnection_Filter_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_LDAPSchemaConnection_Filter_feature",
                         "_UI_LDAPSchemaConnection_type"), ConnectionPackage.Literals.LDAP_SCHEMA_CONNECTION__FILTER, true, false,
                 false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -144,8 +152,10 @@ public class LDAPSchemaConnectionItemProvider extends ConnectionItemProvider imp
      * @generated
      */
     protected void addSeparatorPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_LDAPSchemaConnection_Separator_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_LDAPSchemaConnection_Separator_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_LDAPSchemaConnection_Separator_feature",
                         "_UI_LDAPSchemaConnection_type"), ConnectionPackage.Literals.LDAP_SCHEMA_CONNECTION__SEPARATOR, true,
                 false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -158,8 +168,10 @@ public class LDAPSchemaConnectionItemProvider extends ConnectionItemProvider imp
      * @generated
      */
     protected void addUseAdvancedPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_LDAPSchemaConnection_UseAdvanced_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_LDAPSchemaConnection_UseAdvanced_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_LDAPSchemaConnection_UseAdvanced_feature",
                         "_UI_LDAPSchemaConnection_type"), ConnectionPackage.Literals.LDAP_SCHEMA_CONNECTION__USE_ADVANCED, true,
                 false, false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
@@ -172,8 +184,10 @@ public class LDAPSchemaConnectionItemProvider extends ConnectionItemProvider imp
      * @generated
      */
     protected void addStorePathPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_LDAPSchemaConnection_StorePath_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_LDAPSchemaConnection_StorePath_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_LDAPSchemaConnection_StorePath_feature",
                         "_UI_LDAPSchemaConnection_type"), ConnectionPackage.Literals.LDAP_SCHEMA_CONNECTION__STORE_PATH, true,
                 false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -186,8 +200,10 @@ public class LDAPSchemaConnectionItemProvider extends ConnectionItemProvider imp
      * @generated
      */
     protected void addUseLimitPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_LDAPSchemaConnection_UseLimit_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_LDAPSchemaConnection_UseLimit_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_LDAPSchemaConnection_UseLimit_feature",
                         "_UI_LDAPSchemaConnection_type"), ConnectionPackage.Literals.LDAP_SCHEMA_CONNECTION__USE_LIMIT, true,
                 false, false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
@@ -200,8 +216,10 @@ public class LDAPSchemaConnectionItemProvider extends ConnectionItemProvider imp
      * @generated
      */
     protected void addUseAuthenPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_LDAPSchemaConnection_UseAuthen_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_LDAPSchemaConnection_UseAuthen_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_LDAPSchemaConnection_UseAuthen_feature",
                         "_UI_LDAPSchemaConnection_type"), ConnectionPackage.Literals.LDAP_SCHEMA_CONNECTION__USE_AUTHEN, true,
                 false, false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
@@ -214,8 +232,10 @@ public class LDAPSchemaConnectionItemProvider extends ConnectionItemProvider imp
      * @generated
      */
     protected void addBindPrincipalPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_LDAPSchemaConnection_BindPrincipal_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_LDAPSchemaConnection_BindPrincipal_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_LDAPSchemaConnection_BindPrincipal_feature",
                         "_UI_LDAPSchemaConnection_type"), ConnectionPackage.Literals.LDAP_SCHEMA_CONNECTION__BIND_PRINCIPAL,
                 true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -228,8 +248,10 @@ public class LDAPSchemaConnectionItemProvider extends ConnectionItemProvider imp
      * @generated
      */
     protected void addBindPasswordPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_LDAPSchemaConnection_BindPassword_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_LDAPSchemaConnection_BindPassword_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_LDAPSchemaConnection_BindPassword_feature",
                         "_UI_LDAPSchemaConnection_type"), ConnectionPackage.Literals.LDAP_SCHEMA_CONNECTION__BIND_PASSWORD, true,
                 false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -242,8 +264,10 @@ public class LDAPSchemaConnectionItemProvider extends ConnectionItemProvider imp
      * @generated
      */
     protected void addLimitValuePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_LDAPSchemaConnection_LimitValue_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_LDAPSchemaConnection_LimitValue_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_LDAPSchemaConnection_LimitValue_feature",
                         "_UI_LDAPSchemaConnection_type"), ConnectionPackage.Literals.LDAP_SCHEMA_CONNECTION__LIMIT_VALUE, true,
                 false, false, ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
@@ -256,10 +280,11 @@ public class LDAPSchemaConnectionItemProvider extends ConnectionItemProvider imp
      * @generated
      */
     protected void addEncryptionMethodNamePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(),
-                getString("_UI_LDAPSchemaConnection_EncryptionMethodName_feature"), getString(
-                        "_UI_PropertyDescriptor_description", "_UI_LDAPSchemaConnection_EncryptionMethodName_feature",
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_LDAPSchemaConnection_EncryptionMethodName_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_LDAPSchemaConnection_EncryptionMethodName_feature",
                         "_UI_LDAPSchemaConnection_type"),
                 ConnectionPackage.Literals.LDAP_SCHEMA_CONNECTION__ENCRYPTION_METHOD_NAME, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -272,11 +297,13 @@ public class LDAPSchemaConnectionItemProvider extends ConnectionItemProvider imp
      * @generated
      */
     protected void addValuePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_LDAPSchemaConnection_Value_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_LDAPSchemaConnection_Value_feature", "_UI_LDAPSchemaConnection_type"),
-                ConnectionPackage.Literals.LDAP_SCHEMA_CONNECTION__VALUE, true, false, false,
-                ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_LDAPSchemaConnection_Value_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_LDAPSchemaConnection_Value_feature",
+                        "_UI_LDAPSchemaConnection_type"), ConnectionPackage.Literals.LDAP_SCHEMA_CONNECTION__VALUE, true, false,
+                false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
 
     /**
@@ -286,8 +313,10 @@ public class LDAPSchemaConnectionItemProvider extends ConnectionItemProvider imp
      * @generated
      */
     protected void addSavePasswordPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_LDAPSchemaConnection_SavePassword_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_LDAPSchemaConnection_SavePassword_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_LDAPSchemaConnection_SavePassword_feature",
                         "_UI_LDAPSchemaConnection_type"), ConnectionPackage.Literals.LDAP_SCHEMA_CONNECTION__SAVE_PASSWORD, true,
                 false, false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
@@ -300,8 +329,10 @@ public class LDAPSchemaConnectionItemProvider extends ConnectionItemProvider imp
      * @generated
      */
     protected void addAliasesPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_LDAPSchemaConnection_Aliases_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_LDAPSchemaConnection_Aliases_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_LDAPSchemaConnection_Aliases_feature",
                         "_UI_LDAPSchemaConnection_type"), ConnectionPackage.Literals.LDAP_SCHEMA_CONNECTION__ALIASES, true,
                 false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -314,8 +345,10 @@ public class LDAPSchemaConnectionItemProvider extends ConnectionItemProvider imp
      * @generated
      */
     protected void addReferralsPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_LDAPSchemaConnection_Referrals_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_LDAPSchemaConnection_Referrals_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_LDAPSchemaConnection_Referrals_feature",
                         "_UI_LDAPSchemaConnection_type"), ConnectionPackage.Literals.LDAP_SCHEMA_CONNECTION__REFERRALS, true,
                 false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -328,8 +361,10 @@ public class LDAPSchemaConnectionItemProvider extends ConnectionItemProvider imp
      * @generated
      */
     protected void addCountLimitPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_LDAPSchemaConnection_CountLimit_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_LDAPSchemaConnection_CountLimit_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_LDAPSchemaConnection_CountLimit_feature",
                         "_UI_LDAPSchemaConnection_type"), ConnectionPackage.Literals.LDAP_SCHEMA_CONNECTION__COUNT_LIMIT, true,
                 false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -342,8 +377,10 @@ public class LDAPSchemaConnectionItemProvider extends ConnectionItemProvider imp
      * @generated
      */
     protected void addTimeOutLimitPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_LDAPSchemaConnection_TimeOutLimit_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_LDAPSchemaConnection_TimeOutLimit_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_LDAPSchemaConnection_TimeOutLimit_feature",
                         "_UI_LDAPSchemaConnection_type"), ConnectionPackage.Literals.LDAP_SCHEMA_CONNECTION__TIME_OUT_LIMIT,
                 true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -356,8 +393,10 @@ public class LDAPSchemaConnectionItemProvider extends ConnectionItemProvider imp
      * @generated
      */
     protected void addBaseDNsPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_LDAPSchemaConnection_BaseDNs_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_LDAPSchemaConnection_BaseDNs_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_LDAPSchemaConnection_BaseDNs_feature",
                         "_UI_LDAPSchemaConnection_type"), ConnectionPackage.Literals.LDAP_SCHEMA_CONNECTION__BASE_DNS, true,
                 false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -370,8 +409,10 @@ public class LDAPSchemaConnectionItemProvider extends ConnectionItemProvider imp
      * @generated
      */
     protected void addGetBaseDNsFromRootPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_LDAPSchemaConnection_GetBaseDNsFromRoot_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_LDAPSchemaConnection_GetBaseDNsFromRoot_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_LDAPSchemaConnection_GetBaseDNsFromRoot_feature",
                         "_UI_LDAPSchemaConnection_type"),
                 ConnectionPackage.Literals.LDAP_SCHEMA_CONNECTION__GET_BASE_DNS_FROM_ROOT, true, false, false,
@@ -385,8 +426,10 @@ public class LDAPSchemaConnectionItemProvider extends ConnectionItemProvider imp
      * @generated
      */
     protected void addReturnAttributesPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_LDAPSchemaConnection_ReturnAttributes_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_LDAPSchemaConnection_ReturnAttributes_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_LDAPSchemaConnection_ReturnAttributes_feature",
                         "_UI_LDAPSchemaConnection_type"), ConnectionPackage.Literals.LDAP_SCHEMA_CONNECTION__RETURN_ATTRIBUTES,
                 true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -399,8 +442,10 @@ public class LDAPSchemaConnectionItemProvider extends ConnectionItemProvider imp
      * @generated
      */
     protected void addSelectedDNPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_LDAPSchemaConnection_SelectedDN_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_LDAPSchemaConnection_SelectedDN_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_LDAPSchemaConnection_SelectedDN_feature",
                         "_UI_LDAPSchemaConnection_type"), ConnectionPackage.Literals.LDAP_SCHEMA_CONNECTION__SELECTED_DN, true,
                 false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));

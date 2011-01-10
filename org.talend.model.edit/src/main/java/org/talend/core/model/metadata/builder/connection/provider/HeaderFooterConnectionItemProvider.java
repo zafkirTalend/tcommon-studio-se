@@ -69,8 +69,10 @@ public class HeaderFooterConnectionItemProvider extends ConnectionItemProvider i
      * @generated
      */
     protected void addIsHeaderPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_HeaderFooterConnection_isHeader_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_HeaderFooterConnection_isHeader_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_HeaderFooterConnection_isHeader_feature",
                         "_UI_HeaderFooterConnection_type"), ConnectionPackage.Literals.HEADER_FOOTER_CONNECTION__IS_HEADER, true,
                 false, false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
@@ -83,8 +85,10 @@ public class HeaderFooterConnectionItemProvider extends ConnectionItemProvider i
      * @generated
      */
     protected void addImportsPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_HeaderFooterConnection_imports_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_HeaderFooterConnection_imports_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_HeaderFooterConnection_imports_feature",
                         "_UI_HeaderFooterConnection_type"), ConnectionPackage.Literals.HEADER_FOOTER_CONNECTION__IMPORTS, true,
                 false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -97,8 +101,10 @@ public class HeaderFooterConnectionItemProvider extends ConnectionItemProvider i
      * @generated
      */
     protected void addMainCodePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_HeaderFooterConnection_mainCode_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_HeaderFooterConnection_mainCode_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_HeaderFooterConnection_mainCode_feature",
                         "_UI_HeaderFooterConnection_type"), ConnectionPackage.Literals.HEADER_FOOTER_CONNECTION__MAIN_CODE, true,
                 false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -111,8 +117,10 @@ public class HeaderFooterConnectionItemProvider extends ConnectionItemProvider i
      * @generated
      */
     protected void addLibrariesPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_HeaderFooterConnection_libraries_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_HeaderFooterConnection_libraries_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_HeaderFooterConnection_libraries_feature",
                         "_UI_HeaderFooterConnection_type"), ConnectionPackage.Literals.HEADER_FOOTER_CONNECTION__LIBRARIES, true,
                 false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));

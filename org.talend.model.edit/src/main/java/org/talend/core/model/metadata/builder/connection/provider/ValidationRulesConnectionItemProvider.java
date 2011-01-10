@@ -71,6 +71,7 @@ public class ValidationRulesConnectionItemProvider extends ConnectionItemProvide
             addSqlConditionPropertyDescriptor(object);
             addLogicalOperatorPropertyDescriptor(object);
             addConditionsPropertyDescriptor(object);
+            addInnerJoinsPropertyDescriptor(object);
             addIsDisallowPropertyDescriptor(object);
             addIsRejectLinkPropertyDescriptor(object);
         }
@@ -290,6 +291,22 @@ public class ValidationRulesConnectionItemProvider extends ConnectionItemProvide
                 getString("_UI_PropertyDescriptor_description", "_UI_ValidationRulesConnection_conditions_feature",
                         "_UI_ValidationRulesConnection_type"),
                 ConnectionPackage.Literals.VALIDATION_RULES_CONNECTION__CONDITIONS, true, false, true, null, null, null));
+    }
+
+    /**
+     * This adds a property descriptor for the Inner Joins feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addInnerJoinsPropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_ValidationRulesConnection_innerJoins_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_ValidationRulesConnection_innerJoins_feature",
+                        "_UI_ValidationRulesConnection_type"),
+                ConnectionPackage.Literals.VALIDATION_RULES_CONNECTION__INNER_JOINS, true, false, true, null, null, null));
     }
 
     /**

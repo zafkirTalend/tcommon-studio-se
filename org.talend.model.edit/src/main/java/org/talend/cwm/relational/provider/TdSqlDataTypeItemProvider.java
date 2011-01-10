@@ -78,11 +78,13 @@ public class TdSqlDataTypeItemProvider extends SQLSimpleTypeItemProvider impleme
      * @generated
      */
     protected void addJavaDataTypePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_TdSqlDataType_javaDataType_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_TdSqlDataType_javaDataType_feature", "_UI_TdSqlDataType_type"),
-                RelationalPackage.Literals.TD_SQL_DATA_TYPE__JAVA_DATA_TYPE, true, false, false,
-                ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_TdSqlDataType_javaDataType_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_TdSqlDataType_javaDataType_feature",
+                        "_UI_TdSqlDataType_type"), RelationalPackage.Literals.TD_SQL_DATA_TYPE__JAVA_DATA_TYPE, true, false,
+                false, ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
     }
 
     /**
@@ -92,9 +94,10 @@ public class TdSqlDataTypeItemProvider extends SQLSimpleTypeItemProvider impleme
      * @generated
      */
     protected void addNullablePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_TdSqlDataType_nullable_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_TdSqlDataType_nullable_feature", "_UI_TdSqlDataType_type"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_TdSqlDataType_nullable_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_TdSqlDataType_nullable_feature", "_UI_TdSqlDataType_type"),
                 RelationalPackage.Literals.TD_SQL_DATA_TYPE__NULLABLE, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
@@ -106,8 +109,10 @@ public class TdSqlDataTypeItemProvider extends SQLSimpleTypeItemProvider impleme
      * @generated
      */
     protected void addUnsignedAttributePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_TdSqlDataType_unsignedAttribute_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_TdSqlDataType_unsignedAttribute_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_TdSqlDataType_unsignedAttribute_feature",
                         "_UI_TdSqlDataType_type"), RelationalPackage.Literals.TD_SQL_DATA_TYPE__UNSIGNED_ATTRIBUTE, true, false,
                 false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
@@ -120,11 +125,13 @@ public class TdSqlDataTypeItemProvider extends SQLSimpleTypeItemProvider impleme
      * @generated
      */
     protected void addCaseSensitivePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_TdSqlDataType_caseSensitive_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_TdSqlDataType_caseSensitive_feature", "_UI_TdSqlDataType_type"),
-                RelationalPackage.Literals.TD_SQL_DATA_TYPE__CASE_SENSITIVE, true, false, false,
-                ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_TdSqlDataType_caseSensitive_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_TdSqlDataType_caseSensitive_feature",
+                        "_UI_TdSqlDataType_type"), RelationalPackage.Literals.TD_SQL_DATA_TYPE__CASE_SENSITIVE, true, false,
+                false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
     }
 
     /**
@@ -134,11 +141,13 @@ public class TdSqlDataTypeItemProvider extends SQLSimpleTypeItemProvider impleme
      * @generated
      */
     protected void addAutoIncrementPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_TdSqlDataType_autoIncrement_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_TdSqlDataType_autoIncrement_feature", "_UI_TdSqlDataType_type"),
-                RelationalPackage.Literals.TD_SQL_DATA_TYPE__AUTO_INCREMENT, true, false, false,
-                ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_TdSqlDataType_autoIncrement_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_TdSqlDataType_autoIncrement_feature",
+                        "_UI_TdSqlDataType_type"), RelationalPackage.Literals.TD_SQL_DATA_TYPE__AUTO_INCREMENT, true, false,
+                false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
     }
 
     /**
@@ -148,11 +157,13 @@ public class TdSqlDataTypeItemProvider extends SQLSimpleTypeItemProvider impleme
      * @generated
      */
     protected void addLocalTypeNamePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_TdSqlDataType_localTypeName_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_TdSqlDataType_localTypeName_feature", "_UI_TdSqlDataType_type"),
-                RelationalPackage.Literals.TD_SQL_DATA_TYPE__LOCAL_TYPE_NAME, true, false, false,
-                ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_TdSqlDataType_localTypeName_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_TdSqlDataType_localTypeName_feature",
+                        "_UI_TdSqlDataType_type"), RelationalPackage.Literals.TD_SQL_DATA_TYPE__LOCAL_TYPE_NAME, true, false,
+                false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
 
     /**
@@ -162,11 +173,14 @@ public class TdSqlDataTypeItemProvider extends SQLSimpleTypeItemProvider impleme
      * @generated
      */
     protected void addSearchablePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_TdSqlDataType_searchable_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_TdSqlDataType_searchable_feature", "_UI_TdSqlDataType_type"),
-                RelationalPackage.Literals.TD_SQL_DATA_TYPE__SEARCHABLE, true, false, false,
-                ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
+        itemPropertyDescriptors
+                .add(createItemPropertyDescriptor(
+                        ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                        getResourceLocator(),
+                        getString("_UI_TdSqlDataType_searchable_feature"),
+                        getString("_UI_PropertyDescriptor_description", "_UI_TdSqlDataType_searchable_feature",
+                                "_UI_TdSqlDataType_type"), RelationalPackage.Literals.TD_SQL_DATA_TYPE__SEARCHABLE, true, false,
+                        false, ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
     }
 
     /**
@@ -229,119 +243,128 @@ public class TdSqlDataTypeItemProvider extends SQLSimpleTypeItemProvider impleme
     protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
         super.collectNewChildDescriptors(newChildDescriptors, object);
 
-        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, RelationalFactory.eINSTANCE
-                .createTdTable()));
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT,
+                RelationalFactory.eINSTANCE.createTdTable()));
 
-        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, RelationalFactory.eINSTANCE
-                .createTdView()));
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT,
+                RelationalFactory.eINSTANCE.createTdView()));
 
-        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, RelationalFactory.eINSTANCE
-                .createTdColumn()));
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT,
+                RelationalFactory.eINSTANCE.createTdColumn()));
 
-        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, RelationalFactory.eINSTANCE
-                .createTdSqlDataType()));
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT,
+                RelationalFactory.eINSTANCE.createTdSqlDataType()));
 
-        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, RelationalFactory.eINSTANCE
-                .createTdTrigger()));
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT,
+                RelationalFactory.eINSTANCE.createTdTrigger()));
 
-        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, RelationalFactory.eINSTANCE
-                .createTdProcedure()));
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT,
+                RelationalFactory.eINSTANCE.createTdProcedure()));
 
-        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, ConnectionFactory.eINSTANCE
-                .createMetadata()));
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT,
+                ConnectionFactory.eINSTANCE.createMetadata()));
 
-        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, ConnectionFactory.eINSTANCE
-                .createConnection()));
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT,
+                ConnectionFactory.eINSTANCE.createConnection()));
 
-        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, ConnectionFactory.eINSTANCE
-                .createMetadataColumn()));
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT,
+                ConnectionFactory.eINSTANCE.createMetadataColumn()));
 
-        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, ConnectionFactory.eINSTANCE
-                .createMetadataTable()));
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT,
+                ConnectionFactory.eINSTANCE.createMetadataTable()));
 
-        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, ConnectionFactory.eINSTANCE
-                .createDelimitedFileConnection()));
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT,
+                ConnectionFactory.eINSTANCE.createDelimitedFileConnection()));
 
-        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, ConnectionFactory.eINSTANCE
-                .createPositionalFileConnection()));
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT,
+                ConnectionFactory.eINSTANCE.createPositionalFileConnection()));
 
-        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, ConnectionFactory.eINSTANCE
-                .createEbcdicConnection()));
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT,
+                ConnectionFactory.eINSTANCE.createEbcdicConnection()));
 
-        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, ConnectionFactory.eINSTANCE
-                .createMDMConnection()));
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT,
+                ConnectionFactory.eINSTANCE.createMDMConnection()));
 
-        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, ConnectionFactory.eINSTANCE
-                .createDatabaseConnection()));
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT,
+                ConnectionFactory.eINSTANCE.createDatabaseConnection()));
 
-        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, ConnectionFactory.eINSTANCE
-                .createSAPConnection()));
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT,
+                ConnectionFactory.eINSTANCE.createSAPConnection()));
 
-        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, ConnectionFactory.eINSTANCE
-                .createSAPFunctionUnit()));
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT,
+                ConnectionFactory.eINSTANCE.createSAPFunctionUnit()));
 
-        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, ConnectionFactory.eINSTANCE
-                .createSAPIDocUnit()));
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT,
+                ConnectionFactory.eINSTANCE.createSAPIDocUnit()));
 
-        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, ConnectionFactory.eINSTANCE
-                .createSAPFunctionParameterColumn()));
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT,
+                ConnectionFactory.eINSTANCE.createSAPFunctionParameterColumn()));
 
-        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, ConnectionFactory.eINSTANCE
-                .createSAPFunctionParameterTable()));
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT,
+                ConnectionFactory.eINSTANCE.createSAPFunctionParameterTable()));
 
-        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, ConnectionFactory.eINSTANCE
-                .createInputSAPFunctionParameterTable()));
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT,
+                ConnectionFactory.eINSTANCE.createInputSAPFunctionParameterTable()));
 
-        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, ConnectionFactory.eINSTANCE
-                .createOutputSAPFunctionParameterTable()));
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT,
+                ConnectionFactory.eINSTANCE.createOutputSAPFunctionParameterTable()));
 
-        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, ConnectionFactory.eINSTANCE
-                .createRegexpFileConnection()));
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT,
+                ConnectionFactory.eINSTANCE.createRegexpFileConnection()));
 
-        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, ConnectionFactory.eINSTANCE
-                .createXmlFileConnection()));
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT,
+                ConnectionFactory.eINSTANCE.createXmlFileConnection()));
 
-        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, ConnectionFactory.eINSTANCE
-                .createQuery()));
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT,
+                ConnectionFactory.eINSTANCE.createQuery()));
 
-        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, ConnectionFactory.eINSTANCE
-                .createLdifFileConnection()));
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT,
+                ConnectionFactory.eINSTANCE.createLdifFileConnection()));
 
-        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, ConnectionFactory.eINSTANCE
-                .createFileExcelConnection()));
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT,
+                ConnectionFactory.eINSTANCE.createFileExcelConnection()));
 
-        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, ConnectionFactory.eINSTANCE
-                .createGenericSchemaConnection()));
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT,
+                ConnectionFactory.eINSTANCE.createGenericSchemaConnection()));
 
-        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, ConnectionFactory.eINSTANCE
-                .createLDAPSchemaConnection()));
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT,
+                ConnectionFactory.eINSTANCE.createLDAPSchemaConnection()));
 
-        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, ConnectionFactory.eINSTANCE
-                .createWSDLSchemaConnection()));
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT,
+                ConnectionFactory.eINSTANCE.createWSDLSchemaConnection()));
 
-        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, ConnectionFactory.eINSTANCE
-                .createSalesforceSchemaConnection()));
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT,
+                ConnectionFactory.eINSTANCE.createSalesforceSchemaConnection()));
 
-        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, ConnectionFactory.eINSTANCE
-                .createCDCType()));
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT,
+                ConnectionFactory.eINSTANCE.createCDCType()));
 
-        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, ConnectionFactory.eINSTANCE
-                .createSubscriberTable()));
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT,
+                ConnectionFactory.eINSTANCE.createSubscriberTable()));
 
-        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, ConnectionFactory.eINSTANCE
-                .createSAPTestInputParameterTable()));
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT,
+                ConnectionFactory.eINSTANCE.createSAPTestInputParameterTable()));
 
-        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, ConnectionFactory.eINSTANCE
-                .createConcept()));
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT,
+                ConnectionFactory.eINSTANCE.createConcept()));
 
-        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, ConnectionFactory.eINSTANCE
-                .createHL7Connection()));
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT,
+                ConnectionFactory.eINSTANCE.createHL7Connection()));
 
-        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, ConnectionFactory.eINSTANCE
-                .createHeaderFooterConnection()));
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT,
+                ConnectionFactory.eINSTANCE.createHeaderFooterConnection()));
 
-        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, ConnectionFactory.eINSTANCE
-                .createGenericPackage()));
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT,
+                ConnectionFactory.eINSTANCE.createGenericPackage()));
+
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT,
+                ConnectionFactory.eINSTANCE.createFTPConnection()));
+
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT,
+                ConnectionFactory.eINSTANCE.createBRMSConnection()));
+
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT,
+                ConnectionFactory.eINSTANCE.createValidationRulesConnection()));
 
         newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT,
                 SoftwaredeploymentFactory.eINSTANCE.createTdDataManager()));
@@ -352,23 +375,23 @@ public class TdSqlDataTypeItemProvider extends SQLSimpleTypeItemProvider impleme
         newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT,
                 SoftwaredeploymentFactory.eINSTANCE.createTdMachine()));
 
-        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, XmlFactory.eINSTANCE
-                .createTdXmlElementType()));
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT,
+                XmlFactory.eINSTANCE.createTdXmlElementType()));
 
-        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, XmlFactory.eINSTANCE
-                .createTdXmlContent()));
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT,
+                XmlFactory.eINSTANCE.createTdXmlContent()));
 
-        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, XmlFactory.eINSTANCE
-                .createTdXmlSchema()));
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT,
+                XmlFactory.eINSTANCE.createTdXmlSchema()));
 
-        newChildDescriptors.add(createChildParameter(CorePackage.Literals.CLASSIFIER__FEATURE, RelationalFactory.eINSTANCE
-                .createTdColumn()));
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.CLASSIFIER__FEATURE,
+                RelationalFactory.eINSTANCE.createTdColumn()));
 
-        newChildDescriptors.add(createChildParameter(CorePackage.Literals.CLASSIFIER__FEATURE, RelationalFactory.eINSTANCE
-                .createTdProcedure()));
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.CLASSIFIER__FEATURE,
+                RelationalFactory.eINSTANCE.createTdProcedure()));
 
-        newChildDescriptors.add(createChildParameter(CorePackage.Literals.CLASSIFIER__FEATURE, ConnectionFactory.eINSTANCE
-                .createMetadataColumn()));
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.CLASSIFIER__FEATURE,
+                ConnectionFactory.eINSTANCE.createMetadataColumn()));
     }
 
     /**

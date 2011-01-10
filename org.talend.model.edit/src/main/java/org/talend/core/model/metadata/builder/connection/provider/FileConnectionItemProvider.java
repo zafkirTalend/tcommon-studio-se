@@ -85,9 +85,10 @@ public class FileConnectionItemProvider extends ConnectionItemProvider implement
      * @generated
      */
     protected void addServerPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_FileConnection_Server_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_FileConnection_Server_feature", "_UI_FileConnection_type"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_FileConnection_Server_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_FileConnection_Server_feature", "_UI_FileConnection_type"),
                 ConnectionPackage.Literals.FILE_CONNECTION__SERVER, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
@@ -99,11 +100,14 @@ public class FileConnectionItemProvider extends ConnectionItemProvider implement
      * @generated
      */
     protected void addFilePathPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_FileConnection_FilePath_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_FileConnection_FilePath_feature", "_UI_FileConnection_type"),
-                ConnectionPackage.Literals.FILE_CONNECTION__FILE_PATH, true, false, false,
-                ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+        itemPropertyDescriptors
+                .add(createItemPropertyDescriptor(
+                        ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                        getResourceLocator(),
+                        getString("_UI_FileConnection_FilePath_feature"),
+                        getString("_UI_PropertyDescriptor_description", "_UI_FileConnection_FilePath_feature",
+                                "_UI_FileConnection_type"), ConnectionPackage.Literals.FILE_CONNECTION__FILE_PATH, true, false,
+                        false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
 
     /**
@@ -113,9 +117,10 @@ public class FileConnectionItemProvider extends ConnectionItemProvider implement
      * @generated
      */
     protected void addFormatPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_FileConnection_Format_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_FileConnection_Format_feature", "_UI_FileConnection_type"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_FileConnection_Format_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_FileConnection_Format_feature", "_UI_FileConnection_type"),
                 ConnectionPackage.Literals.FILE_CONNECTION__FORMAT, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
@@ -127,11 +132,14 @@ public class FileConnectionItemProvider extends ConnectionItemProvider implement
      * @generated
      */
     protected void addEncodingPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_FileConnection_Encoding_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_FileConnection_Encoding_feature", "_UI_FileConnection_type"),
-                ConnectionPackage.Literals.FILE_CONNECTION__ENCODING, true, false, false,
-                ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+        itemPropertyDescriptors
+                .add(createItemPropertyDescriptor(
+                        ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                        getResourceLocator(),
+                        getString("_UI_FileConnection_Encoding_feature"),
+                        getString("_UI_PropertyDescriptor_description", "_UI_FileConnection_Encoding_feature",
+                                "_UI_FileConnection_type"), ConnectionPackage.Literals.FILE_CONNECTION__ENCODING, true, false,
+                        false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
 
     /**
@@ -141,8 +149,10 @@ public class FileConnectionItemProvider extends ConnectionItemProvider implement
      * @generated
      */
     protected void addFieldSeparatorValuePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_FileConnection_FieldSeparatorValue_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_FileConnection_FieldSeparatorValue_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_FileConnection_FieldSeparatorValue_feature",
                         "_UI_FileConnection_type"), ConnectionPackage.Literals.FILE_CONNECTION__FIELD_SEPARATOR_VALUE, true,
                 false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -155,8 +165,10 @@ public class FileConnectionItemProvider extends ConnectionItemProvider implement
      * @generated
      */
     protected void addRowSeparatorTypePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_FileConnection_RowSeparatorType_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_FileConnection_RowSeparatorType_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_FileConnection_RowSeparatorType_feature",
                         "_UI_FileConnection_type"), ConnectionPackage.Literals.FILE_CONNECTION__ROW_SEPARATOR_TYPE, true, false,
                 false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -169,8 +181,10 @@ public class FileConnectionItemProvider extends ConnectionItemProvider implement
      * @generated
      */
     protected void addRowSeparatorValuePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_FileConnection_RowSeparatorValue_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_FileConnection_RowSeparatorValue_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_FileConnection_RowSeparatorValue_feature",
                         "_UI_FileConnection_type"), ConnectionPackage.Literals.FILE_CONNECTION__ROW_SEPARATOR_VALUE, true, false,
                 false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -183,8 +197,10 @@ public class FileConnectionItemProvider extends ConnectionItemProvider implement
      * @generated
      */
     protected void addTextIdentifierPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_FileConnection_TextIdentifier_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_FileConnection_TextIdentifier_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_FileConnection_TextIdentifier_feature",
                         "_UI_FileConnection_type"), ConnectionPackage.Literals.FILE_CONNECTION__TEXT_IDENTIFIER, true, false,
                 false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -197,11 +213,14 @@ public class FileConnectionItemProvider extends ConnectionItemProvider implement
      * @generated
      */
     protected void addUseHeaderPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_FileConnection_UseHeader_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_FileConnection_UseHeader_feature", "_UI_FileConnection_type"),
-                ConnectionPackage.Literals.FILE_CONNECTION__USE_HEADER, true, false, false,
-                ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+        itemPropertyDescriptors
+                .add(createItemPropertyDescriptor(
+                        ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                        getResourceLocator(),
+                        getString("_UI_FileConnection_UseHeader_feature"),
+                        getString("_UI_PropertyDescriptor_description", "_UI_FileConnection_UseHeader_feature",
+                                "_UI_FileConnection_type"), ConnectionPackage.Literals.FILE_CONNECTION__USE_HEADER, true, false,
+                        false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
     }
 
     /**
@@ -211,10 +230,12 @@ public class FileConnectionItemProvider extends ConnectionItemProvider implement
      * @generated
      */
     protected void addHeaderValuePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_FileConnection_HeaderValue_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_FileConnection_HeaderValue_feature", "_UI_FileConnection_type"),
-                ConnectionPackage.Literals.FILE_CONNECTION__HEADER_VALUE, true, false, false,
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_FileConnection_HeaderValue_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_FileConnection_HeaderValue_feature",
+                        "_UI_FileConnection_type"), ConnectionPackage.Literals.FILE_CONNECTION__HEADER_VALUE, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
 
@@ -225,11 +246,14 @@ public class FileConnectionItemProvider extends ConnectionItemProvider implement
      * @generated
      */
     protected void addUseFooterPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_FileConnection_UseFooter_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_FileConnection_UseFooter_feature", "_UI_FileConnection_type"),
-                ConnectionPackage.Literals.FILE_CONNECTION__USE_FOOTER, true, false, false,
-                ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+        itemPropertyDescriptors
+                .add(createItemPropertyDescriptor(
+                        ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                        getResourceLocator(),
+                        getString("_UI_FileConnection_UseFooter_feature"),
+                        getString("_UI_PropertyDescriptor_description", "_UI_FileConnection_UseFooter_feature",
+                                "_UI_FileConnection_type"), ConnectionPackage.Literals.FILE_CONNECTION__USE_FOOTER, true, false,
+                        false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
     }
 
     /**
@@ -239,10 +263,12 @@ public class FileConnectionItemProvider extends ConnectionItemProvider implement
      * @generated
      */
     protected void addFooterValuePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_FileConnection_FooterValue_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_FileConnection_FooterValue_feature", "_UI_FileConnection_type"),
-                ConnectionPackage.Literals.FILE_CONNECTION__FOOTER_VALUE, true, false, false,
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_FileConnection_FooterValue_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_FileConnection_FooterValue_feature",
+                        "_UI_FileConnection_type"), ConnectionPackage.Literals.FILE_CONNECTION__FOOTER_VALUE, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
 
@@ -253,11 +279,14 @@ public class FileConnectionItemProvider extends ConnectionItemProvider implement
      * @generated
      */
     protected void addUseLimitPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_FileConnection_UseLimit_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_FileConnection_UseLimit_feature", "_UI_FileConnection_type"),
-                ConnectionPackage.Literals.FILE_CONNECTION__USE_LIMIT, true, false, false,
-                ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+        itemPropertyDescriptors
+                .add(createItemPropertyDescriptor(
+                        ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                        getResourceLocator(),
+                        getString("_UI_FileConnection_UseLimit_feature"),
+                        getString("_UI_PropertyDescriptor_description", "_UI_FileConnection_UseLimit_feature",
+                                "_UI_FileConnection_type"), ConnectionPackage.Literals.FILE_CONNECTION__USE_LIMIT, true, false,
+                        false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
     }
 
     /**
@@ -267,10 +296,12 @@ public class FileConnectionItemProvider extends ConnectionItemProvider implement
      * @generated
      */
     protected void addLimitValuePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_FileConnection_LimitValue_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_FileConnection_LimitValue_feature", "_UI_FileConnection_type"),
-                ConnectionPackage.Literals.FILE_CONNECTION__LIMIT_VALUE, true, false, false,
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_FileConnection_LimitValue_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_FileConnection_LimitValue_feature",
+                        "_UI_FileConnection_type"), ConnectionPackage.Literals.FILE_CONNECTION__LIMIT_VALUE, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
 
@@ -281,8 +312,10 @@ public class FileConnectionItemProvider extends ConnectionItemProvider implement
      * @generated
      */
     protected void addFirstLineCaptionPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_FileConnection_FirstLineCaption_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_FileConnection_FirstLineCaption_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_FileConnection_FirstLineCaption_feature",
                         "_UI_FileConnection_type"), ConnectionPackage.Literals.FILE_CONNECTION__FIRST_LINE_CAPTION, true, false,
                 false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
@@ -295,8 +328,10 @@ public class FileConnectionItemProvider extends ConnectionItemProvider implement
      * @generated
      */
     protected void addRemoveEmptyRowPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_FileConnection_RemoveEmptyRow_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_FileConnection_RemoveEmptyRow_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_FileConnection_RemoveEmptyRow_feature",
                         "_UI_FileConnection_type"), ConnectionPackage.Literals.FILE_CONNECTION__REMOVE_EMPTY_ROW, true, false,
                 false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
@@ -309,10 +344,12 @@ public class FileConnectionItemProvider extends ConnectionItemProvider implement
      * @generated
      */
     protected void addEscapeTypePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_FileConnection_EscapeType_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_FileConnection_EscapeType_feature", "_UI_FileConnection_type"),
-                ConnectionPackage.Literals.FILE_CONNECTION__ESCAPE_TYPE, true, false, false,
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_FileConnection_EscapeType_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_FileConnection_EscapeType_feature",
+                        "_UI_FileConnection_type"), ConnectionPackage.Literals.FILE_CONNECTION__ESCAPE_TYPE, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
 
@@ -323,10 +360,12 @@ public class FileConnectionItemProvider extends ConnectionItemProvider implement
      * @generated
      */
     protected void addEscapeCharPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_FileConnection_EscapeChar_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_FileConnection_EscapeChar_feature", "_UI_FileConnection_type"),
-                ConnectionPackage.Literals.FILE_CONNECTION__ESCAPE_CHAR, true, false, false,
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_FileConnection_EscapeChar_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_FileConnection_EscapeChar_feature",
+                        "_UI_FileConnection_type"), ConnectionPackage.Literals.FILE_CONNECTION__ESCAPE_CHAR, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
 
@@ -337,11 +376,13 @@ public class FileConnectionItemProvider extends ConnectionItemProvider implement
      * @generated
      */
     protected void addTextEnclosurePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_FileConnection_TextEnclosure_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_FileConnection_TextEnclosure_feature", "_UI_FileConnection_type"),
-                ConnectionPackage.Literals.FILE_CONNECTION__TEXT_ENCLOSURE, true, false, false,
-                ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_FileConnection_TextEnclosure_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_FileConnection_TextEnclosure_feature",
+                        "_UI_FileConnection_type"), ConnectionPackage.Literals.FILE_CONNECTION__TEXT_ENCLOSURE, true, false,
+                false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
 
     /**
@@ -351,11 +392,14 @@ public class FileConnectionItemProvider extends ConnectionItemProvider implement
      * @generated
      */
     protected void addCsvOptionPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_FileConnection_CsvOption_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_FileConnection_CsvOption_feature", "_UI_FileConnection_type"),
-                ConnectionPackage.Literals.FILE_CONNECTION__CSV_OPTION, true, false, false,
-                ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+        itemPropertyDescriptors
+                .add(createItemPropertyDescriptor(
+                        ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                        getResourceLocator(),
+                        getString("_UI_FileConnection_CsvOption_feature"),
+                        getString("_UI_PropertyDescriptor_description", "_UI_FileConnection_CsvOption_feature",
+                                "_UI_FileConnection_type"), ConnectionPackage.Literals.FILE_CONNECTION__CSV_OPTION, true, false,
+                        false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
     }
 
     /**

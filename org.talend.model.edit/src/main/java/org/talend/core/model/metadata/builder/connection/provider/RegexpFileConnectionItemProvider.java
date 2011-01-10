@@ -66,8 +66,10 @@ public class RegexpFileConnectionItemProvider extends FileConnectionItemProvider
      * @generated
      */
     protected void addFieldSeparatorTypePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_RegexpFileConnection_FieldSeparatorType_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_RegexpFileConnection_FieldSeparatorType_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_RegexpFileConnection_FieldSeparatorType_feature",
                         "_UI_RegexpFileConnection_type"),
                 ConnectionPackage.Literals.REGEXP_FILE_CONNECTION__FIELD_SEPARATOR_TYPE, true, false, false,

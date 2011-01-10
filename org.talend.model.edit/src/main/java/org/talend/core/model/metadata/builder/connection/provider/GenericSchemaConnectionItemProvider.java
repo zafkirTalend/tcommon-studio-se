@@ -67,8 +67,10 @@ public class GenericSchemaConnectionItemProvider extends ConnectionItemProvider 
      * @generated
      */
     protected void addMappingTypeUsedPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_GenericSchemaConnection_mappingTypeUsed_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_GenericSchemaConnection_mappingTypeUsed_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_GenericSchemaConnection_mappingTypeUsed_feature",
                         "_UI_GenericSchemaConnection_type"),
                 ConnectionPackage.Literals.GENERIC_SCHEMA_CONNECTION__MAPPING_TYPE_USED, true, false, false,
@@ -82,8 +84,10 @@ public class GenericSchemaConnectionItemProvider extends ConnectionItemProvider 
      * @generated
      */
     protected void addMappingTypeIdPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_GenericSchemaConnection_mappingTypeId_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_GenericSchemaConnection_mappingTypeId_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_GenericSchemaConnection_mappingTypeId_feature",
                         "_UI_GenericSchemaConnection_type"),
                 ConnectionPackage.Literals.GENERIC_SCHEMA_CONNECTION__MAPPING_TYPE_ID, true, false, false,

@@ -75,10 +75,13 @@ public class TdViewItemProvider extends MetadataTableItemProvider implements IEd
      * @generated
      */
     protected void addUsingTriggerPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_NamedColumnSet_usingTrigger_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_NamedColumnSet_usingTrigger_feature", "_UI_NamedColumnSet_type"),
-                RelationalPackage.Literals.NAMED_COLUMN_SET__USING_TRIGGER, true, false, true, null, null, null));
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_NamedColumnSet_usingTrigger_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_NamedColumnSet_usingTrigger_feature",
+                        "_UI_NamedColumnSet_type"), RelationalPackage.Literals.NAMED_COLUMN_SET__USING_TRIGGER, true, false,
+                true, null, null, null));
     }
 
     /**
@@ -88,9 +91,10 @@ public class TdViewItemProvider extends MetadataTableItemProvider implements IEd
      * @generated
      */
     protected void addTypePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_NamedColumnSet_type_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_NamedColumnSet_type_feature", "_UI_NamedColumnSet_type"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_NamedColumnSet_type_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_NamedColumnSet_type_feature", "_UI_NamedColumnSet_type"),
                 RelationalPackage.Literals.NAMED_COLUMN_SET__TYPE, true, false, true, null, null, null));
     }
 
@@ -101,8 +105,10 @@ public class TdViewItemProvider extends MetadataTableItemProvider implements IEd
      * @generated
      */
     protected void addOptionScopeColumnPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_NamedColumnSet_optionScopeColumn_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_NamedColumnSet_optionScopeColumn_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_NamedColumnSet_optionScopeColumn_feature",
                         "_UI_NamedColumnSet_type"), RelationalPackage.Literals.NAMED_COLUMN_SET__OPTION_SCOPE_COLUMN, true,
                 false, true, null, null, null));
@@ -115,9 +121,10 @@ public class TdViewItemProvider extends MetadataTableItemProvider implements IEd
      * @generated
      */
     protected void addIsReadOnlyPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_View_isReadOnly_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_View_isReadOnly_feature", "_UI_View_type"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_View_isReadOnly_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_View_isReadOnly_feature", "_UI_View_type"),
                 RelationalPackage.Literals.VIEW__IS_READ_ONLY, true, false, false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
                 null, null));
     }
@@ -129,9 +136,10 @@ public class TdViewItemProvider extends MetadataTableItemProvider implements IEd
      * @generated
      */
     protected void addCheckOptionPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_View_checkOption_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_View_checkOption_feature", "_UI_View_type"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_View_checkOption_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_View_checkOption_feature", "_UI_View_type"),
                 RelationalPackage.Literals.VIEW__CHECK_OPTION, true, false, false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
                 null, null));
     }

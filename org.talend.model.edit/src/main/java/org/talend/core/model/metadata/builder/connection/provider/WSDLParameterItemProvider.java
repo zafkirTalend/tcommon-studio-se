@@ -10,7 +10,9 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.common.util.ResourceLocator;
+
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IChildCreationExtender;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
@@ -22,16 +24,17 @@ import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
+
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
-import org.talend.core.model.metadata.builder.connection.HL7FileNode;
+import org.talend.core.model.metadata.builder.connection.WSDLParameter;
 
 /**
- * This is the item provider adapter for a {@link org.talend.core.model.metadata.builder.connection.HL7FileNode} object.
+ * This is the item provider adapter for a {@link org.talend.core.model.metadata.builder.connection.WSDLParameter} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class HL7FileNodeItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider,
+public class WSDLParameterItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider,
         IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 
     /**
@@ -40,7 +43,7 @@ public class HL7FileNodeItemProvider extends ItemProviderAdapter implements IEdi
      * <!-- end-user-doc -->
      * @generated
      */
-    public HL7FileNodeItemProvider(AdapterFactory adapterFactory) {
+    public WSDLParameterItemProvider(AdapterFactory adapterFactory) {
         super(adapterFactory);
     }
 
@@ -55,115 +58,119 @@ public class HL7FileNodeItemProvider extends ItemProviderAdapter implements IEdi
         if (itemPropertyDescriptors == null) {
             super.getPropertyDescriptors(object);
 
-            addFilePathPropertyDescriptor(object);
-            addOrderPropertyDescriptor(object);
-            addAttributePropertyDescriptor(object);
-            addDefaultValuePropertyDescriptor(object);
-            addRelatedColumnPropertyDescriptor(object);
-            addRepeatablePropertyDescriptor(object);
+            addElementPropertyDescriptor(object);
+            addSourcePropertyDescriptor(object);
+            addColumnPropertyDescriptor(object);
+            addExpressionPropertyDescriptor(object);
+            addParameterInfoPropertyDescriptor(object);
+            addParameterInfoParentPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
 
     /**
-     * This adds a property descriptor for the File Path feature.
+     * This adds a property descriptor for the Element feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    protected void addFilePathPropertyDescriptor(Object object) {
+    protected void addElementPropertyDescriptor(Object object) {
         itemPropertyDescriptors.add(createItemPropertyDescriptor(
                 ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-                getString("_UI_HL7FileNode_FilePath_feature"),
-                getString("_UI_PropertyDescriptor_description", "_UI_HL7FileNode_FilePath_feature", "_UI_HL7FileNode_type"),
-                ConnectionPackage.Literals.HL7_FILE_NODE__FILE_PATH, true, false, false,
+                getString("_UI_WSDLParameter_Element_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_WSDLParameter_Element_feature", "_UI_WSDLParameter_type"),
+                ConnectionPackage.Literals.WSDL_PARAMETER__ELEMENT, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
 
     /**
-     * This adds a property descriptor for the Order feature.
+     * This adds a property descriptor for the Source feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    protected void addOrderPropertyDescriptor(Object object) {
+    protected void addSourcePropertyDescriptor(Object object) {
         itemPropertyDescriptors.add(createItemPropertyDescriptor(
                 ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-                getString("_UI_HL7FileNode_Order_feature"),
-                getString("_UI_PropertyDescriptor_description", "_UI_HL7FileNode_Order_feature", "_UI_HL7FileNode_type"),
-                ConnectionPackage.Literals.HL7_FILE_NODE__ORDER, true, false, false, ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
-                null, null));
-    }
-
-    /**
-     * This adds a property descriptor for the Attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    protected void addAttributePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(
-                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-                getString("_UI_HL7FileNode_Attribute_feature"),
-                getString("_UI_PropertyDescriptor_description", "_UI_HL7FileNode_Attribute_feature", "_UI_HL7FileNode_type"),
-                ConnectionPackage.Literals.HL7_FILE_NODE__ATTRIBUTE, true, false, false,
+                getString("_UI_WSDLParameter_source_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_WSDLParameter_source_feature", "_UI_WSDLParameter_type"),
+                ConnectionPackage.Literals.WSDL_PARAMETER__SOURCE, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
 
     /**
-     * This adds a property descriptor for the Default Value feature.
+     * This adds a property descriptor for the Column feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    protected void addDefaultValuePropertyDescriptor(Object object) {
+    protected void addColumnPropertyDescriptor(Object object) {
         itemPropertyDescriptors.add(createItemPropertyDescriptor(
                 ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-                getString("_UI_HL7FileNode_DefaultValue_feature"),
-                getString("_UI_PropertyDescriptor_description", "_UI_HL7FileNode_DefaultValue_feature", "_UI_HL7FileNode_type"),
-                ConnectionPackage.Literals.HL7_FILE_NODE__DEFAULT_VALUE, true, false, false,
+                getString("_UI_WSDLParameter_Column_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_WSDLParameter_Column_feature", "_UI_WSDLParameter_type"),
+                ConnectionPackage.Literals.WSDL_PARAMETER__COLUMN, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
 
     /**
-     * This adds a property descriptor for the Related Column feature.
+     * This adds a property descriptor for the Expression feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    protected void addRelatedColumnPropertyDescriptor(Object object) {
+    protected void addExpressionPropertyDescriptor(Object object) {
+        itemPropertyDescriptors
+                .add(createItemPropertyDescriptor(
+                        ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                        getResourceLocator(),
+                        getString("_UI_WSDLParameter_Expression_feature"),
+                        getString("_UI_PropertyDescriptor_description", "_UI_WSDLParameter_Expression_feature",
+                                "_UI_WSDLParameter_type"), ConnectionPackage.Literals.WSDL_PARAMETER__EXPRESSION, true, false,
+                        false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+    }
+
+    /**
+     * This adds a property descriptor for the Parameter Info feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addParameterInfoPropertyDescriptor(Object object) {
         itemPropertyDescriptors.add(createItemPropertyDescriptor(
-                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-                getString("_UI_HL7FileNode_RelatedColumn_feature"),
-                getString("_UI_PropertyDescriptor_description", "_UI_HL7FileNode_RelatedColumn_feature", "_UI_HL7FileNode_type"),
-                ConnectionPackage.Literals.HL7_FILE_NODE__RELATED_COLUMN, true, false, false,
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_WSDLParameter_ParameterInfo_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_WSDLParameter_ParameterInfo_feature",
+                        "_UI_WSDLParameter_type"), ConnectionPackage.Literals.WSDL_PARAMETER__PARAMETER_INFO, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
 
     /**
-     * This adds a property descriptor for the Repeatable feature.
+     * This adds a property descriptor for the Parameter Info Parent feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    protected void addRepeatablePropertyDescriptor(Object object) {
+    protected void addParameterInfoParentPropertyDescriptor(Object object) {
         itemPropertyDescriptors.add(createItemPropertyDescriptor(
-                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-                getString("_UI_HL7FileNode_Repeatable_feature"),
-                getString("_UI_PropertyDescriptor_description", "_UI_HL7FileNode_Repeatable_feature", "_UI_HL7FileNode_type"),
-                ConnectionPackage.Literals.HL7_FILE_NODE__REPEATABLE, true, false, false,
-                ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_WSDLParameter_ParameterInfoParent_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_WSDLParameter_ParameterInfoParent_feature",
+                        "_UI_WSDLParameter_type"), ConnectionPackage.Literals.WSDL_PARAMETER__PARAMETER_INFO_PARENT, true, false,
+                false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
 
     /**
-     * This returns HL7FileNode.gif.
+     * This returns WSDLParameter.gif.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object getImage(Object object) {
-        return overlayImage(object, getResourceLocator().getImage("full/obj16/HL7FileNode"));
+        return overlayImage(object, getResourceLocator().getImage("full/obj16/WSDLParameter"));
     }
 
     /**
@@ -174,9 +181,9 @@ public class HL7FileNodeItemProvider extends ItemProviderAdapter implements IEdi
      */
     @Override
     public String getText(Object object) {
-        String label = ((HL7FileNode) object).getFilePath();
-        return label == null || label.length() == 0 ? getString("_UI_HL7FileNode_type") : getString("_UI_HL7FileNode_type") + " "
-                + label;
+        String label = ((WSDLParameter) object).getElement();
+        return label == null || label.length() == 0 ? getString("_UI_WSDLParameter_type") : getString("_UI_WSDLParameter_type")
+                + " " + label;
     }
 
     /**
@@ -190,13 +197,13 @@ public class HL7FileNodeItemProvider extends ItemProviderAdapter implements IEdi
     public void notifyChanged(Notification notification) {
         updateChildren(notification);
 
-        switch (notification.getFeatureID(HL7FileNode.class)) {
-        case ConnectionPackage.HL7_FILE_NODE__FILE_PATH:
-        case ConnectionPackage.HL7_FILE_NODE__ORDER:
-        case ConnectionPackage.HL7_FILE_NODE__ATTRIBUTE:
-        case ConnectionPackage.HL7_FILE_NODE__DEFAULT_VALUE:
-        case ConnectionPackage.HL7_FILE_NODE__RELATED_COLUMN:
-        case ConnectionPackage.HL7_FILE_NODE__REPEATABLE:
+        switch (notification.getFeatureID(WSDLParameter.class)) {
+        case ConnectionPackage.WSDL_PARAMETER__ELEMENT:
+        case ConnectionPackage.WSDL_PARAMETER__SOURCE:
+        case ConnectionPackage.WSDL_PARAMETER__COLUMN:
+        case ConnectionPackage.WSDL_PARAMETER__EXPRESSION:
+        case ConnectionPackage.WSDL_PARAMETER__PARAMETER_INFO:
+        case ConnectionPackage.WSDL_PARAMETER__PARAMETER_INFO_PARENT:
             fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
             return;
         }

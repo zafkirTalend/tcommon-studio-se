@@ -74,8 +74,10 @@ public class FileExcelConnectionItemProvider extends FileConnectionItemProvider 
      * @generated
      */
     protected void addSheetNamePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_FileExcelConnection_SheetName_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_FileExcelConnection_SheetName_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_FileExcelConnection_SheetName_feature",
                         "_UI_FileExcelConnection_type"), ConnectionPackage.Literals.FILE_EXCEL_CONNECTION__SHEET_NAME, true,
                 false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -88,8 +90,10 @@ public class FileExcelConnectionItemProvider extends FileConnectionItemProvider 
      * @generated
      */
     protected void addSheetColumnsPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_FileExcelConnection_sheetColumns_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_FileExcelConnection_sheetColumns_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_FileExcelConnection_sheetColumns_feature",
                         "_UI_FileExcelConnection_type"), ConnectionPackage.Literals.FILE_EXCEL_CONNECTION__SHEET_COLUMNS, true,
                 false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -102,8 +106,10 @@ public class FileExcelConnectionItemProvider extends FileConnectionItemProvider 
      * @generated
      */
     protected void addFirstColumnPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_FileExcelConnection_firstColumn_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_FileExcelConnection_firstColumn_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_FileExcelConnection_firstColumn_feature",
                         "_UI_FileExcelConnection_type"), ConnectionPackage.Literals.FILE_EXCEL_CONNECTION__FIRST_COLUMN, true,
                 false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -116,8 +122,10 @@ public class FileExcelConnectionItemProvider extends FileConnectionItemProvider 
      * @generated
      */
     protected void addLastColumnPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_FileExcelConnection_lastColumn_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_FileExcelConnection_lastColumn_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_FileExcelConnection_lastColumn_feature",
                         "_UI_FileExcelConnection_type"), ConnectionPackage.Literals.FILE_EXCEL_CONNECTION__LAST_COLUMN, true,
                 false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -130,8 +138,10 @@ public class FileExcelConnectionItemProvider extends FileConnectionItemProvider 
      * @generated
      */
     protected void addThousandSeparatorPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_FileExcelConnection_thousandSeparator_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_FileExcelConnection_thousandSeparator_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_FileExcelConnection_thousandSeparator_feature",
                         "_UI_FileExcelConnection_type"), ConnectionPackage.Literals.FILE_EXCEL_CONNECTION__THOUSAND_SEPARATOR,
                 true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -144,8 +154,10 @@ public class FileExcelConnectionItemProvider extends FileConnectionItemProvider 
      * @generated
      */
     protected void addDecimalSeparatorPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_FileExcelConnection_decimalSeparator_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_FileExcelConnection_decimalSeparator_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_FileExcelConnection_decimalSeparator_feature",
                         "_UI_FileExcelConnection_type"), ConnectionPackage.Literals.FILE_EXCEL_CONNECTION__DECIMAL_SEPARATOR,
                 true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -158,8 +170,10 @@ public class FileExcelConnectionItemProvider extends FileConnectionItemProvider 
      * @generated
      */
     protected void addAdvancedSpearatorPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_FileExcelConnection_advancedSpearator_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_FileExcelConnection_advancedSpearator_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_FileExcelConnection_advancedSpearator_feature",
                         "_UI_FileExcelConnection_type"), ConnectionPackage.Literals.FILE_EXCEL_CONNECTION__ADVANCED_SPEARATOR,
                 true, false, false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
@@ -172,8 +186,10 @@ public class FileExcelConnectionItemProvider extends FileConnectionItemProvider 
      * @generated
      */
     protected void addSelectAllSheetsPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_FileExcelConnection_selectAllSheets_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_FileExcelConnection_selectAllSheets_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_FileExcelConnection_selectAllSheets_feature",
                         "_UI_FileExcelConnection_type"), ConnectionPackage.Literals.FILE_EXCEL_CONNECTION__SELECT_ALL_SHEETS,
                 true, false, false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
@@ -186,8 +202,10 @@ public class FileExcelConnectionItemProvider extends FileConnectionItemProvider 
      * @generated
      */
     protected void addSheetListPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_FileExcelConnection_sheetList_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_FileExcelConnection_sheetList_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_FileExcelConnection_sheetList_feature",
                         "_UI_FileExcelConnection_type"), ConnectionPackage.Literals.FILE_EXCEL_CONNECTION__SHEET_LIST, true,
                 false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));

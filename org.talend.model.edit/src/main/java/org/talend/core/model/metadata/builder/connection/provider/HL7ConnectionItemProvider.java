@@ -57,6 +57,7 @@ public class HL7ConnectionItemProvider extends FileConnectionItemProvider implem
             addStartCharPropertyDescriptor(object);
             addEndCharPropertyDescriptor(object);
             addRootPropertyDescriptor(object);
+            addOutputFilePathPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
@@ -68,9 +69,10 @@ public class HL7ConnectionItemProvider extends FileConnectionItemProvider implem
      * @generated
      */
     protected void addStartCharPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_HL7Connection_StartChar_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_HL7Connection_StartChar_feature", "_UI_HL7Connection_type"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_HL7Connection_StartChar_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_HL7Connection_StartChar_feature", "_UI_HL7Connection_type"),
                 ConnectionPackage.Literals.HL7_CONNECTION__START_CHAR, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
@@ -82,9 +84,10 @@ public class HL7ConnectionItemProvider extends FileConnectionItemProvider implem
      * @generated
      */
     protected void addEndCharPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_HL7Connection_EndChar_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_HL7Connection_EndChar_feature", "_UI_HL7Connection_type"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_HL7Connection_EndChar_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_HL7Connection_EndChar_feature", "_UI_HL7Connection_type"),
                 ConnectionPackage.Literals.HL7_CONNECTION__END_CHAR, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
@@ -96,10 +99,27 @@ public class HL7ConnectionItemProvider extends FileConnectionItemProvider implem
      * @generated
      */
     protected void addRootPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_HL7Connection_root_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_HL7Connection_root_feature", "_UI_HL7Connection_type"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_HL7Connection_root_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_HL7Connection_root_feature", "_UI_HL7Connection_type"),
                 ConnectionPackage.Literals.HL7_CONNECTION__ROOT, true, false, true, null, null, null));
+    }
+
+    /**
+     * This adds a property descriptor for the Output File Path feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addOutputFilePathPropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_HL7Connection_outputFilePath_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_HL7Connection_outputFilePath_feature",
+                        "_UI_HL7Connection_type"), ConnectionPackage.Literals.HL7_CONNECTION__OUTPUT_FILE_PATH, true, false,
+                false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
 
     /**
@@ -140,6 +160,7 @@ public class HL7ConnectionItemProvider extends FileConnectionItemProvider implem
         switch (notification.getFeatureID(HL7Connection.class)) {
         case ConnectionPackage.HL7_CONNECTION__START_CHAR:
         case ConnectionPackage.HL7_CONNECTION__END_CHAR:
+        case ConnectionPackage.HL7_CONNECTION__OUTPUT_FILE_PATH:
             fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
             return;
         }

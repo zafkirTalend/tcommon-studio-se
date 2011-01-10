@@ -7,10 +7,13 @@ package org.talend.core.model.metadata.builder.connection.provider;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.common.util.ResourceLocator;
+
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IChildCreationExtender;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
@@ -20,19 +23,18 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
+
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
-import org.talend.core.model.metadata.builder.connection.SubscriberTable;
-import org.talend.cwm.relational.provider.TdTableItemProvider;
-import orgomg.cwm.objectmodel.core.CorePackage;
 
 /**
- * This is the item provider adapter for a {@link org.talend.core.model.metadata.builder.connection.SubscriberTable} object.
+ * This is the item provider adapter for a {@link java.util.Map.Entry} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class SubscriberTableItemProvider extends TdTableItemProvider implements IEditingDomainItemProvider,
+public class InnerJoinMapItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider,
         IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 
     /**
@@ -41,7 +43,7 @@ public class SubscriberTableItemProvider extends TdTableItemProvider implements 
      * <!-- end-user-doc -->
      * @generated
      */
-    public SubscriberTableItemProvider(AdapterFactory adapterFactory) {
+    public InnerJoinMapItemProvider(AdapterFactory adapterFactory) {
         super(adapterFactory);
     }
 
@@ -56,37 +58,51 @@ public class SubscriberTableItemProvider extends TdTableItemProvider implements 
         if (itemPropertyDescriptors == null) {
             super.getPropertyDescriptors(object);
 
-            addSystemPropertyDescriptor(object);
+            addKeyPropertyDescriptor(object);
+            addValuePropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
 
     /**
-     * This adds a property descriptor for the System feature.
+     * This adds a property descriptor for the Key feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    protected void addSystemPropertyDescriptor(Object object) {
-        itemPropertyDescriptors
-                .add(createItemPropertyDescriptor(
-                        ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-                        getResourceLocator(),
-                        getString("_UI_SubscriberTable_system_feature"),
-                        getString("_UI_PropertyDescriptor_description", "_UI_SubscriberTable_system_feature",
-                                "_UI_SubscriberTable_type"), ConnectionPackage.Literals.SUBSCRIBER_TABLE__SYSTEM, true, false,
-                        false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+    protected void addKeyPropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_InnerJoinMap_key_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_InnerJoinMap_key_feature", "_UI_InnerJoinMap_type"),
+                ConnectionPackage.Literals.INNER_JOIN_MAP__KEY, true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+                null, null));
     }
 
     /**
-     * This returns SubscriberTable.gif.
+     * This adds a property descriptor for the Value feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addValuePropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_InnerJoinMap_value_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_InnerJoinMap_value_feature", "_UI_InnerJoinMap_type"),
+                ConnectionPackage.Literals.INNER_JOIN_MAP__VALUE, true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+                null, null));
+    }
+
+    /**
+     * This returns InnerJoinMap.gif.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object getImage(Object object) {
-        return overlayImage(object, getResourceLocator().getImage("full/obj16/SubscriberTable"));
+        return overlayImage(object, getResourceLocator().getImage("full/obj16/InnerJoinMap"));
     }
 
     /**
@@ -97,9 +113,8 @@ public class SubscriberTableItemProvider extends TdTableItemProvider implements 
      */
     @Override
     public String getText(Object object) {
-        String label = ((SubscriberTable) object).getName();
-        return label == null || label.length() == 0 ? getString("_UI_SubscriberTable_type")
-                : getString("_UI_SubscriberTable_type") + " " + label;
+        Map.Entry<?, ?> innerJoinMap = (Map.Entry<?, ?>) object;
+        return "" + innerJoinMap.getKey() + " -> " + innerJoinMap.getValue();
     }
 
     /**
@@ -113,8 +128,9 @@ public class SubscriberTableItemProvider extends TdTableItemProvider implements 
     public void notifyChanged(Notification notification) {
         updateChildren(notification);
 
-        switch (notification.getFeatureID(SubscriberTable.class)) {
-        case ConnectionPackage.SUBSCRIBER_TABLE__SYSTEM:
+        switch (notification.getFeatureID(Map.Entry.class)) {
+        case ConnectionPackage.INNER_JOIN_MAP__KEY:
+        case ConnectionPackage.INNER_JOIN_MAP__VALUE:
             fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
             return;
         }
@@ -131,28 +147,6 @@ public class SubscriberTableItemProvider extends TdTableItemProvider implements 
     @Override
     protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
         super.collectNewChildDescriptors(newChildDescriptors, object);
-    }
-
-    /**
-     * This returns the label text for {@link org.eclipse.emf.edit.command.CreateChildCommand}.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    @Override
-    public String getCreateChildText(Object owner, Object feature, Object child, Collection<?> selection) {
-        Object childFeature = feature;
-        Object childObject = child;
-
-        boolean qualify = childFeature == CorePackage.Literals.NAMESPACE__OWNED_ELEMENT
-                || childFeature == CorePackage.Literals.CLASSIFIER__FEATURE
-                || childFeature == ConnectionPackage.Literals.METADATA_TABLE__COLUMNS;
-
-        if (qualify) {
-            return getString("_UI_CreateChild_text2", new Object[] { getTypeText(childObject), getFeatureText(childFeature),
-                    getTypeText(owner) });
-        }
-        return super.getCreateChildText(owner, feature, child, selection);
     }
 
     /**

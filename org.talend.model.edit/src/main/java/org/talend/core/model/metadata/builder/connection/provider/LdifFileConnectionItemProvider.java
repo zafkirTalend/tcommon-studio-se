@@ -70,11 +70,13 @@ public class LdifFileConnectionItemProvider extends ConnectionItemProvider imple
      * @generated
      */
     protected void addValuePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_LdifFileConnection_value_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_LdifFileConnection_value_feature", "_UI_LdifFileConnection_type"),
-                ConnectionPackage.Literals.LDIF_FILE_CONNECTION__VALUE, true, false, false,
-                ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_LdifFileConnection_value_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_LdifFileConnection_value_feature",
+                        "_UI_LdifFileConnection_type"), ConnectionPackage.Literals.LDIF_FILE_CONNECTION__VALUE, true, false,
+                false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
 
     /**
@@ -84,11 +86,13 @@ public class LdifFileConnectionItemProvider extends ConnectionItemProvider imple
      * @generated
      */
     protected void addFilePathPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_LdifFileConnection_FilePath_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_LdifFileConnection_FilePath_feature", "_UI_LdifFileConnection_type"),
-                ConnectionPackage.Literals.LDIF_FILE_CONNECTION__FILE_PATH, true, false, false,
-                ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_LdifFileConnection_FilePath_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_LdifFileConnection_FilePath_feature",
+                        "_UI_LdifFileConnection_type"), ConnectionPackage.Literals.LDIF_FILE_CONNECTION__FILE_PATH, true, false,
+                false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
 
     /**
@@ -98,8 +102,10 @@ public class LdifFileConnectionItemProvider extends ConnectionItemProvider imple
      * @generated
      */
     protected void addLimitEntryPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_LdifFileConnection_LimitEntry_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_LdifFileConnection_LimitEntry_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_LdifFileConnection_LimitEntry_feature",
                         "_UI_LdifFileConnection_type"), ConnectionPackage.Literals.LDIF_FILE_CONNECTION__LIMIT_ENTRY, true,
                 false, false, ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
@@ -112,11 +118,13 @@ public class LdifFileConnectionItemProvider extends ConnectionItemProvider imple
      * @generated
      */
     protected void addUseLimitPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_LdifFileConnection_UseLimit_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_LdifFileConnection_UseLimit_feature", "_UI_LdifFileConnection_type"),
-                ConnectionPackage.Literals.LDIF_FILE_CONNECTION__USE_LIMIT, true, false, false,
-                ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_LdifFileConnection_UseLimit_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_LdifFileConnection_UseLimit_feature",
+                        "_UI_LdifFileConnection_type"), ConnectionPackage.Literals.LDIF_FILE_CONNECTION__USE_LIMIT, true, false,
+                false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
     }
 
     /**
@@ -126,11 +134,13 @@ public class LdifFileConnectionItemProvider extends ConnectionItemProvider imple
      * @generated
      */
     protected void addServerPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_LdifFileConnection_Server_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_LdifFileConnection_Server_feature", "_UI_LdifFileConnection_type"),
-                ConnectionPackage.Literals.LDIF_FILE_CONNECTION__SERVER, true, false, false,
-                ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_LdifFileConnection_Server_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_LdifFileConnection_Server_feature",
+                        "_UI_LdifFileConnection_type"), ConnectionPackage.Literals.LDIF_FILE_CONNECTION__SERVER, true, false,
+                false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
 
     /**

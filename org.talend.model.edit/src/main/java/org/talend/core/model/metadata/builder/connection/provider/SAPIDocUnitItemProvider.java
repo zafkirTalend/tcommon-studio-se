@@ -70,9 +70,10 @@ public class SAPIDocUnitItemProvider extends AbstractMetadataObjectItemProvider 
      * @generated
      */
     protected void addConnectionPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_SAPIDocUnit_connection_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_SAPIDocUnit_connection_feature", "_UI_SAPIDocUnit_type"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_SAPIDocUnit_connection_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_SAPIDocUnit_connection_feature", "_UI_SAPIDocUnit_type"),
                 ConnectionPackage.Literals.SAPI_DOC_UNIT__CONNECTION, true, false, true, null, null, null));
     }
 
@@ -83,9 +84,10 @@ public class SAPIDocUnitItemProvider extends AbstractMetadataObjectItemProvider 
      * @generated
      */
     protected void addProgramIdPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_SAPIDocUnit_programId_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_SAPIDocUnit_programId_feature", "_UI_SAPIDocUnit_type"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_SAPIDocUnit_programId_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_SAPIDocUnit_programId_feature", "_UI_SAPIDocUnit_type"),
                 ConnectionPackage.Literals.SAPI_DOC_UNIT__PROGRAM_ID, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
@@ -97,11 +99,14 @@ public class SAPIDocUnitItemProvider extends AbstractMetadataObjectItemProvider 
      * @generated
      */
     protected void addGatewayServicePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_SAPIDocUnit_gatewayService_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_SAPIDocUnit_gatewayService_feature", "_UI_SAPIDocUnit_type"),
-                ConnectionPackage.Literals.SAPI_DOC_UNIT__GATEWAY_SERVICE, true, false, false,
-                ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+        itemPropertyDescriptors
+                .add(createItemPropertyDescriptor(
+                        ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                        getResourceLocator(),
+                        getString("_UI_SAPIDocUnit_gatewayService_feature"),
+                        getString("_UI_PropertyDescriptor_description", "_UI_SAPIDocUnit_gatewayService_feature",
+                                "_UI_SAPIDocUnit_type"), ConnectionPackage.Literals.SAPI_DOC_UNIT__GATEWAY_SERVICE, true, false,
+                        false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
 
     /**
@@ -111,9 +116,10 @@ public class SAPIDocUnitItemProvider extends AbstractMetadataObjectItemProvider 
      * @generated
      */
     protected void addUseXmlOutputPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_SAPIDocUnit_useXmlOutput_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_SAPIDocUnit_useXmlOutput_feature", "_UI_SAPIDocUnit_type"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_SAPIDocUnit_useXmlOutput_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_SAPIDocUnit_useXmlOutput_feature", "_UI_SAPIDocUnit_type"),
                 ConnectionPackage.Literals.SAPI_DOC_UNIT__USE_XML_OUTPUT, true, false, false,
                 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
     }
@@ -125,9 +131,10 @@ public class SAPIDocUnitItemProvider extends AbstractMetadataObjectItemProvider 
      * @generated
      */
     protected void addXmlFilePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_SAPIDocUnit_xmlFile_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_SAPIDocUnit_xmlFile_feature", "_UI_SAPIDocUnit_type"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_SAPIDocUnit_xmlFile_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_SAPIDocUnit_xmlFile_feature", "_UI_SAPIDocUnit_type"),
                 ConnectionPackage.Literals.SAPI_DOC_UNIT__XML_FILE, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
@@ -139,9 +146,10 @@ public class SAPIDocUnitItemProvider extends AbstractMetadataObjectItemProvider 
      * @generated
      */
     protected void addUseHtmlOutputPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_SAPIDocUnit_useHtmlOutput_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_SAPIDocUnit_useHtmlOutput_feature", "_UI_SAPIDocUnit_type"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_SAPIDocUnit_useHtmlOutput_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_SAPIDocUnit_useHtmlOutput_feature", "_UI_SAPIDocUnit_type"),
                 ConnectionPackage.Literals.SAPI_DOC_UNIT__USE_HTML_OUTPUT, true, false, false,
                 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
     }
@@ -153,9 +161,10 @@ public class SAPIDocUnitItemProvider extends AbstractMetadataObjectItemProvider 
      * @generated
      */
     protected void addHtmlFilePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_SAPIDocUnit_htmlFile_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_SAPIDocUnit_htmlFile_feature", "_UI_SAPIDocUnit_type"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_SAPIDocUnit_htmlFile_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_SAPIDocUnit_htmlFile_feature", "_UI_SAPIDocUnit_type"),
                 ConnectionPackage.Literals.SAPI_DOC_UNIT__HTML_FILE, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }

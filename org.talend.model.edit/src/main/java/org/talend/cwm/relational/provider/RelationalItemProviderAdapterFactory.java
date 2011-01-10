@@ -213,6 +213,29 @@ public class RelationalItemProviderAdapterFactory extends RelationalAdapterFacto
     }
 
     /**
+     * This keeps track of the one adapter used for all {@link org.talend.cwm.relational.TdExpression} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected TdExpressionItemProvider tdExpressionItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.cwm.relational.TdExpression}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Adapter createTdExpressionAdapter() {
+        if (tdExpressionItemProvider == null) {
+            tdExpressionItemProvider = new TdExpressionItemProvider(this);
+        }
+
+        return tdExpressionItemProvider;
+    }
+
+    /**
      * This returns the root adapter factory that contains this factory.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -323,6 +346,8 @@ public class RelationalItemProviderAdapterFactory extends RelationalAdapterFacto
             tdTriggerItemProvider.dispose();
         if (tdProcedureItemProvider != null)
             tdProcedureItemProvider.dispose();
+        if (tdExpressionItemProvider != null)
+            tdExpressionItemProvider.dispose();
     }
 
 }

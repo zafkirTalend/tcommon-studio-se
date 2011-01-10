@@ -63,8 +63,10 @@ public class SAPFunctionParameterTableItemProvider extends AbstractMetadataObjec
      * @generated
      */
     protected void addColumnsPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_SAPFunctionParameterTable_columns_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_SAPFunctionParameterTable_columns_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_SAPFunctionParameterTable_columns_feature",
                         "_UI_SAPFunctionParameterTable_type"), ConnectionPackage.Literals.SAP_FUNCTION_PARAMETER_TABLE__COLUMNS,
                 true, false, true, null, null, null));

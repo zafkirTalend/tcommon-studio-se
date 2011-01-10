@@ -80,10 +80,11 @@ public class SalesforceSchemaConnectionItemProvider extends ConnectionItemProvid
      * @generated
      */
     protected void addWebServiceUrlPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(),
-                getString("_UI_SalesforceSchemaConnection_webServiceUrl_feature"), getString(
-                        "_UI_PropertyDescriptor_description", "_UI_SalesforceSchemaConnection_webServiceUrl_feature",
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_SalesforceSchemaConnection_webServiceUrl_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_SalesforceSchemaConnection_webServiceUrl_feature",
                         "_UI_SalesforceSchemaConnection_type"),
                 ConnectionPackage.Literals.SALESFORCE_SCHEMA_CONNECTION__WEB_SERVICE_URL, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -96,8 +97,10 @@ public class SalesforceSchemaConnectionItemProvider extends ConnectionItemProvid
      * @generated
      */
     protected void addUserNamePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_SalesforceSchemaConnection_userName_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_SalesforceSchemaConnection_userName_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_SalesforceSchemaConnection_userName_feature",
                         "_UI_SalesforceSchemaConnection_type"),
                 ConnectionPackage.Literals.SALESFORCE_SCHEMA_CONNECTION__USER_NAME, true, false, false,
@@ -111,8 +114,10 @@ public class SalesforceSchemaConnectionItemProvider extends ConnectionItemProvid
      * @generated
      */
     protected void addPasswordPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_SalesforceSchemaConnection_password_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_SalesforceSchemaConnection_password_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_SalesforceSchemaConnection_password_feature",
                         "_UI_SalesforceSchemaConnection_type"),
                 ConnectionPackage.Literals.SALESFORCE_SCHEMA_CONNECTION__PASSWORD, true, false, false,
@@ -126,8 +131,10 @@ public class SalesforceSchemaConnectionItemProvider extends ConnectionItemProvid
      * @generated
      */
     protected void addModuleNamePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_SalesforceSchemaConnection_moduleName_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_SalesforceSchemaConnection_moduleName_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_SalesforceSchemaConnection_moduleName_feature",
                         "_UI_SalesforceSchemaConnection_type"),
                 ConnectionPackage.Literals.SALESFORCE_SCHEMA_CONNECTION__MODULE_NAME, true, false, false,
@@ -141,10 +148,11 @@ public class SalesforceSchemaConnectionItemProvider extends ConnectionItemProvid
      * @generated
      */
     protected void addQueryConditionPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(),
-                getString("_UI_SalesforceSchemaConnection_queryCondition_feature"), getString(
-                        "_UI_PropertyDescriptor_description", "_UI_SalesforceSchemaConnection_queryCondition_feature",
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_SalesforceSchemaConnection_queryCondition_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_SalesforceSchemaConnection_queryCondition_feature",
                         "_UI_SalesforceSchemaConnection_type"),
                 ConnectionPackage.Literals.SALESFORCE_SCHEMA_CONNECTION__QUERY_CONDITION, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -157,10 +165,11 @@ public class SalesforceSchemaConnectionItemProvider extends ConnectionItemProvid
      * @generated
      */
     protected void addUseCustomModuleNamePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(),
-                getString("_UI_SalesforceSchemaConnection_useCustomModuleName_feature"), getString(
-                        "_UI_PropertyDescriptor_description", "_UI_SalesforceSchemaConnection_useCustomModuleName_feature",
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_SalesforceSchemaConnection_useCustomModuleName_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_SalesforceSchemaConnection_useCustomModuleName_feature",
                         "_UI_SalesforceSchemaConnection_type"),
                 ConnectionPackage.Literals.SALESFORCE_SCHEMA_CONNECTION__USE_CUSTOM_MODULE_NAME, true, false, false,
                 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
@@ -173,8 +182,10 @@ public class SalesforceSchemaConnectionItemProvider extends ConnectionItemProvid
      * @generated
      */
     protected void addUseProxyPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_SalesforceSchemaConnection_useProxy_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_SalesforceSchemaConnection_useProxy_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_SalesforceSchemaConnection_useProxy_feature",
                         "_UI_SalesforceSchemaConnection_type"),
                 ConnectionPackage.Literals.SALESFORCE_SCHEMA_CONNECTION__USE_PROXY, true, false, false,
@@ -188,8 +199,10 @@ public class SalesforceSchemaConnectionItemProvider extends ConnectionItemProvid
      * @generated
      */
     protected void addProxyHostPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_SalesforceSchemaConnection_proxyHost_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_SalesforceSchemaConnection_proxyHost_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_SalesforceSchemaConnection_proxyHost_feature",
                         "_UI_SalesforceSchemaConnection_type"),
                 ConnectionPackage.Literals.SALESFORCE_SCHEMA_CONNECTION__PROXY_HOST, true, false, false,
@@ -203,8 +216,10 @@ public class SalesforceSchemaConnectionItemProvider extends ConnectionItemProvid
      * @generated
      */
     protected void addProxyPortPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_SalesforceSchemaConnection_proxyPort_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_SalesforceSchemaConnection_proxyPort_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_SalesforceSchemaConnection_proxyPort_feature",
                         "_UI_SalesforceSchemaConnection_type"),
                 ConnectionPackage.Literals.SALESFORCE_SCHEMA_CONNECTION__PROXY_PORT, true, false, false,
@@ -218,10 +233,11 @@ public class SalesforceSchemaConnectionItemProvider extends ConnectionItemProvid
      * @generated
      */
     protected void addProxyUsernamePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(),
-                getString("_UI_SalesforceSchemaConnection_proxyUsername_feature"), getString(
-                        "_UI_PropertyDescriptor_description", "_UI_SalesforceSchemaConnection_proxyUsername_feature",
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_SalesforceSchemaConnection_proxyUsername_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_SalesforceSchemaConnection_proxyUsername_feature",
                         "_UI_SalesforceSchemaConnection_type"),
                 ConnectionPackage.Literals.SALESFORCE_SCHEMA_CONNECTION__PROXY_USERNAME, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -234,10 +250,11 @@ public class SalesforceSchemaConnectionItemProvider extends ConnectionItemProvid
      * @generated
      */
     protected void addProxyPasswordPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(),
-                getString("_UI_SalesforceSchemaConnection_proxyPassword_feature"), getString(
-                        "_UI_PropertyDescriptor_description", "_UI_SalesforceSchemaConnection_proxyPassword_feature",
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_SalesforceSchemaConnection_proxyPassword_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_SalesforceSchemaConnection_proxyPassword_feature",
                         "_UI_SalesforceSchemaConnection_type"),
                 ConnectionPackage.Literals.SALESFORCE_SCHEMA_CONNECTION__PROXY_PASSWORD, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -250,8 +267,10 @@ public class SalesforceSchemaConnectionItemProvider extends ConnectionItemProvid
      * @generated
      */
     protected void addBatchSizePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_SalesforceSchemaConnection_batchSize_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_SalesforceSchemaConnection_batchSize_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_SalesforceSchemaConnection_batchSize_feature",
                         "_UI_SalesforceSchemaConnection_type"),
                 ConnectionPackage.Literals.SALESFORCE_SCHEMA_CONNECTION__BATCH_SIZE, true, false, false,
@@ -265,8 +284,10 @@ public class SalesforceSchemaConnectionItemProvider extends ConnectionItemProvid
      * @generated
      */
     protected void addUseHttpProxyPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_SalesforceSchemaConnection_useHttpProxy_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_SalesforceSchemaConnection_useHttpProxy_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_SalesforceSchemaConnection_useHttpProxy_feature",
                         "_UI_SalesforceSchemaConnection_type"),
                 ConnectionPackage.Literals.SALESFORCE_SCHEMA_CONNECTION__USE_HTTP_PROXY, true, false, false,
@@ -280,8 +301,10 @@ public class SalesforceSchemaConnectionItemProvider extends ConnectionItemProvid
      * @generated
      */
     protected void addUseAlphbetPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_SalesforceSchemaConnection_useAlphbet_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_SalesforceSchemaConnection_useAlphbet_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_SalesforceSchemaConnection_useAlphbet_feature",
                         "_UI_SalesforceSchemaConnection_type"),
                 ConnectionPackage.Literals.SALESFORCE_SCHEMA_CONNECTION__USE_ALPHBET, true, false, false,
@@ -295,8 +318,10 @@ public class SalesforceSchemaConnectionItemProvider extends ConnectionItemProvid
      * @generated
      */
     protected void addTimeOutPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_SalesforceSchemaConnection_timeOut_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_SalesforceSchemaConnection_timeOut_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_SalesforceSchemaConnection_timeOut_feature",
                         "_UI_SalesforceSchemaConnection_type"),
                 ConnectionPackage.Literals.SALESFORCE_SCHEMA_CONNECTION__TIME_OUT, true, false, false,

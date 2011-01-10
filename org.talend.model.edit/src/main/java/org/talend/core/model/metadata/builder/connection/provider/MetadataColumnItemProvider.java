@@ -22,6 +22,7 @@ import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
+import org.talend.cwm.relational.RelationalFactory;
 import orgomg.cwm.foundation.datatypes.DatatypesFactory;
 import orgomg.cwm.objectmodel.core.CoreFactory;
 import orgomg.cwm.objectmodel.core.CorePackage;
@@ -94,9 +95,10 @@ public class MetadataColumnItemProvider extends AbstractMetadataObjectItemProvid
      * @generated
      */
     protected void addOwnerScopePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_Feature_ownerScope_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_Feature_ownerScope_feature", "_UI_Feature_type"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_Feature_ownerScope_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_Feature_ownerScope_feature", "_UI_Feature_type"),
                 CorePackage.Literals.FEATURE__OWNER_SCOPE, true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null,
                 null));
     }
@@ -108,9 +110,10 @@ public class MetadataColumnItemProvider extends AbstractMetadataObjectItemProvid
      * @generated
      */
     protected void addFeatureNodePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_Feature_featureNode_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_Feature_featureNode_feature", "_UI_Feature_type"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_Feature_featureNode_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_Feature_featureNode_feature", "_UI_Feature_type"),
                 CorePackage.Literals.FEATURE__FEATURE_NODE, true, false, true, null, null, null));
     }
 
@@ -121,9 +124,10 @@ public class MetadataColumnItemProvider extends AbstractMetadataObjectItemProvid
      * @generated
      */
     protected void addFeatureMapPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_Feature_featureMap_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_Feature_featureMap_feature", "_UI_Feature_type"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_Feature_featureMap_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_Feature_featureMap_feature", "_UI_Feature_type"),
                 CorePackage.Literals.FEATURE__FEATURE_MAP, true, false, true, null, null, null));
     }
 
@@ -134,9 +138,10 @@ public class MetadataColumnItemProvider extends AbstractMetadataObjectItemProvid
      * @generated
      */
     protected void addCfMapPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_Feature_cfMap_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_Feature_cfMap_feature", "_UI_Feature_type"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_Feature_cfMap_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_Feature_cfMap_feature", "_UI_Feature_type"),
                 CorePackage.Literals.FEATURE__CF_MAP, true, false, true, null, null, null));
     }
 
@@ -147,8 +152,10 @@ public class MetadataColumnItemProvider extends AbstractMetadataObjectItemProvid
      * @generated
      */
     protected void addChangeabilityPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_StructuralFeature_changeability_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_StructuralFeature_changeability_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_StructuralFeature_changeability_feature",
                         "_UI_StructuralFeature_type"), CorePackage.Literals.STRUCTURAL_FEATURE__CHANGEABILITY, true, false,
                 false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -161,10 +168,12 @@ public class MetadataColumnItemProvider extends AbstractMetadataObjectItemProvid
      * @generated
      */
     protected void addOrderingPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_StructuralFeature_ordering_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_StructuralFeature_ordering_feature", "_UI_StructuralFeature_type"),
-                CorePackage.Literals.STRUCTURAL_FEATURE__ORDERING, true, false, false,
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_StructuralFeature_ordering_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_StructuralFeature_ordering_feature",
+                        "_UI_StructuralFeature_type"), CorePackage.Literals.STRUCTURAL_FEATURE__ORDERING, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
 
@@ -175,8 +184,10 @@ public class MetadataColumnItemProvider extends AbstractMetadataObjectItemProvid
      * @generated
      */
     protected void addTargetScopePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_StructuralFeature_targetScope_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_StructuralFeature_targetScope_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_StructuralFeature_targetScope_feature",
                         "_UI_StructuralFeature_type"), CorePackage.Literals.STRUCTURAL_FEATURE__TARGET_SCOPE, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -189,10 +200,13 @@ public class MetadataColumnItemProvider extends AbstractMetadataObjectItemProvid
      * @generated
      */
     protected void addTypePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_StructuralFeature_type_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_StructuralFeature_type_feature", "_UI_StructuralFeature_type"),
-                CorePackage.Literals.STRUCTURAL_FEATURE__TYPE, true, false, true, null, null, null));
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_StructuralFeature_type_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_StructuralFeature_type_feature",
+                        "_UI_StructuralFeature_type"), CorePackage.Literals.STRUCTURAL_FEATURE__TYPE, true, false, true, null,
+                null, null));
     }
 
     /**
@@ -202,10 +216,13 @@ public class MetadataColumnItemProvider extends AbstractMetadataObjectItemProvid
      * @generated
      */
     protected void addSlotPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_StructuralFeature_slot_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_StructuralFeature_slot_feature", "_UI_StructuralFeature_type"),
-                CorePackage.Literals.STRUCTURAL_FEATURE__SLOT, true, false, true, null, null, null));
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_StructuralFeature_slot_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_StructuralFeature_slot_feature",
+                        "_UI_StructuralFeature_type"), CorePackage.Literals.STRUCTURAL_FEATURE__SLOT, true, false, true, null,
+                null, null));
     }
 
     /**
@@ -215,8 +232,10 @@ public class MetadataColumnItemProvider extends AbstractMetadataObjectItemProvid
      * @generated
      */
     protected void addDiscriminatedUnionPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_StructuralFeature_discriminatedUnion_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_StructuralFeature_discriminatedUnion_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_StructuralFeature_discriminatedUnion_feature",
                         "_UI_StructuralFeature_type"), CorePackage.Literals.STRUCTURAL_FEATURE__DISCRIMINATED_UNION, true, false,
                 true, null, null, null));
@@ -229,8 +248,10 @@ public class MetadataColumnItemProvider extends AbstractMetadataObjectItemProvid
      * @generated
      */
     protected void addIndexedFeaturePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_StructuralFeature_indexedFeature_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_StructuralFeature_indexedFeature_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_StructuralFeature_indexedFeature_feature",
                         "_UI_StructuralFeature_type"), CorePackage.Literals.STRUCTURAL_FEATURE__INDEXED_FEATURE, true, false,
                 true, null, null, null));
@@ -243,8 +264,10 @@ public class MetadataColumnItemProvider extends AbstractMetadataObjectItemProvid
      * @generated
      */
     protected void addKeyRelationshipPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_StructuralFeature_keyRelationship_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_StructuralFeature_keyRelationship_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_StructuralFeature_keyRelationship_feature",
                         "_UI_StructuralFeature_type"), CorePackage.Literals.STRUCTURAL_FEATURE__KEY_RELATIONSHIP, true, false,
                 true, null, null, null));
@@ -257,10 +280,13 @@ public class MetadataColumnItemProvider extends AbstractMetadataObjectItemProvid
      * @generated
      */
     protected void addUniqueKeyPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_StructuralFeature_uniqueKey_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_StructuralFeature_uniqueKey_feature", "_UI_StructuralFeature_type"),
-                CorePackage.Literals.STRUCTURAL_FEATURE__UNIQUE_KEY, true, false, true, null, null, null));
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_StructuralFeature_uniqueKey_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_StructuralFeature_uniqueKey_feature",
+                        "_UI_StructuralFeature_type"), CorePackage.Literals.STRUCTURAL_FEATURE__UNIQUE_KEY, true, false, true,
+                null, null, null));
     }
 
     /**
@@ -270,10 +296,13 @@ public class MetadataColumnItemProvider extends AbstractMetadataObjectItemProvid
      * @generated
      */
     protected void addDataItemPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_StructuralFeature_dataItem_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_StructuralFeature_dataItem_feature", "_UI_StructuralFeature_type"),
-                CorePackage.Literals.STRUCTURAL_FEATURE__DATA_ITEM, true, false, true, null, null, null));
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_StructuralFeature_dataItem_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_StructuralFeature_dataItem_feature",
+                        "_UI_StructuralFeature_type"), CorePackage.Literals.STRUCTURAL_FEATURE__DATA_ITEM, true, false, true,
+                null, null, null));
     }
 
     /**
@@ -283,10 +312,13 @@ public class MetadataColumnItemProvider extends AbstractMetadataObjectItemProvid
      * @generated
      */
     protected void addRemapPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_StructuralFeature_remap_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_StructuralFeature_remap_feature", "_UI_StructuralFeature_type"),
-                CorePackage.Literals.STRUCTURAL_FEATURE__REMAP, true, false, true, null, null, null));
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_StructuralFeature_remap_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_StructuralFeature_remap_feature",
+                        "_UI_StructuralFeature_type"), CorePackage.Literals.STRUCTURAL_FEATURE__REMAP, true, false, true, null,
+                null, null));
     }
 
     /**
@@ -298,8 +330,8 @@ public class MetadataColumnItemProvider extends AbstractMetadataObjectItemProvid
     protected void addLengthPropertyDescriptor(Object object) {
         itemPropertyDescriptors
                 .add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-                        getResourceLocator(), getString("_UI_Field_length_feature"), getString(
-                                "_UI_PropertyDescriptor_description", "_UI_Field_length_feature", "_UI_Field_type"),
+                        getResourceLocator(), getString("_UI_Field_length_feature"),
+                        getString("_UI_PropertyDescriptor_description", "_UI_Field_length_feature", "_UI_Field_type"),
                         RecordPackage.Literals.FIELD__LENGTH, true, false, false, ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
                         null, null));
     }
@@ -311,9 +343,10 @@ public class MetadataColumnItemProvider extends AbstractMetadataObjectItemProvid
      * @generated
      */
     protected void addPrecisionPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_Field_precision_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_Field_precision_feature", "_UI_Field_type"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_Field_precision_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_Field_precision_feature", "_UI_Field_type"),
                 RecordPackage.Literals.FIELD__PRECISION, true, false, false, ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null,
                 null));
     }
@@ -327,8 +360,8 @@ public class MetadataColumnItemProvider extends AbstractMetadataObjectItemProvid
     protected void addScalePropertyDescriptor(Object object) {
         itemPropertyDescriptors
                 .add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-                        getResourceLocator(), getString("_UI_Field_scale_feature"), getString(
-                                "_UI_PropertyDescriptor_description", "_UI_Field_scale_feature", "_UI_Field_type"),
+                        getResourceLocator(), getString("_UI_Field_scale_feature"),
+                        getString("_UI_PropertyDescriptor_description", "_UI_Field_scale_feature", "_UI_Field_type"),
                         RecordPackage.Literals.FIELD__SCALE, true, false, false, ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
                         null, null));
     }
@@ -340,10 +373,12 @@ public class MetadataColumnItemProvider extends AbstractMetadataObjectItemProvid
      * @generated
      */
     protected void addSourceTypePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_MetadataColumn_sourceType_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_MetadataColumn_sourceType_feature", "_UI_MetadataColumn_type"),
-                ConnectionPackage.Literals.METADATA_COLUMN__SOURCE_TYPE, true, false, false,
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_MetadataColumn_sourceType_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_MetadataColumn_sourceType_feature",
+                        "_UI_MetadataColumn_type"), ConnectionPackage.Literals.METADATA_COLUMN__SOURCE_TYPE, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
 
@@ -354,11 +389,13 @@ public class MetadataColumnItemProvider extends AbstractMetadataObjectItemProvid
      * @generated
      */
     protected void addDefaultValuePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_MetadataColumn_defaultValue_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_MetadataColumn_defaultValue_feature", "_UI_MetadataColumn_type"),
-                ConnectionPackage.Literals.METADATA_COLUMN__DEFAULT_VALUE, true, false, false,
-                ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_MetadataColumn_defaultValue_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_MetadataColumn_defaultValue_feature",
+                        "_UI_MetadataColumn_type"), ConnectionPackage.Literals.METADATA_COLUMN__DEFAULT_VALUE, true, false,
+                false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
 
     /**
@@ -368,10 +405,12 @@ public class MetadataColumnItemProvider extends AbstractMetadataObjectItemProvid
      * @generated
      */
     protected void addTalendTypePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_MetadataColumn_talendType_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_MetadataColumn_talendType_feature", "_UI_MetadataColumn_type"),
-                ConnectionPackage.Literals.METADATA_COLUMN__TALEND_TYPE, true, false, false,
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_MetadataColumn_talendType_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_MetadataColumn_talendType_feature",
+                        "_UI_MetadataColumn_type"), ConnectionPackage.Literals.METADATA_COLUMN__TALEND_TYPE, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
 
@@ -382,9 +421,10 @@ public class MetadataColumnItemProvider extends AbstractMetadataObjectItemProvid
      * @generated
      */
     protected void addKeyPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_MetadataColumn_key_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_MetadataColumn_key_feature", "_UI_MetadataColumn_type"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_MetadataColumn_key_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_MetadataColumn_key_feature", "_UI_MetadataColumn_type"),
                 ConnectionPackage.Literals.METADATA_COLUMN__KEY, true, false, false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
                 null, null));
     }
@@ -396,11 +436,14 @@ public class MetadataColumnItemProvider extends AbstractMetadataObjectItemProvid
      * @generated
      */
     protected void addNullablePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_MetadataColumn_nullable_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_MetadataColumn_nullable_feature", "_UI_MetadataColumn_type"),
-                ConnectionPackage.Literals.METADATA_COLUMN__NULLABLE, true, false, false,
-                ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+        itemPropertyDescriptors
+                .add(createItemPropertyDescriptor(
+                        ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                        getResourceLocator(),
+                        getString("_UI_MetadataColumn_nullable_feature"),
+                        getString("_UI_PropertyDescriptor_description", "_UI_MetadataColumn_nullable_feature",
+                                "_UI_MetadataColumn_type"), ConnectionPackage.Literals.METADATA_COLUMN__NULLABLE, true, false,
+                        false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
     }
 
     /**
@@ -410,11 +453,13 @@ public class MetadataColumnItemProvider extends AbstractMetadataObjectItemProvid
      * @generated
      */
     protected void addOriginalFieldPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_MetadataColumn_originalField_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_MetadataColumn_originalField_feature", "_UI_MetadataColumn_type"),
-                ConnectionPackage.Literals.METADATA_COLUMN__ORIGINAL_FIELD, true, false, false,
-                ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_MetadataColumn_originalField_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_MetadataColumn_originalField_feature",
+                        "_UI_MetadataColumn_type"), ConnectionPackage.Literals.METADATA_COLUMN__ORIGINAL_FIELD, true, false,
+                false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
 
     /**
@@ -424,9 +469,10 @@ public class MetadataColumnItemProvider extends AbstractMetadataObjectItemProvid
      * @generated
      */
     protected void addPatternPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_MetadataColumn_pattern_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_MetadataColumn_pattern_feature", "_UI_MetadataColumn_type"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_MetadataColumn_pattern_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_MetadataColumn_pattern_feature", "_UI_MetadataColumn_type"),
                 ConnectionPackage.Literals.METADATA_COLUMN__PATTERN, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
@@ -438,11 +484,13 @@ public class MetadataColumnItemProvider extends AbstractMetadataObjectItemProvid
      * @generated
      */
     protected void addDisplayFieldPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_MetadataColumn_displayField_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_MetadataColumn_displayField_feature", "_UI_MetadataColumn_type"),
-                ConnectionPackage.Literals.METADATA_COLUMN__DISPLAY_FIELD, true, false, false,
-                ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_MetadataColumn_displayField_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_MetadataColumn_displayField_feature",
+                        "_UI_MetadataColumn_type"), ConnectionPackage.Literals.METADATA_COLUMN__DISPLAY_FIELD, true, false,
+                false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
 
     /**
@@ -548,20 +596,23 @@ public class MetadataColumnItemProvider extends AbstractMetadataObjectItemProvid
     protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
         super.collectNewChildDescriptors(newChildDescriptors, object);
 
-        newChildDescriptors.add(createChildParameter(CorePackage.Literals.STRUCTURAL_FEATURE__MULTIPLICITY, CoreFactory.eINSTANCE
-                .createMultiplicity()));
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.STRUCTURAL_FEATURE__MULTIPLICITY,
+                CoreFactory.eINSTANCE.createMultiplicity()));
 
-        newChildDescriptors.add(createChildParameter(CorePackage.Literals.ATTRIBUTE__INITIAL_VALUE, CoreFactory.eINSTANCE
-                .createExpression()));
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.ATTRIBUTE__INITIAL_VALUE,
+                RelationalFactory.eINSTANCE.createTdExpression()));
 
-        newChildDescriptors.add(createChildParameter(CorePackage.Literals.ATTRIBUTE__INITIAL_VALUE, CoreFactory.eINSTANCE
-                .createBooleanExpression()));
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.ATTRIBUTE__INITIAL_VALUE,
+                CoreFactory.eINSTANCE.createExpression()));
 
-        newChildDescriptors.add(createChildParameter(CorePackage.Literals.ATTRIBUTE__INITIAL_VALUE, CoreFactory.eINSTANCE
-                .createProcedureExpression()));
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.ATTRIBUTE__INITIAL_VALUE,
+                CoreFactory.eINSTANCE.createBooleanExpression()));
 
-        newChildDescriptors.add(createChildParameter(CorePackage.Literals.ATTRIBUTE__INITIAL_VALUE, DatatypesFactory.eINSTANCE
-                .createQueryExpression()));
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.ATTRIBUTE__INITIAL_VALUE,
+                CoreFactory.eINSTANCE.createProcedureExpression()));
+
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.ATTRIBUTE__INITIAL_VALUE,
+                DatatypesFactory.eINSTANCE.createQueryExpression()));
     }
 
 }

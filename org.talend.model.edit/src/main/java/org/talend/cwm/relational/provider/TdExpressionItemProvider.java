@@ -73,9 +73,10 @@ public class TdExpressionItemProvider extends ExpressionItemProvider implements 
      * @generated
      */
     protected void addVersionPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_TdExpression_version_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_TdExpression_version_feature", "_UI_TdExpression_type"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_TdExpression_version_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_TdExpression_version_feature", "_UI_TdExpression_type"),
                 RelationalPackage.Literals.TD_EXPRESSION__VERSION, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
@@ -87,8 +88,10 @@ public class TdExpressionItemProvider extends ExpressionItemProvider implements 
      * @generated
      */
     protected void addModificationDatePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_TdExpression_modificationDate_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_TdExpression_modificationDate_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_TdExpression_modificationDate_feature",
                         "_UI_TdExpression_type"), RelationalPackage.Literals.TD_EXPRESSION__MODIFICATION_DATE, true, false,
                 false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));

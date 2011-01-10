@@ -75,10 +75,13 @@ public class TdTableItemProvider extends MetadataTableItemProvider implements IE
      * @generated
      */
     protected void addUsingTriggerPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_NamedColumnSet_usingTrigger_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_NamedColumnSet_usingTrigger_feature", "_UI_NamedColumnSet_type"),
-                RelationalPackage.Literals.NAMED_COLUMN_SET__USING_TRIGGER, true, false, true, null, null, null));
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_NamedColumnSet_usingTrigger_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_NamedColumnSet_usingTrigger_feature",
+                        "_UI_NamedColumnSet_type"), RelationalPackage.Literals.NAMED_COLUMN_SET__USING_TRIGGER, true, false,
+                true, null, null, null));
     }
 
     /**
@@ -88,9 +91,10 @@ public class TdTableItemProvider extends MetadataTableItemProvider implements IE
      * @generated
      */
     protected void addTypePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_NamedColumnSet_type_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_NamedColumnSet_type_feature", "_UI_NamedColumnSet_type"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_NamedColumnSet_type_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_NamedColumnSet_type_feature", "_UI_NamedColumnSet_type"),
                 RelationalPackage.Literals.NAMED_COLUMN_SET__TYPE, true, false, true, null, null, null));
     }
 
@@ -101,8 +105,10 @@ public class TdTableItemProvider extends MetadataTableItemProvider implements IE
      * @generated
      */
     protected void addOptionScopeColumnPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_NamedColumnSet_optionScopeColumn_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_NamedColumnSet_optionScopeColumn_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_NamedColumnSet_optionScopeColumn_feature",
                         "_UI_NamedColumnSet_type"), RelationalPackage.Literals.NAMED_COLUMN_SET__OPTION_SCOPE_COLUMN, true,
                 false, true, null, null, null));
@@ -115,9 +121,10 @@ public class TdTableItemProvider extends MetadataTableItemProvider implements IE
      * @generated
      */
     protected void addIsTemporaryPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_Table_isTemporary_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_Table_isTemporary_feature", "_UI_Table_type"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_Table_isTemporary_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_Table_isTemporary_feature", "_UI_Table_type"),
                 RelationalPackage.Literals.TABLE__IS_TEMPORARY, true, false, false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
                 null, null));
     }
@@ -129,9 +136,10 @@ public class TdTableItemProvider extends MetadataTableItemProvider implements IE
      * @generated
      */
     protected void addTemporaryScopePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_Table_temporaryScope_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_Table_temporaryScope_feature", "_UI_Table_type"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_Table_temporaryScope_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_Table_temporaryScope_feature", "_UI_Table_type"),
                 RelationalPackage.Literals.TABLE__TEMPORARY_SCOPE, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
@@ -143,9 +151,10 @@ public class TdTableItemProvider extends MetadataTableItemProvider implements IE
      * @generated
      */
     protected void addIsSystemPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_Table_isSystem_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_Table_isSystem_feature", "_UI_Table_type"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_Table_isSystem_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_Table_isSystem_feature", "_UI_Table_type"),
                 RelationalPackage.Literals.TABLE__IS_SYSTEM, true, false, false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
                 null, null));
     }
@@ -157,9 +166,10 @@ public class TdTableItemProvider extends MetadataTableItemProvider implements IE
      * @generated
      */
     protected void addTriggerPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_Table_trigger_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_Table_trigger_feature", "_UI_Table_type"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_Table_trigger_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_Table_trigger_feature", "_UI_Table_type"),
                 RelationalPackage.Literals.TABLE__TRIGGER, true, false, true, null, null, null));
     }
 

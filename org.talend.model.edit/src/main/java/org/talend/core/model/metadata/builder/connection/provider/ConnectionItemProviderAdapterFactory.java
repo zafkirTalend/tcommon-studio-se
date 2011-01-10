@@ -941,6 +941,29 @@ public class ConnectionItemProviderAdapterFactory extends ConnectionAdapterFacto
     }
 
     /**
+     * This keeps track of the one adapter used for all {@link org.talend.core.model.metadata.builder.connection.WSDLParameter} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected WSDLParameterItemProvider wsdlParameterItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.core.model.metadata.builder.connection.WSDLParameter}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Adapter createWSDLParameterAdapter() {
+        if (wsdlParameterItemProvider == null) {
+            wsdlParameterItemProvider = new WSDLParameterItemProvider(this);
+        }
+
+        return wsdlParameterItemProvider;
+    }
+
+    /**
      * This keeps track of the one adapter used for all {@link org.talend.core.model.metadata.builder.connection.GenericPackage} instances.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -986,6 +1009,51 @@ public class ConnectionItemProviderAdapterFactory extends ConnectionAdapterFacto
         return hl7FileNodeItemProvider;
     }
 
+    /**
+     * This keeps track of the one adapter used for all {@link org.talend.core.model.metadata.builder.connection.FTPConnection} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected FTPConnectionItemProvider ftpConnectionItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.core.model.metadata.builder.connection.FTPConnection}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Adapter createFTPConnectionAdapter() {
+        if (ftpConnectionItemProvider == null) {
+            ftpConnectionItemProvider = new FTPConnectionItemProvider(this);
+        }
+
+        return ftpConnectionItemProvider;
+    }
+
+    /**
+     * This keeps track of the one adapter used for all {@link org.talend.core.model.metadata.builder.connection.BRMSConnection} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected BRMSConnectionItemProvider brmsConnectionItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.core.model.metadata.builder.connection.BRMSConnection}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Adapter createBRMSConnectionAdapter() {
+        if (brmsConnectionItemProvider == null) {
+            brmsConnectionItemProvider = new BRMSConnectionItemProvider(this);
+        }
+
+        return brmsConnectionItemProvider;
+    }
 
     /**
      * This keeps track of the one adapter used for all {@link org.talend.core.model.metadata.builder.connection.ConditionType} instances.
@@ -1008,6 +1076,29 @@ public class ConnectionItemProviderAdapterFactory extends ConnectionAdapterFacto
         }
 
         return conditionTypeItemProvider;
+    }
+
+    /**
+     * This keeps track of the one adapter used for all {@link java.util.Map.Entry} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected InnerJoinMapItemProvider innerJoinMapItemProvider;
+
+    /**
+     * This creates an adapter for a {@link java.util.Map.Entry}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Adapter createInnerJoinMapAdapter() {
+        if (innerJoinMapItemProvider == null) {
+            innerJoinMapItemProvider = new InnerJoinMapItemProvider(this);
+        }
+
+        return innerJoinMapItemProvider;
     }
 
     /**
@@ -1233,14 +1324,22 @@ public class ConnectionItemProviderAdapterFactory extends ConnectionAdapterFacto
             headerFooterConnectionItemProvider.dispose();
         if (xmlFileNodeItemProvider != null)
             xmlFileNodeItemProvider.dispose();
+        if (wsdlParameterItemProvider != null)
+            wsdlParameterItemProvider.dispose();
         if (genericPackageItemProvider != null)
             genericPackageItemProvider.dispose();
         if (hl7FileNodeItemProvider != null)
             hl7FileNodeItemProvider.dispose();
+        if (ftpConnectionItemProvider != null)
+            ftpConnectionItemProvider.dispose();
+        if (brmsConnectionItemProvider != null)
+            brmsConnectionItemProvider.dispose();
         if (validationRulesConnectionItemProvider != null)
             validationRulesConnectionItemProvider.dispose();
         if (conditionTypeItemProvider != null)
             conditionTypeItemProvider.dispose();
+        if (innerJoinMapItemProvider != null)
+            innerJoinMapItemProvider.dispose();
     }
 
 }

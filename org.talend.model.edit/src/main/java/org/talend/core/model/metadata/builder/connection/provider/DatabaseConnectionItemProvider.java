@@ -91,8 +91,10 @@ public class DatabaseConnectionItemProvider extends ConnectionItemProvider imple
      * @generated
      */
     protected void addDatabaseTypePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_DatabaseConnection_DatabaseType_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_DatabaseConnection_DatabaseType_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_DatabaseConnection_DatabaseType_feature",
                         "_UI_DatabaseConnection_type"), ConnectionPackage.Literals.DATABASE_CONNECTION__DATABASE_TYPE, true,
                 false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -105,8 +107,10 @@ public class DatabaseConnectionItemProvider extends ConnectionItemProvider imple
      * @generated
      */
     protected void addDriverJarPathPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_DatabaseConnection_DriverJarPath_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_DatabaseConnection_DriverJarPath_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_DatabaseConnection_DriverJarPath_feature",
                         "_UI_DatabaseConnection_type"), ConnectionPackage.Literals.DATABASE_CONNECTION__DRIVER_JAR_PATH, true,
                 false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -119,8 +123,10 @@ public class DatabaseConnectionItemProvider extends ConnectionItemProvider imple
      * @generated
      */
     protected void addDriverClassPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_DatabaseConnection_DriverClass_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_DatabaseConnection_DriverClass_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_DatabaseConnection_DriverClass_feature",
                         "_UI_DatabaseConnection_type"), ConnectionPackage.Literals.DATABASE_CONNECTION__DRIVER_CLASS, true,
                 false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -133,10 +139,12 @@ public class DatabaseConnectionItemProvider extends ConnectionItemProvider imple
      * @generated
      */
     protected void addURLPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_DatabaseConnection_URL_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_DatabaseConnection_URL_feature", "_UI_DatabaseConnection_type"),
-                ConnectionPackage.Literals.DATABASE_CONNECTION__URL, true, false, false,
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_DatabaseConnection_URL_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_DatabaseConnection_URL_feature",
+                        "_UI_DatabaseConnection_type"), ConnectionPackage.Literals.DATABASE_CONNECTION__URL, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
 
@@ -147,8 +155,10 @@ public class DatabaseConnectionItemProvider extends ConnectionItemProvider imple
      * @generated
      */
     protected void addDbVersionStringPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_DatabaseConnection_dbVersionString_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_DatabaseConnection_dbVersionString_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_DatabaseConnection_dbVersionString_feature",
                         "_UI_DatabaseConnection_type"), ConnectionPackage.Literals.DATABASE_CONNECTION__DB_VERSION_STRING, true,
                 false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -161,10 +171,12 @@ public class DatabaseConnectionItemProvider extends ConnectionItemProvider imple
      * @generated
      */
     protected void addPortPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_DatabaseConnection_Port_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_DatabaseConnection_Port_feature", "_UI_DatabaseConnection_type"),
-                ConnectionPackage.Literals.DATABASE_CONNECTION__PORT, true, false, false,
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_DatabaseConnection_Port_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_DatabaseConnection_Port_feature",
+                        "_UI_DatabaseConnection_type"), ConnectionPackage.Literals.DATABASE_CONNECTION__PORT, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
 
@@ -175,11 +187,13 @@ public class DatabaseConnectionItemProvider extends ConnectionItemProvider imple
      * @generated
      */
     protected void addUsernamePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_DatabaseConnection_Username_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_DatabaseConnection_Username_feature", "_UI_DatabaseConnection_type"),
-                ConnectionPackage.Literals.DATABASE_CONNECTION__USERNAME, true, false, false,
-                ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_DatabaseConnection_Username_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_DatabaseConnection_Username_feature",
+                        "_UI_DatabaseConnection_type"), ConnectionPackage.Literals.DATABASE_CONNECTION__USERNAME, true, false,
+                false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
 
     /**
@@ -189,11 +203,13 @@ public class DatabaseConnectionItemProvider extends ConnectionItemProvider imple
      * @generated
      */
     protected void addPasswordPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_DatabaseConnection_Password_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_DatabaseConnection_Password_feature", "_UI_DatabaseConnection_type"),
-                ConnectionPackage.Literals.DATABASE_CONNECTION__PASSWORD, true, false, false,
-                ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_DatabaseConnection_Password_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_DatabaseConnection_Password_feature",
+                        "_UI_DatabaseConnection_type"), ConnectionPackage.Literals.DATABASE_CONNECTION__PASSWORD, true, false,
+                false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
 
     /**
@@ -203,8 +219,10 @@ public class DatabaseConnectionItemProvider extends ConnectionItemProvider imple
      * @generated
      */
     protected void addServerNamePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_DatabaseConnection_ServerName_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_DatabaseConnection_ServerName_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_DatabaseConnection_ServerName_feature",
                         "_UI_DatabaseConnection_type"), ConnectionPackage.Literals.DATABASE_CONNECTION__SERVER_NAME, true, false,
                 false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -217,8 +235,10 @@ public class DatabaseConnectionItemProvider extends ConnectionItemProvider imple
      * @generated
      */
     protected void addDatasourceNamePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_DatabaseConnection_DatasourceName_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_DatabaseConnection_DatasourceName_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_DatabaseConnection_DatasourceName_feature",
                         "_UI_DatabaseConnection_type"), ConnectionPackage.Literals.DATABASE_CONNECTION__DATASOURCE_NAME, true,
                 false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -231,8 +251,10 @@ public class DatabaseConnectionItemProvider extends ConnectionItemProvider imple
      * @generated
      */
     protected void addFileFieldNamePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_DatabaseConnection_FileFieldName_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_DatabaseConnection_FileFieldName_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_DatabaseConnection_FileFieldName_feature",
                         "_UI_DatabaseConnection_type"), ConnectionPackage.Literals.DATABASE_CONNECTION__FILE_FIELD_NAME, true,
                 false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -245,10 +267,12 @@ public class DatabaseConnectionItemProvider extends ConnectionItemProvider imple
      * @generated
      */
     protected void addSIDPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_DatabaseConnection_SID_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_DatabaseConnection_SID_feature", "_UI_DatabaseConnection_type"),
-                ConnectionPackage.Literals.DATABASE_CONNECTION__SID, true, false, false,
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_DatabaseConnection_SID_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_DatabaseConnection_SID_feature",
+                        "_UI_DatabaseConnection_type"), ConnectionPackage.Literals.DATABASE_CONNECTION__SID, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
 
@@ -259,8 +283,10 @@ public class DatabaseConnectionItemProvider extends ConnectionItemProvider imple
      * @generated
      */
     protected void addSqlSynthaxPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_DatabaseConnection_SqlSynthax_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_DatabaseConnection_SqlSynthax_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_DatabaseConnection_SqlSynthax_feature",
                         "_UI_DatabaseConnection_type"), ConnectionPackage.Literals.DATABASE_CONNECTION__SQL_SYNTHAX, true, false,
                 false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -273,8 +299,10 @@ public class DatabaseConnectionItemProvider extends ConnectionItemProvider imple
      * @generated
      */
     protected void addStringQuotePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_DatabaseConnection_StringQuote_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_DatabaseConnection_StringQuote_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_DatabaseConnection_StringQuote_feature",
                         "_UI_DatabaseConnection_type"), ConnectionPackage.Literals.DATABASE_CONNECTION__STRING_QUOTE, true,
                 false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -287,11 +315,13 @@ public class DatabaseConnectionItemProvider extends ConnectionItemProvider imple
      * @generated
      */
     protected void addNullCharPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_DatabaseConnection_NullChar_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_DatabaseConnection_NullChar_feature", "_UI_DatabaseConnection_type"),
-                ConnectionPackage.Literals.DATABASE_CONNECTION__NULL_CHAR, true, false, false,
-                ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_DatabaseConnection_NullChar_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_DatabaseConnection_NullChar_feature",
+                        "_UI_DatabaseConnection_type"), ConnectionPackage.Literals.DATABASE_CONNECTION__NULL_CHAR, true, false,
+                false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
 
     /**
@@ -301,11 +331,13 @@ public class DatabaseConnectionItemProvider extends ConnectionItemProvider imple
      * @generated
      */
     protected void addDbmsIdPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_DatabaseConnection_DbmsId_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_DatabaseConnection_DbmsId_feature", "_UI_DatabaseConnection_type"),
-                ConnectionPackage.Literals.DATABASE_CONNECTION__DBMS_ID, true, false, false,
-                ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_DatabaseConnection_DbmsId_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_DatabaseConnection_DbmsId_feature",
+                        "_UI_DatabaseConnection_type"), ConnectionPackage.Literals.DATABASE_CONNECTION__DBMS_ID, true, false,
+                false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
 
     /**
@@ -315,11 +347,13 @@ public class DatabaseConnectionItemProvider extends ConnectionItemProvider imple
      * @generated
      */
     protected void addProductIdPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_DatabaseConnection_ProductId_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_DatabaseConnection_ProductId_feature", "_UI_DatabaseConnection_type"),
-                ConnectionPackage.Literals.DATABASE_CONNECTION__PRODUCT_ID, true, false, false,
-                ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_DatabaseConnection_ProductId_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_DatabaseConnection_ProductId_feature",
+                        "_UI_DatabaseConnection_type"), ConnectionPackage.Literals.DATABASE_CONNECTION__PRODUCT_ID, true, false,
+                false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
 
     /**
@@ -329,8 +363,10 @@ public class DatabaseConnectionItemProvider extends ConnectionItemProvider imple
      * @generated
      */
     protected void addDBRootPathPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_DatabaseConnection_DBRootPath_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_DatabaseConnection_DBRootPath_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_DatabaseConnection_DBRootPath_feature",
                         "_UI_DatabaseConnection_type"), ConnectionPackage.Literals.DATABASE_CONNECTION__DB_ROOT_PATH, true,
                 false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -343,8 +379,10 @@ public class DatabaseConnectionItemProvider extends ConnectionItemProvider imple
      * @generated
      */
     protected void addAdditionalParamsPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_DatabaseConnection_AdditionalParams_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_DatabaseConnection_AdditionalParams_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_DatabaseConnection_AdditionalParams_feature",
                         "_UI_DatabaseConnection_type"), ConnectionPackage.Literals.DATABASE_CONNECTION__ADDITIONAL_PARAMS, true,
                 false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -357,8 +395,10 @@ public class DatabaseConnectionItemProvider extends ConnectionItemProvider imple
      * @generated
      */
     protected void addStandardSQLPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_DatabaseConnection_StandardSQL_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_DatabaseConnection_StandardSQL_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_DatabaseConnection_StandardSQL_feature",
                         "_UI_DatabaseConnection_type"), ConnectionPackage.Literals.DATABASE_CONNECTION__STANDARD_SQL, true,
                 false, false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
@@ -371,11 +411,13 @@ public class DatabaseConnectionItemProvider extends ConnectionItemProvider imple
      * @generated
      */
     protected void addSystemSQLPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_DatabaseConnection_SystemSQL_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_DatabaseConnection_SystemSQL_feature", "_UI_DatabaseConnection_type"),
-                ConnectionPackage.Literals.DATABASE_CONNECTION__SYSTEM_SQL, true, false, false,
-                ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_DatabaseConnection_SystemSQL_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_DatabaseConnection_SystemSQL_feature",
+                        "_UI_DatabaseConnection_type"), ConnectionPackage.Literals.DATABASE_CONNECTION__SYSTEM_SQL, true, false,
+                false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
     }
 
     /**
@@ -385,8 +427,10 @@ public class DatabaseConnectionItemProvider extends ConnectionItemProvider imple
      * @generated
      */
     protected void addCdcTypeModePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_DatabaseConnection_cdcTypeMode_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_DatabaseConnection_cdcTypeMode_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_DatabaseConnection_cdcTypeMode_feature",
                         "_UI_DatabaseConnection_type"), ConnectionPackage.Literals.DATABASE_CONNECTION__CDC_TYPE_MODE, true,
                 false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -399,11 +443,13 @@ public class DatabaseConnectionItemProvider extends ConnectionItemProvider imple
      * @generated
      */
     protected void addSQLModePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_DatabaseConnection_SQLMode_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_DatabaseConnection_SQLMode_feature", "_UI_DatabaseConnection_type"),
-                ConnectionPackage.Literals.DATABASE_CONNECTION__SQL_MODE, true, false, false,
-                ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_DatabaseConnection_SQLMode_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_DatabaseConnection_SQLMode_feature",
+                        "_UI_DatabaseConnection_type"), ConnectionPackage.Literals.DATABASE_CONNECTION__SQL_MODE, true, false,
+                false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
     }
 
     /**
@@ -413,11 +459,13 @@ public class DatabaseConnectionItemProvider extends ConnectionItemProvider imple
      * @generated
      */
     protected void addUiSchemaPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_DatabaseConnection_UiSchema_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_DatabaseConnection_UiSchema_feature", "_UI_DatabaseConnection_type"),
-                ConnectionPackage.Literals.DATABASE_CONNECTION__UI_SCHEMA, true, false, false,
-                ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_DatabaseConnection_UiSchema_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_DatabaseConnection_UiSchema_feature",
+                        "_UI_DatabaseConnection_type"), ConnectionPackage.Literals.DATABASE_CONNECTION__UI_SCHEMA, true, false,
+                false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
 
     /**

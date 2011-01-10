@@ -192,6 +192,12 @@ public class MetadataItemProvider extends AbstractMetadataObjectItemProvider imp
                 ConnectionFactory.eINSTANCE.createHeaderFooterConnection()));
 
         newChildDescriptors.add(createChildParameter(ConnectionPackage.Literals.METADATA__CONNECTIONS,
+                ConnectionFactory.eINSTANCE.createFTPConnection()));
+
+        newChildDescriptors.add(createChildParameter(ConnectionPackage.Literals.METADATA__CONNECTIONS,
+                ConnectionFactory.eINSTANCE.createBRMSConnection()));
+
+        newChildDescriptors.add(createChildParameter(ConnectionPackage.Literals.METADATA__CONNECTIONS,
                 ConnectionFactory.eINSTANCE.createValidationRulesConnection()));
     }
 

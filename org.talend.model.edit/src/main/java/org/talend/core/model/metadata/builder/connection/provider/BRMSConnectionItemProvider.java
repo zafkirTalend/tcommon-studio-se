@@ -10,10 +10,10 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.util.ResourceLocator;
+
 import org.eclipse.emf.ecore.EStructuralFeature;
+
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
-import org.eclipse.emf.edit.provider.IChildCreationExtender;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
@@ -22,19 +22,22 @@ import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-import org.talend.core.model.metadata.builder.connection.Concept;
+
+import org.talend.core.model.metadata.builder.connection.BRMSConnection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
-import org.talend.cwm.relational.provider.TdTableItemProvider;
+
+import orgomg.cwm.foundation.softwaredeployment.SoftwaredeploymentPackage;
+
 import orgomg.cwm.objectmodel.core.CorePackage;
 
 /**
- * This is the item provider adapter for a {@link org.talend.core.model.metadata.builder.connection.Concept} object.
+ * This is the item provider adapter for a {@link org.talend.core.model.metadata.builder.connection.BRMSConnection} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class ConceptItemProvider extends TdTableItemProvider implements IEditingDomainItemProvider,
+public class BRMSConnectionItemProvider extends ConnectionItemProvider implements IEditingDomainItemProvider,
         IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 
     /**
@@ -43,7 +46,7 @@ public class ConceptItemProvider extends TdTableItemProvider implements IEditing
      * <!-- end-user-doc -->
      * @generated
      */
-    public ConceptItemProvider(AdapterFactory adapterFactory) {
+    public BRMSConnectionItemProvider(AdapterFactory adapterFactory) {
         super(adapterFactory);
     }
 
@@ -58,88 +61,93 @@ public class ConceptItemProvider extends TdTableItemProvider implements IEditing
         if (itemPropertyDescriptors == null) {
             super.getPropertyDescriptors(object);
 
-            addLoopExpressionPropertyDescriptor(object);
-            addLoopLimitPropertyDescriptor(object);
-            addInputModelPropertyDescriptor(object);
-            addConceptTypePropertyDescriptor(object);
-            addXPathPrefixPropertyDescriptor(object);
+            addXmlFieldPropertyDescriptor(object);
+            addUrlNamePropertyDescriptor(object);
+            addClassNamePropertyDescriptor(object);
+            addModuleUsedPropertyDescriptor(object);
+            addPackagePropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
 
     /**
-     * This adds a property descriptor for the Loop Expression feature.
+     * This adds a property descriptor for the Xml Field feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    protected void addLoopExpressionPropertyDescriptor(Object object) {
+    protected void addXmlFieldPropertyDescriptor(Object object) {
+        itemPropertyDescriptors
+                .add(createItemPropertyDescriptor(
+                        ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                        getResourceLocator(),
+                        getString("_UI_BRMSConnection_xmlField_feature"),
+                        getString("_UI_PropertyDescriptor_description", "_UI_BRMSConnection_xmlField_feature",
+                                "_UI_BRMSConnection_type"), ConnectionPackage.Literals.BRMS_CONNECTION__XML_FIELD, true, false,
+                        false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+    }
+
+    /**
+     * This adds a property descriptor for the Url Name feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addUrlNamePropertyDescriptor(Object object) {
         itemPropertyDescriptors.add(createItemPropertyDescriptor(
                 ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-                getString("_UI_Concept_LoopExpression_feature"),
-                getString("_UI_PropertyDescriptor_description", "_UI_Concept_LoopExpression_feature", "_UI_Concept_type"),
-                ConnectionPackage.Literals.CONCEPT__LOOP_EXPRESSION, true, false, false,
+                getString("_UI_BRMSConnection_urlName_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_BRMSConnection_urlName_feature", "_UI_BRMSConnection_type"),
+                ConnectionPackage.Literals.BRMS_CONNECTION__URL_NAME, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
 
     /**
-     * This adds a property descriptor for the Loop Limit feature.
+     * This adds a property descriptor for the Class Name feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    protected void addLoopLimitPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(
-                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-                getString("_UI_Concept_LoopLimit_feature"),
-                getString("_UI_PropertyDescriptor_description", "_UI_Concept_LoopLimit_feature", "_UI_Concept_type"),
-                ConnectionPackage.Literals.CONCEPT__LOOP_LIMIT, true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-                null, null));
+    protected void addClassNamePropertyDescriptor(Object object) {
+        itemPropertyDescriptors
+                .add(createItemPropertyDescriptor(
+                        ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                        getResourceLocator(),
+                        getString("_UI_BRMSConnection_className_feature"),
+                        getString("_UI_PropertyDescriptor_description", "_UI_BRMSConnection_className_feature",
+                                "_UI_BRMSConnection_type"), ConnectionPackage.Literals.BRMS_CONNECTION__CLASS_NAME, true, false,
+                        false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
 
     /**
-     * This adds a property descriptor for the Input Model feature.
+     * This adds a property descriptor for the Module Used feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    protected void addInputModelPropertyDescriptor(Object object) {
+    protected void addModuleUsedPropertyDescriptor(Object object) {
         itemPropertyDescriptors.add(createItemPropertyDescriptor(
-                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-                getString("_UI_Concept_inputModel_feature"),
-                getString("_UI_PropertyDescriptor_description", "_UI_Concept_inputModel_feature", "_UI_Concept_type"),
-                ConnectionPackage.Literals.CONCEPT__INPUT_MODEL, true, false, false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-                null, null));
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_BRMSConnection_moduleUsed_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_BRMSConnection_moduleUsed_feature",
+                        "_UI_BRMSConnection_type"), ConnectionPackage.Literals.BRMS_CONNECTION__MODULE_USED, true, false, false,
+                ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
 
     /**
-     * This adds a property descriptor for the Concept Type feature.
+     * This adds a property descriptor for the Package feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    protected void addConceptTypePropertyDescriptor(Object object) {
+    protected void addPackagePropertyDescriptor(Object object) {
         itemPropertyDescriptors.add(createItemPropertyDescriptor(
                 ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-                getString("_UI_Concept_conceptType_feature"),
-                getString("_UI_PropertyDescriptor_description", "_UI_Concept_conceptType_feature", "_UI_Concept_type"),
-                ConnectionPackage.Literals.CONCEPT__CONCEPT_TYPE, true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-                null, null));
-    }
-
-    /**
-     * This adds a property descriptor for the XPath Prefix feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    protected void addXPathPrefixPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(
-                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-                getString("_UI_Concept_xPathPrefix_feature"),
-                getString("_UI_PropertyDescriptor_description", "_UI_Concept_xPathPrefix_feature", "_UI_Concept_type"),
-                ConnectionPackage.Literals.CONCEPT__XPATH_PREFIX, true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-                null, null));
+                getString("_UI_BRMSConnection_package_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_BRMSConnection_package_feature", "_UI_BRMSConnection_type"),
+                ConnectionPackage.Literals.BRMS_CONNECTION__PACKAGE, true, false, false,
+                ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
 
     /**
@@ -154,10 +162,9 @@ public class ConceptItemProvider extends TdTableItemProvider implements IEditing
     public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
         if (childrenFeatures == null) {
             super.getChildrenFeatures(object);
-            childrenFeatures.add(ConnectionPackage.Literals.CONCEPT__CONCEPT_TARGETS);
-            childrenFeatures.add(ConnectionPackage.Literals.CONCEPT__GROUP);
-            childrenFeatures.add(ConnectionPackage.Literals.CONCEPT__ROOT);
-            childrenFeatures.add(ConnectionPackage.Literals.CONCEPT__LOOP);
+            childrenFeatures.add(ConnectionPackage.Literals.BRMS_CONNECTION__ROOT);
+            childrenFeatures.add(ConnectionPackage.Literals.BRMS_CONNECTION__GROUP);
+            childrenFeatures.add(ConnectionPackage.Literals.BRMS_CONNECTION__LOOP);
         }
         return childrenFeatures;
     }
@@ -176,14 +183,14 @@ public class ConceptItemProvider extends TdTableItemProvider implements IEditing
     }
 
     /**
-     * This returns Concept.gif.
+     * This returns BRMSConnection.gif.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object getImage(Object object) {
-        return overlayImage(object, getResourceLocator().getImage("full/obj16/Concept"));
+        return overlayImage(object, getResourceLocator().getImage("full/obj16/BRMSConnection"));
     }
 
     /**
@@ -194,8 +201,9 @@ public class ConceptItemProvider extends TdTableItemProvider implements IEditing
      */
     @Override
     public String getText(Object object) {
-        String label = ((Concept) object).getName();
-        return label == null || label.length() == 0 ? getString("_UI_Concept_type") : getString("_UI_Concept_type") + " " + label;
+        String label = ((BRMSConnection) object).getName();
+        return label == null || label.length() == 0 ? getString("_UI_BRMSConnection_type") : getString("_UI_BRMSConnection_type")
+                + " " + label;
     }
 
     /**
@@ -209,18 +217,17 @@ public class ConceptItemProvider extends TdTableItemProvider implements IEditing
     public void notifyChanged(Notification notification) {
         updateChildren(notification);
 
-        switch (notification.getFeatureID(Concept.class)) {
-        case ConnectionPackage.CONCEPT__LOOP_EXPRESSION:
-        case ConnectionPackage.CONCEPT__LOOP_LIMIT:
-        case ConnectionPackage.CONCEPT__INPUT_MODEL:
-        case ConnectionPackage.CONCEPT__CONCEPT_TYPE:
-        case ConnectionPackage.CONCEPT__XPATH_PREFIX:
+        switch (notification.getFeatureID(BRMSConnection.class)) {
+        case ConnectionPackage.BRMS_CONNECTION__XML_FIELD:
+        case ConnectionPackage.BRMS_CONNECTION__URL_NAME:
+        case ConnectionPackage.BRMS_CONNECTION__CLASS_NAME:
+        case ConnectionPackage.BRMS_CONNECTION__MODULE_USED:
+        case ConnectionPackage.BRMS_CONNECTION__PACKAGE:
             fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
             return;
-        case ConnectionPackage.CONCEPT__CONCEPT_TARGETS:
-        case ConnectionPackage.CONCEPT__GROUP:
-        case ConnectionPackage.CONCEPT__ROOT:
-        case ConnectionPackage.CONCEPT__LOOP:
+        case ConnectionPackage.BRMS_CONNECTION__ROOT:
+        case ConnectionPackage.BRMS_CONNECTION__GROUP:
+        case ConnectionPackage.BRMS_CONNECTION__LOOP:
             fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
             return;
         }
@@ -238,16 +245,13 @@ public class ConceptItemProvider extends TdTableItemProvider implements IEditing
     protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
         super.collectNewChildDescriptors(newChildDescriptors, object);
 
-        newChildDescriptors.add(createChildParameter(ConnectionPackage.Literals.CONCEPT__CONCEPT_TARGETS,
-                ConnectionFactory.eINSTANCE.createConceptTarget()));
-
-        newChildDescriptors.add(createChildParameter(ConnectionPackage.Literals.CONCEPT__GROUP,
+        newChildDescriptors.add(createChildParameter(ConnectionPackage.Literals.BRMS_CONNECTION__ROOT,
                 ConnectionFactory.eINSTANCE.createXMLFileNode()));
 
-        newChildDescriptors.add(createChildParameter(ConnectionPackage.Literals.CONCEPT__ROOT,
+        newChildDescriptors.add(createChildParameter(ConnectionPackage.Literals.BRMS_CONNECTION__GROUP,
                 ConnectionFactory.eINSTANCE.createXMLFileNode()));
 
-        newChildDescriptors.add(createChildParameter(ConnectionPackage.Literals.CONCEPT__LOOP,
+        newChildDescriptors.add(createChildParameter(ConnectionPackage.Literals.BRMS_CONNECTION__LOOP,
                 ConnectionFactory.eINSTANCE.createXMLFileNode()));
     }
 
@@ -263,28 +267,16 @@ public class ConceptItemProvider extends TdTableItemProvider implements IEditing
         Object childObject = child;
 
         boolean qualify = childFeature == CorePackage.Literals.NAMESPACE__OWNED_ELEMENT
-                || childFeature == CorePackage.Literals.CLASSIFIER__FEATURE
-                || childFeature == ConnectionPackage.Literals.METADATA_TABLE__COLUMNS
-                || childFeature == ConnectionPackage.Literals.CONCEPT__GROUP
-                || childFeature == ConnectionPackage.Literals.CONCEPT__ROOT
-                || childFeature == ConnectionPackage.Literals.CONCEPT__LOOP;
+                || childFeature == SoftwaredeploymentPackage.Literals.DATA_PROVIDER__RESOURCE_CONNECTION
+                || childFeature == ConnectionPackage.Literals.BRMS_CONNECTION__ROOT
+                || childFeature == ConnectionPackage.Literals.BRMS_CONNECTION__GROUP
+                || childFeature == ConnectionPackage.Literals.BRMS_CONNECTION__LOOP;
 
         if (qualify) {
             return getString("_UI_CreateChild_text2", new Object[] { getTypeText(childObject), getFeatureText(childFeature),
                     getTypeText(owner) });
         }
         return super.getCreateChildText(owner, feature, child, selection);
-    }
-
-    /**
-     * Return the resource locator for this item provider's resources.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    @Override
-    public ResourceLocator getResourceLocator() {
-        return ((IChildCreationExtender) adapterFactory).getResourceLocator();
     }
 
 }

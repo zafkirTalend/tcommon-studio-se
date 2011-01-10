@@ -63,6 +63,7 @@ public class XmlFileConnectionItemProvider extends ConnectionItemProvider implem
             addEncodingPropertyDescriptor(object);
             addInputModelPropertyDescriptor(object);
             addOutputFilePathPropertyDescriptor(object);
+            addFileContentPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
@@ -74,8 +75,10 @@ public class XmlFileConnectionItemProvider extends ConnectionItemProvider implem
      * @generated
      */
     protected void addXsdFilePathPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_XmlFileConnection_XsdFilePath_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_XmlFileConnection_XsdFilePath_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_XmlFileConnection_XsdFilePath_feature",
                         "_UI_XmlFileConnection_type"), ConnectionPackage.Literals.XML_FILE_CONNECTION__XSD_FILE_PATH, true,
                 false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -88,8 +91,10 @@ public class XmlFileConnectionItemProvider extends ConnectionItemProvider implem
      * @generated
      */
     protected void addXmlFilePathPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_XmlFileConnection_XmlFilePath_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_XmlFileConnection_XmlFilePath_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_XmlFileConnection_XmlFilePath_feature",
                         "_UI_XmlFileConnection_type"), ConnectionPackage.Literals.XML_FILE_CONNECTION__XML_FILE_PATH, true,
                 false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -102,10 +107,12 @@ public class XmlFileConnectionItemProvider extends ConnectionItemProvider implem
      * @generated
      */
     protected void addGuessPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_XmlFileConnection_Guess_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_XmlFileConnection_Guess_feature", "_UI_XmlFileConnection_type"),
-                ConnectionPackage.Literals.XML_FILE_CONNECTION__GUESS, true, false, false,
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_XmlFileConnection_Guess_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_XmlFileConnection_Guess_feature",
+                        "_UI_XmlFileConnection_type"), ConnectionPackage.Literals.XML_FILE_CONNECTION__GUESS, true, false, false,
                 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
     }
 
@@ -116,8 +123,10 @@ public class XmlFileConnectionItemProvider extends ConnectionItemProvider implem
      * @generated
      */
     protected void addMaskXPatternPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_XmlFileConnection_MaskXPattern_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_XmlFileConnection_MaskXPattern_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_XmlFileConnection_MaskXPattern_feature",
                         "_UI_XmlFileConnection_type"), ConnectionPackage.Literals.XML_FILE_CONNECTION__MASK_XPATTERN, true,
                 false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -130,11 +139,13 @@ public class XmlFileConnectionItemProvider extends ConnectionItemProvider implem
      * @generated
      */
     protected void addEncodingPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_XmlFileConnection_Encoding_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_XmlFileConnection_Encoding_feature", "_UI_XmlFileConnection_type"),
-                ConnectionPackage.Literals.XML_FILE_CONNECTION__ENCODING, true, false, false,
-                ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_XmlFileConnection_Encoding_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_XmlFileConnection_Encoding_feature",
+                        "_UI_XmlFileConnection_type"), ConnectionPackage.Literals.XML_FILE_CONNECTION__ENCODING, true, false,
+                false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
 
     /**
@@ -144,11 +155,13 @@ public class XmlFileConnectionItemProvider extends ConnectionItemProvider implem
      * @generated
      */
     protected void addInputModelPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_XmlFileConnection_inputModel_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_XmlFileConnection_inputModel_feature", "_UI_XmlFileConnection_type"),
-                ConnectionPackage.Literals.XML_FILE_CONNECTION__INPUT_MODEL, true, false, false,
-                ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_XmlFileConnection_inputModel_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_XmlFileConnection_inputModel_feature",
+                        "_UI_XmlFileConnection_type"), ConnectionPackage.Literals.XML_FILE_CONNECTION__INPUT_MODEL, true, false,
+                false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
     }
 
     /**
@@ -158,11 +171,29 @@ public class XmlFileConnectionItemProvider extends ConnectionItemProvider implem
      * @generated
      */
     protected void addOutputFilePathPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_XmlFileConnection_outputFilePath_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_XmlFileConnection_outputFilePath_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_XmlFileConnection_outputFilePath_feature",
                         "_UI_XmlFileConnection_type"), ConnectionPackage.Literals.XML_FILE_CONNECTION__OUTPUT_FILE_PATH, true,
                 false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+    }
+
+    /**
+     * This adds a property descriptor for the File Content feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addFileContentPropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_XmlFileConnection_fileContent_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_XmlFileConnection_fileContent_feature",
+                        "_UI_XmlFileConnection_type"), ConnectionPackage.Literals.XML_FILE_CONNECTION__FILE_CONTENT, true, false,
+                false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
 
     /**
@@ -241,6 +272,7 @@ public class XmlFileConnectionItemProvider extends ConnectionItemProvider implem
         case ConnectionPackage.XML_FILE_CONNECTION__ENCODING:
         case ConnectionPackage.XML_FILE_CONNECTION__INPUT_MODEL:
         case ConnectionPackage.XML_FILE_CONNECTION__OUTPUT_FILE_PATH:
+        case ConnectionPackage.XML_FILE_CONNECTION__FILE_CONTENT:
             fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
             return;
         case ConnectionPackage.XML_FILE_CONNECTION__SCHEMA:

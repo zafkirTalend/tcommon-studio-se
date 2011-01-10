@@ -75,9 +75,10 @@ public class MDMConnectionItemProvider extends ConnectionItemProvider implements
      * @generated
      */
     protected void addUsernamePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_MDMConnection_Username_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_MDMConnection_Username_feature", "_UI_MDMConnection_type"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_MDMConnection_Username_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_MDMConnection_Username_feature", "_UI_MDMConnection_type"),
                 ConnectionPackage.Literals.MDM_CONNECTION__USERNAME, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
@@ -89,9 +90,10 @@ public class MDMConnectionItemProvider extends ConnectionItemProvider implements
      * @generated
      */
     protected void addPasswordPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_MDMConnection_Password_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_MDMConnection_Password_feature", "_UI_MDMConnection_type"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_MDMConnection_Password_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_MDMConnection_Password_feature", "_UI_MDMConnection_type"),
                 ConnectionPackage.Literals.MDM_CONNECTION__PASSWORD, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
@@ -103,9 +105,10 @@ public class MDMConnectionItemProvider extends ConnectionItemProvider implements
      * @generated
      */
     protected void addPortPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_MDMConnection_Port_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_MDMConnection_Port_feature", "_UI_MDMConnection_type"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_MDMConnection_Port_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_MDMConnection_Port_feature", "_UI_MDMConnection_type"),
                 ConnectionPackage.Literals.MDM_CONNECTION__PORT, true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
                 null, null));
     }
@@ -117,9 +120,10 @@ public class MDMConnectionItemProvider extends ConnectionItemProvider implements
      * @generated
      */
     protected void addServerPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_MDMConnection_Server_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_MDMConnection_Server_feature", "_UI_MDMConnection_type"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_MDMConnection_Server_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_MDMConnection_Server_feature", "_UI_MDMConnection_type"),
                 ConnectionPackage.Literals.MDM_CONNECTION__SERVER, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
@@ -131,9 +135,10 @@ public class MDMConnectionItemProvider extends ConnectionItemProvider implements
      * @generated
      */
     protected void addUniversePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_MDMConnection_Universe_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_MDMConnection_Universe_feature", "_UI_MDMConnection_type"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_MDMConnection_Universe_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_MDMConnection_Universe_feature", "_UI_MDMConnection_type"),
                 ConnectionPackage.Literals.MDM_CONNECTION__UNIVERSE, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
@@ -145,9 +150,10 @@ public class MDMConnectionItemProvider extends ConnectionItemProvider implements
      * @generated
      */
     protected void addDatamodelPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_MDMConnection_Datamodel_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_MDMConnection_Datamodel_feature", "_UI_MDMConnection_type"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_MDMConnection_Datamodel_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_MDMConnection_Datamodel_feature", "_UI_MDMConnection_type"),
                 ConnectionPackage.Literals.MDM_CONNECTION__DATAMODEL, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
@@ -159,11 +165,14 @@ public class MDMConnectionItemProvider extends ConnectionItemProvider implements
      * @generated
      */
     protected void addDataclusterPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_MDMConnection_Datacluster_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_MDMConnection_Datacluster_feature", "_UI_MDMConnection_type"),
-                ConnectionPackage.Literals.MDM_CONNECTION__DATACLUSTER, true, false, false,
-                ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+        itemPropertyDescriptors
+                .add(createItemPropertyDescriptor(
+                        ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                        getResourceLocator(),
+                        getString("_UI_MDMConnection_Datacluster_feature"),
+                        getString("_UI_PropertyDescriptor_description", "_UI_MDMConnection_Datacluster_feature",
+                                "_UI_MDMConnection_type"), ConnectionPackage.Literals.MDM_CONNECTION__DATACLUSTER, true, false,
+                        false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
 
     /**
@@ -173,9 +182,10 @@ public class MDMConnectionItemProvider extends ConnectionItemProvider implements
      * @generated
      */
     protected void addSchemasPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_MDMConnection_schemas_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_MDMConnection_schemas_feature", "_UI_MDMConnection_type"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_MDMConnection_schemas_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_MDMConnection_schemas_feature", "_UI_MDMConnection_type"),
                 ConnectionPackage.Literals.MDM_CONNECTION__SCHEMAS, true, false, true, null, null, null));
     }
 
@@ -186,9 +196,10 @@ public class MDMConnectionItemProvider extends ConnectionItemProvider implements
      * @generated
      */
     protected void addProtocolPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_MDMConnection_protocol_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_MDMConnection_protocol_feature", "_UI_MDMConnection_type"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_MDMConnection_protocol_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_MDMConnection_protocol_feature", "_UI_MDMConnection_type"),
                 ConnectionPackage.Literals.MDM_CONNECTION__PROTOCOL, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
@@ -200,9 +211,10 @@ public class MDMConnectionItemProvider extends ConnectionItemProvider implements
      * @generated
      */
     protected void addContextPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_MDMConnection_context_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_MDMConnection_context_feature", "_UI_MDMConnection_type"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_MDMConnection_context_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_MDMConnection_context_feature", "_UI_MDMConnection_type"),
                 ConnectionPackage.Literals.MDM_CONNECTION__CONTEXT, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }

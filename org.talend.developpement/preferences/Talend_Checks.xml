@@ -147,7 +147,8 @@
             <property name="tokens" value="INTERFACE_DEF"/>
         </module>
         <module name="Header">
-            <property name="severity" value="error"/>
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.lastEnabledSeverity" value="error"/>
+            <property name="severity" value="ignore"/>
             <property name="headerFile" value="${workspace_loc}/org.talend.developpement/normes/class_header.txt"/>
         </module>
     </module>

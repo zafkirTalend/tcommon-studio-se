@@ -68,9 +68,10 @@ public class CDCTypeItemProvider extends AbstractMetadataObjectItemProvider impl
      * @generated
      */
     protected void addLinkDBPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_CDCType_linkDB_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_CDCType_linkDB_feature", "_UI_CDCType_type"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_CDCType_linkDB_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_CDCType_linkDB_feature", "_UI_CDCType_type"),
                 ConnectionPackage.Literals.CDC_TYPE__LINK_DB, true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
                 null, null));
     }
@@ -82,9 +83,10 @@ public class CDCTypeItemProvider extends AbstractMetadataObjectItemProvider impl
      * @generated
      */
     protected void addCdcConnectionPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_CDCType_cdcConnection_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_CDCType_cdcConnection_feature", "_UI_CDCType_type"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_CDCType_cdcConnection_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_CDCType_cdcConnection_feature", "_UI_CDCType_type"),
                 ConnectionPackage.Literals.CDC_TYPE__CDC_CONNECTION, true, false, true, null, null, null));
     }
 
@@ -95,9 +97,10 @@ public class CDCTypeItemProvider extends AbstractMetadataObjectItemProvider impl
      * @generated
      */
     protected void addJournalNamePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_CDCType_journalName_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_CDCType_journalName_feature", "_UI_CDCType_type"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_CDCType_journalName_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_CDCType_journalName_feature", "_UI_CDCType_type"),
                 ConnectionPackage.Literals.CDC_TYPE__JOURNAL_NAME, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }

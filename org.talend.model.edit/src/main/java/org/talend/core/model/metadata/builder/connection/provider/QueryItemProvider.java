@@ -65,9 +65,10 @@ public class QueryItemProvider extends AbstractMetadataObjectItemProvider implem
      * @generated
      */
     protected void addValuePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_Query_value_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_Query_value_feature", "_UI_Query_type"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_Query_value_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_Query_value_feature", "_UI_Query_type"),
                 ConnectionPackage.Literals.QUERY__VALUE, true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null,
                 null));
     }
@@ -79,9 +80,10 @@ public class QueryItemProvider extends AbstractMetadataObjectItemProvider implem
      * @generated
      */
     protected void addContextModePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_Query_contextMode_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_Query_contextMode_feature", "_UI_Query_type"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_Query_contextMode_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_Query_contextMode_feature", "_UI_Query_type"),
                 ConnectionPackage.Literals.QUERY__CONTEXT_MODE, true, false, false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
                 null, null));
     }

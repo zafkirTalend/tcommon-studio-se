@@ -73,8 +73,10 @@ public class AbstractMetadataObjectItemProvider extends ModelElementItemProvider
      * @generated
      */
     protected void addPropertiesPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_AbstractMetadataObject_properties_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_AbstractMetadataObject_properties_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_AbstractMetadataObject_properties_feature",
                         "_UI_AbstractMetadataObject_type"), ConnectionPackage.Literals.ABSTRACT_METADATA_OBJECT__PROPERTIES,
                 true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -87,8 +89,10 @@ public class AbstractMetadataObjectItemProvider extends ModelElementItemProvider
      * @generated
      */
     protected void addIdPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_AbstractMetadataObject_id_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_AbstractMetadataObject_id_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_AbstractMetadataObject_id_feature",
                         "_UI_AbstractMetadataObject_type"), ConnectionPackage.Literals.ABSTRACT_METADATA_OBJECT__ID, true, false,
                 false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -101,8 +105,10 @@ public class AbstractMetadataObjectItemProvider extends ModelElementItemProvider
      * @generated
      */
     protected void addCommentPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_AbstractMetadataObject_comment_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_AbstractMetadataObject_comment_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_AbstractMetadataObject_comment_feature",
                         "_UI_AbstractMetadataObject_type"), ConnectionPackage.Literals.ABSTRACT_METADATA_OBJECT__COMMENT, true,
                 false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -115,11 +121,13 @@ public class AbstractMetadataObjectItemProvider extends ModelElementItemProvider
      * @generated
      */
     protected void addLabelPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_AbstractMetadataObject_label_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_AbstractMetadataObject_label_feature",
-                "_UI_AbstractMetadataObject_type"), ConnectionPackage.Literals.ABSTRACT_METADATA_OBJECT__LABEL, true, false,
-                false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_AbstractMetadataObject_label_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_AbstractMetadataObject_label_feature",
+                        "_UI_AbstractMetadataObject_type"), ConnectionPackage.Literals.ABSTRACT_METADATA_OBJECT__LABEL, true,
+                false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
 
     /**
@@ -129,8 +137,10 @@ public class AbstractMetadataObjectItemProvider extends ModelElementItemProvider
      * @generated
      */
     protected void addReadOnlyPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_AbstractMetadataObject_readOnly_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_AbstractMetadataObject_readOnly_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_AbstractMetadataObject_readOnly_feature",
                         "_UI_AbstractMetadataObject_type"), ConnectionPackage.Literals.ABSTRACT_METADATA_OBJECT__READ_ONLY, true,
                 false, false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
@@ -143,8 +153,10 @@ public class AbstractMetadataObjectItemProvider extends ModelElementItemProvider
      * @generated
      */
     protected void addSynchronisedPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_AbstractMetadataObject_synchronised_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_AbstractMetadataObject_synchronised_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_AbstractMetadataObject_synchronised_feature",
                         "_UI_AbstractMetadataObject_type"), ConnectionPackage.Literals.ABSTRACT_METADATA_OBJECT__SYNCHRONISED,
                 true, false, false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
@@ -157,8 +169,10 @@ public class AbstractMetadataObjectItemProvider extends ModelElementItemProvider
      * @generated
      */
     protected void addDivergencyPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_AbstractMetadataObject_divergency_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_AbstractMetadataObject_divergency_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_AbstractMetadataObject_divergency_feature",
                         "_UI_AbstractMetadataObject_type"), ConnectionPackage.Literals.ABSTRACT_METADATA_OBJECT__DIVERGENCY,
                 true, false, false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));

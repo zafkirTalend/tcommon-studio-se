@@ -143,8 +143,8 @@ public class TdXmlContentItemProvider extends ContentItemProvider implements IEd
     protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
         super.collectNewChildDescriptors(newChildDescriptors, object);
 
-        newChildDescriptors.add(createChildParameter(XmlPackage.Literals.TD_XML_CONTENT__XML_ELEMENTS, XmlFactory.eINSTANCE
-                .createTdXmlElementType()));
+        newChildDescriptors.add(createChildParameter(XmlPackage.Literals.TD_XML_CONTENT__XML_ELEMENTS,
+                XmlFactory.eINSTANCE.createTdXmlElementType()));
     }
 
     /**

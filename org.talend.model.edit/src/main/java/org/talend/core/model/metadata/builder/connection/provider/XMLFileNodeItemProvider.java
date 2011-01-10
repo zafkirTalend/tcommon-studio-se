@@ -72,9 +72,10 @@ public class XMLFileNodeItemProvider extends ItemProviderAdapter implements IEdi
      * @generated
      */
     protected void addXMLPathPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_XMLFileNode_XMLPath_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_XMLFileNode_XMLPath_feature", "_UI_XMLFileNode_type"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_XMLFileNode_XMLPath_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_XMLFileNode_XMLPath_feature", "_UI_XMLFileNode_type"),
                 ConnectionPackage.Literals.XML_FILE_NODE__XML_PATH, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
@@ -86,9 +87,10 @@ public class XMLFileNodeItemProvider extends ItemProviderAdapter implements IEdi
      * @generated
      */
     protected void addRelatedColumnPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_XMLFileNode_RelatedColumn_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_XMLFileNode_RelatedColumn_feature", "_UI_XMLFileNode_type"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_XMLFileNode_RelatedColumn_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_XMLFileNode_RelatedColumn_feature", "_UI_XMLFileNode_type"),
                 ConnectionPackage.Literals.XML_FILE_NODE__RELATED_COLUMN, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
@@ -100,9 +102,10 @@ public class XMLFileNodeItemProvider extends ItemProviderAdapter implements IEdi
      * @generated
      */
     protected void addDefaultValuePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_XMLFileNode_DefaultValue_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_XMLFileNode_DefaultValue_feature", "_UI_XMLFileNode_type"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_XMLFileNode_DefaultValue_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_XMLFileNode_DefaultValue_feature", "_UI_XMLFileNode_type"),
                 ConnectionPackage.Literals.XML_FILE_NODE__DEFAULT_VALUE, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
@@ -114,9 +117,10 @@ public class XMLFileNodeItemProvider extends ItemProviderAdapter implements IEdi
      * @generated
      */
     protected void addAttributePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_XMLFileNode_Attribute_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_XMLFileNode_Attribute_feature", "_UI_XMLFileNode_type"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_XMLFileNode_Attribute_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_XMLFileNode_Attribute_feature", "_UI_XMLFileNode_type"),
                 ConnectionPackage.Literals.XML_FILE_NODE__ATTRIBUTE, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
@@ -128,9 +132,10 @@ public class XMLFileNodeItemProvider extends ItemProviderAdapter implements IEdi
      * @generated
      */
     protected void addOrderPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_XMLFileNode_Order_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_XMLFileNode_Order_feature", "_UI_XMLFileNode_type"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_XMLFileNode_Order_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_XMLFileNode_Order_feature", "_UI_XMLFileNode_type"),
                 ConnectionPackage.Literals.XML_FILE_NODE__ORDER, true, false, false, ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
                 null, null));
     }
@@ -142,9 +147,10 @@ public class XMLFileNodeItemProvider extends ItemProviderAdapter implements IEdi
      * @generated
      */
     protected void addTypePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_XMLFileNode_Type_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_XMLFileNode_Type_feature", "_UI_XMLFileNode_type"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_XMLFileNode_Type_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_XMLFileNode_Type_feature", "_UI_XMLFileNode_type"),
                 ConnectionPackage.Literals.XML_FILE_NODE__TYPE, true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
                 null, null));
     }

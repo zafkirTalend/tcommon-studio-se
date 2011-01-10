@@ -67,10 +67,12 @@ public class EbcdicConnectionItemProvider extends FileConnectionItemProvider imp
      * @generated
      */
     protected void addMidFilePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_EbcdicConnection_MidFile_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_EbcdicConnection_MidFile_feature", "_UI_EbcdicConnection_type"),
-                ConnectionPackage.Literals.EBCDIC_CONNECTION__MID_FILE, true, false, false,
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_EbcdicConnection_MidFile_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_EbcdicConnection_MidFile_feature",
+                        "_UI_EbcdicConnection_type"), ConnectionPackage.Literals.EBCDIC_CONNECTION__MID_FILE, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
 
@@ -81,11 +83,13 @@ public class EbcdicConnectionItemProvider extends FileConnectionItemProvider imp
      * @generated
      */
     protected void addDataFilePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_EbcdicConnection_DataFile_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_EbcdicConnection_DataFile_feature", "_UI_EbcdicConnection_type"),
-                ConnectionPackage.Literals.EBCDIC_CONNECTION__DATA_FILE, true, false, false,
-                ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_EbcdicConnection_DataFile_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_EbcdicConnection_DataFile_feature",
+                        "_UI_EbcdicConnection_type"), ConnectionPackage.Literals.EBCDIC_CONNECTION__DATA_FILE, true, false,
+                false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
 
     /**

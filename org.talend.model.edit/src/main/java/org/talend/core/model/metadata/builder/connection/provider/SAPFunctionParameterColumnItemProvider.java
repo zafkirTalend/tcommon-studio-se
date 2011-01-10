@@ -69,10 +69,11 @@ public class SAPFunctionParameterColumnItemProvider extends AbstractMetadataObje
      * @generated
      */
     protected void addParameterTypePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(),
-                getString("_UI_SAPFunctionParameterColumn_ParameterType_feature"), getString(
-                        "_UI_PropertyDescriptor_description", "_UI_SAPFunctionParameterColumn_ParameterType_feature",
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_SAPFunctionParameterColumn_ParameterType_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_SAPFunctionParameterColumn_ParameterType_feature",
                         "_UI_SAPFunctionParameterColumn_type"),
                 ConnectionPackage.Literals.SAP_FUNCTION_PARAMETER_COLUMN__PARAMETER_TYPE, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -85,10 +86,11 @@ public class SAPFunctionParameterColumnItemProvider extends AbstractMetadataObje
      * @generated
      */
     protected void addStructureOrTableNamePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(),
-                getString("_UI_SAPFunctionParameterColumn_StructureOrTableName_feature"), getString(
-                        "_UI_PropertyDescriptor_description", "_UI_SAPFunctionParameterColumn_StructureOrTableName_feature",
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_SAPFunctionParameterColumn_StructureOrTableName_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_SAPFunctionParameterColumn_StructureOrTableName_feature",
                         "_UI_SAPFunctionParameterColumn_type"),
                 ConnectionPackage.Literals.SAP_FUNCTION_PARAMETER_COLUMN__STRUCTURE_OR_TABLE_NAME, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -101,8 +103,10 @@ public class SAPFunctionParameterColumnItemProvider extends AbstractMetadataObje
      * @generated
      */
     protected void addDataTypePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_SAPFunctionParameterColumn_DataType_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_SAPFunctionParameterColumn_DataType_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_SAPFunctionParameterColumn_DataType_feature",
                         "_UI_SAPFunctionParameterColumn_type"),
                 ConnectionPackage.Literals.SAP_FUNCTION_PARAMETER_COLUMN__DATA_TYPE, true, false, false,
@@ -116,8 +120,10 @@ public class SAPFunctionParameterColumnItemProvider extends AbstractMetadataObje
      * @generated
      */
     protected void addLengthPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_SAPFunctionParameterColumn_Length_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_SAPFunctionParameterColumn_Length_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_SAPFunctionParameterColumn_Length_feature",
                         "_UI_SAPFunctionParameterColumn_type"), ConnectionPackage.Literals.SAP_FUNCTION_PARAMETER_COLUMN__LENGTH,
                 true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -130,8 +136,10 @@ public class SAPFunctionParameterColumnItemProvider extends AbstractMetadataObje
      * @generated
      */
     protected void addValuePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_SAPFunctionParameterColumn_Value_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_SAPFunctionParameterColumn_Value_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_SAPFunctionParameterColumn_Value_feature",
                         "_UI_SAPFunctionParameterColumn_type"), ConnectionPackage.Literals.SAP_FUNCTION_PARAMETER_COLUMN__VALUE,
                 true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));

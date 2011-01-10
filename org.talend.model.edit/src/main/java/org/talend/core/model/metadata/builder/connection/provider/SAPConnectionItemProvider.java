@@ -75,9 +75,10 @@ public class SAPConnectionItemProvider extends ConnectionItemProvider implements
      * @generated
      */
     protected void addHostPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_SAPConnection_Host_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_SAPConnection_Host_feature", "_UI_SAPConnection_type"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_SAPConnection_Host_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_SAPConnection_Host_feature", "_UI_SAPConnection_type"),
                 ConnectionPackage.Literals.SAP_CONNECTION__HOST, true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
                 null, null));
     }
@@ -89,9 +90,10 @@ public class SAPConnectionItemProvider extends ConnectionItemProvider implements
      * @generated
      */
     protected void addUsernamePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_SAPConnection_Username_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_SAPConnection_Username_feature", "_UI_SAPConnection_type"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_SAPConnection_Username_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_SAPConnection_Username_feature", "_UI_SAPConnection_type"),
                 ConnectionPackage.Literals.SAP_CONNECTION__USERNAME, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
@@ -103,9 +105,10 @@ public class SAPConnectionItemProvider extends ConnectionItemProvider implements
      * @generated
      */
     protected void addPasswordPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_SAPConnection_Password_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_SAPConnection_Password_feature", "_UI_SAPConnection_type"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_SAPConnection_Password_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_SAPConnection_Password_feature", "_UI_SAPConnection_type"),
                 ConnectionPackage.Literals.SAP_CONNECTION__PASSWORD, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
@@ -117,9 +120,10 @@ public class SAPConnectionItemProvider extends ConnectionItemProvider implements
      * @generated
      */
     protected void addClientPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_SAPConnection_Client_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_SAPConnection_Client_feature", "_UI_SAPConnection_type"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_SAPConnection_Client_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_SAPConnection_Client_feature", "_UI_SAPConnection_type"),
                 ConnectionPackage.Literals.SAP_CONNECTION__CLIENT, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
@@ -131,10 +135,12 @@ public class SAPConnectionItemProvider extends ConnectionItemProvider implements
      * @generated
      */
     protected void addSystemNumberPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_SAPConnection_SystemNumber_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_SAPConnection_SystemNumber_feature", "_UI_SAPConnection_type"),
-                ConnectionPackage.Literals.SAP_CONNECTION__SYSTEM_NUMBER, true, false, false,
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_SAPConnection_SystemNumber_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_SAPConnection_SystemNumber_feature",
+                        "_UI_SAPConnection_type"), ConnectionPackage.Literals.SAP_CONNECTION__SYSTEM_NUMBER, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
 
@@ -145,9 +151,10 @@ public class SAPConnectionItemProvider extends ConnectionItemProvider implements
      * @generated
      */
     protected void addLanguagePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_SAPConnection_Language_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_SAPConnection_Language_feature", "_UI_SAPConnection_type"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_SAPConnection_Language_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_SAPConnection_Language_feature", "_UI_SAPConnection_type"),
                 ConnectionPackage.Literals.SAP_CONNECTION__LANGUAGE, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
@@ -159,8 +166,10 @@ public class SAPConnectionItemProvider extends ConnectionItemProvider implements
      * @generated
      */
     protected void addCurrentFucntionPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_SAPConnection_currentFucntion_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_SAPConnection_currentFucntion_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_SAPConnection_currentFucntion_feature",
                         "_UI_SAPConnection_type"), ConnectionPackage.Literals.SAP_CONNECTION__CURRENT_FUCNTION, true, false,
                 false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -173,9 +182,10 @@ public class SAPConnectionItemProvider extends ConnectionItemProvider implements
      * @generated
      */
     protected void addIDocsPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_SAPConnection_IDocs_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_SAPConnection_IDocs_feature", "_UI_SAPConnection_type"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_SAPConnection_IDocs_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_SAPConnection_IDocs_feature", "_UI_SAPConnection_type"),
                 ConnectionPackage.Literals.SAP_CONNECTION__IDOCS, true, false, true, null, null, null));
     }
 

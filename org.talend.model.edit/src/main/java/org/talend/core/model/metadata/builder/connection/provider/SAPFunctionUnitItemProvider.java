@@ -71,11 +71,13 @@ public class SAPFunctionUnitItemProvider extends AbstractMetadataObjectItemProvi
      * @generated
      */
     protected void addOutputTypePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_SAPFunctionUnit_OutputType_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_SAPFunctionUnit_OutputType_feature", "_UI_SAPFunctionUnit_type"),
-                ConnectionPackage.Literals.SAP_FUNCTION_UNIT__OUTPUT_TYPE, true, false, false,
-                ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_SAPFunctionUnit_OutputType_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_SAPFunctionUnit_OutputType_feature",
+                        "_UI_SAPFunctionUnit_type"), ConnectionPackage.Literals.SAP_FUNCTION_UNIT__OUTPUT_TYPE, true, false,
+                false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
 
     /**
@@ -85,8 +87,10 @@ public class SAPFunctionUnitItemProvider extends AbstractMetadataObjectItemProvi
      * @generated
      */
     protected void addOutputTableNamePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_SAPFunctionUnit_OutputTableName_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_SAPFunctionUnit_OutputTableName_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_SAPFunctionUnit_OutputTableName_feature",
                         "_UI_SAPFunctionUnit_type"), ConnectionPackage.Literals.SAP_FUNCTION_UNIT__OUTPUT_TABLE_NAME, true,
                 false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -99,8 +103,10 @@ public class SAPFunctionUnitItemProvider extends AbstractMetadataObjectItemProvi
      * @generated
      */
     protected void addInputParameterTablePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_SAPFunctionUnit_InputParameterTable_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_SAPFunctionUnit_InputParameterTable_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_SAPFunctionUnit_InputParameterTable_feature",
                         "_UI_SAPFunctionUnit_type"), ConnectionPackage.Literals.SAP_FUNCTION_UNIT__INPUT_PARAMETER_TABLE, true,
                 false, true, null, null, null));
@@ -113,8 +119,10 @@ public class SAPFunctionUnitItemProvider extends AbstractMetadataObjectItemProvi
      * @generated
      */
     protected void addOutputParameterTablePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_SAPFunctionUnit_OutputParameterTable_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_SAPFunctionUnit_OutputParameterTable_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_SAPFunctionUnit_OutputParameterTable_feature",
                         "_UI_SAPFunctionUnit_type"), ConnectionPackage.Literals.SAP_FUNCTION_UNIT__OUTPUT_PARAMETER_TABLE, true,
                 false, true, null, null, null));
@@ -127,8 +135,10 @@ public class SAPFunctionUnitItemProvider extends AbstractMetadataObjectItemProvi
      * @generated
      */
     protected void addMetadataTablePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_SAPFunctionUnit_MetadataTable_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_SAPFunctionUnit_MetadataTable_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_SAPFunctionUnit_MetadataTable_feature",
                         "_UI_SAPFunctionUnit_type"), ConnectionPackage.Literals.SAP_FUNCTION_UNIT__METADATA_TABLE, true, false,
                 true, null, null, null));

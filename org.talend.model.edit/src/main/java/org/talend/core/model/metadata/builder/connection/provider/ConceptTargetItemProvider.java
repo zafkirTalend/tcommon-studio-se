@@ -68,11 +68,14 @@ public class ConceptTargetItemProvider extends ItemProviderAdapter implements IE
      * @generated
      */
     protected void addTargetNamePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_ConceptTarget_targetName_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_ConceptTarget_targetName_feature", "_UI_ConceptTarget_type"),
-                ConnectionPackage.Literals.CONCEPT_TARGET__TARGET_NAME, true, false, false,
-                ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+        itemPropertyDescriptors
+                .add(createItemPropertyDescriptor(
+                        ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                        getResourceLocator(),
+                        getString("_UI_ConceptTarget_targetName_feature"),
+                        getString("_UI_PropertyDescriptor_description", "_UI_ConceptTarget_targetName_feature",
+                                "_UI_ConceptTarget_type"), ConnectionPackage.Literals.CONCEPT_TARGET__TARGET_NAME, true, false,
+                        false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
 
     /**
@@ -82,8 +85,10 @@ public class ConceptTargetItemProvider extends ItemProviderAdapter implements IE
      * @generated
      */
     protected void addRelativeLoopExpressionPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_ConceptTarget_RelativeLoopExpression_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_ConceptTarget_RelativeLoopExpression_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_ConceptTarget_RelativeLoopExpression_feature",
                         "_UI_ConceptTarget_type"), ConnectionPackage.Literals.CONCEPT_TARGET__RELATIVE_LOOP_EXPRESSION, true,
                 false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));

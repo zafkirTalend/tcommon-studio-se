@@ -68,8 +68,10 @@ public class SchemaTargetItemProvider extends ItemProviderAdapter implements IEd
      * @generated
      */
     protected void addRelativeXPathQueryPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_SchemaTarget_RelativeXPathQuery_feature"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                getResourceLocator(),
+                getString("_UI_SchemaTarget_RelativeXPathQuery_feature"),
                 getString("_UI_PropertyDescriptor_description", "_UI_SchemaTarget_RelativeXPathQuery_feature",
                         "_UI_SchemaTarget_type"), ConnectionPackage.Literals.SCHEMA_TARGET__RELATIVE_XPATH_QUERY, true, false,
                 false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
@@ -82,9 +84,10 @@ public class SchemaTargetItemProvider extends ItemProviderAdapter implements IEd
      * @generated
      */
     protected void addTagNamePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_SchemaTarget_TagName_feature"), getString(
-                "_UI_PropertyDescriptor_description", "_UI_SchemaTarget_TagName_feature", "_UI_SchemaTarget_type"),
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_SchemaTarget_TagName_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_SchemaTarget_TagName_feature", "_UI_SchemaTarget_type"),
                 ConnectionPackage.Literals.SCHEMA_TARGET__TAG_NAME, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
