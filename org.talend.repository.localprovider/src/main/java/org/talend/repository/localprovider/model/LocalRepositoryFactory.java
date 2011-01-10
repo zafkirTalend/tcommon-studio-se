@@ -61,6 +61,8 @@ import org.talend.commons.utils.data.container.Container;
 import org.talend.commons.utils.data.container.RootContainer;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.general.TalendNature;
 import org.talend.core.model.metadata.MetadataManager;
@@ -115,6 +117,7 @@ import org.talend.core.repository.utils.RoutineUtils;
 import org.talend.core.repository.utils.TDQServiceRegister;
 import org.talend.core.repository.utils.URIHelper;
 import org.talend.core.repository.utils.XmiResourceManager;
+import org.talend.core.service.ICorePerlService;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.localprovider.exceptions.IncorrectFileException;
@@ -903,7 +906,12 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 org.talend.core.model.properties.Project emfProject = xmiResourceManager.loadProject(p);
                 if (emfProject.isLocal() == local) {
                     Project project = new Project(emfProject);
-                    toReturn.add(project);
+                    if (GlobalServiceRegister.getDefault().isServiceRegistered(ICorePerlService.class)) {
+                        toReturn.add(project);
+                    } else {
+                        if (project.getLanguage().equals(ECodeLanguage.JAVA))
+                            toReturn.add(project);
+                    }
                 }
             }
         } catch (PersistenceException e) {
@@ -1951,8 +1959,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
         } else {
             // MOD mzhao resource change listener so that TOP can react the changes.
-            AbstractResourceChangesService resChangeService = TDQServiceRegister.getInstance()
-                    .getResourceChangeService(AbstractResourceChangesService.class);
+            AbstractResourceChangesService resChangeService = TDQServiceRegister.getInstance().getResourceChangeService(
+                    AbstractResourceChangesService.class);
 
             itemResource = resChangeService.create(project2, item, eClass.getClassifierID(), path);
             if (itemResource == null) {
