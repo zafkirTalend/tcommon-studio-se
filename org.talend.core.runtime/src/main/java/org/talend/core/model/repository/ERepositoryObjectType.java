@@ -17,6 +17,7 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
 import org.talend.core.AbstractDQModelService;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
 import org.talend.core.model.properties.BRMSConnectionItem;
 import org.talend.core.model.properties.BusinessProcessItem;
@@ -59,6 +60,7 @@ import org.talend.core.model.properties.XmlFileConnectionItem;
 import org.talend.core.model.properties.util.PropertiesSwitch;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.i18n.Messages;
+import org.talend.core.ui.branding.IBrandingService;
 
 /**
  * This enum represents all objects types that can be store in the repository.<br/>
@@ -72,6 +74,7 @@ public enum ERepositoryObjectType {
     BUSINESS_PROCESS("repository.businessProcess"), //$NON-NLS-1$
     SVG_BUSINESS_PROCESS("repository.svgBusinessProcess"), //$NON-NLS-1$
     PROCESS("repository.process"), //$NON-NLS-1$
+    ROUTES("repository.routes"),
     CONTEXT("repository.context"), //$NON-NLS-1$
     ROUTINES("repository.routines"), //$NON-NLS-1$
     JOB_SCRIPT("repository.jobscript"),
@@ -265,6 +268,8 @@ public enum ERepositoryObjectType {
             return "businessProcessSVG"; //$NON-NLS-1$
         case PROCESS:
             return "process"; //$NON-NLS-1$
+        case ROUTES:
+            return "routes";
         case JOBLET:
             return "joblets"; //$NON-NLS-1$
         case LIBS:
@@ -514,6 +519,12 @@ public enum ERepositoryObjectType {
             }
 
             public Object caseProcessItem(ProcessItem object) {
+                IBrandingService breaningService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
+                        IBrandingService.class);
+                String processLabel = breaningService.getBrandingConfiguration().getJobDesignName();
+                if (processLabel.equals("Routes")) {
+                    return ROUTES;
+                }
                 return PROCESS;
             }
 

@@ -1488,8 +1488,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         return itemResource;
     }
 
-    private Resource create(IProject project, ProcessItem item, IPath path) throws PersistenceException {
-        Resource itemResource = xmiResourceManager.createItemResource(project, item, path, ERepositoryObjectType.PROCESS, false);
+    private Resource create(IProject project, ProcessItem item, IPath path, ERepositoryObjectType type)
+            throws PersistenceException {
+        Resource itemResource = xmiResourceManager.createItemResource(project, item, path, type, false);
         itemResource.getContents().add(item.getProcess());
 
         return itemResource;
@@ -1717,7 +1718,11 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray());
             createResource.load(in, null);
             Item newItem = copyFromResource(createResource, changeLabelWithCopyPrefix);
-            create(getRepositoryContext().getProject(), newItem, path);
+            if (ERepositoryObjectType.getItemType(newItem) == ERepositoryObjectType.ROUTES) {
+                createCamel(getRepositoryContext().getProject(), newItem, path);
+            } else {
+                create(getRepositoryContext().getProject(), newItem, path);
+            }
             return newItem;
         } catch (IOException e) {
             // e.printStackTrace();
@@ -1731,6 +1736,72 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         List<IRepositoryViewObject> allVersionToMove = getAllVersion(project, property.getId(), false);
         for (IRepositoryViewObject object : allVersionToMove) {
             xmiResourceManager.propagateFileName(property, object.getProperty());
+        }
+    }
+
+    public void createCamel(Project project, Item item, IPath path, boolean... isImportItem) throws PersistenceException {
+        computePropertyMaxInformationLevel(item.getProperty());
+
+        if (item.getProperty().getVersion() == null) {
+            item.getProperty().setVersion(VersionUtils.DEFAULT_VERSION);
+        }
+        if (item.getProperty().getAuthor() == null) {
+            item.getProperty().setAuthor(getRepositoryContext().getUser());
+        }
+
+        if (item.getProperty().getCreationDate() == null) {
+            item.getProperty().setCreationDate(new Date());
+        }
+
+        if (item.getProperty().getModificationDate() == null) {
+            item.getProperty().setModificationDate(item.getProperty().getCreationDate());
+        }
+
+        ItemState itemState = PropertiesFactory.eINSTANCE.createItemState();
+        if (item.getState() != null) {
+            itemState.setDeleted(item.getState().isDeleted());
+        } else {
+            itemState.setDeleted(false);
+        }
+        itemState.setPath(path.toString());
+
+        item.setState(itemState);
+        IProject project2 = ResourceModelUtils.getProject(project);
+        Resource itemResource = null;
+        EClass eClass = item.eClass();
+        if (eClass.eContainer() == PropertiesPackage.eINSTANCE) {
+            switch (eClass.getClassifierID()) {
+            case PropertiesPackage.PROCESS_ITEM:
+                itemResource = create(project2, (ProcessItem) item, path, ERepositoryObjectType.ROUTES);
+                break;
+            default:
+                throw new UnsupportedOperationException();
+            }
+
+        } else {
+            if (itemResource == null) {
+                throw new UnsupportedOperationException();
+            }
+        }
+        Resource propertyResource = xmiResourceManager.createPropertyResource(itemResource);
+        propertyResource.getContents().add(item.getProperty());
+        propertyResource.getContents().add(item.getState());
+        propertyResource.getContents().add(item);
+        String parentPath = ERepositoryObjectType.getFolderName(ERepositoryObjectType.ROUTES) + IPath.SEPARATOR + path.toString();
+
+        FolderHelper folderHelper = getFolderHelper(project.getEmfProject());
+        FolderItem parentFolderItem = folderHelper.getFolder(parentPath);
+        boolean add = parentFolderItem.getChildren().add(item);
+        if (add) {
+            item.setParent(parentFolderItem);
+        }
+        // item.setParent(parentFolderItem);
+
+        xmiResourceManager.saveResource(itemResource);
+        xmiResourceManager.saveResource(propertyResource);
+
+        if (isImportItem.length == 0 || !isImportItem[0]) {
+            saveProject(project);
         }
     }
 
@@ -1847,7 +1918,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 itemResource = create(project2, (FileItem) item, path, ERepositoryObjectType.SQLPATTERNS);
                 break;
             case PropertiesPackage.PROCESS_ITEM:
-                itemResource = create(project2, (ProcessItem) item, path);
+                itemResource = create(project2, (ProcessItem) item, path, ERepositoryObjectType.PROCESS);
                 break;
             case PropertiesPackage.JOBLET_PROCESS_ITEM:
                 itemResource = create(project2, (JobletProcessItem) item, path, ERepositoryObjectType.JOBLET);

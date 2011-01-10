@@ -231,6 +231,8 @@ public interface IRepositoryFactory {
 
     public void create(Project project, Item item, IPath path, boolean... isImportItem) throws PersistenceException;
 
+    public void createCamel(Project project, Item item, IPath path, boolean... isImportItem) throws PersistenceException;
+
     public void save(Project project, Item item) throws PersistenceException;
 
     public void save(Project project, Property property) throws PersistenceException;
@@ -257,6 +259,9 @@ public interface IRepositoryFactory {
             throws PersistenceException;
 
     public RootContainer<String, IRepositoryViewObject> getProcess(Project project, boolean... options)
+            throws PersistenceException;
+
+    public RootContainer<String, IRepositoryViewObject> getCamelProcess(Project project, boolean... options)
             throws PersistenceException;
 
     public RootContainer<String, IRepositoryViewObject> getContext(Project project, boolean... options)

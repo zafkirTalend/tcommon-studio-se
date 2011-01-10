@@ -54,6 +54,7 @@ import org.talend.core.prefs.PreferenceManipulator;
 import org.talend.core.ui.ISQLBuilderService;
 import org.talend.core.ui.branding.IBrandingConfiguration;
 import org.talend.core.ui.branding.IBrandingService;
+import org.talend.designer.business.diagram.custom.IDiagramModelService;
 import org.talend.rcp.Activator;
 import org.talend.rcp.i18n.Messages;
 import org.talend.rcp.util.ApplicationDeletionUtil;
@@ -241,12 +242,15 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
         // for bug 7071
         IWorkbenchWindow workbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-        if (workbenchWindow.getActivePage() != null
-                && CorePlugin.getDefault().getDiagramModelService()
-                        .isBusinessDiagramEditor(workbenchWindow.getActivePage().getActiveEditor())) {
-            IViewReference findViewReference = workbenchWindow.getActivePage().findViewReference(IRepositoryView.VIEW_ID);
-            if (findViewReference != null) {
-                findViewReference.getView(false).setFocus();
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IDiagramModelService.class)) {
+            if (workbenchWindow.getActivePage() != null
+                    && CorePlugin.getDefault().getDiagramModelService()
+                            .isBusinessDiagramEditor(workbenchWindow.getActivePage().getActiveEditor())) {
+                IViewReference findViewReference = workbenchWindow.getActivePage().findViewReference(IRepositoryView.VIEW_ID);
+                if (findViewReference != null) {
+                    findViewReference.getView(false).setFocus();
+                }
+
             }
         }
 

@@ -249,6 +249,9 @@ public class RepositoryNode implements IRepositoryNode {
             if (getContentType().toString().equals("SVN")) {
                 return getProperties(EProperties.LABEL).toString();
             }
+            if (getContentType().equals(ERepositoryObjectType.PROCESS)) {
+                return getProperties(EProperties.LABEL).toString();
+            }
             return getContentType().toString();
         }
     }

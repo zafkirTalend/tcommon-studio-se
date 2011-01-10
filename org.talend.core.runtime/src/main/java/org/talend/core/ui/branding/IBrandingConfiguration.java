@@ -72,4 +72,7 @@ public interface IBrandingConfiguration extends IActionBarHelper {
     public void setUseMailLoginCheck(boolean useMainLoginCheck);
 
     public void setUseProductRegistration(boolean useProductRegistration);
+
+    public String getJobDesignName();
+
 }

@@ -295,6 +295,9 @@ public interface IProxyRepositoryFactory {
     public abstract RootContainer<String, IRepositoryViewObject> getProcess(Project project, boolean... options)
             throws PersistenceException;
 
+    public abstract RootContainer<String, IRepositoryViewObject> getCamelProcess(Project project, boolean... options)
+            throws PersistenceException;
+
     /**
      * @param project
      * @return
@@ -608,6 +611,8 @@ public interface IProxyRepositoryFactory {
      */
     // public abstract String isServerValid();
     public abstract void create(Item item, IPath path, boolean... isImportItem) throws PersistenceException;
+
+    public abstract void createCamel(Item item, IPath path, boolean... isImportItem) throws PersistenceException;
 
     public abstract void create(Project project, Item item, IPath path, boolean... isImportItem) throws PersistenceException;
 

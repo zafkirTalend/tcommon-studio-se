@@ -142,6 +142,11 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
         return getObjectFromFolder(project, ERepositoryObjectType.PROCESS, true, options);
     }
 
+    public RootContainer<String, IRepositoryViewObject> getCamelProcess(Project project, boolean... options)
+            throws PersistenceException {
+        return getObjectFromFolder(project, ERepositoryObjectType.ROUTES, true, options);
+    }
+
     /*
      * (non-Javadoc)
      * 

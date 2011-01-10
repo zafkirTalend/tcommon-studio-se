@@ -30,6 +30,8 @@ public class RepositoryImageProvider {
             return ECoreImage.BUSINESS_PROCESS_ICON;
         case PROCESS:
             return ECoreImage.PROCESS_ICON;
+        case ROUTES:
+            return ECoreImage.PROCESS_ICON;
         case JOBLET:
             return ECoreImage.JOBLET_ICON;
         case CONTEXT:

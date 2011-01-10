@@ -1132,6 +1132,28 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         create(projectManager.getCurrentProject(), item, path, isImportItem);
     }
 
+    public void createCamel(Item item, IPath path, boolean... isImportItem) throws PersistenceException {
+        Project project = projectManager.getCurrentProject();
+        if (item instanceof ProcessItem) {
+            try {
+                coreService.checkJob(item.getProperty().getLabel());
+            } catch (BusinessException e) {
+                throw new PersistenceException(e);
+            } catch (RuntimeException e) {
+                // don't do anything
+            }
+        }
+        checkFileNameAndPath(project, item, RepositoryConstants.getPattern(ERepositoryObjectType.getItemType(item)), path, false,
+                isImportItem);
+        this.repositoryFactoryFromProvider.createCamel(project, item, path, isImportItem);
+        if ((item instanceof ProcessItem || item instanceof JobletProcessItem) && (isImportItem.length == 0)) {
+            fireRepositoryPropertyChange(ERepositoryActionName.JOB_CREATE.getName(), null, item);
+        }
+        if (isImportItem.length == 1) {
+            this.repositoryFactoryFromProvider.unloadResources(item.getProperty());
+        }
+    }
+
     public void create(Project project, Item item, IPath path, boolean... isImportItem) throws PersistenceException {
         if (item instanceof ProcessItem) {
             try {
@@ -1890,6 +1912,11 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
     public RootContainer<String, IRepositoryViewObject> getProcess(Project project, boolean... options)
             throws PersistenceException {
         return this.repositoryFactoryFromProvider.getProcess(project, options);
+    }
+
+    public RootContainer<String, IRepositoryViewObject> getCamelProcess(Project project, boolean... options)
+            throws PersistenceException {
+        return this.repositoryFactoryFromProvider.getCamelProcess(project, options);
     }
 
     /*

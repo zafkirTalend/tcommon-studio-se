@@ -28,6 +28,7 @@ import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
 import org.talend.core.language.ECodeLanguage;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.service.ICorePerlService;
 import org.talend.core.tis.ICoreTisService;
 import org.talend.repository.model.IRepositoryNode;
@@ -323,5 +324,65 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
      */
     public void setUseProductRegistration(boolean useProductRegistration) {
         this.useProductRegistration = useProductRegistration;
+    }
+
+    /*
+     * (non-Jsdoc)
+     * 
+     * @see org.talend.core.ui.branding.IBrandingConfiguration#getJobDesignName()
+     */
+    public String getJobDesignName() {
+        // TODO Auto-generated method stub
+        return ERepositoryObjectType.PROCESS.name();
+    }
+
+    /*
+     * (non-Jsdoc)
+     * 
+     * @see org.talend.core.ui.branding.IBrandingConfiguration#getJobSystemName()
+     */
+    public String getJobSystemName() {
+        // TODO Auto-generated method stub
+        return "CreateProcess.createJob";
+    }
+
+    /*
+     * (non-Jsdoc)
+     * 
+     * @see org.talend.core.ui.branding.IBrandingConfiguration#getReadJobName()
+     */
+    public String getReadJobName() {
+        // TODO Auto-generated method stub
+        return "ReadProcess.label";
+    }
+
+    /*
+     * (non-Jsdoc)
+     * 
+     * @see org.talend.core.ui.branding.IBrandingConfiguration#getEditJobName()
+     */
+    public String getEditJobName() {
+        // TODO Auto-generated method stub
+        return "EditProcess.editJob";
+    }
+
+    /*
+     * (non-Jsdoc)
+     * 
+     * @see org.talend.core.ui.branding.IBrandingConfiguration#getRunJobName()
+     */
+    public String getRunJobName() {
+        // TODO Auto-generated method stub
+        return "RunProcess.runJob";
+    }
+
+    /*
+     * (non-Jsdoc)
+     * 
+     * @see org.talend.core.ui.branding.IBrandingConfiguration#getOpenJobName()
+     */
+    public String getOpenJobName() {
+        // TODO Auto-generated method stub
+        return "EditProcess.openJob";
     }
 }

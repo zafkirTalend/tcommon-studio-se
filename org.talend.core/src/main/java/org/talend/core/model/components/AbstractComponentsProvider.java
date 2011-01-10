@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ResourceBundle;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.FileLocator;
@@ -25,7 +26,9 @@ import org.eclipse.core.runtime.Platform;
 import org.osgi.framework.Bundle;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.io.FilesUtils;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.i18n.Messages;
+import org.talend.designer.core.ILocalProviderService;
 
 /***/
 public abstract class AbstractComponentsProvider {
@@ -96,7 +99,6 @@ public abstract class AbstractComponentsProvider {
 
         IPath path = new Path(IComponentsFactory.COMPONENTS_INNER_FOLDER)
                 .append(IComponentsFactory.EXTERNAL_COMPONENTS_INNER_FOLDER);
-
         path = path.append(ComponentUtilities.getExtFolder(folderName));
 
         installationFolder = new File(bundleFolder, path.toOSString());
@@ -107,4 +109,16 @@ public abstract class AbstractComponentsProvider {
     public String getFamilyTranslation(String text) {
         return null;
     }
+
+    /**
+     * DOC guanglong.du Comment method "getResourceBundle".
+     * 
+     * @return
+     */
+    public ResourceBundle getResourceBundle(String label) {
+        ILocalProviderService service = (ILocalProviderService) GlobalServiceRegister.getDefault().getService(
+                ILocalProviderService.class);
+        return service.getResourceBundle(label);
+    }
+
 }
