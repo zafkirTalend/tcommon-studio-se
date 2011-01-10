@@ -101,7 +101,7 @@ public enum EDatabaseConnTemplate {
             "jdbc:informix-sqli://<host>:<port>/<sid>:informixserver=<datasource>;<property>")), //$NON-NLS-1$
 
     TERADATA(new DbConnStr(EDatabaseTypeName.TERADATA, //
-            "jdbc:teradata://<host>/<sid>")), //$NON-NLS-1$
+            "jdbc:teradata://<host>/<sid>,<property>")), //$NON-NLS-1$ //feature 0013719,hywang
 
     EXASOL(new DbConnStr(EDatabaseTypeName.EXASOL, //
             "jdbc:exa:<host>:<port>:schema=<sid>", "8563")), //$NON-NLS-1$
@@ -328,6 +328,7 @@ public enum EDatabaseConnTemplate {
             case ORACLE_OCI:
             case SYBASEASE:
             case HSQLDB_IN_PROGRESS: // for feature 11674
+            case TERADATA: // for feature 0013719
                 return true;
             default:
             }
