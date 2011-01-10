@@ -28,6 +28,7 @@ import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.i18n.Messages;
+import org.talend.core.ui.branding.IBrandingService;
 import org.talend.designer.core.ILocalProviderService;
 
 /***/
@@ -49,6 +50,10 @@ public abstract class AbstractComponentsProvider {
 
     public void setFolderName(String folderName) {
         this.folderName = folderName;
+    }
+
+    public String getFolderName() {
+        return folderName;
     }
 
     public String getComponentsLocation() {
@@ -89,7 +94,14 @@ public abstract class AbstractComponentsProvider {
     protected abstract File getExternalComponentsLocation();
 
     public File getInstallationFolder() throws IOException {
-        Bundle b = Platform.getBundle(IComponentsFactory.COMPONENTS_LOCATION);
+        String componentsPath = IComponentsFactory.COMPONENTS_LOCATION;
+        IBrandingService breaningService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
+                IBrandingService.class);
+        String processLabel = breaningService.getBrandingConfiguration().getJobDesignName();
+        if (processLabel.equals("Routes")) {
+            componentsPath = IComponentsFactory.CAMEL_COMPONENTS_LOCATION;
+        }
+        Bundle b = Platform.getBundle(componentsPath);
 
         File installationFolder = null;
         IPath nullPath = new Path(""); //$NON-NLS-1$
