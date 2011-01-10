@@ -147,6 +147,11 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
         return getObjectFromFolder(project, ERepositoryObjectType.PROCESS, true, options);
     }
 
+    public RootContainer<String, IRepositoryViewObject> getCamelProcess(Project project, boolean... options)
+            throws PersistenceException {
+        return getObjectFromFolder(project, ERepositoryObjectType.ROUTES, true, options);
+    }
+
     /*
      * (non-Javadoc)
      * 
@@ -259,7 +264,6 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
         return getObjectFromFolder(project, ERepositoryObjectType.METADATA_HEADER_FOOTER, true, options);
     }
 
-
     // MOD sgandon 31/03/2010 : moved from local variable to static variable for optimisation purpose.
     static final ERepositoryObjectType[] REPOSITORY_OBJECT_TYPE_LIST = new ERepositoryObjectType[] {
             ERepositoryObjectType.PROCESS, ERepositoryObjectType.JOBLET, ERepositoryObjectType.METADATA_CONNECTIONS,
@@ -275,7 +279,6 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
             ERepositoryObjectType.DOCUMENTATION, ERepositoryObjectType.SNIPPETS, ERepositoryObjectType.METADATA_FILE_HL7,
             ERepositoryObjectType.METADATA_FILE_FTP, ERepositoryObjectType.METADATA_FILE_BRMS,
             ERepositoryObjectType.METADATA_HEADER_FOOTER, ERepositoryObjectType.METADATA_VALIDATION_RULES };
-
 
     /*
      * ERepositoryObjectType.DOCUMENTATION, ERepositoryObjectType.METADATA_CONNECTIONS,
