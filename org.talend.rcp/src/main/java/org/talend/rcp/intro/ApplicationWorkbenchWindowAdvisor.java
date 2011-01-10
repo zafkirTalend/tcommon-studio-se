@@ -191,7 +191,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
     public void postWindowClose() {
         if (GlobalServiceRegister.getDefault().isServiceRegistered(ISQLBuilderService.class)) {
             ISQLBuilderService service = (ISQLBuilderService) GlobalServiceRegister.getDefault().getService(
-                    IBrandingService.class);
+                    ISQLBuilderService.class);
             Shell[] shelles = Display.getDefault().getShells();
             for (Shell shell : shelles) {
                 if (!shell.isDisposed() && shell.getData() != null) {
