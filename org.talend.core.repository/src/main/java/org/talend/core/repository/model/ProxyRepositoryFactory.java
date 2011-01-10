@@ -362,8 +362,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
     public Folder createFolder(Project project, ERepositoryObjectType type, IPath path, String label, boolean isImportItem)
             throws PersistenceException {
         // MOD klliu 2010-12-01 check the type
-        if (type.equals(ERepositoryObjectType.TDQ_SYSTEM_INDICATORS) || type.equals(ERepositoryObjectType.TDQ_SOURCE_FILES)
-                || type.equals(ERepositoryObjectType.TDQ_JRXMLTEMPLATE)) {
+        if (type.isDQItemType()) {
             checkFileNameAndPath(project, label, RepositoryConstants.TDQ_PAT_ITEM_PATTERN, type, path, true);
         } else {
             checkFileNameAndPath(project, label, RepositoryConstants.FOLDER_PATTERN, type, path, true);

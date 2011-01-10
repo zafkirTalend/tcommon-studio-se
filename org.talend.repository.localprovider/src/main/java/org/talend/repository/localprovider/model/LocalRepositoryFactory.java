@@ -825,6 +825,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
         // Folder creation :
         for (ERepositoryObjectType type : ERepositoryObjectType.values()) {
+            if (type.isDQItemType()) {
+                continue;
+            }
             try {
                 if (type.hasFolder()) {
                     String folderName = ERepositoryObjectType.getFolderName(type);
