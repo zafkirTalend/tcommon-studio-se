@@ -153,6 +153,7 @@
     <genClasses ecoreClass="properties.ecore#//ExcelFileConnectionItem"/>
     <genClasses ecoreClass="properties.ecore#//EbcdicConnectionItem"/>
     <genClasses ecoreClass="properties.ecore#//MDMConnectionItem"/>
+    <genClasses ecoreClass="properties.ecore#//ValidationRulesConnectionItem"/>
     <genClasses ecoreClass="properties.ecore#//ProcessItem">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//ProcessItem/process"/>
     </genClasses>

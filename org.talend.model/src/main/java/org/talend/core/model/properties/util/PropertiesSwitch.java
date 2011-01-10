@@ -368,6 +368,14 @@ public class PropertiesSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case PropertiesPackage.VALIDATION_RULES_CONNECTION_ITEM: {
+                ValidationRulesConnectionItem validationRulesConnectionItem = (ValidationRulesConnectionItem)theEObject;
+                Object result = caseValidationRulesConnectionItem(validationRulesConnectionItem);
+                if (result == null) result = caseConnectionItem(validationRulesConnectionItem);
+                if (result == null) result = caseItem(validationRulesConnectionItem);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             case PropertiesPackage.PROCESS_ITEM: {
                 ProcessItem processItem = (ProcessItem)theEObject;
                 Object result = caseProcessItem(processItem);
@@ -1171,6 +1179,21 @@ public class PropertiesSwitch {
      * @generated
      */
     public Object caseMDMConnectionItem(MDMConnectionItem object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Validation Rules Connection Item</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Validation Rules Connection Item</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseValidationRulesConnectionItem(ValidationRulesConnectionItem object) {
         return null;
     }
 

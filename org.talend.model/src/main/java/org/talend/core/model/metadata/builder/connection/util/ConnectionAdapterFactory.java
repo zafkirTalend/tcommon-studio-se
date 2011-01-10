@@ -5,6 +5,7 @@
  */
 package org.talend.core.model.metadata.builder.connection.util;
 
+import java.util.Map;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
@@ -339,6 +340,21 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
         @Override
         public Adapter caseBRMSConnection(BRMSConnection object) {
             return createBRMSConnectionAdapter();
+        }
+
+        @Override
+        public Adapter caseValidationRulesConnection(ValidationRulesConnection object) {
+            return createValidationRulesConnectionAdapter();
+        }
+
+        @Override
+        public Adapter caseConditionType(ConditionType object) {
+            return createConditionTypeAdapter();
+        }
+
+        @Override
+        public Adapter caseInnerJoinMap(Map.Entry<String, String> object) {
+            return createInnerJoinMapAdapter();
         }
 
         @Override
@@ -1032,6 +1048,48 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createBRMSConnectionAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.ConditionType <em>Condition Type</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.metadata.builder.connection.ConditionType
+     * @generated
+     */
+    public Adapter createConditionTypeAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link java.util.Map.Entry <em>Inner Join Map</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see java.util.Map.Entry
+     * @generated
+     */
+    public Adapter createInnerJoinMapAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.ValidationRulesConnection <em>Validation Rules Connection</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.metadata.builder.connection.ValidationRulesConnection
+     * @generated
+     */
+    public Adapter createValidationRulesConnectionAdapter() {
         return null;
     }
 

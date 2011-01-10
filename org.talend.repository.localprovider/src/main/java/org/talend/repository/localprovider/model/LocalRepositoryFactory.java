@@ -97,6 +97,7 @@ import org.talend.core.model.properties.SpagoBiServer;
 import org.talend.core.model.properties.Status;
 import org.talend.core.model.properties.TDQItem;
 import org.talend.core.model.properties.User;
+import org.talend.core.model.properties.ValidationRulesConnectionItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.Folder;
 import org.talend.core.model.repository.IRepositoryViewObject;
@@ -1667,6 +1668,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             case PropertiesPackage.RULES_ITEM:// feature 6484 added
                 itemResource = save((RulesItem) item);
                 break;
+            case PropertiesPackage.VALIDATION_RULES_CONNECTION_ITEM:
+                itemResource = save((ValidationRulesConnectionItem) item);
+                break;
             default:
                 throw new UnsupportedOperationException();
             }
@@ -1882,6 +1886,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 break;
             case PropertiesPackage.LDIF_FILE_CONNECTION_ITEM:
                 itemResource = create(project2, (ConnectionItem) item, ERepositoryObjectType.METADATA_FILE_LDIF, path);
+                break;
+            case PropertiesPackage.VALIDATION_RULES_CONNECTION_ITEM:
+                itemResource = create(project2, (ConnectionItem) item, ERepositoryObjectType.METADATA_VALIDATION_RULES, path);
                 break;
             case PropertiesPackage.GENERIC_SCHEMA_CONNECTION_ITEM:
                 itemResource = create(project2, (ConnectionItem) item, ERepositoryObjectType.METADATA_GENERIC_SCHEMA, path);

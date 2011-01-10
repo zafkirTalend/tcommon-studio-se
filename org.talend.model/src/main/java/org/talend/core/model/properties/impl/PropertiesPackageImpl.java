@@ -110,6 +110,7 @@ import org.talend.core.model.properties.UserProjectAuthorizationType;
 import org.talend.core.model.properties.UserRight;
 import org.talend.core.model.properties.UserRole;
 import org.talend.core.model.properties.UserRoleReference;
+import org.talend.core.model.properties.ValidationRulesConnectionItem;
 import org.talend.core.model.properties.WSDLSchemaConnectionItem;
 import org.talend.core.model.properties.XmlFileConnectionItem;
 import org.talend.designer.business.model.business.BusinessPackage;
@@ -320,6 +321,13 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     private EClass mdmConnectionItemEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass validationRulesConnectionItemEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1974,6 +1982,15 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      */
     public EClass getMDMConnectionItem() {
         return mdmConnectionItemEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getValidationRulesConnectionItem() {
+        return validationRulesConnectionItemEClass;
     }
 
     /**
@@ -5049,6 +5066,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
 
         mdmConnectionItemEClass = createEClass(MDM_CONNECTION_ITEM);
 
+        validationRulesConnectionItemEClass = createEClass(VALIDATION_RULES_CONNECTION_ITEM);
+
         processItemEClass = createEClass(PROCESS_ITEM);
         createEReference(processItemEClass, PROCESS_ITEM__PROCESS);
 
@@ -5566,6 +5585,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         excelFileConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
         ebcdicConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
         mdmConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
+        validationRulesConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
         processItemEClass.getESuperTypes().add(this.getItem());
         folderItemEClass.getESuperTypes().add(this.getItem());
         contextItemEClass.getESuperTypes().add(this.getItem());
@@ -5732,6 +5752,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEClass(ebcdicConnectionItemEClass, EbcdicConnectionItem.class, "EbcdicConnectionItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(mdmConnectionItemEClass, MDMConnectionItem.class, "MDMConnectionItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+        initEClass(validationRulesConnectionItemEClass, ValidationRulesConnectionItem.class, "ValidationRulesConnectionItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(processItemEClass, ProcessItem.class, "ProcessItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getProcessItem_Process(), theTalendFilePackage.getProcessType(), null, "process", null, 0, 1, ProcessItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

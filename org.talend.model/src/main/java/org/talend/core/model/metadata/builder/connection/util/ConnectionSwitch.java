@@ -7,6 +7,7 @@ package org.talend.core.model.metadata.builder.connection.util;
 
 import java.util.List;
 
+import java.util.Map;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.talend.core.model.metadata.builder.connection.*;
@@ -956,6 +957,46 @@ public class ConnectionSwitch<T> {
                 result = defaultCase(theEObject);
             return result;
         }
+        case ConnectionPackage.VALIDATION_RULES_CONNECTION: {
+            ValidationRulesConnection validationRulesConnection = (ValidationRulesConnection) theEObject;
+            T result = caseValidationRulesConnection(validationRulesConnection);
+            if (result == null)
+                result = caseConnection(validationRulesConnection);
+            if (result == null)
+                result = caseAbstractMetadataObject(validationRulesConnection);
+            if (result == null)
+                result = caseDataProvider(validationRulesConnection);
+            if (result == null)
+                result = caseDataManager(validationRulesConnection);
+            if (result == null)
+                result = caseElement(validationRulesConnection);
+            if (result == null)
+                result = caseDeployedComponent(validationRulesConnection);
+            if (result == null)
+                result = casePackage(validationRulesConnection);
+            if (result == null)
+                result = caseNamespace(validationRulesConnection);
+            if (result == null)
+                result = caseModelElement(validationRulesConnection);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case ConnectionPackage.CONDITION_TYPE: {
+            ConditionType conditionType = (ConditionType) theEObject;
+            T result = caseConditionType(conditionType);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case ConnectionPackage.INNER_JOIN_MAP: {
+            @SuppressWarnings("unchecked")
+            Map.Entry<String, String> innerJoinMap = (Map.Entry<String, String>) theEObject;
+            T result = caseInnerJoinMap(innerJoinMap);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
         default:
             return defaultCase(theEObject);
         }
@@ -1524,6 +1565,51 @@ public class ConnectionSwitch<T> {
      * @generated
      */
     public T caseBRMSConnection(BRMSConnection object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Condition Type</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Condition Type</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseConditionType(ConditionType object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Inner Join Map</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Inner Join Map</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseInnerJoinMap(Map.Entry<String, String> object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Validation Rules Connection</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Validation Rules Connection</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseValidationRulesConnection(ValidationRulesConnection object) {
         return null;
     }
 

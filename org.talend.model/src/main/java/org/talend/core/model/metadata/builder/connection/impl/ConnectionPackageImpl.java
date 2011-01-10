@@ -10,6 +10,7 @@ import static org.talend.core.model.metadata.builder.connection.ConnectionPackag
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import java.util.Map;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
@@ -24,11 +25,11 @@ import org.talend.core.model.metadata.builder.connection.CDCConnection;
 import org.talend.core.model.metadata.builder.connection.CDCType;
 import org.talend.core.model.metadata.builder.connection.Concept;
 import org.talend.core.model.metadata.builder.connection.ConceptTarget;
+import org.talend.core.model.metadata.builder.connection.ConditionType;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
-import org.talend.core.model.metadata.builder.connection.DatabaseProperties;
 import org.talend.core.model.metadata.builder.connection.DelimitedFileConnection;
 import org.talend.core.model.metadata.builder.connection.EbcdicConnection;
 import org.talend.core.model.metadata.builder.connection.Escape;
@@ -37,6 +38,7 @@ import org.talend.core.model.metadata.builder.connection.FieldSeparator;
 import org.talend.core.model.metadata.builder.connection.FileConnection;
 import org.talend.core.model.metadata.builder.connection.FileExcelConnection;
 import org.talend.core.model.metadata.builder.connection.FileFormat;
+import org.talend.core.model.metadata.builder.connection.Function;
 import org.talend.core.model.metadata.builder.connection.GenericPackage;
 import org.talend.core.model.metadata.builder.connection.GenericSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.HL7Connection;
@@ -45,18 +47,21 @@ import org.talend.core.model.metadata.builder.connection.HeaderFooterConnection;
 import org.talend.core.model.metadata.builder.connection.InputSAPFunctionParameterTable;
 import org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.LdifFileConnection;
+import org.talend.core.model.metadata.builder.connection.LogicalOperator;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.metadata.builder.connection.MDMConnectionProtocol;
 import org.talend.core.model.metadata.builder.connection.MdmConceptType;
 import org.talend.core.model.metadata.builder.connection.Metadata;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
+import org.talend.core.model.metadata.builder.connection.Operator;
 import org.talend.core.model.metadata.builder.connection.OutputSAPFunctionParameterTable;
 import org.talend.core.model.metadata.builder.connection.PositionalFileConnection;
 import org.talend.core.model.metadata.builder.connection.QueriesConnection;
 import org.talend.core.model.metadata.builder.connection.Query;
 import org.talend.core.model.metadata.builder.connection.RegexpFileConnection;
 import org.talend.core.model.metadata.builder.connection.RowSeparator;
+import org.talend.core.model.metadata.builder.connection.RuleType;
 import org.talend.core.model.metadata.builder.connection.SAPConnection;
 import org.talend.core.model.metadata.builder.connection.SAPFunctionParameterColumn;
 import org.talend.core.model.metadata.builder.connection.SAPFunctionParameterTable;
@@ -66,6 +71,7 @@ import org.talend.core.model.metadata.builder.connection.SAPTestInputParameterTa
 import org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.SchemaTarget;
 import org.talend.core.model.metadata.builder.connection.SubscriberTable;
+import org.talend.core.model.metadata.builder.connection.ValidationRulesConnection;
 import org.talend.core.model.metadata.builder.connection.WSDLParameter;
 import org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.XMLFileNode;
@@ -368,18 +374,36 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     private EClass hl7FileNodeEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass ftpConnectionEClass = null;
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass brmsConnectionEClass = null;
 
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    private EClass brmsConnectionEClass = null;
+    private EClass conditionTypeEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass innerJoinMapEClass = null;
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass validationRulesConnectionEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -412,11 +436,38 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     private EEnum mdmConnectionProtocolEEnum = null;
 
     /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
+    private EEnum mdmConceptTypeEEnum = null;
+
+    /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    private EEnum mdmConceptTypeEEnum = null;
+    private EEnum ruleTypeEEnum = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EEnum functionEEnum = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EEnum operatorEEnum = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EEnum logicalOperatorEEnum = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -471,8 +522,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
 
         // Obtain or create and register package
         ConnectionPackageImpl theConnectionPackage = (ConnectionPackageImpl) (EPackage.Registry.INSTANCE.get(eNS_URI) instanceof ConnectionPackageImpl ? EPackage.Registry.INSTANCE
-                .get(eNS_URI)
-                : new ConnectionPackageImpl());
+                .get(eNS_URI) : new ConnectionPackageImpl());
 
         isInited = true;
 
@@ -1756,8 +1806,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getXmlFileConnection_FileContent() {
@@ -2677,8 +2726,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getConcept_InputModel() {
@@ -2710,8 +2758,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getConcept_ConceptType() {
@@ -2719,8 +2766,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getConcept_XPathPrefix() {
@@ -2792,8 +2838,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getHL7Connection_OutputFilePath() {
@@ -2993,8 +3038,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getWSDLParameter_ParameterInfo() {
@@ -3002,8 +3046,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getWSDLParameter_ParameterInfoParent() {
@@ -3021,8 +3064,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getFTPConnection() {
@@ -3030,8 +3072,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getFTPConnection_Host() {
@@ -3039,8 +3080,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getFTPConnection_Port() {
@@ -3048,8 +3088,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getFTPConnection_Username() {
@@ -3057,8 +3096,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getFTPConnection_Password() {
@@ -3066,8 +3104,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getFTPConnection_Mode() {
@@ -3075,8 +3112,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getFTPConnection_Ecoding() {
@@ -3084,8 +3120,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getFTPConnection_SFTP() {
@@ -3093,8 +3128,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getFTPConnection_FTPS() {
@@ -3102,8 +3136,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getFTPConnection_Method() {
@@ -3111,8 +3144,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getFTPConnection_KeystoreFile() {
@@ -3120,8 +3152,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getFTPConnection_KeystorePassword() {
@@ -3129,8 +3160,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getFTPConnection_Usesocks() {
@@ -3138,8 +3168,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getFTPConnection_Proxyhost() {
@@ -3147,8 +3176,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getFTPConnection_Proxyport() {
@@ -3156,8 +3184,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getFTPConnection_Proxyuser() {
@@ -3165,8 +3192,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getFTPConnection_Proxypassword() {
@@ -3174,8 +3200,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getFTPConnection_CustomEncode() {
@@ -3183,8 +3208,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getBRMSConnection() {
@@ -3192,8 +3216,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getBRMSConnection_XmlField() {
@@ -3201,8 +3224,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getBRMSConnection_UrlName() {
@@ -3210,8 +3232,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getBRMSConnection_ClassName() {
@@ -3219,8 +3240,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getBRMSConnection_ModuleUsed() {
@@ -3228,8 +3248,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getBRMSConnection_Root() {
@@ -3237,8 +3256,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getBRMSConnection_Group() {
@@ -3246,8 +3264,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getBRMSConnection_Loop() {
@@ -3255,12 +3272,235 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getBRMSConnection_Package() {
         return (EAttribute) brmsConnectionEClass.getEStructuralFeatures().get(7);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getConditionType() {
+        return conditionTypeEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getConditionType_InputColumn() {
+        return (EAttribute) conditionTypeEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getConditionType_Function() {
+        return (EAttribute) conditionTypeEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getConditionType_Operator() {
+        return (EAttribute) conditionTypeEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getConditionType_Value() {
+        return (EAttribute) conditionTypeEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getInnerJoinMap() {
+        return innerJoinMapEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getInnerJoinMap_Key() {
+        return (EAttribute) innerJoinMapEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getInnerJoinMap_Value() {
+        return (EAttribute) innerJoinMapEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getValidationRulesConnection() {
+        return validationRulesConnectionEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getValidationRulesConnection_IsSelect() {
+        return (EAttribute) validationRulesConnectionEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getValidationRulesConnection_IsInsert() {
+        return (EAttribute) validationRulesConnectionEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getValidationRulesConnection_IsUpdate() {
+        return (EAttribute) validationRulesConnectionEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getValidationRulesConnection_IsDelete() {
+        return (EAttribute) validationRulesConnectionEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getValidationRulesConnection_Type() {
+        return (EAttribute) validationRulesConnectionEClass.getEStructuralFeatures().get(4);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getValidationRulesConnection_BaseSchema() {
+        return (EAttribute) validationRulesConnectionEClass.getEStructuralFeatures().get(5);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getValidationRulesConnection_BaseColumnNames() {
+        return (EAttribute) validationRulesConnectionEClass.getEStructuralFeatures().get(6);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getValidationRulesConnection_RefSchema() {
+        return (EAttribute) validationRulesConnectionEClass.getEStructuralFeatures().get(7);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getValidationRulesConnection_RefColumnNames() {
+        return (EAttribute) validationRulesConnectionEClass.getEStructuralFeatures().get(8);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getValidationRulesConnection_JavaCondition() {
+        return (EAttribute) validationRulesConnectionEClass.getEStructuralFeatures().get(9);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getValidationRulesConnection_SqlCondition() {
+        return (EAttribute) validationRulesConnectionEClass.getEStructuralFeatures().get(10);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getValidationRulesConnection_LogicalOperator() {
+        return (EAttribute) validationRulesConnectionEClass.getEStructuralFeatures().get(11);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getValidationRulesConnection_Conditions() {
+        return (EReference) validationRulesConnectionEClass.getEStructuralFeatures().get(12);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getValidationRulesConnection_InnerJoins() {
+        return (EReference) validationRulesConnectionEClass.getEStructuralFeatures().get(13);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getValidationRulesConnection_IsDisallow() {
+        return (EAttribute) validationRulesConnectionEClass.getEStructuralFeatures().get(14);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getValidationRulesConnection_IsRejectLink() {
+        return (EAttribute) validationRulesConnectionEClass.getEStructuralFeatures().get(15);
     }
 
     /**
@@ -3304,12 +3544,47 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EEnum getMdmConceptType() {
         return mdmConceptTypeEEnum;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EEnum getRuleType() {
+        return ruleTypeEEnum;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EEnum getFunction() {
+        return functionEEnum;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EEnum getOperator() {
+        return operatorEEnum;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EEnum getLogicalOperator() {
+        return logicalOperatorEEnum;
     }
 
     /**
@@ -3733,6 +4008,34 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEReference(brmsConnectionEClass, BRMS_CONNECTION__LOOP);
         createEAttribute(brmsConnectionEClass, BRMS_CONNECTION__PACKAGE);
 
+        validationRulesConnectionEClass = createEClass(VALIDATION_RULES_CONNECTION);
+        createEAttribute(validationRulesConnectionEClass, VALIDATION_RULES_CONNECTION__IS_SELECT);
+        createEAttribute(validationRulesConnectionEClass, VALIDATION_RULES_CONNECTION__IS_INSERT);
+        createEAttribute(validationRulesConnectionEClass, VALIDATION_RULES_CONNECTION__IS_UPDATE);
+        createEAttribute(validationRulesConnectionEClass, VALIDATION_RULES_CONNECTION__IS_DELETE);
+        createEAttribute(validationRulesConnectionEClass, VALIDATION_RULES_CONNECTION__TYPE);
+        createEAttribute(validationRulesConnectionEClass, VALIDATION_RULES_CONNECTION__BASE_SCHEMA);
+        createEAttribute(validationRulesConnectionEClass, VALIDATION_RULES_CONNECTION__BASE_COLUMN_NAMES);
+        createEAttribute(validationRulesConnectionEClass, VALIDATION_RULES_CONNECTION__REF_SCHEMA);
+        createEAttribute(validationRulesConnectionEClass, VALIDATION_RULES_CONNECTION__REF_COLUMN_NAMES);
+        createEAttribute(validationRulesConnectionEClass, VALIDATION_RULES_CONNECTION__JAVA_CONDITION);
+        createEAttribute(validationRulesConnectionEClass, VALIDATION_RULES_CONNECTION__SQL_CONDITION);
+        createEAttribute(validationRulesConnectionEClass, VALIDATION_RULES_CONNECTION__LOGICAL_OPERATOR);
+        createEReference(validationRulesConnectionEClass, VALIDATION_RULES_CONNECTION__CONDITIONS);
+        createEReference(validationRulesConnectionEClass, VALIDATION_RULES_CONNECTION__INNER_JOINS);
+        createEAttribute(validationRulesConnectionEClass, VALIDATION_RULES_CONNECTION__IS_DISALLOW);
+        createEAttribute(validationRulesConnectionEClass, VALIDATION_RULES_CONNECTION__IS_REJECT_LINK);
+
+        conditionTypeEClass = createEClass(CONDITION_TYPE);
+        createEAttribute(conditionTypeEClass, CONDITION_TYPE__INPUT_COLUMN);
+        createEAttribute(conditionTypeEClass, CONDITION_TYPE__FUNCTION);
+        createEAttribute(conditionTypeEClass, CONDITION_TYPE__OPERATOR);
+        createEAttribute(conditionTypeEClass, CONDITION_TYPE__VALUE);
+
+        innerJoinMapEClass = createEClass(INNER_JOIN_MAP);
+        createEAttribute(innerJoinMapEClass, INNER_JOIN_MAP__KEY);
+        createEAttribute(innerJoinMapEClass, INNER_JOIN_MAP__VALUE);
+
         // Create enums
         fileFormatEEnum = createEEnum(FILE_FORMAT);
         fieldSeparatorEEnum = createEEnum(FIELD_SEPARATOR);
@@ -3740,6 +4043,10 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         rowSeparatorEEnum = createEEnum(ROW_SEPARATOR);
         mdmConnectionProtocolEEnum = createEEnum(MDM_CONNECTION_PROTOCOL);
         mdmConceptTypeEEnum = createEEnum(MDM_CONCEPT_TYPE);
+        ruleTypeEEnum = createEEnum(RULE_TYPE);
+        functionEEnum = createEEnum(FUNCTION);
+        operatorEEnum = createEEnum(OPERATOR);
+        logicalOperatorEEnum = createEEnum(LOGICAL_OPERATOR);
 
         // Create data types
         mapEDataType = createEDataType(MAP);
@@ -3832,6 +4139,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         genericPackageEClass.getESuperTypes().add(theCorePackage.getPackage());
         ftpConnectionEClass.getESuperTypes().add(this.getConnection());
         brmsConnectionEClass.getESuperTypes().add(this.getConnection());
+        validationRulesConnectionEClass.getESuperTypes().add(this.getConnection());
 
         // Initialize classes and features; add operations and parameters
         initEClass(metadataEClass, Metadata.class, "Metadata", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -4123,14 +4431,14 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEAttribute(getSAPFunctionUnit_OutputTableName(), ecorePackage.getEString(), "OutputTableName", null, 0, 1,
                 SAPFunctionUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
                 !IS_DERIVED, IS_ORDERED);
-        initEReference(getSAPFunctionUnit_InputParameterTable(), this.getInputSAPFunctionParameterTable(), this
-                .getInputSAPFunctionParameterTable_FunctionUnit(), "InputParameterTable", null, 0, 1, SAPFunctionUnit.class,
+        initEReference(getSAPFunctionUnit_InputParameterTable(), this.getInputSAPFunctionParameterTable(),
+                this.getInputSAPFunctionParameterTable_FunctionUnit(), "InputParameterTable", null, 0, 1, SAPFunctionUnit.class,
                 !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
                 !IS_DERIVED, IS_ORDERED);
-        initEReference(getSAPFunctionUnit_OutputParameterTable(), this.getOutputSAPFunctionParameterTable(), this
-                .getOutputSAPFunctionParameterTable_FunctionUnit(), "OutputParameterTable", null, 0, 1, SAPFunctionUnit.class,
-                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
-                !IS_DERIVED, IS_ORDERED);
+        initEReference(getSAPFunctionUnit_OutputParameterTable(), this.getOutputSAPFunctionParameterTable(),
+                this.getOutputSAPFunctionParameterTable_FunctionUnit(), "OutputParameterTable", null, 0, 1,
+                SAPFunctionUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getSAPFunctionUnit_MetadataTable(), this.getMetadataTable(), null, "MetadataTable", null, 0, 1,
                 SAPFunctionUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES,
                 !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -4140,8 +4448,8 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEReference(getSAPFunctionUnit_Tables(), this.getMetadataTable(), null, "tables", null, 0, -1, SAPFunctionUnit.class,
                 !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
                 !IS_DERIVED, IS_ORDERED);
-        initEReference(getSAPFunctionUnit_TestInputParameterTable(), this.getSAPTestInputParameterTable(), this
-                .getSAPTestInputParameterTable_FunctionUnit(), "TestInputParameterTable", null, 0, 1, SAPFunctionUnit.class,
+        initEReference(getSAPFunctionUnit_TestInputParameterTable(), this.getSAPTestInputParameterTable(),
+                this.getSAPTestInputParameterTable_FunctionUnit(), "TestInputParameterTable", null, 0, 1, SAPFunctionUnit.class,
                 !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
                 !IS_DERIVED, IS_ORDERED);
 
@@ -4184,8 +4492,8 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEAttribute(getSAPFunctionParameterColumn_Value(), ecorePackage.getEString(), "Value", null, 0, 1,
                 SAPFunctionParameterColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
                 !IS_DERIVED, IS_ORDERED);
-        initEReference(getSAPFunctionParameterColumn_ParameterTable(), this.getSAPFunctionParameterTable(), this
-                .getSAPFunctionParameterTable_Columns(), "ParameterTable", null, 0, 1, SAPFunctionParameterColumn.class,
+        initEReference(getSAPFunctionParameterColumn_ParameterTable(), this.getSAPFunctionParameterTable(),
+                this.getSAPFunctionParameterTable_Columns(), "ParameterTable", null, 0, 1, SAPFunctionParameterColumn.class,
                 !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
                 !IS_DERIVED, IS_ORDERED);
 
@@ -4194,24 +4502,24 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
 
         initEClass(sapFunctionParameterTableEClass, SAPFunctionParameterTable.class, "SAPFunctionParameterTable", !IS_ABSTRACT,
                 !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getSAPFunctionParameterTable_Columns(), this.getSAPFunctionParameterColumn(), this
-                .getSAPFunctionParameterColumn_ParameterTable(), "columns", null, 0, -1, SAPFunctionParameterTable.class,
+        initEReference(getSAPFunctionParameterTable_Columns(), this.getSAPFunctionParameterColumn(),
+                this.getSAPFunctionParameterColumn_ParameterTable(), "columns", null, 0, -1, SAPFunctionParameterTable.class,
                 !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
                 !IS_DERIVED, IS_ORDERED);
 
         initEClass(inputSAPFunctionParameterTableEClass, InputSAPFunctionParameterTable.class, "InputSAPFunctionParameterTable",
                 !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getInputSAPFunctionParameterTable_FunctionUnit(), this.getSAPFunctionUnit(), this
-                .getSAPFunctionUnit_InputParameterTable(), "functionUnit", null, 0, 1, InputSAPFunctionParameterTable.class,
+        initEReference(getInputSAPFunctionParameterTable_FunctionUnit(), this.getSAPFunctionUnit(),
+                this.getSAPFunctionUnit_InputParameterTable(), "functionUnit", null, 0, 1, InputSAPFunctionParameterTable.class,
                 !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
                 !IS_DERIVED, IS_ORDERED);
 
         initEClass(outputSAPFunctionParameterTableEClass, OutputSAPFunctionParameterTable.class,
                 "OutputSAPFunctionParameterTable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getOutputSAPFunctionParameterTable_FunctionUnit(), this.getSAPFunctionUnit(), this
-                .getSAPFunctionUnit_OutputParameterTable(), "functionUnit", null, 0, 1, OutputSAPFunctionParameterTable.class,
-                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
-                !IS_DERIVED, IS_ORDERED);
+        initEReference(getOutputSAPFunctionParameterTable_FunctionUnit(), this.getSAPFunctionUnit(),
+                this.getSAPFunctionUnit_OutputParameterTable(), "functionUnit", null, 0, 1,
+                OutputSAPFunctionParameterTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+                IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(regexpFileConnectionEClass, RegexpFileConnection.class, "RegexpFileConnection", !IS_ABSTRACT, !IS_INTERFACE,
                 IS_GENERATED_INSTANCE_CLASS);
@@ -4232,8 +4540,8 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEAttribute(getXmlFileConnection_MaskXPattern(), ecorePackage.getEString(), "MaskXPattern", null, 0, 1,
                 XmlFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
                 !IS_DERIVED, IS_ORDERED);
-        initEReference(getXmlFileConnection_Schema(), this.getXmlXPathLoopDescriptor(), this
-                .getXmlXPathLoopDescriptor_Connection(), "schema", null, 0, -1, XmlFileConnection.class, !IS_TRANSIENT,
+        initEReference(getXmlFileConnection_Schema(), this.getXmlXPathLoopDescriptor(),
+                this.getXmlXPathLoopDescriptor_Connection(), "schema", null, 0, -1, XmlFileConnection.class, !IS_TRANSIENT,
                 !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getXmlFileConnection_Encoding(), ecorePackage.getEString(), "Encoding", null, 0, 1,
                 XmlFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
@@ -4569,8 +4877,8 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
 
         initEClass(sapTestInputParameterTableEClass, SAPTestInputParameterTable.class, "SAPTestInputParameterTable",
                 !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getSAPTestInputParameterTable_FunctionUnit(), this.getSAPFunctionUnit(), this
-                .getSAPFunctionUnit_TestInputParameterTable(), "functionUnit", null, 0, 1, SAPTestInputParameterTable.class,
+        initEReference(getSAPTestInputParameterTable_FunctionUnit(), this.getSAPFunctionUnit(),
+                this.getSAPFunctionUnit_TestInputParameterTable(), "functionUnit", null, 0, 1, SAPTestInputParameterTable.class,
                 !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
                 !IS_DERIVED, IS_ORDERED);
 
@@ -4748,6 +5056,74 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEAttribute(getBRMSConnection_Package(), ecorePackage.getEString(), "package", null, 0, 1, BRMSConnection.class,
                 !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+        initEClass(validationRulesConnectionEClass, ValidationRulesConnection.class, "ValidationRulesConnection", !IS_ABSTRACT,
+                !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getValidationRulesConnection_IsSelect(), ecorePackage.getEBoolean(), "isSelect", null, 0, 1,
+                ValidationRulesConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getValidationRulesConnection_IsInsert(), ecorePackage.getEBoolean(), "isInsert", null, 0, 1,
+                ValidationRulesConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getValidationRulesConnection_IsUpdate(), ecorePackage.getEBoolean(), "isUpdate", null, 0, 1,
+                ValidationRulesConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getValidationRulesConnection_IsDelete(), ecorePackage.getEBoolean(), "isDelete", null, 0, 1,
+                ValidationRulesConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getValidationRulesConnection_Type(), this.getRuleType(), "type", null, 0, 1,
+                ValidationRulesConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getValidationRulesConnection_BaseSchema(), ecorePackage.getEString(), "baseSchema", null, 0, 1,
+                ValidationRulesConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getValidationRulesConnection_BaseColumnNames(), ecorePackage.getEString(), "baseColumnNames", null, 0, -1,
+                ValidationRulesConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getValidationRulesConnection_RefSchema(), ecorePackage.getEString(), "refSchema", null, 0, 1,
+                ValidationRulesConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getValidationRulesConnection_RefColumnNames(), ecorePackage.getEString(), "refColumnNames", null, 0, -1,
+                ValidationRulesConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getValidationRulesConnection_JavaCondition(), ecorePackage.getEString(), "javaCondition", null, 0, 1,
+                ValidationRulesConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getValidationRulesConnection_SqlCondition(), ecorePackage.getEString(), "sqlCondition", null, 0, 1,
+                ValidationRulesConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getValidationRulesConnection_LogicalOperator(), this.getLogicalOperator(), "logicalOperator", null, 0, 1,
+                ValidationRulesConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEReference(getValidationRulesConnection_Conditions(), this.getConditionType(), null, "conditions", null, 0, -1,
+                ValidationRulesConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getValidationRulesConnection_InnerJoins(), this.getInnerJoinMap(), null, "innerJoins", null, 0, -1,
+                ValidationRulesConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getValidationRulesConnection_IsDisallow(), ecorePackage.getEBoolean(), "isDisallow", null, 0, 1,
+                ValidationRulesConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getValidationRulesConnection_IsRejectLink(), ecorePackage.getEBoolean(), "isRejectLink", null, 0, 1,
+                ValidationRulesConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+
+        initEClass(conditionTypeEClass, ConditionType.class, "ConditionType", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getConditionType_InputColumn(), ecorePackage.getEString(), "inputColumn", null, 1, 1, ConditionType.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getConditionType_Function(), this.getFunction(), "function", null, 1, 1, ConditionType.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getConditionType_Operator(), this.getOperator(), "operator", null, 1, 1, ConditionType.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getConditionType_Value(), ecorePackage.getEString(), "value", null, 0, 1, ConditionType.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(innerJoinMapEClass, Map.Entry.class, "InnerJoinMap", !IS_ABSTRACT, !IS_INTERFACE, !IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getInnerJoinMap_Key(), ecorePackage.getEString(), "key", null, 0, 1, Map.Entry.class, !IS_TRANSIENT,
+                !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getInnerJoinMap_Value(), ecorePackage.getEString(), "value", null, 0, 1, Map.Entry.class, !IS_TRANSIENT,
+                !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
         // Initialize enums and add enum literals
         initEEnum(fileFormatEEnum, FileFormat.class, "FileFormat");
         addEEnumLiteral(fileFormatEEnum, FileFormat.UNIX_LITERAL);
@@ -4779,6 +5155,32 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         addEEnumLiteral(mdmConceptTypeEEnum, MdmConceptType.INPUT);
         addEEnumLiteral(mdmConceptTypeEEnum, MdmConceptType.OUTPUT);
         addEEnumLiteral(mdmConceptTypeEEnum, MdmConceptType.RECEIVE);
+
+        initEEnum(ruleTypeEEnum, RuleType.class, "RuleType");
+        addEEnumLiteral(ruleTypeEEnum, RuleType.REFERENCE);
+        addEEnumLiteral(ruleTypeEEnum, RuleType.BASIC);
+        addEEnumLiteral(ruleTypeEEnum, RuleType.CUSTOM);
+
+        initEEnum(functionEEnum, Function.class, "Function");
+        addEEnumLiteral(functionEEnum, Function.EMPTY);
+        addEEnumLiteral(functionEEnum, Function.LOWER_CASE);
+        addEEnumLiteral(functionEEnum, Function.UPPER_CASE);
+        addEEnumLiteral(functionEEnum, Function.LOWER_CASE_FIRST);
+        addEEnumLiteral(functionEEnum, Function.UPPER_CASE_FIRST);
+        addEEnumLiteral(functionEEnum, Function.LENGTH);
+        addEEnumLiteral(functionEEnum, Function.MATCH);
+
+        initEEnum(operatorEEnum, Operator.class, "Operator");
+        addEEnumLiteral(operatorEEnum, Operator.EQUALS);
+        addEEnumLiteral(operatorEEnum, Operator.NOT_EQUALS);
+        addEEnumLiteral(operatorEEnum, Operator.GREATER);
+        addEEnumLiteral(operatorEEnum, Operator.LOWER);
+        addEEnumLiteral(operatorEEnum, Operator.GREATER_OR_EQUALS);
+        addEEnumLiteral(operatorEEnum, Operator.LOWER_OR_EQUALS);
+
+        initEEnum(logicalOperatorEEnum, LogicalOperator.class, "LogicalOperator");
+        addEEnumLiteral(logicalOperatorEEnum, LogicalOperator.AND);
+        addEEnumLiteral(logicalOperatorEEnum, LogicalOperator.OR);
 
         // Initialize data types
         initEDataType(mapEDataType, HashMap.class, "Map", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);

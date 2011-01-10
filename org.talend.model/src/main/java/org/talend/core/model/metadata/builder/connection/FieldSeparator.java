@@ -159,7 +159,7 @@ public enum FieldSeparator implements Enumerator {
      * </p>
      * <!-- end-user-doc -->
      * @see #ALT_65_LITERAL
-     * @model name="Alt_65" literal="''(Alt 65, #A4)"
+     * @model name="Alt_65" literal="\'\'(Alt 65, #A4)"
      * @generated
      * @ordered
      */

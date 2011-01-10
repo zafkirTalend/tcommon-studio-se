@@ -22,63 +22,42 @@ import org.talend.cwm.helper.ConnectionHelper;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getDatabaseType <em>Database
- * Type</em>}</li>
- * <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getDriverJarPath <em>Driver
- * Jar Path</em>}</li>
- * <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getDriverClass <em>Driver
- * Class</em>}</li>
- * <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getURL <em>URL</em>}</li>
- * <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getDbVersionString <em>Db
- * Version String</em>}</li>
- * <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getPort <em>Port</em>}</li>
- * <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getUsername <em>Username
- * </em>}</li>
- * <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getPassword <em>Password
- * </em>}</li>
- * <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getServerName <em>Server
- * Name</em>}</li>
- * <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getDatasourceName <em>
- * Datasource Name</em>}</li>
- * <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getFileFieldName <em>File
- * Field Name</em>}</li>
- * <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getSID <em>SID</em>}</li>
- * <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getSqlSynthax <em>Sql
- * Synthax</em>}</li>
- * <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getStringQuote <em>String
- * Quote</em>}</li>
- * <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getNullChar <em>Null Char
- * </em>}</li>
- * <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getDbmsId <em>Dbms Id</em>}</li>
- * <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getProductId <em>Product Id
- * </em>}</li>
- * <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getDBRootPath <em>DB Root
- * Path</em>}</li>
- * <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getAdditionalParams <em>
- * Additional Params</em>}</li>
- * <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#isStandardSQL <em>Standard
- * SQL</em>}</li>
- * <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#isSystemSQL <em>System SQL
- * </em>}</li>
- * <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getCdcConns <em>Cdc Conns
- * </em>}</li>
- * <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getCdcTypeMode <em>Cdc Type
- * Mode</em>}</li>
- * <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#isSQLMode <em>SQL Mode</em>}
- * </li>
- * <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getUiSchema <em>Ui Schema
- * </em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getDatabaseType <em>Database Type</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getDriverJarPath <em>Driver Jar Path</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getDriverClass <em>Driver Class</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getURL <em>URL</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getDbVersionString <em>Db Version String</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getPort <em>Port</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getUsername <em>Username</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getPassword <em>Password</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getServerName <em>Server Name</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getDatasourceName <em>Datasource Name</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getFileFieldName <em>File Field Name</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getSID <em>SID</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getSqlSynthax <em>Sql Synthax</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getStringQuote <em>String Quote</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getNullChar <em>Null Char</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getDbmsId <em>Dbms Id</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getProductId <em>Product Id</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getDBRootPath <em>DB Root Path</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getAdditionalParams <em>Additional Params</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#isStandardSQL <em>Standard SQL</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#isSystemSQL <em>System SQL</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getCdcConns <em>Cdc Conns</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getCdcTypeMode <em>Cdc Type Mode</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#isSQLMode <em>SQL Mode</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getUiSchema <em>Ui Schema</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseConnection {
 
     /**
-     * The default value of the '{@link #getDatabaseType() <em>Database Type</em>}' attribute. <!-- begin-user-doc -->
+     * The default value of the '{@link #getDatabaseType() <em>Database Type</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
      * @see #getDatabaseType()
      * @generated
      * @ordered
@@ -86,9 +65,9 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     protected static final String DATABASE_TYPE_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getDatabaseType() <em>Database Type</em>}' attribute. <!-- begin-user-doc -->
+     * The cached value of the '{@link #getDatabaseType() <em>Database Type</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
      * @see #getDatabaseType()
      * @generated
      * @ordered
@@ -96,9 +75,9 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     protected String databaseType = DATABASE_TYPE_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getDriverJarPath() <em>Driver Jar Path</em>}' attribute. <!-- begin-user-doc
+     * The default value of the '{@link #getDriverJarPath() <em>Driver Jar Path</em>}' attribute.
+     * <!-- begin-user-doc
      * --> <!-- end-user-doc -->
-     * 
      * @see #getDriverJarPath()
      * @generated
      * @ordered
@@ -106,9 +85,9 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     protected static final String DRIVER_JAR_PATH_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getDriverJarPath() <em>Driver Jar Path</em>}' attribute. <!-- begin-user-doc -->
+     * The cached value of the '{@link #getDriverJarPath() <em>Driver Jar Path</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
      * @see #getDriverJarPath()
      * @generated
      * @ordered
@@ -116,9 +95,9 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     protected String driverJarPath = DRIVER_JAR_PATH_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getDriverClass() <em>Driver Class</em>}' attribute. <!-- begin-user-doc -->
+     * The default value of the '{@link #getDriverClass() <em>Driver Class</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
      * @see #getDriverClass()
      * @generated
      * @ordered
@@ -126,9 +105,9 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     protected static final String DRIVER_CLASS_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getDriverClass() <em>Driver Class</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getDriverClass() <em>Driver Class</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getDriverClass()
      * @generated
      * @ordered
@@ -146,8 +125,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     protected static final String URL_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getURL() <em>URL</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * The cached value of the '{@link #getURL() <em>URL</em>}' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getURL()
      * @generated
      * @ordered
@@ -165,9 +144,9 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     protected static final String DB_VERSION_STRING_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getDbVersionString() <em>Db Version String</em>}' attribute. <!-- begin-user-doc
+     * The cached value of the '{@link #getDbVersionString() <em>Db Version String</em>}' attribute.
+     * <!-- begin-user-doc
      * --> <!-- end-user-doc -->
-     * 
      * @see #getDbVersionString()
      * @generated
      * @ordered
@@ -195,9 +174,9 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     protected String port = PORT_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getUsername() <em>Username</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getUsername() <em>Username</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getUsername()
      * @generated
      * @ordered
@@ -205,9 +184,9 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     protected static final String USERNAME_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getUsername() <em>Username</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getUsername() <em>Username</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getUsername()
      * @generated
      * @ordered
@@ -215,9 +194,9 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     protected String username = USERNAME_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getPassword() <em>Password</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getPassword() <em>Password</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getPassword()
      * @generated
      * @ordered
@@ -225,9 +204,9 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     protected static final String PASSWORD_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getPassword() <em>Password</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getPassword() <em>Password</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getPassword()
      * @generated
      * @ordered
@@ -235,9 +214,9 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     protected String password = PASSWORD_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getServerName() <em>Server Name</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getServerName() <em>Server Name</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getServerName()
      * @generated
      * @ordered
@@ -245,9 +224,9 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     protected static final String SERVER_NAME_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getServerName() <em>Server Name</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getServerName() <em>Server Name</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getServerName()
      * @generated
      * @ordered
@@ -255,9 +234,9 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     protected String serverName = SERVER_NAME_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getDatasourceName() <em>Datasource Name</em>}' attribute. <!-- begin-user-doc
+     * The default value of the '{@link #getDatasourceName() <em>Datasource Name</em>}' attribute.
+     * <!-- begin-user-doc
      * --> <!-- end-user-doc -->
-     * 
      * @see #getDatasourceName()
      * @generated
      * @ordered
@@ -265,9 +244,9 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     protected static final String DATASOURCE_NAME_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getDatasourceName() <em>Datasource Name</em>}' attribute. <!-- begin-user-doc
+     * The cached value of the '{@link #getDatasourceName() <em>Datasource Name</em>}' attribute.
+     * <!-- begin-user-doc
      * --> <!-- end-user-doc -->
-     * 
      * @see #getDatasourceName()
      * @generated
      * @ordered
@@ -275,9 +254,9 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     protected String datasourceName = DATASOURCE_NAME_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getFileFieldName() <em>File Field Name</em>}' attribute. <!-- begin-user-doc
+     * The default value of the '{@link #getFileFieldName() <em>File Field Name</em>}' attribute.
+     * <!-- begin-user-doc
      * --> <!-- end-user-doc -->
-     * 
      * @see #getFileFieldName()
      * @generated
      * @ordered
@@ -285,9 +264,9 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     protected static final String FILE_FIELD_NAME_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getFileFieldName() <em>File Field Name</em>}' attribute. <!-- begin-user-doc -->
+     * The cached value of the '{@link #getFileFieldName() <em>File Field Name</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
      * @see #getFileFieldName()
      * @generated
      * @ordered
@@ -305,8 +284,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     protected static final String SID_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getSID() <em>SID</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * The cached value of the '{@link #getSID() <em>SID</em>}' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getSID()
      * @generated
      * @ordered
@@ -314,9 +293,9 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     protected String sid = SID_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getSqlSynthax() <em>Sql Synthax</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getSqlSynthax() <em>Sql Synthax</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getSqlSynthax()
      * @generated
      * @ordered
@@ -324,9 +303,9 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     protected static final String SQL_SYNTHAX_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getSqlSynthax() <em>Sql Synthax</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getSqlSynthax() <em>Sql Synthax</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getSqlSynthax()
      * @generated
      * @ordered
@@ -334,9 +313,9 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     protected String sqlSynthax = SQL_SYNTHAX_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getStringQuote() <em>String Quote</em>}' attribute. <!-- begin-user-doc -->
+     * The default value of the '{@link #getStringQuote() <em>String Quote</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
      * @see #getStringQuote()
      * @generated
      * @ordered
@@ -344,9 +323,9 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     protected static final String STRING_QUOTE_EDEFAULT = "\""; //$NON-NLS-1$
 
     /**
-     * The cached value of the '{@link #getStringQuote() <em>String Quote</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getStringQuote() <em>String Quote</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getStringQuote()
      * @generated
      * @ordered
@@ -354,9 +333,9 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     protected String stringQuote = STRING_QUOTE_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getNullChar() <em>Null Char</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getNullChar() <em>Null Char</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getNullChar()
      * @generated
      * @ordered
@@ -364,9 +343,9 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     protected static final String NULL_CHAR_EDEFAULT = "000"; //$NON-NLS-1$
 
     /**
-     * The cached value of the '{@link #getNullChar() <em>Null Char</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getNullChar() <em>Null Char</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getNullChar()
      * @generated
      * @ordered
@@ -374,9 +353,9 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     protected String nullChar = NULL_CHAR_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getDbmsId() <em>Dbms Id</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getDbmsId() <em>Dbms Id</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getDbmsId()
      * @generated
      * @ordered
@@ -384,9 +363,9 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     protected static final String DBMS_ID_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getDbmsId() <em>Dbms Id</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getDbmsId() <em>Dbms Id</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getDbmsId()
      * @generated
      * @ordered
@@ -394,9 +373,9 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     protected String dbmsId = DBMS_ID_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getProductId() <em>Product Id</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getProductId() <em>Product Id</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getProductId()
      * @generated
      * @ordered
@@ -404,9 +383,9 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     protected static final String PRODUCT_ID_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getProductId() <em>Product Id</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getProductId() <em>Product Id</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getProductId()
      * @generated
      * @ordered
@@ -414,9 +393,9 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     protected String productId = PRODUCT_ID_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getDBRootPath() <em>DB Root Path</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getDBRootPath() <em>DB Root Path</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getDBRootPath()
      * @generated
      * @ordered
@@ -424,9 +403,9 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     protected static final String DB_ROOT_PATH_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getDBRootPath() <em>DB Root Path</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getDBRootPath() <em>DB Root Path</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getDBRootPath()
      * @generated
      * @ordered
@@ -454,9 +433,9 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     protected String additionalParams = ADDITIONAL_PARAMS_EDEFAULT;
 
     /**
-     * The default value of the '{@link #isStandardSQL() <em>Standard SQL</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #isStandardSQL() <em>Standard SQL</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #isStandardSQL()
      * @generated
      * @ordered
@@ -464,9 +443,9 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     protected static final boolean STANDARD_SQL_EDEFAULT = false;
 
     /**
-     * The cached value of the '{@link #isStandardSQL() <em>Standard SQL</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #isStandardSQL() <em>Standard SQL</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #isStandardSQL()
      * @generated
      * @ordered
@@ -474,9 +453,9 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     protected boolean standardSQL = STANDARD_SQL_EDEFAULT;
 
     /**
-     * The default value of the '{@link #isSystemSQL() <em>System SQL</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #isSystemSQL() <em>System SQL</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #isSystemSQL()
      * @generated
      * @ordered
@@ -484,9 +463,9 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     protected static final boolean SYSTEM_SQL_EDEFAULT = false;
 
     /**
-     * The cached value of the '{@link #isSystemSQL() <em>System SQL</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #isSystemSQL() <em>System SQL</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #isSystemSQL()
      * @generated
      * @ordered
@@ -494,9 +473,9 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     protected boolean systemSQL = SYSTEM_SQL_EDEFAULT;
 
     /**
-     * The cached value of the '{@link #getCdcConns() <em>Cdc Conns</em>}' containment reference. <!-- begin-user-doc
+     * The cached value of the '{@link #getCdcConns() <em>Cdc Conns</em>}' containment reference.
+     * <!-- begin-user-doc
      * --> <!-- end-user-doc -->
-     * 
      * @see #getCdcConns()
      * @generated
      * @ordered
@@ -504,9 +483,9 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     protected CDCConnection cdcConns;
 
     /**
-     * The default value of the '{@link #getCdcTypeMode() <em>Cdc Type Mode</em>}' attribute. <!-- begin-user-doc -->
+     * The default value of the '{@link #getCdcTypeMode() <em>Cdc Type Mode</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
      * @see #getCdcTypeMode()
      * @generated
      * @ordered
@@ -514,9 +493,9 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     protected static final String CDC_TYPE_MODE_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getCdcTypeMode() <em>Cdc Type Mode</em>}' attribute. <!-- begin-user-doc -->
+     * The cached value of the '{@link #getCdcTypeMode() <em>Cdc Type Mode</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
      * @see #getCdcTypeMode()
      * @generated
      * @ordered
@@ -524,9 +503,9 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     protected String cdcTypeMode = CDC_TYPE_MODE_EDEFAULT;
 
     /**
-     * The default value of the '{@link #isSQLMode() <em>SQL Mode</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #isSQLMode() <em>SQL Mode</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #isSQLMode()
      * @generated
      * @ordered
@@ -534,9 +513,9 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     protected static final boolean SQL_MODE_EDEFAULT = true;
 
     /**
-     * The cached value of the '{@link #isSQLMode() <em>SQL Mode</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #isSQLMode() <em>SQL Mode</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #isSQLMode()
      * @generated
      * @ordered
@@ -544,17 +523,17 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     protected boolean sqlMode = SQL_MODE_EDEFAULT;
 
     /**
-     * This is true if the SQL Mode attribute has been set. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * This is true if the SQL Mode attribute has been set.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     protected boolean sqlModeESet;
 
     /**
-     * The default value of the '{@link #getUiSchema() <em>Ui Schema</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getUiSchema() <em>Ui Schema</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getUiSchema()
      * @generated
      * @ordered
@@ -562,9 +541,9 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     protected static final String UI_SCHEMA_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getUiSchema() <em>Ui Schema</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getUiSchema() <em>Ui Schema</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getUiSchema()
      * @generated
      * @ordered
@@ -573,7 +552,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     protected DatabaseConnectionImpl() {
@@ -582,7 +560,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
@@ -592,7 +569,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getDatabaseType() {
@@ -601,7 +577,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setDatabaseType(String newDatabaseType) {
@@ -614,7 +589,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getDriverJarPath() {
@@ -623,7 +597,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setDriverJarPath(String newDriverJarPath) {
@@ -636,7 +609,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getDriverClass() {
@@ -645,7 +617,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setDriverClass(String newDriverClass) {
@@ -658,7 +629,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getURL() {
@@ -667,7 +637,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setURL(String newURL) {
@@ -679,7 +648,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getDbVersionString() {
@@ -688,7 +656,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setDbVersionString(String newDbVersionString) {
@@ -701,7 +668,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getPort() {
@@ -710,7 +676,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setPort(String newPort) {
@@ -722,7 +687,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getUsername() {
@@ -731,7 +695,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setUsername(String newUsername) {
@@ -774,7 +737,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setPassword(String newPassword) {
@@ -787,7 +749,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getServerName() {
@@ -796,7 +757,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setServerName(String newServerName) {
@@ -809,7 +769,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getDatasourceName() {
@@ -818,7 +777,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setDatasourceName(String newDatasourceName) {
@@ -831,7 +789,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getFileFieldName() {
@@ -840,7 +797,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setFileFieldName(String newFileFieldName) {
@@ -853,7 +809,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getSID() {
@@ -862,7 +817,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setSID(String newSID) {
@@ -874,7 +828,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getSqlSynthax() {
@@ -883,7 +836,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setSqlSynthax(String newSqlSynthax) {
@@ -896,7 +848,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getStringQuote() {
@@ -905,7 +856,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setStringQuote(String newStringQuote) {
@@ -918,7 +868,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getNullChar() {
@@ -927,7 +876,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setNullChar(String newNullChar) {
@@ -940,7 +888,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getDbmsId() {
@@ -949,7 +896,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setDbmsId(String newDbmsId) {
@@ -962,7 +908,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getProductId() {
@@ -971,7 +916,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setProductId(String newProductId) {
@@ -984,7 +928,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getDBRootPath() {
@@ -993,7 +936,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setDBRootPath(String newDBRootPath) {
@@ -1006,7 +948,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getAdditionalParams() {
@@ -1015,7 +956,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setAdditionalParams(String newAdditionalParams) {
@@ -1028,7 +968,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public boolean isStandardSQL() {
@@ -1037,7 +976,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setStandardSQL(boolean newStandardSQL) {
@@ -1050,7 +988,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public boolean isSystemSQL() {
@@ -1059,7 +996,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setSystemSQL(boolean newSystemSQL) {
@@ -1072,7 +1008,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public CDCConnection getCdcConns() {
@@ -1098,7 +1033,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public CDCConnection basicGetCdcConns() {
@@ -1107,7 +1041,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public NotificationChain basicSetCdcConns(CDCConnection newCdcConns, NotificationChain msgs) {
@@ -1126,7 +1059,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setCdcConns(CDCConnection newCdcConns) {
@@ -1148,7 +1080,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getCdcTypeMode() {
@@ -1157,7 +1088,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setCdcTypeMode(String newCdcTypeMode) {
@@ -1170,7 +1100,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public boolean isSQLMode() {
@@ -1179,7 +1108,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setSQLMode(boolean newSQLMode) {
@@ -1194,7 +1122,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void unsetSQLMode() {
@@ -1209,7 +1136,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public boolean isSetSQLMode() {
@@ -1218,7 +1144,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getUiSchema() {
@@ -1227,7 +1152,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setUiSchema(String newUiSchema) {
@@ -1240,7 +1164,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
@@ -1257,7 +1180,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
@@ -1271,7 +1193,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public Object eGetGen(int featureID, boolean resolve, boolean coreType) {
@@ -1351,7 +1272,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
@@ -1438,7 +1358,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
@@ -1525,7 +1444,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
@@ -1589,7 +1507,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override

@@ -42,6 +42,32 @@
       <genEnumLiterals ecoreEnumLiteral="metadata.ecore#//MdmConceptType/OUTPUT"/>
       <genEnumLiterals ecoreEnumLiteral="metadata.ecore#//MdmConceptType/RECEIVE"/>
     </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="metadata.ecore#//RuleType">
+      <genEnumLiterals ecoreEnumLiteral="metadata.ecore#//RuleType/REFERENCE"/>
+      <genEnumLiterals ecoreEnumLiteral="metadata.ecore#//RuleType/BASIC"/>
+      <genEnumLiterals ecoreEnumLiteral="metadata.ecore#//RuleType/CUSTOM"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="metadata.ecore#//Function">
+      <genEnumLiterals ecoreEnumLiteral="metadata.ecore#//Function/Empty"/>
+      <genEnumLiterals ecoreEnumLiteral="metadata.ecore#//Function/Lower_case"/>
+      <genEnumLiterals ecoreEnumLiteral="metadata.ecore#//Function/Upper_case"/>
+      <genEnumLiterals ecoreEnumLiteral="metadata.ecore#//Function/Lower_case_first"/>
+      <genEnumLiterals ecoreEnumLiteral="metadata.ecore#//Function/Upper_case_first"/>
+      <genEnumLiterals ecoreEnumLiteral="metadata.ecore#//Function/Length"/>
+      <genEnumLiterals ecoreEnumLiteral="metadata.ecore#//Function/Match"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="metadata.ecore#//Operator">
+      <genEnumLiterals ecoreEnumLiteral="metadata.ecore#//Operator/Equals"/>
+      <genEnumLiterals ecoreEnumLiteral="metadata.ecore#//Operator/Not_equals"/>
+      <genEnumLiterals ecoreEnumLiteral="metadata.ecore#//Operator/Greater"/>
+      <genEnumLiterals ecoreEnumLiteral="metadata.ecore#//Operator/Lower"/>
+      <genEnumLiterals ecoreEnumLiteral="metadata.ecore#//Operator/Greater_or_equals"/>
+      <genEnumLiterals ecoreEnumLiteral="metadata.ecore#//Operator/Lower_or_equals"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="metadata.ecore#//LogicalOperator">
+      <genEnumLiterals ecoreEnumLiteral="metadata.ecore#//LogicalOperator/And"/>
+      <genEnumLiterals ecoreEnumLiteral="metadata.ecore#//LogicalOperator/Or"/>
+    </genEnums>
     <genDataTypes ecoreDataType="metadata.ecore#//Map"/>
     <genDataTypes ecoreDataType="metadata.ecore#//List"/>
     <genClasses ecoreClass="metadata.ecore#//Metadata">
@@ -427,6 +453,34 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//BRMSConnection/group"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//BRMSConnection/loop"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//BRMSConnection/package"/>
+    </genClasses>
+    <genClasses ecoreClass="metadata.ecore#//ValidationRulesConnection">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//ValidationRulesConnection/isSelect"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//ValidationRulesConnection/isInsert"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//ValidationRulesConnection/isUpdate"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//ValidationRulesConnection/isDelete"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//ValidationRulesConnection/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//ValidationRulesConnection/baseSchema"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//ValidationRulesConnection/baseColumnNames"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//ValidationRulesConnection/refSchema"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//ValidationRulesConnection/refColumnNames"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//ValidationRulesConnection/javaCondition"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//ValidationRulesConnection/sqlCondition"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//ValidationRulesConnection/logicalOperator"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metadata.ecore#//ValidationRulesConnection/conditions"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metadata.ecore#//ValidationRulesConnection/innerJoins"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//ValidationRulesConnection/isDisallow"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//ValidationRulesConnection/isRejectLink"/>
+    </genClasses>
+    <genClasses ecoreClass="metadata.ecore#//ConditionType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//ConditionType/inputColumn"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//ConditionType/function"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//ConditionType/operator"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//ConditionType/value"/>
+    </genClasses>
+    <genClasses ecoreClass="metadata.ecore#//InnerJoinMap">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//InnerJoinMap/key"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//InnerJoinMap/value"/>
     </genClasses>
     <nestedGenPackages prefix="cwm" basePackage="org.talend" disposableProviderFactory="true"
         ecorePackage="metadata.ecore#//cwm">

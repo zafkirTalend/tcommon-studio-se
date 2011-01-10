@@ -234,6 +234,9 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
             public Object caseMDMConnectionItem(MDMConnectionItem object) {
                 return createMDMConnectionItemAdapter();
             }
+            public Object caseValidationRulesConnectionItem(ValidationRulesConnectionItem object) {
+                return createValidationRulesConnectionItemAdapter();
+            }
             public Object caseProcessItem(ProcessItem object) {
                 return createProcessItemAdapter();
             }
@@ -800,6 +803,20 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createMDMConnectionItemAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.ValidationRulesConnectionItem <em>Validation Rules Connection Item</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.properties.ValidationRulesConnectionItem
+     * @generated
+     */
+    public Adapter createValidationRulesConnectionItemAdapter() {
         return null;
     }
 

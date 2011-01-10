@@ -198,8 +198,7 @@ public class RelationalPackageImpl extends EPackageImpl implements RelationalPac
 
         // Obtain or create and register package
         RelationalPackageImpl theRelationalPackage = (RelationalPackageImpl) (EPackage.Registry.INSTANCE.get(eNS_URI) instanceof RelationalPackageImpl ? EPackage.Registry.INSTANCE
-                .get(eNS_URI)
-                : new RelationalPackageImpl());
+                .get(eNS_URI) : new RelationalPackageImpl());
 
         isInited = true;
 

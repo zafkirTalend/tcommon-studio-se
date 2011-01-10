@@ -193,6 +193,12 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
             return createFTPConnection();
         case ConnectionPackage.BRMS_CONNECTION:
             return createBRMSConnection();
+        case ConnectionPackage.VALIDATION_RULES_CONNECTION:
+            return createValidationRulesConnection();
+        case ConnectionPackage.CONDITION_TYPE:
+            return createConditionType();
+        case ConnectionPackage.INNER_JOIN_MAP:
+            return (EObject) createInnerJoinMap();
         default:
             throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -217,6 +223,14 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
             return createMDMConnectionProtocolFromString(eDataType, initialValue);
         case ConnectionPackage.MDM_CONCEPT_TYPE:
             return createMdmConceptTypeFromString(eDataType, initialValue);
+        case ConnectionPackage.RULE_TYPE:
+            return createRuleTypeFromString(eDataType, initialValue);
+        case ConnectionPackage.FUNCTION:
+            return createFunctionFromString(eDataType, initialValue);
+        case ConnectionPackage.OPERATOR:
+            return createOperatorFromString(eDataType, initialValue);
+        case ConnectionPackage.LOGICAL_OPERATOR:
+            return createLogicalOperatorFromString(eDataType, initialValue);
         case ConnectionPackage.MAP:
             return createMapFromString(eDataType, initialValue);
         case ConnectionPackage.LIST:
@@ -245,6 +259,14 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
             return convertMDMConnectionProtocolToString(eDataType, instanceValue);
         case ConnectionPackage.MDM_CONCEPT_TYPE:
             return convertMdmConceptTypeToString(eDataType, instanceValue);
+        case ConnectionPackage.RULE_TYPE:
+            return convertRuleTypeToString(eDataType, instanceValue);
+        case ConnectionPackage.FUNCTION:
+            return convertFunctionToString(eDataType, instanceValue);
+        case ConnectionPackage.OPERATOR:
+            return convertOperatorToString(eDataType, instanceValue);
+        case ConnectionPackage.LOGICAL_OPERATOR:
+            return convertLogicalOperatorToString(eDataType, instanceValue);
         case ConnectionPackage.MAP:
             return convertMapToString(eDataType, instanceValue);
         case ConnectionPackage.LIST:
@@ -636,6 +658,36 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public ConditionType createConditionType() {
+        ConditionTypeImpl conditionType = new ConditionTypeImpl();
+        return conditionType;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Map.Entry<String, String> createInnerJoinMap() {
+        InnerJoinMapImpl innerJoinMap = new InnerJoinMapImpl();
+        return innerJoinMap;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public ValidationRulesConnection createValidationRulesConnection() {
+        ValidationRulesConnectionImpl validationRulesConnection = new ValidationRulesConnectionImpl();
+        return validationRulesConnection;
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -754,6 +806,94 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
      * @generated
      */
     public String convertMdmConceptTypeToString(EDataType eDataType, Object instanceValue) {
+        return instanceValue == null ? null : instanceValue.toString();
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public RuleType createRuleTypeFromString(EDataType eDataType, String initialValue) {
+        RuleType result = RuleType.get(initialValue);
+        if (result == null)
+            throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
+                    + eDataType.getName() + "'");
+        return result;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String convertRuleTypeToString(EDataType eDataType, Object instanceValue) {
+        return instanceValue == null ? null : instanceValue.toString();
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Function createFunctionFromString(EDataType eDataType, String initialValue) {
+        Function result = Function.get(initialValue);
+        if (result == null)
+            throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
+                    + eDataType.getName() + "'");
+        return result;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String convertFunctionToString(EDataType eDataType, Object instanceValue) {
+        return instanceValue == null ? null : instanceValue.toString();
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Operator createOperatorFromString(EDataType eDataType, String initialValue) {
+        Operator result = Operator.get(initialValue);
+        if (result == null)
+            throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
+                    + eDataType.getName() + "'");
+        return result;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String convertOperatorToString(EDataType eDataType, Object instanceValue) {
+        return instanceValue == null ? null : instanceValue.toString();
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public LogicalOperator createLogicalOperatorFromString(EDataType eDataType, String initialValue) {
+        LogicalOperator result = LogicalOperator.get(initialValue);
+        if (result == null)
+            throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
+                    + eDataType.getName() + "'");
+        return result;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String convertLogicalOperatorToString(EDataType eDataType, Object instanceValue) {
         return instanceValue == null ? null : instanceValue.toString();
     }
 

@@ -368,6 +368,24 @@ public interface ConnectionFactory extends EFactory {
     BRMSConnection createBRMSConnection();
 
     /**
+     * Returns a new object of class '<em>Condition Type</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Condition Type</em>'.
+     * @generated
+     */
+    ConditionType createConditionType();
+
+    /**
+     * Returns a new object of class '<em>Validation Rules Connection</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Validation Rules Connection</em>'.
+     * @generated
+     */
+    ValidationRulesConnection createValidationRulesConnection();
+
+    /**
      * Returns the package supported by this factory.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the package supported by this factory.

@@ -485,7 +485,7 @@ public class MDMConnectionImpl extends ConnectionImpl implements MDMConnection {
         case ConnectionPackage.MDM_CONNECTION__USERNAME:
             return getUsername();
         case ConnectionPackage.MDM_CONNECTION__PASSWORD:
-            return getRawPassword();
+            return getPassword();
         case ConnectionPackage.MDM_CONNECTION__PORT:
             return getPort();
         case ConnectionPackage.MDM_CONNECTION__SERVER:

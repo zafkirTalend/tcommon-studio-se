@@ -15511,13 +15511,637 @@ public interface ConnectionPackage extends EPackage {
     int BRMS_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 8;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.ConditionTypeImpl <em>Condition Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.metadata.builder.connection.impl.ConditionTypeImpl
+     * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getConditionType()
+     * @generated
+     */
+    int CONDITION_TYPE = 45;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.ValidationRulesConnectionImpl <em>Validation Rules Connection</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.metadata.builder.connection.impl.ValidationRulesConnectionImpl
+     * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getValidationRulesConnection()
+     * @generated
+     */
+    int VALIDATION_RULES_CONNECTION = 44;
+
+    /**
+     * The feature id for the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__NAME = CONNECTION__NAME;
+
+    /**
+     * The feature id for the '<em><b>Visibility</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__VISIBILITY = CONNECTION__VISIBILITY;
+
+    /**
+     * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__CLIENT_DEPENDENCY = CONNECTION__CLIENT_DEPENDENCY;
+
+    /**
+     * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__SUPPLIER_DEPENDENCY = CONNECTION__SUPPLIER_DEPENDENCY;
+
+    /**
+     * The feature id for the '<em><b>Constraint</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__CONSTRAINT = CONNECTION__CONSTRAINT;
+
+    /**
+     * The feature id for the '<em><b>Namespace</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__NAMESPACE = CONNECTION__NAMESPACE;
+
+    /**
+     * The feature id for the '<em><b>Importer</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__IMPORTER = CONNECTION__IMPORTER;
+
+    /**
+     * The feature id for the '<em><b>Stereotype</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__STEREOTYPE = CONNECTION__STEREOTYPE;
+
+    /**
+     * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__TAGGED_VALUE = CONNECTION__TAGGED_VALUE;
+
+    /**
+     * The feature id for the '<em><b>Document</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__DOCUMENT = CONNECTION__DOCUMENT;
+
+    /**
+     * The feature id for the '<em><b>Description</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__DESCRIPTION = CONNECTION__DESCRIPTION;
+
+    /**
+     * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__RESPONSIBLE_PARTY = CONNECTION__RESPONSIBLE_PARTY;
+
+    /**
+     * The feature id for the '<em><b>Element Node</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__ELEMENT_NODE = CONNECTION__ELEMENT_NODE;
+
+    /**
+     * The feature id for the '<em><b>Set</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__SET = CONNECTION__SET;
+
+    /**
+     * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__RENDERED_OBJECT = CONNECTION__RENDERED_OBJECT;
+
+    /**
+     * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__VOCABULARY_ELEMENT = CONNECTION__VOCABULARY_ELEMENT;
+
+    /**
+     * The feature id for the '<em><b>Measurement</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__MEASUREMENT = CONNECTION__MEASUREMENT;
+
+    /**
+     * The feature id for the '<em><b>Change Request</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__CHANGE_REQUEST = CONNECTION__CHANGE_REQUEST;
+
+    /**
+     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__DASDL_PROPERTY = CONNECTION__DASDL_PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>Properties</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__PROPERTIES = CONNECTION__PROPERTIES;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__ID = CONNECTION__ID;
+
+    /**
+     * The feature id for the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__COMMENT = CONNECTION__COMMENT;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__LABEL = CONNECTION__LABEL;
+
+    /**
+     * The feature id for the '<em><b>Read Only</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__READ_ONLY = CONNECTION__READ_ONLY;
+
+    /**
+     * The feature id for the '<em><b>Synchronised</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__SYNCHRONISED = CONNECTION__SYNCHRONISED;
+
+    /**
+     * The feature id for the '<em><b>Divergency</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__DIVERGENCY = CONNECTION__DIVERGENCY;
+
+    /**
+     * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__OWNED_ELEMENT = CONNECTION__OWNED_ELEMENT;
+
+    /**
+     * The feature id for the '<em><b>Imported Element</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__IMPORTED_ELEMENT = CONNECTION__IMPORTED_ELEMENT;
+
+    /**
+     * The feature id for the '<em><b>Data Manager</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__DATA_MANAGER = CONNECTION__DATA_MANAGER;
+
+    /**
+     * The feature id for the '<em><b>Pathname</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__PATHNAME = CONNECTION__PATHNAME;
+
+    /**
+     * The feature id for the '<em><b>Machine</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__MACHINE = CONNECTION__MACHINE;
+
+    /**
+     * The feature id for the '<em><b>Deployed Software System</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__DEPLOYED_SOFTWARE_SYSTEM = CONNECTION__DEPLOYED_SOFTWARE_SYSTEM;
+
+    /**
+     * The feature id for the '<em><b>Component</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__COMPONENT = CONNECTION__COMPONENT;
+
+    /**
+     * The feature id for the '<em><b>Is Case Sensitive</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__IS_CASE_SENSITIVE = CONNECTION__IS_CASE_SENSITIVE;
+
+    /**
+     * The feature id for the '<em><b>Client Connection</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__CLIENT_CONNECTION = CONNECTION__CLIENT_CONNECTION;
+
+    /**
+     * The feature id for the '<em><b>Data Package</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__DATA_PACKAGE = CONNECTION__DATA_PACKAGE;
+
+    /**
+     * The feature id for the '<em><b>Resource Connection</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__RESOURCE_CONNECTION = CONNECTION__RESOURCE_CONNECTION;
+
+    /**
+     * The feature id for the '<em><b>Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__VERSION = CONNECTION__VERSION;
+
+    /**
+     * The feature id for the '<em><b>Queries</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__QUERIES = CONNECTION__QUERIES;
+
+    /**
+     * The feature id for the '<em><b>Context Mode</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__CONTEXT_MODE = CONNECTION__CONTEXT_MODE;
+
+    /**
+     * The feature id for the '<em><b>Context Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__CONTEXT_ID = CONNECTION__CONTEXT_ID;
+
+    /**
+     * The feature id for the '<em><b>Is Select</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__IS_SELECT = CONNECTION_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Is Insert</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__IS_INSERT = CONNECTION_FEATURE_COUNT + 1;
+
+    /**
+     * The feature id for the '<em><b>Is Update</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__IS_UPDATE = CONNECTION_FEATURE_COUNT + 2;
+
+    /**
+     * The feature id for the '<em><b>Is Delete</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__IS_DELETE = CONNECTION_FEATURE_COUNT + 3;
+
+    /**
+     * The feature id for the '<em><b>Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__TYPE = CONNECTION_FEATURE_COUNT + 4;
+
+    /**
+     * The feature id for the '<em><b>Base Schema</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__BASE_SCHEMA = CONNECTION_FEATURE_COUNT + 5;
+
+    /**
+     * The feature id for the '<em><b>Base Column Names</b></em>' attribute list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__BASE_COLUMN_NAMES = CONNECTION_FEATURE_COUNT + 6;
+
+    /**
+     * The feature id for the '<em><b>Ref Schema</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__REF_SCHEMA = CONNECTION_FEATURE_COUNT + 7;
+
+    /**
+     * The feature id for the '<em><b>Ref Column Names</b></em>' attribute list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__REF_COLUMN_NAMES = CONNECTION_FEATURE_COUNT + 8;
+
+    /**
+     * The feature id for the '<em><b>Java Condition</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__JAVA_CONDITION = CONNECTION_FEATURE_COUNT + 9;
+
+    /**
+     * The feature id for the '<em><b>Sql Condition</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__SQL_CONDITION = CONNECTION_FEATURE_COUNT + 10;
+
+    /**
+     * The feature id for the '<em><b>Logical Operator</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__LOGICAL_OPERATOR = CONNECTION_FEATURE_COUNT + 11;
+
+    /**
+     * The feature id for the '<em><b>Conditions</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__CONDITIONS = CONNECTION_FEATURE_COUNT + 12;
+
+    /**
+     * The feature id for the '<em><b>Inner Joins</b></em>' map.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__INNER_JOINS = CONNECTION_FEATURE_COUNT + 13;
+
+    /**
+     * The feature id for the '<em><b>Is Disallow</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__IS_DISALLOW = CONNECTION_FEATURE_COUNT + 14;
+
+    /**
+     * The feature id for the '<em><b>Is Reject Link</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION__IS_REJECT_LINK = CONNECTION_FEATURE_COUNT + 15;
+
+    /**
+     * The number of structural features of the '<em>Validation Rules Connection</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 16;
+
+    /**
+     * The feature id for the '<em><b>Input Column</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONDITION_TYPE__INPUT_COLUMN = 0;
+
+    /**
+     * The feature id for the '<em><b>Function</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONDITION_TYPE__FUNCTION = 1;
+
+    /**
+     * The feature id for the '<em><b>Operator</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONDITION_TYPE__OPERATOR = 2;
+
+    /**
+     * The feature id for the '<em><b>Value</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONDITION_TYPE__VALUE = 3;
+
+    /**
+     * The number of structural features of the '<em>Condition Type</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONDITION_TYPE_FEATURE_COUNT = 4;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.InnerJoinMapImpl <em>Inner Join Map</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.metadata.builder.connection.impl.InnerJoinMapImpl
+     * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getInnerJoinMap()
+     * @generated
+     */
+    int INNER_JOIN_MAP = 46;
+
+    /**
+     * The feature id for the '<em><b>Key</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int INNER_JOIN_MAP__KEY = 0;
+
+    /**
+     * The feature id for the '<em><b>Value</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int INNER_JOIN_MAP__VALUE = 1;
+
+    /**
+     * The number of structural features of the '<em>Inner Join Map</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int INNER_JOIN_MAP_FEATURE_COUNT = 2;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.FileFormat <em>File Format</em>}' enum.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.FileFormat
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFileFormat()
      * @generated
      */
-    int FILE_FORMAT = 44;
+    int FILE_FORMAT = 47;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.FieldSeparator <em>Field Separator</em>}' enum.
@@ -15526,7 +16150,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFieldSeparator()
      * @generated
      */
-    int FIELD_SEPARATOR = 45;
+    int FIELD_SEPARATOR = 48;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.Escape <em>Escape</em>}' enum.
@@ -15535,7 +16159,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getEscape()
      * @generated
      */
-    int ESCAPE = 46;
+    int ESCAPE = 49;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.RowSeparator <em>Row Separator</em>}' enum.
@@ -15544,7 +16168,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getRowSeparator()
      * @generated
      */
-    int ROW_SEPARATOR = 47;
+    int ROW_SEPARATOR = 50;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.MDMConnectionProtocol <em>MDM Connection Protocol</em>}' enum.
@@ -15553,7 +16177,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getMDMConnectionProtocol()
      * @generated
      */
-    int MDM_CONNECTION_PROTOCOL = 48;
+    int MDM_CONNECTION_PROTOCOL = 51;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.MdmConceptType <em>Mdm Concept Type</em>}' enum.
@@ -15563,7 +16187,47 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getMdmConceptType()
      * @generated
      */
-    int MDM_CONCEPT_TYPE = 49;
+    int MDM_CONCEPT_TYPE = 52;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.RuleType <em>Rule Type</em>}' enum.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.metadata.builder.connection.RuleType
+     * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getRuleType()
+     * @generated
+     */
+    int RULE_TYPE = 53;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.Function <em>Function</em>}' enum.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.metadata.builder.connection.Function
+     * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFunction()
+     * @generated
+     */
+    int FUNCTION = 54;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.Operator <em>Operator</em>}' enum.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.metadata.builder.connection.Operator
+     * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getOperator()
+     * @generated
+     */
+    int OPERATOR = 55;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.LogicalOperator <em>Logical Operator</em>}' enum.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.metadata.builder.connection.LogicalOperator
+     * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getLogicalOperator()
+     * @generated
+     */
+    int LOGICAL_OPERATOR = 56;
 
     /**
      * The meta object id for the '<em>Map</em>' data type.
@@ -15572,7 +16236,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getMap()
      * @generated
      */
-    int MAP = 50;
+    int MAP = 57;
 
     /**
      * The meta object id for the '<em>List</em>' data type.
@@ -15581,7 +16245,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getList()
      * @generated
      */
-    int LIST = 51;
+    int LIST = 58;
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.Metadata <em>Metadata</em>}'.
@@ -19128,6 +19792,280 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getBRMSConnection_Package();
 
     /**
+     * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.ConditionType <em>Condition Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Condition Type</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.ConditionType
+     * @generated
+     */
+    EClass getConditionType();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.ConditionType#getInputColumn <em>Input Column</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Input Column</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.ConditionType#getInputColumn()
+     * @see #getConditionType()
+     * @generated
+     */
+    EAttribute getConditionType_InputColumn();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.ConditionType#getFunction <em>Function</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Function</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.ConditionType#getFunction()
+     * @see #getConditionType()
+     * @generated
+     */
+    EAttribute getConditionType_Function();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.ConditionType#getOperator <em>Operator</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Operator</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.ConditionType#getOperator()
+     * @see #getConditionType()
+     * @generated
+     */
+    EAttribute getConditionType_Operator();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.ConditionType#getValue <em>Value</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Value</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.ConditionType#getValue()
+     * @see #getConditionType()
+     * @generated
+     */
+    EAttribute getConditionType_Value();
+
+    /**
+     * Returns the meta object for class '{@link java.util.Map.Entry <em>Inner Join Map</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Inner Join Map</em>'.
+     * @see java.util.Map.Entry
+     * @model keyDataType="org.eclipse.emf.ecore.EString"
+     *        valueDataType="org.eclipse.emf.ecore.EString"
+     * @generated
+     */
+    EClass getInnerJoinMap();
+
+    /**
+     * Returns the meta object for the attribute '{@link java.util.Map.Entry <em>Key</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Key</em>'.
+     * @see java.util.Map.Entry
+     * @see #getInnerJoinMap()
+     * @generated
+     */
+    EAttribute getInnerJoinMap_Key();
+
+    /**
+     * Returns the meta object for the attribute '{@link java.util.Map.Entry <em>Value</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Value</em>'.
+     * @see java.util.Map.Entry
+     * @see #getInnerJoinMap()
+     * @generated
+     */
+    EAttribute getInnerJoinMap_Value();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.ValidationRulesConnection <em>Validation Rules Connection</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Validation Rules Connection</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.ValidationRulesConnection
+     * @generated
+     */
+    EClass getValidationRulesConnection();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.ValidationRulesConnection#isIsSelect <em>Is Select</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Is Select</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.ValidationRulesConnection#isIsSelect()
+     * @see #getValidationRulesConnection()
+     * @generated
+     */
+    EAttribute getValidationRulesConnection_IsSelect();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.ValidationRulesConnection#isIsInsert <em>Is Insert</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Is Insert</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.ValidationRulesConnection#isIsInsert()
+     * @see #getValidationRulesConnection()
+     * @generated
+     */
+    EAttribute getValidationRulesConnection_IsInsert();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.ValidationRulesConnection#isIsUpdate <em>Is Update</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Is Update</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.ValidationRulesConnection#isIsUpdate()
+     * @see #getValidationRulesConnection()
+     * @generated
+     */
+    EAttribute getValidationRulesConnection_IsUpdate();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.ValidationRulesConnection#isIsDelete <em>Is Delete</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Is Delete</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.ValidationRulesConnection#isIsDelete()
+     * @see #getValidationRulesConnection()
+     * @generated
+     */
+    EAttribute getValidationRulesConnection_IsDelete();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.ValidationRulesConnection#getType <em>Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Type</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.ValidationRulesConnection#getType()
+     * @see #getValidationRulesConnection()
+     * @generated
+     */
+    EAttribute getValidationRulesConnection_Type();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.ValidationRulesConnection#getBaseSchema <em>Base Schema</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Base Schema</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.ValidationRulesConnection#getBaseSchema()
+     * @see #getValidationRulesConnection()
+     * @generated
+     */
+    EAttribute getValidationRulesConnection_BaseSchema();
+
+    /**
+     * Returns the meta object for the attribute list '{@link org.talend.core.model.metadata.builder.connection.ValidationRulesConnection#getBaseColumnNames <em>Base Column Names</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute list '<em>Base Column Names</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.ValidationRulesConnection#getBaseColumnNames()
+     * @see #getValidationRulesConnection()
+     * @generated
+     */
+    EAttribute getValidationRulesConnection_BaseColumnNames();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.ValidationRulesConnection#getRefSchema <em>Ref Schema</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Ref Schema</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.ValidationRulesConnection#getRefSchema()
+     * @see #getValidationRulesConnection()
+     * @generated
+     */
+    EAttribute getValidationRulesConnection_RefSchema();
+
+    /**
+     * Returns the meta object for the attribute list '{@link org.talend.core.model.metadata.builder.connection.ValidationRulesConnection#getRefColumnNames <em>Ref Column Names</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute list '<em>Ref Column Names</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.ValidationRulesConnection#getRefColumnNames()
+     * @see #getValidationRulesConnection()
+     * @generated
+     */
+    EAttribute getValidationRulesConnection_RefColumnNames();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.ValidationRulesConnection#getJavaCondition <em>Java Condition</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Java Condition</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.ValidationRulesConnection#getJavaCondition()
+     * @see #getValidationRulesConnection()
+     * @generated
+     */
+    EAttribute getValidationRulesConnection_JavaCondition();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.ValidationRulesConnection#getSqlCondition <em>Sql Condition</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Sql Condition</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.ValidationRulesConnection#getSqlCondition()
+     * @see #getValidationRulesConnection()
+     * @generated
+     */
+    EAttribute getValidationRulesConnection_SqlCondition();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.ValidationRulesConnection#getLogicalOperator <em>Logical Operator</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Logical Operator</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.ValidationRulesConnection#getLogicalOperator()
+     * @see #getValidationRulesConnection()
+     * @generated
+     */
+    EAttribute getValidationRulesConnection_LogicalOperator();
+
+    /**
+     * Returns the meta object for the containment reference list '{@link org.talend.core.model.metadata.builder.connection.ValidationRulesConnection#getConditions <em>Conditions</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>Conditions</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.ValidationRulesConnection#getConditions()
+     * @see #getValidationRulesConnection()
+     * @generated
+     */
+    EReference getValidationRulesConnection_Conditions();
+
+    /**
+     * Returns the meta object for the map '{@link org.talend.core.model.metadata.builder.connection.ValidationRulesConnection#getInnerJoins <em>Inner Joins</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the map '<em>Inner Joins</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.ValidationRulesConnection#getInnerJoins()
+     * @see #getValidationRulesConnection()
+     * @generated
+     */
+    EReference getValidationRulesConnection_InnerJoins();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.ValidationRulesConnection#isIsDisallow <em>Is Disallow</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Is Disallow</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.ValidationRulesConnection#isIsDisallow()
+     * @see #getValidationRulesConnection()
+     * @generated
+     */
+    EAttribute getValidationRulesConnection_IsDisallow();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.ValidationRulesConnection#isIsRejectLink <em>Is Reject Link</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Is Reject Link</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.ValidationRulesConnection#isIsRejectLink()
+     * @see #getValidationRulesConnection()
+     * @generated
+     */
+    EAttribute getValidationRulesConnection_IsRejectLink();
+
+    /**
      * Returns the meta object for enum '{@link org.talend.core.model.metadata.builder.connection.FileFormat <em>File Format</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for enum '<em>File Format</em>'.
@@ -19181,6 +20119,46 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      */
     EEnum getMdmConceptType();
+
+    /**
+     * Returns the meta object for enum '{@link org.talend.core.model.metadata.builder.connection.RuleType <em>Rule Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for enum '<em>Rule Type</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.RuleType
+     * @generated
+     */
+    EEnum getRuleType();
+
+    /**
+     * Returns the meta object for enum '{@link org.talend.core.model.metadata.builder.connection.Function <em>Function</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for enum '<em>Function</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.Function
+     * @generated
+     */
+    EEnum getFunction();
+
+    /**
+     * Returns the meta object for enum '{@link org.talend.core.model.metadata.builder.connection.Operator <em>Operator</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for enum '<em>Operator</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.Operator
+     * @generated
+     */
+    EEnum getOperator();
+
+    /**
+     * Returns the meta object for enum '{@link org.talend.core.model.metadata.builder.connection.LogicalOperator <em>Logical Operator</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for enum '<em>Logical Operator</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.LogicalOperator
+     * @generated
+     */
+    EEnum getLogicalOperator();
 
     /**
      * Returns the meta object for data type '{@link java.util.HashMap <em>Map</em>}'.
@@ -21954,6 +22932,212 @@ public interface ConnectionPackage extends EPackage {
         EAttribute BRMS_CONNECTION__PACKAGE = eINSTANCE.getBRMSConnection_Package();
 
         /**
+         * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.ConditionTypeImpl <em>Condition Type</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.metadata.builder.connection.impl.ConditionTypeImpl
+         * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getConditionType()
+         * @generated
+         */
+        EClass CONDITION_TYPE = eINSTANCE.getConditionType();
+
+        /**
+         * The meta object literal for the '<em><b>Input Column</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute CONDITION_TYPE__INPUT_COLUMN = eINSTANCE.getConditionType_InputColumn();
+
+        /**
+         * The meta object literal for the '<em><b>Function</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute CONDITION_TYPE__FUNCTION = eINSTANCE.getConditionType_Function();
+
+        /**
+         * The meta object literal for the '<em><b>Operator</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute CONDITION_TYPE__OPERATOR = eINSTANCE.getConditionType_Operator();
+
+        /**
+         * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute CONDITION_TYPE__VALUE = eINSTANCE.getConditionType_Value();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.InnerJoinMapImpl <em>Inner Join Map</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.metadata.builder.connection.impl.InnerJoinMapImpl
+         * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getInnerJoinMap()
+         * @generated
+         */
+        EClass INNER_JOIN_MAP = eINSTANCE.getInnerJoinMap();
+
+        /**
+         * The meta object literal for the '<em><b>Key</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute INNER_JOIN_MAP__KEY = eINSTANCE.getInnerJoinMap_Key();
+
+        /**
+         * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute INNER_JOIN_MAP__VALUE = eINSTANCE.getInnerJoinMap_Value();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.ValidationRulesConnectionImpl <em>Validation Rules Connection</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.metadata.builder.connection.impl.ValidationRulesConnectionImpl
+         * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getValidationRulesConnection()
+         * @generated
+         */
+        EClass VALIDATION_RULES_CONNECTION = eINSTANCE.getValidationRulesConnection();
+
+        /**
+         * The meta object literal for the '<em><b>Is Select</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute VALIDATION_RULES_CONNECTION__IS_SELECT = eINSTANCE.getValidationRulesConnection_IsSelect();
+
+        /**
+         * The meta object literal for the '<em><b>Is Insert</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute VALIDATION_RULES_CONNECTION__IS_INSERT = eINSTANCE.getValidationRulesConnection_IsInsert();
+
+        /**
+         * The meta object literal for the '<em><b>Is Update</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute VALIDATION_RULES_CONNECTION__IS_UPDATE = eINSTANCE.getValidationRulesConnection_IsUpdate();
+
+        /**
+         * The meta object literal for the '<em><b>Is Delete</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute VALIDATION_RULES_CONNECTION__IS_DELETE = eINSTANCE.getValidationRulesConnection_IsDelete();
+
+        /**
+         * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute VALIDATION_RULES_CONNECTION__TYPE = eINSTANCE.getValidationRulesConnection_Type();
+
+        /**
+         * The meta object literal for the '<em><b>Base Schema</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute VALIDATION_RULES_CONNECTION__BASE_SCHEMA = eINSTANCE.getValidationRulesConnection_BaseSchema();
+
+        /**
+         * The meta object literal for the '<em><b>Base Column Names</b></em>' attribute list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute VALIDATION_RULES_CONNECTION__BASE_COLUMN_NAMES = eINSTANCE.getValidationRulesConnection_BaseColumnNames();
+
+        /**
+         * The meta object literal for the '<em><b>Ref Schema</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute VALIDATION_RULES_CONNECTION__REF_SCHEMA = eINSTANCE.getValidationRulesConnection_RefSchema();
+
+        /**
+         * The meta object literal for the '<em><b>Ref Column Names</b></em>' attribute list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute VALIDATION_RULES_CONNECTION__REF_COLUMN_NAMES = eINSTANCE.getValidationRulesConnection_RefColumnNames();
+
+        /**
+         * The meta object literal for the '<em><b>Java Condition</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute VALIDATION_RULES_CONNECTION__JAVA_CONDITION = eINSTANCE.getValidationRulesConnection_JavaCondition();
+
+        /**
+         * The meta object literal for the '<em><b>Sql Condition</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute VALIDATION_RULES_CONNECTION__SQL_CONDITION = eINSTANCE.getValidationRulesConnection_SqlCondition();
+
+        /**
+         * The meta object literal for the '<em><b>Logical Operator</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute VALIDATION_RULES_CONNECTION__LOGICAL_OPERATOR = eINSTANCE.getValidationRulesConnection_LogicalOperator();
+
+        /**
+         * The meta object literal for the '<em><b>Conditions</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference VALIDATION_RULES_CONNECTION__CONDITIONS = eINSTANCE.getValidationRulesConnection_Conditions();
+
+        /**
+         * The meta object literal for the '<em><b>Inner Joins</b></em>' map feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference VALIDATION_RULES_CONNECTION__INNER_JOINS = eINSTANCE.getValidationRulesConnection_InnerJoins();
+
+        /**
+         * The meta object literal for the '<em><b>Is Disallow</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute VALIDATION_RULES_CONNECTION__IS_DISALLOW = eINSTANCE.getValidationRulesConnection_IsDisallow();
+
+        /**
+         * The meta object literal for the '<em><b>Is Reject Link</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute VALIDATION_RULES_CONNECTION__IS_REJECT_LINK = eINSTANCE.getValidationRulesConnection_IsRejectLink();
+
+        /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.FileFormat <em>File Format</em>}' enum.
          * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.metadata.builder.connection.FileFormat
@@ -22007,6 +23191,46 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EEnum MDM_CONCEPT_TYPE = eINSTANCE.getMdmConceptType();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.RuleType <em>Rule Type</em>}' enum.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.metadata.builder.connection.RuleType
+         * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getRuleType()
+         * @generated
+         */
+        EEnum RULE_TYPE = eINSTANCE.getRuleType();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.Function <em>Function</em>}' enum.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.metadata.builder.connection.Function
+         * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFunction()
+         * @generated
+         */
+        EEnum FUNCTION = eINSTANCE.getFunction();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.Operator <em>Operator</em>}' enum.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.metadata.builder.connection.Operator
+         * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getOperator()
+         * @generated
+         */
+        EEnum OPERATOR = eINSTANCE.getOperator();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.LogicalOperator <em>Logical Operator</em>}' enum.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.metadata.builder.connection.LogicalOperator
+         * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getLogicalOperator()
+         * @generated
+         */
+        EEnum LOGICAL_OPERATOR = eINSTANCE.getLogicalOperator();
 
         /**
          * The meta object literal for the '<em>Map</em>' data type.

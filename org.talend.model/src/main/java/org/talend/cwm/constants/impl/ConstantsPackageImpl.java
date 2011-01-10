@@ -107,8 +107,7 @@ public class ConstantsPackageImpl extends EPackageImpl implements ConstantsPacka
 
         // Obtain or create and register package
         ConstantsPackageImpl theConstantsPackage = (ConstantsPackageImpl) (EPackage.Registry.INSTANCE.get(eNS_URI) instanceof ConstantsPackageImpl ? EPackage.Registry.INSTANCE
-                .get(eNS_URI)
-                : new ConstantsPackageImpl());
+                .get(eNS_URI) : new ConstantsPackageImpl());
 
         isInited = true;
 

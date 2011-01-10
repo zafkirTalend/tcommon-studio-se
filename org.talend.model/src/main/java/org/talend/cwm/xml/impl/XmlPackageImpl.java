@@ -126,8 +126,7 @@ public class XmlPackageImpl extends EPackageImpl implements XmlPackage {
 
         // Obtain or create and register package
         XmlPackageImpl theXmlPackage = (XmlPackageImpl) (EPackage.Registry.INSTANCE.get(eNS_URI) instanceof XmlPackageImpl ? EPackage.Registry.INSTANCE
-                .get(eNS_URI)
-                : new XmlPackageImpl());
+                .get(eNS_URI) : new XmlPackageImpl());
 
         isInited = true;
 

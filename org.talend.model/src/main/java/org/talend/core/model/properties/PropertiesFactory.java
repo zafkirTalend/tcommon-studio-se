@@ -276,6 +276,15 @@ public interface PropertiesFactory extends EFactory {
     MDMConnectionItem createMDMConnectionItem();
 
     /**
+     * Returns a new object of class '<em>Validation Rules Connection Item</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Validation Rules Connection Item</em>'.
+     * @generated
+     */
+    ValidationRulesConnectionItem createValidationRulesConnectionItem();
+
+    /**
      * Returns a new object of class '<em>User Project Authorization</em>'. <!-- begin-user-doc --> <!-- end-user-doc
      * -->
      * 
