@@ -37,7 +37,7 @@ public class Problem {
     public enum ProblemStatus {
         ERROR,
         WARNING,
-        INFO;
+        INFO
     }
 
     /**

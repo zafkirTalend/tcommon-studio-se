@@ -33,6 +33,8 @@ public abstract class AbstractUpdateManager implements IUpdateManager {
     // for repository schema rename
     private Map<String, String> schemaRenamedMap = new HashMap<String, String>();
 
+    private boolean fromRepository = false;
+
     /**
      * ggu AbstractUpdateManager constructor comment.
      * 
@@ -65,6 +67,14 @@ public abstract class AbstractUpdateManager implements IUpdateManager {
             this.schemaRenamedMap.put(old, schemaRenamedMap.get(old));
         }
 
+    }
+
+    public boolean isFromRepository() {
+        return this.fromRepository;
+    }
+
+    public void setFromRepository(boolean fromRepository) {
+        this.fromRepository = fromRepository;
     }
 
     /**

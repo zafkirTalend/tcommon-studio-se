@@ -23,12 +23,13 @@ public enum EUpdateItemType {
     NODE_SAP_FUNCTION(Messages.getString("EUpdateItemType.SAPFunction")), //$NON-NLS-1$
     NODE_SAP_IDOC(Messages.getString("EUpdateItemType.SAPIDoc")), //$NON-NLS-1$
     NODE_QUERY(Messages.getString("EUpdateItemType.Query")), //$NON-NLS-1$
+    NODE_VALIDATION_RULE(Messages.getString("EUpdateItemType.ValidationRule")), //$NON-NLS-1$
     JOB_PROPERTY_EXTRA(Messages.getString("EUpdateItemType.Property")), //$NON-NLS-1$
     JOB_PROPERTY_STATS_LOGS(Messages.getString("EUpdateItemType.Property")), //$NON-NLS-1$
     JOB_PROPERTY_HEADERFOOTER(Messages.getString("EUpdateItemType.Property")), //$NON-NLS-1$
     CONTEXT(Messages.getString("EUpdateItemType.Variable")), //$NON-NLS-1$
     CONTEXT_GROUP(Messages.getString("EUpdateItemType.ContextGroup")), //$NON-NLS-1$
-    JOB_VERSION(Messages.getString("EUpdateItemType.JobVersion")),
+    JOB_VERSION(Messages.getString("EUpdateItemType.JobVersion")), //$NON-NLS-1$
     RELOAD(Messages.getString("EUpdateItemType.Components")), //$NON-NLS-1$
     // for joblet
     JOBLET_RENAMED(Messages.getString("EUpdateItemType.Name")), //$NON-NLS-1$

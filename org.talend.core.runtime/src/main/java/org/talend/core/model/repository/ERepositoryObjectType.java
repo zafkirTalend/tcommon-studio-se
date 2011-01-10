@@ -55,6 +55,7 @@ import org.talend.core.model.properties.SalesforceSchemaConnectionItem;
 import org.talend.core.model.properties.SnippetItem;
 import org.talend.core.model.properties.SnippetVariable;
 import org.talend.core.model.properties.TDQItem;
+import org.talend.core.model.properties.ValidationRulesConnectionItem;
 import org.talend.core.model.properties.WSDLSchemaConnectionItem;
 import org.talend.core.model.properties.XmlFileConnectionItem;
 import org.talend.core.model.properties.util.PropertiesSwitch;
@@ -121,6 +122,7 @@ public enum ERepositoryObjectType {
     METADATA_SALESFORCE_SCHEMA("repository.metadataSalesforceSchema", "repository.metadataSalesforceSchema.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     METADATA_GENERIC_SCHEMA("repository.metadataGenericSchema", "repository.metadataGenericSchema.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     METADATA_LDAP_SCHEMA("repository.metadataLDAPSchema", "repository.metadataLDAPSchema.alias"), //$NON-NLS-1$ //$NON-NLS-2$
+    METADATA_VALIDATION_RULES("repository.metadataValidationRules", "repository.metadataValidationRules.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     FOLDER("repository.folder"), //$NON-NLS-1$
     REFERENCED_PROJECTS("repository.referencedProjects", "repository.referencedProjects.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     GENERATED("repository.generated"), //$NON-NLS-1$
@@ -405,6 +407,8 @@ public enum ERepositoryObjectType {
             return "TDQ_Libraries/Indicators/System Indicators/Text Statistics";
         case METADATA_HEADER_FOOTER:
             return "metadata/header_footer";
+        case METADATA_VALIDATION_RULES:
+            return "metadata/validationRules"; //$NON-NLS-1$
         case TDQ_ANALYSIS_ELEMENT:
             return "TDQ_Data Profiling/Analyses"; //$NON-NLS-1$
         case TDQ_BUSINESSRULE_ELEMENT:
@@ -644,6 +648,10 @@ public enum ERepositoryObjectType {
             public Object caseTDQItem(TDQItem object) {
 
                 return TDQ_ELEMENT;
+            }
+
+            public Object caseValidationRulesConnectionItem(ValidationRulesConnectionItem object) {
+                return METADATA_VALIDATION_RULES;
             }
 
             public Object defaultCase(EObject object) {

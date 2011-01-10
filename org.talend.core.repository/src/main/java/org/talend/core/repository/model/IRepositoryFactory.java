@@ -304,6 +304,9 @@ public interface IRepositoryFactory {
     public RootContainer<String, IRepositoryViewObject> getMetadataRules(Project project, boolean... options)
             throws PersistenceException;
 
+    public RootContainer<String, IRepositoryViewObject> getMetadataValidationRules(Project project, boolean... options)
+            throws PersistenceException;
+
     public RootContainer<String, IRepositoryViewObject> getMetadataSQLPattern(Project project, boolean... options)
             throws PersistenceException;
 

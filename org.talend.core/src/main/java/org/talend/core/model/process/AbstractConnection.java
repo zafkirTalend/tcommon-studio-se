@@ -344,6 +344,10 @@ public abstract class AbstractConnection implements IConnection {
         return null;
     }
 
+    public <T extends IElementParameter> void addElementParameter(T elementParameter) {
+        ((List<T>) elementParameters).add(elementParameter);
+    }
+
     public void disconnect() {
         // TODO Auto-generated method stub
 

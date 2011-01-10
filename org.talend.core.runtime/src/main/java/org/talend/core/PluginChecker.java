@@ -65,6 +65,8 @@ public class PluginChecker {
 
     private static final String METALANGUAGE_PLUGIN_ID = "org.talend.metalanguage.jobscript";
 
+    private static final String VALIDATIONRULES_PLUGIN_ID = "org.talend.validationrules"; //$NON-NLS-1$
+
     /**
      * Check if specific plug-in is loaded.
      * 
@@ -189,6 +191,10 @@ public class PluginChecker {
 
     public static boolean isMetalanguagePluginLoaded() {
         return isPluginLoaded(METALANGUAGE_PLUGIN_ID);
+    }
+
+    public static boolean isValidationrulesPluginLoaded() {
+        return isPluginLoaded(VALIDATIONRULES_PLUGIN_ID);
     }
 
     public static String getSapWizardPluginId() {

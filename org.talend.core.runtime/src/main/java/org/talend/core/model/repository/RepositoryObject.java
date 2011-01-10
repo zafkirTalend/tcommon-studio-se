@@ -69,6 +69,7 @@ import org.talend.core.model.properties.SalesforceSchemaConnectionItem;
 import org.talend.core.model.properties.SnippetItem;
 import org.talend.core.model.properties.TDQItem;
 import org.talend.core.model.properties.User;
+import org.talend.core.model.properties.ValidationRulesConnectionItem;
 import org.talend.core.model.properties.WSDLSchemaConnectionItem;
 import org.talend.core.model.properties.XmlFileConnectionItem;
 import org.talend.core.model.properties.util.PropertiesSwitch;
@@ -246,6 +247,10 @@ public class RepositoryObject implements IRepositoryObject {
 
             public Object caseLinkRulesItem(LinkRulesItem object) {
                 return ERepositoryObjectType.METADATA_FILE_LINKRULES;
+            }
+
+            public Object caseValidationRulesConnectionItem(ValidationRulesConnectionItem object) {
+                return ERepositoryObjectType.METADATA_VALIDATION_RULES;
             }
 
             /*

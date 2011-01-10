@@ -153,8 +153,10 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
 
                 packageFragment = ((IJavaProject) CorePlugin.getDefault().getRunProcessService().getJavaProject())
                         .findPackageFragment(packagePath);
-                compilationUnit = packageFragment.createCompilationUnit(filename, document.get(), false,
-                        new NullProgressMonitor());
+                if (packageFragment != null) {
+                    compilationUnit = packageFragment.createCompilationUnit(filename, document.get(), false,
+                            new NullProgressMonitor());
+                }
             }
         } catch (JavaModelException e) {
             ExceptionHandler.process(e);
@@ -170,8 +172,7 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
         buff.append(getImports());
         buff.append("public class " + VIEWER_CLASS_NAME + currentId + " {\n"); //$NON-NLS-1$ //$NON-NLS-2$
         buff.append("\tprivate static java.util.Properties context = new java.util.Properties();\n"); //$NON-NLS-1$
-        buff
-                .append("\tprivate static final java.util.Map<String, Object> globalMap = new java.util.HashMap<String, Object>();\n"); //$NON-NLS-1$
+        buff.append("\tprivate static final java.util.Map<String, Object> globalMap = new java.util.HashMap<String, Object>();\n"); //$NON-NLS-1$
 
         buff.append("\tpublic void myFunction(){\n"); //$NON-NLS-1$
         buff.append("\t  if( \n"); //$NON-NLS-1$
@@ -191,8 +192,7 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
         buff.append(getImports());
         buff.append("public class " + VIEWER_CLASS_NAME + currentId + " {\n"); //$NON-NLS-1$ //$NON-NLS-2$
         buff.append("\tprivate static java.util.Properties context = new java.util.Properties();\n"); //$NON-NLS-1$
-        buff
-                .append("\tprivate static final java.util.Map<String, Object> globalMap = new java.util.HashMap<String, Object>();\n"); //$NON-NLS-1$
+        buff.append("\tprivate static final java.util.Map<String, Object> globalMap = new java.util.HashMap<String, Object>();\n"); //$NON-NLS-1$
 
         buff.append("\tpublic void myFunction(){\n"); //$NON-NLS-1$
         buff.append("\t  if( \n"); //$NON-NLS-1$
@@ -215,48 +215,50 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
         buff.append(getImports());
         buff.append("public class " + VIEWER_CLASS_NAME + currentId + " {\n"); //$NON-NLS-1$ //$NON-NLS-2$
 
-        List<IContextParameter> params = CorePlugin.getDefault().getRunProcessService().getSelectedContext()
-                .getContextParameterList();
-        buff.append(TEXT_1);
-        for (IContextParameter ctxParam : params) {
-            buff.append(TEXT_2);
-            buff.append(ctxParam.getName());
-            buff.append(TEXT_3);
-            buff.append(ctxParam.getName());
-            buff.append(TEXT_4);
-        }
-        buff.append(TEXT_5);
-        for (IContextParameter ctxParam : params) {
+        if (CorePlugin.getDefault().getRunProcessService().getSelectedContext() != null) {
 
-            if (ctxParam.getType().equals("id_List Of Value") || ctxParam.getType().equals("id_File") //$NON-NLS-1$ //$NON-NLS-2$
-                    || ctxParam.getType().equals("id_Directory") || ctxParam.getType().equals("id_Character")) { //$NON-NLS-1$ //$NON-NLS-2$
-
-                buff.append(TEXT_6);
+            List<IContextParameter> params = CorePlugin.getDefault().getRunProcessService().getSelectedContext()
+                    .getContextParameterList();
+            buff.append(TEXT_1);
+            for (IContextParameter ctxParam : params) {
+                buff.append(TEXT_2);
                 buff.append(ctxParam.getName());
-                buff.append(TEXT_7);
-
-            } else {
-
-                buff.append(TEXT_8);
-                buff.append(JavaTypesManager.getTypeToGenerate(ctxParam.getType(), true));
-                buff.append(TEXT_9);
+                buff.append(TEXT_3);
                 buff.append(ctxParam.getName());
-                buff.append(TEXT_10);
+                buff.append(TEXT_4);
             }
+            buff.append(TEXT_5);
+            for (IContextParameter ctxParam : params) {
+
+                if (ctxParam.getType().equals("id_List Of Value") || ctxParam.getType().equals("id_File") //$NON-NLS-1$ //$NON-NLS-2$
+                        || ctxParam.getType().equals("id_Directory") || ctxParam.getType().equals("id_Character")) { //$NON-NLS-1$ //$NON-NLS-2$
+
+                    buff.append(TEXT_6);
+                    buff.append(ctxParam.getName());
+                    buff.append(TEXT_7);
+
+                } else {
+
+                    buff.append(TEXT_8);
+                    buff.append(JavaTypesManager.getTypeToGenerate(ctxParam.getType(), true));
+                    buff.append(TEXT_9);
+                    buff.append(ctxParam.getName());
+                    buff.append(TEXT_10);
+                }
+            }
+            buff.append(TEXT_11);
+
+            buff.append("\tprivate static ContextProperties context = new ContextProperties();\n"); //$NON-NLS-1$
+            buff.append("\tprivate static final java.util.Map<String, Object> globalMap = new java.util.HashMap<String, Object>();\n"); //$NON-NLS-1$
+
+            if (dataBean != null) {
+                buff.append(parseVariables(dataBean.getVariables()));
+                buff.append("\tpublic " + dataBean.getExpressionType() + " myFunction(){\n"); //$NON-NLS-1$ //$NON-NLS-2$
+
+            }
+
+            buff.append("\t\treturn \n"); //$NON-NLS-1$
         }
-        buff.append(TEXT_11);
-
-        buff.append("\tprivate static ContextProperties context = new ContextProperties();\n"); //$NON-NLS-1$
-        buff
-                .append("\tprivate static final java.util.Map<String, Object> globalMap = new java.util.HashMap<String, Object>();\n"); //$NON-NLS-1$
-
-        if (dataBean != null) {
-            buff.append(parseVariables(dataBean.getVariables()));
-            buff.append("\tpublic " + dataBean.getExpressionType() + " myFunction(){\n"); //$NON-NLS-1$ //$NON-NLS-2$
-
-        }
-
-        buff.append("\t\treturn \n"); //$NON-NLS-1$
 
         int length = buff.toString().length();
         String defaultValue = ""; //$NON-NLS-1$
@@ -471,8 +473,8 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
         InputStream codeStream = new ByteArrayInputStream(getDocument().get().getBytes());
         try {
             if (file == null) {
-                file = CorePlugin.getDefault().getRunProcessService().getProject(LanguageManager.getCurrentLanguage()).getFile(
-                        filePath);
+                file = CorePlugin.getDefault().getRunProcessService().getProject(LanguageManager.getCurrentLanguage())
+                        .getFile(filePath);
                 file.setContents(codeStream, true, false, null);
                 initializeModel();
             } else {

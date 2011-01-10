@@ -38,6 +38,7 @@ public enum ERepositoryCategoryType {
     CDC(DATABASE),
     HEADERFOOTER,
     WEBSERVICE,
+    VALIDATIONRULES,
     //
     ;
 

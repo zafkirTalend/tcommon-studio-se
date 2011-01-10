@@ -81,6 +81,8 @@ public class RelationshipItemBuilder {
 
     public static final String SCHEMA_RELATION = "schema"; //$NON-NLS-1$
 
+    public static final String VALIDATION_RULE_RELATION = "validationRuleRelation"; //$NON-NLS-1$
+
     public static final String QUERY_RELATION = "query"; //$NON-NLS-1$
 
     public static final String CONTEXT_RELATION = "context"; //$NON-NLS-1$
@@ -498,14 +500,19 @@ public class RelationshipItemBuilder {
                     }
                 }
             }
+
+            // routine dependencies
+
             if (processType.getParameters() == null || processType.getParameters().getRoutinesParameter() == null) {
                 ParametersType parameterType = TalendFileFactory.eINSTANCE.createParametersType();
                 processType.setParameters(parameterType);
             }
+
             for (Object o : processType.getParameters().getRoutinesParameter()) {
                 RoutinesParameterType itemInfor = (RoutinesParameterType) o;
                 addRelationShip(item, itemInfor.getId(), LATEST_VERSION, ROUTINE_RELATION, itemInfor.getName());
             }
+            // jobsetting parameters
             if (processType.getParameters() != null) {
                 for (Object o : processType.getParameters().getElementParameter()) {
                     if (o instanceof ElementParameterType) {
@@ -514,18 +521,21 @@ public class RelationshipItemBuilder {
                             relationType = SCHEMA_RELATION;
                         } else if (param.getName().startsWith("PROPERTY:")) { //$NON-NLS-1$ 
                             relationType = PROPERTY_RELATION;
+                        } else if (param.getName().startsWith("VALIDATION_RULE_TYPE:")) {
+                            relationType = VALIDATION_RULE_RELATION;
                         } else { // if no relation parameter, reset variables in case.
                             builtIn = null;
                             currentValue = null;
                         }
-                        if (param.getName().endsWith(":PROPERTY_TYPE") || param.getName().endsWith(":SCHEMA_TYPE")) {//$NON-NLS-1$  //$NON-NLS-2$
+                        if (param.getName().endsWith(":PROPERTY_TYPE") || param.getName().endsWith(":SCHEMA_TYPE") || param.getName().endsWith(":VALIDATION_RULE_TYPE")) {//$NON-NLS-1$  //$NON-NLS-2$
                             builtIn = true;
                             if (param.getValue().equals("REPOSITORY")) { //$NON-NLS-1$
                                 builtIn = false;
                             }
                         }
                         if (param.getName().endsWith(":REPOSITORY_PROPERTY_TYPE") || //$NON-NLS-1$
-                                param.getName().endsWith(":REPOSITORY_SCHEMA_TYPE")) { //$NON-NLS-1$
+                                param.getName().endsWith(":REPOSITORY_SCHEMA_TYPE") || //$NON-NLS-1$
+                                param.getName().endsWith(":REPOSITORY_VALIDATION_RULE_TYPE")) { //$NON-NLS-1$ 
                             currentValue = param.getValue();
                         }
 
@@ -563,12 +573,14 @@ public class RelationshipItemBuilder {
                                 relationType = SCHEMA_RELATION;
                             } else if (param.getName().startsWith("PROPERTY:")) { //$NON-NLS-1$ 
                                 relationType = PROPERTY_RELATION;
+                            } else if (param.getName().startsWith("VALIDATION_RULE_TYPE:")) {
+                                relationType = VALIDATION_RULE_RELATION;
                             } else { // if no relation parameter, reset variables in case.
                                 builtIn = null;
                                 currentValue = null;
                             }
                             if (param.getName().endsWith(":PROPERTY_TYPE") || param.getName().endsWith(":SCHEMA_TYPE") //$NON-NLS-1$  //$NON-NLS-2$
-                                    || param.getName().endsWith(":QUERYSTORE_TYPE")) { //$NON-NLS-1$
+                                    || param.getName().endsWith(":QUERYSTORE_TYPE") || param.getName().endsWith(":VALIDATION_RULE_TYPE")) { //$NON-NLS-1$
                                 builtIn = true;
                                 if (param.getValue().equals("REPOSITORY")) { //$NON-NLS-1$
                                     builtIn = false;
@@ -576,7 +588,8 @@ public class RelationshipItemBuilder {
                             }
                             if (param.getName().endsWith(":REPOSITORY_PROPERTY_TYPE") || //$NON-NLS-1$
                                     param.getName().endsWith(":REPOSITORY_SCHEMA_TYPE") || //$NON-NLS-1$
-                                    param.getName().endsWith(":REPOSITORY_QUERYSTORE_TYPE")) { //$NON-NLS-1$
+                                    param.getName().endsWith(":REPOSITORY_QUERYSTORE_TYPE") ////$NON-NLS-1$
+                                    || param.getName().endsWith(":REPOSITORY_VALIDATION_RULE_TYPE")) { //$NON-NLS-1$
                                 currentValue = param.getValue();
                             }
 

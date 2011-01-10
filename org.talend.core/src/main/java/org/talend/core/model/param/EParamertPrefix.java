@@ -22,6 +22,7 @@ public enum EParamertPrefix {
     QUERYSTORE, // query
     SCHEMA, // schema
     ENCODING, // Encoding
+    VALIDATION_RULE, // validation rule
     ;
 
     public String getName() {

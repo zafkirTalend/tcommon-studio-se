@@ -141,6 +141,8 @@ public interface IProjectRepositoryNode {
 
     public IRepositoryNode getMetadataRulesNode();
 
+    public IRepositoryNode getMetadataValidationRulesNode();
+
     /**
      * Getter for project.
      * 

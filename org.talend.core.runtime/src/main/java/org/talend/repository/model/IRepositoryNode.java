@@ -60,6 +60,8 @@ public interface IRepositoryNode {
 
     public IProjectRepositoryNode getRoot();
 
+    public RepositoryNode getParent();
+
     public List<IRepositoryNode> getChildren();
 
     public IRepositoryViewObject getObject();

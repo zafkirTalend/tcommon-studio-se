@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.commons.ui.runtime.image;
 
-
 /**
  * 
  * DOC smallet ImageProvider class global comment. Detailled comment <br/>
@@ -121,6 +120,8 @@ public enum ECoreImage implements IImage {
     METADATA_LDAP_SCHEMA_ICON("/icons1/ldap_icon.png"), //$NON-NLS-1$
     METADATA_WSDL_SCHEMA_ICON("/icons1/wsdl_icon.png"), //$NON-NLS-1$
     METADATA_SALESFORCE_SCHEMA_ICON("/icons1/salesforce_icon.png"), //$NON-NLS-1$
+    METADATA_VALIDATION_RULES_ICON("/icons1/metadata.png"), //$NON-NLS-1$
+    METADATA_VALIDATION_RULES_WIZ("/icons1/delimited_wiz.png"), //$NON-NLS-1$
 
     MODULE_INSTALLED_ICON("/icons1/checked.gif"), //$NON-NLS-1$
     MODULE_ERROR_ICON("/icons1/error.gif"), //$NON-NLS-1$

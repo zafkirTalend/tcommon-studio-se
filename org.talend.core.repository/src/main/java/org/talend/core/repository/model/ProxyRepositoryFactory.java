@@ -2117,10 +2117,26 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
     /*
      * (non-Javadoc)
      * 
+     * @see
+     * org.talend.repository.model.IProxyRepositoryFactory#getMetadataValidationRules(org.talend.core.model.general.
+     * Project, boolean[])
+     */
+    public RootContainer<String, IRepositoryViewObject> getMetadataValidationRules(Project project, boolean... options)
+            throws PersistenceException {
+        return this.repositoryFactoryFromProvider.getMetadataValidationRules(project, options);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.repository.model.IProxyRepositoryFactory#getMetadataHL7()
      */
     public RootContainer<String, IRepositoryViewObject> getMetadataHL7() throws PersistenceException {
         return getMetadataHL7(projectManager.getCurrentProject());
+    }
+
+    public RootContainer<String, IRepositoryViewObject> getMetadataValidationRules() throws PersistenceException {
+        return getMetadataValidationRules(projectManager.getCurrentProject());
     }
 
     public FolderItem getFolderItem(Project project, ERepositoryObjectType itemType, IPath path) {

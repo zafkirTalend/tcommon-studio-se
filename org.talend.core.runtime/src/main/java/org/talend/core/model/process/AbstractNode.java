@@ -101,6 +101,10 @@ public abstract class AbstractNode implements INode {
         this.elementParameters = elementParameters;
     }
 
+    public <T extends IElementParameter> void addElementParameter(T elementParameter) {
+        ((List<T>) elementParameters).add(elementParameter);
+    }
+
     public List<? extends IConnection> getIncomingConnections() {
         return incomingConnections;
     }

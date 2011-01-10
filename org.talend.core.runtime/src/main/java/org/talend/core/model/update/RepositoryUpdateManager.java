@@ -692,6 +692,7 @@ public abstract class RepositoryUpdateManager {
             if (updateManager instanceof AbstractUpdateManager) {
                 AbstractUpdateManager manager = (AbstractUpdateManager) updateManager;
                 manager.setSchemaRenamedMap(getSchemaRenamedMap());
+                manager.setFromRepository(true);
             }
             //
             for (EUpdateItemType type : types) {
@@ -699,6 +700,10 @@ public abstract class RepositoryUpdateManager {
                 if (updatesNeeded != null) {
                     resultList.addAll(updatesNeeded);
                 }
+            }
+            if (updateManager instanceof AbstractUpdateManager) {
+                AbstractUpdateManager manager = (AbstractUpdateManager) updateManager;
+                manager.setFromRepository(false);
             }
         }
         return resultList;
@@ -871,6 +876,53 @@ public abstract class RepositoryUpdateManager {
                 types.add(EUpdateItemType.NODE_SCHEMA);
                 types.add(EUpdateItemType.JOB_PROPERTY_HEADERFOOTER);
                 types.add(EUpdateItemType.NODE_SAP_IDOC);
+                return types;
+            }
+
+        };
+        return repositoryUpdateManager.doWork(show, onlySimpleShow);
+    }
+
+    /**
+     * DOC ycbai Comment method "updateValidationRuleConnection".
+     * 
+     * @param connection
+     * @return
+     */
+    public static boolean updateValidationRuleConnection(ConnectionItem connection) {
+        return updateValidationRuleConnection(connection, true, false);
+    }
+
+    /**
+     * DOC ycbai Comment method "updateValidationRuleConnection".
+     * 
+     * @param connectionItem
+     * @param show
+     * @param onlySimpleShow
+     * @return
+     */
+    public static boolean updateValidationRuleConnection(ConnectionItem connectionItem, boolean show, boolean onlySimpleShow) {
+        IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
+        List<IRepositoryViewObject> updateList = new ArrayList<IRepositoryViewObject>();
+        List<RelationshipItemBuilder.Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(
+                connectionItem.getProperty().getId(), RelationshipItemBuilder.LATEST_VERSION,
+                RelationshipItemBuilder.VALIDATION_RULE_RELATION);
+        for (RelationshipItemBuilder.Relation relation : relations) {
+            try {
+                IRepositoryViewObject obj = factory.getLastVersion(relation.getId());
+                if (obj != null) {
+                    updateList.add(obj);
+                }
+            } catch (PersistenceException e) {
+                ExceptionHandler.process(e);
+            }
+        }
+        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(connectionItem.getConnection(), updateList) {
+
+            @Override
+            public Set<EUpdateItemType> getTypes() {
+                Set<EUpdateItemType> types = new HashSet<EUpdateItemType>();
+                types.add(EUpdateItemType.NODE_VALIDATION_RULE);
                 return types;
             }
 
