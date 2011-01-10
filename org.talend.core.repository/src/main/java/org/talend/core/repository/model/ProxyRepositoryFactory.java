@@ -892,16 +892,6 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         return this.repositoryFactoryFromProvider.getAllVersion(project, id, folderPath, type);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.repository.model.IRepositoryFactory#getLastVersion(org.talend.core.model.general.Project, int)
-     */
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.repository.model.IProxyRepositoryFactory#getLastVersion(java.lang.String)
-     */
     public IRepositoryViewObject getLastVersion(Project project, String id) throws PersistenceException {
         return this.repositoryFactoryFromProvider.getLastVersion(project, id);
     }
@@ -1054,9 +1044,6 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      */
     public void forceCreate(Item item, IPath path) throws PersistenceException {
         forceCreate(projectManager.getCurrentProject(), item, path);
-        // if (item instanceof ProcessItem) {
-        // fireRepositoryPropertyChange(ERepositoryActionName.JOB_CREATE.getName(), null, item);
-        // }
     }
 
     public void forceCreate(Project project, Item item, IPath path) throws PersistenceException {
@@ -1185,11 +1172,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
     }
 
     public void save(Project project, Item item, boolean... isMigrationTask) throws PersistenceException {
-        // if (isMigrationTask.length == 0 || !isMigrationTask[0]) {
         this.repositoryFactoryFromProvider.save(project, item);
-        // } else {
-        // item.eResource().setModified(true);
-        // }
         if ((item instanceof ProcessItem || item instanceof JobletProcessItem)
                 && (isMigrationTask == null || isMigrationTask.length == 0)) {
             fireRepositoryPropertyChange(ERepositoryActionName.JOB_SAVE.getName(), null, item);

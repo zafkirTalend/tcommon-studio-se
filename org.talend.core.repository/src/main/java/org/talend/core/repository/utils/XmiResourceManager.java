@@ -128,8 +128,8 @@ public class XmiResourceManager {
 
         Resource propertyResource = resourceSet.getResource(propertyUri, true);
 
-        Property property = (Property) EcoreUtil.getObjectByType(propertyResource.getContents(), PropertiesPackage.eINSTANCE
-                .getProperty());
+        Property property = (Property) EcoreUtil.getObjectByType(propertyResource.getContents(),
+                PropertiesPackage.eINSTANCE.getProperty());
         return property;
     }
 
@@ -152,16 +152,15 @@ public class XmiResourceManager {
      */
     private IPath getFolderPath(IProject project, ERepositoryObjectType repositoryObjectType, IPath relativePath)
             throws PersistenceException {
-        IFolder folder = null;
-        if (repositoryObjectType.getKey().equals(ERepositoryObjectType.TDQ_ANALYSIS_ELEMENT.getKey())) {
-            folder = project.getFolder(ERepositoryObjectType.getFolderName(repositoryObjectType));
-        } else if (repositoryObjectType.getKey().equals(ERepositoryObjectType.TDQ_REPORT_ELEMENT.getKey())) {
-            folder = project.getFolder(ERepositoryObjectType.getFolderName(repositoryObjectType));
-        } else if (repositoryObjectType.getKey().equals(ERepositoryObjectType.TDQ_PATTERN_ELEMENT.getKey())) {
-            folder = project.getFolder(ERepositoryObjectType.getFolderName(repositoryObjectType)).getFolder(relativePath);
-        } else {
-            folder = project.getFolder(ERepositoryObjectType.getFolderName(repositoryObjectType)).getFolder(relativePath);
+        ERepositoryObjectType type = repositoryObjectType;
+        if (ERepositoryObjectType.TDQ_SYSTEM_INDICATORS.equals(repositoryObjectType)
+                || ERepositoryObjectType.TDQ_USERDEFINE_INDICATORS.equals(repositoryObjectType)) {
+            type = ERepositoryObjectType.TDQ_INDICATORS;
+        } else if (ERepositoryObjectType.TDQ_PATTERN_REGEX.equals(repositoryObjectType)
+                || ERepositoryObjectType.TDQ_PATTERN_SQL.equals(repositoryObjectType)) {
+            type = ERepositoryObjectType.TDQ_PATTERNS;
         }
+        IFolder folder = project.getFolder(ERepositoryObjectType.getFolderName(type)).getFolder(relativePath);
         return folder.getFullPath();
     }
 
@@ -244,7 +243,6 @@ public class XmiResourceManager {
             String folder = null;
             if (item instanceof JobDocumentationItem) {
                 folder = ERepositoryObjectType.getFolderName(ERepositoryObjectType.JOB_DOC);
-
             } else if (item instanceof JobletDocumentationItem) {
                 folder = ERepositoryObjectType.getFolderName(ERepositoryObjectType.JOBLET_DOC);
             } else if (item instanceof DatabaseConnectionItem) {
@@ -349,11 +347,11 @@ public class XmiResourceManager {
 
     // MOD mzhao 2010-11-22, suppport TDQ item file extensions.(.ana, .rep, etc)
     private URI getItemResourceURI(IProject project, ERepositoryObjectType repositoryObjectType, IPath path, Item item,
-            String... fileExtension)
-            throws PersistenceException {
+            String... fileExtension) throws PersistenceException {
         IPath folderPath = getFolderPath(project, repositoryObjectType, path);
         FileName fileName = ResourceFilenameHelper.create(item.getProperty());
-        IPath resourcePath = ResourceFilenameHelper.getExpectedFilePath(fileName, folderPath, FileConstants.ITEM_EXTENSION);
+        IPath resourcePath = ResourceFilenameHelper.getExpectedFilePath(fileName, folderPath,
+                FileConstants.ITEM_EXTENSION);
         if (fileExtension != null && fileExtension.length > 0) {
             resourcePath = ResourceFilenameHelper.getExpectedFilePath(fileName, folderPath, fileExtension[0]);
         }

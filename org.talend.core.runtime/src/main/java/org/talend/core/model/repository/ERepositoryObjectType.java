@@ -87,7 +87,7 @@ public enum ERepositoryObjectType {
     METADATA_CON_VIEW("repository.metadataView", true), //$NON-NLS-1$
     METADATA_CON_CATALOG("repository.metadataCatalog", true), //$NON-NLS-1$
     METADATA_CON_SCHEMA("repository.metadataSchema", true), //$NON-NLS-1$
-    //    METADATA_CON_COLUMN("repository.metadataColumn"), //$NON-NLS-1$
+    // METADATA_CON_COLUMN("repository.metadataColumn"), //$NON-NLS-1$
     METADATA_CON_SYNONYM("repository.synonym", true), //$NON-NLS-1$
     METADATA_CON_QUERY("repository.query", true), //$NON-NLS-1$
     METADATA_CON_CDC("repository.CDC", true), //$NON-NLS-1$
@@ -101,9 +101,7 @@ public enum ERepositoryObjectType {
     // feature 0006484 add
     METADATA_FILE_RULES("repository.metadataFileRules", "repository.metadataFileRules.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     METADATA_FILE_LINKRULES("repository.metadataLinkFileRules", "repository.metadataLinkFileRules.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-
     METADATA_RULES_MANAGEMENT("repository.metadataRulesManagement", "repository.metadataRulesManagement.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-
     METADATA_CONNECTIONS("repository.metadataConnections", "repository.metadataConnections.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     METADATA_SAPCONNECTIONS("repository.metadataSAPConnections", "repository.metadataSAPConnections.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     SQLPATTERNS("repository.metadataSQLPatterns", "repository.metadataSQLPatterns.alias"), //$NON-NLS-1$ //$NON-NLS-2$
@@ -133,64 +131,58 @@ public enum ERepositoryObjectType {
     METADATA_WSDL_SCHEMA("repository.metadataWSDLSchema", "repository.metadataWSDLSchema.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     JOBLETS("repository.joblets"), //$NON-NLS-1$
     JOBLET_DOC("repository.jobletdoc"), //$NON-NLS-1$
-    // MOD mzhao feature 13114, 2010-05-19
-    TDQ_ANALYSIS_ELEMENT("repository.tdqelement.analysis", "repository.tdqelement.analysis"), //$NON-NLS-1$ //$NON-NLS-2$
-    TDQ_REPORT_ELEMENT("repository.tdqelement.report", "repository.tdqelement.report"), //$NON-NLS-1$ //$NON-NLS-2$
-    TDQ_BUSINESSRULE_ELEMENT("repository.tdqelement.businessrule", "repository.tdqelement.businessrule"), //$NON-NLS-1$ //$NON-NLS-2$
-    TDQ_INDICATOR_ELEMENT("repository.tdqelement.indicator", "repository.tdqelement.indicator"), //$NON-NLS-1$ //$NON-NLS-2$
-    TDQ_PATTERN_ELEMENT("repository.tdqelement.pattern", "repository.tdqelement.pattern"), //$NON-NLS-1$ //$NON-NLS-2$
-    TDQ_FOLDER_NODE("repository.tdqelement.folderNode", "repository.tdqelement.folderNode"), //$NON-NLS-1$ //$NON-NLS-2$
-
-    // MOD zqin feature 14507
-    TDQ_JRAXML_ELEMENT("repository.tdqelement.jrxml", "repository.tdqelement.jrxml"),
-    // MOD mzhao feature 9207
-    TDQ_ELEMENT("repository.tdqelement", "repository.tdqelement"), //$NON-NLS-1$ //$NON-NLS-2$
-
     METADATA_HEADER_FOOTER("repository.headerFooterConnections", "repository.headerFooterConnections.alias"), //$NON-NLS-1$
-    COMPONENTS("repository.components"),
+    COMPONENTS("repository.components"), //$NON-NLS-1$
+    // MOD mzhao feature 9207
+    TDQ_ELEMENT("repository.tdqelement", "repository.tdqelement.alias"), //$NON-NLS-1$ //$NON-NLS-2$
+    // MOD mzhao feature 13114, 2010-05-19
+    TDQ_ANALYSIS_ELEMENT("repository.tdqelement.analysis", "repository.tdqelement.analysis.alias"), //$NON-NLS-1$ //$NON-NLS-2$
+    TDQ_REPORT_ELEMENT("repository.tdqelement.report", "repository.tdqelement.report.alias"), //$NON-NLS-1$ //$NON-NLS-2$
+    TDQ_BUSINESSRULE_ELEMENT("repository.tdqelement.businessrule", "repository.tdqelement.businessrule.alias"), //$NON-NLS-1$ //$NON-NLS-2$
+    TDQ_INDICATOR_ELEMENT("repository.tdqelement.indicator", "repository.tdqelement.indicator.alias"), //$NON-NLS-1$ //$NON-NLS-2$
+    TDQ_PATTERN_ELEMENT("repository.tdqelement.pattern", "repository.tdqelement.pattern.alias"), //$NON-NLS-1$ //$NON-NLS-2$
+    TDQ_SOURCE_FILE_ELEMENT("repository.tdqelement.sourceFile", "repository.tdqelement.sourceFile.alias"), //$NON-NLS-1$ //$NON-NLS-2$
+    // MOD zqin feature 14507
+    TDQ_JRAXML_ELEMENT("repository.tdqelement.jrxml", "repository.tdqelement.jrxml.alias"), //$NON-NLS-1$ //$NON-NLS-2$
+    TDQ_FOLDER_NODE("repository.tdqelement.folderNode", "repository.tdqelement.folderNode.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     // MOD klliu feature 15750
-    TDQ_DATA_PROFILING("repository.dataprofiling"),
-    TDQ_ANALYSIS("repository.analysis"),
-    TDQ_REPORTS("repository.reports"),
-    TDQ_LIBRARIES("repository.libraries"),
-    TDQ_PATTERNS("repository.patterns"),
-    TDQ_PATTERN_REGEX("repository.patternRegex"),
-    TDQ_PATTERN_SQL("repository.patternSql"),
-    TDQ_SOURCE_FILES("repository.sourceFile"),
-    TDQ_RULES("repository.rules"),
-    TDQ_RULES_SQL("repository.rulesSql"),
-    TDQ_JRXMLTEMPLATE("repository.jrxmlTemplate"),
-    TDQ_INDICATORS("repository.indicators"),
+    TDQ_DATA_PROFILING("repository.dataprofiling", "repository.dataprofiling.alias"), //$NON-NLS-1$ //$NON-NLS-2$
+    TDQ_ANALYSIS("repository.analysis", "repository.analysis.alias"), //$NON-NLS-1$ //$NON-NLS-2$
+    TDQ_REPORTS("repository.reports", "repository.reports.alias"), //$NON-NLS-1$ //$NON-NLS-2$
+    TDQ_LIBRARIES("repository.libraries", "repository.libraries.alias"), //$NON-NLS-1$ //$NON-NLS-2$
+    TDQ_PATTERNS("repository.patterns", "repository.patterns.alias"), //$NON-NLS-1$ //$NON-NLS-2$
+    TDQ_PATTERN_REGEX("repository.patternRegex", "repository.patternRegex.alias"), //$NON-NLS-1$ //$NON-NLS-2$
+    TDQ_PATTERN_SQL("repository.patternSql", "repository.patternSql.alias"), //$NON-NLS-1$ //$NON-NLS-2$
+    TDQ_SOURCE_FILES("repository.sourceFile", "repository.sourceFile.alias"), //$NON-NLS-1$ //$NON-NLS-2$
+    TDQ_RULES("repository.rules", "repository.rules.alias"), //$NON-NLS-1$ //$NON-NLS-2$
+    TDQ_RULES_SQL("repository.rulesSql", "repository.rulesSql.alias"), //$NON-NLS-1$ //$NON-NLS-2$
+    TDQ_JRXMLTEMPLATE("repository.jrxmlTemplate", "repository.jrxmlTemplate.alias"), //$NON-NLS-1$ //$NON-NLS-2$
+    TDQ_INDICATORS("repository.indicators", "repository.indicators.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     // MOD klliu 2010-11-26 definition type
-    SYSTEM_INDICATORS_ADVANCED_STATISTICS("Advanced Statistics"),
-    SYSTEM_INDICATORS_BUSINESS_RULES("Business Rules"),
-    SYSTEM_INDICATORS_CORRELATION("Correlation"),
-    SYSTEM_INDICATORS_FUNCTIONAL_DEPENDENCY("Functional Dependency"),
-    SYSTEM_INDICATORS_OVERVIEW("Overview"),
-    SYSTEM_INDICATORS_PATTERN_FINDER("Pattern Finder"),
-    SYSTEM_INDICATORS_PATTERN_MATCHING("Pattern Matching"),
-    SYSTEM_INDICATORS_ROW_COMPARISON("Row Comparison"),
-    SYSTEM_INDICATORS_SIMPLE_STATISTICS("Simple Statistics"),
-    SYSTEM_INDICATORS_SOUNDEX("Soundex"),
-    SYSTEM_INDICATORS_SUMMARY_STATISTICS("Summary Statistics"),
-    SYSTEM_INDICATORS_TEXT_STATISTICS("Text Statistics"),
-    // MOD klliu 2010-12-01 Patterns
-    // TDQ_PATTERN_REGEX_CUSTOMER("repository.patternRegexCustomer"),
-    // TDQ_PATTERN_REGEX_INTERNET("repository.patternRegexInternet"),
-    // TDQ_PATTERN_REGEX_COLOR("repository.patternRegexColor"),
-    // TDQ_PATTERN_REGEX_DATE("repository.patternRegexDate"),
-    // TDQ_PATTERN_REGEX_NUMBER("repository.patternRegexNumber"),
-    // TDQ_PATTERN_REGEX_CODE("repository.patternRegexCode"),
-    // TDQ_PATTERN_REGEX_PHONE("repository.patternRegexPhone"),
-    // TDQ_PATTERN_REGEX_ADDRESS("repository.patternRegexAddress"),
-    // TDQ_PATTERN_REGEX_TEXT("repository.patternRegexText"),
-
-    TDQ_SYSTEM_INDICATORS("repository.systemIndicators"),
-    TDQ_USERDEFINE_INDICATORS("repository.userDefineIndicators"),
-    // TDQ_PATTERN_SQL_INTERNET("repository.patternSqlInternet"),
-    TDQ_EXCHANGE(("repository.tdqExchange"));
-
-    // MOD klliu 2010-11-29
+    TDQ_SYSTEM_INDICATORS("repository.systemIndicators", "repository.systemIndicators.alias"), //$NON-NLS-1$ //$NON-NLS-2$
+    TDQ_USERDEFINE_INDICATORS("repository.userDefineIndicators", "repository.userDefineIndicators.alias"), //$NON-NLS-1$ //$NON-NLS-2$
+    SYSTEM_INDICATORS_ADVANCED_STATISTICS(
+                                          "repository.systemIndicators.advancedStatistics", "repository.systemIndicators.advancedStatistics.alias"), //$NON-NLS-1$ //$NON-NLS-2$
+    SYSTEM_INDICATORS_BUSINESS_RULES(
+                                     "repository.systemIndicators.businessRules", "repository.systemIndicators.businessRules.alias"), //$NON-NLS-1$ //$NON-NLS-2$
+    SYSTEM_INDICATORS_CORRELATION("repository.systemIndicators.correlation", "repository.systemIndicators.correlation.alias"), //$NON-NLS-1$ //$NON-NLS-2$
+    SYSTEM_INDICATORS_FUNCTIONAL_DEPENDENCY(
+                                            "repository.systemIndicators.functionalDependency", "repository.systemIndicators.functionalDependency.alias"), //$NON-NLS-1$ //$NON-NLS-2$
+    SYSTEM_INDICATORS_OVERVIEW("repository.systemIndicators.overview, repository.systemIndicators.overview.alias"), //$NON-NLS-1$ //$NON-NLS-2$
+    SYSTEM_INDICATORS_PATTERN_FINDER(
+                                     "repository.systemIndicators.patternFinder", "repository.systemIndicators.patternFinder.alias"), //$NON-NLS-1$ //$NON-NLS-2$
+    SYSTEM_INDICATORS_PATTERN_MATCHING(
+                                       "repository.systemIndicators.patternMatching", "repository.systemIndicators.patternMatching.alias"), //$NON-NLS-1$ //$NON-NLS-2$
+    SYSTEM_INDICATORS_ROW_COMPARISON(
+                                     "repository.systemIndicators.rowComparison", "repository.systemIndicators.rowComparison.alias"), //$NON-NLS-1$ //$NON-NLS-2$
+    SYSTEM_INDICATORS_SIMPLE_STATISTICS(
+                                        "repository.systemIndicators.simpleStatistics", "repository.systemIndicators.simpleStatistics.alias"), //$NON-NLS-1$ //$NON-NLS-2$
+    SYSTEM_INDICATORS_SOUNDEX("repository.systemIndicators.soundex", "repository.systemIndicators.soundex.alias"), //$NON-NLS-1$ //$NON-NLS-2$
+    SYSTEM_INDICATORS_SUMMARY_STATISTICS(
+                                         "repository.systemIndicators.summaryStatistics", "repository.systemIndicators.summaryStatistics.alias"), //$NON-NLS-1$ //$NON-NLS-2$
+    SYSTEM_INDICATORS_TEXT_STATISTICS(
+                                      "repository.systemIndicators.textStatistics", "repository.systemIndicators.textStatistics.alias"), //$NON-NLS-1$ //$NON-NLS-2$
+    TDQ_EXCHANGE("repository.tdqExchange", "repository.tdqExchange.alias"); //$NON-NLS-1$ //$NON-NLS-2$
 
     private String key;
 
@@ -330,97 +322,76 @@ public enum ERepositoryObjectType {
             return "metadata/rules"; //$NON-NLS-1$
             // MOD klliu feature 15750,2010-11-18
         case TDQ_DATA_PROFILING:
-            return "TDQ_Data Profiling";
+            return "TDQ_Data Profiling"; //$NON-NLS-1$
         case TDQ_ANALYSIS:
-            return "TDQ_Data Profiling/Analyses";
+            return "TDQ_Data Profiling/Analyses"; //$NON-NLS-1$
         case TDQ_REPORTS:
-            return "TDQ_Data Profiling/Reports";
+            return "TDQ_Data Profiling/Reports"; //$NON-NLS-1$
         case TDQ_LIBRARIES:
-            return "TDQ_Libraries";
+            return "TDQ_Libraries"; //$NON-NLS-1$
         case TDQ_EXCHANGE:
-            return "TDQ_Libraries/Exchange";
+            return "TDQ_Libraries/Exchange"; //$NON-NLS-1$
         case TDQ_INDICATORS:
-            return "TDQ_Libraries/Indicators";
+            return "TDQ_Libraries/Indicators"; //$NON-NLS-1$
         case TDQ_JRXMLTEMPLATE:
-            return "TDQ_Libraries/JRXML Template";
+            return "TDQ_Libraries/JRXML Template"; //$NON-NLS-1$
         case TDQ_RULES:
-            return "TDQ_Libraries/Rules";
+            return "TDQ_Libraries/Rules"; //$NON-NLS-1$
         case TDQ_RULES_SQL:
-            return "TDQ_Libraries/Rules/SQL";
+            return "TDQ_Libraries/Rules/SQL"; //$NON-NLS-1$
         case TDQ_PATTERNS:
-            return "TDQ_Libraries/Patterns";
+            return "TDQ_Libraries/Patterns"; //$NON-NLS-1$
         case TDQ_PATTERN_REGEX:
-            return "TDQ_Libraries/Patterns/Regex";
-            // MOD klliu 2010-12-01 patterns
-            // case TDQ_PATTERN_REGEX_CUSTOMER:
-            // return "TDQ_Libraries/Patterns/Regex/customer";
-            // case TDQ_PATTERN_REGEX_INTERNET:
-            // return "TDQ_Libraries/Patterns/Regex/internet";
-            // case TDQ_PATTERN_REGEX_COLOR:
-            // return "TDQ_Libraries/Patterns/Regex/color";
-            // case TDQ_PATTERN_REGEX_DATE:
-            // return "TDQ_Libraries/Patterns/Regex/date";
-            // case TDQ_PATTERN_REGEX_NUMBER:
-            // return "TDQ_Libraries/Patterns/Regex/number";
-            // case TDQ_PATTERN_REGEX_CODE:
-            // return "TDQ_Libraries/Patterns/Regex/code";
-            // case TDQ_PATTERN_REGEX_PHONE:
-            // return "TDQ_Libraries/Patterns/Regex/phone";
-            // case TDQ_PATTERN_REGEX_ADDRESS:
-            // return "TDQ_Libraries/Patterns/Regex/address";
-            // case TDQ_PATTERN_REGEX_TEXT:
-            // return "TDQ_Libraries/Patterns/Regex/text";
+            return "TDQ_Libraries/Patterns/Regex"; //$NON-NLS-1$
         case TDQ_PATTERN_SQL:
-            return "TDQ_Libraries/Patterns/SQL";
-            // case TDQ_PATTERN_SQL_INTERNET:
-            // return "TDQ_Libraries/Patterns/SQL/internet";
+            return "TDQ_Libraries/Patterns/SQL"; //$NON-NLS-1$
         case TDQ_SOURCE_FILES:
-            return "TDQ_Libraries/Source Files";
+            return "TDQ_Libraries/Source Files"; //$NON-NLS-1$
         case TDQ_SYSTEM_INDICATORS:
-            return "TDQ_Libraries/Indicators/System Indicators";
+            return "TDQ_Libraries/Indicators/System Indicators"; //$NON-NLS-1$
         case TDQ_USERDEFINE_INDICATORS:
-            return "TDQ_Libraries/Indicators/User Defined Indicators";
+            return "TDQ_Libraries/Indicators/User Defined Indicators"; //$NON-NLS-1$
             // MOD klliu 2010-11-26 definition type
         case SYSTEM_INDICATORS_ADVANCED_STATISTICS:
-            return "TDQ_Libraries/Indicators/System Indicators/Advanced Statistics";
+            return "TDQ_Libraries/Indicators/System Indicators/Advanced Statistics"; //$NON-NLS-1$
         case SYSTEM_INDICATORS_BUSINESS_RULES:
-            return "TDQ_Libraries/Indicators/System Indicators/Business Rules";
+            return "TDQ_Libraries/Indicators/System Indicators/Business Rules"; //$NON-NLS-1$
         case SYSTEM_INDICATORS_CORRELATION:
-            return "TDQ_Libraries/Indicators/System Indicators/Correlation";
+            return "TDQ_Libraries/Indicators/System Indicators/Correlation"; //$NON-NLS-1$
         case SYSTEM_INDICATORS_FUNCTIONAL_DEPENDENCY:
-            return "TDQ_Libraries/Indicators/System Indicators/Functional Dependency";
+            return "TDQ_Libraries/Indicators/System Indicators/Functional Dependency"; //$NON-NLS-1$
         case SYSTEM_INDICATORS_OVERVIEW:
-            return "TDQ_Libraries/Indicators/System Indicators/Overview";
+            return "TDQ_Libraries/Indicators/System Indicators/Overview"; //$NON-NLS-1$
         case SYSTEM_INDICATORS_PATTERN_FINDER:
-            return "TDQ_Libraries/Indicators/System Indicators/Pattern Finder";
+            return "TDQ_Libraries/Indicators/System Indicators/Pattern Finder"; //$NON-NLS-1$
         case SYSTEM_INDICATORS_PATTERN_MATCHING:
-            return "TDQ_Libraries/Indicators/System Indicators/Pattern Matching";
+            return "TDQ_Libraries/Indicators/System Indicators/Pattern Matching"; //$NON-NLS-1$
         case SYSTEM_INDICATORS_ROW_COMPARISON:
-            return "TDQ_Libraries/Indicators/System Indicators/Row Comparison";
+            return "TDQ_Libraries/Indicators/System Indicators/Row Comparison"; //$NON-NLS-1$
         case SYSTEM_INDICATORS_SIMPLE_STATISTICS:
-            return "TDQ_Libraries/Indicators/System Indicators/Simple Statistics";
+            return "TDQ_Libraries/Indicators/System Indicators/Simple Statistics"; //$NON-NLS-1$
         case SYSTEM_INDICATORS_SOUNDEX:
-            return "TDQ_Libraries/Indicators/System Indicators/Soundex";
+            return "TDQ_Libraries/Indicators/System Indicators/Soundex"; //$NON-NLS-1$
         case SYSTEM_INDICATORS_SUMMARY_STATISTICS:
-            return "TDQ_Libraries/Indicators/System Indicators/Summary Statistics";
+            return "TDQ_Libraries/Indicators/System Indicators/Summary Statistics"; //$NON-NLS-1$
         case SYSTEM_INDICATORS_TEXT_STATISTICS:
-            return "TDQ_Libraries/Indicators/System Indicators/Text Statistics";
+            return "TDQ_Libraries/Indicators/System Indicators/Text Statistics"; //$NON-NLS-1$
         case METADATA_HEADER_FOOTER:
-            return "metadata/header_footer";
-        case METADATA_VALIDATION_RULES:
-            return "metadata/validationRules"; //$NON-NLS-1$
+            return "metadata/header_footer"; //$NON-NLS-1$
         case TDQ_ANALYSIS_ELEMENT:
             return "TDQ_Data Profiling/Analyses"; //$NON-NLS-1$
         case TDQ_BUSINESSRULE_ELEMENT:
-            return "TDQ_Libraries/Rules"; //$NON-NLS-1$
+            return "TDQ_Libraries/Rules/SQL"; //$NON-NLS-1$
         case TDQ_INDICATOR_ELEMENT:
             return "TDQ_Libraries/Indicators"; //$NON-NLS-1$
         case TDQ_PATTERN_ELEMENT:
             return "TDQ_Libraries/Patterns"; //$NON-NLS-1$ 
         case TDQ_JRAXML_ELEMENT:
-            return "TDQ_Libraries/JRXML Template";
+            return "TDQ_Libraries/JRXML Template"; //$NON-NLS-1$
         case TDQ_REPORT_ELEMENT:
             return "TDQ_Data Profiling/Reports"; //$NON-NLS-1$
+        case TDQ_SOURCE_FILE_ELEMENT:
+            return "TDQ_Libraries/Source Files"; //$NON-NLS-1$
             // MOD mzhao feature 9207
         case TDQ_ELEMENT:
             return "";//$NON-NLS-1$
@@ -459,7 +430,6 @@ public enum ERepositoryObjectType {
 
             @Override
             public Object caseFolderItem(FolderItem object) {
-
                 return FOLDER;
             }
 
@@ -469,7 +439,6 @@ public enum ERepositoryObjectType {
 
             @Override
             public Object caseLinkDocumentationItem(LinkDocumentationItem object) {
-
                 return DOCUMENTATION;
             }
 
@@ -646,7 +615,6 @@ public enum ERepositoryObjectType {
             // MOD mzhao feature 9207
             @Override
             public Object caseTDQItem(TDQItem object) {
-
                 return TDQ_ELEMENT;
             }
 

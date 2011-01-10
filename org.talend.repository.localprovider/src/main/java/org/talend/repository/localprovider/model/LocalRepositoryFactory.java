@@ -1964,31 +1964,15 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         propertyResource.getContents().add(item.getProperty());
         propertyResource.getContents().add(item.getState());
         propertyResource.getContents().add(item);
-        String parentPath = null;
-        if (ERepositoryObjectType.getItemType(item).equals(ERepositoryObjectType.TDQ_ANALYSIS)) {
-            parentPath = ERepositoryObjectType.getFolderName(ERepositoryObjectType.getItemType(item));
-        } else if (ERepositoryObjectType.getItemType(item).equals(ERepositoryObjectType.TDQ_REPORTS)) {
-            parentPath = ERepositoryObjectType.getFolderName(ERepositoryObjectType.getItemType(item));
-        } else if (ERepositoryObjectType.getItemType(item).equals(ERepositoryObjectType.TDQ_PATTERNS)) {
-            parentPath = ERepositoryObjectType.getFolderName(ERepositoryObjectType.getItemType(item)) + IPath.SEPARATOR
-                    + path.toString();
-        } else if (ERepositoryObjectType.getItemType(item).equals(ERepositoryObjectType.TDQ_SOURCE_FILES)) {
-            parentPath = ERepositoryObjectType.getFolderName(ERepositoryObjectType.getItemType(item));
-        } else if (ERepositoryObjectType.getItemType(item).equals(ERepositoryObjectType.METADATA_CONNECTIONS)) {
-            parentPath = ERepositoryObjectType.getFolderName(ERepositoryObjectType.getItemType(item));
-        } else if (ERepositoryObjectType.getItemType(item).equals(ERepositoryObjectType.METADATA_MDMCONNECTION)) {
-            parentPath = ERepositoryObjectType.getFolderName(ERepositoryObjectType.getItemType(item));
-        } else {
-            parentPath = ERepositoryObjectType.getFolderName(ERepositoryObjectType.getItemType(item)) + IPath.SEPARATOR
-                    + path.toString();
-        }
+
+        String parentPath = getParentPath(project, item, path);
         FolderHelper folderHelper = getFolderHelper(project.getEmfProject());
         FolderItem parentFolderItem = folderHelper.getFolder(parentPath);
         boolean add = parentFolderItem.getChildren().add(item);
+
         if (add) {
             item.setParent(parentFolderItem);
         }
-        // item.setParent(parentFolderItem);
 
         xmiResourceManager.saveResource(itemResource);
         xmiResourceManager.saveResource(propertyResource);
@@ -1996,6 +1980,18 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         if (isImportItem.length == 0 || !isImportItem[0]) {
             saveProject(project);
         }
+    }
+
+    /**
+     * DOC xqliu Comment method "getParentPath".
+     * 
+     * @param project
+     * @param item
+     * @param path
+     * @return
+     */
+    private String getParentPath(Project project, Item item, IPath path) {
+        return ERepositoryObjectType.getFolderName(ERepositoryObjectType.getItemType(item)) + IPath.SEPARATOR + path.toString();
     }
 
     private IProject getPhysicalProject(Project project) throws PersistenceException {
@@ -2408,4 +2404,15 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         return this.xmiResourceManager;
     }
 
+    /*
+     * (non-Jsdoc)
+     * 
+     * @see org.talend.core.repository.model.IRepositoryFactory#getCamelProcess(org.talend.core.model.general.Project,
+     * boolean[])
+     */
+    public RootContainer<String, IRepositoryViewObject> getCamelProcess(Project project, boolean... options)
+            throws PersistenceException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }
