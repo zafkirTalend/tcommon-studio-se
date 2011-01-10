@@ -84,7 +84,7 @@ public final class ExceptionHandler {
     }
 
     /**
-     * bug 17654：import the xml file as the schema will throw error.
+     * bug 17654: import the xml file as the schema will throw error.
      * 
      * DOC yhch Comment method "processForSchemaImportXml".
      * 
