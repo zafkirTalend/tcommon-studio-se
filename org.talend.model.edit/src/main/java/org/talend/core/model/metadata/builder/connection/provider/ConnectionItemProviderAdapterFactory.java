@@ -986,6 +986,53 @@ public class ConnectionItemProviderAdapterFactory extends ConnectionAdapterFacto
         return hl7FileNodeItemProvider;
     }
 
+
+    /**
+     * This keeps track of the one adapter used for all {@link org.talend.core.model.metadata.builder.connection.ConditionType} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected ConditionTypeItemProvider conditionTypeItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.core.model.metadata.builder.connection.ConditionType}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Adapter createConditionTypeAdapter() {
+        if (conditionTypeItemProvider == null) {
+            conditionTypeItemProvider = new ConditionTypeItemProvider(this);
+        }
+
+        return conditionTypeItemProvider;
+    }
+
+    /**
+     * This keeps track of the one adapter used for all {@link org.talend.core.model.metadata.builder.connection.ValidationRulesConnection} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected ValidationRulesConnectionItemProvider validationRulesConnectionItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.core.model.metadata.builder.connection.ValidationRulesConnection}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Adapter createValidationRulesConnectionAdapter() {
+        if (validationRulesConnectionItemProvider == null) {
+            validationRulesConnectionItemProvider = new ValidationRulesConnectionItemProvider(this);
+        }
+
+        return validationRulesConnectionItemProvider;
+    }
+
     /**
      * This returns the root adapter factory that contains this factory.
      * <!-- begin-user-doc -->
@@ -1190,6 +1237,10 @@ public class ConnectionItemProviderAdapterFactory extends ConnectionAdapterFacto
             genericPackageItemProvider.dispose();
         if (hl7FileNodeItemProvider != null)
             hl7FileNodeItemProvider.dispose();
+        if (validationRulesConnectionItemProvider != null)
+            validationRulesConnectionItemProvider.dispose();
+        if (conditionTypeItemProvider != null)
+            conditionTypeItemProvider.dispose();
     }
 
 }
