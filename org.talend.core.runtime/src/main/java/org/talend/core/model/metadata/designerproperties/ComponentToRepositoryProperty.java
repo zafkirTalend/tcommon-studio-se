@@ -24,6 +24,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.PasswordEncryptUtil;
+import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.DatabaseConnStrUtil;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
@@ -99,7 +100,7 @@ public class ComponentToRepositoryProperty {
             // add url instance ------DataStringConnection
             DatabaseConnection conn = (DatabaseConnection) connection;
             // see bug in 18011, set url and driver_jar.
-            if (conn.getDatabaseType().equals("General JDBC")) {
+            if (conn.getDatabaseType().equals(EDatabaseTypeName.GENERAL_JDBC.getDisplayName())) {
                 String url = conn.getURL();
                 conn.setURL(url);
             } else {
@@ -111,8 +112,14 @@ public class ComponentToRepositoryProperty {
             if (repositoryType.startsWith("DATABASE") && repositoryType.contains(":")) { //$NON-NLS-1$ //$NON-NLS-2$
                 String product = repositoryType.substring(repositoryType.indexOf(":") + 1); //$NON-NLS-1$
                 // see bug in feature 17761.
-                if (product.equals("JDBC")) {
-                    product = "MYSQL";
+                if (product.equals(EDatabaseTypeName.GENERAL_JDBC.getProduct())) {
+                    String driverClass = getParameterValue(node, "DRIVER_CLASS"); //$NON-NLS-1$
+                    List<EDatabase4DriverClassName> driverClasses = EDatabase4DriverClassName.indexOfByDriverClass(driverClass);
+                    if (driverClasses.size() > 0) { // use the first one
+                        product = driverClasses.get(0).getDbType().getProduct();
+                    } else {
+                        product = EDatabaseTypeName.MYSQL.getProduct();
+                    }
                 }
                 String mapping = MetadataTalendType.getDefaultDbmsFromProduct(product).getId();
                 conn.setDbmsId(mapping);
