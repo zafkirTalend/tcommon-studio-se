@@ -1,3 +1,15 @@
+// ============================================================================
+//
+// Copyright (C) 2006-2010 Talend Inc. - www.talend.com
+//
+// This source code is available under agreement available at
+// %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
+//
+// You should have received a copy of the agreement
+// along with this program; if not, write to Talend SA
+// 9 rue Pages 92150 Suresnes, France
+//
+// ============================================================================
 package org.talend.commons.fakejdbc;
 
 import java.io.InputStream;
@@ -1941,32 +1953,32 @@ public class FakeResultSet implements ResultSet {
 
     public void updateNClob(int arg0, NClob arg1) throws SQLException {
         // TODO Auto-generated method stub
-        
+
     }
 
     public void updateNClob(String arg0, NClob arg1) throws SQLException {
         // TODO Auto-generated method stub
-        
+
     }
 
     public void updateRowId(int arg0, RowId arg1) throws SQLException {
         // TODO Auto-generated method stub
-        
+
     }
 
     public void updateRowId(String arg0, RowId arg1) throws SQLException {
         // TODO Auto-generated method stub
-        
+
     }
 
     public void updateSQLXML(int arg0, SQLXML arg1) throws SQLException {
         // TODO Auto-generated method stub
-        
+
     }
 
     public void updateSQLXML(String arg0, SQLXML arg1) throws SQLException {
         // TODO Auto-generated method stub
-        
+
     }
 
 }
