@@ -95,7 +95,7 @@ public interface IProcessor {
      * @throws ProcessorException
      */
     public Process run(int statisticsPort, int tracePort, String watchParam, IProgressMonitor monitor,
-            IProcessMessageManager processMessageManager, boolean... isSaveBeforeRun) throws ProcessorException;
+            IProcessMessageManager processMessageManager) throws ProcessorException;
 
     /**
      * getter the code context.
