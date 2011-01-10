@@ -656,7 +656,7 @@ public enum ERepositoryObjectType {
      * @return
      */
     public boolean isDQItemType() {
-        return this.name().indexOf("TDQ") == 0;
+        return this.name().indexOf("TDQ") == 0 || this.name().indexOf("SYSTEM_INDICATORS") == 0;
     }
 
     /**

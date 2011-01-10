@@ -88,16 +88,22 @@ public class RepositoryConstants {
         case ROUTINES:
             // for bug 10356
             return ROUTINES_ITEM_PATTERN;
-        case TDQ_PATTERNS:
-
-            return TDQ_PAT_ITEM_PATTERN;
-        case TDQ_SOURCE_FILES:
-            return TDQ_PAT_ITEM_PATTERN;
         case TDQ_JRXMLTEMPLATE:
+        case TDQ_DATA_PROFILING:
+        case TDQ_ANALYSIS:
+        case TDQ_REPORTS:
+        case TDQ_LIBRARIES:
+        case TDQ_PATTERNS:
+        case TDQ_PATTERN_REGEX:
+        case TDQ_PATTERN_SQL:
+        case TDQ_SOURCE_FILES:
+        case TDQ_RULES:
+        case TDQ_RULES_SQL:
+        case TDQ_INDICATORS:
             return TDQ_PAT_ITEM_PATTERN;
         default:
+            return TDQ_PAT_ITEM_PATTERN;
         }
-        return REPOSITORY_ITEM_PATTERN;
     }
 
     public static boolean isSystemFolder(String label) {

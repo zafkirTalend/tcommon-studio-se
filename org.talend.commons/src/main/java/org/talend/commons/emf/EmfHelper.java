@@ -173,6 +173,7 @@ public class EmfHelper {
             options.put(XMLResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
             options.put(XMLResource.OPTION_XML_VERSION, "1.1"); //$NON-NLS-1$
             try {
+                System.out.println("-->" + resource.getURI());
                 resource.save(options);
             } catch (IOException e1) {
                 throw new PersistenceException(e);
