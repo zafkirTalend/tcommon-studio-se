@@ -321,6 +321,8 @@ public enum ERepositoryObjectType {
         case METADATA_FILE_LINKRULES:
             return "metadata/rules"; //$NON-NLS-1$
             // MOD klliu feature 15750,2010-11-18
+        case METADATA_VALIDATION_RULES:
+            return "metadata/validationRules"; //$NON-NLS-1$
         case TDQ_DATA_PROFILING:
             return "TDQ_Data Profiling"; //$NON-NLS-1$
         case TDQ_ANALYSIS:
