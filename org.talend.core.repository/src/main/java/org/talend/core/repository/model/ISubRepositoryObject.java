@@ -26,4 +26,5 @@ public interface ISubRepositoryObject extends IRepositoryViewObject {
     public void removeFromParent();
 
     public Property getProperty();
+
 }

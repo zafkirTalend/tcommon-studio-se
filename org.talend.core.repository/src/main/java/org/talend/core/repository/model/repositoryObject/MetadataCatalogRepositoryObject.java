@@ -34,13 +34,13 @@ public class MetadataCatalogRepositoryObject extends MetadataCatalog implements 
 
     private final IRepositoryViewObject viewObject;
 
-    private final Catalog catalog;
-
-    private IRepositoryNode repositoryNode;
-
     public IRepositoryViewObject getViewObject() {
         return this.viewObject;
     }
+
+    private final Catalog catalog;
+
+    private IRepositoryNode repositoryNode;
 
     public Catalog getCatalog() {
         return catalog;

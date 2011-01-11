@@ -19,5 +19,4 @@ package org.talend.core.model.metadata;
 public class MetadataCatalog implements IMetadataCatalog {
 
 
-
 }

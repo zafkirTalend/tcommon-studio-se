@@ -67,7 +67,7 @@ public class TdViewRepositoryObject extends MetadataTableRepositoryObject {
     }
 
     public IRepositoryViewObject getViewObject() {
-        return super.repObj;
+        return super.viewObject;
     }
 
     public ERepositoryObjectType getRepositoryObjectType() {

@@ -30,7 +30,11 @@ import org.talend.repository.model.IRepositoryNode;
  */
 public class MetadataColumnRepositoryObject extends MetadataColumn implements ISubRepositoryObject {
 
-    private final IRepositoryViewObject repObj;
+    private final IRepositoryViewObject viewObject;
+
+    public IRepositoryViewObject getViewObject() {
+        return this.viewObject;
+    }
 
     private org.talend.core.model.metadata.builder.connection.MetadataColumn tdColumn;
 
@@ -57,12 +61,12 @@ public class MetadataColumnRepositoryObject extends MetadataColumn implements IS
      */
     public MetadataColumnRepositoryObject(IRepositoryViewObject repositoryViewObject,
             org.talend.core.model.metadata.builder.connection.MetadataColumn column) {
-        this.repObj = repositoryViewObject;
+        this.viewObject = repositoryViewObject;
         setTdColumn(column);
     }
 
     public Property getProperty() {
-        Property property = repObj.getProperty();
+        Property property = viewObject.getProperty();
         // update column
         updataColumn(property);
         return property;
@@ -70,7 +74,7 @@ public class MetadataColumnRepositoryObject extends MetadataColumn implements IS
 
     // @Override
     public String getVersion() {
-        return repObj.getVersion();
+        return viewObject.getVersion();
     }
 
     public String getLabel() {
@@ -100,51 +104,51 @@ public class MetadataColumnRepositoryObject extends MetadataColumn implements IS
     }
 
     public User getAuthor() {
-        return repObj.getAuthor();
+        return viewObject.getAuthor();
     }
 
     public List<IRepositoryViewObject> getChildren() {
-        return repObj.getChildren();
+        return viewObject.getChildren();
     }
 
     public Date getCreationDate() {
-        return repObj.getCreationDate();
+        return viewObject.getCreationDate();
     }
 
     public String getDescription() {
-        return repObj.getDescription();
+        return viewObject.getDescription();
     }
 
     public ERepositoryStatus getInformationStatus() {
-        return repObj.getInformationStatus();
+        return viewObject.getInformationStatus();
     }
 
     public Date getModificationDate() {
-        return repObj.getModificationDate();
+        return viewObject.getModificationDate();
     }
 
     public String getPath() {
-        return repObj.getPath();
+        return viewObject.getPath();
     }
 
     public String getProjectLabel() {
-        return repObj.getProjectLabel();
+        return viewObject.getProjectLabel();
     }
 
     public String getPurpose() {
-        return repObj.getPurpose();
+        return viewObject.getPurpose();
     }
 
     public IRepositoryNode getRepositoryNode() {
-        return repObj.getRepositoryNode();
+        return viewObject.getRepositoryNode();
     }
 
     public ERepositoryStatus getRepositoryStatus() {
-        return repObj.getRepositoryStatus();
+        return viewObject.getRepositoryStatus();
     }
 
     public String getStatusCode() {
-        return repObj.getStatusCode();
+        return viewObject.getStatusCode();
     }
 
     public ERepositoryObjectType getRepositoryObjectType() {
@@ -156,7 +160,7 @@ public class MetadataColumnRepositoryObject extends MetadataColumn implements IS
     }
 
     public void setRepositoryNode(IRepositoryNode node) {
-        repObj.setRepositoryNode(node);
+        viewObject.setRepositoryNode(node);
     }
 
 }
