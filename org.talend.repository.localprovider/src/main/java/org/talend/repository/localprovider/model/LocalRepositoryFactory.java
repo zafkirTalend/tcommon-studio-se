@@ -2414,16 +2414,4 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     public XmiResourceManager getResourceManager() {
         return this.xmiResourceManager;
     }
-
-    /*
-     * (non-Jsdoc)
-     * 
-     * @see org.talend.core.repository.model.IRepositoryFactory#getCamelProcess(org.talend.core.model.general.Project,
-     * boolean[])
-     */
-    public RootContainer<String, IRepositoryViewObject> getCamelProcess(Project project, boolean... options)
-            throws PersistenceException {
-        // TODO Auto-generated method stub
-        return null;
-    }
 }
