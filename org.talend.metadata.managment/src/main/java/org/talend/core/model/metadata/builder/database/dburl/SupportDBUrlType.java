@@ -160,6 +160,14 @@ public enum SupportDBUrlType {
         "", //$NON-NLS-1$
         null,
         "MDM"),
+    DELIMITEDFILE("DELIMITEDFILE", //$NON-NLS-1$
+                  "", //$NON-NLS-1$
+                  "", //$NON-NLS-1$
+                  "", //$NON-NLS-1$
+                  null,
+                  "", //$NON-NLS-1$
+                  null,
+                  "DELIMITEDFILE"),
     JAVADEFAULTURL("Java", "localhost", null, "dbname", null, null, null, "Java"),
     ACCESS("ACCESS", //$NON-NLS-1$
            null,

@@ -28,6 +28,7 @@ import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
+import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.softwaredeployment.TdSoftwareSystem;
@@ -40,6 +41,7 @@ import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.Namespace;
 import orgomg.cwm.objectmodel.core.Package;
 import orgomg.cwm.objectmodel.core.TaggedValue;
+import orgomg.cwm.resource.record.RecordFile;
 import orgomg.cwm.resource.relational.Catalog;
 import orgomg.cwm.resource.relational.ColumnSet;
 import orgomg.cwm.resource.relational.Schema;
@@ -918,6 +920,40 @@ public class ConnectionHelper {
             return mdmConn.getPassword();
         }
         return null;
+    }
+
+    /**
+     * 
+     * DOC qiongli Comment method "getTdDataProvider".
+     * 
+     * @param column
+     * @return
+     */
+    public static Connection getTdDataProvider(MetadataColumn column) {
+        MetadataTable mTable = ColumnHelper.getColumnOwnerAsMetadataTable(column);
+        if (mTable == null) {
+            return null;
+        }
+        return getTdDataProvider(mTable);
+    }
+
+    /**
+     * 
+     * DOC qiongli Comment method "getTdDataProvider".
+     * 
+     * @param mTable
+     * @return
+     */
+    public static Connection getTdDataProvider(MetadataTable mTable) {
+        Package thePackage = null;
+        if (mTable != null && mTable.getNamespace() != null) {
+            if (mTable.getNamespace() instanceof RecordFile) {
+                thePackage = (RecordFile) mTable.getNamespace();
+            }
+        }
+        if (thePackage == null)
+            return null;
+        return getTdDataProvider(thePackage);
     }
 
 }

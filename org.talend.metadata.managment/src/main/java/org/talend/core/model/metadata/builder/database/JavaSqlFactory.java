@@ -20,6 +20,7 @@ import org.apache.log4j.Logger;
 import org.talend.core.i18n.Messages;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
+import org.talend.core.model.metadata.builder.connection.DelimitedFileConnection;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.metadata.builder.database.dburl.SupportDBUrlStore;
 import org.talend.core.model.metadata.builder.database.dburl.SupportDBUrlType;
@@ -236,6 +237,11 @@ public final class JavaSqlFactory {
         if (mdmConn != null) {
             mdmConn.setPathname(url);
         }
+        // MOD qiongli 2011-1-9 feature 16796
+        DelimitedFileConnection dfConnection = SwitchHelpers.DELIMITEDFILECONNECTION_SWITCH.doSwitch(conn);
+        if (dfConnection != null) {
+            dfConnection.setFilePath(url);
+        }
     }
 
     /**
@@ -322,6 +328,11 @@ public final class JavaSqlFactory {
         MDMConnection mdmConn = SwitchHelpers.MDMCONNECTION_SWITCH.doSwitch(conn);
         if (mdmConn != null) {
             return mdmConn.getPathname();
+        }
+        // MOD qiongli 2011-1-11 feature 16796.
+        DelimitedFileConnection dfConnection = SwitchHelpers.DELIMITEDFILECONNECTION_SWITCH.doSwitch(conn);
+        if (dfConnection != null) {
+            return dfConnection.getFilePath();
         }
         return null;
     }

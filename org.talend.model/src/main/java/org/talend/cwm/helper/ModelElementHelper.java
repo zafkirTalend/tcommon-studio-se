@@ -19,6 +19,8 @@ import java.util.Set;
 
 import org.eclipse.emf.common.util.EList;
 import org.talend.core.model.metadata.builder.connection.Connection;
+import org.talend.core.model.metadata.builder.connection.MetadataColumn;
+import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.xml.TdXmlElementType;
 import org.talend.cwm.xml.TdXmlSchema;
@@ -258,6 +260,25 @@ public final class ModelElementHelper {
             return ownedDocument != null ? ConnectionHelper.getTdDataProvider(ownedDocument) : null;
         }
         return null;
+    }
+
+    /**
+     * 
+     * DOC qiongli Comment method "getModleElementName".
+     * 
+     * @param modelElement
+     * @return
+     */
+    public static String getName(ModelElement mElement) {
+        String name = mElement.getName();
+        if (name == null) {
+            if (mElement instanceof MetadataTable) {
+                name = ((MetadataTable) mElement).getLabel();
+            } else if (mElement instanceof MetadataColumn) {
+                name = ((MetadataColumn) mElement).getLabel();
+            }
+        }
+        return name;
     }
 
 }

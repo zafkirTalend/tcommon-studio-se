@@ -14,7 +14,9 @@ package org.talend.cwm.helper;
 
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
+import org.talend.core.model.metadata.builder.connection.DelimitedFileConnection;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
+import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.util.ConnectionSwitch;
 import org.talend.cwm.relational.TdColumn;
@@ -239,6 +241,23 @@ public final class SwitchHelpers {
 
         @Override
         public MDMConnection caseMDMConnection(MDMConnection object) {
+            return object;
+        }
+
+    };
+
+    public static final ConnectionSwitch<MetadataColumn> METADATA_COLUMN_SWITCH = new ConnectionSwitch<MetadataColumn>() {
+
+        @Override
+        public MetadataColumn caseMetadataColumn(MetadataColumn object) {
+            return object;
+        }
+    };
+
+    public static final ConnectionSwitch<DelimitedFileConnection> DELIMITEDFILECONNECTION_SWITCH = new ConnectionSwitch<DelimitedFileConnection>() {
+
+        @Override
+        public DelimitedFileConnection caseDelimitedFileConnection(DelimitedFileConnection object) {
             return object;
         }
 
