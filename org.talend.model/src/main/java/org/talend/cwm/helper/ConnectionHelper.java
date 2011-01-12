@@ -470,7 +470,7 @@ public class ConnectionHelper {
         if (taggedValue == null) {
             return "";
         }
-        return taggedValue.getValue();
+        return taggedValue.getValue() == null ? "" : taggedValue.getValue();
     }
 
     /**
@@ -484,7 +484,7 @@ public class ConnectionHelper {
         if (taggedValue == null) {
             return "";
         }
-        return taggedValue.getValue();
+        return taggedValue.getValue() == null ? "" : taggedValue.getValue();
     }
 
     /**
