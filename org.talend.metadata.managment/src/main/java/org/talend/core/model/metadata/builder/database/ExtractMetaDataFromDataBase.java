@@ -578,6 +578,9 @@ public class ExtractMetaDataFromDataBase {
                         typeName = "DATA_TYPE"; //$NON-NLS-1$
                     }
                     String dbType = ExtractMetaDataUtils.getStringMetaDataInfo(columns, typeName, null).toUpperCase(); //$NON-NLS-1$
+                    // For sometime the dbType will return one more space character at the end.So need to trim,comment
+                    // for bug 17509
+                    dbType = dbType.trim();
                     dbType = ManagementTextUtils.filterSpecialChar(dbType);
                     dbType = handleDBtype(dbType);
                     metadataColumn.setSourceType(dbType);
@@ -1232,7 +1235,7 @@ public class ExtractMetaDataFromDataBase {
         return itemTablesName;
     }
 
-    private static String handleDBtype(String dbtype) {
+    public static String handleDBtype(String dbtype) {
         if (dbtype.startsWith("TIMESTAMP(") && dbtype.endsWith(")")) { //$NON-NLS-1$ //$NON-NLS-2$
             dbtype = "TIMESTAMP"; //$NON-NLS-1$
         }

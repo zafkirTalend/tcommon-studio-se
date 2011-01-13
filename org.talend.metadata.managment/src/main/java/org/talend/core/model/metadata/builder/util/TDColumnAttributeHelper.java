@@ -21,10 +21,12 @@ import java.util.Properties;
 
 import org.apache.log4j.Logger;
 import org.talend.commons.utils.database.DB2ForZosDataBaseMetadata;
+import org.talend.core.database.utils.ManagementTextUtils;
 import org.talend.core.model.metadata.MappingTypeRetriever;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
+import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.cwm.helper.ColumnHelper;
 import org.talend.cwm.helper.ConnectionHelper;
@@ -250,8 +252,18 @@ public class TDColumnAttributeHelper {
                     "DECIMAL_DIGITS")); //$NON-NLS-1$
             column.setTalendType(talendType);
             // ADD xqliu 2010-12-28 bug 16538
-            column.setSourceType(MetadataTalendType.getMappingTypeRetriever(databaseconnection.getDbmsId())
-                    .getDefaultSelectedDbType(talendType));
+            /* should set truely source type,hywang */
+
+            String type = "TYPE_NAME"; //$NON-NLS-1$
+            if (ExtractMetaDataUtils.isUseAllSynonyms()) {
+                type = "DATA_TYPE"; //$NON-NLS-1$
+            }
+            String dbType = ExtractMetaDataUtils.getStringMetaDataInfo(resutSet, type, null).toUpperCase(); //$NON-NLS-1$
+            dbType = ManagementTextUtils.filterSpecialChar(dbType);
+            dbType = ExtractMetaDataFromDataBase.handleDBtype(dbType);
+            column.setSourceType(dbType);
+            // column.setSourceType(MetadataTalendType.getMappingTypeRetriever(databaseconnection.getDbmsId())
+            // .getDefaultSelectedDbType(talendType));
         }
         // ADD xqliu 2010-12-28 bug 16538
         try {
