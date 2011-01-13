@@ -33,10 +33,8 @@ import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -324,24 +322,9 @@ public class CoreService implements ICoreService {
     }
 
     public void synchronizeMapptingXML() {
-        String dirPath = "/" + "mappings"; //$NON-NLS-1$
-        Path filePath = new Path(dirPath);
-        Bundle b = Platform.getBundle("org.talend.core");//$NON-NLS-1$
-        URL url = null;
         try {
-            if (b != null) {
-                url = FileLocator.toFileURL(FileLocator.find(b, filePath, null));
-            } else {
-                url = MetadataTalendType.class.getResource(dirPath);
-                IPath path = new Path(url.getPath());
-                path = path.removeLastSegments(2);
-                url = new URL("file:/" + path.toPortableString() + dirPath); //$NON-NLS-1$
-            }
-        } catch (IOException e) {
-            ExceptionHandler.process(e);
-        }
-        if (url != null) {
-            try {
+            URL url = MetadataTalendType.getFolderURLOfMappingsFile();
+            if (url != null) {
                 IRunProcessService runProcessService = (IRunProcessService) GlobalServiceRegister.getDefault().getService(
                         IRunProcessService.class);
                 if (runProcessService != null) {
@@ -374,11 +357,14 @@ public class CoreService implements ICoreService {
 
                     }
                 }
-            } catch (CoreException e) {
-                ExceptionHandler.process(e);
-            } catch (IOException e) {
-                ExceptionHandler.process(e);
+
             }
+        } catch (CoreException e) {
+            ExceptionHandler.process(e);
+        } catch (IOException e) {
+            ExceptionHandler.process(e);
+        } catch (SystemException e) {
+            ExceptionHandler.process(e);
         }
     }
 

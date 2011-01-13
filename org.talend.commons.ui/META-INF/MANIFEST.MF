@@ -64,6 +64,7 @@ Export-Package: org.talend.commons.ui.command,
  org.talend.commons.ui.utils.data.text.rules,
  org.talend.commons.ui.utils.image,
  org.talend.commons.ui.utils.io.archive,
+ org.talend.commons.ui.utils.loader,
  org.talend.commons.ui.utils.threading,
  org.talend.commons.ui.utils.workbench.gef,
  org.talend.commons.ui.utils.workbench.preferences

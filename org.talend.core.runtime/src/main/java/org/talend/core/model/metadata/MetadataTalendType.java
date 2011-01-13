@@ -44,6 +44,7 @@ import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.types.ContextParameterJavaTypeManager;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.model.metadata.types.PerlTypesManager;
+import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.i18n.Messages;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
@@ -206,7 +207,7 @@ public final class MetadataTalendType {
             DocumentBuilderFactory fabrique = DocumentBuilderFactory.newInstance();
             DocumentBuilder analyseur = fabrique.newDocumentBuilder();
 
-            Bundle b = Platform.getBundle("org.talend.core");
+            Bundle b = Platform.getBundle(CoreRuntimePlugin.PLUGIN_ID);
             URL url = FileLocator.toFileURL(FileLocator.find(b, new Path(MAPPING_METADATA_TYPES_XML), null));
             File dir = new File(url.getPath());
             Document document = analyseur.parse(dir);
@@ -421,25 +422,16 @@ public final class MetadataTalendType {
         return list;
     }
 
-    /**
-     * 
-     * Load db types and mapping with the current activated language (Java, Perl, ...).
-     * 
-     * @throws SystemException
-     */
-    public static void loadCommonMappings() throws SystemException {
-
-        String dirName = INTERNAL_MAPPINGS_FOLDER; //$NON-NLS-1$
-
-        String dirPath = "/" + dirName; //$NON-NLS-1$
+    public static URL getFolderURLOfMappingsFile() throws SystemException {
+        String dirPath = "/" + INTERNAL_MAPPINGS_FOLDER; //$NON-NLS-1$
 
         Path filePath = new Path(dirPath);
         Bundle b = null;
         ECodeLanguage codeLanguage = MetadataTalendType.getCodeLanguage();
         if (codeLanguage == ECodeLanguage.JAVA) {
-            b = Platform.getBundle("org.talend.core");
+            b = Platform.getBundle(CoreRuntimePlugin.PLUGIN_ID);
         } else if (codeLanguage == ECodeLanguage.PERL) {
-            b = Platform.getBundle("org.talend.core.perl");
+            b = Platform.getBundle("org.talend.core.perl"); //$NON-NLS-1$
         }
         URL url;
         try {
@@ -455,7 +447,17 @@ public final class MetadataTalendType {
         } catch (IOException e) {
             throw new SystemException(e);
         }
+        return url;
+    }
 
+    /**
+     * 
+     * Load db types and mapping with the current activated language (Java, Perl, ...).
+     * 
+     * @throws SystemException
+     */
+    public static void loadCommonMappings() throws SystemException {
+        URL url = getFolderURLOfMappingsFile();
         File dir = new File(url.getPath());
         metadataMappingFiles = new ArrayList<File>();
         dbmsSet.clear();
