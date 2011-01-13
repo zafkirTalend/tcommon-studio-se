@@ -77,6 +77,42 @@ public class SharedDBConnection {
         return connection;
     }
 
+    private synchronized Connection getConnection(String dbDriver, String url, String dbConnectionName)
+            throws ClassNotFoundException, SQLException {
+
+        if (DEBUG) {
+            Set<String> keySet = sharedConnections.keySet();
+            System.out.print("SharedDBConnection, current shared connections list is:"); //$NON-NLS-1$
+            for (String key : keySet) {
+                System.out.print(" " + key); //$NON-NLS-1$
+            }
+            System.out.println();
+        }
+
+        Connection connection = sharedConnections.get(dbConnectionName);
+        if (connection == null) {
+            if (DEBUG) {
+                System.out.println("SharedDBConnection, can't find the key:" + dbConnectionName + " " //$NON-NLS-1$ //$NON-NLS-2$
+                        + "so create a new one and share it."); //$NON-NLS-1$
+            }
+            Class.forName(dbDriver);
+            connection = DriverManager.getConnection(url);
+            sharedConnections.put(dbConnectionName, connection);
+        } else if (connection.isClosed()) {
+            if (DEBUG) {
+                System.out.println("SharedDBConnection, find the key: " + dbConnectionName + " " //$NON-NLS-1$ //$NON-NLS-2$
+                        + "But it is closed. So create a new one and share it."); //$NON-NLS-1$
+            }
+            connection = DriverManager.getConnection(url);
+            sharedConnections.put(dbConnectionName, connection);
+        } else {
+            if (DEBUG) {
+                System.out.println("SharedDBConnection, find the key: " + dbConnectionName + " " + "it is OK."); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+            }
+        }
+        return connection;
+    }
+
     /**
      * If there don't exist the connection or it is closed, create and store it.
      * 
@@ -93,6 +129,23 @@ public class SharedDBConnection {
             String dbConnectionName) throws ClassNotFoundException, SQLException {
         SharedDBConnection instanceLocal = getInstance();
         Connection connection = instanceLocal.getConnection(dbDriver, url, userName, password, dbConnectionName);
+        return connection;
+    }
+
+    /**
+     * If there don't exist the connection or it is closed, create and store it.
+     * 
+     * @param dbDriver
+     * @param url
+     * @param dbConnectionName
+     * @return
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     */
+    public static Connection getDBConnection(String dbDriver, String url, String dbConnectionName) throws ClassNotFoundException,
+            SQLException {
+        SharedDBConnection instanceLocal = getInstance();
+        Connection connection = instanceLocal.getConnection(dbDriver, url, dbConnectionName);
         return connection;
     }
 
