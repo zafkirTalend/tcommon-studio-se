@@ -79,3 +79,4 @@ Require-Bundle: org.eclipse.gef,
 Import-Package: org.eclipse.debug.core
 Bundle-Activator: org.talend.core.runtime.CoreRuntimePlugin
 Bundle-ActivationPolicy: lazy
+Bundle-ClassPath: .
