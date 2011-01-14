@@ -48,7 +48,10 @@ public class StatusHelper {
         if (statusCode == null) {
             return ""; //$NON-NLS-1$
         }
-        Status status = code2status.get(statusCode);
+        Status status = null;
+        if (code2status != null) {
+            status = code2status.get(statusCode);
+        }
         return status == null ? statusCode : status.getLabel();
     }
 
