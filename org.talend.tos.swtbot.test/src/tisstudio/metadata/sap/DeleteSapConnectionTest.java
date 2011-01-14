@@ -33,7 +33,7 @@ import org.talend.swtbot.TalendSwtBotForTos;
  * DOC Administrator class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class CreateSapConnectionTest extends TalendSwtBotForTos {
+public class DeleteSapConnectionTest extends TalendSwtBotForTos {
 
     private SWTBotTree tree;
 
@@ -60,10 +60,6 @@ public class CreateSapConnectionTest extends TalendSwtBotForTos {
         view = gefBot.viewByTitle("Repository");
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-    }
-
-    @Test
-    public void createSapConnection() {
         tree.setFocus();
 
         tree.expandNode("Metadata").getNode("SAP Connections").contextMenu("Create SAP connection").click();
@@ -100,15 +96,18 @@ public class CreateSapConnectionTest extends TalendSwtBotForTos {
         gefBot.waitUntil(Conditions.shellCloses(shell));
 
         gefBot.button("Finish").click();
+    }
 
-        SWTBotTreeItem newSapItem = tree.expandNode("Metadata", "SAP Connections").select(SAPNAME + " 0.1");
+    @Test
+    public void deleteSapConnection() {
+        tree.expandNode("Metadata", "SAP Connections").getNode(SAPNAME + " 0.1").contextMenu("Delete").click();
+
+        SWTBotTreeItem newSapItem = tree.expandNode("Recycle bin").select(SAPNAME + " 0.1" + " ()");
         Assert.assertNotNull(newSapItem);
     }
 
     @After
     public void removePreviouslyCreateItems() {
-        tree.expandNode("Metadata", "SAP Connections").getNode(SAPNAME + " 0.1").contextMenu("Delete").click();
-
         tree.select("Recycle bin").contextMenu("Empty recycle bin").click();
         gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
         gefBot.button("Yes").click();

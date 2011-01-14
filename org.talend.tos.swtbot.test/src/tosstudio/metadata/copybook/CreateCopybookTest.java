@@ -43,9 +43,9 @@ public class CreateCopybookTest extends TalendSwtBotForTos {
 
     private static String COPYBOOKNAME = "copybook1"; //$NON-NLS-1$
 
-    private static String SAMPLE_RELATIVE_FILEPATH = "FDSUJ-formated.copybook"; //$NON-NLS-1$
+    private static String SAMPLE_RELATIVE_FILEPATH = "cobocurs.copybook"; //$NON-NLS-1$
 
-    private static String SAMPLE_RELATIVE_DATAFILE = "file1.txt"; //$NON-NLS-1$
+    private static String SAMPLE_RELATIVE_DATAFILE = "datafil.dat"; //$NON-NLS-1$
 
     @Before
     public void InitialisePrivateFields() {

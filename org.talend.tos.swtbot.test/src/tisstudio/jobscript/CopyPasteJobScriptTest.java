@@ -10,19 +10,17 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package tisstudio.joblets;
-
-import junit.framework.Assert;
+package tisstudio.jobscript;
 
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,45 +30,40 @@ import org.talend.swtbot.TalendSwtBotForTos;
  * DOC Administrator class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class CreateJobletTest extends TalendSwtBotForTos {
-
-    private SWTBotTree tree;
-
-    private SWTBotShell shell;
+public class CopyPasteJobScriptTest extends TalendSwtBotForTos {
 
     private SWTBotView view;
 
-    private static String JOBLETNAME = "joblet1"; //$NON-NLS-1$
+    private SWTBotTree tree;
+
+    private static String JOBSCRIPT_NAME = "jobscript1"; //$NON-NLS-1$
 
     @Before
     public void InitialisePrivateFields() {
         view = gefBot.viewByTitle("Repository");
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
+        tree.setFocus();
+        tree.expandNode("Code").getNode("Job Scripts").contextMenu("Create JobScript").click();
+
+        gefBot.textWithLabel("Name").setText(JOBSCRIPT_NAME);
+        gefBot.button("Finish").click();
     }
 
     @Test
-    public void createJoblet() {
-        tree.setFocus();
-        tree.select("Joblet Designs").contextMenu("Create Joblet").click();
+    public void copyAndPasteJobScript() {
+        tree.expandNode("Code", "Job Scripts").getNode(JOBSCRIPT_NAME + " 0.1").contextMenu("Copy").click();
+        tree.select("Code", "Job Scripts").contextMenu("Paste").click();
 
-        gefBot.waitUntil(Conditions.shellIsActive("New Joblet"));
-        shell = gefBot.shell("New Joblet");
-        shell.activate();
-
-        gefBot.textWithLabel("Name").setText(JOBLETNAME);
-
-        gefBot.button("Finish").click();
-        gefBot.toolbarButtonWithTooltip("Save (Ctrl+S)").click();
-
-        SWTBotTreeItem newJobletItem = tree.expandNode("Joblet Designs").select(JOBLETNAME + " 0.1");
-        Assert.assertNotNull(newJobletItem);
+        SWTBotTreeItem newJobScriptItem = tree.expandNode("Code", "Job Scripts").select("Copy_of_" + JOBSCRIPT_NAME + " 0.1");
+        Assert.assertNotNull(newJobScriptItem);
     }
 
     @After
-    public void removePreviouslyCreateItems() {
-        gefBot.cTabItem("Joblet " + JOBLETNAME + " 0.1").close();
-        tree.expandNode("Joblet Designs").getNode(JOBLETNAME + " 0.1").contextMenu("Delete").click();
+    public void removePreviousCreateItems() {
+        gefBot.cTabItem(JOBSCRIPT_NAME + "_0.1.jobscript").close();
+        tree.expandNode("Code", "Job Scripts").getNode(JOBSCRIPT_NAME + " 0.1").contextMenu("Delete").click();
+        tree.expandNode("Code", "Job Scripts").getNode("Copy_of_" + JOBSCRIPT_NAME + " 0.1").contextMenu("Delete").click();
 
         tree.select("Recycle bin").contextMenu("Empty recycle bin").click();
         gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));

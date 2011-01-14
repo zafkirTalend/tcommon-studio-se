@@ -35,7 +35,7 @@ import org.talend.swtbot.Utilities;
  * DOC Administrator class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class CopyPasteCopybookTest extends TalendSwtBotForTos {
+public class DeleteCopybookTest extends TalendSwtBotForTos {
 
     private SWTBotTree tree;
 
@@ -75,19 +75,15 @@ public class CopyPasteCopybookTest extends TalendSwtBotForTos {
     }
 
     @Test
-    public void copyPasteCopybookTest() {
-        tree.expandNode("Metadata", "Copybook").getNode(COPYBOOKNAME + " 0.1").contextMenu("Copy").click();
-        tree.expandNode("Metadata").getNode("Copybook").contextMenu("Paste").click();
+    public void deleteCopybookTest() {
+        tree.expandNode("Metadata", "Copybook").getNode(COPYBOOKNAME + " 0.1").contextMenu("Delete").click();
 
-        SWTBotTreeItem newCopybookItem = tree.expandNode("Metadata", "Copybook").select("Copy_of_" + COPYBOOKNAME + " 0.1");
+        SWTBotTreeItem newCopybookItem = tree.expandNode("Recycle bin").select(COPYBOOKNAME + " 0.1" + " ()");
         Assert.assertNotNull(newCopybookItem);
     }
 
     @After
     public void removePreviousCreateItems() {
-        tree.expandNode("Metadata", "Copybook").getNode(COPYBOOKNAME + " 0.1").contextMenu("Delete").click();
-        tree.expandNode("Metadata", "Copybook").getNode("Copy_of_" + COPYBOOKNAME + " 0.1").contextMenu("Delete").click();
-
         tree.select("Recycle bin").contextMenu("Empty recycle bin").click();
         gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
         gefBot.button("Yes").click();

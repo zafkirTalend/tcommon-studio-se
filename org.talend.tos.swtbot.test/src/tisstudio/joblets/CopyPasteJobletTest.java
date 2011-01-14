@@ -32,7 +32,7 @@ import org.talend.swtbot.TalendSwtBotForTos;
  * DOC Administrator class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class CreateJobletTest extends TalendSwtBotForTos {
+public class CopyPasteJobletTest extends TalendSwtBotForTos {
 
     private SWTBotTree tree;
 
@@ -47,10 +47,6 @@ public class CreateJobletTest extends TalendSwtBotForTos {
         view = gefBot.viewByTitle("Repository");
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-    }
-
-    @Test
-    public void createJoblet() {
         tree.setFocus();
         tree.select("Joblet Designs").contextMenu("Create Joblet").click();
 
@@ -62,8 +58,14 @@ public class CreateJobletTest extends TalendSwtBotForTos {
 
         gefBot.button("Finish").click();
         gefBot.toolbarButtonWithTooltip("Save (Ctrl+S)").click();
+    }
 
-        SWTBotTreeItem newJobletItem = tree.expandNode("Joblet Designs").select(JOBLETNAME + " 0.1");
+    @Test
+    public void copyAndPasteJoblet() {
+        tree.expandNode("Joblet Designs").getNode(JOBLETNAME + " 0.1").contextMenu("Copy").click();
+        tree.select("Joblet Designs").contextMenu("Paste").click();
+
+        SWTBotTreeItem newJobletItem = tree.expandNode("Joblet Designs").select("Copy_of_" + JOBLETNAME + " 0.1");
         Assert.assertNotNull(newJobletItem);
     }
 
@@ -71,6 +73,7 @@ public class CreateJobletTest extends TalendSwtBotForTos {
     public void removePreviouslyCreateItems() {
         gefBot.cTabItem("Joblet " + JOBLETNAME + " 0.1").close();
         tree.expandNode("Joblet Designs").getNode(JOBLETNAME + " 0.1").contextMenu("Delete").click();
+        tree.expandNode("Joblet Designs").getNode("Copy_of_" + JOBLETNAME + " 0.1").contextMenu("Delete").click();
 
         tree.select("Recycle bin").contextMenu("Empty recycle bin").click();
         gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));

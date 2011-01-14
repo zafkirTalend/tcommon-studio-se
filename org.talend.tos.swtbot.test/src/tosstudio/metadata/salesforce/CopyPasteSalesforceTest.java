@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package tosstudio.metadata.ldap;
+package tosstudio.metadata.salesforce;
 
 import junit.framework.Assert;
 
@@ -20,7 +20,6 @@ import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
@@ -33,87 +32,53 @@ import org.talend.swtbot.TalendSwtBotForTos;
  * DOC Administrator class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class CreateLdapTest extends TalendSwtBotForTos {
+public class CopyPasteSalesforceTest extends TalendSwtBotForTos {
 
     private SWTBotTree tree;
 
-    private SWTBotShell shell;
-
     private SWTBotView view;
 
-    private static String LDAPNAME = "ldap1"; //$NON-NLS-1$
+    private static String SALESFORCENAME = "saleforce1"; //$NON-NLS-1$
 
-    private static String HOSTNAME = "192.168.0.244"; //$NON-NLS-1$
+    private static String USERNAME = "cantoine@talend.com"; //$NON-NLS-1$
 
-    private static String PORT = "389"; //$NON-NLS-1$
-
-    private static String DN_OR_USER = "cn=Manager,dc=example,dc=com"; //$NON-NLS-1$
-
-    private static String PASSWORD = "secret"; //$NON-NLS-1$
+    private static String PASSWORD = "talendehmrEvHz2xZ8f2KlmTCymS0XU"; //$NON-NLS-1$
 
     @Before
     public void InitialisePrivateFields() {
         view = gefBot.viewByTitle("Repository");
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-    }
-
-    @Test
-    public void createLdap() {
         tree.setFocus();
 
-        tree.expandNode("Metadata").getNode("LDAP").contextMenu("Create LDAP schema").click();
-        gefBot.waitUntil(Conditions.shellIsActive("Create new LDAP schema"));
-        gefBot.shell("Create new LDAP schema").activate();
+        tree.expandNode("Metadata").getNode("Salesforce").contextMenu("Create Salesforce schema").click();
+        gefBot.shell("New Salesforce ").activate();
+        gefBot.waitUntil(Conditions.shellIsActive("New Salesforce "));
 
-        /* step 1 of 5 */
-        gefBot.textWithLabel("Name").setText(LDAPNAME);
+        /* step 1 of 4 */
+        gefBot.textWithLabel("Name").setText(SALESFORCENAME);
         gefBot.button("Next >").click();
 
-        /* step 2 of 5 */
-        gefBot.comboBoxWithLabel("Hostname:").setText(HOSTNAME);
-        gefBot.comboBoxWithLabel("Port:").setText(PORT);
-        gefBot.button("Check Network Parameter").click();
+        /* step 2 of 4 */
+        gefBot.textWithLabel("User name").setText(USERNAME);
+        gefBot.textWithLabel("Password ").setText(PASSWORD);
+        gefBot.button("Check login").click();
 
-        gefBot.waitUntil(Conditions.shellIsActive("Check Network Parameter"), 20000);
-        shell = gefBot.shell("Check Network Parameter");
-        gefBot.button("OK").click();
-        gefBot.waitUntil(Conditions.shellCloses(shell));
         gefBot.waitUntil(new DefaultCondition() {
 
             public boolean test() throws Exception {
-                return gefBot.button("Next >").isEnabled();
+                return gefBot.shell("Check Connection ").isActive();
             }
 
             public String getFailureMessage() {
-                gefBot.shell("Create new LDAP schema").close();
+                gefBot.shell("New Salesforce ").close();
                 return "connection failure";
             }
-        });
+        }, 30000);
+        gefBot.button("OK").click();
         gefBot.button("Next >").click();
 
-        /* step 3 of 5 */
-        gefBot.comboBoxWithLabel("Bind DN or user:").setText(DN_OR_USER);
-        gefBot.textWithLabel("Bind password:").setText(PASSWORD);
-        gefBot.button("Check Authentication").click();
-
-        gefBot.waitUntil(Conditions.shellIsActive("Check Authentication Parameter"), 20000);
-        shell = gefBot.shell("Check Authentication Parameter");
-        gefBot.button("OK").click();
-        gefBot.waitUntil(Conditions.shellCloses(shell));
-        gefBot.button("Fetch Base DNs").click();
-
-        gefBot.waitUntil(Conditions.shellIsActive("Fetch base DNs"));
-        shell = gefBot.shell("Fetch base DNs");
-        gefBot.button("OK").click();
-        gefBot.waitUntil(Conditions.shellCloses(shell));
-        gefBot.button("Next >").click();
-
-        /* step 4 of 5 */
-        for (int i = 0; i < 5; i++) {
-            gefBot.tableInGroup("List attributes of LDAP Schema").getTableItem(i).check();
-        }
-        gefBot.button("Refresh Preview").click();
+        /* step 3 of 4 */
         gefBot.waitUntil(new DefaultCondition() {
 
             public boolean test() throws Exception {
@@ -121,13 +86,13 @@ public class CreateLdapTest extends TalendSwtBotForTos {
             }
 
             public String getFailureMessage() {
-                gefBot.shell("Create new LDAP schema").close();
+                gefBot.shell("New Salesforce ").close();
                 return "next button was never enabled";
             }
         }, 60000);
         gefBot.button("Next >").click();
 
-        /* step 5 of 5 */
+        /* step 4 of 4 */
         gefBot.waitUntil(new DefaultCondition() {
 
             public boolean test() throws Exception {
@@ -135,19 +100,28 @@ public class CreateLdapTest extends TalendSwtBotForTos {
             }
 
             public String getFailureMessage() {
-                gefBot.shell("Create new LDAP schema").close();
+                gefBot.shell("New Salesforce ").close();
                 return "finish button was never enabled";
             }
         });
         gefBot.button("Finish").click();
+    }
 
-        SWTBotTreeItem newLdapItem = tree.expandNode("Metadata", "LDAP").select(LDAPNAME + " 0.1");
-        Assert.assertNotNull(newLdapItem);
+    @Test
+    public void copyAndPasteSalesforce() {
+        tree.expandNode("Metadata", "Salesforce").getNode(SALESFORCENAME + " 0.1").contextMenu("Copy").click();
+        tree.expandNode("Metadata", "Salesforce").contextMenu("Paste").click();
+
+        SWTBotTreeItem newSalesforceItem = tree.expandNode("Metadata").expandNode("Salesforce")
+                .select("Copy_of_" + SALESFORCENAME + " 0.1");
+        Assert.assertNotNull(newSalesforceItem);
     }
 
     @After
     public void removePreviouslyCreateItems() {
-        tree.expandNode("Metadata").expandNode("LDAP").getNode(LDAPNAME + " 0.1").contextMenu("Delete").click();
+        tree.expandNode("Metadata").expandNode("Salesforce").getNode(SALESFORCENAME + " 0.1").contextMenu("Delete").click();
+        tree.expandNode("Metadata").expandNode("Salesforce").getNode("Copy_of_" + SALESFORCENAME + " 0.1").contextMenu("Delete")
+                .click();
         tree.getTreeItem("Recycle bin").contextMenu("Empty recycle bin").click();
         gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
         gefBot.button("Yes").click();

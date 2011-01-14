@@ -33,7 +33,7 @@ import org.talend.swtbot.TalendSwtBotForTos;
  * DOC Administrator class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class CreateLdapTest extends TalendSwtBotForTos {
+public class CopyPasteLdapTest extends TalendSwtBotForTos {
 
     private SWTBotTree tree;
 
@@ -56,10 +56,6 @@ public class CreateLdapTest extends TalendSwtBotForTos {
         view = gefBot.viewByTitle("Repository");
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-    }
-
-    @Test
-    public void createLdap() {
         tree.setFocus();
 
         tree.expandNode("Metadata").getNode("LDAP").contextMenu("Create LDAP schema").click();
@@ -140,14 +136,21 @@ public class CreateLdapTest extends TalendSwtBotForTos {
             }
         });
         gefBot.button("Finish").click();
+    }
 
-        SWTBotTreeItem newLdapItem = tree.expandNode("Metadata", "LDAP").select(LDAPNAME + " 0.1");
+    @Test
+    public void copyAndPasteLdap() {
+        tree.expandNode("Metadata", "LDAP").getNode(LDAPNAME + " 0.1").contextMenu("Copy").click();
+        tree.select("Metadata", "LDAP").contextMenu("Paste").click();
+
+        SWTBotTreeItem newLdapItem = tree.expandNode("Metadata", "LDAP").select("Copy_of_" + LDAPNAME + " 0.1");
         Assert.assertNotNull(newLdapItem);
     }
 
     @After
     public void removePreviouslyCreateItems() {
         tree.expandNode("Metadata").expandNode("LDAP").getNode(LDAPNAME + " 0.1").contextMenu("Delete").click();
+        tree.expandNode("Metadata").expandNode("LDAP").getNode("Copy_of_" + LDAPNAME + " 0.1").contextMenu("Delete").click();
         tree.getTreeItem("Recycle bin").contextMenu("Empty recycle bin").click();
         gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
         gefBot.button("Yes").click();

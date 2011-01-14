@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package tisstudio.joblets;
+package tosstudio.businessmodels;
 
 import junit.framework.Assert;
 
@@ -32,7 +32,7 @@ import org.talend.swtbot.TalendSwtBotForTos;
  * DOC Administrator class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class CreateJobletTest extends TalendSwtBotForTos {
+public class CopyPasteBusinessModelTest extends TalendSwtBotForTos {
 
     private SWTBotTree tree;
 
@@ -40,37 +40,39 @@ public class CreateJobletTest extends TalendSwtBotForTos {
 
     private SWTBotView view;
 
-    private static String JOBLETNAME = "joblet1"; //$NON-NLS-1$
+    private static String BUSINESSMODELNAME = "businessModel1"; //$NON-NLS-1$
 
     @Before
     public void InitialisePrivateFields() {
         view = gefBot.viewByTitle("Repository");
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
+        tree.setFocus();
+        tree.select("Business Models").contextMenu("Create Business Model").click();
+
+        gefBot.waitUntil(Conditions.shellIsActive("New Business Model"));
+        shell = gefBot.shell("New Business Model");
+        shell.activate();
+
+        gefBot.textWithLabel("Name").setText(BUSINESSMODELNAME);
+
+        gefBot.button("Finish").click();
     }
 
     @Test
-    public void createJoblet() {
-        tree.setFocus();
-        tree.select("Joblet Designs").contextMenu("Create Joblet").click();
+    public void copyAndPasteBusinessModel() {
+        tree.expandNode("Business Models").getNode(BUSINESSMODELNAME + " 0.1").contextMenu("Copy").click();
+        tree.select("Business Models").contextMenu("Paste").click();
 
-        gefBot.waitUntil(Conditions.shellIsActive("New Joblet"));
-        shell = gefBot.shell("New Joblet");
-        shell.activate();
-
-        gefBot.textWithLabel("Name").setText(JOBLETNAME);
-
-        gefBot.button("Finish").click();
-        gefBot.toolbarButtonWithTooltip("Save (Ctrl+S)").click();
-
-        SWTBotTreeItem newJobletItem = tree.expandNode("Joblet Designs").select(JOBLETNAME + " 0.1");
-        Assert.assertNotNull(newJobletItem);
+        SWTBotTreeItem newBusinessModelItem = tree.expandNode("Business Models").select("Copy_of_" + BUSINESSMODELNAME + " 0.1");
+        Assert.assertNotNull(newBusinessModelItem);
     }
 
     @After
     public void removePreviouslyCreateItems() {
-        gefBot.cTabItem("Joblet " + JOBLETNAME + " 0.1").close();
-        tree.expandNode("Joblet Designs").getNode(JOBLETNAME + " 0.1").contextMenu("Delete").click();
+        gefBot.cTabItem("Model " + BUSINESSMODELNAME).close();
+        tree.expandNode("Business Models").getNode(BUSINESSMODELNAME + " 0.1").contextMenu("Delete").click();
+        tree.expandNode("Business Models").getNode("Copy_of_" + BUSINESSMODELNAME + " 0.1").contextMenu("Delete").click();
 
         tree.select("Recycle bin").contextMenu("Empty recycle bin").click();
         gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));

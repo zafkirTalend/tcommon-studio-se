@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package tisstudio.joblets;
+package tosstudio.metadata.genericschema;
 
 import junit.framework.Assert;
 
@@ -19,7 +19,6 @@ import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
@@ -32,46 +31,58 @@ import org.talend.swtbot.TalendSwtBotForTos;
  * DOC Administrator class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class CreateJobletTest extends TalendSwtBotForTos {
+public class CopyPasteGenericSchemaTest extends TalendSwtBotForTos {
 
     private SWTBotTree tree;
 
-    private SWTBotShell shell;
-
     private SWTBotView view;
 
-    private static String JOBLETNAME = "joblet1"; //$NON-NLS-1$
+    private static String SCHEMANAME = "schema1"; //$NON-NLS-1$
+
+    private static String[] COLUMN = { "A", "B", "C" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+
+    private static String[] TYPE = { "int | Integer", "String", "float | Float" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
     @Before
     public void InitialisePrivateFields() {
         view = gefBot.viewByTitle("Repository");
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
+        tree.setFocus();
+
+        tree.expandNode("Metadata").getNode("Generic schemas").contextMenu("Create generic schema").click();
+        gefBot.waitUntil(Conditions.shellIsActive("Create new generic schema"));
+        gefBot.shell("Create new generic schema").activate();
+
+        /* step 1 of 2 */
+        gefBot.textWithLabel("Name").setText(SCHEMANAME);
+        gefBot.button("Next >").click();
+
+        /* step 2 of 2 */
+        for (int i = 0; i < 3; i++) {
+            gefBot.buttonWithTooltip("Add").click();
+            gefBot.table().click(i, 2);
+            gefBot.text().setText(COLUMN[i]);
+            gefBot.table().click(i, 4);
+            gefBot.ccomboBox().setSelection(TYPE[i]);
+        }
+
+        gefBot.button("Finish").click();
     }
 
     @Test
-    public void createJoblet() {
-        tree.setFocus();
-        tree.select("Joblet Designs").contextMenu("Create Joblet").click();
+    public void copyAndPasteGenericSchema() {
+        tree.expandNode("Metadata", "Generic schemas").getNode(SCHEMANAME + " 0.1").contextMenu("Copy").click();
+        tree.select("Metadata", "Generic schemas").contextMenu("Paste").click();
 
-        gefBot.waitUntil(Conditions.shellIsActive("New Joblet"));
-        shell = gefBot.shell("New Joblet");
-        shell.activate();
-
-        gefBot.textWithLabel("Name").setText(JOBLETNAME);
-
-        gefBot.button("Finish").click();
-        gefBot.toolbarButtonWithTooltip("Save (Ctrl+S)").click();
-
-        SWTBotTreeItem newJobletItem = tree.expandNode("Joblet Designs").select(JOBLETNAME + " 0.1");
-        Assert.assertNotNull(newJobletItem);
+        SWTBotTreeItem newSchemaItem = tree.expandNode("Metadata", "Generic schemas").select("Copy_of_" + SCHEMANAME + " 0.1");
+        Assert.assertNotNull(newSchemaItem);
     }
 
     @After
     public void removePreviouslyCreateItems() {
-        gefBot.cTabItem("Joblet " + JOBLETNAME + " 0.1").close();
-        tree.expandNode("Joblet Designs").getNode(JOBLETNAME + " 0.1").contextMenu("Delete").click();
-
+        tree.expandNode("Metadata", "Generic schemas").getNode(SCHEMANAME + " 0.1").contextMenu("Delete").click();
+        tree.expandNode("Metadata", "Generic schemas").getNode("Copy_of_" + SCHEMANAME + " 0.1").contextMenu("Delete").click();
         tree.select("Recycle bin").contextMenu("Empty recycle bin").click();
         gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
         gefBot.button("Yes").click();

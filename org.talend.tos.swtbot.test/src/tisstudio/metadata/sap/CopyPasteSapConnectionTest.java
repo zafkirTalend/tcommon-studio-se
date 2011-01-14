@@ -33,7 +33,7 @@ import org.talend.swtbot.TalendSwtBotForTos;
  * DOC Administrator class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class CreateSapConnectionTest extends TalendSwtBotForTos {
+public class CopyPasteSapConnectionTest extends TalendSwtBotForTos {
 
     private SWTBotTree tree;
 
@@ -60,10 +60,6 @@ public class CreateSapConnectionTest extends TalendSwtBotForTos {
         view = gefBot.viewByTitle("Repository");
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-    }
-
-    @Test
-    public void createSapConnection() {
         tree.setFocus();
 
         tree.expandNode("Metadata").getNode("SAP Connections").contextMenu("Create SAP connection").click();
@@ -82,6 +78,7 @@ public class CreateSapConnectionTest extends TalendSwtBotForTos {
         gefBot.textWithLabel("System Number").setText(SYSTEM_NUMBER);
         gefBot.textWithLabel("Language").setText(LANGUAGE);
         gefBot.button("Check").click();
+
         // shell = gefBot.shell("Check SAP Connection ");
         // shell.activate();
         // gefBot.waitUntil(Conditions.shellIsActive("Check SAP Connection "));
@@ -100,14 +97,21 @@ public class CreateSapConnectionTest extends TalendSwtBotForTos {
         gefBot.waitUntil(Conditions.shellCloses(shell));
 
         gefBot.button("Finish").click();
+    }
 
-        SWTBotTreeItem newSapItem = tree.expandNode("Metadata", "SAP Connections").select(SAPNAME + " 0.1");
+    @Test
+    public void copyAndPasteSapConnection() {
+        tree.expandNode("Metadata", "SAP Connections").getNode(SAPNAME + " 0.1").contextMenu("Copy").click();
+        tree.select("Metadata", "SAP Connections").contextMenu("Paste").click();
+
+        SWTBotTreeItem newSapItem = tree.expandNode("Metadata", "SAP Connections").select("Copy_of_" + SAPNAME + " 0.1");
         Assert.assertNotNull(newSapItem);
     }
 
     @After
     public void removePreviouslyCreateItems() {
         tree.expandNode("Metadata", "SAP Connections").getNode(SAPNAME + " 0.1").contextMenu("Delete").click();
+        tree.expandNode("Metadata", "SAP Connections").getNode("Copy_of_" + SAPNAME + " 0.1").contextMenu("Delete").click();
 
         tree.select("Recycle bin").contextMenu("Empty recycle bin").click();
         gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
