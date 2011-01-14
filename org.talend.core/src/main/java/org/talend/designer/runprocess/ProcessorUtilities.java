@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.designer.runprocess;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -32,19 +31,12 @@ import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jdt.internal.corext.refactoring.participants.JavaProcessors;
 import org.eclipse.ui.IEditorPart;
 import org.talend.commons.CommonsPlugin;
-import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
-import org.talend.commons.utils.generation.JavaUtils;
-import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
@@ -53,8 +45,6 @@ import org.talend.core.context.RepositoryContext;
 import org.talend.core.i18n.Messages;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
-import org.talend.core.model.general.ModuleNeeded;
-import org.talend.core.model.general.Project;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
@@ -298,6 +288,199 @@ public class ProcessorUtilities {
         return false;
     }
 
+    private static IProcessor generateCode(IProcessor processor2, JobInfo jobInfo, String selectedContextName,
+            boolean statistics, boolean trace, boolean properties, int option, IProgressMonitor progressMonitor)
+            throws ProcessorException {
+
+        if (progressMonitor == null) {
+            progressMonitor = new NullProgressMonitor();
+        }
+        if (progressMonitor.isCanceled()) {
+            return null;
+        }
+        boolean isMainJob = false;
+        if (jobInfo.getFatherJobInfo() == null) {
+            isMainJob = true;
+            codeModified = false;
+
+            // this cache only keep the last main job's generation, so clear it since we regenerate a new job.
+            LastGenerationInfo.getInstance().getLastGeneratedjobs().clear();
+
+            // if it's the father, reset the processMap to ensure to have a good
+            // code generation
+            ItemCacheManager.clearCache();
+            // if it's the father or main job, initialize the routines name
+            CodeGeneratorRoutine.initializeRoutinesName(jobInfo.getProcessItem());
+        }
+
+        IProcess currentProcess = null;
+        jobList.add(jobInfo);
+        ProcessItem selectedProcessItem;
+
+        selectedProcessItem = jobInfo.getProcessItem();
+        String currentJobName = null;
+        if (selectedProcessItem == null && jobInfo.getJobVersion() == null) {
+            // child job
+            selectedProcessItem = ItemCacheManager.getProcessItem(jobInfo.getJobId());
+        }
+
+        if (jobInfo.getJobVersion() != null) {
+            selectedProcessItem = ItemCacheManager.getProcessItem(jobInfo.getJobId(), jobInfo.getJobVersion());
+        }
+
+        if (selectedProcessItem == null && jobInfo.getProcess() == null) {
+            return null;
+        }
+        if (selectedProcessItem != null) {
+            currentJobName = selectedProcessItem.getProperty().getLabel();
+        }
+        progressMonitor.subTask(Messages.getString("ProcessorUtilities.loadingJob") + currentJobName); //$NON-NLS-1$
+
+        if (jobInfo.getProcess() == null) {
+            if (selectedProcessItem != null) {
+                IDesignerCoreService service = CorePlugin.getDefault().getDesignerCoreService();
+                currentProcess = service.getProcessFromProcessItem(selectedProcessItem);
+                jobInfo.setProcess(currentProcess);
+                if (currentProcess instanceof IProcess2) {
+                    ((IProcess2) currentProcess).setProperty(selectedProcessItem.getProperty());
+                }
+            }
+            if (currentProcess == null) {
+                return null;
+            }
+        } else {
+            currentProcess = jobInfo.getProcess();
+        }
+        if (selectedProcessItem != null) {
+            // item can be null in case of job preview
+            Set<String> routinesId = new HashSet<String>();
+            for (RoutinesParameterType infor : (List<RoutinesParameterType>) ((ProcessItem) selectedProcessItem).getProcess()
+                    .getParameters().getRoutinesParameter()) {
+                routinesId.add(infor.getId());
+            }
+            LastGenerationInfo.getInstance().setRoutinesNeededPerJob(jobInfo.getJobId(), jobInfo.getJobVersion(), routinesId);
+            LastGenerationInfo.getInstance().setRoutinesNeededWithSubjobPerJob(jobInfo.getJobId(), jobInfo.getJobVersion(),
+                    routinesId);
+
+            selectedProcessItem.eResource().unload();
+            jobInfo.setProcessItem(null);
+        }
+        generateJobInfo(jobInfo, isMainJob, currentProcess, selectedProcessItem);
+
+        Set<String> neededLibraries = CorePlugin.getDefault().getDesignerCoreService()
+                .getNeededLibrariesForProcess(currentProcess, false);
+        if (neededLibraries != null) {
+            LastGenerationInfo.getInstance().setModulesNeededWithSubjobPerJob(jobInfo.getJobId(), jobInfo.getJobVersion(),
+                    neededLibraries);
+            LastGenerationInfo.getInstance().setModulesNeededPerJob(jobInfo.getJobId(), jobInfo.getJobVersion(), neededLibraries);
+        }
+        resetRunJobComponentParameterForContextApply(jobInfo, currentProcess, selectedContextName);
+
+        generateNodeInfo(jobInfo, selectedContextName, statistics, option, progressMonitor, currentProcess);
+
+        IProcessor processor = null;
+        if (processor2 != null) {
+            processor = processor2;
+        } else {
+            if (selectedProcessItem == null) { // shadow process
+                processor = getProcessor(currentProcess, null);
+            } else {
+                processor = getProcessor(currentProcess, selectedProcessItem.getProperty());
+            }
+        }
+
+        // generate the code of the father after the childrens
+        // so the code won't have any error during the check, and it will help to check
+        // if the generation is really needed.
+        generateContextInfo(jobInfo, selectedContextName, statistics, trace, properties, progressMonitor, currentProcess,
+                currentJobName, processor);
+
+        /*
+         * Set classpath for current job. If current job include some child-jobs, the child job SHARE farther job
+         * libraries.
+         */
+        jobInfo.setProcess(null);
+        generateBuildInfo(jobInfo, progressMonitor, isMainJob, currentProcess, currentJobName);
+        return processor;
+    }
+
+    private static void generateBuildInfo(JobInfo jobInfo, IProgressMonitor progressMonitor, boolean isMainJob,
+            IProcess currentProcess, String currentJobName) throws ProcessorException {
+        if (isMainJob) {
+            progressMonitor.subTask(Messages.getString("ProcessorUtilities.finalizeBuild") + currentJobName); //$NON-NLS-1$
+            CorePlugin
+                    .getDefault()
+                    .getRunProcessService()
+                    .updateLibraries(
+                            LastGenerationInfo.getInstance().getModulesNeededWithSubjobPerJob(jobInfo.getJobId(),
+                                    jobInfo.getJobVersion()), currentProcess);
+            if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA && codeModified) {
+                try {
+                    ((IJavaProject) CorePlugin.getDefault().getRunProcessService().getJavaProject()).getProject().build(
+                            IncrementalProjectBuilder.AUTO_BUILD, null);
+                } catch (CoreException e) {
+                    throw new ProcessorException(e);
+                }
+            }
+            codeModified = false;
+        }
+    }
+
+    private static void generateContextInfo(JobInfo jobInfo, String selectedContextName, boolean statistics, boolean trace,
+            boolean properties, IProgressMonitor progressMonitor, IProcess currentProcess, String currentJobName,
+            IProcessor processor) throws ProcessorException {
+        if (isCodeGenerationNeeded(jobInfo, statistics, trace)) {
+            codeModified = true;
+            if ((currentProcess instanceof IProcess2) && exportConfig) {
+                // to force to regenerate the data nodes
+                ((IProcess2) currentProcess).setProcessModified(true);
+                resetRunJobComponentParameterForContextApply(jobInfo, currentProcess, selectedContextName);
+            }
+            progressMonitor.subTask(Messages.getString("ProcessorUtilities.generatingJob") + currentJobName); //$NON-NLS-1$
+            IContext currentContext;
+            if (jobInfo.getContext() == null) {
+                currentContext = getContext(currentProcess, jobInfo.getContextName());
+            } else {
+                currentContext = jobInfo.getContext();
+            }
+
+            // always generate all context files.
+            List<IContext> list = currentProcess.getContextManager().getListContext();
+            for (IContext context : list) {
+                if (context.getName().equals(currentContext.getName())) {
+                    processor.setContext(currentContext); // generate current context.
+                } else {
+                    processor.setContext(context);
+                }
+                LastGenerationInfo.getInstance().getContextPerJob(jobInfo.getJobId(), jobInfo.getJobVersion())
+                        .add(context.getName());
+                try {
+                    processor.generateContextCode();
+                } catch (ProcessorException pe) {
+                    ExceptionHandler.process(pe);
+                }
+            }
+
+            processor.setContext(currentContext);
+            // main job will use stats / traces
+            processor.generateCode(statistics, trace, properties);
+            if (jobInfo.getProcessItem() != null) {
+                designerCoreService.getLastGeneratedJobsDateMap().put(jobInfo.getJobId(),
+                        jobInfo.getProcessItem().getProperty().getModificationDate());
+            }
+            Integer infos = new Integer(0);
+            infos += statistics ? GENERATED_WITH_STATS : 0;
+            infos += trace ? GENERATED_WITH_TRACES : 0;
+            lastGeneratedWithStatsOrTrace.put(jobInfo.getJobId(), infos);
+
+            if (currentProcess instanceof IProcess2) {
+                ((IProcess2) currentProcess).setNeedRegenerateCode(false);
+            }
+        } else {
+            processor.setCodeGenerated(true);
+        }
+    }
+
     private static IProcessor generateCode(JobInfo jobInfo, String selectedContextName, boolean statistics, boolean trace,
             boolean properties, int option, IProgressMonitor progressMonitor) throws ProcessorException {
 
@@ -374,6 +557,40 @@ public class ProcessorUtilities {
             selectedProcessItem.eResource().unload();
             jobInfo.setProcessItem(null);
         }
+        generateJobInfo(jobInfo, isMainJob, currentProcess, selectedProcessItem);
+
+        Set<String> neededLibraries = CorePlugin.getDefault().getDesignerCoreService()
+                .getNeededLibrariesForProcess(currentProcess, false);
+        if (neededLibraries != null) {
+            LastGenerationInfo.getInstance().setModulesNeededWithSubjobPerJob(jobInfo.getJobId(), jobInfo.getJobVersion(),
+                    neededLibraries);
+            LastGenerationInfo.getInstance().setModulesNeededPerJob(jobInfo.getJobId(), jobInfo.getJobVersion(), neededLibraries);
+        }
+        resetRunJobComponentParameterForContextApply(jobInfo, currentProcess, selectedContextName);
+
+        generateNodeInfo(jobInfo, selectedContextName, statistics, option, progressMonitor, currentProcess);
+
+        IProcessor processor = null;
+        if (selectedProcessItem == null) { // shadow process
+            processor = getProcessor(currentProcess, null);
+        } else {
+            processor = getProcessor(currentProcess, selectedProcessItem.getProperty());
+        }
+
+        generateContextInfo(jobInfo, selectedContextName, statistics, trace, properties, progressMonitor, currentProcess,
+                currentJobName, processor);
+
+        /*
+         * Set classpath for current job. If current job include some child-jobs, the child job SHARE farther job
+         * libraries.
+         */
+        jobInfo.setProcess(null);
+        generateBuildInfo(jobInfo, progressMonitor, isMainJob, currentProcess, currentJobName);
+        return processor;
+    }
+
+    private static void generateJobInfo(JobInfo jobInfo, boolean isMainJob, IProcess currentProcess,
+            ProcessItem selectedProcessItem) {
         if (!CommonsPlugin.isHeadless()) {
             if (currentProcess instanceof IProcess2) {
                 // code below will check the process and update the Problems view.
@@ -400,16 +617,10 @@ public class ProcessorUtilities {
                 LastGenerationInfo.getInstance().setLastMainJob(generatedJobInfo);
             }
         }
+    }
 
-        Set<String> neededLibraries = CorePlugin.getDefault().getDesignerCoreService().getNeededLibrariesForProcess(
-                currentProcess, false);
-        if (neededLibraries != null) {
-            LastGenerationInfo.getInstance().setModulesNeededWithSubjobPerJob(jobInfo.getJobId(), jobInfo.getJobVersion(),
-                    neededLibraries);
-            LastGenerationInfo.getInstance().setModulesNeededPerJob(jobInfo.getJobId(), jobInfo.getJobVersion(), neededLibraries);
-        }
-        resetRunJobComponentParameterForContextApply(jobInfo, currentProcess, selectedContextName);
-
+    private static void generateNodeInfo(JobInfo jobInfo, String selectedContextName, boolean statistics, int option,
+            IProgressMonitor progressMonitor, IProcess currentProcess) throws ProcessorException {
         if (option != GENERATE_MAIN_ONLY) {
             // handle subjob in joblet. see bug 004937: tRunJob in a Joblet
             List<? extends INode> graphicalNodes = currentProcess.getGeneratingNodes();
@@ -456,102 +667,21 @@ public class ProcessorUtilities {
                             generateCode(subJobInfo, selectedContextName, statistics, false, true, GENERATE_ALL_CHILDS,
                                     progressMonitor);
                         }
-                        LastGenerationInfo.getInstance().getModulesNeededWithSubjobPerJob(jobInfo.getJobId(),
-                                jobInfo.getJobVersion()).addAll(
-                                LastGenerationInfo.getInstance().getModulesNeededWithSubjobPerJob(subJobInfo.getJobId(),
+                        LastGenerationInfo
+                                .getInstance()
+                                .getModulesNeededWithSubjobPerJob(jobInfo.getJobId(), jobInfo.getJobVersion())
+                                .addAll(LastGenerationInfo.getInstance().getModulesNeededWithSubjobPerJob(subJobInfo.getJobId(),
                                         subJobInfo.getJobVersion()));
 
-                        LastGenerationInfo.getInstance().getRoutinesNeededWithSubjobPerJob(jobInfo.getJobId(),
-                                jobInfo.getJobVersion()).addAll(
-                                LastGenerationInfo.getInstance().getRoutinesNeededWithSubjobPerJob(subJobInfo.getJobId(),
+                        LastGenerationInfo
+                                .getInstance()
+                                .getRoutinesNeededWithSubjobPerJob(jobInfo.getJobId(), jobInfo.getJobVersion())
+                                .addAll(LastGenerationInfo.getInstance().getRoutinesNeededWithSubjobPerJob(subJobInfo.getJobId(),
                                         subJobInfo.getJobVersion()));
                     }
                 }
             }
         }
-
-        IProcessor processor = null;
-        if (selectedProcessItem == null) { // shadow process
-            processor = getProcessor(currentProcess, null);
-        } else {
-            processor = getProcessor(currentProcess, selectedProcessItem.getProperty());
-        }
-
-        // generate the code of the father after the childrens
-        // so the code won't have any error during the check, and it will help to check
-        // if the generation is really needed.
-        if (isCodeGenerationNeeded(jobInfo, statistics, trace)) {
-            codeModified = true;
-            if ((currentProcess instanceof IProcess2) && exportConfig) {
-                // to force to regenerate the data nodes
-                ((IProcess2) currentProcess).setProcessModified(true);
-                resetRunJobComponentParameterForContextApply(jobInfo, currentProcess, selectedContextName);
-            }
-            progressMonitor.subTask(Messages.getString("ProcessorUtilities.generatingJob") + currentJobName); //$NON-NLS-1$
-            IContext currentContext;
-            if (jobInfo.getContext() == null) {
-                currentContext = getContext(currentProcess, jobInfo.getContextName());
-            } else {
-                currentContext = jobInfo.getContext();
-            }
-
-            // always generate all context files.
-            List<IContext> list = currentProcess.getContextManager().getListContext();
-            for (IContext context : list) {
-                if (context.getName().equals(currentContext.getName())) {
-                    processor.setContext(currentContext); // generate current context.
-                } else {
-                    processor.setContext(context);
-                }
-                LastGenerationInfo.getInstance().getContextPerJob(jobInfo.getJobId(), jobInfo.getJobVersion()).add(
-                        context.getName());
-                try {
-                    processor.generateContextCode();
-                } catch (ProcessorException pe) {
-                    ExceptionHandler.process(pe);
-                }
-            }
-
-            processor.setContext(currentContext);
-            // main job will use stats / traces
-            processor.generateCode(statistics, trace, properties);
-            if (jobInfo.getProcessItem() != null) {
-                designerCoreService.getLastGeneratedJobsDateMap().put(jobInfo.getJobId(),
-                        jobInfo.getProcessItem().getProperty().getModificationDate());
-            }
-            Integer infos = new Integer(0);
-            infos += statistics ? GENERATED_WITH_STATS : 0;
-            infos += trace ? GENERATED_WITH_TRACES : 0;
-            lastGeneratedWithStatsOrTrace.put(jobInfo.getJobId(), infos);
-
-            if (currentProcess instanceof IProcess2) {
-                ((IProcess2) currentProcess).setNeedRegenerateCode(false);
-            }
-        } else {
-            processor.setCodeGenerated(true);
-        }
-
-        /*
-         * Set classpath for current job. If current job include some child-jobs, the child job SHARE farther job
-         * libraries.
-         */
-        jobInfo.setProcess(null);
-        if (isMainJob) {
-            progressMonitor.subTask(Messages.getString("ProcessorUtilities.finalizeBuild") + currentJobName); //$NON-NLS-1$
-            CorePlugin.getDefault().getRunProcessService().updateLibraries(
-                    LastGenerationInfo.getInstance().getModulesNeededWithSubjobPerJob(jobInfo.getJobId(),
-                            jobInfo.getJobVersion()), currentProcess);
-            if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA && codeModified) {
-                try {
-                    ((IJavaProject) CorePlugin.getDefault().getRunProcessService().getJavaProject()).getProject().build(
-                            IncrementalProjectBuilder.AUTO_BUILD, null);
-                } catch (CoreException e) {
-                    throw new ProcessorException(e);
-                }
-            }
-            codeModified = false;
-        }
-        return processor;
     }
 
     /**
@@ -735,6 +865,36 @@ public class ProcessorUtilities {
         jobList.clear();
         IProcessor genCode = generateCode(jobInfo, context.getName(), statistics, trace, properties, GENERATE_ALL_CHILDS,
                 progressMonitor);
+        jobList.clear();
+        return genCode;
+    }
+
+    public static IProcessor generateCode(IProcessor processor, IProcess process, IContext context, boolean statistics,
+            boolean trace, boolean properties, IProgressMonitor progressMonitor) throws ProcessorException {
+        ISVNProviderService service = null;
+        if (PluginChecker.isSVNProviderPluginLoaded()) {
+            service = (ISVNProviderService) GlobalServiceRegister.getDefault().getService(ISVNProviderService.class);
+        }
+        if (service != null && service.isProjectInSvnMode()) {
+            RepositoryManager.syncRoutineAndJoblet(ERepositoryObjectType.ROUTINES);
+        }
+        // achen modify to fix 0006107
+        ProcessItem pItem = null;
+
+        if (process instanceof IProcess2) {
+            pItem = (ProcessItem) ((IProcess2) process).getProperty().getItem();
+        }
+        JobInfo jobInfo;
+        if (pItem != null) { // ProcessItem is null for shadow process
+            jobInfo = new JobInfo(pItem, context.getName());
+            jobInfo.setProcess(process);
+            jobInfo.setContext(context);
+        } else {
+            jobInfo = new JobInfo(process, context);
+        }
+        jobList.clear();
+        IProcessor genCode = generateCode(processor, jobInfo, context.getName(), statistics, trace, properties,
+                GENERATE_ALL_CHILDS, progressMonitor);
         jobList.clear();
         return genCode;
     }
