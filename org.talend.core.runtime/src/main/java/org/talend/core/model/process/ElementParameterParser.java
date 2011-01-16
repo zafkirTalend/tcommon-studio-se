@@ -308,7 +308,7 @@ public final class ElementParameterParser {
         if (element instanceof INode) {
             INode node = (INode) element;
             if (node.getExternalNode() != null) {
-                return node.getExternalNode().saveExternalData();
+                return node.getExternalNode().getExternalEmfData();
             }
         }
         return null;

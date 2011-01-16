@@ -90,7 +90,7 @@ public interface IExternalNode extends INode {
 
     public void setOriginalNode(INode originalNode);
 
-    public AbstractExternalData saveExternalData();
+    public AbstractExternalData getExternalEmfData();
 
     public void buildExternalData(AbstractExternalData abstractData);
 }

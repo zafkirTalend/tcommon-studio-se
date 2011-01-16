@@ -113,7 +113,7 @@ public abstract class AbstractExternalNode extends AbstractNode implements IExte
         this.originalNode = originalNode;
     }
 
-    public AbstractExternalData saveExternalData() {
+    public AbstractExternalData getExternalEmfData() {
         return null;
     }
 
