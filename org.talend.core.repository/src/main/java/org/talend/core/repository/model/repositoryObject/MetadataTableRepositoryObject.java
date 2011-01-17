@@ -35,6 +35,7 @@ import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.SubItemHelper;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IRepositoryNode;
+import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.Package;
 
 /**
@@ -222,6 +223,10 @@ public class MetadataTableRepositoryObject extends MetadataTable implements ISub
 
     public void setRepositoryNode(IRepositoryNode node) {
         viewObject.setRepositoryNode(node);
+    }
+
+    public ModelElement getModelElement() {
+        return this.table;
     }
 
 }

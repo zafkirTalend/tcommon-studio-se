@@ -24,6 +24,7 @@ import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.repository.model.ISubRepositoryObject;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IRepositoryNode;
+import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.resource.relational.Schema;
 
 
@@ -145,6 +146,10 @@ public class MetadataSchemaRepositoryObject extends MetadataSchema implements IS
 
     public void setRepositoryNode(IRepositoryNode node) {
         this.repositoryNode = node;
+    }
+
+    public ModelElement getModelElement() {
+        return this.schema;
     }
 
 }

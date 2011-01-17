@@ -25,6 +25,7 @@ import org.talend.core.repository.model.ISubRepositoryObject;
 import org.talend.cwm.xml.TdXmlElementType;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IRepositoryNode;
+import orgomg.cwm.objectmodel.core.ModelElement;
 
 
 /**
@@ -144,6 +145,10 @@ public class MetadataXmlElementTypeRepositoryObject extends MetadataXmlElementTy
 
     public void setRepositoryNode(IRepositoryNode node) {
         this.repositoryNode = node;
+    }
+
+    public ModelElement getModelElement() {
+        return this.tdXmlElementType;
     }
 
 }

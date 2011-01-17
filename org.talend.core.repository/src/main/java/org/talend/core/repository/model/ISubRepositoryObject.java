@@ -15,6 +15,7 @@ package org.talend.core.repository.model;
 import org.talend.core.model.metadata.builder.connection.AbstractMetadataObject;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.IRepositoryViewObject;
+import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
  * DOC nrousseau class global comment. Detailled comment
@@ -26,5 +27,7 @@ public interface ISubRepositoryObject extends IRepositoryViewObject {
     public void removeFromParent();
 
     public Property getProperty();
+
+    public ModelElement getModelElement();
 
 }

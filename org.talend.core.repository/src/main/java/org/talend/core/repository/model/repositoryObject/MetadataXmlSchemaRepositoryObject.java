@@ -25,6 +25,7 @@ import org.talend.core.repository.model.ISubRepositoryObject;
 import org.talend.cwm.xml.TdXmlSchema;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IRepositoryNode;
+import orgomg.cwm.objectmodel.core.ModelElement;
 
 
 /**
@@ -144,6 +145,10 @@ public class MetadataXmlSchemaRepositoryObject extends MetadataXmlSchema impleme
 
     public String getStatusCode() {
         return viewObject.getStatusCode();
+    }
+
+    public ModelElement getModelElement() {
+        return this.tdXmlSchema;
     }
 
 }
