@@ -27,7 +27,6 @@ Require-Bundle: org.eclipse.ui,
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: .Talend SA.
 Export-Package: org.talend.core.model.metadata.editor,
- org.talend.core.model.repository,
  org.talend.core.prefs.ui,
  org.talend.core.ui.metadata.celleditor,
  org.talend.core.ui.metadata.dialog,
@@ -66,5 +65,4 @@ Export-Package: org.talend.core.model.metadata.editor,
  org.talend.repository.ui.wizards.metadata.connection.ldap,
  org.talend.repository.ui.wizards.metadata.connection.wsdl,
  org.talend.repository.ui.wizards.metadata.table.database,
- org.talend.repository.ui.wizards.metadata.table.files,
- org.talend.repository.util
+ org.talend.repository.ui.wizards.metadata.table.files

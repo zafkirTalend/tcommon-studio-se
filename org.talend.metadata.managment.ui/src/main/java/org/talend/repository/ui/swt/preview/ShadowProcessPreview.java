@@ -23,10 +23,10 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.talend.core.model.metadata.builder.connection.SchemaTarget;
+import org.talend.core.model.utils.RepositoryManagerHelper;
 import org.talend.core.utils.CsvArray;
 import org.talend.metadata.managment.ui.i18n.Messages;
 import org.talend.repository.preview.ProcessDescription;
-import org.talend.repository.util.RepositoryManagerHelper;
 
 /**
  * Create SWT Table to show the content of a file. <br/>

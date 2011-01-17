@@ -124,4 +124,6 @@ public interface ICoreService extends IService {
     public IPreferenceStore getPreferenceStore();
 
     public boolean isOpenedItemInEditor(IRepositoryViewObject object);
+
+    public void updatePalette();
 }

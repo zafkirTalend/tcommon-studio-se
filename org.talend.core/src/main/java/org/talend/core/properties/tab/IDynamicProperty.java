@@ -19,6 +19,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.talend.core.model.process.EComponentCategory;
 import org.talend.core.model.process.Element;
 import org.talend.core.model.properties.ConnectionItem;
+import org.talend.designer.core.IMultiPageTalendEditor;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>

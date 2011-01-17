@@ -30,7 +30,7 @@ import org.talend.core.IService;
 import org.talend.core.model.business.BusinessAlignment;
 import org.talend.core.model.business.BusinessType;
 import org.talend.core.model.properties.BusinessProcessItem;
-import org.talend.repository.editor.RepositoryEditorInput;
+import org.talend.core.model.repository.IRepositoryEditorInput;
 
 /**
  * DOC qian class global comment. An implementation of the IRunProcessService. <br/>
@@ -47,7 +47,7 @@ public interface IDiagramModelService extends IService {
 
     public boolean isBusinessDiagramEditor(IEditorPart part);
 
-    public RepositoryEditorInput getBusinessDiagramEditorInput(IEditorPart editor);
+    public IRepositoryEditorInput getBusinessDiagramEditorInput(IEditorPart editor);
 
     public DiagramEditPart getBusinessEditorProcess();
 

@@ -23,7 +23,7 @@ import org.eclipse.datatools.enablement.oda.xml.util.ui.SchemaPopulationUtil;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
-import org.talend.repository.util.RepositoryManagerHelper;
+import org.talend.core.model.utils.RepositoryManagerHelper;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>

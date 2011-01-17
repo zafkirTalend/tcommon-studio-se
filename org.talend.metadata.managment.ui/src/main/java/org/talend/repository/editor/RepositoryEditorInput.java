@@ -15,6 +15,7 @@ package org.talend.repository.editor;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.ui.part.FileEditorInput;
 import org.talend.core.model.properties.Item;
+import org.talend.core.model.repository.IRepositoryEditorInput;
 import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.repository.model.IRepositoryNode;
@@ -27,7 +28,7 @@ import org.talend.repository.ui.views.IRepositoryView;
  * $Id: RepositoryEditorInput.java 1 2006-09-29 17:06:40 +0000 (星期五, 29 九月 2006) nrousseau $
  * 
  */
-public class RepositoryEditorInput extends FileEditorInput {
+public class RepositoryEditorInput extends FileEditorInput implements IRepositoryEditorInput {
 
     private Item item;
 

@@ -51,6 +51,7 @@ import org.talend.core.model.metadata.types.JavaDataTypeHelper;
 import org.talend.core.model.metadata.types.PerlDataTypeHelper;
 import org.talend.core.model.metadata.types.PerlTypesManager;
 import org.talend.core.model.properties.ConnectionItem;
+import org.talend.core.model.utils.RepositoryManagerHelper;
 import org.talend.core.prefs.ui.MetadataTypeLengthConstants;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.metadata.editor.MetadataEmfTableEditorView;
@@ -63,7 +64,6 @@ import org.talend.repository.ui.swt.utils.AbstractWSDLSchemaStepForm;
 import org.talend.repository.ui.utils.ConnectionContextHelper;
 import org.talend.repository.ui.utils.ShadowProcessHelper;
 import org.talend.repository.ui.wizards.metadata.MetadataContextModeManager;
-import org.talend.repository.util.RepositoryManagerHelper;
 
 /**
  * The class is used for wsdL schema on Repository View. <br/>

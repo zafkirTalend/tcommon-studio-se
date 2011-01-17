@@ -32,14 +32,13 @@ import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
 import org.talend.core.model.properties.BusinessProcessItem;
 import org.talend.core.model.properties.Property;
+import org.talend.core.model.utils.RepositoryManagerHelper;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.IJobletProviderService;
 import org.talend.designer.codegen.ICodeGeneratorService;
-import org.talend.repository.editor.RepositoryEditorInput;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.nodes.IProjectRepositoryNode;
 import org.talend.repository.ui.views.IRepositoryView;
-import org.talend.repository.util.RepositoryManagerHelper;
 
 /**
  * ggu class global comment. Detailled comment
@@ -262,17 +261,17 @@ public final class RepositoryManager {
                         if (editorReferences != null) {
                             for (IEditorReference editorReference : editorReferences) {
                                 IEditorInput editorInput = editorReference.getEditorInput();
-                                if ((editorInput != null && editorInput instanceof RepositoryEditorInput)) {
-                                    RepositoryEditorInput rInput = (RepositoryEditorInput) editorInput;
+                                if ((editorInput != null && editorInput instanceof IRepositoryEditorInput)) {
+                                    IRepositoryEditorInput rInput = (IRepositoryEditorInput) editorInput;
                                     Property openedProperty = rInput.getItem().getProperty();
                                     if (openedProperty.getId().equals(objectToMove.getId())
                                             && VersionUtils.compareTo(openedProperty.getVersion(), objectToMove.getVersion()) == 0) {
                                         return true;
                                     }
                                 } else if (objectToMove.getProperty().getItem() instanceof BusinessProcessItem) {
-                                    Object obj = editorInput.getAdapter(RepositoryEditorInput.class);
-                                    if (obj instanceof RepositoryEditorInput) {
-                                        RepositoryEditorInput rInput = (RepositoryEditorInput) obj;
+                                    Object obj = editorInput.getAdapter(IRepositoryEditorInput.class);
+                                    if (obj instanceof IRepositoryEditorInput) {
+                                        IRepositoryEditorInput rInput = (IRepositoryEditorInput) obj;
                                         Property openedProperty = rInput.getItem().getProperty();
                                         if (openedProperty.getId().equals(objectToMove.getId())
                                                 && VersionUtils.compareTo(openedProperty.getVersion(), objectToMove.getVersion()) == 0) {
@@ -314,15 +313,15 @@ public final class RepositoryManager {
                             for (IEditorReference editorReference : editorReferences) {
                                 IEditorInput editorInput = editorReference.getEditorInput();
                                 if (editorInput != null) {
-                                    RepositoryEditorInput rInput = null;
+                                    IRepositoryEditorInput rInput = null;
                                     // for business/routine/sql pattern
                                     IPersistableElement persistableElement = editorInput.getPersistable();
-                                    if (persistableElement != null && persistableElement instanceof RepositoryEditorInput) {
-                                        rInput = (RepositoryEditorInput) persistableElement;
+                                    if (persistableElement != null && persistableElement instanceof IRepositoryEditorInput) {
+                                        rInput = (IRepositoryEditorInput) persistableElement;
                                     }
                                     // for job/joblet/routine/sql pattern
-                                    if (editorInput instanceof RepositoryEditorInput) {
-                                        rInput = (RepositoryEditorInput) editorInput;
+                                    if (editorInput instanceof IRepositoryEditorInput) {
+                                        rInput = (IRepositoryEditorInput) editorInput;
                                     }
                                     if (rInput != null) {
                                         Property openedProperty = rInput.getItem().getProperty();

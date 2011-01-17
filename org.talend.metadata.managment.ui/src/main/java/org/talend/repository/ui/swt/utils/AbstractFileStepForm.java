@@ -19,11 +19,11 @@ import org.talend.core.model.metadata.IMetadataContextModeManager;
 import org.talend.core.model.metadata.builder.connection.FileConnection;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.utils.ContextParameterUtils;
+import org.talend.core.model.utils.RepositoryManagerHelper;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.repository.ui.utils.ConnectionContextHelper;
 import org.talend.repository.ui.utils.FileConnectionContextUtils.EFileParamName;
 import org.talend.repository.ui.wizards.metadata.MetadataContextModeManager;
-import org.talend.repository.util.RepositoryManagerHelper;
 
 /**
  * ggu class global comment. Detailled comment

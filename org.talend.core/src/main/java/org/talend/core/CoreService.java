@@ -52,6 +52,7 @@ import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.language.ECodeLanguage;
+import org.talend.core.model.components.ComponentUtilities;
 import org.talend.core.model.general.ILibrariesService;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.ColumnNameChanged;
@@ -459,5 +460,9 @@ public class CoreService implements ICoreService {
 
     public boolean isOpenedItemInEditor(IRepositoryViewObject object) {
         return RepositoryManager.isOpenedItemInEditor(object);
+    }
+
+    public void updatePalette() {
+        ComponentUtilities.updatePalette();
     }
 }
