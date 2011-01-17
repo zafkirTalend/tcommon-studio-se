@@ -36,6 +36,8 @@ import org.talend.commons.bridge.ReponsitoryContextBridge;
 import org.talend.commons.utils.database.DB2ForZosDataBaseMetadata;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.model.metadata.IMetadataConnection;
+import org.talend.core.model.metadata.MetadataConnection;
+import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.metadata.builder.database.IDriverService;
@@ -164,6 +166,41 @@ public class MetadataConnectionUtils {
         }
         return rc;
 
+    }
+
+    /**
+     * 
+     * method "checkConnection".
+     * 
+     * @param metadataBean pass the parameter for java.sql.Connection.
+     * @return one object which adjust whether the Connection can be connected and take one object for
+     * java.sql.connection. Note if use this method, you need to care for the value of return and close the Connect
+     * after use it.
+     */
+    public static TypedReturnCode<java.sql.Connection> checkConnection(DatabaseConnection databaseConnection) {
+        IMetadataConnection metadataConnection = new MetadataConnection();
+
+
+        String dbUrl = databaseConnection.getURL();
+        String password = databaseConnection.getPassword();
+        String userName = databaseConnection.getUsername();
+        String driverClass = databaseConnection.getDriverClass();
+        String driverJarPath = databaseConnection.getDriverJarPath();
+        String dbType = databaseConnection.getDatabaseType();
+        String dataBase = databaseConnection.getSID();
+        String dbVersionString = databaseConnection.getDbVersionString();
+        String additionalParams = databaseConnection.getAdditionalParams();
+
+        metadataConnection.setAdditionalParams(additionalParams);
+        metadataConnection.setDbVersionString(dbVersionString);
+        metadataConnection.setDatabase(dataBase);
+        metadataConnection.setDbType(dbType);
+        metadataConnection.setDriverJarPath(driverJarPath);
+        metadataConnection.setDriverClass(driverClass);
+        metadataConnection.setUsername(userName);
+        metadataConnection.setPassword(password);
+        metadataConnection.setUrl(dbUrl);
+        return checkConnection(metadataConnection);
     }
 
     public static TdSoftwareSystem getSoftwareSystem(java.sql.Connection connection) throws SQLException {

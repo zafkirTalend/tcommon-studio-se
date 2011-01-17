@@ -29,6 +29,8 @@ import org.talend.commons.utils.VersionUtils;
 import org.talend.core.i18n.Messages;
 import org.talend.core.model.metadata.MetadataFillFactory;
 import org.talend.core.model.metadata.builder.connection.Connection;
+import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
+import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.cwm.helper.CatalogHelper;
 import org.talend.cwm.helper.ColumnSetHelper;
@@ -226,7 +228,8 @@ public final class DqRepositoryViewService {
         if (loadFromDB) {
             // MOD by zshen use new API to fill Columns
             List<TdColumn> columnList = new ArrayList<TdColumn>();
-            TypedReturnCode<java.sql.Connection> rcConn = JavaSqlFactory.createConnection(dataProvider);
+            TypedReturnCode<java.sql.Connection> rcConn = MetadataConnectionUtils
+                    .checkConnection((DatabaseConnection) dataProvider);
             if (!rcConn.isOk()) {
                 log.error(rcConn.getMessage()); // scorreia show error to the
                                                 // user
@@ -291,7 +294,9 @@ public final class DqRepositoryViewService {
         List<TdTable> tables = new ArrayList<TdTable>();
         // PTODO scorreia check return code
         // MOD by zshen use new API to fill tables
-        TypedReturnCode<java.sql.Connection> rcConn = JavaSqlFactory.createConnection(dataPloadTablesrovider);
+
+        TypedReturnCode<java.sql.Connection> rcConn = MetadataConnectionUtils
+                .checkConnection((DatabaseConnection) dataPloadTablesrovider);
         if (!rcConn.isOk()) {
             log.error(rcConn.getMessage());
             throw new Exception(rcConn.getMessage());
@@ -323,7 +328,7 @@ public final class DqRepositoryViewService {
             throws Exception {
         List<TdView> views = new ArrayList<TdView>();
         // PTODO scorreia check return code
-        TypedReturnCode<java.sql.Connection> rcConn = JavaSqlFactory.createConnection(dataProvider);
+        TypedReturnCode<java.sql.Connection> rcConn = MetadataConnectionUtils.checkConnection((DatabaseConnection) dataProvider);
         if (!rcConn.isOk()) {
             log.error(rcConn.getMessage());
             throw new Exception(rcConn.getMessage());

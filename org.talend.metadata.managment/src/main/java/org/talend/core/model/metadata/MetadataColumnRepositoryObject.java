@@ -24,6 +24,7 @@ import org.talend.core.repository.model.ISubRepositoryObject;
 import org.talend.cwm.helper.SubItemHelper;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IRepositoryNode;
+import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
  * DOC klliu class global comment. Detailled comment
@@ -161,6 +162,10 @@ public class MetadataColumnRepositoryObject extends MetadataColumn implements IS
 
     public void setRepositoryNode(IRepositoryNode node) {
         viewObject.setRepositoryNode(node);
+    }
+
+    public ModelElement getModelElement() {
+        return this.tdColumn;
     }
 
 }
