@@ -18,6 +18,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.internal.core.SourceField;
 import org.eclipse.jdt.internal.ui.text.java.JavaCompletionProcessor;
 import org.eclipse.jdt.internal.ui.text.java.JavaCompletionProposal;
@@ -124,13 +125,17 @@ public class TalendJavaCompletionProcessor extends JavaCompletionProcessor {
     protected ContentAssistInvocationContext createContext(ITextViewer viewer, int offset) {
         if (viewer instanceof TalendJavaSourceViewer) {
             ((TalendJavaSourceViewer) viewer).updateContents();
-            CompletionProposalCollector cpc = new CompletionProposalCollector(((TalendJavaSourceViewer) viewer)
-                    .getCompilationUnit());
-            // set an empty editor Part as it's the only constructor where the viewer can be used.
-            JavaContentAssistInvocationContext invocContext = new JavaContentAssistInvocationContext(viewer, offset,
-                    new NullEditorPart());
-            cpc.setInvocationContext(invocContext);
-            return invocContext;
+            ICompilationUnit compilationUnit = ((TalendJavaSourceViewer) viewer).getCompilationUnit();
+            if (compilationUnit != null) {
+                CompletionProposalCollector cpc = new CompletionProposalCollector(compilationUnit);
+                // set an empty editor Part as it's the only constructor where the viewer can be used.
+                JavaContentAssistInvocationContext invocContext = new JavaContentAssistInvocationContext(viewer, offset,
+                        new NullEditorPart());
+                cpc.setInvocationContext(invocContext);
+                return invocContext;
+            } else {
+                return null;
+            }
         } else {
             return null;
         }

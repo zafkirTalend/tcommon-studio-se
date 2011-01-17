@@ -538,6 +538,10 @@ public abstract class AbstractNode implements INode {
         return org.talend.core.model.utils.NodeUtil.getIncomingConnections(this, connectionType);
     }
 
+    public List<? extends IConnection> getIncomingConnections(String connectorName) {
+        return org.talend.core.model.utils.NodeUtil.getIncomingConnections(this, connectorName);
+    }
+
     /*
      * (non-Javadoc)
      * 
@@ -758,8 +762,7 @@ public abstract class AbstractNode implements INode {
     }
 
     public List<? extends INodeConnector> getListConnector() {
-        // TODO Auto-generated method stub
-        return null;
+        return listConnector;
     }
 
     public IMetadataTable getMetadataTable(String metaName) {

@@ -47,6 +47,7 @@ import org.talend.core.model.properties.PositionalFileConnectionItem;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.Property;
+import org.talend.core.model.properties.ValidationRulesConnectionItem;
 import org.talend.core.model.properties.helper.ByteArrayResource;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.repository.constants.FileConstants;
@@ -253,6 +254,8 @@ public class XmiResourceManager {
                 folder = ERepositoryObjectType.getFolderName(ERepositoryObjectType.METADATA_FILE_EBCDIC);
             } else if (item instanceof PositionalFileConnectionItem) {
                 folder = ERepositoryObjectType.getFolderName(ERepositoryObjectType.METADATA_FILE_POSITIONAL);
+            } else if (item instanceof ValidationRulesConnectionItem) {
+                folder = ERepositoryObjectType.getFolderName(ERepositoryObjectType.METADATA_VALIDATION_RULES);
             }
 
             if (folder != null) {
@@ -350,8 +353,7 @@ public class XmiResourceManager {
             String... fileExtension) throws PersistenceException {
         IPath folderPath = getFolderPath(project, repositoryObjectType, path);
         FileName fileName = ResourceFilenameHelper.create(item.getProperty());
-        IPath resourcePath = ResourceFilenameHelper.getExpectedFilePath(fileName, folderPath,
-                FileConstants.ITEM_EXTENSION);
+        IPath resourcePath = ResourceFilenameHelper.getExpectedFilePath(fileName, folderPath, FileConstants.ITEM_EXTENSION);
         if (fileExtension != null && fileExtension.length > 0) {
             resourcePath = ResourceFilenameHelper.getExpectedFilePath(fileName, folderPath, fileExtension[0]);
         }

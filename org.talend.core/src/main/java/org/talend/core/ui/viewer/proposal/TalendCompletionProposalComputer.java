@@ -65,53 +65,56 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
     public List computeCompletionProposals(ContentAssistInvocationContext context, IProgressMonitor monitor) {
         String prefix = ""; //$NON-NLS-1$
         try {
-            prefix = context.computeIdentifierPrefix().toString();
+            if (context != null) {
+                prefix = context.computeIdentifierPrefix().toString();
 
-            String tmpPrefix = ""; //$NON-NLS-1$
-            IDocument doc = context.getDocument();
-            if ((!prefix.equals("")) || (doc.get().length() == 0)) { //$NON-NLS-1$
-                tmpPrefix = prefix;
-            } else {
-                int offset = context.getInvocationOffset();
-                if (doc.getChar(offset - 1) == '.') {
-                    // set by default to avoid other completions
+                String tmpPrefix = ""; //$NON-NLS-1$
+                IDocument doc = context.getDocument();
+                if ((!prefix.equals("")) || (doc.get().length() == 0)) { //$NON-NLS-1$
+                    tmpPrefix = prefix;
+                } else {
+                    int offset = context.getInvocationOffset();
+                    if (doc.getChar(offset - 1) == '.') {
+                        // set by default to avoid other completions
 
-                    tmpPrefix = "."; //$NON-NLS-1$
+                        tmpPrefix = "."; //$NON-NLS-1$
 
-                    if (offset >= CONTEXT_PREFIX.length()
-                            && doc.get(offset - CONTEXT_PREFIX.length(), CONTEXT_PREFIX.length()).equals(CONTEXT_PREFIX)) {
-                        tmpPrefix = CONTEXT_PREFIX;
-                    } else if (offset >= PERL_GLOBAL_PREFIX.length()
-                            & doc.get(offset - PERL_GLOBAL_PREFIX.length(), PERL_GLOBAL_PREFIX.length()).equals(
-                                    PERL_GLOBAL_PREFIX)) {
-                        switch (LanguageManager.getCurrentLanguage()) {
-                        case JAVA:
-                            // do nothing
-                            break;
-                        case PERL:
-                        default:
-                            tmpPrefix = PERL_GLOBAL_PREFIX;
-                        }
-                    } else {
-                        // test each component label.
-                        IProcess process = CorePlugin.getDefault().getDesignerCoreService().getCurrentProcess();
-                        if (process == null) {
-                            return Collections.EMPTY_LIST;
-                        }
-                        List<? extends INode> nodes = process.getGraphicalNodes();
-                        for (INode node : nodes) {
-                            String toTest = node.getLabel() + "."; //$NON-NLS-1$
-                            if (offset >= toTest.length() && doc.get(offset - toTest.length(), toTest.length()).equals(toTest)) {
-                                tmpPrefix = toTest;
+                        if (offset >= CONTEXT_PREFIX.length()
+                                && doc.get(offset - CONTEXT_PREFIX.length(), CONTEXT_PREFIX.length()).equals(CONTEXT_PREFIX)) {
+                            tmpPrefix = CONTEXT_PREFIX;
+                        } else if (offset >= PERL_GLOBAL_PREFIX.length()
+                                & doc.get(offset - PERL_GLOBAL_PREFIX.length(), PERL_GLOBAL_PREFIX.length()).equals(
+                                        PERL_GLOBAL_PREFIX)) {
+                            switch (LanguageManager.getCurrentLanguage()) {
+                            case JAVA:
+                                // do nothing
                                 break;
+                            case PERL:
+                            default:
+                                tmpPrefix = PERL_GLOBAL_PREFIX;
+                            }
+                        } else {
+                            // test each component label.
+                            IProcess process = CorePlugin.getDefault().getDesignerCoreService().getCurrentProcess();
+                            if (process == null) {
+                                return Collections.EMPTY_LIST;
+                            }
+                            List<? extends INode> nodes = process.getGraphicalNodes();
+                            for (INode node : nodes) {
+                                String toTest = node.getLabel() + "."; //$NON-NLS-1$
+                                if (offset >= toTest.length()
+                                        && doc.get(offset - toTest.length(), toTest.length()).equals(toTest)) {
+                                    tmpPrefix = toTest;
+                                    break;
+                                }
                             }
                         }
                     }
                 }
-            }
-            prefix = tmpPrefix;
-            if (".".equals(prefix) && LanguageManager.getCurrentLanguage().equals(ECodeLanguage.PERL)) { //$NON-NLS-1$
-                prefix = ""; //$NON-NLS-1$
+                prefix = tmpPrefix;
+                if (".".equals(prefix) && LanguageManager.getCurrentLanguage().equals(ECodeLanguage.PERL)) { //$NON-NLS-1$
+                    prefix = ""; //$NON-NLS-1$
+                }
             }
         } catch (BadLocationException e) {
             throw new RuntimeException(e);
@@ -230,8 +233,8 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
                             String code = proposal.getContent();
                             String description = proposal.getDescription();
                             TalendCompletionProposal completionProposal = new TalendCompletionProposal(code, offset
-                                    - prefix.length(), replacementLength, code.length(), ImageProvider
-                                    .getImage(ECoreImage.PROCESS_ICON), display, null, description);
+                                    - prefix.length(), replacementLength, code.length(),
+                                    ImageProvider.getImage(ECoreImage.PROCESS_ICON), display, null, description);
                             completionProposal.setType(TalendCompletionProposal.VARIABLE);
                             proposals.add(completionProposal);
                         }
