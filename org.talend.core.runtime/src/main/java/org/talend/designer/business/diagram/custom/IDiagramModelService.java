@@ -16,7 +16,6 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.viewers.ISelection;
@@ -49,7 +48,7 @@ public interface IDiagramModelService extends IService {
 
     public IRepositoryEditorInput getBusinessDiagramEditorInput(IEditorPart editor);
 
-    public DiagramEditPart getBusinessEditorProcess();
+    public Object getBusinessEditorProcess();
 
     public BusinessType getBusinessModelType(Object part);
 
