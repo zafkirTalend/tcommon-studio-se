@@ -15,6 +15,7 @@ package org.talend.core.utils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 
@@ -278,4 +279,75 @@ public final class TalendQuoteUtils {
         return newStr;
     }
 
+    private static boolean isLeft = true;
+
+    public static String getQuoteByDBType(EDatabaseTypeName name) {
+
+        switch (name) {
+        case GODBC:
+            return QUOTATION_MARK;
+        case IBMDB2:
+            return QUOTATION_MARK;
+        case INGRES:
+            return QUOTATION_MARK;
+        case MSODBC:
+            return QUOTATION_MARK;
+        case MSSQL:
+            return QUOTATION_MARK;
+        case MYSQL:
+            return ANTI_QUOTE;
+        case ORACLEFORSID:
+            return QUOTATION_MARK;
+        case ORACLESN:
+            return QUOTATION_MARK;
+        case PSQL:
+        case GREENPLUM:
+        case PARACCEL:
+        case PLUSPSQL:
+            return QUOTATION_MARK;
+        case SYBASEASE:
+            return QUOTATION_MARK;
+        case SYBASEIQ:
+            return QUOTATION_MARK;
+        case INTERBASE:
+            return QUOTATION_MARK;
+        case SQLITE:
+            return QUOTATION_MARK;
+        case FIREBIRD:
+            return QUOTATION_MARK;
+        case INFORMIX:
+            return QUOTATION_MARK;
+        case ACCESS:
+            return getBracket();
+        case TERADATA:
+            return QUOTATION_MARK;
+            // case JAVADB_DERBYCLIENT:
+            // return QUOTATION_MARK;
+            // case JAVADB_JCCJDBC:
+            // return QUOTATION_MARK;
+            // case JAVADB_EMBEDED:
+            // return QUOTATION_MARK;
+        default:
+            return QUOTATION_MARK;
+        }
+    }
+
+    /**
+     * qzhang Comment method "getBracket".
+     * 
+     * @return
+     */
+    private static String getBracket() {
+        if (isLeft) {
+            isLeft = false;
+            return LBRACKET;
+        } else {
+            isLeft = true;
+            return RBRACKET;
+        }
+    }
+
+    public static void setLeft(boolean left) {
+        isLeft = left;
+    }
 }
