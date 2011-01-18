@@ -26,6 +26,7 @@ import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.repository.model.IRepositoryService;
 
 /**
  * 
@@ -55,8 +56,11 @@ public final class ConvertionHelper {
         }
         // if sourceConnection is not context mode, will be same as before.
         DatabaseConnection connection = null;
-        DatabaseConnection originalValueConnection = CoreRuntimePlugin.getInstance().getRepositoryService()
-                .cloneOriginalValueConnection(sourceConnection, defaultContext, selectedContext);
+        DatabaseConnection originalValueConnection = null;
+        IRepositoryService repositoryService = CoreRuntimePlugin.getInstance().getRepositoryService();
+        if (repositoryService != null) {
+            originalValueConnection = repositoryService.cloneOriginalValueConnection(sourceConnection, defaultContext, selectedContext);
+        }
         if (originalValueConnection == null) {
             connection = sourceConnection;
         } else {

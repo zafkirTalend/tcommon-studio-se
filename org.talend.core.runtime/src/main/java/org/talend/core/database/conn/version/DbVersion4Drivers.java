@@ -48,6 +48,10 @@ class DbVersion4Drivers {
         this(new EDatabaseTypeName[] { dbType }, versionDisplayName, versionValue, new String[] { driver });
     }
 
+    DbVersion4Drivers(EDatabaseTypeName dbType, String versionDisplayName, String versionValue, String[] drivers) {
+        this(new EDatabaseTypeName[] { dbType }, versionDisplayName, versionValue, drivers);
+    }
+
     DbVersion4Drivers(EDatabaseTypeName[] dbTypes, String versionDisplayName, String versionValue, String driver) {
         this(dbTypes, versionDisplayName, versionValue, new String[] { driver });
     }

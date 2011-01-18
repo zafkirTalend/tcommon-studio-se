@@ -12,12 +12,15 @@
 // ============================================================================
 package org.talend.repository.ui.wizards.metadata.connection.database;
 
+import java.io.File;
+import java.sql.Driver;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
@@ -47,6 +50,7 @@ import org.talend.commons.ui.swt.formtools.LabelledFileField;
 import org.talend.commons.ui.swt.formtools.LabelledText;
 import org.talend.commons.ui.swt.formtools.UtilsButton;
 import org.talend.commons.ui.utils.PathUtils;
+import org.talend.commons.ui.utils.loader.MyURLClassLoader;
 import org.talend.commons.utils.PasswordEncryptUtil;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ICoreService;
@@ -59,6 +63,7 @@ import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
+import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
@@ -66,8 +71,8 @@ import org.talend.metadata.managment.ui.i18n.Messages;
 import org.talend.repository.ui.swt.utils.AbstractForm;
 import org.talend.repository.ui.utils.ConnectionContextHelper;
 import org.talend.repository.ui.utils.DBConnectionContextUtils;
-import org.talend.repository.ui.utils.DBConnectionContextUtils.EDBParamName;
 import org.talend.repository.ui.utils.ManagerConnection;
+import org.talend.repository.ui.utils.DBConnectionContextUtils.EDBParamName;
 
 /**
  * @author ocarbone
@@ -152,13 +157,15 @@ public class DatabaseForm extends AbstractForm {
 
     private LabelledText generalJdbcPasswordText = null;
 
-    private LabelledText generalJdbcClassNameText = null;
+    private LabelledCombo generalJdbcClassNameText = null;
 
     private LabelledText generalJdbcDriverjarText = null;
 
     private LabelledText jDBCschemaText;
 
     private Button browseJarFilesButton = null;
+
+    private Button browseClassButton = null;
 
     /**
      * Anothers Fields.
@@ -282,7 +289,10 @@ public class DatabaseForm extends AbstractForm {
             boolean b = false;
             if (GlobalServiceRegister.getDefault().isServiceRegistered(ICoreService.class)) {
                 ICoreService coreService = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
-                b = coreService.getPreferenceStore().getBoolean(ITalendCorePrefConstants.AS400_SQL_SEG);
+                IPreferenceStore preferenceStore = coreService.getPreferenceStore();
+                if (preferenceStore != null) {
+                    b = preferenceStore.getBoolean(ITalendCorePrefConstants.AS400_SQL_SEG);
+                }
 
             }
             standardButton.setSelection(b);
@@ -490,8 +500,11 @@ public class DatabaseForm extends AbstractForm {
         browseJarFilesButton.setText("..."); //$NON-NLS-1$
         browseJarFilesButton.setToolTipText(Messages.getString("DatabaseForm.selectJar")); //$NON-NLS-1$
 
-        generalJdbcClassNameText = new LabelledText(generalDbCompositeParent,
-                Messages.getString("DatabaseForm.general.classname"), 2); //$NON-NLS-1$
+        generalJdbcClassNameText = new LabelledCombo(generalDbCompositeParent, Messages.getString("DatabaseForm.general.classname"), "", null, true); //$NON-NLS-1$
+
+        browseClassButton = new Button(generalDbCompositeParent, SWT.NONE);
+        browseClassButton.setText("..."); //$NON-NLS-1$
+        browseClassButton.setToolTipText("Select class name");
 
         generalJdbcUserText = new LabelledText(generalDbCompositeParent, Messages.getString("DatabaseForm.general.user"), 2); //$NON-NLS-1$
 
@@ -628,6 +641,8 @@ public class DatabaseForm extends AbstractForm {
         button1.setVisible(false);
         button2.setVisible(false);
 
+        sqlSyntaxCombo.setVisible(!isDataProfilePerspectiveSelected());
+        group1.setVisible(!isTOPStandaloneMode());
     }
 
     /**
@@ -637,8 +652,14 @@ public class DatabaseForm extends AbstractForm {
         // PTODO cantoine : HIDDEN some Database connection in function of
         // project MODE (Perl/Java).
 
+        List<String> dbTypeDisplayList = EDatabaseConnTemplate.getDBTypeDisplay();
+
+        if (isTOPStandaloneMode()) {
+            dbTypeDisplayList = filterUnavailableType(dbTypeDisplayList);
+        }
+
         dbTypeCombo = new LabelledCombo(compositeDbSettings, Messages.getString("DatabaseForm.dbType"), Messages //$NON-NLS-1$
-                .getString("DatabaseForm.dbTypeTip"), EDatabaseConnTemplate.getDBTypeDisplay().toArray(new String[0]), 2, true); //$NON-NLS-1$
+                .getString("DatabaseForm.dbTypeTip"), dbTypeDisplayList.toArray(new String[0]), 2, true); //$NON-NLS-1$
 
         // configure the visible item of database combo
         int visibleItemCount = dbTypeCombo.getCombo().getItemCount();
@@ -646,6 +667,19 @@ public class DatabaseForm extends AbstractForm {
             visibleItemCount = VISIBLE_DATABASE_COUNT;
         }
         dbTypeCombo.getCombo().setVisibleItemCount(visibleItemCount);
+    }
+
+    private List<String> filterUnavailableType(List<String> dbTypeDisplayList) {
+        List<String> resultList = new ArrayList<String>();
+
+        List<String> tdqSupportDBList = MetadataConnectionUtils.getTDQSupportDBTemplate();
+        for (String dbType : dbTypeDisplayList) {
+            if (tdqSupportDBList.contains(dbType)) {
+                resultList.add(dbType);
+            }
+        }
+
+        return resultList;
     }
 
     /**
@@ -1420,6 +1454,9 @@ public class DatabaseForm extends AbstractForm {
         } else if (dbType.equals(EDatabaseConnTemplate.VERTICA.getDBDisplayName())) {
             dbVersionCombo.getCombo().setItems(versions);
             dbVersionCombo.setHideWidgets(!isVertica);
+        } else if (dbType.equals(EDatabaseConnTemplate.MSSQL05_08.getDBDisplayName())) {
+            dbVersionCombo.getCombo().setItems(versions);
+            dbVersionCombo.setHideWidgets(false);
         }
         if (selectedVersion != null && !"".equals(selectedVersion)) { //$NON-NLS-1$
             EDatabaseVersion4Drivers version = EDatabaseVersion4Drivers.indexOfByVersion(selectedVersion);
@@ -1544,6 +1581,33 @@ public class DatabaseForm extends AbstractForm {
 
         });
 
+        browseClassButton.addSelectionListener(new SelectionAdapter() {
+
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+
+                generalJdbcClassNameText.removeAll();
+                for (String stringToFile : generalJdbcDriverjarText.getText().trim().split(";")) { //$NON-NLS-1$
+                    File file = new File(stringToFile);
+                    if (file != null) {
+                        try {
+                            MyURLClassLoader cl = new MyURLClassLoader(file.toURL());
+                            Class[] classes = cl.getAssignableClasses(Driver.class);
+                            for (int i = 0; i < classes.length; ++i) {
+                                generalJdbcClassNameText.add(classes[i].getName());
+                            }
+                        } catch (Exception ex) {
+                            ExceptionHandler.process(ex);
+                        }
+                    }
+                }
+                if (generalJdbcClassNameText.getItemCount() > 0) {
+                    String driverClassName = generalJdbcClassNameText.getItem(0);
+                    generalJdbcClassNameText.setText(driverClassName);
+                }
+            }
+        });
+
         mappingSelectButton.addSelectionListener(new SelectionAdapter() {
 
             @Override
@@ -1591,6 +1655,14 @@ public class DatabaseForm extends AbstractForm {
         // button1.setSelection(getConnection().isSQLMode());
         // button2.setSelection(!getConnection().isSQLMode());
         // }
+
+        // feature 17159
+        if (isDataProfilePerspectiveSelected()) {
+            if (!isSupportByTDQ()) {
+                updateStatus(IStatus.WARNING, "some database types are not usable in the Data Profiler perspective.");
+                return false;
+            }
+        }
 
         if (isContextMode()) {
             return true;
@@ -1649,6 +1721,21 @@ public class DatabaseForm extends AbstractForm {
         return true;
     }
 
+    /**
+     * DOC bZhou Comment method "isSupportByTDQ" for feature 17159.
+     * 
+     * @return
+     */
+    private boolean isSupportByTDQ() {
+        String selectType = dbTypeCombo.getText();
+        List<String> tdqSupportDBType = MetadataConnectionUtils.getTDQSupportDBTemplate();
+        if (!tdqSupportDBType.contains(selectType)) {
+            return false;
+        }
+
+        return true;
+    }
+
     private boolean checkGeneralDBFieldValues() {
         String value = generalJdbcUrlText.getText();
         if (!validText(value)) {
@@ -1664,7 +1751,7 @@ public class DatabaseForm extends AbstractForm {
 
         value = generalJdbcClassNameText.getText();
         if (!validText(value)) {
-            updateStatus(IStatus.WARNING, Messages.getString("DatabaseForm.alert", generalJdbcClassNameText.getLabelText())); //$NON-NLS-1$
+            updateStatus(IStatus.WARNING, Messages.getString("DatabaseForm.alert", generalJdbcClassNameText.getText())); //$NON-NLS-1$
             return false;
         }
 
@@ -1831,7 +1918,8 @@ public class DatabaseForm extends AbstractForm {
 
         dbVersionCombo.setEnabled(!isReadOnly()
                 && (isOracle || isAS400 || isMySQL || isVertica || EDatabaseConnTemplate.ACCESS.getDBTypeName().equals(
-                        dbTypeCombo.getText())));
+dbTypeCombo.getText()) || EDatabaseConnTemplate.MSSQL05_08
+                                .getDBDisplayName().equals(dbTypeCombo.getText())));
         usernameText.setEditable(visible);
         passwordText.setEditable(visible);
         serverText.setEditable(false);
@@ -2138,7 +2226,7 @@ public class DatabaseForm extends AbstractForm {
 
         generalJdbcPasswordText.setEditable(!isContextMode());
 
-        generalJdbcClassNameText.setEditable(!isContextMode());
+        generalJdbcClassNameText.setEnabled(!isContextMode());
 
         generalJdbcDriverjarText.setEditable(!isContextMode());
 

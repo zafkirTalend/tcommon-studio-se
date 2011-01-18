@@ -25,6 +25,7 @@ import org.talend.core.model.general.ILibrariesService;
 import org.talend.core.service.IWebService;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.repository.model.IProxyRepositoryFactory;
+import org.talend.repository.model.IProxyRepositoryService;
 import org.talend.repository.model.IRepositoryService;
 
 /**
@@ -67,8 +68,12 @@ public class CoreRuntimePlugin extends Plugin {
     }
 
     public IProxyRepositoryFactory getProxyRepositoryFactory() {
-        IRepositoryService service = getRepositoryService();
-        return service.getProxyRepositoryFactory();
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IProxyRepositoryService.class)) {
+            IProxyRepositoryService service = (IProxyRepositoryService) GlobalServiceRegister.getDefault().getService(IProxyRepositoryService.class);
+            return service.getProxyRepositoryFactory();
+        }
+
+        return null;
     }
 
     public IRepositoryService getRepositoryService() {

@@ -33,6 +33,7 @@ import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IProxyRepositoryService;
 import org.talend.repository.model.IRepositoryNode;
+import org.talend.repository.ui.views.IRepositoryView;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -156,8 +157,11 @@ public abstract class RepositoryWizard extends Wizard {
             repositoryObjectEditable = factory.isEditableAndLockIfPossible(repositoryObject);
 
             final IRepositoryNode repositoryNode = repositoryViewObject.getRepositoryNode();
-            RepositoryManagerHelper.getRepositoryView().expand(repositoryNode);
-            RepositoryManagerHelper.getRepositoryView().getViewer().refresh(repositoryObject.getRepositoryObjectType());
+            IRepositoryView repositoryView = RepositoryManagerHelper.getRepositoryView();
+            if (repositoryView != null) {
+                repositoryView.expand(repositoryNode);
+                repositoryView.getViewer().refresh(repositoryObject.getRepositoryObjectType());
+            }
         }
     }
 

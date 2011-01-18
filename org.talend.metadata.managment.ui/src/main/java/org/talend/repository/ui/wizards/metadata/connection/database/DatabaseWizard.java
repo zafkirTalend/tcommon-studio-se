@@ -289,7 +289,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                 } else {
                     if (connectionItem.getConnection() instanceof DatabaseConnection) {
                         DatabaseConnection c = (DatabaseConnection) connectionItem.getConnection();
-                        final boolean equals = c.getProductId().equals(EDatabaseTypeName.ORACLEFORSID.getProduct());
+                        final boolean equals = EDatabaseTypeName.ORACLEFORSID.getProduct().equals(c.getProductId());
                         if (equals && !c.isContextMode()) {
                             if (c.getUiSchema() == null || "".equals(c.getUiSchema())) {
                                 c.setUiSchema(c.getUsername()); //$NON-NLS-1$

@@ -422,6 +422,28 @@ public class MetadataConnectionUtils {
     }
 
     /**
+     * This method to get all database template supported by TDQ.
+     * 
+     * @return
+     */
+    public static List<String> getTDQSupportDBTemplate() {
+        IExtension extension = Platform.getExtensionRegistry().getExtension(DRIVER_EXTENSION_POINT_ID, TOP_DRIVER_EXTENSION_ID);
+        if (extension != null) {
+            IConfigurationElement[] configurationElement = extension.getConfigurationElements();
+            for (IConfigurationElement ele : configurationElement) {
+                try {
+                    IDriverService driverService = (IDriverService) ele.createExecutableExtension("class");
+                    return driverService.getTDQSupportDBTemplate();
+                } catch (Exception e) {
+                    log.error(e, e);
+                }
+            }
+        }
+
+        return new ArrayList<String>();
+    }
+
+    /**
      * 
      * DOC zshen Comment method "getCommonQueryStr".
      * 

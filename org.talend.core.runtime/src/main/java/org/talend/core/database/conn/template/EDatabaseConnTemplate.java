@@ -59,6 +59,9 @@ public enum EDatabaseConnTemplate {
     MSSQL(new DbConnStr(EDatabaseTypeName.MSSQL, //
             "jdbc:jtds:sqlserver://<host>:<port>/<sid>;<property>", //$NON-NLS-1$
             "1433")), //$NON-NLS-1$
+    MSSQL05_08(new DbConnStr(EDatabaseTypeName.MSSQL05_08, //
+            "jdbc:sqlserver://<host>:<port>;DatabaseName=<sid>", //$NON-NLS-1$
+            "1433")), //$NON-NLS-1$         
 
     GODBC(new DbConnStr(EDatabaseTypeName.GODBC, //
             "jdbc:odbc:<datasource>")), //$NON-NLS-1$

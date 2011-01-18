@@ -63,6 +63,7 @@ import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.repository.CoreRepositoryPlugin;
+import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.utils.KeywordsValidator;
 import org.talend.metadata.managment.ui.i18n.Messages;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -168,8 +169,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
     protected PropertiesWizardPage(String pageName, final Property property, IPath destinationPath, boolean readOnly,
             boolean editPath, String lastVersionFound) {
         super(pageName);
-        IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
-        statusHelper = new StatusHelper(service.getProxyRepositoryFactory());
+        statusHelper = new StatusHelper(CoreRuntimePlugin.getInstance().getProxyRepositoryFactory());
         this.destinationPath = destinationPath;
         this.readOnly = readOnly;
         this.editPath = editPath;
@@ -1016,8 +1016,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
     @SuppressWarnings("unchecked")
     public boolean isValid(String itemName) {
 
-        IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
-        IProxyRepositoryFactory repositoryFactory = service.getProxyRepositoryFactory();
+        IProxyRepositoryFactory repositoryFactory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
         try {
             return repositoryFactory.isNameAvailable(property.getItem(), itemName, listExistingObjects);
         } catch (PersistenceException e) {

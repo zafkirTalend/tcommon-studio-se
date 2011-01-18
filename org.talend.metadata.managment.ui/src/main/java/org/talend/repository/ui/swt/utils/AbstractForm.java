@@ -36,9 +36,12 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.ui.IPerspectiveDescriptor;
+import org.eclipse.ui.PlatformUI;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.swt.formtools.Form;
 import org.talend.commons.ui.swt.formtools.UtilsButton;
+import org.talend.commons.utils.platform.PluginChecker;
 import org.talend.core.model.metadata.builder.connection.FileConnection;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.properties.ConnectionItem;
@@ -58,6 +61,8 @@ import org.talend.repository.ui.utils.ShadowProcessHelper;
  * 
  */
 public abstract class AbstractForm extends Composite {
+
+    protected static final String DATA_PROFILING_PERSPECTIVE_ID = "org.talend.dataprofiler.DataProfilingPerspective";
 
     protected static final String PID = MetadataManagmentUiPlugin.PLUGIN_ID;
 
@@ -366,7 +371,7 @@ public abstract class AbstractForm extends Composite {
      * export as context button
      */
     private void addExportContextButton() {
-        if (hasContextBtn() && connectionItem != null) {
+        if (hasContextBtn() && connectionItem != null && !isTOPStandaloneMode()) {
             final int height = 45;
             Group group = Form.createGroup(this, 1, null);
             GridData gridData = new GridData(GridData.FILL_HORIZONTAL);
@@ -428,6 +433,16 @@ public abstract class AbstractForm extends Composite {
             return connectionItem.getConnection().isContextMode();
         }
         return false;
+    }
+
+    protected final boolean isTOPStandaloneMode() {
+        return PluginChecker.isOnlyTopLoaded();
+    }
+
+    protected final boolean isDataProfilePerspectiveSelected() {
+        IPerspectiveDescriptor curPerspective = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
+                .getPerspective();
+        return curPerspective.getId().equals(DATA_PROFILING_PERSPECTIVE_ID);
     }
 
     protected void exportAsContext() {

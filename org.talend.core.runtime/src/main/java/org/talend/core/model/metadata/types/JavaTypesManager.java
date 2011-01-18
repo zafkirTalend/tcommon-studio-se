@@ -132,37 +132,38 @@ public final class JavaTypesManager {
         }
         IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
         IExtensionPoint extensionPoint = extensionRegistry.getExtensionPoint("org.talend.core.java_type"); //$NON-NLS-1$
-        IExtension[] extensions = extensionPoint.getExtensions();
-        for (IExtension extension : extensions) {
-            IConfigurationElement[] configurationElements = extension.getConfigurationElements();
-            for (IConfigurationElement configurationElement : configurationElements) {
-                try {
-                    Object myClass = configurationElement.createExecutableExtension("nullableClass");
-                    JavaType javaType = new JavaType(myClass.getClass());
-                    addJavaType(javaType);
+        if (extensionPoint != null) {
+            IExtension[] extensions = extensionPoint.getExtensions();
+            for (IExtension extension : extensions) {
+                IConfigurationElement[] configurationElements = extension.getConfigurationElements();
+                for (IConfigurationElement configurationElement : configurationElements) {
+                    try {
+                        Object myClass = configurationElement.createExecutableExtension("nullableClass");
+                        JavaType javaType = new JavaType(myClass.getClass());
+                        addJavaType(javaType);
 
-                    IConfigurationElement[] dbMappingElements = configurationElement.getChildren();
-                    Map<String, List<DBTypeUtil>> dbAndDBType = new HashMap<String, List<DBTypeUtil>>();
-                    for (IConfigurationElement dbMappingElement : dbMappingElements) {
-                        String mappingId = dbMappingElement.getAttribute("mapping_id");
-                        IConfigurationElement[] dbTypeElements = dbMappingElement.getChildren();
-                        List<DBTypeUtil> dbTypes = new ArrayList<DBTypeUtil>();
-                        for (IConfigurationElement dbTypeElement : dbTypeElements) {
-                            boolean isDefault = dbTypeElement.getAttribute("default") == null ? false : Boolean
-                                    .valueOf(dbTypeElement.getAttribute("default"));
-                            boolean isIgnoreLen = dbTypeElement.getAttribute("ignoreLen") == null ? false : Boolean
-                                    .valueOf(dbTypeElement.getAttribute("ignoreLen"));
-                            boolean isIgnorePre = dbTypeElement.getAttribute("ignorePre") == null ? false : Boolean
-                                    .valueOf(dbTypeElement.getAttribute("ignorePre"));
-                            DBTypeUtil dbType = new DBTypeUtil(dbTypeElement.getAttribute("DbType"), isDefault, isIgnoreLen,
-                                    isIgnorePre);
-                            dbTypes.add(dbType);
+                        IConfigurationElement[] dbMappingElements = configurationElement.getChildren();
+                        Map<String, List<DBTypeUtil>> dbAndDBType = new HashMap<String, List<DBTypeUtil>>();
+                        for (IConfigurationElement dbMappingElement : dbMappingElements) {
+                            String mappingId = dbMappingElement.getAttribute("mapping_id");
+                            IConfigurationElement[] dbTypeElements = dbMappingElement.getChildren();
+                            List<DBTypeUtil> dbTypes = new ArrayList<DBTypeUtil>();
+                            for (IConfigurationElement dbTypeElement : dbTypeElements) {
+                                boolean isDefault = dbTypeElement.getAttribute("default") == null ? false : Boolean.valueOf(dbTypeElement
+                                        .getAttribute("default"));
+                                boolean isIgnoreLen = dbTypeElement.getAttribute("ignoreLen") == null ? false : Boolean.valueOf(dbTypeElement
+                                        .getAttribute("ignoreLen"));
+                                boolean isIgnorePre = dbTypeElement.getAttribute("ignorePre") == null ? false : Boolean.valueOf(dbTypeElement
+                                        .getAttribute("ignorePre"));
+                                DBTypeUtil dbType = new DBTypeUtil(dbTypeElement.getAttribute("DbType"), isDefault, isIgnoreLen, isIgnorePre);
+                                dbTypes.add(dbType);
+                            }
+                            dbAndDBType.put(mappingId, dbTypes);
                         }
-                        dbAndDBType.put(mappingId, dbTypes);
+                        javaTypeMappingFromExtension.put(javaType.getId(), dbAndDBType);
+                    } catch (CoreException e) {
+                        ExceptionHandler.process(e);
                     }
-                    javaTypeMappingFromExtension.put(javaType.getId(), dbAndDBType);
-                } catch (CoreException e) {
-                    ExceptionHandler.process(e);
                 }
             }
         }
