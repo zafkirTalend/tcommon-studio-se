@@ -81,6 +81,7 @@ public class ProjectNodeHelper {
                 break;
             }
         }
+        schema = ExtractMetaDataUtils.getDBConnectionSchema(dbconn);
         return getTablesFromCurrentCatalogOrSchema(catalog, schema, dbconn);
     }
 
@@ -180,6 +181,7 @@ public class ProjectNodeHelper {
                 break;
             }
         }
+        schema = ExtractMetaDataUtils.getDBConnectionSchema(dbconn);
         return getTablesFromCurrentCatalogOrSchemaWithOrders(catalog, schema, dbconn);
     }
 
@@ -271,6 +273,7 @@ public class ProjectNodeHelper {
                 break;
             }
         }
+        schema = ExtractMetaDataUtils.getMeataConnectionSchema(imetadataConnection);
         addTableForTemCatalogOrSchema(catalog, schema, dbconn, dbtable, imetadataConnection);
     }
 
@@ -453,7 +456,7 @@ public class ProjectNodeHelper {
             subschemas = CatalogHelper.getSchemas(c);
             hasSchemaInCatalog = subschemas.size() > 0;
         }
-        
+
         if (c != null && s == null && !hasSchemaInCatalog) { // only catalog
             c.getOwnedElement().removeAll(tablesToDelete);
 

@@ -86,9 +86,9 @@ public final class ConvertionHelper {
         result.setNullChar(connection.getNullChar());
         result.setPassword(connection.getPassword());
         result.setPort(connection.getPort());
-        result.setSchema(connection.getUiSchema());
         result.setServerName(connection.getServerName());
         result.setSqlSyntax(connection.getSqlSynthax());
+        result.setSchema(connection.getUiSchema());
         result.setStringQuote(connection.getStringQuote());
         result.setUrl(connection.getURL());
         result.setAdditionalParams(connection.getAdditionalParams());
@@ -98,6 +98,9 @@ public final class ConvertionHelper {
         result.setDbRootPath(connection.getDBRootPath());
         result.setSqlMode(connection.isSQLMode());
         result.setCurrentConnection(connection); // keep the connection for the metadataconnection
+        // handle oracle database connnection of general_jdbc.
+        result.setSchema(ExtractMetaDataUtils.getMeataConnectionSchema(result));
+
         return result;
 
     }

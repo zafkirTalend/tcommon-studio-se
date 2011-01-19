@@ -39,10 +39,13 @@ import org.talend.commons.utils.platform.PluginChecker;
 import org.talend.core.IManagementService;
 import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
+import org.talend.core.database.conn.template.EDatabaseConnTemplate;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 import org.talend.core.database.utils.ManagementTextUtils;
 import org.talend.core.i18n.Messages;
 import org.talend.core.model.metadata.IMetadataConnection;
+import org.talend.core.model.metadata.builder.ConvertionHelper;
+import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.MetadataConnection;
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.core.prefs.ITalendCorePrefConstants;
@@ -739,5 +742,33 @@ public class ExtractMetaDataUtils {
 
     public static void setUseAllSynonyms(boolean val) {
         useAllSynonyms = val;
+    }
+
+    /**
+     * DOC ycbai Comment method "getMeataConnectionSchema".
+     * 
+     * @param metadataConnection
+     * @return
+     */
+    public static String getMeataConnectionSchema(IMetadataConnection metadataConnection) {
+        String schema = metadataConnection.getSchema();
+        String dbType = metadataConnection.getDbType();
+        String url = metadataConnection.getUrl();
+        String generalJDBCDisplayName = EDatabaseConnTemplate.GENERAL_JDBC.getDBDisplayName();
+        if (generalJDBCDisplayName.equals(dbType) && url.contains("oracle")) {//$NON-NLS-1$
+            schema = metadataConnection.getUsername().toUpperCase();
+        }
+        return schema;
+    }
+
+    /**
+     * DOC ycbai Comment method "getDBConnectionSchema".
+     * 
+     * @param dbConnection
+     * @return
+     */
+    public static String getDBConnectionSchema(DatabaseConnection dbConnection) {
+        IMetadataConnection imetadataConnection = ConvertionHelper.convert(dbConnection);
+        return imetadataConnection.getSchema();
     }
 }

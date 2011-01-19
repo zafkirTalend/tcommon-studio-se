@@ -952,6 +952,8 @@ public class SelectorTableForm extends AbstractForm {
                         break;
                     }
                 }
+
+                schema = ExtractMetaDataUtils.getMeataConnectionSchema(iMetadataConnection);
                 ProjectNodeHelper.addTableForTemCatalogOrSchema(catalog, schema, getConnection(), dbtable, iMetadataConnection);
                 // getConnection().getTables().add(metadataTable);hywang
             }
