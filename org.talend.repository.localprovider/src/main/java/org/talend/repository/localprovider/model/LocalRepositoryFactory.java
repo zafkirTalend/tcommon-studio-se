@@ -1482,6 +1482,11 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         return itemResource;
     }
 
+    private Resource save(TDQItem item) {
+        Resource itemResource = xmiResourceManager.getItemResource(item);
+        return itemResource;
+    }
+
     private Resource create(IProject project, FileItem item, IPath path, ERepositoryObjectType type) throws PersistenceException {
         Resource itemResource = xmiResourceManager.createItemResource(project, item, path, type, true);
 
@@ -1688,9 +1693,10 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         } else {
             // MOD xqliu 2010-12-16 15750
             if (item instanceof TDQItem) {
-                propagateFileName(project, item.getProperty());
-                xmiResourceManager.saveResource(item.eResource());
-                return;
+                itemResource = save((TDQItem) item);
+                // propagateFileName(project, item.getProperty());
+                // xmiResourceManager.saveResource(item.eResource());
+                // return;
             } else {
                 throw new UnsupportedOperationException();
             }

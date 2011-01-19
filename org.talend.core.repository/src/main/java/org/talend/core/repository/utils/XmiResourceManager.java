@@ -47,6 +47,7 @@ import org.talend.core.model.properties.PositionalFileConnectionItem;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.Property;
+import org.talend.core.model.properties.TDQItem;
 import org.talend.core.model.properties.ValidationRulesConnectionItem;
 import org.talend.core.model.properties.helper.ByteArrayResource;
 import org.talend.core.model.repository.ERepositoryObjectType;
@@ -222,7 +223,13 @@ public class XmiResourceManager {
     }
 
     public Resource getItemResource(Item item) {
-        URI itemResourceURI = getItemResourceURI(getItemURI(item));
+        URI itemResourceURI = null;
+        if (item instanceof TDQItem) {
+            IPath fileName = new Path(((TDQItem) item).getFilename());
+            itemResourceURI = getItemResourceURI(getItemURI(item), fileName.getFileExtension());
+        } else {
+            itemResourceURI = getItemResourceURI(getItemURI(item));
+        }
         Resource itemResource = resourceSet.getResource(itemResourceURI, false);
 
         if (itemResource == null) {
