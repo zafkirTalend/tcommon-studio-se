@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
@@ -65,8 +66,10 @@ public final class RepositoryManagerHelper {
 
     public static int getMaximumRowsToPreview() {
         if (GlobalServiceRegister.getDefault().isServiceRegistered(ICoreService.class)) {
-            return CoreRuntimePlugin.getInstance().getCoreService().getPreferenceStore()
-                    .getInt(ITalendCorePrefConstants.PREVIEW_LIMIT);
+            IPreferenceStore preferenceStore = CoreRuntimePlugin.getInstance().getCoreService().getPreferenceStore();
+            if (preferenceStore != null) {
+                return preferenceStore.getInt(ITalendCorePrefConstants.PREVIEW_LIMIT);
+            }
         }
         return 50;
     }
