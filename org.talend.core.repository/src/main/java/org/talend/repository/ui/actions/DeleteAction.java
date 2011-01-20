@@ -640,7 +640,8 @@ public class DeleteAction extends AContextualAction {
                         .isOpenedItemInEditor(nodeObject)) && !(DELETE_FOREVER_TITLE.equals(getText()))) {
 
             final String title = Messages.getString("DeleteAction.error.title"); //$NON-NLS-1$
-            final String message = Messages.getString("DeleteAction.error.lockedOrOpenedObject.message");//$NON-NLS-1$
+            String nodeName = ERepositoryObjectType.getDeleteFolderName(nodeObject.getRepositoryObjectType());
+            final String message = Messages.getString("DeleteAction.error.lockedOrOpenedObject.newMessage", nodeName);//$NON-NLS-1$
             Display.getDefault().syncExec(new Runnable() {
 
                 public void run() {

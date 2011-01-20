@@ -422,6 +422,93 @@ public enum ERepositoryObjectType {
         }
     }
 
+    public static String getDeleteFolderName(ERepositoryObjectType type) {
+        switch (type) {
+        case BUSINESS_PROCESS:
+            return "businessModel"; //$NON-NLS-1$
+        case SVG_BUSINESS_PROCESS:
+            return "businessProcessSVG"; //$NON-NLS-1$
+        case PROCESS:
+            return "job"; //$NON-NLS-1$
+        case JOBLET:
+            return "joblet";
+        case CONTEXT:
+            return "context"; //$NON-NLS-1$
+        case ROUTINES:
+            return "routine"; //$NON-NLS-1$
+        case JOB_SCRIPT:
+            return "jobscript"; //$NON-NLS-1$
+        case SNIPPETS:
+            return "snippet"; //$NON-NLS-1$
+        case DOCUMENTATION:
+            return "documentation"; //$NON-NLS-1$
+        case SQLPATTERNS:
+            return "sqlPattern"; //$NON-NLS-1$
+        case METADATA:
+            return "metadata"; //$NON-NLS-1$
+        case METADATA_CONNECTIONS:
+            return "DB connection"; //$NON-NLS-1$
+        case METADATA_SAPCONNECTIONS:
+            return "SAPconnection"; //$NON-NLS-1$
+        case METADATA_FILE_EBCDIC:
+            return "fileEBCDIC"; //$NON-NLS-1$
+        case METADATA_FILE_HL7:
+            return "fileHL7"; //$NON-NLS-1$
+        case METADATA_FILE_FTP:
+            return "FTPconnection"; //$NON-NLS-1$
+        case METADATA_FILE_BRMS:
+            return "BRMSconnection"; //$NON-NLS-1$
+        case METADATA_MDMCONNECTION:
+            return "MDMconnection"; //$NON-NLS-1$
+        case METADATA_FILE_DELIMITED:
+            return "fileDelimited"; //$NON-NLS-1$
+        case METADATA_FILE_POSITIONAL:
+            return "filePositional"; //$NON-NLS-1$
+        case METADATA_FILE_REGEXP:
+            return "fileRegex"; //$NON-NLS-1$
+        case METADATA_FILE_XML:
+            return "fileXml"; //$NON-NLS-1$
+        case METADATA_FILE_EXCEL:
+            return "fileExcel"; //$NON-NLS-1$
+        case METADATA_FILE_LDIF:
+            return "fileLdif"; //$NON-NLS-1$
+        case METADATA_LDAP_SCHEMA:
+            return "LDAPSchema"; //$NON-NLS-1$
+        case METADATA_GENERIC_SCHEMA:
+            return "genericSchema"; //$NON-NLS-1$
+        case METADATA_WSDL_SCHEMA:
+            return "WSDLSchema"; //$NON-NLS-1$
+        case METADATA_SALESFORCE_SCHEMA:
+            return "SalesforceSchema"; //$NON-NLS-1$
+        case METADATA_FILE_RULES:
+            return "rules"; //$NON-NLS-1$
+        case METADATA_FILE_LINKRULES:
+            return "rules"; //$NON-NLS-1$
+            // MOD mzhao feature 13114, 2010-05-19
+        case METADATA_HEADER_FOOTER:
+            return "header_footer";
+        case TDQ_ANALYSIS_ELEMENT:
+            return "Analyses"; //$NON-NLS-1$
+        case TDQ_BUSINESSRULE_ELEMENT:
+            return "Rules"; //$NON-NLS-1$
+        case TDQ_INDICATOR_ELEMENT:
+            return "Indicators"; //$NON-NLS-1$
+        case TDQ_PATTERN_ELEMENT:
+            return "Patterns"; //$NON-NLS-1$ 
+        case TDQ_JRAXML_ELEMENT:
+            return "JRXML Template";
+        case TDQ_REPORT_ELEMENT:
+            return "Reports"; //$NON-NLS-1$
+            // MOD mzhao feature 9207
+        case TDQ_ELEMENT:
+            return "";//$NON-NLS-1$
+        case COMPONENTS:
+            return "components";
+        default:
+            return "job";
+        }
+    }
+
     public static ERepositoryObjectType getItemType(Item item) {
 
         ERepositoryObjectType repObjType = getTDQRepObjType(item);
