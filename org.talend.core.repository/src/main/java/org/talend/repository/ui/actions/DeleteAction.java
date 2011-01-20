@@ -60,6 +60,7 @@ import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.ProjectReference;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.model.repository.Folder;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.model.utils.RepositoryManagerHelper;
@@ -159,14 +160,33 @@ public class DeleteAction extends AContextualAction {
                                 }
                                 types.add(node.getObjectType());
                             } else if (node.getType() == ENodeType.SIMPLE_FOLDER) {
-                                types.add(node.getContentType());
-                                // fixed for the documentation deleted
-                                if (node.getContentType() == ERepositoryObjectType.PROCESS
-                                        || node.getContentType() == ERepositoryObjectType.JOBLET) {
-                                    types.add(ERepositoryObjectType.DOCUMENTATION);
+                                // bug 18158
+                                boolean isSqlTemplate = false;
+                                if (node.getObject() instanceof Folder) {
+                                    // isSqlTemplate = ((Folder) node.getObject()).getContentType().equals(
+                                    // ERepositoryObjectType.SQLPATTERNS);
+
+                                    Object label = node.getProperties(EProperties.LABEL);
+                                    if (ENodeType.SIMPLE_FOLDER.equals(node.getType())
+                                            && ERepositoryObjectType.SQLPATTERNS.equals(node.getContentType())
+                                            && (label.equals("Generic") || label.equals("UserDefined") || label.equals("MySQL")
+                                                    || label.equals("Netezza") || label.equals("Oracle")
+                                                    || label.equals("ParAccel") || label.equals("Teradata"))
+                                            || label.equals("Hive")) {
+                                        isSqlTemplate = true;
+
+                                    }
                                 }
-                                deletedFolder.add(node);
-                                deleteFolder(node, factory, deleteActionCache);
+                                if (!isSqlTemplate) {
+                                    types.add(node.getContentType());
+                                    // fixed for the documentation deleted
+                                    if (node.getContentType() == ERepositoryObjectType.PROCESS
+                                            || node.getContentType() == ERepositoryObjectType.JOBLET) {
+                                        types.add(ERepositoryObjectType.DOCUMENTATION);
+                                    }
+                                    deletedFolder.add(node);
+                                    deleteFolder(node, factory, deleteActionCache);
+                                }
                             }
                         } catch (PersistenceException e) {
                             MessageBoxExceptionHandler.process(e);
