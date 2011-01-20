@@ -41,7 +41,6 @@ import org.talend.commons.ui.swt.formtools.LabelledCombo;
 import org.talend.commons.ui.swt.formtools.LabelledText;
 import org.talend.commons.ui.swt.formtools.UtilsButton;
 import org.talend.commons.ui.swt.thread.SWTUIThreadProcessor;
-import org.talend.core.model.metadata.EMetadataEncoding;
 import org.talend.core.model.metadata.IMetadataContextModeManager;
 import org.talend.core.model.metadata.builder.connection.FileFormat;
 import org.talend.core.model.metadata.builder.connection.PositionalFileConnection;
@@ -82,7 +81,6 @@ public class FileStep2Form extends AbstractPositionalFileStepForm implements IRe
     /**
      * Main Fields.
      */
-    private LabelledCombo encodingCombo;
 
     private LabelledText fieldSeparatorText;
 
@@ -148,12 +146,6 @@ public class FileStep2Form extends AbstractPositionalFileStepForm implements IRe
     protected void initialize() {
 
         // Fields to the Group File Settings
-        if (getConnection().getEncoding() != null && !getConnection().getEncoding().equals("")) { //$NON-NLS-1$
-            encodingCombo.setText(getConnection().getEncoding());
-        } else {
-            encodingCombo.select(0);
-
-        }
         fieldSeparatorText.setText(getConnection().getFieldSeparatorValue());
         rowSeparatorCombo.setText(getConnection().getRowSeparatorType().getLiteral());
         rowSeparatorText.setText(getConnection().getRowSeparatorValue());
@@ -176,7 +168,6 @@ public class FileStep2Form extends AbstractPositionalFileStepForm implements IRe
         firstRowIsCaptionCheckbox.setSelection(getConnection().isFirstLineCaption());
 
         // clearSelection of the selected combo
-        encodingCombo.clearSelection();
         rowSeparatorCombo.clearSelection();
 
         emptyRowsToSkipCheckbox.setSelection(getConnection().isRemoveEmptyRow());
@@ -190,7 +181,6 @@ public class FileStep2Form extends AbstractPositionalFileStepForm implements IRe
     @Override
     protected void adaptFormToReadOnly() {
         readOnly = isReadOnly();
-        encodingCombo.setReadOnly(isReadOnly());
         fieldSeparatorText.setReadOnly(isReadOnly());
         fieldSeparatorText.setReadOnly(isReadOnly());
         rowSeparatorCombo.setReadOnly(isReadOnly());
@@ -213,15 +203,6 @@ public class FileStep2Form extends AbstractPositionalFileStepForm implements IRe
     private void addGroupFileSettings(final Composite mainComposite, final int width, final int height) {
         Group group = Form.createGroup(mainComposite, 2, Messages.getString("FileStep2.groupDelimitedFileSettings"), height); //$NON-NLS-1$
         Composite compositeFileDelimitor = Form.startNewDimensionnedGridLayout(group, 4, width, height);
-
-        EMetadataEncoding[] values = EMetadataEncoding.values();
-        String[] encodingData = new String[values.length];
-        for (int j = 0; j < values.length; j++) {
-            encodingData[j] = values[j].getName();
-        }
-
-        encodingCombo = new LabelledCombo(compositeFileDelimitor, Messages.getString("FileStep2.encoding"), Messages //$NON-NLS-1$
-                .getString("FileStep2.encodingTip"), encodingData, 3, true, SWT.NONE); //$NON-NLS-1$
 
         fieldSeparatorText = new LabelledText(compositeFileDelimitor, Messages.getString("FileStep2.fieldSeparator"), 3, true, //$NON-NLS-1$
                 SWT.RIGHT);
@@ -777,16 +758,6 @@ public class FileStep2Form extends AbstractPositionalFileStepForm implements IRe
      * add Controls of Group File File Settings.
      */
     private void addFieldsListenersGroupFileSettings() {
-        // Event encodingCombo
-        encodingCombo.addModifyListener(new ModifyListener() {
-
-            public void modifyText(final ModifyEvent e) {
-                if (!isContextMode()) {
-                    getConnection().setEncoding(encodingCombo.getText());
-                    checkFieldsValue();
-                }
-            }
-        });
 
         rowSeparatorCombo.addModifyListener(new ModifyListener() {
 
@@ -1019,12 +990,6 @@ public class FileStep2Form extends AbstractPositionalFileStepForm implements IRe
                 rowSeparatorManager();
             }
 
-            // Fields to the Group File Settings
-            if (getConnection().getEncoding() != null && !getConnection().getEncoding().equals("")) { //$NON-NLS-1$
-                encodingCombo.setText(getConnection().getEncoding());
-            } else {
-                encodingCombo.select(0);
-            }
             if (!isContextMode()) {
                 // Refresh the preview width the adapted rowSeparator
                 refreshPreview();
@@ -1052,7 +1017,6 @@ public class FileStep2Form extends AbstractPositionalFileStepForm implements IRe
     @Override
     protected void adaptFormToEditable() {
         super.adaptFormToEditable();
-        encodingCombo.setReadOnly(isContextMode());
         rowSeparatorCombo.setReadOnly(isContextMode());
         fieldSeparatorText.setEditable(!isContextMode());
         rowSeparatorText.setEditable(!isContextMode());

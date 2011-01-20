@@ -47,6 +47,7 @@ import org.talend.commons.ui.swt.formtools.LabelledText;
 import org.talend.commons.ui.swt.formtools.UtilsButton;
 import org.talend.commons.ui.utils.PathUtils;
 import org.talend.commons.utils.encoding.CharsetToolkit;
+import org.talend.core.model.metadata.EMetadataEncoding;
 import org.talend.core.model.metadata.IMetadataContextModeManager;
 import org.talend.core.model.metadata.builder.connection.FileFormat;
 import org.talend.core.model.metadata.builder.connection.RowSeparator;
@@ -76,6 +77,8 @@ public class FileStep1Form extends AbstractPositionalFileStepForm {
     private LabelledCombo serverCombo;
 
     private LabelledFileField fileField;
+
+    private LabelledCombo encodingCombo;
 
     private LabelledCombo fileFormatCombo;
 
@@ -140,6 +143,14 @@ public class FileStep1Form extends AbstractPositionalFileStepForm {
 
         fileField.setText(getConnection().getFilePath());
 
+        if (getConnection().getEncoding() != null && !getConnection().getEncoding().equals("")) { //$NON-NLS-1$
+            encodingCombo.setText(getConnection().getEncoding());
+        } else {
+            encodingCombo.select(0);
+            getConnection().setEncoding(encodingCombo.getText());
+        }
+        encodingCombo.clearSelection();
+
         value = getConnection().getFieldSeparatorValue();
         if (isContextMode() && getContextModeManager() != null) {
             value = getContextModeManager().getOriginalValue(value);
@@ -176,6 +187,7 @@ public class FileStep1Form extends AbstractPositionalFileStepForm {
         filePositionalViewer.setEnabled(!isReadOnly());
         fieldPositionText.setReadOnly(isReadOnly());
         fileField.setReadOnly(isReadOnly());
+        encodingCombo.setReadOnly(isReadOnly());
         fileFormatCombo.setReadOnly(isReadOnly());
     }
 
@@ -195,6 +207,15 @@ public class FileStep1Form extends AbstractPositionalFileStepForm {
         // file Field
         String[] extensions = { "*.txt", "*.*", "*" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         fileField = new LabelledFileField(compositeFileLocation, Messages.getString("FileStep1.filepath"), extensions); //$NON-NLS-1$
+
+        // encoding filed
+        EMetadataEncoding[] values = EMetadataEncoding.values();
+        String[] encodingData = new String[values.length];
+        for (int j = 0; j < values.length; j++) {
+            encodingData[j] = values[j].getName();
+        }
+        encodingCombo = new LabelledCombo(compositeFileLocation, Messages.getString("FileStep2.encoding"), Messages //$NON-NLS-1$
+                .getString("FileStep2.encodingTip"), encodingData, 2, false, SWT.NONE); //$NON-NLS-1$
 
         // file format Combo
         String[] fileFormat = { FileFormat.WINDOWS_LITERAL.getName(), FileFormat.UNIX_LITERAL.getName(),
@@ -320,6 +341,15 @@ public class FileStep1Form extends AbstractPositionalFileStepForm {
                     getConnection().setFilePath(PathUtils.getPortablePath(fileField.getText()));
                     checkFilePathAndManageIt(true);
                 }
+            }
+        });
+
+        // Event encodingCombo
+        encodingCombo.addModifyListener(new ModifyListener() {
+
+            public void modifyText(final ModifyEvent e) {
+                getConnection().setEncoding(encodingCombo.getText());
+                checkFilePathAndManageIt(true);
             }
         });
 
@@ -511,16 +541,22 @@ public class FileStep1Form extends AbstractPositionalFileStepForm {
             BufferedReader in = null;
 
             try {
-
                 File file = new File(fileStr);
-                Charset guessedCharset = CharsetToolkit.guessEncoding(file, 4096);
-                if (getConnection().getEncoding() == null || getConnection().getEncoding().equals("")) { //$NON-NLS-1$
-                    getConnection().setEncoding(guessedCharset.displayName());
-                }
+                // Charset guessedCharset = CharsetToolkit.guessEncoding(file, 4096);
+                //                if (getConnection().getEncoding() == null || getConnection().getEncoding().equals("")) { //$NON-NLS-1$
+                // getConnection().setEncoding(guessedCharset.displayName());
+                // }
                 String str;
                 int numberLine = 0;
+                // encoding set
+                String encoding = getConnection().getEncoding();
+                if (encoding == null || encoding.equals("")) {
+                    Charset guessedCharset = CharsetToolkit.guessEncoding(file, 4096);
+                    encoding = guessedCharset.displayName();
+                    getConnection().setEncoding(encoding);
+                }
                 // read the file
-                in = new BufferedReader(new InputStreamReader(new FileInputStream(fileStr), guessedCharset.displayName()));
+                in = new BufferedReader(new InputStreamReader(new FileInputStream(fileStr), encoding));
 
                 previewRows.append("\n"); //$NON-NLS-1$
                 while (((str = in.readLine()) != null) && (numberLine <= maximumRowsToPreview)) {
@@ -716,6 +752,13 @@ public class FileStep1Form extends AbstractPositionalFileStepForm {
             value = TalendQuoteUtils.removeQuotes(value);
 
             fileField.setText(getConnection().getFilePath());
+
+            if (getConnection().getEncoding() != null && !getConnection().getEncoding().equals("")) { //$NON-NLS-1$
+                encodingCombo.setText(getConnection().getEncoding());
+            } else {
+                encodingCombo.select(0);
+                getConnection().setEncoding(encodingCombo.getText());
+            }
 
             getConnection().setFieldSeparatorValue(oldValue);
             oldValue = TalendQuoteUtils.removeQuotes(oldValue);
