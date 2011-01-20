@@ -15,8 +15,10 @@ package org.talend.commons.emf;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.Assert;
@@ -50,12 +52,16 @@ public class EmfHelper {
 
     private static Logger log = Logger.getLogger(EmfHelper.class);
 
-    /**
-     * WARNING : you may face StackOverflowError if you have bidirectional relationships or circular references it was
-     * only tested with containment references.
-     */
     @SuppressWarnings("unchecked")
     public static void visitChilds(EObject object) {
+        visitChilds(object, new HashSet<String>());
+    }
+
+    public static void visitChilds(EObject object, Set<String> visitedObjects) {
+        if (visitedObjects.contains(object.eClass().getName() + ";" + object.getClass().getPackage().getName())) {
+            return;
+        }
+        visitedObjects.add(object.eClass().getName() + ";" + object.getClass().getPackage().getName());
         List<EObject> toVisit = new ArrayList<EObject>();
         for (Iterator iterator = object.eClass().getEAllReferences().iterator(); iterator.hasNext();) {
             EReference reference = (EReference) iterator.next();
@@ -76,7 +82,7 @@ public class EmfHelper {
         }
 
         for (EObject eObject : toVisit) {
-            visitChilds(eObject);
+            visitChilds(eObject, visitedObjects);
         }
     }
 
