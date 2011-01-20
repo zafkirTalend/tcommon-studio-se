@@ -15,7 +15,8 @@ Bundle-ClassPath: lib/commons-io-1.3.2.jar,
  lib/poi-ooxml-3.5-beta5-20090219.jar,
  lib/ant.jar,
  .,
- lib/commons-digester-2.1.jar
+ lib/commons-digester-2.1.jar,
+ lib/poi-ooxml-schemas-3.6-20091214.jar
 Bundle-Vendor: .Talend SA.
 Eclipse-BuddyPolicy: dependent
 Require-Bundle: org.apache.log4j;resolution:=optional,
