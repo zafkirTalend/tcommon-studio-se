@@ -28,8 +28,6 @@ import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.database.EDatabaseSchemaOrCatalogMapping;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
-import org.talend.core.model.properties.FolderItem;
-import org.talend.core.model.properties.Property;
 import org.talend.cwm.helper.CatalogHelper;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.PackageHelper;
@@ -509,21 +507,4 @@ public class ProjectNodeHelper {
         }
     }
 
-    /**
-     * 
-     * DOC qiongli Comment method "isTDQRootFolder".
-     * 
-     * @param folderItem
-     * @return
-     */
-    public static boolean isTDQRootFolder(FolderItem folderItem) {
-        Property property = folderItem.getProperty();
-        if (property != null) {
-            String lable = property.getLabel();
-            if (lable != null && lable.startsWith("TDQ")) {
-                return true;
-            }
-        }
-        return false;
-    }
 }
