@@ -22,7 +22,6 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWizard;
-import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
@@ -33,9 +32,11 @@ import org.talend.core.context.RepositoryContext;
 import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.model.metadata.IMetadataConnection;
+import org.talend.core.model.metadata.MetadataFillFactory;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
+import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.Property;
@@ -45,6 +46,7 @@ import org.talend.core.model.update.RepositoryUpdateManager;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.designer.core.IDesignerCoreService;
+import org.talend.metadata.managment.ui.MetadataManagmentUiPlugin;
 import org.talend.metadata.managment.ui.i18n.Messages;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -285,6 +287,19 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                                 .getDbType()));
                     }
                     this.connection.setName(connectionProperty.getLabel());
+
+                    // feature 17159
+                    if (MetadataManagmentUiPlugin.getDefault().isDataProfilePerspectiveSelected()) {
+                        metadataConnection = ConvertionHelper.convert(connection);
+                        connection = (DatabaseConnection) MetadataFillFactory.getDBInstance().fillUIConnParams(metadataConnection, connection);
+                        java.sql.Connection sqlConn = (java.sql.Connection) MetadataConnectionUtils.checkConnection(metadataConnection).getObject();
+
+                        if (sqlConn != null) {
+                            MetadataFillFactory.getDBInstance().fillCatalogs(connection, sqlConn.getMetaData(), null);
+                            MetadataFillFactory.getDBInstance().fillSchemas(connection, sqlConn.getMetaData(), null);
+                        }
+                    }
+
                     factory.create(connectionItem, propertiesWizardPage.getDestinationPath());
                 } else {
                     if (connectionItem.getConnection() instanceof DatabaseConnection) {
@@ -317,7 +332,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                     closeLockStrategy();
 
                 }
-            } catch (PersistenceException e) {
+            } catch (Exception e) {
                 String detailError = e.toString();
                 new ErrorDialogWidthDetailArea(getShell(), PID, Messages.getString("CommonWizard.persistenceException"), //$NON-NLS-1$
                         detailError);

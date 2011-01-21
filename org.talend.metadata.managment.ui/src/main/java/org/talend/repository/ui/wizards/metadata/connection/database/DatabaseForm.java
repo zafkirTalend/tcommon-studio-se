@@ -67,6 +67,7 @@ import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
+import org.talend.metadata.managment.ui.MetadataManagmentUiPlugin;
 import org.talend.metadata.managment.ui.i18n.Messages;
 import org.talend.repository.ui.swt.utils.AbstractForm;
 import org.talend.repository.ui.utils.ConnectionContextHelper;
@@ -641,7 +642,7 @@ public class DatabaseForm extends AbstractForm {
         button1.setVisible(false);
         button2.setVisible(false);
 
-        sqlSyntaxCombo.setVisible(!isDataProfilePerspectiveSelected());
+        sqlSyntaxCombo.setVisible(!MetadataManagmentUiPlugin.getDefault().isDataProfilePerspectiveSelected());
         group1.setVisible(!isTOPStandaloneMode());
     }
 
@@ -1657,7 +1658,7 @@ public class DatabaseForm extends AbstractForm {
         // }
 
         // feature 17159
-        if (isDataProfilePerspectiveSelected()) {
+        if (MetadataManagmentUiPlugin.getDefault().isDataProfilePerspectiveSelected()) {
             if (!isSupportByTDQ()) {
                 updateStatus(IStatus.WARNING, "some database types are not usable in the Data Profiler perspective.");
                 return false;

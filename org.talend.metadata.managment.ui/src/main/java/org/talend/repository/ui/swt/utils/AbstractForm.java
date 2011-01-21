@@ -36,8 +36,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.ui.IPerspectiveDescriptor;
-import org.eclipse.ui.PlatformUI;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.swt.formtools.Form;
 import org.talend.commons.ui.swt.formtools.UtilsButton;
@@ -61,8 +59,6 @@ import org.talend.repository.ui.utils.ShadowProcessHelper;
  * 
  */
 public abstract class AbstractForm extends Composite {
-
-    protected static final String DATA_PROFILING_PERSPECTIVE_ID = "org.talend.dataprofiler.DataProfilingPerspective";
 
     protected static final String PID = MetadataManagmentUiPlugin.PLUGIN_ID;
 
@@ -437,12 +433,6 @@ public abstract class AbstractForm extends Composite {
 
     protected final boolean isTOPStandaloneMode() {
         return PluginChecker.isOnlyTopLoaded();
-    }
-
-    protected final boolean isDataProfilePerspectiveSelected() {
-        IPerspectiveDescriptor curPerspective = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
-                .getPerspective();
-        return curPerspective.getId().equals(DATA_PROFILING_PERSPECTIVE_ID);
     }
 
     protected void exportAsContext() {

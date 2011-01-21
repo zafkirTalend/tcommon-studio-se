@@ -23,7 +23,8 @@ Require-Bundle: org.eclipse.ui,
  org.talend.libraries.jexcel;resolution:=optional,
  org.talend.libraries.salesforce;resolution:=optional,
  org.talend.libraries.jxplorer;resolution:=optional,
- org.talend.libraries.apache.axis2
+ org.talend.libraries.apache.axis2,
+ org.talend.utils
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: .Talend SA.
 Export-Package: org.talend.core.model.metadata.editor,
