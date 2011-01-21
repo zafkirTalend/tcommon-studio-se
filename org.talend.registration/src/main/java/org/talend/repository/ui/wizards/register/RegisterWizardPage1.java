@@ -176,7 +176,7 @@ public class RegisterWizardPage1 extends AbstractBasicWizardDialog {
             String selectedCountry = countryCombo.getItem(countryCombo.getSelectionIndex());
             for (Locale locale : Locale.getAvailableLocales()) {
                 if (locale.getDisplayCountry().compareTo(selectedCountry) == 0) {
-                    return locale.getDisplayCountry();
+                    return locale.getCountry();
                 }
             }
         }

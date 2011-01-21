@@ -415,16 +415,20 @@ public class RegisterWizardPage2 extends AbstractBasicWizardDialog {
 
     private String[] initiateCountryList() {
         SortedSet<String> countryList = new TreeSet<String>();
+        String countryName = "";
         for (Locale locale : Locale.getAvailableLocales()) {
             if (locale.getDisplayCountry().compareTo("") != 0) { //$NON-NLS-1$
                 countryList.add(locale.getDisplayCountry());
+                if (locale.getCountry().equals(country)) {
+                    countryName = locale.getDisplayCountry();
+                }
             }
         }
 
         // String defaultCountry = Locale.getDefault().getDisplayCountry();
         int i = 0;
         for (String countrys : countryList) {
-            if (countrys.equals(country)) {
+            if (countrys.equals(countryName)) {
                 countryToSelect = i;
                 break;
             }
