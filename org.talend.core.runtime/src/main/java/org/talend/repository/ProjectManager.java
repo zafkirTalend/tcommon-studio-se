@@ -342,7 +342,10 @@ public final class ProjectManager {
     }
 
     public String getCurrentBranchURL(Project project) {
-        return mapProjectUrlToBranchUrl.get(project.getEmfProject().getUrl());
+        if (mapProjectUrlToBranchUrl != null && project != null && project.getEmfProject() != null) {
+            return mapProjectUrlToBranchUrl.get(project.getEmfProject().getUrl());
+        }
+        return null;
     }
 
     public String getCurrentBranchURL(String projectUrl) {

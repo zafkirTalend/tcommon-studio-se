@@ -176,6 +176,10 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         RootContainer<K, T> toReturn = new RootContainer<K, T>();
 
         IProject fsProject = ResourceModelUtils.getProject(project);
+        // added for bug 18318
+        if (fsProject == null) {
+            return null;
+        }
         IFolder objectFolder = null;
         try {
             objectFolder = ResourceUtils.getFolder(fsProject, ERepositoryObjectType.getFolderName(type), true);

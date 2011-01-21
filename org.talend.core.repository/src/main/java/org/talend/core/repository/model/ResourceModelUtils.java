@@ -33,6 +33,9 @@ public class ResourceModelUtils {
      * @throws PersistenceException if the IProject cannot be retrieve
      */
     public static IProject getProject(Project project) throws PersistenceException {
-        return ResourceUtils.getProject(project.getTechnicalLabel());
+        if (project != null) {
+            return ResourceUtils.getProject(project.getTechnicalLabel());
+        }
+        return null;
     }
 }
