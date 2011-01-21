@@ -12,6 +12,9 @@
 // ============================================================================
 package org.talend.repository.ui.swt.filepositionalviewer;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -32,6 +35,8 @@ import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
+import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.core.model.utils.RepositoryManagerHelper;
 
 /**
  * DOC cantoine. GraphicRule : This Class represent the Graphic rule who represent the Position of the PositionalText in
@@ -154,8 +159,10 @@ public class GraphicRule extends ScrolledComposite {
                     case SWT.MouseDown:
 
                         int posXpix = positionalText.calculatePositionByPixel(event.x);
+                        // for zh/ja/kr character.
+                        String text = positionalText.getText().getText();
+                        posXpix = getPosition(posXpix, text);
                         int posX = positionalText.adjustPositionWithPixel(posXpix);
-
                         positionalText.positionBarre.put(posX, FilePositionalViewer.calculatePositionByPixel(posX));
                         positionalText.setSeparatorValue(positionalText.calculateRegExp(), false);
                         FilePositionalViewer.synchronise();
@@ -166,6 +173,54 @@ public class GraphicRule extends ScrolledComposite {
         };
         this.addListener(SWT.MouseDown, graphicRuleEventListener);
 
+    }
+
+    private boolean containSpecialCharacter(String string) {
+        if (string != null && !string.trim().equals("")) { //$NON-NLS-1$
+            if (string.matches("[\\u3041-\\u30FE]") || string.matches("[\\u4e00-\\u9fa5]") || string.matches("[\\u9fa5-\\uFFFF]")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private int getPosition(int position, String text) {
+        if (position == 0 || text == null) {
+            return position;
+        }
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(new ByteArrayInputStream(text.getBytes())));
+            List<String> list = new ArrayList<String>();
+            int maximumRowsToPreview = RepositoryManagerHelper.getMaximumRowsToPreview();
+            int nbLine = 0;
+            String str = null;
+            while ((str = br.readLine()) != null && nbLine <= maximumRowsToPreview) {
+                nbLine++;
+                list.add(str);
+            }
+            for (String string : list) {
+                if (!string.trim().equals("")) { //$NON-NLS-1$
+                    String[] strArray = string.split(""); //$NON-NLS-1$
+                    StringBuffer sb = new StringBuffer();
+                    for (int i = 0; i < strArray.length; i++) {
+                        String s = strArray[i];
+                        if (containSpecialCharacter(s)) {
+                            s = " " + s; //$NON-NLS-1$
+                        }
+                        sb.append(s);
+                    }
+                    if (sb.length() > position) {
+                        String charStr = String.valueOf(sb.toString().charAt(position));
+                        if (containSpecialCharacter(charStr)) {
+                            position++;
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            ExceptionHandler.process(e);
+        }
+        return position;
     }
 
     public void setPositionalViewer(FilePositionalViewer positionalText) {
