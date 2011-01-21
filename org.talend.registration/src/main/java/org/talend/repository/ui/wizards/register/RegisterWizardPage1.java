@@ -176,7 +176,7 @@ public class RegisterWizardPage1 extends AbstractBasicWizardDialog {
             String selectedCountry = countryCombo.getItem(countryCombo.getSelectionIndex());
             for (Locale locale : Locale.getAvailableLocales()) {
                 if (locale.getDisplayCountry().compareTo(selectedCountry) == 0) {
-                    return locale.getCountry();
+                    return locale.getDisplayCountry();
                 }
             }
         }
@@ -207,13 +207,13 @@ public class RegisterWizardPage1 extends AbstractBasicWizardDialog {
         emailStatus = createOkStatus();
         // Email Name
         if (emailText.getText().length() == 0) {
-            emailStatus = new Status(IStatus.ERROR, RegistrationPlugin.PLUGIN_ID, IStatus.OK, Messages
-                    .getString("RegisterWizardPage.emailEmpty"), null); //$NON-NLS-1$
+            emailStatus = new Status(IStatus.ERROR, RegistrationPlugin.PLUGIN_ID, IStatus.OK,
+                    Messages.getString("RegisterWizardPage.emailEmpty"), null); //$NON-NLS-1$
         } else {
             // Reg Exp validation
             if (!Pattern.matches(RepositoryConstants.MAIL_PATTERN, emailText.getText())) {
-                emailStatus = new Status(IStatus.ERROR, RegistrationPlugin.PLUGIN_ID, IStatus.OK, Messages
-                        .getString("RegisterWizardPage.emailNotValid"), null); //$NON-NLS-1$
+                emailStatus = new Status(IStatus.ERROR, RegistrationPlugin.PLUGIN_ID, IStatus.OK,
+                        Messages.getString("RegisterWizardPage.emailNotValid"), null); //$NON-NLS-1$
             }
         }
         updatePageStatus();
