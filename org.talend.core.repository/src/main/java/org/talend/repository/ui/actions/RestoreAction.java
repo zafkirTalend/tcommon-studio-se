@@ -39,8 +39,6 @@ import org.talend.core.model.utils.RepositoryManagerHelper;
 import org.talend.core.repository.i18n.Messages;
 import org.talend.core.repository.model.ISubRepositoryObject;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
-import org.talend.core.repository.utils.AbstractResourceChangesService;
-import org.talend.core.repository.utils.TDQServiceRegister;
 import org.talend.cwm.helper.SubItemHelper;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.ERepositoryStatus;
@@ -119,15 +117,6 @@ public class RestoreAction extends AContextualAction {
                         }
                     }
                 }
-                // MOD qiongli 2010-10-11,bug 15674
-                AbstractResourceChangesService resChangeService = TDQServiceRegister.getInstance().getResourceChangeService(
-                        AbstractResourceChangesService.class);
-                Item item = node.getObject().getProperty().getItem();
-                if (item instanceof ConnectionItem && resChangeService != null) {
-                    resChangeService.handleRestore(item.getProperty());
-                }
-                // ~
-
             }
             if (nodeType == ERepositoryObjectType.JOBLET) {
                 needToUpdatePalette = true;

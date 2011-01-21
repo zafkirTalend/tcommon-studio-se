@@ -293,7 +293,8 @@ public class DeleteAction extends AContextualAction {
         }
         if (!objectType.getKey().toString().startsWith("repository.metadata") && objectType != ERepositoryObjectType.SQLPATTERNS
                 && objectType != ERepositoryObjectType.ROUTINES && objectType != ERepositoryObjectType.JOB_SCRIPT
-                && curItem.getParent() instanceof FolderItem && ((Item) curItem.getParent()).getParent() instanceof FolderItem) {
+                && curItem.getParent() instanceof FolderItem && ((Item) curItem.getParent()).getParent() instanceof FolderItem
+                && !objectType.isDQItemType()) {// MOD qiongli 2011-1-20 except DQItem.
             FolderItem parentFolder = (FolderItem) curItem.getParent();
             if ("".equals(fullPath)) {
                 fullPath = parentFolder.getProperty().getLabel() + fullPath;
@@ -347,6 +348,19 @@ public class DeleteAction extends AContextualAction {
                 fullPath = ((FolderItem) curItem.getParent()).getProperty().getLabel() + "/" + fullPath;
                 curItem = (FolderItem) curItem.getParent();
             }
+        }
+        // Add this 'if' by qiongli 2011-1-19,handle DQItem
+        if (objectType.isDQItemType()) {
+
+            while (((FolderItem) curItem.getParent()).getType().getValue() != FolderType.SYSTEM_FOLDER) {
+                if ("".equals(fullPath)) {
+                    fullPath = ((FolderItem) curItem.getParent()).getProperty().getLabel() + fullPath;
+                } else {
+                    fullPath = ((FolderItem) curItem.getParent()).getProperty().getLabel() + "/" + fullPath;
+                }
+                curItem = (FolderItem) curItem.getParent();
+            }
+
         }
         folderItem.getState().setPath(fullPath);
         this.setChildFolderPath(folderItem);

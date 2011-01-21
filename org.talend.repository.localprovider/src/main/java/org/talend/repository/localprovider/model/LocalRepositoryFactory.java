@@ -60,6 +60,7 @@ import org.talend.commons.utils.VersionUtils;
 import org.talend.commons.utils.data.container.Container;
 import org.talend.commons.utils.data.container.RootContainer;
 import org.talend.commons.utils.io.FilesUtils;
+import org.talend.commons.utils.platform.PluginChecker;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.language.ECodeLanguage;
@@ -1016,7 +1017,19 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         }
 
         String completePath = parentPath + IPath.SEPARATOR + label;
-        FolderItem folderItem = getFolderHelper(project.getEmfProject()).createFolder(completePath);
+        FolderItem folderItem = null;
+        // MOD qiongli 2011-1-19.initialize system folder for top/tdq.
+        if (type.isDQItemType() || PluginChecker.isOnlyTopLoaded() && type.equals(ERepositoryObjectType.METADATA)) {
+            FolderHelper folderHelper = getFolderHelper(project.getEmfProject());
+            if (folderHelper.getFolder(completePath) == null) {
+                folderHelper.createSystemFolder(new Path(completePath));
+                folderItem = folderHelper.getFolder(completePath);
+            } else {
+                folderItem = getFolderHelper(project.getEmfProject()).createFolder(completePath);
+            }
+        } else {
+            folderItem = getFolderHelper(project.getEmfProject()).createFolder(completePath);
+        }
         if (!isImportItem) {
             xmiResourceManager.saveResource(project.getEmfProject().eResource());
         }
