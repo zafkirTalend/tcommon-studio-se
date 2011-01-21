@@ -27,6 +27,7 @@ import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.PlatformUI;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.commons.utils.platform.PluginChecker;
 import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.FolderType;
 import org.talend.core.model.properties.Item;
@@ -137,19 +138,21 @@ public class RepositoryNodeUtilities {
      */
     private static boolean isMetadataLabel(final String label) {
 
-        IRepositoryView view = getRepositoryView();
-        if (view == null) {
-            return false;
-        }
+        if (!PluginChecker.isOnlyTopLoaded()) {
+            IRepositoryView view = getRepositoryView();
+            if (view == null) {
+                return false;
+            }
 
-        String[] metadataLabels = view.gatherMetadataChildenLabels();
-        if (metadataLabels == null || metadataLabels.length <= 0) {
-            return false;
-        }
+            String[] metadataLabels = view.gatherMetadataChildenLabels();
+            if (metadataLabels == null || metadataLabels.length <= 0) {
+                return false;
+            }
 
-        for (String mlabel : metadataLabels) {
-            if (mlabel.equals(label)) {
-                return true;
+            for (String mlabel : metadataLabels) {
+                if (mlabel.equals(label)) {
+                    return true;
+                }
             }
         }
 

@@ -20,6 +20,7 @@ import org.eclipse.ui.IWorkbench;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
+import org.talend.commons.utils.platform.PluginChecker;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.ItemState;
@@ -133,7 +134,9 @@ public abstract class RepositoryWizard extends Wizard {
     public void setRepositoryObject(IRepositoryViewObject repositoryViewObject) {
         // RepositoryViewObject is dynamic, here we prefer have a RepositoryObject with a fixed property.
         this.repositoryObject = new RepositoryObject(repositoryViewObject.getProperty());
-        calculateRepositoryObjectEditable(repositoryViewObject);
+        if (!PluginChecker.isOnlyTopLoaded()) {
+            calculateRepositoryObjectEditable(repositoryViewObject);
+        }
     }
 
     /**

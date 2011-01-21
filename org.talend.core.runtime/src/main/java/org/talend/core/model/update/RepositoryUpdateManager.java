@@ -201,8 +201,9 @@ public abstract class RepositoryUpdateManager {
                 showed = true;
             } else if (parameter != null && !needForcePropagation()) {
                 // see feature 4786
-                boolean deactive = Boolean.parseBoolean(CoreRuntimePlugin.getInstance().getDesignerCoreService()
-                        .getPreferenceStore(ITalendCorePrefConstants.DEACTIVE_REPOSITORY_UPDATE));
+                IDesignerCoreService designerCoreService = CoreRuntimePlugin.getInstance().getDesignerCoreService();
+                boolean deactive = designerCoreService != null ? Boolean.parseBoolean(designerCoreService
+                        .getPreferenceStore(ITalendCorePrefConstants.DEACTIVE_REPOSITORY_UPDATE)) : true;
                 if (deactive) {
                     return false;
                 }
