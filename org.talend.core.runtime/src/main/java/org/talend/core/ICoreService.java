@@ -107,6 +107,8 @@ public interface ICoreService extends IService {
 
     public List<String> readWorkspaceTasksDone();
 
+    public void resetUniservLibraries();
+
     public String getLastUser();
 
     public void addWorkspaceTaskDone(String task);

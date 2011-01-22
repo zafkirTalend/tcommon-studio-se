@@ -1645,6 +1645,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                 coreService.initializeTemplates();
             }
 
+            coreService.resetUniservLibraries();
             // remove the auto-build to enhance the build speed and application's use
             IWorkspace workspace = ResourcesPlugin.getWorkspace();
             IWorkspaceDescription description = workspace.getDescription();

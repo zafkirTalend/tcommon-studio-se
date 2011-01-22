@@ -454,6 +454,36 @@ public class CoreService implements ICoreService {
 
     }
 
+    public void resetUniservLibraries() {
+        ILibrariesService libService = (ILibrariesService) GlobalServiceRegister.getDefault().getService(ILibrariesService.class);
+
+        final String jarJco = libService.getJavaLibrariesPath() + "/" + "uniserv.jar";
+        String targetPath = "";
+        File source = new File(jarJco);
+        if (source.exists()) {
+            Bundle bundle = Platform.getBundle("org.talend.libraries.uniserv");
+            if (bundle instanceof BundleHost) {
+                BundleHost bundleHost = (BundleHost) bundle;
+                final BundleData bundleData = bundleHost.getBundleData();
+                if (bundleData instanceof BaseData) {
+                    BaseData baseData = (BaseData) bundleData;
+                    final BundleFile bundleFile = baseData.getBundleFile();
+                    final File baseFile = bundleFile.getBaseFile();
+                    targetPath = baseFile.getAbsolutePath() + "/" + "uniserv.jar";
+
+                    File target = new File(targetPath);
+                    try {
+                        FilesUtils.copyFile(source, target);
+                    } catch (FileNotFoundException e) {
+                        ExceptionHandler.process(e);
+                    } catch (IOException e) {
+                        ExceptionHandler.process(e);
+                    }
+                }
+            }
+        }
+    }
+
     public IPreferenceStore getPreferenceStore() {
         return CorePlugin.getDefault().getPreferenceStore();
     }
