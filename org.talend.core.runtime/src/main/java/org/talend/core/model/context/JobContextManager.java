@@ -244,6 +244,23 @@ public class JobContextManager implements IContextManager {
         }
     }
 
+    public static String removeQuotes(String text, String quotation) {
+        if (text == null) {
+            return null;
+        }
+        if (text.length() > 1) {
+            String substring = text.substring(0, 1);
+            if (quotation.equals(substring)) {
+                text = text.substring(1, text.length());
+            }
+            substring = text.substring(text.length() - 1, text.length());
+            if (quotation.equals(substring)) {
+                text = text.substring(0, text.length() - 1);
+            }
+        }
+        return text;
+    }
+
     public void loadFromEmf(EList contextTypeList, String defaultContextName) {
         IContext context;
         ContextType contextType;
@@ -264,6 +281,9 @@ public class JobContextManager implements IContextManager {
         for (int i = 0; i < contextTypeList.size(); i++) {
             contextType = (ContextType) contextTypeList.get(i);
             String name = contextType.getName();
+            if (name.startsWith("\"")) {
+                name = removeQuotes(name, "\"");
+            }
             if (name == null) {
                 name = "Default";
             }

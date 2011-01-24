@@ -1366,7 +1366,15 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
     public List<Status> getTechnicalStatus() throws PersistenceException {
         // reloadProject(ProjectManager.getInstance().getCurrentProject());
-        return copyList(ProjectManager.getInstance().getCurrentProject().getEmfProject().getTechnicalStatus());
+        Project currentProject = ProjectManager.getInstance().getCurrentProject();
+        if (currentProject == null) {
+            return null;
+        }
+        org.talend.core.model.properties.Project emfProject = currentProject.getEmfProject();
+        if (emfProject == null) {
+            return null;
+        }
+        return copyList(emfProject.getTechnicalStatus());
     }
 
     public List<SpagoBiServer> getSpagoBiServer() throws PersistenceException {

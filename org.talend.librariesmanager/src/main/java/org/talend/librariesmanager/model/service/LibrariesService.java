@@ -8,7 +8,7 @@
 // You should have received a copy of the agreement
 // along with this program; if not, write to Talend SA
 // 9 rue Pages 92150 Suresnes, France
-//   
+//
 // ============================================================================
 package org.talend.librariesmanager.model.service;
 
@@ -21,8 +21,10 @@ import org.talend.commons.exception.BusinessException;
 import org.talend.core.CorePlugin;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
+import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.general.ILibrariesService;
 import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
+import org.talend.core.model.general.Project;
 import org.talend.core.model.process.IElement;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
@@ -46,14 +48,27 @@ public class LibrariesService implements ILibrariesService {
     }
 
     private ILibrariesService getLibrariesService() {
-        switch (((RepositoryContext) CorePlugin.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY)).getProject()
-                .getLanguage()) {
+        UnsupportedOperationException unsupportedOperationException = new UnsupportedOperationException(
+                Messages.getString("LibrariesService.unknowLanguage"));
+        RepositoryContext property = (RepositoryContext) CorePlugin.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY);
+        if (property == null) {
+            throw unsupportedOperationException;
+        }
+        Project project = property.getProject();
+        if (project == null) {
+            throw unsupportedOperationException;
+        }
+        ECodeLanguage language = project.getLanguage();
+        if (language == null) {
+            throw unsupportedOperationException;
+        }
+        switch (language) {
         case JAVA:
             return javaService;
         case PERL:
             return perlService;
         default:
-            throw new UnsupportedOperationException(Messages.getString("LibrariesService.unknowLanguage")); //$NON-NLS-1$
+            throw unsupportedOperationException; //$NON-NLS-1$
         }
     }
 

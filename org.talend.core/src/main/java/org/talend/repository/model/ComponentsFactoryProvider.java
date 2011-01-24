@@ -27,6 +27,7 @@ import org.talend.core.model.components.IComponent;
 import org.talend.core.model.components.IComponentFileNaming;
 import org.talend.core.model.components.IComponentsFactory;
 import org.talend.core.model.components.IComponentsService;
+import org.talend.core.model.general.Project;
 import org.talend.core.model.properties.ComponentSetting;
 import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.designer.core.IPaletteFilter;
@@ -86,7 +87,18 @@ public class ComponentsFactoryProvider {
 
         RepositoryContext repositoryContext = (RepositoryContext) CorePlugin.getContext().getProperty(
                 Context.REPOSITORY_CONTEXT_KEY);
-        EList list = repositoryContext.getProject().getEmfProject().getComponentsSettings();
+        if (repositoryContext == null) {
+            return;
+        }
+        Project project = repositoryContext.getProject();
+        if (project == null) {
+            return;
+        }
+        org.talend.core.model.properties.Project emfProject = project.getEmfProject();
+        if (emfProject == null) {
+            return;
+        }
+        EList list = emfProject.getComponentsSettings();
         if (!list.isEmpty()) {
             if (reset) {
                 // if need to reset, clear the list
@@ -129,7 +141,7 @@ public class ComponentsFactoryProvider {
             IProxyRepositoryFactory prf = CorePlugin.getDefault().getProxyRepositoryFactory();
 
             try {
-                prf.saveProject(repositoryContext.getProject());
+                prf.saveProject(project);
             } catch (Exception e) {
                 ExceptionHandler.process(e);
             }
