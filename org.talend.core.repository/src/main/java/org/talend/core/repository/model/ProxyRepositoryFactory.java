@@ -800,7 +800,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * @see
      * org.talend.repository.model.IProxyRepositoryFactory#lock(org.talend.core.model.repository.IRepositoryViewObject)
      */
-    public void lock(IRepositoryViewObject obj) throws PersistenceException {
+    public void lock(IRepositoryViewObject obj) throws PersistenceException, LoginException {
         lock(getItem(obj));
     }
 
@@ -809,7 +809,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * 
      * @see org.talend.repository.model.IProxyRepositoryFactory#lock(org.talend.core.model.properties.Item)
      */
-    public void lock(Item item) throws PersistenceException {
+    public void lock(Item item) throws PersistenceException, LoginException {
         if (getStatus(item).isPotentiallyEditable()) {
             this.repositoryFactoryFromProvider.lock(item);
             // i18n
@@ -1251,7 +1251,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * org.talend.repository.model.IProxyRepositoryFactory#unlock(org.talend.core.model.repository.IRepositoryViewObject
      * )
      */
-    public void unlock(IRepositoryViewObject obj) throws PersistenceException {
+    public void unlock(IRepositoryViewObject obj) throws PersistenceException, LoginException {
         unlock(getItem(obj));
     }
 
@@ -1260,7 +1260,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * 
      * @see org.talend.repository.model.IProxyRepositoryFactory#unlock(org.talend.core.model.properties.Item)
      */
-    public void unlock(Item obj) throws PersistenceException {
+    public void unlock(Item obj) throws PersistenceException, LoginException {
         if (getStatus(obj) == ERepositoryStatus.LOCK_BY_USER || obj instanceof JobletDocumentationItem
                 || obj instanceof JobDocumentationItem) {
             Date commitDate = obj.getState().getCommitDate();
@@ -1410,6 +1410,8 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
             try {
                 lock(item);
             } catch (PersistenceException e) {
+                MessageBoxExceptionHandler.process(e);
+            } catch (LoginException e) {
                 MessageBoxExceptionHandler.process(e);
             }
             status = getStatus(item);

@@ -17,6 +17,7 @@ import java.util.List;
 
 import org.eclipse.core.runtime.IPath;
 import org.talend.commons.exception.BusinessException;
+import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.data.container.RootContainer;
 import org.talend.core.context.RepositoryContext;
@@ -527,7 +528,7 @@ public interface IProxyRepositoryFactory {
      * @throws BusinessException
      * @see org.talend.repository.model.IRepositoryFactory#lock(org.talend.core.model.properties.Item)
      */
-    public abstract void lock(Item item) throws PersistenceException;
+    public abstract void lock(Item item) throws PersistenceException, LoginException;
 
     /*
      * (non-Javadoc)
@@ -644,14 +645,14 @@ public interface IProxyRepositoryFactory {
      * @see org.talend.repository.model.IRepositoryFactory#unlock(org.talend.core .model.general.Project,
      * org.talend.core.model.repository.IRepositoryViewObject)
      */
-    public abstract void unlock(IRepositoryViewObject obj) throws PersistenceException;
+    public abstract void unlock(IRepositoryViewObject obj) throws PersistenceException, LoginException;
 
     /**
      * @param obj
      * @throws PersistenceException
      * @see org.talend.repository.model.IRepositoryFactory#unlock(org.talend.core.model.properties.Item)
      */
-    public abstract void unlock(Item obj) throws PersistenceException;
+    public abstract void unlock(Item item) throws PersistenceException, LoginException;
 
     // public abstract boolean doesLoggedUserExist() throws
     // PersistenceException;

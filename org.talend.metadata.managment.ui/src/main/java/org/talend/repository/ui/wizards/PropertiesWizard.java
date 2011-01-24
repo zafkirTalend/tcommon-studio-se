@@ -23,6 +23,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.talend.commons.exception.BusinessException;
+import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.exception.MessageBoxExceptionHandler;
@@ -176,6 +177,8 @@ public class PropertiesWizard extends Wizard {
                         }
                     }
                 } catch (PersistenceException e) {
+                    ExceptionHandler.process(e);
+                } catch (LoginException e) {
                     ExceptionHandler.process(e);
                 }
             }
