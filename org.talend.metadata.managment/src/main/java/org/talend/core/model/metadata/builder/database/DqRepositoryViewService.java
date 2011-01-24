@@ -25,18 +25,17 @@ import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.talend.commons.utils.VersionUtils;
 import org.talend.core.i18n.Messages;
 import org.talend.core.model.metadata.MetadataFillFactory;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
+import org.talend.core.model.properties.Property;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.cwm.helper.CatalogHelper;
 import org.talend.cwm.helper.ColumnSetHelper;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.SchemaHelper;
-import org.talend.cwm.helper.TaggedValueHelper;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.relational.TdTable;
 import org.talend.cwm.relational.TdView;
@@ -47,7 +46,6 @@ import org.talend.utils.string.AsciiUtils;
 import org.talend.utils.sugars.TypedReturnCode;
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.Package;
-import orgomg.cwm.objectmodel.core.TaggedValue;
 import orgomg.cwm.resource.relational.Catalog;
 import orgomg.cwm.resource.relational.ColumnSet;
 import orgomg.cwm.resource.relational.Schema;
@@ -384,11 +382,15 @@ public final class DqRepositoryViewService {
      * @return
      */
     public static String buildElementName(ModelElement element) {
-        TaggedValue tv = TaggedValueHelper.getTaggedValue(TaggedValueHelper.VERSION, element.getTaggedValue());
-        if (tv == null) {
-            return VersionUtils.DEFAULT_VERSION;
+
+        Property property = ProxyRepositoryFactory.getInstance().getProperty(element);
+
+        String elementName = "Unknown Label";
+        if (property != null) {
+            elementName = property.getLabel() + " " + property.getVersion();
         }
-        return element.getName() + " " + tv.getValue(); //$NON-NLS-1$
+
+        return elementName;
     }
 
     public static Boolean hasChildren(TdXmlElementType element) {

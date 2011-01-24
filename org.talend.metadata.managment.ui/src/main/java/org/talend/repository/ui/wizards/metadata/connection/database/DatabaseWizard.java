@@ -287,6 +287,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                                 .getDbType()));
                     }
                     this.connection.setName(connectionProperty.getLabel());
+                    this.connection.setLabel(connectionProperty.getLabel());
 
                     // feature 17159
                     if (MetadataManagmentUiPlugin.getDefault().isDataProfilePerspectiveSelected()) {

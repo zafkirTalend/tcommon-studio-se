@@ -99,8 +99,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         dbconn.setAdditionalParams(metadataBean.getAdditionalParams());
         dbconn.setDriverClass(metadataBean.getDriverClass());
         dbconn.setDatabaseType(metadataBean.getDbType());
-        dbconn.setName(metadataBean.getDataSourceName());
-        dbconn.setLabel(metadataBean.getDataSourceName());
+        dbconn.setName(metadataBean.getLabel());
+        dbconn.setLabel(metadataBean.getLabel());
         dbconn.setVersion(metadataBean.getVersion());
         dbconn.setUiSchema(metadataBean.getSchema());
 

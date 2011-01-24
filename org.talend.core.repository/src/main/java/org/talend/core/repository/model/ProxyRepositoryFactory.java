@@ -34,7 +34,9 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
@@ -70,6 +72,7 @@ import org.talend.core.model.properties.JobDocumentationItem;
 import org.talend.core.model.properties.JobletDocumentationItem;
 import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.ProcessItem;
+import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.SpagoBiServer;
 import org.talend.core.model.properties.Status;
@@ -80,8 +83,10 @@ import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.IRepositoryWorkUnitListener;
 import org.talend.core.model.repository.RepositoryObject;
 import org.talend.core.model.repository.RepositoryViewObject;
+import org.talend.core.repository.constants.FileConstants;
 import org.talend.core.repository.i18n.Messages;
 import org.talend.core.repository.utils.RepositoryPathProvider;
+import org.talend.core.repository.utils.XmiResourceManager;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.cwm.helper.SubItemHelper;
 import org.talend.cwm.helper.TableHelper;
@@ -91,6 +96,7 @@ import org.talend.repository.documentation.ERepositoryActionName;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryConstants;
+import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
  * Repository factory use by client. Based on implementation provide by extension point system. This class contains all
@@ -2416,5 +2422,29 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
     public RootContainer<String, IRepositoryViewObject> getTdqRepositoryViewObjects(Project project, ERepositoryObjectType type,
             String folderName, boolean... options) throws PersistenceException {
         return this.repositoryFactoryFromProvider.getTdqRepositoryViewObjects(project, type, folderName, options);
+    }
+
+
+    /**
+     * DOC bZhou Comment method "getProperty".
+     * 
+     * @param element
+     * @return
+     */
+    public Property getProperty(ModelElement element) {
+        Resource eResource = element.eResource();
+        if (eResource != null) {
+            URI uri = eResource.getURI();
+            if (uri.isPlatform()) {
+                URI propertyURI = uri.trimFileExtension().appendFileExtension(FileConstants.PROPERTIES_EXTENSION);
+                XmiResourceManager resourceManager = this.repositoryFactoryFromProvider.getResourceManager();
+                if (resourceManager != null && resourceManager.resourceSet != null) {
+                    Resource propertyResource = resourceManager.resourceSet.getResource(propertyURI, true);
+                    return (Property) EcoreUtil.getObjectByType(propertyResource.getContents(), PropertiesPackage.eINSTANCE.getProperty());
+                }
+            }
+        }
+
+        return null;
     }
 }
