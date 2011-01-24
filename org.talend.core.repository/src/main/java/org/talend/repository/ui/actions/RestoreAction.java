@@ -176,19 +176,25 @@ public class RestoreAction extends AContextualAction {
         }
         procItems = null;
 
-        final boolean updatePalette = needToUpdatePalette;
-        Display.getCurrent().syncExec(new Runnable() {
+        // MOD qiongli 2011-1-24,avoid to refresh repositoryView for top
+        if (!org.talend.commons.utils.platform.PluginChecker.isOnlyTopLoaded()) {
+            final boolean updatePalette = needToUpdatePalette;
+            Display.getCurrent().syncExec(new Runnable() {
 
-            public void run() {
-                RepositoryManagerHelper.getRepositoryView().refresh();
-                if (updatePalette && GlobalServiceRegister.getDefault().isServiceRegistered(ICoreService.class)) {
-                    ICoreService service = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
-                    service.updatePalette();
+                public void run() {
+
+                    RepositoryManagerHelper.getRepositoryView().refresh();
+
+                    if (updatePalette && GlobalServiceRegister.getDefault().isServiceRegistered(ICoreService.class)) {
+                        ICoreService service = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
+                        service.updatePalette();
+                    }
                 }
-            }
-        });
-        notifySQLBuilder(connections);
-        connections = null;
+
+            });
+            notifySQLBuilder(connections);
+            connections = null;
+        }
     }
 
     /*

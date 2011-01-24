@@ -208,23 +208,28 @@ public class DeleteAction extends AContextualAction {
         Display.getCurrent().syncExec(new Runnable() {
 
             public void run() {
-                if (updatePalette && GlobalServiceRegister.getDefault().isServiceRegistered(ICoreService.class)) {
-                    ICoreService service = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
-                    service.updatePalette();
-                }
-                RepositoryManager.refresh(ERepositoryObjectType.JOB_SCRIPT);
-                RepositoryManagerHelper.getRepositoryView().refresh();
-                IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-                for (IEditorReference editors : page.getEditorReferences()) {
-                    if (GlobalServiceRegister.getDefault().isServiceRegistered(IDiagramModelService.class)) {
-                        IDiagramModelService service = (IDiagramModelService) GlobalServiceRegister.getDefault().getService(
-                                IDiagramModelService.class);
-                        service.refreshBusinessModel(editors);
+                // MOD qiongli 2011-1-24,avoid to refresh repositoryView for top
+                if (!org.talend.commons.utils.platform.PluginChecker.isOnlyTopLoaded()) {
+                    if (updatePalette && GlobalServiceRegister.getDefault().isServiceRegistered(ICoreService.class)) {
+                        ICoreService service = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
+                        service.updatePalette();
                     }
-                }
 
-                if (!deleteActionCache.isDocRefresh()) { // not refresh in JobDeleteListener
-                    RepositoryManager.refreshCreatedNode(ERepositoryObjectType.DOCUMENTATION);
+                    RepositoryManager.refresh(ERepositoryObjectType.JOB_SCRIPT);
+                    RepositoryManagerHelper.getRepositoryView().refresh();
+
+                    IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+                    for (IEditorReference editors : page.getEditorReferences()) {
+                        if (GlobalServiceRegister.getDefault().isServiceRegistered(IDiagramModelService.class)) {
+                            IDiagramModelService service = (IDiagramModelService) GlobalServiceRegister.getDefault().getService(
+                                    IDiagramModelService.class);
+                            service.refreshBusinessModel(editors);
+                        }
+                    }
+
+                    if (!deleteActionCache.isDocRefresh()) { // not refresh in JobDeleteListener
+                        RepositoryManager.refreshCreatedNode(ERepositoryObjectType.DOCUMENTATION);
+                    }
                 }
                 deleteActionCache.revertParameters();
             }

@@ -28,6 +28,7 @@ import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.exception.MessageBoxExceptionHandler;
 import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
+import org.talend.commons.utils.platform.PluginChecker;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.ERepositoryObjectType;
@@ -96,8 +97,12 @@ public class EmptyRecycleBinAction extends AContextualAction {
         } catch (PersistenceException e) {
             ExceptionHandler.process(e);
         }
-        RepositoryManager.refresh(ERepositoryObjectType.JOB_SCRIPT);
-        RepositoryManager.getRepositoryView().refresh();
+        // MOD qiongli 2011-1-24,avoid to refresh repositoryView for top
+        if (!PluginChecker.isOnlyTopLoaded()) {
+            RepositoryManager.refresh(ERepositoryObjectType.JOB_SCRIPT);
+            RepositoryManager.getRepositoryView().refresh();
+        }
+
     }
 
     private Shell getShell() {
