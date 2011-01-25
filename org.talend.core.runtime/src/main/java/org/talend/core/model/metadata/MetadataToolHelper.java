@@ -14,6 +14,7 @@ package org.talend.core.model.metadata;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.Vector;
 import java.util.regex.Pattern;
 
@@ -28,6 +29,7 @@ import org.talend.core.GlobalServiceRegister;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.builder.connection.Connection;
+import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.SAPConnection;
 import org.talend.core.model.metadata.builder.connection.SAPFunctionUnit;
 import org.talend.core.model.metadata.types.ContextParameterJavaTypeManager;
@@ -485,5 +487,88 @@ public final class MetadataToolHelper {
         }
         target.getListColumns().addAll(columnsTAdd);
         target.sortCustomColumns();
+    }
+
+    public static MetadataTable getMetadataTableFromRepository(String metaRepositoryId) {
+        org.talend.core.model.metadata.builder.connection.Connection connection;
+
+        String[] names = metaRepositoryId.split(" - "); //$NON-NLS-1$
+        if (names.length < 2) {
+            return null;
+        }
+        String linkedRepository = names[0];
+        String name2 = null;
+        if (names.length == 2) {
+            name2 = names[1];
+        } else if (names.length > 2) {
+            name2 = metaRepositoryId.substring(linkedRepository.length() + 3);
+        }
+
+        connection = getConnectionFromRepository(linkedRepository);
+
+        if (connection != null) {
+            if (connection instanceof SAPConnection) {
+                return getMetadataTableFromSAPFunction((SAPConnection) connection, name2);
+            }
+            Set tables = ConnectionHelper.getTables(connection);
+            for (Object tableObj : tables) {
+                MetadataTable table = (MetadataTable) tableObj;
+                if (table.getLabel().equals(name2)) {
+                    return table;
+                }
+            }
+        }
+        return null;
+    }
+
+    private static MetadataTable getMetadataTableFromSAPFunction(SAPConnection connection, String name) {
+        String functionName = null;
+        String metadataName = null;
+        String[] names = name.split(" - "); //$NON-NLS-1$
+        if (names.length == 2) {
+            functionName = names[0];
+            metadataName = names[1];
+        } else {
+            return null;
+        }
+
+        for (Object obj : connection.getFuntions()) {
+            SAPFunctionUnit function = (SAPFunctionUnit) obj;
+            if (functionName.equals(function.getLabel())) {
+                for (Object object : function.getTables()) {
+                    MetadataTable table = (MetadataTable) object;
+                    if (metadataName.equals(table.getLabel())) {
+                        return table;
+                    }
+                }
+            }
+
+        }
+        return null;
+    }
+
+    public static org.talend.core.model.metadata.builder.connection.Connection getConnectionFromRepository(String metaRepositoryid) {
+        String connectionId = metaRepositoryid;
+        // some calls can be done either with only the connection Id or with
+        // informations from query or table
+        String[] names = metaRepositoryid.split(" - "); //$NON-NLS-1$
+        if (names.length == 2) {
+            connectionId = names[0];
+        }
+
+        IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
+        try {
+            IRepositoryViewObject object = factory.getLastVersion(connectionId);
+            if (object == null) {
+                return null;
+            }
+            if (factory.getStatus(object) != ERepositoryStatus.DELETED) {
+                return ((ConnectionItem) object.getProperty().getItem()).getConnection();
+            }
+        } catch (PersistenceException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+
     }
 }

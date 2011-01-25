@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
@@ -36,16 +35,12 @@ import org.talend.core.model.metadata.builder.connection.SAPFunctionUnit;
 import org.talend.core.model.process.EParameterFieldType;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
-import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.impl.ConnectionItemImpl;
 import org.talend.core.model.repository.IRepositoryViewObject;
-import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.designer.core.model.utils.emf.talendfile.ColumnType;
 import org.talend.designer.core.model.utils.emf.talendfile.MetadataType;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFileFactory;
-import org.talend.repository.model.ERepositoryStatus;
-import org.talend.repository.model.IProxyRepositoryFactory;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
@@ -185,61 +180,7 @@ public class MetadataTool {
     }
 
     public static MetadataTable getMetadataTableFromRepository(String metaRepositoryId) {
-        org.talend.core.model.metadata.builder.connection.Connection connection;
-
-        String[] names = metaRepositoryId.split(" - "); //$NON-NLS-1$
-        if (names.length < 2) {
-            return null;
-        }
-        String linkedRepository = names[0];
-        String name2 = null;
-        if (names.length == 2) {
-            name2 = names[1];
-        } else if (names.length > 2) {
-            name2 = metaRepositoryId.substring(linkedRepository.length() + 3);
-        }
-
-        connection = getConnectionFromRepository(linkedRepository);
-
-        if (connection != null) {
-            if (connection instanceof SAPConnection) {
-                return getMetadataTableFromSAPFunction((SAPConnection) connection, name2);
-            }
-            Set tables = ConnectionHelper.getTables(connection);
-            for (Object tableObj : tables) {
-                MetadataTable table = (MetadataTable) tableObj;
-                if (table.getLabel().equals(name2)) {
-                    return table;
-                }
-            }
-        }
-        return null;
-    }
-
-    private static MetadataTable getMetadataTableFromSAPFunction(SAPConnection connection, String name) {
-        String functionName = null;
-        String metadataName = null;
-        String[] names = name.split(" - "); //$NON-NLS-1$
-        if (names.length == 2) {
-            functionName = names[0];
-            metadataName = names[1];
-        } else {
-            return null;
-        }
-
-        for (Object obj : connection.getFuntions()) {
-            SAPFunctionUnit function = (SAPFunctionUnit) obj;
-            if (functionName.equals(function.getLabel())) {
-                for (Object object : function.getTables()) {
-                    MetadataTable table = (MetadataTable) object;
-                    if (metadataName.equals(table.getLabel())) {
-                        return table;
-                    }
-                }
-            }
-
-        }
-        return null;
+        return MetadataToolHelper.getMetadataTableFromRepository(metaRepositoryId);
     }
 
     public static IMetadataTable getMetadataFromRepository(String metaRepositoryId) {
@@ -263,28 +204,7 @@ public class MetadataTool {
     }
 
     public static org.talend.core.model.metadata.builder.connection.Connection getConnectionFromRepository(String metaRepositoryid) {
-        String connectionId = metaRepositoryid;
-        // some calls can be done either with only the connection Id or with
-        // informations from query or table
-        String[] names = metaRepositoryid.split(" - "); //$NON-NLS-1$
-        if (names.length == 2) {
-            connectionId = names[0];
-        }
-
-        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
-        try {
-            IRepositoryViewObject object = factory.getLastVersion(connectionId);
-            if (object == null) {
-                return null;
-            }
-            if (factory.getStatus(object) != ERepositoryStatus.DELETED) {
-                return ((ConnectionItem) object.getProperty().getItem()).getConnection();
-            }
-        } catch (PersistenceException e) {
-            throw new RuntimeException(e);
-        }
-        return null;
-
+        return MetadataToolHelper.getConnectionFromRepository(metaRepositoryid);
     }
 
     /**
