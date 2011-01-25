@@ -14,7 +14,7 @@ package org.talend.repository.mdm.ui.wizard.concept;
 
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.widgets.Composite;
-import org.talend.core.model.metadata.MetadataTool;
+import org.talend.core.model.metadata.MetadataToolHelper;
 import org.talend.core.model.metadata.builder.connection.Concept;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
@@ -76,7 +76,7 @@ public abstract class AbstractRetrieveConceptPage extends WizardPage {
             }
         } else if (node.getObject() instanceof MetadataTableRepositoryObject) {
             MetadataTable table = (MetadataTable) ((MetadataTableRepositoryObject) node.getObject()).getTable();
-            concept = MDMUtil.getConcept(getConnection(), MetadataTool.getMetadataTableFromRepository(table.getId()));
+            concept = MDMUtil.getConcept(getConnection(), MetadataToolHelper.getMetadataTableFromRepository(table.getId()));
         }
 
         return concept;

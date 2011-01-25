@@ -39,7 +39,7 @@ import org.talend.commons.utils.data.list.IListenableListListener;
 import org.talend.commons.utils.data.list.ListenableListEvent;
 import org.talend.core.model.metadata.MappingTypeRetriever;
 import org.talend.core.model.metadata.MetadataTalendType;
-import org.talend.core.model.metadata.MetadataTool;
+import org.talend.core.model.metadata.MetadataToolHelper;
 import org.talend.core.model.metadata.builder.connection.Concept;
 import org.talend.core.model.metadata.builder.connection.ConceptTarget;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
@@ -48,10 +48,10 @@ import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.editor.MetadataEmfTableEditor;
 import org.talend.core.model.properties.ConnectionItem;
-import org.talend.core.model.utils.TalendTextUtils;
 import org.talend.core.ui.metadata.editor.MetadataEmfTableEditorView;
+import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
-import org.talend.repository.i18n.Messages;
+import org.talend.repository.mdm.i18n.Messages;
 import org.talend.repository.ui.utils.ConnectionContextHelper;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.TreePopulator;
 
@@ -102,7 +102,7 @@ public class MDMTableForm extends AbstractMDMFileStepForm {
     @Override
     protected void initialize() {
         // init the metadata Table
-        String label = MetadataTool.validateValue(metadataTable.getLabel());
+        String label = MetadataToolHelper.validateValue(metadataTable.getLabel());
         metadataNameText.setText(label);
         metadataCommentText.setText(metadataTable.getComment());
         metadataEditor.setMetadataTable(metadataTable);
@@ -171,7 +171,7 @@ public class MDMTableForm extends AbstractMDMFileStepForm {
         metadataNameText.addModifyListener(new ModifyListener() {
 
             public void modifyText(final ModifyEvent e) {
-                MetadataTool.validateSchema(metadataNameText.getText());
+                MetadataToolHelper.validateSchema(metadataNameText.getText());
                 metadataTable.setLabel(metadataNameText.getText());
                 checkFieldsValue();
             }
@@ -181,7 +181,7 @@ public class MDMTableForm extends AbstractMDMFileStepForm {
 
             @Override
             public void keyPressed(KeyEvent e) {
-                MetadataTool.checkSchema(getShell(), e);
+                MetadataToolHelper.checkSchema(getShell(), e);
             }
         });
 
@@ -274,7 +274,7 @@ public class MDMTableForm extends AbstractMDMFileStepForm {
             if (isContextMode()) {
                 ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(connectionItem.getConnection(),
                         true);
-                fullPath = TalendTextUtils.removeQuotes(ConnectionContextHelper.getOriginalValue(contextType, fullPath));
+                fullPath = TalendQuoteUtils.removeQuotes(ConnectionContextHelper.getOriginalValue(contextType, fullPath));
             }
             // adapt relative path
             String[] relatedSplitedPaths = relativeXpath.split("\\.\\./"); //$NON-NLS-1$
@@ -342,7 +342,7 @@ public class MDMTableForm extends AbstractMDMFileStepForm {
             metadataNameText.forceFocus();
             updateStatus(IStatus.ERROR, Messages.getString("FileStep1.nameAlert")); //$NON-NLS-1$
             return false;
-        } else if (!MetadataTool.isValidSchemaName(metadataNameText.getText())) {
+        } else if (!MetadataToolHelper.isValidSchemaName(metadataNameText.getText())) {
             metadataNameText.forceFocus();
             updateStatus(IStatus.ERROR, Messages.getString("FileStep1.nameAlertIllegalChar")); //$NON-NLS-1$
             return false;

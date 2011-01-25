@@ -23,7 +23,7 @@ import org.eclipse.jface.fieldassist.IContentProposal;
 import org.eclipse.jface.fieldassist.IContentProposalProvider;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.swt.proposal.xpath.XPathContentProposal;
-import org.talend.repository.i18n.Messages;
+import org.talend.repository.mdm.i18n.Messages;
 import org.w3c.dom.Node;
 
 /**
@@ -109,7 +109,7 @@ public class MDMProposalProvider implements IContentProposalProvider {
         boolean expressionIsEmpty = currentExpr.trim().length() == 0;
 
         // String xPathExpression =
-        //            
+        //
         // // + " | " +
         // createXPathExpression(beforeCursorExp)
         // ;
@@ -221,8 +221,8 @@ public class MDMProposalProvider implements IContentProposalProvider {
             } // } else {
 
         } // if (!estimationError) {
-        // ///////////////////////////////////////////////////////////////////////////////////////////////
-        // ///////////////////////////////////////////////////////////////////////////////////////////////
+          // ///////////////////////////////////////////////////////////////////////////////////////////////
+          // ///////////////////////////////////////////////////////////////////////////////////////////////
 
         // ///////////////////////////////////////////////////////////////////////////////////////////////
         // ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -313,8 +313,8 @@ public class MDMProposalProvider implements IContentProposalProvider {
      * @param proposals
      */
     private void addTooManyNodesContentProposal(List<IContentProposal> proposals) {
-        XPathContentProposal contentProposal = new XPathContentProposal(Messages
-                .getString("XPathProposalProvider.contentProposal")); //$NON-NLS-1$
+        XPathContentProposal contentProposal = new XPathContentProposal(
+                Messages.getString("XPathProposalProvider.contentProposal")); //$NON-NLS-1$
         proposals.add(contentProposal);
     }
 

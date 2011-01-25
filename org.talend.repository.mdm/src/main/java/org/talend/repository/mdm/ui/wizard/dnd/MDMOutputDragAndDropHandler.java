@@ -250,13 +250,13 @@ public class MDMOutputDragAndDropHandler {
                     for (FOXTreeNode foxTreeNode : children) {
                         if (!(foxTreeNode instanceof Attribute)) {
                             MessageDialog.openConfirm(control.getShell(), Messages.getString("MDMOutputDragAndDropHandler_warn"), //$NON-NLS-1$
-                                    Messages.getString("MDMOutputDragAndDropHandler.has_element", targetNode.getLabel())); //$NON-NLS-1$
+                                    Messages.getString("MDMOutputDragAndDropHandler.Has_element", targetNode.getLabel())); //$NON-NLS-1$
                             return;
                         }
                     }
                 } else if (targetNode.getParent() == null) {
                     MessageDialog.openConfirm(control.getShell(), Messages.getString("MDMOutputDragAndDropHandler_warn"), //$NON-NLS-1$
-                            Messages.getString("MDMOutputDragAndDropHandler.is_root", targetNode.getLabel())); //$NON-NLS-1$
+                            Messages.getString("MDMOutputDragAndDropHandler.Is_root", targetNode.getLabel())); //$NON-NLS-1$
                     return;
                 }
                 // IMetadataColumn metaColumn = (IMetadataColumn) dragdedData.get(0);

@@ -54,9 +54,9 @@ import org.talend.commons.ui.swt.drawing.link.IStyleLink;
 import org.talend.commons.ui.swt.drawing.link.LinkDescriptor;
 import org.talend.commons.ui.swt.drawing.link.StyleLink;
 import org.talend.commons.ui.swt.drawing.link.TreeExtremityDescriptor;
+import org.talend.commons.ui.swt.extended.table.AbstractExtendedControlViewer.EVENT_TYPE;
 import org.talend.commons.ui.swt.extended.table.ExtendedControlEvent;
 import org.talend.commons.ui.swt.extended.table.IExtendedControlListener;
-import org.talend.commons.ui.swt.extended.table.AbstractExtendedControlViewer.EVENT_TYPE;
 import org.talend.commons.ui.swt.linking.TreeToTablesLinker;
 import org.talend.commons.ui.swt.proposal.TextCellEditorWithProposal;
 import org.talend.commons.ui.swt.tableviewer.IModifiedBeanListener;
@@ -71,9 +71,9 @@ import org.talend.commons.utils.data.list.ListenableListEvent.TYPE;
 import org.talend.commons.xml.XmlNodeRetriever;
 import org.talend.core.model.metadata.builder.connection.Concept;
 import org.talend.core.model.metadata.builder.connection.ConceptTarget;
-import org.talend.core.model.utils.TalendTextUtils;
+import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
-import org.talend.repository.i18n.Messages;
+import org.talend.repository.mdm.i18n.Messages;
 import org.talend.repository.mdm.model.MDMXSDExtractorFieldModel;
 import org.talend.repository.mdm.model.MDMXSDExtractorLoopModel;
 import org.talend.repository.mdm.ui.wizard.table.ExtractionFieldsWithMDMEditorView;
@@ -269,7 +269,7 @@ public class MDMLinker extends TreeToTablesLinker<Object, Object> {
                     String originalValue = concept.getLoopExpression();
                     if (contextType != null) {
                         originalValue = ConnectionContextHelper.getOriginalValue(contextType, concept.getLoopExpression());
-                        originalValue = TalendTextUtils.removeQuotes(originalValue);
+                        originalValue = TalendQuoteUtils.removeQuotes(originalValue);
                     }
                     if (originalValue != null) {
                         createLoopLinks(originalValue, tableItem, monitorWrap);
@@ -640,8 +640,8 @@ public class MDMLinker extends TreeToTablesLinker<Object, Object> {
                         if (treeItemFromAbsoluteXPath != null) {
                             loopXpathNodes.add(absoluteXPathFromNode);
                             uniqueLoopNodes.add(node);
-                            addLoopLink(treeItemFromAbsoluteXPath, treeItemFromAbsoluteXPath.getData(), tableItemTarget
-                                    .getParent(), (Concept) tableItemTarget.getData());
+                            addLoopLink(treeItemFromAbsoluteXPath, treeItemFromAbsoluteXPath.getData(),
+                                    tableItemTarget.getParent(), (Concept) tableItemTarget.getData());
                             alreadyProcessedXPath.add(absoluteXPathFromNode);
                         }
                     }
@@ -744,8 +744,8 @@ public class MDMLinker extends TreeToTablesLinker<Object, Object> {
                             if (!alreadyProcessedXPath.contains(absoluteXPathFromNode)) {
                                 TreeItem treeItemFromAbsoluteXPath = treePopulator.getTreeItem(absoluteXPathFromNode);
                                 if (treeItemFromAbsoluteXPath != null) {
-                                    addFieldLink(treeItemFromAbsoluteXPath, treeItemFromAbsoluteXPath.getData(), tableItemTarget
-                                            .getParent(), (ConceptTarget) tableItemTarget.getData());
+                                    addFieldLink(treeItemFromAbsoluteXPath, treeItemFromAbsoluteXPath.getData(),
+                                            tableItemTarget.getParent(), (ConceptTarget) tableItemTarget.getData());
                                     alreadyProcessedXPath.add(absoluteXPathFromNode);
                                 }
                             }
@@ -796,8 +796,8 @@ public class MDMLinker extends TreeToTablesLinker<Object, Object> {
                         if (!alreadyProcessedXPath.contains(absoluteXPathFromNode)) {
                             TreeItem treeItemFromAbsoluteXPath = treePopulator.getTreeItem(absoluteXPathFromNode);
                             if (treeItemFromAbsoluteXPath != null) {
-                                addFieldLink(treeItemFromAbsoluteXPath, treeItemFromAbsoluteXPath.getData(), tableItemTarget
-                                        .getParent(), (ConceptTarget) tableItemTarget.getData());
+                                addFieldLink(treeItemFromAbsoluteXPath, treeItemFromAbsoluteXPath.getData(),
+                                        tableItemTarget.getParent(), (ConceptTarget) tableItemTarget.getData());
                                 alreadyProcessedXPath.add(absoluteXPathFromNode);
                             }
                         }

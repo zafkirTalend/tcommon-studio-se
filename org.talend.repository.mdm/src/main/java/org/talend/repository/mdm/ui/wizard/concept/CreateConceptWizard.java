@@ -28,7 +28,7 @@ import org.eclipse.ui.IWorkbench;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
 import org.talend.commons.utils.VersionUtils;
-import org.talend.core.CorePlugin;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.metadata.IMetadataTable;
@@ -44,9 +44,10 @@ import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.model.update.RepositoryUpdateManager;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
-import org.talend.repository.RepositoryPlugin;
-import org.talend.repository.i18n.Messages;
+import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.repository.mdm.i18n.Messages;
 import org.talend.repository.model.IProxyRepositoryFactory;
+import org.talend.repository.model.IRepositoryService;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.RepositoryNodeUtilities;
 import org.talend.repository.ui.utils.ConnectionContextHelper;
@@ -123,9 +124,8 @@ public class CreateConceptWizard extends RepositoryWizard implements INewWizard 
         case SYSTEM_FOLDER:
             connection = ConnectionFactory.eINSTANCE.createMDMConnection();
             connectionProperty = PropertiesFactory.eINSTANCE.createProperty();
-            connectionProperty
-                    .setAuthor(((RepositoryContext) CorePlugin.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY))
-                            .getUser());
+            connectionProperty.setAuthor(((RepositoryContext) CoreRuntimePlugin.getInstance().getContext()
+                    .getProperty(Context.REPOSITORY_CONTEXT_KEY)).getUser());
             connectionProperty.setVersion(VersionUtils.DEFAULT_VERSION);
             connectionProperty.setStatusCode(""); //$NON-NLS-1$
 
@@ -151,8 +151,8 @@ public class CreateConceptWizard extends RepositoryWizard implements INewWizard 
 
     private void initTalendProperty() {
         this.property = PropertiesFactory.eINSTANCE.createProperty();
-        this.property.setAuthor(((RepositoryContext) CorePlugin.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY))
-                .getUser());
+        this.property.setAuthor(((RepositoryContext) CoreRuntimePlugin.getInstance().getContext()
+                .getProperty(Context.REPOSITORY_CONTEXT_KEY)).getUser());
         this.property.setVersion(VersionUtils.DEFAULT_VERSION);
         this.property.setStatusCode(""); //$NON-NLS-1$
     }
@@ -207,24 +207,27 @@ public class CreateConceptWizard extends RepositoryWizard implements INewWizard 
         if (creation && schemaPage.isPageComplete()) {
             // RepositoryUpdateManager.updateMultiSchema(connectionItem, oldMetadataTable, oldTableMap);
             schemaPage.createMetadataTable();
-            saveMetaData();
-            closeLockStrategy();
-
-            List<IRepositoryViewObject> list = new ArrayList<IRepositoryViewObject>();
-            list.add(repositoryObject);
-            RepositoryPlugin.getDefault().getRepositoryService().notifySQLBuilder(list);
+            updateRelation();
             return true;
         } else if (!creation && tablePage.isPageComplete()) {
             RepositoryUpdateManager.updateMultiSchema(connectionItem, oldMetadataTable, oldTableMap);
-            saveMetaData();
-            closeLockStrategy();
-
-            List<IRepositoryViewObject> list = new ArrayList<IRepositoryViewObject>();
-            list.add(repositoryObject);
-            RepositoryPlugin.getDefault().getRepositoryService().notifySQLBuilder(list);
+            updateRelation();
             return true;
         }
         return false;
+    }
+
+    private void updateRelation() {
+        saveMetaData();
+        closeLockStrategy();
+
+        List<IRepositoryViewObject> list = new ArrayList<IRepositoryViewObject>();
+        list.add(repositoryObject);
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IRepositoryService.class)) {
+            IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(
+                    IRepositoryService.class);
+            service.notifySQLBuilder(list);
+        }
     }
 
     private void saveMetaData() {

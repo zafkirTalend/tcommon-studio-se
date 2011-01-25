@@ -18,7 +18,7 @@ import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
 import org.talend.core.model.metadata.IMDMConstant;
-import org.talend.core.model.metadata.MetadataTool;
+import org.talend.core.model.metadata.MetadataToolHelper;
 import org.talend.core.model.process.EParameterFieldType;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
@@ -86,7 +86,7 @@ public class MDMProviderService implements IMDMProviderService {
             if (type != null && IMDMConstant.REF_ATTR_REPOSITORY.equals(type)) {
                 String value = (String) lineValue.get(IMDMConstant.FIELD_SCHEMA);
                 if (value != null && !"".equals(value)) { //$NON-NLS-1$
-                    if (MetadataTool.getMetadataTableFromNode(node, value) != null) {
+                    if (MetadataToolHelper.getMetadataTableFromNodeLabel(node, value) != null) {
                         return true;
 
                     }

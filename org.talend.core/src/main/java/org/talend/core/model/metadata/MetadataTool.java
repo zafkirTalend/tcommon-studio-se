@@ -373,40 +373,15 @@ public class MetadataTool {
      * @deprecated use getMetadataTableFromNodeLabel instead
      */
     public static IMetadataTable getMetadataTableFromNode(INode node, String name) {
-        if (node == null || name == null) {
-            return null;
-        }
-        for (IMetadataTable metadata : node.getMetadataList()) {
-            if (name.equals(metadata.getLabel())) {
-                return metadata;
-            }
-        }
-        return null;
+        return getMetadataTableFromNodeLabel(node, name);
     }
 
     public static IMetadataTable getMetadataTableFromNodeLabel(INode node, String name) {
-        if (node == null || name == null) {
-            return null;
-        }
-        for (IMetadataTable metadata : node.getMetadataList()) {
-            if (name.equals(metadata.getLabel())) {
-                return metadata;
-            }
-        }
-        return null;
+        return MetadataToolHelper.getMetadataTableFromNodeLabel(node, name);
     }
 
     public static IMetadataTable getMetadataTableFromNodeTableName(INode node, String name) {
-        if (node == null || name == null) {
-            return null;
-        }
-        for (IMetadataTable metadata : node.getMetadataList()) {
-            // if (name.equals(metadata.getTableName())) {
-            if (name.equals(metadata.getLabel()) || name.equals(metadata.getTableName())) {
-                return metadata;
-            }
-        }
-        return null;
+        return MetadataToolHelper.getMetadataTableFromNodeTableName(node, name);
     }
 
     /**

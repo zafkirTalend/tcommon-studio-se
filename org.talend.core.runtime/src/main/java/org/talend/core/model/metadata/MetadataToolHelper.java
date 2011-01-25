@@ -35,6 +35,7 @@ import org.talend.core.model.metadata.builder.connection.SAPFunctionUnit;
 import org.talend.core.model.metadata.types.ContextParameterJavaTypeManager;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.model.metadata.types.TypesManager;
+import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.IRepositoryPrefConstants;
@@ -573,5 +574,30 @@ public final class MetadataToolHelper {
         }
         return null;
 
+    }
+
+    public static IMetadataTable getMetadataTableFromNodeLabel(INode node, String name) {
+        if (node == null || name == null) {
+            return null;
+        }
+        for (IMetadataTable metadata : node.getMetadataList()) {
+            if (name.equals(metadata.getLabel())) {
+                return metadata;
+            }
+        }
+        return null;
+    }
+
+    public static IMetadataTable getMetadataTableFromNodeTableName(INode node, String name) {
+        if (node == null || name == null) {
+            return null;
+        }
+        for (IMetadataTable metadata : node.getMetadataList()) {
+            // if (name.equals(metadata.getTableName())) {
+            if (name.equals(metadata.getLabel()) || name.equals(metadata.getTableName())) {
+                return metadata;
+            }
+        }
+        return null;
     }
 }

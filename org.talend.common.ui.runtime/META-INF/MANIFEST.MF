@@ -19,5 +19,6 @@ Export-Package:
  org.talend.commons.ui.runtime.geometry,
  org.talend.commons.ui.runtime.i18n,
  org.talend.commons.ui.runtime.image,
- org.talend.commons.ui.runtime.ws
+ org.talend.commons.ui.runtime.ws,
+ org.talend.core.ui.images
 Bundle-ActivationPolicy: lazy

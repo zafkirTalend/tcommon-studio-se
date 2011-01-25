@@ -75,16 +75,16 @@ import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.properties.ConnectionItem;
-import org.talend.core.model.utils.TalendTextUtils;
 import org.talend.core.model.xml.XmlArray;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.utils.CsvArray;
+import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.PackageHelper;
 import org.talend.cwm.xml.TdXmlSchema;
 import org.talend.cwm.xml.XmlFactory;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
-import org.talend.repository.i18n.Messages;
+import org.talend.repository.mdm.i18n.Messages;
 import org.talend.repository.mdm.model.MDMXSDExtractorFieldModel;
 import org.talend.repository.mdm.model.MDMXSDExtractorLoopModel;
 import org.talend.repository.mdm.ui.wizard.dnd.MDMLinker;
@@ -303,7 +303,7 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
     private void addGroupXmlFileSettings(final Composite mainComposite, final int width, final int height) {
 
         // Group Schema Viewer
-        Group group = Form.createGroup(mainComposite, 1, Messages.getString("XmlFileStep1.sourceSchema"), height); //$NON-NLS-1$
+        Group group = Form.createGroup(mainComposite, 1, Messages.getString("MdmReceiveForm.sourceSchema"), height); //$NON-NLS-1$
         group.setBackground(null);
 
         availableXmlTree = new Tree(group, SWT.MULTI | SWT.BORDER);
@@ -315,7 +315,7 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
 
     private void addGroupSchemaTarget(final Composite mainComposite, final int width, final int height) {
         // Group Schema Viewer
-        schemaTargetGroup = Form.createGroup(mainComposite, 1, Messages.getString("XmlFileStep1.groupSchemaTarget"), height); //$NON-NLS-1$
+        schemaTargetGroup = Form.createGroup(mainComposite, 1, Messages.getString("MdmReceiveForm.groupSchemaTarget"), height); //$NON-NLS-1$
 
         // ///////////////////////////////////////////
         // to correct graphic bug under Linux-GTK when the wizard is opened the first time
@@ -422,7 +422,7 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
 
         // Preview Button
         previewButton = new Button(preivewButtonPart, SWT.NONE);
-        previewButton.setText(Messages.getString("FileStep2.refreshPreview")); //$NON-NLS-1$
+        previewButton.setText(Messages.getString("MdmReceiveForm.refreshPreview")); //$NON-NLS-1$
         previewButton.setSize(WIDTH_BUTTON_PIXEL, HEIGHT_BUTTON_PIXEL);
 
         XmlArray.setLimitToDefault();
@@ -449,7 +449,7 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
      */
     private void addGroupXmlViewer(final Composite parent, final int width, int height) {
         // Group File Viewer
-        Group group = Form.createGroup(parent, 1, Messages.getString("FileStep1.groupFileViewer"), height); //$NON-NLS-1$
+        Group group = Form.createGroup(parent, 1, Messages.getString("MdmReceiveForm.groupFileViewer"), height); //$NON-NLS-1$
         Composite compositeFileViewer = Form.startNewDimensionnedGridLayout(group, 1, width, HEIGHT_BUTTON_PIXEL);
 
         fileXmlText = new Text(compositeFileViewer, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
@@ -457,11 +457,9 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
         gridData.minimumWidth = width;
         gridData.minimumHeight = HEIGHT_BUTTON_PIXEL;
         fileXmlText.setLayoutData(gridData);
-        fileXmlText
-                .setToolTipText(Messages.getString("FileStep1.fileViewerTip1") + " " + TreePopulator.getMaximumRowsToPreview() + " " //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-                        + Messages.getString("FileStep1.fileViewerTip2")); //$NON-NLS-1$
+        fileXmlText.setToolTipText(Messages.getString("MdmReceiveForm.fileViewerTip", TreePopulator.getMaximumRowsToPreview())); //$NON-NLS-1$
         fileXmlText.setEditable(false);
-        fileXmlText.setText(Messages.getString("FileStep1.fileViewerAlert")); //$NON-NLS-1$
+        fileXmlText.setText(Messages.getString("MdmReceiveForm.fileViewerAlert")); //$NON-NLS-1$
     }
 
     /**
@@ -494,13 +492,13 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
 
         // if no file, the process don't be executed
         if (xsdFilePath == null || xsdFilePath.equals("")) { //$NON-NLS-1$
-            previewInformationLabel.setText("   " + Messages.getString("FileStep2.filePathIncomplete")); //$NON-NLS-1$ //$NON-NLS-2$
+            previewInformationLabel.setText("   " + Messages.getString("MdmReceiveForm.filePathIncomplete")); //$NON-NLS-1$ //$NON-NLS-2$
             return;
         }
 
         // if incomplete settings, , the process don't be executed
         if (!checkFieldsValue()) {
-            previewInformationLabel.setText("   " + Messages.getString("FileStep2.settingsIncomplete")); //$NON-NLS-1$ //$NON-NLS-2$
+            previewInformationLabel.setText("   " + Messages.getString("MdmReceiveForm.settingsIncomplete")); //$NON-NLS-1$ //$NON-NLS-2$
             return;
         }
 
@@ -509,7 +507,7 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
             XmlArray.setRowLimit(concept.getLoopLimit());
         }
 
-        previewInformationLabel.setText("   " + Messages.getString("FileStep2.previewProgress")); //$NON-NLS-1$ //$NON-NLS-2$
+        previewInformationLabel.setText("   " + Messages.getString("MdmReceiveForm.previewProgress")); //$NON-NLS-1$ //$NON-NLS-2$
 
         AsynchronousPreviewHandler<CsvArray> previewHandler = null;
         try {
@@ -558,10 +556,11 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
             errorMessage = e.getMessage();
         }
 
-        previewInformationLabel.setText("   " + Messages.getString("FileStep2.previewFailure")); //$NON-NLS-1$ //$NON-NLS-2$
-        new ErrorDialogWidthDetailArea(previewInformationLabel.getShell(), PID, Messages.getString("FileStep2.previewFailure"), //$NON-NLS-1$
+        previewInformationLabel.setText("   " + Messages.getString("MdmReceiveForm.previewFailure")); //$NON-NLS-1$ //$NON-NLS-2$
+        new ErrorDialogWidthDetailArea(previewInformationLabel.getShell(), PID,
+                Messages.getString("MdmReceiveForm.previewFailure"), //$NON-NLS-1$
                 errorMessage);
-        log.error(Messages.getString("FileStep2.previewFailure") + " " + errorMessage); //$NON-NLS-1$ //$NON-NLS-2$
+        log.error(Messages.getString("MdmReceiveForm.previewFailure") + " " + errorMessage); //$NON-NLS-1$ //$NON-NLS-2$
 
     }
 
@@ -624,7 +623,7 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
      */
     @Override
     protected boolean checkFieldsValue() {
-        previewInformationLabel.setText("   " + Messages.getString("FileStep2.settingsIncomplete")); //$NON-NLS-1$ //$NON-NLS-2$
+        previewInformationLabel.setText("   " + Messages.getString("MdmReceiveForm.settingsIncomplete")); //$NON-NLS-1$ //$NON-NLS-2$
         updateStatus(IStatus.OK, null);
         previewButton.setEnabled(false);
 
@@ -646,7 +645,7 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
             if (labelledCheckboxCombo.getCheckbox().getSelection()) {
                 if (labelledCheckboxCombo.getText() == "") { //$NON-NLS-1$
                     updateStatus(IStatus.ERROR,
-                            labelledCheckboxCombo.getLabelText() + Messages.getString("FileStep2.mustBePrecised")); //$NON-NLS-1$
+                            labelledCheckboxCombo.getLabelText() + Messages.getString("MdmReceiveForm.mustBePrecised")); //$NON-NLS-1$
                     return false;
                 }
             }
@@ -687,8 +686,8 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
 
             @Override
             public void widgetSelected(final SelectionEvent e) {
-                if (!previewButton.getText().equals(Messages.getString("FileStep2.wait"))) { //$NON-NLS-1$
-                    previewButton.setText(Messages.getString("FileStep2.wait")); //$NON-NLS-1$
+                if (!previewButton.getText().equals(Messages.getString("MdmReceiveForm.wait"))) { //$NON-NLS-1$
+                    previewButton.setText(Messages.getString("MdmReceiveForm.wait")); //$NON-NLS-1$
                     if (// getConnection().getXmlFilePath() != null
                     //&& !getConnection().getXmlFilePath().equals("") //$NON-NLS-1$
                     getConnection().getSchemas() != null
@@ -699,7 +698,7 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
                             && !((Concept) getConnection().getSchemas().get(0)).getConceptTargets().isEmpty()) {
                         refreshPreview();
                     } else {
-                        previewButton.setText(Messages.getString("FileStep2.refreshPreview")); //$NON-NLS-1$
+                        previewButton.setText(Messages.getString("MdmReceiveForm.refreshPreview")); //$NON-NLS-1$
                         if (!previewButton.getEnabled()) {
                             // new ErrorDialogWidthDetailArea(getShell(), PID, Messages.getString("FileStep2.noresult"),
                             // Messages //$NON-NLS-1$
@@ -712,14 +711,14 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
 
                                 }
                             });
-                            log.error(Messages.getString("FileStep2.noresult")); //$NON-NLS-1$
+                            log.error(Messages.getString("MdmReceiveForm.noresult")); //$NON-NLS-1$
                             previewButton.setEnabled(true);
                         } else {
                             previewButton.setEnabled(false);
                         }
                     }
                 } else {
-                    previewButton.setText(Messages.getString("FileStep2.refreshPreview")); //$NON-NLS-1$
+                    previewButton.setText(Messages.getString("MdmReceiveForm.refreshPreview")); //$NON-NLS-1$
                 }
             }
         });
@@ -747,8 +746,8 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
         text.setLayoutData(gridData);
         outputComposite.setBackground(Display.getDefault().getSystemColor(SWT.COLOR_WHITE));
 
-        String errorInfo = Messages.getString("FileStep2.noresult") + "\n"; //$NON-NLS-1$ //$NON-NLS-2$
-        errorInfo = errorInfo + Messages.getString("FileStep2.noresultDetailMessage") + "\n"; //$NON-NLS-1$ //$NON-NLS-2$
+        String errorInfo = Messages.getString("MdmReceiveForm.noresult") + "\n"; //$NON-NLS-1$ //$NON-NLS-2$
+        errorInfo = errorInfo + Messages.getString("MdmReceiveForm.noresultDetailMessage") + "\n"; //$NON-NLS-1$ //$NON-NLS-2$
 
         text.setText(errorInfo);
         text.setForeground(Display.getDefault().getSystemColor(SWT.COLOR_RED));
@@ -770,7 +769,7 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
         //                    .setText(Messages.getString("FileStep1.fileViewerTip1") + " " + TreePopulator.getMaximumRowsToPreview() + " " //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         //                            + Messages.getString("FileStep1.fileViewerTip2")); //$NON-NLS-1$
         // } else {
-        fileXmlText.setText(Messages.getString("FileStep1.fileViewerProgress")); //$NON-NLS-1$
+        fileXmlText.setText(Messages.getString("MdmReceiveForm.fileViewerProgress")); //$NON-NLS-1$
 
         StringBuilder previewRows = new StringBuilder();
         BufferedReader in = null;
@@ -801,17 +800,17 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
             filePathIsDone = true;
 
         } catch (Exception e) {
-            String msgError = Messages.getString("FileStep1.filepath") + " \"" + fileXmlText.getText().replace("\\\\", "\\") + "\"\n"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ 
+            String msgError = Messages.getString("MdmReceiveForm.filepath") + " \"" + fileXmlText.getText().replace("\\\\", "\\") + "\"\n"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ 
 
             //$NON-NLS-4$ //$NON-NLS-5$
             if (e instanceof FileNotFoundException) {
-                msgError = msgError + Messages.getString("FileStep1.fileNotFoundException"); //$NON-NLS-1$
+                msgError = msgError + Messages.getString("MdmReceiveForm.fileNotFoundException"); //$NON-NLS-1$
             } else if (e instanceof EOFException) {
-                msgError = msgError + Messages.getString("FileStep1.eofException"); //$NON-NLS-1$
+                msgError = msgError + Messages.getString("MdmReceiveForm.eofException"); //$NON-NLS-1$
             } else if (e instanceof IOException) {
-                msgError = msgError + Messages.getString("FileStep1.fileLocked"); //$NON-NLS-1$
+                msgError = msgError + Messages.getString("MdmReceiveForm.fileLocked"); //$NON-NLS-1$
             } else {
-                msgError = msgError + Messages.getString("FileStep1.noExist"); //$NON-NLS-1$
+                msgError = msgError + Messages.getString("MdmReceiveForm.noExist"); //$NON-NLS-1$
             }
             fileXmlText.setText(msgError);
             if (!isReadOnly()) {
@@ -819,7 +818,7 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
             }
             log.error(msgError + " " + e.getMessage()); //$NON-NLS-1$
         } finally {
-            String msgError = Messages.getString("FileStep1.filepath") + " \"" + fileXmlText.getText().replace("\\\\", "\\") + "\"\n"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ 
+            String msgError = Messages.getString("MdmReceiveForm.filepath") + " \"" + fileXmlText.getText().replace("\\\\", "\\") + "\"\n"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ 
 
             //$NON-NLS-4$ //$NON-NLS-5$
             try {
@@ -827,7 +826,7 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
                     in.close();
                 }
             } catch (IOException e) {
-                msgError = msgError + Messages.getString("FileStep1.fileLocked"); //$NON-NLS-1$
+                msgError = msgError + Messages.getString("MdmReceiveForm.fileLocked"); //$NON-NLS-1$
             }
         }
         checkFieldsValue();
@@ -873,7 +872,7 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
 
             if (xsdFilePath != null && xsdFilePath.endsWith(".xsd")) { //$NON-NLS-1$
                 previewButton.setEnabled(false);
-                previewButton.setText(Messages.getString("XmlFileStep2Form.previewNotAvailable")); //$NON-NLS-1$
+                previewButton.setText(Messages.getString("MdmReceiveForm.previewNotAvailable")); //$NON-NLS-1$
                 previewButton.computeSize(SWT.DEFAULT, SWT.DEFAULT);
                 previewButton.getParent().layout();
             }
@@ -953,7 +952,7 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
             if (isContextMode()) {
                 ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(connectionItem.getConnection(),
                         true);
-                fullPath = TalendTextUtils.removeQuotes(ConnectionContextHelper.getOriginalValue(contextType, fullPath));
+                fullPath = TalendQuoteUtils.removeQuotes(ConnectionContextHelper.getOriginalValue(contextType, fullPath));
             }
             // adapt relative path
             if (relativeXpath != null) {
