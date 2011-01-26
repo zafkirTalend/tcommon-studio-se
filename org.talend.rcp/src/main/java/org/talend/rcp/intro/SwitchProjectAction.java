@@ -18,7 +18,9 @@ import org.eclipse.ui.IViewReference;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.talend.core.CorePlugin;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
+import org.talend.designer.business.diagram.custom.IDiagramModelService;
 import org.talend.rcp.i18n.Messages;
 import org.talend.repository.ui.login.LoginDialog;
 import org.talend.repository.ui.views.IRepositoryView;
@@ -53,8 +55,9 @@ public class SwitchProjectAction extends Action {
         // for bug 7071
         IWorkbenchWindow workbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
         if (workbenchWindow.getActivePage() != null
-                && CorePlugin.getDefault().getDiagramModelService().isBusinessDiagramEditor(
-                        workbenchWindow.getActivePage().getActiveEditor())) {
+                && GlobalServiceRegister.getDefault().isServiceRegistered(IDiagramModelService.class)
+                && CorePlugin.getDefault().getDiagramModelService()
+                        .isBusinessDiagramEditor(workbenchWindow.getActivePage().getActiveEditor())) {
             IViewReference findViewReference = workbenchWindow.getActivePage().findViewReference(IRepositoryView.VIEW_ID);
             if (findViewReference != null) {
                 findViewReference.getView(false).setFocus();
@@ -72,7 +75,7 @@ public class SwitchProjectAction extends Action {
         // try {
         // IWorkbench workbench = PlatformUI.getWorkbench();
         // workbench.openWorkbenchWindow(PERSPECTIVE_ID, null);
-        //            
+        //
         // RepositoryContext repositoryContext = (RepositoryContext)
         // Context.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY);
         //
@@ -84,7 +87,7 @@ public class SwitchProjectAction extends Action {
         //
         // RefreshAction refreshAction = new RefreshAction(repositoryView);
         // refreshAction.run();
-        //            
+        //
         // } catch (Exception e) {
         // e.printStackTrace();
         // } finally {
