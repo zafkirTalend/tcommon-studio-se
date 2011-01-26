@@ -33,11 +33,9 @@ import org.talend.core.context.RepositoryContext;
 import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.model.metadata.IMetadataConnection;
-import org.talend.core.model.metadata.MetadataFillFactory;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
-import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.Property;
@@ -47,7 +45,6 @@ import org.talend.core.model.update.RepositoryUpdateManager;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.designer.core.IDesignerCoreService;
-import org.talend.metadata.managment.ui.MetadataManagmentUiPlugin;
 import org.talend.metadata.managment.ui.i18n.Messages;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -267,6 +264,13 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
              */
             IMetadataConnection metadataConnection = ConvertionHelper.convert(connection);
             IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
+
+            ITDQRepositoryService tdqRepService = null;
+
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
+                tdqRepService = (ITDQRepositoryService) GlobalServiceRegister.getDefault().getService(ITDQRepositoryService.class);
+            }
+
             try {
                 if (creation) {
                     String nextId = factory.getNextId();
@@ -291,18 +295,24 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                     this.connection.setLabel(connectionProperty.getLabel());
 
                     // feature 17159
-                    if (MetadataManagmentUiPlugin.getDefault().isDataProfilePerspectiveSelected()) {
-                        metadataConnection = ConvertionHelper.convert(connection);
-                        connection = (DatabaseConnection) MetadataFillFactory.getDBInstance().fillUIConnParams(metadataConnection, connection);
-                        java.sql.Connection sqlConn = (java.sql.Connection) MetadataConnectionUtils.checkConnection(metadataConnection).getObject();
-
-                        if (sqlConn != null) {
-                            MetadataFillFactory.getDBInstance().fillCatalogs(connection, sqlConn.getMetaData(), null);
-                            MetadataFillFactory.getDBInstance().fillSchemas(connection, sqlConn.getMetaData(), null);
-                        }
-                    }
+                    // if (MetadataManagmentUiPlugin.getDefault().isDataProfilePerspectiveSelected()) {
+                    // metadataConnection = ConvertionHelper.convert(connection);
+                    // connection = (DatabaseConnection)
+                    // MetadataFillFactory.getDBInstance().fillUIConnParams(metadataConnection, connection);
+                    // java.sql.Connection sqlConn = (java.sql.Connection)
+                    // MetadataConnectionUtils.checkConnection(metadataConnection).getObject();
+                    //
+                    // if (sqlConn != null) {
+                    // MetadataFillFactory.getDBInstance().fillCatalogs(connection, sqlConn.getMetaData(), null);
+                    // MetadataFillFactory.getDBInstance().fillSchemas(connection, sqlConn.getMetaData(), null);
+                    // }
+                    // }
 
                     factory.create(connectionItem, propertiesWizardPage.getDestinationPath());
+
+                    if (tdqRepService != null) {
+                        tdqRepService.fillMetadata(connection);
+                    }
                 } else {
                     if (connectionItem.getConnection() instanceof DatabaseConnection) {
                         DatabaseConnection c = (DatabaseConnection) connectionItem.getConnection();
@@ -349,10 +359,10 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                 service.notifySQLBuilder(list);
             }
 
-            if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
-                ITDQRepositoryService service = (ITDQRepositoryService) GlobalServiceRegister.getDefault().getService(ITDQRepositoryService.class);
-                service.openEditor(connectionItem);
-                service.notifySQLExplorer(connectionItem);
+            if (tdqRepService != null) {
+                tdqRepService.openEditor(connectionItem);
+                tdqRepService.notifySQLExplorer(connectionItem);
+                tdqRepService.refresh();
             }
             return true;
         } else {
