@@ -68,7 +68,6 @@ import org.talend.core.utils.KeywordsValidator;
 import org.talend.metadata.managment.ui.i18n.Messages;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IProxyRepositoryService;
-import org.talend.repository.model.IRepositoryService;
 import org.talend.repository.model.RepositoryConstants;
 import org.talend.repository.ui.properties.StatusHelper;
 
@@ -604,8 +603,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
          */
         public Object[] getElements(Object inputElement) {
             ERepositoryObjectType type = (ERepositoryObjectType) inputElement;
-            IProxyRepositoryFactory factory = ((IRepositoryService) GlobalServiceRegister.getDefault().getService(
-                    IRepositoryService.class)).getProxyRepositoryFactory();
+            IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
             try {
                 List<String> folders = factory.getFolders(type);
                 Folder root = formdFolderTree(folders);
