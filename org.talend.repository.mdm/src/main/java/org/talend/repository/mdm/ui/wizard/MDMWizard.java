@@ -25,6 +25,8 @@ import org.eclipse.ui.IWorkbench;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
 import org.talend.commons.utils.VersionUtils;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ITDQRepositoryService;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
@@ -174,11 +176,23 @@ public class MDMWizard extends RepositoryWizard implements INewWizard {
     public boolean performFinish() {
         // if (mdmWizardPage.isPageComplete()) {
         IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
+
+        ITDQRepositoryService tdqRepService = null;
+
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
+            tdqRepService = (ITDQRepositoryService) GlobalServiceRegister.getDefault().getService(ITDQRepositoryService.class);
+        }
+
         try {
             if (creation) {
                 String nextId = factory.getNextId();
                 connectionProperty.setId(nextId);
                 factory.create(connectionItem, propertiesWizardPage.getDestinationPath());
+
+                // feature 17159
+                if (tdqRepService != null) {
+                    tdqRepService.fillMetadata(connection);
+                }
             } else {
                 RepositoryUpdateManager.updateFileConnection(connectionItem);
                 factory.save(connectionItem);
@@ -193,12 +207,13 @@ public class MDMWizard extends RepositoryWizard implements INewWizard {
         }
         List<IRepositoryViewObject> list = new ArrayList<IRepositoryViewObject>();
         list.add(repositoryObject);
-        // RepositoryPlugin.getDefault().getRepositoryService()
-        // .notifySQLBuilder(list);
+
+        if (tdqRepService != null) {
+            tdqRepService.openEditor(connectionItem);
+            tdqRepService.refresh();
+        }
+
         return true;
-        // } else {
-        // return false;
-        // }
     }
 
     @Override
