@@ -61,6 +61,7 @@ import org.talend.commons.utils.data.list.IListenableListListener;
 import org.talend.commons.utils.data.list.ListenableListEvent;
 import org.talend.commons.utils.data.text.IndiceHelper;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.IMetadataConnection;
@@ -259,6 +260,10 @@ public class DatabaseTableForm extends AbstractForm {
     private void initTreeNavigatorNodes() {
 
         List<MetadataTable> tables = ProjectNodeHelper.getTablesFromSpecifiedDataPackageWithOders(getConnection());
+        /* bug 0018514,should use connectionHelper.getTables() when the dbconnecion is SAS and the tables are empty */
+        if (tables.isEmpty() && getConnection().getDatabaseType().equals(EDatabaseTypeName.SAS.getDisplayName())) {
+            tables = ConnectionHelper.getTablesWithOrders(getConnection());
+        }
         if (metadataTable == null || tables != null && tables.isEmpty()) {
 
             if (tables != null && !tables.isEmpty()) {
