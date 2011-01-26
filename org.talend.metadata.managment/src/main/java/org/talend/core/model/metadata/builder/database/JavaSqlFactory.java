@@ -24,6 +24,7 @@ import org.talend.core.model.metadata.builder.connection.DelimitedFileConnection
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.metadata.builder.database.dburl.SupportDBUrlStore;
 import org.talend.core.model.metadata.builder.database.dburl.SupportDBUrlType;
+import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.SwitchHelpers;
 import org.talend.cwm.helper.TaggedValueHelper;
@@ -134,6 +135,9 @@ public final class JavaSqlFactory {
         // ~ 14593
         try {
             java.sql.Connection sqlConnection = ConnectionUtils.createConnection(url, driverClassName, props);
+            if (sqlConnection == null && connection instanceof DatabaseConnection) {
+                sqlConnection = MetadataConnectionUtils.checkConnection((DatabaseConnection) connection).getObject();
+            }
             rc.setObject(sqlConnection);
             rc.setOk(true);
         } catch (SQLException e) {
