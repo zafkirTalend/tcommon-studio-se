@@ -597,6 +597,8 @@ public class ExtractMetaDataUtils {
             TypedReturnCode<Connection> checkConnection = MetadataConnectionUtils.checkConnection(mconn);
             if (checkConnection.isOk()) {
                 conList.add(checkConnection.getObject());
+            } else {
+                throw new Exception(checkConnection.getMessage());
             }
 
         } else {
