@@ -203,7 +203,7 @@ public class MetadataTalendTypeEditor extends FieldEditor {
     private void initialValidator() {
         try {
             Path filePath = new Path(INTERAL_XSD_FILE);
-            Bundle b = Platform.getBundle("org.talend.core"); //$NON-NLS-1$
+            Bundle b = Platform.getBundle("org.talend.core.runtime"); //$NON-NLS-1$
             URL url = FileLocator.toFileURL(FileLocator.find(b, filePath, null));
             File xsdFile = new File(url.getFile());
 

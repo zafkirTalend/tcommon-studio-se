@@ -31,6 +31,7 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.database.DB2ForZosDataBaseMetadata;
@@ -44,9 +45,9 @@ import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 import org.talend.core.database.utils.ManagementTextUtils;
 import org.talend.core.i18n.Messages;
 import org.talend.core.model.metadata.IMetadataConnection;
+import org.talend.core.model.metadata.MetadataConnection;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
-import org.talend.core.model.metadata.MetadataConnection;
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.runtime.CoreRuntimePlugin;
@@ -576,6 +577,7 @@ public class ExtractMetaDataUtils {
         List conList = new ArrayList();
 
         String driverClassName = driverClassNameArg;
+        List<String> jarPathList = new ArrayList<String>();
 
         if (PluginChecker.isOnlyTopLoaded()) {
             if (StringUtils.isBlank(driverClassName)) {
@@ -598,7 +600,6 @@ public class ExtractMetaDataUtils {
             }
 
         } else {
-            List<String> jarPathList = new ArrayList<String>();
             // see feature 4720&4722
             if ((driverJarPathArg == null || driverJarPathArg.equals(""))) { //$NON-NLS-1$
                 List<String> driverNames = EDatabaseVersion4Drivers.getDrivers(dbType, dbVersion);
@@ -610,12 +611,27 @@ public class ExtractMetaDataUtils {
                 }
             } else {
                 // add another test with start with / in case of linux OS.
-                if (driverJarPathArg.contains("\\") || driverJarPathArg.startsWith("/")) { //$NON-NLS-1$ 
-                    jarPathList.add(driverJarPathArg);
+                if (driverJarPathArg.contains("\\") || driverJarPathArg.startsWith("/")) { //$NON-NLS-1$
+                    if (driverJarPathArg.contains(";")) {
+                        String jars[] = driverJarPathArg.split(";");
+                        for (int i = 0; i < jars.length; i++) {
+                            Path path = new Path(jars[i]);
+                            jarPathList.add(getJavaLibPath() + path.lastSegment());
+                        }
+                    } else {
+                        Path path = new Path(driverJarPathArg);
+                        jarPathList.add(getJavaLibPath() + path.lastSegment());
+                    }
                 } else {
-                    jarPathList.add(getJavaLibPath() + driverJarPathArg);
+                    if (driverJarPathArg.contains(";")) {
+                        String jars[] = driverJarPathArg.split(";");
+                        for (int i = 0; i < jars.length; i++) {
+                            jarPathList.add(getJavaLibPath() + jars[i]);
+                        }
+                    } else {
+                        jarPathList.add(getJavaLibPath() + driverJarPathArg);
+                    }
                 }
-
             }
 
             final String[] driverJarPath = jarPathList.toArray(new String[0]);
@@ -636,7 +652,8 @@ public class ExtractMetaDataUtils {
             ExtractMetaDataUtils.checkDBConnectionTimeout();
             if (dbType != null && dbType.equalsIgnoreCase(EDatabaseTypeName.GENERAL_JDBC.getXmlName())) {
                 JDBCDriverLoader loader = new JDBCDriverLoader();
-                list = loader.getConnection(driverJarPath, driverClassName, url, username, pwd, dbType, dbVersion, additionalParams);
+                list = loader.getConnection(driverJarPath, driverClassName, url, username, pwd, dbType, dbVersion,
+                        additionalParams);
                 if (list != null && list.size() > 0) {
                     for (int i = 0; i < list.size(); i++) {
                         if (list.get(i) instanceof Connection) {
@@ -651,7 +668,8 @@ public class ExtractMetaDataUtils {
             } else if (dbType != null && isValidJarFile(driverJarPath)) {
                 // Load jdbc driver class dynamicly
                 JDBCDriverLoader loader = new JDBCDriverLoader();
-                list = loader.getConnection(driverJarPath, driverClassName, url, username, pwd, dbType, dbVersion, additionalParams);
+                list = loader.getConnection(driverJarPath, driverClassName, url, username, pwd, dbType, dbVersion,
+                        additionalParams);
                 if (list != null && list.size() > 0) {
                     for (int i = 0; i < list.size(); i++) {
                         if (list.get(i) instanceof Connection) {
