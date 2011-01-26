@@ -27,6 +27,7 @@ import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
 import org.talend.commons.utils.VersionUtils;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ITDQRepositoryService;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.database.EDatabase4DriverClassName;
@@ -346,6 +347,12 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                 IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(
                         IRepositoryService.class);
                 service.notifySQLBuilder(list);
+            }
+
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
+                ITDQRepositoryService service = (ITDQRepositoryService) GlobalServiceRegister.getDefault().getService(ITDQRepositoryService.class);
+                service.openEditor(connectionItem);
+                service.notifySQLExplorer(connectionItem);
             }
             return true;
         } else {
