@@ -554,4 +554,26 @@ public final class ColumnHelper {
         return newColumn;
     }
 
+    /**
+     * 
+     * Get the column index by MetadataColumn.
+     * 
+     * @param mColumn
+     * @return
+     */
+    public static Integer getColumnIndex(MetadataColumn mColumn) {
+        MetadataTable mTable = ColumnHelper.getColumnOwnerAsMetadataTable(mColumn);
+        MetadataColumn mc = null;
+        EList<MetadataColumn> columnLs = mTable.getColumns();
+        Integer index = null;
+        for (int i = 0; i < columnLs.size(); i++) {
+            mc = (MetadataColumn) columnLs.get(i);
+            if (mColumn.equals(mc)) {
+                index = Integer.valueOf(i);
+                break;
+            }
+        }
+        return index;
+    }
+
 }
