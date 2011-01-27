@@ -42,6 +42,18 @@ public class ImportItemsTest extends TalendSwtBotForTos {
 
     private static String SAMPLE_RELATIVE_FILEPATH = "items.zip";
 
+    private String[] treeNodes = { "Business Models", "Job Designs", "Joblet Designs", "Contexts", "Code", "SQL Templates",
+            "Metadata", "Documentation" };
+
+    private String[] treeItems = { "businessTest", "jobTest", "jobletTest", "contextTest", "routineTest", "jobscriptsTest",
+            "mysqlTest", "sapTest", "delimitedFileTest", "positionalFileTest", "regexFileTest", "xmlFileTest", "excelFileTest",
+            "ldifTest", "ldapTest", "salesforceTest", "genericSchemaTest", "copybookTest", "HL7Test", "webserviceTest" };
+
+    private String[] codeNodes = { "Routines", "Job Scripts" };
+
+    private String[] metadataNodes = { "Db Connections", "SAP Connections", "File delimited", "File positional", "File regex",
+            "File xml", "File Excel", "File ldif", "LDAP", "Salesforce", "Generic schemas", "Copybook", "HL7", "Web Service" };
+
     @Before
     public void initialisePrivateFields() {
         view = gefBot.viewByTitle("Repository");
@@ -62,72 +74,42 @@ public class ImportItemsTest extends TalendSwtBotForTos {
 
         view.setFocus();
         tree.setFocus();
-        SWTBotTreeItem newBusinessItem = tree.expandNode("Business Models").select("businessTest" + " 0.1");
-        Assert.assertNotNull(newBusinessItem);
-        SWTBotTreeItem newJobItem = tree.expandNode("Job Designs").select("jobTest" + " 0.1");
-        Assert.assertNotNull(newJobItem);
-        SWTBotTreeItem newJobletItem = tree.expandNode("Joblet Designs").select("jobletTest" + " 0.1");
-        Assert.assertNotNull(newJobletItem);
-        SWTBotTreeItem newContextItem = tree.expandNode("Contexts").select("contextTest" + " 0.1");
-        Assert.assertNotNull(newContextItem);
-        SWTBotTreeItem newRoutineItem = tree.expandNode("Code", "Routines").select("routineTest" + " 0.1");
-        Assert.assertNotNull(newRoutineItem);
-        SWTBotTreeItem newJobScriptItem = tree.expandNode("Code", "Job Scripts").select("jobscriptsTest" + " 0.1");
-        Assert.assertNotNull(newJobScriptItem);
-        SWTBotTreeItem newMysqlItem = tree.expandNode("Metadata", "Db Connections").select("mysqlTest" + " 0.1");
-        Assert.assertNotNull(newMysqlItem);
-        SWTBotTreeItem newSapItem = tree.expandNode("Metadata", "SAP Connections").select("sapTest" + " 0.1");
-        Assert.assertNotNull(newSapItem);
-        SWTBotTreeItem newDelimitedFileItem = tree.expandNode("Metadata", "File delimited").select("delimitedFileTest" + " 0.1");
-        Assert.assertNotNull(newDelimitedFileItem);
-        SWTBotTreeItem newPositionalFileItem = tree.expandNode("Metadata", "File positional").select(
-                "positionalFileTest" + " 0.1");
-        Assert.assertNotNull(newPositionalFileItem);
-        SWTBotTreeItem newRegexFileItem = tree.expandNode("Metadata", "File regex").select("regexFileTest" + " 0.1");
-        Assert.assertNotNull(newRegexFileItem);
-        SWTBotTreeItem newXmlFileItem = tree.expandNode("Metadata", "File xml").select("xmlFileTest" + " 0.1");
-        Assert.assertNotNull(newXmlFileItem);
-        SWTBotTreeItem newExcelFileItem = tree.expandNode("Metadata", "File Excel").select("excelFileTest" + " 0.1");
-        Assert.assertNotNull(newExcelFileItem);
-        SWTBotTreeItem newLdifFileItem = tree.expandNode("Metadata", "File ldif").select("ldifTest" + " 0.1");
-        Assert.assertNotNull(newLdifFileItem);
-        SWTBotTreeItem newLDAPItem = tree.expandNode("Metadata", "LDAP").select("ldapTest" + " 0.1");
-        Assert.assertNotNull(newLDAPItem);
-        SWTBotTreeItem newSalesforceItem = tree.expandNode("Metadata", "Salesforce").select("salesforceTest" + " 0.1");
-        Assert.assertNotNull(newSalesforceItem);
-        SWTBotTreeItem newGenericSchemaItem = tree.expandNode("Metadata", "Generic schemas").select("genericSchemaTest" + " 0.1");
-        Assert.assertNotNull(newGenericSchemaItem);
-        SWTBotTreeItem newCopybookItem = tree.expandNode("Metadata", "Copybook").select("copybookTest" + " 0.1");
-        Assert.assertNotNull(newCopybookItem);
-        SWTBotTreeItem newHL7Item = tree.expandNode("Metadata", "HL7").select("HL7Test" + " 0.1");
-        Assert.assertNotNull(newHL7Item);
-        SWTBotTreeItem newWebServiceItem = tree.expandNode("Metadata", "Web Service").select("webserviceTest" + " 0.1");
-        Assert.assertNotNull(newWebServiceItem);
+        for (int i = 0; i < treeNodes.length; i++) {
+            if (i >= 0 && i <= 3) {
+                SWTBotTreeItem newTreeItem = tree.expandNode(treeNodes[i]).select(treeItems[i] + " 0.1");
+                Assert.assertNotNull(newTreeItem);
+            } else if (i == 4) {
+                for (int k1 = 0; k1 < codeNodes.length; k1++) {
+                    SWTBotTreeItem newCodeItem = tree.expandNode(treeNodes[i], codeNodes[k1]).select(treeItems[i + k1] + " 0.1");
+                    Assert.assertNotNull(newCodeItem);
+                }
+            } else if (i == 6) {
+                for (int k2 = 0; k2 < metadataNodes.length; k2++) {
+                    SWTBotTreeItem newMetadataItem = tree.expandNode(treeNodes[i], metadataNodes[k2]).select(
+                            treeItems[i + k2] + " 0.1");
+                    Assert.assertNotNull(newMetadataItem);
+                }
+            }
+        }
     }
 
     @After
     public void removePreviouslyCreateItems() {
-        tree.expandNode("Business Models").getNode("businessTest" + " 0.1").contextMenu("Delete").click();
-        tree.expandNode("Job Designs").getNode("jobTest" + " 0.1").contextMenu("Delete").click();
-        tree.expandNode("Joblet Designs").getNode("jobletTest" + " 0.1").contextMenu("Delete").click();
-        tree.expandNode("Contexts").getNode("contextTest" + " 0.1").contextMenu("Delete").click();
-        tree.expandNode("Code", "Routines").getNode("routineTest" + " 0.1").contextMenu("Delete").click();
-        tree.expandNode("Code", "Job Scripts").getNode("jobscriptsTest" + " 0.1").contextMenu("Delete").click();
-        tree.expandNode("Metadata", "Db Connections").getNode("mysqlTest" + " 0.1").contextMenu("Delete").click();
-        tree.expandNode("Metadata", "SAP Connections").getNode("sapTest" + " 0.1").contextMenu("Delete").click();
-        tree.expandNode("Metadata", "File delimited").getNode("delimitedFileTest" + " 0.1").contextMenu("Delete").click();
-        tree.expandNode("Metadata", "File positional").getNode("positionalFileTest" + " 0.1").contextMenu("Delete").click();
-        tree.expandNode("Metadata", "File regex").getNode("regexFileTest" + " 0.1").contextMenu("Delete").click();
-        tree.expandNode("Metadata", "File xml").getNode("xmlFileTest" + " 0.1").contextMenu("Delete").click();
-        tree.expandNode("Metadata", "File Excel").getNode("excelFileTest" + " 0.1").contextMenu("Delete").click();
-        tree.expandNode("Metadata", "File ldif").getNode("ldifTest" + " 0.1").contextMenu("Delete").click();
-        tree.expandNode("Metadata", "LDAP").getNode("ldapTest" + " 0.1").contextMenu("Delete").click();
-        tree.expandNode("Metadata", "Salesforce").getNode("salesforceTest" + " 0.1").contextMenu("Delete").click();
-        tree.expandNode("Metadata", "Generic schemas").getNode("genericSchemaTest" + " 0.1").contextMenu("Delete").click();
-        tree.expandNode("Metadata", "Copybook").getNode("copybookTest" + " 0.1").contextMenu("Delete").click();
-        tree.expandNode("Metadata", "HL7").getNode("HL7Test" + " 0.1").contextMenu("Delete").click();
-        tree.expandNode("Metadata", "Web Service").getNode("webserviceTest" + " 0.1").contextMenu("Delete").click();
-
+        for (int i = 0; i < treeNodes.length; i++) {
+            if (i >= 0 && i <= 3) {
+                tree.expandNode(treeNodes[i]).getNode(treeItems[i] + " 0.1").contextMenu("Delete").click();
+            } else if (i == 4) {
+                for (int k1 = 0; k1 < codeNodes.length; k1++) {
+                    tree.expandNode(treeNodes[i], codeNodes[k1]).getNode(treeItems[i + k1] + " 0.1").contextMenu("Delete")
+                            .click();
+                }
+            } else if (i == 6) {
+                for (int k2 = 0; k2 < metadataNodes.length; k2++) {
+                    tree.expandNode(treeNodes[i], metadataNodes[k2]).getNode(treeItems[i + k2] + " 0.1").contextMenu("Delete")
+                            .click();
+                }
+            }
+        }
         tree.getTreeItem("Recycle bin").contextMenu("Empty recycle bin").click();
         gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
         gefBot.button("Yes").click();
