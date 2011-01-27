@@ -323,6 +323,16 @@ public class ContextTemplateComposite extends AbstractContextTabEditComposite {
                             Messages.getString("ContextProcessSection.errorTitle"), Messages.getString("ContextProcessSection.ParameterNameIsNotValid")); //$NON-NLS-1$ //$NON-NLS-2$
             return false;
         }
+        // fix 0017942: It is unlimited for total characters of context variable name
+        if (null != newParamName && !"".equals(newParamName)) { //$NON-NLS-1$
+            if (newParamName.length() > 255) {
+                MessageDialog
+                        .openError(
+                                this.getShell(),
+                                Messages.getString("ContextProcessSection.errorTitle"), Messages.getString("ContextTemplateComposite.ParamterLengthInvilid")); //$NON-NLS-1$ //$NON-NLS-2$
+                return false;
+            }
+        }
 
         onContextRenameParameter(getContextManager(), oldParamName, newParamName);
         return true;
