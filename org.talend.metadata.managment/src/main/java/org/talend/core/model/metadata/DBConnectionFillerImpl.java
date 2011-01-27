@@ -223,7 +223,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 schemas.close();
                 // handle case of SQLite (no schema no catalog)
                 ResultSet catalogs = dbJDBCMetadata.getCatalogs();
-                if (!hasSchema || catalogs.wasNull()) {
+                if (!hasSchema) {
                     // create a fake schema with an empty name (otherwise queries will use the name and will fail)
                     Schema schema = SchemaHelper.createSchema(" "); //$NON-NLS-1$
                     returnSchemas.add(schema);

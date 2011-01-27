@@ -144,8 +144,11 @@ public abstract class MetadataFillerImpl implements IMetadataFiller {
                 metadataConnection.setProduct(product);
                 // set mapping(DbmsId)
                 if (!ReponsitoryContextBridge.isDefautProject()) {
-                    String mapping = MetadataTalendType.getDefaultDbmsFromProduct(product).getId();
-                    metadataConnection.setMapping(mapping);
+                    Dbms defaultDbmsFromProduct = MetadataTalendType.getDefaultDbmsFromProduct(product);
+                    if (defaultDbmsFromProduct != null) {
+                        String mapping = defaultDbmsFromProduct.getId();
+                        metadataConnection.setMapping(mapping);
+                    }
                 }
                 // set dbVersionString
                 List<EDatabaseVersion4Drivers> dbTypeList = EDatabaseVersion4Drivers.indexOfByDbType(ParamValue);
