@@ -124,4 +124,9 @@ public abstract class AbstractExternalNode extends AbstractNode implements IExte
     public INode getJobletNode() {
         return null;
     }
+
+    public void setExternalEmfData(AbstractExternalData externalEmfData) {
+        // TODO Auto-generated method stub
+
+    }
 }
