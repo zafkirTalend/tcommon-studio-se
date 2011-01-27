@@ -114,8 +114,12 @@ public class SchemaCellEditor extends DialogCellEditor {
             // for SAP
             SAPConnectionItem sapItem = getSAPRepositoryItem();
             if (sapItem != null) {
+                boolean readonly = node.getProcess().isReadOnly();
+                if (node.getJobletNode() != null) {
+                    readonly = node.isReadOnly();
+                }
                 SchemaOperationChoiceDialog choiceDialog = new SchemaOperationChoiceDialog(cellEditorWindow.getShell(), node,
-                        sapItem, EProcessType.CREATE, schemaToEdit, node.getProcess().isReadOnly());
+                        sapItem, EProcessType.CREATE, schemaToEdit, readonly);
                 if (choiceDialog.open() == Window.OK) {
                     if (choiceDialog.getSelctionType() == ESelectionCategory.REPOSITORY) {
                         org.talend.core.model.metadata.builder.connection.MetadataTable selectedMetadataTable = choiceDialog
@@ -127,8 +131,8 @@ public class SchemaCellEditor extends DialogCellEditor {
                                 index = getTableViewer().getTable().getSelectionIndex();
                             }
                             //
-                            executeCommand(new RepositoryChangeMetadataForSAPCommand(node, ISAPConstant.TABLE_SCHEMAS, metaTable
-                                    .getLabel(), metaTable, index));
+                            executeCommand(new RepositoryChangeMetadataForSAPCommand(node, ISAPConstant.TABLE_SCHEMAS,
+                                    metaTable.getLabel(), metaTable, index));
                             //
                             if (getTableViewer() != null) {
                                 getTableViewer().refresh(true);
@@ -179,8 +183,8 @@ public class SchemaCellEditor extends DialogCellEditor {
             }
 
             // built-in
-            InputDialog dialogInput = new InputDialog(cellEditorWindow.getShell(), Messages
-                    .getString("SchemaCellEditor.giveSchemaName"), Messages.getString("SchemaCellEditor.schemaName"), //$NON-NLS-1$ //$NON-NLS-2$
+            InputDialog dialogInput = new InputDialog(cellEditorWindow.getShell(),
+                    Messages.getString("SchemaCellEditor.giveSchemaName"), Messages.getString("SchemaCellEditor.schemaName"), //$NON-NLS-1$ //$NON-NLS-2$
                     "", new IInputValidator() { //$NON-NLS-1$
 
                         public String isValid(String newText) {

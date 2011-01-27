@@ -37,6 +37,8 @@ public abstract class UpdateResult {
 
     private ConnectionItem connItem;
 
+    private boolean needReloadJoblet = true;
+
     /**
      * Getter for readOnlyProcess.
      * 
@@ -199,4 +201,12 @@ public abstract class UpdateResult {
     public abstract String getName();
 
     public abstract String getCategory();
+
+    public boolean isNeedReloadJoblet() {
+        return needReloadJoblet;
+    }
+
+    public void setNeedReloadJoblet(boolean needReloadJoblet) {
+        this.needReloadJoblet = needReloadJoblet;
+    }
 }

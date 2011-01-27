@@ -193,7 +193,7 @@ public abstract class JobEditorInput extends RepositoryEditorInput {
      * 
      * bug 10925/11491
      */
-    private void resetItem() throws PersistenceException {
+    public void resetItem() throws PersistenceException {
         if (getItem().getProperty().eResource() == null || getItem().eResource() == null) {
             IRepositoryService service = CorePlugin.getDefault().getRepositoryService();
             IProxyRepositoryFactory factory = service.getProxyRepositoryFactory();

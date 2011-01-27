@@ -22,6 +22,7 @@ import org.eclipse.ui.part.MultiPageEditorPart;
 import org.talend.core.IService;
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.process.EConnectionType;
+import org.talend.core.model.process.IElement;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.INodeConnector;
@@ -36,6 +37,8 @@ import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 public interface IJobletProviderService extends IService {
 
     public boolean isJobletComponent(INode node);
+
+    public boolean isJobletInOutComponent(INode node);
 
     public Property getJobletComponentItem(INode node);
 
@@ -77,6 +80,18 @@ public interface IJobletProviderService extends IService {
 
     public SelectionAction getMoveToJobletAction(IWorkbenchPart part, INode jobletNode);
 
+    public SelectionAction getMoveToJobAction(IWorkbenchPart part);
+
     public MultiPageEditorPart openJobletEditor(INode jobletNode, IWorkbenchPage page);
+
+    public void saveJobletNode(JobletProcessItem jobletItem, IElement jobletContainer);
+
+    public boolean lockJoblet(INode node);
+
+    public void unlockJoblet(INode node);
+
+    public void checkAddNodes(IElement jobletContainer);
+
+    public void checkDeleteNodes(IElement jobletContainer);
 
 }

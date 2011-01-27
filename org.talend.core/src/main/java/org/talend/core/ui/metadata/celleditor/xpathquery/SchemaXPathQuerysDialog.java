@@ -108,7 +108,11 @@ public class SchemaXPathQuerysDialog extends Dialog {
     public Control createDialogArea(Composite parent) {
         Composite composite = (Composite) super.createDialogArea(parent);
         //
-        final boolean readonly = node.getProcess().isReadOnly();
+        boolean ronly = node.getProcess().isReadOnly();
+        if (node.getJobletNode() != null) {
+            ronly = node.isReadOnly();
+        }
+        final boolean readonly = ronly;
         metadataTableEditor = new XPathQueryMetadataTableEditorExt(metadataTable, ""); //$NON-NLS-1$
         metadataTableEditorView = new XPathQueryMetadataTableEditorViewExt(composite, SWT.BORDER, metadataTableEditor, readonly,
                 !readonly);

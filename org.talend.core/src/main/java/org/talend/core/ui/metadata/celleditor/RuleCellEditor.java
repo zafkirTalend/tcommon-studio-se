@@ -146,8 +146,12 @@ public class RuleCellEditor extends DialogCellEditor {
                 }
             }
             if (findRepositoryItem && rulesItem.getExtension().equals(DRL_EXTENSION)) { // open dialog for repository
+                boolean readonly = node.getProcess().isReadOnly();
+                if (node.getJobletNode() != null) {
+                    readonly = node.isReadOnly();
+                }
                 ruleChoiceDialog = new RuleOperationChoiceDialog(cellEditorWindow.getShell(), node, repositoryRuleItems,
-                        linkRuleItems, EProcessTypeForRule.CREATE, ruleToEdit, node.getProcess().isReadOnly());
+                        linkRuleItems, EProcessTypeForRule.CREATE, ruleToEdit, readonly);
                 if (ruleChoiceDialog.open() == Window.OK && ruleChoiceDialog.isRepositoryBtnChecked()) {
                     return TalendTextUtils.QUOTATION_MARK + ruleChoiceDialog.getSelectedRuleFileName()
                             + TalendTextUtils.QUOTATION_MARK;
