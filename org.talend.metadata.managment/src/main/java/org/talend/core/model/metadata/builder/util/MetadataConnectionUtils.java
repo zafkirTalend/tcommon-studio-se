@@ -139,7 +139,12 @@ public class MetadataConnectionUtils {
         if (StringUtils.isNotBlank(dbUrl) && StringUtils.isNotBlank(driver)) {
             java.sql.Connection sqlConn = null;
             try {
-                sqlConn = ConnectionUtils.createConnection(dbUrl, getClassDriver(metadataBean), props);
+                if (StringUtils.isEmpty(metadataBean.getDriverJarPath())) {
+                    sqlConn = ConnectionUtils.createConnection(dbUrl, getClassDriver(metadataBean), props);
+                } else {
+                    sqlConn = ConnectionUtils.createConnection(dbUrl, metadataBean.getDriverClass(), props);
+                }
+
                 ReturnCode varc = ConnectionUtils.isValid(sqlConn);
                 if (varc.isOk()) {
                     rc.setObject(sqlConn);
@@ -363,6 +368,7 @@ public class MetadataConnectionUtils {
         Driver driver = DRIVER_CACHE.get(driverClassName);
         // The case for generalJDBC
         String driverPath = metadataBean.getDriverJarPath();
+        
         if (StringUtils.isEmpty(driverPath)) {
             if (driver != null) {
                 return driver;

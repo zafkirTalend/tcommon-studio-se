@@ -19,7 +19,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
 import java.util.Properties;
 
@@ -86,17 +85,7 @@ public final class ConnectionUtils {
             InstantiationException, IllegalAccessException, ClassNotFoundException {
         Connection connection = null;
         if (driver != null) {
-            DriverManager.registerDriver(driver);
-
-            if (log.isDebugEnabled()) {
-                log.debug("Enumerating all drivers:");
-                Enumeration<Driver> drivers = DriverManager.getDrivers();
-                while (drivers.hasMoreElements()) {
-                    log.debug(drivers.nextElement());
-                }
-            }
-
-            connection = DriverManager.getConnection(url, props);
+            connection = driver.connect(url, props);
         }
         return connection;
     }
