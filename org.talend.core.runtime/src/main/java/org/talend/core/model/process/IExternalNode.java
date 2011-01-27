@@ -92,5 +92,7 @@ public interface IExternalNode extends INode {
 
     public AbstractExternalData getExternalEmfData();
 
+    public void setExternalEmfData(AbstractExternalData externalEmfData);
+
     public void buildExternalData(AbstractExternalData abstractData);
 }
