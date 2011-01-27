@@ -329,7 +329,7 @@ public class ContextTemplateComposite extends AbstractContextTabEditComposite {
                 MessageDialog
                         .openError(
                                 this.getShell(),
-                                Messages.getString("ContextProcessSection.errorTitle"), Messages.getString("ContextTemplateComposite.ParamterLengthInvilid")); //$NON-NLS-1$ //$NON-NLS-2$
+                                Messages.getString("ContextProcessSection.errorTitle"), Messages.getString(Messages.getString("ContextTemplateComposite.ParamterLengthInvilid"))); //$NON-NLS-1$ //$NON-NLS-2$
                 return false;
             }
         }
