@@ -86,6 +86,8 @@ public interface IJobletProviderService extends IService {
 
     public void saveJobletNode(JobletProcessItem jobletItem, IElement jobletContainer);
 
+    public boolean isLock(INode in);
+
     public boolean lockJoblet(INode node);
 
     public void unlockJoblet(INode node);
