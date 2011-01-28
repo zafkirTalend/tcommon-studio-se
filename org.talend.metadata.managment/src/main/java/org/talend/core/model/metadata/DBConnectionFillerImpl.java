@@ -396,19 +396,23 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             ResultSet tables = dbJDBCMetadata.getTables(catalogName, schemaPattern, tablePattern, tableType);
             String productName = dbJDBCMetadata.getDatabaseProductName();
             while (tables.next()) {
-                // if TableType is view type don't create it at here.
+                String tableCatalog = tables.getString(GetTable.TABLE_CAT.name());
+                String tableSchema = tables.getString(GetTable.TABLE_SCHEM.name());
+                String tableName = tables.getString(GetTable.TABLE_NAME.name());
                 String temptableType = tables.getString(GetTable.TABLE_TYPE.name());
+
+                // if TableType is view type don't create it at here.
                 if (TableType.VIEW.toString().equals(temptableType)) {
                     continue;
                 }
 
-                String tableName = tables.getString(GetTable.TABLE_NAME.name());
+                // for
                 if (!filterMetadaElement(tableFilter, tableName)) {
                     continue;
                 }
                 String tableOwner = null;
                 if (MetadataConnectionUtils.isSybase(dbJDBCMetadata.getConnection())) {
-                    tableOwner = tables.getString(GetTable.TABLE_SCHEM.name());
+                    tableOwner = tableSchema;
                 }
                 // common
                 String tableComment = tables.getString(GetTable.REMARKS.name());
@@ -559,17 +563,22 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 column.setLength(column_size);
                 decimalDigits = columns.getInt(GetColumn.DECIMAL_DIGITS.name());
                 numPrecRadix = columns.getInt(GetColumn.NUM_PREC_RADIX.name());
+
+                // SqlDataType
+                TdSqlDataType sqlDataType = MetadataConnectionUtils.createDataType(dataType, typeName, decimalDigits, numPrecRadix);
+                column.setSqlDataType(sqlDataType);
+
+                // Null able
+                int nullable = columns.getInt(GetColumn.NULLABLE.name());
+                column.getSqlDataType().setNullable(NullableType.get(nullable));
+
+                // Comment
                 String colComment = columns.getString(GetColumn.REMARKS.name());
                 if (colComment == null) {
                     colComment = "";
                 }
-                // Comment
                 ColumnHelper.setComment(colComment, column);
-                TdSqlDataType sqlDataType = MetadataConnectionUtils.createDataType(dataType, typeName, decimalDigits,
-                        numPrecRadix);
-                // SqlDataType
-                column.setSqlDataType(sqlDataType);
-                column.getSqlDataType().setNullable(NullableType.get(columns.getInt(GetColumn.NULLABLE.name())));
+
                 // TdExpression
                 Object defaultvalue = null;
                 try {
@@ -670,8 +679,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     ResultSet pkResult = dbJDBCMetadata.getPrimaryKeys(catalogName, schemaName, tableName);
                     PrimaryKey primaryKey = null;
                     while (pkResult.next()) {
-                        String pkName = pkResult.getString(GetPrimaryKey.PK_NAME.name());
                         String colName = pkResult.getString(GetPrimaryKey.COLUMN_NAME.name());
+                        String pkName = pkResult.getString(GetPrimaryKey.PK_NAME.name());
                         if (pkName == null) {
                             continue;
                         }
