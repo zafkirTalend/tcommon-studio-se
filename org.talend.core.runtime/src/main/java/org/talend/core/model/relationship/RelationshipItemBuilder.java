@@ -473,7 +473,6 @@ public class RelationshipItemBuilder {
         if (!loaded) {
             loadRelations();
         }
-        modified = true;
 
         ProcessType processType = null;
         if (item instanceof ProcessItem) {
@@ -483,6 +482,17 @@ public class RelationshipItemBuilder {
             processType = ((JobletProcessItem) item).getJobletProcess();
         }
         if (processType != null) {
+            modified = true;
+            Relation relation = new Relation();
+            relation.setId(item.getProperty().getId());
+            relation.setType(getTypeFromItem(item));
+            relation.setVersion(item.getProperty().getVersion());
+
+            List<Relation> oldProjectRelations = null;
+            if (currentProjectItemsRelations.containsKey(relation)) {
+                oldProjectRelations = new ArrayList<Relation>(currentProjectItemsRelations.get(relation));
+            }
+
             clearItemsRelations(item);
 
             Boolean builtIn = null;
@@ -502,7 +512,6 @@ public class RelationshipItemBuilder {
             }
 
             // routine dependencies
-
             if (processType.getParameters() == null || processType.getParameters().getRoutinesParameter() == null) {
                 ParametersType parameterType = TalendFileFactory.eINSTANCE.createParametersType();
                 processType.setParameters(parameterType);
@@ -658,9 +667,21 @@ public class RelationshipItemBuilder {
                     }
                 }
             }
-        }
-        if (!fromMigration) {
-            saveRelations();
+            if (oldProjectRelations != null) {
+                // check if there is any changes on the relations.
+                List<Relation> newProjectRelations = currentProjectItemsRelations.get(relation);
+                if (oldProjectRelations.size() == newProjectRelations.size()) {
+                    modified = false;
+                    for (Relation newRelation : newProjectRelations) {
+                        if (!oldProjectRelations.contains(newRelation)) {
+                            modified = true;
+                        }
+                    }
+                }
+            }
+            if (!fromMigration && modified) {
+                saveRelations();
+            }
         }
     }
 

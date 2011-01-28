@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.repository.ui.actions.metadata;
+package org.talend.core.repository.ui.actions.metadata;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.util.EList;
