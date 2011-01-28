@@ -327,7 +327,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             try {
                 schemaRs = dbJDBCMetadata.getSchemas();
             } catch (SQLException e) {
-                log.error(e, e);
+                if (log.isDebugEnabled()) {
+                    log.debug(e, e);
+                }
             }
         }
 
@@ -359,8 +361,10 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
 
             }
             schemaRs.close();
-        } catch (SQLException e) {
-            log.error(e, e);
+        } catch (Exception e) {
+            if (log.isDebugEnabled()) {
+                log.debug(e, e);
+            }
         }
 
         return schemaList;
