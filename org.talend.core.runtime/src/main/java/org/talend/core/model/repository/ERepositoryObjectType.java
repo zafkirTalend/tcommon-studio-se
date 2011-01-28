@@ -121,6 +121,8 @@ public enum ERepositoryObjectType {
     METADATA_GENERIC_SCHEMA("repository.metadataGenericSchema", "repository.metadataGenericSchema.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     METADATA_LDAP_SCHEMA("repository.metadataLDAPSchema", "repository.metadataLDAPSchema.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     METADATA_VALIDATION_RULES("repository.metadataValidationRules", "repository.metadataValidationRules.alias"), //$NON-NLS-1$ //$NON-NLS-2$
+    METADATA_VALIDATIONS_RULES_FOLDER(
+                                      "repository.metadataValidationRulesFolder", "repository.metadataValidationRulesFolder.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     FOLDER("repository.folder"), //$NON-NLS-1$
     REFERENCED_PROJECTS("repository.referencedProjects", "repository.referencedProjects.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     GENERATED("repository.generated"), //$NON-NLS-1$
