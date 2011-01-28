@@ -174,7 +174,7 @@ public abstract class MetadataFillerImpl implements IMetadataFiller {
             } else if ("retrieveAllMetadata".equalsIgnoreCase(paramKey)) {
                 metadataConnection.setRetrieveAllMetadata(Boolean.valueOf(ParamValue));
             } else if ("name".equalsIgnoreCase(paramKey)) {
-                metadataConnection.setDataSourceName(ParamValue);
+                metadataConnection.setLabel(ParamValue);
             } else if ("purpose".equalsIgnoreCase(paramKey)) {
                 metadataConnection.setPurpose(ParamValue);
             } else if ("description".equalsIgnoreCase(paramKey)) {
@@ -193,6 +193,8 @@ public abstract class MetadataFillerImpl implements IMetadataFiller {
                 metadataConnection.setUniverse(ParamValue);
             } else if ("datafilter".equalsIgnoreCase(paramKey)) {
                 metadataConnection.setDatafilter(ParamValue);
+            } else if ("dbName".equalsIgnoreCase(paramKey)) {
+                metadataConnection.setDataSourceName(ParamValue);
             }
         }
         return metadataConnection;

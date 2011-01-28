@@ -45,6 +45,7 @@ import org.talend.core.model.update.RepositoryUpdateManager;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.designer.core.IDesignerCoreService;
+import org.talend.metadata.managment.ui.MetadataManagmentUiPlugin;
 import org.talend.metadata.managment.ui.i18n.Messages;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -294,20 +295,6 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                     this.connection.setName(connectionProperty.getLabel());
                     this.connection.setLabel(connectionProperty.getLabel());
 
-                    // feature 17159
-                    // if (MetadataManagmentUiPlugin.getDefault().isDataProfilePerspectiveSelected()) {
-                    // metadataConnection = ConvertionHelper.convert(connection);
-                    // connection = (DatabaseConnection)
-                    // MetadataFillFactory.getDBInstance().fillUIConnParams(metadataConnection, connection);
-                    // java.sql.Connection sqlConn = (java.sql.Connection)
-                    // MetadataConnectionUtils.checkConnection(metadataConnection).getObject();
-                    //
-                    // if (sqlConn != null) {
-                    // MetadataFillFactory.getDBInstance().fillCatalogs(connection, sqlConn.getMetaData(), null);
-                    // MetadataFillFactory.getDBInstance().fillSchemas(connection, sqlConn.getMetaData(), null);
-                    // }
-                    // }
-
                     factory.create(connectionItem, propertiesWizardPage.getDestinationPath());
 
                     if (tdqRepService != null) {
@@ -360,9 +347,11 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
             }
 
             if (tdqRepService != null) {
-                tdqRepService.openEditor(connectionItem);
                 tdqRepService.notifySQLExplorer(connectionItem);
-                tdqRepService.refresh();
+                if (MetadataManagmentUiPlugin.getDefault().isDataProfilePerspectiveSelected()) {
+                    tdqRepService.openEditor(connectionItem);
+                    tdqRepService.refresh();
+                }
             }
             return true;
         } else {
