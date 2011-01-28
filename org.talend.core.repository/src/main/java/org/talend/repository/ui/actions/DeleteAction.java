@@ -169,19 +169,10 @@ public class DeleteAction extends AContextualAction {
                                     Object label = node.getProperties(EProperties.LABEL);
                                     if (ENodeType.SIMPLE_FOLDER.equals(node.getType())
                                             && ERepositoryObjectType.SQLPATTERNS.equals(node.getContentType())
-                                            && (label.equals(Messages.getString("DeleteAction.SqlTemplates.LabelName.Generic"))
-                                                    || label.equals(Messages
-                                                            .getString("DeleteAction.SqlTemplates.LabelName.MySQL"))
-                                                    || label.equals(Messages
-                                                            .getString("DeleteAction.SqlTemplates.LabelName.Netezza"))
-                                                    || label.equals(Messages
-                                                            .getString("DeleteAction.SqlTemplates.LabelName.Oracle"))
-                                                    || label.equals(Messages
-                                                            .getString("DeleteAction.SqlTemplates.LabelName.ParAccel"))
-                                                    || label.equals(Messages
-                                                            .getString("DeleteAction.SqlTemplates.LabelName.Teradata")) || label
-                                                    .equals(Messages.getString("DeleteAction.SqlTemplates.LabelName.Hive")))
-                                            || label.equals(Messages.getString("DeleteAction.SqlTemplates.LabelName.UserDefined"))) {
+                                            && (label.equals("Generic") || label.equals("UserDefined") || label.equals("MySQL")
+                                                    || label.equals("Netezza") || label.equals("Oracle")
+                                                    || label.equals("ParAccel") || label.equals("Teradata"))
+                                            || label.equals("Hive")) {
                                         isSqlTemplate = true;
 
                                     }
