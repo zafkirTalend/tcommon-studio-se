@@ -1290,7 +1290,12 @@ public class ExtractMetaDataFromDataBase {
                     tableCommentsMap.put(nameKey, colComment);
                 }
                 tableCommentsMap.put(nameKey, colComment);
-
+                // bug 0017782 ,db2's SYNONYM need to convert to ALIAS;
+                if (tableTypeMap.containsKey(nameKey)) {
+                    tableTypeMap.remove(nameKey);
+                    tableTypeMap.put(nameKey, resultSet.getString("TABLE_TYPE"));
+                } else
+                    tableTypeMap.put(nameKey, resultSet.getString("TABLE_TYPE"));
             }
             resultSet.close();
         }
@@ -1310,7 +1315,13 @@ public class ExtractMetaDataFromDataBase {
         String tableNamePattern = "".equals(namePattern) ? null : namePattern; //$NON-NLS-1$
         String[] types = new String[tableInfo.getTypes().size()];
         for (int i = 0; i < types.length; i++) {
-            types[i] = tableInfo.getTypes().get(i).getName();
+            final String selectedTypeName = tableInfo.getTypes().get(i).getName();
+            // bug 0017782 ,db2's SYNONYM need to convert to ALIAS;
+            if ("SYNONYM".equals(selectedTypeName)
+                    && iMetadataConnection.getDbType().equals(EDatabaseTypeName.IBMDB2.getDisplayName())) {
+                types[i] = "ALIAS";
+            } else
+                types[i] = selectedTypeName;
         }
         DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn,
                 iMetadataConnection.getDbType());
