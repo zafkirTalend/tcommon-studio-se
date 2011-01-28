@@ -15,6 +15,7 @@ package org.talend.designer.mapper;
 import java.util.List;
 
 import org.talend.core.IService;
+import org.talend.core.model.process.IConnection;
 import org.talend.core.model.process.IExternalData;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
@@ -37,4 +38,8 @@ public interface IDesignerMapperService extends IService {
     public void renameJoinTable(IProcess process, IExternalData data, List<String> createdNames);
 
     public List<String> getJoinTableNames(IExternalData data);
+
+    public void createAutoMappedNode(INode node, IConnection inputConnection, IConnection outputConnection);
+
+    public void updateLink(INode node, IConnection oldConnection, IConnection newConnection);
 }
