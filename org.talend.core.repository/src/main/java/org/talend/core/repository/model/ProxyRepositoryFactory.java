@@ -817,6 +817,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * @see org.talend.repository.model.IProxyRepositoryFactory#lock(org.talend.core.model.properties.Item)
      */
     public void lock(Item item) throws PersistenceException, LoginException {
+        // getStatus(item)
         if (getStatus(item).isPotentiallyEditable()) {
             this.repositoryFactoryFromProvider.lock(item);
             // i18n
@@ -2424,7 +2425,6 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         return this.repositoryFactoryFromProvider.getTdqRepositoryViewObjects(project, type, folderName, options);
     }
 
-
     /**
      * DOC bZhou Comment method "getProperty".
      * 
@@ -2440,7 +2440,8 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                 XmiResourceManager resourceManager = this.repositoryFactoryFromProvider.getResourceManager();
                 if (resourceManager != null && resourceManager.resourceSet != null) {
                     Resource propertyResource = resourceManager.resourceSet.getResource(propertyURI, true);
-                    return (Property) EcoreUtil.getObjectByType(propertyResource.getContents(), PropertiesPackage.eINSTANCE.getProperty());
+                    return (Property) EcoreUtil.getObjectByType(propertyResource.getContents(),
+                            PropertiesPackage.eINSTANCE.getProperty());
                 }
             }
         }
