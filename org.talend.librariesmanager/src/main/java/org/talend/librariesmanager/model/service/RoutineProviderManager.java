@@ -54,7 +54,9 @@ public class RoutineProviderManager {
         List<IRoutinesProvider> providers = new ArrayList<IRoutinesProvider>();
         for (IRoutineProviderCreator creator : providerCreators) {
             IRoutinesProvider provider = creator.createIRoutinesProviderByLanguage(lan);
-            providers.add(provider);
+            if (provider != null) {
+                providers.add(provider);
+            }
         }
 
         return providers;
