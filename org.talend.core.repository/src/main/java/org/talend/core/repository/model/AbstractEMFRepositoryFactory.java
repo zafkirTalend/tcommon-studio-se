@@ -1129,4 +1129,12 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
             String folderName, boolean[] options) throws PersistenceException {
         return getObjectFromFolder(project, type, folderName, true, options);
     }
+
+    public boolean canLock(Item item) throws PersistenceException {
+        return true;
+    }
+
+    public boolean canUnlock(Item item) throws PersistenceException {
+        return true;
+    }
 }

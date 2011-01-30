@@ -514,4 +514,8 @@ public interface IRepositoryFactory {
      */
     public RootContainer<String, IRepositoryViewObject> getTdqRepositoryViewObjects(Project project, ERepositoryObjectType type,
             String folderName, boolean[] options) throws PersistenceException;
+
+    public boolean canLock(Item item) throws PersistenceException;
+
+    public boolean canUnlock(Item item) throws PersistenceException;
 }
