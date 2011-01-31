@@ -73,4 +73,12 @@
             class="org.talend.librariesmanager.model.service.TosRoutinesProviderCreator">
       </RoutinesProvider>
    </extension>
+   <extension
+         point="org.talend.core.java_type">
+      <JavaType
+            Name="Document"
+            displayInContext="true"
+            nullableClass="routines.system.Document">
+      </JavaType>
+   </extension>
 </plugin>
