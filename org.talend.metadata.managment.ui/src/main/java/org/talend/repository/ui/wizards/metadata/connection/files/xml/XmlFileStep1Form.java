@@ -396,7 +396,7 @@ public class XmlFileStep1Form extends AbstractXmlFileStepForm {
 
                 // if (getConnection().getFileContent() == null || getConnection().getFileContent().length <= 0 &&
                 // !isModifing) {
-                if (!file.getPath().endsWith(".xml")) {
+                if (!file.getPath().endsWith(".xml")) { //$NON-NLS-1$
                     setFileContent(file);
                 }
                 // }
@@ -586,12 +586,12 @@ public class XmlFileStep1Form extends AbstractXmlFileStepForm {
         if (fsProject == null) {
             return;
         }
-        String temPath = fsProject.getLocationURI().getPath() + File.separator + "temp";
-        String fileName = "";
-        if (getConnection().getXmlFilePath() != null && getConnection().getXmlFilePath().endsWith(".xml")) {
-            fileName = "tempXMLFile.xml";
-        } else if (getConnection().getXmlFilePath() != null && getConnection().getXmlFilePath().endsWith(".xsd")) {
-            fileName = "tempXSDFile.xsd";
+        String temPath = fsProject.getLocationURI().getPath() + File.separator + "temp"; //$NON-NLS-1$
+        String fileName = ""; //$NON-NLS-1$
+        if (getConnection().getXmlFilePath() != null && getConnection().getXmlFilePath().endsWith(".xml")) { //$NON-NLS-1$
+            fileName = "tempXMLFile.xml"; //$NON-NLS-1$
+        } else if (getConnection().getXmlFilePath() != null && getConnection().getXmlFilePath().endsWith(".xsd")) { //$NON-NLS-1$
+            fileName = "tempXSDFile.xsd"; //$NON-NLS-1$
         }
         File temfile = new File(temPath + File.separator + fileName);
 
