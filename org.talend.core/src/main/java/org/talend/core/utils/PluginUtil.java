@@ -31,15 +31,21 @@ public class PluginUtil {
      */
     public static String getPluginInstallPath(String pluginId) {
         String pluginPath = null;
-        String productPath = getProductInstallPath();
-        String pluginLocation = Platform.getBundle(pluginId).getLocation();
-        String pluginRelativePath = "";
-        if (pluginLocation.lastIndexOf(":") != -1) {
-            pluginRelativePath = pluginLocation.substring(pluginLocation.lastIndexOf(":") + 1);
-        } else {
-            pluginRelativePath = pluginLocation;
+        try {
+            URL url = FileLocator.resolve(Platform.getBundle(pluginId).getEntry("/")); //$NON-NLS-1$
+            if (url == null)
+                return null;
+            pluginPath = url.getFile();
+            String protoPath = url.getProtocol();
+            if (pluginPath.startsWith("file:")) { //$NON-NLS-1$
+                pluginPath = pluginPath.substring(pluginPath.indexOf("file:") + 6); //$NON-NLS-1$
+            }
+            if ("jar".equals(protoPath) && pluginPath.endsWith("!/")) { //$NON-NLS-1$ //$NON-NLS-2$
+                pluginPath = pluginPath.substring(0, pluginPath.lastIndexOf("!/")); //$NON-NLS-1$
+            }
+        } catch (IOException e) {
+            ExceptionHandler.process(e);
         }
-        pluginPath = productPath.concat(pluginRelativePath);
         return pluginPath;
     }
 
@@ -49,23 +55,7 @@ public class PluginUtil {
      * @return
      */
     public static String getProductInstallPath() {
-        return convertUrlToString(Platform.getInstallLocation().getURL());
-    }
-
-    /**
-     * DOC ycbai Convert url to local string.
-     * 
-     * @param url
-     * @return
-     */
-    public static String convertUrlToString(URL url) {
-        String str = null;
-        try {
-            str = FileLocator.toFileURL(url).getFile();
-        } catch (IOException e) {
-            ExceptionHandler.process(e);
-        }
-        return str;
+        return (Platform.getInstallLocation().getURL()).getFile();
     }
 
 }
