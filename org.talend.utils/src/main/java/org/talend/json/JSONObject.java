@@ -1304,7 +1304,7 @@ public class JSONObject {
      */
     public String toString() {
         try {
-            Iterator     keys = keys();
+            Iterator     keys = sortedKeys();
             StringBuffer sb = new StringBuffer("{");
 
             while (keys.hasNext()) {
