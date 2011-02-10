@@ -1653,11 +1653,6 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
             coreService.deleteAllJobs(false);
 
             currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
-            currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.synchronizeLibraries"), 1); //$NON-NLS-1$
-            coreService.syncLibraries(currentMonitor);
-            // monitorWrap.worked(1);
-
-            currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
             currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.synch.repo.items"), 1); //$NON-NLS-1$
             try {
                 coreService.syncAllRoutines();
@@ -1668,7 +1663,15 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
             if (PluginChecker.isRulesPluginLoaded()) {
                 coreService.syncAllRules();
             }
-            // monitorWrap.worked(1);
+            currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
+            currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.synchronizeLibraries"), 1); //$NON-NLS-1$
+            coreService.syncLibraries(currentMonitor);
+
+            // sap
+            if (PluginChecker.isSAPWizardPluginLoaded()) {
+                coreService.synchronizeSapLib();
+            }
+
             if (!CommonsPlugin.isHeadless()) {
                 coreService.initializeTemplates();
             }
