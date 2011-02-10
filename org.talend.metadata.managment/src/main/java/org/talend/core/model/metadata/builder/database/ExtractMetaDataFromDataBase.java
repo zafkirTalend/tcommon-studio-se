@@ -1291,7 +1291,9 @@ public class ExtractMetaDataFromDataBase {
                 if (!isDerby) {
                     if (EDatabaseTypeName.ORACLEFORSID.getProduct().equals(iMetadataConnection.getProduct())
                             && iMetadataConnection.getDbVersionString() != null
-                            && iMetadataConnection.getDbVersionString().equals("ORACLE_8")) {
+                            && iMetadataConnection.getDbVersionString().equals("ORACLE_8")
+                            || EDatabaseTypeName.GENERAL_JDBC.getProduct().equals(iMetadataConnection.getProduct())
+                            && iMetadataConnection.getDriverJarPath().contains("ojdbc12-8i.jar")) {
                         colComment = getTableComment(nameKey, resultSet, false);
                     } else {
                         colComment = getTableComment(nameKey, resultSet, true);
