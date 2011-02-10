@@ -176,9 +176,12 @@ public class ExtractMetaDataFromDataBase {
             try {
                 stmt = ExtractMetaDataUtils.conn.createStatement();
                 ExtractMetaDataUtils.setQueryStatementTimeout(stmt);
-                ResultSet rsTables = stmt.executeQuery(TableInfoParameters.ORACLE_10G_RECBIN_SQL);
-                tablesToFilter = getTableNamesFromQuery(rsTables);
-                rsTables.close();
+                if (iMetadataConnection.getDbVersionString() != null
+                        && !iMetadataConnection.getDbVersionString().equals("ORACLE_8")) {
+                    ResultSet rsTables = stmt.executeQuery(TableInfoParameters.ORACLE_10G_RECBIN_SQL);
+                    tablesToFilter = getTableNamesFromQuery(rsTables);
+                    rsTables.close();
+                }
                 stmt.close();
             } catch (SQLException e) {
                 ExceptionHandler.process(e);
@@ -1133,7 +1136,9 @@ public class ExtractMetaDataFromDataBase {
             throw new RuntimeException(e);
         }
         // filter tables or viewer from the recyclebin in the Oracle 10g.
-        if (EDatabaseTypeName.ORACLEFORSID.getProduct().equals(iMetadataConnection.getProduct())) {
+        if (EDatabaseTypeName.ORACLEFORSID.getProduct().equals(iMetadataConnection.getProduct())
+                && iMetadataConnection.getDbVersionString() != null
+                && !iMetadataConnection.getDbVersionString().equals("ORACLE_8")) {
             filterTablesFromRecycleBin(itemTablesName);
         }
         ExtractMetaDataUtils.closeConnection();
@@ -1279,7 +1284,13 @@ public class ExtractMetaDataFromDataBase {
                 }
                 String colComment = "";//$NON-NLS-N$
                 if (!isDerby) {
-                    colComment = getTableComment(nameKey, resultSet, true);
+                    if (EDatabaseTypeName.ORACLEFORSID.getProduct().equals(iMetadataConnection.getProduct())
+                            && iMetadataConnection.getDbVersionString() != null
+                            && iMetadataConnection.getDbVersionString().equals("ORACLE_8")) {
+                        colComment = getTableComment(nameKey, resultSet, false);
+                    } else {
+                        colComment = getTableComment(nameKey, resultSet, true);
+                    }
                 }
                 itemTablesName.add(nameKey); //$NON-NLS-1$
                 if (ExtractMetaDataFromDataBase.tableCommentsMap.containsKey(nameKey)) {
