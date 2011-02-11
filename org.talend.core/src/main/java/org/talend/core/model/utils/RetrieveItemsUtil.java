@@ -99,15 +99,24 @@ public final class RetrieveItemsUtil {
                         && (withLocked || status != ERepositoryStatus.LOCK_BY_OTHER && status != ERepositoryStatus.LOCK_BY_USER)) {
 
                     if (withLastVersion) {
-                        tmpObjects.add(lastVersion);
+                        if (!getTheSameObject(tmpObjects, lastVersion)) {
+                            tmpObjects.add(lastVersion);
+                        }
 
                     } else {
                         Item item = lastVersion.getProperty().getItem();
                         ERepositoryObjectType objectType = ERepositoryObjectType.getItemType(item);
                         List<IRepositoryViewObject> allVersion = factory.getAllVersion(lastVersion.getId(), item.getState()
                                 .getPath(), objectType);
+                        if (allVersion == null) {
+                            continue;
+                        }
+                        for (IRepositoryViewObject version : allVersion) {
+                            if (!getTheSameObject(tmpObjects, version)) {
+                                tmpObjects.add(version);
+                            }
+                        }
 
-                        tmpObjects.addAll(allVersion);
                     }
                 }
             }
@@ -115,6 +124,19 @@ public final class RetrieveItemsUtil {
 
         return tmpObjects;
 
+    }
+
+    private static boolean getTheSameObject(List<IRepositoryViewObject> tmpObjects, IRepositoryViewObject version) {
+        if (version == null) {
+            return true;
+        }
+        List<IRepositoryViewObject> tmpList = new ArrayList<IRepositoryViewObject>(tmpObjects);
+        for (IRepositoryViewObject obj : tmpList) {
+            if (obj.getProperty().equals(version.getProperty())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
