@@ -1084,46 +1084,6 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
 
     protected abstract <K, T> List<T> getMetadatasByFolder(Project project, ERepositoryObjectType type, IPath path);
 
-    public RootContainer<String, IRepositoryViewObject> getAnalysis(Project project, boolean... options)
-            throws PersistenceException {
-        return getObjectFromFolder(project, ERepositoryObjectType.TDQ_ANALYSIS, true, options);
-    }
-
-    /**
-     * DOC klliu Comment method "getReport".
-     * 
-     * @param project
-     * @param options
-     * @return
-     */
-    public RootContainer<String, IRepositoryViewObject> getReport(Project project, boolean[] options) throws PersistenceException {
-        return getObjectFromFolder(project, ERepositoryObjectType.TDQ_REPORT_ELEMENT, true, options);
-    }
-
-    public RootContainer<String, IRepositoryViewObject> getIndicatorDefinitions(Project project, ERepositoryObjectType type,
-            boolean[] options) throws PersistenceException {
-        return getObjectFromFolder(project, type, true, options);
-    }
-
-    public RootContainer<String, IRepositoryViewObject> getPatterns(Project project, ERepositoryObjectType type, boolean[] options)
-            throws PersistenceException {
-        return getObjectFromFolder(project, type, true, options);
-    }
-
-    public RootContainer<String, IRepositoryViewObject> getRules(Project project, ERepositoryObjectType type, boolean[] options)
-            throws PersistenceException {
-        return getObjectFromFolder(project, type, true, options);
-    }
-
-    public RootContainer<String, IRepositoryViewObject> getJrxmlTemplates(Project project, ERepositoryObjectType type,
-            boolean[] options) throws PersistenceException {
-        return getObjectFromFolder(project, type, true, options);
-    }
-
-    public RootContainer<String, IRepositoryViewObject> getSourceFiles(Project project, ERepositoryObjectType type,
-            boolean[] options) throws PersistenceException {
-        return getObjectFromFolder(project, type, true, options);
-    }
 
     public RootContainer<String, IRepositoryViewObject> getTdqRepositoryViewObjects(Project project, ERepositoryObjectType type,
             String folderName, boolean[] options) throws PersistenceException {
