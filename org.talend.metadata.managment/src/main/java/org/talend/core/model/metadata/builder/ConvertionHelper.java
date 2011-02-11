@@ -46,7 +46,7 @@ public final class ConvertionHelper {
     }
 
     public static IMetadataConnection convert(DatabaseConnection sourceConnection, boolean defaultContext) {
-        return convert(sourceConnection, false, null);
+        return convert(sourceConnection, defaultContext, null);
     }
 
     public static IMetadataConnection convert(DatabaseConnection sourceConnection, boolean defaultContext, String selectedContext) {

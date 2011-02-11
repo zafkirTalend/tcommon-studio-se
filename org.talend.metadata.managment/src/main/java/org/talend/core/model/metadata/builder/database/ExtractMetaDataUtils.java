@@ -788,7 +788,7 @@ public class ExtractMetaDataUtils {
      * @return
      */
     public static String getDBConnectionSchema(DatabaseConnection dbConnection) {
-        IMetadataConnection imetadataConnection = ConvertionHelper.convert(dbConnection);
+        IMetadataConnection imetadataConnection = ConvertionHelper.convert(dbConnection, true);
         return imetadataConnection.getSchema();
     }
 }
