@@ -14,8 +14,11 @@
   </scm>
   
   <modules>
+  	<!-- 
     <module>org.talend.tac-assembly.selenium.test</module>
     <module>org.talend.tac-tests.selenium.test</module>
+     -->
+    <module>org.talend.tac-function.selenium.test</module>
   </modules>
 
   <build>
