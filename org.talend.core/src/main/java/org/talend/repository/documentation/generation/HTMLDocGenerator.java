@@ -297,17 +297,21 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
             org.w3c.dom.Element element = (org.w3c.dom.Element) list.item(0);
             String value = element.getChildNodes().item(0).getNodeValue();
             if (value != null) {
-                CSSParserUtils.createCssFile(value, folder + File.separator + "default.css");
+                if (folder != null) {
+                    CSSParserUtils.createCssFile(value, folder + File.separator + "default.css");
+                }
                 if (cssfile != null && !cssfile.equals("")) {
-                    String cssName = new File(cssfile).getName();
-                    if (cssName.equalsIgnoreCase("default.css")) {
-                        cssName = "User_" + cssName;
+                    if (folder != null) {
+                        String cssName = new File(cssfile).getName();
+                        if (cssName.equalsIgnoreCase("default.css")) {
+                            cssName = "User_" + cssName;
+                        }
+                        File file = new File(folder + File.separator + cssName);
+                        if (!file.exists()) {
+                            file.createNewFile();
+                        }
+                        FileCopyUtils.copy(cssfile, folder + File.separator + cssName);
                     }
-                    File file = new File(folder + File.separator + cssName);
-                    if (!file.exists()) {
-                        file.createNewFile();
-                    }
-                    FileCopyUtils.copy(cssfile, folder + File.separator + cssName);
                     CSSRuleList ruleList = CSSParserUtils.parserCSSSelectors(null, cssfile);
                     if (ruleList == null) {
                         return;
@@ -394,6 +398,28 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
         // FileCopyUtils.copy(logoFilePath, picFolderPath + File.separatorChar
         // + IHTMLDocConstants.TALEND_LOGO_FILE_NAME);
 
+        // if set css file in preference.
+        boolean isCheck = CorePlugin.getDefault().getPreferenceStore().getBoolean(ITalendCorePrefConstants.USE_CSS_TEMPLATE);
+        String cssFile = CorePlugin.getDefault().getPreferenceStore().getString(ITalendCorePrefConstants.CSS_FILE_PATH);
+        String temXslPath = null;
+        if (isCheck && cssFile != null && !cssFile.equals("")) {
+            String tempFolderPath = checkTempDirIsExists(resource);
+            temXslPath = tempFolderPath + File.separator + (new File(xslFilePath)).getName();
+            File temXslFile = new File(temXslPath);
+            if (temXslFile.exists()) {
+                temXslFile.delete();
+            }
+            generateXslFile(xslFilePath, temXslPath, cssFile, null);
+            // if no new xls generated, use default xsl
+            File temFile = new File(temXslPath);
+            if (!temFile.exists()) {
+                temXslPath = null;
+            }
+            if (temXslPath == null) {
+                temXslPath = xslFilePath;
+            }
+        }
+
         picList.add(logoFile.toURL());
         // Property property = item.getProperty();
         // String jobName = property.getLabel();
@@ -459,11 +485,13 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
             picList.add(new File(picFolderPath + File.separatorChar + key).toURL());
         }
 
-        List<URL> resultFiles = parseXml2HtmlPdf(targetPath, jobName + "_" + version, xslFilePath); //$NON-NLS-1$
+        List<URL> resultFiles = parseXml2HtmlPdf(targetPath, jobName + "_" + version, temXslPath); //$NON-NLS-1$
 
         resource.addResources(resultFiles);
 
         resource.addResources(IHTMLDocConstants.PIC_FOLDER_NAME, picList);
+
+        HTMLDocUtils.deleteTempFiles();
 
         // List<URL> externalList = getExternalHtmlPath();
         // resource.addResources(IHTMLDocConstants.EXTERNAL_FOLDER_NAME, externalList);

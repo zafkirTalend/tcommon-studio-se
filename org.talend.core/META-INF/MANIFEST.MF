@@ -26,8 +26,7 @@ Require-Bundle: org.talend.model,
  org.talend.libraries.apache,
  org.talend.libraries.javacsv;resolution:=optional,
  org.talend.libraries.css;resolution:=optional,
- org.talend.libraries.jexcel;resolution:=optional,
- org.talend.libraries.w3c;resolution:=optional
+ org.talend.libraries.jexcel;resolution:=optional
 Bundle-Vendor: .Talend SA.
 Export-Package: org.talend.core,
  org.talend.core.i18n,
