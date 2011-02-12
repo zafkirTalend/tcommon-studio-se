@@ -128,10 +128,10 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
         String repositoryId = "org.talend.repository.views.repository"; //$NON-NLS-1$
 
         String runProcessViewId = "org.talend.designer.runprocess.ui.views.processview"; //$NON-NLS-1$
-        String problemsViewId = "org.talend.designer.core.ui.views.ProblemsView"; //$NON-NLS-1$
+        //        String problemsViewId = "org.talend.designer.core.ui.views.ProblemsView"; //$NON-NLS-1$
         String modulesViewId = "org.talend.designer.codegen.perlmodule.ModulesView"; //$NON-NLS-1$
         String ecosystemViewId = "org.talend.designer.components.ecosystem.ui.views.EcosystemView"; //$NON-NLS-1$
-        String schedulerViewId = "org.talend.scheduler.views.Scheduler"; //$NON-NLS-1$
+        //        String schedulerViewId = "org.talend.scheduler.views.Scheduler"; //$NON-NLS-1$
         String contextsViewId = "org.talend.designer.core.ui.views.ContextsView"; //$NON-NLS-1$
         String gefPaletteViewId = "org.eclipse.gef.ui.palette_view"; //$NON-NLS-1$
         String jobSettingsViewId = "org.talend.designer.core.ui.views.jobsettings.JobSettingsView"; //$NON-NLS-1$
@@ -148,6 +148,7 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
                 repositoryId);
         leftBottomLayout.addView(outlineId);
         leftBottomLayout.addView(codeId);
+        leftBottomLayout.addView(jobHierarchyViewId);
 
         IFolderLayout rightTopLayout = layout.createFolder("paletteLayout", IPageLayout.RIGHT, new Float(0.8), //$NON-NLS-1$
                 IPageLayout.ID_EDITOR_AREA);
@@ -162,11 +163,11 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
         bottomLayout.addView(componentSettingViewerId);
 
         bottomLayout.addView(runProcessViewId);
-        bottomLayout.addView(problemsViewId);
+        // bottomLayout.addView(problemsViewId);
         bottomLayout.addView(modulesViewId);
         bottomLayout.addView(ecosystemViewId);
-        bottomLayout.addView(schedulerViewId);
-        bottomLayout.addView(jobHierarchyViewId);
+        // bottomLayout.addView(schedulerViewId);
+
         bottomLayout.addPlaceholder("*");
 
     }
