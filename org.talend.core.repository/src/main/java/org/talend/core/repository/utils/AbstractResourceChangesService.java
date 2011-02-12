@@ -48,4 +48,7 @@ public class AbstractResourceChangesService implements IService {
         return null;
     }
 
+    public boolean isAnalysisOrReportItem(Item item) {
+        return false;
+    };
 }

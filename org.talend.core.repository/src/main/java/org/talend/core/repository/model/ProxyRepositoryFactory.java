@@ -2252,7 +2252,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      */
     public RootContainer<String, IRepositoryViewObject> getTdqRepositoryViewObjects(ERepositoryObjectType itemType,
             String folderName) throws PersistenceException {
-        return getTdqRepositoryViewObjects(projectManager.getCurrentProject(), itemType, folderName);
+        return getTdqRepositoryViewObjects(projectManager.getCurrentProject(), itemType, folderName, true);
     }
 
     /**

@@ -2022,7 +2022,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             // MOD mzhao resource change listener so that TOP can react the changes.
             AbstractResourceChangesService resChangeService = TDQServiceRegister.getInstance().getResourceChangeService(
                     AbstractResourceChangesService.class);
-
+            if (resChangeService.isAnalysisOrReportItem(item)) {
+                path = Path.EMPTY;
+            }
             itemResource = resChangeService.create(project2, item, eClass.getClassifierID(), path);
             if (itemResource == null) {
                 throw new UnsupportedOperationException();
