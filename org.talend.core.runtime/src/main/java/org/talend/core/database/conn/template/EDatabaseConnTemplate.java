@@ -98,7 +98,8 @@ public enum EDatabaseConnTemplate {
             "jdbc:interbase://<host>/<sid>")), //$NON-NLS-1$
 
     FIREBIRD(new DbConnStr(EDatabaseTypeName.FIREBIRD, //
-            "jdbc:firebirdsql:<host>:<filename>")), //$NON-NLS-1$
+            "jdbc:firebirdsql:<host>/<port>:<filename>", //$NON-NLS-1$
+            "3050")), //$NON-NLS-1$
 
     INFORMIX(new DbConnStr(EDatabaseTypeName.INFORMIX, //
             "jdbc:informix-sqli://<host>:<port>/<sid>:informixserver=<datasource>;<property>")), //$NON-NLS-1$

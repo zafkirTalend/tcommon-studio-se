@@ -72,8 +72,8 @@ import org.talend.metadata.managment.ui.i18n.Messages;
 import org.talend.repository.ui.swt.utils.AbstractForm;
 import org.talend.repository.ui.utils.ConnectionContextHelper;
 import org.talend.repository.ui.utils.DBConnectionContextUtils;
-import org.talend.repository.ui.utils.ManagerConnection;
 import org.talend.repository.ui.utils.DBConnectionContextUtils.EDBParamName;
+import org.talend.repository.ui.utils.ManagerConnection;
 
 /**
  * @author ocarbone
@@ -501,7 +501,8 @@ public class DatabaseForm extends AbstractForm {
         browseJarFilesButton.setText("..."); //$NON-NLS-1$
         browseJarFilesButton.setToolTipText(Messages.getString("DatabaseForm.selectJar")); //$NON-NLS-1$
 
-        generalJdbcClassNameText = new LabelledCombo(generalDbCompositeParent, Messages.getString("DatabaseForm.general.classname"), "", null, true); //$NON-NLS-1$
+        generalJdbcClassNameText = new LabelledCombo(generalDbCompositeParent,
+                Messages.getString("DatabaseForm.general.classname"), "", null, true); //$NON-NLS-1$
 
         browseClassButton = new Button(generalDbCompositeParent, SWT.NONE);
         browseClassButton.setText("..."); //$NON-NLS-1$
@@ -1917,9 +1918,10 @@ public class DatabaseForm extends AbstractForm {
         boolean isMySQL = visible && asMySQLVersionEnable();
         boolean isVertica = visible && asVerticaVersionEnable();
 
-        dbVersionCombo.setEnabled(!isReadOnly()
-                && (isOracle || isAS400 || isMySQL || isVertica || EDatabaseConnTemplate.ACCESS.getDBTypeName().equals(
-dbTypeCombo.getText()) || EDatabaseConnTemplate.MSSQL05_08
+        dbVersionCombo
+                .setEnabled(!isReadOnly()
+                        && (isOracle || isAS400 || isMySQL || isVertica
+                                || EDatabaseConnTemplate.ACCESS.getDBTypeName().equals(dbTypeCombo.getText()) || EDatabaseConnTemplate.MSSQL05_08
                                 .getDBDisplayName().equals(dbTypeCombo.getText())));
         usernameText.setEditable(visible);
         passwordText.setEditable(visible);
@@ -2081,6 +2083,11 @@ dbTypeCombo.getText()) || EDatabaseConnTemplate.MSSQL05_08
             } else {
                 additionParamText.hide();
                 addContextParams(EDBParamName.AdditionalParams, false);
+            }
+            if (EDatabaseConnTemplate.FIREBIRD.equals(template)) {
+                portText.show();
+                portText.setEditable(true);
+                addContextParams(EDBParamName.Port, true);
             }
         }
 
