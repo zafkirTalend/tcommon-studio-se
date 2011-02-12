@@ -7,7 +7,7 @@
             class="org.talend.rcp.perspective.Perspective"
             icon="icons/appli_16x16.png"
             id="org.talend.rcp.perspective"
-            name="Design Workspace">
+            name="Data Integration">
       </perspective>
    </extension>
    
