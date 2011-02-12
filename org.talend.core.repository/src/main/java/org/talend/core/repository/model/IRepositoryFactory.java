@@ -15,6 +15,7 @@ package org.talend.core.repository.model;
 import java.util.List;
 
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.SubMonitor;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
@@ -431,7 +432,6 @@ public interface IRepositoryFactory {
 
     public XmiResourceManager getResourceManager();
 
-
     /**
      * DOC xqliu Comment method "getTdqRepositoryViewObjects".
      * 
@@ -448,4 +448,6 @@ public interface IRepositoryFactory {
     public boolean canLock(Item item) throws PersistenceException;
 
     public boolean canUnlock(Item item) throws PersistenceException;
+
+    public void executeMigrations(Project mainProject, boolean beforeLogon, SubMonitor monitorWrap);
 }

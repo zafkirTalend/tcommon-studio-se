@@ -14,8 +14,10 @@ package org.talend.core.model.relationship;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Level;
@@ -93,9 +95,9 @@ public class RelationshipItemBuilder {
 
     public static RelationshipItemBuilder instance;
 
-    private Map<Relation, List<Relation>> currentProjectItemsRelations;
+    private Map<Relation, Set<Relation>> currentProjectItemsRelations;
 
-    private Map<Relation, List<Relation>> referencesItemsRelations;
+    private Map<Relation, Set<Relation>> referencesItemsRelations;
 
     private boolean loaded = false;
 
@@ -114,8 +116,8 @@ public class RelationshipItemBuilder {
         if (!loaded) {
             loadRelations();
         }
-        List<Relation> relations = new ArrayList<Relation>();
-        List<Relation> itemsRelations = getItemsRelatedTo(currentProjectItemsRelations, itemId, version, relationType);
+        Set<Relation> relations = new HashSet<Relation>();
+        Set<Relation> itemsRelations = getItemsRelatedTo(currentProjectItemsRelations, itemId, version, relationType);
         if (itemsRelations != null) {
             relations.addAll(itemsRelations);
         }
@@ -123,10 +125,10 @@ public class RelationshipItemBuilder {
         if (itemsRelations != null) {
             relations.addAll(itemsRelations);
         }
-        return relations;
+        return new ArrayList<Relation>(relations);
     }
 
-    private List<Relation> getItemsRelatedTo(Map<Relation, List<Relation>> itemsRelations, String itemId, String version,
+    private Set<Relation> getItemsRelatedTo(Map<Relation, Set<Relation>> itemsRelations, String itemId, String version,
             String relationType) {
 
         Relation itemToTest = new Relation();
@@ -138,7 +140,7 @@ public class RelationshipItemBuilder {
             return itemsRelations.get(itemToTest);
         }
 
-        List<Relation> relations = new ArrayList<Relation>();
+        Set<Relation> relations = new HashSet<Relation>();
 
         for (Relation baseItem : itemsRelations.keySet()) {
             for (Relation relatedItem : itemsRelations.get(baseItem)) {
@@ -156,8 +158,8 @@ public class RelationshipItemBuilder {
         if (!loaded) {
             loadRelations();
         }
-        List<Relation> relations = new ArrayList<Relation>();
-        List<Relation> itemsRelations = getItemsJobRelatedTo(currentProjectItemsRelations, itemId, version, relationType);
+        Set<Relation> relations = new HashSet<Relation>();
+        Set<Relation> itemsRelations = getItemsJobRelatedTo(currentProjectItemsRelations, itemId, version, relationType);
         if (itemsRelations != null) {
             relations.addAll(itemsRelations);
         }
@@ -165,20 +167,20 @@ public class RelationshipItemBuilder {
         if (itemsRelations != null) {
             relations.addAll(itemsRelations);
         }
-        return relations;
+        return new ArrayList<Relation>(relations);
     }
 
-    private List<Relation> getItemsJobRelatedTo(Map<Relation, List<Relation>> itemsRelations, String itemId, String version,
+    private Set<Relation> getItemsJobRelatedTo(Map<Relation, Set<Relation>> itemsRelations, String itemId, String version,
             String relationType) {
 
         Relation itemToTest = new Relation();
-        List<Relation> jobRelations = new ArrayList<Relation>();
+        Set<Relation> jobRelations = new HashSet<Relation>();
 
         itemToTest.setId(itemId);
         itemToTest.setType(relationType);
         itemToTest.setVersion(version);
         if (itemsRelations.containsKey(itemToTest)) {
-            List<Relation> relations = itemsRelations.get(itemToTest);
+            Set<Relation> relations = itemsRelations.get(itemToTest);
             for (Relation relatedItem : relations) {
                 if (relatedItem.getType().equals(relationType)) {
                     jobRelations.add(relatedItem);
@@ -190,13 +192,19 @@ public class RelationshipItemBuilder {
         return jobRelations;
     }
 
+    public void unloadRelations() {
+        loaded = false;
+        currentProjectItemsRelations = new HashMap<Relation, Set<Relation>>();
+        referencesItemsRelations = new HashMap<Relation, Set<Relation>>();
+    }
+
     private void loadRelations() {
         if (loading) {
             return;
         }
         loading = true;
-        currentProjectItemsRelations = new HashMap<Relation, List<Relation>>();
-        referencesItemsRelations = new HashMap<Relation, List<Relation>>();
+        currentProjectItemsRelations = new HashMap<Relation, Set<Relation>>();
+        referencesItemsRelations = new HashMap<Relation, Set<Relation>>();
 
         Project currentProject = ProjectManager.getInstance().getCurrentProject();
         loadRelations(currentProjectItemsRelations, currentProject);
@@ -211,7 +219,7 @@ public class RelationshipItemBuilder {
 
     }
 
-    private void loadRelations(Map<Relation, List<Relation>> itemRelations, Project project) {
+    private void loadRelations(Map<Relation, Set<Relation>> itemRelations, Project project) {
 
         for (Object o : project.getEmfProject().getItemsRelations()) {
             ItemRelations relations = (ItemRelations) o;
@@ -229,7 +237,7 @@ public class RelationshipItemBuilder {
             baseItem.setType(relations.getBaseItem().getType());
             baseItem.setVersion(relations.getBaseItem().getVersion());
 
-            itemRelations.put(baseItem, new ArrayList<Relation>());
+            itemRelations.put(baseItem, new HashSet<Relation>());
             for (Object o2 : relations.getRelatedItems()) {
                 ItemRelation emfRelatedItem = (ItemRelation) o2;
 
@@ -330,16 +338,16 @@ public class RelationshipItemBuilder {
         addedRelation.setType(type);
         addedRelation.setVersion(relatedVersion);
         addedRelation.setName(relatedInSystem);
-        Map<Relation, List<Relation>> itemRelations = getRelatedRelations(baseItem);
+        Map<Relation, Set<Relation>> itemRelations = getRelatedRelations(baseItem);
 
         if (!itemRelations.containsKey(relation)) {
-            itemRelations.put(relation, new ArrayList<Relation>());
+            itemRelations.put(relation, new HashSet<Relation>());
         }
         itemRelations.get(relation).add(addedRelation);
     }
 
-    private Map<Relation, List<Relation>> getRelatedRelations(Item baseItem) {
-        Map<Relation, List<Relation>> itemRelations = currentProjectItemsRelations;
+    private Map<Relation, Set<Relation>> getRelatedRelations(Item baseItem) {
+        Map<Relation, Set<Relation>> itemRelations = currentProjectItemsRelations;
         if (!ProjectManager.getInstance().isInCurrentMainProject(baseItem)) {
             itemRelations = referencesItemsRelations;
         }
@@ -351,7 +359,7 @@ public class RelationshipItemBuilder {
         return !project.getEmfProject().getItemsRelations().isEmpty();
     }
 
-    private void buildIndex(Map<Relation, List<Relation>> itemRelations, Project project, IProgressMonitor monitor) {
+    private void buildIndex(Map<Relation, Set<Relation>> itemRelations, Project project, IProgressMonitor monitor) {
         modified = true;
 
         if (!project.getEmfProject().getItemsRelations().isEmpty()) {
@@ -488,9 +496,9 @@ public class RelationshipItemBuilder {
             relation.setType(getTypeFromItem(item));
             relation.setVersion(item.getProperty().getVersion());
 
-            List<Relation> oldProjectRelations = null;
+            Set<Relation> oldProjectRelations = null;
             if (currentProjectItemsRelations.containsKey(relation)) {
-                oldProjectRelations = new ArrayList<Relation>(currentProjectItemsRelations.get(relation));
+                oldProjectRelations = new HashSet<Relation>(currentProjectItemsRelations.get(relation));
             }
 
             clearItemsRelations(item);
@@ -669,7 +677,7 @@ public class RelationshipItemBuilder {
             }
             if (oldProjectRelations != null) {
                 // check if there is any changes on the relations.
-                List<Relation> newProjectRelations = currentProjectItemsRelations.get(relation);
+                Set<Relation> newProjectRelations = currentProjectItemsRelations.get(relation);
                 if (oldProjectRelations.size() == newProjectRelations.size()) {
                     modified = false;
                     for (Relation newRelation : newProjectRelations) {
@@ -705,7 +713,7 @@ public class RelationshipItemBuilder {
             relation.setType(getTypeFromItem(item));
             relation.setVersion(item.getProperty().getVersion());
 
-            Map<Relation, List<Relation>> itemRelations = getRelatedRelations(item);
+            Map<Relation, Set<Relation>> itemRelations = getRelatedRelations(item);
 
             if (itemRelations.containsKey(relation)) {
                 itemRelations.get(relation).clear();

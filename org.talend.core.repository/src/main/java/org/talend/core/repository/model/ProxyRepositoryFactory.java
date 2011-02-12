@@ -232,18 +232,8 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
     }
 
     /* hywang for 17295,need to migration refProjects when login using svn repository */
-    private void executeMigrationForRefProjects(Project mainProject, boolean beforeLogon, IMigrationToolService service,
-            SubMonitor monitorWrap) {
-        if (service != null) {
-            List<Project> subProjects = ProjectManager.getInstance().getReferencedProjects(mainProject);
-            if (subProjects.size() == 0) {
-                return;
-            }
-            for (Project subProject : new ArrayList<Project>(subProjects)) {
-                service.executeProjectTasks(subProject, beforeLogon, monitorWrap);
-                executeMigrationForRefProjects(subProject, beforeLogon, service, monitorWrap);
-            }
-        }
+    private void executeMigrations(Project mainProject, boolean beforeLogon, SubMonitor monitorWrap) {
+        this.repositoryFactoryFromProvider.executeMigrations(mainProject, beforeLogon, monitorWrap);
     }
 
     private boolean checkFileNameAndPath(Project project, Item item, String pattern, IPath path, boolean folder,
@@ -1618,9 +1608,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
 
             currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
             currentMonitor.beginTask("Execute before logon migrations tasks", 1); //$NON-NLS-1$
-            IMigrationToolService service = (IMigrationToolService) GlobalServiceRegister.getDefault().getService(
-                    IMigrationToolService.class);
-            service.executeProjectTasks(project, true, currentMonitor);
+            executeMigrations(project, true, currentMonitor);
             // monitorWrap.worked(1);
 
             currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
@@ -1643,12 +1631,8 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
 
             currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
             currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.exec.migration.tasks"), 1); //$NON-NLS-1$
-            service.executeProjectTasks(project, false, currentMonitor);
-            // monitorWrap.worked(1);
+            executeMigrations(project, false, currentMonitor);
 
-            if (!project.isLocal() && PluginChecker.isSVNProviderPluginLoaded()) {
-                executeMigrationForRefProjects(project, false, service, currentMonitor);
-            }
             // clean workspace
             coreService.deleteAllJobs(false);
 
@@ -2257,7 +2241,6 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
     public List<IRepositoryViewObject> getMetadataByFolder(ERepositoryObjectType itemType, IPath path) {
         return repositoryFactoryFromProvider.getMetadataByFolder(projectManager.getCurrentProject(), itemType, path);
     }
-
 
     /**
      * DOC xqliu Comment method "getTdqRepositoryViewObjects".
