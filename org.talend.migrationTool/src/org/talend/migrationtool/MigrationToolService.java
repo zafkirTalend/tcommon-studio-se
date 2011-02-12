@@ -77,6 +77,8 @@ public class MigrationToolService implements IMigrationToolService {
                 return o1.getOrder().compareTo(o2.getOrder());
             }
         });
+        // force to redo this migration task, even if already did before.
+        done.remove("org.talend.repository.model.migration.AutoUpdateRelationsMigrationTask");
 
         final SubProgressMonitor subProgressMonitor = new SubProgressMonitor(monitorWrap, toExecute.size());
 

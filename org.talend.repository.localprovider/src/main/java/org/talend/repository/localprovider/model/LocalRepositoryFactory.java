@@ -38,6 +38,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
@@ -70,6 +71,7 @@ import org.talend.core.model.metadata.MetadataManager;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
+import org.talend.core.model.migration.IMigrationToolService;
 import org.talend.core.model.properties.BRMSConnectionItem;
 import org.talend.core.model.properties.BusinessProcessItem;
 import org.talend.core.model.properties.ByteArray;
@@ -864,7 +866,25 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     protected FolderHelper getFolderHelper(org.talend.core.model.properties.Project emfProject) {
-        return LocalFolderHelper.createInstance(emfProject, getRepositoryContext().getUser());
+        // add this code to select the user directly from the project instead of get the one from
+        // getRepositoryContext().getUser().
+        // this avoids problems in case of commit with projects with references.
+        // (Reference projects will take the user from main project, so create wrong link..)
+
+        // note: same code added for svn repository
+
+        Collection<User> users = EcoreUtil.getObjectsByType(emfProject.eResource().getContents(),
+                PropertiesPackage.eINSTANCE.getUser());
+        User user = null;
+        for (User projectUser : users) {
+            user = projectUser;
+            if (projectUser.getLogin().equals(getRepositoryContext().getUser().getLogin())) {
+                user = projectUser;
+                break;
+            }
+        }
+
+        return LocalFolderHelper.createInstance(emfProject, user);
     }
 
     /**
@@ -966,6 +986,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                             return false;
                         }
                         if (path.toPortableString().equals("lib")) { //$NON-NLS-1$
+                            return false;
+                        }
+                        if (path.lastSegment().equals(".svnlog")) { //$NON-NLS-1$
                             return false;
                         }
 
@@ -2473,5 +2496,11 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
      */
     public XmiResourceManager getResourceManager() {
         return this.xmiResourceManager;
+    }
+
+    public void executeMigrations(Project mainProject, boolean beforeLogon, SubMonitor monitorWrap) {
+        IMigrationToolService service = (IMigrationToolService) GlobalServiceRegister.getDefault().getService(
+                IMigrationToolService.class);
+        service.executeProjectTasks(mainProject, beforeLogon, monitorWrap);
     }
 }
