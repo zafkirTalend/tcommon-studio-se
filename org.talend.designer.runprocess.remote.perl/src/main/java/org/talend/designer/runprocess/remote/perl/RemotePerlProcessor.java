@@ -15,6 +15,7 @@ package org.talend.designer.runprocess.remote.perl;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.process.IProcess;
+import org.talend.core.model.process.ITargetExecutionConfig;
 import org.talend.core.model.properties.Property;
 import org.talend.core.ui.ICommandlineClientService;
 import org.talend.designer.core.perl.runprocess.PerlProcessor;
@@ -45,11 +46,13 @@ public class RemotePerlProcessor extends PerlProcessor {
 
     public Process run(int statisticsPort, int tracePort, String watchParam, IProgressMonitor monitor,
             IProcessMessageManager processMessageManager) throws ProcessorException {
-        if (manager.getTargetExecutionconfigureation().isRemote()) {
+        ITargetExecutionConfig jobserverConfig = manager.getTargetExecutionconfigureation();
+        if (jobserverConfig.isRemote()) {
             ICommandlineClientService cmdLineService = getCommandlineClientService();
-            if (cmdLineService != null && manager.getTargetExecutionconfigureation().getCommandlineServerConfig() != null) {
-                Process p = cmdLineService.deployAndRunByCommandline(manager.getTargetExecutionconfigureation(), this,
-                        statisticsPort, tracePort, watchParam);
+            if (cmdLineService != null && jobserverConfig.getCommandlineServerConfig() != null) {
+                Process p = cmdLineService.deployAndRunByCommandline(jobserverConfig, getProcess()
+                        .getName(), getProcess().getVersion(), this.getContext().getName(), statisticsPort, tracePort,
+                        watchParam, true);
                 if (p != null) {
                     return p;
                 }
