@@ -141,7 +141,8 @@ public class RepositoryViewObject implements IRepositoryViewObject {
                 if (item instanceof DocumentationItem) {
                     customImage = coreSerivce.getImageWithDocExt(((DocumentationItem) item).getExtension());
                 } else if (item instanceof LinkDocumentationItem) {
-                    customImage = coreSerivce.getImageWithSpecial(customImage).createImage();
+                    customImage = coreSerivce.getImageWithSpecial(
+                            coreSerivce.getImageWithDocExt(((LinkDocumentationItem) item).getExtension())).createImage();
                 }
             }
         }
