@@ -14,7 +14,6 @@ package org.talend.core.ui;
 
 import org.talend.core.IService;
 import org.talend.core.model.process.ITargetExecutionConfig;
-import org.talend.designer.runprocess.IProcessor;
 import org.talend.designer.runprocess.ProcessorException;
 
 /**
@@ -22,6 +21,7 @@ import org.talend.designer.runprocess.ProcessorException;
  */
 public interface ICommandlineClientService extends IService {
 
-    public Process deployAndRunByCommandline(ITargetExecutionConfig config, IProcessor processor, int statisticsPort,
-            int tracePort, String watchParam) throws ProcessorException;
+    public Process deployAndRunByCommandline(final ITargetExecutionConfig config, String jobName, String jobVersion,
+            String jobContextName, int statisticsPort, int tracePort, String watchParam, final boolean runnable)
+            throws ProcessorException;
 }
