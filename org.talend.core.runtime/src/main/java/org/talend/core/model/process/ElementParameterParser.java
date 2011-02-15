@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.generation.CodeGenerationUtils;
 import org.talend.core.language.ECodeLanguage;
@@ -308,7 +309,7 @@ public final class ElementParameterParser {
         if (element instanceof INode) {
             INode node = (INode) element;
             if (node.getExternalNode() != null) {
-                return node.getExternalNode().getExternalEmfData();
+                return EcoreUtil.copy(node.getExternalNode().getExternalEmfData());
             }
         }
         return null;
