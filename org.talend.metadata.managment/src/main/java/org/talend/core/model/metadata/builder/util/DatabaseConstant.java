@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.core.model.metadata.builder.util;
 
+import org.talend.commons.xml.XmlUtil;
+
 /**
  * DOC xqliu class global comment. Detailled comment
  */
@@ -49,7 +51,7 @@ public final class DatabaseConstant {
 
     public static final String MDM_VERSION = "1.0.0";
 
-    public static final String XSD_SUFIX = ".xsd"; //$NON-NLS-1$
+    public static final String XSD_SUFIX = XmlUtil.FILE_XSD_SUFFIX;
 
     public static final String ODBC_INGRES_DRIVER_NAME = "JDBC-ODBC Bridge (CAIIOD";
 

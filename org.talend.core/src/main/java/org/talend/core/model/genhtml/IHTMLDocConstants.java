@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.core.model.genhtml;
 
+import org.talend.commons.xml.XmlUtil;
+
 /**
  * This class is stored all constants for generating HTML. <br/>
  * 
@@ -60,7 +62,7 @@ public interface IHTMLDocConstants {
 
     public static final String UNKNOWN = "UNKNOWN"; //$NON-NLS-1$
 
-    public static final String XML_FILE_SUFFIX = ".xml"; //$NON-NLS-1$
+    public static final String XML_FILE_SUFFIX = XmlUtil.FILE_XML_SUFFIX;
 
     public static final String HTML_FILE_SUFFIX = ".html"; //$NON-NLS-1$
 

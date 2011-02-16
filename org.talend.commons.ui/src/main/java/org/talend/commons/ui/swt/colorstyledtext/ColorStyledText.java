@@ -36,14 +36,17 @@ import org.talend.commons.ui.swt.colorstyledtext.jedit.Modes;
 import org.talend.commons.ui.swt.colorstyledtext.rules.CToken;
 import org.talend.commons.ui.swt.colorstyledtext.scanner.ColoringScanner;
 import org.talend.commons.utils.threading.ExecutionLimiter;
+import org.talend.commons.xml.XmlUtil;
 
 /**
  * This component is an adaptation of a Color Editor for a StyledText.
  * 
  * The original editor can be found on http://www.gstaff.org/colorEditor/ <br/>
  * 
- * <b>How to use it, example :</b> <br/> ColorStyledText text = new ColorStyledText(parent, SWT.H_SCROLL | SWT.V_SCROLL,
- * CorePlugin.getDefault().getPreferenceStore(), ECodeLanguage.PERL.getName());</i> <br/><br/>
+ * <b>How to use it, example :</b> <br/>
+ * ColorStyledText text = new ColorStyledText(parent, SWT.H_SCROLL | SWT.V_SCROLL,
+ * CorePlugin.getDefault().getPreferenceStore(), ECodeLanguage.PERL.getName());</i> <br/>
+ * <br/>
  * 
  * $Id: ColorStyledText.java 7183 2007-11-23 11:03:36Z amaumont $
  * 
@@ -145,7 +148,7 @@ public class ColorStyledText extends StyledText {
 
         addListener(SWT.KeyDown, selectAllListener);
 
-        Mode mode = Modes.getMode(languageMode + ".xml"); //$NON-NLS-1$
+        Mode mode = Modes.getMode(languageMode + XmlUtil.FILE_XML_SUFFIX);
         scanner = new ColoringScanner(mode, colorManager);
 
         addExtendedModifyListener(modifyListener);

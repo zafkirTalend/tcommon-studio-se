@@ -66,6 +66,7 @@ import org.talend.commons.ui.swt.tableviewer.ModifiedBeanEvent;
 import org.talend.commons.utils.data.list.IListenableListListener;
 import org.talend.commons.utils.data.list.ListenableListEvent;
 import org.talend.commons.utils.encoding.CharsetToolkit;
+import org.talend.commons.xml.XmlUtil;
 import org.talend.core.model.metadata.MappingTypeRetriever;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.builder.connection.Concept;
@@ -658,7 +659,7 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
             ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(connectionItem.getConnection(), true);
             // pathStr = TalendTextUtils.removeQuotes(ConnectionContextHelper.getOriginalValue(contextType, pathStr));
         }
-        if (xsdFilePath != null && xsdFilePath.toLowerCase().endsWith(".xsd")) { //$NON-NLS-1$
+        if (xsdFilePath != null && XmlUtil.isXSDFile(xsdFilePath)) {
 
             previewButton.setEnabled(false);
         } else {
@@ -870,7 +871,7 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
             }
             checkFilePathAndManageIt();
 
-            if (xsdFilePath != null && xsdFilePath.endsWith(".xsd")) { //$NON-NLS-1$
+            if (xsdFilePath != null && XmlUtil.isXSDFile(xsdFilePath)) {
                 previewButton.setEnabled(false);
                 previewButton.setText(Messages.getString("MdmReceiveForm.previewNotAvailable")); //$NON-NLS-1$
                 previewButton.computeSize(SWT.DEFAULT, SWT.DEFAULT);

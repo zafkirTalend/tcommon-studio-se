@@ -61,6 +61,7 @@ import org.talend.commons.ui.swt.formtools.LabelledCombo;
 import org.talend.commons.ui.swt.formtools.LabelledFileField;
 import org.talend.commons.ui.utils.PathUtils;
 import org.talend.commons.utils.encoding.CharsetToolkit;
+import org.talend.commons.xml.XmlUtil;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.EMetadataEncoding;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
@@ -79,6 +80,7 @@ import org.talend.repository.ui.swt.utils.AbstractXmlFileStepForm;
 import org.talend.repository.ui.utils.ConnectionContextHelper;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.Element;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.FOXTreeNode;
+import org.talend.repository.ui.wizards.metadata.connection.files.xml.util.StringUtil;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.util.TreeUtil;
 import orgomg.cwm.resource.record.RecordFactory;
 import orgomg.cwm.resource.record.RecordFile;
@@ -459,7 +461,7 @@ public class XmlFileOutputStep1Form extends AbstractXmlFileStepForm {
 
                 // if (getConnection().getFileContent() == null || getConnection().getFileContent().length <= 0 &&
                 // !isModifing) {
-                if (!file.getPath().endsWith(".xml")) {
+                if (!XmlUtil.isXMLFile(file.getPath())) {
                     setFileContent(file);
                 }
                 // }
@@ -647,7 +649,7 @@ public class XmlFileOutputStep1Form extends AbstractXmlFileStepForm {
             ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(connectionItem.getConnection(), true);
             text = TalendQuoteUtils.removeQuotes(ConnectionContextHelper.getOriginalValue(contextType, text));
         }
-        if (text != null && !text.equals("") && !text.endsWith("xml")) {
+        if (text != null && !text.equals("") && !XmlUtil.isXMLFile(text)) {
             msgError.append("Output file is not a xml file\n");
         }
         if ("".equals(msgError.toString())) {
@@ -737,10 +739,10 @@ public class XmlFileOutputStep1Form extends AbstractXmlFileStepForm {
             ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(connectionItem.getConnection());
             xmlXsdPath = TalendQuoteUtils.removeQuotes(ConnectionContextHelper.getOriginalValue(contextType, xmlXsdPath));
         }
-        if (xmlXsdPath != null && xmlXsdPath.endsWith(".xml")) {
-            fileName = "tempXMLFile.xml";
-        } else if (xmlXsdPath != null && xmlXsdPath.endsWith(".xsd")) {
-            fileName = "tempXSDFile.xsd";
+        if (xmlXsdPath != null && XmlUtil.isXMLFile(xmlXsdPath)) {
+            fileName = StringUtil.TMP_XML_FILE;
+        } else if (xmlXsdPath != null && XmlUtil.isXSDFile(xmlXsdPath)) {
+            fileName = StringUtil.TMP_XSD_FILE;
         }
         File temfile = new File(temPath + File.separator + fileName);
         if (!temfile.exists()) {

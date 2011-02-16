@@ -12,11 +12,17 @@
 // ============================================================================
 package org.talend.repository.ui.wizards.metadata.connection.files.xml.util;
 
+import org.talend.commons.xml.XmlUtil;
+
 /**
  * DOC ke class global comment. Detailled comment <br/>
  * 
  */
 public class StringUtil {
+
+    public static final String TMP_XML_FILE = "tempXMLFile" + XmlUtil.FILE_XML_SUFFIX; //$NON-NLS-1$
+
+    public static final String TMP_XSD_FILE = "tempXSDFile" + XmlUtil.FILE_XSD_SUFFIX; //$NON-NLS-1$
 
     public static boolean validateLabelForXML(String label) {
         if (label == null) {
@@ -49,7 +55,7 @@ public class StringUtil {
         if (label.length() < 1) {
             return false;
         }
-        if (label.toLowerCase().startsWith("xml")) { //$NON-NLS-1$
+        if (label.toLowerCase().startsWith(XmlUtil.XML)) { //$NON-NLS-1$
             return false;
         }
         // char[] array = label.toCharArray();
@@ -65,7 +71,7 @@ public class StringUtil {
         if (label == null) {
             return false;
         }
-        if (label.toLowerCase().startsWith("xml")) { //$NON-NLS-1$
+        if (label.toLowerCase().startsWith(XmlUtil.XML)) { //$NON-NLS-1$
             return false;
         }
         if (label.contains(".")) { //$NON-NLS-1$

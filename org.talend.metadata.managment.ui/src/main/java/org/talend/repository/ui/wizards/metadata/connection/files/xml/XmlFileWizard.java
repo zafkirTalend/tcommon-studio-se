@@ -35,6 +35,7 @@ import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
 import org.talend.commons.utils.VersionUtils;
+import org.talend.commons.xml.XmlUtil;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.language.ECodeLanguage;
@@ -489,7 +490,7 @@ public class XmlFileWizard extends CheckLastVersionRepositoryWizard implements I
             file = TalendQuoteUtils.removeQuotes(ConnectionContextHelper.getOriginalValue(contextType, file));
         }
 
-        if (file != null && file.endsWith(".xsd")) { //$NON-NLS-1$
+        if (file != null && XmlUtil.isXSDFile(file)) {
             // prepareColumnsFromXSD(file, newColumns, schemaTarget);
             return;
         }

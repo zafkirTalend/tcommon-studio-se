@@ -68,6 +68,7 @@ import org.talend.commons.utils.data.list.IListenableListListener;
 import org.talend.commons.utils.data.list.ListenableListEvent;
 import org.talend.commons.utils.data.list.ListenableListEvent.TYPE;
 import org.talend.commons.xml.XmlNodeRetriever;
+import org.talend.commons.xml.XmlUtil;
 import org.talend.core.model.metadata.builder.connection.SchemaTarget;
 import org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor;
 import org.talend.core.ui.targetschema.editor.XmlExtractorFieldModel;
@@ -133,7 +134,7 @@ public class XmlToXPathLinker extends TreeToTablesLinker<Object, Object> {
         this.treePopulator = treePopulator;
         this.loopTableEditorView = loopTableEditorView;
         this.fieldsTableEditorView = fieldsTableEditorView;
-        isXSDFile = treePopulator.getFilePath().toLowerCase().endsWith(".xsd"); //$NON-NLS-1$
+        isXSDFile = XmlUtil.isXSDFile(treePopulator.getFilePath());
         if (isXSDFile) {
             this.nodeRetriever = new XsdNodeRetriever(treePopulator.getFilePath(), getCurrentLoopXPath());
             ((XsdNodeRetriever) nodeRetriever).setTreePopulator(treePopulator);
@@ -149,7 +150,7 @@ public class XmlToXPathLinker extends TreeToTablesLinker<Object, Object> {
 
     public void init(TreePopulator treePopulator) {
         this.treePopulator = treePopulator;
-        isXSDFile = treePopulator.getFilePath().toLowerCase().endsWith(".xsd"); //$NON-NLS-1$
+        isXSDFile = XmlUtil.isXSDFile(treePopulator.getFilePath());
         if (isXSDFile) {
             this.nodeRetriever = new XsdNodeRetriever(treePopulator.getFilePath(), getCurrentLoopXPath());
             ((XsdNodeRetriever) nodeRetriever).setTreePopulator(treePopulator);

@@ -39,6 +39,7 @@ import org.talend.commons.expressionbuilder.Expression;
 import org.talend.commons.expressionbuilder.Variable;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.exception.RuntimeExceptionHandler;
+import org.talend.commons.xml.XmlUtil;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.expression.EMFExpression;
@@ -273,8 +274,8 @@ public class ExpressionPersistance {
      * @param newJobName
      */
     public void jobNameChanged(String oldJobName, String newJobName) {
-        IPath oldFilePath = new Path(getExpressionStoreFolderPath()).append(oldJobName + ".xml"); //$NON-NLS-1$
-        IPath newFilePath = new Path(getExpressionStoreFolderPath()).append(newJobName + ".xml"); //$NON-NLS-1$
+        IPath oldFilePath = new Path(getExpressionStoreFolderPath()).append(oldJobName + XmlUtil.FILE_XML_SUFFIX);
+        IPath newFilePath = new Path(getExpressionStoreFolderPath()).append(newJobName + XmlUtil.FILE_XML_SUFFIX);
         File oldFile = new File(oldFilePath.toOSString());
         if (!oldFile.exists()) {
             return;
@@ -289,7 +290,7 @@ public class ExpressionPersistance {
      * @param jobName
      */
     public void jobDeleted(String jobName) {
-        IPath filePath = new Path(getExpressionStoreFolderPath()).append(jobName + ".xml"); //$NON-NLS-1$
+        IPath filePath = new Path(getExpressionStoreFolderPath()).append(jobName + XmlUtil.FILE_XML_SUFFIX);
         File file = new File(filePath.toOSString());
         if (file.exists()) {
             file.delete();

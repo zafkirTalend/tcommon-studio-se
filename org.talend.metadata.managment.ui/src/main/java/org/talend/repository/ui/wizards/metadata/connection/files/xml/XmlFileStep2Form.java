@@ -67,6 +67,7 @@ import org.talend.commons.ui.swt.tableviewer.ModifiedBeanEvent;
 import org.talend.commons.utils.data.list.IListenableListListener;
 import org.talend.commons.utils.data.list.ListenableListEvent;
 import org.talend.commons.utils.encoding.CharsetToolkit;
+import org.talend.commons.xml.XmlUtil;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.SchemaTarget;
@@ -95,6 +96,7 @@ import org.talend.repository.ui.utils.ShadowProcessHelper;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.extraction.ExtractionFieldsWithXPathEditorView;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.extraction.ExtractionLoopWithXPathEditorView;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.extraction.XmlToXPathLinker;
+import org.talend.repository.ui.wizards.metadata.connection.files.xml.util.StringUtil;
 
 /**
  * @author ocarbone
@@ -640,7 +642,7 @@ public class XmlFileStep2Form extends AbstractXmlFileStepForm implements IRefres
             ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(connectionItem.getConnection(), true);
             pathStr = TalendQuoteUtils.removeQuotes(ConnectionContextHelper.getOriginalValue(contextType, pathStr));
         }
-        if (pathStr != null && pathStr.toLowerCase().endsWith(".xsd")) { //$NON-NLS-1$
+        if (pathStr != null && XmlUtil.isXSDFile(pathStr)) {
 
             previewButton.setEnabled(false);
         } else {
@@ -867,7 +869,7 @@ public class XmlFileStep2Form extends AbstractXmlFileStepForm implements IRefres
             }
             checkFilePathAndManageIt();
 
-            if (pathStr != null && pathStr.endsWith(".xsd")) { //$NON-NLS-1$
+            if (pathStr != null && XmlUtil.isXSDFile(pathStr)) {
                 previewButton.setEnabled(false);
                 previewButton.setText(Messages.getString("XmlFileStep2Form.previewNotAvailable")); //$NON-NLS-1$
                 previewButton.computeSize(SWT.DEFAULT, SWT.DEFAULT);
@@ -953,10 +955,10 @@ public class XmlFileStep2Form extends AbstractXmlFileStepForm implements IRefres
             ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(connectionItem.getConnection(), true);
             pathStr = TalendQuoteUtils.removeQuotes(ConnectionContextHelper.getOriginalValue(contextType, pathStr));
         }
-        if (pathStr != null && pathStr.endsWith(".xml")) {
-            fileName = "tempXMLFile.xml";
-        } else if (pathStr != null && pathStr.endsWith(".xsd")) {
-            fileName = "tempXSDFile.xsd";
+        if (pathStr != null && XmlUtil.isXMLFile(pathStr)) {
+            fileName = StringUtil.TMP_XML_FILE;
+        } else if (pathStr != null && XmlUtil.isXSDFile(pathStr)) {
+            fileName = StringUtil.TMP_XSD_FILE;
         }
         File temfile = new File(temPath + File.separator + fileName);
         if (!temfile.exists()) {

@@ -23,6 +23,7 @@ import org.eclipse.core.runtime.Platform;
 import org.talend.commons.ui.swt.colorstyledtext.jedit.KeywordMap;
 import org.talend.commons.ui.swt.colorstyledtext.jedit.Mode;
 import org.talend.commons.ui.swt.colorstyledtext.jedit.Modes;
+import org.talend.commons.xml.XmlUtil;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 
@@ -70,7 +71,7 @@ public class KeywordsValidator {
         if (words == null) {
             words = new HashSet<String>();
 
-            Mode mode = Modes.getMode(lang.getName() + ".xml"); //$NON-NLS-1$
+            Mode mode = Modes.getMode(lang.getName() + XmlUtil.FILE_XML_SUFFIX);
             KeywordMap keywordMap = mode.getDefaultRuleSet().getKeywords();
             words.addAll(Arrays.asList(keywordMap.get("KEYWORD1"))); //$NON-NLS-1$
             words.addAll(Arrays.asList(keywordMap.get("KEYWORD2"))); //$NON-NLS-1$

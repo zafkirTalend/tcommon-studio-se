@@ -51,6 +51,7 @@ import org.talend.commons.exception.SystemException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.commons.utils.io.FilesUtils;
+import org.talend.commons.xml.XmlUtil;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.components.ComponentUtilities;
 import org.talend.core.model.general.ILibrariesService;
@@ -347,7 +348,7 @@ public class CoreService implements ICoreService {
                         FilenameFilter filter = new FilenameFilter() {
 
                             public boolean accept(File dir, String name) {
-                                if (name.endsWith(".xml")) {
+                                if (XmlUtil.isXMLFile(name)) {
                                     return true;
                                 }
                                 return false;
@@ -404,7 +405,7 @@ public class CoreService implements ICoreService {
                     secondeName = dbmsIdValue;
                 }
                 if (secondeName != null && !"".equals(secondeName)) {
-                    targetName = fileNameSplit[0] + "_" + secondeName.toLowerCase() + ".xml";
+                    targetName = fileNameSplit[0] + "_" + secondeName.toLowerCase() + XmlUtil.FILE_XML_SUFFIX;
                 }
 
             }

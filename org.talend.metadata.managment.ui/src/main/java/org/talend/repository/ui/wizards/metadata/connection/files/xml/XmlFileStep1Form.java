@@ -59,6 +59,7 @@ import org.talend.commons.ui.swt.formtools.LabelledText;
 import org.talend.commons.ui.swt.formtools.UtilsButton;
 import org.talend.commons.ui.utils.PathUtils;
 import org.talend.commons.utils.encoding.CharsetToolkit;
+import org.talend.commons.xml.XmlUtil;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
@@ -74,6 +75,7 @@ import org.talend.metadata.managment.ui.i18n.Messages;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.ui.swt.utils.AbstractXmlFileStepForm;
 import org.talend.repository.ui.utils.ConnectionContextHelper;
+import org.talend.repository.ui.wizards.metadata.connection.files.xml.util.StringUtil;
 
 /**
  * @author ocarbone
@@ -225,7 +227,7 @@ public class XmlFileStep1Form extends AbstractXmlFileStepForm {
         group.setLayoutData(gridDataFileLocation);
 
         // file Field XSD
-        String[] xsdExtensions = { "*.xsd", "*.*", "*" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+        //        String[] xsdExtensions = { "*.xsd", "*.*", "*" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         // fileFieldXsd = new LabelledFileField(compositeFileLocation, Messages.getString("XmlFileStep1.filepathXsd"),
         // xsdExtensions);
 
@@ -396,7 +398,7 @@ public class XmlFileStep1Form extends AbstractXmlFileStepForm {
 
                 // if (getConnection().getFileContent() == null || getConnection().getFileContent().length <= 0 &&
                 // !isModifing) {
-                if (!file.getPath().endsWith(".xml")) { //$NON-NLS-1$
+                if (!XmlUtil.isXMLFile(file.getPath())) { //$NON-NLS-1$
                     setFileContent(file);
                 }
                 // }
@@ -588,10 +590,10 @@ public class XmlFileStep1Form extends AbstractXmlFileStepForm {
         }
         String temPath = fsProject.getLocationURI().getPath() + File.separator + "temp"; //$NON-NLS-1$
         String fileName = ""; //$NON-NLS-1$
-        if (getConnection().getXmlFilePath() != null && getConnection().getXmlFilePath().endsWith(".xml")) { //$NON-NLS-1$
-            fileName = "tempXMLFile.xml"; //$NON-NLS-1$
-        } else if (getConnection().getXmlFilePath() != null && getConnection().getXmlFilePath().endsWith(".xsd")) { //$NON-NLS-1$
-            fileName = "tempXSDFile.xsd"; //$NON-NLS-1$
+        if (getConnection().getXmlFilePath() != null && XmlUtil.isXMLFile(getConnection().getXmlFilePath())) { //$NON-NLS-1$
+            fileName = StringUtil.TMP_XML_FILE;
+        } else if (getConnection().getXmlFilePath() != null && XmlUtil.isXSDFile(getConnection().getXmlFilePath())) { //$NON-NLS-1$
+            fileName = StringUtil.TMP_XSD_FILE;
         }
         File temfile = new File(temPath + File.separator + fileName);
 

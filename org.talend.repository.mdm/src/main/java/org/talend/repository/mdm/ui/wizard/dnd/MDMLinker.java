@@ -69,6 +69,7 @@ import org.talend.commons.utils.data.list.IListenableListListener;
 import org.talend.commons.utils.data.list.ListenableListEvent;
 import org.talend.commons.utils.data.list.ListenableListEvent.TYPE;
 import org.talend.commons.xml.XmlNodeRetriever;
+import org.talend.commons.xml.XmlUtil;
 import org.talend.core.model.metadata.builder.connection.Concept;
 import org.talend.core.model.metadata.builder.connection.ConceptTarget;
 import org.talend.core.utils.TalendQuoteUtils;
@@ -144,7 +145,7 @@ public class MDMLinker extends TreeToTablesLinker<Object, Object> {
         this.treePopulator = treePopulator;
         this.loopTableEditorView = loopTableEditorView;
         this.fieldsTableEditorView = fieldsTableEditorView;
-        isXSDFile = xsdFilepath.toLowerCase().endsWith(".xsd"); //$NON-NLS-1$
+        isXSDFile = XmlUtil.isXSDFile(xsdFilepath);
         if (isXSDFile) {
             this.nodeRetriever = new XsdNodeRetriever(xsdFilepath, getCurrentLoopXPath());
             ((XsdNodeRetriever) nodeRetriever).setTreePopulator(treePopulator);
@@ -160,7 +161,7 @@ public class MDMLinker extends TreeToTablesLinker<Object, Object> {
 
     public void init(TreePopulator treePopulator) {
         this.treePopulator = treePopulator;
-        isXSDFile = xsdFilepath.toLowerCase().endsWith(".xsd"); //$NON-NLS-1$
+        isXSDFile = XmlUtil.isXSDFile(xsdFilepath);
         if (isXSDFile) {
             this.nodeRetriever = new XsdNodeRetriever(xsdFilepath, getCurrentLoopXPath());
             ((XsdNodeRetriever) nodeRetriever).setTreePopulator(treePopulator);

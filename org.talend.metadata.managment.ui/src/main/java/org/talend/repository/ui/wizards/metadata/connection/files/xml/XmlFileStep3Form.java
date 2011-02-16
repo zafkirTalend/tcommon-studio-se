@@ -40,6 +40,7 @@ import org.talend.commons.ui.swt.formtools.LabelledText;
 import org.talend.commons.ui.swt.formtools.UtilsButton;
 import org.talend.commons.utils.data.list.IListenableListListener;
 import org.talend.commons.utils.data.list.ListenableListEvent;
+import org.talend.commons.xml.XmlUtil;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.MappingTypeRetriever;
@@ -305,7 +306,7 @@ public class XmlFileStep3Form extends AbstractXmlFileStepForm {
                     + "                                                                              "); //$NON-NLS-1$
             return;
         }
-        if (connection2.getXmlFilePath().endsWith(".xsd")) { //$NON-NLS-1$
+        if (XmlUtil.isXSDFile(connection2.getXmlFilePath())) {
             // no preview for XSD file
 
             refreshMetaDataTable(null, ((XmlXPathLoopDescriptor) connection2.getSchema().get(0)).getSchemaTargets(), flag);
@@ -401,7 +402,7 @@ public class XmlFileStep3Form extends AbstractXmlFileStepForm {
             file = TalendQuoteUtils.removeQuotes(ConnectionContextHelper.getOriginalValue(contextType, file));
         }
 
-        if (file != null && file.endsWith(".xsd")) { //$NON-NLS-1$
+        if (file != null && XmlUtil.isXSDFile(file)) {
             prepareColumnsFromXSD(file, columns, schemaTarget);
 
             tableEditorView.getMetadataEditor().addAll(columns);

@@ -15,6 +15,8 @@ package org.talend.commons.ui.swt.colorstyledtext.jedit;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.talend.commons.xml.XmlUtil;
+
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
  * 
@@ -130,7 +132,7 @@ public class Modes {
             // Local delegate/rule set
             return mode.getRule(delegateName);
         }
-        Mode loadedMode = getMode(delegateName.substring(0, index) + ".xml"); //$NON-NLS-1$
+        Mode loadedMode = getMode(delegateName.substring(0, index) + XmlUtil.FILE_XML_SUFFIX);
         return loadedMode.getRule(delegateName.substring(index + 2));
     }
 
