@@ -122,7 +122,7 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
      */
     public void initPerspective(IPageLayout layout) {
         String componentSettingViewerId = "org.talend.designer.core.ui.views.properties.ComponentSettingsView";//$NON-NLS-1$
-        String navigatorId = "org.eclipse.ui.views.ResourceNavigator"; //$NON-NLS-1$
+        //        String navigatorId = "org.eclipse.ui.views.ResourceNavigator"; //$NON-NLS-1$
         String outlineId = "org.eclipse.ui.views.ContentOutline"; //$NON-NLS-1$
         String codeId = "org.talend.designer.core.codeView"; //$NON-NLS-1$
         String repositoryId = "org.talend.repository.views.repository"; //$NON-NLS-1$
@@ -135,20 +135,20 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
         String contextsViewId = "org.talend.designer.core.ui.views.ContextsView"; //$NON-NLS-1$
         String gefPaletteViewId = "org.eclipse.gef.ui.palette_view"; //$NON-NLS-1$
         String jobSettingsViewId = "org.talend.designer.core.ui.views.jobsettings.JobSettingsView"; //$NON-NLS-1$
-        String jobHierarchyViewId = "org.talend.designer.core.ui.hierarchy.JobHierarchyViewPart"; //$NON-NLS-1$
+        //        String jobHierarchyViewId = "org.talend.designer.core.ui.hierarchy.JobHierarchyViewPart"; //$NON-NLS-1$
 
         // leftTopLayout
         IFolderLayout leftTopLayout = layout.createFolder("navigatorLayout", IPageLayout.LEFT, new Float(0.3), //$NON-NLS-1$
                 IPageLayout.ID_EDITOR_AREA);
         leftTopLayout.addView(repositoryId);
-        leftTopLayout.addView(navigatorId);
+        // leftTopLayout.addView(navigatorId);
 
         // leftBottomLayout
         IFolderLayout leftBottomLayout = layout.createFolder("outlineCodeLayout", IPageLayout.BOTTOM, new Float(0.6), //$NON-NLS-1$
                 repositoryId);
         leftBottomLayout.addView(outlineId);
         leftBottomLayout.addView(codeId);
-        leftBottomLayout.addView(jobHierarchyViewId);
+        // leftBottomLayout.addView(jobHierarchyViewId);
 
         IFolderLayout rightTopLayout = layout.createFolder("paletteLayout", IPageLayout.RIGHT, new Float(0.8), //$NON-NLS-1$
                 IPageLayout.ID_EDITOR_AREA);
@@ -164,7 +164,7 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
 
         bottomLayout.addView(runProcessViewId);
         // bottomLayout.addView(problemsViewId);
-        bottomLayout.addView(modulesViewId);
+        // bottomLayout.addView(modulesViewId);
         bottomLayout.addView(ecosystemViewId);
         // bottomLayout.addView(schedulerViewId);
 
