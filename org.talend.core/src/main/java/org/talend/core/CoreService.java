@@ -261,14 +261,17 @@ public class CoreService implements ICoreService {
      * @see org.talend.core.ICoreService#syncAllRoutines()
      */
     public void syncAllRoutines() throws SystemException {
-        ICodeGeneratorService codeGenService = (ICodeGeneratorService) GlobalServiceRegister.getDefault().getService(
-                ICodeGeneratorService.class);
-        codeGenService.createRoutineSynchronizer().syncAllRoutines();
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICodeGeneratorService.class)) {
+            ICodeGeneratorService codeGenService = (ICodeGeneratorService) GlobalServiceRegister.getDefault().getService(
+                    ICodeGeneratorService.class);
+            codeGenService.createRoutineSynchronizer().syncAllRoutines();
+        }
 
     }
 
     public void syncAllRules() {
-        if (PluginChecker.isRulesPluginLoaded()) {
+        if (PluginChecker.isRulesPluginLoaded()
+                && GlobalServiceRegister.getDefault().isServiceRegistered(IRulesProviderService.class)) {
             IRulesProviderService rulesService = (IRulesProviderService) GlobalServiceRegister.getDefault().getService(
                     IRulesProviderService.class);
             if (rulesService != null) {
@@ -290,9 +293,11 @@ public class CoreService implements ICoreService {
     }
 
     public void deleteAllJobs(boolean fromPluginModel) {
-        IRunProcessService runProcessService = (IRunProcessService) GlobalServiceRegister.getDefault().getService(
-                IRunProcessService.class);
-        runProcessService.deleteAllJobs(false);
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IRunProcessService.class)) {
+            IRunProcessService runProcessService = (IRunProcessService) GlobalServiceRegister.getDefault().getService(
+                    IRunProcessService.class);
+            runProcessService.deleteAllJobs(false);
+        }
     }
 
     public void addWorkspaceTaskDone(String task) {
@@ -325,7 +330,7 @@ public class CoreService implements ICoreService {
     public void synchronizeMapptingXML() {
         try {
             URL url = MetadataTalendType.getFolderURLOfMappingsFile();
-            if (url != null) {
+            if (url != null && GlobalServiceRegister.getDefault().isServiceRegistered(IRunProcessService.class)) {
                 IRunProcessService runProcessService = (IRunProcessService) GlobalServiceRegister.getDefault().getService(
                         IRunProcessService.class);
                 if (runProcessService != null) {
@@ -425,28 +430,31 @@ public class CoreService implements ICoreService {
     }
 
     public void synchronizeSapLib() {
-        ILibrariesService libService = (ILibrariesService) GlobalServiceRegister.getDefault().getService(ILibrariesService.class);
-        final String jarJco = libService.getJavaLibrariesPath() + File.separatorChar + "sapjco.jar";
-        String targetPath = "";
-        File source = new File(jarJco);
-        if (source.exists()) {
-            Bundle bundle = Platform.getBundle(PluginChecker.getSapWizardPluginId());
-            if (bundle instanceof BundleHost) {
-                BundleHost bundleHost = (BundleHost) bundle;
-                final BundleData bundleData = bundleHost.getBundleData();
-                if (bundleData instanceof BaseData) {
-                    BaseData baseData = (BaseData) bundleData;
-                    final BundleFile bundleFile = baseData.getBundleFile();
-                    final File baseFile = bundleFile.getBaseFile();
-                    targetPath = baseFile.getAbsolutePath() + File.separator + "sapjco.jar";
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibrariesService.class)) {
+            ILibrariesService libService = (ILibrariesService) GlobalServiceRegister.getDefault().getService(
+                    ILibrariesService.class);
+            final String jarJco = libService.getJavaLibrariesPath() + File.separatorChar + "sapjco.jar";
+            String targetPath = "";
+            File source = new File(jarJco);
+            if (source.exists()) {
+                Bundle bundle = Platform.getBundle(PluginChecker.getSapWizardPluginId());
+                if (bundle instanceof BundleHost) {
+                    BundleHost bundleHost = (BundleHost) bundle;
+                    final BundleData bundleData = bundleHost.getBundleData();
+                    if (bundleData instanceof BaseData) {
+                        BaseData baseData = (BaseData) bundleData;
+                        final BundleFile bundleFile = baseData.getBundleFile();
+                        final File baseFile = bundleFile.getBaseFile();
+                        targetPath = baseFile.getAbsolutePath() + File.separator + "sapjco.jar";
 
-                    File target = new File(targetPath);
-                    try {
-                        FilesUtils.copyFile(source, target);
-                    } catch (FileNotFoundException e) {
-                        ExceptionHandler.process(e);
-                    } catch (IOException e) {
-                        ExceptionHandler.process(e);
+                        File target = new File(targetPath);
+                        try {
+                            FilesUtils.copyFile(source, target);
+                        } catch (FileNotFoundException e) {
+                            ExceptionHandler.process(e);
+                        } catch (IOException e) {
+                            ExceptionHandler.process(e);
+                        }
                     }
                 }
             }
@@ -455,29 +463,32 @@ public class CoreService implements ICoreService {
     }
 
     public void resetUniservLibraries() {
-        ILibrariesService libService = (ILibrariesService) GlobalServiceRegister.getDefault().getService(ILibrariesService.class);
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibrariesService.class)) {
+            ILibrariesService libService = (ILibrariesService) GlobalServiceRegister.getDefault().getService(
+                    ILibrariesService.class);
 
-        final String jarJco = libService.getJavaLibrariesPath() + "/" + "uniserv.jar";
-        String targetPath = "";
-        File source = new File(jarJco);
-        if (source.exists()) {
-            Bundle bundle = Platform.getBundle("org.talend.libraries.uniserv");
-            if (bundle instanceof BundleHost) {
-                BundleHost bundleHost = (BundleHost) bundle;
-                final BundleData bundleData = bundleHost.getBundleData();
-                if (bundleData instanceof BaseData) {
-                    BaseData baseData = (BaseData) bundleData;
-                    final BundleFile bundleFile = baseData.getBundleFile();
-                    final File baseFile = bundleFile.getBaseFile();
-                    targetPath = baseFile.getAbsolutePath() + "/" + "uniserv.jar";
+            final String jarJco = libService.getJavaLibrariesPath() + "/" + "uniserv.jar";
+            String targetPath = "";
+            File source = new File(jarJco);
+            if (source.exists()) {
+                Bundle bundle = Platform.getBundle("org.talend.libraries.uniserv");
+                if (bundle instanceof BundleHost) {
+                    BundleHost bundleHost = (BundleHost) bundle;
+                    final BundleData bundleData = bundleHost.getBundleData();
+                    if (bundleData instanceof BaseData) {
+                        BaseData baseData = (BaseData) bundleData;
+                        final BundleFile bundleFile = baseData.getBundleFile();
+                        final File baseFile = bundleFile.getBaseFile();
+                        targetPath = baseFile.getAbsolutePath() + "/" + "uniserv.jar";
 
-                    File target = new File(targetPath);
-                    try {
-                        FilesUtils.copyFile(source, target);
-                    } catch (FileNotFoundException e) {
-                        ExceptionHandler.process(e);
-                    } catch (IOException e) {
-                        ExceptionHandler.process(e);
+                        File target = new File(targetPath);
+                        try {
+                            FilesUtils.copyFile(source, target);
+                        } catch (FileNotFoundException e) {
+                            ExceptionHandler.process(e);
+                        } catch (IOException e) {
+                            ExceptionHandler.process(e);
+                        }
                     }
                 }
             }
