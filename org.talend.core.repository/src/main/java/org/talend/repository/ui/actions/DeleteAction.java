@@ -738,7 +738,7 @@ public class DeleteAction extends AContextualAction {
 
         Item item = objToDelete.getProperty().getItem();
         AbstractResourceChangesService resChangeService = null;
-        if (item instanceof ConnectionItem) {
+        if (item instanceof ConnectionItem && item.getState().isDeleted()) {
             resChangeService = TDQServiceRegister.getInstance().getResourceChangeService(AbstractResourceChangesService.class);
             if (resChangeService != null) {
                 if (!resChangeService.handleResourceChange(((ConnectionItem) item).getConnection())) {
