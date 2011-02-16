@@ -527,7 +527,7 @@ public class ExtractMetaDataFromDataBase {
             ResultSetMetaData resultMetadata = null;
             if (isMYSQL) {
                 Statement statement = connection.createStatement();
-                String query = "SELECT * FROM " + tableName;
+                String query = "SELECT * FROM " + tableName + " limit 1";
                 ResultSet resultSet = statement.executeQuery(query);
                 resultMetadata = resultSet.getMetaData();
             }
