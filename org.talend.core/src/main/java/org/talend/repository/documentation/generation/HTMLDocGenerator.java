@@ -410,14 +410,15 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
                 temXslFile.delete();
             }
             generateXslFile(xslFilePath, temXslPath, cssFile, null);
-            // if no new xls generated, use default xsl
+        }
+        // if no new xls generated, use default xsl
+        if (temXslPath != null) {
             File temFile = new File(temXslPath);
             if (!temFile.exists()) {
-                temXslPath = null;
-            }
-            if (temXslPath == null) {
                 temXslPath = xslFilePath;
             }
+        } else {
+            temXslPath = xslFilePath;
         }
 
         picList.add(logoFile.toURL());
