@@ -54,6 +54,8 @@ public abstract class FOXTreeNode {
 
     private String dataType;
 
+    private List<String> uniqueNames = new ArrayList<String>();
+
     public boolean hasLink() {
         return column != null;
     }
@@ -372,6 +374,10 @@ public abstract class FOXTreeNode {
 
     public void setDataType(String dataType) {
         this.dataType = dataType;
+    }
+
+    public List<String> getUniqueNames() {
+        return this.uniqueNames;
     }
 
 }

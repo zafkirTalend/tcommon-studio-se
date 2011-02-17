@@ -444,6 +444,9 @@ public class TreeUtil {
             node.setDefaultValue((String) treeNode.getValue());
         } else {
             node.setLabel((String) treeNode.getValue());
+            // init the unique to guess first loop element when create mdmoutput wizard
+            node.getUniqueNames().clear();
+            node.getUniqueNames().addAll(treeNode.getUniqueNames());
         }
         MappingTypeRetriever retriever = MetadataTalendType.getMappingTypeRetriever("xsd_id");
         node.setDataType(retriever.getDefaultSelectedTalendType("xs:" + treeNode.getOriginalDataType()));
