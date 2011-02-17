@@ -60,7 +60,6 @@ public class DynamicContentProvider implements IIntroXHTMLContentProvider {
                     + "class=org.talend.designer.core.ui.action.EditProcess&"
                     + "id=org.talend.designer.core.actions.editprocess&nodeId=";
             if (latestItems.size() == 0) {
-
                 parent.appendChild(dom.createElement("br"));
             }
         } else if (ERepositoryObjectType.BUSINESS_PROCESS.name().equals(id)) {
@@ -68,6 +67,17 @@ public class DynamicContentProvider implements IIntroXHTMLContentProvider {
             url = "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.designer.business.diagram&"
                     + "class=org.talend.designer.business.diagram.custom.actions.OpenDiagramAction&"
                     + "id=org.talend.designer.business.diagram.Action2&nodeId=";
+            if (latestItems.size() == 0) {
+                parent.appendChild(dom.createElement("br"));
+            }
+        } else if ("ANALYSIS".equals(id)) {
+            latestItems = getLatestModifiedItems(ERepositoryObjectType.TDQ_ANALYSIS_ELEMENT, 8);
+            url = "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.dataprofiler.core&"
+                    + "class=org.talend.dataprofiler.core.ui.action.actions.OpenItemEditorAction&"
+                    + "id=org.talend.dataprofiler.core.ui.action.actions.OpenItemEditorAction&nodeId=";
+            if (latestItems.size() == 0) {
+                parent.appendChild(dom.createElement("br"));
+            }
         } else if ("CUSTOMER_PAGE".equals(id)) {
             createOnlinePage(dom, parent);
         }
