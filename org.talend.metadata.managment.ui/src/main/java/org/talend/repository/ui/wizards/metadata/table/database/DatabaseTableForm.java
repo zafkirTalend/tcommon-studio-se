@@ -28,6 +28,7 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
@@ -417,8 +418,15 @@ public class DatabaseTableForm extends AbstractForm {
         GridData gridData = new GridData(GridData.FILL_BOTH);
         mainComposite.setLayoutData(gridData);
 
-        Composite leftComposite = Form.startNewDimensionnedGridLayout(mainComposite, 1, leftCompositeWidth, height);
-        Composite rightComposite = Form.startNewDimensionnedGridLayout(mainComposite, 1, rightCompositeWidth, height);
+        // bug 17422 fixed
+        SashForm sash = new SashForm(mainComposite, SWT.NONE);
+        GridData sashData = new GridData(GridData.FILL_BOTH);
+        sash.setLayoutData(sashData);
+
+        Composite leftComposite = Form.startNewDimensionnedGridLayout(sash, 1, leftCompositeWidth, height);
+        Composite rightComposite = Form.startNewDimensionnedGridLayout(sash, 1, rightCompositeWidth, height);
+        // in the proportion of 1:4
+        sash.setWeights(new int[] { 1, 4 });
 
         addTreeNavigator(leftComposite, leftCompositeWidth, height);
 
@@ -531,7 +539,7 @@ public class DatabaseTableForm extends AbstractForm {
 
         TableColumn tableColumn = new TableColumn(tableNavigator, SWT.NONE);
         tableColumn.setText(Messages.getString("DatabaseTableForm.tableColumnText.talbe")); //$NON-NLS-1$
-        tableColumn.setWidth(width + 12);
+        tableColumn.setWidth(width + 120);
 
         scrolledCompositeFileViewer.setContent(tableNavigator);
         scrolledCompositeFileViewer.setSize(width + 12, height);
@@ -828,6 +836,8 @@ public class DatabaseTableForm extends AbstractForm {
                         visiblecount = LabelledCombo.MAX_VISIBLE_ITEM_COUNT;
                     }
                     tableCombo.setVisibleItemCount(visiblecount);
+                    // bug 17442
+                    tableCombo.removeAll();
                     for (int i = 0; i < filterTableNames.size(); i++) {
                         tableCombo.add(filterTableNames.get(i));
                         if (filterTableNames.get(i).equals(metadataTable.getName())) {
@@ -931,6 +941,12 @@ public class DatabaseTableForm extends AbstractForm {
                 updateStatus(IStatus.ERROR, Messages.getString("DatabaseTableForm.invalidChar", table.getLabel())); //$NON-NLS-1$
                 return false;
             }
+            // bug 17442
+            else if (!managerConnection.check(getIMetadataConnection())) {
+                updateStatus(IStatus.ERROR, Messages.getString("DatabaseForm.checkFailure")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                return false;
+            }
+
             // if (table.getColumns().size() == 0) {// this one has been removed,see bug 0016029
             //                updateStatus(IStatus.ERROR, Messages.getString("FileStep3.itemAlert") + " \"" + table.getLabel() + "\""); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
             // return false;
