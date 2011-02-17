@@ -129,6 +129,14 @@ public class SimpleCache<K, V> {
 
     private long maxTime;
 
+    /**
+     * 
+     * DOC amaumont SimpleCache constructor comment.
+     * 
+     * @param maxTime in ms, a value between <code>0</code> and <code>Long.MAX_VALUE</code> included,
+     * <code>Long.MAX_VALUE</code> means infinite.
+     * @param maxItems max number of items to keep in the cache
+     */
     public SimpleCache(long maxTime, int maxItems) {
         super();
         this.maxTime = maxTime;
