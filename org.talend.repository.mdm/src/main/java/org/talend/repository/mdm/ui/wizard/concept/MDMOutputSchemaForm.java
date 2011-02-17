@@ -68,7 +68,9 @@ import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.XMLFileNode;
 import org.talend.core.model.properties.ConnectionItem;
+import org.talend.core.prefs.ui.MetadataTypeLengthConstants;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
+import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.PackageHelper;
 import org.talend.cwm.xml.TdXmlSchema;
@@ -197,9 +199,45 @@ public class MDMOutputSchemaForm extends AbstractMDMFileStepForm {
         if (concept != null) {
             tempMetadataTable.setLabel(concept.getLabel());
         }
+        if (tempMetadataTable.getColumns().isEmpty() && creation) {
+            boolean findFirstLoop = false;
+            // need to init the schemaViewer,provide "guess" function which mentioned by task17829
+            for (FOXTreeNode node : treeData) {
+                guessInputSchemaColumns(node, findFirstLoop);
+            }
+        }
         EList columns = tempMetadataTable.getColumns();
         schemaViewer.setInput(columns);
         schemaViewer.refresh();
+    }
+
+    private void guessInputSchemaColumns(FOXTreeNode node, boolean findFirstLoop) {
+        String currentUniqueName = "";
+        for (FOXTreeNode current : node.getChildren()) {
+            MetadataColumn column = ConnectionFactory.eINSTANCE.createMetadataColumn();
+            column.setLabel(current.getLabel());
+            column.setTalendType(CoreRuntimePlugin.getInstance().getCoreService().getPreferenceStore()
+                    .getString(MetadataTypeLengthConstants.FIELD_DEFAULT_TYPE));
+            tempMetadataTable.getColumns().add(column);
+            IMetadataColumn metaColumn = ConvertionHelper.convertToIMetaDataColumn(column);
+            // if there are more than one unique,just set the first one to loop when guessing
+            List<String> uniqueNames = node.getUniqueNames();
+            if (!uniqueNames.isEmpty()) {
+                currentUniqueName = uniqueNames.get(0);
+            }
+            if (currentUniqueName != null && !findFirstLoop) {
+                for (FOXTreeNode subNode : node.getChildren()) {
+                    if (subNode.getLabel() != null && currentUniqueName.equals(subNode.getLabel())) {
+                        subNode.setLoop(true);
+                        findFirstLoop = true;
+                        break;
+                    }
+                }
+            }
+            current.setColumn(metaColumn);
+            current.setDataType(metaColumn.getTalendType());
+            guessInputSchemaColumns(current, findFirstLoop);
+        }
     }
 
     private void initLinker(TreeItem node, TableItem[] tableItems) {
@@ -983,12 +1021,32 @@ public class MDMOutputSchemaForm extends AbstractMDMFileStepForm {
             initXmlTreeData(selectedEntity);
             initSchemaTable();
             xmlViewer.setInput(treeData);
+
+            if (creation) {
+                initMainNodeAndUpdateConnection();
+            }
+            xmlViewer.refresh();
+
             xmlViewer.expandAll();
             redrawLinkers();
-            if (!creation) {
-                checkFieldsValue();
-            }
+            // if (!creation) {
+            checkFieldsValue();
+            // }
         }
+    }
+
+    private void initMainNodeAndUpdateConnection() {
+        FOXTreeNode rootTreeData = treeData.get(0);
+        for (FOXTreeNode node : rootTreeData.getChildren()) {
+            TreeUtil.clearSubGroupNode(node);
+            // make sure group element is a ancestor of loop, or no group element.
+            if (TreeUtil.findUpGroupNode(node) == null) {
+                TreeUtil.clearSubGroupNode(rootTreeData);
+            }
+
+            TreeUtil.upsetMainNode(node);
+        }
+        updateConnection();
     }
 
     /**
