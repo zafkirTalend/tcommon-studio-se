@@ -30,13 +30,16 @@ import org.apache.xerces.impl.xs.XSComplexTypeDecl;
 import org.apache.xerces.impl.xs.XSElementDecl;
 import org.apache.xerces.impl.xs.XSModelGroupImpl;
 import org.apache.xerces.impl.xs.XSParticleDecl;
+import org.apache.xerces.impl.xs.identity.UniqueOrKey;
 import org.apache.xerces.xni.XNIException;
 import org.apache.xerces.xni.grammars.Grammar;
 import org.apache.xerces.xni.grammars.XSGrammar;
 import org.apache.xerces.xni.parser.XMLInputSource;
+import org.apache.xerces.xs.StringList;
 import org.apache.xerces.xs.XSConstants;
 import org.apache.xerces.xs.XSModel;
 import org.apache.xerces.xs.XSNamedMap;
+import org.apache.xerces.xs.XSObject;
 import org.apache.xerces.xs.XSObjectList;
 import org.apache.xerces.xs.XSParticle;
 import org.apache.xerces.xs.XSTypeDefinition;
@@ -325,8 +328,8 @@ final class XSDFileSchemaTreePopulator {
             uri = f.toURI();
         } else {
             URL url = new URL(fileName);
-            uri = new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(), url.getQuery(), url
-                    .getRef());
+            uri = new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(), url.getQuery(),
+                    url.getRef());
         }
 
         // Then try to parse the input string as a url in web.
@@ -363,6 +366,20 @@ final class XSDFileSchemaTreePopulator {
             XSElementDecl element = (XSElementDecl) map.item(i);
 
             String namespace = element.getNamespace();
+            XSObject unique = element.getIdentityConstraints().itemByName(namespace, element.getName());
+            if (unique instanceof UniqueOrKey) {
+                node.getUniqueNames().clear();
+                UniqueOrKey uniqueOrKey = (UniqueOrKey) unique;
+                String uniqueName = "";
+                StringList fieldStrs = uniqueOrKey.getFieldStrs();
+                for (int j = 0; j < fieldStrs.getLength(); j++) {
+                    uniqueName = fieldStrs.item(j);
+                    if (uniqueName != null && !"".equals(uniqueName)) {
+                        uniqueName = uniqueName.replace("/", "").replace(".", ""); //$NON-NLS-N$
+                        node.getUniqueNames().add(uniqueName);
+                    }
+                }
+            }
             ATreeNode namespaceNode = null;
             if (namespace != null) {
                 namespaceNode = new ATreeNode();

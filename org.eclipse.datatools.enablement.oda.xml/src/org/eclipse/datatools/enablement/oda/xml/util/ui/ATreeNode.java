@@ -9,6 +9,7 @@ package org.eclipse.datatools.enablement.oda.xml.util.ui;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.eclipse.datatools.connectivity.oda.OdaException;
 import org.eclipse.datatools.enablement.oda.xml.impl.DataTypes;
@@ -38,6 +39,8 @@ public class ATreeNode {
 
     // The type of the tree node, may either attribute or element.
     private int type;
+
+    private List<String> uniqueNames = new ArrayList<String>();
 
     // The data type is the complex type that defined in an xsd file.
     private String dataType, originalDataType;
@@ -202,4 +205,9 @@ public class ATreeNode {
     public String getOriginalDataType() {
         return originalDataType;
     }
+
+    public List<String> getUniqueNames() {
+        return this.uniqueNames;
+    }
+
 }
