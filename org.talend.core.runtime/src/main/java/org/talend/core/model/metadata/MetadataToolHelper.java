@@ -466,6 +466,9 @@ public final class MetadataToolHelper {
      * @return
      */
     public static void copyTable(List<IMetadataColumn> sourceColumns, IMetadataTable target, String targetDbms) {
+        if (sourceColumns == null || target == null) {
+            return;
+        }
         List<String> readOnlycolumns = new ArrayList<String>();
         for (IMetadataColumn column : target.getListColumns()) {
             if (column.isReadOnly()) {
