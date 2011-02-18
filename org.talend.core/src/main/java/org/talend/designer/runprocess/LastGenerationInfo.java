@@ -33,6 +33,8 @@ public class LastGenerationInfo {
 
     private HashMap<String, Set<String>> contextPerJob;
 
+    private HashMap<String, Boolean> useDynamic;
+
     private static LastGenerationInfo instance;
 
     private JobInfo lastMainJob;
@@ -46,6 +48,7 @@ public class LastGenerationInfo {
         lastGeneratedjobs = new HashSet<JobInfo>();
         routinesNeededPerJob = new HashMap<String, Set<String>>();
         routinesNeededWithSubjobPerJob = new HashMap<String, Set<String>>();
+        useDynamic = new HashMap<String, Boolean>();
     }
 
     public static LastGenerationInfo getInstance() {
@@ -124,6 +127,23 @@ public class LastGenerationInfo {
     public void setContextPerJob(String jobId, String jobVersion, Set<String> contexts) {
         String key = jobId + "_" + jobVersion; //$NON-NLS-1$
         contextPerJob.put(key, new HashSet<String>(contexts));
+    }
+
+    public void setUseDynamic(String jobId, String jobVersion, boolean dynamic) {
+        String key = jobId + "_" + jobVersion; //$NON-NLS-1$
+        useDynamic.put(key, dynamic);
+    }
+
+    public boolean isUseDynamic(String jobId, String jobVersion) {
+        String key = jobId + "_" + jobVersion; //$NON-NLS-1$
+        if (!useDynamic.containsKey(key)) {
+            return false;
+        }
+        return useDynamic.get(key);
+    }
+
+    public HashMap<String, Boolean> getUseDynamicMap() {
+        return this.useDynamic;
     }
 
     /**

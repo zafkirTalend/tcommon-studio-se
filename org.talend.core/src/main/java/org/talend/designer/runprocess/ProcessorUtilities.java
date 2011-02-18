@@ -63,8 +63,10 @@ import org.talend.core.ui.IJobletProviderService;
 import org.talend.core.ui.ISVNProviderService;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.core.ReplaceNodesInProcessProvider;
+import org.talend.designer.core.model.utils.emf.talendfile.ColumnType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
+import org.talend.designer.core.model.utils.emf.talendfile.MetadataType;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 import org.talend.designer.core.model.utils.emf.talendfile.RoutinesParameterType;
@@ -351,7 +353,11 @@ public class ProcessorUtilities {
         } else {
             currentProcess = jobInfo.getProcess();
         }
+        generateJobInfo(jobInfo, isMainJob, currentProcess, selectedProcessItem);
+
         if (selectedProcessItem != null) {
+            checkMetadataDynamic(selectedProcessItem, jobInfo);
+
             // item can be null in case of job preview
             Set<String> routinesId = new HashSet<String>();
             for (RoutinesParameterType infor : (List<RoutinesParameterType>) ((ProcessItem) selectedProcessItem).getProcess()
@@ -365,8 +371,6 @@ public class ProcessorUtilities {
             selectedProcessItem.eResource().unload();
             jobInfo.setProcessItem(null);
         }
-        generateJobInfo(jobInfo, isMainJob, currentProcess, selectedProcessItem);
-
         Set<String> neededLibraries = CorePlugin.getDefault().getDesignerCoreService()
                 .getNeededLibrariesForProcess(currentProcess, false);
         if (neededLibraries != null) {
@@ -402,6 +406,42 @@ public class ProcessorUtilities {
         jobInfo.setProcess(null);
         generateBuildInfo(jobInfo, progressMonitor, isMainJob, currentProcess, currentJobName);
         return processor;
+    }
+
+    /**
+     * 
+     * This method is used when export job , check if one of the database component node use dynamic metadata
+     */
+    private static void checkMetadataDynamic(ProcessItem selectedProcessItem, JobInfo jobInfo) {
+        if (exportConfig && !LastGenerationInfo.getInstance().isUseDynamic(jobInfo.getJobId(), jobInfo.getJobVersion())) {
+            boolean hasDynamicMetadata = false;
+            final ProcessType process = selectedProcessItem.getProcess();
+            if (process != null) {
+                out: for (NodeType node : (List<NodeType>) process.getNode()) {
+                    // to check if node is db component , maybe need modification
+                    boolean isDbNode = false;
+                    for (ElementParameterType param : (List<ElementParameterType>) node.getElementParameter()) {
+                        if ("TYPE".equals(param.getName()) && "TEXT".equals(param.getField()) && param.getValue() != null
+                                && !"".equals(param.getValue())) {
+                            isDbNode = true;
+                            break;
+                        }
+                    }
+                    if (isDbNode) {
+                        for (MetadataType metadataType : (List<MetadataType>) node.getMetadata()) {
+                            for (ColumnType column : (List<ColumnType>) metadataType.getColumn()) {
+                                if ("id_Dynamic".equals(column.getType())) {
+                                    hasDynamicMetadata = true;
+                                    break out;
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+            LastGenerationInfo.getInstance().setUseDynamic(jobInfo.getJobId(), jobInfo.getJobVersion(), hasDynamicMetadata);
+        }
     }
 
     private static void generateBuildInfo(JobInfo jobInfo, IProgressMonitor progressMonitor, boolean isMainJob,
@@ -543,7 +583,12 @@ public class ProcessorUtilities {
         } else {
             currentProcess = jobInfo.getProcess();
         }
+        generateJobInfo(jobInfo, isMainJob, currentProcess, selectedProcessItem);
+
         if (selectedProcessItem != null) {
+
+            checkMetadataDynamic(selectedProcessItem, jobInfo);
+
             // item can be null in case of job preview
             Set<String> routinesId = new HashSet<String>();
             for (RoutinesParameterType infor : (List<RoutinesParameterType>) ((ProcessItem) selectedProcessItem).getProcess()
@@ -557,7 +602,6 @@ public class ProcessorUtilities {
             selectedProcessItem.eResource().unload();
             jobInfo.setProcessItem(null);
         }
-        generateJobInfo(jobInfo, isMainJob, currentProcess, selectedProcessItem);
 
         Set<String> neededLibraries = CorePlugin.getDefault().getDesignerCoreService()
                 .getNeededLibrariesForProcess(currentProcess, false);
@@ -678,6 +722,14 @@ public class ProcessorUtilities {
                                 .getRoutinesNeededWithSubjobPerJob(jobInfo.getJobId(), jobInfo.getJobVersion())
                                 .addAll(LastGenerationInfo.getInstance().getRoutinesNeededWithSubjobPerJob(subJobInfo.getJobId(),
                                         subJobInfo.getJobVersion()));
+
+                        if (!LastGenerationInfo.getInstance().isUseDynamic(jobInfo.getJobId(), jobInfo.getJobVersion())) {
+                            LastGenerationInfo.getInstance().setUseDynamic(
+                                    jobInfo.getJobId(),
+                                    jobInfo.getJobVersion(),
+                                    LastGenerationInfo.getInstance().isUseDynamic(subJobInfo.getJobId(),
+                                            subJobInfo.getJobVersion()));
+                        }
                     }
                 }
             }
