@@ -302,6 +302,23 @@ public class MetadataConnectionUtils {
     }
 
     /**
+     * 
+     * DOC qiongli Comment method "isAccess".
+     * 
+     * @param connection
+     * @return
+     * @throws SQLException
+     */
+    public static boolean isAccess(java.sql.Connection connection) throws SQLException {
+        DatabaseMetaData connectionMetadata = getConnectionMetadata(connection);
+        if (connectionMetadata.getDriverName() != null && connectionMetadata.getDatabaseProductName() != null
+                && connectionMetadata.getDatabaseProductName().equals(DatabaseConstant.MS_ACCESS_PRODUCT_NAME)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * DOC zshen Comment method "isSybase".
      * 
      * @param connection

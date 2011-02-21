@@ -672,7 +672,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             if (orgomg.cwm.resource.relational.RelationalPackage.eINSTANCE.getTable().isSuperTypeOf(colSet.eClass())) {
                 try {
                     // primary key
-                    if (MetadataConnectionUtils.isOdbcExcel(dbJDBCMetadata.getConnection())) {
+                    // MOD qiongli 2011-2-21,bug 18828 ,Access database dosen't support 'getPrimaryKeys(...)'.
+                    if (MetadataConnectionUtils.isOdbcExcel(dbJDBCMetadata.getConnection())
+                            || MetadataConnectionUtils.isAccess(dbJDBCMetadata.getConnection())) {
                         log.info("This database don't support primary key and foreign key");
                         return;
                     }

@@ -58,4 +58,6 @@ public final class DatabaseConstant {
     public static final String ODBC_PROGRESS_PRODUCT_NAME = "progress";
 
     public static final String ODBC_TERADATA_PRODUCT_NAME = "teradata";
+
+    public static final String MS_ACCESS_PRODUCT_NAME = "ACCESS";
 }
