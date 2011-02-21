@@ -35,15 +35,15 @@ import org.talend.swtbot.TalendSwtBotForTos;
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class LinkManagementTest extends TalendSwtBotForTos {
 
-    public SWTBotTree tree;
+    private SWTBotTree tree;
 
-    public SWTBotShell shell;
+    private SWTBotShell shell;
 
-    public SWTBotView view;
+    private SWTBotView view;
 
     private SWTBotGefEditor gefEditor;
 
-    public static String JOBNAME = "linkManagement"; //$NON-NLS-1$
+    public static final String JOBNAME = "linkManagement"; //$NON-NLS-1$
 
     @Before
     public void createJob() {
@@ -71,6 +71,7 @@ public class LinkManagementTest extends TalendSwtBotForTos {
         gefEditor.activateTool("tLogRow").click(300, 100);
 
         SWTBotGefEditPart rowGen = getTalendComponentPart(gefEditor, "tRowGenerator_1");
+        Assert.assertNotNull("can not get component 'tRowGenerator'", rowGen);
         rowGen.doubleClick();
         shell = gefBot.shell("Talend Data Quality Enterprise Edition MPX - tRowGenerator - tRowGenerator_1");
         shell.activate();
@@ -81,7 +82,10 @@ public class LinkManagementTest extends TalendSwtBotForTos {
         gefEditor.select(rowGen);
         gefEditor.clickContextMenu("Row").clickContextMenu("Main");
         SWTBotGefEditPart logRow = getTalendComponentPart(gefEditor, "tLogRow_1");
+        Assert.assertNotNull("can not get component 'tLogRow'", logRow);
         gefEditor.click(logRow);
+        SWTBotGefEditPart rowMain = gefEditor.getEditPart("row1 (Main)");
+        Assert.assertNotNull("can not draw row line", rowMain);
 
         gefBot.viewByTitle("Component").show();
         logRow.click();
@@ -89,15 +93,16 @@ public class LinkManagementTest extends TalendSwtBotForTos {
         shell = gefBot.shell("Schema of tLogRow_1");
         shell.activate();
         gefBot.waitUntil(Conditions.shellIsActive("Schema of tLogRow_1"));
-        Assert.assertEquals("newColumn", gefBot.tableWithLabel("tLogRow_1 (Output)").cell(0, "Column"));
-        Assert.assertEquals("newColumn1", gefBot.tableWithLabel("tLogRow_1 (Output)").cell(1, "Column"));
+        Assert.assertEquals("no automatic transfer of schema", "newColumn",
+                gefBot.tableWithLabel("tLogRow_1 (Output)").cell(0, "Column"));
+        Assert.assertEquals("no automatic transfer of schema", "newColumn1",
+                gefBot.tableWithLabel("tLogRow_1 (Output)").cell(1, "Column"));
         gefBot.button("OK").click();
-
-        gefEditor.saveAndClose();
     }
 
     @After
     public void removePreviousCreateItems() {
+        gefEditor.saveAndClose();
         tree.expandNode("Job Designs").getNode(JOBNAME + " 0.1").contextMenu("Delete").click();
         tree.select("Recycle bin").contextMenu("Empty recycle bin").click();
         gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));

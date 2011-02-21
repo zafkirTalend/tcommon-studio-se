@@ -43,9 +43,9 @@ public class CopyComponentsBetweenJobTest extends TalendSwtBotForTos {
 
     private SWTBotGefEditor gefEditor;
 
-    private static String JOBNAME1 = "CopyComponentsBetweenJob1"; //$NON-NLS-1$
+    private static final String JOBNAME1 = "CopyComponentsBetweenJob1"; //$NON-NLS-1$
 
-    private static String JOBNAME2 = "CopyComponentsBetweenJob2"; //$NON-NLS-1$
+    private static final String JOBNAME2 = "CopyComponentsBetweenJob2"; //$NON-NLS-1$
 
     @Before
     public void createJob() {
@@ -82,6 +82,7 @@ public class CopyComponentsBetweenJobTest extends TalendSwtBotForTos {
         gefEditor.activateTool("tLogRow").click(300, 100);
 
         SWTBotGefEditPart rowGen = getTalendComponentPart(gefEditor, "tRowGenerator_1");
+        Assert.assertNotNull("can not get component 'tRowGenerator'", rowGen);
         rowGen.doubleClick();
         shell = gefBot.shell("Talend Data Quality Enterprise Edition MPX - tRowGenerator - tRowGenerator_1");
         shell.activate();
@@ -92,7 +93,10 @@ public class CopyComponentsBetweenJobTest extends TalendSwtBotForTos {
         gefEditor.select(rowGen);
         gefEditor.clickContextMenu("Row").clickContextMenu("Main");
         SWTBotGefEditPart logRow = getTalendComponentPart(gefEditor, "tLogRow_1");
+        Assert.assertNotNull("can not get component 'tLogRow'", logRow);
         gefEditor.click(logRow);
+        SWTBotGefEditPart rowMain = gefEditor.getEditPart("row1 (Main)");
+        Assert.assertNotNull("can not draw row line", rowMain);
     }
 
     @Test
@@ -106,12 +110,11 @@ public class CopyComponentsBetweenJobTest extends TalendSwtBotForTos {
         gefEditor.clickContextMenu("Paste");
 
         SWTBotGefEditPart rowGen2 = getTalendComponentPart(gefEditor, "tRowGenerator_2");
-        Assert.assertNotNull(rowGen2);
+        Assert.assertNotNull("no copy the component 'tRowGenerator' in own job", rowGen2);
         SWTBotGefEditPart logRow2 = getTalendComponentPart(gefEditor, "tLogRow_2");
-        Assert.assertNotNull(logRow2);
+        Assert.assertNotNull("no copy the component 'tLogRow in own job", logRow2);
         SWTBotGefEditPart rowMain2 = gefEditor.getEditPart("row2 (Main)");
-        Assert.assertNotNull(rowMain2);
-        gefEditor.saveAndClose();
+        Assert.assertNotNull("no copy the row line in own job", rowMain2);
 
         /* Copy and paste in another job */
         gefEditor = gefBot.gefEditor("Job " + JOBNAME2 + " 0.1");
@@ -119,17 +122,18 @@ public class CopyComponentsBetweenJobTest extends TalendSwtBotForTos {
         gefEditor.click(100, 100);
         gefEditor.clickContextMenu("Paste");
 
-        SWTBotGefEditPart rowGen1_2 = getTalendComponentPart(gefEditor, "tRowGenerator_1");
-        Assert.assertNotNull(rowGen1_2);
-        SWTBotGefEditPart logRow1_2 = getTalendComponentPart(gefEditor, "tLogRow_1");
-        Assert.assertNotNull(logRow1_2);
-        SWTBotGefEditPart rowMain1_2 = gefEditor.getEditPart("row1 (Main)");
-        Assert.assertNotNull(rowMain1_2);
-        gefEditor.saveAndClose();
+        SWTBotGefEditPart rowGen3 = getTalendComponentPart(gefEditor, "tRowGenerator_1");
+        Assert.assertNotNull("no copy the component 'tRowGenerator' in another job", rowGen3);
+        SWTBotGefEditPart logRow3 = getTalendComponentPart(gefEditor, "tLogRow_1");
+        Assert.assertNotNull("no copy the component 'tLogRow in another job", logRow3);
+        SWTBotGefEditPart rowMain3 = gefEditor.getEditPart("row1 (Main)");
+        Assert.assertNotNull("no copy the row line in another job", rowMain3);
     }
 
     @After
     public void removePreviouslyCreateItems() {
+        gefBot.gefEditor("Job " + JOBNAME1 + " 0.1").saveAndClose();
+        gefBot.gefEditor("Job " + JOBNAME2 + " 0.1").saveAndClose();
         tree.expandNode("Job Designs").getNode(JOBNAME1 + " 0.1").contextMenu("Delete").click();
         tree.expandNode("Job Designs").getNode(JOBNAME2 + " 0.1").contextMenu("Delete").click();
         tree.select("Recycle bin").contextMenu("Empty recycle bin").click();

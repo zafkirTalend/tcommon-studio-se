@@ -15,7 +15,6 @@ package tisstudio.joblets;
 import junit.framework.Assert;
 
 import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
@@ -27,6 +26,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
+import org.talend.swtbot.Utilities;
 
 /**
  * DOC Administrator class global comment. Detailled comment
@@ -40,24 +40,14 @@ public class DeleteJobletTest extends TalendSwtBotForTos {
 
     private SWTBotView view;
 
-    private static String JOBLETNAME = "joblet1"; //$NON-NLS-1$
+    private static final String JOBLETNAME = "joblet1"; //$NON-NLS-1$
 
     @Before
-    public void InitialisePrivateFields() {
+    public void createJoblet() {
         view = gefBot.viewByTitle("Repository");
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        tree.setFocus();
-        tree.select("Joblet Designs").contextMenu("Create Joblet").click();
-
-        gefBot.waitUntil(Conditions.shellIsActive("New Joblet"));
-        shell = gefBot.shell("New Joblet");
-        shell.activate();
-
-        gefBot.textWithLabel("Name").setText(JOBLETNAME);
-
-        gefBot.button("Finish").click();
-        gefBot.toolbarButtonWithTooltip("Save (Ctrl+S)").click();
+        Utilities.createJoblet(JOBLETNAME, tree, gefBot, shell);
     }
 
     @Test
@@ -71,8 +61,6 @@ public class DeleteJobletTest extends TalendSwtBotForTos {
 
     @After
     public void removePreviouslyCreateItems() {
-        tree.select("Recycle bin").contextMenu("Empty recycle bin").click();
-        gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
-        gefBot.button("Yes").click();
+        Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

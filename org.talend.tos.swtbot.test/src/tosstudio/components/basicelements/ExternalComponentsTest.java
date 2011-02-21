@@ -45,7 +45,7 @@ public class ExternalComponentsTest extends TalendSwtBotForTos {
 
     private SWTBotGefEditor gefEditor;
 
-    private static String JOBNAME = "ExternalComponentsTesting"; //$NON-NLS-1$
+    private static final String JOBNAME = "ExternalComponentsTesting"; //$NON-NLS-1$
 
     @Before
     public void createJob() {
@@ -76,7 +76,7 @@ public class ExternalComponentsTest extends TalendSwtBotForTos {
 
         /* Edit tRowGenerator */
         SWTBotGefEditPart rowGen = getTalendComponentPart(gefEditor, "tRowGenerator_1");
-        Assert.assertNotNull(rowGen);
+        Assert.assertNotNull("can not get component 'tRowGenerator'", rowGen);
         rowGen.doubleClick();
         shell = gefBot.shell("Talend Data Quality Enterprise Edition MPX - tRowGenerator - tRowGenerator_1");
         shell.activate();
@@ -103,10 +103,10 @@ public class ExternalComponentsTest extends TalendSwtBotForTos {
         gefEditor.select(rowGen);
         gefEditor.clickContextMenu("Row").clickContextMenu("Main");
         SWTBotGefEditPart map = getTalendComponentPart(gefEditor, "tMap_1");
-        Assert.assertNotNull(map);
+        Assert.assertNotNull("can not get component 'tMap'", map);
         gefEditor.click(map);
         SWTBotGefEditPart rowMain = gefEditor.getEditPart("row1 (Main)");
-        Assert.assertNotNull(rowMain);
+        Assert.assertNotNull("can not draw row line", rowMain);
 
         /* Edit tMap */
         map.doubleClick();
@@ -135,10 +135,10 @@ public class ExternalComponentsTest extends TalendSwtBotForTos {
         gefEditor.click(map);
         gefEditor.clickContextMenu("Row").clickContextMenu("out1");
         SWTBotGefEditPart outputDeliFile = getTalendComponentPart(gefEditor, "tFileOutputDelimited_1");
-        Assert.assertNotNull(outputDeliFile);
+        Assert.assertNotNull("can not get component 'tFileOutputDelimited'", outputDeliFile);
         gefEditor.click(outputDeliFile);
         SWTBotGefEditPart outMain = gefEditor.getEditPart("out1 (Main)");
-        Assert.assertNotNull(outMain);
+        Assert.assertNotNull("can not draw row line", outMain);
 
         gefEditor.save();
 
@@ -152,7 +152,7 @@ public class ExternalComponentsTest extends TalendSwtBotForTos {
 
     @After
     public void removePreviousCreateItems() {
-        gefBot.cTabItem("Job " + JOBNAME + " 0.1").close();
+        gefEditor.saveAndClose();
         tree.expandNode("Job Designs").getNode(JOBNAME + " 0.1").contextMenu("Delete").click();
         tree.select("Recycle bin").contextMenu("Empty recycle bin").click();
         gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));

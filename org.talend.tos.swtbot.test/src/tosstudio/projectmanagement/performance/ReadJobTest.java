@@ -1,21 +1,3 @@
-package tosstudio.components.basicelements;
-
-import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
-import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
-import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
-import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.talend.swtbot.TalendSwtBotForTos;
-
 // ============================================================================
 //
 // Copyright (C) 2006-2011 Talend Inc. - www.talend.com
@@ -28,12 +10,30 @@ import org.talend.swtbot.TalendSwtBotForTos;
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
+package tosstudio.projectmanagement.performance;
+
+import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
+import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
+import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
+import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
+import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
+import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotCTabItem;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.talend.swtbot.TalendSwtBotForTos;
 
 /**
  * DOC Administrator class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class tMsgBoxTest extends TalendSwtBotForTos {
+public class ReadJobTest extends TalendSwtBotForTos {
 
     private SWTBotTree tree;
 
@@ -43,13 +43,12 @@ public class tMsgBoxTest extends TalendSwtBotForTos {
 
     private SWTBotGefEditor gefEditor;
 
-    private static final String JOBNAME = "tMsgBoxTesting"; //$NON-NLS-1$
+    private static final String JOBNAME = "test01"; //$NON-NLS-1$
 
     @Before
-    public void createJob() {
+    public void createAJob() {
         view = gefBot.viewByTitle("Repository");
         view.setFocus();
-
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
         tree.setFocus();
         tree.select("Job Designs").contextMenu("Create job").click();
@@ -61,33 +60,29 @@ public class tMsgBoxTest extends TalendSwtBotForTos {
         gefBot.textWithLabel("Name").setText(JOBNAME);
 
         gefBot.button("Finish").click();
+        gefBot.waitUntil(Conditions.shellCloses(shell));
+
+        gefBot.toolbarButtonWithTooltip("Save (Ctrl+S)").click();
+        gefBot.cTabItem("Job " + JOBNAME + " 0.1").close();
     }
 
     @Test
-    public void useComponentInJob() {
-        gefEditor = gefBot.gefEditor("Job " + JOBNAME + " 0.1");
+    public void readJob() {
+        tree.expandNode("Job Designs").getNode(JOBNAME + " 0.1").contextMenu("Read job").click();
 
+        SWTBotCTabItem newTabItem = gefBot.cTabItem("Job " + JOBNAME + " 0.1");
+        Assert.assertNotNull(newTabItem);
+        gefEditor = gefBot.gefEditor("Job " + JOBNAME + " 0.1");
         gefEditor.activateTool("tMsgBox").click(100, 100);
         SWTBotGefEditPart msgBox = getTalendComponentPart(gefEditor, "tMsgBox_1");
-        Assert.assertNotNull("can not get component 'tMsgBox'", msgBox);
-
-        // gefBot.viewByTitle("Component").setFocus();
-        // gefBot.text("\"Hello world!\"").setText("\"abcdefg\"");
-
-        gefEditor.save();
-
-        /* Run the job */
-        gefBot.viewByTitle("Run (Job " + JOBNAME + ")").setFocus();
-        gefBot.button(" Run").click();
-
-        gefBot.waitUntil(Conditions.shellIsActive("Launching " + JOBNAME + " 0.1"));
-        gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Launching " + JOBNAME + " 0.1")));
+        Assert.assertNull("Job can be edit", msgBox);
     }
 
     @After
-    public void removePreviousCreateItems() {
-        gefEditor.saveAndClose();
+    public void removePreviouslyCreateItems() {
+        gefBot.cTabItem("Job " + JOBNAME + " 0.1").close();
         tree.expandNode("Job Designs").getNode(JOBNAME + " 0.1").contextMenu("Delete").click();
+
         tree.select("Recycle bin").contextMenu("Empty recycle bin").click();
         gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
         gefBot.button("Yes").click();
