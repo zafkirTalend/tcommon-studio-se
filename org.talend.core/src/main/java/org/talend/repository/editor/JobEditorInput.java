@@ -137,7 +137,7 @@ public abstract class JobEditorInput extends RepositoryEditorInput {
                 // factory.createProcess(project, loadedProcess, path);
             } else {
 
-                factory.executeRepositoryWorkUnit(new RepositoryWorkUnit("save process") {
+                RepositoryWorkUnit rwu = new RepositoryWorkUnit("save process") {
 
                     @Override
                     protected void run() throws LoginException, PersistenceException {
@@ -153,7 +153,9 @@ public abstract class JobEditorInput extends RepositoryEditorInput {
 
                         RelationshipItemBuilder.getInstance().addOrUpdateItem(getItem());
                     }
-                });
+                };
+                rwu.setAvoidUnloadResources(true);
+                factory.executeRepositoryWorkUnit(rwu);
                 // factory.save(getItem());
                 // loadedProcess.setProperty(getItem().getProperty());
                 // // 9035

@@ -43,6 +43,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature.Setting;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -735,7 +736,33 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     public void saveProject(Project project) throws PersistenceException {
+        for (EReference reference : project.getEmfProject().eClass().getEAllReferences()) {
+            if (reference.getName().equals("folders")) {
+                if (!reference.isTransient()) {
+                    reference.setTransient(true);
+                }
+            }
+        }
         Resource projectResource = project.getEmfProject().eResource();
+        Collection<FolderItem> folders = EcoreUtil.getObjectsByType(projectResource.getContents(),
+                PropertiesPackage.eINSTANCE.getFolderItem());
+        if (!folders.isEmpty()) {
+            projectResource.getContents().removeAll(folders);
+        }
+        Collection<ItemState> itemStates = EcoreUtil.getObjectsByType(projectResource.getContents(),
+                PropertiesPackage.eINSTANCE.getItemState());
+        if (!itemStates.isEmpty()) {
+            projectResource.getContents().removeAll(itemStates);
+        }
+        Collection<Item> items = EcoreUtil.getObjectsByType(projectResource.getContents(), PropertiesPackage.eINSTANCE.getItem());
+        if (!items.isEmpty()) {
+            projectResource.getContents().removeAll(items);
+        }
+        Collection<Property> properties = EcoreUtil.getObjectsByType(projectResource.getContents(),
+                PropertiesPackage.eINSTANCE.getProperty());
+        if (!properties.isEmpty()) {
+            projectResource.getContents().removeAll(properties);
+        }
 
         if (projectResource == null) {
             if (project.getEmfProject() != null && project.getEmfProject().eIsProxy()) {
@@ -1060,9 +1087,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             }
         } else {
             folderItem = getFolderHelper(project.getEmfProject()).createFolder(completePath);
-        }
-        if (!isImportItem) {
-            xmiResourceManager.saveResource(project.getEmfProject().eResource());
         }
         // Getting the folder :
         IFolder folder = ResourceUtils.getFolder(fsProject, completePath, false);
@@ -1430,7 +1454,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         // reloadProject(curProject);
         curProject.getEmfProject().getDocumentationStatus().clear();
         curProject.getEmfProject().getDocumentationStatus().addAll(list);
-        xmiResourceManager.saveResource(curProject.getEmfProject().eResource());
+        saveProject(curProject);
     }
 
     public void setTechnicalStatus(List<Status> list) throws PersistenceException {
@@ -1438,7 +1462,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         // reloadProject(curProject);
         curProject.getEmfProject().getTechnicalStatus().clear();
         curProject.getEmfProject().getTechnicalStatus().addAll(list);
-        xmiResourceManager.saveResource(curProject.getEmfProject().eResource());
+        saveProject(curProject);
     }
 
     public void setSpagoBiServer(List<SpagoBiServer> list) throws PersistenceException {
@@ -1446,7 +1470,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         // reloadProject(curProject);
         curProject.getEmfProject().getSpagoBiServer().clear();
         curProject.getEmfProject().getSpagoBiServer().addAll(list);
-        xmiResourceManager.saveResource(curProject.getEmfProject().eResource());
+        saveProject(curProject);
     }
 
     public void setMigrationTasksDone(Project project, List<String> list) throws PersistenceException {
@@ -1455,7 +1479,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         // org.talend.core.model.properties.Project loadProject = xmiResourceManager.loadProject(iproject);
         project.getEmfProject().getMigrationTasks().clear();
         project.getEmfProject().getMigrationTasks().addAll(list);
-        xmiResourceManager.saveResource(project.getEmfProject().eResource());
+        saveProject(project);
     }
 
     /*

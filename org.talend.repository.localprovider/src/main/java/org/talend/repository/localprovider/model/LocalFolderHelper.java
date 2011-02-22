@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.repository.localprovider.model;
 
-import org.eclipse.emf.ecore.resource.Resource;
 import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.User;
@@ -35,29 +34,14 @@ public class LocalFolderHelper extends FolderHelper {
     }
 
     protected void removeFromResource(FolderItem folder) {
-        project.eResource().setModified(true);
-        cleanResource(project.eResource(), folder);
-    }
-
-    private void cleanResource(Resource resource, FolderItem folder) {
-        resource.getContents().remove(folder);
-        resource.getContents().remove(folder.getProperty());
-        if (folder.getState() != null) {
-            resource.getContents().remove(folder.getState());
-        }
-        for (Object o : folder.getChildren()) {
-            if (o instanceof FolderItem)
-                cleanResource(resource, (FolderItem) o);
-        }
+        // do nothing
     }
 
     protected void doCreateFolder(FolderItem folderItem) {
-        project.eResource().getContents().add(folderItem);
-        project.eResource().getContents().add(folderItem.getProperty());
-        project.eResource().setModified(true);
+        // do nothing
     }
 
     public void doCreateItemState(FolderItem folder) {
-        project.eResource().getContents().add(folder.getState());
+        // do nothing
     }
 }

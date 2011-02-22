@@ -158,7 +158,46 @@ public class ActionBarBuildHelper implements IActionBarHelper {
         // subFile.add(ActionFactory.NEW.create(window));
         // fileMenu.add(subFile);
 
-        IWorkbenchAction closeAction = ActionFactory.CLOSE.create(window);
+        ActionFactory factClose = new ActionFactory("close",//$NON-NLS-1$
+                IWorkbenchCommandConstants.FILE_CLOSE) {
+
+            /*
+             * (non-Javadoc)
+             * 
+             * @see org.eclipse.ui.actions.ActionFactory#create(org.eclipse.ui.IWorkbenchWindow)
+             */
+            public IWorkbenchAction create(IWorkbenchWindow window) {
+                if (window == null) {
+                    throw new IllegalArgumentException();
+                }
+                WorkbenchCommandAction action = new WorkbenchCommandAction(getCommandId(), window) {
+
+                    public void doRun(final Event event) {
+                        super.runWithEvent(event);
+                    }
+
+                    @Override
+                    public void runWithEvent(final Event event) {
+                        RepositoryWorkUnit rwu = new RepositoryWorkUnit("Close") {
+
+                            @Override
+                            protected void run() throws LoginException, PersistenceException {
+                                doRun(event);
+                            }
+                        };
+                        rwu.setAvoidUnloadResources(true);
+                        ProxyRepositoryFactory.getInstance().executeRepositoryWorkUnit(rwu);
+                    }
+
+                };
+                action.setId(getId());
+                action.setText(WorkbenchMessages.CloseEditorAction_text);
+                action.setToolTipText(WorkbenchMessages.CloseEditorAction_toolTip);
+                return action;
+            }
+        };
+
+        IWorkbenchAction closeAction = factClose.create(window);
         fileMenu.add(closeAction);
         actionBarConfigurer.registerGlobalAction(closeAction);
 
