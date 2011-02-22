@@ -84,8 +84,16 @@ public class JobContextManager implements IContextManager {
      */
     private List<IContext> addGroupContext = new ArrayList<IContext>();
 
+    private List<IContext> removeGroupContext = new ArrayList<IContext>();
+
+    private Map<IContext, String> renameGroupContext = new HashMap<IContext, String>();
+
     // add this for remark
     private Map<ContextItem, List<IContext>> addContextGroupMap = new HashMap<ContextItem, List<IContext>>();
+
+    private Map<ContextItem, List<IContext>> removeContextGroupMap = new HashMap<ContextItem, List<IContext>>();
+
+    private Map<ContextItem, List<IContext>> renameContextGroupMap = new HashMap<ContextItem, List<IContext>>();
 
     public Map<ContextItem, List<IContext>> getAddContextGroupMap() {
         return this.addContextGroupMap;
@@ -93,6 +101,22 @@ public class JobContextManager implements IContextManager {
 
     public void setAddContextGroupMap(Map<ContextItem, List<IContext>> addContextGroupMap) {
         this.addContextGroupMap = addContextGroupMap;
+    }
+
+    public Map<ContextItem, List<IContext>> getRemoveContextGroupMap() {
+        return this.removeContextGroupMap;
+    }
+
+    public void setRemoveContextGroupMap(Map<ContextItem, List<IContext>> removeContextGroupMap) {
+        this.removeContextGroupMap = removeContextGroupMap;
+    }
+
+    public Map<ContextItem, List<IContext>> getRenameContextGroupMap() {
+        return this.renameContextGroupMap;
+    }
+
+    public void setRenameContextGroupMap(Map<ContextItem, List<IContext>> renameContextGroupMap) {
+        this.renameContextGroupMap = renameContextGroupMap;
     }
 
     public JobContextManager() {
@@ -123,6 +147,22 @@ public class JobContextManager implements IContextManager {
 
     public List<IContext> getAddGroupContext() {
         return addGroupContext;
+    }
+
+    public void setRemoveGroupContext(List<IContext> removeGroupContext) {
+        this.removeGroupContext = removeGroupContext;
+    }
+
+    public List<IContext> getRemoveGroupContext() {
+        return removeGroupContext;
+    }
+
+    public void setRenameGroupContext(Map<IContext, String> renameGroupContext) {
+        this.renameGroupContext = renameGroupContext;
+    }
+
+    public Map<IContext, String> getRenameGroupContext() {
+        return renameGroupContext;
     }
 
     /*

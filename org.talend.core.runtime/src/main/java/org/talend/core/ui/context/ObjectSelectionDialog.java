@@ -49,6 +49,8 @@ public abstract class ObjectSelectionDialog<B> extends SelectionDialog {
 
     private List<B> data;
 
+    private List removeDataIter;
+
     protected TableViewer fTableViewer;
 
     private Button fNewButton;
@@ -272,6 +274,10 @@ public abstract class ObjectSelectionDialog<B> extends SelectionDialog {
         return ((IStructuredSelection) fTableViewer.getSelection());
     }
 
+    public List getRemoveData() {
+        return this.removeDataIter;
+    }
+
     protected abstract void createElement();
 
     protected abstract void editSelectedElement();
@@ -283,8 +289,11 @@ public abstract class ObjectSelectionDialog<B> extends SelectionDialog {
         ISelection selection = fTableViewer.getSelection();
         if (selection instanceof IStructuredSelection) {
             Iterator<B> iter = ((IStructuredSelection) selection).iterator();
+            removeDataIter = new ArrayList();
             while (iter.hasNext()) {
-                data.remove(iter.next());
+                Object obj = iter.next();
+                data.remove(obj);
+                removeDataIter.add(obj);
             }
         }
         refreshViewer();

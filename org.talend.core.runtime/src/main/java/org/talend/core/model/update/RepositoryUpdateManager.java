@@ -89,6 +89,12 @@ public abstract class RepositoryUpdateManager {
      */
     private Map<ContextItem, List<IContext>> repositoryContextGroupMap = new HashMap<ContextItem, List<IContext>>();
 
+    private Map<ContextItem, List<IContext>> removeRepositoryContextGroupMap = new HashMap<ContextItem, List<IContext>>();
+
+    private Map<ContextItem, List<IContext>> renameRepositoryContextGroupMap = new HashMap<ContextItem, List<IContext>>();
+
+    private Map<IContext, String> renameContextGroup = new HashMap<IContext, String>();
+
     /**
      * used for filter result.
      */
@@ -132,6 +138,30 @@ public abstract class RepositoryUpdateManager {
 
     public void setRepositoryAddGroupContext(Map<ContextItem, List<IContext>> repositoryContextGroupMap) {
         this.repositoryContextGroupMap = repositoryContextGroupMap;
+    }
+
+    public Map<ContextItem, List<IContext>> getRepositoryRemoveGroupContext() {
+        return this.removeRepositoryContextGroupMap;
+    }
+
+    public void setRepositoryRemoveGroupContext(Map<ContextItem, List<IContext>> removeRepositoryContextGroupMap) {
+        this.removeRepositoryContextGroupMap = removeRepositoryContextGroupMap;
+    }
+
+    public Map<ContextItem, List<IContext>> getRepositoryRenameGroupContext() {
+        return this.renameRepositoryContextGroupMap;
+    }
+
+    public void setRepositoryRenameGroupContext(Map<ContextItem, List<IContext>> renameRepositoryContextGroupMap) {
+        this.renameRepositoryContextGroupMap = renameRepositoryContextGroupMap;
+    }
+
+    public Map<IContext, String> getRenameContextGroup() {
+        return renameContextGroup;
+    }
+
+    public void setRenameContextGroup(Map<IContext, String> renameContextGroup) {
+        this.renameContextGroup = renameContextGroup;
     }
 
     /*
@@ -687,6 +717,30 @@ public abstract class RepositoryUpdateManager {
                 }
                 jobContextManager.setAddGroupContext(listIContext);
                 jobContextManager.setAddContextGroupMap(repositoryAddGroupContext);
+
+                Map<ContextItem, List<IContext>> repositoryRemoveGroupContext = getRepositoryRemoveGroupContext();
+
+                List<IContext> removeListIContext = new ArrayList<IContext>();
+                for (ContextItem item : repositoryRemoveGroupContext.keySet()) {
+                    List<IContext> list = repositoryRemoveGroupContext.get(item);
+                    ListIterator<IContext> listIterator = list.listIterator();
+                    while (listIterator.hasNext()) {
+                        IContext context = listIterator.next();
+
+                        if (!removeListIContext.contains(context)) {
+                            removeListIContext.add(context);
+                        }
+
+                    }
+
+                }
+                jobContextManager.setRemoveGroupContext(removeListIContext);
+                jobContextManager.setRemoveContextGroupMap(repositoryRemoveGroupContext);
+
+                Map<ContextItem, List<IContext>> repositoryRenameGroupContext = getRepositoryRenameGroupContext();
+
+                jobContextManager.setRenameGroupContext(getRenameContextGroup());
+                jobContextManager.setRenameContextGroupMap(repositoryRenameGroupContext);
             }
             // schema rename
             IUpdateManager updateManager = process2.getUpdateManager();
@@ -1481,6 +1535,27 @@ public abstract class RepositoryUpdateManager {
                 repositoryContextGroupMap.put(item, addGroupContext);
             }
             repositoryUpdateManager.setRepositoryAddGroupContext(repositoryContextGroupMap);
+
+            Map<ContextItem, List<IContext>> removeRepositoryContextGroupMap = new HashMap<ContextItem, List<IContext>>();
+            List<IContext> removeGroupContext = repositoryContextManager.getRemoveGroupContext();
+            if (!removeGroupContext.isEmpty()) {
+                removeRepositoryContextGroupMap.put(item, removeGroupContext);
+            }
+            repositoryUpdateManager.setRepositoryRemoveGroupContext(removeRepositoryContextGroupMap);
+
+            Map<ContextItem, List<IContext>> renameRepositoryContextGroupMap = new HashMap<ContextItem, List<IContext>>();
+            Map<IContext, String> renameContextGroup = new HashMap<IContext, String>();
+            Map<IContext, String> renameGroupContext = repositoryContextManager.getRenameGroupContext();
+            List<IContext> renameGroupList = new ArrayList<IContext>();
+            for (IContext renameGroup : renameGroupContext.keySet()) {
+                renameGroupList.add(renameGroup);
+                renameContextGroup.put(renameGroup, renameGroupContext.get(renameGroup));
+            }
+            if (!renameGroupContext.isEmpty()) {
+                renameRepositoryContextGroupMap.put(item, renameGroupList);
+            }
+            repositoryUpdateManager.setRepositoryRenameGroupContext(renameRepositoryContextGroupMap);
+            repositoryUpdateManager.setRenameContextGroup(renameContextGroup);
 
             Map<ContextItem, Map<String, String>> repositoryRenamedMap = new HashMap<ContextItem, Map<String, String>>();
             if (!repositoryContextManager.getNameMap().isEmpty()) {

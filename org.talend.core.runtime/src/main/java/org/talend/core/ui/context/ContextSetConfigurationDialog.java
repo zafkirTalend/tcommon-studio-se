@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.jface.dialogs.IInputValidator;
 import org.eclipse.jface.dialogs.InputDialog;
@@ -245,7 +246,16 @@ public class ContextSetConfigurationDialog extends ObjectSelectionDialog<IContex
         IContextManager contextManager = manager.getContextManager();
         JobContextManager jobContextManager = (JobContextManager) contextManager;
         jobContextManager.setModified(true);
-
+        List<IContext> removeGroupContext = jobContextManager.getRemoveGroupContext();
+        List dataList = getRemoveData();
+        if (dataList == null) {
+            return;
+        }
+        for (Object obj : dataList) {
+            if ((obj instanceof IContext) && !removeGroupContext.contains(obj)) {
+                removeGroupContext.add((IContext) obj);
+            }
+        }
     }
 
     @Override
@@ -276,7 +286,21 @@ public class ContextSetConfigurationDialog extends ObjectSelectionDialog<IContex
     }
 
     private void renameContext(IContext context, String newName) {
+        List listBefor = new ArrayList(getData());
+        String oldName = context.getName();
+        IContextManager contextManager = manager.getContextManager();
+        JobContextManager jobContextManager = (JobContextManager) contextManager;
+        Map<IContext, String> renameGroupContext = jobContextManager.getRenameGroupContext();
+        boolean haveFound = false;
+        if (listBefor.contains(context)) {
+            haveFound = true;
+        }
+
         context.setName(newName);
+        if (haveFound) {
+            renameGroupContext.put(context, oldName);
+        }
+        jobContextManager.setModified(true);
     }
 
     /**
