@@ -70,6 +70,7 @@ import org.talend.core.model.properties.UserProjectAuthorization;
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getItemsRelations <em>Items Relations</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#isReference <em>Reference</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getCustomComponentSettings <em>Custom Component Settings</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getDeletedFolders <em>Deleted Folders</em>}</li>
  * </ul>
  * </p>
  *
@@ -503,6 +504,16 @@ public class ProjectImpl extends EObjectImpl implements Project {
      * @ordered
      */
     protected EList customComponentSettings;
+
+    /**
+     * The cached value of the '{@link #getDeletedFolders() <em>Deleted Folders</em>}' attribute list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getDeletedFolders()
+     * @generated
+     * @ordered
+     */
+    protected EList deletedFolders;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -945,6 +956,18 @@ public class ProjectImpl extends EObjectImpl implements Project {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EList getDeletedFolders() {
+        if (deletedFolders == null) {
+            deletedFolders = new EDataTypeUniqueEList(String.class, this, PropertiesPackage.PROJECT__DELETED_FOLDERS);
+        }
+        return deletedFolders;
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1167,6 +1190,8 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return isReference() ? Boolean.TRUE : Boolean.FALSE;
             case PropertiesPackage.PROJECT__CUSTOM_COMPONENT_SETTINGS:
                 return getCustomComponentSettings();
+            case PropertiesPackage.PROJECT__DELETED_FOLDERS:
+                return getDeletedFolders();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -1276,6 +1301,10 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 getCustomComponentSettings().clear();
                 getCustomComponentSettings().addAll((Collection)newValue);
                 return;
+            case PropertiesPackage.PROJECT__DELETED_FOLDERS:
+                getDeletedFolders().clear();
+                getDeletedFolders().addAll((Collection)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -1373,6 +1402,9 @@ public class ProjectImpl extends EObjectImpl implements Project {
             case PropertiesPackage.PROJECT__CUSTOM_COMPONENT_SETTINGS:
                 getCustomComponentSettings().clear();
                 return;
+            case PropertiesPackage.PROJECT__DELETED_FOLDERS:
+                getDeletedFolders().clear();
+                return;
         }
         super.eUnset(featureID);
     }
@@ -1441,6 +1473,8 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return reference != REFERENCE_EDEFAULT;
             case PropertiesPackage.PROJECT__CUSTOM_COMPONENT_SETTINGS:
                 return customComponentSettings != null && !customComponentSettings.isEmpty();
+            case PropertiesPackage.PROJECT__DELETED_FOLDERS:
+                return deletedFolders != null && !deletedFolders.isEmpty();
         }
         return super.eIsSet(featureID);
     }
@@ -1483,6 +1517,8 @@ public class ProjectImpl extends EObjectImpl implements Project {
         result.append(hidePassword);
         result.append(", reference: ");
         result.append(reference);
+        result.append(", deletedFolders: ");
+        result.append(deletedFolders);
         result.append(')');
         return result.toString();
     }

@@ -320,12 +320,21 @@ public interface PropertiesPackage extends EPackage {
     int PROJECT__CUSTOM_COMPONENT_SETTINGS = 28;
 
     /**
+     * The feature id for the '<em><b>Deleted Folders</b></em>' attribute list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PROJECT__DELETED_FOLDERS = 29;
+
+    /**
      * The number of structural features of the '<em>Project</em>' class.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int PROJECT_FEATURE_COUNT = 29;
+    int PROJECT_FEATURE_COUNT = 30;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.PropertyImpl <em>Property</em>}' class.
@@ -7882,6 +7891,17 @@ public interface PropertiesPackage extends EPackage {
     EReference getProject_CustomComponentSettings();
 
     /**
+     * Returns the meta object for the attribute list '{@link org.talend.core.model.properties.Project#getDeletedFolders <em>Deleted Folders</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute list '<em>Deleted Folders</em>'.
+     * @see org.talend.core.model.properties.Project#getDeletedFolders()
+     * @see #getProject()
+     * @generated
+     */
+    EAttribute getProject_DeletedFolders();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.Project#getTechnicalLabel <em>Technical Label</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Technical Label</em>'.
@@ -13144,6 +13164,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EReference PROJECT__CUSTOM_COMPONENT_SETTINGS = eINSTANCE.getProject_CustomComponentSettings();
+
+        /**
+         * The meta object literal for the '<em><b>Deleted Folders</b></em>' attribute list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute PROJECT__DELETED_FOLDERS = eINSTANCE.getProject_DeletedFolders();
 
         /**
          * The meta object literal for the '<em><b>Technical Label</b></em>' attribute feature.

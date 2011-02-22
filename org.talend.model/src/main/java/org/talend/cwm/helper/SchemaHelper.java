@@ -42,7 +42,7 @@ public final class SchemaHelper {
 
     public static List<Schema> getSchemas(Collection<? extends EObject> elements) {
         List<Schema> schemas = new ArrayList<Schema>();
-        for (EObject modelElement : elements) {
+        for (EObject modelElement : new ArrayList<EObject>(elements)) {
             Schema schema = SwitchHelpers.SCHEMA_SWITCH.doSwitch(modelElement);
             if (schema != null) {
                 schemas.add(schema);

@@ -34,8 +34,7 @@ public interface ItemState extends EObject {
      * Returns the value of the '<em><b>Path</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Path</em>' attribute isn't clear, there really should be more of a description
-     * here...
+     * If the meaning of the '<em>Path</em>' attribute isn't clear, there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Path</em>' attribute.
@@ -47,8 +46,9 @@ public interface ItemState extends EObject {
     String getPath();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ItemState#getPath <em>Path</em>}' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * Sets the value of the '{@link org.talend.core.model.properties.ItemState#getPath <em>Path</em>}' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @param value the new value of the '<em>Path</em>' attribute.
      * @see #getPath()
      * @generated
@@ -84,8 +84,8 @@ public interface ItemState extends EObject {
      * Returns the value of the '<em><b>Locked</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Locked</em>' attribute isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of the '<em>Locked</em>' attribute isn't clear, there really should be more of a description
+     * here...
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Locked</em>' attribute.
@@ -98,8 +98,7 @@ public interface ItemState extends EObject {
 
     /**
      * Sets the value of the '{@link org.talend.core.model.properties.ItemState#isLocked <em>Locked</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Locked</em>' attribute.
      * @see #isLocked()
      * @generated
@@ -110,8 +109,8 @@ public interface ItemState extends EObject {
      * Returns the value of the '<em><b>Locker</b></em>' reference.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Locker</em>' reference isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of the '<em>Locker</em>' reference isn't clear, there really should be more of a description
+     * here...
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Locker</em>' reference.
@@ -124,8 +123,7 @@ public interface ItemState extends EObject {
 
     /**
      * Sets the value of the '{@link org.talend.core.model.properties.ItemState#getLocker <em>Locker</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Locker</em>' reference.
      * @see #getLocker()
      * @generated
@@ -136,8 +134,8 @@ public interface ItemState extends EObject {
      * Returns the value of the '<em><b>Lock Date</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Lock Date</em>' attribute isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of the '<em>Lock Date</em>' attribute isn't clear, there really should be more of a description
+     * here...
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Lock Date</em>' attribute.
@@ -150,8 +148,7 @@ public interface ItemState extends EObject {
 
     /**
      * Sets the value of the '{@link org.talend.core.model.properties.ItemState#getLockDate <em>Lock Date</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Lock Date</em>' attribute.
      * @see #getLockDate()
      * @generated
@@ -162,8 +159,8 @@ public interface ItemState extends EObject {
      * Returns the value of the '<em><b>Commit Date</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Commit Date</em>' attribute isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of the '<em>Commit Date</em>' attribute isn't clear, there really should be more of a description
+     * here...
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Commit Date</em>' attribute.
@@ -176,12 +173,15 @@ public interface ItemState extends EObject {
 
     /**
      * Sets the value of the '{@link org.talend.core.model.properties.ItemState#getCommitDate <em>Commit Date</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Commit Date</em>' attribute.
      * @see #getCommitDate()
      * @generated
      */
     void setCommitDate(Date value);
 
+    /**
+     * @generated NOT
+     */
+    void setItemRelated(Item item);
 } // ItemState

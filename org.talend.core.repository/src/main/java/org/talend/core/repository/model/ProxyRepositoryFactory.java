@@ -33,7 +33,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubMonitor;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -951,8 +950,6 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
 
     public List<String> getFolders(Project project, ERepositoryObjectType type) throws PersistenceException {
         List<String> toReturn = new ArrayList<String>();
-        EList list = project.getEmfProject().getFolders();
-
         String[] split = ERepositoryObjectType.getFolderName(type).split("/"); //$NON-NLS-1$
         String labelType = split[split.length - 1];
 
@@ -960,6 +957,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         addChildren(toReturn, folderItem, labelType, ""); //$NON-NLS-1$
 
         return toReturn;
+
     }
 
     private void addChildren(List<String> target, FolderItem source, String type, String path) {
@@ -1618,11 +1616,6 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
 
             emptyTempFolder(project);
 
-            // i18n
-            // log.info(getRepositoryContext().getUser() + " logged on " + projectManager.getCurrentProject());
-            String str[] = new String[] { getRepositoryContext().getUser() + "", projectManager.getCurrentProject() + "" }; //$NON-NLS-1$ //$NON-NLS-2$        
-            log.info(Messages.getString("ProxyRepositoryFactory.log.loggedOn", str)); //$NON-NLS-1$
-
             currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
             currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.load.componnents"), 1); //$NON-NLS-1$
             coreService.componentsReset();
@@ -1676,6 +1669,8 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
 
             fullLogonFinished = true;
 
+            String str[] = new String[] { getRepositoryContext().getUser() + "", projectManager.getCurrentProject() + "" }; //$NON-NLS-1$ //$NON-NLS-2$        
+            log.info(Messages.getString("ProxyRepositoryFactory.log.loggedOn", str)); //$NON-NLS-1$
         } catch (LoginException e) {
             logOffProject();
             throw e;

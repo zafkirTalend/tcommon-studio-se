@@ -34,6 +34,9 @@ import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.User;
+import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.repository.ProjectManager;
+import org.talend.repository.model.RepositoryConstants;
 
 /**
  * This helper class contains a set of methods to perform basic operations on FolderItem objects.
@@ -57,6 +60,36 @@ public abstract class FolderHelper {
     protected FolderHelper(Project project, User connectedUser) {
         this.project = project;
         this.connectedUser = connectedUser;
+
+        if (ProjectManager.getInstance().getFolders(project).isEmpty()) {
+            initialize();
+        }
+    }
+
+    private void initialize() {
+        for (ERepositoryObjectType type : ERepositoryObjectType.values()) {
+            if (type.isDQItemType()) {
+                continue;
+            }
+            try {
+                if (type.hasFolder()) {
+                    String folderName = ERepositoryObjectType.getFolderName(type);
+                    if (getFolder(new Path(folderName)) == null) {
+                        createSystemFolder(new Path(folderName));
+                    }
+                }
+            } catch (IllegalArgumentException iae) {
+                // Some repository object type doesn't need a folder
+            }
+        }
+
+        if (getFolder(new Path(RepositoryConstants.TEMP_DIRECTORY)) == null) {
+            createSystemFolder(new Path(RepositoryConstants.TEMP_DIRECTORY));
+        }
+
+        if (getFolder(new Path("code/routines/system")) == null) { //$NON-NLS-1$  
+            createSystemFolder(new Path("code/routines/system")); //$NON-NLS-1$  
+        }
     }
 
     public void createSystemFolder(IPath path) {
@@ -69,7 +102,24 @@ public abstract class FolderHelper {
     }
 
     public void createFolder(IPath path) {
-        doCreateFolder(path, FolderType.FOLDER_LITERAL);
+        FolderType folderType = FolderType.FOLDER_LITERAL;
+        for (ERepositoryObjectType type : ERepositoryObjectType.values()) {
+            if (type.hasFolder()) {
+                String folderName = ERepositoryObjectType.getFolderName(type);
+                if (folderName.equals(path.toString())) {
+                    folderType = FolderType.SYSTEM_FOLDER_LITERAL;
+                }
+            }
+        }
+        doCreateFolder(path, folderType);
+
+        if (folderType == FolderType.SYSTEM_FOLDER_LITERAL) {
+            EObject currentFolder = getFolder(path).getParent();
+            while ((currentFolder instanceof FolderItem) && ((FolderItem) currentFolder).getParent() != null) {
+                ((FolderItem) currentFolder).setType(folderType);
+                currentFolder = ((FolderItem) currentFolder).getParent();
+            }
+        }
     }
 
     private void doCreateFolder(IPath path, FolderType type) {
@@ -99,7 +149,7 @@ public abstract class FolderHelper {
                 doCreateFolder(child);
 
                 if (folder == null) {
-                    project.getFolders().add(child);
+                    ProjectManager.getInstance().getFolders(project).add(child);
                 } else {
                     folder.getChildren().add(child);
                 }
@@ -133,7 +183,7 @@ public abstract class FolderHelper {
             folder = child;
         }
         if (previousFolder == null) {
-            project.getFolders().remove(folder);
+            ProjectManager.getInstance().getFolders(project).remove(folder);
         } else {
             previousFolder.getChildren().remove(folder);
         }
@@ -155,11 +205,11 @@ public abstract class FolderHelper {
 
     public Set<IPath> listFolders() {
         HashSet<IPath> folders = new HashSet<IPath>();
-        list(folders, project.getFolders(), new Path("")); //$NON-NLS-1$
+        list(folders, ProjectManager.getInstance().getFolders(project), new Path("")); //$NON-NLS-1$
         return folders;
     }
 
-    private void list(HashSet<IPath> collector, EList content, IPath currentPath) {
+    private void list(HashSet<IPath> collector, List<FolderItem> content, IPath currentPath) {
         for (Object o : content) {
             if (o instanceof FolderItem) {
                 FolderItem folder = (FolderItem) o;
@@ -209,7 +259,7 @@ public abstract class FolderHelper {
     }
 
     public FolderItem findChildFolder(FolderItem parent, String name) {
-        EList children;
+        List children;
 
         EObject parentItem;
 
@@ -218,7 +268,7 @@ public abstract class FolderHelper {
                 children = parent.getChildren();
                 parentItem = parent;
             } else {
-                children = project.getFolders();
+                children = ProjectManager.getInstance().getFolders(project);
                 parentItem = project;
             }
             // see the bug "6458".

@@ -18,7 +18,6 @@ import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,7 +47,6 @@ import org.talend.core.model.properties.FolderType;
 import org.talend.core.model.properties.Information;
 import org.talend.core.model.properties.InformationLevel;
 import org.talend.core.model.properties.Item;
-import org.talend.core.model.properties.ItemState;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.ProjectReference;
 import org.talend.core.model.properties.PropertiesFactory;
@@ -811,43 +809,13 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
         if (brandingService != null) {
             String version = brandingService.getFullProductName() + "-" + productVersion; //$NON-NLS-1$
             if (!version.equals(project.getEmfProject().getProductVersion())) {
-                // new version, so clean the old project to be sure no old item kept (especially for folders content)
-                project.getEmfProject().getFolders().clear();
-                Collection<FolderItem> folders = EcoreUtil.getObjectsByType(project.getEmfProject().eResource().getContents(),
-                        PropertiesPackage.eINSTANCE.getFolderItem());
-                project.getEmfProject().eResource().getContents().removeAll(folders);
-                Collection<ItemState> itemStates = EcoreUtil.getObjectsByType(project.getEmfProject().eResource().getContents(),
-                        PropertiesPackage.eINSTANCE.getItemState());
-                project.getEmfProject().eResource().getContents().removeAll(itemStates);
-                Collection<Item> items = EcoreUtil.getObjectsByType(project.getEmfProject().eResource().getContents(),
-                        PropertiesPackage.eINSTANCE.getItem());
-                project.getEmfProject().eResource().getContents().removeAll(items);
-                Collection<Property> properties = EcoreUtil.getObjectsByType(project.getEmfProject().eResource().getContents(),
-                        PropertiesPackage.eINSTANCE.getProperty());
-                project.getEmfProject().eResource().getContents().removeAll(properties);
-
                 project.getEmfProject().setProductVersion(version);
-                saveProject(project);
+                project.getEmfProject().getFolders().clear();
             }
         }
         // saveProject();
 
-        // parent's folders info are transient, so need to set again each start.
-        for (FolderItem curFolderItem : (List<FolderItem>) project.getEmfProject().getFolders()) {
-            fillParentsFolderInfos(curFolderItem);
-            curFolderItem.setParent(project.getEmfProject());
-        }
-
         setLoggedOnProject(true);
-    }
-
-    private void fillParentsFolderInfos(FolderItem folderItem) {
-        for (Item curItem : (List<Item>) folderItem.getChildren()) {
-            if (curItem instanceof FolderItem) {
-                fillParentsFolderInfos((FolderItem) curItem);
-            }
-            curItem.setParent(folderItem);
-        }
     }
 
     public List<ModuleNeeded> getModulesNeededForJobs() throws PersistenceException {
@@ -1056,7 +1024,8 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
     }
 
     public FolderItem getFolderItem(Project project, ERepositoryObjectType itemType, IPath path) {
-        return getFolderHelper(project.getEmfProject()).getFolder(itemType.getFolderName(itemType) + IPath.SEPARATOR + path);
+        return getFolderHelper(project.getEmfProject()).getFolder(
+                ERepositoryObjectType.getFolderName(itemType) + IPath.SEPARATOR + path);
     }
 
     /*
@@ -1083,7 +1052,6 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
     }
 
     protected abstract <K, T> List<T> getMetadatasByFolder(Project project, ERepositoryObjectType type, IPath path);
-
 
     public RootContainer<String, IRepositoryViewObject> getTdqRepositoryViewObjects(Project project, ERepositoryObjectType type,
             String folderName, boolean[] options) throws PersistenceException {

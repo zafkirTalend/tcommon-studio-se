@@ -29,6 +29,7 @@ import org.talend.core.PluginChecker;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.general.Project;
+import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ProjectReference;
 import org.talend.core.model.properties.Property;
@@ -57,6 +58,8 @@ public final class ProjectManager {
     private Map<String, String> mapProjectUrlToBranchUrl = new HashMap<String, String>();
 
     private static ICoreService coreSerivce = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
+
+    private static Map<String, List<FolderItem>> foldersMap = new HashMap<String, List<FolderItem>>();
 
     private ProjectManager() {
         initCurrentProject();
@@ -354,5 +357,12 @@ public final class ProjectManager {
 
     public void setCurrentBranchURL(Project project, String currentBranch) {
         mapProjectUrlToBranchUrl.put(project.getEmfProject().getUrl(), currentBranch);
+    }
+
+    public List<FolderItem> getFolders(org.talend.core.model.properties.Project project) {
+        if (!foldersMap.containsKey(project.getTechnicalLabel())) {
+            foldersMap.put(project.getTechnicalLabel(), new ArrayList<FolderItem>());
+        }
+        return foldersMap.get(project.getTechnicalLabel());
     }
 }

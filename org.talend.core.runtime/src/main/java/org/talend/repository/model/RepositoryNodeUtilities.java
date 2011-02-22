@@ -103,7 +103,7 @@ public class RepositoryNodeUtilities {
             return null;
         }
         if (!(obj instanceof FolderItem)) {
-            return null;
+            return new Path("");
         }
         FolderItem folderItem = (FolderItem) obj;
 

@@ -48,6 +48,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
  *   <li>{@link org.talend.core.model.properties.Project#getItemsRelations <em>Items Relations</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Project#isReference <em>Reference</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Project#getCustomComponentSettings <em>Custom Component Settings</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.Project#getDeletedFolders <em>Deleted Folders</em>}</li>
  * </ul>
  * </p>
  *
@@ -549,6 +550,22 @@ public interface Project extends EObject {
      * @generated
      */
     EList getCustomComponentSettings();
+
+    /**
+     * Returns the value of the '<em><b>Deleted Folders</b></em>' attribute list.
+     * The list contents are of type {@link java.lang.String}.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Deleted Folders</em>' attribute list isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Deleted Folders</em>' attribute list.
+     * @see org.talend.core.model.properties.PropertiesPackage#getProject_DeletedFolders()
+     * @model
+     * @generated
+     */
+    EList getDeletedFolders();
 
     /**
      * Returns the value of the '<em><b>Technical Label</b></em>' attribute.

@@ -12,6 +12,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ItemState;
 import org.talend.core.model.properties.PropertiesPackage;
@@ -43,9 +44,9 @@ public abstract class ItemImpl extends EObjectImpl implements Item {
     protected Property property;
 
     /**
-     * The cached value of the '{@link #getState() <em>State</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getState() <em>State</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @see #getState()
      * @generated
      * @ordered
@@ -54,8 +55,8 @@ public abstract class ItemImpl extends EObjectImpl implements Item {
 
     /**
      * The cached value of the '{@link #getParent() <em>Parent</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getParent()
      * @generated
      * @ordered
@@ -135,25 +136,27 @@ public abstract class ItemImpl extends EObjectImpl implements Item {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated NOT
      */
     public ItemState getState() {
         if (state != null && state.eIsProxy()) {
-            InternalEObject oldState = (InternalEObject)state;
-            state = (ItemState)eResolveProxy(oldState);
+            InternalEObject oldState = (InternalEObject) state;
+            state = (ItemState) eResolveProxy(oldState);
             if (state != oldState) {
                 if (eNotificationRequired())
                     eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.ITEM__STATE, oldState, state));
+            }
+            if (this instanceof FolderItem) {
+                state.setItemRelated(this);
             }
         }
         return state;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public ItemState basicGetState() {
@@ -161,20 +164,22 @@ public abstract class ItemImpl extends EObjectImpl implements Item {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated NOT
      */
     public void setState(ItemState newState) {
         ItemState oldState = state;
         state = newState;
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.ITEM__STATE, oldState, state));
+        if (this instanceof FolderItem) {
+            state.setItemRelated(this);
+        }
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EObject getParent() {
@@ -190,8 +195,7 @@ public abstract class ItemImpl extends EObjectImpl implements Item {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EObject basicGetParent() {
@@ -199,8 +203,7 @@ public abstract class ItemImpl extends EObjectImpl implements Item {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setParent(EObject newParent) {
