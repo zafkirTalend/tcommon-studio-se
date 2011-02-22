@@ -63,11 +63,13 @@ public class ExpandCollapseJobDesignsTest extends TalendSwtBotForTos {
 
     @Test
     public void expandCollapseJob() {
+        // Expand tree item
         tree.select("Job Designs").contextMenu("Expand/Collapse").click();
-        Assert.assertEquals("did not ecpand the node 'Job Designs'", 10, tree.visibleRowCount());
+        Assert.assertTrue("did not ecpand the node 'Job Designs'", tree.getTreeItem("Job Designs").isExpanded());
 
+        // Collapse tree item
         tree.select("Job Designs").contextMenu("Expand/Collapse").click();
-        Assert.assertEquals("did not collapse the node 'Job Designs'", 9, tree.visibleRowCount());
+        Assert.assertFalse("did not collapse the node 'Job Designs'", tree.getTreeItem("Job Designs").isExpanded());
     }
 
     @After
