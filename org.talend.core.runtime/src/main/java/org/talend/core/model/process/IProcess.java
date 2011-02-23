@@ -79,6 +79,8 @@ public interface IProcess extends IElement {
 
     public Set<String> getNeededLibraries(boolean withChildrens);
 
+    public Set<String> getNeededRoutines();
+
     public int getMergelinkOrder(final INode node);
 
     public boolean isThereLinkWithHash(final INode node);

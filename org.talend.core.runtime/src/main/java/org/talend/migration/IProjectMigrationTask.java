@@ -47,6 +47,10 @@ public interface IProjectMigrationTask {
     // Use to manage task order. Tasks are sorted (ASC) by this date, then executed following this order.
     public Date getOrder();
 
+    // In case the migration is not used anymore, it won't execute the migration at all, but it will keep in list for
+    // already migrated
+    public boolean isDeprecated();
+
     /**
      * Represents the execution status of this task.
      */
