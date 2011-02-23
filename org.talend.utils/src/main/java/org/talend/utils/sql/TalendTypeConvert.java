@@ -76,6 +76,11 @@ public final class TalendTypeConvert {
      */
     public static Object convertToObject(String talendType, String value) {
         Object object = null;
+        // bug 19036 .remove the epmty string, '\r','\n'.
+        value = value.trim();
+        value = StringUtils.remove(value, "\r");
+        value = StringUtils.remove(value, "\n");
+
         try {
             if (talendType.equals(talendTypeName(Boolean.class))) {
                 object = Boolean.valueOf(value).booleanValue();
