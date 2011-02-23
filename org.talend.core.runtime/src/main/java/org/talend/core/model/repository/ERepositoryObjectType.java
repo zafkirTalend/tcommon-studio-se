@@ -163,6 +163,7 @@ public enum ERepositoryObjectType {
     // MOD klliu 2010-11-26 definition type
     TDQ_SYSTEM_INDICATORS("repository.systemIndicators", "repository.systemIndicators.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     TDQ_USERDEFINE_INDICATORS("repository.userDefineIndicators", "repository.userDefineIndicators.alias"), //$NON-NLS-1$ //$NON-NLS-2$
+    TDQ_USERDEFINE_INDICATORS_LIB("repository.userDefineIndicators.lib", "repository.userDefineIndicators.lib.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     SYSTEM_INDICATORS_ADVANCED_STATISTICS(
                                           "repository.systemIndicators.advancedStatistics", "repository.systemIndicators.advancedStatistics.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     SYSTEM_INDICATORS_BUSINESS_RULES(

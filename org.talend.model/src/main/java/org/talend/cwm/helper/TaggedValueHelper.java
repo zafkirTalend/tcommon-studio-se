@@ -124,6 +124,13 @@ public final class TaggedValueHelper {
 
     // ~~~~~~~~~~~~~~~~~~~~~~~~~
 
+    // UDI tagged values
+    public static final String CLASS_NAME_TEXT = "CLASS_NAME_TEXT";//$NON-NLS-1$
+
+    public static final String JAR_FILE_PATH = "JAR_FILE_PATH";//$NON-NLS-1$
+
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
     private TaggedValueHelper() {
     }
 
