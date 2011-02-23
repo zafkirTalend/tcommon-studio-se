@@ -38,8 +38,8 @@ public enum EDatabaseVersion4Drivers {
     ORACLE_8(new DbVersion4Drivers(new EDatabaseTypeName[] { EDatabaseTypeName.ORACLEFORSID, EDatabaseTypeName.ORACLESN,
             EDatabaseTypeName.ORACLE_OCI }, "Oracle 8", "ORACLE_8", "ojdbc12-8i.jar")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     // AS400
-    AS400_V5R3_V6R1(new DbVersion4Drivers(EDatabaseTypeName.AS400, "V5R3 to V6R1", "V5R3 to V6R1", "jt400_V5R3.jar")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-    AS400_V5R2_V5R4(new DbVersion4Drivers(EDatabaseTypeName.AS400, "V5R2 to V5R4", "V5R2 to V5R4", "jt400_V5R2.jar")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    AS400_V5R4_V6R1(new DbVersion4Drivers(EDatabaseTypeName.AS400, "V5R4 to V6R1", "jt400_V5R3.jar")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    AS400_V5R2_V5R4(new DbVersion4Drivers(EDatabaseTypeName.AS400, "V5R2 to V5R4", "jt400_V5R2.jar")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     //
     INTERBASE(new DbVersion4Drivers(EDatabaseTypeName.INTERBASE, "interclient.jar")), //$NON-NLS-1$
     //
@@ -59,8 +59,10 @@ public enum EDatabaseVersion4Drivers {
     MYSQL_4(new DbVersion4Drivers(EDatabaseTypeName.MYSQL, "MySQL 4", "MYSQL_4", "mysql-connector-java-3.1.14-bin.jar")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     // add for 9594
     MSSQL(new DbVersion4Drivers(EDatabaseTypeName.MSSQL, "jtds-1.2.jar")), //$NON-NLS-1$
-    MSSQL2005(new DbVersion4Drivers(EDatabaseTypeName.MSSQL05_08, "MSSQL2005", "MSSQL_2005", new String[] { "sqljdbc.jar", "sqljdbc4.jar" })), //$NON-NLS-1$
-    MSSQL2008(new DbVersion4Drivers(EDatabaseTypeName.MSSQL05_08, "MSSQL2008", "MSSQL_2008", new String[] { "sqljdbc.jar", "sqljdbc4.jar" })), //$NON-NLS-1$
+    MSSQL2005(new DbVersion4Drivers(EDatabaseTypeName.MSSQL05_08,
+            "MSSQL2005", "MSSQL_2005", new String[] { "sqljdbc.jar", "sqljdbc4.jar" })), //$NON-NLS-1$
+    MSSQL2008(new DbVersion4Drivers(EDatabaseTypeName.MSSQL05_08,
+            "MSSQL2008", "MSSQL_2008", new String[] { "sqljdbc.jar", "sqljdbc4.jar" })), //$NON-NLS-1$
 
     VERTICA_4(new DbVersion4Drivers(EDatabaseTypeName.VERTICA, "VERTICA 4", "VERTICA_4", "vertica_4.0_jdk_5.jar")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     VERTICA_3(new DbVersion4Drivers(EDatabaseTypeName.VERTICA, "VERTICA 3", "VERTICA_3", "vertica_3.0_jdk_5.jar")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$

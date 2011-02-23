@@ -33,7 +33,7 @@ public enum EDatabaseDriver4Version {
     VERTICA_3("Vertica", "VERTICA_3", "vertica_3.0_jdk_5.jar"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     VERTICA("Vertica", "VERTICA_3.5", "vertica_3.5_jdk_5.jar"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     // AS400
-    V5R3_V6R1("AS400", "V5R3 to V6R1", "jt400_V5R3.jar"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    V5R4_V6R1("AS400", "V5R4 to V6R1", "jt400_V5R3.jar"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     V5R2_V5R4("AS400", "V5R2 to V5R4", "jt400_V5R2.jar"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
     INTERBASE("Interbase", null, "interclient.jar"), //$NON-NLS-1$ //$NON-NLS-2$
