@@ -543,7 +543,7 @@ public interface NodeType extends EObject {
      * @return the value of the '<em>Node Data</em>' containment reference.
      * @see #setNodeData(AbstractExternalData)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getNodeType_NodeData()
-     * @model containment="true" derived="true"
+     * @model containment="true"
      * @generated
      */
     AbstractExternalData getNodeData();
@@ -569,7 +569,7 @@ public interface NodeType extends EObject {
      * @return the value of the '<em>Node Container</em>' containment reference.
      * @see #setNodeContainer(NodeContainerType)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getNodeType_NodeContainer()
-     * @model containment="true" derived="true"
+     * @model containment="true"
      * @generated
      */
     NodeContainerType getNodeContainer();
