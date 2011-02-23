@@ -30,4 +30,8 @@ public abstract class AbstractProjectMigrationTask extends AbstractMigrationTask
         return false;
     }
 
+    public boolean isDeprecated() {
+        return false;
+    }
+
 }

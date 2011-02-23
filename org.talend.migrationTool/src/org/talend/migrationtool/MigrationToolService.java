@@ -91,7 +91,7 @@ public class MigrationToolService implements IMigrationToolService {
                         throw new OperationCanceledException(Messages.getString(
                                 "MigrationToolService.migrationCancel", task.getName())); //$NON-NLS-1$
                     }
-                    if (!done.contains(task.getId())) {
+                    if (!done.contains(task.getId()) && task.isDeprecated()) {
                         monitorWrap.setTaskName(Messages.getString("MigrationToolService.taskInProgress", task.getName())); //$NON-NLS-1$
                         subProgressMonitor.worked(1);
                         try {
@@ -117,6 +117,9 @@ public class MigrationToolService implements IMigrationToolService {
                             log.debug("Task \"" + task.getName() + "\" failed"); //$NON-NLS-1$ //$NON-NLS-2$
                         }
                         monitorWrap.setTaskName("");
+                    } else if (task.isDeprecated()) {
+                        done.add(task.getId());
+                        needSave = true;
                     }
                 }
 

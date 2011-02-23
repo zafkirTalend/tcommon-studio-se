@@ -126,4 +126,8 @@ public abstract class AbstractItemMigrationTask extends AbstractMigrationTask im
         this.project = project;
     }
 
+    public boolean isDeprecated() {
+        return false;
+    }
+
 }

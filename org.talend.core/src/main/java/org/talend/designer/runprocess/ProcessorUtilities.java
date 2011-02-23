@@ -69,7 +69,6 @@ import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.MetadataType;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
-import org.talend.designer.core.model.utils.emf.talendfile.RoutinesParameterType;
 import org.talend.repository.job.deletion.JobResource;
 import org.talend.repository.job.deletion.JobResourceManager;
 import org.talend.repository.model.ERepositoryStatus;
@@ -311,8 +310,6 @@ public class ProcessorUtilities {
             // if it's the father, reset the processMap to ensure to have a good
             // code generation
             ItemCacheManager.clearCache();
-            // if it's the father or main job, initialize the routines name
-            CodeGeneratorRoutine.initializeRoutinesName(jobInfo.getProcessItem());
         }
 
         IProcess currentProcess = null;
@@ -354,21 +351,17 @@ public class ProcessorUtilities {
             currentProcess = jobInfo.getProcess();
         }
         generateJobInfo(jobInfo, isMainJob, currentProcess, selectedProcessItem);
+        Set<String> neededRoutines = currentProcess.getNeededRoutines();
+        if (neededRoutines != null) {
+            // item can be null in case of job preview
+
+            LastGenerationInfo.getInstance().setRoutinesNeededPerJob(jobInfo.getJobId(), jobInfo.getJobVersion(), neededRoutines);
+            LastGenerationInfo.getInstance().setRoutinesNeededWithSubjobPerJob(jobInfo.getJobId(), jobInfo.getJobVersion(),
+                    neededRoutines);
+        }
 
         if (selectedProcessItem != null) {
             checkMetadataDynamic(selectedProcessItem, jobInfo);
-
-            // item can be null in case of job preview
-            Set<String> routinesId = new HashSet<String>();
-            for (RoutinesParameterType infor : (List<RoutinesParameterType>) ((ProcessItem) selectedProcessItem).getProcess()
-                    .getParameters().getRoutinesParameter()) {
-                routinesId.add(infor.getId());
-            }
-            LastGenerationInfo.getInstance().setRoutinesNeededPerJob(jobInfo.getJobId(), jobInfo.getJobVersion(), routinesId);
-            LastGenerationInfo.getInstance().setRoutinesNeededWithSubjobPerJob(jobInfo.getJobId(), jobInfo.getJobVersion(),
-                    routinesId);
-
-            selectedProcessItem.eResource().unload();
             jobInfo.setProcessItem(null);
         }
         Set<String> neededLibraries = CorePlugin.getDefault().getDesignerCoreService()
@@ -541,8 +534,6 @@ public class ProcessorUtilities {
             // if it's the father, reset the processMap to ensure to have a good
             // code generation
             ItemCacheManager.clearCache();
-            // if it's the father or main job, initialize the routines name
-            CodeGeneratorRoutine.initializeRoutinesName(jobInfo.getProcessItem());
         }
 
         IProcess currentProcess = null;
@@ -584,22 +575,16 @@ public class ProcessorUtilities {
             currentProcess = jobInfo.getProcess();
         }
         generateJobInfo(jobInfo, isMainJob, currentProcess, selectedProcessItem);
-
-        if (selectedProcessItem != null) {
-
-            checkMetadataDynamic(selectedProcessItem, jobInfo);
-
+        Set<String> neededRoutines = currentProcess.getNeededRoutines();
+        if (neededRoutines != null) {
             // item can be null in case of job preview
-            Set<String> routinesId = new HashSet<String>();
-            for (RoutinesParameterType infor : (List<RoutinesParameterType>) ((ProcessItem) selectedProcessItem).getProcess()
-                    .getParameters().getRoutinesParameter()) {
-                routinesId.add(infor.getId());
-            }
-            LastGenerationInfo.getInstance().setRoutinesNeededPerJob(jobInfo.getJobId(), jobInfo.getJobVersion(), routinesId);
-            LastGenerationInfo.getInstance().setRoutinesNeededWithSubjobPerJob(jobInfo.getJobId(), jobInfo.getJobVersion(),
-                    routinesId);
 
-            selectedProcessItem.eResource().unload();
+            LastGenerationInfo.getInstance().setRoutinesNeededPerJob(jobInfo.getJobId(), jobInfo.getJobVersion(), neededRoutines);
+            LastGenerationInfo.getInstance().setRoutinesNeededWithSubjobPerJob(jobInfo.getJobId(), jobInfo.getJobVersion(),
+                    neededRoutines);
+        }
+        if (selectedProcessItem != null) {
+            checkMetadataDynamic(selectedProcessItem, jobInfo);
             jobInfo.setProcessItem(null);
         }
 
