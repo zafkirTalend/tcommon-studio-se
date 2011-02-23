@@ -294,8 +294,8 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
                                 FormData textTitleData = new FormData();
                                 textTitleData.left = new FormAttachment(0, 50);
                                 textTitleData.right = new FormAttachment(100, -65);
-                                textTitleData.top = new FormAttachment(0, 15);
-                                textTitleData.bottom = new FormAttachment(0, 49);
+                                textTitleData.top = new FormAttachment(0, 12);
+                                textTitleData.bottom = new FormAttachment(0, 50);
                                 textTitle.setLayoutData(textTitleData);
                                 textTitle.setFont(new Font(foreGroundComposite.getDisplay(), "Arial", 25, SWT.BOLD));
                                 textTitle.setBackground(new Color(null, 255, 255, 204));
@@ -347,12 +347,12 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
                                 Link palette = new Link(foreGroundComposite, SWT.NONE);
                                 FormData paletteData = new FormData();
                                 paletteData.left = new FormAttachment(0, 680);
-                                paletteData.right = new FormAttachment(0, 720);
+                                paletteData.right = new FormAttachment(0, 725);
                                 paletteData.top = new FormAttachment(0, 220);
                                 paletteData.bottom = new FormAttachment(0, 240);
                                 palette.setLayoutData(paletteData);
                                 palette.setBackground(new Color(null, 255, 255, 204));
-                                palette.setText("<a>Palette </a>.");
+                                palette.setText("<a>Palette</a>.");
                                 palette.addListener(SWT.Selection, new Listener() {
 
                                     public void handleEvent(Event event) {
