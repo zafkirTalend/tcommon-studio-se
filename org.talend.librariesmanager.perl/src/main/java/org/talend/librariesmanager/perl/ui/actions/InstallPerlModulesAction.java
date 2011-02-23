@@ -8,9 +8,9 @@
 // You should have received a copy of the agreement
 // along with this program; if not, write to Talend SA
 // 9 rue Pages 92150 Suresnes, France
-//   
+//
 // ============================================================================
-package org.talend.librariesmanager.ui.actions;
+package org.talend.librariesmanager.perl.ui.actions;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ import org.talend.core.CorePlugin;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
 import org.talend.core.prefs.ITalendCorePrefConstants;
-import org.talend.librariesmanager.i18n.Messages;
+import org.talend.librariesmanager.perl.i18n.Messages;
 import org.talend.librariesmanager.ui.views.ModulesViewComposite;
 
 /**

@@ -19,6 +19,7 @@ import java.util.List;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.talend.commons.exception.BusinessException;
 import org.talend.core.CorePlugin;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.language.ECodeLanguage;
@@ -29,6 +30,7 @@ import org.talend.core.model.process.IElement;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.Problem;
+import org.talend.core.service.ILibrariesPerlService;
 import org.talend.librariesmanager.i18n.Messages;
 
 /**
@@ -41,10 +43,19 @@ public class LibrariesService implements ILibrariesService {
 
     private static ILibrariesService javaService = new JavaLibrariesService();
 
-    private static ILibrariesService perlService = new PerlLibrariesService();
+    private static ILibrariesService perlService = loadPerlLibrariesService();
 
     public LibrariesService() {
 
+    }
+
+    private static ILibrariesService loadPerlLibrariesService() {
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibrariesPerlService.class)) {
+            ILibrariesPerlService perlService = (ILibrariesPerlService) GlobalServiceRegister.getDefault().getService(
+                    ILibrariesPerlService.class);
+            return perlService.getPerlLibrariesService();
+        }
+        return null;
     }
 
     private ILibrariesService getLibrariesService() {
@@ -66,7 +77,7 @@ public class LibrariesService implements ILibrariesService {
         case JAVA:
             return javaService;
         case PERL:
-            return perlService;
+            return loadPerlLibrariesService();
         default:
             throw unsupportedOperationException; //$NON-NLS-1$
         }
@@ -77,7 +88,7 @@ public class LibrariesService implements ILibrariesService {
     }
 
     private ILibrariesService getPerlLibrariesService() {
-        return perlService;
+        return loadPerlLibrariesService();
     }
 
     public void deployLibrary(URL source) throws IOException {

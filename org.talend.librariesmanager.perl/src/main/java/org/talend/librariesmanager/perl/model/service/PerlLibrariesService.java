@@ -8,9 +8,9 @@
 // You should have received a copy of the agreement
 // along with this program; if not, write to Talend SA
 // 9 rue Pages 92150 Suresnes, France
-//   
+//
 // ============================================================================
-package org.talend.librariesmanager.model.service;
+package org.talend.librariesmanager.perl.model.service;
 
 import java.io.File;
 import java.io.IOException;
@@ -38,9 +38,12 @@ import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
 import org.talend.core.model.routines.IRoutinesProvider;
 import org.talend.designer.runprocess.IRunProcessService;
 import org.talend.designer.runprocess.ProcessorException;
-import org.talend.librariesmanager.Activator;
-import org.talend.librariesmanager.i18n.Messages;
 import org.talend.librariesmanager.model.ModulesNeededProvider;
+import org.talend.librariesmanager.model.service.AbstractLibrariesService;
+import org.talend.librariesmanager.model.service.RoutineProviderManager;
+import org.talend.librariesmanager.model.service.SpecificFilesUtils;
+import org.talend.librariesmanager.perl.Activator;
+import org.talend.librariesmanager.perl.i18n.Messages;
 import org.talend.librariesmanager.prefs.PreferencesUtilities;
 
 /**
@@ -181,7 +184,7 @@ public class PerlLibrariesService extends AbstractLibrariesService {
         try {
             // String checkPerlModuleAbsolutePathOLD = FileLocator
             // .toFileURL(Activator.BUNDLE.getEntry(CHECK_PERL_MODULE_RELATIVE_PATH)).getPath();
-            //            
+            //
             String checkPerlModuleAbsolutePath = getLibrariesPath() + CHECK_PERL_MODULE_RELATIVE_PATH;
 
             StringBuffer out = new StringBuffer();

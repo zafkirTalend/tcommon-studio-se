@@ -8,11 +8,12 @@
 // You should have received a copy of the agreement
 // along with this program; if not, write to Talend SA
 // 9 rue Pages 92150 Suresnes, France
-//   
+//
 // ============================================================================
 package org.talend.librariesmanager.ui.views;
 
 import org.eclipse.core.commands.IHandler;
+import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IActionBars;
@@ -20,12 +21,13 @@ import org.eclipse.ui.commands.ActionHandler;
 import org.eclipse.ui.handlers.IHandlerService;
 import org.eclipse.ui.part.ViewPart;
 import org.talend.core.CorePlugin;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.general.ILibrariesService.IChangedLibrariesListener;
+import org.talend.core.service.ILibrariesPerlService;
 import org.talend.librariesmanager.ui.actions.CheckModulesAction;
 import org.talend.librariesmanager.ui.actions.ImportExternalJarAction;
-import org.talend.librariesmanager.ui.actions.InstallPerlModulesAction;
 import org.talend.librariesmanager.ui.actions.RemoveExternalJarAction;
 
 /**
@@ -123,8 +125,13 @@ public class ModulesView extends ViewPart {
             return;
         }
         case PERL: {
-            InstallPerlModulesAction installModulesAction = new InstallPerlModulesAction();
-            manager.add(installModulesAction);
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibrariesPerlService.class)) {
+                ILibrariesPerlService perlService = (ILibrariesPerlService) GlobalServiceRegister.getDefault().getService(
+                        ILibrariesPerlService.class);
+
+                Action installModulesAction = perlService.getInstallPerlModulesAction();
+                manager.add(installModulesAction);
+            }
             return;
         }
         }

@@ -12,9 +12,11 @@
 // ============================================================================
 package org.talend.librariesmanager.model.service;
 
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.routines.IRoutineProviderCreator;
 import org.talend.core.model.routines.IRoutinesProvider;
+import org.talend.core.service.ILibrariesPerlService;
 
 /**
  * bqian class global comment. Detailled comment
@@ -26,7 +28,12 @@ public class TosRoutinesProviderCreator implements IRoutineProviderCreator {
     IRoutinesProvider javaProvider = null;
 
     public TosRoutinesProviderCreator() {
-        perlProvider = new TosPerlRoutinesProvider();
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibrariesPerlService.class)) {
+            ILibrariesPerlService perlService = (ILibrariesPerlService) GlobalServiceRegister.getDefault().getService(
+                    ILibrariesPerlService.class);
+            perlProvider = perlService.getTosPerlRoutinesProvider();
+        }
+
         javaProvider = new TosJavaRoutinesProvider();
     }
 

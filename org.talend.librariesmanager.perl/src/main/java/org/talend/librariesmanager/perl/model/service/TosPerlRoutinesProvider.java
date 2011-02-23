@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.librariesmanager.model.service;
+package org.talend.librariesmanager.perl.model.service;
 
 import java.io.IOException;
 import java.net.URL;
@@ -20,7 +20,7 @@ import org.eclipse.core.runtime.FileLocator;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.model.general.ILibrariesService;
 import org.talend.core.model.routines.IRoutinesProvider;
-import org.talend.librariesmanager.Activator;
+import org.talend.librariesmanager.perl.Activator;
 
 /**
  * class global comment. Detailled comment
