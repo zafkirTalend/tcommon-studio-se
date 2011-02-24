@@ -275,4 +275,9 @@ public enum SupportDBUrlType {
 
         return null;
     }
+
+    public static boolean isOracle(String dbKey) {
+        SupportDBUrlType dbTypeByKey = getDBTypeByKey(dbKey);
+        return dbTypeByKey != null && (dbTypeByKey == ORACLEWITHSIDDEFAULTURL || dbTypeByKey == ORACLEWITHSERVICENAMEDEFAULTURL);
+    }
 }

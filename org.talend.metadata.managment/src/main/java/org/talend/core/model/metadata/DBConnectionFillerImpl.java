@@ -21,7 +21,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -34,7 +33,6 @@ import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
-import org.talend.core.model.metadata.builder.database.EDatabaseSchemaOrCatalogMapping;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.metadata.builder.util.DatabaseConstant;
@@ -102,7 +100,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         dbconn.setName(metadataBean.getLabel());
         dbconn.setLabel(metadataBean.getLabel());
         dbconn.setVersion(metadataBean.getVersion());
-        dbconn.setUiSchema(metadataBean.getSchema());
+        dbconn.setUiSchema(metadataBean.getOtherParameter());
 
         try {
             if (sqlConnection == null || sqlConnection.isClosed()) {
@@ -155,16 +153,17 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                             .getSchemas(SwitchHelpers.CATALOG_SWITCH.doSwitch((CatalogImpl) catalogs.toArray()[0]));
                 }
 
-                if (edatabasetypeInstance.getSchemaMappingField() == EDatabaseSchemaOrCatalogMapping.Schema
-                        && schemata.size() > 0) {
-                    Iterator<Schema> iter = schemata.iterator();
-                    while (iter.hasNext()) {
-                        String uischema = iter.next().getName();
-                        dbconn.setUiSchema(uischema);
-                        break;
-                    }
-
-                }
+                // FIXME Bzhou why here need to add a default schema?
+                // if (edatabasetypeInstance.getSchemaMappingField() == EDatabaseSchemaOrCatalogMapping.Schema
+                // && schemata.size() > 0) {
+                // Iterator<Schema> iter = schemata.iterator();
+                // while (iter.hasNext()) {
+                // String uischema = iter.next().getName();
+                // dbconn.setUiSchema(uischema);
+                // break;
+                // }
+                //
+                // }
             }
         } catch (SQLException e) {
             log.error(e, e);
@@ -278,15 +277,22 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     Catalog catalog = null;
                     if (filterMetadaElement(catalogFilter, catalogName)) {
                         // give a sid for TOS if the attribute can't be set by user on UI.
-                        if (StringUtils.isEmpty(((DatabaseConnection) dbConn).getSID())) {
-                            ((DatabaseConnection) dbConn).setSID(catalogName);
-                        }
+                        // if (StringUtils.isEmpty(((DatabaseConnection) dbConn).getSID())) {
+                        // ((DatabaseConnection) dbConn).setSID(catalogName);
+                        // }
                         catalog = CatalogHelper.createCatalog(catalogName);
                         catalogList.add(catalog);
                     } else {
                         continue;
                     }
-                    List<Schema> schemaList = fillSchemaToCatalog(dbConn, dbJDBCMetadata, catalog, null);
+
+                    List<String> filterList = null;
+                    DatabaseConnection dbConnection = (DatabaseConnection) dbConn;
+                    if (!StringUtils.isBlank(dbConnection.getUiSchema())) {
+                        filterList = new ArrayList<String>();
+                        filterList.add(dbConnection.getUiSchema());
+                    }
+                    List<Schema> schemaList = fillSchemaToCatalog(dbConn, dbJDBCMetadata, catalog, filterList);
                     CatalogHelper.addSchemas(schemaList, catalog);
 
                     // ~11412
@@ -354,9 +360,10 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 if (!schemaNameCacheTmp.contains(schemaName)) {
                     schemaNameCacheTmp.add(schemaName);
                     Schema schema = SchemaHelper.createSchema(schemaName);
-                    if (schemaFilter == null || !schemaFilter.contains(schema.getName())) {
-                        schemaList.add(schema);
+                    if (!filterMetadaElement(schemaFilter, schemaName)) {
+                        continue;
                     }
+                    schemaList.add(schema);
                 }
 
             }
@@ -565,7 +572,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 numPrecRadix = columns.getInt(GetColumn.NUM_PREC_RADIX.name());
 
                 // SqlDataType
-                TdSqlDataType sqlDataType = MetadataConnectionUtils.createDataType(dataType, typeName, decimalDigits, numPrecRadix);
+                TdSqlDataType sqlDataType = MetadataConnectionUtils.createDataType(dataType, typeName, decimalDigits,
+                        numPrecRadix);
                 column.setSqlDataType(sqlDataType);
 
                 // Null able

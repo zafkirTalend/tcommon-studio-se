@@ -34,19 +34,14 @@ import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.Package;
 import orgomg.cwm.resource.relational.ColumnSet;
 
-
 /**
- * DOC zshen  class global comment. Detailled comment
+ * DOC zshen class global comment. Detailled comment
  */
 public abstract class MetadataFillerImpl implements IMetadataFiller {
 
     private static Logger log = Logger.getLogger(MetadataFillFactory.class);
 
-
-
     private boolean isLinked = true;
-
-
 
     /*
      * (non-Jsdoc)
@@ -96,8 +91,6 @@ public abstract class MetadataFillerImpl implements IMetadataFiller {
 
     }
 
-
-
     /*
      * (non-Javadoc)
      * 
@@ -118,8 +111,6 @@ public abstract class MetadataFillerImpl implements IMetadataFiller {
         this.fillMetadataParams(metadataBean, connection);
         return connection;
     }
-
-
 
     /*
      * @see org.talend.core.model.metadata.IMetadataFill#fillUIParams(java.util.Map)
@@ -211,9 +202,6 @@ public abstract class MetadataFillerImpl implements IMetadataFiller {
         return null;
     }
 
-
-
-
     /*
      * (non-Javadoc)
      * 
@@ -268,16 +256,13 @@ public abstract class MetadataFillerImpl implements IMetadataFiller {
                 rc.setMessage(e.getMessage());
             }
         } else {
-            rc=MetadataConnectionUtils.checkConnection(metadataBean);
+            rc = MetadataConnectionUtils.checkConnection(metadataBean);
         }
         return rc;
     }
 
-
-
-
     protected boolean filterMetadaElement(List<String> packageList, String elementName) {
-        if (packageList == null) {
+        if (packageList == null || packageList.isEmpty()) {
             return true;
         }
         for (String name : packageList) {
@@ -285,12 +270,11 @@ public abstract class MetadataFillerImpl implements IMetadataFiller {
                 return true;
             }
         }
-            return false;
+        return false;
     }
 
     protected String getName(ModelElement element) {
         return element != null ? element.getName() : null;
     }
-
 
 }

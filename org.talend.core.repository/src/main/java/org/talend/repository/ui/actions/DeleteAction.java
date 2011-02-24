@@ -215,8 +215,10 @@ public class DeleteAction extends AContextualAction {
                         service.updatePalette();
                     }
 
-                    RepositoryManager.refresh(ERepositoryObjectType.JOB_SCRIPT);
-                    RepositoryManagerHelper.getRepositoryView().refresh();
+                    if(!CoreRuntimePlugin.getInstance().isDataProfilePerspectiveSelected()) {                        
+                        RepositoryManager.refresh(ERepositoryObjectType.JOB_SCRIPT);
+                        RepositoryManagerHelper.getRepositoryView().refresh();
+                    }
 
                     IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
                     for (IEditorReference editors : page.getEditorReferences()) {
@@ -227,7 +229,7 @@ public class DeleteAction extends AContextualAction {
                         }
                     }
 
-                    if (!deleteActionCache.isDocRefresh()) { // not refresh in JobDeleteListener
+                    if (!deleteActionCache.isDocRefresh() && !CoreRuntimePlugin.getInstance().isDataProfilePerspectiveSelected()) { // not refresh in JobDeleteListener
                         RepositoryManager.refreshCreatedNode(ERepositoryObjectType.DOCUMENTATION);
                     }
                 }
