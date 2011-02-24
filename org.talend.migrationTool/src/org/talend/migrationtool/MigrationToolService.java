@@ -91,7 +91,7 @@ public class MigrationToolService implements IMigrationToolService {
                         throw new OperationCanceledException(Messages.getString(
                                 "MigrationToolService.migrationCancel", task.getName())); //$NON-NLS-1$
                     }
-                    if (!done.contains(task.getId()) && task.isDeprecated()) {
+                    if (!done.contains(task.getId()) && !task.isDeprecated()) {
                         monitorWrap.setTaskName(Messages.getString("MigrationToolService.taskInProgress", task.getName())); //$NON-NLS-1$
                         subProgressMonitor.worked(1);
                         try {
