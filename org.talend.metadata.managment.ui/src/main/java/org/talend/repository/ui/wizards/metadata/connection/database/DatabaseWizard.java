@@ -45,7 +45,6 @@ import org.talend.core.model.update.RepositoryUpdateManager;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.designer.core.IDesignerCoreService;
-import org.talend.metadata.managment.ui.MetadataManagmentUiPlugin;
 import org.talend.metadata.managment.ui.i18n.Messages;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -348,7 +347,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
 
             if (tdqRepService != null) {
                 tdqRepService.notifySQLExplorer(connectionItem);
-                if (MetadataManagmentUiPlugin.getDefault().isDataProfilePerspectiveSelected()) {
+                if (CoreRuntimePlugin.getInstance().isDataProfilePerspectiveSelected()) {
                     tdqRepService.openEditor(connectionItem);
                     tdqRepService.refresh();
                 }

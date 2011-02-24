@@ -29,6 +29,7 @@ import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.RepositoryObject;
 import org.talend.core.model.utils.RepositoryManagerHelper;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
+import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.metadata.managment.ui.MetadataManagmentUiPlugin;
 import org.talend.metadata.managment.ui.i18n.Messages;
 import org.talend.repository.ProjectManager;
@@ -160,11 +161,13 @@ public abstract class RepositoryWizard extends Wizard {
             IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
             repositoryObjectEditable = factory.isEditableAndLockIfPossible(repositoryObject);
 
-            final IRepositoryNode repositoryNode = repositoryViewObject.getRepositoryNode();
-            IRepositoryView repositoryView = RepositoryManagerHelper.getRepositoryView();
-            if (repositoryView != null) {
-                repositoryView.expand(repositoryNode);
-                repositoryView.getViewer().refresh(repositoryObject.getRepositoryObjectType());
+            if(!CoreRuntimePlugin.getInstance().isDataProfilePerspectiveSelected()) {                
+                final IRepositoryNode repositoryNode = repositoryViewObject.getRepositoryNode();
+                IRepositoryView repositoryView = RepositoryManagerHelper.getRepositoryView();
+                if (repositoryView != null) {
+                    repositoryView.expand(repositoryNode);
+                    repositoryView.getViewer().refresh(repositoryObject.getRepositoryObjectType());
+                }
             }
         }
     }

@@ -138,7 +138,7 @@ public class RepositoryNodeUtilities {
      */
     private static boolean isMetadataLabel(final String label) {
 
-        if (!PluginChecker.isOnlyTopLoaded()) {
+        if (!PluginChecker.isOnlyTopLoaded() && !CoreRuntimePlugin.getInstance().isDataProfilePerspectiveSelected()) {
             IRepositoryView view = getRepositoryView();
             if (view == null) {
                 return false;

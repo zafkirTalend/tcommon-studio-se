@@ -13,6 +13,8 @@
 package org.talend.core.runtime;
 
 import org.eclipse.core.runtime.Plugin;
+import org.eclipse.ui.IPerspectiveDescriptor;
+import org.eclipse.ui.PlatformUI;
 import org.osgi.framework.BundleContext;
 import org.talend.core.AbstractDQModelService;
 import org.talend.core.GlobalServiceRegister;
@@ -34,6 +36,9 @@ import org.talend.repository.model.IRepositoryService;
 public class CoreRuntimePlugin extends Plugin {
 
     public static final String PLUGIN_ID = "org.talend.core.runtime"; //$NON-NLS-1$
+    
+    // The data profiling perspective id.
+    protected static final String DATA_PROFILING_PERSPECTIVE_ID = "org.talend.dataprofiler.DataProfilingPerspective";
 
     /** Context. */
     private final Context context;
@@ -126,4 +131,13 @@ public class CoreRuntimePlugin extends Plugin {
         return null;
     }
 
+    /**
+     * DOC bZhou Comment method "isDataProfilePerspectiveSelected".
+     * 
+     * @return
+     */
+    public boolean isDataProfilePerspectiveSelected() {
+        IPerspectiveDescriptor curPerspective = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getPerspective();
+        return curPerspective.getId().equals(DATA_PROFILING_PERSPECTIVE_ID);
+    }
 }

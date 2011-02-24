@@ -12,8 +12,6 @@
 // ============================================================================
 package org.talend.metadata.managment.ui;
 
-import org.eclipse.ui.IPerspectiveDescriptor;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -24,9 +22,6 @@ public class MetadataManagmentUiPlugin extends AbstractUIPlugin {
 
     // The plug-in ID
     public static final String PLUGIN_ID = "org.talend.metadata.management.ui"; //$NON-NLS-1$
-
-    // The data profiling perspective id.
-    protected static final String DATA_PROFILING_PERSPECTIVE_ID = "org.talend.dataprofiler.DataProfilingPerspective";
 
     // The shared instance
     private static MetadataManagmentUiPlugin plugin;
@@ -64,15 +59,5 @@ public class MetadataManagmentUiPlugin extends AbstractUIPlugin {
      */
     public static MetadataManagmentUiPlugin getDefault() {
         return plugin;
-    }
-
-    /**
-     * DOC bZhou Comment method "isDataProfilePerspectiveSelected".
-     * 
-     * @return
-     */
-    public boolean isDataProfilePerspectiveSelected() {
-        IPerspectiveDescriptor curPerspective = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getPerspective();
-        return curPerspective.getId().equals(DATA_PROFILING_PERSPECTIVE_ID);
     }
 }
