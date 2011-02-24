@@ -8,7 +8,7 @@
 // You should have received a copy of the agreement
 // along with this program; if not, write to Talend SA
 // 9 rue Pages 92150 Suresnes, France
-//   
+//
 // ============================================================================
 package org.talend.librariesmanager.model.service;
 
@@ -37,8 +37,8 @@ import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.general.ILibrariesService;
 import org.talend.core.model.general.ModuleNeeded;
-import org.talend.core.model.general.Project;
 import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
+import org.talend.core.model.general.Project;
 import org.talend.core.model.process.IElement;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
@@ -119,8 +119,8 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
                 }
             };
             repositoryWorkUnit.setAvoidUnloadResources(true);
-            CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory().executeRepositoryWorkUnit(
-                    repositoryWorkUnit);
+            CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory()
+                    .executeRepositoryWorkUnit(repositoryWorkUnit);
         }
     }
 
@@ -137,12 +137,21 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
     public List<Problem> getProblems(INode node, IElement element) {
         List<Problem> toReturn = new ArrayList<Problem>();
         List<ModuleNeeded> list = node.getComponent().getModulesNeeded();
-        for (ModuleNeeded current : list) {
-            if (current.getStatus() == ELibraryInstallStatus.NOT_INSTALLED && current.isRequired()) {
-                toReturn.add(new Problem(element, "Module " + current.getModuleName() + " required", //$NON-NLS-1$ //$NON-NLS-2$
-                        ProblemStatus.ERROR));
+        List<ModuleNeeded> modulesNeeded = ModulesNeededProvider.getModulesNeeded();
+        for (ModuleNeeded module : modulesNeeded) {
+            for (ModuleNeeded current : list) {
+                if (current.getContext().equals(module.getContext()) && current.getModuleName().equals(module.getModuleName())) {
+                    if (module.getStatus() == ELibraryInstallStatus.NOT_INSTALLED && current.isRequired()) {
+                        Problem problem = new Problem(element, "Module " + current.getModuleName() + " required", //$NON-NLS-1$ //$NON-NLS-2$
+                                ProblemStatus.ERROR);
+                        problem.setKey("Module_" + current.getModuleName());//$NON-NLS-1$
+                        toReturn.add(problem);
+                    }
+                }
+
             }
         }
+
         return toReturn;
     }
 

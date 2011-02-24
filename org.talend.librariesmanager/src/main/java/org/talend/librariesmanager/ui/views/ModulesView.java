@@ -12,10 +12,13 @@
 // ============================================================================
 package org.talend.librariesmanager.ui.views;
 
+import java.util.List;
+
 import org.eclipse.core.commands.IHandler;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.commands.ActionHandler;
 import org.eclipse.ui.handlers.IHandlerService;
@@ -25,6 +28,7 @@ import org.talend.core.GlobalServiceRegister;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.general.ILibrariesService.IChangedLibrariesListener;
+import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.service.ILibrariesPerlService;
 import org.talend.librariesmanager.ui.actions.CheckModulesAction;
 import org.talend.librariesmanager.ui.actions.ImportExternalJarAction;
@@ -134,6 +138,31 @@ public class ModulesView extends ViewPart {
             }
             return;
         }
+        }
+    }
+
+    public void selectUninstalledItem(String componentName, List<String> modulesName) {
+        if (this.modulesViewComposite == null) {
+            return;
+        }
+        if (componentName == null) {
+            return;
+        }
+        TableItem[] items = modulesViewComposite.getTableViewerCreator().getTable().getItems();
+        for (int i = 0; i < items.length; i++) {
+            TableItem item = items[i];
+            Object obj = item.getData();
+            if (obj instanceof ModuleNeeded) {
+                for (String mName : modulesName) {
+                    if (((ModuleNeeded) obj).getContext().equals(componentName)
+                            && ((ModuleNeeded) obj).getModuleName().equals(mName)) {
+                        // if (i == 0) {
+                        modulesViewComposite.getTableViewerCreator().getTable().setSelection(i);
+                        // }
+                        // item.setBackground(new Color(Display.getDefault(), new RGB(255, 102, 102)));
+                    }
+                }
+            }
         }
     }
 }
