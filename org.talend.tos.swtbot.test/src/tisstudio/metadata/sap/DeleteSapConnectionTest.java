@@ -28,6 +28,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
+import org.talend.swtbot.Utilities;
 
 /**
  * DOC Administrator class global comment. Detailled comment
@@ -41,22 +42,22 @@ public class DeleteSapConnectionTest extends TalendSwtBotForTos {
 
     private SWTBotView view;
 
-    private static String SAPNAME = "sap1"; //$NON-NLS-1$
+    private static final String SAPNAME = "sap1"; //$NON-NLS-1$
 
-    private static String CLIENT = "000"; //$NON-NLS-1$
+    private static final String CLIENT = "000"; //$NON-NLS-1$
 
-    private static String HOST = "192.168.0.185"; //$NON-NLS-1$
+    private static final String HOST = "192.168.0.185"; //$NON-NLS-1$
 
-    private static String USER = "TALEND"; //$NON-NLS-1$
+    private static final String USER = "TALEND"; //$NON-NLS-1$
 
-    private static String PASSWORD = "FRANCE"; //$NON-NLS-1$
+    private static final String PASSWORD = "FRANCE"; //$NON-NLS-1$
 
-    private static String SYSTEM_NUMBER = "00"; //$NON-NLS-1$
+    private static final String SYSTEM_NUMBER = "00"; //$NON-NLS-1$
 
-    private static String LANGUAGE = "en"; //$NON-NLS-1$
+    private static final String LANGUAGE = "en"; //$NON-NLS-1$
 
     @Before
-    public void InitialisePrivateFields() {
+    public void initialisePrivateFields() {
         view = gefBot.viewByTitle("Repository");
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
@@ -96,20 +97,33 @@ public class DeleteSapConnectionTest extends TalendSwtBotForTos {
         gefBot.waitUntil(Conditions.shellCloses(shell));
 
         gefBot.button("Finish").click();
+
+        SWTBotTreeItem newSapItem = null;
+        try {
+            newSapItem = tree.expandNode("Metadata", "SAP Connections").select(SAPNAME + " 0.1");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Assert.assertNotNull("SAP connection is not created", newSapItem);
+        }
     }
 
     @Test
     public void deleteSapConnection() {
         tree.expandNode("Metadata", "SAP Connections").getNode(SAPNAME + " 0.1").contextMenu("Delete").click();
 
-        SWTBotTreeItem newSapItem = tree.expandNode("Recycle bin").select(SAPNAME + " 0.1" + " ()");
-        Assert.assertNotNull(newSapItem);
+        SWTBotTreeItem newSapItem = null;
+        try {
+            newSapItem = tree.expandNode("Recycle bin").select(SAPNAME + " 0.1" + " ()");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Assert.assertNotNull("SAP connection is not deleted to recycle bin", newSapItem);
+        }
     }
 
     @After
     public void removePreviouslyCreateItems() {
-        tree.select("Recycle bin").contextMenu("Empty recycle bin").click();
-        gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
-        gefBot.button("Yes").click();
+        Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

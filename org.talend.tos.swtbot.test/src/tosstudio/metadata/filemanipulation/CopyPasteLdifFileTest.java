@@ -42,9 +42,9 @@ public class CopyPasteLdifFileTest extends TalendSwtBotForTos {
 
     private SWTBotView view;
 
-    private static String FILENAME = "test_ldif"; //$NON-NLS-1$
+    private static final String FILENAME = "test_ldif"; //$NON-NLS-1$
 
-    private static String SAMPLE_RELATIVE_FILEPATH = "test.ldif"; //$NON-NLS-1$
+    private static final String SAMPLE_RELATIVE_FILEPATH = "test.ldif"; //$NON-NLS-1$
 
     @Before
     public void createLdifFile() throws IOException, URISyntaxException {
@@ -80,6 +80,15 @@ public class CopyPasteLdifFileTest extends TalendSwtBotForTos {
             }
         });
         gefBot.button("Finish").click();
+
+        SWTBotTreeItem newLdifItem = null;
+        try {
+            newLdifItem = tree.expandNode("Metadata", "File ldif").select(FILENAME + " 0.1");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Assert.assertNotNull("file ldif is not created", newLdifItem);
+        }
     }
 
     @Test
@@ -87,8 +96,14 @@ public class CopyPasteLdifFileTest extends TalendSwtBotForTos {
         tree.expandNode("Metadata", "File ldif").getNode(FILENAME + " 0.1").contextMenu("Copy").click();
         tree.select("Metadata", "File ldif").contextMenu("Paste").click();
 
-        SWTBotTreeItem newLdifItem = tree.expandNode("Metadata", "File ldif").select("Copy_of_" + FILENAME + " 0.1");
-        Assert.assertNotNull(newLdifItem);
+        SWTBotTreeItem newLdifItem = null;
+        try {
+            newLdifItem = tree.expandNode("Metadata", "File ldif").select("Copy_of_" + FILENAME + " 0.1");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Assert.assertNotNull("file ldif is not copied", newLdifItem);
+        }
     }
 
     @After
@@ -96,8 +111,6 @@ public class CopyPasteLdifFileTest extends TalendSwtBotForTos {
         tree.expandNode("Metadata", "File ldif").getNode(FILENAME + " 0.1").contextMenu("Delete").click();
         tree.expandNode("Metadata", "File ldif").getNode("Copy_of_" + FILENAME + " 0.1").contextMenu("Delete").click();
 
-        tree.select("Recycle bin").contextMenu("Empty recycle bin").click();
-        gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
-        gefBot.button("Yes").click();
+        Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

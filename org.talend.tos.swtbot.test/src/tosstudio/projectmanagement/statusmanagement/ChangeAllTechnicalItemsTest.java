@@ -42,7 +42,7 @@ public class ChangeAllTechnicalItemsTest extends TalendSwtBotForTos {
 
     private SWTBotShell shell;
 
-    private static String SAMPLE_RELATIVE_FILEPATH = "items.zip"; //$NON-NLS-1$
+    private static final String SAMPLE_RELATIVE_FILEPATH = "items.zip"; //$NON-NLS-1$
 
     private String[] treeNodes = { "Business Models", "Job Designs", "Joblet Designs", "Contexts", "Code", "SQL Templates",
             "Metadata", "Documentation" };
@@ -126,8 +126,8 @@ public class ChangeAllTechnicalItemsTest extends TalendSwtBotForTos {
                 shell.close();
             } else if (i == 6) {
                 for (int k2 = 0; k2 < metadataNodes.length; k2++) {
-                    System.out.println("k2=" + k2 + "---" + treeNodes[i] + "-" + treeItems[i + k2] + "-"
-                            + metadataContextMenu[k2] + "-" + metadataShellTitle[k2]);
+                    // System.out.println("k2=" + k2 + "---" + treeNodes[i] + "-" + treeItems[i + k2] + "-"
+                    // + metadataContextMenu[k2] + "-" + metadataShellTitle[k2]);
                     tree.expandNode(treeNodes[i], metadataNodes[k2]).getNode(treeItems[i + k2] + " 0.1")
                             .contextMenu("Edit " + metadataContextMenu[k2]).click();
                     shell = gefBot.shell(metadataShellTitle[k2]);
@@ -158,8 +158,6 @@ public class ChangeAllTechnicalItemsTest extends TalendSwtBotForTos {
             }
         }
 
-        tree.getTreeItem("Recycle bin").contextMenu("Empty recycle bin").click();
-        gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
-        gefBot.button("Yes").click();
+        Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

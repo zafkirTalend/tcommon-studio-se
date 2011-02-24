@@ -41,16 +41,16 @@ public class CreateXmlFileTest extends TalendSwtBotForTos {
 
     private SWTBotView view;
 
-    private static String FILENAME = "test_xml"; //$NON-NLS-1$
+    private static final String FILENAME = "test_xml"; //$NON-NLS-1$
 
-    private static String SAMPLE_RELATIVE_FILEPATH = "test.xml"; //$NON-NLS-1$
+    private static final String SAMPLE_RELATIVE_FILEPATH = "test.xml"; //$NON-NLS-1$
 
-    private static String LOOP = "/schema/column"; //$NON-NLS-1$
+    private static final String LOOP = "/schema/column"; //$NON-NLS-1$
 
-    private static String[] SCHEMA = { "comment", "default", "key" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    private static final String[] SCHEMA = { "comment", "default", "key" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
     @Before
-    public void InitialisePrivateFields() {
+    public void initialisePrivateFields() {
         view = gefBot.viewByTitle("Repository");
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
@@ -84,15 +84,19 @@ public class CreateXmlFileTest extends TalendSwtBotForTos {
         gefBot.button("Next >").click();
         gefBot.button("Finish").click();
 
-        SWTBotTreeItem newXmlItem = tree.expandNode("Metadata").expandNode("File xml").getNode(FILENAME + " 0.1");
-        Assert.assertNotNull(newXmlItem);
+        SWTBotTreeItem newXmlItem = null;
+        try {
+            newXmlItem = tree.expandNode("Metadata").expandNode("File xml").getNode(FILENAME + " 0.1");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Assert.assertNotNull("file xml item is not created", newXmlItem);
+        }
     }
 
     @After
     public void removePreviouslyCreateItems() {
         tree.expandNode("Metadata").expandNode("File xml").getNode(FILENAME + " 0.1").contextMenu("Delete").click();
-        tree.getTreeItem("Recycle bin").contextMenu("Empty recycle bin").click();
-        gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
-        gefBot.button("Yes").click();
+        Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

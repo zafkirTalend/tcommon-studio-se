@@ -34,7 +34,7 @@ import org.talend.swtbot.Utilities;
  * DOC Administrator class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class ChangeAllItemsToAFixedVersionTest extends TalendSwtBotForTos {
+public class UpdateTheVersionOfEachItemTest_Unfinished extends TalendSwtBotForTos {
 
     private SWTBotView view;
 
@@ -47,7 +47,8 @@ public class ChangeAllItemsToAFixedVersionTest extends TalendSwtBotForTos {
 
     private String[] treeItems = { "businessTest", "jobTest", "jobletTest", "contextTest", "routineTest", "jobscriptsTest",
             "mysqlTest", "sapTest", "delimitedFileTest", "positionalFileTest", "regexFileTest", "xmlFileTest", "excelFileTest",
-            "ldifTest", "ldapTest", "salesforceTest", "genericSchemaTest", "copybookTest", "HL7Test", "webserviceTest" };
+            "ldifTest", "ldapTest", "salesforceTest", "genericSchemaTest", "copybookTest", "HL7Test", "webserviceTest",
+            "jobTest", "jobletTest" };
 
     private String[] codeNodes = { "Routines", "Job Scripts" };
 
@@ -79,38 +80,41 @@ public class ChangeAllItemsToAFixedVersionTest extends TalendSwtBotForTos {
     }
 
     @Test
-    public void changeAllItemsToAFixedVersion() {
+    public void updateTheVersionOfEachItem() {
         gefBot.toolbarButtonWithTooltip("Project settings").click();
         gefBot.shell("Project Settings").activate();
         gefBot.tree().expandNode("General").select("Version Management").click();
-        for (int i = 0; i < treeNodes.length; i++) {
-            gefBot.tree(1).getTreeItem(treeNodes[i]).check();
+        for (int i = 0; i < treeItems.length; i++) {
+            gefBot.tree(1).getTreeItem(treeItems[i]).check();
         }
-        gefBot.button("m").click();
+        gefBot.radio("Update the version of each item.").click();
+        for (int j = 0; j < gefBot.table().rowCount(); j++) {
+            gefBot.button("m").click();
+        }
         gefBot.button("OK").click();
-        gefBot.shell("Confirm").activate();
-        gefBot.button("OK").click();
+        gefBot.shell("Confirm the new version of items").activate();
+        gefBot.button("Confirm").click();
 
         for (int i = 0; i < treeNodes.length; i++) {
             if (i >= 0 && i <= 3) {
                 SWTBotTreeItem newTreeItem = tree.expandNode(treeNodes[i]).select(treeItems[i] + " 0.2");
-                Assert.assertNotNull(treeItems[i] + " not exist", newTreeItem);
+                Assert.assertNotNull(newTreeItem);
             } else if (i == 4) {
                 for (int k1 = 0; k1 < codeNodes.length; k1++) {
                     SWTBotTreeItem newCodeItem = tree.expandNode(treeNodes[i], codeNodes[k1]).select(treeItems[i + k1] + " 0.2");
-                    Assert.assertNotNull(treeItems[i] + " not exist", newCodeItem);
+                    Assert.assertNotNull(newCodeItem);
                 }
             } else if (i == 6) {
                 for (int k2 = 0; k2 < metadataNodes.length; k2++) {
                     SWTBotTreeItem newMetadataItem = tree.expandNode(treeNodes[i], metadataNodes[k2]).select(
                             treeItems[i + k2] + " 0.2");
-                    Assert.assertNotNull(treeItems[i] + " not exist", newMetadataItem);
+                    Assert.assertNotNull(newMetadataItem);
                 }
             } else if (i == 7) {
                 for (int k3 = 0; k3 < documentationNodes.length - 1; k3++) {
                     SWTBotTreeItem newDocItem = tree.expandNode(treeNodes[i], documentationNodes[0], documentationNodes[1 + k3])
-                            .select(treeItems[k3 + 1] + " 0.2");
-                    Assert.assertNotNull(treeItems[i] + " not exist", newDocItem);
+                            .select("jobTest" + " 0.2");
+                    Assert.assertNotNull(newDocItem);
                 }
             }
         }

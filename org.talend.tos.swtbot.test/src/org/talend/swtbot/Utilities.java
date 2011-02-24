@@ -35,6 +35,9 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
  * $Id: talend.epf 1 2006-09-29 17:06:40Z nrousseau $
  * 
  */
+/**
+ * DOC Administrator class global comment. Detailled comment
+ */
 public class Utilities {
 
     private static final String SAMPLE_FOLDER_PATH = "/sample/"; //$NON-NLS-1$
@@ -73,6 +76,7 @@ public class Utilities {
     /**
      * Empty Recycle bin
      * 
+     * @author fzhong
      * @param gefBot, SWTGefBot
      * @param tree, tree from repository
      * @return void
@@ -84,34 +88,80 @@ public class Utilities {
     }
 
     /**
-     * Create joblet in repository
+     * Create item in repository
      * 
-     * @param jobletName, joblet name
-     * @param tree, tree from repository
+     * @author fzhong
+     * @param itemType, item type
+     * @param itemName, item name
+     * @param tree, tree in repository
      * @param gefBot, SWTGefBot
-     * @param shell, joblet creating wizard shell
-     * @return void
+     * @param shell, creating wizard shell
      */
-    public static void createJoblet(String jobletName, SWTBotTree tree, SWTGefBot gefBot, SWTBotShell shell) {
+    private static void create(String itemType, String itemName, SWTBotTree tree, SWTGefBot gefBot, SWTBotShell shell) {
         tree.setFocus();
-        tree.select("Joblet Designs").contextMenu("Create Joblet").click();
+        if ("Joblet".equals(itemType))
+            tree.select("Joblet Designs").contextMenu("Create Joblet").click();
+        else if ("SQLTemplate".equals(itemType))
+            tree.expandNode("SQL Templates", "Generic").getNode("UserDefined").contextMenu("Create SQLTemplate").click();
+        else if ("Business Model".equals(itemType))
+            tree.select("Business Models").contextMenu("Create Business Model").click();
+        else if ("job".equals(itemType))
+            tree.select("Job Designs").contextMenu("Create job").click();
+        else if ("routine".equals(itemType))
+            tree.expandNode("Code").getNode("Routines").contextMenu("Create routine").click();
 
-        gefBot.waitUntil(Conditions.shellIsActive("New Joblet"));
-        shell = gefBot.shell("New Joblet");
+        gefBot.waitUntil(Conditions.shellIsActive("New " + itemType));
+        shell = gefBot.shell("New " + itemType);
         shell.activate();
 
-        gefBot.textWithLabel("Name").setText(jobletName);
+        gefBot.textWithLabel("Name").setText(itemName);
 
         boolean finishButtonIsEnabled = gefBot.button("Finish").isEnabled();
         if (finishButtonIsEnabled) {
             gefBot.button("Finish").click();
         } else {
             shell.close();
-            Assert.assertTrue("finish button is not enabled", finishButtonIsEnabled);
+            Assert.assertTrue("finish button is not enabled, " + itemType + " created fail", finishButtonIsEnabled);
         }
 
-        SWTBotTreeItem newJobletItem = tree.expandNode("Joblet Designs").select(jobletName + " 0.1");
-        Assert.assertNotNull("joblet is not created", newJobletItem);
-        gefBot.toolbarButtonWithTooltip("Save (Ctrl+S)").click();
+        SWTBotTreeItem newTreeItem = null;
+        try {
+            if ("Joblet".equals(itemType)) {
+                gefBot.toolbarButtonWithTooltip("Save (Ctrl+S)").click();
+                newTreeItem = tree.expandNode("Joblet Designs").select(itemName + " 0.1");
+            } else if ("SQLTemplate".equals(itemType))
+                newTreeItem = tree.expandNode("SQL Templates", "Generic", "UserDefined").select(itemName + " 0.1");
+            else if ("Business Model".equals(itemType))
+                newTreeItem = tree.expandNode("Business Models").select(itemName + " 0.1");
+            else if ("job".equals(itemType))
+                newTreeItem = tree.expandNode("Job Designs").select(itemName + " 0.1");
+            else if ("routine".equals(itemType))
+                newTreeItem = tree.expandNode("Code", "Routines").select(itemName + " 0.1");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Assert.assertNotNull(itemType + " item is not created", newTreeItem);
+        }
     }
+
+    public static void createJoblet(String jobletName, SWTBotTree tree, SWTGefBot gefBot, SWTBotShell shell) {
+        create("Joblet", jobletName, tree, gefBot, shell);
+    }
+
+    public static void createSqlTemplate(String sqlTemplateName, SWTBotTree tree, SWTGefBot gefBot, SWTBotShell shell) {
+        create("SQLTemplate", sqlTemplateName, tree, gefBot, shell);
+    }
+
+    public static void createBusinessModel(String businessModelName, SWTBotTree tree, SWTGefBot gefBot, SWTBotShell shell) {
+        create("Business Model", businessModelName, tree, gefBot, shell);
+    }
+
+    public static void createJob(String jobName, SWTBotTree tree, SWTGefBot gefBot, SWTBotShell shell) {
+        create("job", jobName, tree, gefBot, shell);
+    }
+
+    public static void createRoutine(String routineName, SWTBotTree tree, SWTGefBot gefBot, SWTBotShell shell) {
+        create("routine", routineName, tree, gefBot, shell);
+    }
+
 }

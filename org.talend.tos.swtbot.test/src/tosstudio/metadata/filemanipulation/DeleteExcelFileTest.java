@@ -42,9 +42,9 @@ public class DeleteExcelFileTest extends TalendSwtBotForTos {
 
     private SWTBotView view;
 
-    private static String FILENAME = "test_excel"; //$NON-NLS-1$
+    private static final String FILENAME = "test_excel"; //$NON-NLS-1$
 
-    private static String SAMPLE_RELATIVE_FILEPATH = "test.xls"; //$NON-NLS-1$
+    private static final String SAMPLE_RELATIVE_FILEPATH = "test.xls"; //$NON-NLS-1$
 
     @Before
     public void createExcelFile() throws IOException, URISyntaxException {
@@ -89,20 +89,33 @@ public class DeleteExcelFileTest extends TalendSwtBotForTos {
             }
         });
         gefBot.button("Finish").click();
+
+        SWTBotTreeItem newXlsItem = null;
+        try {
+            newXlsItem = tree.expandNode("Metadata").expandNode("File Excel").getNode(FILENAME + " 0.1");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Assert.assertNotNull("file excel is not created", newXlsItem);
+        }
     }
 
     @Test
     public void deleteExcelFile() {
         tree.expandNode("Metadata", "File Excel").getNode(FILENAME + " 0.1").contextMenu("Delete").click();
 
-        SWTBotTreeItem newXlsItem = tree.expandNode("Recycle bin").select(FILENAME + " 0.1" + " ()");
-        Assert.assertNotNull(newXlsItem);
+        SWTBotTreeItem newXlsItem = null;
+        try {
+            newXlsItem = tree.expandNode("Recycle bin").select(FILENAME + " 0.1" + " ()");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Assert.assertNotNull("file excel is not deleted to recycle bin", newXlsItem);
+        }
     }
 
     @After
     public void cleanUp() {
-        tree.select("Recycle bin").contextMenu("Empty recycle bin").click();
-        gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
-        gefBot.button("Yes").click();
+        Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

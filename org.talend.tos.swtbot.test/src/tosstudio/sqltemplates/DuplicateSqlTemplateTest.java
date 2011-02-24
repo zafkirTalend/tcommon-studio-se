@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package tisstudio.joblets;
+package tosstudio.sqltemplates;
 
 import junit.framework.Assert;
 
@@ -32,41 +32,52 @@ import org.talend.swtbot.Utilities;
  * DOC Administrator class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class DeleteJobletTest extends TalendSwtBotForTos {
+public class DuplicateSqlTemplateTest extends TalendSwtBotForTos {
+
+    private SWTBotView view;
 
     private SWTBotTree tree;
 
     private SWTBotShell shell;
 
-    private SWTBotView view;
+    private static final String SQLTEMPLATENAME = "sqlTemplate1"; //$NON-NLS-1$
 
-    private static final String JOBLETNAME = "joblet1"; //$NON-NLS-1$
+    private static final String NEW_SQLTEMPLATENAME = "duplicate_sqlTemplate1"; //$NON-NLS-1$
 
     @Before
-    public void createJoblet() {
+    public void createSqlTemplate() {
         view = gefBot.viewByTitle("Repository");
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        Utilities.createJoblet(JOBLETNAME, tree, gefBot, shell);
+        Utilities.createSqlTemplate(SQLTEMPLATENAME, tree, gefBot, shell);
     }
 
     @Test
-    public void deleteJoblet() {
-        gefBot.cTabItem("Joblet " + JOBLETNAME + " 0.1").close();
-        tree.expandNode("Joblet Designs").getNode(JOBLETNAME + " 0.1").contextMenu("Delete").click();
+    public void duplicateSqlTemplate() {
+        tree.expandNode("SQL Templates", "Generic", "UserDefined").getNode(SQLTEMPLATENAME + " 0.1").contextMenu("Duplicate")
+                .click();
+        gefBot.shell("Please input new name ").activate();
+        gefBot.text("Copy_of_" + SQLTEMPLATENAME).setText(NEW_SQLTEMPLATENAME);
+        gefBot.button("OK").click();
 
-        SWTBotTreeItem newJobletItem = null;
+        SWTBotTreeItem newSqlTemplateItem = null;
         try {
-            newJobletItem = tree.expandNode("Recycle bin").select(JOBLETNAME + " 0.1" + " ()");
+            newSqlTemplateItem = tree.expandNode("SQL Templates", "Generic", "UserDefined").select(NEW_SQLTEMPLATENAME + " 0.1");
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            Assert.assertNotNull("joblet item is not deleted to recycle bin", newJobletItem);
+            Assert.assertNotNull("SQL Template item is not duplicated", newSqlTemplateItem);
         }
     }
 
     @After
     public void removePreviouslyCreateItems() {
+        gefBot.cTabItem(SQLTEMPLATENAME + " 0.1").close();
+        tree.expandNode("SQL Templates", "Generic", "UserDefined").getNode(SQLTEMPLATENAME + " 0.1").contextMenu("Delete")
+                .click();
+        tree.expandNode("SQL Templates", "Generic", "UserDefined").getNode(NEW_SQLTEMPLATENAME + " 0.1").contextMenu("Delete")
+                .click();
+
         Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

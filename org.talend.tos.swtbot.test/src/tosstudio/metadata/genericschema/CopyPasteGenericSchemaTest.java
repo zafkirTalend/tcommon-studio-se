@@ -26,6 +26,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
+import org.talend.swtbot.Utilities;
 
 /**
  * DOC Administrator class global comment. Detailled comment
@@ -37,14 +38,14 @@ public class CopyPasteGenericSchemaTest extends TalendSwtBotForTos {
 
     private SWTBotView view;
 
-    private static String SCHEMANAME = "schema1"; //$NON-NLS-1$
+    private static final String SCHEMANAME = "schema1"; //$NON-NLS-1$
 
-    private static String[] COLUMN = { "A", "B", "C" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    private static final String[] COLUMN = { "A", "B", "C" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
-    private static String[] TYPE = { "int | Integer", "String", "float | Float" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    private static final String[] TYPE = { "int | Integer", "String", "float | Float" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
     @Before
-    public void InitialisePrivateFields() {
+    public void initialisePrivateFields() {
         view = gefBot.viewByTitle("Repository");
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
@@ -68,6 +69,15 @@ public class CopyPasteGenericSchemaTest extends TalendSwtBotForTos {
         }
 
         gefBot.button("Finish").click();
+
+        SWTBotTreeItem newSchemaItem = null;
+        try {
+            newSchemaItem = tree.expandNode("Metadata", "Generic schemas").select(SCHEMANAME + " 0.1");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Assert.assertNotNull("generic schema item is not created", newSchemaItem);
+        }
     }
 
     @Test
@@ -75,16 +85,20 @@ public class CopyPasteGenericSchemaTest extends TalendSwtBotForTos {
         tree.expandNode("Metadata", "Generic schemas").getNode(SCHEMANAME + " 0.1").contextMenu("Copy").click();
         tree.select("Metadata", "Generic schemas").contextMenu("Paste").click();
 
-        SWTBotTreeItem newSchemaItem = tree.expandNode("Metadata", "Generic schemas").select("Copy_of_" + SCHEMANAME + " 0.1");
-        Assert.assertNotNull(newSchemaItem);
+        SWTBotTreeItem newSchemaItem = null;
+        try {
+            newSchemaItem = tree.expandNode("Metadata", "Generic schemas").select("Copy_of_" + SCHEMANAME + " 0.1");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Assert.assertNotNull("generic schema item is not copied", newSchemaItem);
+        }
     }
 
     @After
     public void removePreviouslyCreateItems() {
         tree.expandNode("Metadata", "Generic schemas").getNode(SCHEMANAME + " 0.1").contextMenu("Delete").click();
         tree.expandNode("Metadata", "Generic schemas").getNode("Copy_of_" + SCHEMANAME + " 0.1").contextMenu("Delete").click();
-        tree.select("Recycle bin").contextMenu("Empty recycle bin").click();
-        gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
-        gefBot.button("Yes").click();
+        Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

@@ -26,6 +26,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
+import org.talend.swtbot.Utilities;
 
 /**
  * DOC Administrator class global comment. Detailled comment
@@ -59,19 +60,29 @@ public class CreateFolderForJobTest extends TalendSwtBotForTos {
 
         gefBot.textWithLabel("Label").setText(FOLDERNAME);
 
-        gefBot.button("Finish").click();
+        boolean finishButtonIsEnabled = gefBot.button("Finish").isEnabled();
+        if (finishButtonIsEnabled) {
+            gefBot.button("Finish").click();
+        } else {
+            shell.close();
+            Assert.assertTrue("finish button is not enabled, folder created fail", finishButtonIsEnabled);
+        }
         gefBot.waitUntil(Conditions.shellCloses(shell));
 
-        SWTBotTreeItem newFolderItem = tree.expandNode("Job Designs").select(FOLDERNAME);
-        Assert.assertNotNull(newFolderItem);
+        SWTBotTreeItem newFolderItem = null;
+        try {
+            newFolderItem = tree.expandNode("Job Designs").select(FOLDERNAME);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Assert.assertNotNull("folder is not created", newFolderItem);
+        }
     }
 
     @After
     public void removePreviouslyCreateItems() {
         tree.expandNode("Job Designs").getNode(FOLDERNAME).contextMenu("Delete").click();
 
-        tree.select("Recycle bin").contextMenu("Empty recycle bin").click();
-        gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
-        gefBot.button("Yes").click();
+        Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

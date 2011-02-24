@@ -41,14 +41,14 @@ public class CreateCopybookTest extends TalendSwtBotForTos {
 
     private SWTBotView view;
 
-    private static String COPYBOOKNAME = "copybook1"; //$NON-NLS-1$
+    private static final String COPYBOOKNAME = "copybook1"; //$NON-NLS-1$
 
-    private static String SAMPLE_RELATIVE_FILEPATH = "cobocurs.copybook"; //$NON-NLS-1$
+    private static final String SAMPLE_RELATIVE_FILEPATH = "cobocurs.copybook"; //$NON-NLS-1$
 
-    private static String SAMPLE_RELATIVE_DATAFILE = "datafil.dat"; //$NON-NLS-1$
+    private static final String SAMPLE_RELATIVE_DATAFILE = "datafil.dat"; //$NON-NLS-1$
 
     @Before
-    public void InitialisePrivateFields() {
+    public void initialisePrivateFields() {
         view = gefBot.viewByTitle("Repository");
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
@@ -77,15 +77,19 @@ public class CreateCopybookTest extends TalendSwtBotForTos {
         /* step 3 of 3 */
         gefBot.button("Finish").click();
 
-        SWTBotTreeItem newCopybookItem = tree.expandNode("Metadata", "Copybook").select(COPYBOOKNAME + " 0.1");
-        Assert.assertNotNull(newCopybookItem);
+        SWTBotTreeItem newCopybookItem = null;
+        try {
+            newCopybookItem = tree.expandNode("Metadata", "Copybook").select(COPYBOOKNAME + " 0.1");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Assert.assertNotNull("copybook item is not created", newCopybookItem);
+        }
     }
 
     @After
     public void removePreviouslyCreateItems() {
         tree.expandNode("Metadata", "Copybook").getNode(COPYBOOKNAME + " 0.1").contextMenu("Delete").click();
-        tree.select("Recycle bin").contextMenu("Empty recycle bin").click();
-        gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
-        gefBot.button("Yes").click();
+        Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

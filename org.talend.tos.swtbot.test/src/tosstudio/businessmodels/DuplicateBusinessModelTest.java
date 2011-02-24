@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package tisstudio.joblets;
+package tosstudio.businessmodels;
 
 import junit.framework.Assert;
 
@@ -32,7 +32,7 @@ import org.talend.swtbot.Utilities;
  * DOC Administrator class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class DeleteJobletTest extends TalendSwtBotForTos {
+public class DuplicateBusinessModelTest extends TalendSwtBotForTos {
 
     private SWTBotTree tree;
 
@@ -40,33 +40,41 @@ public class DeleteJobletTest extends TalendSwtBotForTos {
 
     private SWTBotView view;
 
-    private static final String JOBLETNAME = "joblet1"; //$NON-NLS-1$
+    private static final String BUSINESSMODELNAME = "businessModel1"; //$NON-NLS-1$
+
+    private static final String NEW_BUSINESSMODELNAME = "duplicate_businessModel1"; //$NON-NLS-1$
 
     @Before
-    public void createJoblet() {
+    public void initialisePrivateFields() {
         view = gefBot.viewByTitle("Repository");
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        Utilities.createJoblet(JOBLETNAME, tree, gefBot, shell);
+        Utilities.createBusinessModel(BUSINESSMODELNAME, tree, gefBot, shell);
     }
 
     @Test
-    public void deleteJoblet() {
-        gefBot.cTabItem("Joblet " + JOBLETNAME + " 0.1").close();
-        tree.expandNode("Joblet Designs").getNode(JOBLETNAME + " 0.1").contextMenu("Delete").click();
+    public void duplicateBusinessModel() {
+        tree.expandNode("Business Models").getNode(BUSINESSMODELNAME + " 0.1").contextMenu("Duplicate").click();
+        gefBot.shell("Please input new name ").activate();
+        gefBot.text("Copy_of_" + BUSINESSMODELNAME).setText(NEW_BUSINESSMODELNAME);
+        gefBot.button("OK").click();
 
-        SWTBotTreeItem newJobletItem = null;
+        SWTBotTreeItem newBusinessModelItem = null;
         try {
-            newJobletItem = tree.expandNode("Recycle bin").select(JOBLETNAME + " 0.1" + " ()");
+            newBusinessModelItem = tree.expandNode("Business Models").select(NEW_BUSINESSMODELNAME + " 0.1");
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            Assert.assertNotNull("joblet item is not deleted to recycle bin", newJobletItem);
+            Assert.assertNotNull("business model is not duplicated", newBusinessModelItem);
         }
     }
 
     @After
     public void removePreviouslyCreateItems() {
+        gefBot.cTabItem("Model " + BUSINESSMODELNAME).close();
+        tree.expandNode("Business Models").getNode(BUSINESSMODELNAME + " 0.1").contextMenu("Delete").click();
+        tree.expandNode("Business Models").getNode(NEW_BUSINESSMODELNAME + " 0.1").contextMenu("Delete").click();
+
         Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

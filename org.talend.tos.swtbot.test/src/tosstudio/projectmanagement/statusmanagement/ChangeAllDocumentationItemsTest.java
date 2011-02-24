@@ -28,6 +28,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
+import org.talend.swtbot.Utilities;
 
 /**
  * DOC Administrator class global comment. Detailled comment
@@ -41,7 +42,7 @@ public class ChangeAllDocumentationItemsTest extends TalendSwtBotForTos {
 
     private SWTBotShell shell;
 
-    private static String BUSINESSMODELNAME = "businessModel1"; //$NON-NLS-1$
+    private static final String BUSINESSMODELNAME = "businessModel1"; //$NON-NLS-1$
 
     @Before
     public void initialisePrivateFields() throws IOException, URISyntaxException {
@@ -83,8 +84,6 @@ public class ChangeAllDocumentationItemsTest extends TalendSwtBotForTos {
         shell.close();
         tree.expandNode("Business Models").getNode(BUSINESSMODELNAME + " 0.1").contextMenu("Delete").click();
 
-        tree.getTreeItem("Recycle bin").contextMenu("Empty recycle bin").click();
-        gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
-        gefBot.button("Yes").click();
+        Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

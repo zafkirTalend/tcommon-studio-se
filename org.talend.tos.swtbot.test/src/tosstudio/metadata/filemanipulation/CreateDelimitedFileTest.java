@@ -42,12 +42,12 @@ public class CreateDelimitedFileTest extends TalendSwtBotForTos {
 
     private SWTBotView view;
 
-    private static String FILENAME = "test_delimited"; //$NON-NLS-1$
+    private static final String FILENAME = "test_delimited"; //$NON-NLS-1$
 
-    private static String SAMPLE_RELATIVE_FILEPATH = "test.csv"; //$NON-NLS-1$
+    private static final String SAMPLE_RELATIVE_FILEPATH = "test.csv"; //$NON-NLS-1$
 
     @Before
-    public void InitialisePrivateFields() {
+    public void initialisePrivateFields() {
         view = gefBot.viewByTitle("Repository");
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
@@ -93,15 +93,19 @@ public class CreateDelimitedFileTest extends TalendSwtBotForTos {
         });
         gefBot.button("Finish").click();
 
-        SWTBotTreeItem newCsvItem = tree.expandNode("Metadata", "File delimited").select(FILENAME + " 0.1");
-        Assert.assertNotNull(newCsvItem);
+        SWTBotTreeItem newCsvItem = null;
+        try {
+            newCsvItem = tree.expandNode("Metadata", "File delimited").select(FILENAME + " 0.1");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Assert.assertNotNull("file delimited is not created", newCsvItem);
+        }
     }
 
     @After
     public void removePreviouslyCreateItems() {
         tree.expandNode("Metadata", "File delimited").getNode(FILENAME + " 0.1").contextMenu("Delete").click();
-        tree.getTreeItem("Recycle bin").contextMenu("Empty recycle bin").click();
-        gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
-        gefBot.button("Yes").click();
+        Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

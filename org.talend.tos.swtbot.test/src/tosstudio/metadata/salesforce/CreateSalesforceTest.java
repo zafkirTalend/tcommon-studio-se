@@ -27,6 +27,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
+import org.talend.swtbot.Utilities;
 
 /**
  * DOC Administrator class global comment. Detailled comment
@@ -38,14 +39,14 @@ public class CreateSalesforceTest extends TalendSwtBotForTos {
 
     private SWTBotView view;
 
-    private static String SALESFORCENAME = "saleforce1"; //$NON-NLS-1$
+    private static final String SALESFORCENAME = "saleforce1"; //$NON-NLS-1$
 
-    private static String USERNAME = "cantoine@talend.com"; //$NON-NLS-1$
+    private static final String USERNAME = "cantoine@talend.com"; //$NON-NLS-1$
 
-    private static String PASSWORD = "talendehmrEvHz2xZ8f2KlmTCymS0XU"; //$NON-NLS-1$
+    private static final String PASSWORD = "talendehmrEvHz2xZ8f2KlmTCymS0XU"; //$NON-NLS-1$
 
     @Before
-    public void InitialisePrivateFields() {
+    public void initialisePrivateFields() {
         view = gefBot.viewByTitle("Repository");
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
@@ -110,15 +111,19 @@ public class CreateSalesforceTest extends TalendSwtBotForTos {
         });
         gefBot.button("Finish").click();
 
-        SWTBotTreeItem newSalesforceItem = tree.expandNode("Metadata").expandNode("Salesforce").getNode(SALESFORCENAME + " 0.1");
-        Assert.assertNotNull(newSalesforceItem);
+        SWTBotTreeItem newSalesforceItem = null;
+        try {
+            newSalesforceItem = tree.expandNode("Metadata").expandNode("Salesforce").getNode(SALESFORCENAME + " 0.1");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Assert.assertNotNull("salesforce item is not created", newSalesforceItem);
+        }
     }
 
     @After
     public void removePreviouslyCreateItems() {
         tree.expandNode("Metadata").expandNode("Salesforce").getNode(SALESFORCENAME + " 0.1").contextMenu("Delete").click();
-        tree.getTreeItem("Recycle bin").contextMenu("Empty recycle bin").click();
-        gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
-        gefBot.button("Yes").click();
+        Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

@@ -26,6 +26,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
+import org.talend.swtbot.Utilities;
 
 /**
  * DOC Administrator class global comment. Detailled comment
@@ -39,17 +40,17 @@ public class DeleteMysqlTest extends TalendSwtBotForTos {
 
     private SWTBotView view;
 
-    private static String DBTYPE = "MySQL"; //$NON-NLS-1$
+    private static final String DBTYPE = "MySQL"; //$NON-NLS-1$
 
-    private static String DBNAME = "test_mysql"; //$NON-NLS-1$
+    private static final String DBNAME = "test_mysql"; //$NON-NLS-1$
 
-    private static String DBLOGIN = "root"; //$NON-NLS-1$
+    private static final String DBLOGIN = "root"; //$NON-NLS-1$
 
-    private static String DBPASSWORD = "123456"; //$NON-NLS-1$
+    private static final String DBPASSWORD = "123456"; //$NON-NLS-1$
 
-    private static String DBSERVER = "localhost"; //$NON-NLS-1$
+    private static final String DBSERVER = "localhost"; //$NON-NLS-1$
 
-    private static String DB = "test"; //$NON-NLS-1$
+    private static final String DB = "test"; //$NON-NLS-1$
 
     @Before
     public void createMySQL() {
@@ -79,20 +80,33 @@ public class DeleteMysqlTest extends TalendSwtBotForTos {
         gefBot.waitUntil(Conditions.shellCloses(shell));
 
         gefBot.button("Finish").click();
+
+        SWTBotTreeItem newMysqlItem = null;
+        try {
+            newMysqlItem = tree.expandNode("Metadata", "Db Connections").select(DBNAME + " 0.1");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Assert.assertNotNull("mysql connection is not created", newMysqlItem);
+        }
     }
 
     @Test
     public void deleteMysql() {
         tree.expandNode("Metadata", "Db Connections").getNode(DBNAME + " 0.1").contextMenu("Delete").click();
 
-        SWTBotTreeItem newRecycleItem = tree.expandNode("Recycle bin").select(DBNAME + " 0.1" + " ()");
-        Assert.assertNotNull(newRecycleItem);
+        SWTBotTreeItem newMysqlItem = null;
+        try {
+            newMysqlItem = tree.expandNode("Recycle bin").select(DBNAME + " 0.1" + " ()");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Assert.assertNotNull("mysql connection is not deleted to recycle bin", newMysqlItem);
+        }
     }
 
     @After
     public void removePreviouslyCreateItems() {
-        tree.select("Recycle bin").contextMenu("Empty recycle bin").click();
-        gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
-        gefBot.button("Yes").click();
+        Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

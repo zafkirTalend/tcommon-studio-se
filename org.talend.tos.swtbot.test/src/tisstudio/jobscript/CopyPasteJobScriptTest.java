@@ -13,7 +13,6 @@
 package tisstudio.jobscript;
 
 import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
@@ -25,6 +24,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
+import org.talend.swtbot.Utilities;
 
 /**
  * DOC Administrator class global comment. Detailled comment
@@ -36,10 +36,10 @@ public class CopyPasteJobScriptTest extends TalendSwtBotForTos {
 
     private SWTBotTree tree;
 
-    private static String JOBSCRIPT_NAME = "jobscript1"; //$NON-NLS-1$
+    private static final String JOBSCRIPT_NAME = "jobscript1"; //$NON-NLS-1$
 
     @Before
-    public void InitialisePrivateFields() {
+    public void initialisePrivateFields() {
         view = gefBot.viewByTitle("Repository");
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
@@ -48,6 +48,15 @@ public class CopyPasteJobScriptTest extends TalendSwtBotForTos {
 
         gefBot.textWithLabel("Name").setText(JOBSCRIPT_NAME);
         gefBot.button("Finish").click();
+
+        SWTBotTreeItem newJobScriptItem = null;
+        try {
+            newJobScriptItem = tree.expandNode("Code", "Job Scripts").select(JOBSCRIPT_NAME + " 0.1");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Assert.assertNotNull("jobscript is not created", newJobScriptItem);
+        }
     }
 
     @Test
@@ -55,8 +64,14 @@ public class CopyPasteJobScriptTest extends TalendSwtBotForTos {
         tree.expandNode("Code", "Job Scripts").getNode(JOBSCRIPT_NAME + " 0.1").contextMenu("Copy").click();
         tree.select("Code", "Job Scripts").contextMenu("Paste").click();
 
-        SWTBotTreeItem newJobScriptItem = tree.expandNode("Code", "Job Scripts").select("Copy_of_" + JOBSCRIPT_NAME + " 0.1");
-        Assert.assertNotNull(newJobScriptItem);
+        SWTBotTreeItem newJobScriptItem = null;
+        try {
+            newJobScriptItem = tree.expandNode("Code", "Job Scripts").select("Copy_of_" + JOBSCRIPT_NAME + " 0.1");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Assert.assertNotNull("jobscript is not copied", newJobScriptItem);
+        }
     }
 
     @After
@@ -65,8 +80,6 @@ public class CopyPasteJobScriptTest extends TalendSwtBotForTos {
         tree.expandNode("Code", "Job Scripts").getNode(JOBSCRIPT_NAME + " 0.1").contextMenu("Delete").click();
         tree.expandNode("Code", "Job Scripts").getNode("Copy_of_" + JOBSCRIPT_NAME + " 0.1").contextMenu("Delete").click();
 
-        tree.select("Recycle bin").contextMenu("Empty recycle bin").click();
-        gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
-        gefBot.button("Yes").click();
+        Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

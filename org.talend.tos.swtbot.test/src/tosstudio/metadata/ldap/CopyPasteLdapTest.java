@@ -28,6 +28,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
+import org.talend.swtbot.Utilities;
 
 /**
  * DOC Administrator class global comment. Detailled comment
@@ -41,18 +42,18 @@ public class CopyPasteLdapTest extends TalendSwtBotForTos {
 
     private SWTBotView view;
 
-    private static String LDAPNAME = "ldap1"; //$NON-NLS-1$
+    private static final String LDAPNAME = "ldap1"; //$NON-NLS-1$
 
-    private static String HOSTNAME = "192.168.0.244"; //$NON-NLS-1$
+    private static final String HOSTNAME = "192.168.0.244"; //$NON-NLS-1$
 
-    private static String PORT = "389"; //$NON-NLS-1$
+    private static final String PORT = "389"; //$NON-NLS-1$
 
-    private static String DN_OR_USER = "cn=Manager,dc=example,dc=com"; //$NON-NLS-1$
+    private static final String DN_OR_USER = "cn=Manager,dc=example,dc=com"; //$NON-NLS-1$
 
-    private static String PASSWORD = "secret"; //$NON-NLS-1$
+    private static final String PASSWORD = "secret"; //$NON-NLS-1$
 
     @Before
-    public void InitialisePrivateFields() {
+    public void initialisePrivateFields() {
         view = gefBot.viewByTitle("Repository");
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
@@ -136,6 +137,15 @@ public class CopyPasteLdapTest extends TalendSwtBotForTos {
             }
         });
         gefBot.button("Finish").click();
+
+        SWTBotTreeItem newLdapItem = null;
+        try {
+            newLdapItem = tree.expandNode("Metadata", "LDAP").select(LDAPNAME + " 0.1");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Assert.assertNotNull("ldap item is not created", newLdapItem);
+        }
     }
 
     @Test
@@ -143,16 +153,20 @@ public class CopyPasteLdapTest extends TalendSwtBotForTos {
         tree.expandNode("Metadata", "LDAP").getNode(LDAPNAME + " 0.1").contextMenu("Copy").click();
         tree.select("Metadata", "LDAP").contextMenu("Paste").click();
 
-        SWTBotTreeItem newLdapItem = tree.expandNode("Metadata", "LDAP").select("Copy_of_" + LDAPNAME + " 0.1");
-        Assert.assertNotNull(newLdapItem);
+        SWTBotTreeItem newLdapItem = null;
+        try {
+            newLdapItem = tree.expandNode("Metadata", "LDAP").select("Copy_of_" + LDAPNAME + " 0.1");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Assert.assertNotNull("ldap item is not copied", newLdapItem);
+        }
     }
 
     @After
     public void removePreviouslyCreateItems() {
         tree.expandNode("Metadata").expandNode("LDAP").getNode(LDAPNAME + " 0.1").contextMenu("Delete").click();
         tree.expandNode("Metadata").expandNode("LDAP").getNode("Copy_of_" + LDAPNAME + " 0.1").contextMenu("Delete").click();
-        tree.getTreeItem("Recycle bin").contextMenu("Empty recycle bin").click();
-        gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
-        gefBot.button("Yes").click();
+        Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

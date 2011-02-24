@@ -13,7 +13,6 @@
 package tosstudio.projectmanagement.performance;
 
 import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
@@ -26,6 +25,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
+import org.talend.swtbot.Utilities;
 
 /**
  * DOC Administrator class global comment. Detailled comment
@@ -39,26 +39,14 @@ public class OpenAnotherVersionOfJobTest extends TalendSwtBotForTos {
 
     private SWTBotView view;
 
-    private static String JOBNAME = "test01"; //$NON-NLS-1$
+    private static final String JOBNAME = "test01"; //$NON-NLS-1$
 
     @Before
     public void createAJob() {
         view = gefBot.viewByTitle("Repository");
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        tree.setFocus();
-        tree.select("Job Designs").contextMenu("Create job").click();
-
-        gefBot.waitUntil(Conditions.shellIsActive("New job"));
-        shell = gefBot.shell("New job");
-        shell.activate();
-
-        gefBot.textWithLabel("Name").setText(JOBNAME);
-
-        gefBot.button("Finish").click();
-        gefBot.waitUntil(Conditions.shellCloses(shell));
-
-        gefBot.toolbarButtonWithTooltip("Save (Ctrl+S)").click();
+        Utilities.createJob(JOBNAME, tree, gefBot, shell);
     }
 
     @Test
@@ -73,7 +61,7 @@ public class OpenAnotherVersionOfJobTest extends TalendSwtBotForTos {
         gefBot.button("Finish").click();
 
         SWTBotCTabItem newJobTabItem1 = gefBot.cTabItem("Job " + JOBNAME + " 1.1");
-        Assert.assertNotNull(newJobTabItem1);
+        Assert.assertNotNull("job tab is not opened", newJobTabItem1);
 
         tree.expandNode("Job Designs").getNode(JOBNAME + " 1.1").contextMenu("Open an other version").click();
         gefBot.shell("New job").activate();
@@ -81,7 +69,7 @@ public class OpenAnotherVersionOfJobTest extends TalendSwtBotForTos {
         gefBot.button("Finish").click();
 
         SWTBotCTabItem newJobTabItem2 = gefBot.cTabItem("Job " + JOBNAME + " 0.1");
-        Assert.assertNotNull(newJobTabItem2);
+        Assert.assertNotNull("job tab is not opened", newJobTabItem2);
     }
 
     @After
@@ -91,8 +79,6 @@ public class OpenAnotherVersionOfJobTest extends TalendSwtBotForTos {
         gefBot.cTabItem("Job " + JOBNAME + " 1.1").close();
         tree.expandNode("Job Designs").getNode(JOBNAME + " 1.1").contextMenu("Delete").click();
 
-        tree.select("Recycle bin").contextMenu("Empty recycle bin").click();
-        gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
-        gefBot.button("Yes").click();
+        Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

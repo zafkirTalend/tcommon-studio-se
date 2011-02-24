@@ -46,9 +46,9 @@ public class ExportJobAsWebserviceInWarFileTest extends TalendSwtBotForTos {
 
     private SWTBotGefEditor gefEditor;
 
-    private static String JOBNAME = "test01"; //$NON-NLS-1$
+    private static final String JOBNAME = "test01"; //$NON-NLS-1$
 
-    private static String SAMPLE_RELATIVE_FILEPATH = "items.zip"; //$NON-NLS-1$
+    private static final String SAMPLE_RELATIVE_FILEPATH = "items.zip"; //$NON-NLS-1$
 
     private static boolean isExportAsZipFile = false;
 
@@ -57,22 +57,7 @@ public class ExportJobAsWebserviceInWarFileTest extends TalendSwtBotForTos {
         view = gefBot.viewByTitle("Repository");
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        tree.setFocus();
-        tree.select("Job Designs").contextMenu("Create job").click();
-
-        gefBot.waitUntil(Conditions.shellIsActive("New job"));
-        shell = gefBot.shell("New job");
-        shell.activate();
-
-        gefBot.textWithLabel("Name").setText(JOBNAME);
-
-        gefBot.button("Finish").click();
-        gefBot.waitUntil(Conditions.shellCloses(shell));
-
-        gefEditor = gefBot.gefEditor("Job " + JOBNAME + " 0.1");
-        gefEditor.activateTool("tMsgBox").click(100, 100);
-
-        gefBot.toolbarButtonWithTooltip("Save (Ctrl+S)").click();
+        Utilities.createJob(JOBNAME, tree, gefBot, shell);
     }
 
     @Test
@@ -95,8 +80,6 @@ public class ExportJobAsWebserviceInWarFileTest extends TalendSwtBotForTos {
         gefBot.cTabItem("Job " + JOBNAME + " 0.1").close();
         tree.expandNode("Job Designs").getNode(JOBNAME + " 0.1").contextMenu("Delete").click();
 
-        tree.getTreeItem("Recycle bin").contextMenu("Empty recycle bin").click();
-        gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
-        gefBot.button("Yes").click();
+        Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

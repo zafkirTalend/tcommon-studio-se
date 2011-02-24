@@ -41,11 +41,11 @@ public class DeleteCopybookTest extends TalendSwtBotForTos {
 
     private SWTBotView view;
 
-    private static String COPYBOOKNAME = "copybook1"; //$NON-NLS-1$
+    private static final String COPYBOOKNAME = "copybook1"; //$NON-NLS-1$
 
-    private static String SAMPLE_RELATIVE_FILEPATH = "cobocurs.copybook"; //$NON-NLS-1$
+    private static final String SAMPLE_RELATIVE_FILEPATH = "cobocurs.copybook"; //$NON-NLS-1$
 
-    private static String SAMPLE_RELATIVE_DATAFILE = "datafil.dat"; //$NON-NLS-1$
+    private static final String SAMPLE_RELATIVE_DATAFILE = "datafil.dat"; //$NON-NLS-1$
 
     @Before
     public void createCopybook() throws IOException, URISyntaxException {
@@ -72,20 +72,33 @@ public class DeleteCopybookTest extends TalendSwtBotForTos {
 
         /* step 3 of 3 */
         gefBot.button("Finish").click();
+
+        SWTBotTreeItem newCopybookItem = null;
+        try {
+            newCopybookItem = tree.expandNode("Metadata", "Copybook").select(COPYBOOKNAME + " 0.1");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Assert.assertNotNull("copybook item is not created", newCopybookItem);
+        }
     }
 
     @Test
     public void deleteCopybookTest() {
         tree.expandNode("Metadata", "Copybook").getNode(COPYBOOKNAME + " 0.1").contextMenu("Delete").click();
 
-        SWTBotTreeItem newCopybookItem = tree.expandNode("Recycle bin").select(COPYBOOKNAME + " 0.1" + " ()");
-        Assert.assertNotNull(newCopybookItem);
+        SWTBotTreeItem newCopybookItem = null;
+        try {
+            newCopybookItem = tree.expandNode("Recycle bin").select(COPYBOOKNAME + " 0.1" + " ()");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Assert.assertNotNull("copybook item is not deleted to recycle bin", newCopybookItem);
+        }
     }
 
     @After
     public void removePreviousCreateItems() {
-        tree.select("Recycle bin").contextMenu("Empty recycle bin").click();
-        gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
-        gefBot.button("Yes").click();
+        Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

@@ -55,8 +55,14 @@ public class CopyPasteJobletTest extends TalendSwtBotForTos {
         tree.expandNode("Joblet Designs").getNode(JOBLETNAME + " 0.1").contextMenu("Copy").click();
         tree.select("Joblet Designs").contextMenu("Paste").click();
 
-        SWTBotTreeItem newJobletItem = tree.expandNode("Joblet Designs").select("Copy_of_" + JOBLETNAME + " 0.1");
-        Assert.assertNotNull(newJobletItem);
+        SWTBotTreeItem newJobletItem = null;
+        try {
+            newJobletItem = tree.expandNode("Joblet Designs").select("Copy_of_" + JOBLETNAME + " 0.1");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Assert.assertNotNull("joblet item is not copied", newJobletItem);
+        }
     }
 
     @After

@@ -42,9 +42,9 @@ public class CopyPasteRegexFileTest extends TalendSwtBotForTos {
 
     private SWTBotView view;
 
-    private static String FILENAME = "test_regex"; //$NON-NLS-1$
+    private static final String FILENAME = "test_regex"; //$NON-NLS-1$
 
-    private static String SAMPLE_RELATIVE_FILEPATH = "test.txt"; //$NON-NLS-1$
+    private static final String SAMPLE_RELATIVE_FILEPATH = "test.txt"; //$NON-NLS-1$
 
     @Before
     public void createRegexFile() throws IOException, URISyntaxException {
@@ -89,6 +89,15 @@ public class CopyPasteRegexFileTest extends TalendSwtBotForTos {
             }
         });
         gefBot.button("Finish").click();
+
+        SWTBotTreeItem newRegexItem = null;
+        try {
+            newRegexItem = tree.expandNode("Metadata").expandNode("File regex").getNode(FILENAME + " 0.1");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Assert.assertNotNull("file regex item is not created", newRegexItem);
+        }
     }
 
     @Test
@@ -96,8 +105,14 @@ public class CopyPasteRegexFileTest extends TalendSwtBotForTos {
         tree.expandNode("Metadata", "File regex").getNode(FILENAME + " 0.1").contextMenu("Copy").click();
         tree.select("Metadata", "File regex").contextMenu("Paste").click();
 
-        SWTBotTreeItem newRegexItem = tree.expandNode("Metadata", "File regex").select("Copy_of_" + FILENAME + " 0.1");
-        Assert.assertNotNull(newRegexItem);
+        SWTBotTreeItem newRegexItem = null;
+        try {
+            newRegexItem = tree.expandNode("Metadata", "File regex").select("Copy_of_" + FILENAME + " 0.1");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Assert.assertNotNull("file regex item is not copied", newRegexItem);
+        }
     }
 
     @After
@@ -105,8 +120,6 @@ public class CopyPasteRegexFileTest extends TalendSwtBotForTos {
         tree.expandNode("Metadata", "File regex").getNode(FILENAME + " 0.1").contextMenu("Delete").click();
         tree.expandNode("Metadata", "File regex").getNode("Copy_of_" + FILENAME + " 0.1").contextMenu("Delete").click();
 
-        tree.select("Recycle bin").contextMenu("Empty recycle bin").click();
-        gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
-        gefBot.button("Yes").click();
+        Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

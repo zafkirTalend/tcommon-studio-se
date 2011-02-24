@@ -27,6 +27,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
+import org.talend.swtbot.Utilities;
 
 /**
  * DOC Administrator class global comment. Detailled comment
@@ -38,14 +39,14 @@ public class CopyPasteWebServiceTest extends TalendSwtBotForTos {
 
     private SWTBotTree tree;
 
-    private static String WEBSERVICENAME = "webService1"; //$NON-NLS-1$
+    private static final String WEBSERVICENAME = "webService1"; //$NON-NLS-1$
 
-    private static String URL = "http://www.deeptraining.com/webservices/weather.asmx?WSDL"; //$NON-NLS-1$
+    private static final String URL = "http://www.deeptraining.com/webservices/weather.asmx?WSDL"; //$NON-NLS-1$
 
-    private static String METHOD = "GetWeather"; //$NON-NLS-1$
+    private static final String METHOD = "GetWeather"; //$NON-NLS-1$
 
     @Before
-    public void InitialisePrivateFields() {
+    public void initialisePrivateFields() {
         view = gefBot.viewByTitle("Repository");
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
@@ -95,6 +96,15 @@ public class CopyPasteWebServiceTest extends TalendSwtBotForTos {
             }
         });
         gefBot.button("Finish").click();
+
+        SWTBotTreeItem newWebServiceItem = null;
+        try {
+            newWebServiceItem = tree.expandNode("Metadata", "Web Service").select(WEBSERVICENAME + " 0.1");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Assert.assertNotNull("web service item is not created", newWebServiceItem);
+        }
     }
 
     @Test
@@ -102,9 +112,14 @@ public class CopyPasteWebServiceTest extends TalendSwtBotForTos {
         tree.expandNode("Metadata", "Web Service").getNode(WEBSERVICENAME + " 0.1").contextMenu("Copy").click();
         tree.select("Metadata", "Web Service").contextMenu("Paste").click();
 
-        SWTBotTreeItem newWebServiceItem = tree.expandNode("Metadata", "Web Service")
-                .select("Copy_of_" + WEBSERVICENAME + " 0.1");
-        Assert.assertNotNull(newWebServiceItem);
+        SWTBotTreeItem newWebServiceItem = null;
+        try {
+            newWebServiceItem = tree.expandNode("Metadata", "Web Service").select("Copy_of_" + WEBSERVICENAME + " 0.1");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Assert.assertNotNull("web service item is not copied", newWebServiceItem);
+        }
     }
 
     @After
@@ -112,8 +127,6 @@ public class CopyPasteWebServiceTest extends TalendSwtBotForTos {
         tree.expandNode("Metadata", "Web Service").getNode(WEBSERVICENAME + " 0.1").contextMenu("Delete").click();
         tree.expandNode("Metadata", "Web Service").getNode("Copy_of_" + WEBSERVICENAME + " 0.1").contextMenu("Delete").click();
 
-        tree.select("Recycle bin").contextMenu("Empty recycle bin").click();
-        gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
-        gefBot.button("Yes").click();
+        Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

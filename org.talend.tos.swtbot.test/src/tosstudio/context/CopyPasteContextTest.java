@@ -28,6 +28,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.SWTBotTreeItemExt;
 import org.talend.swtbot.TalendSwtBotForTos;
+import org.talend.swtbot.Utilities;
 
 /**
  * DOC Administrator class global comment. Detailled comment
@@ -41,14 +42,14 @@ public class CopyPasteContextTest extends TalendSwtBotForTos {
 
     private SWTBotView view;
 
-    private static String CONTEXTNAME = "context1"; //$NON-NLS-1$
+    private static final String CONTEXTNAME = "context1"; //$NON-NLS-1$
 
-    private static String[] TYPE = { "int | Integer", "String", "float | Float" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    private static final String[] TYPE = { "int | Integer", "String", "float | Float" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
-    private static String[] VALUE = { "1", "a", "2" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    private static final String[] VALUE = { "1", "a", "2" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
     @Before
-    public void InitialisePrivateFields() {
+    public void initialisePrivateFields() {
         view = gefBot.viewByTitle("Repository");
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
@@ -85,6 +86,14 @@ public class CopyPasteContextTest extends TalendSwtBotForTos {
         }
 
         gefBot.button("Finish").click();
+        SWTBotTreeItem newContextItem = null;
+        try {
+            newContextItem = tree.expandNode("Contexts").select(CONTEXTNAME + " 0.1");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Assert.assertNotNull("context is not created", newContextItem);
+        }
     }
 
     @Test
@@ -92,8 +101,14 @@ public class CopyPasteContextTest extends TalendSwtBotForTos {
         tree.expandNode("Contexts").getNode(CONTEXTNAME + " 0.1").contextMenu("Copy").click();
         tree.select("Contexts").contextMenu("Paste").click();
 
-        SWTBotTreeItem newContextItem = tree.expandNode("Contexts").select("Copy_of_" + CONTEXTNAME + " 0.1");
-        Assert.assertNotNull(newContextItem);
+        SWTBotTreeItem newContextItem = null;
+        try {
+            newContextItem = tree.expandNode("Contexts").select("Copy_of_" + CONTEXTNAME + " 0.1");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Assert.assertNotNull("context is not copied", newContextItem);
+        }
     }
 
     @After
@@ -101,8 +116,6 @@ public class CopyPasteContextTest extends TalendSwtBotForTos {
         tree.expandNode("Contexts").getNode(CONTEXTNAME + " 0.1").contextMenu("Delete").click();
         tree.expandNode("Contexts").getNode("Copy_of_" + CONTEXTNAME + " 0.1").contextMenu("Delete").click();
 
-        tree.select("Recycle bin").contextMenu("Empty recycle bin").click();
-        gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
-        gefBot.button("Yes").click();
+        Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

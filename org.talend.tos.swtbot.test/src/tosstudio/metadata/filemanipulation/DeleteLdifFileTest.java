@@ -42,9 +42,9 @@ public class DeleteLdifFileTest extends TalendSwtBotForTos {
 
     private SWTBotView view;
 
-    private static String FILENAME = "test_ldif"; //$NON-NLS-1$
+    private static final String FILENAME = "test_ldif"; //$NON-NLS-1$
 
-    private static String SAMPLE_RELATIVE_FILEPATH = "test.ldif"; //$NON-NLS-1$
+    private static final String SAMPLE_RELATIVE_FILEPATH = "test.ldif"; //$NON-NLS-1$
 
     @Before
     public void createLdifFile() throws IOException, URISyntaxException {
@@ -80,20 +80,33 @@ public class DeleteLdifFileTest extends TalendSwtBotForTos {
             }
         });
         gefBot.button("Finish").click();
+
+        SWTBotTreeItem newLdifItem = null;
+        try {
+            newLdifItem = tree.expandNode("Metadata", "File ldif").select(FILENAME + " 0.1");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Assert.assertNotNull("file ldif is not created", newLdifItem);
+        }
     }
 
     @Test
     public void deleteLdifFile() {
         tree.expandNode("Metadata", "File ldif").getNode(FILENAME + " 0.1").contextMenu("Delete").click();
 
-        SWTBotTreeItem newLdifItem = tree.expandNode("Recycle bin").select(FILENAME + " 0.1" + " ()");
-        Assert.assertNotNull(newLdifItem);
+        SWTBotTreeItem newLdifItem = null;
+        try {
+            newLdifItem = tree.expandNode("Recycle bin").select(FILENAME + " 0.1" + " ()");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Assert.assertNotNull("file ldif is not deleted to recycle bin", newLdifItem);
+        }
     }
 
     @After
     public void removePreviouslyCreateItems() {
-        tree.select("Recycle bin").contextMenu("Empty recycle bin").click();
-        gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
-        gefBot.button("Yes").click();
+        Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

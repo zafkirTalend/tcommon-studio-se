@@ -42,9 +42,9 @@ public class CopyPasteExcelFileTest extends TalendSwtBotForTos {
 
     private SWTBotView view;
 
-    private static String FILENAME = "test_excel"; //$NON-NLS-1$
+    private static final String FILENAME = "test_excel"; //$NON-NLS-1$
 
-    private static String SAMPLE_RELATIVE_FILEPATH = "test.xls"; //$NON-NLS-1$
+    private static final String SAMPLE_RELATIVE_FILEPATH = "test.xls"; //$NON-NLS-1$
 
     @Before
     public void createExcelFile() throws IOException, URISyntaxException {
@@ -90,6 +90,15 @@ public class CopyPasteExcelFileTest extends TalendSwtBotForTos {
             }
         });
         gefBot.button("Finish").click();
+
+        SWTBotTreeItem newXlsItem = null;
+        try {
+            newXlsItem = tree.expandNode("Metadata").expandNode("File Excel").getNode(FILENAME + " 0.1");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Assert.assertNotNull("file excel is not created", newXlsItem);
+        }
     }
 
     @Test
@@ -97,8 +106,14 @@ public class CopyPasteExcelFileTest extends TalendSwtBotForTos {
         tree.expandNode("Metadata", "File Excel").getNode(FILENAME + " 0.1").contextMenu("Copy").click();
         tree.select("Metadata", "File Excel").contextMenu("Paste").click();
 
-        SWTBotTreeItem newXlsItem = tree.expandNode("Metadata", "File Excel").select("Copy_of_" + FILENAME + " 0.1");
-        Assert.assertNotNull(newXlsItem);
+        SWTBotTreeItem newXlsItem = null;
+        try {
+            newXlsItem = tree.expandNode("Metadata", "File Excel").select("Copy_of_" + FILENAME + " 0.1");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Assert.assertNotNull("file excel is not copied", newXlsItem);
+        }
     }
 
     @After
@@ -106,8 +121,6 @@ public class CopyPasteExcelFileTest extends TalendSwtBotForTos {
         tree.expandNode("Metadata", "File Excel").getNode(FILENAME + " 0.1").contextMenu("Delete").click();
         tree.expandNode("Metadata", "File Excel").getNode("Copy_of_" + FILENAME + " 0.1").contextMenu("Delete").click();
 
-        tree.select("Recycle bin").contextMenu("Empty recycle bin").click();
-        gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
-        gefBot.button("Yes").click();
+        Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

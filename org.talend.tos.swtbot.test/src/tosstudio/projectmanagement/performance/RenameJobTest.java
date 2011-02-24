@@ -13,7 +13,6 @@
 package tosstudio.projectmanagement.performance;
 
 import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
@@ -26,6 +25,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
+import org.talend.swtbot.Utilities;
 
 /**
  * DOC Administrator class global comment. Detailled comment
@@ -39,28 +39,16 @@ public class RenameJobTest extends TalendSwtBotForTos {
 
     private SWTBotView view;
 
-    private static String JOBNAME = "test01"; //$NON-NLS-1$
+    private static final String JOBNAME = "test01"; //$NON-NLS-1$
 
-    private static String NEW_JOBNAME = "rename_test01"; //$NON-NLS-1$
+    private static final String NEW_JOBNAME = "rename_test01"; //$NON-NLS-1$
 
     @Before
     public void createAJob() {
         view = gefBot.viewByTitle("Repository");
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        tree.setFocus();
-        tree.select("Job Designs").contextMenu("Create job").click();
-
-        gefBot.waitUntil(Conditions.shellIsActive("New job"));
-        shell = gefBot.shell("New job");
-        shell.activate();
-
-        gefBot.textWithLabel("Name").setText(JOBNAME);
-
-        gefBot.button("Finish").click();
-        gefBot.waitUntil(Conditions.shellCloses(shell));
-
-        gefBot.toolbarButtonWithTooltip("Save (Ctrl+S)").click();
+        Utilities.createJob(JOBNAME, tree, gefBot, shell);
     }
 
     @Test
@@ -72,16 +60,20 @@ public class RenameJobTest extends TalendSwtBotForTos {
         gefBot.text(JOBNAME).setText(NEW_JOBNAME);
         gefBot.button("Finish").click();
 
-        SWTBotTreeItem newJobItem = tree.expandNode("Job Designs").select(NEW_JOBNAME + " 0.1");
-        Assert.assertNotNull(newJobItem);
+        SWTBotTreeItem newJobItem = null;
+        try {
+            newJobItem = tree.expandNode("Job Designs").select(NEW_JOBNAME + " 0.1");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Assert.assertNotNull("job is not renamed", newJobItem);
+        }
     }
 
     @After
     public void removePreviouslyCreateItems() {
         tree.expandNode("Job Designs").getNode(NEW_JOBNAME + " 0.1").contextMenu("Delete").click();
 
-        tree.select("Recycle bin").contextMenu("Empty recycle bin").click();
-        gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
-        gefBot.button("Yes").click();
+        Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

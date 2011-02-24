@@ -40,7 +40,7 @@ public class ExportItemsTest extends TalendSwtBotForTos {
 
     private SWTBotTree tree;
 
-    private static String SAMPLE_RELATIVE_FILEPATH = "items.zip";
+    private static final String SAMPLE_RELATIVE_FILEPATH = "items.zip";
 
     private static boolean isExportAsZipFile = false;
 
@@ -105,8 +105,6 @@ public class ExportItemsTest extends TalendSwtBotForTos {
                 }
             }
         }
-        tree.getTreeItem("Recycle bin").contextMenu("Empty recycle bin").click();
-        gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
-        gefBot.button("Yes").click();
+        Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

@@ -13,7 +13,6 @@
 package tosstudio.routines;
 
 import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
@@ -26,6 +25,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
+import org.talend.swtbot.Utilities;
 
 /**
  * DOC Administrator class global comment. Detailled comment
@@ -39,23 +39,14 @@ public class DeleteRoutineTest extends TalendSwtBotForTos {
 
     private SWTBotView view;
 
-    private static String ROUTINENAME = "routine1"; //$NON-NLS-1$
+    private static final String ROUTINENAME = "routine1"; //$NON-NLS-1$
 
     @Before
-    public void InitialisePrivateFields() {
+    public void initialisePrivateFields() {
         view = gefBot.viewByTitle("Repository");
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        tree.setFocus();
-        tree.expandNode("Code").getNode("Routines").contextMenu("Create routine").click();
-
-        gefBot.waitUntil(Conditions.shellIsActive("New routine"));
-        shell = gefBot.shell("New routine");
-        shell.activate();
-
-        gefBot.textWithLabel("Name").setText(ROUTINENAME);
-
-        gefBot.button("Finish").click();
+        Utilities.createRoutine(ROUTINENAME, tree, gefBot, shell);
     }
 
     @Test
@@ -63,14 +54,18 @@ public class DeleteRoutineTest extends TalendSwtBotForTos {
         gefBot.cTabItem(ROUTINENAME + " 0.1").close();
         tree.expandNode("Code", "Routines").getNode(ROUTINENAME + " 0.1").contextMenu("Delete").click();
 
-        SWTBotTreeItem newRoutineItem = tree.expandNode("Recycle bin").select(ROUTINENAME + " 0.1" + " ()");
-        Assert.assertNotNull(newRoutineItem);
+        SWTBotTreeItem newRoutineItem = null;
+        try {
+            newRoutineItem = tree.expandNode("Recycle bin").select(ROUTINENAME + " 0.1" + " ()");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Assert.assertNotNull("routine is not deleted to recycle bin", newRoutineItem);
+        }
     }
 
     @After
     public void removePreviouslyCreateItems() {
-        tree.select("Recycle bin").contextMenu("Empty recycle bin").click();
-        gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
-        gefBot.button("Yes").click();
+        Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

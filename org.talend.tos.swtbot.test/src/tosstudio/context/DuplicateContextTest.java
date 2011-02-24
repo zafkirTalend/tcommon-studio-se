@@ -34,7 +34,7 @@ import org.talend.swtbot.Utilities;
  * DOC Administrator class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class CreateContextTest extends TalendSwtBotForTos {
+public class DuplicateContextTest extends TalendSwtBotForTos {
 
     private SWTBotTree tree;
 
@@ -43,6 +43,8 @@ public class CreateContextTest extends TalendSwtBotForTos {
     private SWTBotView view;
 
     private static final String CONTEXTNAME = "context1"; //$NON-NLS-1$
+
+    private static final String NEW_CONTEXTNAME = "duplicate_context1"; //$NON-NLS-1$
 
     private static final String[] TYPE = { "int | Integer", "String", "float | Float" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
@@ -53,10 +55,6 @@ public class CreateContextTest extends TalendSwtBotForTos {
         view = gefBot.viewByTitle("Repository");
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-    }
-
-    @Test
-    public void createContext() {
         tree.setFocus();
         tree.select("Contexts").contextMenu("Create context group").click();
 
@@ -101,9 +99,27 @@ public class CreateContextTest extends TalendSwtBotForTos {
         }
     }
 
+    @Test
+    public void duplicateContext() {
+        tree.expandNode("Contexts").getNode(CONTEXTNAME + " 0.1").contextMenu("Duplicate").click();
+        gefBot.shell("Please input new name ").activate();
+        gefBot.text("Copy_of_" + CONTEXTNAME).setText(NEW_CONTEXTNAME);
+        gefBot.button("OK").click();
+
+        SWTBotTreeItem newContextItem = null;
+        try {
+            newContextItem = tree.expandNode("Contexts").select(NEW_CONTEXTNAME + " 0.1");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Assert.assertNotNull("context is not created", newContextItem);
+        }
+    }
+
     @After
     public void removePreviouslyCreateItems() {
         tree.expandNode("Contexts").getNode(CONTEXTNAME + " 0.1").contextMenu("Delete").click();
+        tree.expandNode("Contexts").getNode(NEW_CONTEXTNAME + " 0.1").contextMenu("Delete").click();
 
         Utilities.emptyRecycleBin(gefBot, tree);
     }

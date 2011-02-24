@@ -41,11 +41,11 @@ public class CopyPasteCopybookTest extends TalendSwtBotForTos {
 
     private SWTBotView view;
 
-    private static String COPYBOOKNAME = "copybook1"; //$NON-NLS-1$
+    private static final String COPYBOOKNAME = "copybook1"; //$NON-NLS-1$
 
-    private static String SAMPLE_RELATIVE_FILEPATH = "cobocurs.copybook"; //$NON-NLS-1$
+    private static final String SAMPLE_RELATIVE_FILEPATH = "cobocurs.copybook"; //$NON-NLS-1$
 
-    private static String SAMPLE_RELATIVE_DATAFILE = "datafil.dat"; //$NON-NLS-1$
+    private static final String SAMPLE_RELATIVE_DATAFILE = "datafil.dat"; //$NON-NLS-1$
 
     @Before
     public void createCopybook() throws IOException, URISyntaxException {
@@ -72,6 +72,15 @@ public class CopyPasteCopybookTest extends TalendSwtBotForTos {
 
         /* step 3 of 3 */
         gefBot.button("Finish").click();
+
+        SWTBotTreeItem newCopybookItem = null;
+        try {
+            newCopybookItem = tree.expandNode("Metadata", "Copybook").select(COPYBOOKNAME + " 0.1");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Assert.assertNotNull("copybook item is not created", newCopybookItem);
+        }
     }
 
     @Test
@@ -79,8 +88,14 @@ public class CopyPasteCopybookTest extends TalendSwtBotForTos {
         tree.expandNode("Metadata", "Copybook").getNode(COPYBOOKNAME + " 0.1").contextMenu("Copy").click();
         tree.expandNode("Metadata").getNode("Copybook").contextMenu("Paste").click();
 
-        SWTBotTreeItem newCopybookItem = tree.expandNode("Metadata", "Copybook").select("Copy_of_" + COPYBOOKNAME + " 0.1");
-        Assert.assertNotNull(newCopybookItem);
+        SWTBotTreeItem newCopybookItem = null;
+        try {
+            newCopybookItem = tree.expandNode("Metadata", "Copybook").select("Copy_of_" + COPYBOOKNAME + " 0.1");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Assert.assertNotNull("copybook item is not copied", newCopybookItem);
+        }
     }
 
     @After
@@ -88,8 +103,6 @@ public class CopyPasteCopybookTest extends TalendSwtBotForTos {
         tree.expandNode("Metadata", "Copybook").getNode(COPYBOOKNAME + " 0.1").contextMenu("Delete").click();
         tree.expandNode("Metadata", "Copybook").getNode("Copy_of_" + COPYBOOKNAME + " 0.1").contextMenu("Delete").click();
 
-        tree.select("Recycle bin").contextMenu("Empty recycle bin").click();
-        gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
-        gefBot.button("Yes").click();
+        Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

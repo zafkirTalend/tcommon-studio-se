@@ -42,9 +42,9 @@ public class CopyPastePositionalFileTest extends TalendSwtBotForTos {
 
     private SWTBotView view;
 
-    private static String FILENAME = "test_positional"; //$NON-NLS-1$
+    private static final String FILENAME = "test_positional"; //$NON-NLS-1$
 
-    private static String SAMPLE_RELATIVE_FILEPATH = "test.txt"; //$NON-NLS-1$
+    private static final String SAMPLE_RELATIVE_FILEPATH = "test.txt"; //$NON-NLS-1$
 
     @Before
     public void createPositionalFile() throws IOException, URISyntaxException {
@@ -91,6 +91,15 @@ public class CopyPastePositionalFileTest extends TalendSwtBotForTos {
             }
         });
         gefBot.button("Finish").click();
+
+        SWTBotTreeItem newPositionalItem = null;
+        try {
+            newPositionalItem = tree.expandNode("Metadata").expandNode("File positional").getNode(FILENAME + " 0.1");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Assert.assertNotNull("file positional is not created", newPositionalItem);
+        }
     }
 
     @Test
@@ -98,8 +107,14 @@ public class CopyPastePositionalFileTest extends TalendSwtBotForTos {
         tree.expandNode("Metadata", "File positional").getNode(FILENAME + " 0.1").contextMenu("Copy").click();
         tree.select("Metadata", "File positional").contextMenu("Paste").click();
 
-        SWTBotTreeItem newPositionalItem = tree.expandNode("Metadata", "File positional").select("Copy_of_" + FILENAME + " 0.1");
-        Assert.assertNotNull(newPositionalItem);
+        SWTBotTreeItem newPositionalItem = null;
+        try {
+            newPositionalItem = tree.expandNode("Metadata", "File positional").select("Copy_of_" + FILENAME + " 0.1");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Assert.assertNotNull("file positional is not copied", newPositionalItem);
+        }
     }
 
     @After
@@ -107,8 +122,6 @@ public class CopyPastePositionalFileTest extends TalendSwtBotForTos {
         tree.expandNode("Metadata", "File positional").getNode(FILENAME + " 0.1").contextMenu("Delete").click();
         tree.expandNode("Metadata", "File positional").getNode("Copy_of_" + FILENAME + " 0.1").contextMenu("Delete").click();
 
-        tree.select("Recycle bin").contextMenu("Empty recycle bin").click();
-        gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
-        gefBot.button("Yes").click();
+        Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

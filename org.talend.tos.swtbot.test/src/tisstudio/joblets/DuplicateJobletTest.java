@@ -32,7 +32,7 @@ import org.talend.swtbot.Utilities;
  * DOC Administrator class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class DeleteJobletTest extends TalendSwtBotForTos {
+public class DuplicateJobletTest extends TalendSwtBotForTos {
 
     private SWTBotTree tree;
 
@@ -41,6 +41,8 @@ public class DeleteJobletTest extends TalendSwtBotForTos {
     private SWTBotView view;
 
     private static final String JOBLETNAME = "joblet1"; //$NON-NLS-1$
+
+    private static final String NEW_JOBLETNAME = "duplicate_joblet1"; //$NON-NLS-1$
 
     @Before
     public void createJoblet() {
@@ -51,22 +53,28 @@ public class DeleteJobletTest extends TalendSwtBotForTos {
     }
 
     @Test
-    public void deleteJoblet() {
-        gefBot.cTabItem("Joblet " + JOBLETNAME + " 0.1").close();
-        tree.expandNode("Joblet Designs").getNode(JOBLETNAME + " 0.1").contextMenu("Delete").click();
+    public void duplicateJoblet() {
+        tree.expandNode("Joblet Designs").getNode(JOBLETNAME + " 0.1").contextMenu("Duplicate").click();
+        gefBot.shell("Please input new name ").activate();
+        gefBot.text("Copy_of_" + JOBLETNAME).setText(NEW_JOBLETNAME);
+        gefBot.button("OK").click();
 
         SWTBotTreeItem newJobletItem = null;
         try {
-            newJobletItem = tree.expandNode("Recycle bin").select(JOBLETNAME + " 0.1" + " ()");
+            newJobletItem = tree.expandNode("Joblet Designs").select(NEW_JOBLETNAME + " 0.1");
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            Assert.assertNotNull("joblet item is not deleted to recycle bin", newJobletItem);
+            Assert.assertNotNull("joblet item is not duplicated", newJobletItem);
         }
     }
 
     @After
     public void removePreviouslyCreateItems() {
+        gefBot.cTabItem("Joblet " + JOBLETNAME + " 0.1").close();
+        tree.expandNode("Joblet Designs").getNode(JOBLETNAME + " 0.1").contextMenu("Delete").click();
+        tree.expandNode("Joblet Designs").getNode(NEW_JOBLETNAME + " 0.1").contextMenu("Delete").click();
+
         Utilities.emptyRecycleBin(gefBot, tree);
     }
 }
