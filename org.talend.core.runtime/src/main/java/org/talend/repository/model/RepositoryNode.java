@@ -376,4 +376,13 @@ public class RepositoryNode implements IRepositoryNode {
         this.root = root;
     }
 
+    /**
+     * it is used to TDQ ,some subClasses in TDQ will overwrite it. if withDeleted is true,will contain some logical
+     * delete elements; if withDeleted is false,will not catain some logical delete elements.
+     * 
+     */
+    public List<IRepositoryNode> getChildren(boolean withDeleted) {
+        return getChildren();
+    }
+
 }

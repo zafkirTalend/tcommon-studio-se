@@ -81,4 +81,13 @@ public interface IRepositoryNode {
     public boolean hasChildren();
 
     public boolean isBin();
+
+    /**
+     * 
+     * if withDeleted is 'true',will get all children which contain logical delete elements.
+     * 
+     * @param withDeleted
+     * @return
+     */
+    public List<IRepositoryNode> getChildren(boolean withDeleted);
 }
