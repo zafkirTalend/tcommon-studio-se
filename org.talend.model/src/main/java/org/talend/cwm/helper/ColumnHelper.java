@@ -163,7 +163,7 @@ public final class ColumnHelper {
      * @return the owner of the given column or null
      * @deprecated use getOwnerAsColumnSet
      */
-    public static ColumnSet getColumnSetOwner(TdColumn column) {
+    public static ColumnSet getColumnSetOwner(ModelElement column) {
         return getColumnOwnerAsColumnSet(column);
     }
 
@@ -173,13 +173,19 @@ public final class ColumnHelper {
      * @param column to find the owner of
      * @return the owner of the given column or null
      */
-    public static ColumnSet getColumnOwnerAsColumnSet(TdColumn column) {
+    public static ColumnSet getColumnOwnerAsColumnSet(ModelElement column) {
         assert column != null;
-        Classifier owner = column.getOwner();
+        Classifier owner = (Classifier) column.eContainer();
         if (owner == null) {
             return null;
         }
-        return SwitchHelpers.COLUMN_SET_SWITCH.doSwitch(owner);
+
+        ColumnSet set = SwitchHelpers.COLUMN_SET_SWITCH.doSwitch(owner);
+        MetadataTable mdColumn = SwitchHelpers.METADATA_TABLE_SWITCH.doSwitch(owner);
+        if (null == set && mdColumn != null) {
+            return (ColumnSet)mdColumn;
+        }
+        return set;
     }
 
     /**
