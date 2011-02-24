@@ -68,9 +68,9 @@ public abstract class FolderHelper {
 
     private void initialize() {
         for (ERepositoryObjectType type : ERepositoryObjectType.values()) {
-            if (type.isDQItemType()) {
-                continue;
-            }
+            // if (type.isDQItemType()) {
+            // continue;
+            // }
             try {
                 if (type.hasFolder()) {
                     String folderName = ERepositoryObjectType.getFolderName(type);
