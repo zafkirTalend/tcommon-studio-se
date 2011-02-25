@@ -51,6 +51,7 @@ import org.talend.core.model.properties.UserRole;
  *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getAuthenticationInfo <em>Authentication Info</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getLdapId <em>Ldap Id</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getLanguage <em>Language</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getType <em>Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -454,6 +455,26 @@ public class UserImpl extends EObjectImpl implements User {
      * @ordered
      */
     protected String language = LANGUAGE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getType() <em>Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getType()
+     * @generated
+     * @ordered
+     */
+    protected static final String TYPE_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getType()
+     * @generated
+     * @ordered
+     */
+    protected String type = TYPE_EDEFAULT;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -890,6 +911,27 @@ public class UserImpl extends EObjectImpl implements User {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getType() {
+        return type;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setType(String newType) {
+        String oldType = type;
+        type = newType;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__TYPE, oldType, type));
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -968,6 +1010,8 @@ public class UserImpl extends EObjectImpl implements User {
                 return getLdapId();
             case PropertiesPackage.USER__LANGUAGE:
                 return getLanguage();
+            case PropertiesPackage.USER__TYPE:
+                return getType();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -1046,6 +1090,9 @@ public class UserImpl extends EObjectImpl implements User {
             case PropertiesPackage.USER__LANGUAGE:
                 setLanguage((String)newValue);
                 return;
+            case PropertiesPackage.USER__TYPE:
+                setType((String)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -1122,6 +1169,9 @@ public class UserImpl extends EObjectImpl implements User {
             case PropertiesPackage.USER__LANGUAGE:
                 setLanguage(LANGUAGE_EDEFAULT);
                 return;
+            case PropertiesPackage.USER__TYPE:
+                setType(TYPE_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -1176,6 +1226,8 @@ public class UserImpl extends EObjectImpl implements User {
                 return LDAP_ID_EDEFAULT == null ? ldapId != null : !LDAP_ID_EDEFAULT.equals(ldapId);
             case PropertiesPackage.USER__LANGUAGE:
                 return LANGUAGE_EDEFAULT == null ? language != null : !LANGUAGE_EDEFAULT.equals(language);
+            case PropertiesPackage.USER__TYPE:
+                return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
         }
         return super.eIsSet(featureID);
     }

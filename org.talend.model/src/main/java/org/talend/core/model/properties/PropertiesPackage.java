@@ -2229,12 +2229,21 @@ public interface PropertiesPackage extends EPackage {
     int USER__LANGUAGE = 21;
 
     /**
+     * The feature id for the '<em><b>Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int USER__TYPE = 22;
+
+    /**
      * The number of structural features of the '<em>User</em>' class.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int USER_FEATURE_COUNT = 22;
+    int USER_FEATURE_COUNT = 23;
 
     /**
      * The feature id for the '<em><b>Property</b></em>' reference.
@@ -8878,6 +8887,17 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getUser_Language();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.User#getType <em>Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Type</em>'.
+     * @see org.talend.core.model.properties.User#getType()
+     * @see #getUser()
+     * @generated
+     */
+    EAttribute getUser_Type();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.FolderItem <em>Folder Item</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Folder Item</em>'.
@@ -13981,6 +14001,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute USER__LANGUAGE = eINSTANCE.getUser_Language();
+
+        /**
+         * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute USER__TYPE = eINSTANCE.getUser_Type();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.FolderItemImpl <em>Folder Item</em>}' class.
