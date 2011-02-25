@@ -219,7 +219,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
     }
 
     private void clearEditorAreaBG(boolean flag) {
-        if (!parentComposite.isDisposed() && parentComposite != null)
+        if (parentComposite != null && !parentComposite.isDisposed())
             if (flag) {
                 stackLayout.topControl = foreGroundComposite;
                 parentComposite.layout();
