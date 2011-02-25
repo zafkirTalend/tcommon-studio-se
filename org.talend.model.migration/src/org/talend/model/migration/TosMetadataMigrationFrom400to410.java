@@ -15,6 +15,7 @@ package org.talend.model.migration;
 
 import java.net.URI;
 import java.util.Collections;
+import java.util.Map;
 import java.util.logging.Level;
 
 import org.apache.log4j.Logger;
@@ -85,8 +86,8 @@ public class TosMetadataMigrationFrom400to410 {
      */
     private void createMetamodels() throws ATLCoreException {
         factory = new EMFModelFactory();
-        // Map<String, Object> etfm = Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap();
-        // etfm.put("*", cwmResourceFactory); //$NON-NLS-1$
+        Map<String, Object> etfm = Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap();
+        etfm.put("*", cwmResourceFactory); //$NON-NLS-1$
 
         injector = new EMFInjector();
         inmodelMetamodel = factory.newReferenceModel();
