@@ -71,6 +71,7 @@ import org.talend.core.model.properties.UserProjectAuthorization;
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#isReference <em>Reference</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getCustomComponentSettings <em>Custom Component Settings</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getDeletedFolders <em>Deleted Folders</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getType <em>Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -514,6 +515,26 @@ public class ProjectImpl extends EObjectImpl implements Project {
      * @ordered
      */
     protected EList deletedFolders;
+
+    /**
+     * The default value of the '{@link #getType() <em>Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getType()
+     * @generated
+     * @ordered
+     */
+    protected static final String TYPE_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getType()
+     * @generated
+     * @ordered
+     */
+    protected String type = TYPE_EDEFAULT;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -968,6 +989,27 @@ public class ProjectImpl extends EObjectImpl implements Project {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getType() {
+        return type;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setType(String newType) {
+        String oldType = type;
+        type = newType;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.PROJECT__TYPE, oldType, type));
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1192,6 +1234,8 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return getCustomComponentSettings();
             case PropertiesPackage.PROJECT__DELETED_FOLDERS:
                 return getDeletedFolders();
+            case PropertiesPackage.PROJECT__TYPE:
+                return getType();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -1305,6 +1349,9 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 getDeletedFolders().clear();
                 getDeletedFolders().addAll((Collection)newValue);
                 return;
+            case PropertiesPackage.PROJECT__TYPE:
+                setType((String)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -1405,6 +1452,9 @@ public class ProjectImpl extends EObjectImpl implements Project {
             case PropertiesPackage.PROJECT__DELETED_FOLDERS:
                 getDeletedFolders().clear();
                 return;
+            case PropertiesPackage.PROJECT__TYPE:
+                setType(TYPE_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -1475,6 +1525,8 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return customComponentSettings != null && !customComponentSettings.isEmpty();
             case PropertiesPackage.PROJECT__DELETED_FOLDERS:
                 return deletedFolders != null && !deletedFolders.isEmpty();
+            case PropertiesPackage.PROJECT__TYPE:
+                return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
         }
         return super.eIsSet(featureID);
     }
@@ -1519,6 +1571,8 @@ public class ProjectImpl extends EObjectImpl implements Project {
         result.append(reference);
         result.append(", deletedFolders: ");
         result.append(deletedFolders);
+        result.append(", type: ");
+        result.append(type);
         result.append(')');
         return result.toString();
     }

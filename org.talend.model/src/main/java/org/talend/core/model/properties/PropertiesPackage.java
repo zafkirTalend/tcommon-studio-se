@@ -329,12 +329,21 @@ public interface PropertiesPackage extends EPackage {
     int PROJECT__DELETED_FOLDERS = 29;
 
     /**
+     * The feature id for the '<em><b>Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PROJECT__TYPE = 30;
+
+    /**
      * The number of structural features of the '<em>Project</em>' class.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int PROJECT_FEATURE_COUNT = 30;
+    int PROJECT_FEATURE_COUNT = 31;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.PropertyImpl <em>Property</em>}' class.
@@ -7902,6 +7911,17 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getProject_DeletedFolders();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.Project#getType <em>Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Type</em>'.
+     * @see org.talend.core.model.properties.Project#getType()
+     * @see #getProject()
+     * @generated
+     */
+    EAttribute getProject_Type();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.Project#getTechnicalLabel <em>Technical Label</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Technical Label</em>'.
@@ -13172,6 +13192,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute PROJECT__DELETED_FOLDERS = eINSTANCE.getProject_DeletedFolders();
+
+        /**
+         * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute PROJECT__TYPE = eINSTANCE.getProject_Type();
 
         /**
          * The meta object literal for the '<em><b>Technical Label</b></em>' attribute feature.

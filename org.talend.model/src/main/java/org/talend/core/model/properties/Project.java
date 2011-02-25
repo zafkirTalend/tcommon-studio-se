@@ -49,6 +49,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
  *   <li>{@link org.talend.core.model.properties.Project#isReference <em>Reference</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Project#getCustomComponentSettings <em>Custom Component Settings</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Project#getDeletedFolders <em>Deleted Folders</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.Project#getType <em>Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -566,6 +567,32 @@ public interface Project extends EObject {
      * @generated
      */
     EList getDeletedFolders();
+
+    /**
+     * Returns the value of the '<em><b>Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Type</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Type</em>' attribute.
+     * @see #setType(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getProject_Type()
+     * @model unique="false"
+     * @generated
+     */
+    String getType();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.Project#getType <em>Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Type</em>' attribute.
+     * @see #getType()
+     * @generated
+     */
+    void setType(String value);
 
     /**
      * Returns the value of the '<em><b>Technical Label</b></em>' attribute.

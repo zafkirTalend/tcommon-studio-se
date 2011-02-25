@@ -24,12 +24,15 @@ import org.talend.core.model.properties.User;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.talend.core.model.properties.impl.ItemStateImpl#getPath <em>Path</em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.ItemStateImpl#isDeleted <em>Deleted</em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.ItemStateImpl#isLocked <em>Locked</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ItemStateImpl#getPath <em>Path</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ItemStateImpl#isDeleted <em>Deleted</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ItemStateImpl#isLocked <em>Locked</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ItemStateImpl#getLocker <em>Locker</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ItemStateImpl#getLockDate <em>Lock Date</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ItemStateImpl#getCommitDate <em>Commit Date</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class ItemStateImpl extends EObjectImpl implements ItemState {
@@ -55,9 +58,9 @@ public class ItemStateImpl extends EObjectImpl implements ItemState {
     protected String path = PATH_EDEFAULT;
 
     /**
-     * The default value of the '{@link #isDeleted() <em>Deleted</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #isDeleted() <em>Deleted</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #isDeleted()
      * @generated
      * @ordered
@@ -65,9 +68,9 @@ public class ItemStateImpl extends EObjectImpl implements ItemState {
     protected static final boolean DELETED_EDEFAULT = false;
 
     /**
-     * The cached value of the '{@link #isDeleted() <em>Deleted</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #isDeleted() <em>Deleted</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #isDeleted()
      * @generated
      * @ordered
@@ -75,9 +78,9 @@ public class ItemStateImpl extends EObjectImpl implements ItemState {
     protected boolean deleted = DELETED_EDEFAULT;
 
     /**
-     * The default value of the '{@link #isLocked() <em>Locked</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #isLocked() <em>Locked</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #isLocked()
      * @generated
      * @ordered
@@ -85,9 +88,9 @@ public class ItemStateImpl extends EObjectImpl implements ItemState {
     protected static final boolean LOCKED_EDEFAULT = false;
 
     /**
-     * The cached value of the '{@link #isLocked() <em>Locked</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #isLocked() <em>Locked</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #isLocked()
      * @generated
      * @ordered
@@ -95,9 +98,9 @@ public class ItemStateImpl extends EObjectImpl implements ItemState {
     protected boolean locked = LOCKED_EDEFAULT;
 
     /**
-     * The cached value of the '{@link #getLocker() <em>Locker</em>}' reference. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getLocker() <em>Locker</em>}' reference.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getLocker()
      * @generated
      * @ordered
@@ -105,9 +108,9 @@ public class ItemStateImpl extends EObjectImpl implements ItemState {
     protected User locker;
 
     /**
-     * The default value of the '{@link #getLockDate() <em>Lock Date</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getLockDate() <em>Lock Date</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getLockDate()
      * @generated
      * @ordered
@@ -115,9 +118,9 @@ public class ItemStateImpl extends EObjectImpl implements ItemState {
     protected static final Date LOCK_DATE_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getLockDate() <em>Lock Date</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getLockDate() <em>Lock Date</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getLockDate()
      * @generated
      * @ordered
@@ -125,9 +128,9 @@ public class ItemStateImpl extends EObjectImpl implements ItemState {
     protected Date lockDate = LOCK_DATE_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getCommitDate() <em>Commit Date</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getCommitDate() <em>Commit Date</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getCommitDate()
      * @generated
      * @ordered
@@ -135,9 +138,9 @@ public class ItemStateImpl extends EObjectImpl implements ItemState {
     protected static final Date COMMIT_DATE_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getCommitDate() <em>Commit Date</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getCommitDate() <em>Commit Date</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getCommitDate()
      * @generated
      * @ordered
@@ -146,7 +149,6 @@ public class ItemStateImpl extends EObjectImpl implements ItemState {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     protected ItemStateImpl() {
@@ -155,7 +157,6 @@ public class ItemStateImpl extends EObjectImpl implements ItemState {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     protected EClass eStaticClass() {
@@ -164,7 +165,6 @@ public class ItemStateImpl extends EObjectImpl implements ItemState {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getPath() {
@@ -173,7 +173,6 @@ public class ItemStateImpl extends EObjectImpl implements ItemState {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setPath(String newPath) {
@@ -252,7 +251,6 @@ public class ItemStateImpl extends EObjectImpl implements ItemState {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public boolean isLocked() {
@@ -261,7 +259,6 @@ public class ItemStateImpl extends EObjectImpl implements ItemState {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setLocked(boolean newLocked) {
@@ -273,17 +270,15 @@ public class ItemStateImpl extends EObjectImpl implements ItemState {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public User getLocker() {
         if (locker != null && locker.eIsProxy()) {
-            InternalEObject oldLocker = (InternalEObject) locker;
-            locker = (User) eResolveProxy(oldLocker);
+            InternalEObject oldLocker = (InternalEObject)locker;
+            locker = (User)eResolveProxy(oldLocker);
             if (locker != oldLocker) {
                 if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.ITEM_STATE__LOCKER, oldLocker,
-                            locker));
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.ITEM_STATE__LOCKER, oldLocker, locker));
             }
         }
         return locker;
@@ -291,7 +286,6 @@ public class ItemStateImpl extends EObjectImpl implements ItemState {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public User basicGetLocker() {
@@ -300,7 +294,6 @@ public class ItemStateImpl extends EObjectImpl implements ItemState {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setLocker(User newLocker) {
@@ -312,7 +305,6 @@ public class ItemStateImpl extends EObjectImpl implements ItemState {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public Date getLockDate() {
@@ -321,7 +313,6 @@ public class ItemStateImpl extends EObjectImpl implements ItemState {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setLockDate(Date newLockDate) {
@@ -333,7 +324,6 @@ public class ItemStateImpl extends EObjectImpl implements ItemState {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public Date getCommitDate() {
@@ -342,131 +332,122 @@ public class ItemStateImpl extends EObjectImpl implements ItemState {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setCommitDate(Date newCommitDate) {
         Date oldCommitDate = commitDate;
         commitDate = newCommitDate;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.ITEM_STATE__COMMIT_DATE, oldCommitDate,
-                    commitDate));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.ITEM_STATE__COMMIT_DATE, oldCommitDate, commitDate));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-        case PropertiesPackage.ITEM_STATE__PATH:
-            return getPath();
-        case PropertiesPackage.ITEM_STATE__DELETED:
-            return isDeleted() ? Boolean.TRUE : Boolean.FALSE;
-        case PropertiesPackage.ITEM_STATE__LOCKED:
-            return isLocked() ? Boolean.TRUE : Boolean.FALSE;
-        case PropertiesPackage.ITEM_STATE__LOCKER:
-            if (resolve)
-                return getLocker();
-            return basicGetLocker();
-        case PropertiesPackage.ITEM_STATE__LOCK_DATE:
-            return getLockDate();
-        case PropertiesPackage.ITEM_STATE__COMMIT_DATE:
-            return getCommitDate();
+            case PropertiesPackage.ITEM_STATE__PATH:
+                return getPath();
+            case PropertiesPackage.ITEM_STATE__DELETED:
+                return isDeleted() ? Boolean.TRUE : Boolean.FALSE;
+            case PropertiesPackage.ITEM_STATE__LOCKED:
+                return isLocked() ? Boolean.TRUE : Boolean.FALSE;
+            case PropertiesPackage.ITEM_STATE__LOCKER:
+                if (resolve) return getLocker();
+                return basicGetLocker();
+            case PropertiesPackage.ITEM_STATE__LOCK_DATE:
+                return getLockDate();
+            case PropertiesPackage.ITEM_STATE__COMMIT_DATE:
+                return getCommitDate();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-        case PropertiesPackage.ITEM_STATE__PATH:
-            setPath((String) newValue);
-            return;
-        case PropertiesPackage.ITEM_STATE__DELETED:
-            setDeleted(((Boolean) newValue).booleanValue());
-            return;
-        case PropertiesPackage.ITEM_STATE__LOCKED:
-            setLocked(((Boolean) newValue).booleanValue());
-            return;
-        case PropertiesPackage.ITEM_STATE__LOCKER:
-            setLocker((User) newValue);
-            return;
-        case PropertiesPackage.ITEM_STATE__LOCK_DATE:
-            setLockDate((Date) newValue);
-            return;
-        case PropertiesPackage.ITEM_STATE__COMMIT_DATE:
-            setCommitDate((Date) newValue);
-            return;
+            case PropertiesPackage.ITEM_STATE__PATH:
+                setPath((String)newValue);
+                return;
+            case PropertiesPackage.ITEM_STATE__DELETED:
+                setDeleted(((Boolean)newValue).booleanValue());
+                return;
+            case PropertiesPackage.ITEM_STATE__LOCKED:
+                setLocked(((Boolean)newValue).booleanValue());
+                return;
+            case PropertiesPackage.ITEM_STATE__LOCKER:
+                setLocker((User)newValue);
+                return;
+            case PropertiesPackage.ITEM_STATE__LOCK_DATE:
+                setLockDate((Date)newValue);
+                return;
+            case PropertiesPackage.ITEM_STATE__COMMIT_DATE:
+                setCommitDate((Date)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void eUnset(int featureID) {
         switch (featureID) {
-        case PropertiesPackage.ITEM_STATE__PATH:
-            setPath(PATH_EDEFAULT);
-            return;
-        case PropertiesPackage.ITEM_STATE__DELETED:
-            setDeleted(DELETED_EDEFAULT);
-            return;
-        case PropertiesPackage.ITEM_STATE__LOCKED:
-            setLocked(LOCKED_EDEFAULT);
-            return;
-        case PropertiesPackage.ITEM_STATE__LOCKER:
-            setLocker((User) null);
-            return;
-        case PropertiesPackage.ITEM_STATE__LOCK_DATE:
-            setLockDate(LOCK_DATE_EDEFAULT);
-            return;
-        case PropertiesPackage.ITEM_STATE__COMMIT_DATE:
-            setCommitDate(COMMIT_DATE_EDEFAULT);
-            return;
+            case PropertiesPackage.ITEM_STATE__PATH:
+                setPath(PATH_EDEFAULT);
+                return;
+            case PropertiesPackage.ITEM_STATE__DELETED:
+                setDeleted(DELETED_EDEFAULT);
+                return;
+            case PropertiesPackage.ITEM_STATE__LOCKED:
+                setLocked(LOCKED_EDEFAULT);
+                return;
+            case PropertiesPackage.ITEM_STATE__LOCKER:
+                setLocker((User)null);
+                return;
+            case PropertiesPackage.ITEM_STATE__LOCK_DATE:
+                setLockDate(LOCK_DATE_EDEFAULT);
+                return;
+            case PropertiesPackage.ITEM_STATE__COMMIT_DATE:
+                setCommitDate(COMMIT_DATE_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-        case PropertiesPackage.ITEM_STATE__PATH:
-            return PATH_EDEFAULT == null ? path != null : !PATH_EDEFAULT.equals(path);
-        case PropertiesPackage.ITEM_STATE__DELETED:
-            return deleted != DELETED_EDEFAULT;
-        case PropertiesPackage.ITEM_STATE__LOCKED:
-            return locked != LOCKED_EDEFAULT;
-        case PropertiesPackage.ITEM_STATE__LOCKER:
-            return locker != null;
-        case PropertiesPackage.ITEM_STATE__LOCK_DATE:
-            return LOCK_DATE_EDEFAULT == null ? lockDate != null : !LOCK_DATE_EDEFAULT.equals(lockDate);
-        case PropertiesPackage.ITEM_STATE__COMMIT_DATE:
-            return COMMIT_DATE_EDEFAULT == null ? commitDate != null : !COMMIT_DATE_EDEFAULT.equals(commitDate);
+            case PropertiesPackage.ITEM_STATE__PATH:
+                return PATH_EDEFAULT == null ? path != null : !PATH_EDEFAULT.equals(path);
+            case PropertiesPackage.ITEM_STATE__DELETED:
+                return deleted != DELETED_EDEFAULT;
+            case PropertiesPackage.ITEM_STATE__LOCKED:
+                return locked != LOCKED_EDEFAULT;
+            case PropertiesPackage.ITEM_STATE__LOCKER:
+                return locker != null;
+            case PropertiesPackage.ITEM_STATE__LOCK_DATE:
+                return LOCK_DATE_EDEFAULT == null ? lockDate != null : !LOCK_DATE_EDEFAULT.equals(lockDate);
+            case PropertiesPackage.ITEM_STATE__COMMIT_DATE:
+                return COMMIT_DATE_EDEFAULT == null ? commitDate != null : !COMMIT_DATE_EDEFAULT.equals(commitDate);
         }
         return super.eIsSet(featureID);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String toString() {
-        if (eIsProxy())
-            return super.toString();
+        if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (path: ");
