@@ -20,8 +20,8 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Text;
 import org.talend.commons.ui.runtime.i18n.Messages;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
-import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.CELL_EDITOR_STATE;
+import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 import org.talend.commons.ui.swt.tableviewer.data.ModifiedObjectInfo;
 import org.talend.commons.ui.utils.ControlUtils;
 import org.talend.commons.ui.utils.threading.AsynchronousThreading;
@@ -100,14 +100,22 @@ public abstract class DialogErrorForCellEditorListener implements ICellEditorLis
                 new AsynchronousThreading(20, false, text.getDisplay(), new Runnable() {
 
                     public void run() {
-
-                        MessageDialog.openError(text.getShell(), Messages
-                                .getString("DialogErrorForCellEditorListener.Error.MsgDialogTitle"), errorMessage); //$NON-NLS-1$
-                        final int columnPosition = tableViewerCreator.getColumns().indexOf(column);
-                        tableViewerCreator.getTableViewer().editElement(currentModifiedBean, columnPosition);
-                        text.setText(newValue);
-                        text.setSelection(selection.x, selection.y);
-
+                        if (errorMessage.equals("")) {
+                            MessageDialog.openError(
+                                    text.getShell(),
+                                    Messages.getString("DialogErrorForCellEditorListener.Error.MsgDialogTitle"), Messages.getString("ErrorDialogWidthDetailArea.ErrorMessage.ColumnText")); //$NON-NLS-1$
+                            final int columnPosition = tableViewerCreator.getColumns().indexOf(column);
+                            tableViewerCreator.getTableViewer().editElement(currentModifiedBean, columnPosition);
+                            text.setText(newValue);
+                            text.setSelection(selection.x, selection.y);
+                        } else {
+                            MessageDialog.openError(text.getShell(),
+                                    Messages.getString("DialogErrorForCellEditorListener.Error.MsgDialogTitle"), errorMessage); //$NON-NLS-1$
+                            final int columnPosition = tableViewerCreator.getColumns().indexOf(column);
+                            tableViewerCreator.getTableViewer().editElement(currentModifiedBean, columnPosition);
+                            text.setText(newValue);
+                            text.setSelection(selection.x, selection.y);
+                        }
                     }
                 }).start();
             }
