@@ -49,6 +49,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.LoginException;
@@ -71,6 +72,7 @@ import org.talend.core.model.general.TalendNature;
 import org.talend.core.model.metadata.MetadataManager;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
+import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.migration.IMigrationToolService;
 import org.talend.core.model.properties.BRMSConnectionItem;
@@ -1943,6 +1945,13 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 break;
             case PropertiesPackage.DATABASE_CONNECTION_ITEM:
                 itemResource = create(project2, (ConnectionItem) item, ERepositoryObjectType.METADATA_CONNECTIONS, path);
+                // bug 17996
+                DatabaseConnection dbconn = (DatabaseConnection) EcoreUtil.getObjectByType(itemResource.getContents(),
+                        ConnectionPackage.eINSTANCE.getDatabaseConnection());
+                if (itemResource != null && itemResource instanceof XMLResource) {
+                    XMLResource xmlResource = (XMLResource) itemResource;
+                    xmlResource.setID(dbconn, EcoreUtil.generateUUID());
+                }
                 break;
             case PropertiesPackage.SAP_CONNECTION_ITEM:
                 itemResource = create(project2, (ConnectionItem) item, ERepositoryObjectType.METADATA_SAPCONNECTIONS, path);
