@@ -28,29 +28,29 @@ import org.talend.swtbot.Utilities;
  * DOC Administrator class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class DeleteMysqlTest extends TalendSwtBotForTos {
+public class CreateAS400Test extends TalendSwtBotForTos {
 
     private SWTBotTree tree;
 
     private SWTBotView view;
 
-    private static final String DBNAME = "test_mysql"; //$NON-NLS-1$
+    private static final String DBNAME = "test_as400"; //$NON-NLS-1$
 
     @Before
-    public void createMySQL() {
+    public void initialisePrivateFields() {
         view = gefBot.viewByTitle("Repository");
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        Utilities.createDbConnection(gefBot, tree, Utilities.DbConnectionType.MYSQL, DBNAME);
     }
 
     @Test
-    public void deleteMysql() {
-        Utilities.deleteDbConnection(tree, DBNAME);
+    public void createAS400() {
+        Utilities.createDbConnection(gefBot, tree, Utilities.DbConnectionType.AS400, DBNAME);
     }
 
     @After
     public void removePreviouslyCreateItems() {
+        tree.expandNode("Metadata", "Db Connections").getNode(DBNAME + " 0.1").contextMenu("Delete").click();
         Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

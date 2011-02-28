@@ -28,13 +28,15 @@ import org.talend.swtbot.Utilities;
  * DOC Administrator class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class DeleteMysqlTest extends TalendSwtBotForTos {
+public class DuplicateMysqlTest extends TalendSwtBotForTos {
 
     private SWTBotTree tree;
 
     private SWTBotView view;
 
     private static final String DBNAME = "test_mysql"; //$NON-NLS-1$
+
+    private static final String NEW_DBNAME = "duplicate_mysql"; //$NON-NLS-1$
 
     @Before
     public void createMySQL() {
@@ -45,12 +47,15 @@ public class DeleteMysqlTest extends TalendSwtBotForTos {
     }
 
     @Test
-    public void deleteMysql() {
-        Utilities.deleteDbConnection(tree, DBNAME);
+    public void duplicateMysql() {
+        Utilities.duplicateConnection(gefBot, tree, DBNAME, NEW_DBNAME);
     }
 
     @After
     public void removePreviouslyCreateItems() {
+        tree.expandNode("Metadata", "Db Connections").getNode(DBNAME + " 0.1").contextMenu("Delete").click();
+        tree.expandNode("Metadata", "Db Connections").getNode(NEW_DBNAME + " 0.1").contextMenu("Delete").click();
+
         Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

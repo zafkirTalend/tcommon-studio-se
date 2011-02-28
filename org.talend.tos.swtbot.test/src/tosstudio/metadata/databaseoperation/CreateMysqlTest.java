@@ -12,16 +12,11 @@
 // ============================================================================
 package tosstudio.metadata.databaseoperation;
 
-import junit.framework.Assert;
-
 import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,21 +32,9 @@ public class CreateMysqlTest extends TalendSwtBotForTos {
 
     private SWTBotTree tree;
 
-    private SWTBotShell shell;
-
     private SWTBotView view;
 
-    private static final String DBTYPE = "MySQL"; //$NON-NLS-1$
-
     private static final String DBNAME = "test_mysql"; //$NON-NLS-1$
-
-    private static final String DBLOGIN = "root"; //$NON-NLS-1$
-
-    private static final String DBPASSWORD = "123456"; //$NON-NLS-1$
-
-    private static final String DBSERVER = "localhost"; //$NON-NLS-1$
-
-    private static final String DB = "test"; //$NON-NLS-1$
 
     @Before
     public void initialisePrivateFields() {
@@ -62,37 +45,7 @@ public class CreateMysqlTest extends TalendSwtBotForTos {
 
     @Test
     public void createMySQL() {
-        tree.setFocus();
-
-        tree.expandNode("Metadata").getNode("Db Connections").contextMenu("Create connection").click();
-        gefBot.waitUntil(Conditions.shellIsActive("Database Connection"));
-        gefBot.shell("Database Connection").activate();
-
-        gefBot.textWithLabel("Name").setText(DBNAME);
-        gefBot.button("Next >").click();
-        gefBot.comboBox(0).setSelection(DBTYPE);
-        gefBot.textWithLabel("Login").setText(DBLOGIN);
-        gefBot.textWithLabel("Password").setText(DBPASSWORD);
-        gefBot.textWithLabel("Server").setText(DBSERVER);
-        gefBot.textWithLabel("DataBase").setText(DB);
-        gefBot.button("Check").click();
-
-        shell = gefBot.shell("Check Connection ");
-        shell.activate();
-        gefBot.waitUntil(Conditions.shellIsActive("Check Connection "));
-        gefBot.button("OK").click();
-        gefBot.waitUntil(Conditions.shellCloses(shell));
-
-        gefBot.button("Finish").click();
-
-        SWTBotTreeItem newMysqlItem = null;
-        try {
-            newMysqlItem = tree.expandNode("Metadata", "Db Connections").select(DBNAME + " 0.1");
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            Assert.assertNotNull("mysql connection is not created", newMysqlItem);
-        }
+        Utilities.createDbConnection(gefBot, tree, Utilities.DbConnectionType.MYSQL, DBNAME);
     }
 
     @After
