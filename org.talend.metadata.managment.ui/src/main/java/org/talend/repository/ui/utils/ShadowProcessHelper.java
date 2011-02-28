@@ -398,7 +398,7 @@ public class ShadowProcessHelper {
 
         // use the org.talend.repository.filepreview_provider
         IConfigurationElement[] configurationElements = registry
-                .getConfigurationElementsFor("org.talend.core.filepreview_provider"); //$NON-NLS-1$
+                .getConfigurationElementsFor("org.talend.core.runtime.filepreview_provider"); //$NON-NLS-1$
         // When start a new preview. need stop before preview.
         forceStopPreview();
 

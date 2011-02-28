@@ -15,6 +15,7 @@ package org.talend.repository.ui.wizards.metadata.connection;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.talend.core.ICoreService;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
@@ -157,33 +158,33 @@ public class GuessSchemaUtil {
                             }
                         } else {
                             ICoreService coreService = CoreRuntimePlugin.getInstance().getCoreService();
-                            if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
-                                if (coreService.getPreferenceStore().getString(MetadataTypeLengthConstants.VALUE_DEFAULT_TYPE) != null
-                                        && !coreService.getPreferenceStore()
-                                                .getString(MetadataTypeLengthConstants.VALUE_DEFAULT_TYPE).equals("")) { //$NON-NLS-1$
-                                    globalType = coreService.getPreferenceStore().getString(
-                                            MetadataTypeLengthConstants.VALUE_DEFAULT_TYPE);
-                                    if (coreService.getPreferenceStore().getString(
-                                            MetadataTypeLengthConstants.VALUE_DEFAULT_LENGTH) != null
-                                            && !coreService.getPreferenceStore()
-                                                    .getString(MetadataTypeLengthConstants.VALUE_DEFAULT_LENGTH).equals("")) { //$NON-NLS-1$
-                                        lengthValue = Integer.parseInt(coreService.getPreferenceStore().getString(
-                                                MetadataTypeLengthConstants.VALUE_DEFAULT_LENGTH));
+
+                            IPreferenceStore preferenceStore = coreService.getPreferenceStore();
+                            if (preferenceStore != null) {
+                                if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
+                                    if (preferenceStore.getString(MetadataTypeLengthConstants.VALUE_DEFAULT_TYPE) != null
+                                            && !preferenceStore.getString(MetadataTypeLengthConstants.VALUE_DEFAULT_TYPE).equals(
+                                                    "")) { //$NON-NLS-1$
+                                        globalType = preferenceStore.getString(MetadataTypeLengthConstants.VALUE_DEFAULT_TYPE);
+                                        if (preferenceStore.getString(MetadataTypeLengthConstants.VALUE_DEFAULT_LENGTH) != null
+                                                && !preferenceStore.getString(MetadataTypeLengthConstants.VALUE_DEFAULT_LENGTH)
+                                                        .equals("")) { //$NON-NLS-1$
+                                            lengthValue = Integer.parseInt(preferenceStore
+                                                    .getString(MetadataTypeLengthConstants.VALUE_DEFAULT_LENGTH));
+                                        }
                                     }
-                                }
-                            } else {
-                                if (coreService.getPreferenceStore().getString(
-                                        MetadataTypeLengthConstants.PERL_VALUE_DEFAULT_TYPE) != null
-                                        && !coreService.getPreferenceStore()
-                                                .getString(MetadataTypeLengthConstants.PERL_VALUE_DEFAULT_TYPE).equals("")) { //$NON-NLS-1$
-                                    globalType = coreService.getPreferenceStore().getString(
-                                            MetadataTypeLengthConstants.PERL_VALUE_DEFAULT_TYPE);
-                                    if (coreService.getPreferenceStore().getString(
-                                            MetadataTypeLengthConstants.PERL_VALUE_DEFAULT_LENGTH) != null
-                                            && !coreService.getPreferenceStore()
-                                                    .getString(MetadataTypeLengthConstants.PERL_VALUE_DEFAULT_LENGTH).equals("")) { //$NON-NLS-1$
-                                        lengthValue = Integer.parseInt(coreService.getPreferenceStore().getString(
-                                                MetadataTypeLengthConstants.PERL_VALUE_DEFAULT_LENGTH));
+                                } else {
+                                    if (preferenceStore.getString(MetadataTypeLengthConstants.PERL_VALUE_DEFAULT_TYPE) != null
+                                            && !preferenceStore.getString(MetadataTypeLengthConstants.PERL_VALUE_DEFAULT_TYPE)
+                                                    .equals("")) { //$NON-NLS-1$
+                                        globalType = preferenceStore
+                                                .getString(MetadataTypeLengthConstants.PERL_VALUE_DEFAULT_TYPE);
+                                        if (preferenceStore.getString(MetadataTypeLengthConstants.PERL_VALUE_DEFAULT_LENGTH) != null
+                                                && !preferenceStore.getString(
+                                                        MetadataTypeLengthConstants.PERL_VALUE_DEFAULT_LENGTH).equals("")) { //$NON-NLS-1$
+                                            lengthValue = Integer.parseInt(preferenceStore
+                                                    .getString(MetadataTypeLengthConstants.PERL_VALUE_DEFAULT_LENGTH));
+                                        }
                                     }
                                 }
                             }
