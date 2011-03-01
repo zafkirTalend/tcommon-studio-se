@@ -1,0 +1,130 @@
+package com.talend.tac.base;
+
+import java.util.Locale;
+import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
+
+import com.thoughtworks.selenium.DefaultSelenium;
+import com.thoughtworks.selenium.Selenium;
+
+public class Base {
+	public Selenium selenium;
+
+	public Locale currentLocale = new Locale("en", "US");	// set the locale that you want to test
+	public ResourceBundle rb = ResourceBundle.getBundle("messages", currentLocale);
+	
+	public ResourceBundle other = ResourceBundle.getBundle("other", currentLocale);
+
+	public static String MAX_SPEED = "3000";
+	public static String MIN_SPEED = "0";
+	
+	public static int WAIT_TIME = 10;
+	
+	
+	@BeforeClass
+	@Parameters({"server", "port", "browser", "url", "language", "country", "root"})
+	public void initSelenium(String server, String port, String browser, String url, String language, String country, String root) {
+		server = this.setDefaultValue(server, "localhost");
+		port = this.setDefaultValue(port, 4444+"");
+		browser = this.setDefaultValue(browser, "*firefox");
+		url = this.setDefaultValue(url, "http://localhost:8080/");
+		root = this.setDefaultValue(root, "/org.talend.administrator/");
+		
+		language = this.setDefaultValue(language, "en");
+		country = this.setDefaultValue(country, "US");
+		currentLocale = new Locale(language, country);
+		rb = ResourceBundle.getBundle("messages", currentLocale);
+		
+System.out.println("Server: " + server + ", port: " + port + ", browser: " + browser + ", " + url);
+System.out.println("language: " + language + ", country: " + country);
+		selenium = new DefaultSelenium(server, Integer.parseInt(port), browser, url);  //4444 is default server port
+
+		selenium.start();
+		selenium.open(root);
+	}
+	public String setDefaultValue(String variable, String value) {
+		String setValue = variable;
+		if("".equals(variable) || variable == null) {
+			setValue = value;
+		}
+		return setValue;
+	}
+	
+	public String getString(String key, String[] params) {
+		String value = rb.getString(key);
+		
+		for(int i=0; i<params.length; i++) {
+			Pattern pattern = Pattern.compile(".*{"+ i +"}.*");
+			Matcher matcher = pattern.matcher(value);
+			if(matcher.matches()) {
+				value = value.replace("{"+ i +"}", params[i]);
+			}
+//System.out.println(value);
+		}
+		return value;
+	}
+	
+	public String getString(String key, String param) {
+		if("".equals(param) || param == null) {
+			return rb.getString(key);
+		} else {
+			return this.getString(key, new String[]{param});
+		}
+		
+	}
+	
+	public void waitForElementPresent(String locator, int seconds) {
+		for (int second = 0;; second++) {
+			if (second >= seconds)
+				org.testng.Assert.fail("wait for element "+ locator + " to be present,time out");
+			try {
+				if (selenium.isElementPresent(locator))
+					break;
+			} catch (Exception e) {
+			}
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public void clickWaitForElementPresent(String locator) {
+//		selenium.setSpeed(MAX_SPEED);
+		
+		this.waitForElementPresent(locator, Base.WAIT_TIME);
+		selenium.click(locator);
+//		selenium.setSpeed(MIN_SPEED);
+	}
+	
+	public void assertTrueIsElementPresent(String locator) {
+		selenium.setSpeed(MAX_SPEED);
+		Assert.assertTrue(selenium.isElementPresent(locator));
+		selenium.setSpeed(MIN_SPEED);
+	}
+	
+	public void assertFalseIsElementPresent(String locator) {
+		selenium.setSpeed(MAX_SPEED);
+		Assert.assertFalse(selenium.isElementPresent(locator));
+		selenium.setSpeed(MIN_SPEED);
+	}
+	
+	public void assertTrueIsTextPresent(String text) {
+		selenium.setSpeed(MAX_SPEED);
+		Assert.assertTrue(selenium.isTextPresent(text));
+		selenium.setSpeed(MIN_SPEED);
+	}
+	
+	public void assertFalseIsTextPresent(String text) {
+		selenium.setSpeed(MAX_SPEED);
+		Assert.assertFalse(selenium.isTextPresent(text));
+		selenium.setSpeed(MIN_SPEED);
+	}
+	
+}
