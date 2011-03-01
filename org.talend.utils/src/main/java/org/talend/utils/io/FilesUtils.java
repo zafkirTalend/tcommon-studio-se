@@ -457,6 +457,20 @@ public final class FilesUtils {
         ZipOutputStream out = new ZipOutputStream(new FileOutputStream(zippedFileName));
         zip(out, sourceFile, null);
     }
+    /**
+     * 
+     * DOC zshen Comment method "zips".
+     * @param sourceFile
+     * @param zippedFileName
+     * @throws Exception
+     */
+    public static void zips(File[] sourceFile, String zippedFileName) throws Exception {
+        ZipOutputStream out = new ZipOutputStream(new FileOutputStream(zippedFileName));
+        for (File theFile : sourceFile) {
+            zips(out, theFile, null);
+        }
+        out.close();
+    }
 
     /**
      * zip a new file with specified name to the user folder.
@@ -502,6 +516,41 @@ public final class FilesUtils {
         }
 
         out.close();
+    }
+
+    /**
+     * 
+     * DOC zshen Comment method "zip".
+     * 
+     * @param out
+     * @param f
+     * @param base
+     * @throws Exception
+     */
+    private static void zips(ZipOutputStream out, File f, String base) throws Exception {
+        if (f.isDirectory()) {
+            File[] fc = f.listFiles();
+            if (base != null)
+                out.putNextEntry(new ZipEntry(base + "/"));
+            base = base == null ? "" : base + "/";
+            for (int i = 0; i < fc.length; i++) {
+                zip(out, fc[i], base + fc[i].getName());
+            }
+        } else {
+            out.putNextEntry(new ZipEntry(f.getName()));
+            FileInputStream in = new FileInputStream(f);
+
+            byte[] b = new byte[BUFFER_SIZE];
+            int readBytes = 0;
+            while ((readBytes = in.read()) != -1) {
+                out.write(b, 0, readBytes);
+            }
+
+            out.flush();
+            in.close();
+        }
+
+
     }
 
     public static void zipFiles(String source, String target) throws Exception {
