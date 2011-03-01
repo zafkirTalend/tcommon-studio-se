@@ -1,0 +1,10 @@
+<suite name="Suite" parallel="false">
+	<suite-files>
+		
+		<suite-file path="user.xml"/>
+		<suite-file path="license.xml"/>
+		<!-- 
+		<suite-file path="projects.xml"/>
+		 -->
+	</suite-files>
+</suite>

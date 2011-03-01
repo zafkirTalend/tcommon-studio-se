@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Suite" parallel="false">
+
+  <parameter  name ="server"	value ="localhost"/>
+  <parameter  name ="port"		value ="4444"/>
+  <parameter  name ="browser"	value ="*firefox"/>
+  
+  <!-- 
+  <parameter  name ="url"		value ="http://192.168.0.114:20000"/>
+  <parameter  name ="root"		value ="/org.talend.administrator/"/>
+  -->
+  <parameter  name ="url"		value ="http://localhost:8080/"/>
+  <parameter  name ="root"		value ="/tac55432/"/> 
+ 
+  <parameter  name ="language"	value ="en"/>
+  <parameter  name ="country"	value ="US"/>
+  <parameter  name ="resourceBundle"	value ="messages"/>
+  
+  
+  <parameter  name ="userName"	value ="admin@company.com"/>
+  <parameter  name ="userPassword"	value ="admin"/>
+  
+  <parameter  name ="AddcommonProjectname"	value ="commonpro"/>
+  <parameter  name ="AddreferenceProjectname"	value ="referencepro"/>
+  <parameter  name ="DeleteProjectname"	value ="referencepro"/>
+  <parameter  name ="SVNurl" value ="https://192.168.0.114:8443/svn/cui"/>
+  <parameter  name ="SVNProjecturl" value ="https://192.168.0.114:8443/svn/commonpro/"/>
+  <parameter  name ="WrongSVNProjecturl" value ="sdfsdf"/>
+  
+  <parameter  name ="SVNuserName" value ="admin"/>
+  <parameter  name ="SVNuserPassword" value ="admin"/>
+  <parameter  name ="ProlableName" value ="testPro"/>
+  <parameter  name ="Prolanguage" value ="java"/>
+  <parameter  name ="duplicateproname" value ="commonpro"/>
+  <parameter  name ="DeleteProjectname" value ="referencepro"/>
+  <parameter  name ="BranchProject" value ="commonpro"/>
+  <parameter  name ="BranchName" value ="branch"/>
+  <parameter  name ="DeleteBranchProject" value ="commonpro"/>
+  <parameter  name ="DeleteBranchName" value ="branch"/>
+  <parameter  name ="NumbersOfprojects" value ="2"/>
+  
+  
+  <test name="Projects">
+    <classes>
+    <class name="com.talend.tac.cases.project.TestAddcommonpro"/>
+    <class name="com.talend.tac.cases.project.TestCheckConnection"/>
+    <class name="com.talend.tac.cases.project.TestDuplicateProject"/>
+    <class name="com.talend.tac.cases.project.TestModification"/>
+    <class name="com.talend.tac.cases.project.TestDeletepro"/>
+    <class name="com.talend.tac.cases.project.TestBranchManageAdd"/>
+    <class name="com.talend.tac.cases.project.TestBranchManageAddExistbranch"/>
+    <class name="com.talend.tac.cases.project.TestCleanProject"/>
+    </classes>
+  </test>
+
+</suite>
+
