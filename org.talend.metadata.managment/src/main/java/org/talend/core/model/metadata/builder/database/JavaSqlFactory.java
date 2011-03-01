@@ -136,26 +136,15 @@ public final class JavaSqlFactory {
         java.sql.Connection sqlConnection = null;
         try {
             sqlConnection = ConnectionUtils.createConnection(url, driverClassName, props);
-            if (sqlConnection == null && connection instanceof DatabaseConnection) {
-                sqlConnection = MetadataConnectionUtils.checkConnection((DatabaseConnection) connection).getObject();
-            }
-            rc.setObject(sqlConnection);
-            rc.setOk(true);
-        } catch (SQLException e) {
-            rc.setReturnCode(e.getMessage(), false);
-        } catch (InstantiationException e) {
-            rc.setReturnCode(e.getMessage(), false);
-        } catch (IllegalAccessException e) {
-            rc.setReturnCode(e.getMessage(), false);
-        } catch (ClassNotFoundException e) {
+        } catch (Throwable e) {
             rc.setReturnCode(e.getMessage(), false);
         }
-        // MOD by zhsne for bug 15750 TODO 39 fixed analysis can't be executed with sqlserver database.
+
         if (sqlConnection == null && connection instanceof DatabaseConnection) {
             sqlConnection = MetadataConnectionUtils.checkConnection((DatabaseConnection) connection).getObject();
-            rc.setObject(sqlConnection);
-            rc.setOk(true);
         }
+        rc.setObject(sqlConnection);
+        rc.setOk(sqlConnection != null);
 
         return rc;
     }
