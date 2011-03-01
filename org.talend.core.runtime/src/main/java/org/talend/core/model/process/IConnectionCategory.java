@@ -75,4 +75,9 @@ public interface IConnectionCategory {
      * ON_COMPONENT_OK generate position.)
      */
     public static final int USE_ITERATE = 1 << 10;
+
+    /**
+     * For CAMEL, for ROUTE links of course. (Links property should be overrided directly in component)
+     */
+    public static final int CAMEL = 1 << 11;
 }
