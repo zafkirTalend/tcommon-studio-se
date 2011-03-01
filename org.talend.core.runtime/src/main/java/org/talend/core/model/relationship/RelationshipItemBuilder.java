@@ -43,7 +43,9 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.i18n.Messages;
+import org.talend.core.service.IDesignerMapperService;
 import org.talend.core.ui.IJobletProviderService;
+import org.talend.designer.core.model.utils.emf.talendfile.AbstractExternalData;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
@@ -630,6 +632,19 @@ public class RelationshipItemBuilder {
                             }
                         }
                     }
+                    // handle tMap schema relations...
+                    if (GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerMapperService.class)) {
+                        IDesignerMapperService service = (IDesignerMapperService) GlobalServiceRegister.getDefault().getService(
+                                IDesignerMapperService.class);
+                        AbstractExternalData nodeData = currentNode.getNodeData();
+                        List<String> schemaIds = service.getRepositorySchemaIds(nodeData);
+                        if (schemaIds.size() > 0) {
+                            for (String schemaId : schemaIds) {
+                                addRelationShip(item, schemaId, LATEST_VERSION, SCHEMA_RELATION);
+                            }
+                        }
+                    }
+
                     if (jobletsComponentsList.contains(currentNode.getComponentName())) {
                         // in case of joblet
                         String version = LATEST_VERSION;

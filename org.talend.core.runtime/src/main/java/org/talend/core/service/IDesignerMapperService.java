@@ -10,15 +10,17 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.designer.mapper;
+package org.talend.core.service;
 
 import java.util.List;
 
 import org.talend.core.IService;
+import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.process.IConnection;
 import org.talend.core.model.process.IExternalData;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
+import org.talend.designer.core.model.utils.emf.talendfile.AbstractExternalData;
 
 /**
  * DOC YeXiaowei class global comment. Detailled comment <br/>
@@ -42,4 +44,39 @@ public interface IDesignerMapperService extends IService {
     public void createAutoMappedNode(INode node, IConnection inputConnection, IConnection outputConnection);
 
     public void updateLink(INode node, IConnection oldConnection, IConnection newConnection);
+
+    /**
+     * DOC ycbai Comment method "getRepositorySchemaIds".
+     * 
+     * @param nodeData
+     * @return
+     */
+    public List<String> getRepositorySchemaIds(AbstractExternalData nodeData);
+
+    /**
+     * DOC ycbai Comment method "getRepositorySchemaIds".
+     * 
+     * @param nodeType
+     * @return
+     */
+    public List<String> getRepositorySchemaIds(IExternalData nodeData);
+
+    /**
+     * DOC ycbai Comment method "updateMapperTableEntries".
+     * 
+     * @param nodeData
+     * @param schemaId
+     * @param metadataTable
+     */
+    public void updateMapperTableEntries(IExternalData nodeData, String schemaId, IMetadataTable metadataTable);
+
+    /**
+     * DOC ycbai Comment method "isSameMetadata".
+     * 
+     * @param nodeData
+     * @param schemaId
+     * @param metadataTable
+     * @return
+     */
+    public boolean isSameMetadata(IExternalData nodeData, String schemaId, IMetadataTable metadataTable);
 }
