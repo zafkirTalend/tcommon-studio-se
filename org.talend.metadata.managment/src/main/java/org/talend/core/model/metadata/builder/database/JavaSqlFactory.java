@@ -174,6 +174,10 @@ public final class JavaSqlFactory {
         if (mdmConn != null) {
             return "";
         }
+        DelimitedFileConnection dfConn = SwitchHelpers.DELIMITEDFILECONNECTION_SWITCH.doSwitch(conn);
+        if (dfConn != null) {
+            return "";
+        }
         return null;
     }
 
