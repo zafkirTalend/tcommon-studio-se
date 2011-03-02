@@ -39,6 +39,8 @@ import org.talend.repository.ui.views.IRepositoryView;
  */
 public final class RepositoryManagerHelper {
 
+    private static final String PERSPECTIVE_DI_ID = "org.talend.rcp.perspective"; //$NON-NLS-1$
+
     public static IRepositoryView getRepositoryView() {
         if (CommonsPlugin.isHeadless()) {
             return null;
@@ -49,13 +51,17 @@ public final class RepositoryManagerHelper {
         if (activeWorkbenchWindow != null) {
             IWorkbenchPage activePage = activeWorkbenchWindow.getActivePage();
             if (activePage != null) {
-                part = activePage.findView(IRepositoryView.VIEW_ID);
+                // bug 16594
+                String perId = activePage.getPerspective().getId();
+                if ((!"".equals(perId) || null != perId) && perId.equalsIgnoreCase(PERSPECTIVE_DI_ID)) {
+                    part = activePage.findView(IRepositoryView.VIEW_ID);
 
-                if (part == null) {
-                    try {
-                        part = activePage.showView(IRepositoryView.VIEW_ID);
-                    } catch (Exception e) {
-                        ExceptionHandler.process(e);
+                    if (part == null) {
+                        try {
+                            part = activePage.showView(IRepositoryView.VIEW_ID);
+                        } catch (Exception e) {
+                            ExceptionHandler.process(e);
+                        }
                     }
                 }
             }
