@@ -143,7 +143,7 @@ public class DatabaseTableForm extends AbstractForm {
      */
     private UtilsButton retreiveSchemaButton;
 
-    private UtilsButton checkConnectionButton;
+    // private UtilsButton checkConnectionButton;
 
     private UtilsButton guessSchemaButton; // hyWang add
 
@@ -456,11 +456,11 @@ public class DatabaseTableForm extends AbstractForm {
         Point buttonSize = gc.stringExtent(displayStr);
         retreiveSchemaButton = new UtilsButton(compositeRetreiveSchemaButton, displayStr, buttonSize.x + 12, HEIGHT_BUTTON_PIXEL);
         retreiveSchemaButton.setToolTipText(RETRIEVE_SCHEMA_TOOLTIP);
-        // Button Check Connection
-        checkConnectionButton = new UtilsButton(compositeRetreiveSchemaButton, "" //$NON-NLS-1$
-                /*
-                 * Messages.getString( "DatabaseTableForm.checkConnection" )
-                 */, false); //$NON-NLS-1$
+        // // Button Check Connection
+        //        checkConnectionButton = new UtilsButton(compositeRetreiveSchemaButton, "" //$NON-NLS-1$
+        // /*
+        // * Messages.getString( "DatabaseTableForm.checkConnection" )
+        //                 */, false); //$NON-NLS-1$
 
         tableSettingsInfoLabel = new Label(composite1, SWT.NONE);
         tableSettingsInfoLabel.setLayoutData(gridData);
@@ -581,18 +581,18 @@ public class DatabaseTableForm extends AbstractForm {
             }
         });
 
-        // Event CheckConnection Button
-        checkConnectionButton.addSelectionListener(new SelectionAdapter() {
-
-            public void widgetSelected(final SelectionEvent e) {
-                if (!checkConnectionButton.getEnabled()) {
-                    checkConnectionButton.setEnabled(true);
-                    checkConnection(true);
-                } else {
-                    checkConnectionButton.setEnabled(false);
-                }
-            }
-        });
+        // // Event CheckConnection Button
+        // checkConnectionButton.addSelectionListener(new SelectionAdapter() {
+        //
+        // public void widgetSelected(final SelectionEvent e) {
+        // if (!checkConnectionButton.getEnabled()) {
+        // checkConnectionButton.setEnabled(true);
+        // checkConnection(true);
+        // } else {
+        // checkConnectionButton.setEnabled(false);
+        // }
+        // }
+        // });
 
         // Event addTable Button
         addTableButton.addSelectionListener(new SelectionAdapter() {
@@ -694,7 +694,7 @@ public class DatabaseTableForm extends AbstractForm {
         } else {
             tableCombo.setReadOnly(true);
         }
-        checkConnectionButton.setVisible(false);
+        // checkConnectionButton.setVisible(false);
 
         retreiveSchemaButton.setEnabled(!isReadOnly());
         addTableButton.setEnabled(!isReadOnly());
