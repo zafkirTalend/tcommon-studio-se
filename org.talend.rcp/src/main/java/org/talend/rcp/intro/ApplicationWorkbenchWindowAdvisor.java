@@ -265,7 +265,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
                                 Composite parent = (Composite) parents[j];
                                 parent.redraw();
                                 Image image = Activator.getImageDescriptor("icons/WelcomeScreenMockup.png").createImage();
-                                Image icon = Activator.getImageDescriptor("icons/createjob.png").createImage();
+                                Image icon = Activator.getImageDescriptor("icons/createJob.png").createImage();
                                 GC gc = new GC(image);
                                 gc.setFont(new Font(parent.getDisplay(), "Arial", 10, SWT.NONE));
                                 gc.drawString(Messages.getString("tips.createJob"), 115, 145, true);
