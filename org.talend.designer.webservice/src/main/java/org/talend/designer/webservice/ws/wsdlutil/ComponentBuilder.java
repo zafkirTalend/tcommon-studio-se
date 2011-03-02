@@ -31,15 +31,19 @@ import org.apache.ws.commons.schema.XmlSchema;
 import org.apache.ws.commons.schema.XmlSchemaAny;
 import org.apache.ws.commons.schema.XmlSchemaAttribute;
 import org.apache.ws.commons.schema.XmlSchemaCollection;
+import org.apache.ws.commons.schema.XmlSchemaComplexContent;
 import org.apache.ws.commons.schema.XmlSchemaComplexContentExtension;
 import org.apache.ws.commons.schema.XmlSchemaComplexContentRestriction;
 import org.apache.ws.commons.schema.XmlSchemaComplexType;
+import org.apache.ws.commons.schema.XmlSchemaContentModel;
 import org.apache.ws.commons.schema.XmlSchemaElement;
 import org.apache.ws.commons.schema.XmlSchemaGroupBase;
 import org.apache.ws.commons.schema.XmlSchemaObject;
 import org.apache.ws.commons.schema.XmlSchemaObjectCollection;
 import org.apache.ws.commons.schema.XmlSchemaObjectTable;
 import org.apache.ws.commons.schema.XmlSchemaParticle;
+import org.apache.ws.commons.schema.XmlSchemaSimpleContent;
+import org.apache.ws.commons.schema.XmlSchemaSimpleContentExtension;
 import org.apache.ws.commons.schema.XmlSchemaSimpleType;
 import org.apache.ws.commons.schema.XmlSchemaType;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
@@ -523,7 +527,7 @@ public class ComponentBuilder {
         if (ioOrRecursion < 3) {
             parametersName.clear();
             parametersName.add(parameterRoot.getName());
-        } else if (ioOrRecursion == 3) {
+        } else if (ioOrRecursion == 3) { // it will be 3 ,when called from "build from types"
             parametersName.add(parameterRoot.getName());
         }
         Iterator elementsItr = allXmlSchemaElement.iterator();
@@ -597,6 +601,8 @@ public class ComponentBuilder {
                         Object obj = xmlSchemaComplexType.getContentModel().getContent();
                         if (obj instanceof XmlSchemaComplexContentExtension) {
                             XmlSchemaComplexContentExtension xscce = (XmlSchemaComplexContentExtension) obj;
+                            // 1.base type
+                            // 2.particle only work for complex extension
                             if (xscce != null) {
                                 xmlSchemaParticle = xscce.getParticle();
                             }
@@ -604,7 +610,17 @@ public class ComponentBuilder {
                                 XmlSchemaGroupBase xmlSchemaGroupBase = (XmlSchemaGroupBase) xmlSchemaParticle;
                                 xmlSchemaObjectCollection = xmlSchemaGroupBase.getItems();
                             }
+                            // 3.attributes
 
+                        } else if (obj instanceof XmlSchemaSimpleContentExtension) {
+                            // 1.base type
+                            // add here temporary
+                            ParameterInfo parameterSon = new ParameterInfo();
+                            parameterSon.setName("value");
+                            parameterSon.setParent(parameter);
+                            // setType() if need
+                            parameter.getParameterInfos().add(parameterSon);
+                            // 3.attributes
                         } else if (obj instanceof XmlSchemaComplexContentRestriction) {
                             XmlSchemaComplexContentRestriction xsccr = (XmlSchemaComplexContentRestriction) obj;
                             xmlSchemaObjectCollection = xsccr.getAttributes();
@@ -619,8 +635,7 @@ public class ComponentBuilder {
                     }
                 } else if (type instanceof XmlSchemaSimpleType) {
                     // Will TO DO if need.
-                    // System.out.println("XmlSchemaSimpleType");
-
+                    // use element name as the end node, so ignore simpleType
                 }
             }
 
@@ -686,12 +701,34 @@ public class ComponentBuilder {
                             if (childCollection != null && !isHave) {
                                 buildParameterFromCollection(childCollection, parameterSon, ioOrRecursion);
                             }
-                        } else if (xmlSchemaElement.getSchemaTypeName() != null) {
-                            String paraTypeName = xmlSchemaElement.getSchemaTypeName().getLocalPart();
-                            if (paraTypeName != null && !isHave) {
-                                parameter.setType(paraTypeName);
-                                buileParameterFromTypes(paraTypeName, parameterSon, ioOrRecursion);
+                        } else if (xmlElementComplexType.getContentModel() != null) {
+                        	//in old version this code can't be reach, just add the code for simpleContent
+                            XmlSchemaContentModel xmlSchemaContentModel = xmlElementComplexType.getContentModel();
+                            if (xmlSchemaContentModel instanceof XmlSchemaComplexContent) {
+                                // XmlSchemaComplexContentExtension xscce = (XmlSchemaComplexContentExtension)
+                                // xmlSchemaContentModel
+                                // .getContent();
+                                // XmlSchemaParticle xsp = null;
+                                // if (xscce != null) {
+                                // xsp = xscce.getParticle();
+                                // }
+                                // if (xsp instanceof XmlSchemaGroupBase) {
+                                // XmlSchemaGroupBase xmlSchemaGroupBase = (XmlSchemaGroupBase) xsp;
+                                // buildParameterFromCollection(xmlSchemaGroupBase.getItems(), parameterSon,
+                                // ioOrRecursion);
+                                // }
+                            } else if (xmlSchemaContentModel instanceof XmlSchemaSimpleContent) {
+                                ParameterInfo parameterSonSon = new ParameterInfo();
+                                parameterSonSon.setName("value");
+                                parameterSonSon.setParent(parameterSon);
+                                // setType() if need
+                                parameterSon.getParameterInfos().add(parameterSonSon);
                             }
+                            // String paraTypeName = xmlSchemaElement.getSchemaTypeName().getLocalPart();
+                            // if (paraTypeName != null && !isHave) {
+                            // parameter.setType(paraTypeName);
+                            // buileParameterFromTypes(paraTypeName, parameterSon, ioOrRecursion);
+                            // }
                         }
                     } else if (xmlSchemaElement.getSchemaType() instanceof XmlSchemaSimpleType) {
                         XmlSchemaSimpleType xmlSchemaSimpleType = (XmlSchemaSimpleType) xmlSchemaElement.getSchemaType();
