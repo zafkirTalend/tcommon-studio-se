@@ -78,6 +78,7 @@ public enum ERepositoryObjectType {
     ROUTES("repository.routes"),
     CONTEXT("repository.context"), //$NON-NLS-1$
     ROUTINES("repository.routines"), //$NON-NLS-1$
+    BEAN("repository.bean"), //$NON-NLS-1$
     JOB_SCRIPT("repository.jobscript"),
     SNIPPETS("repository.snippets"), //$NON-NLS-1$
     DOCUMENTATION("repository.documentation"), //$NON-NLS-1$
@@ -275,6 +276,8 @@ public enum ERepositoryObjectType {
             return "context"; //$NON-NLS-1$
         case ROUTINES:
             return "code/routines"; //$NON-NLS-1$
+        case BEAN:
+            return "code/bean"; //$NON-NLS-1$    
         case JOB_SCRIPT:
             return "code/jobscripts"; //$NON-NLS-1$
         case SNIPPETS:
