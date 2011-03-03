@@ -72,6 +72,10 @@ public class RegisterWizardPage1 extends AbstractBasicWizardDialog {
 
     private String proxyPort = null;
 
+    private String proxyUser = null;
+
+    private String proxyPassword = null;
+
     private boolean isProxyEnable = false;
 
     private Button nextButton;
@@ -302,7 +306,8 @@ public class RegisterWizardPage1 extends AbstractBasicWizardDialog {
             String password = "";//$NON-NLS-N$
 
             try {
-                String userInfos = RegisterManagement.getInstance().checkUser(emailStr, isProxyEnable, proxyHost, proxyPort);
+                String userInfos = RegisterManagement.getInstance().checkUser(emailStr, isProxyEnable, proxyHost, proxyPort,
+                        proxyUser, proxyPassword);
                 if (userInfos != null && !"".equals(userInfos)) {
                     alreadyRegistered = true;
                     String[] split = userInfos.split(",");//$NON-NLS-N$
@@ -344,12 +349,16 @@ public class RegisterWizardPage1 extends AbstractBasicWizardDialog {
                 String[] proxyString = netSettingDialog.getProxyString();
                 proxyHost = proxyString[0];
                 proxyPort = proxyString[1];
+                proxyUser = proxyString[2];
+                proxyPassword = proxyString[3];
                 if (proxyHost != null && !"".equals(proxyHost)) {//$NON-NLS-N$
                     isProxyEnable = true;
                 }
             } else {
                 proxyHost = null;
                 proxyPort = null;
+                proxyUser = null;
+                proxyPassword = null;
                 isProxyEnable = false;
             }
         }
@@ -408,6 +417,10 @@ public class RegisterWizardPage1 extends AbstractBasicWizardDialog {
 
         private Text proxyPortText;
 
+        private Text proxyUserText;
+
+        private Text proxyPassworkText;
+
         private String[] proxyString;
 
         /**
@@ -459,6 +472,24 @@ public class RegisterWizardPage1 extends AbstractBasicWizardDialog {
                 proxyPortText.setText(proxyPort);
             }
 
+            Label proxyUserLabel = new Label(center, SWT.NONE);
+            proxyUserLabel.setText(Messages.getString("RegisterWizardPage.proxyUser"));
+            proxyUserText = new Text(center, SWT.BORDER);
+            layoutData = new GridData(GridData.FILL_HORIZONTAL);
+            proxyUserText.setLayoutData(layoutData);
+            if (proxyUser != null) {
+                proxyUserText.setText(proxyUser);
+            }
+
+            Label proxyPasswordLabel = new Label(center, SWT.NONE);
+            proxyPasswordLabel.setText(Messages.getString("RegisterWizardPage.proxyPassword"));
+            proxyPassworkText = new Text(center, SWT.BORDER);
+            layoutData = new GridData(GridData.FILL_HORIZONTAL);
+            proxyPassworkText.setLayoutData(layoutData);
+            if (proxyPassword != null) {
+                proxyPassworkText.setText(proxyPassword);
+            }
+
             return center;
 
         }
@@ -466,9 +497,11 @@ public class RegisterWizardPage1 extends AbstractBasicWizardDialog {
         @Override
         protected void okPressed() {
 
-            String[] proxyString = new String[2];
+            String[] proxyString = new String[4];
             proxyString[0] = proxyHostText.getText();
             proxyString[1] = proxyPortText.getText();
+            proxyString[2] = proxyUserText.getText();
+            proxyString[3] = proxyPassworkText.getText();
             setProxyString(proxyString);
             super.okPressed();
         }
