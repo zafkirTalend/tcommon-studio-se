@@ -24,6 +24,7 @@ import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.internal.WorkbenchPage;
 import org.talend.commons.CommonsPlugin;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
@@ -49,21 +50,30 @@ public final class RepositoryManagerHelper {
         IViewPart part = null;
         IWorkbenchWindow activeWorkbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
         if (activeWorkbenchWindow != null) {
-            IWorkbenchPage activePage = activeWorkbenchWindow.getActivePage();
-            if (activePage != null) {
-                // bug 16594
-                String perId = activePage.getPerspective().getId();
-                if ((!"".equals(perId) || null != perId) && perId.equalsIgnoreCase(PERSPECTIVE_DI_ID)) {
-                    part = activePage.findView(IRepositoryView.VIEW_ID);
-
-                    if (part == null) {
-                        try {
-                            part = activePage.showView(IRepositoryView.VIEW_ID);
-                        } catch (Exception e) {
-                            ExceptionHandler.process(e);
+            // bug 16594
+            IWorkbenchPage page = activeWorkbenchWindow.getActivePage();
+            if (page != null) {
+                part = page.findView(IRepositoryView.VIEW_ID);
+                if (part == null) {
+                    try {
+                        // if the Perspective is DataProfilingPerspective refuse the
+                        // RepositoryView be display by automatic
+                        if (PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getPerspective().getId()
+                                .equalsIgnoreCase("org.talend.dataprofiler.DataProfilingPerspective")) {//$NON-NLS-1$
+                            part = ((WorkbenchPage) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage())
+                                    .getViewFactory().createView(IRepositoryView.VIEW_ID).getView(true);
+                        } else {
+                            String perId = page.getPerspective().getId();
+                            if ((!"".equals(perId) || null != perId) && perId.equalsIgnoreCase(PERSPECTIVE_DI_ID)) {
+                                part = page.showView(IRepositoryView.VIEW_ID);
+                            }
                         }
+                    } catch (Exception e) {
+                        ExceptionHandler.process(e);
                     }
                 }
+                return (IRepositoryView) part;
+
             }
         }
 

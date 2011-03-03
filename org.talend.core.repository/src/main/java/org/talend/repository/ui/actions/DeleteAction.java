@@ -86,6 +86,7 @@ import org.talend.repository.model.RepositoryConstants;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.RepositoryNodeUtilities;
 import org.talend.repository.ui.dialog.JobletReferenceDialog;
+import org.talend.repository.ui.views.IRepositoryView;
 
 /**
  * Action used to delete object from repository. This action manages logical and physical deletions.<br/>
@@ -215,9 +216,13 @@ public class DeleteAction extends AContextualAction {
                         service.updatePalette();
                     }
 
-                    if(!CoreRuntimePlugin.getInstance().isDataProfilePerspectiveSelected()) {                        
+                    if (!CoreRuntimePlugin.getInstance().isDataProfilePerspectiveSelected()) {
                         RepositoryManager.refresh(ERepositoryObjectType.JOB_SCRIPT);
-                        RepositoryManagerHelper.getRepositoryView().refresh();
+                        // bug 16594
+                        IRepositoryView repositoryView = RepositoryManagerHelper.getRepositoryView();
+                        if (repositoryView != null) {
+                            repositoryView.refresh();
+                        }
                     }
 
                     IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
@@ -229,7 +234,10 @@ public class DeleteAction extends AContextualAction {
                         }
                     }
 
-                    if (!deleteActionCache.isDocRefresh() && !CoreRuntimePlugin.getInstance().isDataProfilePerspectiveSelected()) { // not refresh in JobDeleteListener
+                    if (!deleteActionCache.isDocRefresh() && !CoreRuntimePlugin.getInstance().isDataProfilePerspectiveSelected()) { // not
+                                                                                                                                    // refresh
+                                                                                                                                    // in
+                                                                                                                                    // JobDeleteListener
                         RepositoryManager.refreshCreatedNode(ERepositoryObjectType.DOCUMENTATION);
                     }
                 }

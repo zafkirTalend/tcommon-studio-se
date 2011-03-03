@@ -47,6 +47,7 @@ import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.IRepositoryNode.EProperties;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.actions.RestoreObjectAction;
+import org.talend.repository.ui.views.IRepositoryView;
 
 /**
  * Action used to restore obects that had been logically deleted.<br/>
@@ -182,8 +183,11 @@ public class RestoreAction extends AContextualAction {
             Display.getCurrent().syncExec(new Runnable() {
 
                 public void run() {
-
-                    RepositoryManagerHelper.getRepositoryView().refresh();
+                    // bug 16594
+                    IRepositoryView repositoryView = RepositoryManagerHelper.getRepositoryView();
+                    if (repositoryView != null) {
+                        repositoryView.refresh();
+                    }
 
                     if (updatePalette && GlobalServiceRegister.getDefault().isServiceRegistered(ICoreService.class)) {
                         ICoreService service = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
