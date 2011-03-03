@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.repository.ui.wizards.metadata.table.database;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,6 +27,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
@@ -79,6 +81,8 @@ import org.talend.core.model.metadata.editor.MetadataEmfTableEditor;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.model.metadata.types.PerlTypesManager;
 import org.talend.core.model.properties.ConnectionItem;
+import org.talend.core.model.repository.IRepositoryPrefConstants;
+import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.metadata.editor.MetadataEmfTableEditorView;
@@ -311,6 +315,25 @@ public class DatabaseTableForm extends AbstractForm {
         // init the metadata Table
 
         metadataEditor.setMetadataTable(metadataTable);
+
+        IPreferenceStore store = RepositoryManager.getPreferenceStore();
+        Boolean flag = store.getBoolean(IRepositoryPrefConstants.ALLOW_SPECIFIC_CHARACTERS_FOR_SCHEMA_COLUMNS);
+        if (!flag.booleanValue()) {
+            List<MetadataColumn> list = metadataEditor.getMetadataColumnList();
+            for (MetadataColumn column : list) {
+                try {
+                    if (column.getLabel().toString().getBytes("shift-jis").length >= (2 * column.getLabel().toString().length())) {
+                        // Japanese Character
+                        String label = metadataEditor.getNextGeneratedColumnName(Messages
+                                .getString("DatabaseTableForm.metadataDefaultNewLabel"));
+                        column.setLabel(label);
+                    }
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
         removeDoubleQuotes(metadataEditor.getMetadataColumnList());
 
         tableEditorView.setMetadataEditor(metadataEditor);
