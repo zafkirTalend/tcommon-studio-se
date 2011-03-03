@@ -97,9 +97,10 @@ public class RegisterManagement {
         try {
             IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
                     IBrandingService.class);
-            result = proxy.registerUserWithAllUserInformationsAndReturnId(email, country, designerVersion, brandingService
-                    .getShortProductName(), projectLanguage, osName, osVersion, javaVersion, totalMemory + "", memRAM //$NON-NLS-1$
-                    + "", nbProc + ""); //$NON-NLS-1$ //$NON-NLS-2$
+            result = proxy.registerUserWithAllUserInformationsAndReturnId(email, country, designerVersion,
+                    brandingService.getShortProductName(), projectLanguage, osName, osVersion, javaVersion,
+                    totalMemory + "", memRAM //$NON-NLS-1$
+                            + "", nbProc + ""); //$NON-NLS-1$ //$NON-NLS-2$
             if (result.signum() > 0) {
                 PlatformUI.getPreferenceStore().setValue("REGISTRATION_DONE", 1); //$NON-NLS-1$
                 registNumber = result.longValue();
@@ -247,9 +248,9 @@ public class RegisterManagement {
         try {
             IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
                     IBrandingService.class);
-            result = proxy.createUser(email, pseudo, password, firstname, lastname, country, version, brandingService
-                    .getShortProductName(), osName, osVersion, javaVersion, totalMemory + "", memRAM //$NON-NLS-1$
-                    + "", nbProc + ""); //$NON-NLS-1$ //$NON-NLS-2$
+            result = proxy.createUser(email, pseudo, password, firstname, lastname, country, version,
+                    brandingService.getShortProductName(), osName, osVersion, javaVersion, totalMemory + "", memRAM //$NON-NLS-1$
+                            + "", nbProc + ""); //$NON-NLS-1$ //$NON-NLS-2$
             if (result.signum() > 0) {
                 PlatformUI.getPreferenceStore().setValue("REGISTRATION_DONE", 1); //$NON-NLS-1$
                 saveRegistoryBean();
@@ -333,13 +334,16 @@ public class RegisterManagement {
         MessageDialog.openError(null, Messages.getString("RegisterManagement.errors"), message); //$NON-NLS-1$
     }
 
-    public String checkUser(String email, boolean isProxyEnabled, String proxyHost, String proxyPort) throws BusinessException {
+    public String checkUser(String email, boolean isProxyEnabled, String proxyHost, String proxyPort, String proxyUser,
+            String proxyPassword) throws BusinessException {
 
         // if proxy is enabled
         if (isProxyEnabled) {
             // get parameter and put them in System.properties.
             System.setProperty("http.proxyHost", proxyHost); //$NON-NLS-1$
             System.setProperty("http.proxyPort", proxyPort); //$NON-NLS-1$
+            System.setProperty("http.proxyUser", proxyUser); //$NON-NLS-1$
+            System.setProperty("http.proxyPassword", proxyPassword); //$NON-NLS-1$
 
             // override automatic update parameters
             if (proxyPort != null && proxyPort.trim().equals("")) { //$NON-NLS-1$
