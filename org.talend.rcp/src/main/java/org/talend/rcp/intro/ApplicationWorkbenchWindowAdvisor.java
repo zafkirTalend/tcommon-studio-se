@@ -79,6 +79,7 @@ import org.talend.core.ui.ISQLBuilderService;
 import org.talend.core.ui.branding.IBrandingConfiguration;
 import org.talend.core.ui.branding.IBrandingService;
 import org.talend.designer.business.diagram.custom.IDiagramModelService;
+import org.talend.designer.core.ui.views.RefreshView;
 import org.talend.rcp.Activator;
 import org.talend.rcp.i18n.Messages;
 import org.talend.rcp.util.ApplicationDeletionUtil;
@@ -112,6 +113,8 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
     private Composite backGroundComposite;
 
     private boolean isTos = false;
+
+    private String isfirst = "";
 
     private StackLayout stackLayout = new StackLayout();
 
@@ -218,6 +221,16 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
                         setEditorAreaBG();
                     }
                     clearEditorAreaBG(true);
+                }
+                // feature 19053
+                if (null == isfirst || "".equals(isfirst)) {
+                    isfirst = perspective.getId();
+                    RefreshView.refreshAll();
+                } else if (pId.equals(isfirst) && !"".equals(isfirst)) {
+                    return;
+                } else if (!pId.equals(isfirst) && !"".equals(isfirst)) {
+                    isfirst = perspective.getId();
+                    RefreshView.refreshAll();
                 }
             }
         });
