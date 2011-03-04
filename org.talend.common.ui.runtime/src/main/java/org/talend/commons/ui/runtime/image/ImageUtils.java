@@ -21,12 +21,10 @@ import java.util.Map;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.ImageLoader;
 import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.graphics.Transform;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 
 /**
@@ -82,22 +80,34 @@ public class ImageUtils {
         img.dispose();
     }
 
+    // /**
+    // * Scale image with provided percent value.
+    // */
+    // public static Image scale(Image image, int percent) {
+    // Transform transform = new Transform(image.getDevice());
+    // float scale = (float) percent / 100f;
+    // int newWidth = (int) (scale * image.getImageData().width);
+    // int newHeight = (int) (scale * image.getImageData().height);
+    // transform.scale(scale, scale);
+    // GC gc = new GC(image);
+    // gc.setTransform(transform);
+    // gc.drawImage(image, 0, 0);
+    //
+    // Image newImage = new Image(image.getDevice(), newWidth, newHeight);
+    // gc.copyArea(newImage, 0, 0);
+    // return newImage;
+    // }
+
     /**
-     * Scale image with provided percent value.
+     * Scale image with provided percent value. changed from orignal Trnasform class use because not compatible with
+     * RAP.
      */
     public static Image scale(Image image, int percent) {
-        Transform transform = new Transform(image.getDevice());
         float scale = (float) percent / 100f;
         int newWidth = (int) (scale * image.getImageData().width);
         int newHeight = (int) (scale * image.getImageData().height);
-        transform.scale(scale, scale);
-        GC gc = new GC(image);
-        gc.setTransform(transform);
-        gc.drawImage(image, 0, 0);
-
-        Image newImage = new Image(image.getDevice(), newWidth, newHeight);
-        gc.copyArea(newImage, 0, 0);
-        return newImage;
+        ImageData imageData = image.getImageData().scaledTo(newWidth, newHeight);
+        return ImageDescriptor.createFromImageData(imageData).createImage();
     }
 
     public static Image scale(Image image, ICON_SIZE size) {

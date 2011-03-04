@@ -15,7 +15,6 @@ package org.talend.commons.ui.runtime.exception;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
-import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
@@ -66,7 +65,7 @@ public class ExceptionMessageDialog extends MessageDialog {
             }
 
         });
-        
+
         Text text = new Text(errorComposite, SWT.MULTI | SWT.V_SCROLL | SWT.H_SCROLL);
         text.setText(exceptionString);
         text.setEditable(false);
@@ -74,36 +73,37 @@ public class ExceptionMessageDialog extends MessageDialog {
 
         return errorComposite;
     }
-    
+
     public static boolean openConfirm(Shell parent, String title, String message, Throwable ex) {
         MessageDialog dialog = new ExceptionMessageDialog(parent, title, null, message, QUESTION, new String[] {
-                IDialogConstants.OK_LABEL, IDialogConstants.CANCEL_LABEL }, 0, ex);
+                Messages.getString("ExceptionMessageDialog.OK"), Messages.getString("ExceptionMessageDialog.Cancel") }, 0, ex); //$NON-NLS-1$ //$NON-NLS-2$
         return dialog.open() == 0;
     }
 
     public static void openError(Shell parent, String title, String message, Throwable ex) {
         MessageDialog dialog = new ExceptionMessageDialog(parent, title, null, message, ERROR,
-                new String[] { IDialogConstants.OK_LABEL }, 0, ex);
+                new String[] { Messages.getString("ExceptionMessageDialog.OK") }, 0, ex); //$NON-NLS-1$
         dialog.open();
         return;
     }
 
     public static void openInformation(Shell parent, String title, String message, Throwable ex) {
         MessageDialog dialog = new ExceptionMessageDialog(parent, title, null, message, INFORMATION,
-                new String[] { IDialogConstants.OK_LABEL }, 0, ex);
+                new String[] { Messages.getString("ExceptionMessageDialog.OK") }, 0, ex); //$NON-NLS-1$
         dialog.open();
         return;
     }
 
     public static boolean openQuestion(Shell parent, String title, String message, Throwable ex) {
         MessageDialog dialog = new ExceptionMessageDialog(parent, title, null, message, QUESTION, new String[] {
-                IDialogConstants.YES_LABEL, IDialogConstants.NO_LABEL }, 0, ex);
+                Messages.getString("ExceptionMessageDialog.Yes"), Messages.getString("ExceptionMessageDialog.No") }, //$NON-NLS-1$ //$NON-NLS-2$
+                0, ex);
         return dialog.open() == 0;
     }
 
     public static void openWarning(Shell parent, String title, String message, Throwable ex) {
         MessageDialog dialog = new ExceptionMessageDialog(parent, title, null, message, WARNING,
-                new String[] { IDialogConstants.OK_LABEL }, 0, ex);
+                new String[] { Messages.getString("ExceptionMessageDialog.OK") }, 0, ex); //$NON-NLS-1$
         dialog.open();
         return;
     }
