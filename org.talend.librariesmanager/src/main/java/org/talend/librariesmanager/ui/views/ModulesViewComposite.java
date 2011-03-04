@@ -8,7 +8,7 @@
 // You should have received a copy of the agreement
 // along with this program; if not, write to Talend SA
 // 9 rue Pages 92150 Suresnes, France
-//   
+//
 // ============================================================================
 package org.talend.librariesmanager.ui.views;
 
@@ -30,8 +30,8 @@ import org.eclipse.ui.contexts.IContextActivation;
 import org.eclipse.ui.contexts.IContextService;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
-import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.LAYOUT_MODE;
-import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.SORT;
+import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorNotModifiable.LAYOUT_MODE;
+import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorNotModifiable.SORT;
 import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
 import org.talend.core.model.components.IComponentsFactory;
 import org.talend.core.model.general.ModuleNeeded;
@@ -196,16 +196,15 @@ public class ModulesViewComposite extends Composite {
 
             public void focusGained(FocusEvent e) {
                 log.trace("Modules gain focus"); //$NON-NLS-1$
-                IContextService contextService = (IContextService) PlatformUI.getWorkbench().getAdapter(
-                        IContextService.class);
+                IContextService contextService = (IContextService) PlatformUI.getWorkbench().getAdapter(IContextService.class);
                 ca = contextService.activateContext("talend.modules"); //$NON-NLS-1$
             }
 
             public void focusLost(FocusEvent e) {
                 log.trace("Modules lost focus"); //$NON-NLS-1$
                 if (ca != null) {
-                    IContextService contextService = (IContextService) PlatformUI.getWorkbench().getAdapter(
-                            IContextService.class);
+                    IContextService contextService = (IContextService) PlatformUI.getWorkbench()
+                            .getAdapter(IContextService.class);
                     contextService.deactivateContext(ca);
                 }
             }

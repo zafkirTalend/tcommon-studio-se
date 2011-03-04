@@ -16,7 +16,7 @@ Bundle-ClassPath: .,
  lib/asm.jar
 Require-Bundle: org.talend.libraries.apache,
  org.talend.libraries.jdbc.jtds;resolution:=optional;visibility:=reexport,
- org.talend.libraries.jdbc.mysql;resolution:=optional;visibility:=reexport,
+ org.talend.libraries.jdbc.mysql;visibility:=reexport,
  org.talend.libraries.jdbc.oracle;resolution:=optional;visibility:=reexport,
  org.talend.libraries.jdbc.hsql;resolution:=optional,
  org.apache.xerces,

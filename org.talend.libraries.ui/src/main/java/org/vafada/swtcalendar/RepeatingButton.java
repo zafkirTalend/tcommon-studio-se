@@ -17,13 +17,16 @@
  */
 package org.vafada.swtcalendar;
 
+import java.util.ArrayList;
+
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.*;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
-
-import java.util.ArrayList;
 
 /**
  * Push button that repeats selection event based on timer.
@@ -68,12 +71,12 @@ public class RepeatingButton extends Button {
             }
         });
 
-        addMouseTrackListener(new MouseTrackAdapter() {
-
-            public void mouseExit(MouseEvent e) {
-                cancelRepeater();
-            }
-        });
+        // addMouseTrackListener(new MouseTrackAdapter() {//removed for RAP compatibility
+        //
+        // public void mouseExit(MouseEvent e) {
+        // cancelRepeater();
+        // }
+        // });
     }
 
     public void addSelectionListener(SelectionListener listener) {

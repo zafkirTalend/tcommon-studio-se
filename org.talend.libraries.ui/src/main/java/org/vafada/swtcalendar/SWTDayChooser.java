@@ -17,21 +17,36 @@
  */
 package org.vafada.swtcalendar;
 
+import java.text.DateFormatSymbols;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Locale;
+
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.*;
+import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.DisposeListener;
+import org.eclipse.swt.events.FocusEvent;
+import org.eclipse.swt.events.FocusListener;
+import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.KeyListener;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseListener;
+import org.eclipse.swt.events.TraverseEvent;
+import org.eclipse.swt.events.TraverseListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.*;
-
-import java.text.DateFormatSymbols;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Locale;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.Widget;
+import org.talend.libraries.ui.SWTFacade;
 
 public class SWTDayChooser extends Composite implements MouseListener, FocusListener, TraverseListener, KeyListener {
 
@@ -189,8 +204,7 @@ public class SWTDayChooser extends Composite implements MouseListener, FocusList
             Label label = dayTitles[i];
             label.setText(dayNames[d]);
             label.setBackground(getBackground());
-            if (d == Calendar.SUNDAY && (style & RED_SUNDAY) != 0 || d == Calendar.SATURDAY
-                    && (style & RED_SATURDAY) != 0) {
+            if (d == Calendar.SUNDAY && (style & RED_SUNDAY) != 0 || d == Calendar.SATURDAY && (style & RED_SATURDAY) != 0) {
                 label.setForeground(getDisplay().getSystemColor(SWT.COLOR_DARK_RED));
             } else {
                 label.setForeground(getForeground());
@@ -229,8 +243,7 @@ public class SWTDayChooser extends Composite implements MouseListener, FocusList
 
             if (isSameMonth(cal, calendar)) {
                 int d = cal.get(Calendar.DAY_OF_WEEK);
-                if (d == Calendar.SUNDAY && (style & RED_SUNDAY) != 0 || d == Calendar.SATURDAY
-                        && (style & RED_SATURDAY) != 0) {
+                if (d == Calendar.SUNDAY && (style & RED_SUNDAY) != 0 || d == Calendar.SATURDAY && (style & RED_SATURDAY) != 0) {
                     dayControl.setForeground(getDisplay().getSystemColor(SWT.COLOR_DARK_RED));
                 } else {
                     dayControl.setForeground(foregroundColor);
@@ -254,8 +267,7 @@ public class SWTDayChooser extends Composite implements MouseListener, FocusList
     }
 
     private static boolean isSameMonth(Calendar cal1, Calendar cal2) {
-        return cal1.get(Calendar.MONTH) == cal2.get(Calendar.MONTH)
-                && cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR);
+        return cal1.get(Calendar.MONTH) == cal2.get(Calendar.MONTH) && cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR);
     }
 
     public void setMonth(int month) {
@@ -338,10 +350,10 @@ public class SWTDayChooser extends Composite implements MouseListener, FocusList
      */
     public void keyTraversed(TraverseEvent event) {
         switch (event.detail) {
-        case SWT.TRAVERSE_ARROW_PREVIOUS:
-        case SWT.TRAVERSE_ARROW_NEXT:
-        case SWT.TRAVERSE_PAGE_PREVIOUS:
-        case SWT.TRAVERSE_PAGE_NEXT:
+        case SWTFacade.TRAVERSE_ARROW_PREVIOUS:
+        case SWTFacade.TRAVERSE_ARROW_NEXT:
+        case SWTFacade.TRAVERSE_PAGE_PREVIOUS:
+        case SWTFacade.TRAVERSE_PAGE_NEXT:
             event.doit = false;
             break;
 
@@ -410,8 +422,7 @@ public class SWTDayChooser extends Composite implements MouseListener, FocusList
 
     private void selectDay(int day) {
         calendar.get(Calendar.DAY_OF_YEAR); // Force calendar update
-        if (day >= calendar.getActualMinimum(Calendar.DAY_OF_MONTH)
-                && day <= calendar.getActualMaximum(Calendar.DAY_OF_MONTH)) {
+        if (day >= calendar.getActualMinimum(Calendar.DAY_OF_MONTH) && day <= calendar.getActualMaximum(Calendar.DAY_OF_MONTH)) {
             int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
             // Stay on the same month.
             DayControl selectedDay = getSelectedDayControl();

@@ -5,4 +5,3 @@ Bundle-SymbolicName: org.talend.commons.test
 Bundle-Version: 1.0.0.qualifier
 Fragment-Host: org.talend.commons;bundle-version="2.2.0"
 Require-Bundle: org.junit4
-Export-Package: org.talend.commons.utils
