@@ -422,11 +422,19 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     tableOwner = tableSchema;
                 }
                 // common
-                String tableComment = tables.getString(GetTable.REMARKS.name());
-                if (StringUtils.isBlank(tableComment)) {
-                    String selectRemarkOnTable = MetadataConnectionUtils.getCommonQueryStr(productName, tableName);
-                    if (selectRemarkOnTable != null) {
-                        tableComment = executeGetCommentStatement(selectRemarkOnTable, dbJDBCMetadata.getConnection());
+                boolean flag = true;
+                String tableComment = null;
+                if (pack != null) {
+                    Connection c = ConnectionHelper.getConnection(pack);
+                    flag = MetadataConnectionUtils.isOracle8i(c);
+                }
+                if (!flag) {
+                    tableComment = tables.getString(GetTable.REMARKS.name());
+                    if (StringUtils.isBlank(tableComment)) {
+                        String selectRemarkOnTable = MetadataConnectionUtils.getCommonQueryStr(productName, tableName);
+                        if (selectRemarkOnTable != null) {
+                            tableComment = executeGetCommentStatement(selectRemarkOnTable, dbJDBCMetadata.getConnection());
+                        }
                     }
                 }
                 // create table
@@ -487,11 +495,19 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     tableOwner = tables.getString(GetTable.TABLE_SCHEM.name());
                 }
                 // common
-                String tableComment = tables.getString(GetTable.REMARKS.name());
-                if (StringUtils.isBlank(tableComment)) {
-                    String selectRemarkOnTable = MetadataConnectionUtils.getCommonQueryStr(productName, tableName);
-                    if (selectRemarkOnTable != null) {
-                        tableComment = executeGetCommentStatement(selectRemarkOnTable, dbJDBCMetadata.getConnection());
+                boolean flag = true;
+                String tableComment = null;
+                if (pack != null) {
+                    Connection c = ConnectionHelper.getConnection(pack);
+                    flag = MetadataConnectionUtils.isOracle8i(c);
+                }
+                if (!flag) {
+                    tableComment = tables.getString(GetTable.REMARKS.name());
+                    if (StringUtils.isBlank(tableComment)) {
+                        String selectRemarkOnTable = MetadataConnectionUtils.getCommonQueryStr(productName, tableName);
+                        if (selectRemarkOnTable != null) {
+                            tableComment = executeGetCommentStatement(selectRemarkOnTable, dbJDBCMetadata.getConnection());
+                        }
                     }
                 }
                 // create table

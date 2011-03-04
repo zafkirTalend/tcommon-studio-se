@@ -37,6 +37,7 @@ import org.talend.commons.utils.database.DB2ForZosDataBaseMetadata;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.MetadataConnection;
+import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
@@ -184,7 +185,6 @@ public class MetadataConnectionUtils {
      */
     public static TypedReturnCode<java.sql.Connection> checkConnection(DatabaseConnection databaseConnection) {
         IMetadataConnection metadataConnection = new MetadataConnection();
-
 
         String dbUrl = databaseConnection.getURL();
         String password = databaseConnection.getPassword();
@@ -337,6 +337,17 @@ public class MetadataConnectionUtils {
         return false;
     }
 
+    public static boolean isOracle8i(Connection connection) {
+        if (connection != null && connection instanceof DatabaseConnection) {
+            DatabaseConnection dbConn = (DatabaseConnection) connection;
+            String version = dbConn.getDbVersionString();
+            if (version != null && version.equals("ORACLE_8")) { //$NON-NLS-1$
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static boolean isMssql(java.sql.Connection connection) throws SQLException {
         DatabaseMetaData connectionMetadata = getConnectionMetadata(connection);
         if (connectionMetadata.getDriverName() != null && connectionMetadata.getDatabaseProductName() != null) {
@@ -385,7 +396,7 @@ public class MetadataConnectionUtils {
         Driver driver = DRIVER_CACHE.get(driverClassName);
         // The case for generalJDBC
         String driverPath = metadataBean.getDriverJarPath();
-        
+
         if (StringUtils.isEmpty(driverPath)) {
             if (driver != null) {
                 return driver;
@@ -488,8 +499,10 @@ public class MetadataConnectionUtils {
         switch (eDataBaseType) {
         case Oracle:
             sqlStr = "SELECT COMMENTS FROM USER_TAB_COMMENTS WHERE TABLE_NAME='" + tableName + "'"; //$NON-NLS-1$ //$NON-NLS-2$
+            break;
         case MySQL:
             sqlStr = "SELECT TABLE_COMMENT FROM information_schema.TABLES WHERE TABLE_NAME='" + tableName + "'"; //$NON-NLS-1$ //$NON-NLS-2$
+            break;
         default:
             sqlStr = null;
 
