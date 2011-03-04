@@ -28,7 +28,6 @@
       <import plugin="org.eclipse.emf.ecore.xmi"/>
       <import plugin="org.eclipse.debug.core"/>
       <import plugin="org.eclipse.core.resources"/>
-      <import plugin="org.antlr.runtime"/>
       <import plugin="org.eclipse.emf.common"/>
       <import plugin="org.eclipse.ui.views"/>
       <import plugin="org.eclipse.compare"/>
@@ -37,9 +36,12 @@
       <import plugin="org.eclipse.emf.ecore"/>
       <import plugin="org.eclipse.gmf.runtime.notation"/>
       <import plugin="org.eclipse.xsd"/>
-      <import plugin="org.talend.libraries"/>
       <import plugin="org.talend.libraries.jackson"/>
       <import plugin="org.talend.libraries.apache"/>
+      <import plugin="org.talend.model.migration" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.jdt.core"/>
+      <import plugin="org.eclipse.jdt.launching"/>
+      <import plugin="org.apache.commons.httpclient"/>
    </requires>
 
    <plugin
@@ -157,6 +159,13 @@
 
    <plugin
          id="org.talend.cwm.mip"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.talend.commons.runtime"
          download-size="0"
          install-size="0"
          version="0.0.0"
