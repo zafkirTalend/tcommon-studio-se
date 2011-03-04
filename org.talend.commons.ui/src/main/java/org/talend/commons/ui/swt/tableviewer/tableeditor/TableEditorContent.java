@@ -16,58 +16,37 @@ import org.eclipse.swt.custom.TableEditor;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Table;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
+import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumnNotModifiable;
 
 /**
- * DOC amaumont class global comment. Detailled comment <br/> $Id: TableEditorInitializer.java,v 1.1 2006/06/02 15:24:10
- * amaumont Exp $
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * $Id: TableEditorInitializer.java,v 1.1 2006/06/02 15:24:10 amaumont Exp $
  */
-public abstract class TableEditorContent {
+public abstract class TableEditorContent extends TableEditorContentNotModifiable {
 
-    private boolean layoutEnabled = true; // for performance use
-
-    /**
-     * You can override this method if necessary.
+    /*
+     * (non-Javadoc)
      * 
-     * @param table
-     * @return TableEditor
+     * @see
+     * org.talend.commons.ui.swt.tableviewer.tableeditor.TableEditorContentNotModifiable#initialize(org.eclipse.swt.
+     * widgets.Table, org.eclipse.swt.custom.TableEditor,
+     * org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumnNotModifiable, java.lang.Object, java.lang.Object)
      */
-    public TableEditor createTableEditor(final Table table) {
-        return new TableEditor(table) {
-
-            /*
-             * (non-Javadoc)
-             * 
-             * @see org.eclipse.swt.custom.TableEditor#layout()
-             */
-            @Override
-            public void layout() {
-                if (layoutEnabled) {
-                    super.layout();
-                }
-            }
-
-        };
-    }
-
     public abstract Control initialize(Table table, TableEditor tableEditor, TableViewerCreatorColumn currentColumn,
             Object currentRowObject, Object currentCellValue);
 
-    /**
-     * Getter for layoutEnabled. For performance use
+    /*
+     * (non-Javadoc)
      * 
-     * @return the layoutEnabled
+     * @see
+     * org.talend.commons.ui.swt.tableviewer.tableeditor.TableEditorContentNotModifiable#initialize(org.eclipse.swt.
+     * widgets.Table, org.eclipse.swt.custom.TableEditor,
+     * org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumnNotModifiable, java.lang.Object, java.lang.Object)
      */
-    public boolean isLayoutEnabled() {
-        return this.layoutEnabled;
-    }
-
-    /**
-     * Sets the layoutEnabled. For performance use
-     * 
-     * @param layoutEnabled the layoutEnabled to set
-     */
-    public void setLayoutEnabled(boolean layoutEnabled) {
-        this.layoutEnabled = layoutEnabled;
+    @Override
+    public Control initialize(Table table, TableEditor tableEditor, TableViewerCreatorColumnNotModifiable currentColumn,
+            Object currentRowObject, Object currentCellValue) {
+        return initialize(table, tableEditor, (TableViewerCreatorColumn) currentColumn, currentRowObject, currentCellValue);
     }
 
 }

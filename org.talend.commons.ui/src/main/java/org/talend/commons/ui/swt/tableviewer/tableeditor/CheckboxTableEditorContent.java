@@ -161,7 +161,7 @@ public class CheckboxTableEditorContent extends TableEditorContent {
                 event.y = map.y;
                 event.button = e.button;
                 event.stateMask = e.stateMask;
-                event.count = e.count;
+                // event.count = e.count; only for paint event and not supported in RAP
                 // super(e.widget);
                 event.display = e.display;
                 event.widget = table;

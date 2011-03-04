@@ -28,7 +28,7 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Table;
 import org.talend.commons.ui.swt.advanced.dataeditor.ExtendedToolbarView;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
-import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.LAYOUT_MODE;
+import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorNotModifiable.LAYOUT_MODE;
 import org.talend.commons.ui.swt.tableviewer.selection.ILineSelectionListener;
 import org.talend.commons.ui.swt.tableviewer.selection.LineSelectionEvent;
 import org.talend.commons.ui.swt.tableviewer.selection.SelectionHelper;
@@ -439,7 +439,9 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
     /*
      * (non-Javadoc)
      * 
-     * @see org.talend.commons.ui.swt.extended.macrotable.AbstractExtendedControlViewer#modelChanged(org.talend.commons.ui.swt.extended.macrotable.AbstractExtendedControlModel,
+     * @see
+     * org.talend.commons.ui.swt.extended.macrotable.AbstractExtendedControlViewer#modelChanged(org.talend.commons.ui
+     * .swt.extended.macrotable.AbstractExtendedControlModel,
      * org.talend.commons.ui.swt.extended.macrotable.AbstractExtendedControlModel)
      */
     @Override
@@ -455,7 +457,9 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
     /*
      * (non-Javadoc)
      * 
-     * @see org.talend.commons.ui.swt.extended.table.AbstractExtendedControlViewer#setCommandStackAdapter(org.talend.commons.ui.command.ICommandStackAdapter)
+     * @see
+     * org.talend.commons.ui.swt.extended.table.AbstractExtendedControlViewer#setCommandStackAdapter(org.talend.commons
+     * .ui.command.ICommandStackAdapter)
      */
     @Override
     public void setCommandStack(CommandStack commandStack) {

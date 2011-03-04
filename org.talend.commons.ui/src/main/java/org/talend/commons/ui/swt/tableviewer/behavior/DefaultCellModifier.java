@@ -19,14 +19,14 @@ import org.eclipse.swt.widgets.TableItem;
 import org.talend.commons.ui.runtime.i18n.Messages;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
+import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorNotModifiable;
 import org.talend.commons.ui.swt.tableviewer.data.AccessorUtils;
 import org.talend.commons.ui.swt.tableviewer.data.ModifiedObjectInfo;
 
 /**
  * 
- * Default implementation of <code>ICellModifier</code> used by <code>TableViewerCreator</code>. This
- * implementation retrieve or modify values (using accesors defined in <code>TableViewerCreatorColumn</code>) on data
- * object. <br/>
+ * Default implementation of <code>ICellModifier</code> used by <code>TableViewerCreator</code>. This implementation
+ * retrieve or modify values (using accesors defined in <code>TableViewerCreatorColumn</code>) on data object. <br/>
  * 
  * $Id: DefaultCellModifier.java 7038 2007-11-15 14:05:48Z plegall $
  * 
@@ -36,7 +36,7 @@ import org.talend.commons.ui.swt.tableviewer.data.ModifiedObjectInfo;
 public class DefaultCellModifier implements ICellModifier {
 
     private static Logger log = Logger.getLogger(DefaultCellModifier.class);
-    
+
     private TableViewerCreator tableViewerCreator;
 
     private ListenerList cellEditorAppliedListeners = new ListenerList();
@@ -101,7 +101,7 @@ public class DefaultCellModifier implements ICellModifier {
      */
     @SuppressWarnings("unchecked")
     public void modify(Object tableItem, String idColumn, Object value) {
-        if(((TableItem) tableItem).isDisposed()) {
+        if (((TableItem) tableItem).isDisposed()) {
             log.warn(Messages.getString("DefaultCellModifier.tableItemDispose"), new Exception()); //$NON-NLS-1$
             return;
         }
@@ -154,8 +154,8 @@ public class DefaultCellModifier implements ICellModifier {
      */
     private void fireCellEditorApplied(TableItem tableItem, Object bean, TableViewerCreatorColumn column,
             Object cellEditorAppliedValue, Object previousValue, Object newValue) {
-        TableCellValueModifiedEvent event = new TableCellValueModifiedEvent(tableItem, bean, column,
-                cellEditorAppliedValue, newValue);
+        TableCellValueModifiedEvent event = new TableCellValueModifiedEvent(tableItem, bean, column, cellEditorAppliedValue,
+                newValue);
         final Object[] listenerArray = cellEditorAppliedListeners.getListeners();
         for (int i = 0; i < listenerArray.length; i++) {
             ((ITableCellValueModifiedListener) listenerArray[i]).cellValueModified(event);
@@ -178,7 +178,7 @@ public class DefaultCellModifier implements ICellModifier {
      * 
      * @return the tableViewerCreator
      */
-    public TableViewerCreator getTableViewerCreator() {
+    public TableViewerCreatorNotModifiable getTableViewerCreator() {
         return this.tableViewerCreator;
     }
 

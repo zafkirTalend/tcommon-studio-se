@@ -25,7 +25,7 @@ import org.talend.commons.ui.swt.advanced.dataeditor.commands.ExtendedTableRemov
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
-import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.SHOW_ROW_SELECTION;
+import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorNotModifiable.SHOW_ROW_SELECTION;
 import org.talend.commons.utils.data.list.ListenableListEvent;
 
 /**
@@ -312,8 +312,8 @@ public abstract class AbstractDataTableEditorView<B> {
                                     .getRemoveButton().getEnabledState())) {
                         ExtendedTableModel model = extendedTableViewer.getExtendedTableModel();
                         if (model != null && model.isDataRegistered()) {
-                            ExtendedTableRemoveCommand command = new ExtendedTableRemoveCommand(model, table
-                                    .getSelectionIndices());
+                            ExtendedTableRemoveCommand command = new ExtendedTableRemoveCommand(model,
+                                    table.getSelectionIndices());
                             extendedTableViewer.executeCommand(command);
                         }
                     }

@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.commons.ui.swt.tableviewer;
 
+
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
  * 
