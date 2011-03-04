@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: H2
 Bundle-SymbolicName: org.talend.libraries.jdbc.h2
-Bundle-Version: 1.0.0
+Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .,
  lib/h2-1.2.142.jar
 Export-Package: org.h2,
