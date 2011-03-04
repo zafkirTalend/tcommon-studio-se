@@ -20,7 +20,7 @@ Require-Bundle: org.talend.libraries.apache,
  org.talend.libraries.jdbc.oracle;resolution:=optional;visibility:=reexport,
  org.talend.libraries.jdbc.hsql;resolution:=optional,
  org.apache.xerces,
- org.talend.libraries.dom4j-jaxen
+ org.talend.libraries.dom4j-jaxen;visibility:=reexport
 Export-Package: antlr,
  antlr.ASdebug,
  antlr.actions.cpp,
