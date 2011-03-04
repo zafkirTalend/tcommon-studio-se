@@ -50,7 +50,6 @@
       <import plugin="org.eclipse.osgi"/>
       <import plugin="org.eclipse.swtbot.go"/>
       <import plugin="org.talend.swtbot.commons" version="1.0.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.swt" version="3.5.1" match="greaterOrEqual"/>
    </requires>
 
    <plugin
