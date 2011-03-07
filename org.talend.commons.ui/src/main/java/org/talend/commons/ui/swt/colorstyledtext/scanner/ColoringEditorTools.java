@@ -23,6 +23,7 @@ import org.eclipse.jface.text.rules.IRule;
 import org.eclipse.jface.text.rules.IToken;
 import org.eclipse.jface.text.rules.PatternRule;
 import org.eclipse.jface.util.PropertyChangeEvent;
+import org.talend.commons.CommonsPlugin;
 import org.talend.commons.ui.swt.colorstyledtext.ColorManager;
 import org.talend.commons.ui.swt.colorstyledtext.jedit.EOLSpan;
 import org.talend.commons.ui.swt.colorstyledtext.jedit.IVisitor;
@@ -73,8 +74,8 @@ public class ColoringEditorTools {
                  * Using a PatternRule instead of a MultiLineRule because PatternRule exposes the break on newline
                  * behavior.
                  */
-                PatternRule pat = new CasedPatternRule(span.getStart(), span.getEnd(), defaultToken, mode
-                        .getDefaultRuleSet().getEscape(), span.noLineBreak(), ignoreCase);
+                PatternRule pat = new CasedPatternRule(span.getStart(), span.getEnd(), defaultToken, mode.getDefaultRuleSet()
+                        .getEscape(), span.noLineBreak(), ignoreCase);
                 rules.add(pat);
             }
 
@@ -139,7 +140,7 @@ public class ColoringEditorTools {
         URL url; // = FileLocator.toFileURL(FileLocator.find(Platform.getBundle("org.talend.commons"), new
         // Path(filename), null));
 
-        url = Platform.getBundle("org.talend.commons").getEntry(filename); //$NON-NLS-1$
+        url = Platform.getBundle(CommonsPlugin.PLUGIN_ID).getEntry(filename); //$NON-NLS-1$
         return url != null ? url.openStream() : null;
         // URL mode = FileLocator.resolve(url);
         // if (mode != null) {

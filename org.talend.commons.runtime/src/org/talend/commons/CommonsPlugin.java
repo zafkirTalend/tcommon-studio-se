@@ -23,7 +23,7 @@ import org.eclipse.core.runtime.Plugin;
 public class CommonsPlugin extends Plugin {
 
     // The plug-in ID
-    public static final String PLUGIN_ID = "org.talend.commons"; //$NON-NLS-1$
+    public static final String PLUGIN_ID = "org.talend.commons.runtime"; //$NON-NLS-1$
 
     // The shared instance
     private static CommonsPlugin plugin;
@@ -32,7 +32,6 @@ public class CommonsPlugin extends Plugin {
 
     private static boolean storeLibsInWorkspace = false;
 
-    
     public static boolean isStoreLibsInWorkspace() {
         return storeLibsInWorkspace;
     }
