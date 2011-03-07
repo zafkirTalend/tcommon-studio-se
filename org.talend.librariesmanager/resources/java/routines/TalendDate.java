@@ -394,6 +394,71 @@ public class TalendDate {
     }
 
     /**
+     * return difference between two dates by floor
+     * 
+     * @param Date1 ( first date )
+     * @param Date1 ( second date )
+     * @param dateType value=("yyyy","MM") for type of return
+     * @return a number of years, months (date1 - date2)
+     * 
+     * {talendTypes} Long
+     * 
+     * {Category} TalendDate
+     * 
+     * {param} date(myDate) date1 : the first date to compare
+     * 
+     * {param} date(myDate2) date2 : the second date to compare
+     * 
+     * {param} String("MM") dateType : the difference on the specified part
+     * 
+     * {examples}
+     * 
+     * ->> diffDate(2009/05/10, 2008/10/15, "yyyy") : return 0
+     * 
+     * ->> diffDate(2009/05/10, 2008/10/15, "MM") : return 6
+     */
+    public static long diffDateFloor(Date date1, Date date2, String dateType) {
+        if (date1 == null) {
+            date1 = new Date(0);
+        }
+        if (date2 == null) {
+            date2 = new Date(0);
+        }
+
+        if (dateType == null) {
+            dateType = "yyyy";
+        }
+
+        Calendar c1 = Calendar.getInstance();
+        Calendar c2 = Calendar.getInstance();
+        c1.setTime(date1);
+        c2.setTime(date2);
+
+        long result = 0;
+        Calendar tmp = null;
+        boolean flag = false;
+        if (c1.compareTo(c2) < 0) {
+            flag = true;
+            tmp = c1;
+            c1 = c2;
+            c2 = tmp;
+        }
+        long diffMonth = (c1.get(Calendar.YEAR) - c2.get(Calendar.YEAR)) * 12 + (c1.get(Calendar.MONTH) - c2.get(Calendar.MONTH));
+        result = diffMonth + ((c1.get(Calendar.DAY_OF_MONTH) - c2.get(Calendar.DAY_OF_MONTH)) < 0 ? -1 : 0);
+        if (flag) {
+            result = -result;
+        }
+
+        if (dateType.equalsIgnoreCase("yyyy")) {
+            return result / 12;
+        } else if (dateType.equals("MM")) {
+            return result;
+        } else {
+            throw new RuntimeException("Can't support the dateType: " + dateType + " ,please try \"yyyy\" or \"MM\"");
+        }
+    }
+
+    /**
      * return difference between two dates
      * 
      * @param Date1 ( first date )
