@@ -15,14 +15,10 @@ package tosstudio.metadata.filemanipulation;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import junit.framework.Assert;
-
 import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
-import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
@@ -42,76 +38,22 @@ public class DeleteRegexFileTest extends TalendSwtBotForTos {
 
     private SWTBotView view;
 
-    private static final String FILENAME = "test_regex"; //$NON-NLS-1$
+    private SWTBotTreeItem treeNode;
 
-    private static final String SAMPLE_RELATIVE_FILEPATH = "test.txt"; //$NON-NLS-1$
+    private static final String FILENAME = "test_regex"; //$NON-NLS-1$
 
     @Before
     public void createRegexFile() throws IOException, URISyntaxException {
-        view = gefBot.viewByTitle("Repository");
+        view = Utilities.getRepositoryView(gefBot);
         view.setFocus();
-
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        tree.setFocus();
-
-        tree.expandNode("Metadata").getNode("File regex").contextMenu("Create file regex").click();
-        gefBot.waitUntil(Conditions.shellIsActive("New RegEx File"));
-        gefBot.shell("New RegEx File").activate();
-
-        gefBot.textWithLabel("Name").setText(FILENAME);
-        gefBot.button("Next >").click();
-        gefBot.textWithLabel("File").setText(
-                Utilities.getFileFromCurrentPluginSampleFolder(SAMPLE_RELATIVE_FILEPATH).getAbsolutePath());
-        gefBot.button("Next >").click();
-        gefBot.waitUntil(new DefaultCondition() {
-
-            public boolean test() throws Exception {
-
-                return gefBot.button("Next >").isEnabled();
-            }
-
-            public String getFailureMessage() {
-                gefBot.shell("New RegEx File").close();
-                return "next button was never enabled";
-            }
-        }, 60000);
-        gefBot.button("Next >").click();
-        gefBot.waitUntil(new DefaultCondition() {
-
-            public boolean test() throws Exception {
-
-                return gefBot.button("Finish").isEnabled();
-            }
-
-            public String getFailureMessage() {
-                gefBot.shell("New RegEx File").close();
-                return "finish button was never enabled";
-            }
-        });
-        gefBot.button("Finish").click();
-
-        SWTBotTreeItem newRegexItem = null;
-        try {
-            newRegexItem = tree.expandNode("Metadata").expandNode("File regex").getNode(FILENAME + " 0.1");
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            Assert.assertNotNull("file regex item is not created", newRegexItem);
-        }
+        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.FILE_REGEX);
+        Utilities.createFileRegex(FILENAME, treeNode, gefBot);
     }
 
     @Test
     public void deleteRegexFile() {
-        tree.expandNode("Metadata", "File regex").getNode(FILENAME + " 0.1").contextMenu("Delete").click();
-
-        SWTBotTreeItem newRegexItem = null;
-        try {
-            newRegexItem = tree.expandNode("Recycle bin").select(FILENAME + " 0.1" + " ()");
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            Assert.assertNotNull("file regex item is not deleted to recycle bin", newRegexItem);
-        }
+        Utilities.delete(tree, treeNode, FILENAME, "0.1", null);
     }
 
     @After

@@ -15,10 +15,7 @@ package tosstudio.metadata.copybook;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import junit.framework.Assert;
-
 import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
@@ -41,60 +38,22 @@ public class DeleteCopybookTest extends TalendSwtBotForTos {
 
     private SWTBotView view;
 
+    private SWTBotTreeItem treeNode;
+
     private static final String COPYBOOKNAME = "copybook1"; //$NON-NLS-1$
-
-    private static final String SAMPLE_RELATIVE_FILEPATH = "cobocurs.copybook"; //$NON-NLS-1$
-
-    private static final String SAMPLE_RELATIVE_DATAFILE = "datafil.dat"; //$NON-NLS-1$
 
     @Before
     public void createCopybook() throws IOException, URISyntaxException {
-        view = gefBot.viewByTitle("Repository");
+        view = Utilities.getRepositoryView(gefBot);
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        tree.setFocus();
-
-        tree.expandNode("Metadata").getNode("Copybook").contextMenu("Create EBCDIC").click();
-        gefBot.waitUntil(Conditions.shellIsActive("EBCDIC Connection"));
-        gefBot.shell("EBCDIC Connection").activate();
-
-        /* step 1 of 3 */
-        gefBot.textWithLabel("Name").setText(COPYBOOKNAME);
-        gefBot.button("Next >").click();
-
-        /* step 2 of 3 */
-        gefBot.textWithLabel("File").setText(
-                Utilities.getFileFromCurrentPluginSampleFolder(SAMPLE_RELATIVE_FILEPATH).getAbsolutePath());
-        gefBot.textWithLabel("Data file").setText(
-                Utilities.getFileFromCurrentPluginSampleFolder(SAMPLE_RELATIVE_DATAFILE).getAbsolutePath());
-        gefBot.button("Generate").click();
-        gefBot.button("Next >").click();
-
-        /* step 3 of 3 */
-        gefBot.button("Finish").click();
-
-        SWTBotTreeItem newCopybookItem = null;
-        try {
-            newCopybookItem = tree.expandNode("Metadata", "Copybook").select(COPYBOOKNAME + " 0.1");
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            Assert.assertNotNull("copybook item is not created", newCopybookItem);
-        }
+        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.COPYBOOK);
+        Utilities.createCopybook(COPYBOOKNAME, treeNode, gefBot);
     }
 
     @Test
     public void deleteCopybookTest() {
-        tree.expandNode("Metadata", "Copybook").getNode(COPYBOOKNAME + " 0.1").contextMenu("Delete").click();
-
-        SWTBotTreeItem newCopybookItem = null;
-        try {
-            newCopybookItem = tree.expandNode("Recycle bin").select(COPYBOOKNAME + " 0.1" + " ()");
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            Assert.assertNotNull("copybook item is not deleted to recycle bin", newCopybookItem);
-        }
+        Utilities.delete(tree, treeNode, COPYBOOKNAME, "0.1", null);
     }
 
     @After

@@ -15,14 +15,10 @@ package tosstudio.metadata.filemanipulation;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import junit.framework.Assert;
-
 import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
-import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
@@ -42,72 +38,26 @@ public class CreatePositionalFileTest extends TalendSwtBotForTos {
 
     private SWTBotView view;
 
-    private static final String FILENAME = "test_positional"; //$NON-NLS-1$
+    private SWTBotTreeItem treeNode;
 
-    private static final String SAMPLE_RELATIVE_FILEPATH = "test.txt"; //$NON-NLS-1$
+    private static final String FILENAME = "test_positional"; //$NON-NLS-1$
 
     @Before
     public void initialisePrivateFields() {
-        view = gefBot.viewByTitle("Repository");
+        view = Utilities.getRepositoryView(gefBot);
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
+        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.FILE_POSITIONAL);
     }
 
     @Test
     public void createPositionalFile() throws IOException, URISyntaxException {
-        tree.setFocus();
-
-        tree.expandNode("Metadata").getNode("File positional").contextMenu("Create file positional").click();
-        gefBot.waitUntil(Conditions.shellIsActive("New Positional File"));
-        gefBot.shell("New Positional File").activate();
-
-        gefBot.textWithLabel("Name").setText(FILENAME);
-        gefBot.button("Next >").click();
-        gefBot.textWithLabel("File").setText(
-                Utilities.getFileFromCurrentPluginSampleFolder(SAMPLE_RELATIVE_FILEPATH).getAbsolutePath());
-        gefBot.textWithLabel("Field Separator").setText("5,7,7,*");
-        gefBot.textWithLabel("Marker position").setText("5,12,19");
-        gefBot.button("Next >").click();
-        gefBot.waitUntil(new DefaultCondition() {
-
-            public boolean test() throws Exception {
-
-                return gefBot.button("Next >").isEnabled();
-            }
-
-            public String getFailureMessage() {
-                gefBot.shell("New Positional File").close();
-                return "next button was never enabled";
-            }
-        }, 60000);
-        gefBot.button("Next >").click();
-        gefBot.waitUntil(new DefaultCondition() {
-
-            public boolean test() throws Exception {
-
-                return gefBot.button("Finish").isEnabled();
-            }
-
-            public String getFailureMessage() {
-                gefBot.shell("New Positional File").close();
-                return "finish button was never enabled";
-            }
-        });
-        gefBot.button("Finish").click();
-
-        SWTBotTreeItem newPositionalItem = null;
-        try {
-            newPositionalItem = tree.expandNode("Metadata").expandNode("File positional").getNode(FILENAME + " 0.1");
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            Assert.assertNotNull("file positional is not created", newPositionalItem);
-        }
+        Utilities.createFilePositional(FILENAME, treeNode, gefBot);
     }
 
     @After
     public void removePreviouslyCreateItems() {
-        tree.expandNode("Metadata").expandNode("File positional").getNode(FILENAME + " 0.1").contextMenu("Delete").click();
+        Utilities.delete(tree, treeNode, FILENAME, "0.1", null);
         Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

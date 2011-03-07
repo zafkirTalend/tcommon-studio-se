@@ -16,8 +16,8 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,28 +35,29 @@ public class CreateSqlTemplateTest extends TalendSwtBotForTos {
 
     private SWTBotTree tree;
 
-    private SWTBotShell shell;
+    private SWTBotTreeItem treeNode;
 
     private static final String SQLTEMPLATENAME = "sqlTemplate1"; //$NON-NLS-1$
 
+    private static final String FOLDERPATH = "Generic/UserDefined"; //$NON-NLS-1$
+
     @Before
     public void initialisePrivateFields() {
-        view = gefBot.viewByTitle("Repository");
+        view = Utilities.getRepositoryView(gefBot);
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
+        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.SQL_TEMPLATES).expandNode("Generic", "UserDefined");
     }
 
     @Test
     public void createSqlTemplate() {
-        Utilities.createSqlTemplate(SQLTEMPLATENAME, tree, gefBot, shell);
+        Utilities.createSqlTemplate(SQLTEMPLATENAME, treeNode, gefBot);
     }
 
     @After
     public void removePreviouslyCreateItems() {
         gefBot.cTabItem(SQLTEMPLATENAME + " 0.1").close();
-        tree.expandNode("SQL Templates", "Generic", "UserDefined").getNode(SQLTEMPLATENAME + " 0.1").contextMenu("Delete")
-                .click();
-
+        Utilities.delete(tree, treeNode, SQLTEMPLATENAME, "0.1", FOLDERPATH);
         Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

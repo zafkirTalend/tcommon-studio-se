@@ -15,7 +15,6 @@ package tosstudio.components.basicelements;
 import junit.framework.Assert;
 
 import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
@@ -23,11 +22,13 @@ import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
+import org.talend.swtbot.Utilities;
 
 /**
  * DOC Administrator class global comment. Detailled comment
@@ -43,37 +44,22 @@ public class CopyComponentsBetweenJobTest extends TalendSwtBotForTos {
 
     private SWTBotGefEditor gefEditor;
 
+    private SWTBotTreeItem treeNode;
+
     private static final String JOBNAME1 = "CopyComponentsBetweenJob1"; //$NON-NLS-1$
 
     private static final String JOBNAME2 = "CopyComponentsBetweenJob2"; //$NON-NLS-1$
 
     @Before
     public void createJob() {
-        view = gefBot.viewByTitle("Repository");
+        view = Utilities.getRepositoryView(gefBot);
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        tree.setFocus();
+        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.JOB_DESIGNS);
         /* Create job1 */
-        tree.select("Job Designs").contextMenu("Create job").click();
-
-        gefBot.waitUntil(Conditions.shellIsActive("New job"));
-        shell = gefBot.shell("New job");
-        shell.activate();
-
-        gefBot.textWithLabel("Name").setText(JOBNAME1);
-
-        gefBot.button("Finish").click();
+        Utilities.createJob(JOBNAME1, treeNode, gefBot);
         /* Create job2 */
-        tree.select("Job Designs").contextMenu("Create job").click();
-
-        gefBot.waitUntil(Conditions.shellIsActive("New job"));
-        shell = gefBot.shell("New job");
-        shell.activate();
-
-        gefBot.textWithLabel("Name").setText(JOBNAME2);
-
-        gefBot.button("Finish").click();
-
+        Utilities.createJob(JOBNAME2, treeNode, gefBot);
         /* Use components in job1 */
         gefEditor = gefBot.gefEditor("Job " + JOBNAME1 + " 0.1");
         gefEditor.show();
@@ -134,10 +120,8 @@ public class CopyComponentsBetweenJobTest extends TalendSwtBotForTos {
     public void removePreviouslyCreateItems() {
         gefBot.gefEditor("Job " + JOBNAME1 + " 0.1").saveAndClose();
         gefBot.gefEditor("Job " + JOBNAME2 + " 0.1").saveAndClose();
-        tree.expandNode("Job Designs").getNode(JOBNAME1 + " 0.1").contextMenu("Delete").click();
-        tree.expandNode("Job Designs").getNode(JOBNAME2 + " 0.1").contextMenu("Delete").click();
-        tree.select("Recycle bin").contextMenu("Empty recycle bin").click();
-        gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
-        gefBot.button("Yes").click();
+        Utilities.delete(tree, treeNode, JOBNAME1, "0.1", null);
+        Utilities.delete(tree, treeNode, JOBNAME2, "0.1", null);
+        Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

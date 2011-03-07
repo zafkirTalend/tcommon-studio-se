@@ -17,8 +17,8 @@ import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotCTabItem;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -35,23 +35,24 @@ public class ViewDocumentationTest extends TalendSwtBotForTos {
 
     private SWTBotTree tree;
 
-    private SWTBotShell shell;
-
     private SWTBotView view;
+
+    private SWTBotTreeItem treeNode;
 
     private static final String JOBNAME = "test01"; //$NON-NLS-1$
 
     @Before
     public void createAJob() {
-        view = gefBot.viewByTitle("Repository");
+        view = Utilities.getRepositoryView(gefBot);
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        Utilities.createJob(JOBNAME, tree, gefBot, shell);
+        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.JOB_DESIGNS);
+        Utilities.createJob(JOBNAME, treeNode, gefBot);
     }
 
     @Test
     public void viewDocumentation() {
-        tree.expandNode("Job Designs").getNode(JOBNAME + " 0.1").contextMenu("View documentation").click();
+        treeNode.getNode(JOBNAME + " 0.1").contextMenu("View documentation").click();
 
         SWTBotCTabItem newDocumentTabItem = gefBot.cTabItem(JOBNAME + "_0.1.html");
         Assert.assertNotNull("document tab is not opened", newDocumentTabItem);
@@ -61,8 +62,7 @@ public class ViewDocumentationTest extends TalendSwtBotForTos {
     public void removePreviouslyCreateItems() {
         gefBot.cTabItem("Job " + JOBNAME + " 0.1").close();
         gefBot.cTabItem(JOBNAME + "_0.1.html").close();
-        tree.expandNode("Job Designs").getNode(JOBNAME + " 0.1").contextMenu("Delete").click();
-
+        Utilities.delete(tree, treeNode, JOBNAME, "0.1", null);
         Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

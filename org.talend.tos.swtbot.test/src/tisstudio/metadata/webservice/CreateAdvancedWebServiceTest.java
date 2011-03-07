@@ -12,13 +12,10 @@
 // ============================================================================
 package tisstudio.metadata.webservice;
 
-import junit.framework.Assert;
-
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
-import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
@@ -38,88 +35,28 @@ public class CreateAdvancedWebServiceTest extends TalendSwtBotForTos {
 
     private SWTBotTree tree;
 
-    private static final String WEBSERVICENAME = "webService2"; //$NON-NLS-1$
+    private SWTBotTreeItem treeNode;
+
+    private static final String WEBSERVICENAME = "webService1"; //$NON-NLS-1$
+
+    private static final String TYPE = "advanced"; //$NON-NLS-1$
 
     @Before
     public void initialisePrivateFields() {
-        view = gefBot.viewByTitle("Repository");
+        view = Utilities.getRepositoryView(gefBot);
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
+        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.WEB_SERVICE);
     }
 
     @Test
     public void createAdvancedWebService() {
-        tree.setFocus();
-
-        tree.expandNode("Metadata").getNode("Web Service").contextMenu("Create WSDL schema").click();
-        gefBot.waitUntil(Conditions.shellIsActive("Create new WSDL schema"));
-        gefBot.shell("Create new WSDL schema").activate();
-
-        /* step 1 of 4 */
-        gefBot.textWithLabel("Name").setText(WEBSERVICENAME);
-        gefBot.button("Next >").click();
-
-        /* step 2 of 4 */
-        gefBot.radio("Advanced WebService").click();
-        gefBot.button("Next >").click();
-
-        /* step 3 of 4 */
-        gefBot.button(1).click();// click refresh button
-        gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Progress Information")), 30000);
-        gefBot.tableWithLabel("Operation:").click(0, 0);
-
-        // set input mapping
-        // left schema
-        gefBot.cTabItem(" Input mapping ").activate();
-        gefBot.button("Schema Management").click();
-        gefBot.shell("Schema").activate();
-        gefBot.buttonWithTooltip("Add").click();
-        gefBot.button("OK").click();
-        // right schema
-        gefBot.table(1).click(0, 1);
-        gefBot.buttonWithTooltip("Add list element").click();
-        gefBot.shell("ParameterTree").activate();
-        gefBot.tree().select("City");
-        gefBot.button("OK").click();
-
-        gefBot.table(1).click(1, 0);
-        gefBot.text().setText("input.newColumn");
-
-        // set output mapping
-        // left schema
-        gefBot.cTabItem(" Output mapping ").activate();
-        gefBot.table(0).click(0, 0);
-        gefBot.buttonWithTooltip("Add List element").click();
-        gefBot.shell("ParameterTree").activate();
-        gefBot.tree().select("GetWeatherResult");
-        gefBot.button("OK").click();
-        // right schema
-        gefBot.button("...").click();
-        gefBot.buttonWithTooltip("Add").click();
-        gefBot.button("OK").click();
-
-        gefBot.table(1).click(0, 0);
-        gefBot.text().setText("parameters.GetWeatherResult");
-
-        gefBot.button("Next >").click();
-
-        /* step 4 of 4 */
-        gefBot.button("Finish").click();
-
-        SWTBotTreeItem newWebServiceItem = null;
-        try {
-            newWebServiceItem = tree.expandNode("Metadata", "Web Service").select(WEBSERVICENAME + " 0.1");
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            Assert.assertNotNull("web service item is not created", newWebServiceItem);
-        }
+        Utilities.createWebService(TYPE, WEBSERVICENAME, treeNode, gefBot);
     }
 
     @After
     public void removePreviouslyCreateItems() {
-        tree.expandNode("Metadata", "Web Service").getNode(WEBSERVICENAME + " 0.1").contextMenu("Delete").click();
-
+        Utilities.delete(tree, treeNode, WEBSERVICENAME, "0.1", null);
         Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

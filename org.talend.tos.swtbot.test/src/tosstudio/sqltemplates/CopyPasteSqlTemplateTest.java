@@ -12,13 +12,10 @@
 // ============================================================================
 package tosstudio.sqltemplates;
 
-import junit.framework.Assert;
-
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
@@ -38,42 +35,31 @@ public class CopyPasteSqlTemplateTest extends TalendSwtBotForTos {
 
     private SWTBotTree tree;
 
-    private SWTBotShell shell;
+    private SWTBotTreeItem treeNode;
 
     private static final String SQLTEMPLATENAME = "sqlTemplate1"; //$NON-NLS-1$
 
+    private static final String FOLDERPATH = "Generic/UserDefined"; //$NON-NLS-1$
+
     @Before
     public void createSqlTemplate() {
-        view = gefBot.viewByTitle("Repository");
+        view = Utilities.getRepositoryView(gefBot);
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        Utilities.createSqlTemplate(SQLTEMPLATENAME, tree, gefBot, shell);
+        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.SQL_TEMPLATES).expandNode("Generic", "UserDefined");
+        Utilities.createSqlTemplate(SQLTEMPLATENAME, treeNode, gefBot);
     }
 
     @Test
     public void copyAndPasteSqlTemplate() {
-        tree.expandNode("SQL Templates", "Generic", "UserDefined").getNode(SQLTEMPLATENAME + " 0.1").contextMenu("Copy").click();
-        tree.expandNode("SQL Templates", "Generic").getNode("UserDefined").contextMenu("Paste").click();
-
-        SWTBotTreeItem newSqlTemplateItem = null;
-        try {
-            newSqlTemplateItem = tree.expandNode("SQL Templates", "Generic", "UserDefined").select(
-                    "Copy_of_" + SQLTEMPLATENAME + " 0.1");
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            Assert.assertNotNull("SQL Template item is not copied", newSqlTemplateItem);
-        }
+        Utilities.copyAndPaste(treeNode, SQLTEMPLATENAME, "0.1");
     }
 
     @After
     public void removePreviouslyCreateItems() {
         gefBot.cTabItem(SQLTEMPLATENAME + " 0.1").close();
-        tree.expandNode("SQL Templates", "Generic", "UserDefined").getNode(SQLTEMPLATENAME + " 0.1").contextMenu("Delete")
-                .click();
-        tree.expandNode("SQL Templates", "Generic", "UserDefined").getNode("Copy_of_" + SQLTEMPLATENAME + " 0.1")
-                .contextMenu("Delete").click();
-
+        Utilities.delete(tree, treeNode, SQLTEMPLATENAME, "0.1", FOLDERPATH);
+        Utilities.delete(tree, treeNode, "Copy_of_" + SQLTEMPLATENAME, "0.1", FOLDERPATH);
         Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

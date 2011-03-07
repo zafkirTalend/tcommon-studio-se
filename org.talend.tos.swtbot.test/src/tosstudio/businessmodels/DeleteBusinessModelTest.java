@@ -12,13 +12,10 @@
 // ============================================================================
 package tosstudio.businessmodels;
 
-import junit.framework.Assert;
-
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
@@ -36,33 +33,25 @@ public class DeleteBusinessModelTest extends TalendSwtBotForTos {
 
     private SWTBotTree tree;
 
-    private SWTBotShell shell;
-
     private SWTBotView view;
+
+    private SWTBotTreeItem treeNode;
 
     private static final String BUSINESSMODELNAME = "businessModel1"; //$NON-NLS-1$
 
     @Before
     public void initialisePrivateFields() {
-        view = gefBot.viewByTitle("Repository");
+        view = Utilities.getRepositoryView(gefBot);
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        Utilities.createBusinessModel(BUSINESSMODELNAME, tree, gefBot, shell);
+        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.BUSINESS_MODEL);
+        Utilities.createBusinessModel(BUSINESSMODELNAME, treeNode, gefBot);
     }
 
     @Test
     public void deleteBusinessModel() {
         gefBot.cTabItem("Model " + BUSINESSMODELNAME).close();
-        tree.expandNode("Business Models").getNode(BUSINESSMODELNAME + " 0.1").contextMenu("Delete").click();
-
-        SWTBotTreeItem newBusinessModelItem = null;
-        try {
-            newBusinessModelItem = tree.expandNode("Recycle bin").select(BUSINESSMODELNAME + " 0.1" + " ()");
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            Assert.assertNotNull("business model is not deleted to recycle bin", newBusinessModelItem);
-        }
+        Utilities.delete(tree, treeNode, BUSINESSMODELNAME, "0.1", null);
     }
 
     @After

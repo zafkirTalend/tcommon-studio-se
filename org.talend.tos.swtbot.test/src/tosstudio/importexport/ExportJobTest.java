@@ -20,11 +20,10 @@ import junit.framework.Assert;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
-import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,11 +39,9 @@ public class ExportJobTest extends TalendSwtBotForTos {
 
     private SWTBotTree tree;
 
-    private SWTBotShell shell;
-
     private SWTBotView view;
 
-    private SWTBotGefEditor gefEditor;
+    private SWTBotTreeItem treeNode;
 
     private static final String JOBNAME = "test01"; //$NON-NLS-1$
 
@@ -54,10 +51,11 @@ public class ExportJobTest extends TalendSwtBotForTos {
 
     @Before
     public void createAJob() {
-        view = gefBot.viewByTitle("Repository");
+        view = Utilities.getRepositoryView(gefBot);
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        Utilities.createJob(JOBNAME, tree, gefBot, shell);
+        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.JOB_DESIGNS);
+        Utilities.createJob(JOBNAME, treeNode, gefBot);
     }
 
     @Test
@@ -77,8 +75,7 @@ public class ExportJobTest extends TalendSwtBotForTos {
     public void removePreviouslyCreateItems() throws IOException, URISyntaxException {
         Utilities.getFileFromCurrentPluginSampleFolder("output_job.zip").delete();
         gefBot.cTabItem("Job " + JOBNAME + " 0.1").close();
-        tree.expandNode("Job Designs").getNode(JOBNAME + " 0.1").contextMenu("Delete").click();
-
+        Utilities.delete(tree, treeNode, JOBNAME, "0.1", null);
         Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

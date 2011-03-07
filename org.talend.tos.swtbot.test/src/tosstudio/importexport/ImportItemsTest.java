@@ -56,7 +56,7 @@ public class ImportItemsTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() {
-        view = gefBot.viewByTitle("Repository");
+        view = Utilities.getRepositoryView(gefBot);
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
     }
 

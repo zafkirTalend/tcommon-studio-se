@@ -17,6 +17,7 @@ import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,6 +35,8 @@ public class CreateMysqlTest extends TalendSwtBotForTos {
 
     private SWTBotView view;
 
+    private SWTBotTreeItem treeNode;
+
     private static final String DBNAME = "test_mysql"; //$NON-NLS-1$
 
     @Before
@@ -41,16 +44,17 @@ public class CreateMysqlTest extends TalendSwtBotForTos {
         view = gefBot.viewByTitle("Repository");
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
+        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.DB_CONNECTIONS);
     }
 
     @Test
     public void createMySQL() {
-        Utilities.createDbConnection(gefBot, tree, Utilities.DbConnectionType.MYSQL, DBNAME);
+        Utilities.createDbConnection(gefBot, treeNode, Utilities.DbConnectionType.MYSQL, DBNAME);
     }
 
     @After
     public void removePreviouslyCreateItems() {
-        tree.expandNode("Metadata", "Db Connections").getNode(DBNAME + " 0.1").contextMenu("Delete").click();
+        Utilities.delete(tree, treeNode, DBNAME, "0.1", null);
         Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

@@ -16,7 +16,6 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
@@ -35,24 +34,25 @@ public class CreateNewVersionOfJobTest extends TalendSwtBotForTos {
 
     private SWTBotTree tree;
 
-    private SWTBotShell shell;
-
     private SWTBotView view;
+
+    private SWTBotTreeItem treeNode;
 
     private static final String JOBNAME = "test01"; //$NON-NLS-1$
 
     @Before
     public void createAJob() {
-        view = gefBot.viewByTitle("Repository");
+        view = Utilities.getRepositoryView(gefBot);
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        Utilities.createJob(JOBNAME, tree, gefBot, shell);
+        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.JOB_DESIGNS);
+        Utilities.createJob(JOBNAME, treeNode, gefBot);
     }
 
     @Test
     public void createNewVersionOfJob() {
         gefBot.cTabItem("Job " + JOBNAME + " 0.1").close();
-        tree.expandNode("Job Designs").getNode(JOBNAME + " 0.1").contextMenu("Edit properties").click();
+        treeNode.getNode(JOBNAME + " 0.1").contextMenu("Edit properties").click();
 
         gefBot.shell("Edit properties").activate();
         gefBot.button("M").click();
@@ -61,7 +61,7 @@ public class CreateNewVersionOfJobTest extends TalendSwtBotForTos {
 
         SWTBotTreeItem newJobItem = null;
         try {
-            newJobItem = tree.expandNode("Job Designs").select(JOBNAME + " 1.1");
+            newJobItem = treeNode.select(JOBNAME + " 1.1");
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -71,8 +71,7 @@ public class CreateNewVersionOfJobTest extends TalendSwtBotForTos {
 
     @After
     public void removePreviouslyCreateItems() {
-        tree.expandNode("Job Designs").getNode(JOBNAME + " 1.1").contextMenu("Delete").click();
-
+        Utilities.delete(tree, treeNode, JOBNAME, "1.1", null);
         Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

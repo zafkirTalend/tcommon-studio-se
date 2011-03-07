@@ -19,7 +19,6 @@ import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,42 +35,23 @@ public class DeleteJobScriptTest extends TalendSwtBotForTos {
 
     private SWTBotTree tree;
 
+    private SWTBotTreeItem treeNode;
+
     private static final String JOBSCRIPT_NAME = "jobscript1"; //$NON-NLS-1$
 
     @Before
     public void initialisePrivateFields() {
-        view = gefBot.viewByTitle("Repository");
+        view = Utilities.getRepositoryView(gefBot);
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        tree.setFocus();
-        tree.expandNode("Code").getNode("Job Scripts").contextMenu("Create JobScript").click();
-
-        gefBot.textWithLabel("Name").setText(JOBSCRIPT_NAME);
-        gefBot.button("Finish").click();
-
-        SWTBotTreeItem newJobScriptItem = null;
-        try {
-            newJobScriptItem = tree.expandNode("Code", "Job Scripts").select(JOBSCRIPT_NAME + " 0.1");
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            Assert.assertNotNull("jobscript is not created", newJobScriptItem);
-        }
+        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.JOBSCRIPTS);
+        Utilities.createJobScript(JOBSCRIPT_NAME, treeNode, gefBot);
     }
 
     @Test
     public void deleteJobScript() {
         gefBot.cTabItem(JOBSCRIPT_NAME + "_0.1.jobscript").close();
-        tree.expandNode("Code", "Job Scripts").getNode(JOBSCRIPT_NAME + " 0.1").contextMenu("Delete").click();
-
-        SWTBotTreeItem newJobScriptItem = null;
-        try {
-            newJobScriptItem = tree.expandNode("Recycle bin").select(JOBSCRIPT_NAME + " 0.1" + " ()");
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            Assert.assertNotNull("jobscript is not deleted to recycle bin", newJobScriptItem);
-        }
+        Utilities.delete(tree, treeNode, JOBSCRIPT_NAME, "0.1", null);
     }
 
     @After

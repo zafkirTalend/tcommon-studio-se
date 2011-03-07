@@ -12,14 +12,10 @@
 // ============================================================================
 package tisstudio.metadata.webservice;
 
-import junit.framework.Assert;
-
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
-import org.eclipse.swtbot.swt.finder.waits.Conditions;
-import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
@@ -39,82 +35,28 @@ public class CreateSimpleWebServiceTest extends TalendSwtBotForTos {
 
     private SWTBotTree tree;
 
+    private SWTBotTreeItem treeNode;
+
     private static final String WEBSERVICENAME = "webService1"; //$NON-NLS-1$
 
-    private static final String URL = "http://www.deeptraining.com/webservices/weather.asmx?WSDL"; //$NON-NLS-1$
-
-    private static final String METHOD = "GetWeather"; //$NON-NLS-1$
+    private static final String TYPE = "simple"; //$NON-NLS-1$
 
     @Before
     public void initialisePrivateFields() {
-        view = gefBot.viewByTitle("Repository");
+        view = Utilities.getRepositoryView(gefBot);
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
+        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.WEB_SERVICE);
     }
 
     @Test
     public void createSimpleWebService() {
-        tree.setFocus();
-
-        tree.expandNode("Metadata").getNode("Web Service").contextMenu("Create WSDL schema").click();
-        gefBot.waitUntil(Conditions.shellIsActive("Create new WSDL schema"));
-        gefBot.shell("Create new WSDL schema").activate();
-
-        /* step 1 of 4 */
-        gefBot.textWithLabel("Name").setText(WEBSERVICENAME);
-        gefBot.button("Next >").click();
-
-        /* step 2 of 4 */
-        gefBot.button("Next >").click();
-
-        /* step 3 of 4 */
-        gefBot.textWithLabel("WSDL").setText(URL);
-        gefBot.textWithLabel("Method").setText(METHOD);
-        gefBot.button("Add ").click();
-        gefBot.button("Refresh Preview").click();
-        gefBot.waitUntil(new DefaultCondition() {
-
-            public boolean test() throws Exception {
-
-                return gefBot.button("Next >").isEnabled();
-            }
-
-            public String getFailureMessage() {
-                gefBot.shell("Create new WSDL schema").close();
-                return "next button was never enabled";
-            }
-        }, 60000);
-        gefBot.button("Next >").click();
-
-        /* step 4 of 4 */
-        gefBot.waitUntil(new DefaultCondition() {
-
-            public boolean test() throws Exception {
-
-                return gefBot.button("Finish").isEnabled();
-            }
-
-            public String getFailureMessage() {
-                gefBot.shell("Create new WSDL schema").close();
-                return "finish button was never enabled";
-            }
-        });
-        gefBot.button("Finish").click();
-
-        SWTBotTreeItem newWebServiceItem = null;
-        try {
-            newWebServiceItem = tree.expandNode("Metadata", "Web Service").select(WEBSERVICENAME + " 0.1");
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            Assert.assertNotNull("web service item is not created", newWebServiceItem);
-        }
+        Utilities.createWebService(TYPE, WEBSERVICENAME, treeNode, gefBot);
     }
 
     @After
     public void removePreviouslyCreateItems() {
-        tree.expandNode("Metadata", "Web Service").getNode(WEBSERVICENAME + " 0.1").contextMenu("Delete").click();
-
+        Utilities.delete(tree, treeNode, WEBSERVICENAME, "0.1", null);
         Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

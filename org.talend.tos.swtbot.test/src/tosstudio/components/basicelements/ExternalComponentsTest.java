@@ -24,12 +24,14 @@ import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
+import org.talend.swtbot.Utilities;
 
 /**
  * DOC Administrator class global comment. Detailled comment
@@ -45,24 +47,17 @@ public class ExternalComponentsTest extends TalendSwtBotForTos {
 
     private SWTBotGefEditor gefEditor;
 
+    private SWTBotTreeItem treeNode;
+
     private static final String JOBNAME = "ExternalComponentsTesting"; //$NON-NLS-1$
 
     @Before
     public void createJob() {
-        view = gefBot.viewByTitle("Repository");
+        view = Utilities.getRepositoryView(gefBot);
         view.setFocus();
-
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        tree.setFocus();
-        tree.select("Job Designs").contextMenu("Create job").click();
-
-        gefBot.waitUntil(Conditions.shellIsActive("New job"));
-        shell = gefBot.shell("New job");
-        shell.activate();
-
-        gefBot.textWithLabel("Name").setText(JOBNAME);
-
-        gefBot.button("Finish").click();
+        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.JOB_DESIGNS);
+        Utilities.createJob(JOBNAME, treeNode, gefBot);
     }
 
     @Test
@@ -153,9 +148,7 @@ public class ExternalComponentsTest extends TalendSwtBotForTos {
     @After
     public void removePreviousCreateItems() {
         gefEditor.saveAndClose();
-        tree.expandNode("Job Designs").getNode(JOBNAME + " 0.1").contextMenu("Delete").click();
-        tree.select("Recycle bin").contextMenu("Empty recycle bin").click();
-        gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
-        gefBot.button("Yes").click();
+        Utilities.delete(tree, treeNode, JOBNAME, "0.1", null);
+        Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

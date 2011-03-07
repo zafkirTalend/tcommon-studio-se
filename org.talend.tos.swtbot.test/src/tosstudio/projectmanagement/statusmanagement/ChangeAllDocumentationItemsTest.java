@@ -16,12 +16,12 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -42,19 +42,16 @@ public class ChangeAllDocumentationItemsTest extends TalendSwtBotForTos {
 
     private SWTBotShell shell;
 
+    private SWTBotTreeItem treeNode;
+
     private static final String BUSINESSMODELNAME = "businessModel1"; //$NON-NLS-1$
 
     @Before
     public void initialisePrivateFields() throws IOException, URISyntaxException {
-        view = gefBot.viewByTitle("Repository");
+        view = Utilities.getRepositoryView(gefBot);
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        tree.setFocus();
-        tree.select("Business Models").contextMenu("Create Business Model").click();
-        gefBot.waitUntil(Conditions.shellIsActive("New Business Model"));
-        shell = gefBot.shell("New Business Model");
-        shell.activate();
-        gefBot.textWithLabel("Name").setText(BUSINESSMODELNAME);
-        gefBot.button("Finish").click();
+        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.BUSINESS_MODEL);
+        Utilities.createBusinessModel(BUSINESSMODELNAME, treeNode, gefBot);
         gefBot.cTabItem("Model " + BUSINESSMODELNAME).close();
     }
 
@@ -82,8 +79,7 @@ public class ChangeAllDocumentationItemsTest extends TalendSwtBotForTos {
     @After
     public void removePreviouslyCreateItems() {
         shell.close();
-        tree.expandNode("Business Models").getNode(BUSINESSMODELNAME + " 0.1").contextMenu("Delete").click();
-
+        Utilities.delete(tree, treeNode, BUSINESSMODELNAME, "0.1", null);
         Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

@@ -15,14 +15,10 @@ package tosstudio.metadata.filemanipulation;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import junit.framework.Assert;
-
 import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
-import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
@@ -42,67 +38,24 @@ public class DeleteLdifFileTest extends TalendSwtBotForTos {
 
     private SWTBotView view;
 
+    private SWTBotTreeItem treeNode;
+
     private static final String FILENAME = "test_ldif"; //$NON-NLS-1$
 
     private static final String SAMPLE_RELATIVE_FILEPATH = "test.ldif"; //$NON-NLS-1$
 
     @Before
     public void createLdifFile() throws IOException, URISyntaxException {
-        view = gefBot.viewByTitle("Repository");
+        view = Utilities.getRepositoryView(gefBot);
         view.setFocus();
-
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        tree.setFocus();
-
-        tree.expandNode("Metadata").getNode("File ldif").contextMenu("Create file ldif").click();
-        gefBot.waitUntil(Conditions.shellIsActive("New Ldif File"));
-        gefBot.shell("New Ldif File").activate();
-
-        gefBot.textWithLabel("Name").setText(FILENAME);
-        gefBot.button("Next >").click();
-        gefBot.textWithLabel("File").setText(
-                Utilities.getFileFromCurrentPluginSampleFolder(SAMPLE_RELATIVE_FILEPATH).getAbsolutePath());
-        gefBot.button("Next >").click();
-        for (int i = 0; i < 5; i++) {
-            gefBot.tableInGroup("List Attributes of Ldif file").getTableItem(i).check();
-        }
-        gefBot.button("Next >").click();
-        gefBot.waitUntil(new DefaultCondition() {
-
-            public boolean test() throws Exception {
-
-                return gefBot.button("Finish").isEnabled();
-            }
-
-            public String getFailureMessage() {
-                gefBot.shell("New Ldif File").close();
-                return "finish button was never enabled";
-            }
-        });
-        gefBot.button("Finish").click();
-
-        SWTBotTreeItem newLdifItem = null;
-        try {
-            newLdifItem = tree.expandNode("Metadata", "File ldif").select(FILENAME + " 0.1");
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            Assert.assertNotNull("file ldif is not created", newLdifItem);
-        }
+        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.FILE_LDIF);
+        Utilities.createFileLdif(FILENAME, treeNode, gefBot);
     }
 
     @Test
     public void deleteLdifFile() {
-        tree.expandNode("Metadata", "File ldif").getNode(FILENAME + " 0.1").contextMenu("Delete").click();
-
-        SWTBotTreeItem newLdifItem = null;
-        try {
-            newLdifItem = tree.expandNode("Recycle bin").select(FILENAME + " 0.1" + " ()");
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            Assert.assertNotNull("file ldif is not deleted to recycle bin", newLdifItem);
-        }
+        Utilities.delete(tree, treeNode, FILENAME, "0.1", null);
     }
 
     @After

@@ -12,14 +12,10 @@
 // ============================================================================
 package tosstudio.metadata.salesforce;
 
-import junit.framework.Assert;
-
 import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
-import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
@@ -39,105 +35,28 @@ public class CopyPasteSalesforceTest extends TalendSwtBotForTos {
 
     private SWTBotView view;
 
+    private SWTBotTreeItem treeNode;
+
     private static final String SALESFORCENAME = "saleforce1"; //$NON-NLS-1$
-
-    private static final String USERNAME = "cantoine@talend.com"; //$NON-NLS-1$
-
-    private static final String PASSWORD = "talendehmrEvHz2xZ8f2KlmTCymS0XU"; //$NON-NLS-1$
 
     @Before
     public void initialisePrivateFields() {
-        view = gefBot.viewByTitle("Repository");
+        view = Utilities.getRepositoryView(gefBot);
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        tree.setFocus();
-
-        tree.expandNode("Metadata").getNode("Salesforce").contextMenu("Create Salesforce schema").click();
-        gefBot.shell("New Salesforce ").activate();
-        gefBot.waitUntil(Conditions.shellIsActive("New Salesforce "));
-
-        /* step 1 of 4 */
-        gefBot.textWithLabel("Name").setText(SALESFORCENAME);
-        gefBot.button("Next >").click();
-
-        /* step 2 of 4 */
-        gefBot.textWithLabel("User name").setText(USERNAME);
-        gefBot.textWithLabel("Password ").setText(PASSWORD);
-        gefBot.button("Check login").click();
-
-        gefBot.waitUntil(new DefaultCondition() {
-
-            public boolean test() throws Exception {
-                return gefBot.shell("Check Connection ").isActive();
-            }
-
-            public String getFailureMessage() {
-                gefBot.shell("New Salesforce ").close();
-                return "connection failure";
-            }
-        }, 30000);
-        gefBot.button("OK").click();
-        gefBot.button("Next >").click();
-
-        /* step 3 of 4 */
-        gefBot.waitUntil(new DefaultCondition() {
-
-            public boolean test() throws Exception {
-                return gefBot.button("Next >").isEnabled();
-            }
-
-            public String getFailureMessage() {
-                gefBot.shell("New Salesforce ").close();
-                return "next button was never enabled";
-            }
-        }, 60000);
-        gefBot.button("Next >").click();
-
-        /* step 4 of 4 */
-        gefBot.waitUntil(new DefaultCondition() {
-
-            public boolean test() throws Exception {
-                return gefBot.button("Finish").isEnabled();
-            }
-
-            public String getFailureMessage() {
-                gefBot.shell("New Salesforce ").close();
-                return "finish button was never enabled";
-            }
-        });
-        gefBot.button("Finish").click();
-
-        SWTBotTreeItem newSalesforceItem = null;
-        try {
-            newSalesforceItem = tree.expandNode("Metadata").expandNode("Salesforce").getNode(SALESFORCENAME + " 0.1");
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            Assert.assertNotNull("salesforce item is not created", newSalesforceItem);
-        }
+        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.SALESFORCE);
+        Utilities.createSalesforce(SALESFORCENAME, treeNode, gefBot);
     }
 
     @Test
     public void copyAndPasteSalesforce() {
-        tree.expandNode("Metadata", "Salesforce").getNode(SALESFORCENAME + " 0.1").contextMenu("Copy").click();
-        tree.expandNode("Metadata", "Salesforce").contextMenu("Paste").click();
-
-        SWTBotTreeItem newSalesforceItem = null;
-        try {
-            newSalesforceItem = tree.expandNode("Metadata").expandNode("Salesforce").select("Copy_of_" + SALESFORCENAME + " 0.1");
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            Assert.assertNotNull("salesforce item is not copied", newSalesforceItem);
-        }
+        Utilities.copyAndPaste(treeNode, SALESFORCENAME, "0.1");
     }
 
     @After
     public void removePreviouslyCreateItems() {
-        tree.expandNode("Metadata").expandNode("Salesforce").getNode(SALESFORCENAME + " 0.1").contextMenu("Delete").click();
-        tree.expandNode("Metadata").expandNode("Salesforce").getNode("Copy_of_" + SALESFORCENAME + " 0.1").contextMenu("Delete")
-                .click();
-
+        Utilities.delete(tree, treeNode, SALESFORCENAME, "0.1", null);
+        Utilities.delete(tree, treeNode, "Copy_of_" + SALESFORCENAME, "0.1", null);
         Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

@@ -19,7 +19,6 @@ import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,38 +35,27 @@ public class CreateJobScriptTest extends TalendSwtBotForTos {
 
     private SWTBotTree tree;
 
+    private SWTBotTreeItem treeNode;
+
     private static final String JOBSCRIPT_NAME = "jobscript1"; //$NON-NLS-1$
 
     @Before
     public void initialisePrivateFields() {
-        view = gefBot.viewByTitle("Repository");
+        view = Utilities.getRepositoryView(gefBot);
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
+        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.JOBSCRIPTS);
     }
 
     @Test
     public void createJobScript() {
-        tree.setFocus();
-        tree.expandNode("Code").getNode("Job Scripts").contextMenu("Create JobScript").click();
-
-        gefBot.textWithLabel("Name").setText(JOBSCRIPT_NAME);
-        gefBot.button("Finish").click();
-
-        SWTBotTreeItem newJobScriptItem = null;
-        try {
-            newJobScriptItem = tree.expandNode("Code", "Job Scripts").select(JOBSCRIPT_NAME + " 0.1");
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            Assert.assertNotNull("jobscript is not created", newJobScriptItem);
-        }
+        Utilities.createJobScript(JOBSCRIPT_NAME, treeNode, gefBot);
     }
 
     @After
     public void removePreviousCreateItems() {
         gefBot.cTabItem(JOBSCRIPT_NAME + "_0.1.jobscript").close();
-        tree.expandNode("Code", "Job Scripts").getNode(JOBSCRIPT_NAME + " 0.1").contextMenu("Delete").click();
-
+        Utilities.delete(tree, treeNode, JOBSCRIPT_NAME, "0.1", null);
         Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

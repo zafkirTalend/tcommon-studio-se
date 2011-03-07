@@ -12,15 +12,10 @@
 // ============================================================================
 package tosstudio.metadata.ldap;
 
-import junit.framework.Assert;
-
 import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
-import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
@@ -38,135 +33,30 @@ public class CopyPasteLdapTest extends TalendSwtBotForTos {
 
     private SWTBotTree tree;
 
-    private SWTBotShell shell;
-
     private SWTBotView view;
+
+    private SWTBotTreeItem treeNode;
 
     private static final String LDAPNAME = "ldap1"; //$NON-NLS-1$
 
-    private static final String HOSTNAME = "192.168.0.244"; //$NON-NLS-1$
-
-    private static final String PORT = "389"; //$NON-NLS-1$
-
-    private static final String DN_OR_USER = "cn=Manager,dc=example,dc=com"; //$NON-NLS-1$
-
-    private static final String PASSWORD = "secret"; //$NON-NLS-1$
-
     @Before
     public void initialisePrivateFields() {
-        view = gefBot.viewByTitle("Repository");
+        view = Utilities.getRepositoryView(gefBot);
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        tree.setFocus();
-
-        tree.expandNode("Metadata").getNode("LDAP").contextMenu("Create LDAP schema").click();
-        gefBot.waitUntil(Conditions.shellIsActive("Create new LDAP schema"));
-        gefBot.shell("Create new LDAP schema").activate();
-
-        /* step 1 of 5 */
-        gefBot.textWithLabel("Name").setText(LDAPNAME);
-        gefBot.button("Next >").click();
-
-        /* step 2 of 5 */
-        gefBot.comboBoxWithLabel("Hostname:").setText(HOSTNAME);
-        gefBot.comboBoxWithLabel("Port:").setText(PORT);
-        gefBot.button("Check Network Parameter").click();
-
-        gefBot.waitUntil(Conditions.shellIsActive("Check Network Parameter"), 20000);
-        shell = gefBot.shell("Check Network Parameter");
-        gefBot.button("OK").click();
-        gefBot.waitUntil(Conditions.shellCloses(shell));
-        gefBot.waitUntil(new DefaultCondition() {
-
-            public boolean test() throws Exception {
-                return gefBot.button("Next >").isEnabled();
-            }
-
-            public String getFailureMessage() {
-                gefBot.shell("Create new LDAP schema").close();
-                return "connection failure";
-            }
-        });
-        gefBot.button("Next >").click();
-
-        /* step 3 of 5 */
-        gefBot.comboBoxWithLabel("Bind DN or user:").setText(DN_OR_USER);
-        gefBot.textWithLabel("Bind password:").setText(PASSWORD);
-        gefBot.button("Check Authentication").click();
-
-        gefBot.waitUntil(Conditions.shellIsActive("Check Authentication Parameter"), 20000);
-        shell = gefBot.shell("Check Authentication Parameter");
-        gefBot.button("OK").click();
-        gefBot.waitUntil(Conditions.shellCloses(shell));
-        gefBot.button("Fetch Base DNs").click();
-
-        gefBot.waitUntil(Conditions.shellIsActive("Fetch base DNs"));
-        shell = gefBot.shell("Fetch base DNs");
-        gefBot.button("OK").click();
-        gefBot.waitUntil(Conditions.shellCloses(shell));
-        gefBot.button("Next >").click();
-
-        /* step 4 of 5 */
-        for (int i = 0; i < 5; i++) {
-            gefBot.tableInGroup("List attributes of LDAP Schema").getTableItem(i).check();
-        }
-        gefBot.button("Refresh Preview").click();
-        gefBot.waitUntil(new DefaultCondition() {
-
-            public boolean test() throws Exception {
-                return gefBot.button("Next >").isEnabled();
-            }
-
-            public String getFailureMessage() {
-                gefBot.shell("Create new LDAP schema").close();
-                return "next button was never enabled";
-            }
-        }, 60000);
-        gefBot.button("Next >").click();
-
-        /* step 5 of 5 */
-        gefBot.waitUntil(new DefaultCondition() {
-
-            public boolean test() throws Exception {
-                return gefBot.button("Finish").isEnabled();
-            }
-
-            public String getFailureMessage() {
-                gefBot.shell("Create new LDAP schema").close();
-                return "finish button was never enabled";
-            }
-        });
-        gefBot.button("Finish").click();
-
-        SWTBotTreeItem newLdapItem = null;
-        try {
-            newLdapItem = tree.expandNode("Metadata", "LDAP").select(LDAPNAME + " 0.1");
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            Assert.assertNotNull("ldap item is not created", newLdapItem);
-        }
+        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.LDAP);
+        Utilities.createLdap(LDAPNAME, treeNode, gefBot);
     }
 
     @Test
     public void copyAndPasteLdap() {
-        tree.expandNode("Metadata", "LDAP").getNode(LDAPNAME + " 0.1").contextMenu("Copy").click();
-        tree.select("Metadata", "LDAP").contextMenu("Paste").click();
-
-        SWTBotTreeItem newLdapItem = null;
-        try {
-            newLdapItem = tree.expandNode("Metadata", "LDAP").select("Copy_of_" + LDAPNAME + " 0.1");
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            Assert.assertNotNull("ldap item is not copied", newLdapItem);
-        }
+        Utilities.copyAndPaste(treeNode, LDAPNAME, "0.1");
     }
 
     @After
     public void removePreviouslyCreateItems() {
-        tree.expandNode("Metadata").expandNode("LDAP").getNode(LDAPNAME + " 0.1").contextMenu("Delete").click();
-        tree.expandNode("Metadata").expandNode("LDAP").getNode("Copy_of_" + LDAPNAME + " 0.1").contextMenu("Delete").click();
+        Utilities.delete(tree, treeNode, LDAPNAME, "0.1", null);
+        Utilities.delete(tree, treeNode, "Copy_of_" + LDAPNAME, "0.1", null);
         Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

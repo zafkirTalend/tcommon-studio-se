@@ -32,7 +32,7 @@ import org.talend.swtbot.Utilities;
  * DOC Administrator class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class DeleteXmlFileTest extends TalendSwtBotForTos {
+public class DuplicateDelimitedFileTest extends TalendSwtBotForTos {
 
     private SWTBotTree tree;
 
@@ -40,24 +40,28 @@ public class DeleteXmlFileTest extends TalendSwtBotForTos {
 
     private SWTBotTreeItem treeNode;
 
-    private static final String FILENAME = "test_xml"; //$NON-NLS-1$
+    private static final String FILENAME = "test_delimited"; //$NON-NLS-1$
+
+    private static final String NEW_FILENAME = "duplicate_delimited"; //$NON-NLS-1$
 
     @Before
-    public void createXmlFile() throws IOException, URISyntaxException {
+    public void createDelimitedFile() throws IOException, URISyntaxException {
         view = Utilities.getRepositoryView(gefBot);
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.FILE_XML);
-        Utilities.createFileXml(FILENAME, treeNode, gefBot);
+        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.FILE_DELIMITED);
+        Utilities.createFileDelimited(FILENAME, treeNode, gefBot);
     }
 
     @Test
-    public void deleteXmlFile() {
-        Utilities.delete(tree, treeNode, FILENAME, "0.1", null);
+    public void duplicateDelimitedFile() {
+        Utilities.duplicate(gefBot, treeNode, FILENAME, "0.1", NEW_FILENAME);
     }
 
     @After
     public void removePreviouslyCreateItems() {
+        Utilities.delete(tree, treeNode, FILENAME, "0.1", null);
+        Utilities.delete(tree, treeNode, NEW_FILENAME, "0.1", null);
         Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

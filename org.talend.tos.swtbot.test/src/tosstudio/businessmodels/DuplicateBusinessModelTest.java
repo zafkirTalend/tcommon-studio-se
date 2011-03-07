@@ -12,13 +12,10 @@
 // ============================================================================
 package tosstudio.businessmodels;
 
-import junit.framework.Assert;
-
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
@@ -36,9 +33,9 @@ public class DuplicateBusinessModelTest extends TalendSwtBotForTos {
 
     private SWTBotTree tree;
 
-    private SWTBotShell shell;
-
     private SWTBotView view;
+
+    private SWTBotTreeItem treeNode;
 
     private static final String BUSINESSMODELNAME = "businessModel1"; //$NON-NLS-1$
 
@@ -46,35 +43,23 @@ public class DuplicateBusinessModelTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() {
-        view = gefBot.viewByTitle("Repository");
+        view = Utilities.getRepositoryView(gefBot);
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        Utilities.createBusinessModel(BUSINESSMODELNAME, tree, gefBot, shell);
+        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.BUSINESS_MODEL);
+        Utilities.createBusinessModel(BUSINESSMODELNAME, treeNode, gefBot);
     }
 
     @Test
     public void duplicateBusinessModel() {
-        tree.expandNode("Business Models").getNode(BUSINESSMODELNAME + " 0.1").contextMenu("Duplicate").click();
-        gefBot.shell("Please input new name ").activate();
-        gefBot.text("Copy_of_" + BUSINESSMODELNAME).setText(NEW_BUSINESSMODELNAME);
-        gefBot.button("OK").click();
-
-        SWTBotTreeItem newBusinessModelItem = null;
-        try {
-            newBusinessModelItem = tree.expandNode("Business Models").select(NEW_BUSINESSMODELNAME + " 0.1");
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            Assert.assertNotNull("business model is not duplicated", newBusinessModelItem);
-        }
+        Utilities.duplicate(gefBot, treeNode, BUSINESSMODELNAME, "0.1", NEW_BUSINESSMODELNAME);
     }
 
     @After
     public void removePreviouslyCreateItems() {
         gefBot.cTabItem("Model " + BUSINESSMODELNAME).close();
-        tree.expandNode("Business Models").getNode(BUSINESSMODELNAME + " 0.1").contextMenu("Delete").click();
-        tree.expandNode("Business Models").getNode(NEW_BUSINESSMODELNAME + " 0.1").contextMenu("Delete").click();
-
+        Utilities.delete(tree, treeNode, BUSINESSMODELNAME, "0.1", null);
+        Utilities.delete(tree, treeNode, NEW_BUSINESSMODELNAME, "0.1", null);
         Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

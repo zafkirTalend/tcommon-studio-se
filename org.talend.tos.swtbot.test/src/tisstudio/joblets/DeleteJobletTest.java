@@ -12,13 +12,10 @@
 // ============================================================================
 package tisstudio.joblets;
 
-import junit.framework.Assert;
-
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
@@ -36,33 +33,25 @@ public class DeleteJobletTest extends TalendSwtBotForTos {
 
     private SWTBotTree tree;
 
-    private SWTBotShell shell;
-
     private SWTBotView view;
+
+    private SWTBotTreeItem treeNode;
 
     private static final String JOBLETNAME = "joblet1"; //$NON-NLS-1$
 
     @Before
     public void createJoblet() {
-        view = gefBot.viewByTitle("Repository");
+        view = Utilities.getRepositoryView(gefBot);
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        Utilities.createJoblet(JOBLETNAME, tree, gefBot, shell);
+        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.JOBLET_DESIGNS);
+        Utilities.createJoblet(JOBLETNAME, treeNode, gefBot);
     }
 
     @Test
     public void deleteJoblet() {
         gefBot.cTabItem("Joblet " + JOBLETNAME + " 0.1").close();
-        tree.expandNode("Joblet Designs").getNode(JOBLETNAME + " 0.1").contextMenu("Delete").click();
-
-        SWTBotTreeItem newJobletItem = null;
-        try {
-            newJobletItem = tree.expandNode("Recycle bin").select(JOBLETNAME + " 0.1" + " ()");
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            Assert.assertNotNull("joblet item is not deleted to recycle bin", newJobletItem);
-        }
+        Utilities.delete(tree, treeNode, JOBLETNAME, "0.1", null);
     }
 
     @After

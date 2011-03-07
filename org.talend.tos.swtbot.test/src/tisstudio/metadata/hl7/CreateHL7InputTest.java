@@ -41,6 +41,8 @@ public class CreateHL7InputTest extends TalendSwtBotForTos {
 
     private SWTBotTree tree;
 
+    private SWTBotTreeItem treeNode;
+
     private static final String HL7NAME = "hl7_1"; //$NON-NLS-1$ 
 
     private static final String SAMPLE_RELATIVE_FILEPATH = "HL7.txt"; //$NON-NLS-1$
@@ -51,9 +53,10 @@ public class CreateHL7InputTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() {
-        view = gefBot.viewByTitle("Repository");
+        view = Utilities.getRepositoryView(gefBot);
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
+        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.HL7);
     }
 
     @Test
@@ -104,9 +107,10 @@ public class CreateHL7InputTest extends TalendSwtBotForTos {
     }
 
     @After
-    public void removePreviouslyCreateItems() {
-        tree.expandNode("Metadata", "HL7").getNode(HL7NAME + " 0.1").contextMenu("Delete").click();
-
+    public void removePreviouslyCreateItems() throws IOException, URISyntaxException {
+        if (Utilities.getFileFromCurrentPluginSampleFolder("cobocurs.xc2j").exists())
+            Utilities.getFileFromCurrentPluginSampleFolder("cobocurs.xc2j").delete();
+        Utilities.delete(tree, treeNode, HL7NAME, "0.1", null);
         Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

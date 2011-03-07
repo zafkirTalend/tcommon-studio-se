@@ -12,10 +12,7 @@
 // ============================================================================
 package tosstudio.metadata.genericschema;
 
-import junit.framework.Assert;
-
 import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
@@ -38,55 +35,26 @@ public class CreateGenericSchemaTest extends TalendSwtBotForTos {
 
     private SWTBotView view;
 
+    private SWTBotTreeItem treeNode;
+
     private static final String SCHEMANAME = "schema1"; //$NON-NLS-1$
-
-    private static final String[] COLUMN = { "A", "B", "C" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-
-    private static final String[] TYPE = { "int | Integer", "String", "float | Float" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
     @Before
     public void initialisePrivateFields() {
-        view = gefBot.viewByTitle("Repository");
+        view = Utilities.getRepositoryView(gefBot);
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
+        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.GENERIC_SCHEMAS);
     }
 
     @Test
     public void createGenericSchema() {
-        tree.setFocus();
-
-        tree.expandNode("Metadata").getNode("Generic schemas").contextMenu("Create generic schema").click();
-        gefBot.waitUntil(Conditions.shellIsActive("Create new generic schema"));
-        gefBot.shell("Create new generic schema").activate();
-
-        /* step 1 of 2 */
-        gefBot.textWithLabel("Name").setText(SCHEMANAME);
-        gefBot.button("Next >").click();
-
-        /* step 2 of 2 */
-        for (int i = 0; i < 3; i++) {
-            gefBot.buttonWithTooltip("Add").click();
-            gefBot.table().click(i, 2);
-            gefBot.text().setText(COLUMN[i]);
-            gefBot.table().click(i, 4);
-            gefBot.ccomboBox().setSelection(TYPE[i]);
-        }
-
-        gefBot.button("Finish").click();
-
-        SWTBotTreeItem newSchemaItem = null;
-        try {
-            newSchemaItem = tree.expandNode("Metadata", "Generic schemas").select(SCHEMANAME + " 0.1");
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            Assert.assertNotNull("generic schema item is not created", newSchemaItem);
-        }
+        Utilities.createGenericSchema(SCHEMANAME, treeNode, gefBot);
     }
 
     @After
     public void removePreviouslyCreateItems() {
-        tree.expandNode("Metadata", "Generic schemas").getNode(SCHEMANAME + " 0.1").contextMenu("Delete").click();
+        Utilities.delete(tree, treeNode, SCHEMANAME, "0.1", null);
         Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

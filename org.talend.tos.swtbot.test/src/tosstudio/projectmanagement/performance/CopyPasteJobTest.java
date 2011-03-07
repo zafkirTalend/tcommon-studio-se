@@ -16,11 +16,9 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,41 +33,31 @@ public class CopyPasteJobTest extends TalendSwtBotForTos {
 
     private SWTBotTree tree;
 
-    private SWTBotShell shell;
-
     private SWTBotView view;
+
+    private SWTBotTreeItem treeNode;
 
     private static final String JOBNAME = "test01"; //$NON-NLS-1$
 
     @Before
     public void createJob() {
-        view = gefBot.viewByTitle("Repository");
+        view = Utilities.getRepositoryView(gefBot);
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        Utilities.createJob(JOBNAME, tree, gefBot, shell);
+        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.JOB_DESIGNS);
+        Utilities.createJob(JOBNAME, treeNode, gefBot);
     }
 
     @Test
     public void copyAndPasteJob() {
-        tree.expandNode("Job Designs").getNode(JOBNAME + " 0.1").contextMenu("Copy").click();
-        tree.select("Job Designs").contextMenu("Paste").click();
-
-        SWTBotTreeItem newJobItem = null;
-        try {
-            newJobItem = tree.expandNode("Job Designs").select("Copy_of_" + JOBNAME + " 0.1");
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            Assert.assertNotNull("job item is not copied", newJobItem);
-        }
+        Utilities.copyAndPaste(treeNode, JOBNAME, "0.1");
     }
 
     @After
     public void removePreviouslyCreateItems() {
         gefBot.cTabItem("Job " + JOBNAME + " 0.1").close();
-        tree.expandNode("Job Designs").getNode(JOBNAME + " 0.1").contextMenu("Delete").click();
-        tree.expandNode("Job Designs").getNode("Copy_of_" + JOBNAME + " 0.1").contextMenu("Delete").click();
-
+        Utilities.delete(tree, treeNode, JOBNAME, "0.1", null);
+        Utilities.delete(tree, treeNode, "Copy_of_" + JOBNAME, "0.1", null);
         Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

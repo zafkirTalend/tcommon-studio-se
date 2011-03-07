@@ -16,8 +16,8 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,29 +33,29 @@ public class CreateBusinessModelTest extends TalendSwtBotForTos {
 
     private SWTBotTree tree;
 
-    private SWTBotShell shell;
-
     private SWTBotView view;
+
+    private SWTBotTreeItem treeNode;
 
     private static final String BUSINESSMODELNAME = "businessModel1"; //$NON-NLS-1$
 
     @Before
     public void initialisePrivateFields() {
-        view = gefBot.viewByTitle("Repository");
+        view = Utilities.getRepositoryView(gefBot);
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
+        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.BUSINESS_MODEL);
     }
 
     @Test
     public void createBusinessModel() {
-        Utilities.createBusinessModel(BUSINESSMODELNAME, tree, gefBot, shell);
+        Utilities.createBusinessModel(BUSINESSMODELNAME, treeNode, gefBot);
     }
 
     @After
     public void removePreviouslyCreateItems() {
         gefBot.cTabItem("Model " + BUSINESSMODELNAME).close();
-        tree.expandNode("Business Models").getNode(BUSINESSMODELNAME + " 0.1").contextMenu("Delete").click();
-
+        Utilities.delete(tree, treeNode, BUSINESSMODELNAME, "0.1", null);
         Utilities.emptyRecycleBin(gefBot, tree);
     }
 }
