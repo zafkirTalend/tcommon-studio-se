@@ -76,7 +76,9 @@ public class XSDValidator {
                 break;
             } catch (Exception e) {
                 if (retry) {
-                    throw new IOException(e);
+                    IOException ioe = new IOException();
+                    ioe.initCause(e);
+                    throw ioe;
                 }
                 retry = !retry;
 
