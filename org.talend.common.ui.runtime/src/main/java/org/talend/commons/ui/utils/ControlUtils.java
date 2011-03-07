@@ -56,8 +56,8 @@ public class ControlUtils {
      */
     private static Object invokeMethod(Control control, String methodName) {
         try {
-            Method getTextMethod = control.getClass().getDeclaredMethod(methodName, (Class<?>[]) null);
-            return getTextMethod.invoke(null);
+            Method getTextMethod = control.getClass().getMethod(methodName, (Class<?>[]) null);
+            return getTextMethod.invoke(control);
         } catch (SecurityException e) {// All these exception should never happen but we surface them in case
             throw new InvocationFailedException(e);
         } catch (NoSuchMethodException e) {
@@ -80,8 +80,8 @@ public class ControlUtils {
      */
     private static Object invokeOneParamMethod(Control control, String methodName, Object param) {
         try {
-            Method getMethod = control.getClass().getDeclaredMethod(methodName, param.getClass());
-            return getMethod.invoke(param);
+            Method getMethod = control.getClass().getMethod(methodName, param.getClass());
+            return getMethod.invoke(control, param);
         } catch (SecurityException e) {// All these exception should never happen but we surface them in case
             throw new InvocationFailedException(e);
         } catch (NoSuchMethodException e) {
