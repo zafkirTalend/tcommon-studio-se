@@ -39,7 +39,7 @@ public class ControlUtils {
      */
     public static String getText(Control control) {
         // use reflection to copy with any StyledText that is not compatible with RAP
-        Object result = invokeMethod(control, "getText");
+        Object result = invokeMethod(control, "getText"); //$NON-NLS-1$
         if (result instanceof String) {
             return (String) result;
         } else {
@@ -78,9 +78,12 @@ public class ControlUtils {
      * @param value
      * @return
      */
-    private static Object invokeOneParamMethod(Control control, String methodName, Object param) {
+    private static Object invokeOneParamMethod(Control control, String methodName, Object param, Class clazz) {
         try {
-            Method getMethod = control.getClass().getMethod(methodName, param.getClass());
+            if (clazz == null) {
+                clazz = param.getClass();
+            }
+            Method getMethod = control.getClass().getMethod(methodName, clazz);
             return getMethod.invoke(control, param);
         } catch (SecurityException e) {// All these exception should never happen but we surface them in case
             throw new InvocationFailedException(e);
@@ -103,7 +106,7 @@ public class ControlUtils {
      * @return
      */
     public static void setText(Control control, String text) {
-        invokeOneParamMethod(control, "setText", text);
+        invokeOneParamMethod(control, "setText", text, null); //$NON-NLS-1$
     }
 
     /**
@@ -115,7 +118,7 @@ public class ControlUtils {
      */
     public static Point getSelection(Control control) {
         // use reflection to copy with any StyledText that is not compatible with RAP
-        Object result = invokeMethod(control, "getSelection");
+        Object result = invokeMethod(control, "getSelection"); //$NON-NLS-1$
         if (result instanceof Point) {
             return (Point) result;
         } else {
@@ -132,7 +135,7 @@ public class ControlUtils {
      */
     public static String getLineDelimiter(Control control) {
         // use reflection to copy with any StyledText that is not compatible with RAP
-        Object result = invokeMethod(control, "getLineDelimiter");
+        Object result = invokeMethod(control, "getLineDelimiter"); //$NON-NLS-1$
         if (result instanceof String) {
             return (String) result;
         } else {
@@ -148,7 +151,7 @@ public class ControlUtils {
      * @return
      */
     public static void addModifyListener(Control control, ModifyListener modifyListener) {
-        invokeOneParamMethod(control, "addModifyListener", modifyListener);
+        invokeOneParamMethod(control, "addModifyListener", modifyListener, null); //$NON-NLS-1$
     }
 
     /**
@@ -158,14 +161,14 @@ public class ControlUtils {
      * @param modifyListener
      */
     public static void removeModifyListener(Control control, ModifyListener modifyListener) {
-        invokeOneParamMethod(control, "removeModifyListener", modifyListener);
+        invokeOneParamMethod(control, "removeModifyListener", modifyListener, null); //$NON-NLS-1$
     }
 
     public static int getCursorPosition(Control control) {
         int position = -1;
         // use reflection to copy with any StyledText that is not compatible with RAP
         try {
-            Object result = invokeMethod(control, "getCaretPosition");
+            Object result = invokeMethod(control, "getCaretPosition"); //$NON-NLS-1$
             if (result instanceof Integer) {
                 position = (Integer) result;
             } else {
@@ -173,7 +176,7 @@ public class ControlUtils {
             }
         } catch (InvocationFailedException e) {
             // try with StyledText.getCaretOffset
-            Object result = invokeMethod(control, "getCaretOffset");
+            Object result = invokeMethod(control, "getCaretOffset"); //$NON-NLS-1$
             if (result instanceof Integer) {
                 position = (Integer) result;
             } else {
@@ -184,7 +187,7 @@ public class ControlUtils {
     }
 
     public static void setCursorPosition(Control control, int position) {
-        invokeOneParamMethod(control, "setSelection", position);
+        invokeOneParamMethod(control, "setSelection", position, int.class); //$NON-NLS-1$
     }
 
     public static void setSortedValuesForCombo(CCombo combo, String[] values) {

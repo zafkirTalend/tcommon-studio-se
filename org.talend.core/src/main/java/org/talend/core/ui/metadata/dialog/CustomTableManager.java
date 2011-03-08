@@ -25,7 +25,7 @@ import org.eclipse.swt.graphics.RGB;
 import org.talend.commons.ui.swt.advanced.dataeditor.button.ResetDBTypesPushButton;
 import org.talend.commons.ui.swt.advanced.dataeditor.control.ExtendedPushButton;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
-import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
+import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumnNotModifiable;
 import org.talend.commons.ui.swt.tableviewer.behavior.DefaultCellModifier;
 import org.talend.commons.ui.swt.tableviewer.behavior.DefaultTableLabelProvider;
 import org.talend.core.model.metadata.IMetadataColumn;
@@ -207,7 +207,8 @@ public class CustomTableManager {
                 return null;
             }
             IMetadataColumn column = (IMetadataColumn) element;
-            TableViewerCreatorColumn tableColumn = (TableViewerCreatorColumn) tableViewerCreator.getColumns().get(columnIndex);
+            TableViewerCreatorColumnNotModifiable tableColumn = (TableViewerCreatorColumnNotModifiable) tableViewerCreator
+                    .getColumns().get(columnIndex);
             if (column.isCustom()) {
                 if (column.isReadOnly() || readOnly || tableColumn.getId().equals(AbstractMetadataTableEditorView.ID_COLUMN_NAME)) {
                     return CELL_READ_ONLY_COLOR;
