@@ -20,9 +20,9 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
+import org.talend.commons.CommonsPlugin;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.i18n.Messages;
-import org.talend.commons.ui.swt.colorstyledtext.scanner.ColoringEditorTools;
 import org.talend.commons.ui.swt.colorstyledtext.scanner.ColoringScanner;
 
 /**
@@ -44,7 +44,7 @@ public class ModeReader {
         SAXReader reader = new SAXReader();
         Document doc = null;
         try {
-            doc = reader.read(ColoringEditorTools.getFile(filename));
+            doc = reader.read(CommonsPlugin.getFileInputStream(filename));
         } catch (DocumentException e) {
             // e.printStackTrace();
             ExceptionHandler.process(e);

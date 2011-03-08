@@ -12,6 +12,11 @@
 // ============================================================================
 package org.talend.commons;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Plugin;
 
 /**
@@ -57,5 +62,18 @@ public class CommonsPlugin extends Plugin {
 
     public static void setHeadless(boolean headless) {
         CommonsPlugin.headless = headless;
+    }
+
+    /**
+     * Answer the file associated with name. This handles the case of running as a plugin and running standalone which
+     * happens during testing.
+     * 
+     * @param filename
+     * @return File
+     */
+    public static InputStream getFileInputStream(String filename) throws IOException {
+        URL url = Platform.getBundle(PLUGIN_ID).getEntry(filename);
+        return url != null ? url.openStream() : null;
+
     }
 }

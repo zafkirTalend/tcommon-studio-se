@@ -12,18 +12,13 @@
 // ============================================================================
 package org.talend.commons.ui.swt.colorstyledtext.scanner;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 import java.util.Iterator;
 import java.util.List;
 
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.text.rules.IRule;
 import org.eclipse.jface.text.rules.IToken;
 import org.eclipse.jface.text.rules.PatternRule;
 import org.eclipse.jface.util.PropertyChangeEvent;
-import org.talend.commons.CommonsPlugin;
 import org.talend.commons.ui.swt.colorstyledtext.ColorManager;
 import org.talend.commons.ui.swt.colorstyledtext.jedit.EOLSpan;
 import org.talend.commons.ui.swt.colorstyledtext.jedit.IVisitor;
@@ -129,28 +124,4 @@ public class ColoringEditorTools {
         return affects;
     }
 
-    /**
-     * Answer the file associated with name. This handles the case of running as a plugin and running standalone which
-     * happens during testing.
-     * 
-     * @param filename
-     * @return File
-     */
-    public static InputStream getFile(String filename) throws IOException {
-        URL url; // = FileLocator.toFileURL(FileLocator.find(Platform.getBundle("org.talend.commons"), new
-        // Path(filename), null));
-
-        url = Platform.getBundle(CommonsPlugin.PLUGIN_ID).getEntry(filename); //$NON-NLS-1$
-        return url != null ? url.openStream() : null;
-        // URL mode = FileLocator.resolve(url);
-        // if (mode != null) {
-        // return new File(mode.getFile());
-        // }
-        /*
-         * if(EditorPlugin.getDefault() != null) { URL installURL =
-         * EditorPlugin.getDefault().getDescriptor().getInstallURL(); URL mode = Platform.resolve(new URL(installURL,
-         * filename)); return new File(mode.getFile()); }
-         */
-        // return new File(filename);
-    }
 }

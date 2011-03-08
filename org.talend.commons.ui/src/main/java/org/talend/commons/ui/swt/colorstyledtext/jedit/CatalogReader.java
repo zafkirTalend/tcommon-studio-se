@@ -23,8 +23,8 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 import org.eclipse.core.runtime.Platform;
+import org.talend.commons.CommonsPlugin;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
-import org.talend.commons.ui.swt.colorstyledtext.scanner.ColoringEditorTools;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
@@ -45,7 +45,7 @@ public class CatalogReader {
 
     public Mode[] read(String filename) {
         try {
-            return readFile(ColoringEditorTools.getFile(filename));
+            return readFile(CommonsPlugin.getFileInputStream(filename));
         } catch (Exception e) {
             // EditorPlugin.logError("Error reading catalog file " + mode.getFile(), e);
             // e.printStackTrace();
