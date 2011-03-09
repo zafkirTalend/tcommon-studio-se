@@ -45,18 +45,23 @@ import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.MappingTypeRetriever;
+import org.talend.core.model.metadata.MetadataFillFactory;
 import org.talend.core.model.metadata.MetadataTable;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
+import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.core.model.metadata.builder.util.TDColumnAttributeHelper;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.relational.RelationalFactory;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.repository.model.IRepositoryService;
 import org.talend.utils.sql.metadata.constants.GetTable;
+import orgomg.cwm.resource.relational.Catalog;
+import orgomg.cwm.resource.relational.Schema;
 
 /**
  * DOC cantoine. Extract Meta Data Table. Contains all the Table and Metadata about a DB Connection. <br/>
@@ -976,6 +981,20 @@ public class ExtractMetaDataFromDataBase {
         }
 
         DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn, dbType);
+        DatabaseConnection dbConn = (DatabaseConnection) iMetadataConnection.getCurrentConnection();
+        // fill the catalog and schema as same as DQ
+        List<Catalog> catalogs = ConnectionHelper.getCatalogs(dbConn);
+        List<Schema> schemas = ConnectionHelper.getSchema(dbConn);
+        if (catalogs.isEmpty() && schemas.isEmpty() && conn != null) {
+            try {
+                MetadataFillFactory.getDBInstance().fillCatalogs(dbConn, conn.getMetaData(),
+                        MetadataConnectionUtils.getPackageFilter(dbConn));
+                MetadataFillFactory.getDBInstance().fillSchemas(dbConn, conn.getMetaData(),
+                        MetadataConnectionUtils.getPackageFilter(dbConn));
+            } catch (SQLException e) {
+                ExceptionHandler.process(e);
+            }
+        }
 
         List<IMetadataTable> metadataTables = ExtractMetaDataFromDataBase.extractTablesFromDB(dbMetaData, iMetadataConnection,
                 limit);

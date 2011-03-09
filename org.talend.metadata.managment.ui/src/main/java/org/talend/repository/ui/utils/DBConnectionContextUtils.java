@@ -13,10 +13,13 @@
 package org.talend.repository.ui.utils;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.PasswordEncryptUtil;
 import org.talend.core.database.EDatabaseTypeName;
@@ -31,8 +34,10 @@ import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.utils.TalendQuoteUtils;
+import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.repository.model.IConnParamName;
+import orgomg.cwm.objectmodel.core.Package;
 
 /**
  * ggu class global comment. Detailled comment
@@ -408,6 +413,10 @@ public final class DBConnectionContextUtils {
                     username, password, port, sidOrDatabase, filePath.toLowerCase(), datasource, dbRootPath, additionParam);
             cloneConn.setURL(newURL);
         }
+        // clone package
+        EList<Package> dataPackage = dbConn.getDataPackage();
+        Collection<Package> newDataPackage = EcoreUtil.copyAll(dataPackage);
+        ConnectionHelper.addPackages(newDataPackage, cloneConn);
 
         return cloneConn;
     }

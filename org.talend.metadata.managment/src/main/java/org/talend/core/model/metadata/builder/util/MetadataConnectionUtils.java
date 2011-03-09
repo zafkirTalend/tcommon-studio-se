@@ -42,6 +42,7 @@ import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.metadata.builder.database.IDriverService;
+import org.talend.core.model.metadata.builder.database.dburl.SupportDBUrlType;
 import org.talend.cwm.constants.SoftwareSystemConstants;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.TaggedValueHelper;
@@ -57,6 +58,7 @@ import org.talend.utils.string.AsciiUtils;
 import org.talend.utils.sugars.ReturnCode;
 import org.talend.utils.sugars.TypedReturnCode;
 import orgomg.cwm.foundation.softwaredeployment.Component;
+import orgomg.cwm.foundation.softwaredeployment.DataProvider;
 
 /**
  * DOC zshen class global comment. Detailled comment
@@ -618,6 +620,35 @@ public class MetadataConnectionUtils {
             log.debug("Functional name: " + functionalName + " -> techname: " + techname);
         }
         return techname;
+    }
+
+    public static List<String> getPackageFilter(Connection connection) {
+        List<String> packageFilter = new ArrayList<String>();
+
+        if (isMdmConnection(connection)) {
+            // MDMConnection mdmConnection = (MDMConnection) connection;
+        } else {
+            DatabaseConnection dbConnection = (DatabaseConnection) connection;
+            String databaseType = dbConnection.getDatabaseType();
+
+            if (SupportDBUrlType.isOracle(databaseType)) {
+                String uiSchema = dbConnection.getUiSchema();
+                if (!StringUtils.isEmpty(uiSchema)) {
+                    packageFilter.add(uiSchema);
+                }
+            } else {
+                String sid = dbConnection.getSID();
+                if (!StringUtils.isEmpty(sid)) {
+                    packageFilter.add(sid);
+                }
+            }
+        }
+
+        return packageFilter;
+    }
+
+    public static boolean isMdmConnection(DataProvider dataprovider) {
+        return dataprovider instanceof MDMConnection;
     }
 
 }
