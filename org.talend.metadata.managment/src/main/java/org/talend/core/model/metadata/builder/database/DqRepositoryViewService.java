@@ -44,7 +44,6 @@ import org.talend.utils.sql.ConnectionUtils;
 import org.talend.utils.sql.metadata.constants.TableType;
 import org.talend.utils.string.AsciiUtils;
 import org.talend.utils.sugars.TypedReturnCode;
-import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.Package;
 import orgomg.cwm.resource.relational.Catalog;
 import orgomg.cwm.resource.relational.ColumnSet;
@@ -381,9 +380,7 @@ public final class DqRepositoryViewService {
      * @param element
      * @return
      */
-    public static String buildElementName(ModelElement element) {
-
-        Property property = ProxyRepositoryFactory.getInstance().getProperty(element);
+    public static String buildElementName(Property property) {
 
         String elementName = "Unknown Label";
         if (property != null) {
