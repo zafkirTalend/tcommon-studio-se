@@ -127,13 +127,13 @@ public final class ProcessUtils {
         case METADATA:
             return getMetadataDependenciesOfProcess(items);
         case PROCESS:
-            return getChildPorcessDependenciesOfProcess(items);
+            return getChildPorcessDependenciesOfProcess(items, true);
         case JOBLET:
-            return getJobletDependenciesOfProcess(items);
+            return getJobletDependenciesOfProcess(items, true);
         case SQLPATTERNS:
             return getSQLTemplatesDependenciesOfProcess(items, withSystem);
         case ROUTINES:
-            return getRoutineDependenciesOfProcess(items, withSystem);
+            return getRoutineDependenciesOfProcess(items, withSystem, true);
         default:
             return Collections.emptyList();
         }
@@ -150,10 +150,10 @@ public final class ProcessUtils {
 
         Collection<IRepositoryViewObject> dependencies = getContextDependenciesOfProcess(items);
         dependencies.addAll(getMetadataDependenciesOfProcess(items));
-        dependencies.addAll(getChildPorcessDependenciesOfProcess(items));
-        dependencies.addAll(getJobletDependenciesOfProcess(items));
+        dependencies.addAll(getChildPorcessDependenciesOfProcess(items, false));
+        dependencies.addAll(getJobletDependenciesOfProcess(items, false));
         dependencies.addAll(getSQLTemplatesDependenciesOfProcess(items, withSystem));
-        dependencies.addAll(getRoutineDependenciesOfProcess(items, withSystem));
+        dependencies.addAll(getRoutineDependenciesOfProcess(items, withSystem, false));
 
         clearFakeProcesses();
         return dependencies;
@@ -259,7 +259,8 @@ public final class ProcessUtils {
         }
     }
 
-    private static Collection<IRepositoryViewObject> getChildPorcessDependenciesOfProcess(Collection<Item> items) {
+    private static Collection<IRepositoryViewObject> getChildPorcessDependenciesOfProcess(Collection<Item> items,
+            boolean needCheckSubProcess) {
         List<IRepositoryViewObject> returnListObject = new ArrayList<IRepositoryViewObject>();
         Map<String, Item> returnItems = new HashMap<String, Item>();
         // Collection<IRepositoryObject> repositoryObjects = new ArrayList<IRepositoryObject>();
@@ -297,15 +298,20 @@ public final class ProcessUtils {
                                         // repositoryObjects.add(lastVersion);
                                         returnListObject.add(foundObject);
                                     }
-                                    Item item2 = foundObject.getProperty().getItem();
-                                    if (item2 != null) {
-                                        Item foundItem = returnItems.get(item2.getProperty().getId());
-                                        if (foundItem == null) {
-                                            returnItems.put(item2.getProperty().getId(), item2);
-                                            returnListObject.addAll(getContextDependenciesOfProcess(returnItems.values()));
-                                            returnListObject.addAll(getMetadataDependenciesOfProcess(returnItems.values()));
-                                            returnListObject.addAll(getChildPorcessDependenciesOfProcess(returnItems.values()));
-                                            returnListObject.addAll(getJobletDependenciesOfProcess(returnItems.values()));
+                                    if (needCheckSubProcess) {
+
+                                        Item item2 = foundObject.getProperty().getItem();
+                                        if (item2 != null) {
+                                            Item foundItem = returnItems.get(item2.getProperty().getId());
+                                            if (foundItem == null) {
+                                                returnItems.put(item2.getProperty().getId(), item2);
+                                                returnListObject.addAll(getContextDependenciesOfProcess(returnItems.values()));
+                                                returnListObject.addAll(getMetadataDependenciesOfProcess(returnItems.values()));
+                                                returnListObject.addAll(getChildPorcessDependenciesOfProcess(
+                                                        returnItems.values(), needCheckSubProcess));
+                                                returnListObject.addAll(getJobletDependenciesOfProcess(returnItems.values(),
+                                                        needCheckSubProcess));
+                                            }
                                         }
                                     }
 
@@ -327,7 +333,8 @@ public final class ProcessUtils {
 
     }
 
-    private static Collection<IRepositoryViewObject> getJobletDependenciesOfProcess(Collection<Item> items) {
+    private static Collection<IRepositoryViewObject> getJobletDependenciesOfProcess(Collection<Item> items,
+            boolean needCheckSubProcess) {
         Map<String, Item> returnItems = new HashMap<String, Item>();
         Collection<IRepositoryViewObject> repositoryObjects = new ArrayList<IRepositoryViewObject>();
         for (IProcess process : checkAndGetFakeProcesses(items)) {
@@ -352,18 +359,23 @@ public final class ProcessUtils {
                                         if (!repositoryObjects.contains(lastVersion)) {
                                             repositoryObjects.add(lastVersion);
                                         }
-                                        Item childItem = lastVersion.getProperty().getItem();
-                                        if (childItem != null) {
-                                            Item foundItem = returnItems.get(childItem.getProperty().getId());
-                                            if (foundItem == null) {
-                                                returnItems.put(childItem.getProperty().getId(), childItem);
-                                                repositoryObjects.addAll(getContextDependenciesOfProcess(returnItems.values()));
-                                                repositoryObjects.addAll(getMetadataDependenciesOfProcess(returnItems.values()));
-                                                repositoryObjects.addAll(getChildPorcessDependenciesOfProcess(returnItems
-                                                        .values()));
-                                                repositoryObjects.addAll(getJobletDependenciesOfProcess(returnItems.values()));
-                                            }
+                                        if (needCheckSubProcess) {
+                                            Item childItem = lastVersion.getProperty().getItem();
+                                            if (childItem != null) {
+                                                Item foundItem = returnItems.get(childItem.getProperty().getId());
+                                                if (foundItem == null) {
+                                                    returnItems.put(childItem.getProperty().getId(), childItem);
+                                                    repositoryObjects
+                                                            .addAll(getContextDependenciesOfProcess(returnItems.values()));
+                                                    repositoryObjects.addAll(getMetadataDependenciesOfProcess(returnItems
+                                                            .values()));
+                                                    repositoryObjects.addAll(getChildPorcessDependenciesOfProcess(
+                                                            returnItems.values(), needCheckSubProcess));
+                                                    repositoryObjects.addAll(getJobletDependenciesOfProcess(returnItems.values(),
+                                                            needCheckSubProcess));
+                                                }
 
+                                            }
                                         }
                                     }
                                 } catch (PersistenceException e) {
@@ -418,7 +430,8 @@ public final class ProcessUtils {
         return repositoryObjects;
     }
 
-    private static Collection<IRepositoryViewObject> getRoutineDependenciesOfProcess(Collection<Item> items, boolean withSystem) {
+    private static Collection<IRepositoryViewObject> getRoutineDependenciesOfProcess(Collection<Item> items, boolean withSystem,
+            boolean needCheckSubProcess) {
         Collection<IRepositoryViewObject> repositoryObjects = new HashSet<IRepositoryViewObject>();
 
         IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
@@ -455,15 +468,18 @@ public final class ProcessUtils {
 
             }
         }
-        Collection<IRepositoryViewObject> dependenciesJobs = getChildPorcessDependenciesOfProcess(items);
-        if (!dependenciesJobs.isEmpty()) {
-            List<Item> dependenciesJobItems = new ArrayList<Item>();
-            for (IRepositoryViewObject obj : dependenciesJobs) {
-                dependenciesJobItems.add(obj.getProperty().getItem());
+        if (needCheckSubProcess) {
+
+            Collection<IRepositoryViewObject> dependenciesJobs = getChildPorcessDependenciesOfProcess(items, needCheckSubProcess);
+            if (!dependenciesJobs.isEmpty()) {
+                List<Item> dependenciesJobItems = new ArrayList<Item>();
+                for (IRepositoryViewObject obj : dependenciesJobs) {
+                    dependenciesJobItems.add(obj.getProperty().getItem());
+                }
+                Collection<IRepositoryViewObject> routineDependenciesOfProcess = getRoutineDependenciesOfProcess(
+                        dependenciesJobItems, withSystem, needCheckSubProcess);
+                repositoryObjects.addAll(routineDependenciesOfProcess);
             }
-            Collection<IRepositoryViewObject> routineDependenciesOfProcess = getRoutineDependenciesOfProcess(
-                    dependenciesJobItems, withSystem);
-            repositoryObjects.addAll(routineDependenciesOfProcess);
         }
         return repositoryObjects;
     }
