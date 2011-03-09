@@ -55,7 +55,7 @@ public class DuplicateCopybookTest extends TalendSwtBotForTos {
 
     @Test
     public void duplicateCopybookTest() {
-        Utilities.copyAndPaste(treeNode, COPYBOOKNAME, "0.1");
+        Utilities.duplicate(gefBot, treeNode, COPYBOOKNAME, "0.1", NEW_COPYBOOKNAME);
     }
 
     @After
