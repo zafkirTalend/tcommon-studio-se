@@ -361,7 +361,7 @@ public class MetadataTableEditorView extends AbstractMetadataTableEditorView<IMe
             public void set(IMetadataColumn bean, String value) {
                 String oldTalendType = bean.getTalendType();
                 bean.setTalendType(value);
-                if (!oldTalendType.equals(value)) {
+                if (oldTalendType != null && !oldTalendType.equals(value)) {
                     String typeLength = getCurrentTypeLength(value);
                     if (typeLength != null && !typeLength.equals("")) { //$NON-NLS-1$
                         bean.setLength(Integer.parseInt(typeLength));
