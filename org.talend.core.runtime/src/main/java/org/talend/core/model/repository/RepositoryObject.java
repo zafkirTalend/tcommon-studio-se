@@ -31,6 +31,7 @@ import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.QueriesConnection;
 import org.talend.core.model.metadata.builder.connection.Query;
 import org.talend.core.model.properties.BRMSConnectionItem;
+import org.talend.core.model.properties.BeanItem;
 import org.talend.core.model.properties.BusinessProcessItem;
 import org.talend.core.model.properties.CSVFileConnectionItem;
 import org.talend.core.model.properties.ContextItem;
@@ -223,6 +224,10 @@ public class RepositoryObject implements IRepositoryObject {
 
             public Object caseRoutineItem(RoutineItem object) {
                 return ERepositoryObjectType.ROUTINES;
+            }
+
+            public Object caseBeanItem(BeanItem object) {
+                return ERepositoryObjectType.BEANS;
             }
 
             public Object caseJobScriptItem(JobScriptItem object) {

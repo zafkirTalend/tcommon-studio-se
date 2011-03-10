@@ -20,6 +20,7 @@ import org.talend.core.AbstractDQModelService;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
 import org.talend.core.model.properties.BRMSConnectionItem;
+import org.talend.core.model.properties.BeanItem;
 import org.talend.core.model.properties.BusinessProcessItem;
 import org.talend.core.model.properties.CSVFileConnectionItem;
 import org.talend.core.model.properties.ContextItem;
@@ -78,7 +79,7 @@ public enum ERepositoryObjectType {
     ROUTES("repository.routes"),
     CONTEXT("repository.context"), //$NON-NLS-1$
     ROUTINES("repository.routines"), //$NON-NLS-1$
-    BEAN("repository.bean"), //$NON-NLS-1$
+    BEANS("repository.beans"), //$NON-NLS-1$
     JOB_SCRIPT("repository.jobscript"),
     SNIPPETS("repository.snippets"), //$NON-NLS-1$
     DOCUMENTATION("repository.documentation"), //$NON-NLS-1$
@@ -276,8 +277,8 @@ public enum ERepositoryObjectType {
             return "context"; //$NON-NLS-1$
         case ROUTINES:
             return "code/routines"; //$NON-NLS-1$
-        case BEAN:
-            return "code/bean"; //$NON-NLS-1$    
+        case BEANS:
+            return "code/beans"; //$NON-NLS-1$    
         case JOB_SCRIPT:
             return "code/jobscripts"; //$NON-NLS-1$
         case SNIPPETS:
@@ -442,6 +443,8 @@ public enum ERepositoryObjectType {
             return "context"; //$NON-NLS-1$
         case ROUTINES:
             return "routine"; //$NON-NLS-1$
+        case BEANS:
+            return "bean"; //$NON-NLS-1$
         case JOB_SCRIPT:
             return "jobscript"; //$NON-NLS-1$
         case SNIPPETS:
@@ -569,6 +572,10 @@ public enum ERepositoryObjectType {
 
             public Object caseRoutineItem(RoutineItem object) {
                 return ROUTINES;
+            }
+
+            public Object caseBeanItem(BeanItem object) {
+                return BEANS;
             }
 
             public Object caseJobScriptItem(JobScriptItem object) {

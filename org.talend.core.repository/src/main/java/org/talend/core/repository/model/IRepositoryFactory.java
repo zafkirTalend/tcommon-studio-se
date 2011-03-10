@@ -265,6 +265,9 @@ public interface IRepositoryFactory {
     public RootContainer<String, IRepositoryViewObject> getCamelProcess(Project project, boolean... options)
             throws PersistenceException;
 
+    public RootContainer<String, IRepositoryViewObject> getCamelBean(Project project, boolean... options)
+            throws PersistenceException;
+
     public RootContainer<String, IRepositoryViewObject> getContext(Project project, boolean... options)
             throws PersistenceException;
 
@@ -273,6 +276,8 @@ public interface IRepositoryFactory {
 
     public RootContainer<String, IRepositoryViewObject> getRoutine(Project project, boolean... options)
             throws PersistenceException;
+
+    public RootContainer<String, IRepositoryViewObject> getBean(Project project, boolean... options) throws PersistenceException;
 
     public RootContainer<String, IRepositoryViewObject> getJobScripts(Project project, boolean... options)
             throws PersistenceException;

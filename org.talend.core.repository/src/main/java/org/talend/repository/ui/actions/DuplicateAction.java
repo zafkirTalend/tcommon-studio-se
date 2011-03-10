@@ -36,6 +36,7 @@ import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.general.Project;
+import org.talend.core.model.properties.BeanItem;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ProcessItem;
@@ -258,8 +259,8 @@ public class DuplicateAction extends AContextualAction {
     private boolean isKeyword(String itemName) {
         ERepositoryObjectType itemType = sourceNode.getObjectType();
         ERepositoryObjectType[] types = { ERepositoryObjectType.PROCESS, ERepositoryObjectType.ROUTINES,
-                ERepositoryObjectType.JOBS, ERepositoryObjectType.JOBLET, ERepositoryObjectType.JOBLETS,
-                ERepositoryObjectType.JOB_SCRIPT };
+                ERepositoryObjectType.BEANS, ERepositoryObjectType.JOBS, ERepositoryObjectType.JOBLET,
+                ERepositoryObjectType.JOBLETS, ERepositoryObjectType.JOB_SCRIPT };
         if (Arrays.asList(types).contains(itemType)) {
             return KeywordsValidator.isKeyword(itemName);
         }
@@ -341,6 +342,9 @@ public class DuplicateAction extends AContextualAction {
                 break;
             case ROUTINES:
                 item = PropertiesFactory.eINSTANCE.createRoutineItem();
+                break;
+            case BEANS:
+                item = PropertiesFactory.eINSTANCE.createBeanItem();
                 break;
             case JOB_SCRIPT:
                 item = PropertiesFactory.eINSTANCE.createJobScriptItem();
@@ -446,6 +450,9 @@ public class DuplicateAction extends AContextualAction {
                     if (newItem instanceof RoutineItem) {
                         synDuplicatedRoutine((RoutineItem) newItem);
                     }// end
+                    if (newItem instanceof BeanItem) {
+                        synDuplicatedBean((BeanItem) newItem);
+                    }
 
                     if (newItem instanceof ProcessItem) {
                         RelationshipItemBuilder.getInstance().addOrUpdateItem((ProcessItem) newItem);
@@ -493,6 +500,19 @@ public class DuplicateAction extends AContextualAction {
             codeGenService.createRoutineSynchronizer().renameRoutineClass((RoutineItem) item);
             try {
                 codeGenService.createRoutineSynchronizer().syncRoutine((RoutineItem) item, true);
+            } catch (SystemException e) {
+                ExceptionHandler.process(e);
+            }
+        }
+    }
+
+    private void synDuplicatedBean(BeanItem item) {
+        ICodeGeneratorService codeGenService = (ICodeGeneratorService) GlobalServiceRegister.getDefault().getService(
+                ICodeGeneratorService.class);
+        if (codeGenService != null) {
+            codeGenService.createRoutineSynchronizer().renameBeanClass((BeanItem) item);
+            try {
+                codeGenService.createRoutineSynchronizer().syncBean((BeanItem) item, true);
             } catch (SystemException e) {
                 ExceptionHandler.process(e);
             }

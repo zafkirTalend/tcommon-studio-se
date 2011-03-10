@@ -47,6 +47,8 @@ public interface ILibrariesService extends IService {
 
     public List<URL> getTalendRoutinesFolder() throws IOException;
 
+    public List<URL> getTalendBeansFolder() throws IOException;
+
     public List<URL> getTalendRoutines();
 
     public String getLibrariesPath();
@@ -60,6 +62,8 @@ public interface ILibrariesService extends IService {
     public void undeployLibrary(String path) throws IOException;
 
     public URL getRoutineTemplate();
+
+    public URL getBeanTemplate();
 
     public URL getSqlPatternTemplate();
 

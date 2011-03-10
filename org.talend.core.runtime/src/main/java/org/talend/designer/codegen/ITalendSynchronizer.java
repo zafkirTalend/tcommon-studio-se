@@ -19,6 +19,7 @@ import java.util.Map;
 import org.eclipse.core.resources.IFile;
 import org.talend.commons.exception.SystemException;
 import org.talend.core.model.process.JobInfo;
+import org.talend.core.model.properties.BeanItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.repository.IRepositoryViewObject;
@@ -33,9 +34,15 @@ public interface ITalendSynchronizer {
 
     public final static String TEMPLATE = "__TEMPLATE__"; //$NON-NLS-1$
 
+    public final static String BEAN_TEMPLATE = "__BEAN_TEMPLATE__"; //$NON-NLS-1$
+
     public void syncAllRoutines() throws SystemException;
 
+    public void syncAllBeans() throws SystemException;
+
     public void syncRoutine(RoutineItem routineItem, boolean copyToTemp) throws SystemException;
+
+    public void syncBean(BeanItem beanItem, boolean copyToTemp) throws SystemException;
 
     public IFile getFile(Item item) throws SystemException;
 
@@ -45,7 +52,11 @@ public interface ITalendSynchronizer {
 
     public abstract void renameRoutineClass(RoutineItem routineItem);
 
+    public abstract void renameBeanClass(BeanItem beanItem);
+
     public Map<String, List<URI>> getUserRoutineModules();
 
     public void deleteRoutinefile(IRepositoryViewObject objToDelete);
+
+    public void deleteBeanfile(IRepositoryViewObject objToDelete);
 }

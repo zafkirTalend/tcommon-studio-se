@@ -119,6 +119,10 @@ public class LibrariesService implements ILibrariesService {
         return this.getLibrariesService().getRoutineTemplate();
     }
 
+    public URL getBeanTemplate() {
+        return this.getLibrariesService().getBeanTemplate();
+    }
+
     /*
      * (non-Javadoc)
      * 
@@ -134,6 +138,10 @@ public class LibrariesService implements ILibrariesService {
 
     public List<URL> getTalendRoutinesFolder() throws IOException {
         return this.getLibrariesService().getTalendRoutinesFolder();
+    }
+
+    public List<URL> getTalendBeansFolder() throws IOException {
+        return this.getLibrariesService().getTalendBeansFolder();
     }
 
     public List<URL> getTalendRoutines() {

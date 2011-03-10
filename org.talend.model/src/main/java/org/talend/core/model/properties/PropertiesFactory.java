@@ -689,6 +689,15 @@ public interface PropertiesFactory extends EFactory {
     JobScriptItem createJobScriptItem();
 
     /**
+     * Returns a new object of class '<em>Bean Item</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Bean Item</em>'.
+     * @generated
+     */
+    BeanItem createBeanItem();
+
+    /**
      * Returns a new object of class '<em>Execution Plan</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

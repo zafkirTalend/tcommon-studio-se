@@ -106,6 +106,8 @@ public interface IDesignerCoreService extends IService {
 
     public IAction getCreateProcessAction(boolean isToolbar);
 
+    public IAction getCreateBeanAction(boolean isToolbar);
+
     /**
      * tang Comment method "getProcessFromJobletProcessItem".
      * 

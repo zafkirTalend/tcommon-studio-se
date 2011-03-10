@@ -304,6 +304,9 @@ public interface IProxyRepositoryFactory {
     public abstract RootContainer<String, IRepositoryViewObject> getCamelProcess(Project project, boolean... options)
             throws PersistenceException;
 
+    public abstract RootContainer<String, IRepositoryViewObject> getCamelCamelBean(Project project, boolean... options)
+            throws PersistenceException;
+
     /**
      * @param project
      * @return
@@ -353,6 +356,9 @@ public interface IProxyRepositoryFactory {
      * @see org.talend.core.model.repository.factories.IRoutineFactory#getRoutine(org.talend.core.model.general.Project)
      */
     public abstract RootContainer<String, IRepositoryViewObject> getRoutine(Project project, boolean... options)
+            throws PersistenceException;
+
+    public abstract RootContainer<String, IRepositoryViewObject> getBean(Project project, boolean... options)
             throws PersistenceException;
 
     /**

@@ -87,6 +87,7 @@ import org.talend.core.repository.i18n.Messages;
 import org.talend.core.repository.utils.RepositoryPathProvider;
 import org.talend.core.repository.utils.XmiResourceManager;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.ui.branding.IBrandingService;
 import org.talend.cwm.helper.SubItemHelper;
 import org.talend.cwm.helper.TableHelper;
 import org.talend.repository.ProjectManager;
@@ -503,6 +504,17 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         return getRoutine(projectManager.getCurrentProject());
     }
 
+    /*
+     * (non-Jsdoc)
+     * 
+     * @see org.talend.repository.model.IProxyRepositoryFactory#getBean(org.talend.core.model.general.Project,
+     * boolean[])
+     */
+
+    public RootContainer<String, IRepositoryViewObject> getBean() throws PersistenceException {
+        return getBean(projectManager.getCurrentProject());
+    }
+
     public RootContainer<String, IRepositoryViewObject> getMetadataSQLPattern() throws PersistenceException {
         return getMetadataSQLPattern(projectManager.getCurrentProject());
     }
@@ -596,6 +608,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         if (object.getRepositoryObjectType() == ERepositoryObjectType.PROCESS
                 || object.getRepositoryObjectType() == ERepositoryObjectType.JOBLET
                 || object.getRepositoryObjectType() == ERepositoryObjectType.ROUTINES
+                || object.getRepositoryObjectType() == ERepositoryObjectType.BEANS
                 || object.getRepositoryObjectType() == ERepositoryObjectType.JOB_SCRIPT) {
             fireRepositoryPropertyChange(ERepositoryActionName.JOB_DELETE_TO_RECYCLE_BIN.getName(), null, object);
         }
@@ -651,7 +664,8 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         IRepositoryViewObject object = new RepositoryObject(objToDelete.getProperty());
         if (object.getRepositoryObjectType() == ERepositoryObjectType.PROCESS
                 || object.getRepositoryObjectType() == ERepositoryObjectType.JOBLET
-                || object.getRepositoryObjectType() == ERepositoryObjectType.ROUTINES) {
+                || object.getRepositoryObjectType() == ERepositoryObjectType.ROUTINES
+                || object.getRepositoryObjectType() == ERepositoryObjectType.BEANS) {
             fireRepositoryPropertyChange(ERepositoryActionName.JOB_DELETE_FOREVER.getName(), null, object);
             if (object.getRepositoryObjectType() == ERepositoryObjectType.PROCESS) {
                 // delete the job launch, for bug 8878
@@ -660,6 +674,14 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
             if (object.getRepositoryObjectType() == ERepositoryObjectType.ROUTINES) {
                 try {
                     coreService.deleteRoutinefile(object);
+                } catch (Exception e) {
+                    ExceptionHandler.process(e);
+                }
+
+            }
+            if (object.getRepositoryObjectType() == ERepositoryObjectType.BEANS) {
+                try {
+                    coreService.deleteBeanfile(object);
                 } catch (Exception e) {
                     ExceptionHandler.process(e);
                 }
@@ -696,7 +718,8 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         log.debug(Messages.getString("ProxyRepositoryFactory.log.Restoration", str)); //$NON-NLS-1$
         if (objToRestore.getRepositoryObjectType() == ERepositoryObjectType.PROCESS
                 || objToRestore.getRepositoryObjectType() == ERepositoryObjectType.JOBLET
-                || objToRestore.getRepositoryObjectType() == ERepositoryObjectType.ROUTINES) {
+                || objToRestore.getRepositoryObjectType() == ERepositoryObjectType.ROUTINES
+                || objToRestore.getRepositoryObjectType() == ERepositoryObjectType.BEANS) {
             fireRepositoryPropertyChange(ERepositoryActionName.JOB_RESTORE.getName(), null, objToRestore);
         }
     }
@@ -1127,6 +1150,9 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         if ((item instanceof ProcessItem || item instanceof JobletProcessItem) && (isImportItem.length == 0)) {
             fireRepositoryPropertyChange(ERepositoryActionName.JOB_CREATE.getName(), null, item);
         }
+        // if ((item instanceof BeanItem) && (isImportItem.length == 0)) {
+        // fireRepositoryPropertyChange(ERepositoryActionName.JOB_CREATE.getName(), null, item);
+        // }
         if (isImportItem.length == 1) {
             this.repositoryFactoryFromProvider.unloadResources(item.getProperty());
         }
@@ -1633,6 +1659,14 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
             currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.synch.repo.items"), 1); //$NON-NLS-1$
             try {
                 coreService.syncAllRoutines();
+
+                IBrandingService breaningService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
+                        IBrandingService.class);
+                String processLabel = breaningService.getBrandingConfiguration().getJobDesignName();
+                // PTODO need refactor later, this is not good, I think
+                if (processLabel.equals("Routes")) {
+                    coreService.syncAllBeans();
+                }
             } catch (SystemException e1) {
                 //
             }
@@ -1894,6 +1928,18 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
     }
 
     /*
+     * (non-Jsdoc)
+     * 
+     * @see org.talend.repository.model.IProxyRepositoryFactory#getCamelCamelBean(org.talend.core.model.general.Project,
+     * boolean[])
+     */
+    public RootContainer<String, IRepositoryViewObject> getCamelCamelBean(Project project, boolean... options)
+            throws PersistenceException {
+        // TODO Auto-generated method stub
+        return this.repositoryFactoryFromProvider.getCamelBean(project, options);
+    }
+
+    /*
      * (non-Javadoc)
      * 
      * @see
@@ -1911,6 +1957,10 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
     public RootContainer<String, IRepositoryViewObject> getRoutine(Project project, boolean... options)
             throws PersistenceException {
         return this.repositoryFactoryFromProvider.getRoutine(project, options);
+    }
+
+    public RootContainer<String, IRepositoryViewObject> getBean(Project project, boolean... options) throws PersistenceException {
+        return this.repositoryFactoryFromProvider.getBean(project, options);
     }
 
     public RootContainer<String, IRepositoryViewObject> getJobScripts(Project project, boolean... options)
@@ -2288,4 +2338,5 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
 
         return null;
     }
+
 }

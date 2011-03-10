@@ -8,7 +8,7 @@
 // You should have received a copy of the agreement
 // along with this program; if not, write to Talend SA
 // 9 rue Pages 92150 Suresnes, France
-//   
+//
 // ============================================================================
 package org.talend.librariesmanager.model.service;
 
@@ -66,6 +66,8 @@ public class JavaLibrariesService extends AbstractLibrariesService {
 
     public static final String SOURCE_JAVA_ROUTINES_FOLDER = "routines"; //$NON-NLS-1$
 
+    public static final String SOURCE_JAVA_BEANS_FOLDER = "beans"; //$NON-NLS-1$
+
     private static boolean isLibSynchronized;
 
     @Override
@@ -76,6 +78,11 @@ public class JavaLibrariesService extends AbstractLibrariesService {
     @Override
     public URL getRoutineTemplate() {
         return Activator.BUNDLE.getEntry("resources/java/" + SOURCE_JAVA_ROUTINES_FOLDER + "/__TEMPLATE__.java"); //$NON-NLS-1$ //$NON-NLS-2$
+    }
+
+    @Override
+    public URL getBeanTemplate() {
+        return Activator.BUNDLE.getEntry("resources/java/" + SOURCE_JAVA_BEANS_FOLDER + "/__BEAN_TEMPLATE__.java"); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     /*
@@ -112,6 +119,16 @@ public class JavaLibrariesService extends AbstractLibrariesService {
      * @see org.talend.core.model.general.ILibrariesService#getTalendRoutines()
      */
     public List<URL> getTalendRoutinesFolder() throws IOException {
+        List<URL> toReturn = new ArrayList<URL>();
+
+        for (IRoutinesProvider routineProvider : RoutineProviderManager.getInstance().getProviders(ECodeLanguage.JAVA)) {
+            toReturn.add(routineProvider.getTalendRoutinesFolder());
+        }
+
+        return toReturn;
+    }
+
+    public List<URL> getTalendBeansFolder() throws IOException {
         List<URL> toReturn = new ArrayList<URL>();
 
         for (IRoutinesProvider routineProvider : RoutineProviderManager.getInstance().getProviders(ECodeLanguage.JAVA)) {
@@ -181,22 +198,22 @@ public class JavaLibrariesService extends AbstractLibrariesService {
         try {
             // 1. Talend libraries:
             File talendLibraries = new File(FileLocator.resolve(Activator.BUNDLE.getEntry("resources/java/lib/")).getFile()); //$NON-NLS-1$
-            FilesUtils.copyFolder(talendLibraries, target, false, FilesUtils.getExcludeSystemFilesFilter(), FilesUtils
-                    .getAcceptJARFilesFilter(), true, monitorWrap);
+            FilesUtils.copyFolder(talendLibraries, target, false, FilesUtils.getExcludeSystemFilesFilter(),
+                    FilesUtils.getAcceptJARFilesFilter(), true, monitorWrap);
 
             // 2. Components libraries
             IComponentsService service = (IComponentsService) GlobalServiceRegister.getDefault().getService(
                     IComponentsService.class);
             File componentsLibraries = new File(service.getComponentsFactory().getComponentPath().getFile());
 
-            FilesUtils.copyFolder(componentsLibraries, target, false, FilesUtils.getExcludeSystemFilesFilter(), FilesUtils
-                    .getAcceptJARFilesFilter(), false, monitorWrap);
+            FilesUtils.copyFolder(componentsLibraries, target, false, FilesUtils.getExcludeSystemFilesFilter(),
+                    FilesUtils.getAcceptJARFilesFilter(), false, monitorWrap);
 
             // 3.Add resource libraires.
             IResourceService resourceService = CorePlugin.getDefault().getResourceService();
             File resourceLibraries = new File(resourceService.getJavaLibraryPath());
-            FilesUtils.copyFolder(resourceLibraries, target, false, FilesUtils.getExcludeSystemFilesFilter(), FilesUtils
-                    .getAcceptJARFilesFilter(), false, monitorWrap);
+            FilesUtils.copyFolder(resourceLibraries, target, false, FilesUtils.getExcludeSystemFilesFilter(),
+                    FilesUtils.getAcceptJARFilesFilter(), false, monitorWrap);
 
             // 4. system routien libraries
             Map<String, List<URI>> routineAndJars = RoutineLibraryMananger.getInstance().getRoutineAndJars();
@@ -206,8 +223,8 @@ public class JavaLibrariesService extends AbstractLibrariesService {
                     for (URI jar : jarList) {
                         File source = new File(jar);
                         if (source.exists()) {
-                            FilesUtils.copyFile(source, new File(getLibrariesPath() + File.separator
-                                    + new Path(jar.getPath()).lastSegment()));
+                            FilesUtils.copyFile(source,
+                                    new File(getLibrariesPath() + File.separator + new Path(jar.getPath()).lastSegment()));
                         }
                     }
                 }
@@ -303,8 +320,8 @@ public class JavaLibrariesService extends AbstractLibrariesService {
                         + ERepositoryObjectType.getFolderName(ERepositoryObjectType.LIBS);
                 File libsTargetFile = new File(path);
                 if (libsTargetFile != null && libsTargetFile.exists()) {
-                    FilesUtils.copyFolder(libsTargetFile, target, false, FilesUtils.getExcludeSystemFilesFilter(), FilesUtils
-                            .getAcceptJARFilesFilter(), false, monitorWrap);
+                    FilesUtils.copyFolder(libsTargetFile, target, false, FilesUtils.getExcludeSystemFilesFilter(),
+                            FilesUtils.getAcceptJARFilesFilter(), false, monitorWrap);
                 }
             } catch (IOException e) {
                 ExceptionHandler.process(e);

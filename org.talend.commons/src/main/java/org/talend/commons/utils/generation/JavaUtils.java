@@ -68,6 +68,7 @@ public final class JavaUtils {
     /** Java Routines Directory. */
     public static final String JAVA_ROUTINES_DIRECTORY = "routines"; //$NON-NLS-1$
 
+    /** Java Beans Directory. */
     public static final String JAVA_BEANS_DIRECTORY = "beans"; //$NON-NLS-1$
 
     /** Java SQLTemplate Directory. */

@@ -93,9 +93,13 @@ public interface ICoreService extends IService {
 
     public void deleteRoutinefile(IRepositoryViewObject objToDelete);
 
+    public void deleteBeanfile(IRepositoryViewObject objToDelete);
+
     boolean checkJob(String name) throws BusinessException;
 
     public void syncAllRoutines() throws SystemException;
+
+    public void syncAllBeans() throws SystemException;
 
     public void syncAllRules();
 

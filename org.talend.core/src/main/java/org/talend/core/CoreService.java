@@ -247,6 +247,14 @@ public class CoreService implements ICoreService {
         }
     }
 
+    public void deleteBeanfile(IRepositoryViewObject objToDelete) {
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICodeGeneratorService.class)) {
+            ICodeGeneratorService codeGenService = (ICodeGeneratorService) GlobalServiceRegister.getDefault().getService(
+                    ICodeGeneratorService.class);
+            codeGenService.createRoutineSynchronizer().deleteBeanfile(objToDelete);
+        }
+    }
+
     public boolean checkJob(String name) throws BusinessException {
         IJobCheckService jobCheckService = (IJobCheckService) GlobalServiceRegister.getDefault().getService(
                 IJobCheckService.class);
@@ -266,6 +274,15 @@ public class CoreService implements ICoreService {
             ICodeGeneratorService codeGenService = (ICodeGeneratorService) GlobalServiceRegister.getDefault().getService(
                     ICodeGeneratorService.class);
             codeGenService.createRoutineSynchronizer().syncAllRoutines();
+        }
+
+    }
+
+    public void syncAllBeans() throws SystemException {
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICodeGeneratorService.class)) {
+            ICodeGeneratorService codeGenService = (ICodeGeneratorService) GlobalServiceRegister.getDefault().getService(
+                    ICodeGeneratorService.class);
+            codeGenService.createRoutineSynchronizer().syncAllBeans();
         }
 
     }

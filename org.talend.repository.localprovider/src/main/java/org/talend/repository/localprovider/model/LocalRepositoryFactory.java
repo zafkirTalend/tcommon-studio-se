@@ -76,6 +76,7 @@ import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.migration.IMigrationToolService;
 import org.talend.core.model.properties.BRMSConnectionItem;
+import org.talend.core.model.properties.BeanItem;
 import org.talend.core.model.properties.BusinessProcessItem;
 import org.talend.core.model.properties.ByteArray;
 import org.talend.core.model.properties.ConnectionItem;
@@ -1765,6 +1766,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             case PropertiesPackage.VALIDATION_RULES_CONNECTION_ITEM:
                 itemResource = save((ValidationRulesConnectionItem) item);
                 break;
+            case PropertiesPackage.BEAN_ITEM:
+                itemResource = save((BeanItem) item);
+                break;
             default:
                 throw new UnsupportedOperationException();
             }
@@ -1818,6 +1822,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             createResource.load(in, null);
             Item newItem = copyFromResource(createResource, changeLabelWithCopyPrefix);
             if (ERepositoryObjectType.getItemType(newItem) == ERepositoryObjectType.ROUTES) {
+                createCamel(getRepositoryContext().getProject(), newItem, path);
+            }
+            if (ERepositoryObjectType.getItemType(newItem) == ERepositoryObjectType.BEANS) {
                 createCamel(getRepositoryContext().getProject(), newItem, path);
             } else {
                 create(getRepositoryContext().getProject(), newItem, path);
@@ -1873,6 +1880,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             case PropertiesPackage.PROCESS_ITEM:
                 itemResource = create(project2, (ProcessItem) item, path, ERepositoryObjectType.ROUTES);
                 break;
+            case PropertiesPackage.BEAN_ITEM:
+                itemResource = create(project2, (BeanItem) item, path, ERepositoryObjectType.BEANS);
+                break;
             default:
                 throw new UnsupportedOperationException();
             }
@@ -1886,7 +1896,12 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         propertyResource.getContents().add(item.getProperty());
         propertyResource.getContents().add(item.getState());
         propertyResource.getContents().add(item);
-        String parentPath = ERepositoryObjectType.getFolderName(ERepositoryObjectType.ROUTES) + IPath.SEPARATOR + path.toString();
+        String parentPath = "";
+        if (item instanceof BeanItem) {
+            parentPath = ERepositoryObjectType.getFolderName(ERepositoryObjectType.BEANS) + IPath.SEPARATOR + path.toString();
+        } else if (item instanceof ProcessItem) {
+            parentPath = ERepositoryObjectType.getFolderName(ERepositoryObjectType.ROUTES) + IPath.SEPARATOR + path.toString();
+        }
 
         FolderHelper folderHelper = getFolderHelper(project.getEmfProject());
         FolderItem parentFolderItem = folderHelper.getFolder(parentPath);

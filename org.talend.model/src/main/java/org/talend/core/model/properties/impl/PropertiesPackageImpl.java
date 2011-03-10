@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
 import org.talend.core.model.properties.BRMSConnectionItem;
+import org.talend.core.model.properties.BeanItem;
 import org.talend.core.model.properties.BusinessProcessItem;
 import org.talend.core.model.properties.ByteArray;
 import org.talend.core.model.properties.CSVFileConnectionItem;
@@ -634,6 +635,13 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     private EClass jobScriptItemEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass beanItemEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -4128,6 +4136,24 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getBeanItem() {
+        return beanItemEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getBeanItem_Imports() {
+        return (EReference)beanItemEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -5558,6 +5584,9 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
 
         jobScriptItemEClass = createEClass(JOB_SCRIPT_ITEM);
 
+        beanItemEClass = createEClass(BEAN_ITEM);
+        createEReference(beanItemEClass, BEAN_ITEM__IMPORTS);
+
         // Create enums
         folderTypeEEnum = createEEnum(FOLDER_TYPE);
         userProjectAuthorizationTypeEEnum = createEEnum(USER_PROJECT_AUTHORIZATION_TYPE);
@@ -5643,6 +5672,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         tdqItemEClass.getESuperTypes().add(this.getItem());
         brmsConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
         jobScriptItemEClass.getESuperTypes().add(this.getFileItem());
+        beanItemEClass.getESuperTypes().add(this.getFileItem());
 
         // Initialize classes and features; add operations and parameters
         initEClass(projectEClass, Project.class, "Project", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -6247,6 +6277,9 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEClass(brmsConnectionItemEClass, BRMSConnectionItem.class, "BRMSConnectionItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(jobScriptItemEClass, JobScriptItem.class, "JobScriptItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+        initEClass(beanItemEClass, BeanItem.class, "BeanItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getBeanItem_Imports(), theComponentPackage.getIMPORTType(), null, "imports", null, 0, -1, BeanItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Initialize enums and add enum literals
         initEEnum(folderTypeEEnum, FolderType.class, "FolderType");

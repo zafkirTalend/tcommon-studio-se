@@ -24,6 +24,7 @@ import org.talend.commons.exception.SystemException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
+import org.talend.core.model.properties.BeanItem;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ProcessItem;
@@ -204,6 +205,9 @@ public class CopyObjectAction {
                     if (newItem instanceof RoutineItem) {
                         synDuplicatedRoutine((RoutineItem) newItem);
                     }
+                    if (newItem instanceof BeanItem) {
+                        synDuplicatedBean((BeanItem) newItem);
+                    }
                     if (newItem instanceof ProcessItem) {
                         RelationshipItemBuilder.getInstance().addOrUpdateItem((ProcessItem) newItem);
                     }
@@ -249,6 +253,19 @@ public class CopyObjectAction {
             codeGenService.createRoutineSynchronizer().renameRoutineClass((RoutineItem) item);
             try {
                 codeGenService.createRoutineSynchronizer().syncRoutine((RoutineItem) item, true);
+            } catch (SystemException e) {
+                ExceptionHandler.process(e);
+            }
+        }
+    }
+
+    private void synDuplicatedBean(BeanItem item) {
+        ICodeGeneratorService codeGenService = (ICodeGeneratorService) GlobalServiceRegister.getDefault().getService(
+                ICodeGeneratorService.class);
+        if (codeGenService != null) {
+            codeGenService.createRoutineSynchronizer().renameBeanClass((BeanItem) item);
+            try {
+                codeGenService.createRoutineSynchronizer().syncBean((BeanItem) item, true);
             } catch (SystemException e) {
                 ExceptionHandler.process(e);
             }

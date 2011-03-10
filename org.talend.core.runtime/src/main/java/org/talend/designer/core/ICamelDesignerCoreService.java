@@ -21,4 +21,7 @@ import org.talend.core.IService;
 public interface ICamelDesignerCoreService extends IService {
 
     public IAction getCreateProcessAction(boolean isToolbar);
+
+    public IAction getCreateBeanAction(boolean isToolbar);
+
 }

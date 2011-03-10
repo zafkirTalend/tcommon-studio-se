@@ -68,6 +68,8 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
 
     public abstract URL getRoutineTemplate();
 
+    public abstract URL getBeanTemplate();
+
     public ELibraryInstallStatus getLibraryStatus(String libName) throws BusinessException {
         checkInstalledLibraries();
         for (ModuleNeeded current : ModulesNeededProvider.getModulesNeeded()) {
@@ -193,4 +195,5 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
         checkLibraries();
 
     }
+
 }

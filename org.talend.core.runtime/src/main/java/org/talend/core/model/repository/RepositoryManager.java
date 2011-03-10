@@ -233,6 +233,16 @@ public final class RepositoryManager {
                     ExceptionHandler.process(e);
                 }
             }
+        } else if (type.equals(ERepositoryObjectType.BEANS)) {
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(ICodeGeneratorService.class)) {
+                ICodeGeneratorService codeGenService = (ICodeGeneratorService) GlobalServiceRegister.getDefault().getService(
+                        ICodeGeneratorService.class);
+                try {
+                    codeGenService.createRoutineSynchronizer().syncAllBeans();
+                } catch (SystemException e) {
+                    ExceptionHandler.process(e);
+                }
+            }
         } else if (type.equals(ERepositoryObjectType.JOBLET)) {
             if (PluginChecker.isJobLetPluginLoaded()) {
                 IJobletProviderService jobletService = (IJobletProviderService) GlobalServiceRegister.getDefault().getService(

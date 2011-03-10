@@ -141,6 +141,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.TDQ_ITEM: return createTDQItem();
             case PropertiesPackage.BRMS_CONNECTION_ITEM: return createBRMSConnectionItem();
             case PropertiesPackage.JOB_SCRIPT_ITEM: return createJobScriptItem();
+            case PropertiesPackage.BEAN_ITEM: return createBeanItem();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -921,6 +922,16 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     public JobScriptItem createJobScriptItem() {
         JobScriptItemImpl jobScriptItem = new JobScriptItemImpl();
         return jobScriptItem;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public BeanItem createBeanItem() {
+        BeanItemImpl beanItem = new BeanItemImpl();
+        return beanItem;
     }
 
     /**

@@ -38,6 +38,8 @@ public class RepositoryImageProvider {
             return ECoreImage.CONTEXT_ICON;
         case ROUTINES:
             return ECoreImage.ROUTINE_ICON;
+        case BEANS:
+            return ECoreImage.ROUTINE_ICON;
         case JOB_SCRIPT:
             return ECoreImage.JOB_SCRIPTS_ICON;
         case SNIPPETS:

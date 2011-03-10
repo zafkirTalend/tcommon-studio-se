@@ -150,6 +150,11 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
         return getObjectFromFolder(project, ERepositoryObjectType.ROUTES, true, options);
     }
 
+    public RootContainer<String, IRepositoryViewObject> getCamelBean(Project project, boolean... options)
+            throws PersistenceException {
+        return getObjectFromFolder(project, ERepositoryObjectType.BEANS, true, options);
+    }
+
     /*
      * (non-Javadoc)
      * 
@@ -168,6 +173,10 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
     public RootContainer<String, IRepositoryViewObject> getRoutine(Project project, boolean... options)
             throws PersistenceException {
         return getObjectFromFolder(project, ERepositoryObjectType.ROUTINES, true, options);
+    }
+
+    public RootContainer<String, IRepositoryViewObject> getBean(Project project, boolean... options) throws PersistenceException {
+        return getObjectFromFolder(project, ERepositoryObjectType.BEANS, true, options);
     }
 
     public RootContainer<String, IRepositoryViewObject> getJobScripts(Project project, boolean... options)
