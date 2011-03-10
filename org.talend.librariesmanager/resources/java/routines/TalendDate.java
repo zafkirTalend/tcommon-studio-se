@@ -443,8 +443,18 @@ public class TalendDate {
             c1 = c2;
             c2 = tmp;
         }
-        long diffMonth = (c1.get(Calendar.YEAR) - c2.get(Calendar.YEAR)) * 12 + (c1.get(Calendar.MONTH) - c2.get(Calendar.MONTH));
-        result = diffMonth + ((c1.get(Calendar.DAY_OF_MONTH) - c2.get(Calendar.DAY_OF_MONTH)) < 0 ? -1 : 0);
+        result = (c1.get(Calendar.YEAR) - c2.get(Calendar.YEAR)) * 12 + (c1.get(Calendar.MONTH) - c2.get(Calendar.MONTH));
+        if (c1.get(Calendar.DAY_OF_MONTH) != c2.get(Calendar.DAY_OF_MONTH)) {
+            result += (c1.get(Calendar.DAY_OF_MONTH) - c2.get(Calendar.DAY_OF_MONTH)) < 0 ? -1 : 0;
+        } else if (c1.get(Calendar.HOUR_OF_DAY) != c2.get(Calendar.HOUR_OF_DAY)) {
+            result += (c1.get(Calendar.HOUR_OF_DAY) - c2.get(Calendar.HOUR_OF_DAY)) < 0 ? -1 : 0;
+        } else if (c1.get(Calendar.MINUTE) != c2.get(Calendar.MINUTE)) {
+            result += (c1.get(Calendar.MINUTE) - c2.get(Calendar.MINUTE)) < 0 ? -1 : 0;
+        } else if (c1.get(Calendar.SECOND) != c2.get(Calendar.SECOND)) {
+            result += (c1.get(Calendar.SECOND) - c2.get(Calendar.SECOND)) < 0 ? -1 : 0;
+        } else if (c1.get(Calendar.MILLISECOND) != c2.get(Calendar.MILLISECOND)) {
+            result += (c1.get(Calendar.MILLISECOND) - c2.get(Calendar.MILLISECOND)) < 0 ? -1 : 0;
+        }
         if (flag) {
             result = -result;
         }
@@ -783,9 +793,11 @@ public class TalendDate {
         // test_formatDate();
         // test_isDate();
         // test_getRandomDate();
-        System.out.println(getPartOfDate("DAY_OF_WEEK_IN_MONTH", parseDate("yyyy-MM-dd", "2010-12-26")));
-        System.out.println(getPartOfDate("WEEK_OF_MONTH", parseDate("yyyy-MM-dd", "2010-12-26")));
+        // System.out.println(getPartOfDate("DAY_OF_WEEK_IN_MONTH", parseDate("yyyy-MM-dd", "2010-12-26")));
+        // System.out.println(getPartOfDate("WEEK_OF_MONTH", parseDate("yyyy-MM-dd", "2010-12-26")));
 
+        System.out.println(TalendDate.diffDateFloor(TalendDate.parseDate("yyyy/MM/dd hh:mm:ss.SSS", "2011/05/10 14:15:16.789"),
+                TalendDate.parseDate("yyyy/MM/dd hh:mm:ss.SSS", "2010/05/10 14:15:16.789"), "MM"));
     }
 
     /**
