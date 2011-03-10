@@ -385,4 +385,7 @@ public class RepositoryNode implements IRepositoryNode {
         return getChildren();
     }
 
+    public boolean canExpandForDoubleClick() {
+        return true;
+    }
 }
