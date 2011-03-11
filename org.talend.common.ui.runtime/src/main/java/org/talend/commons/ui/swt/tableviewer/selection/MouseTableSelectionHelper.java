@@ -21,11 +21,11 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.graphics.Cursor;
+import org.eclipse.swt.graphics.Device;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Table;
@@ -239,8 +239,8 @@ public class MouseTableSelectionHelper {
                     // cursor = new Cursor(table.getDisplay(), imageDataCursor, 15, 9);
                     Constructor<Cursor> constructor;
                     try {
-                        constructor = Cursor.class.getConstructor(Display.class, ImageData.class, int.class, int.class);
-                        cursor = constructor.newInstance(table.getData(), imageDataCursor, 15, 9);
+                        constructor = Cursor.class.getConstructor(Device.class, ImageData.class, int.class, int.class);
+                        cursor = constructor.newInstance(table.getDisplay(), imageDataCursor, 15, 9);
                     } catch (SecurityException e) {// throws a runtime exception but should never happend
                         throw new RuntimeException(e);
                     } catch (NoSuchMethodException e) {
