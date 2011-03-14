@@ -66,7 +66,9 @@ public interface IConnection extends IElement {
      * @return int value of the style
      */
     public EConnectionType getLineStyle();
-
+    
+    public String getRouteConnectionType();
+    
     public IMetadataTable getMetadataTable();
 
     public boolean isActivate();
