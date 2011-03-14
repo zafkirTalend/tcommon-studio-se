@@ -382,7 +382,7 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
         }
 
         // added
-        for (ERepositoryObjectType repositoryObjectType : ERepositoryObjectType.values()) {
+        for (ERepositoryObjectType repositoryObjectType : (ERepositoryObjectType[]) ERepositoryObjectType.values()) {
             if (!repositoryObjectType.isResourceItem()) {
                 continue;
             }

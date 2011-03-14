@@ -50,6 +50,8 @@ public class RepositoryNode implements IRepositoryNode {
 
     private IProjectRepositoryNode root;
 
+    private IImage icon;
+
     private boolean initialized = false;
 
     /*
@@ -267,13 +269,16 @@ public class RepositoryNode implements IRepositoryNode {
      * @see org.talend.repository.model.RepositoryNode#getIcon()
      */
     public IImage getIcon() {
-        switch (getType()) {
-        case REPOSITORY_ELEMENT:
-        case SIMPLE_FOLDER:
-            return RepositoryImageProvider.getIcon(getObjectType());
-        default:
-            return RepositoryImageProvider.getIcon(getContentType());
+        if (this.icon == null) {
+            switch (getType()) {
+            case REPOSITORY_ELEMENT:
+            case SIMPLE_FOLDER:
+                return RepositoryImageProvider.getIcon(getObjectType());
+            default:
+                return RepositoryImageProvider.getIcon(getContentType());
+            }
         }
+        return this.icon;
     }
 
     public void setProperties(EProperties key, Object value) {
@@ -388,4 +393,9 @@ public class RepositoryNode implements IRepositoryNode {
     public boolean canExpandForDoubleClick() {
         return true;
     }
+
+    public void setIcon(IImage icon) {
+        this.icon = icon;
+    }
+
 }

@@ -79,29 +79,21 @@ public class RepositoryConstants {
     public static final String TDQ_PAT_ITEM_PATTERN = ".*"; //$NON-NLS-1$
 
     public static String getPattern(ERepositoryObjectType type) {
-        switch (type) {
-        case FOLDER:
+        if (type == ERepositoryObjectType.FOLDER) {
             return FOLDER_PATTERN;
-        case PROCESS:
-        case JOBLET:
+        } else if (type == ERepositoryObjectType.PROCESS || type == ERepositoryObjectType.JOBLET) {
             return CODE_ITEM_PATTERN;
-        case ROUTINES:
+        } else if (type == ERepositoryObjectType.ROUTINES) {
             // for bug 10356
             return ROUTINES_ITEM_PATTERN;
-        case TDQ_JRXMLTEMPLATE:
-        case TDQ_DATA_PROFILING:
-        case TDQ_ANALYSIS:
-        case TDQ_REPORTS:
-        case TDQ_LIBRARIES:
-        case TDQ_PATTERNS:
-        case TDQ_PATTERN_REGEX:
-        case TDQ_PATTERN_SQL:
-        case TDQ_SOURCE_FILES:
-        case TDQ_RULES:
-        case TDQ_RULES_SQL:
-        case TDQ_INDICATORS:
+        } else if (type == ERepositoryObjectType.TDQ_JRXMLTEMPLATE || type == ERepositoryObjectType.TDQ_DATA_PROFILING
+                || type == ERepositoryObjectType.TDQ_ANALYSIS || type == ERepositoryObjectType.TDQ_REPORTS
+                || type == ERepositoryObjectType.TDQ_LIBRARIES || type == ERepositoryObjectType.TDQ_PATTERNS
+                || type == ERepositoryObjectType.TDQ_PATTERN_REGEX || type == ERepositoryObjectType.TDQ_PATTERN_SQL
+                || type == ERepositoryObjectType.TDQ_SOURCE_FILES || type == ERepositoryObjectType.TDQ_RULES
+                || type == ERepositoryObjectType.TDQ_RULES_SQL || type == ERepositoryObjectType.TDQ_INDICATORS) {
             return TDQ_PAT_ITEM_PATTERN;
-        default:
+        } else {
             return TDQ_PAT_ITEM_PATTERN;
         }
     }

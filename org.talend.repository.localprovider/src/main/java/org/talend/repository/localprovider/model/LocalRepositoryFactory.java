@@ -865,7 +865,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         FolderHelper folderHelper = getFolderHelper(emfProject);
 
         // Folder creation :
-        for (ERepositoryObjectType type : ERepositoryObjectType.values()) {
+        for (ERepositoryObjectType type : (ERepositoryObjectType[]) ERepositoryObjectType.values()) {
             if (type.isDQItemType()) {
                 continue;
             }

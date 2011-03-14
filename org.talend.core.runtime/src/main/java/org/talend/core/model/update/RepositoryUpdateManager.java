@@ -807,7 +807,7 @@ public abstract class RepositoryUpdateManager {
         if (source == null) {
             return null;
         }
-        for (ERepositoryObjectType type : ERepositoryObjectType.values()) {
+        for (ERepositoryObjectType type : (ERepositoryObjectType[]) ERepositoryObjectType.values()) {
             String alias = type.getAlias();
             if (alias != null && source.startsWith(alias)) {
                 return type;

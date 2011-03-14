@@ -32,6 +32,7 @@ import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.properties.GenericSchemaConnectionItem;
 import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.Property;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.repository.i18n.Messages;
 import org.talend.core.repository.model.repositoryObject.MetadataTableRepositoryObject;
@@ -178,12 +179,12 @@ public class CopyToGenericSchemaHelper {
      */
     private static boolean checkIsConnectionTableSchema(IRepositoryViewObject objectToMove) {
         if (objectToMove != null && objectToMove.getRepositoryObjectType() != null) {
-            switch (objectToMove.getRepositoryObjectType()) {
-            case METADATA_CON_TABLE:
-            case METADATA_CON_SYNONYM:
-            case METADATA_CON_VIEW:
+            ERepositoryObjectType objectType = objectToMove.getRepositoryObjectType();
+            if (objectType == ERepositoryObjectType.METADATA_CON_TABLE
+                    || objectType == ERepositoryObjectType.METADATA_CON_SYNONYM
+                    || objectType == ERepositoryObjectType.METADATA_CON_VIEW) {
                 return true;
-            default:
+            } else {
                 return false;
             }
         }

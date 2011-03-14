@@ -67,7 +67,7 @@ public abstract class FolderHelper {
     }
 
     private void initialize() {
-        for (ERepositoryObjectType type : ERepositoryObjectType.values()) {
+        for (ERepositoryObjectType type : (ERepositoryObjectType[]) ERepositoryObjectType.values()) {
             // if (type.isDQItemType()) {
             // continue;
             // }
@@ -103,7 +103,7 @@ public abstract class FolderHelper {
 
     public void createFolder(IPath path) {
         FolderType folderType = FolderType.FOLDER_LITERAL;
-        for (ERepositoryObjectType type : ERepositoryObjectType.values()) {
+        for (ERepositoryObjectType type : (ERepositoryObjectType[]) ERepositoryObjectType.values()) {
             if (type.hasFolder()) {
                 String folderName = ERepositoryObjectType.getFolderName(type);
                 if (folderName.equals(path.toString())) {

@@ -171,16 +171,13 @@ public class RetrieveMDMSchemaAction extends AbstractCreateAction {
             String metadataTableLabel = (String) node.getProperties(EProperties.LABEL);
 
             MDMConnectionItem item = null;
-            switch (nodeType) {
-            case METADATA_CON_TABLE:
-            case METADATA_CON_COLUMN:
+            if (nodeType == ERepositoryObjectType.METADATA_CON_TABLE || nodeType == ERepositoryObjectType.METADATA_CON_COLUMN) {
                 item = (MDMConnectionItem) node.getObject().getProperty().getItem();
                 connection = (MDMConnection) item.getConnection();
                 metadataTable = TableHelper.findByLabel(connection, metadataTableLabel);
                 concept = MDMUtil.getConcept(connection, metadataTable);
                 creation = false;
-                break;
-            case METADATA_MDMCONNECTION:
+            } else if (nodeType == ERepositoryObjectType.METADATA_MDMCONNECTION) {
                 item = (MDMConnectionItem) node.getObject().getProperty().getItem();
                 connection = (MDMConnection) item.getConnection();
                 creation = true;
@@ -193,10 +190,6 @@ public class RetrieveMDMSchemaAction extends AbstractCreateAction {
                     concept.setLoopLimit(XmlArray.getRowLimit());
 
                 }
-
-                break;
-            default:
-                break;
             }
             ConnectionContextHelper.checkContextMode(item);
 

@@ -941,13 +941,12 @@ public class DeleteAction extends AContextualAction {
                             visible = false;
                         }
                     } else {
-                        switch (repObj.getRepositoryObjectType()) {
-                        case METADATA_CON_TABLE:
-                        case METADATA_CON_QUERY:
-                        case METADATA_CON_COLUMN:
+                        ERepositoryObjectType repositoryObjectType = repObj.getRepositoryObjectType();
+                        if (repositoryObjectType == ERepositoryObjectType.METADATA_CON_TABLE
+                                || repositoryObjectType == ERepositoryObjectType.METADATA_CON_QUERY
+                                || repositoryObjectType == ERepositoryObjectType.METADATA_CON_COLUMN) {
                             visible = false;
-                            break;
-                        default:
+                        } else {
                             if (getText() == null || DELETE_LOGICAL_TITLE.equals(getText())) {
                                 this.setText(DELETE_LOGICAL_TITLE);
                                 this.setToolTipText(DELETE_LOGICAL_TOOLTIP);
@@ -959,7 +958,6 @@ public class DeleteAction extends AContextualAction {
                             } else {
                                 visible = false;
                             }
-                            break;
                         }
                     }
                     break;

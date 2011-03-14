@@ -273,92 +273,64 @@ public class DuplicateAction extends AContextualAction {
 
         Item item = null;
         if (repositoryType != null) {
-            switch (repositoryType) {
-            case BUSINESS_PROCESS:
-                item = PropertiesFactory.eINSTANCE.createBusinessProcessItem();
-                break;
-            case CONTEXT:
-                item = PropertiesFactory.eINSTANCE.createContextItem();
-                break;
-            case DOCUMENTATION:
-                item = PropertiesFactory.eINSTANCE.createDocumentationItem();
-                break;
-            case JOBLET:
-                item = PropertiesFactory.eINSTANCE.createJobletProcessItem();
-                break;
-            case METADATA_CONNECTIONS:
-                item = PropertiesFactory.eINSTANCE.createDatabaseConnectionItem();
-                break;
-            case METADATA_FILE_DELIMITED:
-                item = PropertiesFactory.eINSTANCE.createDelimitedFileConnectionItem();
-                break;
-            case METADATA_FILE_EBCDIC:
-                item = PropertiesFactory.eINSTANCE.createEbcdicConnectionItem();
-                break;
-            case METADATA_FILE_EXCEL:
-                item = PropertiesFactory.eINSTANCE.createExcelFileConnectionItem();
-                break;
-            case METADATA_FILE_HL7:
-                item = PropertiesFactory.eINSTANCE.createHL7ConnectionItem();
-                break;
-            case METADATA_FILE_LDIF:
-                item = PropertiesFactory.eINSTANCE.createLdifFileConnectionItem();
-                break;
-            case METADATA_FILE_POSITIONAL:
-                item = PropertiesFactory.eINSTANCE.createPositionalFileConnectionItem();
-                break;
-            case METADATA_FILE_LINKRULES:
-                item = PropertiesFactory.eINSTANCE.createLinkRulesItem();
-                break;
-            case METADATA_FILE_REGEXP:
-                item = PropertiesFactory.eINSTANCE.createRegExFileConnectionItem();
-                break;
-            case METADATA_FILE_RULES:
-                item = PropertiesFactory.eINSTANCE.createRulesItem();
-                break;
-            case METADATA_FILE_XML:
-                item = PropertiesFactory.eINSTANCE.createXmlFileConnectionItem();
-                break;
-            case METADATA_GENERIC_SCHEMA:
-                item = PropertiesFactory.eINSTANCE.createGenericSchemaConnectionItem();
-                break;
-            case METADATA_LDAP_SCHEMA:
-                item = PropertiesFactory.eINSTANCE.createLDAPSchemaConnectionItem();
-                break;
-            case METADATA_MDMCONNECTION:
-                item = PropertiesFactory.eINSTANCE.createMDMConnectionItem();
-                break;
-            case METADATA_SALESFORCE_SCHEMA:
-                item = PropertiesFactory.eINSTANCE.createSalesforceSchemaConnectionItem();
-                break;
-            case METADATA_SAPCONNECTIONS:
-                item = PropertiesFactory.eINSTANCE.createSAPConnectionItem();
-                break;
-            case METADATA_WSDL_SCHEMA:
-                item = PropertiesFactory.eINSTANCE.createWSDLSchemaConnectionItem();
-                break;
-            case PROCESS:
-                item = PropertiesFactory.eINSTANCE.createProcessItem();
-                break;
-            case ROUTINES:
-                item = PropertiesFactory.eINSTANCE.createRoutineItem();
-                break;
-            case BEANS:
-                item = PropertiesFactory.eINSTANCE.createBeanItem();
-                break;
-            case JOB_SCRIPT:
-                item = PropertiesFactory.eINSTANCE.createJobScriptItem();
-                break;
-            case SNIPPETS:
-                item = PropertiesFactory.eINSTANCE.createSnippetItem();
-                break;
-            case SQLPATTERNS:
-                item = PropertiesFactory.eINSTANCE.createSQLPatternItem();
-                break;
-            case SVG_BUSINESS_PROCESS:
-                item = PropertiesFactory.eINSTANCE.createSVGBusinessProcessItem();
-                break;
-            default:
+            if (repositoryType != null) {
+                if (repositoryType == ERepositoryObjectType.BUSINESS_PROCESS) {
+                    item = PropertiesFactory.eINSTANCE.createBusinessProcessItem();
+                } else if (repositoryType == ERepositoryObjectType.CONTEXT) {
+                    item = PropertiesFactory.eINSTANCE.createContextItem();
+                } else if (repositoryType == ERepositoryObjectType.DOCUMENTATION) {
+                    item = PropertiesFactory.eINSTANCE.createDocumentationItem();
+                } else if (repositoryType == ERepositoryObjectType.JOBLET) {
+                    item = PropertiesFactory.eINSTANCE.createJobletProcessItem();
+                } else if (repositoryType == ERepositoryObjectType.METADATA_CONNECTIONS) {
+                    item = PropertiesFactory.eINSTANCE.createDatabaseConnectionItem();
+                } else if (repositoryType == ERepositoryObjectType.METADATA_FILE_DELIMITED) {
+                    item = PropertiesFactory.eINSTANCE.createDelimitedFileConnectionItem();
+                } else if (repositoryType == ERepositoryObjectType.METADATA_FILE_EBCDIC) {
+                    item = PropertiesFactory.eINSTANCE.createEbcdicConnectionItem();
+                } else if (repositoryType == ERepositoryObjectType.METADATA_FILE_EXCEL) {
+                    item = PropertiesFactory.eINSTANCE.createExcelFileConnectionItem();
+                } else if (repositoryType == ERepositoryObjectType.METADATA_FILE_HL7) {
+                    item = PropertiesFactory.eINSTANCE.createHL7ConnectionItem();
+                } else if (repositoryType == ERepositoryObjectType.METADATA_FILE_LDIF) {
+                    item = PropertiesFactory.eINSTANCE.createLdifFileConnectionItem();
+                } else if (repositoryType == ERepositoryObjectType.METADATA_FILE_POSITIONAL) {
+                    item = PropertiesFactory.eINSTANCE.createPositionalFileConnectionItem();
+                } else if (repositoryType == ERepositoryObjectType.METADATA_FILE_LINKRULES) {
+                    item = PropertiesFactory.eINSTANCE.createLinkRulesItem();
+                } else if (repositoryType == ERepositoryObjectType.METADATA_FILE_REGEXP) {
+                    item = PropertiesFactory.eINSTANCE.createRegExFileConnectionItem();
+                } else if (repositoryType == ERepositoryObjectType.METADATA_FILE_RULES) {
+                    item = PropertiesFactory.eINSTANCE.createRulesItem();
+                } else if (repositoryType == ERepositoryObjectType.METADATA_FILE_XML) {
+                    item = PropertiesFactory.eINSTANCE.createXmlFileConnectionItem();
+                } else if (repositoryType == ERepositoryObjectType.METADATA_GENERIC_SCHEMA) {
+                    item = PropertiesFactory.eINSTANCE.createGenericSchemaConnectionItem();
+                } else if (repositoryType == ERepositoryObjectType.METADATA_LDAP_SCHEMA) {
+                    item = PropertiesFactory.eINSTANCE.createLDAPSchemaConnectionItem();
+                } else if (repositoryType == ERepositoryObjectType.METADATA_MDMCONNECTION) {
+                    item = PropertiesFactory.eINSTANCE.createMDMConnectionItem();
+                } else if (repositoryType == ERepositoryObjectType.METADATA_SALESFORCE_SCHEMA) {
+                    item = PropertiesFactory.eINSTANCE.createSalesforceSchemaConnectionItem();
+                } else if (repositoryType == ERepositoryObjectType.METADATA_SAPCONNECTIONS) {
+                    item = PropertiesFactory.eINSTANCE.createSAPConnectionItem();
+                } else if (repositoryType == ERepositoryObjectType.METADATA_WSDL_SCHEMA) {
+                    item = PropertiesFactory.eINSTANCE.createWSDLSchemaConnectionItem();
+                } else if (repositoryType == ERepositoryObjectType.PROCESS) {
+                    item = PropertiesFactory.eINSTANCE.createProcessItem();
+                } else if (repositoryType == ERepositoryObjectType.ROUTINES) {
+                    item = PropertiesFactory.eINSTANCE.createRoutineItem();
+                } else if (repositoryType == ERepositoryObjectType.BEANS) {
+                    item = PropertiesFactory.eINSTANCE.createBeanItem();
+                } else if (repositoryType == ERepositoryObjectType.JOB_SCRIPT) {
+                    item = PropertiesFactory.eINSTANCE.createJobScriptItem();
+                } else if (repositoryType == ERepositoryObjectType.SNIPPETS) {
+                    item = PropertiesFactory.eINSTANCE.createSnippetItem();
+                } else if (repositoryType == ERepositoryObjectType.SQLPATTERNS) {
+                    item = PropertiesFactory.eINSTANCE.createSQLPatternItem();
+                } else if (repositoryType == ERepositoryObjectType.SVG_BUSINESS_PROCESS) {
+                    item = PropertiesFactory.eINSTANCE.createSVGBusinessProcessItem();
+                }
             }
         }
         if (item != null) {

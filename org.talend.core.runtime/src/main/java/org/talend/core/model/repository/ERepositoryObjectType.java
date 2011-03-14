@@ -12,10 +12,16 @@
 // ============================================================================
 package org.talend.core.model.repository;
 
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IExtensionRegistry;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.ecore.EObject;
+import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.AbstractDQModelService;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
@@ -60,162 +66,376 @@ import org.talend.core.model.properties.ValidationRulesConnectionItem;
 import org.talend.core.model.properties.WSDLSchemaConnectionItem;
 import org.talend.core.model.properties.XmlFileConnectionItem;
 import org.talend.core.model.properties.util.PropertiesSwitch;
+import org.talend.core.repository.IExtendRepositoryNode;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.i18n.Messages;
 import org.talend.core.ui.branding.IBrandingService;
 
 /**
- * This enum represents all objects types that can be store in the repository.<br/>
- * Exception is the recycle bin that isn't really an object type (could think of moving it).
- * 
- * $Id: ERepositoryObjectType.java 46545 2010-08-10 07:42:00Z mzhao $
- * 
+ * DOC hywang class global comment. Detailled comment
  */
-public enum ERepositoryObjectType {
-    SVN_ROOT("repository.svnroot"), //$NON-NLS-1$
-    BUSINESS_PROCESS("repository.businessProcess"), //$NON-NLS-1$
-    SVG_BUSINESS_PROCESS("repository.svgBusinessProcess"), //$NON-NLS-1$
-    PROCESS("repository.process"), //$NON-NLS-1$
-    ROUTES("repository.routes"),
-    CONTEXT("repository.context"), //$NON-NLS-1$
-    ROUTINES("repository.routines"), //$NON-NLS-1$
-    BEANS("repository.beans"), //$NON-NLS-1$
-    JOB_SCRIPT("repository.jobscript"),
-    SNIPPETS("repository.snippets"), //$NON-NLS-1$
-    DOCUMENTATION("repository.documentation"), //$NON-NLS-1$
-    METADATA("repository.metadata"), //$NON-NLS-1$
-    METADATA_CON_TABLE("repository.metadataTable", true), //$NON-NLS-1$
-    METADATA_CON_COLUMN("repository.metadataColumn", true), //$NON-NLS-1$
-    METADATA_CON_VIEW("repository.metadataView", true), //$NON-NLS-1$
-    METADATA_CON_CATALOG("repository.metadataCatalog", true), //$NON-NLS-1$
-    METADATA_CON_SCHEMA("repository.metadataSchema", true), //$NON-NLS-1$
-    // METADATA_CON_COLUMN("repository.metadataColumn"), //$NON-NLS-1$
-    METADATA_CON_SYNONYM("repository.synonym", true), //$NON-NLS-1$
-    METADATA_CON_QUERY("repository.query", true), //$NON-NLS-1$
-    METADATA_CON_CDC("repository.CDC", true), //$NON-NLS-1$
-    METADATA_SAP_FUNCTION("repository.SAPFunction", true), //$NON-NLS-1$
-    METADATA_SAP_IDOC("repository.SAPIDoc", true),
-    MDM_CONCEPT("repository.concept", true), //$NON-NLS-1$
-    MDM_SCHEMA("repository.xmlSchema", true), //$NON-NLS-1$
-    MDM_ELEMENT_TYPE("repository.xmlElementType", true), //$NON-NLS-1$
-    RECYCLE_BIN("repository.recyclebin"),
-    METADATA_COLUMN("repository.column"),
-    // feature 0006484 add
-    METADATA_FILE_RULES("repository.metadataFileRules", "repository.metadataFileRules.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    METADATA_FILE_LINKRULES("repository.metadataLinkFileRules", "repository.metadataLinkFileRules.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    METADATA_RULES_MANAGEMENT("repository.metadataRulesManagement", "repository.metadataRulesManagement.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    METADATA_CONNECTIONS("repository.metadataConnections", "repository.metadataConnections.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    METADATA_SAPCONNECTIONS("repository.metadataSAPConnections", "repository.metadataSAPConnections.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    SQLPATTERNS("repository.metadataSQLPatterns", "repository.metadataSQLPatterns.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    METADATA_FILE_EBCDIC("repository.metadataFileEDCDIC", "repository.metadataFileEDCDIC.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    METADATA_FILE_HL7("repository.metadataFileHL7", "repository.metadataFileHL7.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    METADATA_FILE_FTP("repository.metadataFileFTP", "repository.metadataFileFTP.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    // 0015169 added
-    METADATA_FILE_BRMS("repository.metadataFileBRMS", "repository.metadataFileBRMS.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    METADATA_MDMCONNECTION("repository.metadataMDMConnections", "repository.metadataMDMConnections.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    METADATA_FILE_DELIMITED("repository.metadataFileDelimited", "repository.metadataFileDelimited.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    METADATA_FILE_POSITIONAL("repository.metadataFilePositional", "repository.metadataFilePositional.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    METADATA_FILE_REGEXP("repository.metadataFileRegexp", "repository.metadataFileRegexp.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    METADATA_FILE_XML("repository.metadataFileXml", "repository.metadataFileXml.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    METADATA_FILE_LDIF("repository.metadataFileLdif", "repository.metadataFileLdif.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    METADATA_FILE_EXCEL("repository.metadataFileExcel", "repository.metadataFileExcel.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    METADATA_SALESFORCE_SCHEMA("repository.metadataSalesforceSchema", "repository.metadataSalesforceSchema.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    METADATA_GENERIC_SCHEMA("repository.metadataGenericSchema", "repository.metadataGenericSchema.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    METADATA_LDAP_SCHEMA("repository.metadataLDAPSchema", "repository.metadataLDAPSchema.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    METADATA_VALIDATION_RULES("repository.metadataValidationRules", "repository.metadataValidationRules.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    METADATA_VALIDATIONS_RULES_FOLDER(
-                                      "repository.metadataValidationRulesFolder", "repository.metadataValidationRulesFolder.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    FOLDER("repository.folder"), //$NON-NLS-1$
-    REFERENCED_PROJECTS("repository.referencedProjects", "repository.referencedProjects.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    GENERATED("repository.generated"), //$NON-NLS-1$
-    JOBS("repository.jobs"), //$NON-NLS-1$
-    JOB_DOC("repository.jobdoc"), //$NON-NLS-1$
-    JOBLET("repository.joblet"), //$NON-NLS-1$
-    LIBS("repository.libs"), //$NON-NLS-1$
-    METADATA_WSDL_SCHEMA("repository.metadataWSDLSchema", "repository.metadataWSDLSchema.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    JOBLETS("repository.joblets"), //$NON-NLS-1$
-    JOBLET_DOC("repository.jobletdoc"), //$NON-NLS-1$
-    METADATA_HEADER_FOOTER("repository.headerFooterConnections", "repository.headerFooterConnections.alias"), //$NON-NLS-1$
-    COMPONENTS("repository.components"), //$NON-NLS-1$
-    // MOD mzhao feature 9207
-    TDQ_ELEMENT("repository.tdqelement", "repository.tdqelement.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    // MOD mzhao feature 13114, 2010-05-19
-    TDQ_ANALYSIS_ELEMENT("repository.tdqelement.analysis", "repository.tdqelement.analysis.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    TDQ_REPORT_ELEMENT("repository.tdqelement.report", "repository.tdqelement.report.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    TDQ_BUSINESSRULE_ELEMENT("repository.tdqelement.businessrule", "repository.tdqelement.businessrule.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    TDQ_INDICATOR_ELEMENT("repository.tdqelement.indicator", "repository.tdqelement.indicator.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    TDQ_PATTERN_ELEMENT("repository.tdqelement.pattern", "repository.tdqelement.pattern.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    TDQ_SOURCE_FILE_ELEMENT("repository.tdqelement.sourceFile", "repository.tdqelement.sourceFile.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    // MOD zqin feature 14507
-    TDQ_JRAXML_ELEMENT("repository.tdqelement.jrxml", "repository.tdqelement.jrxml.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    TDQ_FOLDER_NODE("repository.tdqelement.folderNode", "repository.tdqelement.folderNode.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    // MOD klliu feature 15750
-    TDQ_DATA_PROFILING("repository.dataprofiling", "repository.dataprofiling.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    TDQ_ANALYSIS("repository.analysis", "repository.analysis.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    TDQ_REPORTS("repository.reports", "repository.reports.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    TDQ_LIBRARIES("repository.libraries", "repository.libraries.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    TDQ_PATTERNS("repository.patterns", "repository.patterns.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    TDQ_PATTERN_REGEX("repository.patternRegex", "repository.patternRegex.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    TDQ_PATTERN_SQL("repository.patternSql", "repository.patternSql.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    TDQ_SOURCE_FILES("repository.sourceFile", "repository.sourceFile.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    TDQ_RULES("repository.rules", "repository.rules.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    TDQ_RULES_SQL("repository.rulesSql", "repository.rulesSql.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    TDQ_JRXMLTEMPLATE("repository.jrxmlTemplate", "repository.jrxmlTemplate.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    TDQ_INDICATORS("repository.indicators", "repository.indicators.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    // MOD klliu 2010-11-26 definition type
-    TDQ_SYSTEM_INDICATORS("repository.systemIndicators", "repository.systemIndicators.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    TDQ_USERDEFINE_INDICATORS("repository.userDefineIndicators", "repository.userDefineIndicators.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    TDQ_USERDEFINE_INDICATORS_LIB("repository.userDefineIndicators.lib", "repository.userDefineIndicators.lib.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    SYSTEM_INDICATORS_ADVANCED_STATISTICS(
-                                          "repository.systemIndicators.advancedStatistics", "repository.systemIndicators.advancedStatistics.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    SYSTEM_INDICATORS_BUSINESS_RULES(
-                                     "repository.systemIndicators.businessRules", "repository.systemIndicators.businessRules.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    SYSTEM_INDICATORS_CORRELATION("repository.systemIndicators.correlation", "repository.systemIndicators.correlation.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    SYSTEM_INDICATORS_FUNCTIONAL_DEPENDENCY(
-                                            "repository.systemIndicators.functionalDependency", "repository.systemIndicators.functionalDependency.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    SYSTEM_INDICATORS_OVERVIEW("repository.systemIndicators.overview, repository.systemIndicators.overview.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    SYSTEM_INDICATORS_PATTERN_FINDER(
-                                     "repository.systemIndicators.patternFinder", "repository.systemIndicators.patternFinder.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    SYSTEM_INDICATORS_PATTERN_MATCHING(
-                                       "repository.systemIndicators.patternMatching", "repository.systemIndicators.patternMatching.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    SYSTEM_INDICATORS_ROW_COMPARISON(
-                                     "repository.systemIndicators.rowComparison", "repository.systemIndicators.rowComparison.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    SYSTEM_INDICATORS_SIMPLE_STATISTICS(
-                                        "repository.systemIndicators.simpleStatistics", "repository.systemIndicators.simpleStatistics.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    SYSTEM_INDICATORS_SOUNDEX("repository.systemIndicators.soundex", "repository.systemIndicators.soundex.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    SYSTEM_INDICATORS_SUMMARY_STATISTICS(
-                                         "repository.systemIndicators.summaryStatistics", "repository.systemIndicators.summaryStatistics.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    SYSTEM_INDICATORS_TEXT_STATISTICS(
-                                      "repository.systemIndicators.textStatistics", "repository.systemIndicators.textStatistics.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    TDQ_EXCHANGE("repository.tdqExchange", "repository.tdqExchange.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
 
-    private String key;
+    public final static ERepositoryObjectType SVN_ROOT = new ERepositoryObjectType("repository.svnroot", true, 1);
+
+    public final static ERepositoryObjectType BUSINESS_PROCESS = new ERepositoryObjectType("repository.businessProcess", true, 2);
+
+    public final static ERepositoryObjectType SVG_BUSINESS_PROCESS = new ERepositoryObjectType("repository.svgBusinessProcess",
+            true, 3);
+
+    public final static ERepositoryObjectType PROCESS = new ERepositoryObjectType("repository.process", true, 4);
+
+    public final static ERepositoryObjectType ROUTES = new ERepositoryObjectType("repository.routes", true, 5);
+
+    public final static ERepositoryObjectType CONTEXT = new ERepositoryObjectType("repository.context", true, 6);
+
+    public final static ERepositoryObjectType ROUTINES = new ERepositoryObjectType("repository.routines", true, 7);
+
+    public final static ERepositoryObjectType BEANS = new ERepositoryObjectType("repository.beans", true, 8);
+
+    public final static ERepositoryObjectType JOB_SCRIPT = new ERepositoryObjectType("repository.jobscript", true, 9);
+
+    public final static ERepositoryObjectType SNIPPETS = new ERepositoryObjectType("repository.snippets", true, 10);
+
+    public final static ERepositoryObjectType DOCUMENTATION = new ERepositoryObjectType("repository.documentation", true, 11);
+
+    public final static ERepositoryObjectType METADATA = new ERepositoryObjectType("repository.metadata", true, 12);
+
+    public final static ERepositoryObjectType METADATA_CON_TABLE = new ERepositoryObjectType("repository.metadataTable", 13,
+            true, true);
+
+    public final static ERepositoryObjectType METADATA_CON_COLUMN = new ERepositoryObjectType("repository.metadataColumn", 14,
+            true, true);
+
+    public final static ERepositoryObjectType METADATA_CON_VIEW = new ERepositoryObjectType("repository.metadataView", 15, true,
+            true);
+
+    public final static ERepositoryObjectType METADATA_CON_CATALOG = new ERepositoryObjectType("repository.metadataCatalog", 16,
+            true, true);
+
+    public final static ERepositoryObjectType METADATA_CON_SCHEMA = new ERepositoryObjectType("repository.metadataSchema", 17,
+            true, true);
+
+    public final static ERepositoryObjectType METADATA_CON_SYNONYM = new ERepositoryObjectType("repository.synonym", 18, true,
+            true);
+
+    public final static ERepositoryObjectType METADATA_CON_QUERY = new ERepositoryObjectType("repository.query", 19, true, true);
+
+    public final static ERepositoryObjectType METADATA_CON_CDC = new ERepositoryObjectType("repository.CDC", 20, true, true);
+
+    public final static ERepositoryObjectType METADATA_SAP_FUNCTION = new ERepositoryObjectType(
+            "repository.SAPFunction", 21, true, true); //$NON-NLS-1$
+
+    public final static ERepositoryObjectType METADATA_SAP_IDOC = new ERepositoryObjectType("repository.SAPIDoc", 22, true, true);
+
+    public final static ERepositoryObjectType MDM_CONCEPT = new ERepositoryObjectType("repository.concept", 23, true, true); //$NON-NLS-1$
+
+    public final static ERepositoryObjectType MDM_SCHEMA = new ERepositoryObjectType("repository.xmlSchema", 24, true, true); //$NON-NLS-1$
+
+    public final static ERepositoryObjectType MDM_ELEMENT_TYPE = new ERepositoryObjectType(
+            "repository.xmlElementType", 25, true, true);//$NON-NLS-1$
+
+    public final static ERepositoryObjectType RECYCLE_BIN = new ERepositoryObjectType("repository.recyclebin", true, 26);
+
+    public final static ERepositoryObjectType METADATA_COLUMN = new ERepositoryObjectType("repository.column", true, 27);
+
+    // feature 0006484 add
+    public final static ERepositoryObjectType METADATA_FILE_RULES = new ERepositoryObjectType(
+            "repository.metadataFileRules", 28, true, "repository.metadataFileRules.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType METADATA_FILE_LINKRULES = new ERepositoryObjectType(
+            "repository.metadataLinkFileRules", 29, true, "repository.metadataLinkFileRules.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType METADATA_RULES_MANAGEMENT = new ERepositoryObjectType(
+            "repository.metadataRulesManagement", 30, true, "repository.metadataRulesManagement.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType METADATA_CONNECTIONS = new ERepositoryObjectType(
+            "repository.metadataConnections", 31, true, "repository.metadataConnections.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType METADATA_SAPCONNECTIONS = new ERepositoryObjectType(
+            "repository.metadataSAPConnections", 32, true, "repository.metadataSAPConnections.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType SQLPATTERNS = new ERepositoryObjectType(
+            "repository.metadataSQLPatterns", 33, true, "repository.metadataSQLPatterns.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType METADATA_FILE_EBCDIC = new ERepositoryObjectType(
+            "repository.metadataFileEDCDIC", 34, true, "repository.metadataFileEDCDIC.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType METADATA_FILE_HL7 = new ERepositoryObjectType(
+            "repository.metadataFileHL7", 35, true, "repository.metadataFileHL7.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType METADATA_FILE_FTP = new ERepositoryObjectType(
+            "repository.metadataFileFTP", 36, true, "repository.metadataFileFTP.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    // 0015169 added
+    public final static ERepositoryObjectType METADATA_FILE_BRMS = new ERepositoryObjectType(
+            "repository.metadataFileBRMS", 37, true, "repository.metadataFileBRMS.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType METADATA_MDMCONNECTION = new ERepositoryObjectType(
+            "repository.metadataMDMConnections", 38, true, "repository.metadataMDMConnections.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType METADATA_FILE_DELIMITED = new ERepositoryObjectType(
+            "repository.metadataFileDelimited", 39, true, "repository.metadataFileDelimited.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType METADATA_FILE_POSITIONAL = new ERepositoryObjectType(
+            "repository.metadataFilePositional", 40, true, "repository.metadataFilePositional.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType METADATA_FILE_REGEXP = new ERepositoryObjectType(
+            "repository.metadataFileRegexp", 41, true, "repository.metadataFileRegexp.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType METADATA_FILE_XML = new ERepositoryObjectType(
+            "repository.metadataFileXml", 42, true, "repository.metadataFileXml.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType METADATA_FILE_LDIF = new ERepositoryObjectType(
+            "repository.metadataFileLdif", 43, true, "repository.metadataFileLdif.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType METADATA_FILE_EXCEL = new ERepositoryObjectType(
+            "repository.metadataFileExcel", 44, true, "repository.metadataFileExcel.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType METADATA_SALESFORCE_SCHEMA = new ERepositoryObjectType(
+            "repository.metadataSalesforceSchema", 45, true, "repository.metadataSalesforceSchema.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType METADATA_GENERIC_SCHEMA = new ERepositoryObjectType(
+            "repository.metadataGenericSchema", 46, true, "repository.metadataGenericSchema.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType METADATA_LDAP_SCHEMA = new ERepositoryObjectType(
+            "repository.metadataLDAPSchema", 47, true, "repository.metadataLDAPSchema.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType METADATA_VALIDATION_RULES = new ERepositoryObjectType(
+            "repository.metadataValidationRules", 48, true, "repository.metadataValidationRules.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType METADATA_VALIDATIONS_RULES_FOLDER = new ERepositoryObjectType(
+            "repository.metadataValidationRulesFolder", 49, true, "repository.metadataValidationRulesFolder.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType FOLDER = new ERepositoryObjectType("repository.folder", true, 50); //$NON-NLS-1$
+
+    public final static ERepositoryObjectType REFERENCED_PROJECTS = new ERepositoryObjectType(
+            "repository.referencedProjects", 51, true, "repository.referencedProjects.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType GENERATED = new ERepositoryObjectType("repository.generated", true, 52); //$NON-NLS-1$
+
+    public final static ERepositoryObjectType JOBS = new ERepositoryObjectType("repository.jobs", true, 53); //$NON-NLS-1$
+
+    public final static ERepositoryObjectType JOB_DOC = new ERepositoryObjectType("repository.jobdoc", true, 54); //$NON-NLS-1$
+
+    public final static ERepositoryObjectType JOBLET = new ERepositoryObjectType("repository.joblet", true, 55); //$NON-NLS-1$
+
+    public final static ERepositoryObjectType LIBS = new ERepositoryObjectType("repository.libs", true, 56); //$NON-NLS-1$
+
+    public final static ERepositoryObjectType METADATA_WSDL_SCHEMA = new ERepositoryObjectType(
+            "repository.metadataWSDLSchema", 57, true, "repository.metadataWSDLSchema.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType JOBLETS = new ERepositoryObjectType("repository.joblets", true, 58); //$NON-NLS-1$
+
+    public final static ERepositoryObjectType JOBLET_DOC = new ERepositoryObjectType("repository.jobletdoc", true, 59); //$NON-NLS-1$
+
+    public final static ERepositoryObjectType METADATA_HEADER_FOOTER = new ERepositoryObjectType(
+            "repository.headerFooterConnections", 60, true, "repository.headerFooterConnections.alias"); //$NON-NLS-1$
+
+    public final static ERepositoryObjectType COMPONENTS = new ERepositoryObjectType("repository.components", true, 61); //$NON-NLS-1$
+
+    // MOD mzhao feature 9207
+    public final static ERepositoryObjectType TDQ_ELEMENT = new ERepositoryObjectType(
+            "repository.tdqelement", 62, true, "repository.tdqelement.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    // MOD mzhao feature 13114, 2010-05-19
+    public final static ERepositoryObjectType TDQ_ANALYSIS_ELEMENT = new ERepositoryObjectType(
+            "repository.tdqelement.analysis", 63, true, "repository.tdqelement.analysis.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType TDQ_REPORT_ELEMENT = new ERepositoryObjectType(
+            "repository.tdqelement.report", 64, true, "repository.tdqelement.report.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType TDQ_BUSINESSRULE_ELEMENT = new ERepositoryObjectType(
+            "repository.tdqelement.businessrule", 65, true, "repository.tdqelement.businessrule.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType TDQ_INDICATOR_ELEMENT = new ERepositoryObjectType(
+            "repository.tdqelement.indicator", 66, true, "repository.tdqelement.indicator.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType TDQ_PATTERN_ELEMENT = new ERepositoryObjectType(
+            "repository.tdqelement.pattern", 67, true, "repository.tdqelement.pattern.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType TDQ_SOURCE_FILE_ELEMENT = new ERepositoryObjectType(
+            "repository.tdqelement.sourceFile", 68, true, "repository.tdqelement.sourceFile.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    // MOD zqin feature 14507
+    public final static ERepositoryObjectType TDQ_JRAXML_ELEMENT = new ERepositoryObjectType(
+            "repository.tdqelement.jrxml", 69, true, "repository.tdqelement.jrxml.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType TDQ_FOLDER_NODE = new ERepositoryObjectType(
+            "repository.tdqelement.folderNode", 70, true, "repository.tdqelement.folderNode.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    // MOD klliu feature 15750
+    public final static ERepositoryObjectType TDQ_DATA_PROFILING = new ERepositoryObjectType(
+            "repository.dataprofiling", 71, true, "repository.dataprofiling.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType TDQ_ANALYSIS = new ERepositoryObjectType(
+            "repository.analysis", 72, true, "repository.analysis.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType TDQ_REPORTS = new ERepositoryObjectType(
+            "repository.reports", 73, true, "repository.reports.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType TDQ_LIBRARIES = new ERepositoryObjectType(
+            "repository.libraries", 74, true, "repository.libraries.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType TDQ_PATTERNS = new ERepositoryObjectType(
+            "repository.patterns", 75, true, "repository.patterns.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType TDQ_PATTERN_REGEX = new ERepositoryObjectType(
+            "repository.patternRegex", 76, true, "repository.patternRegex.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType TDQ_PATTERN_SQL = new ERepositoryObjectType(
+            "repository.patternSql", 77, true, "repository.patternSql.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType TDQ_SOURCE_FILES = new ERepositoryObjectType(
+            "repository.sourceFile", 78, true, "repository.sourceFile.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType TDQ_RULES = new ERepositoryObjectType(
+            "repository.rules", 79, true, "repository.rules.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType TDQ_RULES_SQL = new ERepositoryObjectType(
+            "repository.rulesSql", 80, true, "repository.rulesSql.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType TDQ_JRXMLTEMPLATE = new ERepositoryObjectType(
+            "repository.jrxmlTemplate", 81, true, "repository.jrxmlTemplate.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType TDQ_INDICATORS = new ERepositoryObjectType(
+            "repository.indicators", 82, true, "repository.indicators.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    // MOD klliu 2010-11-26 definition type
+    public final static ERepositoryObjectType TDQ_SYSTEM_INDICATORS = new ERepositoryObjectType(
+            "repository.systemIndicators", 83, true, "repository.systemIndicators.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType TDQ_USERDEFINE_INDICATORS = new ERepositoryObjectType(
+            "repository.userDefineIndicators", 84, true, "repository.userDefineIndicators.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType TDQ_USERDEFINE_INDICATORS_LIB = new ERepositoryObjectType(
+            "repository.userDefineIndicators.lib", 85, true, "repository.userDefineIndicators.lib.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType SYSTEM_INDICATORS_ADVANCED_STATISTICS = new ERepositoryObjectType(
+            "repository.systemIndicators.advancedStatistics", 86, true, "repository.systemIndicators.advancedStatistics.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType SYSTEM_INDICATORS_BUSINESS_RULES = new ERepositoryObjectType(
+            "repository.systemIndicators.businessRules", 87, true, "repository.systemIndicators.businessRules.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType SYSTEM_INDICATORS_CORRELATION = new ERepositoryObjectType(
+            "repository.systemIndicators.correlation", 88, true, "repository.systemIndicators.correlation.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType SYSTEM_INDICATORS_FUNCTIONAL_DEPENDENCY = new ERepositoryObjectType(
+            "repository.systemIndicators.functionalDependency", 89, true, "repository.systemIndicators.functionalDependency.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType SYSTEM_INDICATORS_OVERVIEW = new ERepositoryObjectType(
+            "repository.systemIndicators.overview, repository.systemIndicators.overview.alias", true, 90); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType SYSTEM_INDICATORS_PATTERN_FINDER = new ERepositoryObjectType(
+            "repository.systemIndicators.patternFinder", 91, true, "repository.systemIndicators.patternFinder.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType SYSTEM_INDICATORS_PATTERN_MATCHING = new ERepositoryObjectType(
+            "repository.systemIndicators.patternMatching", 92, true, "repository.systemIndicators.patternMatching.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType SYSTEM_INDICATORS_ROW_COMPARISON = new ERepositoryObjectType(
+            "repository.systemIndicators.rowComparison", 93, true, "repository.systemIndicators.rowComparison.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType SYSTEM_INDICATORS_SIMPLE_STATISTICS = new ERepositoryObjectType(
+            "repository.systemIndicators.simpleStatistics", 94, true, "repository.systemIndicators.simpleStatistics.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType SYSTEM_INDICATORS_SOUNDEX = new ERepositoryObjectType(
+            "repository.systemIndicators.soundex", 95, true, "repository.systemIndicators.soundex.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType SYSTEM_INDICATORS_SUMMARY_STATISTICS = new ERepositoryObjectType(
+            "repository.systemIndicators.summaryStatistics", 96, true, "repository.systemIndicators.summaryStatistics.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType SYSTEM_INDICATORS_TEXT_STATISTICS = new ERepositoryObjectType(
+            "repository.systemIndicators.textStatistics", 97, true, "repository.systemIndicators.textStatistics.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType TDQ_EXCHANGE = new ERepositoryObjectType(
+            "repository.tdqExchange", 98, true, "repository.tdqExchange.alias"); //$NON-NLS-1$ //$NON-NLS-2$
 
     private String alias;
 
     private boolean subItem;
 
-    /**
-     * Constructor with the i18n key used to display the folder wich contains this object type.
-     * 
-     * @param key
-     */
-    ERepositoryObjectType(String key) {
-        this(key, false);
+    static {
+
+        try {
+            initDynamicNodes(ERepositoryObjectType.class);
+        } catch (Exception e) {
+            ExceptionHandler.process(e);
+        }
     }
 
-    ERepositoryObjectType(String key, boolean subItem) {
-        this.key = key;
+    ERepositoryObjectType(String key, boolean isStaticNode, int ordinal) {
+        this(key, ordinal, isStaticNode, false);
+    }
+
+    ERepositoryObjectType(String key, int ordinal, boolean isStaticNode, boolean subItem) {
+        super(key, isStaticNode, ordinal);
         this.subItem = subItem;
     }
 
-    ERepositoryObjectType(String key, String alias) {
-        this(key);
+    ERepositoryObjectType(String key, int ordinal, boolean isStaticNode, String alias) {
+        this(key, isStaticNode, ordinal);
         this.alias = alias;
     }
 
-    public String toString() {
-        return Messages.getString(getKey());
+    public static <E> DynaEnum<? extends DynaEnum<?>>[] values() {
+        return values(ERepositoryObjectType.class);
+    }
+
+    /* if node from extension point,add the new RepositoryObjectType dynamiclly by using the java reflection */
+    private static <E> void initDynamicNodes(Class<E> clazz) throws Exception {
+        // String rcName = clazz.getName().replace('.', '/') + ".properties";
+        // BufferedReader reader = new BufferedReader(new
+        // InputStreamReader(Thread.currentThread().getContextClassLoader()
+        // .getResourceAsStream(rcName)));
+
+        IExtensionRegistry registry = Platform.getExtensionRegistry();
+        IConfigurationElement[] configurationElements = registry
+                .getConfigurationElementsFor("org.talend.core.repository.repository_node_provider"); //$NON-NLS-1$
+        try {
+            for (int i = 0; i < configurationElements.length; i++) {
+                IConfigurationElement element = configurationElements[i];
+                Object extensionNode = element.createExecutableExtension("class");
+                if (extensionNode instanceof IExtendRepositoryNode) {
+                    IExtendRepositoryNode diyNode = (IExtendRepositoryNode) extensionNode;
+                    String type = diyNode.getNodeType();
+                    int ordinal = diyNode.getOrdinal();
+                    Constructor<E> minimalConstructor = getConstructor(clazz, new Class[] { String.class, boolean.class,
+                            int.class });
+                    minimalConstructor.newInstance(type, false, ordinal);
+
+                }
+            }
+        } catch (CoreException e) {
+            ExceptionHandler.process(e);
+        }
+        /* this constructor is used to create one system_folder node */
+        // Constructor<E> additionalConstructor = getConstructor(clazz, new Class[] { String.class, int.class,
+        // String.class });
+        // int ordinal = 0;
+        // for (String line = reader.readLine(); line != null; line = reader.readLine()) {
+        // line = line.replaceFirst("#.*", "").trim();
+        // if (line.equals("")) {
+        // continue;
+        // }
+        // String[] parts = line.split("\\s*=\\s*");
+        // if (parts.length == 1 || additionalConstructor == null) {
+        // minimalConstructor.newInstance(parts[0], ordinal);
+        // } else {
+        // additionalConstructor.newInstance(parts[0], ordinal, parts[1]);
+        // }
+        // }
+    }
+
+    @SuppressWarnings("unchecked")
+    private static <E> Constructor<E> getConstructor(Class<E> clazz, Class<?>[] argTypes) {
+        for (Class<?> c = clazz; c != null; c = c.getSuperclass()) {
+            try {
+                return (Constructor<E>) c.getDeclaredConstructor(argTypes);
+            } catch (Exception e) {
+                continue;
+            }
+        }
+        return null;
     }
 
     public String getAlias() {
@@ -226,7 +446,7 @@ public enum ERepositoryObjectType {
     }
 
     public static ERepositoryObjectType getTypeFromKey(String key) {
-        for (ERepositoryObjectType type : ERepositoryObjectType.values()) {
+        for (ERepositoryObjectType type : (ERepositoryObjectType[]) values()) {
             if (type.getKey().equals(key)) {
                 return type;
             }
@@ -234,19 +454,6 @@ public enum ERepositoryObjectType {
         return null;
     }
 
-    /**
-     * Getter for key.
-     * 
-     * @return the key
-     */
-    public String getKey() {
-        return this.key;
-    }
-
-    /**
-     * 
-     * ggu Comment method "hasFolder". bug 9789
-     */
     public boolean hasFolder() {
         try {
             String folderName = getFolderName(this);
@@ -260,153 +467,149 @@ public enum ERepositoryObjectType {
     }
 
     public static String getFolderName(ERepositoryObjectType type) {
-        switch (type) {
-        case BUSINESS_PROCESS:
-            return "businessProcess"; //$NON-NLS-1$
-        case SVG_BUSINESS_PROCESS:
+        if (type == BUSINESS_PROCESS) {
+            return "businessModel"; //$NON-NLS-1$
+        } else if (type == SVG_BUSINESS_PROCESS) {
             return "businessProcessSVG"; //$NON-NLS-1$
-        case PROCESS:
+        } else if (type == PROCESS) {
             return "process"; //$NON-NLS-1$
-        case ROUTES:
+        } else if (type == ROUTES) {
             return "routes";
-        case JOBLET:
+        } else if (type == JOBLET) {
             return "joblets"; //$NON-NLS-1$
-        case LIBS:
+        } else if (type == LIBS) {
             return "libs";
-        case CONTEXT:
+        } else if (type == CONTEXT) {
             return "context"; //$NON-NLS-1$
-        case ROUTINES:
+        } else if (type == ROUTINES) {
             return "code/routines"; //$NON-NLS-1$
-        case BEANS:
-            return "code/beans"; //$NON-NLS-1$    
-        case JOB_SCRIPT:
+        } else if (type == BEANS) {
+            return "code/beans"; //$NON-NLS-1$  
+        } else if (type == JOB_SCRIPT) {
             return "code/jobscripts"; //$NON-NLS-1$
-        case SNIPPETS:
+        } else if (type == SNIPPETS) {
             return "code/snippets"; //$NON-NLS-1$
-        case DOCUMENTATION:
+        } else if (type == DOCUMENTATION) {
             return "documentations"; //$NON-NLS-1$
-        case SQLPATTERNS:
+        } else if (type == SQLPATTERNS) {
             return "sqlPatterns"; //$NON-NLS-1$
-        case METADATA:
+        } else if (type == METADATA) {
             return "metadata"; //$NON-NLS-1$
-        case METADATA_CONNECTIONS:
+        } else if (type == METADATA_CONNECTIONS) {
             return "metadata/connections"; //$NON-NLS-1$
-        case METADATA_SAPCONNECTIONS:
+        } else if (type == METADATA_SAPCONNECTIONS) {
             return "metadata/sapconnections"; //$NON-NLS-1$
-        case METADATA_FILE_EBCDIC:
+        } else if (type == METADATA_FILE_EBCDIC) {
             return "metadata/fileEBCDIC"; //$NON-NLS-1$
-        case METADATA_FILE_HL7:
+        } else if (type == METADATA_FILE_HL7) {
             return "metadata/fileHL7"; //$NON-NLS-1$
-        case METADATA_FILE_FTP:
-            return "metadata/FTPconnections"; //$NON-NLS-1$
-        case METADATA_FILE_BRMS:
-            return "metadata/BRMSconnections"; //$NON-NLS-1$
-        case METADATA_MDMCONNECTION:
-            return "metadata/MDMconnections"; //$NON-NLS-1$
-        case METADATA_FILE_DELIMITED:
-            return "metadata/fileDelimited"; //$NON-NLS-1$
-        case METADATA_FILE_POSITIONAL:
-            return "metadata/filePositional"; //$NON-NLS-1$
-        case METADATA_FILE_REGEXP:
+        } else if (type == METADATA_FILE_FTP) {
+            return "metadata/FTPconnections";
+        } else if (type == METADATA_FILE_BRMS) {
+            return "metadata/BRMSconnections";
+        } else if (type == METADATA_MDMCONNECTION) {
+            return "metadata/MDMconnections";
+        } else if (type == METADATA_FILE_DELIMITED) {
+            return "metadata/fileDelimited";
+        } else if (type == METADATA_FILE_POSITIONAL) {
+            return "metadata/filePositional";
+        } else if (type == METADATA_FILE_REGEXP) {
             return "metadata/fileRegex"; //$NON-NLS-1$
-        case METADATA_FILE_XML:
+        } else if (type == METADATA_FILE_XML) {
             return "metadata/fileXml"; //$NON-NLS-1$
-        case METADATA_FILE_EXCEL:
+        } else if (type == METADATA_FILE_EXCEL) {
             return "metadata/fileExcel"; //$NON-NLS-1$
-        case METADATA_FILE_LDIF:
+        } else if (type == METADATA_FILE_LDIF) {
             return "metadata/fileLdif"; //$NON-NLS-1$
-        case METADATA_LDAP_SCHEMA:
+        } else if (type == METADATA_LDAP_SCHEMA) {
             return "metadata/LDAPSchema"; //$NON-NLS-1$
-        case METADATA_GENERIC_SCHEMA:
+        } else if (type == METADATA_GENERIC_SCHEMA) {
             return "metadata/genericSchema"; //$NON-NLS-1$
-        case METADATA_WSDL_SCHEMA:
+        } else if (type == METADATA_WSDL_SCHEMA) {
             return "metadata/WSDLSchema"; //$NON-NLS-1$
-        case METADATA_SALESFORCE_SCHEMA:
+        } else if (type == METADATA_SALESFORCE_SCHEMA) {
             return "metadata/SalesforceSchema"; //$NON-NLS-1$
-        case METADATA_FILE_RULES:
+        } else if (type == METADATA_FILE_RULES) {
             return "metadata/rules"; //$NON-NLS-1$
-        case METADATA_FILE_LINKRULES:
+        } else if (type == METADATA_FILE_LINKRULES) {
             return "metadata/rules"; //$NON-NLS-1$
-            // MOD klliu feature 15750,2010-11-18
-        case METADATA_VALIDATION_RULES:
-            return "metadata/validationRules"; //$NON-NLS-1$
-        case TDQ_DATA_PROFILING:
+        } else if (type == METADATA_VALIDATION_RULES) {
+            return "metadata/validationRules";
+        } else if (type == TDQ_DATA_PROFILING) {
             return "TDQ_Data Profiling"; //$NON-NLS-1$
-        case TDQ_ANALYSIS:
-            return "TDQ_Data Profiling/Analyses"; //$NON-NLS-1$
-        case TDQ_REPORTS:
+        } else if (type == TDQ_ANALYSIS) {
+            return "TDQ_Data Profiling/Analyses";
+        } else if (type == TDQ_REPORTS) {
             return "TDQ_Data Profiling/Reports"; //$NON-NLS-1$
-        case TDQ_LIBRARIES:
+        } else if (type == TDQ_LIBRARIES) {
             return "TDQ_Libraries"; //$NON-NLS-1$
-        case TDQ_EXCHANGE:
+        } else if (type == TDQ_EXCHANGE) {
             return "TDQ_Libraries/Exchange"; //$NON-NLS-1$
-        case TDQ_INDICATORS:
-            return "TDQ_Libraries/Indicators"; //$NON-NLS-1$
-        case TDQ_JRXMLTEMPLATE:
-            return "TDQ_Libraries/JRXML Template"; //$NON-NLS-1$
-        case TDQ_RULES:
+        } else if (type == TDQ_INDICATORS) {
+            return "TDQ_Libraries/Indicators";
+        } else if (type == TDQ_JRXMLTEMPLATE) {
+            return "TDQ_Libraries/JRXML Template";
+        } else if (type == TDQ_RULES) {
             return "TDQ_Libraries/Rules"; //$NON-NLS-1$
-        case TDQ_RULES_SQL:
-            return "TDQ_Libraries/Rules/SQL"; //$NON-NLS-1$
-        case TDQ_PATTERNS:
-            return "TDQ_Libraries/Patterns"; //$NON-NLS-1$
-        case TDQ_PATTERN_REGEX:
-            return "TDQ_Libraries/Patterns/Regex"; //$NON-NLS-1$
-        case TDQ_PATTERN_SQL:
-            return "TDQ_Libraries/Patterns/SQL"; //$NON-NLS-1$
-        case TDQ_SOURCE_FILES:
-            return "TDQ_Libraries/Source Files"; //$NON-NLS-1$
-        case TDQ_SYSTEM_INDICATORS:
+        } else if (type == TDQ_RULES_SQL) {
+            return "TDQ_Libraries/Rules/SQL";
+        } else if (type == TDQ_PATTERNS) {
+            return "TDQ_Libraries/Patterns";
+        } else if (type == TDQ_PATTERN_REGEX) {
+            return "TDQ_Libraries/Patterns/Regex";
+        } else if (type == TDQ_PATTERN_SQL) {
+            return "TDQ_Libraries/Patterns/SQL";
+        } else if (type == TDQ_SOURCE_FILES) {
+            return "TDQ_Libraries/Source Files";
+        } else if (type == TDQ_SYSTEM_INDICATORS) {
             return "TDQ_Libraries/Indicators/System Indicators"; //$NON-NLS-1$
-        case TDQ_USERDEFINE_INDICATORS:
-            return "TDQ_Libraries/Indicators/User Defined Indicators"; //$NON-NLS-1$
-            // MOD klliu 2010-11-26 definition type
-        case SYSTEM_INDICATORS_ADVANCED_STATISTICS:
+        } else if (type == TDQ_USERDEFINE_INDICATORS) {
+            return "TDQ_Libraries/Indicators/User Defined Indicators";
+        } else if (type == SYSTEM_INDICATORS_ADVANCED_STATISTICS) {
             return "TDQ_Libraries/Indicators/System Indicators/Advanced Statistics"; //$NON-NLS-1$
-        case SYSTEM_INDICATORS_BUSINESS_RULES:
-            return "TDQ_Libraries/Indicators/System Indicators/Business Rules"; //$NON-NLS-1$
-        case SYSTEM_INDICATORS_CORRELATION:
+        } else if (type == SYSTEM_INDICATORS_BUSINESS_RULES) {
+            return "TDQ_Libraries/Indicators/System Indicators/Business Rules";
+        } else if (type == SYSTEM_INDICATORS_CORRELATION) {
             return "TDQ_Libraries/Indicators/System Indicators/Correlation"; //$NON-NLS-1$
-        case SYSTEM_INDICATORS_FUNCTIONAL_DEPENDENCY:
+        } else if (type == SYSTEM_INDICATORS_FUNCTIONAL_DEPENDENCY) {
             return "TDQ_Libraries/Indicators/System Indicators/Functional Dependency"; //$NON-NLS-1$
-        case SYSTEM_INDICATORS_OVERVIEW:
+        } else if (type == SYSTEM_INDICATORS_OVERVIEW) {
             return "TDQ_Libraries/Indicators/System Indicators/Overview"; //$NON-NLS-1$
-        case SYSTEM_INDICATORS_PATTERN_FINDER:
+        } else if (type == SYSTEM_INDICATORS_PATTERN_FINDER) {
             return "TDQ_Libraries/Indicators/System Indicators/Pattern Finder"; //$NON-NLS-1$
-        case SYSTEM_INDICATORS_PATTERN_MATCHING:
+        } else if (type == SYSTEM_INDICATORS_PATTERN_MATCHING) {
             return "TDQ_Libraries/Indicators/System Indicators/Pattern Matching"; //$NON-NLS-1$
-        case SYSTEM_INDICATORS_ROW_COMPARISON:
+        } else if (type == SYSTEM_INDICATORS_ROW_COMPARISON) {
             return "TDQ_Libraries/Indicators/System Indicators/Row Comparison"; //$NON-NLS-1$
-        case SYSTEM_INDICATORS_SIMPLE_STATISTICS:
+        } else if (type == SYSTEM_INDICATORS_SIMPLE_STATISTICS) {
             return "TDQ_Libraries/Indicators/System Indicators/Simple Statistics"; //$NON-NLS-1$
-        case SYSTEM_INDICATORS_SOUNDEX:
+        } else if (type == SYSTEM_INDICATORS_SOUNDEX) {
             return "TDQ_Libraries/Indicators/System Indicators/Soundex"; //$NON-NLS-1$
-        case SYSTEM_INDICATORS_SUMMARY_STATISTICS:
+        } else if (type == SYSTEM_INDICATORS_SUMMARY_STATISTICS) {
             return "TDQ_Libraries/Indicators/System Indicators/Summary Statistics"; //$NON-NLS-1$
-        case SYSTEM_INDICATORS_TEXT_STATISTICS:
+        } else if (type == SYSTEM_INDICATORS_TEXT_STATISTICS) {
             return "TDQ_Libraries/Indicators/System Indicators/Text Statistics"; //$NON-NLS-1$
-        case METADATA_HEADER_FOOTER:
+        } else if (type == METADATA_HEADER_FOOTER) {
             return "metadata/header_footer"; //$NON-NLS-1$
-        case TDQ_ANALYSIS_ELEMENT:
+        } else if (type == TDQ_ANALYSIS_ELEMENT) {
             return "TDQ_Data Profiling/Analyses"; //$NON-NLS-1$
-        case TDQ_BUSINESSRULE_ELEMENT:
+        } else if (type == TDQ_BUSINESSRULE_ELEMENT) {
             return "TDQ_Libraries/Rules/SQL"; //$NON-NLS-1$
-        case TDQ_INDICATOR_ELEMENT:
+        } else if (type == TDQ_INDICATOR_ELEMENT) {
             return "TDQ_Libraries/Indicators"; //$NON-NLS-1$
-        case TDQ_PATTERN_ELEMENT:
+        } else if (type == TDQ_PATTERN_ELEMENT) {
             return "TDQ_Libraries/Patterns"; //$NON-NLS-1$ 
-        case TDQ_JRAXML_ELEMENT:
+        } else if (type == TDQ_JRAXML_ELEMENT) {
             return "TDQ_Libraries/JRXML Template"; //$NON-NLS-1$
-        case TDQ_REPORT_ELEMENT:
+        } else if (type == TDQ_REPORT_ELEMENT) {
             return "TDQ_Data Profiling/Reports"; //$NON-NLS-1$
-        case TDQ_SOURCE_FILE_ELEMENT:
+        } else if (type == TDQ_SOURCE_FILE_ELEMENT) {
             return "TDQ_Libraries/Source Files"; //$NON-NLS-1$
-            // MOD mzhao feature 9207
-        case TDQ_ELEMENT:
+        } else if (type == TDQ_ELEMENT) {
             return "";//$NON-NLS-1$
-        case COMPONENTS:
+        } else if (type == COMPONENTS) {
             return "components";
-        default:
+        } else {
             if (PluginChecker.isDocumentationPluginLoaded()) {
                 if (type == GENERATED) {
                     return "documentations/generated"; //$NON-NLS-1$
@@ -424,98 +627,343 @@ public enum ERepositoryObjectType {
                     return "documentations/generated/joblets"; //$NON-NLS-1$
                 }
             }
-
             throw new IllegalArgumentException(Messages.getString("ERepositoryObjectType.FolderNotFound", type)); //$NON-NLS-1$ //$NON-NLS-2$
         }
+        // switch (type) {
+        // case BUSINESS_PROCESS:
+        //            return "businessProcess"; //$NON-NLS-1$
+        // case SVG_BUSINESS_PROCESS:
+        //            return "businessProcessSVG"; //$NON-NLS-1$
+        // case PROCESS:
+        //            return "process"; //$NON-NLS-1$
+        // case ROUTES:
+        // return "routes";
+        // case JOBLET:
+        //            return "joblets"; //$NON-NLS-1$
+        // case LIBS:
+        // return "libs";
+        // case CONTEXT:
+        //            return "context"; //$NON-NLS-1$
+        // case ROUTINES:
+        //            return "code/routines"; //$NON-NLS-1$
+        // case BEAN:
+        //            return "code/bean"; //$NON-NLS-1$    
+        // case JOB_SCRIPT:
+        //            return "code/jobscripts"; //$NON-NLS-1$
+        // case SNIPPETS:
+        //            return "code/snippets"; //$NON-NLS-1$
+        // case DOCUMENTATION:
+        //            return "documentations"; //$NON-NLS-1$
+        // case SQLPATTERNS:
+        //            return "sqlPatterns"; //$NON-NLS-1$
+        // case METADATA:
+        //            return "metadata"; //$NON-NLS-1$
+        // case METADATA_CONNECTIONS:
+        //            return "metadata/connections"; //$NON-NLS-1$
+        // case METADATA_SAPCONNECTIONS:
+        //            return "metadata/sapconnections"; //$NON-NLS-1$
+        // case METADATA_FILE_EBCDIC:
+        //            return "metadata/fileEBCDIC"; //$NON-NLS-1$
+        // case METADATA_FILE_HL7:
+        //            return "metadata/fileHL7"; //$NON-NLS-1$
+        // case METADATA_FILE_FTP:
+        //            return "metadata/FTPconnections"; //$NON-NLS-1$
+        // case METADATA_FILE_BRMS:
+        //            return "metadata/BRMSconnections"; //$NON-NLS-1$
+        // case METADATA_MDMCONNECTION:
+        //            return "metadata/MDMconnections"; //$NON-NLS-1$
+        // case METADATA_FILE_DELIMITED:
+        //            return "metadata/fileDelimited"; //$NON-NLS-1$
+        // case METADATA_FILE_POSITIONAL:
+        //            return "metadata/filePositional"; //$NON-NLS-1$
+        // case METADATA_FILE_REGEXP:
+        //            return "metadata/fileRegex"; //$NON-NLS-1$
+        // case METADATA_FILE_XML:
+        //            return "metadata/fileXml"; //$NON-NLS-1$
+        // case METADATA_FILE_EXCEL:
+        //            return "metadata/fileExcel"; //$NON-NLS-1$
+        // case METADATA_FILE_LDIF:
+        //            return "metadata/fileLdif"; //$NON-NLS-1$
+        // case METADATA_LDAP_SCHEMA:
+        //            return "metadata/LDAPSchema"; //$NON-NLS-1$
+        // case METADATA_GENERIC_SCHEMA:
+        //            return "metadata/genericSchema"; //$NON-NLS-1$
+        // case METADATA_WSDL_SCHEMA:
+        //            return "metadata/WSDLSchema"; //$NON-NLS-1$
+        // case METADATA_SALESFORCE_SCHEMA:
+        //            return "metadata/SalesforceSchema"; //$NON-NLS-1$
+        // case METADATA_FILE_RULES:
+        //            return "metadata/rules"; //$NON-NLS-1$
+        // case METADATA_FILE_LINKRULES:
+        //            return "metadata/rules"; //$NON-NLS-1$
+        // // MOD klliu feature 15750,2010-11-18
+        // case METADATA_VALIDATION_RULES:
+        //            return "metadata/validationRules"; //$NON-NLS-1$
+        // case TDQ_DATA_PROFILING:
+        //            return "TDQ_Data Profiling"; //$NON-NLS-1$
+        // case TDQ_ANALYSIS:
+        //            return "TDQ_Data Profiling/Analyses"; //$NON-NLS-1$
+        // case TDQ_REPORTS:
+        //            return "TDQ_Data Profiling/Reports"; //$NON-NLS-1$
+        // case TDQ_LIBRARIES:
+        //            return "TDQ_Libraries"; //$NON-NLS-1$
+        // case TDQ_EXCHANGE:
+        //            return "TDQ_Libraries/Exchange"; //$NON-NLS-1$
+        // case TDQ_INDICATORS:
+        //            return "TDQ_Libraries/Indicators"; //$NON-NLS-1$
+        // case TDQ_JRXMLTEMPLATE:
+        //            return "TDQ_Libraries/JRXML Template"; //$NON-NLS-1$
+        // case TDQ_RULES:
+        //            return "TDQ_Libraries/Rules"; //$NON-NLS-1$
+        // case TDQ_RULES_SQL:
+        //            return "TDQ_Libraries/Rules/SQL"; //$NON-NLS-1$
+        // case TDQ_PATTERNS:
+        //            return "TDQ_Libraries/Patterns"; //$NON-NLS-1$
+        // case TDQ_PATTERN_REGEX:
+        //            return "TDQ_Libraries/Patterns/Regex"; //$NON-NLS-1$
+        // case TDQ_PATTERN_SQL:
+        //            return "TDQ_Libraries/Patterns/SQL"; //$NON-NLS-1$
+        // case TDQ_SOURCE_FILES:
+        //            return "TDQ_Libraries/Source Files"; //$NON-NLS-1$
+        // case TDQ_SYSTEM_INDICATORS:
+        //            return "TDQ_Libraries/Indicators/System Indicators"; //$NON-NLS-1$
+        // case TDQ_USERDEFINE_INDICATORS:
+        //            return "TDQ_Libraries/Indicators/User Defined Indicators"; //$NON-NLS-1$
+        // // MOD klliu 2010-11-26 definition type
+        // case SYSTEM_INDICATORS_ADVANCED_STATISTICS:
+        //            return "TDQ_Libraries/Indicators/System Indicators/Advanced Statistics"; //$NON-NLS-1$
+        // case SYSTEM_INDICATORS_BUSINESS_RULES:
+        //            return "TDQ_Libraries/Indicators/System Indicators/Business Rules"; //$NON-NLS-1$
+        // case SYSTEM_INDICATORS_CORRELATION:
+        //            return "TDQ_Libraries/Indicators/System Indicators/Correlation"; //$NON-NLS-1$
+        // case SYSTEM_INDICATORS_FUNCTIONAL_DEPENDENCY:
+        //            return "TDQ_Libraries/Indicators/System Indicators/Functional Dependency"; //$NON-NLS-1$
+        // case SYSTEM_INDICATORS_OVERVIEW:
+        //            return "TDQ_Libraries/Indicators/System Indicators/Overview"; //$NON-NLS-1$
+        // case SYSTEM_INDICATORS_PATTERN_FINDER:
+        //            return "TDQ_Libraries/Indicators/System Indicators/Pattern Finder"; //$NON-NLS-1$
+        // case SYSTEM_INDICATORS_PATTERN_MATCHING:
+        //            return "TDQ_Libraries/Indicators/System Indicators/Pattern Matching"; //$NON-NLS-1$
+        // case SYSTEM_INDICATORS_ROW_COMPARISON:
+        //            return "TDQ_Libraries/Indicators/System Indicators/Row Comparison"; //$NON-NLS-1$
+        // case SYSTEM_INDICATORS_SIMPLE_STATISTICS:
+        //            return "TDQ_Libraries/Indicators/System Indicators/Simple Statistics"; //$NON-NLS-1$
+        // case SYSTEM_INDICATORS_SOUNDEX:
+        //            return "TDQ_Libraries/Indicators/System Indicators/Soundex"; //$NON-NLS-1$
+        // case SYSTEM_INDICATORS_SUMMARY_STATISTICS:
+        //            return "TDQ_Libraries/Indicators/System Indicators/Summary Statistics"; //$NON-NLS-1$
+        // case SYSTEM_INDICATORS_TEXT_STATISTICS:
+        //            return "TDQ_Libraries/Indicators/System Indicators/Text Statistics"; //$NON-NLS-1$
+        // case METADATA_HEADER_FOOTER:
+        //            return "metadata/header_footer"; //$NON-NLS-1$
+        // case TDQ_ANALYSIS_ELEMENT:
+        //            return "TDQ_Data Profiling/Analyses"; //$NON-NLS-1$
+        // case TDQ_BUSINESSRULE_ELEMENT:
+        //            return "TDQ_Libraries/Rules/SQL"; //$NON-NLS-1$
+        // case TDQ_INDICATOR_ELEMENT:
+        //            return "TDQ_Libraries/Indicators"; //$NON-NLS-1$
+        // case TDQ_PATTERN_ELEMENT:
+        //            return "TDQ_Libraries/Patterns"; //$NON-NLS-1$ 
+        // case TDQ_JRAXML_ELEMENT:
+        //            return "TDQ_Libraries/JRXML Template"; //$NON-NLS-1$
+        // case TDQ_REPORT_ELEMENT:
+        //            return "TDQ_Data Profiling/Reports"; //$NON-NLS-1$
+        // case TDQ_SOURCE_FILE_ELEMENT:
+        //            return "TDQ_Libraries/Source Files"; //$NON-NLS-1$
+        // // MOD mzhao feature 9207
+        // case TDQ_ELEMENT:
+        //            return "";//$NON-NLS-1$
+        // case COMPONENTS:
+        // return "components";
+        // default:
+        // if (PluginChecker.isDocumentationPluginLoaded()) {
+        // if (type == GENERATED) {
+        //                    return "documentations/generated"; //$NON-NLS-1$
+        // }
+        // if (type == JOBS) {
+        //                    return "documentations/generated/jobs"; //$NON-NLS-1$
+        // }
+        // if (type == JOB_DOC) {
+        //                    return "documentations/generated/jobs"; //$NON-NLS-1$
+        // }
+        // if (PluginChecker.isJobLetPluginLoaded() && type == JOBLETS) {
+        //                    return "documentations/generated/joblets"; //$NON-NLS-1$
+        // }
+        // if (PluginChecker.isJobLetPluginLoaded() && type == JOBLET_DOC) {
+        //                    return "documentations/generated/joblets"; //$NON-NLS-1$
+        // }
+        // }
+        //
+        //            throw new IllegalArgumentException(Messages.getString("ERepositoryObjectType.FolderNotFound", type)); //$NON-NLS-1$ //$NON-NLS-2$
+        // }
     }
 
     public static String getDeleteFolderName(ERepositoryObjectType type) {
-        switch (type) {
-        case BUSINESS_PROCESS:
+        if (type == BUSINESS_PROCESS) {
             return "businessModel"; //$NON-NLS-1$
-        case SVG_BUSINESS_PROCESS:
+        } else if (type == SVG_BUSINESS_PROCESS) {
             return "businessProcessSVG"; //$NON-NLS-1$
-        case PROCESS:
+        } else if (type == PROCESS) {
             return "job"; //$NON-NLS-1$
-        case JOBLET:
+        } else if (type == JOBLET) {
             return "joblet";
-        case CONTEXT:
+        } else if (type == CONTEXT) {
             return "context"; //$NON-NLS-1$
-        case ROUTINES:
+        } else if (type == ROUTINES) {
             return "routine"; //$NON-NLS-1$
-        case BEANS:
-            return "bean"; //$NON-NLS-1$
-        case JOB_SCRIPT:
+        } else if (type == JOB_SCRIPT) {
             return "jobscript"; //$NON-NLS-1$
-        case SNIPPETS:
+        } else if (type == SNIPPETS) {
             return "snippet"; //$NON-NLS-1$
-        case DOCUMENTATION:
+        } else if (type == DOCUMENTATION) {
             return "documentation"; //$NON-NLS-1$
-        case SQLPATTERNS:
+        } else if (type == SQLPATTERNS) {
             return "sqlPattern"; //$NON-NLS-1$
-        case METADATA:
+        } else if (type == METADATA) {
             return "metadata"; //$NON-NLS-1$
-        case METADATA_CONNECTIONS:
+        } else if (type == METADATA_CONNECTIONS) {
             return "DB connection"; //$NON-NLS-1$
-        case METADATA_SAPCONNECTIONS:
+        } else if (type == METADATA_SAPCONNECTIONS) {
             return "SAPconnection"; //$NON-NLS-1$
-        case METADATA_FILE_EBCDIC:
+        } else if (type == METADATA_FILE_EBCDIC) {
             return "fileEBCDIC"; //$NON-NLS-1$
-        case METADATA_FILE_HL7:
+        } else if (type == METADATA_FILE_HL7) {
             return "fileHL7"; //$NON-NLS-1$
-        case METADATA_FILE_FTP:
+        } else if (type == METADATA_FILE_FTP) {
             return "FTPconnection"; //$NON-NLS-1$
-        case METADATA_FILE_BRMS:
+        } else if (type == METADATA_FILE_BRMS) {
             return "BRMSconnection"; //$NON-NLS-1$
-        case METADATA_MDMCONNECTION:
+        } else if (type == METADATA_MDMCONNECTION) {
             return "MDMconnection"; //$NON-NLS-1$
-        case METADATA_FILE_DELIMITED:
+        } else if (type == METADATA_FILE_DELIMITED) {
             return "fileDelimited"; //$NON-NLS-1$
-        case METADATA_FILE_POSITIONAL:
+        } else if (type == METADATA_FILE_POSITIONAL) {
             return "filePositional"; //$NON-NLS-1$
-        case METADATA_FILE_REGEXP:
+        } else if (type == METADATA_FILE_REGEXP) {
             return "fileRegex"; //$NON-NLS-1$
-        case METADATA_FILE_XML:
+        } else if (type == METADATA_FILE_XML) {
             return "fileXml"; //$NON-NLS-1$
-        case METADATA_FILE_EXCEL:
+        } else if (type == METADATA_FILE_EXCEL) {
             return "fileExcel"; //$NON-NLS-1$
-        case METADATA_FILE_LDIF:
+        } else if (type == METADATA_FILE_LDIF) {
             return "fileLdif"; //$NON-NLS-1$
-        case METADATA_LDAP_SCHEMA:
+        } else if (type == METADATA_LDAP_SCHEMA) {
             return "LDAPSchema"; //$NON-NLS-1$
-        case METADATA_GENERIC_SCHEMA:
+        } else if (type == METADATA_GENERIC_SCHEMA) {
             return "genericSchema"; //$NON-NLS-1$
-        case METADATA_WSDL_SCHEMA:
+        } else if (type == METADATA_WSDL_SCHEMA) {
             return "WSDLSchema"; //$NON-NLS-1$
-        case METADATA_SALESFORCE_SCHEMA:
+        } else if (type == METADATA_SALESFORCE_SCHEMA) {
             return "SalesforceSchema"; //$NON-NLS-1$
-        case METADATA_FILE_RULES:
+        } else if (type == METADATA_FILE_RULES) {
             return "rules"; //$NON-NLS-1$
-        case METADATA_FILE_LINKRULES:
+        } else if (type == METADATA_FILE_LINKRULES) {
             return "rules"; //$NON-NLS-1$
-            // MOD mzhao feature 13114, 2010-05-19
-        case METADATA_HEADER_FOOTER:
+        } else if (type == METADATA_HEADER_FOOTER) {
             return "header_footer";
-        case TDQ_ANALYSIS_ELEMENT:
+        } else if (type == TDQ_ANALYSIS_ELEMENT) {
             return "Analyses"; //$NON-NLS-1$
-        case TDQ_BUSINESSRULE_ELEMENT:
+        } else if (type == TDQ_BUSINESSRULE_ELEMENT) {
             return "Rules"; //$NON-NLS-1$
-        case TDQ_INDICATOR_ELEMENT:
+        } else if (type == TDQ_INDICATOR_ELEMENT) {
             return "Indicators"; //$NON-NLS-1$
-        case TDQ_PATTERN_ELEMENT:
+        } else if (type == TDQ_PATTERN_ELEMENT) {
             return "Patterns"; //$NON-NLS-1$ 
-        case TDQ_JRAXML_ELEMENT:
+        } else if (type == TDQ_JRAXML_ELEMENT) {
             return "JRXML Template";
-        case TDQ_REPORT_ELEMENT:
+        } else if (type == TDQ_REPORT_ELEMENT) {
             return "Reports"; //$NON-NLS-1$
-            // MOD mzhao feature 9207
-        case TDQ_ELEMENT:
+        } else if (type == TDQ_ELEMENT) {
             return "";//$NON-NLS-1$
-        case COMPONENTS:
+        } else if (type == COMPONENTS) {
             return "components";
-        default:
+        } else {
             return "job";
         }
+        // switch (type) {
+        // case BUSINESS_PROCESS:
+        //            return "businessModel"; //$NON-NLS-1$
+        // case SVG_BUSINESS_PROCESS:
+        //            return "businessProcessSVG"; //$NON-NLS-1$
+        // case PROCESS:
+        //            return "job"; //$NON-NLS-1$
+        // case JOBLET:
+        // return "joblet";
+        // case CONTEXT:
+        //            return "context"; //$NON-NLS-1$
+        // case ROUTINES:
+        //            return "routine"; //$NON-NLS-1$
+        // case JOB_SCRIPT:
+        //            return "jobscript"; //$NON-NLS-1$
+        // case SNIPPETS:
+        //            return "snippet"; //$NON-NLS-1$
+        // case DOCUMENTATION:
+        //            return "documentation"; //$NON-NLS-1$
+        // case SQLPATTERNS:
+        //            return "sqlPattern"; //$NON-NLS-1$
+        // case METADATA:
+        //            return "metadata"; //$NON-NLS-1$
+        // case METADATA_CONNECTIONS:
+        //            return "DB connection"; //$NON-NLS-1$
+        // case METADATA_SAPCONNECTIONS:
+        //            return "SAPconnection"; //$NON-NLS-1$
+        // case METADATA_FILE_EBCDIC:
+        //            return "fileEBCDIC"; //$NON-NLS-1$
+        // case METADATA_FILE_HL7:
+        //            return "fileHL7"; //$NON-NLS-1$
+        // case METADATA_FILE_FTP:
+        //            return "FTPconnection"; //$NON-NLS-1$
+        // case METADATA_FILE_BRMS:
+        //            return "BRMSconnection"; //$NON-NLS-1$
+        // case METADATA_MDMCONNECTION:
+        //            return "MDMconnection"; //$NON-NLS-1$
+        // case METADATA_FILE_DELIMITED:
+        //            return "fileDelimited"; //$NON-NLS-1$
+        // case METADATA_FILE_POSITIONAL:
+        //            return "filePositional"; //$NON-NLS-1$
+        // case METADATA_FILE_REGEXP:
+        //            return "fileRegex"; //$NON-NLS-1$
+        // case METADATA_FILE_XML:
+        //            return "fileXml"; //$NON-NLS-1$
+        // case METADATA_FILE_EXCEL:
+        //            return "fileExcel"; //$NON-NLS-1$
+        // case METADATA_FILE_LDIF:
+        //            return "fileLdif"; //$NON-NLS-1$
+        // case METADATA_LDAP_SCHEMA:
+        //            return "LDAPSchema"; //$NON-NLS-1$
+        // case METADATA_GENERIC_SCHEMA:
+        //            return "genericSchema"; //$NON-NLS-1$
+        // case METADATA_WSDL_SCHEMA:
+        //            return "WSDLSchema"; //$NON-NLS-1$
+        // case METADATA_SALESFORCE_SCHEMA:
+        //            return "SalesforceSchema"; //$NON-NLS-1$
+        // case METADATA_FILE_RULES:
+        //            return "rules"; //$NON-NLS-1$
+        // case METADATA_FILE_LINKRULES:
+        //            return "rules"; //$NON-NLS-1$
+        // // MOD mzhao feature 13114, 2010-05-19
+        // case METADATA_HEADER_FOOTER:
+        // return "header_footer";
+        // case TDQ_ANALYSIS_ELEMENT:
+        //            return "Analyses"; //$NON-NLS-1$
+        // case TDQ_BUSINESSRULE_ELEMENT:
+        //            return "Rules"; //$NON-NLS-1$
+        // case TDQ_INDICATOR_ELEMENT:
+        //            return "Indicators"; //$NON-NLS-1$
+        // case TDQ_PATTERN_ELEMENT:
+        //            return "Patterns"; //$NON-NLS-1$ 
+        // case TDQ_JRAXML_ELEMENT:
+        // return "JRXML Template";
+        // case TDQ_REPORT_ELEMENT:
+        //            return "Reports"; //$NON-NLS-1$
+        // // MOD mzhao feature 9207
+        // case TDQ_ELEMENT:
+        //            return "";//$NON-NLS-1$
+        // case COMPONENTS:
+        // return "components";
+        // default:
+        // return "job";
+        // }
     }
 
     public static ERepositoryObjectType getItemType(Item item) {
@@ -740,7 +1188,7 @@ public enum ERepositoryObjectType {
     }
 
     public boolean isSubItem() {
-        return subItem;
+        return this.subItem;
     }
 
     public boolean isResourceItem() {
@@ -767,19 +1215,12 @@ public enum ERepositoryObjectType {
      * @return
      */
     public ERepositoryObjectType getParent() {
-        switch (this) {
-        case TDQ_PATTERN_ELEMENT:
-        case TDQ_ANALYSIS_ELEMENT:
-        case TDQ_BUSINESSRULE_ELEMENT:
-        case TDQ_INDICATOR_ELEMENT:
-        case METADATA_CONNECTIONS:
-        case METADATA_MDMCONNECTION:
-        case TDQ_REPORT_ELEMENT:
-        case TDQ_JRAXML_ELEMENT:
+        if (this == TDQ_PATTERN_ELEMENT || this == TDQ_ANALYSIS_ELEMENT || this == TDQ_BUSINESSRULE_ELEMENT
+                || this == TDQ_INDICATOR_ELEMENT || this == METADATA_CONNECTIONS || this == METADATA_MDMCONNECTION
+                || this == TDQ_REPORT_ELEMENT || this == TDQ_JRAXML_ELEMENT) {
             return TDQ_ELEMENT;
-        default:
+        } else
             return null;
-        }
     }
 
     /**
@@ -789,7 +1230,7 @@ public enum ERepositoryObjectType {
      */
     public static ERepositoryObjectType[] getAllDQItemType() {
         List<ERepositoryObjectType> allTypeList = new ArrayList<ERepositoryObjectType>();
-        for (ERepositoryObjectType type : values()) {
+        for (ERepositoryObjectType type : (ERepositoryObjectType[]) values()) {
             if (type.isDQItemType()) {
                 allTypeList.add(type);
             }

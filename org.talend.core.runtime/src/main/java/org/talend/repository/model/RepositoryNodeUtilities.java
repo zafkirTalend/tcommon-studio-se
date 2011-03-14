@@ -355,44 +355,33 @@ public class RepositoryNodeUtilities {
         if (rootContextType != null) {
 
             ERepositoryObjectType tmpType = null;
-            switch (curType) {
-            case METADATA_CON_TABLE:
-            case METADATA_CON_VIEW:
-            case METADATA_CON_SYNONYM:
-            case METADATA_CON_QUERY:
-            case METADATA_CONNECTIONS:
-            case METADATA_FILE_DELIMITED:
-            case METADATA_FILE_POSITIONAL:
-            case METADATA_FILE_REGEXP:
-            case METADATA_FILE_XML:
-            case METADATA_FILE_LDIF:
-            case METADATA_FILE_EXCEL:
-            case METADATA_GENERIC_SCHEMA:
-            case METADATA_LDAP_SCHEMA:
-            case METADATA_SALESFORCE_SCHEMA:
-            case METADATA_WSDL_SCHEMA:
-            case METADATA_FILE_EBCDIC:
-            case METADATA_FILE_HL7:
-            case METADATA_FILE_FTP:
-            case METADATA_FILE_BRMS:
-            case METADATA_MDMCONNECTION:
-            case METADATA_FILE_RULES:// added by hyWang
-            case METADATA_FILE_LINKRULES:
-            case METADATA_SAPCONNECTIONS:
-            case METADATA_HEADER_FOOTER:
+            if (curType == ERepositoryObjectType.METADATA_CON_TABLE || curType == ERepositoryObjectType.METADATA_CON_VIEW
+                    || curType == ERepositoryObjectType.METADATA_CON_SYNONYM
+                    || curType == ERepositoryObjectType.METADATA_CON_QUERY
+                    || curType == ERepositoryObjectType.METADATA_CONNECTIONS
+                    || curType == ERepositoryObjectType.METADATA_FILE_DELIMITED
+                    || curType == ERepositoryObjectType.METADATA_FILE_POSITIONAL
+                    || curType == ERepositoryObjectType.METADATA_FILE_REGEXP
+                    || curType == ERepositoryObjectType.METADATA_FILE_XML || curType == ERepositoryObjectType.METADATA_FILE_LDIF
+                    || curType == ERepositoryObjectType.METADATA_FILE_EXCEL
+                    || curType == ERepositoryObjectType.METADATA_GENERIC_SCHEMA
+                    || curType == ERepositoryObjectType.METADATA_LDAP_SCHEMA
+                    || curType == ERepositoryObjectType.METADATA_SALESFORCE_SCHEMA
+                    || curType == ERepositoryObjectType.METADATA_WSDL_SCHEMA
+                    || curType == ERepositoryObjectType.METADATA_FILE_EBCDIC
+                    || curType == ERepositoryObjectType.METADATA_FILE_HL7 || curType == ERepositoryObjectType.METADATA_FILE_FTP
+                    || curType == ERepositoryObjectType.METADATA_FILE_BRMS
+                    || curType == ERepositoryObjectType.METADATA_MDMCONNECTION
+                    || curType == ERepositoryObjectType.METADATA_FILE_RULES
+                    || curType == ERepositoryObjectType.METADATA_FILE_LINKRULES
+                    || curType == ERepositoryObjectType.METADATA_SAPCONNECTIONS
+                    || curType == ERepositoryObjectType.METADATA_HEADER_FOOTER) {
                 tmpType = ERepositoryObjectType.METADATA;
-                break;
-            case ROUTINES:
-            case SNIPPETS:
+            } else if (curType == ERepositoryObjectType.ROUTINES || curType == ERepositoryObjectType.SNIPPETS) {
                 tmpType = ERepositoryObjectType.ROUTINES;
-                break;
-            case DOCUMENTATION:
-            case JOB_DOC:
-            case JOBLET_DOC:
+            } else if (curType == ERepositoryObjectType.DOCUMENTATION || curType == ERepositoryObjectType.JOB_DOC
+                    || curType == ERepositoryObjectType.JOBLET_DOC) {
                 tmpType = ERepositoryObjectType.DOCUMENTATION;
-                //
-                break;
-            default:
             }
 
             if (tmpType != null && tmpType == rootContextType) {
@@ -425,13 +414,10 @@ public class RepositoryNodeUtilities {
             TreeViewer treeViewer = (TreeViewer) viewer;
             ERepositoryObjectType objectType = node.getObjectType();
             if (objectType != null) {
-                switch (objectType) {
-                case METADATA_CONNECTIONS:
+                if (objectType == ERepositoryObjectType.METADATA_CONNECTIONS) {
                     treeViewer.expandToLevel(node, TreeViewer.ALL_LEVELS);
-                    break;
-                case ROUTINES:
+                } else if (objectType == ERepositoryObjectType.ROUTINES) {
                     treeViewer.expandToLevel(node, 2);
-                    break;
                 }
             }
         }
