@@ -101,7 +101,7 @@ public abstract class AbstractItemMigrationTask extends AbstractMigrationTask im
     public abstract ExecutionResult execute(Item item);
 
     public List<ERepositoryObjectType> getTypes() {
-        return Arrays.asList(ERepositoryObjectType.values());
+        return Arrays.asList((ERepositoryObjectType[]) ERepositoryObjectType.values());
     }
 
     public final boolean isApplicableOnItems() {

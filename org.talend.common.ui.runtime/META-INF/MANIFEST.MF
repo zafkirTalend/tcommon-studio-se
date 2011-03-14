@@ -28,6 +28,7 @@ Export-Package:
  org.talend.commons.ui.swt.tableviewer.tableeditor,
  org.talend.commons.ui.utils,
  org.talend.commons.ui.utils.threading,
+ org.talend.core.repository,
  org.talend.core.ui.images
 Bundle-ActivationPolicy: lazy
 Import-Package: org.eclipse.jface.bindings.keys,

@@ -121,20 +121,19 @@ public final class ProcessUtils {
     public static Collection<IRepositoryViewObject> getProcessDependencies(ERepositoryObjectType dependencyType,
             Collection<Item> items, boolean withSystem) {
 
-        switch (dependencyType) {
-        case CONTEXT:
+        if (dependencyType == ERepositoryObjectType.CONTEXT) {
             return getContextDependenciesOfProcess(items);
-        case METADATA:
+        } else if (dependencyType == ERepositoryObjectType.METADATA) {
             return getMetadataDependenciesOfProcess(items);
-        case PROCESS:
+        } else if (dependencyType == ERepositoryObjectType.PROCESS) {
             return getChildPorcessDependenciesOfProcess(items, true);
-        case JOBLET:
+        } else if (dependencyType == ERepositoryObjectType.JOBLET) {
             return getJobletDependenciesOfProcess(items, true);
-        case SQLPATTERNS:
+        } else if (dependencyType == ERepositoryObjectType.SQLPATTERNS) {
             return getSQLTemplatesDependenciesOfProcess(items, withSystem);
-        case ROUTINES:
+        } else if (dependencyType == ERepositoryObjectType.ROUTINES) {
             return getRoutineDependenciesOfProcess(items, withSystem, true);
-        default:
+        } else {
             return Collections.emptyList();
         }
 
