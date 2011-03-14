@@ -183,9 +183,29 @@ public final class ColumnHelper {
         ColumnSet set = SwitchHelpers.COLUMN_SET_SWITCH.doSwitch(owner);
         MetadataTable mdColumn = SwitchHelpers.METADATA_TABLE_SWITCH.doSwitch(owner);
         if (null == set && mdColumn != null) {
-            return (ColumnSet)mdColumn;
+            return null;
         }
         return set;
+    }
+
+    /**
+     * return the owner of the column or null if none avaialble ADD yyi 2011-03-01 17871
+     * 
+     * @param column to find the owner of
+     * @return the owner of the given column or null
+     */
+    public static MetadataTable getColumnOwnerAsMetadataTable(ModelElement column) {
+        assert column != null;
+        Classifier owner = (Classifier) column.eContainer();
+        if (owner == null) {
+            return null;
+        }
+
+        MetadataTable mdColumn = SwitchHelpers.METADATA_TABLE_SWITCH.doSwitch(owner);
+        if (mdColumn != null) {
+            return mdColumn;
+        }
+        return null;
     }
 
     /**
