@@ -359,8 +359,17 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 } catch (Exception e) {
                     log.warn(e.getMessage(), e);
                 }
-                if (schemaName == null || catalogName != null && !schemaName.equals(catalogName)
-                        && !catalogName.equals(catalog.getName())) {
+                // the case for mssql
+                if (MetadataConnectionUtils.isMssql(dbJDBCMetadata.getConnection())) {
+                    if (catalogName == null) {
+                        continue;
+                    }
+                    schemaName = catalogName;
+                } else if (schemaName == null || catalogName != null && !catalogName.equals(catalog.getName())) {// the
+                                                                                                                 // case
+                                                                                                                 // for
+                                                                                                                 // olap
+                    // if (schemaName == null) {
                     continue;
                 }
                 // MOD mzhao bug 9606 filter duplicated schemas.

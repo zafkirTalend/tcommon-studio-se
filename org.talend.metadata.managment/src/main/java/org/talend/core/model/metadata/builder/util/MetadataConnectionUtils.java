@@ -142,11 +142,11 @@ public class MetadataConnectionUtils {
         if (StringUtils.isNotBlank(dbUrl) && StringUtils.isNotBlank(driver)) {
             java.sql.Connection sqlConn = null;
             try {
-                if (StringUtils.isEmpty(metadataBean.getDriverJarPath())) {
+                // if (StringUtils.isEmpty(metadataBean.getDriverJarPath())) {
                     sqlConn = ConnectionUtils.createConnection(dbUrl, getClassDriver(metadataBean), props);
-                } else {
-                    sqlConn = ConnectionUtils.createConnection(dbUrl, metadataBean.getDriverClass(), props);
-                }
+                // } else {
+                // sqlConn = ConnectionUtils.createConnection(dbUrl, metadataBean.getDriverClass(), props);
+                // }
 
                 ReturnCode varc = ConnectionUtils.isValid(sqlConn);
                 if (varc.isOk()) {
