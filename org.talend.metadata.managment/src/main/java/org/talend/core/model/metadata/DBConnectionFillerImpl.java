@@ -312,6 +312,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
 
     public List<Schema> fillSchemaToCatalog(Connection dbConn, DatabaseMetaData dbJDBCMetadata, Catalog catalog,
             List<String> schemaFilter) {
+
         ResultSet schemaRs = null;
         try {
             // Case of JDK 1.6
@@ -344,16 +345,22 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         try {
             while (schemaRs.next()) {
                 String schemaName = null;
+                String catalogName = null;
                 try {
-                    schemaName = schemaRs.getString(MetaDataConstants.TABLE_CATALOG.name());
+                    schemaName = schemaRs.getString(MetaDataConstants.TABLE_SCHEM.name());
+                    // if (schemaName.equals("Base")) {
+                    // System.out.println("aa");
+                    // executeGetSchemas(dbJDBCMetadata);
+                    // }
+                    catalogName = schemaRs.getString(MetaDataConstants.TABLE_CATALOG.name());
+                    // if (catalogName.equals("new_Base")) {
+                    // System.out.println("aa");
+                    // }
                 } catch (Exception e) {
                     log.warn(e.getMessage(), e);
                 }
-                if (schemaName == null) {
-                    // try to get first column
-                    schemaName = schemaRs.getString(1);
-                }
-                if (schemaName == null) {
+                if (schemaName == null || catalogName != null && !schemaName.equals(catalogName)
+                        && !catalogName.equals(catalog.getName())) {
                     continue;
                 }
                 // MOD mzhao bug 9606 filter duplicated schemas.
@@ -760,5 +767,26 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         expression.setLanguage(language);
         return expression;
     }
+
+    // public static void executeGetSchemas(DatabaseMetaData dbmd) {
+    // try {
+    //
+    // ResultSet rs = dbmd.getSchemas();
+    // ResultSetMetaData rsmd = rs.getMetaData();
+    //
+    // // Display the result set data.
+    // int cols = rsmd.getColumnCount();
+    // while (rs.next()) {
+    // for (int i = 1; i <= cols; i++) {
+    // System.out.println(rs.getString(i));
+    // }
+    // }
+    // rs.close();
+    // }
+    //
+    // catch (Exception e) {
+    // e.printStackTrace();
+    // }
+    // }
 
 }
