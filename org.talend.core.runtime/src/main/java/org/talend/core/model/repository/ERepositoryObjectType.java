@@ -13,6 +13,7 @@
 package org.talend.core.model.repository;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -1237,5 +1238,24 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
         }
 
         return allTypeList.toArray(new ERepositoryObjectType[allTypeList.size()]);
+    }
+
+    public String name() {
+        if (isStaticNode()) {
+            Field[] allFields = ERepositoryObjectType.class.getDeclaredFields();
+            for (Field f : allFields) {
+                try {
+                    Object object = f.get(null);
+                    if (object == this) {
+                        return f.getName();
+                    }
+                } catch (IllegalArgumentException e) {
+                    //
+                } catch (IllegalAccessException e) {
+                    //
+                }
+            }
+        }
+        return super.name();
     }
 }

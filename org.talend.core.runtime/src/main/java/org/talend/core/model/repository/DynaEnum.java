@@ -41,7 +41,7 @@ public class DynaEnum<E extends DynaEnum<E>> {
         return ordinal;
     }
 
-    public final String name() {
+    public String name() {
         return key;
     }
 
