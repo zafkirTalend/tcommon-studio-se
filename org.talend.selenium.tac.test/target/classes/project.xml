@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="Suite" parallel="false">
 
-  <parameter  name ="server"	value ="localhost"/>
-  <parameter  name ="port"		value ="4444"/>
-  <parameter  name ="browser"	value ="*firefox"/>
-  <parameter  name ="url"		value ="http://localhost:8080"/>
-  <parameter  name ="root"		value ="/org.talend.administrator/"/>
+	<parameter name="server" value="" />
+	<parameter name="port" value="" />
+	<parameter name="browser" value="" />
+	<parameter name="url" value="" />
+	<parameter name="root" value="" />
 
   <parameter  name ="language"	value ="en"/>
   <parameter  name ="country"	value ="US"/>
@@ -19,12 +19,8 @@
   <parameter  name ="AddcommonProjectname"	value ="commonpro"/>
   <parameter  name ="AddreferenceProjectname"	value ="referencepro"/>
   <parameter  name ="DeleteProjectname"	value ="referencepro"/>
-  <parameter  name ="SVNurl" value ="https://192.168.0.85/svn/test"/>
-  <parameter  name ="SVNProjecturl" value ="https://192.168.0.85/svn/testing/"/>
   <parameter  name ="WrongSVNProjecturl" value ="sdfsdf"/>
   
-  <parameter  name ="SVNuserName" value ="test"/>
-  <parameter  name ="SVNuserPassword" value ="testing"/>
   <parameter  name ="ProlableName" value ="testPro"/>
   <parameter  name ="Prolanguage" value ="java"/>
   <parameter  name ="duplicateproname" value ="commonpro"/>
