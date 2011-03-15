@@ -401,7 +401,7 @@ public class TalendDate {
      * @param dateType value=("yyyy","MM") for type of return
      * @return a number of years, months (date1 - date2)
      * 
-     * {talendTypes} Long
+     * {talendTypes} Integer
      * 
      * {Category} TalendDate
      * 
@@ -417,7 +417,7 @@ public class TalendDate {
      * 
      * ->> diffDate(2009/05/10, 2008/10/15, "MM") : return 6
      */
-    public static long diffDateFloor(Date date1, Date date2, String dateType) {
+    public static int diffDateFloor(Date date1, Date date2, String dateType) {
         if (date1 == null) {
             date1 = new Date(0);
         }
@@ -434,7 +434,7 @@ public class TalendDate {
         c1.setTime(date1);
         c2.setTime(date2);
 
-        long result = 0;
+        int result = 0;
         Calendar tmp = null;
         boolean flag = false;
         if (c1.compareTo(c2) < 0) {
@@ -444,17 +444,8 @@ public class TalendDate {
             c2 = tmp;
         }
         result = (c1.get(Calendar.YEAR) - c2.get(Calendar.YEAR)) * 12 + (c1.get(Calendar.MONTH) - c2.get(Calendar.MONTH));
-        if (c1.get(Calendar.DAY_OF_MONTH) != c2.get(Calendar.DAY_OF_MONTH)) {
-            result += (c1.get(Calendar.DAY_OF_MONTH) - c2.get(Calendar.DAY_OF_MONTH)) < 0 ? -1 : 0;
-        } else if (c1.get(Calendar.HOUR_OF_DAY) != c2.get(Calendar.HOUR_OF_DAY)) {
-            result += (c1.get(Calendar.HOUR_OF_DAY) - c2.get(Calendar.HOUR_OF_DAY)) < 0 ? -1 : 0;
-        } else if (c1.get(Calendar.MINUTE) != c2.get(Calendar.MINUTE)) {
-            result += (c1.get(Calendar.MINUTE) - c2.get(Calendar.MINUTE)) < 0 ? -1 : 0;
-        } else if (c1.get(Calendar.SECOND) != c2.get(Calendar.SECOND)) {
-            result += (c1.get(Calendar.SECOND) - c2.get(Calendar.SECOND)) < 0 ? -1 : 0;
-        } else if (c1.get(Calendar.MILLISECOND) != c2.get(Calendar.MILLISECOND)) {
-            result += (c1.get(Calendar.MILLISECOND) - c2.get(Calendar.MILLISECOND)) < 0 ? -1 : 0;
-        }
+        c2.add(Calendar.MONTH, result);
+        result += c2.after(c1) ? -1 : 0;
         if (flag) {
             result = -result;
         }
@@ -796,7 +787,7 @@ public class TalendDate {
         // System.out.println(getPartOfDate("DAY_OF_WEEK_IN_MONTH", parseDate("yyyy-MM-dd", "2010-12-26")));
         // System.out.println(getPartOfDate("WEEK_OF_MONTH", parseDate("yyyy-MM-dd", "2010-12-26")));
 
-        System.out.println(TalendDate.diffDateFloor(TalendDate.parseDate("yyyy/MM/dd hh:mm:ss.SSS", "2011/05/10 14:15:16.789"),
+        System.out.println(TalendDate.diffDateFloor(TalendDate.parseDate("yyyy/MM/dd hh:mm:ss.SSS", "2011/05/10 14:15:16.788"),
                 TalendDate.parseDate("yyyy/MM/dd hh:mm:ss.SSS", "2010/05/10 14:15:16.789"), "MM"));
     }
 
