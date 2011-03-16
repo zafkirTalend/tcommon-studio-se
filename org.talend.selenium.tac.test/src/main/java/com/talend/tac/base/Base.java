@@ -144,7 +144,7 @@ System.out.println("language: " + language + ", country: " + country);
 		Matcher matcher;
 
 		String text = selenium.getBodyText();
-System.out.println(text);
+//System.out.println(text);
 		texts = text.split("\n");
 		for (int i = 0; i < texts.length - 1; i++) {
 // System.out.println("text " + i +": " + texts[i]);
@@ -152,7 +152,7 @@ System.out.println(text);
 			if (matcher.matches()) {
 				findedString = texts[i].trim();
 				strs.add(findedString);
-System.out.println(texts[i].trim());
+//System.out.println(texts[i].trim());
 				continue;
 
 			}
