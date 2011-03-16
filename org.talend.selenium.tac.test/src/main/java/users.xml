@@ -21,6 +21,7 @@
 	<parameter name="LoginNameChooseAdministratorRole" value="testAdmin@company.com" />
 	<parameter name="LoginNameChooseMulripleRoles" value="testMulripleRoles@company.com" />
 	<parameter name="LoginNameChooseExistRoleUser" value="testExistRoleUser@company.com" />
+	<parameter name="userNameAllRoles" value="talend@company.com"/>
 	<parameter name="FirstName" value="jack" />
 	<parameter name="LastName" value="zhang" />
 	<parameter name="PassWord" value="a" />

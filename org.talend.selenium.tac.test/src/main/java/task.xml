@@ -25,12 +25,18 @@
         </packages>
      -->
         <classes>  
-      <!---->
+        
             <class name="com.talend.tac.cases.executionTask.TestAddTask"/>
             <class name="com.talend.tac.cases.executionTask.TestDuplicateTask"/>
             <class name="com.talend.tac.cases.executionTask.TestDeteleTask"/>
-              
+            <class name="com.talend.tac.cases.executionTask.TestModifyTask"/>
+          <!--
             <class name="com.talend.tac.cases.executionTask.TestAddTriggerAddSimpleTrigger"/>
+            <class name="com.talend.tac.cases.executionTask.TestAddTriggerAddCronTrigger"/>
+            <class name="com.talend.tac.cases.executionTask.TestAddTriggerAddFileTrigger"/>
+            <class name="com.talend.tac.cases.executionTask.TestDuplicateTrigger"/>
+            <class name="com.talend.tac.cases.executionTask.TestDeleteTrigger"/>
+            -->   
         </classes> 
 	</test>
 	

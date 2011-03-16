@@ -19,8 +19,6 @@ public class TestDeleteUser extends Login {
 	    Assert.assertTrue(selenium.getConfirmation().matches("^"+other.getString("delete.User.confirmation")+" [\\s\\S]$"));
 	  
 	}
-
-	
 	
 	@Test(groups={"DeleteUser"},dependsOnGroups={"AddUser"})
 	@Parameters({"userName","LoginNameChooseAdministratorRole","LoginNameChooseAdministratorRole"})
@@ -37,9 +35,10 @@ public class TestDeleteUser extends Login {
 	}
 	
 	@Test(dependsOnMethods={"testCancleDeleteUser"})
-	@Parameters({"userName","LoginNameChooseAdministratorRole","LoginNameChooseAdministratorRole"})
-	public void testDeleteUser(String userName,String DeleteUser,String DeleteUser1) throws Exception {
+	@Parameters({"userName","LoginNameChooseAdministratorRole","userName","userNameAllRoles","LoginNameChooseAdministratorRole"})
+	public void testDeleteUser(String userName,String DeleteUser,String userName1,String deleteUser1,String DeleteUser1) throws Exception {
 		deleteUser(userName, DeleteUser);
+		deleteUser(userName1,deleteUser1);
 	    Assert.assertFalse(selenium.isElementPresent("//div[text()='"+DeleteUser1+"']"));
 	    selenium.setSpeed(MIN_SPEED);
 	}
