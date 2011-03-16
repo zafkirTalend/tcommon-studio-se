@@ -130,6 +130,11 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
         return getObjectFromFolder(project, ERepositoryObjectType.METADATA_VALIDATION_RULES, true, options);
     }
 
+    public RootContainer<String, IRepositoryViewObject> getMetadataEDIFACT(Project project, boolean... options)
+            throws PersistenceException {
+        return getObjectFromFolder(project, ERepositoryObjectType.METADATA_EDIFACT, true, options);
+    }
+
     public RootContainer<String, IRepositoryViewObject> getMetadataFileDelimited(Project project, boolean... options)
             throws PersistenceException {
         return getObjectFromFolder(project, ERepositoryObjectType.METADATA_FILE_DELIMITED, true, options);

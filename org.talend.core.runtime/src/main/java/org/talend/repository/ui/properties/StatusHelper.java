@@ -92,6 +92,7 @@ public class StatusHelper {
             case PropertiesPackage.MDM_CONNECTION_ITEM:
             case PropertiesPackage.JOB_SCRIPT_ITEM:
             case PropertiesPackage.SQL_PATTERN_ITEM:
+            case PropertiesPackage.EDIFACT_CONNECTION_ITEM:
             case PropertiesPackage.VALIDATION_RULES_CONNECTION_ITEM:
                 status = repositoryFactory.getTechnicalStatus();
                 break;

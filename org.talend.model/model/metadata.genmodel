@@ -482,6 +482,13 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//InnerJoinMap/key"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//InnerJoinMap/value"/>
     </genClasses>
+    <genClasses ecoreClass="metadata.ecore#//EDIFACTConnection">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//EDIFACTConnection/XmlName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//EDIFACTConnection/FileName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//EDIFACTConnection/XmlPath"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//EDIFACTConnection/inputModel"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//EDIFACTConnection/XmlNode"/>
+    </genClasses>
     <nestedGenPackages prefix="cwm" basePackage="org.talend" disposableProviderFactory="true"
         ecorePackage="metadata.ecore#//cwm">
       <nestedGenPackages prefix="Relational" basePackage="org.talend.cwm" disposableProviderFactory="true"

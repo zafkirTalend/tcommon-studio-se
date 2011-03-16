@@ -31,6 +31,7 @@ import org.talend.core.model.properties.DashboardConnection;
 import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.properties.DelimitedFileConnectionItem;
 import org.talend.core.model.properties.DocumentationItem;
+import org.talend.core.model.properties.EDIFACTConnectionItem;
 import org.talend.core.model.properties.EbcdicConnectionItem;
 import org.talend.core.model.properties.ExcelFileConnectionItem;
 import org.talend.core.model.properties.ExecutionPlan;
@@ -635,6 +636,13 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     private EClass jobScriptItemEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass edifactConnectionItemEClass = null;
 
     /**
      * <!-- begin-user-doc -->
@@ -4140,6 +4148,15 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
+    public EClass getEDIFACTConnectionItem() {
+        return edifactConnectionItemEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getBeanItem() {
         return beanItemEClass;
     }
@@ -5584,6 +5601,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
 
         jobScriptItemEClass = createEClass(JOB_SCRIPT_ITEM);
 
+        edifactConnectionItemEClass = createEClass(EDIFACT_CONNECTION_ITEM);
+
         beanItemEClass = createEClass(BEAN_ITEM);
         createEReference(beanItemEClass, BEAN_ITEM__IMPORTS);
 
@@ -5672,6 +5691,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         tdqItemEClass.getESuperTypes().add(this.getItem());
         brmsConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
         jobScriptItemEClass.getESuperTypes().add(this.getFileItem());
+        edifactConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
         beanItemEClass.getESuperTypes().add(this.getFileItem());
 
         // Initialize classes and features; add operations and parameters
@@ -6277,6 +6297,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEClass(brmsConnectionItemEClass, BRMSConnectionItem.class, "BRMSConnectionItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(jobScriptItemEClass, JobScriptItem.class, "JobScriptItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+        initEClass(edifactConnectionItemEClass, EDIFACTConnectionItem.class, "EDIFACTConnectionItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(beanItemEClass, BeanItem.class, "BeanItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getBeanItem_Imports(), theComponentPackage.getIMPORTType(), null, "imports", null, 0, -1, BeanItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

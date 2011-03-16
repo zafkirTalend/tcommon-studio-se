@@ -34,6 +34,7 @@ import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.properties.DelimitedFileConnectionItem;
 import org.talend.core.model.properties.DocumentationItem;
+import org.talend.core.model.properties.EDIFACTConnectionItem;
 import org.talend.core.model.properties.EbcdicConnectionItem;
 import org.talend.core.model.properties.ExcelFileConnectionItem;
 import org.talend.core.model.properties.FTPConnectionItem;
@@ -140,7 +141,6 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
 
     public final static ERepositoryObjectType METADATA_COLUMN = new ERepositoryObjectType("repository.column", true, 27);
 
-    // feature 0006484 add
     public final static ERepositoryObjectType METADATA_FILE_RULES = new ERepositoryObjectType(
             "repository.metadataFileRules", 28, true, "repository.metadataFileRules.alias"); //$NON-NLS-1$ //$NON-NLS-2$
 
@@ -207,6 +207,9 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
 
     public final static ERepositoryObjectType METADATA_VALIDATIONS_RULES_FOLDER = new ERepositoryObjectType(
             "repository.metadataValidationRulesFolder", 49, true, "repository.metadataValidationRulesFolder.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+
+    public final static ERepositoryObjectType METADATA_EDIFACT = new ERepositoryObjectType("repositorymetadataEDIFact", 50, true,
+            "repositorymetadataEDIFact.alias");
 
     public final static ERepositoryObjectType FOLDER = new ERepositoryObjectType("repository.folder", true, 50); //$NON-NLS-1$
 
@@ -532,6 +535,8 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
             return "metadata/SalesforceSchema"; //$NON-NLS-1$
         } else if (type == METADATA_FILE_RULES) {
             return "metadata/rules"; //$NON-NLS-1$
+        } else if (type == METADATA_EDIFACT) {
+            return "metadata/EDISchema";
         } else if (type == METADATA_FILE_LINKRULES) {
             return "metadata/rules"; //$NON-NLS-1$
         } else if (type == METADATA_VALIDATION_RULES) {
@@ -1130,6 +1135,10 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
 
             public Object caseWSDLSchemaConnectionItem(WSDLSchemaConnectionItem object) {
                 return METADATA_WSDL_SCHEMA;
+            }
+
+            public Object caseEDIFACTConnectionItem(EDIFACTConnectionItem object) {
+                return METADATA_EDIFACT;
             }
 
             @Override

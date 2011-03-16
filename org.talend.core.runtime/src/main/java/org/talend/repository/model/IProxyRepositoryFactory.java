@@ -246,6 +246,9 @@ public interface IProxyRepositoryFactory {
     public abstract RootContainer<String, IRepositoryViewObject> getMetadataValidationRules(Project project, boolean... options)
             throws PersistenceException;
 
+    public abstract RootContainer<String, IRepositoryViewObject> getMetadataEDIFACT(Project project, boolean... options)
+            throws PersistenceException;
+
     public abstract RootContainer<String, IRepositoryViewObject> getMetadataFTP(Project project, boolean... options)
             throws PersistenceException;
 

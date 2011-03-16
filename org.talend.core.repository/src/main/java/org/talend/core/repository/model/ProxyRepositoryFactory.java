@@ -2163,6 +2163,15 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         return getMetadataValidationRules(projectManager.getCurrentProject());
     }
 
+    public RootContainer<String, IRepositoryViewObject> getMetadataEDIFACT(Project project, boolean... options)
+            throws PersistenceException {
+        return this.repositoryFactoryFromProvider.getMetadataEDIFACT(project, options);
+    }
+
+    public RootContainer<String, IRepositoryViewObject> getMetadataEDIFACT() throws PersistenceException {
+        return getMetadataEDIFACT(projectManager.getCurrentProject());
+    }
+
     public FolderItem getFolderItem(Project project, ERepositoryObjectType itemType, IPath path) {
         return repositoryFactoryFromProvider.getFolderItem(project, itemType, path);
     }

@@ -7582,6 +7582,61 @@ public interface PropertiesPackage extends EPackage {
     int JOB_SCRIPT_ITEM_FEATURE_COUNT = FILE_ITEM_FEATURE_COUNT + 0;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.EDIFACTConnectionItemImpl <em>EDIFACT Connection Item</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.EDIFACTConnectionItemImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getEDIFACTConnectionItem()
+     * @generated
+     */
+    int EDIFACT_CONNECTION_ITEM = 92;
+
+    /**
+     * The feature id for the '<em><b>Property</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_CONNECTION_ITEM__PROPERTY = CONNECTION_ITEM__PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>State</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_CONNECTION_ITEM__STATE = CONNECTION_ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_CONNECTION_ITEM__PARENT = CONNECTION_ITEM__PARENT;
+
+    /**
+     * The feature id for the '<em><b>Connection</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_CONNECTION_ITEM__CONNECTION = CONNECTION_ITEM__CONNECTION;
+
+    /**
+     * The number of structural features of the '<em>EDIFACT Connection Item</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.BeanItemImpl <em>Bean Item</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -7589,7 +7644,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getBeanItem()
      * @generated
      */
-    int BEAN_ITEM = 92;
+    int BEAN_ITEM = 93;
 
     /**
      * The feature id for the '<em><b>Property</b></em>' reference.
@@ -7671,7 +7726,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFolderType()
      * @generated
      */
-    int FOLDER_TYPE = 93;
+    int FOLDER_TYPE = 94;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserProjectAuthorizationType <em>User Project Authorization Type</em>}' enum.
@@ -7680,7 +7735,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserProjectAuthorizationType()
      * @generated
      */
-    int USER_PROJECT_AUTHORIZATION_TYPE = 94;
+    int USER_PROJECT_AUTHORIZATION_TYPE = 95;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserModuleAuthorizationType <em>User Module Authorization Type</em>}' enum.
@@ -7689,7 +7744,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserModuleAuthorizationType()
      * @generated
      */
-    int USER_MODULE_AUTHORIZATION_TYPE = 95;
+    int USER_MODULE_AUTHORIZATION_TYPE = 96;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.InformationLevel <em>Information Level</em>}' enum.
@@ -7698,7 +7753,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getInformationLevel()
      * @generated
      */
-    int INFORMATION_LEVEL = 96;
+    int INFORMATION_LEVEL = 97;
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.Status <em>Status</em>}'. <!--
@@ -12055,6 +12110,16 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EClass getJobScriptItem();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.EDIFACTConnectionItem <em>EDIFACT Connection Item</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>EDIFACT Connection Item</em>'.
+     * @see org.talend.core.model.properties.EDIFACTConnectionItem
+     * @generated
+     */
+    EClass getEDIFACTConnectionItem();
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.BeanItem <em>Bean Item</em>}'.
@@ -16558,6 +16623,16 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EClass JOB_SCRIPT_ITEM = eINSTANCE.getJobScriptItem();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.EDIFACTConnectionItemImpl <em>EDIFACT Connection Item</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.EDIFACTConnectionItemImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getEDIFACTConnectionItem()
+         * @generated
+         */
+        EClass EDIFACT_CONNECTION_ITEM = eINSTANCE.getEDIFACTConnectionItem();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.BeanItemImpl <em>Bean Item</em>}' class.

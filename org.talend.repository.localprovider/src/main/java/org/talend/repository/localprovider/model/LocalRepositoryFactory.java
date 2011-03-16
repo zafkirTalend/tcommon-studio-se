@@ -81,6 +81,7 @@ import org.talend.core.model.properties.BusinessProcessItem;
 import org.talend.core.model.properties.ByteArray;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.ContextItem;
+import org.talend.core.model.properties.EDIFACTConnectionItem;
 import org.talend.core.model.properties.EbcdicConnectionItem;
 import org.talend.core.model.properties.FTPConnectionItem;
 import org.talend.core.model.properties.FileItem;
@@ -1766,6 +1767,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             case PropertiesPackage.VALIDATION_RULES_CONNECTION_ITEM:
                 itemResource = save((ValidationRulesConnectionItem) item);
                 break;
+            case PropertiesPackage.EDIFACT_CONNECTION_ITEM:
+                itemResource = save((EDIFACTConnectionItem) item);
+                break;
             case PropertiesPackage.BEAN_ITEM:
                 itemResource = save((BeanItem) item);
                 break;
@@ -2061,6 +2065,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 break;
             case PropertiesPackage.LINK_RULES_ITEM: // hywang add for 6484
                 itemResource = create(project2, (LinkRulesItem) item, path);
+                break;
+            case PropertiesPackage.EDIFACT_CONNECTION_ITEM:// gldu add for 19384
+                itemResource = create(project2, (EDIFACTConnectionItem) item, ERepositoryObjectType.METADATA_EDIFACT, path);
                 break;
             default:
                 throw new UnsupportedOperationException();

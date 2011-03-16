@@ -426,6 +426,9 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
             public Object caseJobScriptItem(JobScriptItem object) {
                 return createJobScriptItemAdapter();
             }
+            public Object caseEDIFACTConnectionItem(EDIFACTConnectionItem object) {
+                return createEDIFACTConnectionItemAdapter();
+            }
             public Object caseBeanItem(BeanItem object) {
                 return createBeanItemAdapter();
             }
@@ -1571,6 +1574,20 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createJobScriptItemAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.EDIFACTConnectionItem <em>EDIFACT Connection Item</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.properties.EDIFACTConnectionItem
+     * @generated
+     */
+    public Adapter createEDIFACTConnectionItemAdapter() {
         return null;
     }
 

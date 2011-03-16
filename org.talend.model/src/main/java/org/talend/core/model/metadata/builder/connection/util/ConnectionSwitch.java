@@ -997,6 +997,31 @@ public class ConnectionSwitch<T> {
                 result = defaultCase(theEObject);
             return result;
         }
+        case ConnectionPackage.EDIFACT_CONNECTION: {
+            EDIFACTConnection edifactConnection = (EDIFACTConnection) theEObject;
+            T result = caseEDIFACTConnection(edifactConnection);
+            if (result == null)
+                result = caseConnection(edifactConnection);
+            if (result == null)
+                result = caseAbstractMetadataObject(edifactConnection);
+            if (result == null)
+                result = caseDataProvider(edifactConnection);
+            if (result == null)
+                result = caseDataManager(edifactConnection);
+            if (result == null)
+                result = caseElement(edifactConnection);
+            if (result == null)
+                result = caseDeployedComponent(edifactConnection);
+            if (result == null)
+                result = casePackage(edifactConnection);
+            if (result == null)
+                result = caseNamespace(edifactConnection);
+            if (result == null)
+                result = caseModelElement(edifactConnection);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
         default:
             return defaultCase(theEObject);
         }
@@ -1595,6 +1620,21 @@ public class ConnectionSwitch<T> {
      * @generated
      */
     public T caseInnerJoinMap(Map.Entry<String, String> object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>EDIFACT Connection</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>EDIFACT Connection</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseEDIFACTConnection(EDIFACTConnection object) {
         return null;
     }
 

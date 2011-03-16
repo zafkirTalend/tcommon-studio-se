@@ -31,6 +31,7 @@ import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.DelimitedFileConnection;
+import org.talend.core.model.metadata.builder.connection.EDIFACTConnection;
 import org.talend.core.model.metadata.builder.connection.EbcdicConnection;
 import org.talend.core.model.metadata.builder.connection.Escape;
 import org.talend.core.model.metadata.builder.connection.FTPConnection;
@@ -398,6 +399,13 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     private EClass innerJoinMapEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass edifactConnectionEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -3352,6 +3360,60 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getEDIFACTConnection() {
+        return edifactConnectionEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getEDIFACTConnection_XmlName() {
+        return (EAttribute) edifactConnectionEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getEDIFACTConnection_FileName() {
+        return (EAttribute) edifactConnectionEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getEDIFACTConnection_XmlPath() {
+        return (EAttribute) edifactConnectionEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getEDIFACTConnection_InputModel() {
+        return (EAttribute) edifactConnectionEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getEDIFACTConnection_XmlNode() {
+        return (EAttribute) edifactConnectionEClass.getEStructuralFeatures().get(4);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -4036,6 +4098,13 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEAttribute(innerJoinMapEClass, INNER_JOIN_MAP__KEY);
         createEAttribute(innerJoinMapEClass, INNER_JOIN_MAP__VALUE);
 
+        edifactConnectionEClass = createEClass(EDIFACT_CONNECTION);
+        createEAttribute(edifactConnectionEClass, EDIFACT_CONNECTION__XML_NAME);
+        createEAttribute(edifactConnectionEClass, EDIFACT_CONNECTION__FILE_NAME);
+        createEAttribute(edifactConnectionEClass, EDIFACT_CONNECTION__XML_PATH);
+        createEAttribute(edifactConnectionEClass, EDIFACT_CONNECTION__INPUT_MODEL);
+        createEAttribute(edifactConnectionEClass, EDIFACT_CONNECTION__XML_NODE);
+
         // Create enums
         fileFormatEEnum = createEEnum(FILE_FORMAT);
         fieldSeparatorEEnum = createEEnum(FIELD_SEPARATOR);
@@ -4140,6 +4209,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         ftpConnectionEClass.getESuperTypes().add(this.getConnection());
         brmsConnectionEClass.getESuperTypes().add(this.getConnection());
         validationRulesConnectionEClass.getESuperTypes().add(this.getConnection());
+        edifactConnectionEClass.getESuperTypes().add(this.getConnection());
 
         // Initialize classes and features; add operations and parameters
         initEClass(metadataEClass, Metadata.class, "Metadata", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -5123,6 +5193,21 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
                 !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getInnerJoinMap_Value(), ecorePackage.getEString(), "value", null, 0, 1, Map.Entry.class, !IS_TRANSIENT,
                 !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(edifactConnectionEClass, EDIFACTConnection.class, "EDIFACTConnection", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getEDIFACTConnection_XmlName(), ecorePackage.getEString(), "XmlName", null, 0, 1, EDIFACTConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getEDIFACTConnection_FileName(), ecorePackage.getEString(), "FileName", null, 0, 1,
+                EDIFACTConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getEDIFACTConnection_XmlPath(), ecorePackage.getEString(), "XmlPath", null, 0, 1, EDIFACTConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getEDIFACTConnection_InputModel(), ecorePackage.getEBoolean(), "inputModel", "true", 0, 1,
+                EDIFACTConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getEDIFACTConnection_XmlNode(), ecorePackage.getEString(), "XmlNode", null, 0, 1, EDIFACTConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Initialize enums and add enum literals
         initEEnum(fileFormatEEnum, FileFormat.class, "FileFormat");

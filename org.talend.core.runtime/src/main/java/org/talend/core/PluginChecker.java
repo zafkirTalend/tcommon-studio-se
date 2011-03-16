@@ -67,6 +67,8 @@ public class PluginChecker {
 
     private static final String VALIDATIONRULES_PLUGIN_ID = "org.talend.validationrules"; //$NON-NLS-1$
 
+    private static final String EDIFACT_PLUGIN_ID = "org.talend.repository.edifact";
+
     /**
      * Check if specific plug-in is loaded.
      * 
@@ -199,5 +201,9 @@ public class PluginChecker {
 
     public static String getSapWizardPluginId() {
         return SAP_WZIARD_PLUGIN_ID;
+    }
+
+    public static boolean isEDIFACTPluginLoaded() {
+        return isPluginLoaded(EDIFACT_PLUGIN_ID);
     }
 }

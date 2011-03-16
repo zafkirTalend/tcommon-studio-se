@@ -377,6 +377,15 @@ public interface ConnectionFactory extends EFactory {
     ConditionType createConditionType();
 
     /**
+     * Returns a new object of class '<em>EDIFACT Connection</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>EDIFACT Connection</em>'.
+     * @generated
+     */
+    EDIFACTConnection createEDIFACTConnection();
+
+    /**
      * Returns a new object of class '<em>Validation Rules Connection</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

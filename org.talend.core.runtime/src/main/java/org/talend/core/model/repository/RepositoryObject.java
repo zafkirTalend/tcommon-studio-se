@@ -38,6 +38,7 @@ import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.properties.DelimitedFileConnectionItem;
 import org.talend.core.model.properties.DocumentationItem;
+import org.talend.core.model.properties.EDIFACTConnectionItem;
 import org.talend.core.model.properties.EbcdicConnectionItem;
 import org.talend.core.model.properties.ExcelFileConnectionItem;
 import org.talend.core.model.properties.FTPConnectionItem;
@@ -380,6 +381,11 @@ public class RepositoryObject implements IRepositoryObject {
             @Override
             public Object caseSVGBusinessProcessItem(SVGBusinessProcessItem object) {
                 return ERepositoryObjectType.SVG_BUSINESS_PROCESS;
+            }
+
+            @Override
+            public Object caseEDIFACTConnectionItem(EDIFACTConnectionItem object) {
+                return ERepositoryObjectType.METADATA_EDIFACT;
             }
 
             public Object defaultCase(EObject object) {
