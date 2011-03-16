@@ -24,6 +24,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IResource;
@@ -104,6 +105,8 @@ public class ProcessorUtilities {
     private static final int GENERATED_WITH_STATS = 1;
 
     private static final int GENERATED_WITH_TRACES = 2;
+
+    private static final String COMMA = ";";
 
     public static void addOpenEditor(IEditorPart editor) {
         openedEditors.add(editor);
@@ -656,64 +659,71 @@ public class ProcessorUtilities {
             for (INode node : graphicalNodes) {
                 if ((node != null) && node.getComponent().getName().equals("tRunJob")) { //$NON-NLS-1$
                     IElementParameter processIdparam = node.getElementParameter("PROCESS_TYPE_PROCESS"); //$NON-NLS-1$
-                    String jobId = (String) processIdparam.getValue();
-                    ProcessItem processItem = null;
+                    // feature 19312
+                    String jobIds = (String) processIdparam.getValue();
+                    String[] jobsArr = jobIds.split(ProcessorUtilities.COMMA);
+                    for (String jobId : jobsArr) {
+                        if (StringUtils.isNotEmpty(jobId)) {
 
-                    String context = (String) node.getElementParameter("PROCESS_TYPE_CONTEXT").getValue(); //$NON-NLS-1$
-                    String version = (String) node.getElementParameter("PROCESS_TYPE_VERSION").getValue(); //$NON-NLS-1$
-                    JobInfo subJobInfo = null;
-                    subJobInfo = new JobInfo(jobId, context, version);
-                    // get processitem from job
-                    processItem = ItemCacheManager.getProcessItem(jobId, version);
+                            ProcessItem processItem = null;
+                            String context = (String) node.getElementParameter("PROCESS_TYPE_CONTEXT").getValue(); //$NON-NLS-1$
+                            String version = (String) node.getElementParameter("PROCESS_TYPE_VERSION").getValue(); //$NON-NLS-1$
+                            JobInfo subJobInfo = null;
+                            subJobInfo = new JobInfo(jobId, context, version);
+                            // get processitem from job
+                            processItem = ItemCacheManager.getProcessItem(jobId, version);
 
-                    if (processItem == null) {
-                        throw new ProcessorException("tRunJob not setup or child job not found in the job:"
-                                + currentProcess.getName());
-                    }
+                            if (processItem == null) {
+                                throw new ProcessorException("tRunJob not setup or child job not found in the job:"
+                                        + currentProcess.getName());
+                            }
 
-                    subJobInfo.setJobVersion(processItem.getProperty().getVersion());
+                            subJobInfo.setJobVersion(processItem.getProperty().getVersion());
 
-                    if (jobInfo.isApplyContextToChildren()) {
-                        subJobInfo.setApplyContextToChildren(jobInfo.isApplyContextToChildren());
-                        // see bug 0003862: Export job with the flag "Apply to children" if the child don't have the
-                        // same context fails.
-                        if (checkIfContextExisted(processItem, selectedContextName)) {
-                            subJobInfo.setContextName(selectedContextName);
-                        } else {
-                            // use the default context of subjob
-                            String defaultContext = processItem.getProcess().getDefaultContext();
-                            node.getElementParameter("PROCESS_TYPE_CONTEXT").setValue(defaultContext); //$NON-NLS-1$
-                            subJobInfo.setContextName(defaultContext);
-                        }
-                    }
-                    subJobInfo.setFatherJobInfo(jobInfo);
-                    if (!jobList.contains(subJobInfo)) {
-                        // children won't have stats / traces
-                        if (option == GENERATE_WITH_FIRST_CHILD) {
-                            generateCode(subJobInfo, selectedContextName, statistics, false, true, GENERATE_MAIN_ONLY,
-                                    progressMonitor);
-                        } else {
-                            generateCode(subJobInfo, selectedContextName, statistics, false, true, GENERATE_ALL_CHILDS,
-                                    progressMonitor);
-                        }
-                        LastGenerationInfo
-                                .getInstance()
-                                .getModulesNeededWithSubjobPerJob(jobInfo.getJobId(), jobInfo.getJobVersion())
-                                .addAll(LastGenerationInfo.getInstance().getModulesNeededWithSubjobPerJob(subJobInfo.getJobId(),
-                                        subJobInfo.getJobVersion()));
+                            if (jobInfo.isApplyContextToChildren()) {
+                                subJobInfo.setApplyContextToChildren(jobInfo.isApplyContextToChildren());
+                                // see bug 0003862: Export job with the flag "Apply to children" if the child don't have
+                                // the
+                                // same context fails.
+                                if (checkIfContextExisted(processItem, selectedContextName)) {
+                                    subJobInfo.setContextName(selectedContextName);
+                                } else {
+                                    // use the default context of subjob
+                                    String defaultContext = processItem.getProcess().getDefaultContext();
+                                    node.getElementParameter("PROCESS_TYPE_CONTEXT").setValue(defaultContext); //$NON-NLS-1$
+                                    subJobInfo.setContextName(defaultContext);
+                                }
+                            }
+                            subJobInfo.setFatherJobInfo(jobInfo);
+                            if (!jobList.contains(subJobInfo)) {
+                                // children won't have stats / traces
+                                if (option == GENERATE_WITH_FIRST_CHILD) {
+                                    generateCode(subJobInfo, selectedContextName, statistics, false, true, GENERATE_MAIN_ONLY,
+                                            progressMonitor);
+                                } else {
+                                    generateCode(subJobInfo, selectedContextName, statistics, false, true, GENERATE_ALL_CHILDS,
+                                            progressMonitor);
+                                }
+                                LastGenerationInfo
+                                        .getInstance()
+                                        .getModulesNeededWithSubjobPerJob(jobInfo.getJobId(), jobInfo.getJobVersion())
+                                        .addAll(LastGenerationInfo.getInstance().getModulesNeededWithSubjobPerJob(
+                                                subJobInfo.getJobId(), subJobInfo.getJobVersion()));
 
-                        LastGenerationInfo
-                                .getInstance()
-                                .getRoutinesNeededWithSubjobPerJob(jobInfo.getJobId(), jobInfo.getJobVersion())
-                                .addAll(LastGenerationInfo.getInstance().getRoutinesNeededWithSubjobPerJob(subJobInfo.getJobId(),
-                                        subJobInfo.getJobVersion()));
+                                LastGenerationInfo
+                                        .getInstance()
+                                        .getRoutinesNeededWithSubjobPerJob(jobInfo.getJobId(), jobInfo.getJobVersion())
+                                        .addAll(LastGenerationInfo.getInstance().getRoutinesNeededWithSubjobPerJob(
+                                                subJobInfo.getJobId(), subJobInfo.getJobVersion()));
 
-                        if (!LastGenerationInfo.getInstance().isUseDynamic(jobInfo.getJobId(), jobInfo.getJobVersion())) {
-                            LastGenerationInfo.getInstance().setUseDynamic(
-                                    jobInfo.getJobId(),
-                                    jobInfo.getJobVersion(),
-                                    LastGenerationInfo.getInstance().isUseDynamic(subJobInfo.getJobId(),
-                                            subJobInfo.getJobVersion()));
+                                if (!LastGenerationInfo.getInstance().isUseDynamic(jobInfo.getJobId(), jobInfo.getJobVersion())) {
+                                    LastGenerationInfo.getInstance().setUseDynamic(
+                                            jobInfo.getJobId(),
+                                            jobInfo.getJobVersion(),
+                                            LastGenerationInfo.getInstance().isUseDynamic(subJobInfo.getJobId(),
+                                                    subJobInfo.getJobVersion()));
+                                }
+                            }
                         }
                     }
                 }
@@ -1116,19 +1126,23 @@ public class ProcessorUtilities {
         EList<NodeType> nodes = ptype.getNode();
         for (NodeType node : nodes) {
             if ("tRunJob".equalsIgnoreCase(node.getComponentName())) { //$NON-NLS-1$
-                String jobId = getParameterValue(node.getElementParameter(), "PROCESS:PROCESS_TYPE_PROCESS"); //$NON-NLS-1$
+                String jobIds = getParameterValue(node.getElementParameter(), "PROCESS:PROCESS_TYPE_PROCESS"); //$NON-NLS-1$
                 String jobContext = getParameterValue(node.getElementParameter(), "PROCESS:PROCESS_TYPE_CONTEXT"); //$NON-NLS-1$
                 String jobVersion = getParameterValue(node.getElementParameter(), "PROCESS:PROCESS_TYPE_VERSION"); //$NON-NLS-1$
-                if (jobId == null)
-                    continue;
-                ProcessItem processItem = ItemCacheManager.getProcessItem(jobId, jobVersion);
-                if (processItem != null) {
-                    JobInfo jobInfo = new JobInfo(processItem, jobContext);
-                    if (!jobInfos.contains(jobInfo)) {
-                        jobInfos.add(jobInfo);
+                // feature 19312
+                String[] jobsArr = jobIds.split(ProcessorUtilities.COMMA);
+                for (String jobId : jobsArr) {
+                    if (StringUtils.isNotEmpty(jobId)) {
+                        ProcessItem processItem = ItemCacheManager.getProcessItem(jobId, jobVersion);
+                        if (processItem != null) {
+                            JobInfo jobInfo = new JobInfo(processItem, jobContext);
+                            if (!jobInfos.contains(jobInfo)) {
+                                jobInfos.add(jobInfo);
 
-                        getAllJobInfo(processItem.getProcess(), jobInfos);
+                                getAllJobInfo(processItem.getProcess(), jobInfos);
 
+                            }
+                        }
                     }
                 }
             } else {

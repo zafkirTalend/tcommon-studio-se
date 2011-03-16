@@ -107,6 +107,8 @@ public class RelationshipItemBuilder {
 
     private boolean modified = false;
 
+    private static final String COMMA = ";";
+
     public static RelationshipItemBuilder getInstance() {
         if (instance == null) {
             instance = new RelationshipItemBuilder();
@@ -440,7 +442,7 @@ public class RelationshipItemBuilder {
                 NodeType currentNode = (NodeType) o;
                 if ("tRunJob".equals(currentNode.getComponentName())) { //$NON-NLS-1$
                     // in case of tRunJob
-                    String jobId = null;
+                    String jobIdStr = null;
                     String jobVersion = LATEST_VERSION;
                     String nowVersion = "";
                     for (Object o2 : currentNode.getElementParameter()) {
@@ -448,24 +450,29 @@ public class RelationshipItemBuilder {
                             ElementParameterType param = (ElementParameterType) o2;
                             if (param.getName().equals("PROCESS:PROCESS_TYPE_PROCESS") //$NON-NLS-1$
                                     || param.getName().equals("PROCESS_TYPE_PROCESS")) { //$NON-NLS-1$
-                                jobId = param.getValue();
+                                // feature 19312
+                                String jobIds = param.getValue();
+                                String[] jobsArr = jobIds.split(RelationshipItemBuilder.COMMA);
+                                for (String jobId : jobsArr) {
+                                    if (StringUtils.isNotEmpty(jobId)) {
+                                        addRelationShip(item, jobId, nowVersion, JOB_RELATION);
+                                        // factory.save(project, item.getProperty());
+                                        factory.save(project, item);
+                                    }
+                                    jobIdStr = jobId;
+                                }
                             }
                             if (param.getName().equals("PROCESS:PROCESS_TYPE_VERSION") //$NON-NLS-1$
                                     || param.getName().equals("PROCESS_TYPE_VERSION")) { //$NON-NLS-1$
                                 jobVersion = param.getValue();
                                 if (jobVersion.equals(LATEST_VERSION)) {
                                     if (!versions.isEmpty()) {
-                                        nowVersion = versions.get(jobId);
+                                        nowVersion = versions.get(jobIdStr);
                                         param.setValue(nowVersion);
                                     }
                                 }
                             }
                         }
-                    }
-                    if (jobId != null) {
-                        addRelationShip(item, jobId, nowVersion, JOB_RELATION);
-                        // factory.save(project, item.getProperty());
-                        factory.save(project, item);
                     }
                 }
             }
@@ -669,23 +676,26 @@ public class RelationshipItemBuilder {
                     }
                     if ("tRunJob".equals(currentNode.getComponentName())) { //$NON-NLS-1$
                         // in case of tRunJob
-                        String jobId = null;
                         String jobVersion = LATEST_VERSION;
                         for (Object o2 : currentNode.getElementParameter()) {
                             if (o2 instanceof ElementParameterType) {
                                 ElementParameterType param = (ElementParameterType) o2;
                                 if (param.getName().equals("PROCESS:PROCESS_TYPE_PROCESS") //$NON-NLS-1$
                                         || param.getName().equals("PROCESS_TYPE_PROCESS")) { //$NON-NLS-1$
-                                    jobId = param.getValue();
+                                    // feature 19312
+                                    String jobIds = param.getValue();
+                                    String[] jobsArr = jobIds.split(RelationshipItemBuilder.COMMA);
+                                    for (String jobId : jobsArr) {
+                                        if (StringUtils.isNotEmpty(jobId)) {
+                                            addRelationShip(item, jobId, jobVersion, JOB_RELATION);
+                                        }
+                                    }
                                 }
                                 if (param.getName().equals("PROCESS:PROCESS_TYPE_VERSION") //$NON-NLS-1$
                                         || param.getName().equals("PROCESS_TYPE_VERSION")) { //$NON-NLS-1$
                                     jobVersion = param.getValue();
                                 }
                             }
-                        }
-                        if (jobId != null) {
-                            addRelationShip(item, jobId, jobVersion, JOB_RELATION);
                         }
                     }
                 }
