@@ -40,7 +40,9 @@ public class ExportItemsTest extends TalendSwtBotForTos {
 
     private SWTBotTree tree;
 
-    private static final String SAMPLE_RELATIVE_FILEPATH = "items.zip";
+    private static final String SAMPLE_RELATIVE_FILEPATH = "items.zip"; // $NON-NLS-1$
+
+    private static final String FILE_SEPARATOR = System.getProperties().getProperty("file.separator"); // $NON-NLS-1$
 
     private static boolean isExportAsZipFile = false;
 
@@ -77,7 +79,8 @@ public class ExportItemsTest extends TalendSwtBotForTos {
         gefBot.shell("Export items").activate();
         gefBot.radio("Select archive file:").click();
         gefBot.text(1).setText(
-                Utilities.getFileFromCurrentPluginSampleFolder(SAMPLE_RELATIVE_FILEPATH).getParent() + "\\output.zip");
+                Utilities.getFileFromCurrentPluginSampleFolder(SAMPLE_RELATIVE_FILEPATH).getParent() + FILE_SEPARATOR
+                        + "output.zip");
         gefBot.tree().setFocus();
         gefBot.button("Select All").click();
         gefBot.button("Finish").click();

@@ -47,6 +47,8 @@ public class ExportJobAsWebserviceInWarFileTest extends TalendSwtBotForTos {
 
     private static final String SAMPLE_RELATIVE_FILEPATH = "items.zip"; //$NON-NLS-1$
 
+    private static final String FILE_SEPARATOR = System.getProperties().getProperty("file.separator"); //$NON-NLS-1$
+
     private static boolean isExportAsZipFile = false;
 
     @Before
@@ -64,7 +66,8 @@ public class ExportJobAsWebserviceInWarFileTest extends TalendSwtBotForTos {
         gefBot.shell("Export Job").activate();
         gefBot.comboBoxWithLabel("Select the export type").setSelection("Axis WebService (WAR)");
         gefBot.comboBoxWithLabel("To &archive file:").setText(
-                Utilities.getFileFromCurrentPluginSampleFolder(SAMPLE_RELATIVE_FILEPATH).getParent() + "\\output_job.war");
+                Utilities.getFileFromCurrentPluginSampleFolder(SAMPLE_RELATIVE_FILEPATH).getParent() + FILE_SEPARATOR
+                        + "output_job.war");
         gefBot.button("Finish").click();
         gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Progress Information")), 60000);
 
