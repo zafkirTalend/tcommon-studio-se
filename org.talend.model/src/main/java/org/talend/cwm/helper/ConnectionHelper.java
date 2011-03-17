@@ -94,7 +94,16 @@ public class ConnectionHelper {
                     return getTdDataProvider(realCatalog);
                 }
             }
-            return null;
+            // MOD qiongli 2011-3-17,bug 19475.avoid to return null for Ingress/db2.
+            Connection con = null;
+            Iterator<Connection> it = tdDataProviders.iterator();
+            while (it.hasNext()) {
+                con = (Connection) it.next();
+                if (con.getDataPackage().contains(catalog)) {
+                    break;
+                }
+            }
+            return con;
         }
         // else
         return tdDataProviders.iterator().next();
