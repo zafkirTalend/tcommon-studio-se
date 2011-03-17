@@ -773,6 +773,8 @@ public interface IProxyRepositoryFactory {
 
     public boolean isLocalConnectionProvider() throws PersistenceException;
 
+    public boolean validProject(Project project) throws PersistenceException;
+
     public abstract RootContainer<String, IRepositoryViewObject> getJobScripts(Project project, boolean... options)
             throws PersistenceException;
 

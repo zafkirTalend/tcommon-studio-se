@@ -2560,4 +2560,13 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 IMigrationToolService.class);
         service.executeProjectTasks(mainProject, beforeLogon, monitorWrap);
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.repository.model.IRepositoryFactory#validProject(org.talend.core.model.general.Project)
+     */
+    public boolean validProject(Project project) throws PersistenceException {
+        return false; // PTODO must be true
+    }
 }

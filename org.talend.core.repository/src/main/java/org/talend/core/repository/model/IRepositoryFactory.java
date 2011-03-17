@@ -458,4 +458,6 @@ public interface IRepositoryFactory {
     public boolean canUnlock(Item item) throws PersistenceException;
 
     public void executeMigrations(Project mainProject, boolean beforeLogon, SubMonitor monitorWrap);
+
+    public boolean validProject(Project project) throws PersistenceException;
 }
