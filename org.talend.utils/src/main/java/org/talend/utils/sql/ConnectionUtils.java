@@ -85,7 +85,12 @@ public final class ConnectionUtils {
             InstantiationException, IllegalAccessException, ClassNotFoundException {
         Connection connection = null;
         if (driver != null) {
-            connection = driver.connect(url, props);
+            DriverManager.registerDriver(driver);
+            Class.forName(driver.getClass().getName());
+            connection = DriverManager.getConnection(url, props);
+            // connection = driver.connect(url, props);
+            // connection = DriverManager.getConnection(url, props.getProperty("user"), props.getProperty("password"));
+
         }
         return connection;
     }
