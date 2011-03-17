@@ -86,36 +86,37 @@ public class TDColumnAttributeHelper {
     public static TdColumn addColumnAttribute(ResultSet resutSet, TdColumn column) throws SQLException {
         Connection conn = ConnectionHelper.getConnection(column);
         boolean isMssql = isMssql(createConnection((DatabaseConnection) conn).getObject());
-        return addColumnAttribute(null, null, -1, -1, null, resutSet, column, (java.sql.Connection) null, isMssql);
+        return addColumnAttribute(null, null, null, -1, -1, null, resutSet, column, (java.sql.Connection) null, isMssql);
     }
 
-    public static TdColumn addColumnAttribute(String columnName, String typeName, int columnSize, int decimalDigts,
+    public static TdColumn addColumnAttribute(String label, String columnName, String typeName, int columnSize, int decimalDigts,
             String columnRemark, ResultSet resutSet, TdColumn column, DatabaseConnection conn) throws SQLException {
         databaseconnection = conn;
-        return addColumnAttribute(columnName, typeName, columnSize, decimalDigts, columnRemark, resutSet, column,
+        return addColumnAttribute(label, columnName, typeName, columnSize, decimalDigts, columnRemark, resutSet, column,
                 createConnection(conn).getObject(), isMssql());
 
     }
 
     public static TdColumn addColumnAttribute(ResultSet resutSet, TdColumn column, DatabaseConnection conn) throws SQLException {
         databaseconnection = conn;
-        return addColumnAttribute(null, null, -1, -1, null, resutSet, column, createConnection(conn).getObject(), isMssql());
+        return addColumnAttribute(null, null, null, -1, -1, null, resutSet, column, createConnection(conn).getObject(), isMssql());
 
     }
 
     public static TdColumn addColumnAttribute(ResultSet resutSet, TdColumn column, java.sql.Connection conn) throws SQLException {
-        return addColumnAttribute(null, null, -1, -1, null, resutSet, column, conn, isMssql(conn));
+        return addColumnAttribute(null, null, null, -1, -1, null, resutSet, column, conn, isMssql(conn));
     }
 
-    public static TdColumn addColumnAttribute(String columnName, String typeName, int columnSize, int decimalDigits,
-            String columnRemark, ResultSet resutSet, TdColumn column, java.sql.Connection conn) throws SQLException {
-        return addColumnAttribute(columnName, typeName, columnSize, decimalDigits, columnRemark, resutSet, column, conn,
+    public static TdColumn addColumnAttribute(String label, String columnName, String typeName, int columnSize,
+            int decimalDigits, String columnRemark, ResultSet resutSet, TdColumn column, java.sql.Connection conn)
+            throws SQLException {
+        return addColumnAttribute(label, columnName, typeName, columnSize, decimalDigits, columnRemark, resutSet, column, conn,
                 isMssql());
 
     }
 
-    private static TdColumn addColumnAttribute(String columnName, String typeName, int columnSize, int decimalDigits,
-            String columnRemark, ResultSet resutSet, TdColumn column, java.sql.Connection conn, boolean isMssql)
+    private static TdColumn addColumnAttribute(String label, String columnName, String typeName, int columnSize,
+            int decimalDigits, String columnRemark, ResultSet resutSet, TdColumn column, java.sql.Connection conn, boolean isMssql)
             throws SQLException {
         // // --- add columns to table
         // ResultSet columns = getConnectionMetadata(connection).getColumns(catalogName, schemaPattern, tablePattern,
@@ -152,7 +153,7 @@ public class TDColumnAttributeHelper {
             }
         }
         column.setName(columnName);
-        column.setLabel(columnName);
+        column.setLabel(label);
 
         // dataType
         int dataType = 0;

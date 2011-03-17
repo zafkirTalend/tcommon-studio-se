@@ -558,8 +558,10 @@ public class ExtractMetaDataFromDataBase {
                         label = "_" + label; //$NON-NLS-1$
                         b = true;
                     }
+                    String label2 = label;
+                    label = label.replaceAll("\\$", "_");
                     metadataColumn.setLabel(label); //$NON-NLS-1$
-                    String label2 = metadataColumn.getLabel();
+                    // String label2 = metadataColumn.getLabel();
                     if (label2 != null && label2.length() > 0 && label2.startsWith("_")) { //$NON-NLS-1$
                         String substring = label2.substring(1);
                         if (b
@@ -650,8 +652,9 @@ public class ExtractMetaDataFromDataBase {
                     // gcui:if not oracle database use "REMARKS" select comments
                     metadataColumn.setComment(commentInfo); //$NON-NLS-1$
                     if (!isAccess) { // jdbc-odbc driver won't apply methods for access
-                        TDColumnAttributeHelper.addColumnAttribute(label, dbType, columnSize, intMetaDataInfo, commentInfo,
-                                columns, metadataColumn, (DatabaseConnection) metadataConnection.getCurrentConnection());// columnName,
+                        TDColumnAttributeHelper.addColumnAttribute(label, label2, dbType, columnSize, intMetaDataInfo,
+                                commentInfo, columns, metadataColumn,
+                                (DatabaseConnection) metadataConnection.getCurrentConnection());// columnName,
                     }
 
                     if (isMSSQL && "INT IDENTITY".equals(dbType)) { //$NON-NLS-1$  // && metadataColumn.isKey()
