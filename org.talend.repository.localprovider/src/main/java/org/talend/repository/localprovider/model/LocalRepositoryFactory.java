@@ -1790,9 +1790,10 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         }
 
         propagateFileName(project, item.getProperty());
-
+        if (item.eResource() != null && itemResource != null) {
         xmiResourceManager.saveResource(item.eResource());
         xmiResourceManager.saveResource(itemResource);
+        }
     }
 
     public void save(Project project, Property property) throws PersistenceException {
