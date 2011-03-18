@@ -14,9 +14,7 @@ package org.talend.core.model.repository;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
@@ -927,45 +925,43 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     /**
      * DOC bZhou Comment method "isDQItemType".
      * 
-     * This method is to ensure a type is a TDQ item or not.
+     * This method is to estimat a type is a TDQ item or not.
      * 
      * @return
      */
     public boolean isDQItemType() {
         return Arrays.asList(this.getProducts()).contains("DQ"); //$NON-NLS-N$
-        // return this.name().indexOf("TDQ") == 0 || this.name().indexOf("SYSTEM_INDICATORS") == 0;
     }
 
     /**
-     * DOC bZhou Comment method "getParent".
+     * DOC bZhou Comment method "isDIType".
      * 
+     * This method is to estimat a type belongs to Data Intergration.
+     * 
+     * @param type
      * @return
      */
-    public ERepositoryObjectType getParent() {
-        if (this == TDQ_PATTERN_ELEMENT || this == TDQ_ANALYSIS_ELEMENT || this == TDQ_BUSINESSRULE_ELEMENT
-                || this == TDQ_INDICATOR_ELEMENT || this == METADATA_CONNECTIONS || this == METADATA_MDMCONNECTION
-                || this == TDQ_REPORT_ELEMENT || this == TDQ_JRAXML_ELEMENT) {
-            return TDQ_ELEMENT;
-        } else
-            return null;
+    public boolean isDIItemType() {
+        return Arrays.asList(this.getProducts()).contains("DI"); //$NON-NLS-N$
     }
 
     /**
-     * DOC bZhou Comment method "getAllDQItemType".
+     * DOC bZhou Comment method "isSharedType".
      * 
+     * This method is to estimat a type belongs to both DQ and DI product.
+     * 
+     * @param type
      * @return
      */
-    public static ERepositoryObjectType[] getAllDQItemType() {
-        List<ERepositoryObjectType> allTypeList = new ArrayList<ERepositoryObjectType>();
-        for (ERepositoryObjectType type : (ERepositoryObjectType[]) values()) {
-            if (type.isDQItemType()) {
-                allTypeList.add(type);
-            }
-        }
-
-        return allTypeList.toArray(new ERepositoryObjectType[allTypeList.size()]);
+    public boolean isSharedType() {
+        return isDQItemType() && isDIItemType();
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.repository.DynaEnum#name()
+     */
     public String name() {
         if (isStaticNode()) {
             Field[] allFields = ERepositoryObjectType.class.getDeclaredFields();
