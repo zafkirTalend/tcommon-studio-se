@@ -394,9 +394,9 @@ public class ExtractMetaDataFromDataBase {
             }
 
             String name = getTableTypeByTableName(metaTable1.getLabel());
-
+            boolean isAccess = EDatabaseTypeName.ACCESS.getDisplayName().equals(iMetadataConnection.getDbType());
             // StringUtils.trimToEmpty(name) is because bug 4547
-            if (name != null && StringUtils.trimToEmpty(name).equals(ETableTypes.TABLETYPE_SYNONYM.getName())) {
+            if (name != null && StringUtils.trimToEmpty(name).equals(ETableTypes.TABLETYPE_SYNONYM.getName()) && !isAccess) {
                 String tableName = getTableNameBySynonym(ExtractMetaDataUtils.conn, metaTable1.getTableName());
                 if (tableName.contains("/")) {
                     tableName = tableName.replace("/", "");

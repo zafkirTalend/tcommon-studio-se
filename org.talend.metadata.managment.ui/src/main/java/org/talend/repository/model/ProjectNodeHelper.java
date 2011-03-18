@@ -49,6 +49,7 @@ public class ProjectNodeHelper {
     /* return all tables from current datapackage with set,so that the result is disorted */
     public static Set<org.talend.core.model.metadata.builder.connection.MetadataTable> getTablesFromSpecifiedDataPackage(
             DatabaseConnection dbconn) {
+        IMetadataConnection iMetadataConnection = ConvertionHelper.convert(dbconn);
         String schema = dbconn.getUiSchema();
         String catalog = dbconn.getSID();
         String databaseType = dbconn.getDatabaseType();
@@ -81,7 +82,10 @@ public class ProjectNodeHelper {
                 break;
             }
         }
-        schema = ExtractMetaDataUtils.getDBConnectionSchema(dbconn);
+        boolean isAccess = EDatabaseTypeName.ACCESS.getDisplayName().equals(iMetadataConnection.getDbType());
+        if (!isAccess) {
+            schema = ExtractMetaDataUtils.getDBConnectionSchema(dbconn);
+        }
         return getTablesFromCurrentCatalogOrSchema(catalog, schema, dbconn);
     }
 
@@ -149,6 +153,7 @@ public class ProjectNodeHelper {
     public static List<org.talend.core.model.metadata.builder.connection.MetadataTable> getTablesFromSpecifiedDataPackageWithOders(
             DatabaseConnection dbconn) {
         // if the database connection is contextmodel, need to get the original value of every parameter
+        IMetadataConnection iMetadataConnection = ConvertionHelper.convert(dbconn);
         String schema = dbconn.getUiSchema();
         String catalog = dbconn.getSID();
         String databaseType = dbconn.getDatabaseType();
@@ -181,7 +186,10 @@ public class ProjectNodeHelper {
                 break;
             }
         }
-        schema = ExtractMetaDataUtils.getDBConnectionSchema(dbconn);
+        boolean isAccess = EDatabaseTypeName.ACCESS.getDisplayName().equals(iMetadataConnection.getDbType());
+        if (!isAccess) {
+            schema = ExtractMetaDataUtils.getDBConnectionSchema(dbconn);
+        }
         return getTablesFromCurrentCatalogOrSchemaWithOrders(catalog, schema, dbconn);
     }
 
@@ -273,7 +281,10 @@ public class ProjectNodeHelper {
                 break;
             }
         }
-        schema = ExtractMetaDataUtils.getMeataConnectionSchema(imetadataConnection);
+        boolean isAccess = EDatabaseTypeName.ACCESS.getDisplayName().equals(imetadataConnection.getDbType());
+        if (!isAccess) {
+            schema = ExtractMetaDataUtils.getMeataConnectionSchema(imetadataConnection);
+        }
         addTableForTemCatalogOrSchema(catalog, schema, dbconn, dbtable, imetadataConnection);
     }
 
@@ -328,7 +339,12 @@ public class ProjectNodeHelper {
              * this issue when fixing bug 16636
              */
             ProjectNodeHelper.addCatalogOrSchema(iMetadataConnection, connection);
-            addTableForTemCatalogOrSchema(dbsid, schema, connection, dbtable, iMetadataConnection);
+            boolean isAccess = EDatabaseTypeName.ACCESS.getDisplayName().equals(iMetadataConnection.getDbType());
+            if (isAccess) {
+                addTableForTemCatalogOrSchema(dbsid, connection.getName(), connection, dbtable, iMetadataConnection);
+            } else {
+                addTableForTemCatalogOrSchema(dbsid, schema, connection, dbtable, iMetadataConnection);
+            }
         }
     }
 
