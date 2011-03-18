@@ -407,7 +407,6 @@ public class ContextTableValuesComposite extends AbstractContextTabEditComposite
         if (cm != null) {
             contexts = cm.getListContext();
         }
-        Collections.sort(contexts, new ContextCompare());
         return contexts;
     }
 
