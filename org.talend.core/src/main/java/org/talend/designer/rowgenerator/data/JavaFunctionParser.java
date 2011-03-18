@@ -41,6 +41,7 @@ import org.talend.core.i18n.Messages;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.types.JavaType;
 import org.talend.core.model.metadata.types.JavaTypesManager;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -76,7 +77,7 @@ public class JavaFunctionParser extends AbstractFunctionParser {
         systems = new ArrayList<String>();
         IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
         try {
-            RootContainer<String, IRepositoryViewObject> routineContainer = factory.getRoutine();
+            RootContainer<String, IRepositoryViewObject> routineContainer = factory.getMetadata(ERepositoryObjectType.ROUTINES);
             final List<Container<String, IRepositoryViewObject>> subContainer = routineContainer.getSubContainer();
             for (Container<String, IRepositoryViewObject> container : subContainer) {
                 if (RepositoryConstants.SYSTEM_DIRECTORY.equals(container.getLabel())) {
@@ -120,9 +121,9 @@ public class JavaFunctionParser extends AbstractFunctionParser {
                                             index = 0;
                                         }
                                         reader.close();
-                                        parseJavaCommentToFunctions(str.toString(), sourceType.getElementName(), sourceType
-                                                .getFullyQualifiedName(), method.getElementName(), systems.contains(sourceType
-                                                .getElementName()));
+                                        parseJavaCommentToFunctions(str.toString(), sourceType.getElementName(),
+                                                sourceType.getFullyQualifiedName(), method.getElementName(),
+                                                systems.contains(sourceType.getElementName()));
                                     }
                                 } catch (Exception e) {
                                     ExceptionHandler.process(e);

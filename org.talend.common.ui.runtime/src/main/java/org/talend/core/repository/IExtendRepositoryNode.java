@@ -19,11 +19,11 @@ import org.talend.commons.ui.runtime.image.IImage;
  */
 public interface IExtendRepositoryNode {
 
-    public String getNodeLabel();
-
-    public String getNodeType();
-
     public IImage getNodeImage();
 
     public int getOrdinal();
+
+    // *the element should implement the IRepositoryNode
+    public Object[] getChildren();
+
 }

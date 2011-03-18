@@ -37,6 +37,7 @@ import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.RoutineItem;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.designer.codegen.ICodeGeneratorService;
@@ -71,7 +72,7 @@ public class PerlFunctionParser extends AbstractFunctionParser {
                     ICodeGeneratorService.class);
             ITalendSynchronizer routineSynchronizer = service.createRoutineSynchronizer();
 
-            RootContainer<String, IRepositoryViewObject> routineContainer = factory.getRoutine();
+            RootContainer<String, IRepositoryViewObject> routineContainer = factory.getMetadata(ERepositoryObjectType.ROUTINES);
             ContentList<String, IRepositoryViewObject> routineAbsoluteMembers = routineContainer.getAbsoluteMembers();
             final List<Container<String, IRepositoryViewObject>> subContainer = routineContainer.getSubContainer();
             for (Container<String, IRepositoryViewObject> container : subContainer) {
