@@ -2567,6 +2567,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
      * @see org.talend.core.repository.model.IRepositoryFactory#validProject(org.talend.core.model.general.Project)
      */
     public boolean validProject(Project project) throws PersistenceException {
-        return false; // PTODO must be true
+        return true; // PTODO must be true
     }
 }

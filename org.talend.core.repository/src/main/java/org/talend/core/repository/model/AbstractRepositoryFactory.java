@@ -25,6 +25,7 @@ import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.ContextItem;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.IRepositoryWorkUnitListener;
 import org.talend.core.runtime.CoreRuntimePlugin;
@@ -155,19 +156,19 @@ public abstract class AbstractRepositoryFactory implements IRepositoryFactory {
 
         List<ConnectionItem> result = new ArrayList<ConnectionItem>();
 
-        collect(getMetadataFileDelimited(project), result);
-        collect(getMetadataFilePositional(project), result);
-        collect(getMetadataFileRegexp(project), result);
-        collect(getMetadataFileXml(project), result);
-        collect(getMetadataFileExcel(project), result);
-        collect(getMetadataFileLdif(project), result);
-        collect(getMetadataConnection(project), result);
-        collect(getMetadataSAPConnection(project), result);
-        collect(getMetadataHeaderFooter(project), result);
-        collect(getMetadataLDAPSchema(project), result);
-        collect(getMetadataGenericSchema(project), result);
-        collect(getMetadataWSDLSchema(project), result);
-        collect(getMetadataSalesforceSchema(project), result);
+        collect(getMetadata(project, ERepositoryObjectType.METADATA_FILE_DELIMITED), result);
+        collect(getMetadata(project, ERepositoryObjectType.METADATA_FILE_POSITIONAL), result);
+        collect(getMetadata(project, ERepositoryObjectType.METADATA_FILE_REGEXP), result);
+        collect(getMetadata(project, ERepositoryObjectType.METADATA_FILE_XML), result);
+        collect(getMetadata(project, ERepositoryObjectType.METADATA_FILE_EXCEL), result);
+        collect(getMetadata(project, ERepositoryObjectType.METADATA_FILE_LDIF), result);
+        collect(getMetadata(project, ERepositoryObjectType.METADATA_CONNECTIONS), result);
+        collect(getMetadata(project, ERepositoryObjectType.METADATA_SAPCONNECTIONS), result);
+        collect(getMetadata(project, ERepositoryObjectType.METADATA_HEADER_FOOTER), result);
+        collect(getMetadata(project, ERepositoryObjectType.METADATA_LDAP_SCHEMA), result);
+        collect(getMetadata(project, ERepositoryObjectType.METADATA_GENERIC_SCHEMA), result);
+        collect(getMetadata(project, ERepositoryObjectType.METADATA_WSDL_SCHEMA), result);
+        collect(getMetadata(project, ERepositoryObjectType.METADATA_SALESFORCE_SCHEMA), result);
 
         return result;
     }
@@ -176,7 +177,8 @@ public abstract class AbstractRepositoryFactory implements IRepositoryFactory {
     public List<ContextItem> getContextItem(Project project) throws PersistenceException {
         List<ContextItem> result = new ArrayList<ContextItem>();
 
-        for (IRepositoryViewObject repositoryObject : getContext(project).getAbsoluteMembers().objects()) {
+        for (IRepositoryViewObject repositoryObject : getMetadata(project, ERepositoryObjectType.CONTEXT).getAbsoluteMembers()
+                .objects()) {
             ContextItem contextItem = (ContextItem) repositoryObject.getProperty().getItem();
             if (getStatus(contextItem) != ERepositoryStatus.DELETED) {
                 result.add(contextItem);

@@ -250,105 +250,6 @@ public interface IRepositoryFactory {
      */
     public Property reload(Property property) throws PersistenceException;
 
-    public RootContainer<String, IRepositoryViewObject> getBusinessProcess(Project project, boolean... options)
-            throws PersistenceException;
-
-    public RootContainer<String, IRepositoryViewObject> getSVGBusinessProcess(Project project, boolean... options)
-            throws PersistenceException;
-
-    public RootContainer<String, IRepositoryViewObject> getDocumentation(Project project, boolean... options)
-            throws PersistenceException;
-
-    public RootContainer<String, IRepositoryViewObject> getProcess(Project project, boolean... options)
-            throws PersistenceException;
-
-    public RootContainer<String, IRepositoryViewObject> getCamelProcess(Project project, boolean... options)
-            throws PersistenceException;
-
-    public RootContainer<String, IRepositoryViewObject> getCamelBean(Project project, boolean... options)
-            throws PersistenceException;
-
-    public RootContainer<String, IRepositoryViewObject> getContext(Project project, boolean... options)
-            throws PersistenceException;
-
-    public RootContainer<String, IRepositoryViewObject> getSnippets(Project project, boolean... options)
-            throws PersistenceException;
-
-    public RootContainer<String, IRepositoryViewObject> getRoutine(Project project, boolean... options)
-            throws PersistenceException;
-
-    public RootContainer<String, IRepositoryViewObject> getBean(Project project, boolean... options) throws PersistenceException;
-
-    public RootContainer<String, IRepositoryViewObject> getJobScripts(Project project, boolean... options)
-            throws PersistenceException;
-
-    public RootContainer<String, IRepositoryViewObject> getMetadataConnection(Project project, boolean... options)
-            throws PersistenceException;
-
-    public RootContainer<String, IRepositoryViewObject> getMetadataSAPConnection(Project project, boolean... options)
-            throws PersistenceException;
-
-    public RootContainer<String, IRepositoryViewObject> getMetadataHeaderFooter(Project project, boolean... options)
-            throws PersistenceException;
-
-    public RootContainer<String, IRepositoryViewObject> getMetadataEBCDIC(Project project, boolean... options)
-            throws PersistenceException;
-
-    public RootContainer<String, IRepositoryViewObject> getMetadataHL7(Project project, boolean... options)
-            throws PersistenceException;
-
-    public RootContainer<String, IRepositoryViewObject> getMetadataFTP(Project project, boolean... options)
-            throws PersistenceException;
-
-    public RootContainer<String, IRepositoryViewObject> getMetadataBRMS(Project project, boolean... options)
-            throws PersistenceException;
-
-    public RootContainer<String, IRepositoryViewObject> getMetadataMDM(Project project, boolean... options)
-            throws PersistenceException;
-
-    // feature 0006484
-    public RootContainer<String, IRepositoryViewObject> getMetadataRules(Project project, boolean... options)
-            throws PersistenceException;
-
-    public RootContainer<String, IRepositoryViewObject> getMetadataValidationRules(Project project, boolean... options)
-            throws PersistenceException;
-
-    public RootContainer<String, IRepositoryViewObject> getMetadataEDIFACT(Project project, boolean... options)
-            throws PersistenceException;
-
-    public RootContainer<String, IRepositoryViewObject> getMetadataSQLPattern(Project project, boolean... options)
-            throws PersistenceException;
-
-    public RootContainer<String, IRepositoryViewObject> getMetadataFileDelimited(Project project, boolean... options)
-            throws PersistenceException;
-
-    public RootContainer<String, IRepositoryViewObject> getMetadataFilePositional(Project project, boolean... options)
-            throws PersistenceException;
-
-    public RootContainer<String, IRepositoryViewObject> getMetadataFileRegexp(Project project, boolean... options)
-            throws PersistenceException;
-
-    public RootContainer<String, IRepositoryViewObject> getMetadataFileXml(Project project, boolean... options)
-            throws PersistenceException;
-
-    public RootContainer<String, IRepositoryViewObject> getMetadataFileExcel(Project project, boolean... options)
-            throws PersistenceException;
-
-    public RootContainer<String, IRepositoryViewObject> getMetadataSalesforceSchema(Project project, boolean... options)
-            throws PersistenceException;
-
-    public RootContainer<String, IRepositoryViewObject> getMetadataFileLdif(Project project, boolean... options)
-            throws PersistenceException;
-
-    public RootContainer<String, IRepositoryViewObject> getMetadataLDAPSchema(Project project, boolean... options)
-            throws PersistenceException;
-
-    public RootContainer<String, IRepositoryViewObject> getMetadataGenericSchema(Project project, boolean... options)
-            throws PersistenceException;
-
-    public RootContainer<String, IRepositoryViewObject> getMetadataWSDLSchema(Project project, boolean... options)
-            throws PersistenceException;
-
     public List<IRepositoryViewObject> getRecycleBinItems(Project project, boolean... options) throws PersistenceException;
 
     /**
@@ -373,14 +274,6 @@ public interface IRepositoryFactory {
     public boolean isDisplayToUser();
 
     public List<ModuleNeeded> getModulesNeededForJobs() throws PersistenceException;
-
-    /**
-     * DOC qzhang Comment method "getJoblets".
-     * 
-     * @return
-     */
-    public RootContainer<String, IRepositoryViewObject> getJoblets(Project project, boolean... options)
-            throws PersistenceException;
 
     public RootContainer<String, IRepositoryViewObject> getRoutineFromProject(Project project) throws PersistenceException;
 
@@ -427,6 +320,9 @@ public interface IRepositoryFactory {
     public boolean isLocalConnectionProvider() throws PersistenceException;
 
     public boolean enableSandboxProject() throws PersistenceException;
+
+    public RootContainer<String, IRepositoryViewObject> getMetadata(Project project, ERepositoryObjectType type,
+            boolean... options) throws PersistenceException;
 
     /**
      * 

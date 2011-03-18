@@ -31,6 +31,8 @@ public class DynaEnum<E extends DynaEnum<E>> {
 
     protected boolean isStaticNode;
 
+    protected String type;
+
     public String getKey() {
         return this.key;
     }
@@ -42,7 +44,7 @@ public class DynaEnum<E extends DynaEnum<E>> {
     }
 
     public String name() {
-        return key;
+        return type;
     }
 
     protected DynaEnum(String key, boolean isStaticNode, int ordinal) {
@@ -55,6 +57,11 @@ public class DynaEnum<E extends DynaEnum<E>> {
             elements.put(getDynaEnumClass(), typeElements);
         }
         typeElements.put(key, this);
+    }
+
+    protected DynaEnum(String key, String type, boolean isStaticNode, int ordinal) {
+        this(key, isStaticNode, ordinal);
+        this.type = type;
     }
 
     @SuppressWarnings("unchecked")

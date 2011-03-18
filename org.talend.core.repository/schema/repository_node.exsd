@@ -59,6 +59,49 @@
                </appinfo>
             </annotation>
          </attribute>
+         <attribute name="parentLabel" type="string">
+            <annotation>
+               <documentation>
+                  specific the node&apos;s parent.
+
+eg: if u want this node appear in the follow of node metadata,
+just set the value Metadata
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="label" type="string" use="required">
+            <annotation>
+               <documentation>
+                  The label is unique,u can provide the label from one properties file or such.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="type" type="string" use="required">
+            <annotation>
+               <documentation>
+                  can be same as label,but this one shouldn&apos;t be internationaled via this is the key to specific the type of this node.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="folder" type="string">
+            <annotation>
+               <documentation>
+                  folder is used to specific a genrate folder for this node type
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="products" type="string" use="required">
+            <annotation>
+               <documentation>
+                  DI DQ MDM OTHER
+
+if want to have multi at the same time 
+
+just use the character | to spit them,
+like this: DI|DQ ....
+               </documentation>
+            </annotation>
+         </attribute>
       </complexType>
    </element>
 
