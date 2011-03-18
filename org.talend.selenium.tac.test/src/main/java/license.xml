@@ -28,13 +28,13 @@
 	<parameter name="db.userName.wrong" value="tisadmin_wrong" />
 	<parameter name="db.userPassWd.wrong" value="tisadmin_wrong" />
 	<parameter name="db.driver.wrong" value="org.h2.Driver_wrong" />
-	<!-- 
+	
 	<test name="TestDbConfig">
 		<classes>
 			<class name="com.talend.tac.cases.dbConfig.TestDbConfig" />
 		</classes>
 	</test>
-	 -->
+	 
 	<!--
 		<test name="TestWrongDbConfig"> <classes> <class
 		name="com.talend.tac.cases.dbConfig.TestWrongDbConfig" /> </classes>
