@@ -760,9 +760,14 @@ public class DeleteAction extends AContextualAction {
         // To manage case of we have a subitem. This is possible using 'DEL' shortcut:
         ERepositoryObjectType nodeType = (ERepositoryObjectType) currentJobNode.getProperties(EProperties.CONTENT_TYPE);
         if (nodeType != null && nodeType.isSubItem()) {
-            final DeleteTableAction deleteTableAction = new DeleteTableAction();
-            deleteTableAction.setWorkbenchPart(getWorkbenchPart());
-            deleteTableAction.run();
+            Display.getDefault().syncExec(new Runnable() {
+
+                public void run() {
+                    final DeleteTableAction deleteTableAction = new DeleteTableAction();
+                    deleteTableAction.setWorkbenchPart(getWorkbenchPart());
+                    deleteTableAction.run();
+                }
+            });
             needReturn = true;
         } else {
             if (factory.getStatus(objToDelete) == ERepositoryStatus.DELETED) {
