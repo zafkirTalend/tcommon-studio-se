@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.repository.ui.wizards.metadata.table.database;
 
-import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -308,6 +307,18 @@ public class DatabaseTableForm extends AbstractForm {
         }
     }
 
+    // en Character
+    private boolean isCnorEn(String word) {
+        boolean sign = true;
+        for (int i = 0; i < word.length(); i++) {
+            if (!(word.charAt(i) >= 0x0000 && word.charAt(i) <= 0x00FF)) {
+                sign = false;
+                break;
+            }
+        }
+        return sign;
+    }
+
     /**
      * DOC ocarbone Comment method "initMetadataForm".
      */
@@ -321,15 +332,9 @@ public class DatabaseTableForm extends AbstractForm {
         if (!flag.booleanValue()) {
             List<MetadataColumn> list = metadataEditor.getMetadataColumnList();
             for (MetadataColumn column : list) {
-                try {
-                    if (column.getLabel().toString().getBytes("shift-jis").length >= (2 * column.getLabel().toString().length())) {
-                        // Japanese Character
-                        String label = metadataEditor.getNextGeneratedColumnName(Messages
-                                .getString("DatabaseTableForm.metadataDefaultNewLabel"));
-                        column.setLabel(label);
-                    }
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
+                if (!isCnorEn(column.getLabel())) {
+                    String label = metadataEditor.getNextGeneratedColumnName("newColumn");
+                    column.setLabel(label);
                 }
             }
         }
