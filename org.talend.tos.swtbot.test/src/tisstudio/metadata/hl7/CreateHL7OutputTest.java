@@ -62,55 +62,61 @@ public class CreateHL7OutputTest extends TalendSwtBotForTos {
     public void createHL7Output() throws IOException, URISyntaxException {
         tree.setFocus();
 
-        tree.expandNode("Metadata").getNode("HL7").contextMenu("Create HL7").click();
-        gefBot.waitUntil(Conditions.shellIsActive("New HL7 File"));
-        gefBot.shell("New HL7 File").activate();
+        try {
+            tree.expandNode("Metadata").getNode("HL7").contextMenu("Create HL7").click();
+            gefBot.waitUntil(Conditions.shellIsActive("New HL7 File"));
+            gefBot.shell("New HL7 File").activate();
 
-        /* step 1 of 5 */
-        gefBot.textWithLabel("Name").setText(HL7NAME);
-        gefBot.button("Next >").click();
+            /* step 1 of 5 */
+            gefBot.textWithLabel("Name").setText(HL7NAME);
+            gefBot.button("Next >").click();
 
-        /* step 2 of 5 */
-        gefBot.radio("HL7OutPut").click();
-        gefBot.button("Next >").click();
+            /* step 2 of 5 */
+            gefBot.radio("HL7OutPut").click();
+            gefBot.button("Next >").click();
 
-        /* step 3 of 5 */
-        gefBot.radio("Create from a file").click();
-        gefBot.textWithLabel("HL7 File path:").setText(
-                Utilities.getFileFromCurrentPluginSampleFolder(SAMPLE_RELATIVE_FILEPATH).getAbsolutePath());
-        gefBot.textWithLabel("Output File Path").setText(
-                Utilities.getFileFromCurrentPluginSampleFolder(SAMPLE_RELATIVE_OUTPUT_FILEPATH).getAbsolutePath());
-        gefBot.button("Next >").click();
+            /* step 3 of 5 */
+            gefBot.radio("Create from a file").click();
+            gefBot.textWithLabel("HL7 File path:").setText(
+                    Utilities.getFileFromCurrentPluginSampleFolder(SAMPLE_RELATIVE_FILEPATH).getAbsolutePath());
+            gefBot.textWithLabel("Output File Path").setText(
+                    Utilities.getFileFromCurrentPluginSampleFolder(SAMPLE_RELATIVE_OUTPUT_FILEPATH).getAbsolutePath());
+            gefBot.button("Next >").click();
 
-        /* step 4 of 5 */
-        gefBot.waitUntil(new DefaultCondition() {
+            /* step 4 of 5 */
+            gefBot.waitUntil(new DefaultCondition() {
 
-            public boolean test() throws Exception {
+                public boolean test() throws Exception {
 
-                return gefBot.button("Next >").isEnabled();
-            }
+                    return gefBot.button("Next >").isEnabled();
+                }
 
-            public String getFailureMessage() {
-                gefBot.shell("New HL7 File").close();
-                return "next button was never enabled";
-            }
-        });
-        gefBot.button("Next >").click();
+                public String getFailureMessage() {
+                    gefBot.shell("New HL7 File").close();
+                    return "next button was never enabled";
+                }
+            });
+            gefBot.button("Next >").click();
 
-        /* step 5 of 5 */
-        gefBot.waitUntil(new DefaultCondition() {
+            /* step 5 of 5 */
+            gefBot.waitUntil(new DefaultCondition() {
 
-            public boolean test() throws Exception {
+                public boolean test() throws Exception {
 
-                return gefBot.button("Finish").isEnabled();
-            }
+                    return gefBot.button("Finish").isEnabled();
+                }
 
-            public String getFailureMessage() {
-                gefBot.shell("New HL7 File").close();
-                return "finish button was never enabled";
-            }
-        });
-        gefBot.button("Finish").click();
+                public String getFailureMessage() {
+                    gefBot.shell("New HL7 File").close();
+                    return "finish button was never enabled";
+                }
+            });
+            gefBot.button("Finish").click();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            gefBot.shell("New HL7 File").close();
+        }
 
         SWTBotTreeItem newHl7Item = null;
         try {

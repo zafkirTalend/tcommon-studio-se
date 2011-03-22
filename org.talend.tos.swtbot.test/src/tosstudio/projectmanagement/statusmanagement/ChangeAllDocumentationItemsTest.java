@@ -58,15 +58,22 @@ public class ChangeAllDocumentationItemsTest extends TalendSwtBotForTos {
     @Test
     public void changeAllDocumentationItems() {
         gefBot.toolbarButtonWithTooltip("Project settings").click();
-        gefBot.shell("Project Settings").activate();
-        gefBot.tree().expandNode("General").select("Status Management").click();
-        gefBot.radio("Change all documentation items to a fixed status.").click();
+        shell = gefBot.shell("Project Settings");
+        shell.activate();
+        try {
+            gefBot.tree().expandNode("General").select("Status Management").click();
+            gefBot.radio("Change all documentation items to a fixed status.").click();
 
-        gefBot.tree(1).getTreeItem("Business Models").check();
-        gefBot.comboBox().setSelection("checked");
-        gefBot.button("OK").click();
-        gefBot.shell("Confirm").activate();
-        gefBot.button("OK").click();
+            gefBot.tree(1).getTreeItem("Business Models").check();
+            gefBot.comboBox().setSelection("checked");
+            gefBot.button("OK").click();
+            gefBot.shell("Confirm").activate();
+            gefBot.button("OK").click();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            shell.close();
+        }
 
         tree.expandNode("Business Models").getNode(BUSINESSMODELNAME + " 0.1").contextMenu("Edit properties").click();
         shell = gefBot.shell("Edit properties");

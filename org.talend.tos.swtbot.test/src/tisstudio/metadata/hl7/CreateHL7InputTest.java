@@ -62,39 +62,44 @@ public class CreateHL7InputTest extends TalendSwtBotForTos {
     @Test
     public void createHL7Input() throws IOException, URISyntaxException {
         tree.setFocus();
+        try {
+            tree.expandNode("Metadata").getNode("HL7").contextMenu("Create HL7").click();
+            gefBot.waitUntil(Conditions.shellIsActive("New HL7 File"));
+            gefBot.shell("New HL7 File").activate();
 
-        tree.expandNode("Metadata").getNode("HL7").contextMenu("Create HL7").click();
-        gefBot.waitUntil(Conditions.shellIsActive("New HL7 File"));
-        gefBot.shell("New HL7 File").activate();
+            /* step 1 of 5 */
+            gefBot.textWithLabel("Name").setText(HL7NAME);
+            gefBot.button("Next >").click();
 
-        /* step 1 of 5 */
-        gefBot.textWithLabel("Name").setText(HL7NAME);
-        gefBot.button("Next >").click();
+            /* step 2 of 5 */
+            gefBot.button("Next >").click();
 
-        /* step 2 of 5 */
-        gefBot.button("Next >").click();
+            /* step 3 of 5 */
+            gefBot.textWithLabel("HL7 File path:").setText(
+                    Utilities.getFileFromCurrentPluginSampleFolder(SAMPLE_RELATIVE_FILEPATH).getAbsolutePath());
+            gefBot.button("Next >").click();
 
-        /* step 3 of 5 */
-        gefBot.textWithLabel("HL7 File path:").setText(
-                Utilities.getFileFromCurrentPluginSampleFolder(SAMPLE_RELATIVE_FILEPATH).getAbsolutePath());
-        gefBot.button("Next >").click();
+            /* step 4 of 5 */
+            for (int i = 0; i < 3; i++) {
+                gefBot.buttonWithTooltip("Add").click();
+                gefBot.tableInGroup("Schema View").click(i, 3);
+                gefBot.text().setText(COLUMN_MSH[i]);
+            }
+            gefBot.comboBoxWithLabel("Segment(As Schema)").setSelection("EVN");
+            for (int j = 0; j < 2; j++) {
+                gefBot.buttonWithTooltip("Add").click();
+                gefBot.tableInGroup("Schema View").click(j, 3);
+                gefBot.text().setText(COLUMN_EVN[j]);
+            }
+            gefBot.button("Next >").click();
 
-        /* step 4 of 5 */
-        for (int i = 0; i < 3; i++) {
-            gefBot.buttonWithTooltip("Add").click();
-            gefBot.tableInGroup("Schema View").click(i, 3);
-            gefBot.text().setText(COLUMN_MSH[i]);
+            /* step 5 of 5 */
+            gefBot.button("Finish").click();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            gefBot.shell("New HL7 File").close();
         }
-        gefBot.comboBoxWithLabel("Segment(As Schema)").setSelection("EVN");
-        for (int j = 0; j < 2; j++) {
-            gefBot.buttonWithTooltip("Add").click();
-            gefBot.tableInGroup("Schema View").click(j, 3);
-            gefBot.text().setText(COLUMN_EVN[j]);
-        }
-        gefBot.button("Next >").click();
-
-        /* step 5 of 5 */
-        gefBot.button("Finish").click();
 
         SWTBotTreeItem newHl7Item = null;
         try {

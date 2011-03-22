@@ -18,6 +18,7 @@ import java.net.URISyntaxException;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
+import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
@@ -93,48 +94,56 @@ public class ChangeAllTechnicalItemsTest extends TalendSwtBotForTos {
         gefBot.shell("Confirm").activate();
         gefBot.button("OK").click();
 
-        for (int i = 0; i < treeNodes.length; i++) {
-            if (i == 0) {
-                tree.expandNode(treeNodes[i]).getNode(treeItems[i] + " 0.1").contextMenu("Edit properties").click();
-                shell = gefBot.shell("Edit properties");
-                shell.activate();
-                Assert.assertEquals(treeNodes[i] + " status", "", gefBot.ccomboBoxWithLabel("Status").getText());
-                shell.close();
-            } else if (i == 1) {
-                tree.expandNode(treeNodes[i]).getNode(treeItems[i] + " 0.1").contextMenu("Edit properties").click();
-                shell = gefBot.shell("Edit properties");
+        int i;
+        // Assert business models, i=0
+        i = 0;
+        tree.expandNode(treeNodes[i]).getNode(treeItems[i] + " 0.1").contextMenu("Edit properties").click();
+        shell = gefBot.shell("Edit properties");
+        shell.activate();
+        Assert.assertEquals(treeNodes[i] + " status", "", gefBot.ccomboBoxWithLabel("Status").getText());
+        shell.close();
+        // Assert job designs, i=1
+        i = 1;
+        tree.expandNode(treeNodes[i]).getNode(treeItems[i] + " 0.1").contextMenu("Edit properties").click();
+        shell = gefBot.shell("Edit properties");
+        shell.activate();
+        Assert.assertEquals(treeNodes[i] + " status", "testing", gefBot.ccomboBoxWithLabel("Status").getText());
+        shell.close();
+        // Assert joblet designs, i=2
+        i = 2;
+        tree.expandNode(treeNodes[i]).getNode(treeItems[i] + " 0.1").contextMenu("Edit Properties").click();
+        shell = gefBot.shell("!!!PropertiesWizard.EditPropertiesPageTitle!!!");
+        shell.activate();
+        Assert.assertEquals(treeNodes[i] + " status", "testing", gefBot.ccomboBoxWithLabel("Status").getText());
+        shell.close();
+        // Assert contexts, i=3
+        i = 3;
+        tree.expandNode(treeNodes[i]).getNode(treeItems[i] + " 0.1").contextMenu("Edit context group").click();
+        shell = gefBot.shell("Create / Edit a context group");
+        shell.activate();
+        Assert.assertEquals(treeNodes[i] + " status", "testing", gefBot.ccomboBoxWithLabel("Status").getText());
+        shell.close();
+        // Assert code, i=4
+        i = 4;
+        tree.expandNode(treeNodes[i], codeNodes[0]).getNode(treeItems[i] + " 0.1").contextMenu("Edit properties").click();
+        shell = gefBot.shell("Edit properties");
+        shell.activate();
+        Assert.assertEquals(treeNodes[i] + " status", "testing", gefBot.ccomboBoxWithLabel("Status").getText());
+        shell.close();
+        // Assert metadata, i=6
+        i = 6;
+        for (int k2 = 0; k2 < metadataNodes.length; k2++) {
+            tree.expandNode(treeNodes[i], metadataNodes[k2]).getNode(treeItems[i + k2] + " 0.1")
+                    .contextMenu("Edit " + metadataContextMenu[k2]).click();
+            try {
+                shell = gefBot.shell(metadataShellTitle[k2]);
                 shell.activate();
                 Assert.assertEquals(treeNodes[i] + " status", "testing", gefBot.ccomboBoxWithLabel("Status").getText());
                 shell.close();
-            } else if (i == 2) {
-                tree.expandNode(treeNodes[i]).getNode(treeItems[i] + " 0.1").contextMenu("Edit Properties").click();
-                shell = gefBot.shell("!!!PropertiesWizard.EditPropertiesPageTitle!!!");
-                shell.activate();
-                Assert.assertEquals(treeNodes[i] + " status", "testing", gefBot.ccomboBoxWithLabel("Status").getText());
-                shell.close();
-            } else if (i == 3) {
-                tree.expandNode(treeNodes[i]).getNode(treeItems[i] + " 0.1").contextMenu("Edit context group").click();
-                shell = gefBot.shell("Create / Edit a context group");
-                shell.activate();
-                Assert.assertEquals(treeNodes[i] + " status", "testing", gefBot.ccomboBoxWithLabel("Status").getText());
-                shell.close();
-            } else if (i == 4) {
-                tree.expandNode(treeNodes[i], codeNodes[0]).getNode(treeItems[i] + " 0.1").contextMenu("Edit properties").click();
-                shell = gefBot.shell("Edit properties");
-                shell.activate();
-                Assert.assertEquals(treeNodes[i] + " status", "testing", gefBot.ccomboBoxWithLabel("Status").getText());
-                shell.close();
-            } else if (i == 6) {
-                for (int k2 = 0; k2 < metadataNodes.length; k2++) {
-                    // System.out.println("k2=" + k2 + "---" + treeNodes[i] + "-" + treeItems[i + k2] + "-"
-                    // + metadataContextMenu[k2] + "-" + metadataShellTitle[k2]);
-                    tree.expandNode(treeNodes[i], metadataNodes[k2]).getNode(treeItems[i + k2] + " 0.1")
-                            .contextMenu("Edit " + metadataContextMenu[k2]).click();
-                    shell = gefBot.shell(metadataShellTitle[k2]);
-                    shell.activate();
-                    Assert.assertEquals(treeNodes[i] + " status", "testing", gefBot.ccomboBoxWithLabel("Status").getText());
-                    shell.close();
-                }
+            } catch (WidgetNotFoundException e) {
+                if (gefBot.shell("Message").isActive())
+                    gefBot.shell("Message").close();
+                Assert.assertTrue(metadataNodes[k2] + " widget not open", false);
             }
         }
     }
