@@ -36,7 +36,10 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 import org.apache.log4j.Logger;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -53,6 +56,8 @@ import org.talend.commons.i18n.internal.Messages;
  * 
  */
 public final class FilesUtils {
+
+    private static Logger logger = Logger.getLogger(FilesUtils.class);
 
     private FilesUtils() {
     }
@@ -681,6 +686,37 @@ public final class FilesUtils {
             }
         }
 
+        return result;
+    }
+
+    /**
+     * get all file from the folder.
+     * 
+     * @param folder parrent folder
+     * @param ext file's extention
+     * @param recursive nested flag
+     * @return
+     */
+    public static List<IFile> getFiles(IFolder folder, String ext, boolean recursive) {
+        String fileExt = ext == null ? "" : ext.trim().length() > 0 ? ext.trim() : "";
+        List<IFile> result = new ArrayList<IFile>();
+        try {
+            IResource[] members = folder.members();
+            for (IResource res : members) {
+                if (res instanceof IFolder) {
+                    if (recursive) {
+                        result.addAll(getFiles((IFolder) res, ext, recursive));
+                    }
+                } else if (res instanceof IFile) {
+                    IFile file = (IFile) res;
+                    if (fileExt.equals("") || fileExt.equals(file.getFileExtension())) {
+                        result.add(file);
+                    }
+                }
+            }
+        } catch (CoreException e) {
+            logger.warn(e, e);
+        }
         return result;
     }
 }
