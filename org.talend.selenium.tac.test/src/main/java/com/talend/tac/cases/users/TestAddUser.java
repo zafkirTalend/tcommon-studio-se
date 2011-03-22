@@ -42,6 +42,38 @@ public class TestAddUser extends Login {
     public void testClearAllUsers(String userName) {
     	 List<String> users = new ArrayList<String>(); 
     	 this.clickWaitForElementPresent("idMenuUserElement");
+    	 selenium.setSpeed(MAX_SPEED);
+    	 if(selenium.isElementPresent("//div[text()='Role: Administrator/Viewer/Operation manager/Designer (1 Member)']")) {
+			 selenium.setSpeed(MIN_SPEED);
+    		 selenium.mouseDown("//div[text()='"+userName+"']");
+			 selenium.click("idRoleButton");
+			 Assert.assertTrue(selenium.isTextPresent(rb.getString("user.roles.title")));
+			 selenium.click("//div[@class='x-grid3-cell-inner x-grid3-col-name' and (text()='"+rb.getString("menu.role.administrator")+"')]");
+			 selenium.click("idValidateButton");
+			 selenium.setSpeed(MAX_SPEED);
+			 selenium.click("idFormSaveButton");
+			 selenium.setSpeed(MIN_SPEED);
+    	 } else {
+    		 System.out.println("user role is administrator");
+    		 selenium.setSpeed(MIN_SPEED);
+    	 }
+    	 selenium.setSpeed(MAX_SPEED);
+      	 if(!selenium.isElementPresent("//b[text()='admin, admin']")) {
+			 selenium.setSpeed(MIN_SPEED);
+      		 selenium.mouseDown("//div[text()='"+userName+"']");
+			 selenium.fireEvent("idUserLoginInput", "blur");
+			 selenium.type("idUserFirstNameInput", "admin");
+			 selenium.fireEvent("idUserFirstNameInput", "blur");
+			 selenium.type("idUserLastNameInput", "admin");
+			 selenium.fireEvent("idUserLastNameInput", "blur");
+			 selenium.setSpeed(MAX_SPEED);
+			 selenium.click("idFormSaveButton");
+			 selenium.setSpeed(MIN_SPEED);
+    	 } else {
+    		 System.out.println("user lastname is admin");
+    		 selenium.setSpeed(MIN_SPEED);
+    	 }
+    	 
     	 users = this.findSpecialMachedStrings(".*@[a-zA-Z0-9]*\\.com");
     	 for(int i=0;i<users.size();i++) {
     		 System.out.println(users.get(i));
@@ -54,6 +86,7 @@ public class TestAddUser extends Login {
     		    selenium.setSpeed(MIN_SPEED);
     		 } 
     	 }
+    	 
     }
     
     @Test(dependsOnMethods={"testClearAllUsers"})
@@ -73,6 +106,7 @@ public class TestAddUser extends Login {
         Assert.assertEquals(selenium.getValue("idActiveInput"), roles);
 		
         selenium.click("idFormSaveButton");
+        
 	}
 	
 	@Test(dependsOnMethods={"testAddUserAllRoles"})
