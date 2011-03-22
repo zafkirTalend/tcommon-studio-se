@@ -15,16 +15,10 @@ public class TestModifyUser extends Login {
 		this.clickWaitForElementPresent("idMenuUserElement");
 		Assert.assertTrue(selenium.isTextPresent(userName));
         selenium.mouseDown("//div[text()='"+userName1+"']");
-///****/
-//		selenium.click("idTypeInput");
-//		selenium.mouseDownAt("//div[@role='listitem'][1]", ""+Event.ENTER);
-///****/ 
-//
+        
 		selenium.click("//input[@name='active']");
         
 		Assert.assertFalse(selenium.isChecked("//input[@name='active']"));
-		
-//		selenium.click("idFirstAdminConnInput");
 		
 		selenium.click("idFormSaveButton");
 		selenium.setSpeed(MAX_SPEED);
@@ -40,18 +34,13 @@ public class TestModifyUser extends Login {
 		Assert.assertTrue(selenium.isTextPresent(userName));
         selenium.mouseDown("//div[text()='"+userName1+"']");
 		selenium.click("idRoleButton");
-		Assert.assertTrue(selenium.isTextPresent(rb.getString("user.roles.title")));
-		selenium.click("//div[@class='x-grid3-cell-inner x-grid3-col-name' and (text()='"+rb.getString("menu.role.designer")+"')]");	
-		selenium.click("idValidateButton");
-
-///****/
-//		selenium.click("idTypeInput");
-//		selenium.mouseDownAt("//div[@role='listitem'][1]", ""+Event.ENTER);
-///****/ 
-//		selenium.click("idFirstAdminConnInput");
-//		
-		selenium.click("idFormSaveButton");
 		selenium.setSpeed(MAX_SPEED);
+		Assert.assertTrue(selenium.isTextPresent(rb.getString("user.roles.title")));
+		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-name' and (text()='"+rb.getString("menu.role.designer")+"')]");	
+		selenium.click("idValidateButton");
+		
+		selenium.click("idFormSaveButton");
+//		selenium.setSpeed(MAX_SPEED);
 		Assert.assertTrue(selenium.isTextPresent(rb.getString("user.error.roleModification.lastAdministrator")));
 	    selenium.click("//button[text()='"+other.getString("modify.lastUserAdministrator.role.fail")+"']");
 	    
@@ -71,12 +60,6 @@ public class TestModifyUser extends Login {
 		selenium.type("idUserLastNameInput", LastName);
 		selenium.fireEvent("idUserLastNameInput", "blur");
 		
-///****/
-//		selenium.click("idTypeInput");
-//		selenium.mouseDownAt("//div[@role='listitem'][1]", ""+Event.ENTER);
-///****/ 
-//		selenium.click("idFirstAdminConnInput");
-		
 		selenium.click("idFormSaveButton");
 		Assert.assertEquals(selenium.getText("//div[@class='x-grid3-cell-inner x-grid3-col-lastName']"), LastName1);
 		selenium.setSpeed(MIN_SPEED);
@@ -90,18 +73,12 @@ public class TestModifyUser extends Login {
 		this.clickWaitForElementPresent("idMenuUserElement");
 		Assert.assertTrue(selenium.isTextPresent(userName));
 		if(selenium.isTextPresent(ModifiyUserName)) {
-			System.out.println("Copy_of_aaa@gmail.com is exist user");
+			System.out.println(DulicateUser +  " is exist user");
 			
 		} else {
 			selenium.mouseDown(DulicateUser);
 			selenium.type("idUserLoginInput", ModifiyUserName1);
 			selenium.fireEvent("idUserLoginInput", "blur");
-			
-	///****/
-//			selenium.click("idTypeInput");
-//			selenium.mouseDownAt("//div[@role='listitem'][1]", ""+Event.ENTER);
-	///****/  
-//			selenium.click("idFirstAdminConnInput");
 			
 			selenium.click("idFormSaveButton");
 			selenium.setSpeed(MAX_SPEED);
