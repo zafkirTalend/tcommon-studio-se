@@ -69,7 +69,7 @@ public class TestModifyUser extends Login {
 		
 		selenium.refresh();
 		selenium.setSpeed(MAX_SPEED);
-	    Assert.assertTrue(selenium.isElementPresent("//b[text()='jack, zhang']"));
+	    Assert.assertTrue(selenium.isElementPresent("//b[text()='zhang, jack']"));
 	    selenium.setSpeed(MIN_SPEED);
 	}
     
