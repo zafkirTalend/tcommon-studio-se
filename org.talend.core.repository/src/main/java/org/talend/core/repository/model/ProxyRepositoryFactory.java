@@ -1407,7 +1407,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         if (obj instanceof ISubRepositoryObject) {
             AbstractMetadataObject abstractMetadataObject = ((ISubRepositoryObject) obj).getAbstractMetadataObject();
             if (SubItemHelper.isDeleted(abstractMetadataObject)) {
-                return false;
+                return true;
             } else {
                 if (obj instanceof RepositoryViewObject) {
                     return obj.getRepositoryStatus().isPotentiallyEditable();

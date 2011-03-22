@@ -867,7 +867,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
         // Folder creation :
         for (ERepositoryObjectType type : (ERepositoryObjectType[]) ERepositoryObjectType.values()) {
-            if (type.isDQItemType()) {
+            if (type.isDQItemType() && !type.isSharedType()) {
                 continue;
             }
             try {
@@ -1791,8 +1791,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
         propagateFileName(project, item.getProperty());
         if (item.eResource() != null && itemResource != null) {
-        xmiResourceManager.saveResource(item.eResource());
-        xmiResourceManager.saveResource(itemResource);
+            xmiResourceManager.saveResource(item.eResource());
+            xmiResourceManager.saveResource(itemResource);
         }
     }
 

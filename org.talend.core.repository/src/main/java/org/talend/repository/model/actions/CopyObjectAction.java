@@ -85,7 +85,8 @@ public class CopyObjectAction {
         // }
 
         // if copied item has been deleted
-        if (objectToCopy == null || objectToCopy.getRepositoryStatus() == ERepositoryStatus.DELETED) {
+        if (objectToCopy == null || objectToCopy.getRepositoryStatus() == ERepositoryStatus.DELETED
+                || ProxyRepositoryFactory.getInstance().getStatus(sourceNode.getObject()) == ERepositoryStatus.DELETED) {
             return false;
         }
 
