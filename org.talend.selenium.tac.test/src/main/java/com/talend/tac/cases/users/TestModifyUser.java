@@ -66,6 +66,11 @@ public class TestModifyUser extends Login {
 		selenium.click("idFormSaveButton");
 		Assert.assertEquals(selenium.getText("//div[@class='x-grid3-cell-inner x-grid3-col-lastName']"), LastName);
 		selenium.setSpeed(MIN_SPEED);
+		
+		selenium.click("idSubModuleRefreshButton");
+		selenium.setSpeed(MAX_SPEED);
+	    Assert.assertTrue(selenium.isElementPresent("//b[text()='jack, zhang']"));
+	    selenium.setSpeed(MIN_SPEED);
 	}
     
 	
