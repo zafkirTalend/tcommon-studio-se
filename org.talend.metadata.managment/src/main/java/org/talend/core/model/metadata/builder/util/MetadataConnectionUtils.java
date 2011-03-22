@@ -659,7 +659,7 @@ public class MetadataConnectionUtils {
         return techname;
     }
 
-    public static List<String> getPackageFilter(Connection connection) {
+    public static List<String> getPackageFilter(Connection connection, DatabaseMetaData dbMetaData) {
         List<String> packageFilter = new ArrayList<String>();
 
         if (isMdmConnection(connection)) {
@@ -673,12 +673,22 @@ public class MetadataConnectionUtils {
                 if (!StringUtils.isEmpty(uiSchema)) {
                     packageFilter.add(uiSchema);
                 }
-            } else {
-                String sid = dbConnection.getSID();
-                if (!StringUtils.isEmpty(sid)) {
-                    packageFilter.add(sid);
+            } else
+                try {
+                    if (dbMetaData.supportsCatalogsInIndexDefinitions()) {
+                        String sid = dbConnection.getSID();
+                        if (!StringUtils.isEmpty(sid)) {
+                            packageFilter.add(sid);
+                        }
+                    } else if (dbMetaData.supportsSchemasInIndexDefinitions()) {
+                        String uiSchema = dbConnection.getUiSchema();
+                        if (!StringUtils.isEmpty(uiSchema)) {
+                            packageFilter.add(uiSchema);
+                        }
+                    }
+                } catch (SQLException e) {
+                    log.error(e, e);
                 }
-            }
         }
 
         return packageFilter;

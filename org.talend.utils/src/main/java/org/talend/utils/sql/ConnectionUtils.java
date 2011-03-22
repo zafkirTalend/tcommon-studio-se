@@ -85,10 +85,13 @@ public final class ConnectionUtils {
             InstantiationException, IllegalAccessException, ClassNotFoundException {
         Connection connection = null;
         if (driver != null) {
-            DriverManager.registerDriver(driver);
-            Class.forName(driver.getClass().getName());
-            connection = DriverManager.getConnection(url, props);
-            // connection = driver.connect(url, props);
+            try {
+                DriverManager.registerDriver(driver);
+                Class.forName(driver.getClass().getName());
+                connection = DriverManager.getConnection(url, props);
+            } catch (ClassNotFoundException e) {// MOD zshen for mssql2008
+                connection = driver.connect(url, props);
+            }
             // connection = DriverManager.getConnection(url, props.getProperty("user"), props.getProperty("password"));
 
         }

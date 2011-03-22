@@ -991,9 +991,9 @@ public class ExtractMetaDataFromDataBase {
         if (catalogs.isEmpty() && schemas.isEmpty() && conn != null) {
             try {
                 MetadataFillFactory.getDBInstance().fillCatalogs(dbConn, conn.getMetaData(),
-                        MetadataConnectionUtils.getPackageFilter(dbConn));
+                        MetadataConnectionUtils.getPackageFilter(dbConn, conn.getMetaData()));
                 MetadataFillFactory.getDBInstance().fillSchemas(dbConn, conn.getMetaData(),
-                        MetadataConnectionUtils.getPackageFilter(dbConn));
+                        MetadataConnectionUtils.getPackageFilter(dbConn, conn.getMetaData()));
             } catch (SQLException e) {
                 ExceptionHandler.process(e);
             }
