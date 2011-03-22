@@ -339,6 +339,43 @@ public class MetadataConnectionUtils {
         return false;
     }
 
+    /**
+     * zshen Comment method "isOdbcConnection". feature 10630
+     * 
+     * @param connection
+     * @return
+     * @throws SQLException
+     */
+    public static boolean isOdbcConnection(java.sql.Connection connection) throws SQLException {
+        DatabaseMetaData connectionMetadata = org.talend.utils.sql.ConnectionUtils.getConnectionMetadata(connection);
+        if (connectionMetadata.getDriverName() != null
+                && connectionMetadata.getDriverName().toLowerCase().startsWith(DatabaseConstant.ODBC_DRIVER_NAME)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 
+     * zshen Comment method "isODBCCatalog".
+     * 
+     * @param catalogName the name for need to be decided.
+     * @param connection
+     * @return if connection is a ODBC connection and catalogName isn't which be found then return ture, else return
+     * true.
+     * @throws SQLException
+     */
+    public static boolean isODBCCatalog(String catalogName, java.sql.Connection connection) throws SQLException {
+        if (isOdbcConnection(connection)) {
+            if (catalogName != null && catalogName.equals(connection.getCatalog())) {
+
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
     public static boolean isOracle8i(Connection connection) {
         if (connection != null && connection instanceof DatabaseConnection) {
             DatabaseConnection dbConn = (DatabaseConnection) connection;

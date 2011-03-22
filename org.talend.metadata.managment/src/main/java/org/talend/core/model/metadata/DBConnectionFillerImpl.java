@@ -261,6 +261,10 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                         String temp = MetadataConnectionUtils.isOdbcPostgresql(dbJDBCMetadata.getConnection()) ? DatabaseConstant.ODBC_POSTGRESQL_CATALOG_NAME
                                 : MetaDataConstants.TABLE_CAT.name();
                         catalogName = catalogNames.getString(temp);
+                        // MOD zshen filter ODBC catalog
+                        if (!MetadataConnectionUtils.isODBCCatalog(catalogName, dbJDBCMetadata.getConnection())) {
+                            continue;
+                        }
                     } catch (Exception e) {
                         log.warn(e, e);
                         if (dbJDBCMetadata.getDatabaseProductName() != null
@@ -776,6 +780,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         expression.setLanguage(language);
         return expression;
     }
+
 
     // public static void executeGetSchemas(DatabaseMetaData dbmd) {
     // try {
