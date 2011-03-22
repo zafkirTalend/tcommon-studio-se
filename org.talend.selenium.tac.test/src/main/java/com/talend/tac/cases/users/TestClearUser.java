@@ -40,13 +40,6 @@ public class TestClearUser extends Login{
 	 selenium.click("//div[text()='"+ rb.getString("menu.role.administrator")+"']");
 	 selenium.click("idValidateButton");
 	 selenium.setSpeed(MAX_SPEED);
-	
-///****/
-//		selenium.click("idTypeInput");
-//		selenium.mouseDownAt("//div[@role='listitem'][1]", ""+Event.ENTER);
-///****/  
-//		selenium.click("idFirstAdminConnInput");
-	
 	 selenium.click("idFormSaveButton");
      selenium.setSpeed(MIN_SPEED);
 	
