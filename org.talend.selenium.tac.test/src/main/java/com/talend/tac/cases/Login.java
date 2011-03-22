@@ -12,17 +12,20 @@ public class Login extends Base {
 	@BeforeMethod
 	@Parameters( { "userName", "userPassword" })
 	public void login(String user, String password) {
-//		System.out.println("rpc.talend.home: " + System.getProperty("rpc.talend.home"));
+
 		selenium.setSpeed(MAX_SPEED);
-		selenium.setSpeed(MIN_SPEED);
-		waitForElementPresent("idLoginInput", 20);
-		waitForElementPresent("idLoginPasswordInput", 20);
+		
+//		waitForElementPresent("idLoginInput", 20);
+//		waitForElementPresent("idLoginPasswordInput", 20);
+		
 		selenium.windowMaximize();
+		selenium.setSpeed(MIN_SPEED);
 		selenium.type("idLoginInput", user);
 		selenium.type("idLoginPasswordInput", password);
-		
+	
 		selenium.keyDown("idLoginPasswordInput", "\\13");
 		selenium.setSpeed(MAX_SPEED);
+		
 //		// wait for this HTML page fully loaded
 //		try {
 //			Thread.sleep(2000);
