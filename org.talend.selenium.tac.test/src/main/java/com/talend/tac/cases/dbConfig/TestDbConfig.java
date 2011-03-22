@@ -23,8 +23,9 @@ public class TestDbConfig extends DbConfig {
 		selenium.keyDown("idDbConfigDriverInput", "\\13");
 		selenium.keyUp("idDbConfigDriverInput", "\\13");
 		selenium.click("idDbConfigSaveButton");
-		
-		//if the parameter is saved successfully ,the save button will turn gray.
+
+		// if the parameter is saved successfully ,the save button will turn
+		// gray.
 		selenium
 				.waitForCondition(
 						"selenium.isElementPresent(\"//table[contains(@class,'disabled')]//button[@id='idDbConfigSaveButton']\")",
@@ -33,8 +34,9 @@ public class TestDbConfig extends DbConfig {
 
 		// license popup should be shown after clicking "go to login Page"
 		// wait and judge the license popup
-		boolean flag = selenium.isTextPresent("No license set")
-				|| selenium.isElementPresent("idLoginInput");
+		// ->define the flag=false to avoid
+		// "Couldn't access document.body.  Is this HTML page fully loaded?"
+		boolean flag = false;
 		while (flag == false) {
 			try {
 				Thread.sleep(1000);
