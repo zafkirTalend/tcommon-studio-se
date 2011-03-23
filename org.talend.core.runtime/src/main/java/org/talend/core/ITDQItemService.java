@@ -18,6 +18,7 @@ import java.util.Map;
 
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.TDQItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
@@ -128,6 +129,12 @@ public interface ITDQItemService extends IService {
      */
     public void importItems(File sourceFile, List<Item> validItems, boolean overwrite, NullProgressMonitor nullProgressMonitor);
 
-
-
+    /**
+     * Invoked by GenerateGrammarController class, and return a file will be created in routines
+     * 
+     * DOC ytao
+     * @param node, properties of component 
+     * @return
+     */
+    public File fileCreatedInRoutines(INode node, String className);
 }
