@@ -1,6 +1,7 @@
 package com.talend.tac.cases.dbConfig;
 
 import com.talend.tac.base.Base;
+import static org.testng.Assert.*;
 
 public class DbConfig extends Base {
 
@@ -32,13 +33,6 @@ public class DbConfig extends Base {
 		selenium.type("idDbConfigPasswordInput", userPassWd);
 		selenium.type("idDbConfigDriverInput", driver);
 		selenium.click("idDbConfigCheckButton");
-		try {
-			Thread.sleep(3000);// wait for the status to change after click
-			// check
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		// some other action like "save" ......
 	}
 
@@ -60,5 +54,26 @@ public class DbConfig extends Base {
 			flag = selenium.isTextPresent("No license set")
 					|| selenium.isElementPresent("idLoginOpenDbConfigButton");
 		}
+	}
+
+	/**
+	 * wait and check the db Connection status
+	 */
+	public void waitForCheckConnectionStatus() {
+		boolean flag = false;
+		int seconds_Counter = 0;
+		while (flag == false) {
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			flag = selenium.getXpathCount("//div[text()='OK']").intValue() == 3;
+			seconds_Counter++;
+			if(seconds_Counter >= WAIT_TIME)
+				assertTrue(selenium.getXpathCount("//div[text()='OK']").intValue() == 3);
+		}
+
 	}
 }

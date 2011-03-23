@@ -15,10 +15,7 @@ public class TestDbConfig extends DbConfig {
 			String driver, String license) {
 
 		this.DbConfigProcess(url, userName, userPassWd, driver);
-
-		if (selenium.getXpathCount("//div[text()='OK']").intValue() != 3) {
-			fail("At least one parameter of DbConfig is wrong.");
-		}
+		waitForCheckConnectionStatus();
 		// simulate clicking ENTER to make button enabled.
 		selenium.keyDown("idDbConfigDriverInput", "\\13");
 		selenium.keyUp("idDbConfigDriverInput", "\\13");
@@ -30,6 +27,7 @@ public class TestDbConfig extends DbConfig {
 				.waitForCondition(
 						"selenium.isElementPresent(\"//table[contains(@class,'disabled')]//button[@id='idDbConfigSaveButton']\")",
 						"30000");
+		waitForCheckConnectionStatus();
 		selenium.click("idDbConfigLogoutButton");
 
 		// license popup should be shown after clicking "go to login Page"
