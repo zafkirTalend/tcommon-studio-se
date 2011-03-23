@@ -12,7 +12,7 @@ import com.talend.tac.cases.Login;
 
 public class TestAddUser extends Login {
     
-	public void testAddUsers(String user,String firstname,String lastname,String password,String SvnLogin,String SvnPassWord) throws Exception {
+	public void addUser(String user,String firstname,String lastname,String password,String SvnLogin,String SvnPassWord) throws Exception {
 		
 		selenium.setSpeed(MAX_SPEED);
 		selenium.click("idMenuUserElement");
@@ -38,7 +38,7 @@ public class TestAddUser extends Login {
 	
     @Test(groups={"AddUser"})
     @Parameters({"userName"})
-    public void testClearAllUsers(String userName) {
+    public void clearAllUsers(String userName) {
     	 List<String> users = new ArrayList<String>(); 
     	 this.clickWaitForElementPresent("idMenuUserElement");
     	 selenium.setSpeed(MAX_SPEED);
@@ -88,14 +88,14 @@ public class TestAddUser extends Login {
     	 selenium.setSpeed(MIN_SPEED);
     }
     
-    @Test(dependsOnMethods={"testClearAllUsers"})
+    @Test(dependsOnMethods={"clearAllUsers"})
     @Parameters({"userNameAllRoles","FirstName","LastName","PassWord","SvnLogin","SvnPassWord"})
 	public void testAddUserAllRoles(String userName,String FirstName,String LastName,String PassWord,String SvnLogin,
 			String SvnPassWord) throws Exception {
     	String roles = rb.getString("menu.role.administrator")+"/"+rb.getString("menu.role.viewer")+"/"
 		+rb.getString("menu.role.operationManager")+"/"+rb.getString("menu.role.designer");
     	
-    	testAddUsers(userName, FirstName, LastName, PassWord,SvnLogin,SvnPassWord);
+    	addUser(userName, FirstName, LastName, PassWord,SvnLogin,SvnPassWord);
 		selenium.click("idRoleButton");
 		selenium.setSpeed(MAX_SPEED);
 		Assert.assertTrue(selenium.isTextPresent(rb.getString("user.roles.title")));
@@ -113,7 +113,7 @@ public class TestAddUser extends Login {
 	public void testAddExistUser(String userName,String FirstName,String LastName,String PassWord,
 			String SvnLogin,String SvnPassWord) throws Exception {
 	
-	    testAddUsers(userName, FirstName, LastName, PassWord, SvnLogin, SvnPassWord);
+	    addUser(userName, FirstName, LastName, PassWord, SvnLogin, SvnPassWord);
 		selenium.click("idRoleButton");
 		Assert.assertTrue(selenium.isTextPresent(rb.getString("user.roles.title")));
 		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-name' and (text()='"+ rb.getString("menu.role.operationManager")+"')]");
@@ -135,7 +135,7 @@ public class TestAddUser extends Login {
 	@Parameters({"LoginNameChooseAdministratorRole","FirstName","LastName","PassWord","SvnLogin","SvnPassWord"})
 	public void testAddNewUserRoleAdministrator(String LoginNameChooseAdministratorRole,String FirstName,String LastName,
 			String PassWord,String SvnLogin,String SvnPassWord) throws Exception {
-	    testAddUsers(LoginNameChooseAdministratorRole, FirstName, LastName, PassWord, SvnLogin, SvnPassWord);
+	    addUser(LoginNameChooseAdministratorRole, FirstName, LastName, PassWord, SvnLogin, SvnPassWord);
 		
 	    selenium.click("idRoleButton");
 		Assert.assertTrue(selenium.isTextPresent(rb.getString("user.roles.title")));
@@ -155,7 +155,7 @@ public class TestAddUser extends Login {
 	@Parameters({"LoginNameChooseMulripleRoles","FirstName","LastName","PassWord","SvnLogin","SvnPassWord"})
 	public void testAddUserMulripleRoles(String LoginNameChooseMulripleRoles,String FirstName,String LastName,
 			String PassWord,String SvnLogin,String SvnPassWord) throws Exception {
-		testAddUsers(LoginNameChooseMulripleRoles, FirstName, LastName, PassWord, SvnLogin, SvnPassWord);
+		addUser(LoginNameChooseMulripleRoles, FirstName, LastName, PassWord, SvnLogin, SvnPassWord);
 		selenium.click("idRoleButton");
 		Assert.assertTrue(selenium.isTextPresent(rb.getString("user.roles.title")));
 		selenium.setSpeed(MAX_SPEED);
@@ -181,7 +181,7 @@ public class TestAddUser extends Login {
 	public void testAddUserNotChooseActive(String LoginNameNotChooseActive,String FirstName,String LastName,
 			String PassWord,String SvnLogin,String SvnPassWord,String LoginNameNotChooseActive1) throws Exception {
 	    
-		testAddUsers(LoginNameNotChooseActive, FirstName, LastName, PassWord, SvnLogin, SvnPassWord);
+		addUser(LoginNameNotChooseActive, FirstName, LastName, PassWord, SvnLogin, SvnPassWord);
 			
 		selenium.click("idRoleButton");
 		Assert.assertTrue(selenium.isTextPresent(rb.getString("user.roles.title")));
@@ -202,7 +202,7 @@ public class TestAddUser extends Login {
 	@Parameters({"LoginName","FirstName","LastName","PassWordww","SvnLogin","SvnPassWord","LoginName"})
 	public void testMysqlAddUserActive(String LoginName,String FirstName,String LastName,
 			String PassWordww,String SvnLogin,String SvnPassWord,String LoginName1) throws Exception {
-		testAddUsers(LoginName, FirstName, LastName, PassWordww, SvnLogin, SvnPassWord);
+		addUser(LoginName, FirstName, LastName, PassWordww, SvnLogin, SvnPassWord);
 		selenium.click("idRoleButton");
 		Assert.assertTrue(selenium.isTextPresent(rb.getString("user.roles.title")));
 		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-name' and (text()='"+  rb.getString("menu.role.designer")+"')]");//choose a  role
