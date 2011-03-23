@@ -14,6 +14,7 @@ package org.talend.commons.utils.threading;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.RejectedExecutionHandler;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -29,6 +30,10 @@ public class TalendCustomThreadPoolExecutor extends ThreadPoolExecutor {
     public TalendCustomThreadPoolExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit,
             BlockingQueue<Runnable> workQueue) {
         super(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue);
+    }
+
+    public TalendCustomThreadPoolExecutor(int queueCapacity, RejectedExecutionHandler handler) {
+        super(5, 10, 0, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(queueCapacity), handler);
     }
 
     public boolean hasThreadRunning() {

@@ -26,11 +26,15 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.RejectedExecutionHandler;
+import java.util.concurrent.ThreadPoolExecutor;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
+import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
@@ -44,20 +48,24 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.TreeColumn;
+import org.eclipse.swt.widgets.TreeItem;
+import org.eclipse.ui.dialogs.ContainerCheckedTreeViewer;
 import org.eclipse.ui.dialogs.SearchPattern;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
 import org.talend.commons.ui.swt.formtools.Form;
 import org.talend.commons.ui.swt.formtools.UtilsButton;
-import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
-import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorNotModifiable.LAYOUT_MODE;
 import org.talend.commons.utils.data.text.IndiceHelper;
 import org.talend.commons.utils.threading.TalendCustomThreadPoolExecutor;
 import org.talend.core.database.EDatabaseTypeName;
@@ -71,17 +79,21 @@ import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBa
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase.ETableTypes;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.metadata.builder.database.TableInfoParameters;
+import org.talend.core.model.metadata.builder.database.TableNode;
 import org.talend.core.model.metadata.editor.MetadataEmfTableEditor;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.model.metadata.types.PerlTypesManager;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.utils.TalendQuoteUtils;
+import org.talend.cwm.helper.CatalogHelper;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.PackageHelper;
 import org.talend.cwm.helper.TableHelper;
 import org.talend.cwm.relational.RelationalFactory;
 import org.talend.cwm.relational.TdColumn;
+import org.talend.cwm.relational.TdTable;
+import org.talend.cwm.relational.TdView;
 import org.talend.metadata.managment.ui.i18n.Messages;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.ProjectNodeHelper;
@@ -89,6 +101,7 @@ import org.talend.repository.ui.swt.utils.AbstractForm;
 import org.talend.repository.ui.utils.ManagerConnection;
 import orgomg.cwm.objectmodel.core.CoreFactory;
 import orgomg.cwm.resource.relational.Catalog;
+import orgomg.cwm.resource.relational.NamedColumnSet;
 import orgomg.cwm.resource.relational.Schema;
 
 /**
@@ -128,8 +141,11 @@ public class SelectorTableForm extends AbstractForm {
 
     private ConnectionItem templateConntion;
 
-    // private DatabaseConnection connection;
-    protected Table table;
+    private ContainerCheckedTreeViewer viewer;
+
+    private Tree tree;
+
+    private List<TableNode> tableNodeList = new ArrayList<TableNode>();
 
     private int count = 0;
 
@@ -290,54 +306,71 @@ public class SelectorTableForm extends AbstractForm {
      * DOC qzhang Comment method "createTable".
      */
     private void createTable() {
-        // List Table
-        TableViewerCreator tableViewerCreator = new TableViewerCreator(scrolledCompositeFileViewer);
-        tableViewerCreator.setColumnsResizableByDefault(true);
-        tableViewerCreator.setBorderVisible(true);
-        tableViewerCreator.setLayoutMode(LAYOUT_MODE.FILL_HORIZONTAL);
-        tableViewerCreator.setCheckboxInFirstColumn(true);
-        // tableViewerCreator.setAdjustWidthValue(-15);
-        tableViewerCreator.setFirstColumnMasked(true);
-
         int columnWidth1 = 300;
         int columnWidth2 = 140;
         int columnWidth3 = 125;
         int columnWidth4 = 140;
 
-        table = tableViewerCreator.createTable();
         if (forTemplate) {
             columnWidth1 = 150;
             columnWidth2 = 100;
             columnWidth3 = 100;
             columnWidth4 = 110;
         }
-        table.setLayoutData(new GridData(GridData.FILL_BOTH));
+        viewer = new ContainerCheckedTreeViewer(scrolledCompositeFileViewer, SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER
+                | SWT.FULL_SELECTION | SWT.MULTI);
+        viewer.getControl().setLayoutData(new GridData(GridData.FILL_BOTH));
+        viewer.setUseHashlookup(true);
+        viewer.addFilter(new selectorViewerFilter());
+        tree = viewer.getTree();
+        tree.setHeaderVisible(true);
+        tree.setLinesVisible(true);
+        // if table already exist in connection, should set checked.
+        tree.addListener(SWT.Expand, new Listener() {
 
-        // table = new Table(scrolledCompositeFileViewer, SWT.CHECK | SWT.BORDER);
-        // table.setBackground(table.getDisplay().getSystemColor(SWT.COLOR_WIDGET_BACKGROUND));
-        // table.setHeaderVisible(true);
-
-        // table.setHeaderVisible(true);
-        TableColumn tableName = new TableColumn(table, SWT.NONE);
+            public void handleEvent(Event event) {
+                Set<String> checkedItems = getCheckedItem();
+                TreeItem treeItem = (TreeItem) event.item;
+                for (TreeItem item : treeItem.getItems()) {
+                    if (item.getData() != null) {
+                        TableNode node = (TableNode) item.getData();
+                        if (node.getType() == TableNode.TABLE) {
+                            if (checkedItems.contains(node.getValue())) {
+                                item.setChecked(true);
+                            } else {
+                                item.setChecked(false);
+                            }
+                        } else {
+                            item.setGrayed(item.getChecked());
+                        }
+                    }
+                }
+            }
+        });
+        // tree.setBackground(tree.getDisplay().getSystemColor(SWT.COLOR_WIDGET_BACKGROUND));
+        TreeColumn tableName = new TreeColumn(tree, SWT.NONE);
         tableName.setText(Messages.getString("SelectorTableForm.TableName")); //$NON-NLS-1$
         tableName.setWidth(columnWidth1);
 
-        // tableName.addSelectionListener(getColumnSelectionListener());
-        TableColumn tableType = new TableColumn(table, SWT.NONE);
+        TreeColumn tableType = new TreeColumn(tree, SWT.NONE);
         tableType.setText(Messages.getString("SelectorTableForm.TableType")); //$NON-NLS-1$
         tableType.setWidth(columnWidth2);
 
-        // tableType.addSelectionListener(getColumnSelectionListener());
-        TableColumn nbColumns = new TableColumn(table, SWT.RIGHT);
+        TreeColumn nbColumns = new TreeColumn(tree, SWT.RIGHT);
         nbColumns.setText(Messages.getString("SelectorTableForm.ColumnNumber")); //$NON-NLS-1$
         nbColumns.setWidth(columnWidth3);
 
-        TableColumn creationStatus = new TableColumn(table, SWT.RIGHT);
+        TreeColumn creationStatus = new TreeColumn(tree, SWT.RIGHT);
         creationStatus.setText(Messages.getString("SelectorTableForm.CreationStatus")); //$NON-NLS-1$
         creationStatus.setWidth(columnWidth4);
 
-        scrolledCompositeFileViewer.setContent(table);
-        scrolledCompositeFileViewer.setMinSize(table.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+        SelectorTreeViewerProvider provider = new SelectorTreeViewerProvider(this);
+        viewer.setLabelProvider(provider);
+        viewer.setContentProvider(provider);
+        viewer.setInput(tableNodeList);
+
+        scrolledCompositeFileViewer.setContent(tree);
+        scrolledCompositeFileViewer.setMinSize(tree.computeSize(SWT.DEFAULT, SWT.DEFAULT));
     }
 
     private final Collator col = Collator.getInstance(Locale.getDefault());
@@ -379,14 +412,14 @@ public class SelectorTableForm extends AbstractForm {
 
                 selectiontable.setRedraw(false);
 
-                TableItem[] items = table.getItems();
+                TreeItem[] items = tree.getItems();
 
                 Arrays.sort(items, strComparator);
 
                 selectiontable.setItemCount(items.length);
 
                 for (int i = 0; i < items.length; i++) {
-                    TableItem item = new TableItem(table, SWT.NONE, i);
+                    TreeItem item = new TreeItem(tree, SWT.NONE, i);
                     item.setText(getData(items[i]));
                     if (items[i].getChecked()) {
                         clearTableItem(items[i]);
@@ -401,10 +434,10 @@ public class SelectorTableForm extends AbstractForm {
                 selectiontable.getParent().layout(true, true);
             }
 
-            private String[] getData(TableItem t) {
-                Table selectiontable = t.getParent();
+            private String[] getData(TreeItem t) {
+                Tree selectiontree = t.getParent();
 
-                int colCount = selectiontable.getColumnCount();
+                int colCount = selectiontree.getColumnCount();
                 String[] s = new String[colCount];
 
                 for (int i = 0; i < colCount; i++) {
@@ -451,20 +484,35 @@ public class SelectorTableForm extends AbstractForm {
             @Override
             public void widgetSelected(final SelectionEvent e) {
                 updateStatus(IStatus.ERROR, null);
-                TableItem[] tableItems = table.getItems();
-                int size = tableItems.length;
-                for (int i = 0; i < tableItems.length; i++) {
-                    TableItem tableItem = tableItems[i];
-                    if (!tableItem.getChecked()) {
-                        tableItem.setText(3, Messages.getString("SelectorTableForm.Pending")); //$NON-NLS-1$
-                        countPending++;
-                        parentWizardPage.setPageComplete(false);
-                        refreshTable(tableItem, size);
-                    } else {
-                        updateStatus(IStatus.OK, null);
+                for (TreeItem catalogItem : tree.getItems()) {
+                    int type = ((TableNode) catalogItem.getData()).getType();
+                    if (type == TableNode.CATALOG) {
+                        for (TreeItem schemaItem : catalogItem.getItems()) {
+                            if (schemaItem.getData() != null) {
+                                int t = ((TableNode) schemaItem.getData()).getType();
+                                if (t == TableNode.SCHEMA) {
+                                    for (TreeItem tableItem : schemaItem.getItems()) {
+                                        updateItem(tableItem, true, false);
+                                    }
+                                    schemaItem.setChecked(true);
+                                } else if (t == TableNode.TABLE) {
+                                    updateItem(schemaItem, true, false);
+                                }
+                            }
+                        }
+                        catalogItem.setChecked(true);
+                        catalogItem.setGrayed(true);
+                    } else if (type == TableNode.SCHEMA) {
+                        for (TreeItem tableItem : catalogItem.getItems()) {
+                            updateItem(tableItem, true, false);
+                        }
+                        catalogItem.setChecked(true);
+                        catalogItem.setGrayed(true);
+                    } else if (type == TableNode.TABLE) {
+                        updateItem(catalogItem, true, false);
                     }
-                    tableItem.setChecked(true);
                 }
+
                 if (forTemplate) {
                     parentWizardPage.setPageComplete(true);
                 }
@@ -478,12 +526,30 @@ public class SelectorTableForm extends AbstractForm {
                 count = 0;
                 countSuccess = 0;
                 countPending = 0;
-                TableItem[] tableItems = table.getItems();
-                for (int i = 0; i < tableItems.length; i++) {
-                    TableItem tableItem = tableItems[i];
-                    if (tableItem.getChecked()) {
-                        clearTableItem(tableItem);
-                        tableItem.setChecked(false);
+                for (TreeItem catalogItem : tree.getItems()) {
+                    int type = ((TableNode) catalogItem.getData()).getType();
+                    if (type == TableNode.CATALOG) {
+                        for (TreeItem schemaItem : catalogItem.getItems()) {
+                            if (schemaItem.getData() != null) {
+                                int t = ((TableNode) schemaItem.getData()).getType();
+                                if (t == TableNode.SCHEMA) {
+                                    for (TreeItem tableItem : schemaItem.getItems()) {
+                                        updateItem(tableItem, false, false);
+                                    }
+                                    schemaItem.setChecked(false);
+                                } else if (t == TableNode.TABLE) {
+                                    updateItem(schemaItem, false, false);
+                                }
+                            }
+                        }
+                        catalogItem.setChecked(false);
+                    } else if (type == TableNode.SCHEMA) {
+                        for (TreeItem tableItem : catalogItem.getItems()) {
+                            updateItem(tableItem, false, false);
+                        }
+                        catalogItem.setChecked(false);
+                    } else if (type == TableNode.TABLE) {
+                        updateItem(catalogItem, false, false);
                     }
                 }
                 if (forTemplate) {
@@ -501,24 +567,48 @@ public class SelectorTableForm extends AbstractForm {
      */
     private void addTableListener() {
         // Event checkBox action
-        table.addSelectionListener(new SelectionAdapter() {
+        tree.addSelectionListener(new SelectionAdapter() {
 
             @Override
             public void widgetSelected(final SelectionEvent e) {
                 if (e.detail == SWT.CHECK) {
-                    TableItem tableItem = (TableItem) e.item;
-                    boolean promptNeeded = tableItem.getChecked();
-                    if (promptNeeded) {
-                        tableItem.setText(2, ""); //$NON-NLS-1$
-                        tableItem.setText(3, Messages.getString("SelectorTableForm.Pending")); //$NON-NLS-1$
-                        countPending++;
-                        parentWizardPage.setPageComplete(false);
-                        refreshTable(tableItem, -1);
-                    } else {
-                        clearTableItem(tableItem);
-                        if (tableItem.getText() != null
-                                && tableItem.getText().equals(Messages.getString("SelectorTableForm.Pending"))) { //$NON-NLS-1$
-                            countPending--;
+                    TreeItem treeItem = (TreeItem) e.item;
+                    Object data = treeItem.getData();
+                    boolean promptNeeded = treeItem.getChecked();
+                    int type = ((TableNode) data).getType();
+                    if (type != TableNode.TABLE) {
+                        treeItem.setGrayed(true);
+                    }
+                    if (type == TableNode.CATALOG) {
+                        for (TreeItem schemaItem : treeItem.getItems()) {
+                            if (schemaItem.getData() != null) {
+                                int t = ((TableNode) schemaItem.getData()).getType();
+                                if (t == TableNode.SCHEMA) {
+                                    for (TreeItem tableItem : schemaItem.getItems()) {
+                                        updateItem(tableItem, promptNeeded, true);
+                                    }
+                                } else if (t == TableNode.TABLE) {
+                                    updateItem(schemaItem, promptNeeded, true);
+                                }
+                            }
+                        }
+                    } else if (type == TableNode.SCHEMA) {
+                        for (TreeItem tableItem : treeItem.getItems()) {
+                            updateItem(tableItem, promptNeeded, true);
+                        }
+                    } else if (type == TableNode.TABLE) {
+                        if (promptNeeded) {
+                            treeItem.setText(2, ""); //$NON-NLS-1$
+                            treeItem.setText(3, Messages.getString("SelectorTableForm.Pending")); //$NON-NLS-1$
+                            countPending++;
+                            parentWizardPage.setPageComplete(false);
+                            refreshTable(treeItem, -1);
+                        } else {
+                            clearTableItem(treeItem);
+                            if (treeItem.getText() != null
+                                    && treeItem.getText().equals(Messages.getString("SelectorTableForm.Pending"))) { //$NON-NLS-1$
+                                countPending--;
+                            }
                         }
                     }
                     if (forTemplate && (ConnectionHelper.getTables(getConnection()).size() <= 0)) {
@@ -530,32 +620,159 @@ public class SelectorTableForm extends AbstractForm {
     }
 
     /**
+     * 
+     * wzhang Comment method "updateItem".
+     * 
+     * @param item
+     * @param checked
+     */
+    private void updateItem(TreeItem item, boolean checked, boolean isEvent) {
+        if (item == null) {
+            return;
+        }
+        Object data = item.getData();
+        if (data != null && data instanceof TableNode) {
+            TableNode tableNode = (TableNode) data;
+            if (tableNode.getType() == TableNode.TABLE) {
+                String pattern = getNameFilter();
+                SearchPattern matcher = new SearchPattern();
+                matcher.setPattern(pattern);
+                if (!matcher.matches(tableNode.getValue())) {
+                    return;
+                }
+                // if from click event, should set the table item original status.
+                if (isEvent) {
+                    Set<MetadataTable> tables = ConnectionHelper.getTables(getConnection());
+                    for (MetadataTable table : tables) {
+                        if (table.getLabel().equals(tableNode.getValue())) {
+                            item.setChecked(true);
+                        }
+                    }
+                    item.setChecked(!checked);
+                }
+                if (checked) {
+                    if (!item.getChecked()) {
+                        item.setText(3, Messages.getString("SelectorTableForm.Pending")); //$NON-NLS-1$
+                        countPending++;
+                        parentWizardPage.setPageComplete(false);
+                        refreshTable(item, -1);
+                    } else {
+                        updateStatus(IStatus.OK, null);
+                    }
+                    item.setChecked(true);
+                } else {
+                    if (item.getChecked()) {
+                        clearTableItem(item);
+                        item.setChecked(false);
+                    }
+                }
+            }
+        }
+    }
+
+    private List<TableNode> getTableNodeInfo() {
+        List<TableNode> tableNodes = new ArrayList<TableNode>();
+        DatabaseConnection connection = (DatabaseConnection) iMetadataConnection.getCurrentConnection();
+        List<Catalog> catalogs = ConnectionHelper.getCatalogs(connection);
+        if (catalogs.isEmpty()) {
+            List<Schema> schemas = ConnectionHelper.getSchema(connection);
+            if (schemas.isEmpty()) {
+                return tableNodes;
+            } else {
+                for (Schema s : schemas) {
+                    TableNode schemaNode = new TableNode();
+                    schemaNode.setSchema(s);
+                    schemaNode.setValue(s.getName());
+                    schemaNode.setType(TableNode.SCHEMA);
+                    schemaNode.setMetadataConn(iMetadataConnection);
+                    schemaNode.setParas(tableInfoParameters);
+                    tableNodes.add(schemaNode);
+                }
+            }
+        } else {
+            for (Catalog c : catalogs) {
+                TableNode catalogNode = new TableNode();
+                catalogNode.setCatalog(c);
+                catalogNode.setValue(c.getName());
+                catalogNode.setType(TableNode.CATALOG);
+                catalogNode.setMetadataConn(iMetadataConnection);
+                catalogNode.setParas(tableInfoParameters);
+                List<Schema> schemas = CatalogHelper.getSchemas(c);
+                if (schemas.isEmpty()) {
+                    tableNodes.add(catalogNode);
+                } else {
+                    for (Schema s : schemas) {
+                        TableNode schemaNode = new TableNode();
+                        schemaNode.setSchema(s);
+                        schemaNode.setValue(s.getName());
+                        schemaNode.setType(TableNode.SCHEMA);
+                        schemaNode.setMetadataConn(iMetadataConnection);
+                        schemaNode.setParas(tableInfoParameters);
+                        schemaNode.setParent(catalogNode);
+                        catalogNode.addChild(schemaNode);
+                    }
+                    tableNodes.add(catalogNode);
+                }
+            }
+        }
+        return tableNodes;
+    }
+
+    private List<TableNode> getTableNodeForAllSynonyms(List<String> list, boolean useSynonyms) {
+        List<TableNode> tableNodes = new ArrayList<TableNode>();
+        if (list != null && !list.isEmpty()) {
+            for (String string : list) {
+                TableNode tableNode = new TableNode();
+                tableNode.setType(TableNode.TABLE);
+                tableNode.setValue(string);
+                if (useSynonyms) {
+                    tableNode.setItemType(ETableTypes.TABLETYPE_SYNONYM.getName());
+                } else {
+                    tableNode.setItemType(ExtractMetaDataFromDataBase.getTableTypeByTableName(string));
+                }
+                tableNodes.add(tableNode);
+            }
+        }
+
+        return tableNodes;
+    }
+
+    /**
      * checkConnection.
      * 
      * @param displayMessageBox
      */
     protected void checkConnection(final boolean displayMessageBox) {
         try {
-            if (table.getItemCount() > 0) {
-                table.removeAll();
+            if (tree.getItemCount() > 0) {
+                tree.removeAll();
             }
             parentWizardPage.getWizard().getContainer().run(true, true, new IRunnableWithProgress() {
 
                 public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
                     monitor.beginTask(Messages.getString("CreateTableAction.action.createTitle"), IProgressMonitor.UNKNOWN); //$NON-NLS-1$
-
-                    managerConnection.check(getIMetadataConnection());
+                    // add
+                    managerConnection.check(iMetadataConnection);
 
                     if (managerConnection.getIsValide()) {
-                        itemTableName = ExtractMetaDataFromDataBase.returnTablesFormConnection(iMetadataConnection,
-                                getTableInfoParameters());
-
-                        if (itemTableName.size() <= 0) {
-                            // connection is done but any table exist
+                        // need to enhance later
+                        if (ExtractMetaDataUtils.isUseAllSynonyms()
+                                && EDatabaseTypeName.ORACLEFORSID.getDisplayName().equals(iMetadataConnection.getDbType())
+                                || EDatabaseTypeName.ACCESS.getDisplayName().equals(iMetadataConnection.getDbType())
+                                || EDatabaseTypeName.AS400.getDisplayName().equals(iMetadataConnection.getDbType())) {
+                            itemTableName = ExtractMetaDataFromDataBase.returnTablesFormConnection(iMetadataConnection,
+                                    getTableInfoParameters());
+                            if (ExtractMetaDataUtils.isUseAllSynonyms()) {
+                                tableNodeList = getTableNodeForAllSynonyms(itemTableName, true);
+                            } else {
+                                tableNodeList = getTableNodeForAllSynonyms(itemTableName, false);
+                            }
+                        } else {
+                            tableNodeList = getTableNodeInfo();
+                        }
+                        if (tableNodeList.isEmpty()) {
                             if (displayMessageBox) {
-                                openInfoDialogInUIThread(getShell(),
-                                        Messages.getString("DatabaseTableForm.checkConnection"), Messages //$NON-NLS-1$
-                                                .getString("DatabaseTableForm.tableNoExist"), true);//$NON-NLS-1$
+                                openInfoDialogInUIThread(getShell(), "Error", "No catalog or schema exist", true);
                             }
                         } else {
                             createAllItems(displayMessageBox, null);
@@ -590,40 +807,12 @@ public class SelectorTableForm extends AbstractForm {
         Display.getDefault().asyncExec(new Runnable() {
 
             public void run() {
-                List<String> list = new ArrayList<String>();
-                if (newList != null) {
-                    list.addAll(newList);
-                } else {
-                    list = itemTableName;
-                }
-                // connection is done and tables exist
-                if (list != null && !list.isEmpty()) {
-                    // fill the combo
-                    Iterator<String> iterate = list.iterator();
-                    while (iterate.hasNext()) {
-                        String nameTable = iterate.next();
-                        String name = ExtractMetaDataFromDataBase.getTableTypeByTableName(nameTable);
-                        if (nameTable != null && name != null) {
-                            TableItem item = new TableItem(table, SWT.NONE);
-                            item.setText(0, nameTable);
-                            item.setText(1, name);
-                        }
-                    }
-                }
+                viewer.setInput(tableNodeList);
                 restoreCheckItems();
-                // if (forTemplate) {
-                // if (displayMessageBox) {
-                // MessageBox box = new MessageBox(getShell(), SWT.ICON_ERROR | SWT.OK | SWT.CANCEL);
-                //                        box.setText(Messages.getString("DatabaseTableForm.checkConnection")); //$NON-NLS-1$
-                //                        box.setMessage("Connection unsuccessfully!"); //$NON-NLS-1$
-                // box.open();
-                // }
-                // } else {
                 if (displayMessageBox) {
                     String msg = Messages.getString("DatabaseTableForm.connectionIsDone"); //$NON-NLS-1$
                     openInfoDialogInUIThread(getShell(), Messages.getString("DatabaseTableForm.checkConnection"), msg, false); //$NON-NLS-1$
                 }
-                // }
             }
         });
     }
@@ -646,7 +835,7 @@ public class SelectorTableForm extends AbstractForm {
      * 
      * @param tableItem
      */
-    protected void createTable(TableItem tableItem) {
+    protected void createTable(TreeItem tableItem) {
         String tableString = tableItem.getText(0);
 
         boolean checkConnectionIsDone = managerConnection.check(getIMetadataConnection(), true);
@@ -722,12 +911,7 @@ public class SelectorTableForm extends AbstractForm {
      * 
      * @param tableItem
      */
-    protected void deleteTable(TableItem tableItem) {
-
-        // if (itemTableName != null && !itemTableName.isEmpty()) {
-        // fill the combo
-        // if (itemTableName != null && !itemTableName.isEmpty()) {
-        // fill the combo
+    protected void deleteTable(TreeItem tableItem) {
         Collection<MetadataTable> tables = new ArrayList<MetadataTable>();
         Iterator<MetadataTable> iterate = ConnectionHelper.getTables(getConnection()).iterator();
         while (iterate.hasNext()) {
@@ -736,10 +920,21 @@ public class SelectorTableForm extends AbstractForm {
                 tables.add(metadata);
             }
         }
-        ProjectNodeHelper.removeTablesFromCurrentCatalogOrSchema(iMetadataConnection.getDatabase(),
-                iMetadataConnection.getSchema(), getConnection(), tables);
-        // }
-        // }
+        TableNode tableNode = (TableNode) tableItem.getData();
+        TableNode parent = tableNode.getParent();
+        String catalog = "";
+        String schema = "";
+        if (parent.getType() == TableNode.CATALOG) {
+            catalog = parent.getValue();
+        } else if (parent.getType() == TableNode.SCHEMA) {
+            schema = parent.getValue();
+            TableNode catalogNode = parent.getParent();
+            if (catalogNode != null) {
+                catalog = catalogNode.getValue();
+            }
+        }
+
+        ProjectNodeHelper.removeTablesFromCurrentCatalogOrSchema(catalog, schema, getConnection(), tables);
     }
 
     /**
@@ -753,11 +948,14 @@ public class SelectorTableForm extends AbstractForm {
         // This map is used to store the tableItems that are selected or unselected by the user.
         // see afterExecute() and beforeExecute(). If an item is in the map, it means that the item's
         // related thread is running.
-        Map<TableItem, RetrieveColumnRunnable> map = Collections
-                .synchronizedMap(new HashMap<TableItem, RetrieveColumnRunnable>());
+        Map<TreeItem, RetrieveColumnRunnable> map = Collections.synchronizedMap(new HashMap<TreeItem, RetrieveColumnRunnable>());
 
         public CustomThreadPoolExecutor(int queueCapacity) {
             super(queueCapacity);
+        }
+
+        public CustomThreadPoolExecutor(int queueCapacity, RejectedExecutionHandler handler) {
+            super(queueCapacity, handler);
         }
 
         /*
@@ -768,7 +966,7 @@ public class SelectorTableForm extends AbstractForm {
         @Override
         protected void afterExecute(Runnable r, Throwable t) {
             RetrieveColumnRunnable runnable = (RetrieveColumnRunnable) r;
-            map.remove(runnable.getTableItem());
+            map.remove(runnable.getTreeItem());
         }
 
         /*
@@ -779,7 +977,7 @@ public class SelectorTableForm extends AbstractForm {
         @Override
         protected void beforeExecute(Thread t, Runnable r) {
             RetrieveColumnRunnable runnable = (RetrieveColumnRunnable) r;
-            map.put(runnable.getTableItem(), runnable);
+            map.put(runnable.getTreeItem(), runnable);
         }
 
         /**
@@ -788,7 +986,7 @@ public class SelectorTableForm extends AbstractForm {
          * @param item
          * @return
          */
-        public boolean isThreadRunning(TableItem item) {
+        public boolean isThreadRunning(TreeItem item) {
             return map.containsKey(item);
         }
 
@@ -798,7 +996,7 @@ public class SelectorTableForm extends AbstractForm {
          * @param key
          * @return
          */
-        public synchronized RetrieveColumnRunnable getRunnable(TableItem key) {
+        public synchronized RetrieveColumnRunnable getRunnable(TreeItem key) {
             // Get the runnable from map first, else then find it in the waiting queue.
             RetrieveColumnRunnable runnable = map.get(key);
             if (runnable != null) {
@@ -806,7 +1004,7 @@ public class SelectorTableForm extends AbstractForm {
             }
             for (Iterator iter = getQueue().iterator(); iter.hasNext();) {
                 RetrieveColumnRunnable element = (RetrieveColumnRunnable) iter.next();
-                if (element.getTableItem() == key) {
+                if (element.getTreeItem() == key) {
                     return element;
                 }
             }
@@ -820,7 +1018,9 @@ public class SelectorTableForm extends AbstractForm {
      */
     class RetrieveColumnRunnable implements Runnable {
 
-        TableItem tableItem;
+        TreeItem treeItem;
+
+        TableNode tableNode;
 
         String tableString = null;
 
@@ -835,12 +1035,13 @@ public class SelectorTableForm extends AbstractForm {
          * 
          * @return the tableItem
          */
-        public TableItem getTableItem() {
-            return this.tableItem;
+        public TreeItem getTreeItem() {
+            return this.treeItem;
         }
 
-        RetrieveColumnRunnable(TableItem tableItem) {
-            this.tableItem = tableItem;
+        RetrieveColumnRunnable(TreeItem treeItem) {
+            this.treeItem = treeItem;
+            this.tableNode = (TableNode) treeItem.getData();
             setup();
         }
 
@@ -861,103 +1062,156 @@ public class SelectorTableForm extends AbstractForm {
          * Get all the parameters from UI for the non-UI job to use.
          */
         private void setup() {
-            tableString = tableItem.getText(0);
+            tableString = treeItem.getText(0);
         }
 
         public void run() {
             if (isCanceled()) {
                 return;
             }
-            metadataColumns = ExtractMetaDataFromDataBase.returnMetadataColumnsFormTable(iMetadataConnection, tableString, true);
-            if (isCanceled()) {
-                return;
-            }
-            IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
 
-            if (ExtractMetaDataFromDataBase.getTableTypeByTableName(tableString).equals(ETableTypes.TABLETYPE_TABLE.getName())) {
-                dbtable = RelationalFactory.eINSTANCE.createTdTable();
-            } else if (ExtractMetaDataFromDataBase.getTableTypeByTableName(tableString).equals(
-                    ETableTypes.TABLETYPE_VIEW.getName())) {
-                dbtable = RelationalFactory.eINSTANCE.createTdView();
-            } else {
-                dbtable = RelationalFactory.eINSTANCE.createTdTable();
-            }
-            // metadataTable = ConnectionFactory.eINSTANCE.createMetadataTable();
-            initExistingNames();
-            String lableName = IndiceHelper.getIndexedLabel(tableString, existingNames);
+            if (tableNode.getType() == TableNode.TABLE) {
+                // Connection conn = ExtractMetaDataUtils.getSqlConnection(iMetadataConnection);
+                // DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(conn,
+                // iMetadataConnection.getDbType());
+                NamedColumnSet table = tableNode.getTable();
+                if (table == null) {
+                    table = tableNode.getView();
+                }
 
-            // if (forTemplate) { //hywang modified for 0010012
-            lableName = MetadataToolHelper.validateValue(lableName);
-            // }
-            dbtable.setLabel(lableName);
-            dbtable.setSourceName(tableString);
-
-            Iterator<String> it = ExtractMetaDataFromDataBase.tableCommentsMap.keySet().iterator();
-            while (it.hasNext()) {
-                String key = it.next().toString();
-                if (key.equals(tableString)) {
-                    String comment = ExtractMetaDataFromDataBase.tableCommentsMap.get(key);
+                if (isCanceled()) {
+                    return;
+                }
+                IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
+                // only for oracle use all synonyms
+                boolean useAllSynonyms = ExtractMetaDataUtils.useAllSynonyms;
+                if (useAllSynonyms && EDatabaseTypeName.ORACLEFORSID.getDisplayName().equals(iMetadataConnection.getDbType())
+                        || EDatabaseTypeName.ACCESS.getDisplayName().equals(iMetadataConnection.getDbType())
+                        || EDatabaseTypeName.AS400.getDisplayName().equals(iMetadataConnection.getDbType())) {
+                    metadataColumns = ExtractMetaDataFromDataBase.returnMetadataColumnsFormTable(iMetadataConnection,
+                            tableString, true);
+                    if (ExtractMetaDataFromDataBase.getTableTypeByTableName(tableString).equals(
+                            ETableTypes.TABLETYPE_TABLE.getName())) {
+                        dbtable = RelationalFactory.eINSTANCE.createTdTable();
+                    } else if (ExtractMetaDataFromDataBase.getTableTypeByTableName(tableString).equals(
+                            ETableTypes.TABLETYPE_VIEW.getName())) {
+                        dbtable = RelationalFactory.eINSTANCE.createTdView();
+                    } else {
+                        dbtable = RelationalFactory.eINSTANCE.createTdTable();
+                    }
+                    Iterator<String> it = ExtractMetaDataFromDataBase.tableCommentsMap.keySet().iterator();
+                    while (it.hasNext()) {
+                        String key = it.next().toString();
+                        if (key.equals(tableString)) {
+                            String comment = ExtractMetaDataFromDataBase.tableCommentsMap.get(key);
+                            dbtable.setComment(comment);
+                            TableHelper.setComment(comment, dbtable);
+                            break;
+                        }
+                    }
+                    String lableName = IndiceHelper.getIndexedLabel(tableString, existingNames);
+                    lableName = MetadataToolHelper.validateValue(lableName);
+                    dbtable.setLabel(lableName);
+                } else {
+                    metadataColumns = ExtractMetaDataFromDataBase.returnColumns(iMetadataConnection, tableNode, true);
+                    String comment = null;
+                    String type = null;
+                    if (table instanceof TdTable) {
+                        comment = ((TdTable) table).getComment();
+                        type = ((TdTable) table).getTableType();
+                        dbtable = RelationalFactory.eINSTANCE.createTdTable();
+                    } else if (table instanceof TdView) {
+                        comment = ((TdView) table).getComment();
+                        type = ((TdView) table).getTableType();
+                        dbtable = RelationalFactory.eINSTANCE.createTdView();
+                    } else {
+                        comment = ((TdTable) table).getComment();
+                        type = ((TdTable) table).getTableType();
+                        dbtable = RelationalFactory.eINSTANCE.createTdTable();
+                    }
                     dbtable.setComment(comment);
                     TableHelper.setComment(comment, dbtable);
-                    break;
+                    dbtable.setTableType(type);
+                    String lableName = MetadataToolHelper.validateValue(table.getName());
+                    dbtable.setLabel(lableName);
                 }
-            }
-            dbtable.setId(factory.getNextId());
-            dbtable.setTableType(ExtractMetaDataFromDataBase.getTableTypeByTableName(tableString));
-            List<MetadataColumn> metadataColumnsValid = new ArrayList<MetadataColumn>();
-            Iterator iterate = metadataColumns.iterator();
-            while (iterate.hasNext()) {
-                MetadataColumn metadataColumn = (MetadataColumn) iterate.next();
-                if (metadataColumn.getTalendType().equals(JavaTypesManager.DATE.getId())
-                        || metadataColumn.getTalendType().equals(PerlTypesManager.DATE)) {
-                    if ("".equals(metadataColumn.getPattern())) { //$NON-NLS-1$
-                        metadataColumn.setPattern(TalendQuoteUtils.addQuotes("dd-MM-yyyy")); //$NON-NLS-1$
-                    }
-                }
-                // Check the label and add it to the table
-                metadataColumnsValid.add(metadataColumn);
-                dbtable.getColumns().add(metadataColumn);
-            }
-            if (!ConnectionHelper.getTables(getConnection()).contains(dbtable) && !limitTemplateTable(dbtable)) {
+                initExistingNames();
 
-                String schema = iMetadataConnection.getSchema();
-                String catalog = iMetadataConnection.getDatabase();
-                String databaseType = iMetadataConnection.getDbType();
-                EDatabaseTypeName currentType = EDatabaseTypeName.getTypeFromDbType(databaseType);
-                EDatabaseSchemaOrCatalogMapping curCatalog = currentType.getCatalogMappingField();
-                EDatabaseSchemaOrCatalogMapping curSchema = currentType.getSchemaMappingField();
-                if (curCatalog != null && curSchema != null) {
-                    switch (curCatalog) {
-                    case Login:
-                        catalog = iMetadataConnection.getUsername();
-                        break;
-                    case None:
-                        catalog = "";
-                        break;
+                dbtable.setSourceName(tableString);
+                dbtable.setId(factory.getNextId());
+                dbtable.setTableType(tableNode.getItemType());
+
+                List<MetadataColumn> metadataColumnsValid = new ArrayList<MetadataColumn>();
+                Iterator iterate = metadataColumns.iterator();
+                while (iterate.hasNext()) {
+                    MetadataColumn metadataColumn = (MetadataColumn) iterate.next();
+                    if (metadataColumn.getTalendType().equals(JavaTypesManager.DATE.getId())
+                            || metadataColumn.getTalendType().equals(PerlTypesManager.DATE)) {
+                        if ("".equals(metadataColumn.getPattern())) { //$NON-NLS-1$
+                            metadataColumn.setPattern(TalendQuoteUtils.addQuotes("dd-MM-yyyy")); //$NON-NLS-1$
+                        }
                     }
-                    switch (curSchema) {
-                    case Login:
-                        schema = iMetadataConnection.getUsername();
-                        break;
-                    case Schema:
+                    // Check the label and add it to the table
+                    metadataColumnsValid.add(metadataColumn);
+                    dbtable.getColumns().add(metadataColumn);
+                }
+                if (!ConnectionHelper.getTables(getConnection()).contains(dbtable) && !limitTemplateTable(dbtable)) {
+                    String catalog = "";
+                    String schema = "";
+                    if (useAllSynonyms && EDatabaseTypeName.ORACLEFORSID.getDisplayName().equals(iMetadataConnection.getDbType())
+                            || EDatabaseTypeName.ACCESS.getDisplayName().equals(iMetadataConnection.getDbType())
+                            || EDatabaseTypeName.AS400.getDisplayName().equals(iMetadataConnection.getDbType())) {
                         schema = iMetadataConnection.getSchema();
-                        break;
-                    case None:
-                        schema = "";
-                        break;
-                    case Default_Name:
-                        schema = iMetadataConnection.getLabel(); // label for default name for
-                        // access or such kind of
-                        // non-catalogs databases
-                        break;
-                    }
-                }
+                        catalog = iMetadataConnection.getDatabase();
+                        String databaseType = iMetadataConnection.getDbType();
+                        EDatabaseTypeName currentType = EDatabaseTypeName.getTypeFromDbType(databaseType);
+                        EDatabaseSchemaOrCatalogMapping curCatalog = currentType.getCatalogMappingField();
+                        EDatabaseSchemaOrCatalogMapping curSchema = currentType.getSchemaMappingField();
+                        if (curCatalog != null && curSchema != null) {
+                            switch (curCatalog) {
+                            case Login:
+                                catalog = iMetadataConnection.getUsername();
+                                break;
+                            case None:
+                                catalog = "";
+                                break;
+                            }
+                            switch (curSchema) {
+                            case Login:
+                                schema = iMetadataConnection.getUsername();
+                                break;
+                            case Schema:
+                                schema = iMetadataConnection.getSchema();
+                                break;
+                            case None:
+                                schema = "";
+                                break;
+                            case Default_Name:
+                                schema = iMetadataConnection.getLabel(); // label for default name for
+                                // access or such kind of
+                                // non-catalogs databases
+                                break;
+                            }
+                        }
 
-                schema = ExtractMetaDataUtils.getMeataConnectionSchema(iMetadataConnection);
-                ProjectNodeHelper.addTableForTemCatalogOrSchema(catalog, schema, getConnection(), dbtable, iMetadataConnection);
-                // getConnection().getTables().add(metadataTable);hywang
+                        schema = ExtractMetaDataUtils.getMeataConnectionSchema(iMetadataConnection);
+                    } else {
+                        TableNode parent = tableNode.getParent();
+                        if (parent.getType() == TableNode.CATALOG) {
+                            catalog = parent.getValue();
+                        } else if (parent.getType() == TableNode.SCHEMA) {
+                            schema = parent.getValue();
+                            TableNode catalogNode = parent.getParent();
+                            if (catalogNode != null) {
+                                catalog = catalogNode.getValue();
+                            }
+                        }
+                    }
+
+                    ProjectNodeHelper.addTableForTemCatalogOrSchema(catalog, schema, getConnection(), dbtable,
+                            iMetadataConnection);
+                }
             }
-            // }
 
             checkConnectionIsDone = true;
 
@@ -974,15 +1228,15 @@ public class SelectorTableForm extends AbstractForm {
         }
 
         public void updateUIInThreadIfThread() {
-            if (tableItem.isDisposed()) {
+            if (treeItem.isDisposed()) {
                 return;
             }
 
             if (checkConnectionIsDone) {
-                tableItem.setText(2, "" + metadataColumns.size()); //$NON-NLS-1$
-                tableItem.setText(3, Messages.getString("SelectorTableForm.Success")); //$NON-NLS-1$
+                treeItem.setText(2, "" + metadataColumns.size()); //$NON-NLS-1$
+                treeItem.setText(3, Messages.getString("SelectorTableForm.Success")); //$NON-NLS-1$
                 countSuccess++;
-                tableColumnNums.put(tableItem.getText(0), metadataColumns.size());
+                tableColumnNums.put(treeItem.getText(0), metadataColumns.size());
             } else {
                 updateStatus(IStatus.WARNING, Messages.getString("DatabaseTableForm.connectionFailure")); //$NON-NLS-1$
                 new ErrorDialogWidthDetailArea(getShell(), PID, Messages.getString("DatabaseTableForm.connectionFailure"), //$NON-NLS-1$
@@ -1007,38 +1261,44 @@ public class SelectorTableForm extends AbstractForm {
      * @param tableItem
      * @param size
      */
-    private void refreshTable(final TableItem tableItem, final int size) {
+    private void refreshTable(final TreeItem treeItem, final int size) {
         if (threadExecutor == null) {
             return;
         }
 
-        if (!threadExecutor.isThreadRunning(tableItem)) {
-            if (managerConnection.check(getIMetadataConnection(), true)) {
-                RetrieveColumnRunnable runnable = new RetrieveColumnRunnable(tableItem);
-                // wzhang modified to fix bug 9066. if table exist, don't run thread.
-                if (!(isExistingNames(tableItem.getText(0)))) {
-                    threadExecutor.execute(runnable);
+        if (!threadExecutor.isThreadRunning(treeItem)) {
+            TableNode node = (TableNode) treeItem.getData();
+            if (node.getType() == TableNode.TABLE) {
+                if (managerConnection.check(getIMetadataConnection(), true)) {
+                    RetrieveColumnRunnable runnable = new RetrieveColumnRunnable(treeItem);
+                    String value = node.getValue();
+                    if (!(isExistingNames(value))) {
+                        threadExecutor.execute(runnable);
+                    }
                 }
             }
         } else {
-            RetrieveColumnRunnable runnable = threadExecutor.getRunnable(tableItem);
+            RetrieveColumnRunnable runnable = threadExecutor.getRunnable(treeItem);
             runnable.setCanceled(false);
         }
     }
 
-    private void clearTableItem(TableItem item) {
+    private void clearTableItem(TreeItem item) {
         clearTableItem(item, true);
     }
 
-    private void clearTableItem(TableItem item, boolean deleteFromConnection) {
-        if (deleteFromConnection) {
-            deleteTable(item);
-        }
-        item.setText(2, ""); //$NON-NLS-1$
-        item.setText(3, ""); //$NON-NLS-1$
-        RetrieveColumnRunnable runnable = threadExecutor.getRunnable(item);
-        if (runnable != null) {
-            runnable.setCanceled(true);
+    private void clearTableItem(TreeItem item, boolean deleteFromConnection) {
+        TableNode node = (TableNode) item.getData();
+        if (node.getType() == TableNode.TABLE) {
+            if (deleteFromConnection) {
+                deleteTable(item);
+            }
+            item.setText(2, ""); //$NON-NLS-1$
+            item.setText(3, ""); //$NON-NLS-1$
+            RetrieveColumnRunnable runnable = threadExecutor.getRunnable(item);
+            if (runnable != null) {
+                runnable.setCanceled(true);
+            }
         }
     }
 
@@ -1066,32 +1326,7 @@ public class SelectorTableForm extends AbstractForm {
         nameFilter.addModifyListener(new ModifyListener() {
 
             public void modifyText(ModifyEvent e) {
-                List<String> newList = new ArrayList<String>();
-
-                String pattern = nameFilter.getText();
-                SearchPattern matcher = new SearchPattern();
-                matcher.setPattern(pattern);
-                for (int i = 0; i < itemTableName.size(); i++) {
-                    String item = itemTableName.get(i);
-                    if (matcher.matches(item)) {
-                        newList.add(item);
-                    }
-                }
-                for (int j = 0; j < table.getItemCount(); j++) {
-                    TableItem item = table.getItem(j);
-                    if (item.getChecked()) {
-                        clearTableItem(item, false);
-                        item.setChecked(false);
-                    }
-                }
-                table.clearAll();
-                if (!table.isDisposed()) {
-                    table.dispose();
-                    table = null;
-                    createTable();
-                    addTableListener();
-                }
-                createAllItems(false, newList);
+                viewer.refresh();
             }
 
         });
@@ -1109,18 +1344,24 @@ public class SelectorTableForm extends AbstractForm {
             MetadataTable table = (MetadataTable) obj;
             checkedItems.add(table.getLabel());
         }
-        for (TableItem tableItem : table.getItems()) {
-            tableItem.setChecked(false);
-            if (checkedItems.contains(tableItem.getText(0))) {
-                tableItem.setChecked(true);
-                Integer num = tableColumnNums.get(tableItem.getText(0));
-                if (num != null) {
-                    // get column num from previous result
-                    tableItem.setText(2, num.toString());
-                    tableItem.setText(3, Messages.getString("SelectorTableForm.Success")); //$NON-NLS-1$   
-                } else {
-                    // retrieve column num again
-                    refreshTable(tableItem, -1);
+        for (TreeItem catalogItem : tree.getItems()) {
+            TreeItem[] schemaItems = catalogItem.getItems();
+            for (TreeItem schemaItem : schemaItems) {
+                TreeItem[] tableItems = schemaItem.getItems();
+                for (TreeItem tableItem : tableItems) {
+                    tableItem.setChecked(false);
+                    if (checkedItems.contains(tableItem.getText(0))) {
+                        tableItem.setChecked(true);
+                        Integer num = tableColumnNums.get(tableItem.getText(0));
+                        if (num != null) {
+                            // get column num from previous result
+                            tableItem.setText(2, num.toString());
+                            tableItem.setText(3, Messages.getString("SelectorTableForm.Success")); //$NON-NLS-1$   
+                        } else {
+                            // retrieve column num again
+                            refreshTable(tableItem, -1);
+                        }
+                    }
                 }
             }
         }
@@ -1184,15 +1425,15 @@ public class SelectorTableForm extends AbstractForm {
      */
     public void initControlData() {
         checkConnection(false);
-        if (itemTableName != null && itemTableName.size() > 0) {
-            threadExecutor = new CustomThreadPoolExecutor(itemTableName.size());
+        if (!tableNodeList.isEmpty()) {
+            threadExecutor = new CustomThreadPoolExecutor(5, new ThreadPoolExecutor.CallerRunsPolicy());
         }
     }
 
     public void initControlData(boolean flag) {
         checkConnection(flag);
-        if (itemTableName != null && itemTableName.size() > 0) {
-            threadExecutor = new CustomThreadPoolExecutor(itemTableName.size());
+        if (tableNodeList != null && tableNodeList.size() > 0) {
+            threadExecutor = new CustomThreadPoolExecutor(5, new ThreadPoolExecutor.CallerRunsPolicy());
         }
     }
 
@@ -1206,10 +1447,6 @@ public class SelectorTableForm extends AbstractForm {
                 return (DatabaseConnection) connectionItem.getConnection();
             }
         }
-    }
-
-    public Table getTable() {
-        return this.table;
     }
 
     /**
@@ -1267,7 +1504,51 @@ public class SelectorTableForm extends AbstractForm {
         return exist;
     }
 
+    public Set<String> getCheckedItem() {
+        Set<String> checkedItems = new HashSet<String>();
+        for (Object obj : ConnectionHelper.getTables(getConnection())) {
+            if (obj == null) {
+                continue;
+            }
+            MetadataTable table = (MetadataTable) obj;
+            checkedItems.add(table.getLabel());
+        }
+        return checkedItems;
+    }
+
     public List<String> getItemTableNameList() {
         return this.itemTableName;
+    }
+
+    public List<TableNode> getTableNodeList() {
+        return this.tableNodeList;
+    }
+
+    public String getNameFilter() {
+        return this.nameFilter.getText().trim();
+    }
+
+    /**
+     * 
+     * wzhang SelectorTableForm class global comment. Detailled comment
+     */
+    class selectorViewerFilter extends ViewerFilter {
+
+        @Override
+        public boolean select(Viewer viewer, Object parentElement, Object element) {
+            String pattern = getNameFilter();
+            SearchPattern matcher = new SearchPattern();
+            matcher.setPattern(pattern);
+            if (element instanceof TableNode) {
+                TableNode node = (TableNode) element;
+                if (node.getType() == TableNode.TABLE) {
+                    if (!matcher.matches(node.getValue())) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
     }
 }

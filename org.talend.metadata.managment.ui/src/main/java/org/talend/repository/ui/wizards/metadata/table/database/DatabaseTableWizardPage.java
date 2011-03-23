@@ -21,6 +21,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
+import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
+import org.talend.core.model.metadata.builder.database.TableNode;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.repository.ui.swt.utils.AbstractForm;
 import org.talend.repository.ui.utils.ManagerConnection;
@@ -107,9 +109,16 @@ public class DatabaseTableWizardPage extends WizardPage {
     public IWizardPage getPreviousPage() {
         IWizardPage perviousPage = super.getPreviousPage();
         if (perviousPage instanceof SelectorTableWizardPage) {
-            List<String> nameList = ((SelectorTableWizardPage) perviousPage).getItemListName();
-            if (nameList != null && nameList.isEmpty()) {
-                ((SelectorTableWizardPage) perviousPage).initControlData();
+            if (ExtractMetaDataUtils.useAllSynonyms) {
+                List<String> nameList = ((SelectorTableWizardPage) perviousPage).getItemListName();
+                if (nameList != null && nameList.isEmpty()) {
+                    ((SelectorTableWizardPage) perviousPage).initControlData();
+                }
+            } else {
+                List<TableNode> nodeList = ((SelectorTableWizardPage) perviousPage).getTableNodeList();
+                if (nodeList != null && nodeList.isEmpty()) {
+                    ((SelectorTableWizardPage) perviousPage).initControlData();
+                }
             }
         }
         return perviousPage;

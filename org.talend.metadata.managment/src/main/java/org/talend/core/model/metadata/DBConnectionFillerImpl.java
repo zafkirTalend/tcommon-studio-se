@@ -33,7 +33,6 @@ import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
-import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.metadata.builder.util.DatabaseConstant;
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
@@ -100,12 +99,13 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         dbconn.setName(metadataBean.getLabel());
         dbconn.setLabel(metadataBean.getLabel());
         dbconn.setVersion(metadataBean.getVersion());
-        dbconn.setUiSchema(metadataBean.getOtherParameter());
+        dbconn.setUiSchema(metadataBean.getSchema());
 
         try {
             if (sqlConnection == null || sqlConnection.isClosed()) {
                 this.checkConnection(metadataBean);
             }
+            MetadataConnectionUtils.setMetadataCon(metadataBean);
             // fill some base parameter
             // fillMetadataParams(metadataBean, connection);
             // software
@@ -191,6 +191,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         }
         ResultSet schemas = null;
         try {
+            if (EDatabaseTypeName.ACCESS.getProduct().equals(((DatabaseConnection) dbConn).getProductId())) {
+                return null;
+            }
             schemas = dbJDBCMetadata.getSchemas();
         } catch (SQLException e) {
             log.error("This database don't contian construct of schema.");
@@ -397,6 +400,88 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         return schemaList;
     }
 
+    public List<MetadataTable> fillAll(Package pack, DatabaseMetaData dbJDBCMetadata, List<String> tableFilter,
+            String tablePattern, String[] tableType) {
+        List<MetadataTable> list = new ArrayList<MetadataTable>();
+        if (dbJDBCMetadata == null) {
+            return null;
+        }
+        Package catalogOrSchema = PackageHelper.getCatalogOrSchema(pack);
+        String catalogName = null;
+        String schemaPattern = null;
+
+        if (catalogOrSchema != null) {
+            // catalog
+            if (catalogOrSchema instanceof Catalog) {
+                catalogName = catalogOrSchema.getName();
+            } else {// schema
+                Package parentCatalog = PackageHelper.getParentPackage(catalogOrSchema);
+                schemaPattern = catalogOrSchema.getName();
+                catalogName = parentCatalog == null ? null : parentCatalog.getName();
+            }
+        }
+        try {
+            ResultSet tables = dbJDBCMetadata.getTables(catalogName, schemaPattern, tablePattern, tableType);
+            String productName = dbJDBCMetadata.getDatabaseProductName();
+            while (tables.next()) {
+                String tableCatalog = tables.getString(GetTable.TABLE_CAT.name());
+                String tableSchema = tables.getString(GetTable.TABLE_SCHEM.name());
+                String tableName = tables.getString(GetTable.TABLE_NAME.name());
+                String temptableType = tables.getString(GetTable.TABLE_TYPE.name());
+
+                // for
+                if (!filterMetadaElement(tableFilter, tableName)) {
+                    continue;
+                }
+                String tableOwner = null;
+                if (MetadataConnectionUtils.isSybase(dbJDBCMetadata.getConnection())) {
+                    tableOwner = tableSchema;
+                }
+                // common
+                boolean flag = true;
+                String tableComment = null;
+                if (pack != null) {
+                    Connection c = ConnectionHelper.getConnection(pack);
+                    flag = MetadataConnectionUtils.isOracle8i(c);
+                }
+                if (!flag) {
+                    tableComment = tables.getString(GetTable.REMARKS.name());
+                    if (StringUtils.isBlank(tableComment)) {
+                        String selectRemarkOnTable = MetadataConnectionUtils.getCommonQueryStr(productName, tableName);
+                        if (selectRemarkOnTable != null) {
+                            tableComment = executeGetCommentStatement(selectRemarkOnTable, dbJDBCMetadata.getConnection());
+                        }
+                    }
+                }
+                MetadataTable metadatatable = null;
+                if (TableType.VIEW.toString().equals(temptableType)) {
+                    metadatatable = RelationalFactory.eINSTANCE.createTdView();
+                } else {
+                    metadatatable = RelationalFactory.eINSTANCE.createTdTable();
+                }
+
+                metadatatable.setName(tableName);
+                metadatatable.setTableType(temptableType);
+                metadatatable.setLabel(metadatatable.getName());
+                if (tableOwner != null) {
+                    ColumnSetHelper.setTableOwner(tableOwner, metadatatable);
+                }
+                if (tableComment != null) {
+                    metadatatable.setComment(tableComment);
+                    ColumnSetHelper.setComment(tableComment, metadatatable);
+                }
+                list.add(metadatatable);
+            }
+            if (isLinked()) {
+                PackageHelper.addMetadataTable(ListUtils.castList(MetadataTable.class, list), pack);
+            }
+        } catch (SQLException e) {
+            log.error(e, e);
+        }
+
+        return list;
+    }
+
     public List<TdTable> fillTables(Package pack, DatabaseMetaData dbJDBCMetadata, List<String> tableFilter, String tablePattern,
             String[] tableType) {
         List<TdTable> tableList = new ArrayList<TdTable>();
@@ -494,11 +579,10 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
      * @param tableList
      * @param catalogName
      * @param schemaPattern
-     * @throws SQLException 
+     * @throws SQLException
      */
     private void getOracleTables(String productName, Package pack, DatabaseMetaData dbJDBCMetadata, List<TdTable> tableList,
-            String catalogName,
-            String schemaPattern) throws SQLException {
+            String catalogName, String schemaPattern) throws SQLException {
         List<String> excuteGetUserTableStatement = this
                 .excuteGetUserTableStatement(dbJDBCMetadata.getConnection(), schemaPattern);
         for (String tableName : excuteGetUserTableStatement) {
@@ -532,6 +616,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
 
     /**
      * DOC klliu Comment method "excuteGetUserTableStatement".
+     * 
      * @param connection
      * @param schemaPattern
      * @return
@@ -605,6 +690,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             while (tables.next()) {
 
                 String tableName = tables.getString(GetTable.TABLE_NAME.name());
+                String type = tables.getString(GetTable.TABLE_TYPE.name());
                 if (!filterMetadaElement(viewFilter, tableName)) {
                     continue;
                 }
@@ -631,7 +717,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 // create table
                 TdView table = RelationalFactory.eINSTANCE.createTdView();
                 table.setName(tableName);
-                table.setTableType(ExtractMetaDataFromDataBase.ETableTypes.TABLETYPE_TABLE.getName());
+                table.setTableType(type);
                 table.setLabel(table.getName());
                 if (tableOwner != null) {
                     ColumnSetHelper.setTableOwner(tableOwner, table);
@@ -743,7 +829,11 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     column.setSourceType(MetadataTalendType.getMappingTypeRetriever(dbConnection.getDbmsId())
                             .getDefaultSelectedDbType(talendType));
                 }
-                column.setNullable("YES".equals(columns.getString(GetColumn.IS_NULLABLE.name()))); //$NON-NLS-1$
+                try {
+                    column.setNullable("YES".equals(columns.getString(GetColumn.IS_NULLABLE.name()))); //$NON-NLS-1$
+                } catch (Exception e) {
+                    // do nothing
+                }
                 returnColumns.add(column);
                 columnMap.put(columnName, column);
 
@@ -878,7 +968,6 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         expression.setLanguage(language);
         return expression;
     }
-
 
     // public static void executeGetSchemas(DatabaseMetaData dbmd) {
     // try {

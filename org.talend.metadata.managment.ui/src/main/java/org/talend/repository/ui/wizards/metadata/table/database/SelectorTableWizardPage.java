@@ -25,6 +25,7 @@ import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.database.TableInfoParameters;
+import org.talend.core.model.metadata.builder.database.TableNode;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.repository.ui.swt.utils.AbstractForm;
@@ -211,6 +212,10 @@ public class SelectorTableWizardPage extends TemplateWizardPage {
      */
     public Connection getConnection() {
         return getDatabaseConnection();
+    }
+
+    public List<TableNode> getTableNodeList() {
+        return tableForm.getTableNodeList();
     }
 
     public List<String> getItemListName() {

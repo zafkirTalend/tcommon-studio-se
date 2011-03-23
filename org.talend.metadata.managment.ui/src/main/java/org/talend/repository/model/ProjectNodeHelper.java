@@ -20,7 +20,9 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
@@ -246,7 +248,14 @@ public class ProjectNodeHelper {
         return allTables;
     }
 
-    public static void addTableForSpecifiedDataPackage(DatabaseConnection dbconn, MetadataTable dbtable) {
+    /**
+     * 
+     * wzhang Comment method "addDefaultTableForSpecifiedDataPackage". this function only for add metadataTable.
+     * 
+     * @param dbconn
+     * @param dbtable
+     */
+    public static void addDefaultTableForSpecifiedDataPackage(DatabaseConnection dbconn, MetadataTable dbtable) {
         // if the database connection is contextmodel, need to get the original value of every parameter
         IMetadataConnection imetadataConnection = ConvertionHelper.convert(dbconn);
         String schema = imetadataConnection.getSchema();
@@ -279,6 +288,48 @@ public class ProjectNodeHelper {
                 // access or such kind of
                 // non-catalogs databases
                 break;
+            }
+        }
+        boolean isAccess = EDatabaseTypeName.ACCESS.getDisplayName().equals(imetadataConnection.getDbType());
+        if (!isAccess) {
+            schema = ExtractMetaDataUtils.getMeataConnectionSchema(imetadataConnection);
+        }
+        // for olap connection
+        boolean isOlap = ExtractMetaDataUtils.isOLAPConnection(dbconn);
+        if (isOlap) {
+            List<Catalog> catalogs = ConnectionHelper.getCatalogs(dbconn);
+            if (!catalogs.isEmpty()) {
+                Catalog c = catalogs.get(0);
+                catalog = c.getName();
+                if (!CatalogHelper.getSchemas(c).isEmpty()) {
+                    Schema s = CatalogHelper.getSchemas(c).get(0);
+                    schema = s.getName();
+                }
+            }
+        }
+
+        addTableForTemCatalogOrSchema(catalog, schema, dbconn, dbtable, imetadataConnection);
+    }
+
+    public static void addTableForSpecifiedDataPackage(DatabaseConnection dbconn, MetadataTable dbtable) {
+        // if the database connection is contextmodel, need to get the original value of every parameter
+        IMetadataConnection imetadataConnection = ConvertionHelper.convert(dbconn);
+        DatabaseConnection conn = (DatabaseConnection) imetadataConnection.getCurrentConnection();
+        Collection<orgomg.cwm.objectmodel.core.Package> newDataPackage = EcoreUtil.copyAll(dbconn.getDataPackage());
+        ConnectionHelper.addPackages(newDataPackage, conn);
+
+        String catalog = "";
+        String schema = "";
+        EObject container = dbtable.eContainer();
+        if (container != null) {
+            if (container instanceof Schema) {
+                schema = ((Schema) container).getName();
+                EObject c = container.eContainer();
+                if (c != null && c instanceof Catalog) {
+                    catalog = ((Catalog) c).getName();
+                }
+            } else if (container instanceof Catalog) {
+                catalog = ((Catalog) container).getName();
             }
         }
         boolean isAccess = EDatabaseTypeName.ACCESS.getDisplayName().equals(imetadataConnection.getDbType());

@@ -791,4 +791,33 @@ public class ExtractMetaDataUtils {
         IMetadataConnection imetadataConnection = ConvertionHelper.convert(dbConnection, true);
         return imetadataConnection.getSchema();
     }
+
+    public static Connection getSqlConnection(IMetadataConnection metadataConnection) {
+        Connection connection = null;
+        List list = getConnection(metadataConnection.getDbType(), metadataConnection.getUrl(), metadataConnection.getUsername(),
+                metadataConnection.getPassword(), metadataConnection.getDatabase(), metadataConnection.getSchema(),
+                metadataConnection.getDriverClass(), metadataConnection.getDriverJarPath(),
+                metadataConnection.getDbVersionString(), metadataConnection.getAdditionalParams());
+        if (list != null && list.size() > 0) {
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i) instanceof Connection) {
+                    connection = (Connection) list.get(i);
+                    break;
+                }
+            }
+        }
+        return connection;
+    }
+
+    public static boolean isOLAPConnection(DatabaseConnection connection) {
+        if (connection != null && connection.getProductId().equals(EDatabaseTypeName.GENERAL_JDBC.getProduct())) {
+            String url = connection.getURL();
+            String value = url.substring(url.indexOf(":") + 1);
+            String substring = value.substring(0, value.indexOf(":"));
+            if (substring.contains("olap")) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

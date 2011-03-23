@@ -45,23 +45,20 @@ import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.MappingTypeRetriever;
-import org.talend.core.model.metadata.MetadataFillFactory;
 import org.talend.core.model.metadata.MetadataTable;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
-import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.core.model.metadata.builder.util.TDColumnAttributeHelper;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.runtime.CoreRuntimePlugin;
-import org.talend.cwm.helper.ConnectionHelper;
+import org.talend.cwm.helper.ColumnSetHelper;
 import org.talend.cwm.relational.RelationalFactory;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.repository.model.IRepositoryService;
 import org.talend.utils.sql.metadata.constants.GetTable;
-import orgomg.cwm.resource.relational.Catalog;
-import orgomg.cwm.resource.relational.Schema;
+import orgomg.cwm.resource.relational.NamedColumnSet;
 
 /**
  * DOC cantoine. Extract Meta Data Table. Contains all the Table and Metadata about a DB Connection. <br/>
@@ -355,6 +352,65 @@ public class ExtractMetaDataFromDataBase {
         }
     }
 
+    public static synchronized List<TdColumn> returnColumns(IMetadataConnection iMetadataConnection, TableNode tableNode,
+            boolean... dontCreateClose) {
+        List<TdColumn> metadataColumns = new ArrayList<TdColumn>();
+        boolean needCreateAndClose = dontCreateClose.length == 0 || !dontCreateClose[0];
+        if (tableNode.getType() != TableNode.TABLE) {
+            return metadataColumns;
+        }
+        NamedColumnSet table = tableNode.getTable();
+        if (table == null) {
+            table = tableNode.getView();
+        }
+        if (table == null) {
+            return metadataColumns;
+        }
+
+        try {
+            // WARNING Schema equals sid or database
+            if (needCreateAndClose || ExtractMetaDataUtils.conn == null || ExtractMetaDataUtils.conn.isClosed()) {
+                ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(),
+                        iMetadataConnection.getUsername(), iMetadataConnection.getPassword(), iMetadataConnection.getDatabase(),
+                        iMetadataConnection.getSchema(), iMetadataConnection.getDriverClass(),
+                        iMetadataConnection.getDriverJarPath(), iMetadataConnection.getDbVersionString(),
+                        iMetadataConnection.getAdditionalParams());
+            }
+            String dbType = iMetadataConnection.getDbType();
+            DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn, dbType);
+
+            String tableLabel = tableNode.getValue();
+            TableNode newNode = tableNode;
+            String name = newNode.getItemType();
+
+            // StringUtils.trimToEmpty(name) is because bug 4547
+            if (name != null && StringUtils.trimToEmpty(name).equals(ETableTypes.TABLETYPE_SYNONYM.getName())) {
+                String tableName = getTableNameBySynonym(ExtractMetaDataUtils.conn, newNode.getValue());
+                if (tableName.contains("/")) {
+                    tableName = tableName.replace("/", "");
+                }
+                newNode.setValue(tableName);
+            } else {
+                if (tableLabel.contains("/")) {
+                    tableLabel = tableLabel.replace("/", "");
+                }
+                newNode.setValue(tableLabel);
+            }
+
+            metadataColumns = ExtractMetaDataFromDataBase.extractColumns(dbMetaData, newNode, iMetadataConnection, dbType);
+
+            ColumnSetHelper.addColumns(table, metadataColumns);
+
+            if (needCreateAndClose) {
+                ExtractMetaDataUtils.closeConnection();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return metadataColumns;
+    }
+
     /**
      * DOC cantoine. Method to return a Collection of Column about a Table for a DB connection.
      * 
@@ -461,6 +517,282 @@ public class ExtractMetaDataFromDataBase {
         // return table.replaceAll("_", "/_");
     }
 
+    public static List<TdColumn> extractColumns(DatabaseMetaData dbMetaData, TableNode tableNode,
+            IMetadataConnection metadataConnection, String databaseType) {
+        columnIndex = 0;
+        List<TdColumn> metadataColumns = new ArrayList<TdColumn>();
+        HashMap<String, String> primaryKeys = new HashMap<String, String>();
+
+        try {
+            String catalogName = null;
+            String schemaName = null;
+
+            TableNode parent = tableNode.getParent();
+            if (parent != null) {
+                if (parent.getType() == TableNode.CATALOG) {
+                    catalogName = parent.getValue();
+                } else if (parent.getType() == TableNode.SCHEMA) {
+                    schemaName = parent.getValue();
+                    TableNode catalogNode = parent.getParent();
+                    if (catalogNode != null) {
+                        catalogName = catalogNode.getValue();
+                    }
+                }
+            }
+            boolean isAccess = EDatabaseTypeName.ACCESS.getDisplayName().equals(metadataConnection.getDbType());
+
+            try {
+                ResultSet keys;
+                if (!isAccess) {
+                    keys = dbMetaData.getPrimaryKeys(catalogName, schemaName, tableNode.getValue());
+                } else {
+                    keys = dbMetaData.getIndexInfo(catalogName, schemaName, tableNode.getValue(), true, true);
+                }
+                primaryKeys.clear();
+                while (keys.next()) {
+                    primaryKeys.put(keys.getString("COLUMN_NAME"), "PRIMARY KEY"); //$NON-NLS-1$ //$NON-NLS-2$
+                }
+                keys.close();
+            } catch (Exception e) {
+                log.error(e.toString());
+            }
+
+            // PTODO ftang: should to support all kinds of databases not only for Mysql.
+            Connection connection = dbMetaData.getConnection();
+            checkUniqueKeyConstraint(tableNode.getValue(), primaryKeys, connection);
+            String tableName = tableNode.getValue();
+            ResultSet columns;
+
+            if (ExtractMetaDataUtils.isUseAllSynonyms()) {
+                String sql = "select * from all_tab_columns where table_name='" + tableName + "' "; //$NON-NLS-1$ //$NON-NLS-2$
+                Statement stmt = ExtractMetaDataUtils.conn.createStatement();
+                ExtractMetaDataUtils.setQueryStatementTimeout(stmt);
+                columns = stmt.executeQuery(sql);
+            } else {
+                columns = dbMetaData.getColumns(catalogName, schemaName, tableName, null);
+            }
+
+            // boolean isMYSQL = EDatabaseTypeName.MYSQL.getDisplayName().equals(metadataConnection.getDbType());
+            // ResultSetMetaData resultMetadata = null;
+            // if (isMYSQL) {
+            // Statement statement = connection.createStatement();
+            // String query = "SELECT * FROM " + tableName + " limit 1";
+            // ResultSet resultSet = statement.executeQuery(query);
+            // resultMetadata = resultSet.getMetaData();
+            // }
+            IRepositoryService repositoryService = CoreRuntimePlugin.getInstance().getRepositoryService();
+            boolean isMSSQL = EDatabaseTypeName.MSSQL.getDisplayName().equals(metadataConnection.getDbType());
+            while (columns.next()) {
+                Boolean b = false;
+                String fetchTableName = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "TABLE_NAME", null); //$NON-NLS-1$
+                fetchTableName = ManagementTextUtils.filterSpecialChar(fetchTableName); // for 8115
+                if (fetchTableName.equals(tableName) || databaseType.equals(EDatabaseTypeName.SQLITE.getDisplayName())) {
+                    TdColumn metadataColumn = RelationalFactory.eINSTANCE.createTdColumn();
+                    String label = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "COLUMN_NAME", null); //$NON-NLS-1$
+                    label = ManagementTextUtils.filterSpecialChar(label);
+                    String sub = ""; //$NON-NLS-1$
+                    String sub2 = ""; //$NON-NLS-1$
+                    if (label != null && label.length() > 0 && label.startsWith("_")) { //$NON-NLS-1$
+                        sub = label.substring(1);
+                        if (sub != null && sub.length() > 0) {
+                            sub2 = sub.substring(1);
+                        }
+                    }
+                    if (coreService.isKeyword(label) || coreService.isKeyword(sub) || coreService.isKeyword(sub2)) {
+                        label = "_" + label; //$NON-NLS-1$
+                        b = true;
+                    }
+                    metadataColumn.setLabel(label); //$NON-NLS-1$
+                    String label2 = metadataColumn.getLabel();
+                    if (label2 != null && label2.length() > 0 && label2.startsWith("_")) { //$NON-NLS-1$
+                        String substring = label2.substring(1);
+                        if (b
+                                && label2.startsWith("_") //$NON-NLS-1$
+                                && (coreService.isKeyword(substring) || coreService.isKeyword(sub) || coreService.isKeyword(sub2))) {
+                            label2 = substring;
+                        }
+                    }
+                    metadataColumn.setOriginalField(label2);
+
+                    // Validate the column if it contains space or illegal
+                    // characters.
+                    if (repositoryService != null) {
+                        // metadataColumn.setDisplayField(repositoryService.validateColumnName(metadataColumn.getLabel(),
+                        // columnIndex));
+                        metadataColumn.setLabel(repositoryService.validateColumnName(label, columnIndex));
+                    }
+                    columnIndex++;
+
+                    if (primaryKeys != null && !primaryKeys.isEmpty()
+                            && primaryKeys.get(metadataColumn.getOriginalField()) != null) {
+                        metadataColumn.setKey(true);
+                    } else {
+                        metadataColumn.setKey(false);
+                    }
+
+                    String typeName = "TYPE_NAME"; //$NON-NLS-1$
+                    if (ExtractMetaDataUtils.isUseAllSynonyms()) {
+                        typeName = "DATA_TYPE"; //$NON-NLS-1$
+                    }
+                    String dbType = ExtractMetaDataUtils.getStringMetaDataInfo(columns, typeName, null).toUpperCase(); //$NON-NLS-1$
+                    // For sometime the dbType will return one more space character at the end.So need to trim,comment
+                    // for bug 17509
+                    dbType = dbType.trim();
+                    dbType = ManagementTextUtils.filterSpecialChar(dbType);
+                    dbType = handleDBtype(dbType);
+                    metadataColumn.setSourceType(dbType);
+                    Integer columnSize;
+                    // if (isMYSQL) {
+                    // columnSize = ExtractMetaDataUtils.getMysqlIntMetaDataInfo(resultMetadata, columnIndex);
+                    // } else {
+                    columnSize = ExtractMetaDataUtils.getIntMetaDataInfo(columns, "COLUMN_SIZE");
+                    // }
+                    metadataColumn.setLength(columnSize); //$NON-NLS-1$
+                    // Convert dbmsType to TalendType
+
+                    String talendType = null;
+
+                    // qli modified to fix the bug 6654.
+                    if (metadataConnection.getMapping() != null) {
+                        mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(metadataConnection.getMapping());
+                    }
+                    Integer intMetaDataInfo = ExtractMetaDataUtils.getIntMetaDataInfo(columns, "DECIMAL_DIGITS");
+                    talendType = mappingTypeRetriever.getDefaultSelectedTalendType(dbType, columnSize, intMetaDataInfo); //$NON-NLS-1$
+                    talendType = ManagementTextUtils.filterSpecialChar(talendType);
+                    if (talendType == null) {
+                        if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
+                            talendType = JavaTypesManager.getDefaultJavaType().getId();
+                            log.warn(Messages.getString("ExtractMetaDataFromDataBase.dbTypeNotFound", dbType)); //$NON-NLS-1$
+                        } else {
+                            talendType = ""; //$NON-NLS-1$
+                            log.warn(Messages.getString("ExtractMetaDataFromDataBase.dbTypeNotFound", dbType)); //$NON-NLS-1$
+                        }
+                    } else {
+                        // to remove when the new perl type will be added in talend.
+                        // talendType = TypesManager.getTalendTypeFromXmlType(talendType);
+                    }
+
+                    metadataColumn.setTalendType(talendType);
+                    // for bug 13078
+
+                    boolean isNullable = ExtractMetaDataUtils.getBooleanMetaDataInfo(columns, "IS_NULLABLE"); //$NON-NLS-1$ 
+                    metadataColumn.setNullable(isNullable);
+
+                    // gcui:see bug 6450, if in the commentInfo have some invalid character then will remove it.
+                    String commentInfo = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "REMARKS", null); //$NON-NLS-1$
+                    if (commentInfo != null && commentInfo.length() > 0) {
+                        commentInfo = ManagementTextUtils.filterSpecialChar(commentInfo);
+                    }
+                    // gcui:if not oracle database use "REMARKS" select comments
+                    metadataColumn.setComment(commentInfo); //$NON-NLS-1$
+                    if (!isAccess) { // jdbc-odbc driver won't apply methods for access
+                        TDColumnAttributeHelper.addColumnAttribute(label, label2, dbType, columnSize, intMetaDataInfo,
+                                commentInfo, columns, metadataColumn,
+                                (DatabaseConnection) metadataConnection.getCurrentConnection());// columnName,
+                    }
+
+                    if (isMSSQL && "INT IDENTITY".equals(dbType)) { //$NON-NLS-1$  // && metadataColumn.isKey()
+
+                        // for MSSQL bug16852
+                        // get inent_seed get_incr for schema's length, precision.
+                        Integer ident1 = 0;
+                        Integer ident2 = 0;
+                        try {
+                            PreparedStatement statement = ExtractMetaDataUtils.conn
+                                    .prepareStatement(" select IDENT_SEED ( '" + tableNode.getValue() + "')," + "IDENT_INCR ( '" //$NON-NLS-N$ //$NON-NLS-N$ //$NON-NLS-N$
+                                            + tableNode.getValue() + "')"); //$NON-NLS-1$ 
+                            ResultSet resultSet = null;
+                            ExtractMetaDataUtils.setQueryStatementTimeout(statement);
+                            if (statement.execute()) {
+                                resultSet = statement.getResultSet();
+                                while (resultSet.next()) {
+                                    String st1 = resultSet.getString(1);
+                                    String st2 = resultSet.getString(2);
+                                    Integer valueOf1 = Integer.valueOf(st1);
+                                    if (valueOf1 != null) {
+                                        ident1 = valueOf1;
+                                    }
+                                    Integer valueOf2 = Integer.valueOf(st2);
+                                    if (valueOf2 != null) {
+                                        ident2 = valueOf2;
+                                    }
+
+                                }
+                            }
+                            resultSet.close();
+                            statement.close();
+
+                        } catch (Exception e) {
+                            log.error(e.toString());
+                        }
+
+                        metadataColumn.setLength(ident1);
+                        metadataColumn.setPrecision(ident2);
+                    } else {
+                        metadataColumn.setPrecision(intMetaDataInfo);
+                    }
+
+                    // cantoine : patch to fix 0x0 pb cause by Bad Schema
+                    // description
+                    String stringMetaDataInfo = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "COLUMN_DEF", dbMetaData); //$NON-NLS-1$
+                    if (stringMetaDataInfo != null && stringMetaDataInfo.length() > 0 && stringMetaDataInfo.charAt(0) == 0x0) {
+                        stringMetaDataInfo = "\\0"; //$NON-NLS-1$
+                    }
+                    stringMetaDataInfo = ManagementTextUtils.filterSpecialChar(stringMetaDataInfo);
+                    metadataColumn.setDefaultValue(stringMetaDataInfo);
+
+                    // for bug 6919, oracle driver doesn't give correctly the length for timestamp
+                    if (EDatabaseTypeName.ORACLEFORSID.getDisplayName().equals(metadataConnection.getDbType())
+                            || EDatabaseTypeName.ORACLESN.getDisplayName().equals(metadataConnection.getDbType())) {
+                        if (dbType.equals("TIMESTAMP")) { //$NON-NLS-1$
+                            metadataColumn.setLength(metadataColumn.getPrecision());
+                            metadataColumn.setPrecision(-1);
+                        }
+                    }
+                    metadataColumns.add(metadataColumn);
+                }
+            }
+
+            // gcui:if it is oracle database, use this SQL select comments.
+            // there will do one query to retrieve all comments on the table.
+
+            if (EDatabaseTypeName.ORACLEFORSID.getDisplayName().equals(metadataConnection.getDbType())
+                    || EDatabaseTypeName.ORACLESN.getDisplayName().equals(metadataConnection.getDbType())) {
+                try {
+                    PreparedStatement statement = ExtractMetaDataUtils.conn
+                            .prepareStatement("SELECT COMMENTS FROM USER_COL_COMMENTS WHERE TABLE_NAME='" //$NON-NLS-1$
+                                    + tableNode.getValue() + "'"); //$NON-NLS-1$ //$NON-NLS-2$
+                    ResultSet keys = null;
+                    ExtractMetaDataUtils.setQueryStatementTimeout(statement);
+                    if (statement.execute()) {
+                        keys = statement.getResultSet();
+                        int i = 0;
+                        while (keys.next()) {
+                            MetadataColumn metadataColumn = (MetadataColumn) metadataColumns.get(i++);
+                            metadataColumn.setComment(ManagementTextUtils.filterSpecialChar(keys.getString("COMMENTS"))); //$NON-NLS-1$
+                        }
+                    }
+                    keys.close();
+                    statement.close();
+
+                } catch (Exception e) {
+                    log.error(e.toString());
+                }
+            }
+
+            columns.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            // e.printStackTrace();
+            ExceptionHandler.process(e);
+            log.error(e.toString());
+            throw new RuntimeException(e);
+        }
+
+        return metadataColumns;
+    }
+
     /**
      * DOC cantoine. Method to return a Collection of Column description(metadata) for a DB connection.
      * 
@@ -512,7 +844,7 @@ public class ExtractMetaDataFromDataBase {
 
             // PTODO ftang: should to support all kinds of databases not only for Mysql.
             Connection connection = dbMetaData.getConnection();
-            checkUniqueKeyConstraint(medataTable, primaryKeys, connection);
+            checkUniqueKeyConstraint(medataTable.getLabel(), primaryKeys, connection);
             String tableName = medataTable.getLabel();
             ResultSet columns;
 
@@ -768,12 +1100,11 @@ public class ExtractMetaDataFromDataBase {
      * @param primaryKeys
      * @param connection
      */
-    private static void checkUniqueKeyConstraint(IMetadataTable medataTable, HashMap<String, String> primaryKeys,
-            Connection connection) {
+    private static void checkUniqueKeyConstraint(String lable, HashMap<String, String> primaryKeys, Connection connection) {
         if (connection instanceof com.mysql.jdbc.Connection) {// MySql
             try {
                 PreparedStatement statement = ExtractMetaDataUtils.conn.prepareStatement("SHOW INDEX FROM `" //$NON-NLS-1$
-                        + medataTable.getLabel() + "` WHERE Non_unique=0 AND Key_name != \'PRIMARY\';"); //$NON-NLS-1$
+                        + lable + "` WHERE Non_unique=0 AND Key_name != \'PRIMARY\';"); //$NON-NLS-1$
                 ResultSet keys = null;
                 ExtractMetaDataUtils.setQueryStatementTimeout(statement);
                 if (statement.execute()) {
@@ -984,21 +1315,6 @@ public class ExtractMetaDataFromDataBase {
         }
 
         DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn, dbType);
-        DatabaseConnection dbConn = (DatabaseConnection) iMetadataConnection.getCurrentConnection();
-        // fill the catalog and schema as same as DQ
-        List<Catalog> catalogs = ConnectionHelper.getCatalogs(dbConn);
-        List<Schema> schemas = ConnectionHelper.getSchema(dbConn);
-        if (catalogs.isEmpty() && schemas.isEmpty() && conn != null) {
-            try {
-                MetadataFillFactory.getDBInstance().fillCatalogs(dbConn, conn.getMetaData(),
-                        MetadataConnectionUtils.getPackageFilter(dbConn, conn.getMetaData()));
-                MetadataFillFactory.getDBInstance().fillSchemas(dbConn, conn.getMetaData(),
-                        MetadataConnectionUtils.getPackageFilter(dbConn, conn.getMetaData()));
-            } catch (SQLException e) {
-                ExceptionHandler.process(e);
-            }
-        }
-
         List<IMetadataTable> metadataTables = ExtractMetaDataFromDataBase.extractTablesFromDB(dbMetaData, iMetadataConnection,
                 limit);
 

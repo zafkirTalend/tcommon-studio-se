@@ -35,6 +35,7 @@ import org.eclipse.core.runtime.Platform;
 import org.talend.commons.bridge.ReponsitoryContextBridge;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.database.DB2ForZosDataBaseMetadata;
+import org.talend.commons.utils.database.TeradataDataBaseMetadata;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.MetadataConnection;
@@ -89,6 +90,8 @@ public class MetadataConnectionUtils {
 
     private static List<String> sybaseDBProductsNames;
 
+    private static IMetadataConnection metadataCon;
+
     /**
      * DOC xqliu Comment method "getConnectionMetadata". 2009-07-13 bug 7888.
      * 
@@ -100,10 +103,16 @@ public class MetadataConnectionUtils {
     public static DatabaseMetaData getConnectionMetadata(java.sql.Connection conn) throws SQLException {
         DatabaseMetaData dbMetaData = conn.getMetaData();
         // MOD xqliu 2009-11-17 bug 7888
-        if (dbMetaData != null && dbMetaData.getDatabaseProductName() != null
-                && dbMetaData.getDatabaseProductName().equals(EDatabaseTypeName.IBMDB2ZOS.getProduct())) {
-            dbMetaData = createFakeDatabaseMetaData(conn);
-            log.info("IBM DB2 for z/OS");
+        if (dbMetaData != null && dbMetaData.getDatabaseProductName() != null) {
+            if (dbMetaData.getDatabaseProductName().equals(EDatabaseTypeName.IBMDB2ZOS.getProduct())) {
+                dbMetaData = createFakeDatabaseMetaData(conn);
+                log.info("IBM DB2 for z/OS");
+            } else if (dbMetaData.getDatabaseProductName().equals(EDatabaseTypeName.TERADATA.getProduct()) && metadataCon != null
+                    && metadataCon.isSqlMode()) {
+                dbMetaData = createTeradataFakeDatabaseMetaData(conn);
+                TeradataDataBaseMetadata teraDbmeta = (TeradataDataBaseMetadata) dbMetaData;
+                teraDbmeta.setDatabaseName(ExtractMetaDataUtils.metadataCon.getDatabase());
+            }
         }
         // ~
         return dbMetaData;
@@ -118,6 +127,11 @@ public class MetadataConnectionUtils {
     private static DatabaseMetaData createFakeDatabaseMetaData(java.sql.Connection conn) {
         DB2ForZosDataBaseMetadata dmd = new DB2ForZosDataBaseMetadata(conn);
         return dmd;
+    }
+
+    private static DatabaseMetaData createTeradataFakeDatabaseMetaData(java.sql.Connection conn) {
+        TeradataDataBaseMetadata tmd = new TeradataDataBaseMetadata(conn);
+        return tmd;
     }
 
     /**
@@ -150,7 +164,7 @@ public class MetadataConnectionUtils {
             java.sql.Connection sqlConn = null;
             try {
                 // if (StringUtils.isEmpty(metadataBean.getDriverJarPath())) {
-                    sqlConn = ConnectionUtils.createConnection(dbUrl, getClassDriver(metadataBean), props);
+                sqlConn = ConnectionUtils.createConnection(dbUrl, getClassDriver(metadataBean), props);
                 // } else {
                 // sqlConn = ConnectionUtils.createConnection(dbUrl, metadataBean.getDriverClass(), props);
                 // }
@@ -383,6 +397,7 @@ public class MetadataConnectionUtils {
         }
         return true;
     }
+
     public static boolean isOracle8i(Connection connection) {
         if (connection != null && connection instanceof DatabaseConnection) {
             DatabaseConnection dbConn = (DatabaseConnection) connection;
@@ -724,15 +739,17 @@ public class MetadataConnectionUtils {
         List<Catalog> catalogs = ConnectionHelper.getCatalogs(conn);
         List<Schema> schemas = ConnectionHelper.getSchema(conn);
         // MOD xqliu 2010-10-19 bug 16441: case insensitive
-        boolean isNeedToFill=false;
-        if(conn instanceof DatabaseConnection){
-            String dbProductID=((DatabaseConnection)conn).getProductId();
-            if(ConnectionHelper.getAllSchemas(conn).isEmpty() && (EDatabaseTypeName.MSSQL05_08.getProduct().equals(dbProductID)||EDatabaseTypeName.MSSQL.getProduct().equals(dbProductID))){
-                isNeedToFill=true;
-            }else if(EDatabaseTypeName.AS400.getProduct().equals(dbProductID)){
-                isNeedToFill=true;
-            }else if(EDatabaseTypeName.PSQL.getProduct().equals(dbProductID)){
-                isNeedToFill=true;
+        boolean isNeedToFill = false;
+        if (conn instanceof DatabaseConnection) {
+            String dbProductID = ((DatabaseConnection) conn).getProductId();
+            if (ConnectionHelper.getAllSchemas(conn).isEmpty()
+                    && (EDatabaseTypeName.MSSQL05_08.getProduct().equals(dbProductID) || EDatabaseTypeName.MSSQL.getProduct()
+                            .equals(dbProductID))) {
+                isNeedToFill = true;
+            } else if (EDatabaseTypeName.AS400.getProduct().equals(dbProductID)) {
+                isNeedToFill = true;
+            } else if (EDatabaseTypeName.PSQL.getProduct().equals(dbProductID)) {
+                isNeedToFill = true;
             }
         }
         if ((catalogs.isEmpty() && schemas.isEmpty()) || isNeedToFill) {
@@ -812,42 +829,42 @@ public class MetadataConnectionUtils {
         // IXMLDBConnection xmlDBConnection = new EXistXMLDBConnection(dbConn.getDriverClass(), dbConn.getURL());
         // ConnectionHelper.addXMLDocuments(xmlDBConnection.createConnection(dbConn));
         // } else {
-            boolean noStructureExists = ConnectionHelper.getAllCatalogs(dbConn).isEmpty()
-                    && ConnectionHelper.getAllSchemas(dbConn).isEmpty();
-            // MOD xqliu 2010-10-19 bug 16441: case insensitive
-            // if (ConnectionHelper.getAllSchemas(dbConn).isEmpty()
-            // && (ConnectionUtils.isMssql(dbConn) ||
-            // ConnectionUtils.isPostgresql(dbConn) || ConnectionUtils
-            // .isAs400(dbConn))) {
-            // noStructureExists = true;
-            // }
-            // ~ 16441
-            java.sql.Connection sqlConn = null;
-            try {
-                if (noStructureExists) { // do no override existing catalogs or
-                                         // schemas
-                                     // Map<String, String> paramMap =
-                                     // ParameterUtil.toMap(ConnectionUtils.createConnectionParam(dbConn));
+        boolean noStructureExists = ConnectionHelper.getAllCatalogs(dbConn).isEmpty()
+                && ConnectionHelper.getAllSchemas(dbConn).isEmpty();
+        // MOD xqliu 2010-10-19 bug 16441: case insensitive
+        // if (ConnectionHelper.getAllSchemas(dbConn).isEmpty()
+        // && (ConnectionUtils.isMssql(dbConn) ||
+        // ConnectionUtils.isPostgresql(dbConn) || ConnectionUtils
+        // .isAs400(dbConn))) {
+        // noStructureExists = true;
+        // }
+        // ~ 16441
+        java.sql.Connection sqlConn = null;
+        try {
+            if (noStructureExists) { // do no override existing catalogs or
+                                     // schemas
+                // Map<String, String> paramMap =
+                // ParameterUtil.toMap(ConnectionUtils.createConnectionParam(dbConn));
                 IMetadataConnection metaConnection = MetadataFillFactory.getDBInstance().fillUIParams(dbConn);
-                    dbConn = (DatabaseConnection) MetadataFillFactory.getDBInstance().fillUIConnParams(metaConnection, dbConn);
-                    sqlConn = (java.sql.Connection) MetadataConnectionUtils.checkConnection(metaConnection).getObject();
+                dbConn = (DatabaseConnection) MetadataFillFactory.getDBInstance().fillUIConnParams(metaConnection, dbConn);
+                sqlConn = (java.sql.Connection) MetadataConnectionUtils.checkConnection(metaConnection).getObject();
 
-                    if (sqlConn != null) {
-                        MetadataFillFactory.getDBInstance().fillCatalogs(dbConn, sqlConn.getMetaData(),
-                                MetadataConnectionUtils.getPackageFilter(dbConn, sqlConn.getMetaData()));
-                        MetadataFillFactory.getDBInstance().fillSchemas(dbConn, sqlConn.getMetaData(),
-                                MetadataConnectionUtils.getPackageFilter(dbConn, sqlConn.getMetaData()));
-                    }
-
-                }
-            } catch (SQLException e) {
-                log.error(e, e);
-            } finally {
                 if (sqlConn != null) {
-                    ConnectionUtils.closeConnection(sqlConn);
+                    MetadataFillFactory.getDBInstance().fillCatalogs(dbConn, sqlConn.getMetaData(),
+                            MetadataConnectionUtils.getPackageFilter(dbConn, sqlConn.getMetaData()));
+                    MetadataFillFactory.getDBInstance().fillSchemas(dbConn, sqlConn.getMetaData(),
+                            MetadataConnectionUtils.getPackageFilter(dbConn, sqlConn.getMetaData()));
                 }
 
             }
+        } catch (SQLException e) {
+            log.error(e, e);
+        } finally {
+            if (sqlConn != null) {
+                ConnectionUtils.closeConnection(sqlConn);
+            }
+
+        }
         // }
         return dbConn;
     }
@@ -883,5 +900,13 @@ public class MetadataConnectionUtils {
                 TaggedValueHelper.setTaggedValue(conn, TaggedValueHelper.RETRIEVE_ALL, "true");
             }
         }
+    }
+
+    public static IMetadataConnection getMetadataCon() {
+        return metadataCon;
+    }
+
+    public static void setMetadataCon(IMetadataConnection metadataCon) {
+        metadataCon = metadataCon;
     }
 }

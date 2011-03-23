@@ -18,6 +18,7 @@ import java.util.Map;
 
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
+import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.relational.TdTable;
 import org.talend.cwm.relational.TdView;
@@ -40,6 +41,7 @@ public interface IMetadataFiller {
      * @return null only if paramMap is null
      */
     public IMetadataConnection fillUIParams(Map<String, String> paramMap);
+
     /**
      * 
      * zshen Comment method "fillUIParams". convert a DatabaseConnection object to IMetadataConnection
@@ -87,6 +89,29 @@ public interface IMetadataFiller {
     public List<Package> fillSchemas(Connection dbConn, DatabaseMetaData dbJDBCMetadata, List<String> Filter);
 
     /**
+     * wzhang Comment method "fillAll".
+     * 
+     * @param pack the object(catalog or schema) which you want tables to be filled.Can't be null if need to fill the
+     * tables into the object of package(catalog or schema).And if Linked is false everything is ok.
+     * 
+     * @param dbJDBCMetadata If it is null the method will do nothing and return null too.
+     * 
+     * @param tableFilter The list for filter tables which you want to get.If it is null all of tables which belong to
+     * the package will be return.
+     * 
+     * @param tablePattern another method to filter the tables.the table will be keep if it's name match to the
+     * tablePattern.And if you don't want to use it null is ok.
+     * 
+     * @param tableType the type of Table which you want to fill.It should be the one of TableType enum.
+     * 
+     * @return The list of tables/views/sysnonyms after filter.Will return null only if dbJDBCMetadata isn't normal.
+     */
+    public List<MetadataTable> fillAll(Package pack, DatabaseMetaData dbJDBCMetadata, List<String> tableFilter,
+            String tablePattern, String[] tableType);
+
+    /**
+     * 
+     /**
      * 
      * zshen Comment method "fillTables".
      * 

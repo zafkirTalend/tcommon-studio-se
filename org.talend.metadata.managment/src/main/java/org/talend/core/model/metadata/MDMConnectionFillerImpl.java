@@ -32,6 +32,7 @@ import org.talend.commons.bridge.ReponsitoryContextBridge;
 import org.talend.commons.utils.data.list.ListUtils;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
+import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.util.DatabaseConstant;
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.cwm.constants.SoftwareSystemConstants;
@@ -55,7 +56,7 @@ import orgomg.cwm.resource.relational.Schema;
 
 /**
  * @author zshen
- *
+ * 
  */
 public class MDMConnectionFillerImpl extends MetadataFillerImpl {
 
@@ -219,5 +220,10 @@ public class MDMConnectionFillerImpl extends MetadataFillerImpl {
         return null;
     }
 
+    public List<MetadataTable> fillAll(Package pack, DatabaseMetaData dbJDBCMetadata, List<String> tableFilter,
+            String tablePattern, String[] tableType) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 }

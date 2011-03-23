@@ -205,69 +205,71 @@ public abstract class MetadataFillerImpl implements IMetadataFiller {
         IMetadataConnection metadataConnection = new MetadataConnection();
 
         // driverPath
-                metadataConnection.setDriverJarPath(conn.getDriverJarPath());
+        metadataConnection.setDriverJarPath(conn.getDriverJarPath());
 
-                // set dbType
-                metadataConnection.setDbType(conn.getDatabaseType());
-                // set product(ProductId) and Schema(UISchema)
-                EDatabaseTypeName edatabasetypeInstance = EDatabaseTypeName.getTypeFromDisplayName(conn.getDatabaseType());
-                String product = edatabasetypeInstance.getProduct();
-                metadataConnection.setProduct(product);
-                // set mapping(DbmsId)
-                if (!ReponsitoryContextBridge.isDefautProject()) {
-                    Dbms defaultDbmsFromProduct = MetadataTalendType.getDefaultDbmsFromProduct(product);
-                    if (defaultDbmsFromProduct != null) {
-                        String mapping = defaultDbmsFromProduct.getId();
-                        metadataConnection.setMapping(mapping);
-                    }
-                }
-                // set dbVersionString
-                List<EDatabaseVersion4Drivers> dbTypeList = EDatabaseVersion4Drivers.indexOfByDbType(conn.getDatabaseType());
-                if (dbTypeList.size() == 1) {
-                    metadataConnection.setDbVersionString(dbTypeList.get(0).getVersionValue());
-                }
+        // set dbType
+        metadataConnection.setDbType(conn.getDatabaseType());
+        // set product(ProductId) and Schema(UISchema)
+        EDatabaseTypeName edatabasetypeInstance = EDatabaseTypeName.getTypeFromDisplayName(conn.getDatabaseType());
+        String product = edatabasetypeInstance.getProduct();
+        metadataConnection.setProduct(product);
+        // set mapping(DbmsId)
+        if (!ReponsitoryContextBridge.isDefautProject()) {
+            Dbms defaultDbmsFromProduct = MetadataTalendType.getDefaultDbmsFromProduct(product);
+            if (defaultDbmsFromProduct != null) {
+                String mapping = defaultDbmsFromProduct.getId();
+                metadataConnection.setMapping(mapping);
+            }
+        }
+        // set dbVersionString
+        List<EDatabaseVersion4Drivers> dbTypeList = EDatabaseVersion4Drivers.indexOfByDbType(conn.getDatabaseType());
+        if (dbTypeList.size() == 1) {
+            metadataConnection.setDbVersionString(dbTypeList.get(0).getVersionValue());
+        }
         // filePath
-                metadataConnection.setFileFieldName(conn.getFileFieldName());
+        metadataConnection.setFileFieldName(conn.getFileFieldName());
         // jdbcUrl
-                metadataConnection.setUrl(conn.getURL());
+        metadataConnection.setUrl(conn.getURL());
         // aDDParameter
-                metadataConnection.setAdditionalParams(conn.getAdditionalParams());
+        metadataConnection.setAdditionalParams(conn.getAdditionalParams());
         // driverClassName
-                metadataConnection.setDriverClass(conn.getDriverClass());
+        metadataConnection.setDriverClass(conn.getDriverClass());
         // host
-                metadataConnection.setServerName(conn.getServerName());
+        metadataConnection.setServerName(conn.getServerName());
         // port
-                metadataConnection.setPort(conn.getPort());
+        metadataConnection.setPort(conn.getPort());
         // dbName
-                metadataConnection.setDatabase(conn.getDatabaseType());
+        metadataConnection.setDatabase(conn.getSID());
         // otherParameter
-                metadataConnection.setOtherParameter(ConnectionHelper.getOtherParameter(conn));
+        metadataConnection.setOtherParameter(ConnectionHelper.getOtherParameter(conn));
         // retrieveAllMetadata
-                metadataConnection.setRetrieveAllMetadata(ConnectionHelper.getRetrieveAllMetadata(conn));
+        metadataConnection.setRetrieveAllMetadata(ConnectionHelper.getRetrieveAllMetadata(conn));
         // name
-                metadataConnection.setLabel(conn.getLabel());
+        metadataConnection.setLabel(conn.getLabel());
         // purpose
-                metadataConnection.setPurpose(ConnectionHelper.getPurpose(conn));
+        metadataConnection.setPurpose(ConnectionHelper.getPurpose(conn));
         // description
-                metadataConnection.setDescription(ConnectionHelper.getDescription(conn));
+        metadataConnection.setDescription(ConnectionHelper.getDescription(conn));
         // author
-                metadataConnection.setAuthor(ConnectionHelper.getAuthor(conn));
+        metadataConnection.setAuthor(ConnectionHelper.getAuthor(conn));
         // status
-                metadataConnection.setStatus(ConnectionHelper.getDevStatus(conn));
+        metadataConnection.setStatus(ConnectionHelper.getDevStatus(conn));
         // version
         metadataConnection.setVersion(ConnectionHelper.getVersion(conn));
         // password
-                metadataConnection.setPassword(ConnectionHelper.getPassword(conn));
+        metadataConnection.setPassword(ConnectionHelper.getPassword(conn));
         // user
-                metadataConnection.setUsername(conn.getUsername());
+        metadataConnection.setUsername(conn.getUsername());
         // universe
-                metadataConnection.setUniverse(ConnectionHelper.getUniverse(conn));
+        metadataConnection.setUniverse(ConnectionHelper.getUniverse(conn));
         // dbName
-                metadataConnection.setDataSourceName(conn.getDatasourceName());
+        metadataConnection.setDataSourceName(conn.getDatasourceName());
+        // schema
+        metadataConnection.setSchema(conn.getUiSchema());
         // dbmsId
         if (metadataConnection.getMapping() == null) {
-                metadataConnection.setMapping(conn.getDbmsId());
-            }
+            metadataConnection.setMapping(conn.getDbmsId());
+        }
         return metadataConnection;
 
     }

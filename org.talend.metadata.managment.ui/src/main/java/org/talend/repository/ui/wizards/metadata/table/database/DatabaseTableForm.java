@@ -63,7 +63,6 @@ import org.talend.commons.utils.data.list.IListenableListListener;
 import org.talend.commons.utils.data.list.ListenableListEvent;
 import org.talend.commons.utils.data.text.IndiceHelper;
 import org.talend.core.GlobalServiceRegister;
-import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.IMetadataConnection;
@@ -262,12 +261,8 @@ public class DatabaseTableForm extends AbstractForm {
      * DOC ocarbone Comment method "initTreeNodes".
      */
     private void initTreeNavigatorNodes() {
+        List<MetadataTable> tables = ConnectionHelper.getTablesWithOrders(getConnection());
 
-        List<MetadataTable> tables = ProjectNodeHelper.getTablesFromSpecifiedDataPackageWithOders(getConnection());
-        /* bug 0018514,should use connectionHelper.getTables() when the dbconnecion is SAS and the tables are empty */
-        if (tables.isEmpty() && getConnection().getDatabaseType().equals(EDatabaseTypeName.SAS.getDisplayName())) {
-            tables = ConnectionHelper.getTablesWithOrders(getConnection());
-        }
         if (metadataTable == null || tables != null && tables.isEmpty()) {
 
             if (tables != null && !tables.isEmpty()) {
@@ -279,10 +274,10 @@ public class DatabaseTableForm extends AbstractForm {
                     }
                 }
                 if (isAllDeleted) {
-                    addMetadataTable();
+                    addMetadataTable(true);
                 }
             } else {
-                addMetadataTable();
+                addMetadataTable(false);
             }
         }
 
@@ -628,7 +623,7 @@ public class DatabaseTableForm extends AbstractForm {
             public void widgetSelected(final SelectionEvent e) {
                 if (addTableButton.getEnabled()) {
                     addTableButton.setEnabled(true);
-                    addMetadataTable();
+                    addMetadataTable(false);
                 } else {
                     addTableButton.setEnabled(false);
                 }
@@ -689,12 +684,16 @@ public class DatabaseTableForm extends AbstractForm {
     /**
      * DOC ocarbone Comment method "addMetadataTable".
      */
-    protected void addMetadataTable() {
+    protected void addMetadataTable(boolean flag) {
         // Create a new metadata and Add it on the connection
         IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
         metadataTable = ConnectionFactory.eINSTANCE.createMetadataTable();
         /* see 0016785 need to add the table to connection rather than the Set */
-        ProjectNodeHelper.addTableForSpecifiedDataPackage(getConnection(), metadataTable);
+        if (flag) {
+            ProjectNodeHelper.addTableForSpecifiedDataPackage(getConnection(), metadataTable);
+        } else {
+            ProjectNodeHelper.addDefaultTableForSpecifiedDataPackage(getConnection(), metadataTable);
+        }
         metadataTable.setId(factory.getNextId());
 
         // initExistingNames();
@@ -970,10 +969,10 @@ public class DatabaseTableForm extends AbstractForm {
                 return false;
             }
             // bug 17442
-            else if (!managerConnection.check(getIMetadataConnection())) {
-                updateStatus(IStatus.ERROR, Messages.getString("DatabaseForm.checkFailure")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-                return false;
-            }
+            // else if (!managerConnection.check(getIMetadataConnection())) {
+            //                updateStatus(IStatus.ERROR, Messages.getString("DatabaseForm.checkFailure")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+            // return false;
+            // }
 
             // if (table.getColumns().size() == 0) {// this one has been removed,see bug 0016029
             //                updateStatus(IStatus.ERROR, Messages.getString("FileStep3.itemAlert") + " \"" + table.getLabel() + "\""); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
