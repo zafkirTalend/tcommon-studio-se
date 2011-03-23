@@ -34,7 +34,7 @@
     <parameter name="DeleteUser" value="//div[text()='testAdmin@company.com']"/>
     <parameter name="DulicateUser" value="//div[text()='aaa@gmail.com']"/>
     <parameter name="DulicatedUser" value="//div[text()='Copy_of_aaa@gmail.com']"/>
-    
+    <parameter name="CopyUser" value="Copy_of_aaa@gmail.com"/>
     <!--Add  Duplicate Cancel Delete User  Delete User -->
     
     <!-- ModifiyUserName -->
@@ -42,15 +42,17 @@
     <parameter name="_FirstName" value="admin"/>
     <parameter name="_LastName" value="admin"/>
     <!-- ModifiyLoginName -->
-	<test name="User">
+	<test name="User" preserve-order="flase">
     
         <classes>
        
             <class name="com.talend.tac.cases.users.TestAddUser"/>
             <class name="com.talend.tac.cases.users.TestDeleteUser"/>
+            <!-- 
             <class name="com.talend.tac.cases.users.TestClearUser"/>
-            <class name="com.talend.tac.cases.users.TestDisplayUser"/>
+             -->
             <class name="com.talend.tac.cases.users.TestDuplicateUser"/>
+            <class name="com.talend.tac.cases.users.TestDisplayUser"/>
             <class name="com.talend.tac.cases.users.TestModifyUser"/>
           
         </classes>
