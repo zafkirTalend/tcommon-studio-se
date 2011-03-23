@@ -8,7 +8,8 @@ import com.talend.tac.cases.Login;
 @Test(groups={"ModifyUser"},dependsOnGroups={"DisplayUser"})
 public class TestModifyUser extends Login {
 
-
+   
+	//login user --->>uncheck "active"
 	@Test
 	@Parameters({"userName"})
 	public void testLastLoginUserNotChooseActive(String userName) throws Exception {
@@ -26,7 +27,7 @@ public class TestModifyUser extends Login {
 	    selenium.click("//button[text()='" +other.getString("modify.lastUserAdministrator.role.fail")+"']");
 	    selenium.setSpeed(MIN_SPEED);
 	}
-	
+	//modify user'role of last a "administrator" user
 	@Test
 	@Parameters({"userName"})
 	public void testModifyLastAdministrationUserRole(String userName) throws Exception {
@@ -49,10 +50,43 @@ public class TestModifyUser extends Login {
 	    
 	    selenium.setSpeed(MIN_SPEED);
 	}
+	//modify user(admin@company.com)'role to all roles
+	@Test(dependsOnMethods={"testModifyLastAdministrationUserRole"})
+	@Parameters({"userName", "userPassword"})
+	public void testUserChooseAllRoles(String userName,String userPassword) throws Exception {
+		String roles = rb.getString("menu.role.administrator")+"/"+rb.getString("menu.role.viewer")+"/"
+		+rb.getString("menu.role.operationManager")+"/"+rb.getString("menu.role.designer");
+		this.clickWaitForElementPresent("idMenuUserElement");
+		
+		Assert.assertTrue(selenium.isTextPresent(userName));
+		selenium.mouseDown("//div[text()='"+userName+"']");//Select Login user
+		
+		if(selenium.isTextPresent("Role: Administrator/Viewer/Operation manager/Designer (1 Member)")) {
+			System.out.println("right are all roles");
+		} else {
+			System.out.println("!-------------------------------ss right are all roles");
+			
+			selenium.click("idRoleButton");
+			selenium.setSpeed(MAX_SPEED);
+			Assert.assertTrue(selenium.isTextPresent(rb.getString("user.roles.title")));
+			selenium.click("//div[@class=' x-grid3-hd-inner x-grid3-hd-checker x-component']");
+			selenium.click("idValidateButton");
+	        Assert.assertEquals(selenium.getValue("idActiveInput"), roles);
+
+			selenium.click("idFormSaveButton");
+
+	        selenium.refresh();
+
+	        Assert.assertEquals(selenium.getText("//div[@class='x-grid-group-div']"), "Role: Administrator/Viewer/Operation manager/Designer (1 Member)");
+			Assert.assertTrue(selenium.isElementPresent("!!!menu.jobConductor.element!!!"));
+	        selenium.setSpeed(MIN_SPEED);
+		}
+	}	
 	
+	//modify user(admin@company.com)'name(lastname,firstname) 
 	@Test
 	@Parameters({"userName","FirstName","LastName"})
-	public void testModity_admin_LastName(String userName, String FirstName,String LastName) throws Exception {
+	public void testModityAdminLastName(String userName, String FirstName,String LastName) throws Exception {
 		this.clickWaitForElementPresent("idMenuUserElement");
 		selenium.setSpeed(MAX_SPEED);
 		Assert.assertTrue(selenium.isTextPresent(userName));
@@ -73,7 +107,7 @@ public class TestModifyUser extends Login {
 	    selenium.setSpeed(MIN_SPEED);
 	}
     
-	
+	//modify user(aaa@gmail.com)'loginname to 'account@company.com'
 	@Test(dependsOnMethods={"testDuplicateUser"})
 	@Parameters({"userName","ModifiyUserName","DulicateUser"})
 	public void testModifyUser(String userName,String ModifiyUserName,String DulicateUser) throws Exception {
