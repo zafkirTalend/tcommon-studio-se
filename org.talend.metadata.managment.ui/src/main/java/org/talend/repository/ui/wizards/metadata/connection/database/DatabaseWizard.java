@@ -297,7 +297,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                     factory.create(connectionItem, propertiesWizardPage.getDestinationPath());
 
                     if (tdqRepService != null) {
-                        tdqRepService.fillMetadata(connection);
+                        tdqRepService.fillMetadata(connectionItem);
                     }
                 } else {
                     if (connectionItem.getConnection() instanceof DatabaseConnection) {

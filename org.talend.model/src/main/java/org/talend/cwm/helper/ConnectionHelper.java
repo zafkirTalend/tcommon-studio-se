@@ -737,6 +737,21 @@ public class ConnectionHelper {
     }
 
     /**
+     * Method "getDevStatus". MOD mzhao feature 7479
+     * 
+     * @param element such as Analysis, DataProvider...
+     * @return the development status of the element
+     */
+    public static String getDevStatus(ModelElement element) {
+        TaggedValue taggedValue = TaggedValueHelper.getTaggedValue(TaggedValueHelper.DEV_STATUS, element.getTaggedValue());
+        if (taggedValue == null) {
+            return "";//$NON-NLS-1$
+        }
+        String statusValueString = taggedValue.getValue();
+        return statusValueString;
+    }
+
+    /**
      * Method "setVersion" sets the version of the given element.
      * 
      * @param version the version to set
