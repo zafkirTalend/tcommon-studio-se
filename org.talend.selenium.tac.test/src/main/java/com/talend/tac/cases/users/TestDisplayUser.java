@@ -17,9 +17,9 @@ public class TestDisplayUser extends Login {
 		this.clickWaitForElementPresent("idMenuUserElement");
 		
 		Assert.assertTrue(selenium.isTextPresent(userName));
-		selenium.setSpeed(MAX_SPEED);
+		selenium.setSpeed(MID_SPEED);
 		selenium.click("//div[@class=' x-grid3-hd-inner x-grid3-hd-login x-component sort-asc ']/a[1] ");
-		selenium.setSpeed(MAX_SPEED);
+		selenium.setSpeed(MID_SPEED);
 		selenium.click("//a[text()='Show in Groups']");
 		Assert.assertFalse(selenium.isElementPresent("//div[@class='x-grid-group-div']"));
         selenium.click("//div[@class=' x-grid3-hd-inner x-grid3-hd-role x-component']/a[@class='x-grid3-hd-btn'][1]");

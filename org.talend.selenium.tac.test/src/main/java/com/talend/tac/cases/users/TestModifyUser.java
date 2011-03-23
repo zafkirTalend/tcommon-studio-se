@@ -22,7 +22,7 @@ public class TestModifyUser extends Login {
 		Assert.assertFalse(selenium.isChecked("//input[@name='active']"));
 		
 		selenium.click("idFormSaveButton");
-		selenium.setSpeed(MAX_SPEED);
+		selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.isTextPresent(rb.getString("user.error.lastActiveAdmin")));
 	    selenium.click("//button[text()='" +other.getString("modify.lastUserAdministrator.role.fail")+"']");
 	    selenium.setSpeed(MIN_SPEED);
@@ -32,19 +32,19 @@ public class TestModifyUser extends Login {
 	@Parameters({"userName"})
 	public void testModifyLastAdministrationUserRole(String userName) throws Exception {
 		this.clickWaitForElementPresent("idMenuUserElement");
-		selenium.setSpeed(MAX_SPEED);
+		selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.isTextPresent(userName));
 		selenium.setSpeed(MIN_SPEED);
         selenium.mouseDown("//div[text()='"+userName+"']");
 		selenium.click("idRoleButton");
-		selenium.setSpeed(MAX_SPEED);
+		selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.isTextPresent(rb.getString("user.roles.title")));
 		selenium.setSpeed(MIN_SPEED);
 		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-name' and (text()='"+rb.getString("menu.role.designer")+"')]");	
 		selenium.click("idValidateButton");
 		
 		selenium.click("idFormSaveButton");
-		selenium.setSpeed(MAX_SPEED);
+		selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.isTextPresent(rb.getString("user.error.roleModification.lastAdministrator")));
 	    selenium.click("//button[text()='"+other.getString("modify.lastUserAdministrator.role.fail")+"']");
 	    
@@ -88,7 +88,7 @@ public class TestModifyUser extends Login {
 	@Parameters({"userName","FirstName","LastName"})
 	public void testModityAdminLastName(String userName, String FirstName,String LastName) throws Exception {
 		this.clickWaitForElementPresent("idMenuUserElement");
-		selenium.setSpeed(MAX_SPEED);
+		selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.isTextPresent(userName));
 		selenium.mouseDown("//div[text()='"+userName+"']");
 		selenium.type("idUserFirstNameInput", FirstName);
@@ -102,7 +102,7 @@ public class TestModifyUser extends Login {
 		selenium.setSpeed(MIN_SPEED);
 		
 		selenium.refresh();
-		selenium.setSpeed(MAX_SPEED);
+		selenium.setSpeed(MID_SPEED);
 	    Assert.assertTrue(selenium.isElementPresent("//b[text()='zhang, jack']"));
 	    selenium.setSpeed(MIN_SPEED);
 	}
@@ -123,7 +123,7 @@ public class TestModifyUser extends Login {
 			selenium.fireEvent("idUserLoginInput", "blur");
 			
 			selenium.click("idFormSaveButton");
-			selenium.setSpeed(MAX_SPEED);
+			selenium.setSpeed(MID_SPEED);
 			Assert.assertTrue(selenium.isElementPresent("//div[text()='"+ModifiyUserName+"']"));
 			selenium.setSpeed(MIN_SPEED);
 		}

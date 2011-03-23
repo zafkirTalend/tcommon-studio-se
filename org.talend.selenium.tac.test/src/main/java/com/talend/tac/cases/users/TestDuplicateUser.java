@@ -32,7 +32,7 @@ public class TestDuplicateUser extends Login {
 //			selenium.mouseDownAt("//div[@role='listitem'][1]", ""+Event.ENTER);
 	///****/  
 			selenium.click("idFirstAdminConnInput");
-			selenium.setSpeed(MAX_SPEED);
+			selenium.setSpeed(MID_SPEED);
 			selenium.click("idFormSaveButton");
 			Assert.assertTrue(selenium.isElementPresent(DulicatedUser));
 			selenium.setSpeed(MIN_SPEED);

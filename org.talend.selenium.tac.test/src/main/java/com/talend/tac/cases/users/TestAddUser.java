@@ -14,7 +14,7 @@ public class TestAddUser extends Login {
     
 	public void addUser(String user,String firstname,String lastname,String password,String SvnLogin,String SvnPassWord) throws Exception {
 		
-		selenium.setSpeed(MAX_SPEED);
+		selenium.setSpeed(MID_SPEED);
 		selenium.click("idMenuUserElement");
 		Assert.assertTrue(selenium.isTextPresent("admin@company.com"));
 
@@ -41,7 +41,7 @@ public class TestAddUser extends Login {
     public void clearAllUsers(String userName) {
     	 List<String> users = new ArrayList<String>(); 
     	 this.clickWaitForElementPresent("idMenuUserElement");
-    	 selenium.setSpeed(MAX_SPEED);
+    	 selenium.setSpeed(MID_SPEED);
     	 if(selenium.isElementPresent("//i[text()='Administrator/Viewer/Operation manager/Designer']")) {
 			 selenium.setSpeed(MIN_SPEED);
     		 selenium.mouseDown("//div[text()='"+userName+"']");
@@ -49,14 +49,14 @@ public class TestAddUser extends Login {
 			 Assert.assertTrue(selenium.isTextPresent(rb.getString("user.roles.title")));
 			 selenium.click("//div[@class='x-grid3-cell-inner x-grid3-col-name' and (text()='"+rb.getString("menu.role.administrator")+"')]");
 			 selenium.click("idValidateButton");
-			 selenium.setSpeed(MAX_SPEED);
+			 selenium.setSpeed(MID_SPEED);
 			 selenium.click("idFormSaveButton");
 			 selenium.setSpeed(MIN_SPEED);
     	 } else {
     		 System.out.println("user role is administrator");
     		 selenium.setSpeed(MIN_SPEED);
     	 }
-    	 selenium.setSpeed(MAX_SPEED);
+    	 selenium.setSpeed(MID_SPEED);
       	 if(!selenium.isElementPresent("//b[text()='admin, admin']")) {
 			 selenium.setSpeed(MIN_SPEED);
       		 selenium.mouseDown("//div[text()='"+userName+"']");
@@ -65,7 +65,7 @@ public class TestAddUser extends Login {
 			 selenium.fireEvent("idUserFirstNameInput", "blur");
 			 selenium.type("idUserLastNameInput", "admin");
 			 selenium.fireEvent("idUserLastNameInput", "blur");
-			 selenium.setSpeed(MAX_SPEED);
+			 selenium.setSpeed(MID_SPEED);
 			 selenium.click("idFormSaveButton");
 			 selenium.setSpeed(MIN_SPEED);
     	 } else {
@@ -80,7 +80,7 @@ public class TestAddUser extends Login {
     			selenium.mouseDown("//div[text()='"+users.get(i)+"']");
   				selenium.chooseOkOnNextConfirmation();
   				selenium.click("idSubModuleDeleteButton");
-  				selenium.setSpeed(MAX_SPEED);
+  				selenium.setSpeed(MID_SPEED);
   			    Assert.assertTrue(selenium.getConfirmation().matches("^"+other.getString("delete.User.confirmation")+" [\\s\\S]$"));
     		    selenium.setSpeed(MIN_SPEED);
     		 } 
@@ -97,7 +97,7 @@ public class TestAddUser extends Login {
     	
     	addUser(userName, FirstName, LastName, PassWord,SvnLogin,SvnPassWord);
 		selenium.click("idRoleButton");
-		selenium.setSpeed(MAX_SPEED);
+		selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.isTextPresent(rb.getString("user.roles.title")));
 		selenium.click("//div[@class=' x-grid3-hd-inner x-grid3-hd-checker x-component']");
 		
@@ -122,7 +122,7 @@ public class TestAddUser extends Login {
 		Assert.assertEquals(selenium.getValue("idActiveInput"), rb.getString("menu.role.operationManager"));
 
 
-		selenium.setSpeed(MAX_SPEED);
+		selenium.setSpeed(MID_SPEED);
 		selenium.click("idFormSaveButton");
 		Assert.assertTrue(selenium.isTextPresent(rb.getString("user.error.uniqueLogin")));
 		
@@ -142,7 +142,7 @@ public class TestAddUser extends Login {
 		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-name' and (text()='"+rb.getString("menu.role.administrator")+"')]");
 		selenium.click("idValidateButton");
 
-		selenium.setSpeed(MAX_SPEED);
+		selenium.setSpeed(MID_SPEED);
 		selenium.click("idFormSaveButton");
 		Assert.assertTrue(selenium.isElementPresent("//div[text()='"+LoginNameChooseAdministratorRole+"']"));
 		selenium.setSpeed(MIN_SPEED);
@@ -158,10 +158,10 @@ public class TestAddUser extends Login {
 		addUser(LoginNameChooseMulripleRoles, FirstName, LastName, PassWord, SvnLogin, SvnPassWord);
 		selenium.click("idRoleButton");
 		Assert.assertTrue(selenium.isTextPresent(rb.getString("user.roles.title")));
-		selenium.setSpeed(MAX_SPEED);
+		selenium.setSpeed(MID_SPEED);
 		selenium.click("//div[@class=' x-grid3-hd-inner x-grid3-hd-checker x-component']");
 	
-		selenium.setSpeed(MAX_SPEED);
+		selenium.setSpeed(MID_SPEED);
 		selenium.controlKeyDown();
 		selenium.click("//div[@class='x-grid3-cell-inner x-grid3-col-name' and (text()='"+rb.getString("menu.role.administrator")+"')]");
 		selenium.click("//div[@class='x-grid3-cell-inner x-grid3-col-name' and (text()='"+ rb.getString("menu.role.operationManager")+"')]");
@@ -169,7 +169,7 @@ public class TestAddUser extends Login {
 		selenium.click("idValidateButton");
 		Assert.assertEquals(selenium.getValue("idActiveInput"), rb.getObject("menu.role.viewer")+"/"+rb.getString("menu.role.designer"));
 
-		selenium.setSpeed(MAX_SPEED);
+		selenium.setSpeed(MID_SPEED);
 		selenium.click("idFormSaveButton");
 		Assert.assertTrue(selenium.isElementPresent("//div[text()='"+LoginNameChooseMulripleRoles+"']"));
         selenium.setSpeed(MIN_SPEED);
@@ -192,7 +192,7 @@ public class TestAddUser extends Login {
 		selenium.click("//input[@name='active']");
 		Assert.assertFalse(selenium.isChecked("//input[@name='active']"));
 		selenium.click("idFormSaveButton");
-		selenium.setSpeed(MAX_SPEED);
+		selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.isElementPresent("//div[text()='"+LoginNameNotChooseActive1+"']"));
 		selenium.setSpeed(MIN_SPEED);
 
@@ -209,7 +209,7 @@ public class TestAddUser extends Login {
 		selenium.click("idValidateButton");
 		Assert.assertEquals(selenium.getValue("idActiveInput"), rb.getString("menu.role.designer"));
 		selenium.click("idFormSaveButton");
-		selenium.setSpeed(MAX_SPEED);
+		selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.isElementPresent("//div[text()='"+LoginName1+"']"));
 		selenium.setSpeed(MIN_SPEED);
 	}

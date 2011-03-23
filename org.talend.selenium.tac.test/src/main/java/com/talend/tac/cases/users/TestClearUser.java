@@ -23,14 +23,14 @@ public class TestClearUser extends Login{
 			selenium.mouseDown("//div[text()='"+users.get(i)+"']");
 				selenium.chooseOkOnNextConfirmation();
 				selenium.click("idSubModuleDeleteButton");
-				selenium.setSpeed(MAX_SPEED);
+				selenium.setSpeed(MID_SPEED);
 			    Assert.assertTrue(selenium.getConfirmation().matches("^"+other.getString("delete.User.confirmation")+" [\\s\\S]$"));
 		    selenium.setSpeed(MIN_SPEED);
 		 } 
 	 }
 	    
      selenium.mouseDown("//div[text()='"+userName+"']");//Select Login user
-	 selenium.setSpeed(MAX_SPEED);
+	 selenium.setSpeed(MID_SPEED);
 	 selenium.type("idUserFirstNameInput", FirstName);
 	 selenium.fireEvent("idUserFirstNameInput", "blur");
 	 selenium.type("idUserLastNameInput", LastName);
@@ -39,7 +39,7 @@ public class TestClearUser extends Login{
 	 Assert.assertTrue(selenium.isTextPresent(rb.getString("user.roles.title")));
 	 selenium.click("//div[text()='"+ rb.getString("menu.role.administrator")+"']");
 	 selenium.click("idValidateButton");
-	 selenium.setSpeed(MAX_SPEED);
+	 selenium.setSpeed(MID_SPEED);
 	 selenium.click("idFormSaveButton");
      selenium.setSpeed(MIN_SPEED);
 	

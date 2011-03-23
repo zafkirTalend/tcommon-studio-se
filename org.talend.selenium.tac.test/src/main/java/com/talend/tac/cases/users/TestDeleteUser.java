@@ -11,7 +11,7 @@ public class TestDeleteUser extends Login {
 	@Parameters({"userName"})
 	public void deleteUser(String userName,String deleteUserName){
 		this.clickWaitForElementPresent("idMenuUserElement");
-		selenium.setSpeed(MAX_SPEED);
+		selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.isTextPresent(userName));
 		selenium.mouseDown("//div[text()='"+deleteUserName+"']");//Select an existing user
 		selenium.chooseOkOnNextConfirmation();
@@ -24,7 +24,7 @@ public class TestDeleteUser extends Login {
 	@Parameters({"userName","LoginNameChooseAdministratorRole"})
 	public void testCancleDeleteUser(String userName,String deleteUser) throws Exception {
 		this.clickWaitForElementPresent("idMenuUserElement");
-		selenium.setSpeed(MAX_SPEED);
+		selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.isTextPresent(userName));
 		selenium.mouseDown("//div[text()='"+deleteUser+"']");//Select an existing user
 		selenium.chooseCancelOnNextConfirmation();
