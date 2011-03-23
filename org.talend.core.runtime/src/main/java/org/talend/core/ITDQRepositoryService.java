@@ -14,6 +14,7 @@ package org.talend.core;
 
 import org.eclipse.ui.IViewPart;
 import org.talend.core.model.metadata.builder.connection.Connection;
+import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
 
 
@@ -30,6 +31,8 @@ public interface ITDQRepositoryService extends IService {
     public void notifySQLExplorer(Item... items);
 
     public void fillMetadata(Connection connection);
+
+    public void fillMetadata(ConnectionItem connItem);
 
     public void refresh();
 
