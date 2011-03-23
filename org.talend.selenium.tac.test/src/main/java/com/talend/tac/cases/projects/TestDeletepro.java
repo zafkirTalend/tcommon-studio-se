@@ -29,20 +29,19 @@ public class TestDeletepro extends Login {
 				.matches(other.getString("delete.project.warning")));
 
 	}
-	public void okDelete(Selenium s,String name){
+	public void okDelete(Selenium selenium,String name){
 //		s.click("!!!menu.project.element!!!");
-		if(s.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"+name+"')]"))
-		{ s.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"+name+"')]");
-		s.chooseOkOnNextConfirmation();
-		s.click("idSubModuleDeleteButton");
-		assert (s.getConfirmation()
+		if(selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"+name+"')]"))
+		{ selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"+name+"')]");
+		selenium.chooseOkOnNextConfirmation();
+		selenium.click("idSubModuleDeleteButton");
+		assert (selenium.getConfirmation()
 				.matches(other.getString("delete.project.warning")));
 		}
 		
 	}
 
 	@Test(groups = { "Second" },dependsOnGroups={"Add"})
-	
 	@Parameters({ "DeleteProjectname" })
 	public void testDeletepro(String deleteProname) throws Exception {
 		

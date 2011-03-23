@@ -9,7 +9,6 @@ public class TestBranchManageAdd extends Login {
 	@Parameters({ "BranchProject", "BranchName" })
 	public void addProjectbranch(String project, String branchname) {
 		// first add a branch to a project
-	
 	    this.waitForElementPresent("!!!menu.project.element!!!", 30);
 
 		selenium.click("!!!menu.project.element!!!");//
@@ -22,11 +21,11 @@ public class TestBranchManageAdd extends Login {
 		selenium.click("idBranchManagementSourceInput");
 		selenium.mouseDown("//div[text()='trunk']");
 		selenium.fireEvent("idBranchManagementSourceInput", "blur");
-		selenium.setSpeed("0");
+		selenium.setSpeed(MIN_SPEED);
 		selenium.click("idBranchManagementTargetInput");
 		selenium.type("idBranchManagementTargetInput", branchname);
 		selenium.fireEvent("idBranchManagementTargetInput", "blur");
-		selenium.setSpeed("3000");
+		selenium.setSpeed(MID_SPEED);
 		selenium.click("idBranchManagementCreateButton");
 		
 		if (selenium.isElementPresent("//span[text()='"
@@ -35,7 +34,7 @@ public class TestBranchManageAdd extends Login {
 			selenium.click("//button[text()='"
 					+ other.getString("project.branchmanage.add.conform.ok")
 					+ "']");
-			selenium.setSpeed("5000");
+			selenium.setSpeed(MAX_SPEED);
 			if (selenium
 					.isElementPresent("//span[text()='" + branchname + "']")) {
 				selenium.click("//div[@class=' x-nodrag x-tool-close x-tool x-component']");
@@ -48,7 +47,7 @@ public class TestBranchManageAdd extends Login {
 		} else {
 			Assert.fail("Can not found the conformation!");
 		}
-		selenium.setSpeed("0");
+		selenium.setSpeed(MIN_SPEED);
 
 	}
 }

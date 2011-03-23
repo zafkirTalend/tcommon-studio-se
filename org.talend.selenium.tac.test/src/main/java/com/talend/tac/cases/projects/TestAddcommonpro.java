@@ -17,7 +17,7 @@ public class TestAddcommonpro extends Login {
 			"AddcommonProjectname", "AddreferenceProjectname","Prolanguage"  })
 	public void testAddpro(String url,String type, String user, String password,
 			String proname, String name2,String language) throws Exception {
-        selenium.setSpeed("5000");
+		selenium.setSpeed(MAX_SPEED);
         int existCommon = 0;
         int existReference = 0;
         if(selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
@@ -29,12 +29,12 @@ public class TestAddcommonpro extends Login {
         	existReference = 1;
         	
         }
-        selenium.setSpeed("0");
+        selenium.setSpeed(MIN_SPEED);
 		if(existCommon == 0){
-		testaddcommon(proname,language,type, url, user, password);
-		selenium.setSpeed("3000");
-		selenium.click("idSubModuleRefreshButton");
-		selenium.setSpeed("0");
+			testaddcommon(proname,language,type, url, user, password);
+			selenium.setSpeed(MID_SPEED);
+			selenium.click("idSubModuleRefreshButton");
+			selenium.setSpeed(MIN_SPEED);
 		
 		}
 		
@@ -46,11 +46,11 @@ public class TestAddcommonpro extends Login {
 	public void testaddcommon(String namecommon,String language,String type, String svnurl, String user,
 			String password) throws Exception {
 		  this.waitForElementPresent("!!!menu.project.element!!!", 30);
-		  selenium.setSpeed("3000");
+		  selenium.setSpeed(MID_SPEED);
 		  selenium.click("!!!menu.project.element!!!");
 		  selenium.click("idSubModuleAddButton");
 		  selenium.click("idLabelInput");
-		  selenium.setSpeed("0");
+		  selenium.setSpeed(MIN_SPEED);
 		  selenium.type("idLabelInput", namecommon);
 		  selenium.fireEvent("idLabelInput", "blur");
 		  if ("Java".equals(language) || "".equals(language)) {
@@ -72,9 +72,8 @@ public class TestAddcommonpro extends Login {
 		  selenium.click("idSvnLockInput");
 		  selenium.mouseDownAt("//div[@role='listitem'][2]",""+KeyEvent.VK_ENTER);
 		  selenium.click("idSvnUserLogInput");
+		  selenium.setSpeed(MAX_SPEED);
 		  selenium.click("idDescriptionInput");
-		  selenium.fireEvent("idDescriptionInput", "blur");
-		  selenium.setSpeed("7000");
 		  selenium.focus("idFormSaveButton");
 		  selenium.keyDownNative(""+KeyEvent.VK_ENTER);
 		  selenium.keyUpNative(""+KeyEvent.VK_ENTER);
@@ -82,7 +81,7 @@ public class TestAddcommonpro extends Login {
 		  Assert.assertTrue(
 		    selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
 		      + namecommon + "')]"), "common project added failed");
-		  selenium.setSpeed("0");
+		  selenium.setSpeed(MIN_SPEED);
 		 }
 	
 
@@ -92,11 +91,11 @@ public class TestAddcommonpro extends Login {
 		  this.waitForElementPresent("!!!menu.project.element!!!", 30);
 			 
 			 
-		  selenium.setSpeed("3000");
+		  selenium.setSpeed(MID_SPEED);
 		  selenium.click("!!!menu.project.element!!!");
 		  selenium.click("idSubModuleAddButton");
 		  selenium.click("idLabelInput");
-		  selenium.setSpeed("0");
+		  selenium.setSpeed(MIN_SPEED);
 		  selenium.type("idLabelInput", namereference);
 		  selenium.fireEvent("idLabelInput", "blur");
 		 
@@ -113,7 +112,6 @@ public class TestAddcommonpro extends Login {
 		
 		  selenium.click("idAdvanceInput");
 		  selenium.type("idUrlInput", svnurl + "/" + namereference + "/");// svn
-		               
 		  selenium.fireEvent("idUrlInput", "blur");
 		  selenium.type("idLoginInput", user);// svn account
 		  selenium.fireEvent("idLoginInput", "blur");
@@ -124,111 +122,107 @@ public class TestAddcommonpro extends Login {
 		  selenium.click("idSvnLockInput");
 		  selenium.mouseDownAt("//div[@role='listitem'][2]",""+KeyEvent.VK_ENTER);
 		  selenium.click("idSvnUserLogInput");
+		  selenium.setSpeed(MAX_SPEED);
 		  selenium.click("idDescriptionInput");
-		  selenium.fireEvent("idDescriptionInput", "blur");
-		  selenium.setSpeed("7000");
 		  selenium.focus("idFormSaveButton");
 		  selenium.keyDownNative(""+KeyEvent.VK_ENTER);
 		  selenium.keyUpNative(""+KeyEvent.VK_ENTER);
-	
+		  Thread.sleep(5000);
 		  Assert.assertTrue(
 		    selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
 		      + namereference + "')]"), "reference project added failed");
-		  selenium.setSpeed("0");
+		  selenium.setSpeed(MIN_SPEED);
 
 	}
-	public void testaddreferencepro(Selenium s,String namereference,String language,String type, String svnurl,
+	public void testaddreferencepro(Selenium selenium,String namereference,String language,String type, String svnurl,
 			String user, String password) throws Exception {
-		s.setSpeed("5000");
-//		this.waitForElementPresent("!!!menu.project.element!!!", 30);
-		s.click("!!!menu.project.element!!!");
-		s.click("idSubModuleAddButton");
+		selenium.setSpeed(MAX_SPEED);
+		selenium.click("!!!menu.project.element!!!");
+		selenium.click("idSubModuleAddButton");
 		
-		s.click("idLabelInput");
-		s.setSpeed("0");
-		s.type("idLabelInput", namereference);
-		s.fireEvent("idLabelInput", "blur");
+		selenium.click("idLabelInput");
+		selenium.setSpeed(MIN_SPEED);
+		selenium.type("idLabelInput", namereference);
+		selenium.fireEvent("idLabelInput", "blur");
 		if ("Java".equals(language) || "".equals(language)) {
 
 		} else {
-			s.click("idLanguageInput");
-			s.mouseDownAt(("//div[@role='listitem'][2]"),""+Event.ENTER);
+			selenium.click("idLanguageInput");
+			selenium.mouseDownAt(("//div[@role='listitem'][2]"),""+Event.ENTER);
 //			s.fireEvent("idLanguageInput", "blur");
 		}
-		s.click("idReferenceInput");
-		s.type("idDescriptionInput", "adf");
-		s.fireEvent("idDescriptionInput", "blur");
-		//*********************add the type select option
-//		selenium.setSpeed("2000");
-//		if(selenium.isVisible("idProjectTypeComboBox")){
-//		selenium.click("idProjectTypeComboBox");
-//		selenium.mouseDown("//div[text()='"+type+"']");
-//		selenium.setSpeed("0");
-//		}
-//	
-		//*********************
-		s.click("idAdvanceInput");
-		s.type("idUrlInput", svnurl + "/" + namereference + "/");// svn
+		selenium.click("idReferenceInput");
+		selenium.type("idDescriptionInput","adf");
+		selenium.fireEvent("idDescriptionInput", "blur");
+
+/*		//add the type select option
+		selenium.setSpeed("2000");
+		if(selenium.isVisible("idProjectTypeComboBox")){
+		selenium.click("idProjectTypeComboBox");
+		selenium.mouseDown("//div[text()='"+type+"']");
+		selenium.setSpeed("0");
+		}
+*/
+		selenium.click("idAdvanceInput");
+		selenium.type("idUrlInput", svnurl + "/" + namereference + "/");// svn
 																		// project
 																		// url
-		s.fireEvent("idUrlInput", "blur");
-		s.type("idLoginInput", user);// svn account
-		s.fireEvent("idLoginInput", "blur");
-		s.type("idPasswordInput", password);// svn password
-		s.fireEvent("idPasswordInput", "blur");
-		s.click("idSvnCommitInput");
-		s.keyPressNative("" + KeyEvent.VK_ENTER);
-		s.keyUpNative("" + KeyEvent.VK_ENTER);
-		s.click("idSvnLockInput");
-		s.keyPressNative("" + KeyEvent.VK_ENTER);
-		s.keyUpNative("" + KeyEvent.VK_ENTER);
-		s.click("idSvnUserLogInput");
-		 s.focus("idFormSaveButton");
-		  s.keyDownNative(""+KeyEvent.VK_ENTER);
-		 s.keyUpNative(""+KeyEvent.VK_ENTER);
-		try {
-			Thread.sleep(7000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		selenium.fireEvent("idUrlInput", "blur");
+		selenium.type("idLoginInput", user);// svn account
+		selenium.fireEvent("idLoginInput", "blur");
+		selenium.type("idPasswordInput", password);// svn password
+		selenium.fireEvent("idPasswordInput", "blur");
+		selenium.click("idSvnCommitInput");
+		selenium.keyPressNative("" + KeyEvent.VK_ENTER);
+		selenium.keyUpNative("" + KeyEvent.VK_ENTER);
+		selenium.click("idSvnLockInput");
+		selenium.keyPressNative("" + KeyEvent.VK_ENTER);
+		selenium.keyUpNative("" + KeyEvent.VK_ENTER);
+		selenium.click("idSvnUserLogInput");
+		selenium.setSpeed(MAX_SPEED);
+		selenium.click("idDescriptionInput");
+		selenium.focus("idFormSaveButton");
+		selenium.keyDownNative(""+KeyEvent.VK_ENTER);
+		selenium.keyUpNative(""+KeyEvent.VK_ENTER);
+		
 		Assert.assertTrue(
-				s.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
+				selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
 						+ namereference + "')]"), "reference project added failed");
-		selenium.setSpeed("0");
+		selenium.setSpeed(MIN_SPEED);
 	}
-	public boolean addTestproWithdefaultsettings(Selenium s, String proname) {
+	
+	public boolean addTestproWithdefaultsettings(Selenium selenium, String proname) {
 		boolean ok = false;
-		s.setSpeed("8000");
-//		this.waitForElementPresent("!!!menu.project.element!!!", 30);
-		s.click("!!!menu.project.element!!!");
-//		this.waitForElementPresent("idSubModuleAddButton", 30);
+		selenium.setSpeed(MAX_SPEED);
+		selenium.click("!!!menu.project.element!!!");
 		
 	
-		s.click("idSubModuleAddButton");
+		selenium.click("idSubModuleAddButton");
 //		s.setSpeed("3000");
-		s.click("idLabelInput");
-		s.type("idLabelInput", proname);
-		s.fireEvent("idLabelInput", "blur");
+		selenium.click("idLabelInput");
+		selenium.type("idLabelInput", proname);
+		selenium.fireEvent("idLabelInput", "blur");
 		
-		 s.focus("idFormSaveButton");
-		  s.keyDownNative(""+KeyEvent.VK_ENTER);
-		 s.keyUpNative(""+KeyEvent.VK_ENTER);
+		selenium.focus("idFormSaveButton");
+		selenium.keyDownNative(""+KeyEvent.VK_ENTER);
+		selenium.keyUpNative(""+KeyEvent.VK_ENTER);
 		try {
 			Thread.sleep(7000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		if(s.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
+		if(selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
 				+ proname + "')]")){
 			System.out.println("Testpro added success!");
 			ok = true;
 		}
-		s.setSpeed("0");
+		selenium.setSpeed(MIN_SPEED);
 		return ok;
 	}
 
 	@AfterMethod
 	public void tearDown() throws Exception {
 		// selenium.stop();
+
 	}
 }

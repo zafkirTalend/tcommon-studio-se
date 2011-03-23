@@ -25,7 +25,7 @@ public class TestCleanProject extends Login{
   @Test(dependsOnGroups={"Second"})
   @Parameters({ "NumbersOfprojects" })
   public void deleteAll(String numOfprojectsTodelete) {
-	  selenium.setSpeed("3000");
+	  selenium.setSpeed(MID_SPEED);
 	  int n = 0;
 	  try{
 	  n = Integer.parseInt(numOfprojectsTodelete);
@@ -36,6 +36,6 @@ public class TestCleanProject extends Login{
 		
 		okDelete();
 	  }
-	  selenium.setSpeed("0");
+	  selenium.setSpeed(MIN_SPEED);
   }
 }

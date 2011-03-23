@@ -1,8 +1,6 @@
 package com.talend.tac.cases.projects;
 
-import java.awt.Event;
 import java.awt.event.KeyEvent;
-
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -19,26 +17,27 @@ public class TestAddPerlproject extends Login{
 	  this.waitForElementPresent("!!!menu.project.element!!!", 30);
 	  String namecommon = "TestPro";
 	  String svnUrl =perlUrl;
-	  selenium.setSpeed("3000");
+	  selenium.setSpeed(MID_SPEED);
 	  selenium.click("!!!menu.project.element!!!");
 	  selenium.click("idSubModuleAddButton");
 	  selenium.click("idLabelInput");
-	  selenium.setSpeed("0");
+	  selenium.setSpeed(MIN_SPEED);
 	  selenium.type("idLabelInput", namecommon);
 	  selenium.fireEvent("idLabelInput", "blur");
-	  if ("Java".equals(language) || "".equals(language)) {
-
-		} else {
-			selenium.click("idLanguageInput");
-			selenium.mouseDownAt("//div[@role='listitem'][2]",""+KeyEvent.VK_ENTER);
-		}
-	  
+//	  if ("Java".equals(language) || "".equals(language)) {
+//
+//		} else {
+//			selenium.click("idLanguageInput");
+//			selenium.mouseDownAt("//div[@role='listitem'][2]",""+KeyEvent.VK_ENTER);
+//		}
+	  if (!"Java".equals(language) && !"".equals(language)) {
+		  selenium.click("idLanguageInput");
+		  selenium.mouseDownAt("//div[@role='listitem'][2]",""+KeyEvent.VK_ENTER);
+	  }
 	  selenium.type("idDescriptionInput", "adf");
 	  selenium.fireEvent("idDescriptionInput", "blur");
-	
 	  selenium.click("idAdvanceInput");
 	  selenium.type("idUrlInput", svnUrl);// svn
-	               
 	  selenium.fireEvent("idUrlInput", "blur");
 	  selenium.type("idLoginInput", username);// svn account
 	  selenium.fireEvent("idLoginInput", "blur");
@@ -49,9 +48,8 @@ public class TestAddPerlproject extends Login{
 	  selenium.click("idSvnLockInput");
 	  selenium.mouseDownAt("//div[@role='listitem'][2]",""+KeyEvent.VK_ENTER);
 	  selenium.click("idSvnUserLogInput");
+	  selenium.setSpeed(MAX_SPEED);
 	  selenium.click("idDescriptionInput");
-	  selenium.fireEvent("idDescriptionInput", "blur");
-	  selenium.setSpeed("5000");
 	  selenium.focus("idFormSaveButton");
 	  selenium.keyDownNative(""+KeyEvent.VK_ENTER);
 	  selenium.keyUpNative(""+KeyEvent.VK_ENTER);
@@ -61,12 +59,6 @@ public class TestAddPerlproject extends Login{
 	      + namecommon + "')]")&&(selenium.isElementPresent("//img[@title='perl']")), "common project added failed");
 	 
 	  //delete the added perl project
-	  deleteProject(selenium,namecommon);
+	  delete.okDelete(selenium,namecommon);
 	 }
-  
-  public void deleteProject(Selenium s,String proname){
-	  
-	  delete.okDelete(s,proname);
-	  
-  }
 }
