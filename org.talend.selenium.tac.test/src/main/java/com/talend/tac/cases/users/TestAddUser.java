@@ -1,6 +1,5 @@
 package com.talend.tac.cases.users;
 
-import java.awt.Event;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -122,16 +121,7 @@ public class TestAddUser extends Login {
 		selenium.click("idValidateButton");
 		Assert.assertEquals(selenium.getValue("idActiveInput"), rb.getString("menu.role.operationManager"));
 
-		if(selenium.isElementPresent("idTypeInput")) {
-/****/
-			selenium.click("idTypeInput");
-			selenium.mouseDownAt("//div[@role='listitem'][1]", ""+Event.ENTER);
-/****/  
-			selenium.click("idFirstAdminConnInput");
-		} else {
 
-		}
-		
 		selenium.setSpeed(MAX_SPEED);
 		selenium.click("idFormSaveButton");
 		Assert.assertTrue(selenium.isTextPresent(rb.getString("user.error.uniqueLogin")));
@@ -152,16 +142,6 @@ public class TestAddUser extends Login {
 		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-name' and (text()='"+rb.getString("menu.role.administrator")+"')]");
 		selenium.click("idValidateButton");
 
-		if(selenium.isElementPresent("idTypeInput")) {
-/****/
-			selenium.click("idTypeInput");
-			selenium.mouseDownAt("//div[@role='listitem'][1]", ""+Event.ENTER);
-/****/  
-			selenium.click("idFirstAdminConnInput");
-		} else {
-
-		}
-		
 		selenium.setSpeed(MAX_SPEED);
 		selenium.click("idFormSaveButton");
 		Assert.assertTrue(selenium.isElementPresent("//div[text()='"+LoginNameChooseAdministratorRole+"']"));
@@ -189,16 +169,6 @@ public class TestAddUser extends Login {
 		selenium.click("idValidateButton");
 		Assert.assertEquals(selenium.getValue("idActiveInput"), rb.getObject("menu.role.viewer")+"/"+rb.getString("menu.role.designer"));
 
-		if(selenium.isElementPresent("idTypeInput")) {
-/****/
-			selenium.click("idTypeInput");
-			selenium.mouseDownAt("//div[@role='listitem'][1]", ""+Event.ENTER);
-/****/  
-			selenium.click("idFirstAdminConnInput");
-		} else {
-
-		}
-		
 		selenium.setSpeed(MAX_SPEED);
 		selenium.click("idFormSaveButton");
 		Assert.assertTrue(selenium.isElementPresent("//div[text()='"+LoginNameChooseMulripleRoles+"']"));
