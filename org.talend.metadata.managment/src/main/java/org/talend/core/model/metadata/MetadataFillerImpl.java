@@ -22,6 +22,7 @@ import org.talend.commons.bridge.ReponsitoryContextBridge;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 import org.talend.core.model.metadata.builder.connection.Connection;
+import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.util.EDataBaseType;
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.cwm.helper.ConnectionHelper;
@@ -190,6 +191,83 @@ public abstract class MetadataFillerImpl implements IMetadataFiller {
                 metadataConnection.setMapping(ParamValue);
             }
         }
+        return metadataConnection;
+
+    }
+
+    /*
+     * @see org.talend.core.model.metadata.IMetadataFill#fillUIParams(java.util.Map)
+     */
+    public IMetadataConnection fillUIParams(DatabaseConnection conn) {
+        if (conn == null) {
+            return null;
+        }
+        IMetadataConnection metadataConnection = new MetadataConnection();
+
+        // driverPath
+                metadataConnection.setDriverJarPath(conn.getDriverJarPath());
+
+                // set dbType
+                metadataConnection.setDbType(conn.getDatabaseType());
+                // set product(ProductId) and Schema(UISchema)
+                EDatabaseTypeName edatabasetypeInstance = EDatabaseTypeName.getTypeFromDisplayName(conn.getDatabaseType());
+                String product = edatabasetypeInstance.getProduct();
+                metadataConnection.setProduct(product);
+                // set mapping(DbmsId)
+                if (!ReponsitoryContextBridge.isDefautProject()) {
+                    Dbms defaultDbmsFromProduct = MetadataTalendType.getDefaultDbmsFromProduct(product);
+                    if (defaultDbmsFromProduct != null) {
+                        String mapping = defaultDbmsFromProduct.getId();
+                        metadataConnection.setMapping(mapping);
+                    }
+                }
+                // set dbVersionString
+                List<EDatabaseVersion4Drivers> dbTypeList = EDatabaseVersion4Drivers.indexOfByDbType(conn.getDatabaseType());
+                if (dbTypeList.size() == 1) {
+                    metadataConnection.setDbVersionString(dbTypeList.get(0).getVersionValue());
+                }
+        // filePath
+                metadataConnection.setFileFieldName(conn.getFileFieldName());
+        // jdbcUrl
+                metadataConnection.setUrl(conn.getURL());
+        // aDDParameter
+                metadataConnection.setAdditionalParams(conn.getAdditionalParams());
+        // driverClassName
+                metadataConnection.setDriverClass(conn.getDriverClass());
+        // host
+                metadataConnection.setServerName(conn.getServerName());
+        // port
+                metadataConnection.setPort(conn.getPort());
+        // dbName
+                metadataConnection.setDatabase(conn.getDatabaseType());
+        // otherParameter
+                metadataConnection.setOtherParameter(ConnectionHelper.getOtherParameter(conn));
+        // retrieveAllMetadata
+                metadataConnection.setRetrieveAllMetadata(ConnectionHelper.getRetrieveAllMetadata(conn));
+        // name
+                metadataConnection.setLabel(conn.getLabel());
+        // purpose
+                metadataConnection.setPurpose(ConnectionHelper.getPurpose(conn));
+        // description
+                metadataConnection.setDescription(ConnectionHelper.getDescription(conn));
+        // author
+                metadataConnection.setAuthor(ConnectionHelper.getAuthor(conn));
+        // status
+                metadataConnection.setStatus(ConnectionHelper.getDevStatus(conn));
+        // version
+        metadataConnection.setVersion(ConnectionHelper.getVersion(conn));
+        // password
+                metadataConnection.setPassword(ConnectionHelper.getPassword(conn));
+        // user
+                metadataConnection.setUsername(conn.getUsername());
+        // universe
+                metadataConnection.setUniverse(ConnectionHelper.getUniverse(conn));
+        // dbName
+                metadataConnection.setDataSourceName(conn.getDatasourceName());
+        // dbmsId
+        if (metadataConnection.getMapping() == null) {
+                metadataConnection.setMapping(conn.getDbmsId());
+            }
         return metadataConnection;
 
     }

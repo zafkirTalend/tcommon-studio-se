@@ -18,6 +18,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.talend.core.model.metadata.builder.connection.Connection;
+import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.relational.TdTable;
 import org.talend.cwm.relational.TdView;
@@ -76,6 +77,17 @@ public class MetadataFillFactory {
      */
     public IMetadataConnection fillUIParams(Map<String, String> paramMap) {
         return metadataFiller.fillUIParams(paramMap);
+    }
+
+    /**
+     * 
+     * zshen Comment method "fillUIParams". convert a DatabaseConnection object to IMetadataConnection
+     * 
+     * @param conn
+     * @return null only if conn is null
+     */
+    public IMetadataConnection fillUIParams(DatabaseConnection conn) {
+        return metadataFiller.fillUIParams(conn);
     }
 
     /**

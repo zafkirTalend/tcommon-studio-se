@@ -33,18 +33,23 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.Platform;
 import org.talend.commons.bridge.ReponsitoryContextBridge;
+import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.database.DB2ForZosDataBaseMetadata;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.MetadataConnection;
+import org.talend.core.model.metadata.MetadataFillFactory;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.metadata.builder.database.IDriverService;
 import org.talend.core.model.metadata.builder.database.dburl.SupportDBUrlType;
+import org.talend.core.model.properties.ConnectionItem;
+import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.cwm.constants.SoftwareSystemConstants;
 import org.talend.cwm.helper.ConnectionHelper;
+import org.talend.cwm.helper.SwitchHelpers;
 import org.talend.cwm.helper.TaggedValueHelper;
 import org.talend.cwm.relational.RelationalFactory;
 import org.talend.cwm.relational.TdSqlDataType;
@@ -59,6 +64,8 @@ import org.talend.utils.sugars.ReturnCode;
 import org.talend.utils.sugars.TypedReturnCode;
 import orgomg.cwm.foundation.softwaredeployment.Component;
 import orgomg.cwm.foundation.softwaredeployment.DataProvider;
+import orgomg.cwm.resource.relational.Catalog;
+import orgomg.cwm.resource.relational.Schema;
 
 /**
  * DOC zshen class global comment. Detailled comment
@@ -698,4 +705,183 @@ public class MetadataConnectionUtils {
         return dataprovider instanceof MDMConnection;
     }
 
+    /**
+     * DOC connection created by TOS need to fill the basic information for useing in TOP.<br>
+     * 
+     * 
+     * @param conn
+     * @return
+     */
+    public static Connection fillConnectionInformation(ConnectionItem connItem) {
+        boolean saveFlag = false;
+        Connection conn = connItem.getConnection();
+        // // fill metadata of connection
+        // if (conn.getName() == null || conn.getLabel() == null) {
+        // saveFlag = true;
+        // conn = fillConnectionMetadataInformation(conn);
+        // }
+        // fill structure of connection
+        List<Catalog> catalogs = ConnectionHelper.getCatalogs(conn);
+        List<Schema> schemas = ConnectionHelper.getSchema(conn);
+        // MOD xqliu 2010-10-19 bug 16441: case insensitive
+        boolean isNeedToFill=false;
+        if(conn instanceof DatabaseConnection){
+            String dbProductID=((DatabaseConnection)conn).getProductId();
+            if(ConnectionHelper.getAllSchemas(conn).isEmpty() && (EDatabaseTypeName.MSSQL05_08.getProduct().equals(dbProductID)||EDatabaseTypeName.MSSQL.getProduct().equals(dbProductID))){
+                isNeedToFill=true;
+            }else if(EDatabaseTypeName.AS400.getProduct().equals(dbProductID)){
+                isNeedToFill=true;
+            }else if(EDatabaseTypeName.PSQL.getProduct().equals(dbProductID)){
+                isNeedToFill=true;
+            }
+        }
+        if ((catalogs.isEmpty() && schemas.isEmpty()) || isNeedToFill) {
+
+            // ~ 16441
+            DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
+            if (dbConn != null) {
+                saveFlag = true;
+
+                conn = fillDbConnectionInformation(dbConn);
+            }
+            // else {
+            // MDMConnection mdmConn = SwitchHelpers.MDMCONNECTION_SWITCH.doSwitch(conn);
+            // if (mdmConn != null) {
+            // if (mdmConn.getDataPackage().isEmpty()) {
+            // saveFlag = true;
+            // conn = fillMdmConnectionInformation(mdmConn);
+            // }
+            // }
+            // }
+        }
+        if (saveFlag && conn != null) {
+            try {
+                ProxyRepositoryFactory.getInstance().save(connItem);
+            } catch (PersistenceException e) {
+                log.error(e, e);
+            }
+        }
+        updateRetrieveAllFlag(conn);
+        return conn;
+    }
+
+    // /**
+    // * DOC xqliu Comment method "fillConnectionMetadataInformation".
+    // *
+    // * @param conn
+    // * @return
+    // */
+    // public static Connection fillConnectionMetadataInformation(Connection conn) {
+    // // ADD xqliu 2010-10-13 bug 15756
+    // int tSize = conn.getTaggedValue().size();
+    // EList<Package> dataPackage = conn.getDataPackage();
+    // // ~ 15756
+    // Property property = PropertyHelper.getProperty(conn);
+    // // fill name and label
+    // conn.setName(property.getLabel());
+    // conn.setLabel(property.getLabel());
+    // // fill metadata
+    // MetadataHelper.setAuthor(conn, property.getAuthor().getLogin());
+    // MetadataHelper.setDescription(property.getDescription(), conn);
+    // String statusCode = property.getStatusCode() == null ? "" : property.getStatusCode();
+    // MetadataHelper.setDevStatus(conn, "".equals(statusCode) ? DevelopmentStatus.DRAFT.getLiteral() : statusCode);
+    // MetadataHelper.setPurpose(property.getPurpose(), conn);
+    // MetadataHelper.setVersion(property.getVersion(), conn);
+    // String retrieveAllMetadataStr = MetadataHelper.getRetrieveAllMetadata(conn);
+    // // ADD xqliu 2010-10-13 bug 15756
+    // if (tSize == 0 && dataPackage.size() == 1 && !"".equals(dataPackage.get(0).getName())) {
+    // retrieveAllMetadataStr = "false";
+    // }
+    // // ~ 15756
+    // // MOD klliu bug 15821 retrieveAllMetadataStr for Diff database
+    // MetadataHelper.setRetrieveAllMetadata(retrieveAllMetadataStr == null ? "true" : retrieveAllMetadataStr, conn);
+    // String schema = MetadataHelper.getOtherParameter(conn);
+    // MetadataHelper.setOtherParameter(schema, conn);
+    // return conn;
+    // }
+
+    /**
+     * DOC xqliu Comment method "fillDbConnectionInformation".
+     * 
+     * @param dbConn
+     * @return
+     */
+    public static DatabaseConnection fillDbConnectionInformation(DatabaseConnection dbConn) {
+        // fill database structure
+        // if (DatabaseConstant.XML_EXIST_DRIVER_NAME.equals(dbConn.getDriverClass())) { // xmldb(e.g eXist)
+        // IXMLDBConnection xmlDBConnection = new EXistXMLDBConnection(dbConn.getDriverClass(), dbConn.getURL());
+        // ConnectionHelper.addXMLDocuments(xmlDBConnection.createConnection(dbConn));
+        // } else {
+            boolean noStructureExists = ConnectionHelper.getAllCatalogs(dbConn).isEmpty()
+                    && ConnectionHelper.getAllSchemas(dbConn).isEmpty();
+            // MOD xqliu 2010-10-19 bug 16441: case insensitive
+            // if (ConnectionHelper.getAllSchemas(dbConn).isEmpty()
+            // && (ConnectionUtils.isMssql(dbConn) ||
+            // ConnectionUtils.isPostgresql(dbConn) || ConnectionUtils
+            // .isAs400(dbConn))) {
+            // noStructureExists = true;
+            // }
+            // ~ 16441
+            java.sql.Connection sqlConn = null;
+            try {
+                if (noStructureExists) { // do no override existing catalogs or
+                                         // schemas
+                                     // Map<String, String> paramMap =
+                                     // ParameterUtil.toMap(ConnectionUtils.createConnectionParam(dbConn));
+                IMetadataConnection metaConnection = MetadataFillFactory.getDBInstance().fillUIParams(dbConn);
+                    dbConn = (DatabaseConnection) MetadataFillFactory.getDBInstance().fillUIConnParams(metaConnection, dbConn);
+                    sqlConn = (java.sql.Connection) MetadataConnectionUtils.checkConnection(metaConnection).getObject();
+
+                    if (sqlConn != null) {
+                        MetadataFillFactory.getDBInstance().fillCatalogs(dbConn, sqlConn.getMetaData(),
+                                MetadataConnectionUtils.getPackageFilter(dbConn, sqlConn.getMetaData()));
+                        MetadataFillFactory.getDBInstance().fillSchemas(dbConn, sqlConn.getMetaData(),
+                                MetadataConnectionUtils.getPackageFilter(dbConn, sqlConn.getMetaData()));
+                    }
+
+                }
+            } catch (SQLException e) {
+                log.error(e, e);
+            } finally {
+                if (sqlConn != null) {
+                    ConnectionUtils.closeConnection(sqlConn);
+                }
+
+            }
+        // }
+        return dbConn;
+    }
+
+    // /**
+    // * DOC xqliu Comment method "fillMdmConnectionInformation".
+    // *
+    // * @param mdmConn
+    // * @return
+    // */
+    // public static MDMConnection fillMdmConnectionInformation(MDMConnection mdmConn) {
+    // // fill database structure
+    // Properties properties = new Properties();
+    // properties.put(TaggedValueHelper.USER, mdmConn.getUsername());
+    // properties.put(TaggedValueHelper.PASSWORD, mdmConn.getPassword());
+    // properties.put(TaggedValueHelper.UNIVERSE, mdmConn.getUniverse() == null ? "" : mdmConn.getUniverse());
+    // MdmWebserviceConnection mdmWsConn = new MdmWebserviceConnection(mdmConn.getPathname(), properties);
+    // ConnectionHelper.addXMLDocuments(mdmWsConn.createConnection(mdmConn));
+    // return mdmConn;
+    // }
+
+    /**
+     * update the RETRIEVE_ALL tagged value of this connection.
+     * 
+     * @param conn
+     */
+    private static void updateRetrieveAllFlag(Connection conn) {
+        if (conn != null && conn instanceof DatabaseConnection) {
+            String sid = ((DatabaseConnection) conn).getSID();
+            if (sid != null && sid.trim().length() > 0) {
+                TaggedValueHelper.setTaggedValue(conn, TaggedValueHelper.RETRIEVE_ALL, "false");
+            } else {
+                TaggedValueHelper.setTaggedValue(conn, TaggedValueHelper.RETRIEVE_ALL, "true");
+            }
+        }
+    }
 }
