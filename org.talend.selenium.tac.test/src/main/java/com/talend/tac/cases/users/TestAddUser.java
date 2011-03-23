@@ -43,7 +43,7 @@ public class TestAddUser extends Login {
     	 List<String> users = new ArrayList<String>(); 
     	 this.clickWaitForElementPresent("idMenuUserElement");
     	 selenium.setSpeed(MAX_SPEED);
-    	 if(selenium.isElementPresent("//div[text()='Role: Administrator/Viewer/Operation manager/Designer (1 Member)']")) {
+    	 if(selenium.isElementPresent("//i[text()='Administrator/Viewer/Operation manager/Designer']")) {
 			 selenium.setSpeed(MIN_SPEED);
     		 selenium.mouseDown("//div[text()='"+userName+"']");
 			 selenium.click("idRoleButton");
@@ -86,7 +86,7 @@ public class TestAddUser extends Login {
     		    selenium.setSpeed(MIN_SPEED);
     		 } 
     	 }
-    	 
+    	 selenium.setSpeed(MIN_SPEED);
     }
     
     @Test(dependsOnMethods={"testClearAllUsers"})
