@@ -4,12 +4,25 @@ import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-public class TestDeactiveAndReactiveServer extends TestJobconductorClicked {
+import com.talend.tac.cases.Login;
+
+public class TestDeactiveAndReactiveServer extends Login{
 	@Test(groups = { "DeleteServer" },dependsOnGroups = { "AddServer" })
 	@Parameters({ "DeactiveServerlable" })
 	public void serverDeactiveAndReactive(String deactiveServername) {
-		this.clickJobconductor();
-		selenium.setSpeed("5000");
+		selenium.setSpeed(MAX_SPEED);
+		if (selenium.isVisible("!!!menu.executionServers.element!!!")) {
+			selenium.click("!!!menu.executionServers.element!!!");
+			waitForElementPresent("idSubModuleAddButton", 30000);
+
+		} else {
+			selenium.click("!!!menu.jobConductor.element!!!");
+			selenium.setSpeed(MID_SPEED);
+			selenium.click("!!!menu.executionServers.element!!!");
+			waitForElementPresent("idSubModuleAddButton", 30000);
+
+		}
+		selenium.setSpeed(MAX_SPEED);
 		if (selenium.isElementPresent("idSubModuleAddButton")) {
 			selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"+deactiveServername+"')]");
 			// uncheck the active optioon
@@ -39,6 +52,6 @@ public class TestDeactiveAndReactiveServer extends TestJobconductorClicked {
 			Assert.fail("Server named" + deactiveServername
 					+ "can not be found!");
 		}
-		selenium.setSpeed("0");
+		selenium.setSpeed(MIN_SPEED);
 	}
 }

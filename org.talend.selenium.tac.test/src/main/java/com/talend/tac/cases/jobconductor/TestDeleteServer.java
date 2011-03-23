@@ -4,23 +4,30 @@ import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-public class TestDeleteServer extends TestJobconductorClicked {
+import com.talend.tac.cases.Login;
+
+public class TestDeleteServer extends Login{
 	@Test(groups = { "DeleteServer" },dependsOnGroups = { "AddServer" })
 	@Parameters({ "ServerUnused"})
 	public void deleteServerUnused(String unusedServername) {
-		this.clickJobconductor();
-		selenium.setSpeed("3000");
-//		selenium.click("idSubModuleRefreshButton");
+		selenium.setSpeed(MID_SPEED);
+		if (selenium.isVisible("!!!menu.executionServers.element!!!")) {
+			selenium.click("!!!menu.executionServers.element!!!");
+			waitForElementPresent("idSubModuleAddButton", 30000);
+
+		} else {
+			selenium.click("!!!menu.jobConductor.element!!!");
+			selenium.setSpeed(MID_SPEED);
+			selenium.click("!!!menu.executionServers.element!!!");
+			waitForElementPresent("idSubModuleAddButton", 30000);
+
+		}
+		
 		selenium.refresh();//in order to light on the delete button
 		selenium.chooseOkOnNextConfirmation();
-		System.out.println("before delete:"+unusedServername);
-		
 		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"+unusedServername+"')]");
 		selenium.click("idSubModuleDeleteButton");
-//		selenium.setSpeed("8000");
 		selenium.getConfirmation();
-//		.matches(
-//				other.getString("jobconductor.server.delete.unusedserver.warning.contents"))
 		Assert.assertFalse(
 				selenium.isElementPresent("//div[text()='" + unusedServername
 						+ "']"), "Unused server delete failed!");

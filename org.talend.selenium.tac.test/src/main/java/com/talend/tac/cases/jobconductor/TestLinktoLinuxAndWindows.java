@@ -4,11 +4,24 @@ import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-public class TestLinktoLinuxAndWindows extends TestJobconductorClicked {
+import com.talend.tac.cases.Login;
+
+public class TestLinktoLinuxAndWindows extends Login {
   @Test(groups = { "AddServer" })
   @Parameters({ "RemoteLinuxServerIp", "RemoteWindowServerIp"})
-  public void f(String linuxIp,String windowsIp) {
-		this.clickJobconductor();
+  public void linktoLinuxAndWindows(String linuxIp,String windowsIp) {
+	    selenium.setSpeed(MAX_SPEED);
+		if (selenium.isVisible("!!!menu.executionServers.element!!!")) {
+			selenium.click("!!!menu.executionServers.element!!!");
+			waitForElementPresent("idSubModuleAddButton", 30000);
+
+		} else {
+			selenium.click("!!!menu.jobConductor.element!!!");
+			selenium.setSpeed(MID_SPEED);
+			selenium.click("!!!menu.executionServers.element!!!");
+			waitForElementPresent("idSubModuleAddButton", 30000);
+
+		}
 		addRemoteServerRuninLinux(linuxIp);
 		addRemoteServerRuninWindows(windowsIp);
 		
@@ -18,21 +31,16 @@ public class TestLinktoLinuxAndWindows extends TestJobconductorClicked {
 		if (selenium.isElementPresent("idSubModuleAddButton")) {
 			selenium.click("idSubModuleAddButton");
 			// lable
-			selenium.setSpeed("0");
-			selenium.click(other.getString("inputname.id.server.add.label"));
-			selenium.type(other.getString("inputname.id.server.add.label"), "RemoteLinux");
-			selenium.fireEvent(other.getString("inputname.id.server.add.label"), "blur");
+			selenium.setSpeed(MIN_SPEED);
+			this.typeString(other.getString("inputname.id.server.add.label"), "RemoteLinux");
 			// host
-			selenium.click(other.getString("inputname.id.server.add.host"));
-			selenium.type(other.getString("inputname.id.server.add.host"), Linuxserverip);
-			selenium.fireEvent(other.getString("inputname.id.server.add.host"), "blur");
-			
+			this.typeString(other.getString("inputname.id.server.add.host"), Linuxserverip);
 			// save
 			selenium.click("idFormSaveButton");
-			selenium.setSpeed("3000");
+			selenium.setSpeed(MID_SPEED);
 			// refresh
 			selenium.click("idSubModuleRefreshButton");
-			selenium.setSpeed("2000");
+			
 
 			if (selenium.isElementPresent("//div[text()='RemoteLinux']")) {
 
@@ -48,22 +56,15 @@ public class TestLinktoLinuxAndWindows extends TestJobconductorClicked {
 		if (selenium.isElementPresent("idSubModuleAddButton")) {
 			selenium.click("idSubModuleAddButton");
 			// lable
-			selenium.setSpeed("0");
-			selenium.click(other.getString("inputname.id.server.add.label"));
-			selenium.type(other.getString("inputname.id.server.add.label"), "RemoteWindows");
-			selenium.fireEvent(other.getString("inputname.id.server.add.label"), "blur");
+			selenium.setSpeed(MIN_SPEED);
+			this.typeString(other.getString("inputname.id.server.add.label"), "RemoteWindows");
 			// host
-			selenium.click(other.getString("inputname.id.server.add.host"));
-			selenium.type(other.getString("inputname.id.server.add.host"), windowsserverip);
-			selenium.fireEvent(other.getString("inputname.id.server.add.host"), "blur");
-			
+			this.typeString(other.getString("inputname.id.server.add.host"), windowsserverip);
 			// save
+			selenium.setSpeed(MID_SPEED);
 			selenium.click("idFormSaveButton");
-			selenium.setSpeed("3000");
 			// refresh
 			selenium.click("idSubModuleRefreshButton");
-			selenium.setSpeed("2000");
-
 			if (selenium.isElementPresent("//div[text()='RemoteWindows']")) {
 
 			} else {
