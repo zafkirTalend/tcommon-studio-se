@@ -103,7 +103,8 @@ public class ItemCacheManager {
         if (processId == null || "".equals(processId)) { //$NON-NLS-1$
             return null;
         }
-        if (version == null || LATEST_VERSION.equals(version)) {
+        // feature 19312
+        if (version.equals("") || version == null || LATEST_VERSION.equals(version)) {
             return getProcessItem(project, processId);
         }
         ProcessItem selectedProcessItem = null;
