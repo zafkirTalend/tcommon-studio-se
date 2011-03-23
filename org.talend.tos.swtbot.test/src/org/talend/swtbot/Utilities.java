@@ -18,7 +18,6 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.ResourceBundle;
 
 import junit.framework.Assert;
 
@@ -87,12 +86,14 @@ public class Utilities {
         WEB_SERVICE,
         VALIDATION_RULES,
         FTP,
-        HL7
+        HL7,
+        DOCUMENTATION,
+        RECYCLE_BIN
     }
 
-    private static final String BUNDLE_NAME = "connectionInfo"; //$NON-NLS-1$
-
-    private static ResourceBundle resourceBundle = ResourceBundle.getBundle(BUNDLE_NAME);
+    //    private static final String BUNDLE_NAME = "connectionInfo"; //$NON-NLS-1$
+    //
+    // private static ResourceBundle resourceBundle = ResourceBundle.getBundle(BUNDLE_NAME);
 
     private static SWTBotShell shell;
 
@@ -169,7 +170,8 @@ public class Utilities {
             gefBot.button("Finish").click();
         } else {
             shell.close();
-            Assert.assertTrue("finish button is not enabled, " + itemType + " created fail", finishButtonIsEnabled);
+            Assert.assertTrue("finish button is not enabled, " + itemType + " created fail. Maybe the item name is exist,",
+                    finishButtonIsEnabled);
         }
 
         SWTBotTreeItem newTreeItem = null;
@@ -213,25 +215,31 @@ public class Utilities {
             SWTBotTreeItem treeNode, final SWTGefBot gefBot) throws IOException, URISyntaxException {
         treeNode.contextMenu(contextMenu).click();
         gefBot.waitUntil(Conditions.shellIsActive(shellTitle));
-        gefBot.shell(shellTitle).activate();
+        shell = gefBot.shell(shellTitle).activate();
         gefBot.textWithLabel("Name").setText(fileName);
-        gefBot.button("Next >").click();
+        boolean nextButtonIsEnabled = gefBot.button("Next >").isEnabled();
+        if (nextButtonIsEnabled) {
+            gefBot.button("Next >").click();
+        } else {
+            shell.close();
+            Assert.assertTrue("next button is not enabled, maybe the item name is exist,", nextButtonIsEnabled);
+        }
 
         switch (itemType) {
         case FILE_DELIMITED:
             gefBot.textWithLabel("File").setText(
-                    getFileFromCurrentPluginSampleFolder(resourceBundle.getString("fileDelimited.filepath")).getAbsolutePath());
+                    getFileFromCurrentPluginSampleFolder(System.getProperty("fileDelimited.filepath")).getAbsolutePath());
             gefBot.button("Next >").click();
             break;
         case FILE_EXCEL:
             gefBot.textWithLabel("File").setText(
-                    getFileFromCurrentPluginSampleFolder(resourceBundle.getString("fileExcel.filepath")).getAbsolutePath());
+                    getFileFromCurrentPluginSampleFolder(System.getProperty("fileExcel.filepath")).getAbsolutePath());
             gefBot.treeWithLabel("Set sheets parameters").getTreeItem("All sheets/DSelect sheet").check();
             gefBot.button("Next >").click();
             break;
         case FILE_LDIF:
             gefBot.textWithLabel("File").setText(
-                    getFileFromCurrentPluginSampleFolder(resourceBundle.getString("fileLdif.filepath")).getAbsolutePath());
+                    getFileFromCurrentPluginSampleFolder(System.getProperty("fileLdif.filepath")).getAbsolutePath());
             gefBot.button("Next >").click();
             for (int i = 0; i < 5; i++) {
                 gefBot.tableInGroup("List Attributes of Ldif file").getTableItem(i).check();
@@ -239,30 +247,30 @@ public class Utilities {
             break;
         case FILE_POSITIONAL:
             gefBot.textWithLabel("File").setText(
-                    getFileFromCurrentPluginSampleFolder(resourceBundle.getString("filePositional.filepath")).getAbsolutePath());
+                    getFileFromCurrentPluginSampleFolder(System.getProperty("filePositional.filepath")).getAbsolutePath());
             gefBot.textWithLabel("Field Separator").setText("5,7,7,*");
             gefBot.textWithLabel("Marker position").setText("5,12,19");
             gefBot.button("Next >").click();
             break;
         case FILE_REGEX:
             gefBot.textWithLabel("File").setText(
-                    getFileFromCurrentPluginSampleFolder(resourceBundle.getString("fileRegex.filepath")).getAbsolutePath());
+                    getFileFromCurrentPluginSampleFolder(System.getProperty("fileRegex.filepath")).getAbsolutePath());
             gefBot.button("Next >").click();
             break;
         case FILE_XML:
             gefBot.button("Next >").click();
             gefBot.textWithLabel("XML").setText(
-                    getFileFromCurrentPluginSampleFolder(resourceBundle.getString("fileXml.filepath")).getAbsolutePath());
+                    getFileFromCurrentPluginSampleFolder(System.getProperty("fileXml.filepath")).getAbsolutePath());
             gefBot.button("Next >").click();
 
             gefBot.tableInGroup("Target Schema", 0).click(0, 2);
-            gefBot.text().setText(resourceBundle.getString("filexml.loop"));
+            gefBot.text().setText(System.getProperty("filexml.loop"));
             for (int i = 0; i < 3; i++) {
                 gefBot.buttonWithTooltip("Add").click();
                 gefBot.tableInGroup("Target Schema", 1).click(i, 2);
-                gefBot.text().setText("@" + resourceBundle.getString("filexml.schema" + i));
+                gefBot.text().setText("@" + System.getProperty("filexml.schema" + i));
                 gefBot.tableInGroup("Target Schema", 1).click(i, 3);
-                gefBot.text().setText(resourceBundle.getString("filexml.schema" + i));
+                gefBot.text().setText(System.getProperty("filexml.schema" + i));
             }
             break;
         default:
@@ -339,15 +347,20 @@ public class Utilities {
     public static void createLdap(String ldapName, SWTBotTreeItem treeNode, final SWTGefBot gefBot) {
         treeNode.contextMenu("Create LDAP schema").click();
         gefBot.waitUntil(Conditions.shellIsActive("Create new LDAP schema"));
-        gefBot.shell("Create new LDAP schema").activate();
+        shell = gefBot.shell("Create new LDAP schema").activate();
 
         /* step 1 of 5 */
         gefBot.textWithLabel("Name").setText(ldapName);
-        gefBot.button("Next >").click();
-
+        boolean nextButtonIsEnabled = gefBot.button("Next >").isEnabled();
+        if (nextButtonIsEnabled) {
+            gefBot.button("Next >").click();
+        } else {
+            shell.close();
+            Assert.assertTrue("next button is not enabled, maybe the item name is exist,", nextButtonIsEnabled);
+        }
         /* step 2 of 5 */
-        gefBot.comboBoxWithLabel("Hostname:").setText(resourceBundle.getString("ldap.hostname"));
-        gefBot.comboBoxWithLabel("Port:").setText(resourceBundle.getString("ldap.port"));
+        gefBot.comboBoxWithLabel("Hostname:").setText(System.getProperty("ldap.hostname"));
+        gefBot.comboBoxWithLabel("Port:").setText(System.getProperty("ldap.port"));
         gefBot.button("Check Network Parameter").click();
 
         gefBot.waitUntil(Conditions.shellIsActive("Check Network Parameter"), 20000);
@@ -368,8 +381,8 @@ public class Utilities {
         gefBot.button("Next >").click();
 
         /* step 3 of 5 */
-        gefBot.comboBoxWithLabel("Bind DN or user:").setText(resourceBundle.getString("ldap.dn_or_user"));
-        gefBot.textWithLabel("Bind password:").setText(resourceBundle.getString("ldap.password"));
+        gefBot.comboBoxWithLabel("Bind DN or user:").setText(System.getProperty("ldap.dn_or_user"));
+        gefBot.textWithLabel("Bind password:").setText(System.getProperty("ldap.password"));
         gefBot.button("Check Authentication").click();
 
         gefBot.waitUntil(Conditions.shellIsActive("Check Authentication Parameter"), 20000);
@@ -428,16 +441,22 @@ public class Utilities {
 
     public static void createSalesforce(String salesforceName, SWTBotTreeItem treeNode, final SWTGefBot gefBot) {
         treeNode.contextMenu("Create Salesforce schema").click();
-        gefBot.shell("New Salesforce ").activate();
+        shell = gefBot.shell("New Salesforce ").activate();
         gefBot.waitUntil(Conditions.shellIsActive("New Salesforce "));
 
         /* step 1 of 4 */
         gefBot.textWithLabel("Name").setText(salesforceName);
-        gefBot.button("Next >").click();
+        boolean nextButtonIsEnabled = gefBot.button("Next >").isEnabled();
+        if (nextButtonIsEnabled) {
+            gefBot.button("Next >").click();
+        } else {
+            shell.close();
+            Assert.assertTrue("next button is not enabled, maybe the item name is exist,", nextButtonIsEnabled);
+        }
 
         /* step 2 of 4 */
-        gefBot.textWithLabel("User name").setText(resourceBundle.getString("salesforce.username"));
-        gefBot.textWithLabel("Password ").setText(resourceBundle.getString("salesforce.password"));
+        gefBot.textWithLabel("User name").setText(System.getProperty("salesforce.username"));
+        gefBot.textWithLabel("Password ").setText(System.getProperty("salesforce.password"));
         gefBot.button("Check login").click();
 
         gefBot.waitUntil(new DefaultCondition() {
@@ -495,19 +514,25 @@ public class Utilities {
     public static void createGenericSchema(String schemaName, SWTBotTreeItem treeNode, final SWTGefBot gefBot) {
         treeNode.contextMenu("Create generic schema").click();
         gefBot.waitUntil(Conditions.shellIsActive("Create new generic schema"));
-        gefBot.shell("Create new generic schema").activate();
+        shell = gefBot.shell("Create new generic schema").activate();
 
         /* step 1 of 2 */
         gefBot.textWithLabel("Name").setText(schemaName);
-        gefBot.button("Next >").click();
+        boolean nextButtonIsEnabled = gefBot.button("Next >").isEnabled();
+        if (nextButtonIsEnabled) {
+            gefBot.button("Next >").click();
+        } else {
+            shell.close();
+            Assert.assertTrue("next button is not enabled, maybe the item name is exist,", nextButtonIsEnabled);
+        }
 
         /* step 2 of 2 */
         for (int i = 0; i < 3; i++) {
             gefBot.buttonWithTooltip("Add").click();
             gefBot.table().click(i, 2);
-            gefBot.text().setText(resourceBundle.getString("genericSchema.column" + i));
+            gefBot.text().setText(System.getProperty("genericSchema.column" + i));
             gefBot.table().click(i, 4);
-            gefBot.ccomboBox().setSelection(resourceBundle.getString("genericSchema.type" + i));
+            gefBot.ccomboBox().setSelection(System.getProperty("genericSchema.type" + i));
         }
 
         gefBot.button("Finish").click();
@@ -522,21 +547,27 @@ public class Utilities {
         }
     }
 
-    public static void createCopybook(String copybookNAME, SWTBotTreeItem treeNode, SWTGefBot gefBot) throws IOException,
+    public static void createCopybook(String copybookNAME, SWTBotTreeItem treeNode, final SWTGefBot gefBot) throws IOException,
             URISyntaxException {
         treeNode.contextMenu("Create EBCDIC").click();
         gefBot.waitUntil(Conditions.shellIsActive("EBCDIC Connection"));
-        gefBot.shell("EBCDIC Connection").activate();
+        shell = gefBot.shell("EBCDIC Connection").activate();
 
         /* step 1 of 3 */
         gefBot.textWithLabel("Name").setText(copybookNAME);
-        gefBot.button("Next >").click();
+        boolean nextButtonIsEnabled = gefBot.button("Next >").isEnabled();
+        if (nextButtonIsEnabled) {
+            gefBot.button("Next >").click();
+        } else {
+            shell.close();
+            Assert.assertTrue("next button is not enabled, maybe the item name is exist,", nextButtonIsEnabled);
+        }
 
         /* step 2 of 3 */
         gefBot.textWithLabel("File").setText(
-                getFileFromCurrentPluginSampleFolder(resourceBundle.getString("copybook.filepath")).getAbsolutePath());
+                getFileFromCurrentPluginSampleFolder(System.getProperty("copybook.filepath")).getAbsolutePath());
         gefBot.textWithLabel("Data file").setText(
-                getFileFromCurrentPluginSampleFolder(resourceBundle.getString("copybook.datafile")).getAbsolutePath());
+                getFileFromCurrentPluginSampleFolder(System.getProperty("copybook.datafile")).getAbsolutePath());
         gefBot.button("Generate").click();
         gefBot.button("Next >").click();
 
@@ -556,24 +587,27 @@ public class Utilities {
     public static void createSapConnection(String sapName, SWTBotTreeItem treeNode, final SWTGefBot gefBot) {
         treeNode.contextMenu("Create SAP connection").click();
         gefBot.waitUntil(Conditions.shellIsActive("SAP Connection"));
-        gefBot.shell("SAP Connection").activate();
+        shell = gefBot.shell("SAP Connection").activate();
 
         /* step 1 of 2 */
         gefBot.textWithLabel("Name").setText(sapName);
-        gefBot.button("Next >").click();
+        boolean nextButtonIsEnabled = gefBot.button("Next >").isEnabled();
+        if (nextButtonIsEnabled) {
+            gefBot.button("Next >").click();
+        } else {
+            shell.close();
+            Assert.assertTrue("next button is not enabled, maybe the item name is exist,", nextButtonIsEnabled);
+        }
 
         /* step 2 of 2 */
-        gefBot.textWithLabel("Client").setText(resourceBundle.getString("sap.client"));
-        gefBot.textWithLabel("Host").setText(resourceBundle.getString("sap.host"));
-        gefBot.textWithLabel("User").setText(resourceBundle.getString("sap.user"));
-        gefBot.textWithLabel("Password").setText(resourceBundle.getString("sap.password"));
-        gefBot.textWithLabel("System Number").setText(resourceBundle.getString("sap.systemNumber"));
-        gefBot.textWithLabel("Language").setText(resourceBundle.getString("sap.language"));
+        gefBot.textWithLabel("Client").setText(System.getProperty("sap.client"));
+        gefBot.textWithLabel("Host").setText(System.getProperty("sap.host"));
+        gefBot.textWithLabel("User").setText(System.getProperty("sap.user"));
+        gefBot.textWithLabel("Password").setText(System.getProperty("sap.password"));
+        gefBot.textWithLabel("System Number").setText(System.getProperty("sap.systemNumber"));
+        gefBot.textWithLabel("Language").setText(System.getProperty("sap.language"));
         gefBot.button("Check").click();
 
-        // shell = gefBot.shell("Check SAP Connection ");
-        // shell.activate();
-        // gefBot.waitUntil(Conditions.shellIsActive("Check SAP Connection "));
         gefBot.waitUntil(new DefaultCondition() {
 
             public boolean test() throws Exception {
@@ -586,7 +620,6 @@ public class Utilities {
             }
         });
         gefBot.button("OK").click();
-        gefBot.waitUntil(Conditions.shellCloses(shell));
 
         gefBot.button("Finish").click();
 
@@ -608,7 +641,13 @@ public class Utilities {
         shell.activate();
 
         gefBot.textWithLabel("Name").setText(contextName);
-        gefBot.button("Next >").click();
+        boolean nextButtonIsEnabled = gefBot.button("Next >").isEnabled();
+        if (nextButtonIsEnabled) {
+            gefBot.button("Next >").click();
+        } else {
+            shell.close();
+            Assert.assertTrue("next button is not enabled, maybe the item name is exist,", nextButtonIsEnabled);
+        }
 
         SWTBotTreeItem treeItem;
         SWTBotTreeItemExt treeItemExt;
@@ -617,19 +656,19 @@ public class Utilities {
             treeItem = gefBot.tree(0).getTreeItem("new1").click();
             treeItemExt = new SWTBotTreeItemExt(treeItem);
             treeItemExt.click(0);
-            gefBot.text("new1").setText(resourceBundle.getString("context.variable" + i));
+            gefBot.text("new1").setText(System.getProperty("context.variable" + i));
             treeItemExt.click(1);
-            gefBot.ccomboBox("String").setSelection(resourceBundle.getString("context.type" + i));
+            gefBot.ccomboBox("String").setSelection(System.getProperty("context.type" + i));
             treeItemExt.click(2);
         }
 
         gefBot.cTabItem("Values as tree").activate();
 
         for (int j = 0; j < 3; j++) {
-            treeItem = gefBot.tree(0).expandNode(resourceBundle.getString("context.variable" + j)).getNode(0).select().click();
+            treeItem = gefBot.tree(0).expandNode(System.getProperty("context.variable" + j)).getNode(0).select().click();
             treeItemExt = new SWTBotTreeItemExt(treeItem);
             treeItemExt.click(4);
-            gefBot.text().setText(resourceBundle.getString("context.value" + j));
+            gefBot.text().setText(System.getProperty("context.value" + j));
         }
 
         gefBot.button("Finish").click();
@@ -646,19 +685,25 @@ public class Utilities {
     public static void createWebService(String type, String webServiceName, SWTBotTreeItem treeNode, final SWTGefBot gefBot) {
         treeNode.contextMenu("Create WSDL schema").click();
         gefBot.waitUntil(Conditions.shellIsActive("Create new WSDL schema"));
-        gefBot.shell("Create new WSDL schema").activate();
+        shell = gefBot.shell("Create new WSDL schema").activate();
 
         /* step 1 of 4 */
         gefBot.textWithLabel("Name").setText(webServiceName);
-        gefBot.button("Next >").click();
+        boolean nextButtonIsEnabled = gefBot.button("Next >").isEnabled();
+        if (nextButtonIsEnabled) {
+            gefBot.button("Next >").click();
+        } else {
+            shell.close();
+            Assert.assertTrue("next button is not enabled, maybe the item name is exist,", nextButtonIsEnabled);
+        }
 
         if ("simple".equals(type)) {
             /* step 2 of 4 */
             gefBot.button("Next >").click();
 
             /* step 3 of 4 */
-            gefBot.textWithLabel("WSDL").setText(resourceBundle.getString("webService.url"));
-            gefBot.textWithLabel("Method").setText(resourceBundle.getString("webService.method"));
+            gefBot.textWithLabel("WSDL").setText(System.getProperty("webService.url"));
+            gefBot.textWithLabel("Method").setText(System.getProperty("webService.method"));
             gefBot.button("Add ").click();
             gefBot.button("Refresh Preview").click();
             gefBot.waitUntil(new DefaultCondition() {
@@ -758,49 +803,47 @@ public class Utilities {
         gefBot.waitUntil(Conditions.shellIsActive("Database Connection"));
         shell = gefBot.shell("Database Connection");
         gefBot.textWithLabel("Name").setText(dbName);
-        try {
-            gefBot.button("&Next >").click();
-        } catch (Exception e) {
+        boolean nextButtonIsEnabled = gefBot.button("Next >").isEnabled();
+        if (nextButtonIsEnabled) {
+            gefBot.button("Next >").click();
+        } else {
             shell.close();
-            Assert.assertTrue("next button is not enable, connection created failure", false);
+            Assert.assertTrue("next button is not enabled, maybe the item name is exist,", nextButtonIsEnabled);
         }
         switch (dbType) {
         case MYSQL:
             gefBot.comboBoxWithLabel("DB Type").setSelection("MySQL");
-            setConnectionInfo(gefBot, resourceBundle.getString("mysql.login"), resourceBundle.getString("mysql.password"),
-                    resourceBundle.getString("mysql.hostname"), resourceBundle.getString("mysql.port"),
-                    resourceBundle.getString("mysql.dbname"));
+            setConnectionInfo(gefBot, System.getProperty("mysql.login"), System.getProperty("mysql.password"),
+                    System.getProperty("mysql.hostname"), System.getProperty("mysql.port"), System.getProperty("mysql.dbname"));
             break;
         case POSTGRESQL:
             gefBot.comboBoxWithLabel("DB Type").setSelection("PostgreSQL");
-            setConnectionInfo(gefBot, resourceBundle.getString("postgre.login"), resourceBundle.getString("postgre.password"),
-                    resourceBundle.getString("postgre.hostname"), resourceBundle.getString("postgre.port"),
-                    resourceBundle.getString("postgre.dbname"));
+            setConnectionInfo(gefBot, System.getProperty("postgre.login"), System.getProperty("postgre.password"),
+                    System.getProperty("postgre.hostname"), System.getProperty("postgre.port"),
+                    System.getProperty("postgre.dbname"));
             break;
         case MSSQL:
             gefBot.comboBoxWithLabel("DB Type").setSelection("Microsoft SQL Server 2005/2008");
-            setConnectionInfo(gefBot, resourceBundle.getString("mssql.login"), resourceBundle.getString("mssql.password"),
-                    resourceBundle.getString("mssql.hostname"), resourceBundle.getString("mssql.port"),
-                    resourceBundle.getString("mssql.dbname"));
+            setConnectionInfo(gefBot, System.getProperty("mssql.login"), System.getProperty("mssql.password"),
+                    System.getProperty("mssql.hostname"), System.getProperty("mssql.port"), System.getProperty("mssql.dbname"));
             break;
         case ORACLE:
             gefBot.comboBoxWithLabel("DB Type").setSelection("Oracle with SID");
-            gefBot.textWithLabel("Login").setText(resourceBundle.getString("oracle.login"));
-            gefBot.textWithLabel("Password").setText(resourceBundle.getString("oracle.password"));
-            gefBot.textWithLabel("Server").setText(resourceBundle.getString("oracle.hostname"));
-            gefBot.textWithLabel("Port").setText(resourceBundle.getString("oracle.port"));
-            gefBot.textWithLabel("Sid").setText(resourceBundle.getString("oracle.sid"));
+            gefBot.textWithLabel("Login").setText(System.getProperty("oracle.login"));
+            gefBot.textWithLabel("Password").setText(System.getProperty("oracle.password"));
+            gefBot.textWithLabel("Server").setText(System.getProperty("oracle.hostname"));
+            gefBot.textWithLabel("Port").setText(System.getProperty("oracle.port"));
+            gefBot.textWithLabel("Sid").setText(System.getProperty("oracle.sid"));
             break;
         case AS400:
             gefBot.comboBoxWithLabel("DB Type").setSelection("AS400");
-            setConnectionInfo(gefBot, resourceBundle.getString("as400.login"), resourceBundle.getString("as400.password"),
-                    resourceBundle.getString("as400.hostname"), null, resourceBundle.getString("as400.dbname"));
+            setConnectionInfo(gefBot, System.getProperty("as400.login"), System.getProperty("as400.password"),
+                    System.getProperty("as400.hostname"), null, System.getProperty("as400.dbname"));
             break;
         case SYBASE:
             gefBot.comboBoxWithLabel("DB Type").setSelection("Sybase (ASE and IQ)");
-            setConnectionInfo(gefBot, resourceBundle.getString("sybase.login"), resourceBundle.getString("sybase.password"),
-                    resourceBundle.getString("sybase.hostname"), resourceBundle.getString("sybase.port"),
-                    resourceBundle.getString("sybase.dbname"));
+            setConnectionInfo(gefBot, System.getProperty("sybase.login"), System.getProperty("sybase.password"),
+                    System.getProperty("sybase.hostname"), System.getProperty("sybase.port"), System.getProperty("sybase.dbname"));
             break;
         default:
             break;
@@ -1001,6 +1044,10 @@ public class Utilities {
             return tree.expandNode("Metadata", "FTP");
         case HL7:
             return tree.expandNode("Metadata", "HL7");
+        case DOCUMENTATION:
+            return tree.expandNode("Documentation");
+        case RECYCLE_BIN:
+            return tree.expandNode("Recycle bin");
         default:
             break;
         }
@@ -1048,7 +1095,7 @@ public class Utilities {
             gefBot.button("Finish").click();
         } else {
             shell.close();
-            Assert.assertTrue("finish button is not enabled, folder created fail", finishButtonIsEnabled);
+            Assert.assertTrue("finish button is not enabled, folder created fail, maybe the item is exist", finishButtonIsEnabled);
         }
         gefBot.waitUntil(Conditions.shellCloses(shell));
 
@@ -1076,24 +1123,30 @@ public class Utilities {
         switch (itemType) {
         case CONTEXTS:
             treeNode.getNode(itemName + " 0.1").contextMenu("Edit context group").click();
-            gefBot.shell("Create / Edit a context group").activate();
+            shell = gefBot.shell("Create / Edit a context group").activate();
             break;
         case DB_CONNECTIONS:
             treeNode.getNode(itemName + " 0.1").contextMenu("Edit connection").click();
-            gefBot.shell("Database Connection").activate();
+            shell = gefBot.shell("Database Connection").activate();
             break;
         case SAP_CONNECTIONS:
             treeNode.getNode(itemName + " 0.1").contextMenu("Edit SAP connection").click();
-            gefBot.shell("SAP Connection").activate();
+            shell = gefBot.shell("SAP Connection").activate();
             break;
         default:
             treeNode.getNode(itemName + " 0.1").contextMenu("Edit properties").click();
-            gefBot.shell("Edit properties").activate();
+            shell = gefBot.shell("Edit properties").activate();
             break;
         }
 
         gefBot.text(itemName).setText(newItemName);
-        gefBot.button("Finish").click();
+        boolean finishButtonIsEnabled = gefBot.button("Finish").isEnabled();
+        if (finishButtonIsEnabled) {
+            gefBot.button("Finish").click();
+        } else {
+            shell.close();
+            Assert.assertTrue("finish button is not enabled, maybe the item name is exist,", finishButtonIsEnabled);
+        }
 
         SWTBotTreeItem newJobItem = null;
         try {
