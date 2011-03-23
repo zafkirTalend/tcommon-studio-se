@@ -218,15 +218,4 @@ public class SelectorTableWizardPage extends TemplateWizardPage {
         return tableForm.getTableNodeList();
     }
 
-    public List<String> getItemListName() {
-        return tableForm.getItemTableNameList();
-    }
-    // public IMetadataConnection getMetadataConnection() {
-    // return this.metadataConnection;
-    // }
-    //
-    // public void setMetadataConnection(IMetadataConnection metadataConnection) {
-    // this.metadataConnection = metadataConnection;
-    // }
-
 }

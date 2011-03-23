@@ -120,8 +120,6 @@ public class SelectorTableForm extends AbstractForm {
      */
     private final ManagerConnection managerConnection;
 
-    private List<String> itemTableName;
-
     private IMetadataConnection iMetadataConnection = null;
 
     private MetadataTable dbtable;
@@ -760,8 +758,8 @@ public class SelectorTableForm extends AbstractForm {
                                 && EDatabaseTypeName.ORACLEFORSID.getDisplayName().equals(iMetadataConnection.getDbType())
                                 || EDatabaseTypeName.ACCESS.getDisplayName().equals(iMetadataConnection.getDbType())
                                 || EDatabaseTypeName.AS400.getDisplayName().equals(iMetadataConnection.getDbType())) {
-                            itemTableName = ExtractMetaDataFromDataBase.returnTablesFormConnection(iMetadataConnection,
-                                    getTableInfoParameters());
+                            List<String> itemTableName = ExtractMetaDataFromDataBase.returnTablesFormConnection(
+                                    iMetadataConnection, getTableInfoParameters());
                             if (ExtractMetaDataUtils.isUseAllSynonyms()) {
                                 tableNodeList = getTableNodeForAllSynonyms(itemTableName, true);
                             } else {
@@ -1514,10 +1512,6 @@ public class SelectorTableForm extends AbstractForm {
             checkedItems.add(table.getLabel());
         }
         return checkedItems;
-    }
-
-    public List<String> getItemTableNameList() {
-        return this.itemTableName;
     }
 
     public List<TableNode> getTableNodeList() {
