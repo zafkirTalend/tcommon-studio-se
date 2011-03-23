@@ -20,13 +20,13 @@ public class TestModifyLastAdministrationUserRole extends Login {
         selenium.mouseDown("//div[text()='"+userName1+"']");
 		selenium.click("idRoleButton");
 		Assert.assertTrue(selenium.isTextPresent(rb.getString("user.roles.title")));
-		selenium.setSpeed(MAX_SPEED);
+		selenium.setSpeed(MID_SPEED);
 		selenium.click("//div[text()='"+rb.getString("menu.role.designer")+"']");	
 		selenium.click("idValidateButton");
 		selenium.click("idFormSaveButton");
-		selenium.setSpeed(MAX_SPEED);
+		selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.isTextPresent(rb.getString("user.error.roleModification.lastAdministrator")));
-		selenium.setSpeed(MAX_SPEED);
+		selenium.setSpeed(MID_SPEED);
 	    selenium.click("//button[text()='"+other.getString("modify.lastUserAdministrator.role.fail")+"']");
 	    selenium.setSpeed(MIN_SPEED);
 	}

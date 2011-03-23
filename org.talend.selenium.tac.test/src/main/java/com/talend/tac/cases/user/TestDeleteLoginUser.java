@@ -22,7 +22,7 @@ public class TestDeleteLoginUser extends Login{
 		selenium.click("idSubModuleDeleteButton");
 		Assert.assertTrue(selenium.getConfirmation().matches("^"+other.getString("delete.User.confirmation")+" [\\s\\S]$"));
 		
-		selenium.setSpeed(MAX_SPEED);
+		selenium.setSpeed(MID_SPEED);
 		
 		Assert.assertTrue(selenium.isTextPresent(rb.getString("user.error.deleteCurrentLoggedUser")));
 		selenium.click("//button[text()='" +other.getString("delete.LoginUser.fail")+"']");

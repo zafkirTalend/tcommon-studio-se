@@ -15,7 +15,7 @@ public class TestModifyUser extends Login {
 //		
 //		
 //		selenium.setSpeed(Base.MIN_SPEED);
-		selenium.setSpeed(MAX_SPEED);
+		selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.isTextPresent(userName));
 		selenium.mouseDown(DulicateUser);
 		selenium.type("idUserLoginInput", ModifiyUserName);

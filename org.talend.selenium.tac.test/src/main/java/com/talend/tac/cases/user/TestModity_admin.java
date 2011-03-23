@@ -15,7 +15,7 @@ public class TestModity_admin extends Login {
 //		
 //		
 //		selenium.setSpeed(Base.MIN_SPEED);
-		selenium.setSpeed(MAX_SPEED);
+		selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.isTextPresent(userName));
 		selenium.mouseDown("//div[text()='"+userName1+"']");
 		selenium.type("idUserFirstNameInput", FirstName);

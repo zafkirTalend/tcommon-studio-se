@@ -41,7 +41,7 @@ public class TestAddUserNotChooseActive extends Login {
 
 
 		selenium.click("idFormSaveButton");
-		selenium.setSpeed(MAX_SPEED);
+		selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.isElementPresent("//div[text()='"+LoginNameNotChooseActive1+"']"));
 		selenium.setSpeed(MIN_SPEED);
 	}
