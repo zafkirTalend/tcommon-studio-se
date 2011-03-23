@@ -53,7 +53,7 @@ public class TestAddConnection extends Login {
 		this.waitForElementPresent("idSubModuleAddButton", 30);
 		selenium.click("idSubModuleAddButton");
 		this.waitForElementPresent("//span[text()='Database connection']", 30);
-		selenium.setSpeed("0");
+		selenium.setSpeed(MIN_SPEED);
 		// configure database parameters
 		// DB label
 		selenium.type(other.getString("inputname.id.connection.add.label"),
@@ -125,11 +125,11 @@ public class TestAddConnection extends Login {
 				other.getString("inputname.id.connection.add.dbtype"), "blur");
 		selenium.click(other.getString("inputname.id.connection.add.logTable"));
 		// save button
-		selenium.setSpeed("3000");
+		selenium.setSpeed(MID_SPEED);
 		selenium.click("idFormSaveButton");
 		//check whether add success
 		Assert.assertTrue(selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"+label+"')]"), "DBConnection type: "+dbtype+" added failed!");
-		selenium.setSpeed("0");
+		selenium.setSpeed(MIN_SPEED);
 
 	}
 

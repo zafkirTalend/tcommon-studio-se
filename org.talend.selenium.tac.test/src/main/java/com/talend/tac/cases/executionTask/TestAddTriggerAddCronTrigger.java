@@ -10,14 +10,14 @@ public class TestAddTriggerAddCronTrigger extends Login{
 	@Test
     public void testAddTriggerAddCronTrigger() {
     	this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
-    	selenium.setSpeed(MAX_SPEED);
+    	selenium.setSpeed(MID_SPEED);
     	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
     	selenium.mouseDown("//div[text()='Copy_of_test_task']");//select a exist task
 		selenium.click("//button[text()='Add trigger...']");//add a trigger
 		selenium.click("//a[text()='Add CronTrigger']");//add a  CronTrigger
-		selenium.setSpeed(MAX_SPEED);
+		selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.isElementPresent("//span[text()='"+rb.getString("trigger.action.addCronTrigger")+"']"));
-		selenium.setSpeed(MAX_SPEED);
+		selenium.setSpeed(MID_SPEED);
 		selenium.type("//div[@class='x-form-item ']/div/div/input[@class=' x-form-field x-form-text  x-form-invalid' and @name='label']", "TestCronTrigger");//label
 		selenium.fireEvent("//div[@class='x-form-item ']/div/div/input[@class=' x-form-field x-form-text  x-form-invalid' and @name='label']","blur");
 //			                                                                      " x-form-field x-form-text x-form-invalid"

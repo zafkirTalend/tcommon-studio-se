@@ -12,7 +12,7 @@ public class TestAddTask  extends Login {
 	@Test
 	public void testAddTask() {
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
-        selenium.setSpeed(MAX_SPEED);
+        selenium.setSpeed(MID_SPEED);
 	    Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
 		selenium.click("idSubModuleAddButton");
 		selenium.type("//input[@name='label']", "test_task");//plan name /Label
@@ -22,7 +22,7 @@ public class TestAddTask  extends Login {
 		selenium.click("idCommonBranchListBox()");  //select a Branch
 		selenium.mouseDownAt("//div[@role='listitem'][1]",""+Event.ENTER); 
 		selenium.click("idCommonJobListBox()");   //select a job
-		selenium.setSpeed(MAX_SPEED);
+		selenium.setSpeed(MID_SPEED);
 		selenium.mouseDownAt("//div[@role='listitem'][1]",""+Event.ENTER); 
 		selenium.click("idCommonContextListBox()");  
 		selenium.mouseDownAt("//div[@role='listitem'][1]",""+Event.ENTER); 
@@ -42,7 +42,7 @@ public class TestAddTask  extends Login {
 	@Test(dependsOnMethods={"testAddTask"})
 	public void testAddExistTask() {
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
-		selenium.setSpeed(MAX_SPEED);
+		selenium.setSpeed(MID_SPEED);
 	    Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
 		selenium.click("idSubModuleAddButton");
 		selenium.type("//input[@name='label']", "test_task");//plan name /Label
@@ -54,12 +54,12 @@ public class TestAddTask  extends Login {
 		selenium.click("idCommonJobListBox()");   //select a job
 		selenium.mouseDownAt("//div[@role='listitem'][1]",""+Event.ENTER); 
 		selenium.click("idCommonContextListBox()");
-		selenium.setSpeed(MAX_SPEED);
+		selenium.setSpeed(MID_SPEED);
 		selenium.mouseDownAt("//div[@role='listitem'][1]",""+Event.ENTER); 
 		selenium.click("idJobConductorExecutionServerListBox()"); //select a server
 		selenium.mouseDownAt("//div[@role='listitem'][1]",""+Event.ENTER); 
 		selenium.click("idJobConductorExecutionServerListBox()");
-		selenium.setSpeed(MAX_SPEED);
+		selenium.setSpeed(MID_SPEED);
 		selenium.mouseDownAt("//div[@role='listitem'][1]",""+Event.ENTER); 
 		selenium.click("idFormSaveButton");
 		Assert.assertTrue(selenium.isTextPresent(rb.getString("executionTask.error.uniqueLabel")));
@@ -71,7 +71,7 @@ public class TestAddTask  extends Login {
 	@Test(dependsOnMethods={"testAddExistTask"})
 	public void testAddNotChooseActiveTask() {
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
-		selenium.setSpeed(MAX_SPEED);
+		selenium.setSpeed(MID_SPEED);
 	    Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
 		selenium.click("idSubModuleAddButton");
 		selenium.type("//input[@name='label']", "test_task_notChooseActive");//plan name /Label
@@ -91,7 +91,7 @@ public class TestAddTask  extends Login {
 		selenium.click("idJobConductorExecutionServerListBox()");
 		selenium.mouseDownAt("//div[@role='listitem'][1]",""+Event.ENTER); 
 		selenium.click("idFormSaveButton");
-		selenium.setSpeed(MAX_SPEED);
+		selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.isElementPresent("//div[text()='test_task_notChooseActive']"));
 		selenium.setSpeed(MIN_SPEED);
 		

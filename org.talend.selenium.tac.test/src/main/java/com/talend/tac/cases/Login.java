@@ -13,7 +13,7 @@ public class Login extends Base {
 	@Parameters( { "userName", "userPassword" })
 	public void login(String user, String password) {
 
-		selenium.setSpeed(MAX_SPEED);
+		selenium.setSpeed(MID_SPEED);
 		
 //		waitForElementPresent("idLoginInput", 20);
 //		waitForElementPresent("idLoginPasswordInput", 20);
@@ -24,7 +24,7 @@ public class Login extends Base {
 		selenium.type("idLoginPasswordInput", password);
 	
 		selenium.keyDown("idLoginPasswordInput", "\\13");
-		selenium.setSpeed(MAX_SPEED);
+		selenium.setSpeed(MID_SPEED);
 		
 //		// wait for this HTML page fully loaded
 //		try {

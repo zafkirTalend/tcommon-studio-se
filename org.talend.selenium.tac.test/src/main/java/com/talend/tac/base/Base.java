@@ -21,9 +21,9 @@ public class Base {
 	
 	public ResourceBundle other = ResourceBundle.getBundle("other", currentLocale);
 
-	public static String MAX_SPEED = "3000";
+	public static String MID_SPEED = "3000";
 	public static String MIN_SPEED = "0";
-	
+	public static String MAX_SPEED = "5000";
 	public static int WAIT_TIME = 20;
 	
 	
@@ -154,9 +154,14 @@ System.out.println("language: " + language + ", country: " + country);
 				strs.add(findedString);
 //System.out.println(texts[i].trim());
 				continue;
-
 			}
 		}
 		return strs;
+	}
+	
+	public void typeString(String xpath, String value) {
+		selenium.click(xpath);
+		selenium.type(xpath, value);
+		selenium.fireEvent(xpath, "blur");
 	}
 }

@@ -21,7 +21,7 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
 	@Test
 	public void testAddTriggerAddSimpleTrigger() {
     	this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
-    	selenium.setSpeed(MAX_SPEED);
+    	selenium.setSpeed(MID_SPEED);
     	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
     	selenium.mouseDown("//div[text()='Copy_of_test_task']");//select a exist task
 		selenium.click("//button[text()='Add trigger...']");//add a trigger
@@ -47,7 +47,7 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
         selenium.type("//input[@name='repeatInterval']", "3");//Time interval (s)
 	    selenium.fireEvent("//input[@name='repeatInterval']", "blur");
 	    selenium.click("//div[@class=' x-panel x-component ']/div[2]/div[2]/div/div/table/tbody/tr/td/table/tbody/tr/td/table/tbody/tr[2]/td[2]/em/button[@id='idFormSaveButton']");
-	    selenium.setSpeed(MAX_SPEED); 
+	    selenium.setSpeed(MID_SPEED); 
 	    Assert.assertTrue(selenium.isElementPresent("//div[text()='TestSimpleTrigger']"));
 	    selenium.setSpeed(MIN_SPEED);
 	}
@@ -55,7 +55,7 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
 	@Test(dependsOnMethods={"testAddTriggerAddSimpleTrigger()"})
     public void testAddTriggerAddSimpleTriggerAddExist() {
     	this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
-    	selenium.setSpeed(MAX_SPEED);
+    	selenium.setSpeed(MID_SPEED);
     	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
     	selenium.mouseDown("//div[text()='Copy_of_test_task']");//select a exist task
 		selenium.click("//button[text()='Add trigger...']");//add a trigger
@@ -76,7 +76,7 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
         selenium.type("//input[@name='repeatInterval']", "3");//Time interval (s)
 	    selenium.fireEvent("//input[@name='repeatInterval']", "blur");
 	    selenium.click("//div[@class=' x-panel x-component ']/div[2]/div[2]/div/div/table/tbody/tr/td/table/tbody/tr/td/table/tbody/tr[2]/td[2]/em/button[@id='idFormSaveButton']");
-	    selenium.setSpeed(MAX_SPEED); 
+	    selenium.setSpeed(MID_SPEED); 
 		Assert.assertTrue(selenium.isTextPresent(rb.getString("trigger.error.uniqueLabel")));
 		selenium.setSpeed(MIN_SPEED);
 	   
@@ -86,7 +86,7 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
 	@Test
     public void testAddTriggerAddSimpleTriggerAddWrongFormTimeInterval() {
     	this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
-    	selenium.setSpeed(MAX_SPEED);
+    	selenium.setSpeed(MID_SPEED);
     	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
     	selenium.mouseDown("//div[text()='Copy_of_test_task']");//select a exist task
 		selenium.click("//button[text()='Add trigger...']");//add a trigger
@@ -107,7 +107,7 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
         selenium.type("//input[@name='repeatInterval']", "aa");//Time interval (s)
 	    selenium.fireEvent("//input[@name='repeatInterval']", "blur");
 	    selenium.click("//div[@class=' x-panel x-component ']/div[2]/div[2]/div/div/table/tbody/tr/td/table/tbody/tr/td/table/tbody/tr[2]/td[2]/em/button[@id='idFormSaveButton']");
-	    selenium.setSpeed(MAX_SPEED); 
+	    selenium.setSpeed(MID_SPEED); 
 		Assert.assertTrue(selenium.isTextPresent("Save failed: The field 'Time interval' has to be set with an integer greater than 0"));
 		selenium.click("//button[text()='"+rb.getString("executionPlan.errorStatus.ok")+"']");
 		selenium.setSpeed(MIN_SPEED);
@@ -118,7 +118,7 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
 	@Test
     public void testAddTriggerAddSimpleTriggerAddOverdueStartData() {
     	this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
-    	selenium.setSpeed(MAX_SPEED);
+    	selenium.setSpeed(MID_SPEED);
     	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
     	selenium.mouseDown("//div[text()='Copy_of_test_task']");//select a exist task
 		selenium.click("//button[text()='Add trigger...']");//add a trigger
@@ -139,7 +139,7 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
         selenium.type("//input[@name='repeatInterval']", "aa");//Time interval (s)
 	    selenium.fireEvent("//input[@name='repeatInterval']", "blur");
 	    selenium.click("//div[@class=' x-panel x-component ']/div[2]/div[2]/div/div/table/tbody/tr/td/table/tbody/tr/td/table/tbody/tr[2]/td[2]/em/button[@id='idFormSaveButton']");
-	    selenium.setSpeed(MAX_SPEED); 
+	    selenium.setSpeed(MID_SPEED); 
 		Assert.assertTrue(selenium.isTextPresent("Save failed: Start time has to be set with a date greater than server time (2011-03-14 16h45)"));
 		selenium.click("//button[text()='"+rb.getString("executionPlan.errorStatus.ok")+"']");
 		selenium.setSpeed(MIN_SPEED);
@@ -149,7 +149,7 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
 	@Test
     public void testAddTriggerAddSimpleTriggerAddOverdueEndData() {
     	this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
-    	selenium.setSpeed(MAX_SPEED);
+    	selenium.setSpeed(MID_SPEED);
     	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
     	selenium.mouseDown("//div[text()='Copy_of_test_task']");//select a exist task
 		selenium.click("//button[text()='Add trigger...']");//add a trigger
@@ -177,7 +177,7 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
         selenium.type("//input[@name='repeatInterval']", "5");//Time interval (s)
 	    selenium.fireEvent("//input[@name='repeatInterval']", "blur");
 	    selenium.click("//div[@class=' x-panel x-component ']/div[2]/div[2]/div/div/table/tbody/tr/td/table/tbody/tr/td/table/tbody/tr[2]/td[2]/em/button[@id='idFormSaveButton']");
-	    selenium.setSpeed(MAX_SPEED); 
+	    selenium.setSpeed(MID_SPEED); 
 		Assert.assertTrue(selenium.isTextPresent("Save failed: End time cannot be before start time"));
 		selenium.click("//button[text()='"+rb.getString("executionPlan.errorStatus.ok")+"']");
 		selenium.setSpeed(MIN_SPEED);

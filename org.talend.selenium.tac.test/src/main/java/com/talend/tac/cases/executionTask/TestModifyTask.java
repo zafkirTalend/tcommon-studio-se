@@ -12,7 +12,7 @@ public class TestModifyTask extends Login {
 	public void testModifyTask() {
 		
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
-		selenium.setSpeed(MAX_SPEED);
+		selenium.setSpeed(MID_SPEED);
 	    Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
 		selenium.click("idSubModuleRefreshButton");
 		selenium.mouseDown("//div[text()='testTaskNotChooseActive']");//select a exist plan
@@ -25,7 +25,7 @@ public class TestModifyTask extends Login {
 		selenium.click("idCommonBranchListBox()");  //select a Branch
 		selenium.mouseDownAt("//div[@role='listitem'][1]",""+Event.ENTER); 
 		selenium.click("idCommonJobListBox()");   //select a job
-		selenium.setSpeed(MAX_SPEED);
+		selenium.setSpeed(MID_SPEED);
 		selenium.mouseDownAt("//div[@role='listitem'][1]",""+Event.ENTER); 
 		selenium.click("idCommonContextListBox()");  
 		selenium.mouseDownAt("//div[@role='listitem'][1]",""+Event.ENTER); 

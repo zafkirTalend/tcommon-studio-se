@@ -12,7 +12,7 @@ public class TestAddTriggerAddFileTrigger extends Login {
 	@Test
     public void testAddTriggerAddFileTrigger() {
     	this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
-    	selenium.setSpeed(MAX_SPEED);
+    	selenium.setSpeed(MID_SPEED);
     	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
     	selenium.mouseDown("//div[text()='Copy_of_test_task']");//select a exist task
 		selenium.click("//button[text()='Add trigger...']");//add a trigger
@@ -45,7 +45,7 @@ public class TestAddTriggerAddFileTrigger extends Login {
 	@Test(dependsOnMethods={"testAdd_trigger_AddFileTrigger()"})
     public void testAddTriggerAddFileTriggerAddExist() {
     	this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
-    	selenium.setSpeed(MAX_SPEED);
+    	selenium.setSpeed(MID_SPEED);
     	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
     	selenium.mouseDown("//div[text()='Copy_of_test_task']");//select a exist task
 		selenium.click("//button[text()='Add trigger...']");//add a trigger

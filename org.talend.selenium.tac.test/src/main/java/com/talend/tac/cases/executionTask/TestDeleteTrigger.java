@@ -11,7 +11,7 @@ public class TestDeleteTrigger extends Login {
 	public void testCancleDeleteTrigger() {
 		
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
-    	selenium.setSpeed(MAX_SPEED);
+    	selenium.setSpeed(MID_SPEED);
     	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
     	selenium.mouseDown("//div[text()='Copy_of_test_task']");//select a exist task
 //    	selenium.mouseDown("//div[text()='a']");//select a exist task
@@ -27,7 +27,7 @@ public class TestDeleteTrigger extends Login {
 	public void testDeleteTrigger() {
 		
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
-    	selenium.setSpeed(MAX_SPEED);
+    	selenium.setSpeed(MID_SPEED);
     	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
     	selenium.mouseDown("//div[text()='Copy_of_test_task']");//select a exist task
 //    	selenium.mouseDown("//div[text()='a']");//select a exist task

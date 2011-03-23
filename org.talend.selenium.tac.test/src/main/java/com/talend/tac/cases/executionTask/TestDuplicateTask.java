@@ -11,7 +11,7 @@ public class TestDuplicateTask  extends Login {
 	@Test
 	public void testDuplicateTask() {
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
-		selenium.setSpeed(MAX_SPEED);
+		selenium.setSpeed(MID_SPEED);
 	    Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
 		selenium.click("idSubModuleRefreshButton");
 		selenium.mouseDown("//div[text()='test_task']");//select a exist plan
