@@ -13,7 +13,7 @@ public class TestAddPerlproject extends Login{
 	TestDeletepro delete = new TestDeletepro();
   @Test
   @Parameters({ "SVNPerlProjecturl","ProjectType", "SVNuserName", "SVNuserPassword","Prolanguage" })
-  public void addPerlproject(String perlUrl,String protype,String username,String password,String language) {
+  public void testAddPerlproject(String perlUrl,String protype,String username,String password,String language) {
 	  this.waitForElementPresent("!!!menu.project.element!!!", 30);
 	  String namecommon = "TestPro";
 	  String svnUrl =perlUrl;

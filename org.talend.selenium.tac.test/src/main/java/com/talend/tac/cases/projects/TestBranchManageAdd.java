@@ -7,7 +7,7 @@ import com.talend.tac.cases.Login;
 public class TestBranchManageAdd extends Login {
 	@Test(groups = { "AddBranch" }, dependsOnGroups = { "Add" })
 	@Parameters({ "BranchProject", "BranchName" })
-	public void addProjectbranch(String project, String branchname) {
+	public void testAddProjectbranch(String project, String branchname) {
 		// first add a branch to a project
 	    this.waitForElementPresent("!!!menu.project.element!!!", 30);
 

@@ -12,7 +12,7 @@ public class TestAddJavaprojectwithdefault extends Login{
 	TestDeletepro delete = new TestDeletepro();
   @Test
   @Parameters({"ProjectType","Prolanguage" })
-  public void addPerlproject(String protype,String language) {
+  public void testAddPerlproject(String protype,String language) {
 	  this.waitForElementPresent("!!!menu.project.element!!!", 30);
 	  String namecommon = "JavaDefaultPro";
 	 

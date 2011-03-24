@@ -6,7 +6,7 @@ import com.talend.tac.cases.Login;
 public class TestModification extends Login {
 
 	@Test(groups = { "Second" },dependsOnGroups={"Add"})
-	public void isModifyenable() {
+	public void testIsModifyenable() {
 		
 		this.waitForElementPresent("!!!menu.project.element!!!", 30);
 		selenium.click("!!!menu.project.element!!!");

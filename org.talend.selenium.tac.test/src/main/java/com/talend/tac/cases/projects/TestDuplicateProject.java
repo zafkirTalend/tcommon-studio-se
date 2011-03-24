@@ -20,7 +20,7 @@ import com.talend.tac.cases.Login;
 public class TestDuplicateProject extends Login {
 	@Test(groups = { "Second" },dependsOnGroups = { "Add" })
 	@Parameters({ "duplicateproname" ,"ProjectType"})
-	public void duplicateProject(String duplicateproname,String type) {
+	public void testDuplicateProject(String duplicateproname,String type) {
 		
 		this.waitForElementPresent("!!!menu.project.element!!!", 30);
 		selenium.click("!!!menu.project.element!!!");//

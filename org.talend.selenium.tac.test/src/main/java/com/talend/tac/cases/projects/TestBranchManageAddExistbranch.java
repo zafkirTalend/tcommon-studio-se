@@ -9,7 +9,7 @@ import com.talend.tac.cases.Login;
 public class TestBranchManageAddExistbranch extends Login {
 	@Test(dependsOnGroups = { "AddBranch" })
 	@Parameters({ "BranchProject", "BranchName" })
-	public void addProjectbranchexist(String project, String branchname) {
+	public void testAddProjectbranchexist(String project, String branchname) {
 		// first add a branch to a project
 		selenium.setSpeed(MAX_SPEED);
 		selenium.click("!!!menu.project.element!!!");//
