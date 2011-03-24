@@ -75,10 +75,12 @@ public class TestBranchManageAddExistbranch extends Login {
 	}
 
 	public void closeButton(String project, String branchname) {
-		selenium.setSpeed(MID_SPEED);
+		selenium.setSpeed(MAX_SPEED);
 		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
 				+ project + "')]");// the selected project's id
 		selenium.click("idBranchManagementButton");
+		
+		
 		
 		selenium.click("idBranchManagementSourceInput");
 		selenium.mouseDown("//div[text()='trunk']");
