@@ -11,7 +11,7 @@ public class TestBranchManageAddExistbranch extends Login {
 	@Parameters({ "BranchProject", "BranchName" })
 	public void addProjectbranchexist(String project, String branchname) {
 		// first add a branch to a project
-
+		selenium.setSpeed(MAX_SPEED);
 		this.waitForElementPresent("!!!menu.project.element!!!", 30);
 		selenium.click("!!!menu.project.element!!!");//
 		this.waitForElementPresent(
