@@ -53,7 +53,12 @@ public class TestAddPerlproject extends Login{
 	  selenium.focus("idFormSaveButton");
 	  selenium.keyDownNative(""+KeyEvent.VK_ENTER);
 	  selenium.keyUpNative(""+KeyEvent.VK_ENTER);
-	
+	  try {
+		Thread.sleep(5000);
+	} catch (InterruptedException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 	  Assert.assertTrue(
 	    selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
 	      + namecommon + "')]")&&(selenium.isElementPresent("//img[@title='perl']")), "common project added failed");

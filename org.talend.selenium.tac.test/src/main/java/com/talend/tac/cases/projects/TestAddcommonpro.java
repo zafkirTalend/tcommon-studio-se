@@ -77,7 +77,7 @@ public class TestAddcommonpro extends Login {
 		  selenium.focus("idFormSaveButton");
 		  selenium.keyDownNative(""+KeyEvent.VK_ENTER);
 		  selenium.keyUpNative(""+KeyEvent.VK_ENTER);
-		
+		  Thread.sleep(5000);
 		  Assert.assertTrue(
 		    selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
 		      + namecommon + "')]"), "common project added failed");
@@ -184,7 +184,7 @@ public class TestAddcommonpro extends Login {
 		selenium.focus("idFormSaveButton");
 		selenium.keyDownNative(""+KeyEvent.VK_ENTER);
 		selenium.keyUpNative(""+KeyEvent.VK_ENTER);
-		
+		Thread.sleep(5000);
 		Assert.assertTrue(
 				selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
 						+ namereference + "')]"), "reference project added failed");
