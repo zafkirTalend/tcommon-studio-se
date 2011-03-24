@@ -86,6 +86,7 @@
 	    <class name="com.talend.tac.cases.projects.TestAddPerlproject"/>
   	</classes>
   </test>
+  <!--
   <test name = "server">
   <classes>
     <class name="com.talend.tac.cases.jobconductor.TestAddServer"/>
@@ -94,6 +95,6 @@
     <class name="com.talend.tac.cases.jobconductor.TestCleanServers"/>
   </classes>
   </test>
-
+-->
 </suite>
 
