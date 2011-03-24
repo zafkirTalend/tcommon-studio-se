@@ -90,7 +90,7 @@ public class Java2STLangTypesHelper {
             }
 
             // others treat as string
-            return "char_array"; //$NON-NLS-1$
+            return "chararray"; //$NON-NLS-1$
 	
        }
 
