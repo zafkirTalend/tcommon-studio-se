@@ -87,7 +87,8 @@ public class ExtractMetaDataFromDataBase {
         TABLETYPE_TABLE("TABLE"), //$NON-NLS-1$
         TABLETYPE_VIEW("VIEW"), //$NON-NLS-1$
         TABLETYPE_SYNONYM("SYNONYM"), //$NON-NLS-1$
-        TABLETYPE_ALL_SYNONYM("ALL_SYNONYM"); //$NON-NLS-1$
+        TABLETYPE_ALL_SYNONYM("ALL_SYNONYM"), //$NON-NLS-1$
+        TABLETYPE_ALIAS("ALIAS");
 
         private final String name;
 
@@ -327,6 +328,9 @@ public class ExtractMetaDataFromDataBase {
             String tableType = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, "TABLE_TYPE", null); //$NON-NLS-1$
             if (tableType == null) {
                 tableType = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, 4);
+            }
+            if (tableType.startsWith("A")) {
+                System.out.println("AA");
             }
             if ("T".equals(tableType)) { //$NON-NLS-1$
                 tableType = ETableTypes.TABLETYPE_TABLE.getName();
