@@ -17,6 +17,7 @@ public class TestBranchManageAddExistbranch extends Login {
 //		this.waitForElementPresent(
 //				"//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
 //						+ project + "')]", 30);
+		System.out.println(selenium.getBodyText());
 		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
 				+ project + "')]");// the selected project's id
 		selenium.click("idBranchManagementButton");
