@@ -81,8 +81,6 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
 
     private java.sql.Connection sqlConnection = null;
 
-    private static final String[] FILTERSYSTABLE = new String[] { "BIN$", "SYS", "$" };
-
     @Override
     public Connection fillUIConnParams(IMetadataConnection metadataBean, Connection connection) {
         if (connection == null) {
@@ -523,18 +521,12 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
 
             ResultSet tables = dbJDBCMetadata.getTables(catalogName, schemaPattern, tablePattern, tableType);
             String productName = dbJDBCMetadata.getDatabaseProductName();
-            read_data: while (tables.next()) {
+            while (tables.next()) {
                 // tableCatalog never called and will cause problem for specific db.
                 // String tableCatalog = tables.getString(GetTable.TABLE_CAT.name());
                 String tableSchema = tables.getString(GetTable.TABLE_SCHEM.name());
                 String tableName = tables.getString(GetTable.TABLE_NAME.name());
                 String temptableType = tables.getString(GetTable.TABLE_TYPE.name());
-                // ~MOD klliu 2011-03-24 bug 19607 filter oracle system table
-                for (String filterName : FILTERSYSTABLE) {
-                    if (tableName.contains(filterName)) {
-                        break read_data;
-                    }
-                }
                 // if TableType is view type don't create it at here.
                 if (TableType.VIEW.toString().equals(temptableType)) {
                     continue;
@@ -612,17 +604,10 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
 
             ResultSet tables = dbJDBCMetadata.getTables(catalogName, schemaPattern, viewPattern, tableType);
             String productName = dbJDBCMetadata.getDatabaseProductName();
-            read_data: while (tables.next()) {
+            while (tables.next()) {
 
                 String tableName = tables.getString(GetTable.TABLE_NAME.name());
                 String type = tables.getString(GetTable.TABLE_TYPE.name());
-
-                // ~MOD klliu 2011-03-24 bug 19607 filter oracle system table
-                for (String filterName : FILTERSYSTABLE) {
-                    if (tableName.contains(filterName)) {
-                        break read_data;
-                    }
-                }
                 if (!filterMetadaElement(viewFilter, tableName)) {
                     continue;
                 }
