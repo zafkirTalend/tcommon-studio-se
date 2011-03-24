@@ -48,6 +48,8 @@ public class FileDirCleaner {
 
     private boolean doAction = false;
 
+    private FileDirCleanerFilter filter;
+
     /**
      * 
      * SCAN_STRATEGY. Match according the chosen strategy: <br>
@@ -207,6 +209,19 @@ public class FileDirCleaner {
      * @return
      */
     public int clean(String pathDir, String filesRegExpPattern, String directoriesRegExpPattern) {
+        return clean(pathDir, filesRegExpPattern, directoriesRegExpPattern, null);
+    }
+
+    /**
+     * 
+     * "clean".
+     * 
+     * @param pathDir, required
+     * @param filesRegExpPattern, optional
+     * @param directoriesRegExpPattern, optional
+     * @return
+     */
+    public int clean(String pathDir, String filesRegExpPattern, String directoriesRegExpPattern, FileDirCleanerFilter filter) {
         if (pathDir == null) {
             throw new IllegalArgumentException("pathFolder can't be null");
         }
@@ -214,6 +229,7 @@ public class FileDirCleaner {
         this.directoriesRegExpPattern = directoriesRegExpPattern;
         this.filesRegExpPattern = filesRegExpPattern;
         this.currentTime = System.currentTimeMillis();
+        this.filter = filter;
         File dir = new File(pathDir);
         if (dir.isDirectory()) {
             cleanFilesDirRecursively(dir, true);
@@ -253,6 +269,7 @@ public class FileDirCleaner {
 
             for (int i = 0; i < listFilesDirs.length; i++) {
                 File fileDirJob = listFilesDirs[i];
+                // System.out.println(fileDirJob.getAbsolutePath());
                 String fileDirName = fileDirJob.getName();
                 boolean fileMatches = false;
                 boolean dirMatches = false;
@@ -266,51 +283,55 @@ public class FileDirCleaner {
                 try {
                     if (timeExceeded || tooManyDirs || tooManyFiles) {
                         if (isDirectory) {
-                                dirMatches = directoriesRegExpPattern == null || fileDirName.matches(directoriesRegExpPattern);
+                            dirMatches = directoriesRegExpPattern == null || fileDirName.matches(directoriesRegExpPattern);
                         } else {
                             fileMatches = filesRegExpPattern == null || fileDirName.matches(filesRegExpPattern);
                         }
                         if (isDirectory) {
                             indexDir++;
                             if (cleanDirectories && dirMatches) {
-                                if (doAction) {
-                                    org.apache.commons.io.FileUtils.deleteDirectory(fileDirJob);
-                                } else {
-                                    StringBuilder reason = new StringBuilder();
-                                    String sep = "";
-                                    if (timeExceeded) {
-                                        reason.append("timeExceeded");
-                                        sep = ", ";
+                                if (checkFilter(fileDirJob)) {
+                                    if (doAction) {
+                                        org.apache.commons.io.FileUtils.deleteDirectory(fileDirJob);
+                                    } else {
+                                        StringBuilder reason = new StringBuilder();
+                                        String sep = "";
+                                        if (timeExceeded) {
+                                            reason.append("timeExceeded");
+                                            sep = ", ";
+                                        }
+                                        if (tooManyDirs) {
+                                            reason.append(sep + "tooManyDirs");
+                                        }
+                                        log.debug("'doAction' has to be true to remove recursively the directory ("
+                                                + reason.toString() + "): " + fileDirJob);
                                     }
-                                    if (tooManyDirs) {
-                                        reason.append(sep + "tooManyDirs");
-                                    }
-                                    log.debug("'doAction' has to be true to remove recursively the directory ("
-                                            + reason.toString() + "): " + fileDirJob);
+                                    cleanResult.deletedEntries++;
                                 }
-                                cleanResult.deletedEntries++;
                             } else if (recursively) {
                                 cleanFilesDirRecursively(fileDirJob, false);
                             }
                         } else {
                             indexFile++;
                             if (cleanFiles && fileMatches && parentDirMatches) {
-                                if (doAction) {
-                                    org.apache.commons.io.FileUtils.forceDelete(fileDirJob);
-                                } else {
-                                    StringBuilder reason = new StringBuilder();
-                                    String sep = "";
-                                    if (timeExceeded) {
-                                        reason.append("timeExceeded");
-                                        sep = ", ";
+                                if (checkFilter(fileDirJob)) {
+                                    if (doAction) {
+                                        org.apache.commons.io.FileUtils.forceDelete(fileDirJob);
+                                    } else {
+                                        StringBuilder reason = new StringBuilder();
+                                        String sep = "";
+                                        if (timeExceeded) {
+                                            reason.append("timeExceeded");
+                                            sep = ", ";
+                                        }
+                                        if (tooManyFiles) {
+                                            reason.append(sep + "tooManyFiles");
+                                        }
+                                        log.debug("'doAction' has to be true to remove the file (" + reason.toString() + "): "
+                                                + fileDirJob);
                                     }
-                                    if (tooManyFiles) {
-                                        reason.append(sep + "tooManyFiles");
-                                    }
-                                    log.debug("'doAction' has to be true to remove the file (" + reason.toString() + "): "
-                                            + fileDirJob);
+                                    cleanResult.deletedEntries++;
                                 }
-                                cleanResult.deletedEntries++;
                             }
                         }
                     } else if (recursively && isDirectory) {
@@ -335,4 +356,17 @@ public class FileDirCleaner {
             log.error(e.getMessage(), e);
         }
     }
+
+    private boolean checkFilter(File fileDirJob) {
+        boolean isDirectory = fileDirJob.isDirectory();
+        if (filter != null) {
+            if (!filter.acceptClean(fileDirJob)) {
+                // log.info((isDirectory ? "Directory" : "File") + " refused to be cleaned: " + fileDirJob.getPath());
+                return false;
+            }
+        }
+        // log.info((isDirectory ? "Directory" : "File") + " accepted to be cleaned: " + fileDirJob.getPath());
+        return true;
+    }
+
 }
