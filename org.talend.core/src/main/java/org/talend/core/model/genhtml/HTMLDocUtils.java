@@ -18,7 +18,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
-import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
