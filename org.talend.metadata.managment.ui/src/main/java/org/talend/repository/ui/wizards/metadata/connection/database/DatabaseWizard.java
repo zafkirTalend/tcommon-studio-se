@@ -36,6 +36,7 @@ import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
+import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.Property;
@@ -262,6 +263,12 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
              * schema,see bug 0016636,using metadataConnection can be sure that all the values has been parse to
              * original. hywang
              */
+
+            // MOD by gdbu 2011-3-24 bug 19528
+            String driverClass = ExtractMetaDataUtils.getDriverClassByDbType(connection.getDatabaseType());
+            ((DatabaseConnection) connectionItem.getConnection()).setDriverClass(driverClass);
+            // ~19528
+
             IMetadataConnection metadataConnection = ConvertionHelper.convert(connection);
             IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
 
