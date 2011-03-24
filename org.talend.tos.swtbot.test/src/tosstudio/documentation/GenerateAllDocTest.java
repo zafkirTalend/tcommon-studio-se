@@ -34,15 +34,15 @@ import org.talend.swtbot.Utilities;
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class GenerateAllDocTest extends TalendSwtBotForTos {
 
-    SWTBotView view;
+    private SWTBotView view;
 
-    SWTBotTree tree;
+    private SWTBotTree tree;
 
-    SWTBotTreeItem jobNode;
+    private SWTBotTreeItem jobNode;
 
-    SWTBotTreeItem jobletNode;
+    private SWTBotTreeItem jobletNode;
 
-    SWTBotTreeItem docNode;
+    private SWTBotTreeItem docNode;
 
     private static final String JOBNAME = "job1"; //$NON-NLS-1$
 
