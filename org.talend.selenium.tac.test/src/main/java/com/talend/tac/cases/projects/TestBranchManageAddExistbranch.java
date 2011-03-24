@@ -12,12 +12,8 @@ public class TestBranchManageAddExistbranch extends Login {
 	public void addProjectbranchexist(String project, String branchname) {
 		// first add a branch to a project
 		selenium.setSpeed(MAX_SPEED);
-//		this.waitForElementPresent("!!!menu.project.element!!!", 30);
 		selenium.click("!!!menu.project.element!!!");//
-//		this.waitForElementPresent(
-//				"//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
-//						+ project + "')]", 30);
-		System.out.println(selenium.getBodyText());
+//		System.out.println(selenium.getBodyText());
 		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
 				+ project + "')]");// the selected project's id
 		selenium.click("idBranchManagementButton");
@@ -31,9 +27,6 @@ public class TestBranchManageAddExistbranch extends Login {
 		selenium.fireEvent("idBranchManagementTargetInput", "blur");
 		selenium.setSpeed(MID_SPEED);
 		selenium.click("idBranchManagementCreateButton");
-
-		// System.out.println(this.getString("project.branchManagement.create.confirm",
-		// new String[]{"trunk",branchname}));
 
 		if (selenium.isElementPresent("//span[text()='"
 				+ other.getString("project.branchmanage.add.conform") + "']")) {
