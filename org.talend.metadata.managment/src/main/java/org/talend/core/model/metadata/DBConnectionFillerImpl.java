@@ -33,6 +33,7 @@ import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
+import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase.ETableTypes;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.metadata.builder.util.DatabaseConstant;
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
@@ -426,11 +427,24 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             ResultSet tables = dbJDBCMetadata.getTables(catalogName, schemaPattern, tablePattern, tableType);
             String productName = dbJDBCMetadata.getDatabaseProductName();
             while (tables.next()) {
-                String tableCatalog = tables.getString(GetTable.TABLE_CAT.name());
+                // tableCatalog never called and will cause problem for specific db.
+                // String tableCatalog = tables.getString(GetTable.TABLE_CAT.name());
                 String tableSchema = tables.getString(GetTable.TABLE_SCHEM.name());
                 String tableName = tables.getString(GetTable.TABLE_NAME.name());
                 String temptableType = tables.getString(GetTable.TABLE_TYPE.name());
 
+                // for special db. teradata_sql_model/db2_zos
+                if (temptableType != null) {
+                    if ("T".equals(temptableType)) { //$NON-NLS-1$
+                        temptableType = ETableTypes.TABLETYPE_TABLE.getName();
+                    }
+                    if ("V".equals(temptableType)) { //$NON-NLS-1$
+                        temptableType = ETableTypes.TABLETYPE_VIEW.getName();
+                    }
+                    if ("A".equals(temptableType)) { //$NON-NLS-1$
+                        temptableType = ETableTypes.TABLETYPE_ALIAS.getName();
+                    }
+                }
                 // for
                 if (!filterMetadaElement(tableFilter, tableName)) {
                     continue;
@@ -510,7 +524,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             ResultSet tables = dbJDBCMetadata.getTables(catalogName, schemaPattern, tablePattern, tableType);
             String productName = dbJDBCMetadata.getDatabaseProductName();
             read_data: while (tables.next()) {
-                String tableCatalog = tables.getString(GetTable.TABLE_CAT.name());
+                // tableCatalog never called and will cause problem for specific db.
+                // String tableCatalog = tables.getString(GetTable.TABLE_CAT.name());
                 String tableSchema = tables.getString(GetTable.TABLE_SCHEM.name());
                 String tableName = tables.getString(GetTable.TABLE_NAME.name());
                 String temptableType = tables.getString(GetTable.TABLE_TYPE.name());
@@ -571,7 +586,6 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         }
         return tableList;
     }
-
 
     @Override
     public List<TdView> fillViews(Package pack, DatabaseMetaData dbJDBCMetadata, List<String> viewFilter, String viewPattern) {
