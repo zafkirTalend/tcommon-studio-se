@@ -80,6 +80,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
 
     private java.sql.Connection sqlConnection = null;
 
+    private static final String[] FILTERSYSTABLE = new String[] { "BIN$", "SYS", "$" };
+
     @Override
     public Connection fillUIConnParams(IMetadataConnection metadataBean, Connection connection) {
         if (connection == null) {
@@ -504,65 +506,64 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             }
         }
         try {
-            // ~MOD klliu 2011-03-22 bug 19607 filter oracle system table
+
+            ResultSet tables = dbJDBCMetadata.getTables(catalogName, schemaPattern, tablePattern, tableType);
             String productName = dbJDBCMetadata.getDatabaseProductName();
-            if (productName != null && productName.equals("Oracle")) {//$NON-NLS-1$
-                getOracleTables(productName, pack, dbJDBCMetadata, tableList, catalogName, schemaPattern);
-            }// ~
-            else {
-                ResultSet tables = dbJDBCMetadata.getTables(catalogName, schemaPattern, tablePattern, tableType);
-                // String productName = dbJDBCMetadata.getDatabaseProductName();
-                while (tables.next()) {
-                    String tableCatalog = tables.getString(GetTable.TABLE_CAT.name());
-                    String tableSchema = tables.getString(GetTable.TABLE_SCHEM.name());
-                    String tableName = tables.getString(GetTable.TABLE_NAME.name());
-                    String temptableType = tables.getString(GetTable.TABLE_TYPE.name());
+            read_data: while (tables.next()) {
+                String tableCatalog = tables.getString(GetTable.TABLE_CAT.name());
+                String tableSchema = tables.getString(GetTable.TABLE_SCHEM.name());
+                String tableName = tables.getString(GetTable.TABLE_NAME.name());
+                String temptableType = tables.getString(GetTable.TABLE_TYPE.name());
+                // ~MOD klliu 2011-03-24 bug 19607 filter oracle system table
+                for (String filterName : FILTERSYSTABLE) {
+                    if (tableName.contains(filterName)) {
+                        break read_data;
+                    }
+                }
+                // if TableType is view type don't create it at here.
+                if (TableType.VIEW.toString().equals(temptableType)) {
+                    continue;
+                }
 
-                    // if TableType is view type don't create it at here.
-                    if (TableType.VIEW.toString().equals(temptableType)) {
-                        continue;
-                    }
-
-                    // for
-                    if (!filterMetadaElement(tableFilter, tableName)) {
-                        continue;
-                    }
-                    String tableOwner = null;
-                    if (MetadataConnectionUtils.isSybase(dbJDBCMetadata.getConnection())) {
-                        tableOwner = tableSchema;
-                    }
-                    // common
-                    boolean flag = true;
-                    String tableComment = null;
-                    if (pack != null) {
-                        Connection c = ConnectionHelper.getConnection(pack);
-                        flag = MetadataConnectionUtils.isOracle8i(c);
-                    }
-                    if (!flag) {
-                        tableComment = tables.getString(GetTable.REMARKS.name());
-                        if (StringUtils.isBlank(tableComment)) {
-                            String selectRemarkOnTable = MetadataConnectionUtils.getCommonQueryStr(productName, tableName);
-                            if (selectRemarkOnTable != null) {
-                                tableComment = executeGetCommentStatement(selectRemarkOnTable, dbJDBCMetadata.getConnection());
-                            }
+                // for
+                if (!filterMetadaElement(tableFilter, tableName)) {
+                    continue;
+                }
+                String tableOwner = null;
+                if (MetadataConnectionUtils.isSybase(dbJDBCMetadata.getConnection())) {
+                    tableOwner = tableSchema;
+                }
+                // common
+                boolean flag = true;
+                String tableComment = null;
+                if (pack != null) {
+                    Connection c = ConnectionHelper.getConnection(pack);
+                    flag = MetadataConnectionUtils.isOracle8i(c);
+                }
+                if (!flag) {
+                    tableComment = tables.getString(GetTable.REMARKS.name());
+                    if (StringUtils.isBlank(tableComment)) {
+                        String selectRemarkOnTable = MetadataConnectionUtils.getCommonQueryStr(productName, tableName);
+                        if (selectRemarkOnTable != null) {
+                            tableComment = executeGetCommentStatement(selectRemarkOnTable, dbJDBCMetadata.getConnection());
                         }
                     }
-                    // create table
-                    TdTable table = RelationalFactory.eINSTANCE.createTdTable();
-                    table.setName(tableName);
-                    table.setTableType(temptableType);
-                    table.setLabel(table.getName());
-                    if (tableOwner != null) {
-                        ColumnSetHelper.setTableOwner(tableOwner, table);
-                    }
-                    if (tableComment != null) {
-                        ColumnSetHelper.setComment(tableComment, table);
-                    }
-                    tableList.add(table);
                 }
-                if (isLinked()) {
-                    PackageHelper.addMetadataTable(ListUtils.castList(MetadataTable.class, tableList), pack);
+                // create table
+                TdTable table = RelationalFactory.eINSTANCE.createTdTable();
+                table.setName(tableName);
+                table.setTableType(temptableType);
+                table.setLabel(table.getName());
+                if (tableOwner != null) {
+                    ColumnSetHelper.setTableOwner(tableOwner, table);
                 }
+                if (tableComment != null) {
+                    ColumnSetHelper.setComment(tableComment, table);
+                }
+                tableList.add(table);
+            }
+            if (isLinked()) {
+                PackageHelper.addMetadataTable(ListUtils.castList(MetadataTable.class, tableList), pack);
             }
 
         } catch (SQLException e) {
@@ -571,96 +572,6 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         return tableList;
     }
 
-    /**
-     * DOC klliu Comment method "getOracleTables".
-     * 
-     * @param pack
-     * @param dbJDBCMetadata
-     * @param tableList
-     * @param catalogName
-     * @param schemaPattern
-     * @throws SQLException
-     */
-    private void getOracleTables(String productName, Package pack, DatabaseMetaData dbJDBCMetadata, List<TdTable> tableList,
-            String catalogName, String schemaPattern) throws SQLException {
-        List<String> excuteGetUserTableStatement = this
-                .excuteGetUserTableStatement(dbJDBCMetadata.getConnection(), schemaPattern);
-        for (String tableName : excuteGetUserTableStatement) {
-            boolean flag = true;
-            String tableComment = null;
-            if (pack != null) {
-                Connection c = ConnectionHelper.getConnection(pack);
-                flag = MetadataConnectionUtils.isOracle8i(c);
-            }
-            if (!flag) {
-                String selectRemarkOnTable = MetadataConnectionUtils.getCommonQueryStr(productName, tableName);
-                if (selectRemarkOnTable != null) {
-                    tableComment = executeGetCommentStatement(selectRemarkOnTable, dbJDBCMetadata.getConnection());
-                }
-
-            }
-            // create table
-            TdTable table = RelationalFactory.eINSTANCE.createTdTable();
-            table.setName(tableName);
-            table.setTableType("Table"); //$NON-NLS-1$
-            table.setLabel(table.getName());
-            if (schemaPattern != null) {
-                ColumnSetHelper.setTableOwner(schemaPattern, table);
-            }
-            if (tableComment != null) {
-                ColumnSetHelper.setComment(tableComment, table);
-            }
-            tableList.add(table);
-        }
-    }
-
-    /**
-     * DOC klliu Comment method "excuteGetUserTableStatement".
-     * 
-     * @param connection
-     * @param schemaPattern
-     * @return
-     */
-    private List<String> excuteGetUserTableStatement(java.sql.Connection connection, String schemaPattern) {
-        Statement statement = null;
-        ResultSet resultSet = null;
-        ArrayList<String> tables = new ArrayList<String>();
-        try {
-            statement = connection.createStatement();
-            // MOD klliu if user special the schema so instead of the default
-            if (!"".equals(schemaPattern.trim())) { //$NON-NLS-1$
-                statement.execute("ALTER SESSION SET CURRENT_SCHEMA=" + schemaPattern.toUpperCase().trim()); //$NON-NLS-1$
-            }
-            statement.execute("select table_name from user_tables ");//$NON-NLS-1$ 
-            // get the results
-            resultSet = statement.getResultSet();
-
-            if (resultSet != null) {
-                while (resultSet.next()) {
-                    String comment = (String) resultSet.getObject(1);
-                    tables.add(comment);
-                }
-            }
-        } catch (SQLException e) {
-        } finally {
-            // -- release resources
-            if (resultSet != null) {
-                try {
-                    resultSet.close();
-                } catch (SQLException e) {
-                    log.error(e, e);
-                }
-            }
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException e) {
-                    log.error(e, e);
-                }
-            }
-        }
-        return tables;
-    }
 
     @Override
     public List<TdView> fillViews(Package pack, DatabaseMetaData dbJDBCMetadata, List<String> viewFilter, String viewPattern) {
@@ -687,10 +598,17 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
 
             ResultSet tables = dbJDBCMetadata.getTables(catalogName, schemaPattern, viewPattern, tableType);
             String productName = dbJDBCMetadata.getDatabaseProductName();
-            while (tables.next()) {
+            read_data: while (tables.next()) {
 
                 String tableName = tables.getString(GetTable.TABLE_NAME.name());
                 String type = tables.getString(GetTable.TABLE_TYPE.name());
+
+                // ~MOD klliu 2011-03-24 bug 19607 filter oracle system table
+                for (String filterName : FILTERSYSTABLE) {
+                    if (tableName.contains(filterName)) {
+                        break read_data;
+                    }
+                }
                 if (!filterMetadaElement(viewFilter, tableName)) {
                     continue;
                 }
