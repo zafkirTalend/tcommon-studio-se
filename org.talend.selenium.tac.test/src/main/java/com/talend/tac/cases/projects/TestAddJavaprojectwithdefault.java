@@ -29,9 +29,10 @@ public class TestAddJavaprojectwithdefault extends Login{
 	  }
 	  selenium.setSpeed(MAX_SPEED);
 	  selenium.type("idDescriptionInput", "adf");
-	  selenium.focus("idFormSaveButton");
-	  selenium.keyDownNative(""+KeyEvent.VK_ENTER);
-	  selenium.keyUpNative(""+KeyEvent.VK_ENTER);
+//	  selenium.focus("idFormSaveButton");
+//	  selenium.keyDownNative(""+KeyEvent.VK_ENTER);
+//	  selenium.keyUpNative(""+KeyEvent.VK_ENTER);
+	  selenium.click("idFormSaveButton");
 	  try {
 		Thread.sleep(5000);
 	} catch (InterruptedException e) {

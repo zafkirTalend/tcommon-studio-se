@@ -74,9 +74,10 @@ public class TestAddcommonpro extends Login {
 		  selenium.click("idSvnUserLogInput");
 		  selenium.setSpeed(MAX_SPEED);
 		  selenium.click("idDescriptionInput");
-		  selenium.focus("idFormSaveButton");
-		  selenium.keyDownNative(""+KeyEvent.VK_ENTER);
-		  selenium.keyUpNative(""+KeyEvent.VK_ENTER);
+//		  selenium.focus("idFormSaveButton");
+//		  selenium.keyDownNative(""+KeyEvent.VK_ENTER);
+//		  selenium.keyUpNative(""+KeyEvent.VK_ENTER);
+		  selenium.click("idFormSaveButton");
 		  Thread.sleep(5000);
 		  Assert.assertTrue(
 		    selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
@@ -124,9 +125,10 @@ public class TestAddcommonpro extends Login {
 		  selenium.click("idSvnUserLogInput");
 		  selenium.setSpeed(MAX_SPEED);
 		  selenium.click("idDescriptionInput");
-		  selenium.focus("idFormSaveButton");
-		  selenium.keyDownNative(""+KeyEvent.VK_ENTER);
-		  selenium.keyUpNative(""+KeyEvent.VK_ENTER);
+//		  selenium.focus("idFormSaveButton");
+//		  selenium.keyDownNative(""+KeyEvent.VK_ENTER);
+//		  selenium.keyUpNative(""+KeyEvent.VK_ENTER);
+		  selenium.click("idFormSaveButton");
 		  Thread.sleep(5000);
 		  Assert.assertTrue(
 		    selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
@@ -181,9 +183,10 @@ public class TestAddcommonpro extends Login {
 		selenium.click("idSvnUserLogInput");
 		selenium.setSpeed(MAX_SPEED);
 		selenium.click("idDescriptionInput");
-		selenium.focus("idFormSaveButton");
-		selenium.keyDownNative(""+KeyEvent.VK_ENTER);
-		selenium.keyUpNative(""+KeyEvent.VK_ENTER);
+//		selenium.focus("idFormSaveButton");
+//		selenium.keyDownNative(""+KeyEvent.VK_ENTER);
+//		selenium.keyUpNative(""+KeyEvent.VK_ENTER);
+		 selenium.click("idFormSaveButton");
 		Thread.sleep(5000);
 		Assert.assertTrue(
 				selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"

@@ -55,9 +55,10 @@ public void testAddpro(String url, String user, String password,
 	  selenium.click("idSvnUserLogInput");
 	  selenium.setSpeed(MAX_SPEED);
 	  selenium.click("idDescriptionInput");
-	  selenium.focus("idFormSaveButton");
-	  selenium.keyDownNative(""+KeyEvent.VK_ENTER);
-	  selenium.keyUpNative(""+KeyEvent.VK_ENTER);
+//	  selenium.focus("idFormSaveButton");
+//	  selenium.keyDownNative(""+KeyEvent.VK_ENTER);
+//	  selenium.keyUpNative(""+KeyEvent.VK_ENTER);
+	  selenium.click("idFormSaveButton");
 		Assert.assertTrue(
 				selenium.isTextPresent("Save failed: A project with this name already exists"));
 		selenium.click("//button[text()='Ok']");

@@ -50,9 +50,10 @@ public class TestAddPerlproject extends Login{
 	  selenium.click("idSvnUserLogInput");
 	  selenium.setSpeed(MAX_SPEED);
 	  selenium.click("idDescriptionInput");
-	  selenium.focus("idFormSaveButton");
-	  selenium.keyDownNative(""+KeyEvent.VK_ENTER);
-	  selenium.keyUpNative(""+KeyEvent.VK_ENTER);
+//	  selenium.focus("idFormSaveButton");
+//	  selenium.keyDownNative(""+KeyEvent.VK_ENTER);
+//	  selenium.keyUpNative(""+KeyEvent.VK_ENTER);
+	  selenium.click("idFormSaveButton");
 	  try {
 		Thread.sleep(5000);
 	} catch (InterruptedException e) {
