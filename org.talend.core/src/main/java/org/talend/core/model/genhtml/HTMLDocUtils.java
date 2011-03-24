@@ -17,8 +17,13 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 
+import org.eclipse.core.resources.IProject;
+import org.talend.commons.exception.ExceptionHandler;
+import org.talend.core.model.general.Project;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
+import org.talend.repository.ProjectManager;
+import org.talend.repository.model.ResourceModelUtils;
 
 /**
  * Utility class for generating HTML file.
@@ -59,13 +64,21 @@ public class HTMLDocUtils {
      * @return a string representing temporary folder
      */
     public static String getTmpFolder() {
-        String tmpFold = System.getProperty("user.dir") + File.separatorChar + IHTMLDocConstants.TEMP_FOLDER_NAME; //$NON-NLS-1$
-        // String tmpFold = System.getProperty("osgi.instance.area") +
-        File file = new File(tmpFold);
+        Project project = ProjectManager.getInstance().getCurrentProject();
+        IProject physProject;
+        String tmpFolder = System.getProperty("user.dir"); //$NON-NLS-1$
+        try {
+            physProject = ResourceModelUtils.getProject(project);
+            tmpFolder = physProject.getFolder("temp").getLocation().toPortableString(); //$NON-NLS-1$
+        } catch (Exception e) {
+            ExceptionHandler.process(e);
+        }
+        tmpFolder = tmpFolder + File.separatorChar + IHTMLDocConstants.TEMP_FOLDER_NAME; //$NON-NLS-1$
+        File file = new File(tmpFolder);
         if (!file.exists()) {
             file.mkdirs();
         }
-        return tmpFold;
+        return tmpFolder;
     }
 
     /**
