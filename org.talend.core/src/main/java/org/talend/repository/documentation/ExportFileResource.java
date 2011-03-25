@@ -14,6 +14,7 @@ package org.talend.repository.documentation;
 
 import java.io.File;
 import java.net.URL;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -22,12 +23,8 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.core.runtime.CoreException;
-import org.talend.core.CorePlugin;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ProcessItem;
-import org.talend.core.model.properties.Property;
-import org.talend.repository.ProjectManager;
-import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryNode;
 
 /**
@@ -84,6 +81,23 @@ public class ExportFileResource {
             map.put(relativePath, storeList);
         } else {
             storeList.addAll(resources);
+        }
+    }
+
+    /**
+     * DOC ycbai Comment method "addResource".
+     * 
+     * @param relativePath
+     * @param resource
+     */
+    public void addResource(String relativePath, URL resource) {
+        Set<URL> storeList = map.get(relativePath);
+        if (storeList == null) {
+            storeList = new HashSet<URL>();
+            storeList.add(resource);
+            map.put(relativePath, storeList);
+        } else {
+            storeList.add(resource);
         }
     }
 
@@ -145,6 +159,10 @@ public class ExportFileResource {
 
     public Set<URL> getResourcesByRelativePath(String path) {
         return map.get(path);
+    }
+
+    public Collection<Set<URL>> getAllResources() {
+        return map.values();
     }
 
     public void removeAllMap() {
