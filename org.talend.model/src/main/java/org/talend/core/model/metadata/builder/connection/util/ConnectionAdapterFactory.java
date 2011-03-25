@@ -363,6 +363,11 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
         }
 
         @Override
+        public Adapter caseEDIFACTColumn(EDIFACTColumn object) {
+            return createEDIFACTColumnAdapter();
+        }
+
+        @Override
         public Adapter caseElement(Element object) {
             return createElementAdapter();
         }
@@ -1095,6 +1100,20 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createEDIFACTConnectionAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.EDIFACTColumn <em>EDIFACT Column</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.metadata.builder.connection.EDIFACTColumn
+     * @generated
+     */
+    public Adapter createEDIFACTColumnAdapter() {
         return null;
     }
 

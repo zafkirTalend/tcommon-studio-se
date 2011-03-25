@@ -201,6 +201,8 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
             return (EObject) createInnerJoinMap();
         case ConnectionPackage.EDIFACT_CONNECTION:
             return createEDIFACTConnection();
+        case ConnectionPackage.EDIFACT_COLUMN:
+            return createEDIFACTColumn();
         default:
             throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -687,6 +689,16 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
     public EDIFACTConnection createEDIFACTConnection() {
         EDIFACTConnectionImpl edifactConnection = new EDIFACTConnectionImpl();
         return edifactConnection;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EDIFACTColumn createEDIFACTColumn() {
+        EDIFACTColumnImpl edifactColumn = new EDIFACTColumnImpl();
+        return edifactColumn;
     }
 
     /**

@@ -16568,31 +16568,554 @@ public interface ConnectionPackage extends EPackage {
     int EDIFACT_CONNECTION__XML_PATH = CONNECTION_FEATURE_COUNT + 2;
 
     /**
-     * The feature id for the '<em><b>Input Model</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int EDIFACT_CONNECTION__INPUT_MODEL = CONNECTION_FEATURE_COUNT + 3;
-
-    /**
-     * The feature id for the '<em><b>Xml Node</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int EDIFACT_CONNECTION__XML_NODE = CONNECTION_FEATURE_COUNT + 4;
-
-    /**
      * The number of structural features of the '<em>EDIFACT Connection</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int EDIFACT_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 5;
+    int EDIFACT_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 3;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.EDIFACTColumnImpl <em>EDIFACT Column</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.metadata.builder.connection.impl.EDIFACTColumnImpl
+     * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getEDIFACTColumn()
+     * @generated
+     */
+    int EDIFACT_COLUMN = 48;
+
+    /**
+     * The feature id for the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__NAME = METADATA_COLUMN__NAME;
+
+    /**
+     * The feature id for the '<em><b>Visibility</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__VISIBILITY = METADATA_COLUMN__VISIBILITY;
+
+    /**
+     * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__CLIENT_DEPENDENCY = METADATA_COLUMN__CLIENT_DEPENDENCY;
+
+    /**
+     * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__SUPPLIER_DEPENDENCY = METADATA_COLUMN__SUPPLIER_DEPENDENCY;
+
+    /**
+     * The feature id for the '<em><b>Constraint</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__CONSTRAINT = METADATA_COLUMN__CONSTRAINT;
+
+    /**
+     * The feature id for the '<em><b>Namespace</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__NAMESPACE = METADATA_COLUMN__NAMESPACE;
+
+    /**
+     * The feature id for the '<em><b>Importer</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__IMPORTER = METADATA_COLUMN__IMPORTER;
+
+    /**
+     * The feature id for the '<em><b>Stereotype</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__STEREOTYPE = METADATA_COLUMN__STEREOTYPE;
+
+    /**
+     * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__TAGGED_VALUE = METADATA_COLUMN__TAGGED_VALUE;
+
+    /**
+     * The feature id for the '<em><b>Document</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__DOCUMENT = METADATA_COLUMN__DOCUMENT;
+
+    /**
+     * The feature id for the '<em><b>Description</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__DESCRIPTION = METADATA_COLUMN__DESCRIPTION;
+
+    /**
+     * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__RESPONSIBLE_PARTY = METADATA_COLUMN__RESPONSIBLE_PARTY;
+
+    /**
+     * The feature id for the '<em><b>Element Node</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__ELEMENT_NODE = METADATA_COLUMN__ELEMENT_NODE;
+
+    /**
+     * The feature id for the '<em><b>Set</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__SET = METADATA_COLUMN__SET;
+
+    /**
+     * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__RENDERED_OBJECT = METADATA_COLUMN__RENDERED_OBJECT;
+
+    /**
+     * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__VOCABULARY_ELEMENT = METADATA_COLUMN__VOCABULARY_ELEMENT;
+
+    /**
+     * The feature id for the '<em><b>Measurement</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__MEASUREMENT = METADATA_COLUMN__MEASUREMENT;
+
+    /**
+     * The feature id for the '<em><b>Change Request</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__CHANGE_REQUEST = METADATA_COLUMN__CHANGE_REQUEST;
+
+    /**
+     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__DASDL_PROPERTY = METADATA_COLUMN__DASDL_PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>Properties</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__PROPERTIES = METADATA_COLUMN__PROPERTIES;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__ID = METADATA_COLUMN__ID;
+
+    /**
+     * The feature id for the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__COMMENT = METADATA_COLUMN__COMMENT;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__LABEL = METADATA_COLUMN__LABEL;
+
+    /**
+     * The feature id for the '<em><b>Read Only</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__READ_ONLY = METADATA_COLUMN__READ_ONLY;
+
+    /**
+     * The feature id for the '<em><b>Synchronised</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__SYNCHRONISED = METADATA_COLUMN__SYNCHRONISED;
+
+    /**
+     * The feature id for the '<em><b>Divergency</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__DIVERGENCY = METADATA_COLUMN__DIVERGENCY;
+
+    /**
+     * The feature id for the '<em><b>Owner Scope</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__OWNER_SCOPE = METADATA_COLUMN__OWNER_SCOPE;
+
+    /**
+     * The feature id for the '<em><b>Owner</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__OWNER = METADATA_COLUMN__OWNER;
+
+    /**
+     * The feature id for the '<em><b>Feature Node</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__FEATURE_NODE = METADATA_COLUMN__FEATURE_NODE;
+
+    /**
+     * The feature id for the '<em><b>Feature Map</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__FEATURE_MAP = METADATA_COLUMN__FEATURE_MAP;
+
+    /**
+     * The feature id for the '<em><b>Cf Map</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__CF_MAP = METADATA_COLUMN__CF_MAP;
+
+    /**
+     * The feature id for the '<em><b>Changeability</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__CHANGEABILITY = METADATA_COLUMN__CHANGEABILITY;
+
+    /**
+     * The feature id for the '<em><b>Multiplicity</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__MULTIPLICITY = METADATA_COLUMN__MULTIPLICITY;
+
+    /**
+     * The feature id for the '<em><b>Ordering</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__ORDERING = METADATA_COLUMN__ORDERING;
+
+    /**
+     * The feature id for the '<em><b>Target Scope</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__TARGET_SCOPE = METADATA_COLUMN__TARGET_SCOPE;
+
+    /**
+     * The feature id for the '<em><b>Type</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__TYPE = METADATA_COLUMN__TYPE;
+
+    /**
+     * The feature id for the '<em><b>Slot</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__SLOT = METADATA_COLUMN__SLOT;
+
+    /**
+     * The feature id for the '<em><b>Discriminated Union</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__DISCRIMINATED_UNION = METADATA_COLUMN__DISCRIMINATED_UNION;
+
+    /**
+     * The feature id for the '<em><b>Indexed Feature</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__INDEXED_FEATURE = METADATA_COLUMN__INDEXED_FEATURE;
+
+    /**
+     * The feature id for the '<em><b>Key Relationship</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__KEY_RELATIONSHIP = METADATA_COLUMN__KEY_RELATIONSHIP;
+
+    /**
+     * The feature id for the '<em><b>Unique Key</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__UNIQUE_KEY = METADATA_COLUMN__UNIQUE_KEY;
+
+    /**
+     * The feature id for the '<em><b>Data Item</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__DATA_ITEM = METADATA_COLUMN__DATA_ITEM;
+
+    /**
+     * The feature id for the '<em><b>Remap</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__REMAP = METADATA_COLUMN__REMAP;
+
+    /**
+     * The feature id for the '<em><b>Initial Value</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__INITIAL_VALUE = METADATA_COLUMN__INITIAL_VALUE;
+
+    /**
+     * The feature id for the '<em><b>Length</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__LENGTH = METADATA_COLUMN__LENGTH;
+
+    /**
+     * The feature id for the '<em><b>Precision</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__PRECISION = METADATA_COLUMN__PRECISION;
+
+    /**
+     * The feature id for the '<em><b>Scale</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__SCALE = METADATA_COLUMN__SCALE;
+
+    /**
+     * The feature id for the '<em><b>Source Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__SOURCE_TYPE = METADATA_COLUMN__SOURCE_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Default Value</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__DEFAULT_VALUE = METADATA_COLUMN__DEFAULT_VALUE;
+
+    /**
+     * The feature id for the '<em><b>Talend Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__TALEND_TYPE = METADATA_COLUMN__TALEND_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Key</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__KEY = METADATA_COLUMN__KEY;
+
+    /**
+     * The feature id for the '<em><b>Nullable</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__NULLABLE = METADATA_COLUMN__NULLABLE;
+
+    /**
+     * The feature id for the '<em><b>Table</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__TABLE = METADATA_COLUMN__TABLE;
+
+    /**
+     * The feature id for the '<em><b>Original Field</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__ORIGINAL_FIELD = METADATA_COLUMN__ORIGINAL_FIELD;
+
+    /**
+     * The feature id for the '<em><b>Pattern</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__PATTERN = METADATA_COLUMN__PATTERN;
+
+    /**
+     * The feature id for the '<em><b>Display Field</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__DISPLAY_FIELD = METADATA_COLUMN__DISPLAY_FIELD;
+
+    /**
+     * The feature id for the '<em><b>EDI Column Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__EDI_COLUMN_NAME = METADATA_COLUMN_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>EDI Xpath</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__EDI_XPATH = METADATA_COLUMN_FEATURE_COUNT + 1;
+
+    /**
+     * The number of structural features of the '<em>EDIFACT Column</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN_FEATURE_COUNT = METADATA_COLUMN_FEATURE_COUNT + 2;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.FileFormat <em>File Format</em>}' enum.
@@ -16601,7 +17124,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFileFormat()
      * @generated
      */
-    int FILE_FORMAT = 48;
+    int FILE_FORMAT = 49;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.FieldSeparator <em>Field Separator</em>}' enum.
@@ -16610,7 +17133,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFieldSeparator()
      * @generated
      */
-    int FIELD_SEPARATOR = 49;
+    int FIELD_SEPARATOR = 50;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.Escape <em>Escape</em>}' enum.
@@ -16619,7 +17142,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getEscape()
      * @generated
      */
-    int ESCAPE = 50;
+    int ESCAPE = 51;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.RowSeparator <em>Row Separator</em>}' enum.
@@ -16628,7 +17151,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getRowSeparator()
      * @generated
      */
-    int ROW_SEPARATOR = 51;
+    int ROW_SEPARATOR = 52;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.MDMConnectionProtocol <em>MDM Connection Protocol</em>}' enum.
@@ -16637,7 +17160,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getMDMConnectionProtocol()
      * @generated
      */
-    int MDM_CONNECTION_PROTOCOL = 52;
+    int MDM_CONNECTION_PROTOCOL = 53;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.MdmConceptType <em>Mdm Concept Type</em>}' enum.
@@ -16647,7 +17170,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getMdmConceptType()
      * @generated
      */
-    int MDM_CONCEPT_TYPE = 53;
+    int MDM_CONCEPT_TYPE = 54;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.RuleType <em>Rule Type</em>}' enum.
@@ -16657,7 +17180,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getRuleType()
      * @generated
      */
-    int RULE_TYPE = 54;
+    int RULE_TYPE = 55;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.Function <em>Function</em>}' enum.
@@ -16667,7 +17190,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFunction()
      * @generated
      */
-    int FUNCTION = 55;
+    int FUNCTION = 56;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.Operator <em>Operator</em>}' enum.
@@ -16677,7 +17200,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getOperator()
      * @generated
      */
-    int OPERATOR = 56;
+    int OPERATOR = 57;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.LogicalOperator <em>Logical Operator</em>}' enum.
@@ -16687,7 +17210,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getLogicalOperator()
      * @generated
      */
-    int LOGICAL_OPERATOR = 57;
+    int LOGICAL_OPERATOR = 58;
 
     /**
      * The meta object id for the '<em>Map</em>' data type.
@@ -16696,7 +17219,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getMap()
      * @generated
      */
-    int MAP = 58;
+    int MAP = 59;
 
     /**
      * The meta object id for the '<em>List</em>' data type.
@@ -16705,7 +17228,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getList()
      * @generated
      */
-    int LIST = 59;
+    int LIST = 60;
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.Metadata <em>Metadata</em>}'.
@@ -20416,26 +20939,36 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getEDIFACTConnection_XmlPath();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.EDIFACTConnection#isInputModel <em>Input Model</em>}'.
+     * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.EDIFACTColumn <em>EDIFACT Column</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Input Model</em>'.
-     * @see org.talend.core.model.metadata.builder.connection.EDIFACTConnection#isInputModel()
-     * @see #getEDIFACTConnection()
+     * @return the meta object for class '<em>EDIFACT Column</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.EDIFACTColumn
      * @generated
      */
-    EAttribute getEDIFACTConnection_InputModel();
+    EClass getEDIFACTColumn();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.EDIFACTConnection#getXmlNode <em>Xml Node</em>}'.
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.EDIFACTColumn#getEDIColumnName <em>EDI Column Name</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Xml Node</em>'.
-     * @see org.talend.core.model.metadata.builder.connection.EDIFACTConnection#getXmlNode()
-     * @see #getEDIFACTConnection()
+     * @return the meta object for the attribute '<em>EDI Column Name</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.EDIFACTColumn#getEDIColumnName()
+     * @see #getEDIFACTColumn()
      * @generated
      */
-    EAttribute getEDIFACTConnection_XmlNode();
+    EAttribute getEDIFACTColumn_EDIColumnName();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.EDIFACTColumn#getEDIXpath <em>EDI Xpath</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>EDI Xpath</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.EDIFACTColumn#getEDIXpath()
+     * @see #getEDIFACTColumn()
+     * @generated
+     */
+    EAttribute getEDIFACTColumn_EDIXpath();
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.ValidationRulesConnection <em>Validation Rules Connection</em>}'.
@@ -23616,20 +24149,30 @@ public interface ConnectionPackage extends EPackage {
         EAttribute EDIFACT_CONNECTION__XML_PATH = eINSTANCE.getEDIFACTConnection_XmlPath();
 
         /**
-         * The meta object literal for the '<em><b>Input Model</b></em>' attribute feature.
+         * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.EDIFACTColumnImpl <em>EDIFACT Column</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
+         * @see org.talend.core.model.metadata.builder.connection.impl.EDIFACTColumnImpl
+         * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getEDIFACTColumn()
          * @generated
          */
-        EAttribute EDIFACT_CONNECTION__INPUT_MODEL = eINSTANCE.getEDIFACTConnection_InputModel();
+        EClass EDIFACT_COLUMN = eINSTANCE.getEDIFACTColumn();
 
         /**
-         * The meta object literal for the '<em><b>Xml Node</b></em>' attribute feature.
+         * The meta object literal for the '<em><b>EDI Column Name</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          */
-        EAttribute EDIFACT_CONNECTION__XML_NODE = eINSTANCE.getEDIFACTConnection_XmlNode();
+        EAttribute EDIFACT_COLUMN__EDI_COLUMN_NAME = eINSTANCE.getEDIFACTColumn_EDIColumnName();
+
+        /**
+         * The meta object literal for the '<em><b>EDI Xpath</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EDIFACT_COLUMN__EDI_XPATH = eINSTANCE.getEDIFACTColumn_EDIXpath();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.ValidationRulesConnectionImpl <em>Validation Rules Connection</em>}' class.

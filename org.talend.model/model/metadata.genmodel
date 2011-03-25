@@ -489,8 +489,10 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//EDIFACTConnection/XmlName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//EDIFACTConnection/FileName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//EDIFACTConnection/XmlPath"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//EDIFACTConnection/inputModel"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//EDIFACTConnection/XmlNode"/>
+    </genClasses>
+    <genClasses ecoreClass="metadata.ecore#//EDIFACTColumn">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//EDIFACTColumn/EDIColumnName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//EDIFACTColumn/EDIXpath"/>
     </genClasses>
     <nestedGenPackages prefix="cwm" basePackage="org.talend" disposableProviderFactory="true"
         ecorePackage="metadata.ecore#//cwm">

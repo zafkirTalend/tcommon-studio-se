@@ -386,6 +386,15 @@ public interface ConnectionFactory extends EFactory {
     EDIFACTConnection createEDIFACTConnection();
 
     /**
+     * Returns a new object of class '<em>EDIFACT Column</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>EDIFACT Column</em>'.
+     * @generated
+     */
+    EDIFACTColumn createEDIFACTColumn();
+
+    /**
      * Returns a new object of class '<em>Validation Rules Connection</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

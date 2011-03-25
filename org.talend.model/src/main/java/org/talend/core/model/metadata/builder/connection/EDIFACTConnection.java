@@ -5,6 +5,8 @@
  */
 package org.talend.core.model.metadata.builder.connection;
 
+import org.eclipse.emf.common.util.EList;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>EDIFACT Connection</b></em>'.
@@ -16,8 +18,6 @@ package org.talend.core.model.metadata.builder.connection;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.EDIFACTConnection#getXmlName <em>Xml Name</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.EDIFACTConnection#getFileName <em>File Name</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.EDIFACTConnection#getXmlPath <em>Xml Path</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.EDIFACTConnection#isInputModel <em>Input Model</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.EDIFACTConnection#getXmlNode <em>Xml Node</em>}</li>
  * </ul>
  * </p>
  *
@@ -104,58 +104,5 @@ public interface EDIFACTConnection extends Connection {
      * @generated
      */
     void setXmlPath(String value);
-
-    /**
-     * Returns the value of the '<em><b>Input Model</b></em>' attribute.
-     * The default value is <code>"true"</code>.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Input Model</em>' attribute isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Input Model</em>' attribute.
-     * @see #setInputModel(boolean)
-     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getEDIFACTConnection_InputModel()
-     * @model default="true"
-     * @generated
-     */
-    boolean isInputModel();
-
-    /**
-     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.EDIFACTConnection#isInputModel <em>Input Model</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Input Model</em>' attribute.
-     * @see #isInputModel()
-     * @generated
-     */
-    void setInputModel(boolean value);
-
-    /**
-     * Returns the value of the '<em><b>Xml Node</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Xml Node</em>' attribute isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Xml Node</em>' attribute.
-     * @see #setXmlNode(String)
-     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getEDIFACTConnection_XmlNode()
-     * @model
-     * @generated
-     */
-    String getXmlNode();
-
-    /**
-     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.EDIFACTConnection#getXmlNode <em>Xml Node</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Xml Node</em>' attribute.
-     * @see #getXmlNode()
-     * @generated
-     */
-    void setXmlNode(String value);
 
 } // EDIFACTConnection

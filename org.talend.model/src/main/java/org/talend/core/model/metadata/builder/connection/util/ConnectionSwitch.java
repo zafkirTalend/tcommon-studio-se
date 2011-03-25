@@ -1022,6 +1022,29 @@ public class ConnectionSwitch<T> {
                 result = defaultCase(theEObject);
             return result;
         }
+        case ConnectionPackage.EDIFACT_COLUMN: {
+            EDIFACTColumn edifactColumn = (EDIFACTColumn) theEObject;
+            T result = caseEDIFACTColumn(edifactColumn);
+            if (result == null)
+                result = caseMetadataColumn(edifactColumn);
+            if (result == null)
+                result = caseAbstractMetadataObject(edifactColumn);
+            if (result == null)
+                result = caseField(edifactColumn);
+            if (result == null)
+                result = caseAttribute(edifactColumn);
+            if (result == null)
+                result = caseElement(edifactColumn);
+            if (result == null)
+                result = caseStructuralFeature(edifactColumn);
+            if (result == null)
+                result = caseFeature(edifactColumn);
+            if (result == null)
+                result = caseModelElement(edifactColumn);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
         default:
             return defaultCase(theEObject);
         }
@@ -1635,6 +1658,21 @@ public class ConnectionSwitch<T> {
      * @generated
      */
     public T caseEDIFACTConnection(EDIFACTConnection object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>EDIFACT Column</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>EDIFACT Column</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseEDIFACTColumn(EDIFACTColumn object) {
         return null;
     }
 

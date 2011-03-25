@@ -41,6 +41,8 @@ import org.talend.core.model.metadata.builder.connection.ConceptTarget;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.DelimitedFileConnection;
+import org.talend.core.model.metadata.builder.connection.EDIFACTColumn;
+import org.talend.core.model.metadata.builder.connection.EDIFACTConnection;
 import org.talend.core.model.metadata.builder.connection.EbcdicConnection;
 import org.talend.core.model.metadata.builder.connection.FTPConnection;
 import org.talend.core.model.metadata.builder.connection.FileConnection;
@@ -131,6 +133,36 @@ public class RepositoryToComponentProperty {
             return getSalesforceSchemaValue((SalesforceSchemaConnection) connection, value);
         }
 
+        if (connection instanceof EDIFACTConnection) {
+            return getEDIFACTSchemaValue((EDIFACTConnection) connection, value);
+        }
+        return null;
+    }
+
+    /**
+     * DOC guanglong.du Comment method "getEDIFACTSchemaValue".
+     * 
+     * @param connection
+     * @param value
+     * @return
+     */
+    private static Object getEDIFACTSchemaValue(EDIFACTConnection connection, String value) {
+        if (connection == null) {
+            return null;
+        }
+        if ("FAMILY".equals(value)) {
+            if (isContextMode(connection, connection.getXmlName())) {
+                return connection.getXmlName();
+            } else {
+                return TalendQuoteUtils.addQuotes(connection.getXmlName());
+            }
+        } else if ("FILE_PATH".equals(value)) {
+            if (isContextMode(connection, connection.getFileName())) {
+                return connection.getFileName();
+            } else {
+                return TalendQuoteUtils.addQuotes(connection.getFileName());
+            }
+        }
         return null;
     }
 
@@ -1462,6 +1494,22 @@ public class RepositoryToComponentProperty {
                         }
                     }
                     break;
+                }
+            }
+        }
+
+        if (connection instanceof EDIFACTConnection) {
+            EDIFACTConnection edifactConnection = (EDIFACTConnection) connection;
+            List<IMetadataColumn> objectList = metaTable.getListColumns();
+            Map<String, Object> map = new HashMap<String, Object>();
+            for (IMetadataColumn column : objectList) {
+                if (column instanceof EDIFACTColumn) {
+                    EDIFACTColumn edicolumn = (EDIFACTColumn) column;
+                    String ediColumnName = edicolumn.getEDIColumnName();
+                    String ediXpath = edicolumn.getEDIXpath();
+                    map.put("COLUMN_NAME", ediColumnName); //$NON-NLS-1$
+                    map.put("XPATH", ediXpath); //$NON-NLS-1$
+                    tableInfo.add(map);
                 }
             }
         }
