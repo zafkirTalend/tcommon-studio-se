@@ -81,7 +81,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
             new String[] { "DI" }, false);
 
     public final static ERepositoryObjectType BUSINESS_PROCESS = new ERepositoryObjectType("repository.businessProcess",
-            "businessModel", "BUSINESS_PROCESS", true, 2, new String[] { "DI" });
+            "businessProcess", "BUSINESS_PROCESS", true, 2, new String[] { "DI" });
 
     public final static ERepositoryObjectType SVG_BUSINESS_PROCESS = new ERepositoryObjectType("repository.svgBusinessProcess",
             "businessProcessSVG", "SVG_BUSINESS_PROCESS", true, 3, new String[] { "DI" });
@@ -523,7 +523,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
 
     public static String getDeleteFolderName(ERepositoryObjectType type) {
         if (type == BUSINESS_PROCESS) {
-            return "businessModel"; //$NON-NLS-1$
+            return "businessProcess"; //$NON-NLS-1$
         } else if (type == SVG_BUSINESS_PROCESS) {
             return "businessProcessSVG"; //$NON-NLS-1$
         } else if (type == PROCESS) {
