@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -356,6 +357,71 @@ public final class FilesUtils {
             }
         }
         return toReturn;
+    }
+
+    /**
+     * DOC ycbai Comment method "getFiles".
+     * 
+     * @param file
+     * @param extension
+     * @param excludedFile
+     * @param excludedFolder
+     * @param nested
+     * @return
+     */
+    public static List<File> getFiles(File file, String extension, String excludedFile, String excludedFolder, boolean nested) {
+        List<File> results = new ArrayList<File>();
+        if (file.isFile()) {
+            boolean canAdd = true;
+            if ((extension != null && !file.getName().endsWith(extension))
+                    || (excludedFile != null && excludedFile.equals(file.getName()))) {
+                canAdd = false;
+            }
+            if (canAdd)
+                results.add(file);
+        } else if (file.isDirectory() && nested) {
+            if (excludedFolder != null && excludedFolder.equals(file.getName())) {
+                return results;
+            }
+            File[] files = file.listFiles();
+            for (File file2 : files) {
+                results.addAll(getFiles(file2, extension, excludedFile, excludedFolder, nested));
+            }
+        }
+
+        return results;
+    }
+
+    /**
+     * DOC ycbai Comment method "getFileURLs".
+     * 
+     * @param file
+     * @param extension
+     * @param excludedFile
+     * @param excludedFolder
+     * @param nested
+     * @return
+     * @throws MalformedURLException
+     */
+    public static List<URL> getFileURLs(File file, String extension, String excludedFile, String excludedFolder, boolean nested)
+            throws MalformedURLException {
+        List<URL> urls = new ArrayList<URL>();
+        List<File> files = getFiles(file, extension, excludedFile, excludedFolder, nested);
+        for (File file2 : files) {
+            urls.add(file2.toURL());
+        }
+        return urls;
+    }
+
+    /**
+     * DOC ycbai Comment method "getFileURLs".
+     * 
+     * @param file
+     * @return
+     * @throws MalformedURLException
+     */
+    public static List<URL> getFileURLs(File file) throws MalformedURLException {
+        return getFileURLs(file, null, null, null, true);
     }
 
     public static FileFilter getExcludeSystemFilesFilter() {
@@ -719,4 +785,5 @@ public final class FilesUtils {
         }
         return result;
     }
+
 }
