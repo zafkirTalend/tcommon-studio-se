@@ -352,7 +352,7 @@ public class MetadataConnectionUtils {
         DatabaseMetaData connectionMetadata = getConnectionMetadata(connection);
         if (connectionMetadata.getDriverName() != null && connectionMetadata.getDatabaseProductName() != null) {
             for (String keyString : getSybaseDBProductsName()) {
-                if (keyString.equals(connectionMetadata.getDatabaseProductName().trim())) {
+                if (keyString.trim().equals(connectionMetadata.getDatabaseProductName().trim())) {
                     return true;
                 }
             }
