@@ -22,6 +22,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SAPConnection#getFuntions <em>Funtions</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SAPConnection#getCurrentFucntion <em>Current Fucntion</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SAPConnection#getIDocs <em>IDocs</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.SAPConnection#getJcoVersion <em>Jco Version</em>}</li>
  * </ul>
  * </p>
  *
@@ -242,5 +243,31 @@ public interface SAPConnection extends Connection {
      * @generated
      */
     EList<SAPIDocUnit> getIDocs();
+
+    /**
+     * Returns the value of the '<em><b>Jco Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Jco Version</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Jco Version</em>' attribute.
+     * @see #setJcoVersion(String)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getSAPConnection_JcoVersion()
+     * @model
+     * @generated
+     */
+    String getJcoVersion();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.SAPConnection#getJcoVersion <em>Jco Version</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Jco Version</em>' attribute.
+     * @see #getJcoVersion()
+     * @generated
+     */
+    void setJcoVersion(String value);
 
 } // SAPConnection

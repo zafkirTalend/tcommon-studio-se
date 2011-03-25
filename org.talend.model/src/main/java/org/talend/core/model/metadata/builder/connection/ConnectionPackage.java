@@ -5445,13 +5445,22 @@ public interface ConnectionPackage extends EPackage {
     int SAP_CONNECTION__IDOCS = CONNECTION_FEATURE_COUNT + 8;
 
     /**
+     * The feature id for the '<em><b>Jco Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_CONNECTION__JCO_VERSION = CONNECTION_FEATURE_COUNT + 9;
+
+    /**
      * The number of structural features of the '<em>SAP Connection</em>' class.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int SAP_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 9;
+    int SAP_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 10;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.SAPFunctionUnitImpl <em>SAP Function Unit</em>}' class.
@@ -17834,6 +17843,17 @@ public interface ConnectionPackage extends EPackage {
     EReference getSAPConnection_IDocs();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SAPConnection#getJcoVersion <em>Jco Version</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Jco Version</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SAPConnection#getJcoVersion()
+     * @see #getSAPConnection()
+     * @generated
+     */
+    EAttribute getSAPConnection_JcoVersion();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit <em>SAP Function Unit</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>SAP Function Unit</em>'.
@@ -21568,6 +21588,14 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EReference SAP_CONNECTION__IDOCS = eINSTANCE.getSAPConnection_IDocs();
+
+        /**
+         * The meta object literal for the '<em><b>Jco Version</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SAP_CONNECTION__JCO_VERSION = eINSTANCE.getSAPConnection_JcoVersion();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.SAPFunctionUnitImpl <em>SAP Function Unit</em>}' class.

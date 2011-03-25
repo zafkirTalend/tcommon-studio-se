@@ -348,6 +348,8 @@ public class RepositoryToComponentProperty {
             } else {
                 return TalendQuoteUtils.addQuotes(connection.getSystemNumber());
             }
+        } else if ("SAP_VERSION".equals(value)) {
+            return connection.getJcoVersion();
         }
 
         return null;

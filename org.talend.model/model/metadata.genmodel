@@ -188,6 +188,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//SAPConnection/Funtions"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SAPConnection/currentFucntion"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metadata.ecore#//SAPConnection/IDocs"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SAPConnection/jcoVersion"/>
     </genClasses>
     <genClasses ecoreClass="metadata.ecore#//SAPFunctionUnit">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SAPFunctionUnit/OutputType"/>

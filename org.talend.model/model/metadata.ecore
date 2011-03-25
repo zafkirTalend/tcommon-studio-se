@@ -343,6 +343,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="currentFucntion" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="IDocs" upperBound="-1"
         eType="#//SAPIDocUnit" containment="true" eOpposite="#//SAPIDocUnit/connection"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="jcoVersion" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SAPFunctionUnit" eSuperTypes="#//AbstractMetadataObject">
     <eOperations name="setDocument">

@@ -1462,6 +1462,15 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSAPConnection_JcoVersion() {
+        return (EAttribute) sapConnectionEClass.getEStructuralFeatures().get(9);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -3809,6 +3818,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEReference(sapConnectionEClass, SAP_CONNECTION__FUNTIONS);
         createEAttribute(sapConnectionEClass, SAP_CONNECTION__CURRENT_FUCNTION);
         createEReference(sapConnectionEClass, SAP_CONNECTION__IDOCS);
+        createEAttribute(sapConnectionEClass, SAP_CONNECTION__JCO_VERSION);
 
         sapFunctionUnitEClass = createEClass(SAP_FUNCTION_UNIT);
         createEAttribute(sapFunctionUnitEClass, SAP_FUNCTION_UNIT__OUTPUT_TYPE);
@@ -4492,6 +4502,8 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEReference(getSAPConnection_IDocs(), this.getSAPIDocUnit(), this.getSAPIDocUnit_Connection(), "IDocs", null, 0, -1,
                 SAPConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES,
                 !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSAPConnection_JcoVersion(), ecorePackage.getEString(), "jcoVersion", null, 0, 1, SAPConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(sapFunctionUnitEClass, SAPFunctionUnit.class, "SAPFunctionUnit", !IS_ABSTRACT, !IS_INTERFACE,
                 IS_GENERATED_INSTANCE_CLASS);

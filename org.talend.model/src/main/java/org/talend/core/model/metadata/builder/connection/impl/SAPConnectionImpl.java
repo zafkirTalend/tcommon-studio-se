@@ -41,6 +41,7 @@ import org.talend.core.model.metadata.builder.connection.SAPIDocUnit;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SAPConnectionImpl#getFuntions <em>Funtions</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SAPConnectionImpl#getCurrentFucntion <em>Current Fucntion</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SAPConnectionImpl#getIDocs <em>IDocs</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SAPConnectionImpl#getJcoVersion <em>Jco Version</em>}</li>
  * </ul>
  * </p>
  *
@@ -207,6 +208,26 @@ public class SAPConnectionImpl extends ConnectionImpl implements SAPConnection {
      * @ordered
      */
     protected EList<SAPIDocUnit> iDocs;
+
+    /**
+     * The default value of the '{@link #getJcoVersion() <em>Jco Version</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getJcoVersion()
+     * @generated
+     * @ordered
+     */
+    protected static final String JCO_VERSION_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getJcoVersion() <em>Jco Version</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getJcoVersion()
+     * @generated
+     * @ordered
+     */
+    protected String jcoVersion = JCO_VERSION_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -410,6 +431,28 @@ public class SAPConnectionImpl extends ConnectionImpl implements SAPConnection {
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getJcoVersion() {
+        return jcoVersion;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setJcoVersion(String newJcoVersion) {
+        String oldJcoVersion = jcoVersion;
+        jcoVersion = newJcoVersion;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SAP_CONNECTION__JCO_VERSION, oldJcoVersion,
+                    jcoVersion));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     @SuppressWarnings("unchecked")
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -464,6 +507,8 @@ public class SAPConnectionImpl extends ConnectionImpl implements SAPConnection {
             return getCurrentFucntion();
         case ConnectionPackage.SAP_CONNECTION__IDOCS:
             return getIDocs();
+        case ConnectionPackage.SAP_CONNECTION__JCO_VERSION:
+            return getJcoVersion();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -506,6 +551,9 @@ public class SAPConnectionImpl extends ConnectionImpl implements SAPConnection {
             getIDocs().clear();
             getIDocs().addAll((Collection<? extends SAPIDocUnit>) newValue);
             return;
+        case ConnectionPackage.SAP_CONNECTION__JCO_VERSION:
+            setJcoVersion((String) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
@@ -545,6 +593,9 @@ public class SAPConnectionImpl extends ConnectionImpl implements SAPConnection {
         case ConnectionPackage.SAP_CONNECTION__IDOCS:
             getIDocs().clear();
             return;
+        case ConnectionPackage.SAP_CONNECTION__JCO_VERSION:
+            setJcoVersion(JCO_VERSION_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
@@ -576,6 +627,8 @@ public class SAPConnectionImpl extends ConnectionImpl implements SAPConnection {
                     .equals(currentFucntion);
         case ConnectionPackage.SAP_CONNECTION__IDOCS:
             return iDocs != null && !iDocs.isEmpty();
+        case ConnectionPackage.SAP_CONNECTION__JCO_VERSION:
+            return JCO_VERSION_EDEFAULT == null ? jcoVersion != null : !JCO_VERSION_EDEFAULT.equals(jcoVersion);
         }
         return super.eIsSet(featureID);
     }
@@ -605,6 +658,8 @@ public class SAPConnectionImpl extends ConnectionImpl implements SAPConnection {
         result.append(language);
         result.append(", currentFucntion: ");
         result.append(currentFucntion);
+        result.append(", jcoVersion: ");
+        result.append(jcoVersion);
         result.append(')');
         return result.toString();
     }

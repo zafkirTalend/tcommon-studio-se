@@ -61,6 +61,7 @@ import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.MetadataTool;
 import org.talend.core.model.metadata.QueryUtil;
+import org.talend.core.model.metadata.designerproperties.SapJcoVersion;
 import org.talend.core.model.process.ElementParameterParser;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.relationship.RelationshipItemBuilder;
@@ -451,33 +452,36 @@ public class CoreService implements ICoreService {
         if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibrariesService.class)) {
             ILibrariesService libService = (ILibrariesService) GlobalServiceRegister.getDefault().getService(
                     ILibrariesService.class);
-            final String jarJco = libService.getJavaLibrariesPath() + File.separatorChar + "sapjco.jar";
-            String targetPath = "";
-            File source = new File(jarJco);
-            if (source.exists()) {
-                Bundle bundle = Platform.getBundle(PluginChecker.getSapWizardPluginId());
-                if (bundle instanceof BundleHost) {
-                    BundleHost bundleHost = (BundleHost) bundle;
-                    final BundleData bundleData = bundleHost.getBundleData();
-                    if (bundleData instanceof BaseData) {
-                        BaseData baseData = (BaseData) bundleData;
-                        final BundleFile bundleFile = baseData.getBundleFile();
-                        final File baseFile = bundleFile.getBaseFile();
-                        targetPath = baseFile.getAbsolutePath() + File.separator + "sapjco.jar";
-
-                        File target = new File(targetPath);
-                        try {
-                            FilesUtils.copyFile(source, target);
-                        } catch (FileNotFoundException e) {
-                            ExceptionHandler.process(e);
-                        } catch (IOException e) {
-                            ExceptionHandler.process(e);
+            // feature 17789
+            Bundle bundle = Platform.getBundle(PluginChecker.getSapWizardPluginId());
+            if (bundle instanceof BundleHost) {
+                BundleHost bundleHost = (BundleHost) bundle;
+                final BundleData bundleData = bundleHost.getBundleData();
+                if (bundleData instanceof BaseData) {
+                    BaseData baseData = (BaseData) bundleData;
+                    final BundleFile bundleFile = baseData.getBundleFile();
+                    final File baseFile = bundleFile.getBaseFile();
+                    String[] allNeededModuls = SapJcoVersion.getAllNeededModuls();
+                    for (int i = 0; i < allNeededModuls.length; i++) {
+                        String name = allNeededModuls[i];
+                        String jarSource = libService.getJavaLibrariesPath() + File.separatorChar + name;
+                        String targetPath = "";
+                        File source = new File(jarSource);
+                        if (source.exists()) {
+                            targetPath = baseFile.getAbsolutePath() + File.separator + name;
+                            File target = new File(targetPath);
+                            try {
+                                FilesUtils.copyFile(source, target);
+                            } catch (FileNotFoundException e) {
+                                ExceptionHandler.process(e);
+                            } catch (IOException e) {
+                                ExceptionHandler.process(e);
+                            }
                         }
                     }
                 }
             }
         }
-
     }
 
     public void resetUniservLibraries() {
