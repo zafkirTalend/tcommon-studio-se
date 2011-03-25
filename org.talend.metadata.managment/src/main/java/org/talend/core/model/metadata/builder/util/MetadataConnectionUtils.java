@@ -778,7 +778,7 @@ public class MetadataConnectionUtils {
                 log.error(e, e);
             }
         }
-        updateRetrieveAllFlag(conn);
+        // updateRetrieveAllFlag(conn);
         return conn;
     }
 
