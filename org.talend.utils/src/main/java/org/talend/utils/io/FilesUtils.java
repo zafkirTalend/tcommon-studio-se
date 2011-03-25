@@ -540,14 +540,15 @@ public final class FilesUtils {
             out.putNextEntry(new ZipEntry(f.getName()));
             FileInputStream in = new FileInputStream(f);
 
-            byte[] b = new byte[BUFFER_SIZE];
+            // byte[] b = new byte[BUFFER_SIZE];
             int readBytes = 0;
             while ((readBytes = in.read()) != -1) {
-                out.write(b, 0, readBytes);
+                out.write(readBytes);
             }
-
-            out.flush();
             in.close();
+            out.flush();
+
+
         }
 
 
