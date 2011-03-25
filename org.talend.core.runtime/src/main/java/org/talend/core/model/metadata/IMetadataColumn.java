@@ -46,10 +46,14 @@ public interface IMetadataColumn {
 
     public static final int OPTIONS_IGNORE_BIGGER_SIZE = 1 << 11;
 
+    public static final int OPTIONS_IGNORE_RELATEDENTITY = 1 << 12;
+
+    public static final int OPTIONS_IGNORE_RELATIONSHIPTYPE = 1 << 13;
+
     public static final int OPTIONS_IGNORE_ALL = OPTIONS_IGNORE_LABEL | OPTIONS_IGNORE_TALENDTYPE | OPTIONS_IGNORE_DEFAULT
             | OPTIONS_IGNORE_PRECISION | OPTIONS_IGNORE_LENGTH | OPTIONS_IGNORE_DBTYPE | OPTIONS_IGNORE_PATTERN
             | OPTIONS_IGNORE_COMMENT | OPTIONS_IGNORE_NULLABLE | OPTIONS_IGNORE_KEY | OPTIONS_IGNORE_DBCOLUMNNAME
-            | OPTIONS_IGNORE_BIGGER_SIZE;
+            | OPTIONS_IGNORE_BIGGER_SIZE | OPTIONS_IGNORE_RELATEDENTITY | OPTIONS_IGNORE_RELATIONSHIPTYPE;
 
     public String getId();
 
@@ -118,4 +122,12 @@ public interface IMetadataColumn {
     public String getOriginalDbColumnName();
 
     public void setOriginalDbColumnName(String originalDbColumnName);
+
+    public String getRelatedEntity();
+
+    public String getRelationshipType();
+
+    public void setRelatedEntity(String relatedEntity);
+
+    public void setRelationshipType(String relationshipType);
 }

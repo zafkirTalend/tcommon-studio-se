@@ -28,6 +28,8 @@ import orgomg.cwm.resource.record.Field;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getOriginalField <em>Original Field</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getPattern <em>Pattern</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getDisplayField <em>Display Field</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getRelatedEntity <em>Related Entity</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getRelationshipType <em>Relationship Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -280,5 +282,59 @@ public interface MetadataColumn extends AbstractMetadataObject, Field {
      * @generated
      */
     void setDisplayField(String value);
+
+    /**
+     * Returns the value of the '<em><b>Related Entity</b></em>' attribute.
+     * The default value is <code>""</code>.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Related Entity</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Related Entity</em>' attribute.
+     * @see #setRelatedEntity(String)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getMetadataColumn_RelatedEntity()
+     * @model default=""
+     * @generated
+     */
+    String getRelatedEntity();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getRelatedEntity <em>Related Entity</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Related Entity</em>' attribute.
+     * @see #getRelatedEntity()
+     * @generated
+     */
+    void setRelatedEntity(String value);
+
+    /**
+     * Returns the value of the '<em><b>Relationship Type</b></em>' attribute.
+     * The default value is <code>""</code>.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Relationship Type</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Relationship Type</em>' attribute.
+     * @see #setRelationshipType(String)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getMetadataColumn_RelationshipType()
+     * @model default=""
+     * @generated
+     */
+    String getRelationshipType();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getRelationshipType <em>Relationship Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Relationship Type</em>' attribute.
+     * @see #getRelationshipType()
+     * @generated
+     */
+    void setRelationshipType(String value);
 
 } // MetadataColumn

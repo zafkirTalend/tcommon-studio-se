@@ -263,13 +263,31 @@ public interface ComponentPackage extends EPackage {
     int COLUMN_TYPE__TYPE = 10;
 
     /**
+     * The feature id for the '<em><b>RELATEDENTITY</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COLUMN_TYPE__RELATEDENTITY = 11;
+
+    /**
+     * The feature id for the '<em><b>RELATIONSHIPTYPE</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COLUMN_TYPE__RELATIONSHIPTYPE = 12;
+
+    /**
      * The number of structural features of the '<em>COLUMN Type</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int COLUMN_TYPE_FEATURE_COUNT = 11;
+    int COLUMN_TYPE_FEATURE_COUNT = 13;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.COMPONENTTypeImpl <em>COMPONENT Type</em>}' class.
@@ -2511,6 +2529,28 @@ public interface ComponentPackage extends EPackage {
      * @generated
      */
     EAttribute getCOLUMNType_TYPE();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.COLUMNType#getRELATEDENTITY <em>RELATEDENTITY</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>RELATEDENTITY</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.COLUMNType#getRELATEDENTITY()
+     * @see #getCOLUMNType()
+     * @generated
+     */
+    EAttribute getCOLUMNType_RELATEDENTITY();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.COLUMNType#getRELATIONSHIPTYPE <em>RELATIONSHIPTYPE</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>RELATIONSHIPTYPE</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.COLUMNType#getRELATIONSHIPTYPE()
+     * @see #getCOLUMNType()
+     * @generated
+     */
+    EAttribute getCOLUMNType_RELATIONSHIPTYPE();
 
     /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.component.COMPONENTType <em>COMPONENT Type</em>}'.
@@ -4810,6 +4850,22 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute COLUMN_TYPE__TYPE = eINSTANCE.getCOLUMNType_TYPE();
+
+        /**
+         * The meta object literal for the '<em><b>RELATEDENTITY</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute COLUMN_TYPE__RELATEDENTITY = eINSTANCE.getCOLUMNType_RELATEDENTITY();
+
+        /**
+         * The meta object literal for the '<em><b>RELATIONSHIPTYPE</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute COLUMN_TYPE__RELATIONSHIPTYPE = eINSTANCE.getCOLUMNType_RELATIONSHIPTYPE();
 
         /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.component.impl.COMPONENTTypeImpl <em>COMPONENT Type</em>}' class.

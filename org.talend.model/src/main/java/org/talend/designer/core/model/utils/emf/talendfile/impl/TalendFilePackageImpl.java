@@ -340,6 +340,24 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getColumnType_RelatedEntity() {
+        return (EAttribute)columnTypeEClass.getEStructuralFeatures().get(11);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getColumnType_RelationshipType() {
+        return (EAttribute)columnTypeEClass.getEStructuralFeatures().get(12);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1436,6 +1454,8 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
         createEAttribute(columnTypeEClass, COLUMN_TYPE__PRECISION);
         createEAttribute(columnTypeEClass, COLUMN_TYPE__SOURCE_TYPE);
         createEAttribute(columnTypeEClass, COLUMN_TYPE__TYPE);
+        createEAttribute(columnTypeEClass, COLUMN_TYPE__RELATED_ENTITY);
+        createEAttribute(columnTypeEClass, COLUMN_TYPE__RELATIONSHIP_TYPE);
 
         connectionTypeEClass = createEClass(CONNECTION_TYPE);
         createEReference(connectionTypeEClass, CONNECTION_TYPE__ELEMENT_PARAMETER);
@@ -1631,6 +1651,8 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
         initEAttribute(getColumnType_Precision(), theXMLTypePackage.getInt(), "precision", null, 0, 1, ColumnType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getColumnType_SourceType(), theXMLTypePackage.getString(), "sourceType", null, 0, 1, ColumnType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getColumnType_Type(), theXMLTypePackage.getString(), "type", null, 0, 1, ColumnType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getColumnType_RelatedEntity(), theXMLTypePackage.getString(), "relatedEntity", null, 0, 1, ColumnType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getColumnType_RelationshipType(), theXMLTypePackage.getString(), "relationshipType", null, 0, 1, ColumnType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(connectionTypeEClass, ConnectionType.class, "ConnectionType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getConnectionType_ElementParameter(), this.getElementParameterType(), null, "elementParameter", null, 0, -1, ConnectionType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1903,6 +1925,22 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
            new String[] {
              "kind", "attribute",
              "name", "type",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
+          (getColumnType_RelatedEntity(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "relatedEntity",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
+          (getColumnType_RelationshipType(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "relationshipType",
              "namespace", "##targetNamespace"
            });		
         addAnnotation
@@ -2820,7 +2858,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * @generated
      */
     protected void createExtendedMetaData_1Annotations() {
-        String source = "ExtendedMetaData";																																																																																																										
+        String source = "ExtendedMetaData";																																																																																																												
         addAnnotation
           (getNoteType_ElementParameter(), 
            source, 

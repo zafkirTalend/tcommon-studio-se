@@ -519,6 +519,46 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
     protected String displayField = DISPLAY_FIELD_EDEFAULT;
 
     /**
+     * The default value of the '{@link #getRelatedEntity() <em>Related Entity</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getRelatedEntity()
+     * @generated
+     * @ordered
+     */
+    protected static final String RELATED_ENTITY_EDEFAULT = "";
+
+    /**
+     * The cached value of the '{@link #getRelatedEntity() <em>Related Entity</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getRelatedEntity()
+     * @generated
+     * @ordered
+     */
+    protected String relatedEntity = RELATED_ENTITY_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getRelationshipType() <em>Relationship Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getRelationshipType()
+     * @generated
+     * @ordered
+     */
+    protected static final String RELATIONSHIP_TYPE_EDEFAULT = "";
+
+    /**
+     * The cached value of the '{@link #getRelationshipType() <em>Relationship Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getRelationshipType()
+     * @generated
+     * @ordered
+     */
+    protected String relationshipType = RELATIONSHIP_TYPE_EDEFAULT;
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1127,6 +1167,50 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getRelatedEntity() {
+        return relatedEntity;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setRelatedEntity(String newRelatedEntity) {
+        String oldRelatedEntity = relatedEntity;
+        relatedEntity = newRelatedEntity;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.METADATA_COLUMN__RELATED_ENTITY,
+                    oldRelatedEntity, relatedEntity));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getRelationshipType() {
+        return relationshipType;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setRelationshipType(String newRelationshipType) {
+        String oldRelationshipType = relationshipType;
+        relationshipType = newRelationshipType;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.METADATA_COLUMN__RELATIONSHIP_TYPE,
+                    oldRelationshipType, relationshipType));
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1346,6 +1430,10 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
             return getPattern();
         case ConnectionPackage.METADATA_COLUMN__DISPLAY_FIELD:
             return getDisplayField();
+        case ConnectionPackage.METADATA_COLUMN__RELATED_ENTITY:
+            return getRelatedEntity();
+        case ConnectionPackage.METADATA_COLUMN__RELATIONSHIP_TYPE:
+            return getRelationshipType();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -1458,6 +1546,12 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
         case ConnectionPackage.METADATA_COLUMN__DISPLAY_FIELD:
             setDisplayField((String) newValue);
             return;
+        case ConnectionPackage.METADATA_COLUMN__RELATED_ENTITY:
+            setRelatedEntity((String) newValue);
+            return;
+        case ConnectionPackage.METADATA_COLUMN__RELATIONSHIP_TYPE:
+            setRelationshipType((String) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
@@ -1559,6 +1653,12 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
         case ConnectionPackage.METADATA_COLUMN__DISPLAY_FIELD:
             setDisplayField(DISPLAY_FIELD_EDEFAULT);
             return;
+        case ConnectionPackage.METADATA_COLUMN__RELATED_ENTITY:
+            setRelatedEntity(RELATED_ENTITY_EDEFAULT);
+            return;
+        case ConnectionPackage.METADATA_COLUMN__RELATIONSHIP_TYPE:
+            setRelationshipType(RELATIONSHIP_TYPE_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
@@ -1631,6 +1731,11 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
             return PATTERN_EDEFAULT == null ? pattern != null : !PATTERN_EDEFAULT.equals(pattern);
         case ConnectionPackage.METADATA_COLUMN__DISPLAY_FIELD:
             return DISPLAY_FIELD_EDEFAULT == null ? displayField != null : !DISPLAY_FIELD_EDEFAULT.equals(displayField);
+        case ConnectionPackage.METADATA_COLUMN__RELATED_ENTITY:
+            return RELATED_ENTITY_EDEFAULT == null ? relatedEntity != null : !RELATED_ENTITY_EDEFAULT.equals(relatedEntity);
+        case ConnectionPackage.METADATA_COLUMN__RELATIONSHIP_TYPE:
+            return RELATIONSHIP_TYPE_EDEFAULT == null ? relationshipType != null : !RELATIONSHIP_TYPE_EDEFAULT
+                    .equals(relationshipType);
         }
         return super.eIsSet(featureID);
     }
@@ -1821,6 +1926,10 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
         result.append(pattern);
         result.append(", displayField: ");
         result.append(displayField);
+        result.append(", relatedEntity: ");
+        result.append(relatedEntity);
+        result.append(", relationshipType: ");
+        result.append(relationshipType);
         result.append(')');
         return result.toString();
     }

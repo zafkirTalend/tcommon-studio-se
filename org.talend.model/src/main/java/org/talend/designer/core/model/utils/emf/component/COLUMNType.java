@@ -27,6 +27,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.COLUMNType#getPRECISION <em>PRECISION</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.COLUMNType#isREADONLY <em>READONLY</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.COLUMNType#getTYPE <em>TYPE</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.COLUMNType#getRELATEDENTITY <em>RELATEDENTITY</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.COLUMNType#getRELATIONSHIPTYPE <em>RELATIONSHIPTYPE</em>}</li>
  * </ul>
  * </p>
  *
@@ -497,5 +499,59 @@ public interface COLUMNType extends EObject {
      * @generated
      */
     void setTYPE(String value);
+
+    /**
+     * Returns the value of the '<em><b>RELATEDENTITY</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>RELATEDENTITY</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>RELATEDENTITY</em>' attribute.
+     * @see #setRELATEDENTITY(String)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getCOLUMNType_RELATEDENTITY()
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+     *        extendedMetaData="kind='attribute' name='RELATEDENTITY' namespace='##targetNamespace'"
+     * @generated
+     */
+    String getRELATEDENTITY();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.COLUMNType#getRELATEDENTITY <em>RELATEDENTITY</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>RELATEDENTITY</em>' attribute.
+     * @see #getRELATEDENTITY()
+     * @generated
+     */
+    void setRELATEDENTITY(String value);
+
+    /**
+     * Returns the value of the '<em><b>RELATIONSHIPTYPE</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>RELATIONSHIPTYPE</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>RELATIONSHIPTYPE</em>' attribute.
+     * @see #setRELATIONSHIPTYPE(String)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getCOLUMNType_RELATIONSHIPTYPE()
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+     *        extendedMetaData="kind='attribute' name='RELATIONSHIPTYPE' namespace='##targetNamespace'"
+     * @generated
+     */
+    String getRELATIONSHIPTYPE();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.COLUMNType#getRELATIONSHIPTYPE <em>RELATIONSHIPTYPE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>RELATIONSHIPTYPE</em>' attribute.
+     * @see #getRELATIONSHIPTYPE()
+     * @generated
+     */
+    void setRELATIONSHIPTYPE(String value);
 
 } // COLUMNType

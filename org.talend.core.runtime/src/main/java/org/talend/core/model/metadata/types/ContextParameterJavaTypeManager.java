@@ -21,11 +21,11 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang.ArrayUtils;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.IExtensionRegistry;
+import org.eclipse.core.runtime.InvalidRegistryObjectException;
 import org.eclipse.core.runtime.Platform;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.model.metadata.MetadataTalendType;
@@ -98,10 +98,17 @@ public class ContextParameterJavaTypeManager {
             for (IConfigurationElement configurationElement : configurationElements) {
                 if ("true".equals(configurationElement.getAttribute("displayInContext"))) {
                     try {
-                        Object myClass = configurationElement.createExecutableExtension("nullableClass");
-                        JavaType javaType = new JavaType(myClass.getClass());
+                        String className = configurationElement.getAttribute("nullableClass");
+                        Class myClass = Platform.getBundle(configurationElement.getContributor().getName()).loadClass(className);
+                        boolean isGenerateWithCanonicalName = configurationElement.getAttribute("generateWithCanonicalName") == null ? false
+                                : Boolean.valueOf(configurationElement.getAttribute("generateWithCanonicalName"));
+                        boolean isObjectBased = configurationElement.getAttribute("objectBased") == null ? false : Boolean
+                                .valueOf(configurationElement.getAttribute("objectBased"));
+                        JavaType javaType = new JavaType(myClass, isGenerateWithCanonicalName, isObjectBased);
                         addJavaType(javaType);
-                    } catch (CoreException e) {
+                    } catch (InvalidRegistryObjectException e) {
+                        ExceptionHandler.process(e);
+                    } catch (ClassNotFoundException e) {
                         ExceptionHandler.process(e);
                     }
                 }

@@ -22,7 +22,6 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang.ArrayUtils;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IExtensionPoint;
@@ -57,11 +56,11 @@ public final class JavaTypesManager {
 
     public static final JavaType BYTE = new JavaType(Byte.class, byte.class);
 
-    public static final JavaType BYTE_ARRAY = new JavaType(byte[].class);
+    public static final JavaType BYTE_ARRAY = new JavaType(byte[].class, false, false);
 
     public static final JavaType CHARACTER = new JavaType(Character.class, char.class);
 
-    public static final JavaType DATE = new JavaType(Date.class, true);
+    public static final JavaType DATE = new JavaType(Date.class, true, false);
 
     public static final JavaType FILE = new JavaType(String.class, true, "File"); //$NON-NLS-1$
 
@@ -79,13 +78,13 @@ public final class JavaTypesManager {
 
     public static final JavaType SHORT = new JavaType(Short.class, short.class);
 
-    public static final JavaType STRING = new JavaType(String.class);
+    public static final JavaType STRING = new JavaType(String.class, false, false);
 
-    public static final JavaType OBJECT = new JavaType(Object.class);
+    public static final JavaType OBJECT = new JavaType(Object.class, false, true);
 
-    public static final JavaType LIST = new JavaType(List.class);
+    public static final JavaType LIST = new JavaType(List.class, false, true);
 
-    public static final JavaType BIGDECIMAL = new JavaType(BigDecimal.class);
+    public static final JavaType BIGDECIMAL = new JavaType(BigDecimal.class, false, true);
 
     public static final JavaType PASSWORD = new JavaType(String.class, true, "Password"); //$NON-NLS-1$
 
@@ -138,8 +137,13 @@ public final class JavaTypesManager {
                 IConfigurationElement[] configurationElements = extension.getConfigurationElements();
                 for (IConfigurationElement configurationElement : configurationElements) {
                     try {
-                        Object myClass = configurationElement.createExecutableExtension("nullableClass");
-                        JavaType javaType = new JavaType(myClass.getClass());
+                        String className = configurationElement.getAttribute("nullableClass");
+                        Class myClass = Platform.getBundle(configurationElement.getContributor().getName()).loadClass(className);
+                        boolean isGenerateWithCanonicalName = configurationElement.getAttribute("generateWithCanonicalName") == null ? false
+                                : Boolean.valueOf(configurationElement.getAttribute("generateWithCanonicalName"));
+                        boolean isObjectBased = configurationElement.getAttribute("objectBased") == null ? false : Boolean
+                                .valueOf(configurationElement.getAttribute("objectBased"));
+                        JavaType javaType = new JavaType(myClass, isGenerateWithCanonicalName, isObjectBased);
                         addJavaType(javaType);
 
                         IConfigurationElement[] dbMappingElements = configurationElement.getChildren();
@@ -149,19 +153,20 @@ public final class JavaTypesManager {
                             IConfigurationElement[] dbTypeElements = dbMappingElement.getChildren();
                             List<DBTypeUtil> dbTypes = new ArrayList<DBTypeUtil>();
                             for (IConfigurationElement dbTypeElement : dbTypeElements) {
-                                boolean isDefault = dbTypeElement.getAttribute("default") == null ? false : Boolean.valueOf(dbTypeElement
-                                        .getAttribute("default"));
-                                boolean isIgnoreLen = dbTypeElement.getAttribute("ignoreLen") == null ? false : Boolean.valueOf(dbTypeElement
-                                        .getAttribute("ignoreLen"));
-                                boolean isIgnorePre = dbTypeElement.getAttribute("ignorePre") == null ? false : Boolean.valueOf(dbTypeElement
-                                        .getAttribute("ignorePre"));
-                                DBTypeUtil dbType = new DBTypeUtil(dbTypeElement.getAttribute("DbType"), isDefault, isIgnoreLen, isIgnorePre);
+                                boolean isDefault = dbTypeElement.getAttribute("default") == null ? false : Boolean
+                                        .valueOf(dbTypeElement.getAttribute("default"));
+                                boolean isIgnoreLen = dbTypeElement.getAttribute("ignoreLen") == null ? false : Boolean
+                                        .valueOf(dbTypeElement.getAttribute("ignoreLen"));
+                                boolean isIgnorePre = dbTypeElement.getAttribute("ignorePre") == null ? false : Boolean
+                                        .valueOf(dbTypeElement.getAttribute("ignorePre"));
+                                DBTypeUtil dbType = new DBTypeUtil(dbTypeElement.getAttribute("DbType"), isDefault, isIgnoreLen,
+                                        isIgnorePre);
                                 dbTypes.add(dbType);
                             }
                             dbAndDBType.put(mappingId, dbTypes);
                         }
                         javaTypeMappingFromExtension.put(javaType.getId(), dbAndDBType);
-                    } catch (CoreException e) {
+                    } catch (ClassNotFoundException e) {
                         ExceptionHandler.process(e);
                     }
                 }

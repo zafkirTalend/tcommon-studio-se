@@ -34,6 +34,8 @@ import org.talend.designer.core.model.utils.emf.component.ComponentPackage;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COLUMNTypeImpl#getPRECISION <em>PRECISION</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COLUMNTypeImpl#isREADONLY <em>READONLY</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COLUMNTypeImpl#getTYPE <em>TYPE</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COLUMNTypeImpl#getRELATEDENTITY <em>RELATEDENTITY</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COLUMNTypeImpl#getRELATIONSHIPTYPE <em>RELATIONSHIPTYPE</em>}</li>
  * </ul>
  * </p>
  *
@@ -313,6 +315,46 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
      * @ordered
      */
     protected String tYPE = TYPE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getRELATEDENTITY() <em>RELATEDENTITY</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getRELATEDENTITY()
+     * @generated
+     * @ordered
+     */
+    protected static final String RELATEDENTITY_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getRELATEDENTITY() <em>RELATEDENTITY</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getRELATEDENTITY()
+     * @generated
+     * @ordered
+     */
+    protected String rELATEDENTITY = RELATEDENTITY_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getRELATIONSHIPTYPE() <em>RELATIONSHIPTYPE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getRELATIONSHIPTYPE()
+     * @generated
+     * @ordered
+     */
+    protected static final String RELATIONSHIPTYPE_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getRELATIONSHIPTYPE() <em>RELATIONSHIPTYPE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getRELATIONSHIPTYPE()
+     * @generated
+     * @ordered
+     */
+    protected String rELATIONSHIPTYPE = RELATIONSHIPTYPE_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -719,6 +761,48 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getRELATEDENTITY() {
+        return rELATEDENTITY;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setRELATEDENTITY(String newRELATEDENTITY) {
+        String oldRELATEDENTITY = rELATEDENTITY;
+        rELATEDENTITY = newRELATEDENTITY;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COLUMN_TYPE__RELATEDENTITY, oldRELATEDENTITY, rELATEDENTITY));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getRELATIONSHIPTYPE() {
+        return rELATIONSHIPTYPE;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setRELATIONSHIPTYPE(String newRELATIONSHIPTYPE) {
+        String oldRELATIONSHIPTYPE = rELATIONSHIPTYPE;
+        rELATIONSHIPTYPE = newRELATIONSHIPTYPE;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COLUMN_TYPE__RELATIONSHIPTYPE, oldRELATIONSHIPTYPE, rELATIONSHIPTYPE));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
@@ -744,6 +828,10 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
                 return isREADONLY() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.COLUMN_TYPE__TYPE:
                 return getTYPE();
+            case ComponentPackage.COLUMN_TYPE__RELATEDENTITY:
+                return getRELATEDENTITY();
+            case ComponentPackage.COLUMN_TYPE__RELATIONSHIPTYPE:
+                return getRELATIONSHIPTYPE();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -788,6 +876,12 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
                 return;
             case ComponentPackage.COLUMN_TYPE__TYPE:
                 setTYPE((String)newValue);
+                return;
+            case ComponentPackage.COLUMN_TYPE__RELATEDENTITY:
+                setRELATEDENTITY((String)newValue);
+                return;
+            case ComponentPackage.COLUMN_TYPE__RELATIONSHIPTYPE:
+                setRELATIONSHIPTYPE((String)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -834,6 +928,12 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
             case ComponentPackage.COLUMN_TYPE__TYPE:
                 setTYPE(TYPE_EDEFAULT);
                 return;
+            case ComponentPackage.COLUMN_TYPE__RELATEDENTITY:
+                setRELATEDENTITY(RELATEDENTITY_EDEFAULT);
+                return;
+            case ComponentPackage.COLUMN_TYPE__RELATIONSHIPTYPE:
+                setRELATIONSHIPTYPE(RELATIONSHIPTYPE_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -868,6 +968,10 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
                 return isSetREADONLY();
             case ComponentPackage.COLUMN_TYPE__TYPE:
                 return TYPE_EDEFAULT == null ? tYPE != null : !TYPE_EDEFAULT.equals(tYPE);
+            case ComponentPackage.COLUMN_TYPE__RELATEDENTITY:
+                return RELATEDENTITY_EDEFAULT == null ? rELATEDENTITY != null : !RELATEDENTITY_EDEFAULT.equals(rELATEDENTITY);
+            case ComponentPackage.COLUMN_TYPE__RELATIONSHIPTYPE:
+                return RELATIONSHIPTYPE_EDEFAULT == null ? rELATIONSHIPTYPE != null : !RELATIONSHIPTYPE_EDEFAULT.equals(rELATIONSHIPTYPE);
         }
         return super.eIsSet(featureID);
     }
@@ -904,6 +1008,10 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
         if (rEADONLYESet) result.append(rEADONLY); else result.append("<unset>");
         result.append(", tYPE: ");
         result.append(tYPE);
+        result.append(", rELATEDENTITY: ");
+        result.append(rELATEDENTITY);
+        result.append(", rELATIONSHIPTYPE: ");
+        result.append(rELATIONSHIPTYPE);
         result.append(')');
         return result.toString();
     }

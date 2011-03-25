@@ -742,6 +742,24 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getMetadataColumn_RelatedEntity() {
+        return (EAttribute) metadataColumnEClass.getEStructuralFeatures().get(9);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getMetadataColumn_RelationshipType() {
+        return (EAttribute) metadataColumnEClass.getEStructuralFeatures().get(10);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -3719,6 +3737,8 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEAttribute(metadataColumnEClass, METADATA_COLUMN__ORIGINAL_FIELD);
         createEAttribute(metadataColumnEClass, METADATA_COLUMN__PATTERN);
         createEAttribute(metadataColumnEClass, METADATA_COLUMN__DISPLAY_FIELD);
+        createEAttribute(metadataColumnEClass, METADATA_COLUMN__RELATED_ENTITY);
+        createEAttribute(metadataColumnEClass, METADATA_COLUMN__RELATIONSHIP_TYPE);
 
         abstractMetadataObjectEClass = createEClass(ABSTRACT_METADATA_OBJECT);
         createEAttribute(abstractMetadataObjectEClass, ABSTRACT_METADATA_OBJECT__PROPERTIES);
@@ -4260,6 +4280,12 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEAttribute(getMetadataColumn_Pattern(), ecorePackage.getEString(), "pattern", "", 0, 1, MetadataColumn.class,
                 !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getMetadataColumn_DisplayField(), ecorePackage.getEString(), "displayField", null, 0, 1,
+                MetadataColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
+        initEAttribute(getMetadataColumn_RelatedEntity(), ecorePackage.getEString(), "relatedEntity", "", 0, 1,
+                MetadataColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
+        initEAttribute(getMetadataColumn_RelationshipType(), ecorePackage.getEString(), "relationshipType", "", 0, 1,
                 MetadataColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
                 IS_ORDERED);
 

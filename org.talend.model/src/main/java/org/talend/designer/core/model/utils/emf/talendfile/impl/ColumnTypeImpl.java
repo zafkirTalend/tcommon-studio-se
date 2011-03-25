@@ -28,6 +28,8 @@ import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#getPrecision <em>Precision</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#getSourceType <em>Source Type</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#getType <em>Type</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#getRelatedEntity <em>Related Entity</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#getRelationshipType <em>Relationship Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -284,6 +286,46 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
      * @ordered
      */
     protected String type = TYPE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getRelatedEntity() <em>Related Entity</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getRelatedEntity()
+     * @generated
+     * @ordered
+     */
+    protected static final String RELATED_ENTITY_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getRelatedEntity() <em>Related Entity</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getRelatedEntity()
+     * @generated
+     * @ordered
+     */
+    protected String relatedEntity = RELATED_ENTITY_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getRelationshipType() <em>Relationship Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getRelationshipType()
+     * @generated
+     * @ordered
+     */
+    protected static final String RELATIONSHIP_TYPE_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getRelationshipType() <em>Relationship Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getRelationshipType()
+     * @generated
+     * @ordered
+     */
+    protected String relationshipType = RELATIONSHIP_TYPE_EDEFAULT;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -603,6 +645,48 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getRelatedEntity() {
+        return relatedEntity;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setRelatedEntity(String newRelatedEntity) {
+        String oldRelatedEntity = relatedEntity;
+        relatedEntity = newRelatedEntity;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.COLUMN_TYPE__RELATED_ENTITY, oldRelatedEntity, relatedEntity));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getRelationshipType() {
+        return relationshipType;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setRelationshipType(String newRelationshipType) {
+        String oldRelationshipType = relationshipType;
+        relationshipType = newRelationshipType;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.COLUMN_TYPE__RELATIONSHIP_TYPE, oldRelationshipType, relationshipType));
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -630,6 +714,10 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
                 return getSourceType();
             case TalendFilePackage.COLUMN_TYPE__TYPE:
                 return getType();
+            case TalendFilePackage.COLUMN_TYPE__RELATED_ENTITY:
+                return getRelatedEntity();
+            case TalendFilePackage.COLUMN_TYPE__RELATIONSHIP_TYPE:
+                return getRelationshipType();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -672,6 +760,12 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
                 return;
             case TalendFilePackage.COLUMN_TYPE__TYPE:
                 setType((String)newValue);
+                return;
+            case TalendFilePackage.COLUMN_TYPE__RELATED_ENTITY:
+                setRelatedEntity((String)newValue);
+                return;
+            case TalendFilePackage.COLUMN_TYPE__RELATIONSHIP_TYPE:
+                setRelationshipType((String)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -716,6 +810,12 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
             case TalendFilePackage.COLUMN_TYPE__TYPE:
                 setType(TYPE_EDEFAULT);
                 return;
+            case TalendFilePackage.COLUMN_TYPE__RELATED_ENTITY:
+                setRelatedEntity(RELATED_ENTITY_EDEFAULT);
+                return;
+            case TalendFilePackage.COLUMN_TYPE__RELATIONSHIP_TYPE:
+                setRelationshipType(RELATIONSHIP_TYPE_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -748,6 +848,10 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
                 return SOURCE_TYPE_EDEFAULT == null ? sourceType != null : !SOURCE_TYPE_EDEFAULT.equals(sourceType);
             case TalendFilePackage.COLUMN_TYPE__TYPE:
                 return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
+            case TalendFilePackage.COLUMN_TYPE__RELATED_ENTITY:
+                return RELATED_ENTITY_EDEFAULT == null ? relatedEntity != null : !RELATED_ENTITY_EDEFAULT.equals(relatedEntity);
+            case TalendFilePackage.COLUMN_TYPE__RELATIONSHIP_TYPE:
+                return RELATIONSHIP_TYPE_EDEFAULT == null ? relationshipType != null : !RELATIONSHIP_TYPE_EDEFAULT.equals(relationshipType);
         }
         return super.eIsSet(featureID);
     }
@@ -782,6 +886,10 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
         result.append(sourceType);
         result.append(", type: ");
         result.append(type);
+        result.append(", relatedEntity: ");
+        result.append(relatedEntity);
+        result.append(", relationshipType: ");
+        result.append(relationshipType);
         result.append(')');
         return result.toString();
     }

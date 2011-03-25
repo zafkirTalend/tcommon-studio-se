@@ -1386,13 +1386,31 @@ public interface ConnectionPackage extends EPackage {
     int METADATA_COLUMN__DISPLAY_FIELD = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 29;
 
     /**
+     * The feature id for the '<em><b>Related Entity</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int METADATA_COLUMN__RELATED_ENTITY = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 30;
+
+    /**
+     * The feature id for the '<em><b>Relationship Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int METADATA_COLUMN__RELATIONSHIP_TYPE = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 31;
+
+    /**
      * The number of structural features of the '<em>Metadata Column</em>' class.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int METADATA_COLUMN_FEATURE_COUNT = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 30;
+    int METADATA_COLUMN_FEATURE_COUNT = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 32;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl <em>Metadata Table</em>}' class.
@@ -16874,6 +16892,28 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getMetadataColumn_DisplayField();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getRelatedEntity <em>Related Entity</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Related Entity</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.MetadataColumn#getRelatedEntity()
+     * @see #getMetadataColumn()
+     * @generated
+     */
+    EAttribute getMetadataColumn_RelatedEntity();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getRelationshipType <em>Relationship Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Relationship Type</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.MetadataColumn#getRelationshipType()
+     * @see #getMetadataColumn()
+     * @generated
+     */
+    EAttribute getMetadataColumn_RelationshipType();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.AbstractMetadataObject <em>Abstract Metadata Object</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Abstract Metadata Object</em>'.
@@ -20859,6 +20899,22 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EAttribute METADATA_COLUMN__DISPLAY_FIELD = eINSTANCE.getMetadataColumn_DisplayField();
+
+        /**
+         * The meta object literal for the '<em><b>Related Entity</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute METADATA_COLUMN__RELATED_ENTITY = eINSTANCE.getMetadataColumn_RelatedEntity();
+
+        /**
+         * The meta object literal for the '<em><b>Relationship Type</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute METADATA_COLUMN__RELATIONSHIP_TYPE = eINSTANCE.getMetadataColumn_RelationshipType();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.AbstractMetadataObjectImpl <em>Abstract Metadata Object</em>}' class.

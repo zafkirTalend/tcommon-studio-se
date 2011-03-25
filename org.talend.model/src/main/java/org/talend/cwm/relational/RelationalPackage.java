@@ -1614,6 +1614,24 @@ public interface RelationalPackage extends EPackage {
     int TD_COLUMN__DISPLAY_FIELD = ConnectionPackage.METADATA_COLUMN__DISPLAY_FIELD;
 
     /**
+     * The feature id for the '<em><b>Related Entity</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_COLUMN__RELATED_ENTITY = ConnectionPackage.METADATA_COLUMN__RELATED_ENTITY;
+
+    /**
+     * The feature id for the '<em><b>Relationship Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_COLUMN__RELATIONSHIP_TYPE = ConnectionPackage.METADATA_COLUMN__RELATIONSHIP_TYPE;
+
+    /**
      * The feature id for the '<em><b>Sql Data Type</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

@@ -170,13 +170,31 @@ public interface TalendFilePackage extends EPackage {
     int COLUMN_TYPE__TYPE = 10;
 
     /**
+     * The feature id for the '<em><b>Related Entity</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COLUMN_TYPE__RELATED_ENTITY = 11;
+
+    /**
+     * The feature id for the '<em><b>Relationship Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COLUMN_TYPE__RELATIONSHIP_TYPE = 12;
+
+    /**
      * The number of structural features of the '<em>Column Type</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int COLUMN_TYPE_FEATURE_COUNT = 11;
+    int COLUMN_TYPE_FEATURE_COUNT = 13;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ConnectionTypeImpl <em>Connection Type</em>}' class.
@@ -1721,6 +1739,28 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      */
     EAttribute getColumnType_Type();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getRelatedEntity <em>Related Entity</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Related Entity</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getRelatedEntity()
+     * @see #getColumnType()
+     * @generated
+     */
+    EAttribute getColumnType_RelatedEntity();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getRelationshipType <em>Relationship Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Relationship Type</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getRelationshipType()
+     * @see #getColumnType()
+     * @generated
+     */
+    EAttribute getColumnType_RelationshipType();
 
     /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.talendfile.ConnectionType <em>Connection Type</em>}'.
@@ -3271,6 +3311,22 @@ public interface TalendFilePackage extends EPackage {
          * @generated
          */
         EAttribute COLUMN_TYPE__TYPE = eINSTANCE.getColumnType_Type();
+
+        /**
+         * The meta object literal for the '<em><b>Related Entity</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute COLUMN_TYPE__RELATED_ENTITY = eINSTANCE.getColumnType_RelatedEntity();
+
+        /**
+         * The meta object literal for the '<em><b>Relationship Type</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute COLUMN_TYPE__RELATIONSHIP_TYPE = eINSTANCE.getColumnType_RelationshipType();
 
         /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ConnectionTypeImpl <em>Connection Type</em>}' class.

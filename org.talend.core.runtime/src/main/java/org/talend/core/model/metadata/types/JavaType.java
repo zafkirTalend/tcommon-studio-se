@@ -30,6 +30,9 @@ public final class JavaType {
 
     private boolean generateWithCanonicalName;
 
+    // only to know for object input/output stream, if should base on readObject or not.
+    private boolean objectBased;
+
     /**
      * @param label
      * @param primitiveType
@@ -57,23 +60,13 @@ public final class JavaType {
      * @param label
      * @param nullableClass
      */
-    public JavaType(Class nullableClass) {
-        super();
-        this.nullableClass = nullableClass;
-        this.label = nullableClass.getSimpleName();
-        this.id = createId(nullableClass.getSimpleName());
-    }
-
-    /**
-     * @param label
-     * @param nullableClass
-     */
-    public JavaType(Class nullableClass, boolean generateWithCanonicalName) {
+    public JavaType(Class nullableClass, boolean generateWithCanonicalName, boolean objectBased) {
         super();
         this.nullableClass = nullableClass;
         this.label = nullableClass.getSimpleName();
         this.id = createId(nullableClass.getSimpleName());
         this.generateWithCanonicalName = generateWithCanonicalName;
+        this.objectBased = objectBased;
     }
 
     public JavaType(Class nullableClass, boolean generateWithCanonicalName, String label) {
@@ -188,4 +181,11 @@ public final class JavaType {
         return this.primitiveClass != null;
     }
 
+    public boolean isObjectBased() {
+        return objectBased;
+    }
+
+    public void setObjectBased(boolean objectBased) {
+        this.objectBased = objectBased;
+    }
 }

@@ -27,6 +27,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getPrecision <em>Precision</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getSourceType <em>Source Type</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getType <em>Type</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getRelatedEntity <em>Related Entity</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getRelationshipType <em>Relationship Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -439,5 +441,59 @@ public interface ColumnType extends EObject {
      * @generated
      */
     void setType(String value);
+
+    /**
+     * Returns the value of the '<em><b>Related Entity</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Related Entity</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Related Entity</em>' attribute.
+     * @see #setRelatedEntity(String)
+     * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getColumnType_RelatedEntity()
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+     *        extendedMetaData="kind='attribute' name='relatedEntity' namespace='##targetNamespace'"
+     * @generated
+     */
+    String getRelatedEntity();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getRelatedEntity <em>Related Entity</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Related Entity</em>' attribute.
+     * @see #getRelatedEntity()
+     * @generated
+     */
+    void setRelatedEntity(String value);
+
+    /**
+     * Returns the value of the '<em><b>Relationship Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Relationship Type</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Relationship Type</em>' attribute.
+     * @see #setRelationshipType(String)
+     * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getColumnType_RelationshipType()
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+     *        extendedMetaData="kind='attribute' name='relationshipType' namespace='##targetNamespace'"
+     * @generated
+     */
+    String getRelationshipType();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getRelationshipType <em>Relationship Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Relationship Type</em>' attribute.
+     * @see #getRelationshipType()
+     * @generated
+     */
+    void setRelationshipType(String value);
 
 } // ColumnType

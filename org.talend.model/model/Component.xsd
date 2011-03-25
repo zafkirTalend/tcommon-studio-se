@@ -49,7 +49,6 @@
 				use="required" />
 			<xs:attribute name="STARTABLE" type="xs:boolean"
 				use="required" />
-			<xs:attribute name="COMBINE" type="xs:string" use="optional" />
 			<xs:attribute name="EXTENSION" type="xs:string"
 				use="optional" />
 			<xs:attribute name="SCHEMA_AUTO_PROPAGATE" type="xs:boolean"
@@ -368,6 +367,8 @@
 									<xs:attribute name="CUSTOM" type="xs:boolean" use="optional"
 										default="false" />
 									<xs:attribute name="COMMENT" type="xs:string" use="optional" />
+									<xs:attribute name="RELATEDENTITY" type="xs:string" use="optional" />
+									<xs:attribute name="RELATIONSHIPTYPE" type="xs:string" use="optional" />
 								</xs:complexType>
 							</xs:element>
 						</xs:sequence>

@@ -52,9 +52,11 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
 
     private int customId = 0;
 
-    private IMetadataTable metadataTable;
-
     private String originalDbColumnName;
+
+    private String relatedEntity = "";
+
+    private String relationshipType = "";
 
     public MetadataColumn() {
         super();
@@ -90,6 +92,11 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
 
         setDefault(metadataColumn.getDefault());
         setComment(metadataColumn.getComment());
+
+        // Datacert: custom metadataColumn to set relatedEntity
+        // and relationShipType info.
+        setRelatedEntity(metadataColumn.getRelatedEntity());
+        setRelationshipType(metadataColumn.getRelationshipType());
     }
 
     private static synchronized String getNewId() {
@@ -427,6 +434,16 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
                 return false;
             }
         }
+        if ((options & OPTIONS_IGNORE_RELATEDENTITY) == 0) {
+            if (!sameStringValue(this.relatedEntity, other.getRelatedEntity())) {
+                return false;
+            }
+        }
+        if ((options & OPTIONS_IGNORE_RELATIONSHIPTYPE) == 0) {
+            if (!sameStringValue(this.relationshipType, other.getRelationshipType())) {
+                return false;
+            }
+        }
         return true;
     }
 
@@ -534,4 +551,31 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
         this.originalDbColumnName = originalDbColumnName;
     }
 
+    /**
+     * @return the relatedEntity
+     */
+    public String getRelatedEntity() {
+        return relatedEntity;
+    }
+
+    /**
+     * @param relatedEntity the relatedEntity to set
+     */
+    public void setRelatedEntity(String relatedEntity) {
+        this.relatedEntity = relatedEntity;
+    }
+
+    /**
+     * @return the relationshipType
+     */
+    public String getRelationshipType() {
+        return relationshipType;
+    }
+
+    /**
+     * @param relationshipType the relationshipType to set
+     */
+    public void setRelationshipType(String relationshipType) {
+        this.relationshipType = relationshipType;
+    }
 }
