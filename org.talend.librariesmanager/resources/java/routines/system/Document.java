@@ -28,7 +28,9 @@ public class Document {
     }
 	
 	public String toString() {
-		if(this.doc!=null)
-			return this.doc.asXML();
+		if(this.doc==null)
+			return null;
+			
+		return this.doc.asXML();
 	}
 }
