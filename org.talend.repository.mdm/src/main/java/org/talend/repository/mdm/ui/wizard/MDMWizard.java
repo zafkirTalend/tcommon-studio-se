@@ -191,7 +191,7 @@ public class MDMWizard extends RepositoryWizard implements INewWizard {
 
                 // feature 17159
                 if (tdqRepService != null) {
-                    tdqRepService.fillMetadata(connection);
+                    tdqRepService.fillMetadata(connectionItem);
                 }
             } else {
                 RepositoryUpdateManager.updateFileConnection(connectionItem);
@@ -209,8 +209,10 @@ public class MDMWizard extends RepositoryWizard implements INewWizard {
         list.add(repositoryObject);
 
         if (tdqRepService != null) {
-            tdqRepService.openEditor(connectionItem);
-            tdqRepService.refresh();
+            if (CoreRuntimePlugin.getInstance().isDataProfilePerspectiveSelected()) {
+                tdqRepService.openEditor(connectionItem);
+                tdqRepService.refresh();
+            }
         }
 
         return true;
