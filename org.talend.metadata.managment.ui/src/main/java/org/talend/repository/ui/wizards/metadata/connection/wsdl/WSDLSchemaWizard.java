@@ -346,7 +346,7 @@ public class WSDLSchemaWizard extends CheckLastVersionRepositoryWizard implement
                     + Messages.getString("FileWizardPage.of") + " " + ALL_STEPS); //$NON-NLS-1$ //$NON-NLS-2$
             wsdlSchemaWizardPage0.setDescription(Messages.getString("FileWizardPage.descriptionCreateStep0")); //$NON-NLS-1$
             addPage(wsdlSchemaWizardPage0);
-            if (PluginChecker.isTIS()) {
+            if (PluginChecker.isWebServicePluginLocaed()) {
                 wsdlSelectPage = new WSDLSchemaSelectWizardPage(creation, 1, connectionItem, isRepositoryObjectEditable(), null,
                         contextModeManager, isSinglePageOnly);
                 wsdlSelectPage
@@ -389,7 +389,7 @@ public class WSDLSchemaWizard extends CheckLastVersionRepositoryWizard implement
                     + Messages.getString("FileWizardPage.of") + " " + ALL_STEPS); //$NON-NLS-1$ //$NON-NLS-2$
             wsdlSchemaWizardPage0.setDescription(Messages.getString("FileWizardPage.descriptionCreateStep0")); //$NON-NLS-1$
             addPage(wsdlSchemaWizardPage0);
-            if (PluginChecker.isTIS()) {
+            if (PluginChecker.isWebServicePluginLocaed()) {
                 wsdlSelectPage = new WSDLSchemaSelectWizardPage(creation, 1, connectionItem, isRepositoryObjectEditable(), null,
                         contextModeManager, isSinglePageOnly);
                 wsdlSelectPage
@@ -434,7 +434,7 @@ public class WSDLSchemaWizard extends CheckLastVersionRepositoryWizard implement
             wsdlSchemaWizardPage0.setDescription(Messages.getString("FileWizardPage.descriptionCreateStep0")); //$NON-NLS-1$
 
             addPage(wsdlSchemaWizardPage0);
-            if (PluginChecker.isTIS()) {
+            if (PluginChecker.isWebServicePluginLocaed()) {
                 wsdlSelectPage = new WSDLSchemaSelectWizardPage(creation, 1, connectionItem, isRepositoryObjectEditable(), null,
                         contextModeManager, isSinglePageOnly);
                 wsdlSelectPage

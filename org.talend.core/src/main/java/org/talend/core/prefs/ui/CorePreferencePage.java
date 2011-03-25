@@ -28,7 +28,6 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
-import org.talend.core.PluginChecker;
 import org.talend.core.i18n.Messages;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
@@ -113,15 +112,13 @@ public class CorePreferencePage extends FieldEditorPreferencePage implements IWo
         addField(ireportPath);
         
         
-        if(PluginChecker.isTIS()){
-            BooleanFieldEditor alwaysWelcome = new BooleanFieldEditor(
-                    ITalendCorePrefConstants.ALWAYS_WELCOME,
-                    Messages.getString("CorePreferencePage.alwaysWelcome"), //$NON-NLS-1$
-                    getFieldEditorParent()
-                );
-                addField(alwaysWelcome);
+        BooleanFieldEditor alwaysWelcome = new BooleanFieldEditor(
+                ITalendCorePrefConstants.ALWAYS_WELCOME,
+                Messages.getString("CorePreferencePage.alwaysWelcome"), //$NON-NLS-1$
+                getFieldEditorParent()
+            );
+         addField(alwaysWelcome);
       
-        }
         
         
 //            groupBySource = new BooleanFieldEditor(ITalendCorePrefConstants.CONTEXT_GROUP_BY_SOURCE, Messages
