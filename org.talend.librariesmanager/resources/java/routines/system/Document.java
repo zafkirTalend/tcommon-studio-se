@@ -26,4 +26,9 @@ public class Document {
     public org.dom4j.Document getDocument() {
         return this.doc;
     }
+	
+	public String toString() {
+		if(this.doc!=null)
+			return this.doc.asXML();
+	}
 }
