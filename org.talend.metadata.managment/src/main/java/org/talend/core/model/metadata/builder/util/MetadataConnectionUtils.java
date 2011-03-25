@@ -431,7 +431,7 @@ public class MetadataConnectionUtils {
     public static String[] getSybaseDBProductsName() {
         if (null == sybaseDBProductsNames) {
             sybaseDBProductsNames = new ArrayList<String>();
-            sybaseDBProductsNames.add("Adaptive Server Enterprise ");
+            sybaseDBProductsNames.add("Adaptive Server Enterprise");
             sybaseDBProductsNames.add(" Sybase Adaptive Server IQ");
             sybaseDBProductsNames.add("Sybase");
             sybaseDBProductsNames.add("Sybase IQ");
