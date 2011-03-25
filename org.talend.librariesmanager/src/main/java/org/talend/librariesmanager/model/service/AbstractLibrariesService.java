@@ -99,7 +99,7 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
         IWorkspace workspace = ResourcesPlugin.getWorkspace();
         final IProject eclipseProject = workspace.getRoot().getProject(projectLabel);
 
-        if (PluginChecker.isTIS()) {
+        if (PluginChecker.isSVNProviderPluginLoaded()) {
             RepositoryWorkUnit repositoryWorkUnit = new RepositoryWorkUnit(currentProject, "") {
 
                 public void run() throws PersistenceException {

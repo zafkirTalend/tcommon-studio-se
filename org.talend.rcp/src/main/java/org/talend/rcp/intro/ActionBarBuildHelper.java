@@ -384,7 +384,7 @@ public class ActionBarBuildHelper implements IActionBarHelper {
         coolBar.add(new ToolBarContributionItem(toolBar, Messages.getString("ApplicationActionBarAdvisor.save"))); //$NON-NLS-1$
         toolBar.add(ActionFactory.SAVE.create(window));
         //
-        if (PluginChecker.isTIS() && PluginChecker.isRefProjectLoaded()) {
+        if (PluginChecker.isRefProjectLoaded()) {
             IReferencedProjectService service = (IReferencedProjectService) GlobalServiceRegister.getDefault().getService(
                     IReferencedProjectService.class);
             if (service != null) {

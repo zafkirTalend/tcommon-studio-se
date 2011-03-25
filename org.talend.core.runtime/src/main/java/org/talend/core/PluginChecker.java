@@ -69,6 +69,10 @@ public class PluginChecker {
 
     private static final String EDIFACT_PLUGIN_ID = "org.talend.repository.edifact";
 
+    private static final String RUNREMOTE_PLUGIN_ID = "org.talend.designer.runprocess.remote"; //$NON-NLS-1$ 
+	 		   
+    private static final String TRACEDEBUG_PLUGIN_ID = "org.talend.designer.runprocess.debug"; //$NON-NLS-1$ 
+    
     /**
      * Check if specific plug-in is loaded.
      * 
@@ -198,6 +202,18 @@ public class PluginChecker {
     public static boolean isValidationrulesPluginLoaded() {
         return isPluginLoaded(VALIDATIONRULES_PLUGIN_ID);
     }
+    
+	public static boolean isRunRemotePluginLoaded() {
+		return isPluginLoaded(RUNREMOTE_PLUGIN_ID);
+	}
+
+	public static boolean isTraceDebugPluginLoaded() {
+		return isPluginLoaded(TRACEDEBUG_PLUGIN_ID);
+	}
+
+	public static boolean isTeamEdition() {
+		return isPluginLoaded(REF_PROJECT_PLUGIN_ID);
+	}
 
     public static String getSapWizardPluginId() {
         return SAP_WZIARD_PLUGIN_ID;

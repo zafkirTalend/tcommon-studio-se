@@ -310,7 +310,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
      */
     public void syncLibrariesFromLibs(IProgressMonitor... monitorWrap) {
         // for feature 12877
-        if (PluginChecker.isTIS()) {
+        if (PluginChecker.isSVNProviderPluginLoaded()) {
             try {
                 File target = new File(getLibrariesPath());
 

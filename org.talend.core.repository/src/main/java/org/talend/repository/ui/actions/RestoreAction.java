@@ -28,7 +28,6 @@ import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ICoreService;
-import org.talend.core.PluginChecker;
 import org.talend.core.model.metadata.builder.connection.AbstractMetadataObject;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.FolderItem;
@@ -108,16 +107,17 @@ public class RestoreAction extends AContextualAction {
                         factory.restoreObject(docObject, path);
                     }
                 }
-                if (PluginChecker.isTIS()) {
-                    if (node.getObject() != null) {
-                        if (ERepositoryObjectType.BUSINESS_PROCESS.equals(node.getObject().getRepositoryObjectType())) {
-                            IRepositoryViewObject svgObjectToMove = factory.getLastVersion("svg_" + node.getObject().getId()); //$NON-NLS-1$
-                            if (svgObjectToMove != null) {
-                                factory.restoreObject(svgObjectToMove, path);
-                            }
-                        }
-                    }
-                }
+                // disable SVG actions
+                // if (PluginChecker.isTIS()) {
+                // if (node.getObject() != null) {
+                // if (ERepositoryObjectType.BUSINESS_PROCESS.equals(node.getObject().getRepositoryObjectType())) {
+                //                            IRepositoryViewObject svgObjectToMove = factory.getLastVersion("svg_" + node.getObject().getId()); //$NON-NLS-1$
+                // if (svgObjectToMove != null) {
+                // factory.restoreObject(svgObjectToMove, path);
+                // }
+                // }
+                // }
+                // }
             }
             if (nodeType == ERepositoryObjectType.JOBLET) {
                 needToUpdatePalette = true;
