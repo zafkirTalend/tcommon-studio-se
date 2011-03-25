@@ -50,4 +50,6 @@ public interface IPreview {
      * Stop loading preview.
      */
     public void stopLoading();
+
+    public boolean isTopPreview();
 }

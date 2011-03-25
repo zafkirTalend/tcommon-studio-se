@@ -24,6 +24,7 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
 import org.talend.commons.ui.utils.PathUtils;
+import org.talend.commons.utils.platform.PluginChecker;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.MetadataColumn;
@@ -406,6 +407,14 @@ public class ShadowProcessHelper {
         if (configurationElements.length > 0) {
             preview = (IPreview) configurationElements[0].createExecutableExtension("class"); //$NON-NLS-1$
         }
+
+        for (int i = 0; i < configurationElements.length; i++) {
+            IPreview pre = (IPreview) configurationElements[i].createExecutableExtension("class"); //$NON-NLS-1$
+            if (!PluginChecker.isOnlyTopLoaded() && !pre.isTopPreview()) {
+                preview = pre;
+            }
+        }
+
         if (preview == null) {
             log.error(Messages.getString("ShadowProcessHelper.logError.previewIsNull01") //$NON-NLS-1$
                     + Messages.getString("ShadowProcessHelper.logError.previewIsNull02")); //$NON-NLS-1$
