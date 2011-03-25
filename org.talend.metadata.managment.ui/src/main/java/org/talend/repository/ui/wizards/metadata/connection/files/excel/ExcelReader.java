@@ -26,7 +26,7 @@ import jxl.read.biff.BiffException;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.openxml4j.exceptions.OpenXML4JException;
-import org.apache.poi.openxml4j.opc.Package;
+import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.util.PackageHelper;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -83,10 +83,10 @@ public class ExcelReader {
         } else {
             // modify for bug 12174.
             File file = new File(excelPath);
-            Package clone = null;
+            OPCPackage clone = null;
             try {
                 FileInputStream in = new FileInputStream(file);
-                Package open = Package.open(in);
+                OPCPackage open = OPCPackage.open(in);
                 clone = PackageHelper.clone(open);
                 open.close();
 

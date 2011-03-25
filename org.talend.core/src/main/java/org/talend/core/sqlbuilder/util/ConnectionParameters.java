@@ -168,6 +168,8 @@ public class ConnectionParameters {
 
     private String dbVersion = null;
 
+    private boolean isHttps = false;
+
     /**
      * Sets the connectionComment.
      * 
@@ -840,4 +842,11 @@ public class ConnectionParameters {
         this.dbVersion = dbVersion;
     }
 
+    public boolean isHttps() {
+        return isHttps;
+    }
+
+    public void setHttps(boolean isHttps) {
+        this.isHttps = isHttps;
+    }
 }

@@ -44,6 +44,7 @@ import org.talend.commons.ui.swt.tableviewer.behavior.IColumnLabelProvider;
 import org.talend.commons.ui.swt.tableviewer.celleditor.DialogErrorForCellEditorListener;
 import org.talend.commons.ui.swt.tableviewer.tableeditor.CheckboxTableEditorContent;
 import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
+import org.talend.core.PluginChecker;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.MetadataTalendType;
@@ -86,6 +87,10 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
     public static final String ID_COLUMN_PRECISION = "ID_COLUMN_PRECISION"; //$NON-NLS-1$
 
     public static final String ID_COLUMN_DBCOLUMNNAME = "ID_COLUMN_DBCOLUMNNAME"; //$NON-NLS-1$
+
+    public static final String ID_COLUMN_RELATIONSHIP_TYPE = "ID_COLUMN_RELATIONSHIP_TYPE";//$NON-NLS-1$
+
+    public static final String ID_COLUMN_RELATED_ENTITY = "ID_COLUMN_RELATED_ENTITY";//$NON-NLS-1$
 
     protected boolean showDbColumnName;
 
@@ -262,6 +267,11 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
 
         configureCommentColumn(tableViewerCreator);
 
+        if (PluginChecker.isDatacertPluginLoaded()) {
+            // Datacert related column configuration set ups
+            configureRelationshipType(tableViewerCreator);
+            configureRelatedEntity(tableViewerCreator);
+        }
     }
 
     /**
@@ -847,5 +857,35 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
             return new JavaSimpleDateFormatProposalProvider().getProposals(null, 0)[0].getContent();
         }
         return ""; //$NON-NLS-1$
+    }
+
+    protected abstract IBeanPropertyAccessors<B, String> getRelationshipTypeAccessor();
+
+    protected abstract IBeanPropertyAccessors<B, String> getRelatedEntityAccessor();
+
+    protected void configureRelationshipType(TableViewerCreator<B> tableViewerCreator) {
+        TableViewerCreatorColumn column;
+        column = new TableViewerCreatorColumn(tableViewerCreator);
+        column.setTitle(Messages.getString("MetadataTableEditorView.RelationshipType")); //$NON-NLS-1$
+        column.setToolTipHeader(Messages.getString("MetadataTableEditorView.RelationshipType")); //$NON-NLS-1$
+        column.setId(ID_COLUMN_RELATIONSHIP_TYPE);
+        column.setBeanPropertyAccessors(getRelationshipTypeAccessor());
+        column.setWeight(10);
+        column.setModifiable(true);
+        column.setMinimumWidth(20);
+        column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()));
+    }
+
+    protected void configureRelatedEntity(TableViewerCreator<B> tableViewerCreator) {
+        TableViewerCreatorColumn column;
+        column = new TableViewerCreatorColumn(tableViewerCreator);
+        column.setTitle(Messages.getString("MetadataTableEditorView.RelatedEntity")); //$NON-NLS-1$
+        column.setToolTipHeader(Messages.getString("MetadataTableEditorView.RelatedEntity")); //$NON-NLS-1$
+        column.setId(ID_COLUMN_RELATED_ENTITY);
+        column.setBeanPropertyAccessors(getRelatedEntityAccessor());
+        column.setWeight(10);
+        column.setModifiable(true);
+        column.setMinimumWidth(20);
+        column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()));
     }
 }

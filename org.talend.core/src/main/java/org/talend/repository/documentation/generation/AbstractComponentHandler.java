@@ -267,6 +267,14 @@ public abstract class AbstractComponentHandler implements IComponentHandler {
                     columnElement.addAttribute("nullable", HTMLDocUtils.checkString(columnType.isNullable() + "")); //$NON-NLS-1$ //$NON-NLS-2$
                     columnElement.addAttribute("comment", HTMLDocUtils.checkString(ElementParameterParser.parse(node, columnType //$NON-NLS-1$
                             .getComment())));
+                    if (PluginChecker.isDatacertPluginLoaded()) {
+                        columnElement.addAttribute(
+                                "relatedentity", HTMLDocUtils.checkString(ElementParameterParser.parse(node, columnType //$NON-NLS-1$
+                                        .getRelatedEntity())));
+                        columnElement.addAttribute(
+                                "relationshiptype", HTMLDocUtils.checkString(ElementParameterParser.parse(node, columnType //$NON-NLS-1$
+                                        .getRelationshipType())));
+                    }
                 }
             }
         }

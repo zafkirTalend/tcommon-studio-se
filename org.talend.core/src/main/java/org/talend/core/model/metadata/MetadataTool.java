@@ -24,6 +24,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.CorePlugin;
+import org.talend.core.PluginChecker;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.AbstractMetadataObject;
 import org.talend.core.model.metadata.builder.connection.Connection;
@@ -361,6 +362,11 @@ public class MetadataTool {
 
             createColumnType.setSourceType(column.getType());
             createColumnType.setType(column.getTalendType());
+
+            if (PluginChecker.isDatacertPluginLoaded()) {
+                createColumnType.setRelatedEntity(column.getRelatedEntity());
+                createColumnType.setRelationshipType(column.getRelationshipType());
+            }
             colTypes.add(createColumnType);
         }
 

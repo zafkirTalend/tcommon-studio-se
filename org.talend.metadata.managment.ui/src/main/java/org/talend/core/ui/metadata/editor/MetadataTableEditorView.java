@@ -457,4 +457,31 @@ public class MetadataTableEditorView extends AbstractMetadataTableEditorView<IMe
         return CoreRuntimePlugin.getInstance().getCoreService().getPreferenceStore().getString(value.toUpperCase());
     }
 
+    protected IBeanPropertyAccessors<IMetadataColumn, String> getRelatedEntityAccessor() {
+        return new IBeanPropertyAccessors<IMetadataColumn, String>() {
+
+            public String get(IMetadataColumn bean) {
+                return bean.getRelatedEntity();
+            }
+
+            public void set(IMetadataColumn bean, String value) {
+                bean.setRelatedEntity(value);
+            }
+
+        };
+    }
+
+    protected IBeanPropertyAccessors<IMetadataColumn, String> getRelationshipTypeAccessor() {
+        return new IBeanPropertyAccessors<IMetadataColumn, String>() {
+
+            public String get(IMetadataColumn bean) {
+                return bean.getRelationshipType();
+            }
+
+            public void set(IMetadataColumn bean, String value) {
+                bean.setRelationshipType(value);
+            }
+
+        };
+    }
 }

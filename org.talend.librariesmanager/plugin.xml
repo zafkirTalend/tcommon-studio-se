@@ -78,7 +78,9 @@
       <JavaType
             Name="Document"
             displayInContext="true"
-            nullableClass="routines.system.Document">
+            generateWithCanonicalName="false"
+            nullableClass="routines.system.Document"
+            objectBased="true">
       </JavaType>
    </extension>
 </plugin>

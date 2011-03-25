@@ -32,7 +32,8 @@ public enum EConnectionParameterName {
     DRIVER_JAR("Driver jar"), //$NON-NLS-1$
     DRIVER_CLASS("Driver class"), //$NON-NLS-1$
     LOCAL_SERVICE_NAME("Local Service Name"),
-    URL("Url"); //$NON-NLS-1$
+    URL("Url"), //$NON-NLS-1$
+    HTTPS("https");//$NON-NLS-1$
 
     private String displayName;
 

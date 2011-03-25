@@ -389,4 +389,31 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
         return false;
     }
 
+    protected IBeanPropertyAccessors<MetadataColumn, String> getRelatedEntityAccessor() {
+        return new IBeanPropertyAccessors<MetadataColumn, String>() {
+
+            public String get(MetadataColumn bean) {
+                return bean.getRelatedEntity();
+            }
+
+            public void set(MetadataColumn bean, String value) {
+                bean.setRelatedEntity(value);
+            }
+
+        };
+    }
+
+    protected IBeanPropertyAccessors<MetadataColumn, String> getRelationshipTypeAccessor() {
+        return new IBeanPropertyAccessors<MetadataColumn, String>() {
+
+            public String get(MetadataColumn bean) {
+                return bean.getRelationshipType();
+            }
+
+            public void set(MetadataColumn bean, String value) {
+                bean.setRelationshipType(value);
+            }
+
+        };
+    }
 }

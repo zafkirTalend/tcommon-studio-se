@@ -83,6 +83,22 @@ All parameters will be used here.
                </documentation>
             </annotation>
          </attribute>
+         <attribute name="generateWithCanonicalName" type="boolean">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="objectBased" type="boolean">
+            <annotation>
+               <documentation>
+                  only to know for object input/output stream, if should base on readObject or not
+
+see subprocess_header.javajet
+               </documentation>
+            </annotation>
+         </attribute>
       </complexType>
    </element>
 
