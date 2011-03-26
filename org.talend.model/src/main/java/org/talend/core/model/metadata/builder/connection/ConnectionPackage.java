@@ -11479,13 +11479,22 @@ public interface ConnectionPackage extends EPackage {
     int SALESFORCE_SCHEMA_CONNECTION__TIME_OUT = CONNECTION_FEATURE_COUNT + 14;
 
     /**
+     * The feature id for the '<em><b>Modules</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_SCHEMA_CONNECTION__MODULES = CONNECTION_FEATURE_COUNT + 15;
+
+    /**
      * The number of structural features of the '<em>Salesforce Schema Connection</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int SALESFORCE_SCHEMA_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 15;
+    int SALESFORCE_SCHEMA_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 16;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.CDCConnectionImpl <em>CDC Connection</em>}' class.
@@ -17091,6 +17100,24 @@ public interface ConnectionPackage extends EPackage {
     int EDIFACT_COLUMN__DISPLAY_FIELD = METADATA_COLUMN__DISPLAY_FIELD;
 
     /**
+     * The feature id for the '<em><b>Related Entity</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__RELATED_ENTITY = METADATA_COLUMN__RELATED_ENTITY;
+
+    /**
+     * The feature id for the '<em><b>Relationship Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_COLUMN__RELATIONSHIP_TYPE = METADATA_COLUMN__RELATIONSHIP_TYPE;
+
+    /**
      * The feature id for the '<em><b>EDI Column Name</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -17118,13 +17145,302 @@ public interface ConnectionPackage extends EPackage {
     int EDIFACT_COLUMN_FEATURE_COUNT = METADATA_COLUMN_FEATURE_COUNT + 2;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.SalesforceModuleUnitImpl <em>Salesforce Module Unit</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.metadata.builder.connection.impl.SalesforceModuleUnitImpl
+     * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSalesforceModuleUnit()
+     * @generated
+     */
+    int SALESFORCE_MODULE_UNIT = 49;
+
+    /**
+     * The feature id for the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_MODULE_UNIT__NAME = ABSTRACT_METADATA_OBJECT__NAME;
+
+    /**
+     * The feature id for the '<em><b>Visibility</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_MODULE_UNIT__VISIBILITY = ABSTRACT_METADATA_OBJECT__VISIBILITY;
+
+    /**
+     * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_MODULE_UNIT__CLIENT_DEPENDENCY = ABSTRACT_METADATA_OBJECT__CLIENT_DEPENDENCY;
+
+    /**
+     * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_MODULE_UNIT__SUPPLIER_DEPENDENCY = ABSTRACT_METADATA_OBJECT__SUPPLIER_DEPENDENCY;
+
+    /**
+     * The feature id for the '<em><b>Constraint</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_MODULE_UNIT__CONSTRAINT = ABSTRACT_METADATA_OBJECT__CONSTRAINT;
+
+    /**
+     * The feature id for the '<em><b>Namespace</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_MODULE_UNIT__NAMESPACE = ABSTRACT_METADATA_OBJECT__NAMESPACE;
+
+    /**
+     * The feature id for the '<em><b>Importer</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_MODULE_UNIT__IMPORTER = ABSTRACT_METADATA_OBJECT__IMPORTER;
+
+    /**
+     * The feature id for the '<em><b>Stereotype</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_MODULE_UNIT__STEREOTYPE = ABSTRACT_METADATA_OBJECT__STEREOTYPE;
+
+    /**
+     * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_MODULE_UNIT__TAGGED_VALUE = ABSTRACT_METADATA_OBJECT__TAGGED_VALUE;
+
+    /**
+     * The feature id for the '<em><b>Document</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_MODULE_UNIT__DOCUMENT = ABSTRACT_METADATA_OBJECT__DOCUMENT;
+
+    /**
+     * The feature id for the '<em><b>Description</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_MODULE_UNIT__DESCRIPTION = ABSTRACT_METADATA_OBJECT__DESCRIPTION;
+
+    /**
+     * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_MODULE_UNIT__RESPONSIBLE_PARTY = ABSTRACT_METADATA_OBJECT__RESPONSIBLE_PARTY;
+
+    /**
+     * The feature id for the '<em><b>Element Node</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_MODULE_UNIT__ELEMENT_NODE = ABSTRACT_METADATA_OBJECT__ELEMENT_NODE;
+
+    /**
+     * The feature id for the '<em><b>Set</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_MODULE_UNIT__SET = ABSTRACT_METADATA_OBJECT__SET;
+
+    /**
+     * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_MODULE_UNIT__RENDERED_OBJECT = ABSTRACT_METADATA_OBJECT__RENDERED_OBJECT;
+
+    /**
+     * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_MODULE_UNIT__VOCABULARY_ELEMENT = ABSTRACT_METADATA_OBJECT__VOCABULARY_ELEMENT;
+
+    /**
+     * The feature id for the '<em><b>Measurement</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_MODULE_UNIT__MEASUREMENT = ABSTRACT_METADATA_OBJECT__MEASUREMENT;
+
+    /**
+     * The feature id for the '<em><b>Change Request</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_MODULE_UNIT__CHANGE_REQUEST = ABSTRACT_METADATA_OBJECT__CHANGE_REQUEST;
+
+    /**
+     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_MODULE_UNIT__DASDL_PROPERTY = ABSTRACT_METADATA_OBJECT__DASDL_PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>Properties</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_MODULE_UNIT__PROPERTIES = ABSTRACT_METADATA_OBJECT__PROPERTIES;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_MODULE_UNIT__ID = ABSTRACT_METADATA_OBJECT__ID;
+
+    /**
+     * The feature id for the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_MODULE_UNIT__COMMENT = ABSTRACT_METADATA_OBJECT__COMMENT;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_MODULE_UNIT__LABEL = ABSTRACT_METADATA_OBJECT__LABEL;
+
+    /**
+     * The feature id for the '<em><b>Read Only</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_MODULE_UNIT__READ_ONLY = ABSTRACT_METADATA_OBJECT__READ_ONLY;
+
+    /**
+     * The feature id for the '<em><b>Synchronised</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_MODULE_UNIT__SYNCHRONISED = ABSTRACT_METADATA_OBJECT__SYNCHRONISED;
+
+    /**
+     * The feature id for the '<em><b>Divergency</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_MODULE_UNIT__DIVERGENCY = ABSTRACT_METADATA_OBJECT__DIVERGENCY;
+
+    /**
+     * The feature id for the '<em><b>Metadata Table</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_MODULE_UNIT__METADATA_TABLE = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Connection</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_MODULE_UNIT__CONNECTION = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 1;
+
+    /**
+     * The feature id for the '<em><b>Tables</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_MODULE_UNIT__TABLES = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 2;
+
+    /**
+     * The feature id for the '<em><b>Module Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_MODULE_UNIT__MODULE_NAME = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 3;
+
+    /**
+     * The number of structural features of the '<em>Salesforce Module Unit</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_MODULE_UNIT_FEATURE_COUNT = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 4;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.FileFormat <em>File Format</em>}' enum.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.FileFormat
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFileFormat()
      * @generated
      */
-    int FILE_FORMAT = 49;
+    int FILE_FORMAT = 50;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.FieldSeparator <em>Field Separator</em>}' enum.
@@ -17133,7 +17449,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFieldSeparator()
      * @generated
      */
-    int FIELD_SEPARATOR = 50;
+    int FIELD_SEPARATOR = 51;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.Escape <em>Escape</em>}' enum.
@@ -17142,7 +17458,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getEscape()
      * @generated
      */
-    int ESCAPE = 51;
+    int ESCAPE = 52;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.RowSeparator <em>Row Separator</em>}' enum.
@@ -17151,7 +17467,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getRowSeparator()
      * @generated
      */
-    int ROW_SEPARATOR = 52;
+    int ROW_SEPARATOR = 53;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.MDMConnectionProtocol <em>MDM Connection Protocol</em>}' enum.
@@ -17160,7 +17476,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getMDMConnectionProtocol()
      * @generated
      */
-    int MDM_CONNECTION_PROTOCOL = 53;
+    int MDM_CONNECTION_PROTOCOL = 54;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.MdmConceptType <em>Mdm Concept Type</em>}' enum.
@@ -17170,7 +17486,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getMdmConceptType()
      * @generated
      */
-    int MDM_CONCEPT_TYPE = 54;
+    int MDM_CONCEPT_TYPE = 55;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.RuleType <em>Rule Type</em>}' enum.
@@ -17180,7 +17496,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getRuleType()
      * @generated
      */
-    int RULE_TYPE = 55;
+    int RULE_TYPE = 56;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.Function <em>Function</em>}' enum.
@@ -17190,7 +17506,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFunction()
      * @generated
      */
-    int FUNCTION = 56;
+    int FUNCTION = 57;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.Operator <em>Operator</em>}' enum.
@@ -17200,7 +17516,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getOperator()
      * @generated
      */
-    int OPERATOR = 57;
+    int OPERATOR = 58;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.LogicalOperator <em>Logical Operator</em>}' enum.
@@ -17210,7 +17526,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getLogicalOperator()
      * @generated
      */
-    int LOGICAL_OPERATOR = 58;
+    int LOGICAL_OPERATOR = 59;
 
     /**
      * The meta object id for the '<em>Map</em>' data type.
@@ -17219,7 +17535,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getMap()
      * @generated
      */
-    int MAP = 59;
+    int MAP = 60;
 
     /**
      * The meta object id for the '<em>List</em>' data type.
@@ -17228,7 +17544,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getList()
      * @generated
      */
-    int LIST = 60;
+    int LIST = 61;
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.Metadata <em>Metadata</em>}'.
@@ -19882,6 +20198,17 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getSalesforceSchemaConnection_TimeOut();
 
     /**
+     * Returns the meta object for the containment reference list '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getModules <em>Modules</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>Modules</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getModules()
+     * @see #getSalesforceSchemaConnection()
+     * @generated
+     */
+    EReference getSalesforceSchemaConnection_Modules();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.CDCConnection <em>CDC Connection</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>CDC Connection</em>'.
@@ -20969,6 +21296,60 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      */
     EAttribute getEDIFACTColumn_EDIXpath();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.SalesforceModuleUnit <em>Salesforce Module Unit</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Salesforce Module Unit</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SalesforceModuleUnit
+     * @generated
+     */
+    EClass getSalesforceModuleUnit();
+
+    /**
+     * Returns the meta object for the containment reference '{@link org.talend.core.model.metadata.builder.connection.SalesforceModuleUnit#getMetadataTable <em>Metadata Table</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>Metadata Table</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SalesforceModuleUnit#getMetadataTable()
+     * @see #getSalesforceModuleUnit()
+     * @generated
+     */
+    EReference getSalesforceModuleUnit_MetadataTable();
+
+    /**
+     * Returns the meta object for the container reference '{@link org.talend.core.model.metadata.builder.connection.SalesforceModuleUnit#getConnection <em>Connection</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the container reference '<em>Connection</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SalesforceModuleUnit#getConnection()
+     * @see #getSalesforceModuleUnit()
+     * @generated
+     */
+    EReference getSalesforceModuleUnit_Connection();
+
+    /**
+     * Returns the meta object for the containment reference list '{@link org.talend.core.model.metadata.builder.connection.SalesforceModuleUnit#getTables <em>Tables</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>Tables</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SalesforceModuleUnit#getTables()
+     * @see #getSalesforceModuleUnit()
+     * @generated
+     */
+    EReference getSalesforceModuleUnit_Tables();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SalesforceModuleUnit#getModuleName <em>Module Name</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Module Name</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SalesforceModuleUnit#getModuleName()
+     * @see #getSalesforceModuleUnit()
+     * @generated
+     */
+    EAttribute getSalesforceModuleUnit_ModuleName();
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.ValidationRulesConnection <em>Validation Rules Connection</em>}'.
@@ -23351,6 +23732,14 @@ public interface ConnectionPackage extends EPackage {
         EAttribute SALESFORCE_SCHEMA_CONNECTION__TIME_OUT = eINSTANCE.getSalesforceSchemaConnection_TimeOut();
 
         /**
+         * The meta object literal for the '<em><b>Modules</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference SALESFORCE_SCHEMA_CONNECTION__MODULES = eINSTANCE.getSalesforceSchemaConnection_Modules();
+
+        /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.CDCConnectionImpl <em>CDC Connection</em>}' class.
          * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.metadata.builder.connection.impl.CDCConnectionImpl
@@ -24173,6 +24562,48 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EAttribute EDIFACT_COLUMN__EDI_XPATH = eINSTANCE.getEDIFACTColumn_EDIXpath();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.SalesforceModuleUnitImpl <em>Salesforce Module Unit</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.metadata.builder.connection.impl.SalesforceModuleUnitImpl
+         * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSalesforceModuleUnit()
+         * @generated
+         */
+        EClass SALESFORCE_MODULE_UNIT = eINSTANCE.getSalesforceModuleUnit();
+
+        /**
+         * The meta object literal for the '<em><b>Metadata Table</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference SALESFORCE_MODULE_UNIT__METADATA_TABLE = eINSTANCE.getSalesforceModuleUnit_MetadataTable();
+
+        /**
+         * The meta object literal for the '<em><b>Connection</b></em>' container reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference SALESFORCE_MODULE_UNIT__CONNECTION = eINSTANCE.getSalesforceModuleUnit_Connection();
+
+        /**
+         * The meta object literal for the '<em><b>Tables</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference SALESFORCE_MODULE_UNIT__TABLES = eINSTANCE.getSalesforceModuleUnit_Tables();
+
+        /**
+         * The meta object literal for the '<em><b>Module Name</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SALESFORCE_MODULE_UNIT__MODULE_NAME = eINSTANCE.getSalesforceModuleUnit_ModuleName();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.ValidationRulesConnectionImpl <em>Validation Rules Connection</em>}' class.

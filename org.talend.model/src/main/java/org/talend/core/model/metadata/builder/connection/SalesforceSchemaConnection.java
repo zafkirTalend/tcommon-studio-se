@@ -5,6 +5,8 @@
  */
 package org.talend.core.model.metadata.builder.connection;
 
+import org.eclipse.emf.common.util.EList;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Salesforce Schema Connection</b></em>'.
@@ -28,6 +30,7 @@ package org.talend.core.model.metadata.builder.connection;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#isUseHttpProxy <em>Use Http Proxy</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#isUseAlphbet <em>Use Alphbet</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getTimeOut <em>Time Out</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getModules <em>Modules</em>}</li>
  * </ul>
  * </p>
  *
@@ -427,5 +430,23 @@ public interface SalesforceSchemaConnection extends Connection {
      * @generated
      */
     void setTimeOut(String value);
+
+    /**
+     * Returns the value of the '<em><b>Modules</b></em>' containment reference list.
+     * The list contents are of type {@link org.talend.core.model.metadata.builder.connection.SalesforceModuleUnit}.
+     * It is bidirectional and its opposite is '{@link org.talend.core.model.metadata.builder.connection.SalesforceModuleUnit#getConnection <em>Connection</em>}'.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Modules</em>' containment reference list isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Modules</em>' containment reference list.
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getSalesforceSchemaConnection_Modules()
+     * @see org.talend.core.model.metadata.builder.connection.SalesforceModuleUnit#getConnection
+     * @model opposite="connection" containment="true" resolveProxies="true"
+     * @generated
+     */
+    EList<SalesforceModuleUnit> getModules();
 
 } // SalesforceSchemaConnection

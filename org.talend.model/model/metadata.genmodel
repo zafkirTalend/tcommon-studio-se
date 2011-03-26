@@ -358,6 +358,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SalesforceSchemaConnection/useHttpProxy"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SalesforceSchemaConnection/useAlphbet"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SalesforceSchemaConnection/timeOut"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//SalesforceSchemaConnection/modules"/>
     </genClasses>
     <genClasses ecoreClass="metadata.ecore#//CDCConnection">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference metadata.ecore#//CDCConnection/connection"/>
@@ -493,6 +494,12 @@
     <genClasses ecoreClass="metadata.ecore#//EDIFACTColumn">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//EDIFACTColumn/EDIColumnName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//EDIFACTColumn/EDIXpath"/>
+    </genClasses>
+    <genClasses ecoreClass="metadata.ecore#//SalesforceModuleUnit">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//SalesforceModuleUnit/MetadataTable"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference metadata.ecore#//SalesforceModuleUnit/connection"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//SalesforceModuleUnit/tables"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SalesforceModuleUnit/moduleName"/>
     </genClasses>
     <nestedGenPackages prefix="cwm" basePackage="org.talend" disposableProviderFactory="true"
         ecorePackage="metadata.ecore#//cwm">

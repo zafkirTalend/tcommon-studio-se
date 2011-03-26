@@ -31,9 +31,9 @@ import org.talend.core.model.metadata.builder.connection.EDIFACTConnection;
 public class EDIFACTConnectionImpl extends ConnectionImpl implements EDIFACTConnection {
 
     /**
-     * The default value of the '{@link #getXmlName() <em>Xml Name</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getXmlName() <em>Xml Name</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getXmlName()
      * @generated
      * @ordered
@@ -41,9 +41,9 @@ public class EDIFACTConnectionImpl extends ConnectionImpl implements EDIFACTConn
     protected static final String XML_NAME_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getXmlName() <em>Xml Name</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getXmlName() <em>Xml Name</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getXmlName()
      * @generated
      * @ordered
@@ -51,9 +51,9 @@ public class EDIFACTConnectionImpl extends ConnectionImpl implements EDIFACTConn
     protected String xmlName = XML_NAME_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getFileName() <em>File Name</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getFileName() <em>File Name</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getFileName()
      * @generated
      * @ordered
@@ -61,9 +61,9 @@ public class EDIFACTConnectionImpl extends ConnectionImpl implements EDIFACTConn
     protected static final String FILE_NAME_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getFileName() <em>File Name</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getFileName() <em>File Name</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getFileName()
      * @generated
      * @ordered
@@ -71,9 +71,9 @@ public class EDIFACTConnectionImpl extends ConnectionImpl implements EDIFACTConn
     protected String fileName = FILE_NAME_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getXmlPath() <em>Xml Path</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getXmlPath() <em>Xml Path</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getXmlPath()
      * @generated
      * @ordered
@@ -81,9 +81,9 @@ public class EDIFACTConnectionImpl extends ConnectionImpl implements EDIFACTConn
     protected static final String XML_PATH_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getXmlPath() <em>Xml Path</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getXmlPath() <em>Xml Path</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getXmlPath()
      * @generated
      * @ordered
@@ -92,7 +92,6 @@ public class EDIFACTConnectionImpl extends ConnectionImpl implements EDIFACTConn
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     protected EDIFACTConnectionImpl() {
@@ -101,7 +100,6 @@ public class EDIFACTConnectionImpl extends ConnectionImpl implements EDIFACTConn
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
@@ -111,7 +109,6 @@ public class EDIFACTConnectionImpl extends ConnectionImpl implements EDIFACTConn
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getXmlName() {
@@ -120,7 +117,6 @@ public class EDIFACTConnectionImpl extends ConnectionImpl implements EDIFACTConn
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setXmlName(String newXmlName) {
@@ -133,7 +129,6 @@ public class EDIFACTConnectionImpl extends ConnectionImpl implements EDIFACTConn
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getFileName() {
@@ -142,7 +137,6 @@ public class EDIFACTConnectionImpl extends ConnectionImpl implements EDIFACTConn
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setFileName(String newFileName) {
@@ -155,7 +149,6 @@ public class EDIFACTConnectionImpl extends ConnectionImpl implements EDIFACTConn
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getXmlPath() {
@@ -164,7 +157,6 @@ public class EDIFACTConnectionImpl extends ConnectionImpl implements EDIFACTConn
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setXmlPath(String newXmlPath) {
@@ -177,7 +169,6 @@ public class EDIFACTConnectionImpl extends ConnectionImpl implements EDIFACTConn
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
@@ -195,7 +186,6 @@ public class EDIFACTConnectionImpl extends ConnectionImpl implements EDIFACTConn
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @SuppressWarnings("unchecked")
@@ -217,7 +207,6 @@ public class EDIFACTConnectionImpl extends ConnectionImpl implements EDIFACTConn
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
@@ -238,7 +227,6 @@ public class EDIFACTConnectionImpl extends ConnectionImpl implements EDIFACTConn
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
@@ -256,7 +244,6 @@ public class EDIFACTConnectionImpl extends ConnectionImpl implements EDIFACTConn
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override

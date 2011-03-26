@@ -12,11 +12,8 @@
 // ============================================================================
 package org.talend.repository.ui.wizards.metadata.connection.files.salesforce;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -28,15 +25,9 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.ui.internal.dialogs.EventLoopProgressMonitor;
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
-import org.talend.commons.ui.runtime.exception.MessageBoxExceptionHandler;
-import org.talend.commons.ui.swt.dialogs.ProgressDialog;
 import org.talend.commons.ui.swt.formtools.Form;
-import org.talend.commons.ui.swt.formtools.LabelledCombo;
 import org.talend.commons.ui.swt.formtools.LabelledText;
 import org.talend.commons.ui.swt.formtools.UtilsButton;
 import org.talend.core.model.metadata.IMetadataContextModeManager;
@@ -47,12 +38,6 @@ import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.metadata.managment.ui.i18n.Messages;
 import org.talend.repository.preview.SalesforceSchemaBean;
 import org.talend.repository.ui.swt.utils.AbstractSalesforceStepForm;
-import org.talend.salesforce.SforceManagementImpl;
-
-import com.salesforce.soap.partner.DescribeGlobal;
-import com.salesforce.soap.partner.DescribeGlobalSObjectResult;
-import com.salesforce.soap.partner.SessionHeader;
-import com.sforce.soap.enterprise.DescribeGlobalResult;
 
 /**
  * DOC YeXiaowei class global comment. Detailled comment <br/>
@@ -80,17 +65,8 @@ public class SalesforceStep1Form extends AbstractSalesforceStepForm {
 
     private LabelledText timeOutText = null;
 
-    private LabelledCombo moduleNameCombo = null;
-
     private UtilsButton cancelButton = null;
 
-    //    final String useProxy = "useProxyBtn";//$NON-NLS-1$
-    //
-    //    final String useHttp = "useHttpBtn";//$NON-NLS-1$
-
-    /*
-     * 
-     */
     private Button useProxyBtn = null;
 
     private Button useHttpBtn = null;
@@ -222,21 +198,6 @@ public class SalesforceStep1Form extends AbstractSalesforceStepForm {
 
         new Label(this, SWT.NONE);
         new Label(this, SWT.NONE);
-
-        Group objectsGroup = Form.createGroup(this, 4, "objects"); //$NON-NLS-1$
-        GridData objectsLayoutData = new GridData(GridData.FILL_HORIZONTAL);
-        objectsLayoutData.horizontalSpan = 3;
-        objectsGroup.setLayoutData(objectsLayoutData);
-        String[] item = { "                                  " };//$NON-NLS-1$
-        moduleNameCombo = new LabelledCombo(
-                objectsGroup,
-                Messages.getString("SalesforceStep1Form.standardObjects"), Messages.getString("SalesforceStep1Form.selectModuleName"), //$NON-NLS-1$ //$NON-NLS-2$
-                item, 2, false);
-        String moduleName2 = getConnection().getModuleName();
-        if (moduleName2 != null && !"".equals(moduleName2)) { //$NON-NLS-1$
-            moduleNameCombo.add(moduleName2);
-            moduleNameCombo.select(0);
-        }
         addUtilsButtonListeners();
 
     }
@@ -400,23 +361,6 @@ public class SalesforceStep1Form extends AbstractSalesforceStepForm {
             }
 
         });
-        moduleNameCombo.addModifyListener(new ModifyListener() {
-
-            public void modifyText(ModifyEvent e) {
-                checkFieldsValue();
-                String moduleName = moduleNameCombo.getText();
-                getConnection().setModuleName(moduleName);
-
-                List list = getModuleName();
-                if (moduleName != null && !"".equals(moduleName) && list != null && !list.contains(moduleName)) { //$NON-NLS-1$
-                    getConnection().setUseCustomModuleName(true);
-                } else {
-                    getConnection().setUseCustomModuleName(false);
-                }
-            }
-
-        });
-
         checkButton.addSelectionListener(new SelectionAdapter() {
 
             /*
@@ -445,32 +389,11 @@ public class SalesforceStep1Form extends AbstractSalesforceStepForm {
                 }
 
                 if (loginOk) {
-                    connectFromCustomModuleName();
+                    checkFieldsValue();
                 }
 
             }
         });
-    }
-
-    /**
-     * DOC zli Comment method "getModuleName".
-     * 
-     * @return
-     */
-    private List getModuleName() {
-        INode node = getSalesforceNode();
-        List list = new ArrayList();
-        if (node != null) {
-            IElementParameter modulesNameParam = node.getElementParameter("MODULENAME"); //$NON-NLS-1$
-            standardModulename = modulesNameParam.getListItemsValue();
-            if (standardModulename != null && standardModulename.length > 1) {
-                for (int i = 0; i < standardModulename.length - 1; i++) {
-                    list.add(i, standardModulename[i]);
-                }
-            }
-
-        }
-        return list;
     }
 
     private void enableProxyParameters(boolean enable) {
@@ -478,163 +401,6 @@ public class SalesforceStep1Form extends AbstractSalesforceStepForm {
         proxyPortText.setEnabled(enable);
         proxyUsernameText.setEnabled(enable);
         proxyPasswordText.setEnabled(enable);
-    }
-
-    private void connectFromCustomModuleName() {
-        ProgressDialog progressDialog = new ProgressDialog(Display.getCurrent().getActiveShell(), 0) {
-
-            private IProgressMonitor monitorWrap;
-
-            @Override
-            public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-                monitorWrap = new EventLoopProgressMonitor(monitor);
-                monitorWrap.beginTask(Messages.getString("SalesforceStep1Form.connection"), IProgressMonitor.UNKNOWN); //$NON-NLS-1$ 
-                testSalesforceLogin();
-                // String proxy = null;
-                // if (useProxyBtn.getSelection()) {
-                // proxy = SalesforceModuleParseAPI.USE_SOCKS_PROXY;
-                // } else if (useHttpBtn.getSelection()) {
-                // proxy = SalesforceModuleParseAPI.USE_HTTP_PROXY;
-                // }
-                // SalesforceModuleParseAPI checkSalesfoceLogin = null;
-                // if (proxy != null) {
-                // checkSalesfoceLogin = toCheckSalesfoceLogin(proxy, endPoint, username, pwd, proxyHostText.getText(),
-                // proxyPortText.getText(), proxyUsernameText.getText(), proxyPasswordText.getText());
-                // }
-
-                // else {
-                // checkSalesfoceLogin = toCheckSalesfoceLogin(endPoint, username, pwd);
-                // }
-
-                preparModuleInit();
-                SalesforceModuleParseAPI checkSalesfoceLogin = getSalesforceModuleParseAPI();
-                if (checkSalesfoceLogin != null) {
-                    String[] types = null;
-                    DescribeGlobalSObjectResult[] dgsrs = null;
-                    DescribeGlobalResult describeGlobalResult = null;
-                    com.salesforce.soap.partner.DescribeGlobalResult describeGlobalPartner = null;
-                    monitorWrap.worked(50);
-                    boolean socksProxy = false;
-                    boolean httpProxy = false;
-                    boolean httpsProxy = false;
-                    if (useProxyBtn.getSelection()) {
-                        socksProxy = true;
-                    } else if (useHttpBtn.getSelection()) {
-                        String webURL = webServiceUrlText.getText();
-                        if (webURL.startsWith("https")) {
-                            httpsProxy = true;
-                        } else {
-                            httpProxy = true;
-                        }
-                    }
-                    try {
-                        salesforceAPI.resetProxy(httpProxy, socksProxy, httpsProxy);
-                        salesforceAPI.setProxy(proxyHostText.getText(), proxyPortText.getText(), proxyUsernameText.getText(),
-                                proxyPasswordText.getText(), httpProxy, socksProxy, httpsProxy);
-
-                        ISalesforceModuleParser currentAPI = checkSalesfoceLogin.getCurrentAPI();
-                        if (currentAPI instanceof SalesforceModuleParseEnterprise) {
-                            describeGlobalResult = describeGlobal();
-                            if (describeGlobalResult != null) {
-                                types = describeGlobalResult.getTypes();
-                            }
-                        } else {
-                            // for bug 17280 use new jar axis2 for salesforce component and wizard.
-                            if (currentAPI instanceof SalesforceModuleParserPartner) {
-                                SalesforceModuleParserPartner partner = (SalesforceModuleParserPartner) currentAPI;
-
-                                SforceManagementImpl sforceManagement = partner.getSforceManagement();
-                                SessionHeader sessionHeader = sforceManagement.getSessionHeader();
-                                DescribeGlobal dg = new DescribeGlobal();
-                                com.salesforce.soap.partner.DescribeGlobalResult dgr = sforceManagement.getStub()
-                                        .describeGlobal(dg, sessionHeader, null, null).getResult();
-                                dgsrs = dgr.getSobjects();
-
-                            }
-                        }
-                        monitorWrap.worked(50);
-
-                        salesforceAPI.resetProxy(httpProxy, socksProxy, httpsProxy);
-                        INode node = getSalesforceNode();
-
-                        List list = new ArrayList();
-                        if (node == null) {
-                            moduleNameCombo.add(Messages.getString("SalesforceStep1Form.account")); //$NON-NLS-1$
-                        } else {
-                            IElementParameter modulesNameParam = node.getElementParameter("MODULENAME"); //$NON-NLS-1$
-                            modulename = modulesNameParam.getListItemsValue();
-                            if (modulename != null && modulename.length > 1) {
-                                for (int i = 0; i < modulename.length - 1; i++) {
-                                    list.add(i, modulename[i]);
-                                }
-                            }
-                            if (types != null && types.length > 0) {
-                                for (int j = 0; j < types.length; j++) {
-                                    if (!list.contains(types[j])) {
-                                        list.add(types[j]);
-                                    }
-                                }
-                            }
-                            if (dgsrs != null && dgsrs.length > 0) {
-                                for (int k = 0; k < dgsrs.length; k++) {
-                                    DescribeGlobalSObjectResult dsResult = dgsrs[k];
-                                    String name = dsResult.getName();
-                                    if (!list.contains(name)) {
-                                        list.add(name);
-                                    }
-                                }
-
-                            }
-                            modulename = list.toArray();
-
-                            if (modulename == null || modulename.length <= 0) {
-                                return;
-                            }
-                            moduleNameCombo.removeAll(); // First clear
-
-                            for (Object module : modulename) {
-                                moduleNameCombo.add(module.toString());
-                            }
-                        }
-                        monitorWrap.done();
-                    } catch (Exception ex) {
-                        ExceptionHandler.process(ex);
-                    }
-                    moduleNameCombo.select(0);
-                }
-            }
-        };
-        try {
-            progressDialog.executeProcess();
-        } catch (InvocationTargetException e) {
-            ExceptionHandler.process(e);
-            return;
-        } catch (Exception e) {
-            MessageBoxExceptionHandler.process(e);
-            return;
-        }
-    }
-
-    private void preparModuleInit() {
-        /*
-         * prepare to ininCustomModule
-         */
-        endPoint = webServiceUrlText.getText();
-        username = userNameText.getText();
-        pwd = passwordText.getText();
-        batchSize = batchSizeText.getText();
-        timeOut = timeOutText.getText();
-
-        if (isContextMode() && getContextModeManager() != null) {
-            endPoint = getContextModeManager().getOriginalValue(endPoint);
-            username = getContextModeManager().getOriginalValue(username);
-            pwd = getContextModeManager().getOriginalValue(pwd);
-            timeOut = getContextModeManager().getOriginalValue(timeOut);
-        }
-        // TSALESFORCE_INPUT_URL is only used by tSalesForceInput, the logic doesn't work with this url
-        // if (endPoint.equals(TSALESFORCE_INPUT_URL)) {
-        // endPoint = DEFAULT_WEB_SERVICE_URL;
-        // }
     }
 
     private void testSalesforceLogin() {
@@ -648,10 +414,6 @@ public class SalesforceStep1Form extends AbstractSalesforceStepForm {
             pwd = getContextModeManager().getOriginalValue(pwd);
             timeOut = getContextModeManager().getOriginalValue(timeOut);
         }
-        // TSALESFORCE_INPUT_URL is only used by tSalesForceInput, the logic doesn't work with this url
-        // if (endPoint.equals(TSALESFORCE_INPUT_URL)) {
-        // endPoint = DEFAULT_WEB_SERVICE_URL;
-        // }
     }
 
     @Override
@@ -766,18 +528,6 @@ public class SalesforceStep1Form extends AbstractSalesforceStepForm {
                 .valueOf(SalesforceSchemaBean.DEFAULT_TIME_OUT);
         timeOut = value;
         setTextValue(value, timeOutText);
-
-        if (getConnection().getModuleName() != null && !getConnection().getModuleName().equals("")) { //$NON-NLS-1$
-            moduleNameCombo.setText(getConnection().getModuleName());
-            List moduleName2 = getModuleName();
-            if (moduleName2 != null && !moduleName2.contains(getConnection().getModuleName())) {
-                getConnection().setUseCustomModuleName(true);
-            } else {
-                getConnection().setUseCustomModuleName(false);
-            }
-        } else {
-            getConnection().setModuleName(moduleNameCombo.getText()); // Set defult value
-        }
     }
 
     private void setTextValue(String value, LabelledText control) {

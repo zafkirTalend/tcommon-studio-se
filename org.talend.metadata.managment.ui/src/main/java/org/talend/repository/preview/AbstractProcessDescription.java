@@ -59,6 +59,16 @@ public abstract class AbstractProcessDescription implements IProcessDescription 
 
     private List<IMetadataTable> schema;
 
+    private Map<String, List<IMetadataTable>> schemas;
+
+    public Map<String, List<IMetadataTable>> getSchemas() {
+        return this.schemas;
+    }
+
+    public void setSchemas(Map<String, List<IMetadataTable>> schemas) {
+        this.schemas = schemas;
+    }
+
     private String loopQuery;
 
     private Integer loopLimit;

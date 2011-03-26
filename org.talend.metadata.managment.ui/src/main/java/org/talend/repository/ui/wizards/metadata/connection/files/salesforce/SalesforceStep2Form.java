@@ -13,10 +13,12 @@
 package org.talend.repository.ui.wizards.metadata.connection.files.salesforce;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
@@ -25,6 +27,8 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
+import org.eclipse.swt.custom.SashForm;
+import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -37,23 +41,37 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.swt.widgets.TableItem;
 import org.talend.commons.ui.swt.formtools.Form;
+import org.talend.commons.ui.swt.formtools.LabelledCombo;
 import org.talend.commons.ui.swt.formtools.LabelledText;
 import org.talend.commons.ui.swt.formtools.UtilsButton;
+import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
+import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorNotModifiable.LAYOUT_MODE;
 import org.talend.commons.ui.swt.thread.SWTUIThreadProcessor;
+import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataContextModeManager;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.MetadataTable;
+import org.talend.core.model.metadata.builder.ConvertionHelper;
+import org.talend.core.model.metadata.builder.connection.SalesforceModuleUnit;
 import org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection;
+import org.talend.core.model.metadata.builder.connection.impl.MetadataImpl;
+import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase;
+import org.talend.core.model.metadata.builder.database.TableInfoParameters;
 import org.talend.core.model.metadata.types.JavaType;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.utils.CsvArray;
 import org.talend.core.utils.TalendQuoteUtils;
+import org.talend.cwm.helper.ConnectionHelper;
+import org.talend.cwm.helper.TableHelper;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.metadata.managment.ui.i18n.Messages;
+import org.talend.repository.model.ProjectNodeHelper;
 import org.talend.repository.preview.ProcessDescription;
 import org.talend.repository.preview.SalesforceSchemaBean;
 import org.talend.repository.ui.swt.preview.ShadowProcessPreview;
@@ -69,6 +87,16 @@ import org.talend.repository.ui.utils.ShadowProcessHelper;
 public class SalesforceStep2Form extends AbstractSalesforceStepForm {
 
     private static Logger log = Logger.getLogger(SalesforceStep2Form.class);
+
+    private TableViewerCreator tableViewerCreator;
+
+    private Table tableNavigator;
+
+    private UtilsButton addTableButton;
+
+    private UtilsButton removeTableButton;
+
+    private static final int WIDTH_GRIDDATA_PIXEL = 750;
 
     private LabelledText queryConditionText = null;
 
@@ -105,19 +133,28 @@ public class SalesforceStep2Form extends AbstractSalesforceStepForm {
 
     private SalesforceModuleParseAPI salesforceAPI = null;
 
+    private IMetadataTable metadataTable;
+
+    private SalesforceSchemaConnection temConnection;
+
+    private String moduleName;
+
     /**
      * DOC YeXiaowei SalesforceStep2Form constructor comment.
      * 
      * @param parent
      * @param connectionItem
      */
-    public SalesforceStep2Form(Composite parent, ConnectionItem connectionItem, SalesforceModuleParseAPI salesforceAPI,
-            IMetadataContextModeManager contextModeManager) {
+    public SalesforceStep2Form(Composite parent, ConnectionItem connectionItem, SalesforceSchemaConnection temConnection,
+            SalesforceModuleParseAPI salesforceAPI, IMetadataContextModeManager contextModeManager, String moduleName) {
         super(parent, connectionItem, salesforceAPI);
         setConnectionItem(connectionItem);
         setContextModeManager(contextModeManager);
         setupForm(true);
         this.salesforceAPI = salesforceAPI;
+        this.temConnection = temConnection;
+        this.moduleName = moduleName;
+        initTreeNavigatorNodes();
     }
 
     /*
@@ -137,8 +174,30 @@ public class SalesforceStep2Form extends AbstractSalesforceStepForm {
      */
     @Override
     protected void addFields() {
-        addQueryConditionGroup();
-        addSalesforcePreviewGroup();
+        int leftCompositeWidth = 125;
+        int rightCompositeWidth = WIDTH_GRIDDATA_PIXEL - leftCompositeWidth;
+        int headerCompositeHeight = 80;
+        int tableSettingsCompositeHeight = 15;
+        int tableCompositeHeight = 200;
+
+        int height = headerCompositeHeight + tableSettingsCompositeHeight + tableCompositeHeight;
+        Composite mainComposite = Form.startNewDimensionnedGridLayout(this, 2, WIDTH_GRIDDATA_PIXEL, height);
+        mainComposite.setLayout(new GridLayout(2, false));
+        GridData gridData = new GridData(GridData.FILL_BOTH);
+        mainComposite.setLayoutData(gridData);
+
+        SashForm sash = new SashForm(mainComposite, SWT.HORIZONTAL);
+        GridData sashData = new GridData(GridData.FILL_BOTH);
+        sash.setLayoutData(sashData);
+        Composite leftComposite = Form.startNewDimensionnedGridLayout(sash, 1, leftCompositeWidth, height);
+        Composite rightComposite = Form.startNewDimensionnedGridLayout(sash, 1, rightCompositeWidth, height);
+        sash.setWeights(new int[] { 1, 5 });
+
+        Composite composite1 = Form.startNewDimensionnedGridLayout(rightComposite, 1, rightCompositeWidth, headerCompositeHeight);
+        addTreeNavigator(leftComposite, leftCompositeWidth, height);
+        addQueryConditionGroup(composite1, tableCompositeHeight);
+        addSalesforcePreviewGroup(composite1);
+
         if (!isInWizard()) {
             Composite compositeBottomButton = Form.startNewGridLayout(this, 2, false, SWT.CENTER, SWT.CENTER);
             cancelButton = new UtilsButton(compositeBottomButton, Messages.getString("CommonWizard.cancel"), WIDTH_BUTTON_PIXEL, //$NON-NLS-1$
@@ -147,12 +206,60 @@ public class SalesforceStep2Form extends AbstractSalesforceStepForm {
     }
 
     /**
+     * DOC ocarbone Comment method "addTreeNavigator".
+     * 
+     * @param parent
+     * @param width
+     * @param height
+     */
+    private void addTreeNavigator(Composite parent, int width, int height) {
+        // Group
+        Group group = Form.createGroup(parent, 1, Messages.getString("DatabaseTableForm.navigatorTree"), height); //$NON-NLS-1$
+
+        // ScrolledComposite
+        ScrolledComposite scrolledCompositeFileViewer = new ScrolledComposite(group, SWT.H_SCROLL | SWT.V_SCROLL | SWT.NONE);
+        scrolledCompositeFileViewer.setExpandHorizontal(true);
+        scrolledCompositeFileViewer.setExpandVertical(true);
+        GridData gridData1 = new GridData(GridData.FILL_BOTH);
+        gridData1.widthHint = width + 12;
+        gridData1.heightHint = height;
+        gridData1.horizontalSpan = 2;
+        scrolledCompositeFileViewer.setLayoutData(gridData1);
+
+        tableViewerCreator = new TableViewerCreator(scrolledCompositeFileViewer);
+        tableViewerCreator.setHeaderVisible(false);
+        tableViewerCreator.setColumnsResizableByDefault(false);
+        tableViewerCreator.setBorderVisible(false);
+        tableViewerCreator.setLinesVisible(false);
+        tableViewerCreator.setLayoutMode(LAYOUT_MODE.NONE);
+        tableViewerCreator.setCheckboxInFirstColumn(false);
+        tableViewerCreator.setFirstColumnMasked(false);
+
+        tableNavigator = tableViewerCreator.createTable();
+        tableNavigator.setLayoutData(new GridData(GridData.FILL_BOTH));
+
+        TableColumn tableColumn = new TableColumn(tableNavigator, SWT.NONE);
+        tableColumn.setText(Messages.getString("DatabaseTableForm.tableColumnText.talbe")); //$NON-NLS-1$
+        tableColumn.setWidth(width + 120);
+
+        scrolledCompositeFileViewer.setContent(tableNavigator);
+        scrolledCompositeFileViewer.setSize(width + 12, height);
+        // Button Add metadata Table
+        // Composite button = Form.startNewGridLayout(group, HEIGHT_BUTTON_PIXEL, false, SWT.CENTER, SWT.CENTER);
+        // addTableButton = new UtilsButton(button,
+        //                Messages.getString("DatabaseTableForm.AddTable"), width - 30, HEIGHT_BUTTON_PIXEL); //$NON-NLS-1$
+        //
+        // Composite rmButton = Form.startNewGridLayout(group, HEIGHT_BUTTON_PIXEL, false, SWT.CENTER, SWT.CENTER);
+        //        removeTableButton = new UtilsButton(rmButton, "Remove Schema", width - 30, HEIGHT_BUTTON_PIXEL); //$NON-NLS-1$
+    }
+
+    /**
      * DOC YeXiaowei Comment method "addSalesforcePreviewGroup".
      */
-    private void addSalesforcePreviewGroup() {
+    private void addSalesforcePreviewGroup(Composite mainComposite) {
         // Group previewGroup = Form.createGroup(this, 2, "Salesforce Preview");
 
-        tabFolder = new CTabFolder(this, SWT.BORDER);
+        tabFolder = new CTabFolder(mainComposite, SWT.BORDER);
         tabFolder.setLayoutData(new GridData(GridData.FILL_BOTH));
 
         previewTabItem = new CTabItem(tabFolder, SWT.BORDER);
@@ -185,8 +292,9 @@ public class SalesforceStep2Form extends AbstractSalesforceStepForm {
     /**
      * DOC YeXiaowei Comment method "addQueryConditionGroup".
      */
-    private void addQueryConditionGroup() {
-        Group queryConditionGroup = Form.createGroup(this, 2, Messages.getString("SalesforceStep2Form.queryCondition")); //$NON-NLS-1$
+    private void addQueryConditionGroup(Composite parent, int tableCompositeHeight) {
+        Group queryConditionGroup = Form.createGroup(parent, 2,
+                Messages.getString("SalesforceStep2Form.queryCondition"), tableCompositeHeight); //$NON-NLS-1$
 
         queryConditionText = new LabelledText(queryConditionGroup, "Query Condition", true); //$NON-NLS-1$
         queryConditionText.setText(defaultQueryString);
@@ -208,6 +316,7 @@ public class SalesforceStep2Form extends AbstractSalesforceStepForm {
         alphabet.setLayoutData(new GridData(GridData.CENTER));
 
         createModuleDetailViewer(moduleViewerComposite);
+
     }
 
     /**
@@ -241,7 +350,42 @@ public class SalesforceStep2Form extends AbstractSalesforceStepForm {
      * @see org.talend.repository.ui.swt.utils.AbstractForm#addFieldsListeners()
      */
     @Override
+    protected org.talend.core.model.metadata.builder.connection.MetadataTable getTableByLabel(String label) {
+        org.talend.core.model.metadata.builder.connection.MetadataTable result = null;
+        EList<SalesforceModuleUnit> modules = temConnection.getModules();
+        for (int i = 0; i < modules.size(); i++) {
+            if (modules.get(i).getModuleName().equals(moduleName)) {
+                for (int j = 0; j < modules.get(i).getTables().size(); j++) {
+                    if (modules.get(i).getTables().get(j).getLabel().equals(label)) {
+                        result = modules.get(i).getTables().get(j);
+                    }
+                }
+
+            }
+        }
+        return result;
+
+    }
+
     protected void addFieldsListeners() {
+        // Navigation : when the user select a table
+        tableNavigator.addSelectionListener(new SelectionAdapter() {
+
+            public void widgetSelected(SelectionEvent e) {
+                String schemaLabel = tableNavigator.getSelection()[0].getText();
+                temConnection.setModuleName(schemaLabel);
+                getConnection().setModuleName(schemaLabel);
+                org.talend.core.model.metadata.builder.connection.MetadataTable table = getTableByLabel(schemaLabel);
+                metadataTable = ConvertionHelper.convert(table);
+                List<IMetadataColumn> listColumns = metadataTable.getListColumns();
+                if (listColumns != null) {
+                    moduleViewer.setInput(listColumns.toArray());
+                    if (isReadOnly()) {
+                        addTableButton.setEnabled(false);
+                    }
+                }
+            }
+        });
         queryConditionText.addModifyListener(new ModifyListener() {
 
             public void modifyText(ModifyEvent e) {
@@ -260,10 +404,12 @@ public class SalesforceStep2Form extends AbstractSalesforceStepForm {
             public void widgetSelected(SelectionEvent e) {
                 useAlphbet = alphabet.getSelection();
                 getConnection().setUseAlphbet(useAlphbet);
-
+                metadataTableOrder = readMetadataDetail();
+                metadataTableClone = metadataTableOrder.clone();
                 Object input = moduleViewer.getInput();
                 if (input instanceof Object[]) {
                     if (useAlphbet) {
+                        modifyMetadataTable();
                         List<IMetadataColumn> listColumns = metadataTableOrder.getListColumns();
                         if (listColumns != null) {
                             moduleViewer.setInput(listColumns.toArray());
@@ -347,6 +493,7 @@ public class SalesforceStep2Form extends AbstractSalesforceStepForm {
         alphabet.setSelection(useAlphbet);
 
         checkFieldsValue();
+
     }
 
     @Override
@@ -356,8 +503,7 @@ public class SalesforceStep2Form extends AbstractSalesforceStepForm {
 
         if (super.isVisible()) {
             if (!isContextMode()) {
-                if ((!"".equals(getConnection().getWebServiceUrl())) && (getConnection().getModuleName() != null)) { //$NON-NLS-1$
-                    readAndSetModuleDetailContent();
+                if ((!"".equals(temConnection.getWebServiceUrl())) && (temConnection.getModuleName() != null)) { //$NON-NLS-1$
                     refreshPreview();
                 }
             }
@@ -375,7 +521,8 @@ public class SalesforceStep2Form extends AbstractSalesforceStepForm {
      * DOC YeXiaowei Comment method "refreshPreview".
      */
     private void refreshPreview() {
-        processor.execute();
+        initTreeNavigatorNodes();
+        // processor.execute();
     }
 
     /**
@@ -760,6 +907,33 @@ public class SalesforceStep2Form extends AbstractSalesforceStepForm {
     protected void processWhenDispose() {
         if (processor != null) {
             processor.forceStop();
+        }
+    }
+
+    private void initTreeNavigatorNodes() {
+        List<String> selectedNames = new ArrayList<String>();
+        EList<SalesforceModuleUnit> modules = temConnection.getModules();
+        // EList<SalesforceModuleUnit> modules = getConnection().getModules();
+        selectedNames.add(moduleName);
+        // for (int i = 0; i < modules.size(); i++) {
+        // if (modules.get(i).getModuleName().equals(moduleName)) {
+        //
+        // for (int j = 0; j < modules.get(i).getTables().size(); j++) {
+        // selectedNames.add(modules.get(i).getTables().get(j).getLabel());
+        // }
+        // break;
+        // }
+        // }
+        tableNavigator.removeAll();
+        if (selectedNames != null && selectedNames.size() >= 1) {
+            for (int i = 0; i < selectedNames.size(); i++) {
+                TableItem subItem = new TableItem(tableNavigator, SWT.NULL);
+                subItem.setText(selectedNames.get(i));
+                tableNavigator.setSelection(subItem);
+            }
+        } else {
+            TableItem subItem = new TableItem(tableNavigator, SWT.NULL);
+            subItem.setText(getConnection().getModuleName());
         }
     }
 }

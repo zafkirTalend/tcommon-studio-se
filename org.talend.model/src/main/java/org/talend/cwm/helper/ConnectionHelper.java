@@ -30,6 +30,8 @@ import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
+import org.talend.core.model.metadata.builder.connection.SalesforceModuleUnit;
+import org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.softwaredeployment.TdSoftwareSystem;
 import org.talend.cwm.xml.TdXmlElementType;
@@ -601,6 +603,16 @@ public class ConnectionHelper {
      */
     public static Set<MetadataTable> getTables(Connection connection) {
         HashSet<MetadataTable> result = new HashSet<MetadataTable>();
+        if (connection instanceof SalesforceSchemaConnection) {
+            SalesforceSchemaConnection salesforceConnection = (SalesforceSchemaConnection) connection;
+            List<SalesforceModuleUnit> units = salesforceConnection.getModules();
+            for (SalesforceModuleUnit unit : units) {
+                for (MetadataTable table : unit.getTables()) {
+                    result.add(table);
+                }
+            }
+            return result;
+        }
         EList<Package> packages = connection.getDataPackage();
         for (Package pack : packages) {
             PackageHelper.getAllTables(pack, result);
@@ -694,7 +706,6 @@ public class ConnectionHelper {
         CryptoHelper cryptoHelper = new CryptoHelper(ConnectionHelper.PASSPHRASE);
         return cryptoHelper.encrypt(password);
     }
-
 
     /**
      * DOC bZhou Comment method "setAuthor".

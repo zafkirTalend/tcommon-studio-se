@@ -541,4 +541,15 @@ public abstract class AbstractSalesforceStepForm extends AbstractForm {
     public void setContextModeManager(IMetadataContextModeManager contextModeManager) {
         this.contextModeManager = contextModeManager;
     }
+
+    /**
+     * DOC Administrator Comment method "getTableByLabel".
+     * 
+     * @param label
+     * @return
+     */
+    protected MetadataTable getTableByLabel(String label) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

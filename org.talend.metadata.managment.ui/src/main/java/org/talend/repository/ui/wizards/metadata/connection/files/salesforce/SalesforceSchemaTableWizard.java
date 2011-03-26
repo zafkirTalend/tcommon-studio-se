@@ -16,6 +16,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWizard;
@@ -29,6 +30,7 @@ import org.talend.core.model.update.RepositoryUpdateManager;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.metadata.managment.ui.i18n.Messages;
 import org.talend.repository.model.IProxyRepositoryFactory;
+import org.talend.repository.ui.swt.utils.AbstractForm;
 import org.talend.repository.ui.wizards.CheckLastVersionRepositoryWizard;
 import org.talend.repository.ui.wizards.metadata.table.files.FileTableWizardPage;
 
@@ -64,6 +66,10 @@ public class SalesforceSchemaTableWizard extends CheckLastVersionRepositoryWizar
         setNeedsProgressMonitor(true);
         isRepositoryObjectEditable();
         initLockStrategy();
+    }
+
+    public void createControl(Composite parent) {
+        addPages();
     }
 
     /**

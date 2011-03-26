@@ -381,6 +381,9 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     public final static ERepositoryObjectType TDQ_EXCHANGE = new ERepositoryObjectType(
             "repository.tdqExchange", "TDQ_Libraries/Exchange", "TDQ_EXCHANGE", 98, true, "repository.tdqExchange.alias", new String[] { "DQ" }); //$NON-NLS-1$ //$NON-NLS-2$
 
+    public final static ERepositoryObjectType METADATA_SALESFORCE_MODULE = new ERepositoryObjectType(
+            "repository.metadataSalesforceModule", "METADATA_SALESFORCE_MODULE", 99, true, true, new String[] { "DI" }, false); //$NON-NLS-1$ //$NON-NLS-2$
+
     private String alias;
 
     private String folder = ""; //$NON-NLS-N$

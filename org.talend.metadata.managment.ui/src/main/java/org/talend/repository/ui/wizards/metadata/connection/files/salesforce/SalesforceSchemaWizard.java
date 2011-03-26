@@ -67,10 +67,6 @@ public class SalesforceSchemaWizard extends CheckLastVersionRepositoryWizard imp
 
     private SalesforceWizardPage page1 = null;
 
-    private SalesforceWizardPage page2 = null;
-
-    private SalesforceWizardPage page3 = null;
-
     private SalesforceSchemaConnection connection = null;
 
     private Property connectionProperty = null;
@@ -300,59 +296,25 @@ public class SalesforceSchemaWizard extends CheckLastVersionRepositoryWizard imp
         salesforceSchemaWizardPage0.setTitle(Messages.getString("FileWizardPage.titleCreate") + " 1 " //$NON-NLS-1$ //$NON-NLS-2$
                 + Messages.getString("FileWizardPage.of") + ALL_STEPS); //$NON-NLS-1$ //$NON-NLS-2$
         salesforceSchemaWizardPage0.setDescription(Messages.getString("FileWizardPage.descriptionCreateStep0")); //$NON-NLS-1$
-
         addPage(salesforceSchemaWizardPage0);
-
         if (creation) {
             setWindowTitle(Messages.getString("SalesforceSchemaWizard.windowTitleCreate")); //$NON-NLS-1$
         } else {
             setWindowTitle(Messages.getString("SalesforceSchemaWizard.windowTitleUpdate")); //$NON-NLS-1$
         }
-
         page1 = new SalesforceWizardPage(1, connectionItem, isRepositoryObjectEditable(), existingNames, salesforceAPI,
                 contextModeManager);
-
         page1.setTitle(Messages.getString("FileWizardPage.titleCreate") + " 2 " //$NON-NLS-1$ //$NON-NLS-2$
                 + Messages.getString("FileWizardPage.of") + ALL_STEPS); //$NON-NLS-1$ //$NON-NLS-2$
         page1.setDescription(Messages.getString("FileWizardPage.descriptionCreateStep1")); //$NON-NLS-1$
-
         addPage(page1);
-
-        page2 = new SalesforceWizardPage(2, connectionItem, isRepositoryObjectEditable(), existingNames, salesforceAPI,
-                contextModeManager);
-
-        page2.setTitle(Messages.getString("FileWizardPage.titleCreate") + " 3 " //$NON-NLS-1$ //$NON-NLS-2$
-                + Messages.getString("FileWizardPage.of") + ALL_STEPS); //$NON-NLS-1$ //$NON-NLS-2$
-        page2.setDescription(Messages.getString("FileWizardPage.descriptionCreateStep2")); //$NON-NLS-1$
-
-        addPage(page2);
-
-        if (creation) {
-            page3 = new SalesforceWizardPage(3, connectionItem, isRepositoryObjectEditable(), existingNames, salesforceAPI,
-                    contextModeManager);
-
-            page3.setTitle(Messages.getString("FileWizardPage.titleCreate") + " 4 " //$NON-NLS-1$ //$NON-NLS-2$
-                    + Messages.getString("FileWizardPage.of") + ALL_STEPS); //$NON-NLS-1$ //$NON-NLS-2$
-            page3.setDescription(Messages.getString("FileWizardPage.descriptionCreateStep3")); //$NON-NLS-1$
-
-            addPage(page3);
-            page3.setPageComplete(false);
-        }
         page1.setPageComplete(false);
-        page2.setPageComplete(false);
     }
 
     @Override
     public boolean performFinish() {
-
         boolean formIsPerformed = false;
-
-        if (page3 == null) {
-            formIsPerformed = page1.isPageComplete();
-        } else {
-            formIsPerformed = page3.isPageComplete();
-        }
-
+        formIsPerformed = page1.isPageComplete();
         if (formIsPerformed) {
             IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
             try {

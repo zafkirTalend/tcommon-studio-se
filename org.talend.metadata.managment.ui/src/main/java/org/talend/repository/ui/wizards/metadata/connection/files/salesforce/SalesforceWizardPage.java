@@ -22,6 +22,7 @@ import org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnect
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.TableHelper;
+import org.talend.cwm.relational.RelationalFactory;
 import org.talend.repository.ui.swt.utils.AbstractForm;
 import org.talend.repository.ui.swt.utils.AbstractSalesforceStepForm;
 
@@ -44,6 +45,10 @@ public class SalesforceWizardPage extends WizardPage {
 
     private IMetadataContextModeManager contextModeManager;
 
+    private SalesforceSchemaConnection temConnection;
+
+    private String moduleName;
+
     /**
      * 
      * DOC YeXiaowei SalesforceWizardPage constructor comment.
@@ -64,6 +69,20 @@ public class SalesforceWizardPage extends WizardPage {
         this.contextModeManager = contextModeManager;
     }
 
+    public SalesforceWizardPage(int step, ConnectionItem connectionItem, SalesforceSchemaConnection temConnection,
+            boolean isRepositoryObjectEditable, String[] existingNames, SalesforceModuleParseAPI salesforceAPI,
+            IMetadataContextModeManager contextModeManager, String moduleName) {
+        super("wizardPage"); //$NON-NLS-1$
+        this.step = step;
+        this.temConnection = temConnection;
+        this.connectionItem = connectionItem;
+        this.existingNames = existingNames;
+        this.isRepositoryObjectEditable = isRepositoryObjectEditable;
+        this.salesforceAPI = salesforceAPI;
+        this.contextModeManager = contextModeManager;
+        this.moduleName = moduleName;
+    }
+
     /**
      * 
      * @see IDialogPage#createControl(Composite)
@@ -74,13 +93,13 @@ public class SalesforceWizardPage extends WizardPage {
         if (step == 1) {
             currentComposite = new SalesforceStep1Form(parent, connectionItem, existingNames, salesforceAPI, contextModeManager);
         } else if (step == 2) {
-            currentComposite = new SalesforceStep2Form(parent, connectionItem, salesforceAPI, contextModeManager);
+            currentComposite = new SalesforceStep2Form(parent, connectionItem, temConnection, salesforceAPI, contextModeManager,
+                    moduleName);
         } else if (step == 3) {
-            MetadataTable metadataTable = ConnectionHelper.getTables(connectionItem.getConnection())
-                    .toArray(new MetadataTable[0])[0];
-            currentComposite = new SalesforceStep3Form(parent, connectionItem, metadataTable, TableHelper.getTableNames(
-                    ((SalesforceSchemaConnection) connectionItem.getConnection()), metadataTable.getLabel()), salesforceAPI,
-                    contextModeManager);
+            MetadataTable metadataTable = RelationalFactory.eINSTANCE.createTdTable();
+            currentComposite = new SalesforceStep4Form(parent, connectionItem, temConnection, metadataTable,
+                    TableHelper.getTableNames(((SalesforceSchemaConnection) connectionItem.getConnection()),
+                            metadataTable.getLabel()), salesforceAPI, contextModeManager, moduleName);
         }
         currentComposite.setReadOnly(!isRepositoryObjectEditable);
 

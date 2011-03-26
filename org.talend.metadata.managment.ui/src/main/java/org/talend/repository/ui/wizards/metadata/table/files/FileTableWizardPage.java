@@ -103,6 +103,9 @@ public class FileTableWizardPage extends WizardPage {
                 }
             }
         }
+        if (this.connectionItem.getConnection() instanceof SalesforceSchemaConnection) {
+            connection = connectionItem.getConnection();
+        }
         theForm = (Composite) new ConnectionSwitch() {
 
             @Override

@@ -559,6 +559,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="useAlphbet" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="timeOut" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modules" upperBound="-1"
+        eType="#//SalesforceModuleUnit" containment="true" eOpposite="#//SalesforceModuleUnit/connection"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="List" instanceClassName="java.util.ArrayList"/>
   <eClassifiers xsi:type="ecore:EClass" name="CDCConnection">
@@ -768,6 +770,15 @@
   <eClassifiers xsi:type="ecore:EClass" name="EDIFACTColumn" eSuperTypes="#//MetadataColumn">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="EDIColumnName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="EDIXpath" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SalesforceModuleUnit" eSuperTypes="#//AbstractMetadataObject">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="MetadataTable" eType="#//MetadataTable"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="connection" eType="#//SalesforceSchemaConnection"
+        eOpposite="#//SalesforceSchemaConnection/modules"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="tables" upperBound="-1"
+        eType="#//MetadataTable" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="moduleName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eSubpackages name="cwm" nsURI="http://www.talend.org/cwm/2010" nsPrefix="cwm">
     <eSubpackages name="relational" nsURI="http://www.talend.org/cwm/resource/relational/2010"

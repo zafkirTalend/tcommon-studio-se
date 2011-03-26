@@ -70,6 +70,7 @@ import org.talend.core.model.metadata.builder.connection.SAPFunctionParameterTab
 import org.talend.core.model.metadata.builder.connection.SAPFunctionUnit;
 import org.talend.core.model.metadata.builder.connection.SAPIDocUnit;
 import org.talend.core.model.metadata.builder.connection.SAPTestInputParameterTable;
+import org.talend.core.model.metadata.builder.connection.SalesforceModuleUnit;
 import org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.SchemaTarget;
 import org.talend.core.model.metadata.builder.connection.SubscriberTable;
@@ -457,6 +458,13 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * 
      * @generated
      */
+    private EClass salesforceModuleUnitEClass = null;
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     */
     private EClass edifactColumnEClass = null;
 
     /**
@@ -822,8 +830,8 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EAttribute getMetadataColumn_RelatedEntity() {
@@ -831,8 +839,8 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EAttribute getMetadataColumn_RelationshipType() {
@@ -1650,8 +1658,8 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EAttribute getSAPConnection_JcoVersion() {
@@ -2950,6 +2958,15 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * 
      * @generated
      */
+    public EReference getSalesforceSchemaConnection_Modules() {
+        return (EReference) salesforceSchemaConnectionEClass.getEStructuralFeatures().get(15);
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     */
     public EClass getCDCConnection() {
         return cdcConnectionEClass;
     }
@@ -3851,6 +3868,51 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * 
      * @generated
      */
+    public EClass getSalesforceModuleUnit() {
+        return salesforceModuleUnitEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     */
+    public EReference getSalesforceModuleUnit_MetadataTable() {
+        return (EReference) salesforceModuleUnitEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     */
+    public EReference getSalesforceModuleUnit_Connection() {
+        return (EReference) salesforceModuleUnitEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     */
+    public EReference getSalesforceModuleUnit_Tables() {
+        return (EReference) salesforceModuleUnitEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     */
+    public EAttribute getSalesforceModuleUnit_ModuleName() {
+        return (EAttribute) salesforceModuleUnitEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     */
     public EClass getValidationRulesConnection() {
         return validationRulesConnectionEClass;
     }
@@ -4417,6 +4479,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEAttribute(salesforceSchemaConnectionEClass, SALESFORCE_SCHEMA_CONNECTION__USE_HTTP_PROXY);
         createEAttribute(salesforceSchemaConnectionEClass, SALESFORCE_SCHEMA_CONNECTION__USE_ALPHBET);
         createEAttribute(salesforceSchemaConnectionEClass, SALESFORCE_SCHEMA_CONNECTION__TIME_OUT);
+        createEReference(salesforceSchemaConnectionEClass, SALESFORCE_SCHEMA_CONNECTION__MODULES);
 
         cdcConnectionEClass = createEClass(CDC_CONNECTION);
         createEReference(cdcConnectionEClass, CDC_CONNECTION__CONNECTION);
@@ -4554,6 +4617,12 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEAttribute(edifactColumnEClass, EDIFACT_COLUMN__EDI_COLUMN_NAME);
         createEAttribute(edifactColumnEClass, EDIFACT_COLUMN__EDI_XPATH);
 
+        salesforceModuleUnitEClass = createEClass(SALESFORCE_MODULE_UNIT);
+        createEReference(salesforceModuleUnitEClass, SALESFORCE_MODULE_UNIT__METADATA_TABLE);
+        createEReference(salesforceModuleUnitEClass, SALESFORCE_MODULE_UNIT__CONNECTION);
+        createEReference(salesforceModuleUnitEClass, SALESFORCE_MODULE_UNIT__TABLES);
+        createEAttribute(salesforceModuleUnitEClass, SALESFORCE_MODULE_UNIT__MODULE_NAME);
+
         // Create enums
         fileFormatEEnum = createEEnum(FILE_FORMAT);
         fieldSeparatorEEnum = createEEnum(FIELD_SEPARATOR);
@@ -4661,6 +4730,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         validationRulesConnectionEClass.getESuperTypes().add(this.getConnection());
         edifactConnectionEClass.getESuperTypes().add(this.getConnection());
         edifactColumnEClass.getESuperTypes().add(this.getMetadataColumn());
+        salesforceModuleUnitEClass.getESuperTypes().add(this.getAbstractMetadataObject());
 
         // Initialize classes and features; add operations and parameters
         initEClass(metadataEClass, Metadata.class, "Metadata", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -5377,6 +5447,10 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEAttribute(getSalesforceSchemaConnection_TimeOut(), ecorePackage.getEString(), "timeOut", null, 0, 1,
                 SalesforceSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
                 !IS_DERIVED, IS_ORDERED);
+        initEReference(getSalesforceSchemaConnection_Modules(), this.getSalesforceModuleUnit(),
+                this.getSalesforceModuleUnit_Connection(), "modules", null, 0, -1, SalesforceSchemaConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
 
         initEClass(cdcConnectionEClass, CDCConnection.class, "CDCConnection", !IS_ABSTRACT, !IS_INTERFACE,
                 IS_GENERATED_INSTANCE_CLASS);
@@ -5670,6 +5744,22 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
                 IS_ORDERED);
         initEAttribute(getEDIFACTColumn_EDIXpath(), ecorePackage.getEString(), "EDIXpath", null, 0, 1, EDIFACTColumn.class,
                 !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(salesforceModuleUnitEClass, SalesforceModuleUnit.class, "SalesforceModuleUnit", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getSalesforceModuleUnit_MetadataTable(), this.getMetadataTable(), null, "MetadataTable", null, 0, 1,
+                SalesforceModuleUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getSalesforceModuleUnit_Connection(), this.getSalesforceSchemaConnection(),
+                this.getSalesforceSchemaConnection_Modules(), "connection", null, 0, 1, SalesforceModuleUnit.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEReference(getSalesforceModuleUnit_Tables(), this.getMetadataTable(), null, "tables", null, 0, -1,
+                SalesforceModuleUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSalesforceModuleUnit_ModuleName(), ecorePackage.getEString(), "moduleName", null, 0, 1,
+                SalesforceModuleUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
 
         // Initialize enums and add enum literals
         initEEnum(fileFormatEEnum, FileFormat.class, "FileFormat");

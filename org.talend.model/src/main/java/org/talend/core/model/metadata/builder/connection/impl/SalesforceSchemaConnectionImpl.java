@@ -5,13 +5,20 @@
  */
 package org.talend.core.model.metadata.builder.connection.impl;
 
+import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
+import org.talend.core.model.metadata.builder.connection.SalesforceModuleUnit;
 import org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection;
 
 /**
@@ -36,6 +43,7 @@ import org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnect
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SalesforceSchemaConnectionImpl#isUseHttpProxy <em>Use Http Proxy</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SalesforceSchemaConnectionImpl#isUseAlphbet <em>Use Alphbet</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SalesforceSchemaConnectionImpl#getTimeOut <em>Time Out</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SalesforceSchemaConnectionImpl#getModules <em>Modules</em>}</li>
  * </ul>
  * </p>
  *
@@ -342,6 +350,16 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
      * @ordered
      */
     protected String timeOut = TIME_OUT_EDEFAULT;
+
+    /**
+     * The cached value of the '{@link #getModules() <em>Modules</em>}' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getModules()
+     * @generated
+     * @ordered
+     */
+    protected EList<SalesforceModuleUnit> modules;
 
     /**
      * <!-- begin-user-doc -->
@@ -698,6 +716,48 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
      * <!-- end-user-doc -->
      * @generated
      */
+    public EList<SalesforceModuleUnit> getModules() {
+        if (modules == null) {
+            modules = new EObjectContainmentWithInverseEList.Resolving<SalesforceModuleUnit>(SalesforceModuleUnit.class, this,
+                    ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__MODULES, ConnectionPackage.SALESFORCE_MODULE_UNIT__CONNECTION);
+        }
+        return modules;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+        switch (featureID) {
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__MODULES:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getModules()).basicAdd(otherEnd, msgs);
+        }
+        return super.eInverseAdd(otherEnd, featureID, msgs);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+        switch (featureID) {
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__MODULES:
+            return ((InternalEList<?>) getModules()).basicRemove(otherEnd, msgs);
+        }
+        return super.eInverseRemove(otherEnd, featureID, msgs);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
@@ -731,6 +791,8 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
             return isUseAlphbet();
         case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__TIME_OUT:
             return getTimeOut();
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__MODULES:
+            return getModules();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -740,6 +802,7 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
      * <!-- end-user-doc -->
      * @generated
      */
+    @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
@@ -787,6 +850,10 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
             return;
         case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__TIME_OUT:
             setTimeOut((String) newValue);
+            return;
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__MODULES:
+            getModules().clear();
+            getModules().addAll((Collection<? extends SalesforceModuleUnit>) newValue);
             return;
         }
         super.eSet(featureID, newValue);
@@ -845,6 +912,9 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
         case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__TIME_OUT:
             setTimeOut(TIME_OUT_EDEFAULT);
             return;
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__MODULES:
+            getModules().clear();
+            return;
         }
         super.eUnset(featureID);
     }
@@ -887,6 +957,8 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
             return useAlphbet != USE_ALPHBET_EDEFAULT;
         case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__TIME_OUT:
             return TIME_OUT_EDEFAULT == null ? timeOut != null : !TIME_OUT_EDEFAULT.equals(timeOut);
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__MODULES:
+            return modules != null && !modules.isEmpty();
         }
         return super.eIsSet(featureID);
     }

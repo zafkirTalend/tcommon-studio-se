@@ -88,6 +88,8 @@ public class RepositoryImageProvider {
             return ECoreImage.METADATA_WSDL_SCHEMA_ICON;
         } else if (type == ERepositoryObjectType.METADATA_SALESFORCE_SCHEMA) {
             return ECoreImage.METADATA_SALESFORCE_SCHEMA_ICON;
+        } else if (type == ERepositoryObjectType.METADATA_SALESFORCE_MODULE) {
+            return ECoreImage.METADATA_SALESFORCE_SCHEMA_ICON;
         } else if (type == ERepositoryObjectType.METADATA_FILE_EBCDIC) {
             return ECoreImage.METADATA_EBCDIC_CONNECTION_ICON;
         } else if (type == ERepositoryObjectType.METADATA_FILE_HL7) {
