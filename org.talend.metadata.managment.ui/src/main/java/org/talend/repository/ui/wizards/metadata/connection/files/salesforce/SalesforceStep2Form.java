@@ -45,13 +45,11 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.talend.commons.ui.swt.formtools.Form;
-import org.talend.commons.ui.swt.formtools.LabelledCombo;
 import org.talend.commons.ui.swt.formtools.LabelledText;
 import org.talend.commons.ui.swt.formtools.UtilsButton;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorNotModifiable.LAYOUT_MODE;
 import org.talend.commons.ui.swt.thread.SWTUIThreadProcessor;
-import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataContextModeManager;
 import org.talend.core.model.metadata.IMetadataTable;
@@ -59,19 +57,13 @@ import org.talend.core.model.metadata.MetadataTable;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.SalesforceModuleUnit;
 import org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection;
-import org.talend.core.model.metadata.builder.connection.impl.MetadataImpl;
-import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase;
-import org.talend.core.model.metadata.builder.database.TableInfoParameters;
 import org.talend.core.model.metadata.types.JavaType;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.utils.CsvArray;
 import org.talend.core.utils.TalendQuoteUtils;
-import org.talend.cwm.helper.ConnectionHelper;
-import org.talend.cwm.helper.TableHelper;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.metadata.managment.ui.i18n.Messages;
-import org.talend.repository.model.ProjectNodeHelper;
 import org.talend.repository.preview.ProcessDescription;
 import org.talend.repository.preview.SalesforceSchemaBean;
 import org.talend.repository.ui.swt.preview.ShadowProcessPreview;
@@ -92,9 +84,9 @@ public class SalesforceStep2Form extends AbstractSalesforceStepForm {
 
     private Table tableNavigator;
 
-    private UtilsButton addTableButton;
-
-    private UtilsButton removeTableButton;
+    // private UtilsButton addTableButton;
+    //
+    // private UtilsButton removeTableButton;
 
     private static final int WIDTH_GRIDDATA_PIXEL = 750;
 
@@ -244,13 +236,6 @@ public class SalesforceStep2Form extends AbstractSalesforceStepForm {
 
         scrolledCompositeFileViewer.setContent(tableNavigator);
         scrolledCompositeFileViewer.setSize(width + 12, height);
-        // Button Add metadata Table
-        // Composite button = Form.startNewGridLayout(group, HEIGHT_BUTTON_PIXEL, false, SWT.CENTER, SWT.CENTER);
-        // addTableButton = new UtilsButton(button,
-        //                Messages.getString("DatabaseTableForm.AddTable"), width - 30, HEIGHT_BUTTON_PIXEL); //$NON-NLS-1$
-        //
-        // Composite rmButton = Form.startNewGridLayout(group, HEIGHT_BUTTON_PIXEL, false, SWT.CENTER, SWT.CENTER);
-        //        removeTableButton = new UtilsButton(rmButton, "Remove Schema", width - 30, HEIGHT_BUTTON_PIXEL); //$NON-NLS-1$
     }
 
     /**
@@ -323,22 +308,22 @@ public class SalesforceStep2Form extends AbstractSalesforceStepForm {
      * DOC YeXiaowei Comment method "readAndSetModuleDetailContent".
      */
     private void readAndSetModuleDetailContent() {
+        org.talend.core.model.metadata.builder.connection.MetadataTable table = getTableByLabel(moduleName);
+        if (table != null) {
+            IMetadataTable metadataTable = ConvertionHelper.convert(table);
 
-        metadataTableOrder = readMetadataDetail();
-        if (metadataTableOrder != null) {
-            metadataTableClone = metadataTableOrder.clone();
+            if (metadataTable != null) {
+                if (useAlphbet) {
+                    List<IMetadataColumn> listColumns = metadataTable.getListColumns();
+                    if (listColumns != null) {
+                        moduleViewer.setInput(listColumns.toArray());
+                    }
+                } else {
+                    List<IMetadataColumn> listColumns = metadataTable.getListColumns();
+                    if (listColumns != null) {
 
-            metadataTableOrder = modifyMetadataTable();
-            if (useAlphbet) {
-                List<IMetadataColumn> listColumns = metadataTableOrder.getListColumns();
-                if (listColumns != null) {
-                    moduleViewer.setInput(listColumns.toArray());
-                }
-            } else {
-                List<IMetadataColumn> listColumns = metadataTableClone.getListColumns();
-                if (listColumns != null) {
-
-                    moduleViewer.setInput(listColumns.toArray());
+                        moduleViewer.setInput(listColumns.toArray());
+                    }
                 }
             }
         }
@@ -352,7 +337,12 @@ public class SalesforceStep2Form extends AbstractSalesforceStepForm {
     @Override
     protected org.talend.core.model.metadata.builder.connection.MetadataTable getTableByLabel(String label) {
         org.talend.core.model.metadata.builder.connection.MetadataTable result = null;
-        EList<SalesforceModuleUnit> modules = temConnection.getModules();
+        EList<SalesforceModuleUnit> modules = null;
+        if (temConnection == null) {
+            modules = getConnection().getModules();
+        } else {
+            modules = temConnection.getModules();
+        }
         for (int i = 0; i < modules.size(); i++) {
             if (modules.get(i).getModuleName().equals(moduleName)) {
                 for (int j = 0; j < modules.get(i).getTables().size(); j++) {
@@ -380,9 +370,6 @@ public class SalesforceStep2Form extends AbstractSalesforceStepForm {
                 List<IMetadataColumn> listColumns = metadataTable.getListColumns();
                 if (listColumns != null) {
                     moduleViewer.setInput(listColumns.toArray());
-                    if (isReadOnly()) {
-                        addTableButton.setEnabled(false);
-                    }
                 }
             }
         });
@@ -639,7 +626,6 @@ public class SalesforceStep2Form extends AbstractSalesforceStepForm {
 
                 // new ErrorDialogWidthDetailArea(getShell(), PID,
                 // Messages.getString("FileStep2.previewFailure"), getException().getMessage()); //$NON-NLS-1$
-
                 previewInformationLabel.setText("   " + Messages.getString("FileStep2.previewFailure")); //$NON-NLS-1$ //$NON-NLS-2$
                 Display.getDefault().asyncExec(new Runnable() {
 
@@ -876,7 +862,6 @@ public class SalesforceStep2Form extends AbstractSalesforceStepForm {
             createTableColumn(title, width);
         }
 
-        // readAndSetModuleDetailContent();
     }
 
     private void createTableColumn(String title, int width) {
@@ -935,5 +920,6 @@ public class SalesforceStep2Form extends AbstractSalesforceStepForm {
             TableItem subItem = new TableItem(tableNavigator, SWT.NULL);
             subItem.setText(getConnection().getModuleName());
         }
+        readAndSetModuleDetailContent();
     }
 }

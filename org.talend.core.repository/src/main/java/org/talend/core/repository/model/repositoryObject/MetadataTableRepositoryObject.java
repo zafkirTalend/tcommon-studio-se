@@ -24,6 +24,7 @@ import org.talend.core.model.metadata.builder.connection.Concept;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.metadata.builder.connection.SAPFunctionUnit;
+import org.talend.core.model.metadata.builder.connection.SalesforceModuleUnit;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Property;
@@ -96,6 +97,11 @@ public class MetadataTableRepositoryObject extends MetadataTable implements ISub
         if (table.eContainer() instanceof SAPFunctionUnit) {
             SAPFunctionUnit funUnit = (SAPFunctionUnit) table.eContainer();
             funUnit.getTables().remove(table);
+            return;
+        }
+        if (table.eContainer() instanceof SalesforceModuleUnit) {
+            SalesforceModuleUnit moduleUnit = (SalesforceModuleUnit) table.eContainer();
+            moduleUnit.getTables().remove(table);
             return;
         }
         if (table.getNamespace() instanceof Package) {
