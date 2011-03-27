@@ -79,7 +79,12 @@ public class ApplicationWorkbenchAdvisor extends IDEWorkbenchAdvisor {
             if (brandingConfiguration != null) {
                 String perspectiveId = brandingConfiguration.getInitialWindowPerspectiveId();
                 if (perspectiveId != null) {
-                    return perspectiveId;
+                    //
+                    IPerspectiveDescriptor pd = PlatformUI.getWorkbench().getPerspectiveRegistry()
+                            .findPerspectiveWithId(perspectiveId);
+                    if (pd != null) {
+                        return perspectiveId;
+                    }
                 }
             }
         }
