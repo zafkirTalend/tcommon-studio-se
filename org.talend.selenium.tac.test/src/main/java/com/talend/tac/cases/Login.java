@@ -15,11 +15,7 @@ public class Login extends Base {
 
 		selenium.setSpeed(MID_SPEED);
 		
-//		waitForElementPresent("idLoginInput", 20);
-//		waitForElementPresent("idLoginPasswordInput", 20);
-		
 		selenium.windowMaximize();
-		selenium.setSpeed(MIN_SPEED);
 		selenium.type("idLoginInput", user);
 		selenium.type("idLoginPasswordInput", password);
 	
