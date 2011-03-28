@@ -45,95 +45,127 @@ public class TestAddcommonpro extends Login {
 
 	public void testaddcommon(String namecommon,String language,String type, String svnurl, String user,
 			String password) throws Exception {
-		  this.waitForElementPresent("!!!menu.project.element!!!", 30);
-		  selenium.setSpeed(MID_SPEED);
-		  selenium.click("!!!menu.project.element!!!");
-		  selenium.click("idSubModuleAddButton");
-		  selenium.click("idLabelInput");
-		  selenium.setSpeed(MIN_SPEED);
-		  selenium.type("idLabelInput", namecommon);
-		  selenium.fireEvent("idLabelInput", "blur");
-		  if ("Java".equals(language) || "".equals(language)) {
-			} else {
-				selenium.click("idLanguageInput");
-				selenium.mouseDownAt("//div[@role='listitem'][2]",""+KeyEvent.VK_ENTER);
-			}
-		  selenium.type("idDescriptionInput", "adf");
-		  selenium.fireEvent("idDescriptionInput", "blur");
-		  selenium.click("idAdvanceInput");
-		  selenium.type("idUrlInput", svnurl + "/" + namecommon + "/");// svn
-		  selenium.fireEvent("idUrlInput", "blur");
-		  selenium.type("idLoginInput", user);// svn account
-		  selenium.fireEvent("idLoginInput", "blur");
-		  selenium.type("idPasswordInput", password);// svn password
-		  selenium.fireEvent("idPasswordInput", "blur");
-		  selenium.click("idSvnCommitInput");
-		  selenium.mouseDownAt("//div[@role='listitem'][2]",""+KeyEvent.VK_ENTER);
-		  selenium.click("idSvnLockInput");
-		  selenium.mouseDownAt("//div[@role='listitem'][2]",""+KeyEvent.VK_ENTER);
-		  selenium.click("idSvnUserLogInput");
-		  selenium.setSpeed(MAX_SPEED);
-		  selenium.click("idDescriptionInput");
-//		  selenium.focus("idFormSaveButton");
-//		  selenium.keyDownNative(""+KeyEvent.VK_ENTER);
-//		  selenium.keyUpNative(""+KeyEvent.VK_ENTER);
-		  selenium.click("idFormSaveButton");
-		  Thread.sleep(5000);
-		  Assert.assertTrue(
-		    selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
-		      + namecommon + "')]"), "common project added failed");
-		  selenium.setSpeed(MIN_SPEED);
+		this.waitForElementPresent("!!!menu.project.element!!!", 30);
+		selenium.setSpeed(MID_SPEED);
+		selenium.click("!!!menu.project.element!!!");
+		selenium.click("idSubModuleAddButton");
+		Thread.sleep(5000);
+		selenium.setSpeed(MIN_SPEED);
+		//type project label
+		this.typeString("idLabelInput", namecommon);
+		// add the type select option selenium.setSpeed("2000");
+		if (selenium.isVisible("idProjectTypeComboBox")) {
+			selenium.click("idProjectTypeComboBox");
+			selenium.mouseDown("//div[text()='" + type + "']");
+			selenium.fireEvent("idProjectTypeComboBox", "blur");
+			
+		}
+		//select project language
+		if ("Java".equals(language) || "".equals(language)) {
+			selenium.click("idLanguageInput");
+			selenium.mouseDownAt("//div[@role='listitem'][1]", ""
+					+ KeyEvent.VK_ENTER);
+		} else {
+
+			selenium.click("idLanguageInput");
+			selenium.mouseDownAt("//div[@role='listitem'][2]", ""
+					+ KeyEvent.VK_ENTER);
+		}
+//		//type project description
+//		this.typeString(xpath, value)
+//		selenium.type("idDescriptionInput", "adf");
+//		selenium.fireEvent("idDescriptionInput", "blur");
+		//check advanced checkbox
+		selenium.click("idAdvanceInput");
+		//type project svn url
+		this.typeString("idUrlInput", svnurl + "/" + namecommon + "/");
+		//type svn username
+		this.typeString("idLoginInput", user);
+		//type svn password
+		this.typeString("idPasswordInput", password);
+		//select svn commit mode 
+		selenium.click("idSvnCommitInput");
+		selenium.mouseDownAt("//div[@role='listitem'][2]", ""
+				+ KeyEvent.VK_ENTER);
+		//select svn lock mode
+		selenium.click("idSvnLockInput");
+		selenium.mouseDownAt("//div[@role='listitem'][2]", ""
+				+ KeyEvent.VK_ENTER);
+		//check svn user log checkbox
+		selenium.click("idSvnUserLogInput");
+		selenium.setSpeed(MAX_SPEED);
+		this.typeString("idDescriptionInput", "description_" + namecommon);
+		// selenium.focus("idFormSaveButton");
+		// selenium.keyDownNative(""+KeyEvent.VK_ENTER);
+		// selenium.keyUpNative(""+KeyEvent.VK_ENTER);
+		selenium.click("idFormSaveButton");
+		Thread.sleep(5000);
+		Assert.assertTrue(
+				selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
+						+ namecommon + "')]"), "reference project added failed");
+		selenium.setSpeed(MIN_SPEED);
 		 }
 	
 
 	public void testaddreference(String namereference,String language,String type, String svnurl,
 			String user, String password) throws Exception {
 
-		  this.waitForElementPresent("!!!menu.project.element!!!", 30);
-			 
-			 
-		  selenium.setSpeed(MID_SPEED);
-		  selenium.click("!!!menu.project.element!!!");
-		  selenium.click("idSubModuleAddButton");
-		  selenium.click("idLabelInput");
-		  selenium.setSpeed(MIN_SPEED);
-		  selenium.type("idLabelInput", namereference);
-		  selenium.fireEvent("idLabelInput", "blur");
-		 
-		  if ("Java".equals(language) || "".equals(language)) {
+		selenium.click("idSubModuleAddButton");
+		Thread.sleep(5000);
+		selenium.setSpeed(MIN_SPEED);
+		//type project label
+		this.typeString("idLabelInput", namereference);
+		// add the type select option selenium.setSpeed("2000");
+		if (selenium.isVisible("idProjectTypeComboBox")) {
+			selenium.click("idProjectTypeComboBox");
+			selenium.mouseDown("//div[text()='" + type + "']");
+			selenium.fireEvent("idProjectTypeComboBox", "blur");
+		}
+		//select project language
+		if ("Java".equals(language) || "".equals(language)) {
+			selenium.click("idLanguageInput");
+			selenium.mouseDownAt("//div[@role='listitem'][1]", ""
+					+ KeyEvent.VK_ENTER);
+		} else {
 
-			} else {
-				
-				selenium.click("idLanguageInput");
-				selenium.mouseDownAt("//div[@role='listitem'][2]",""+KeyEvent.VK_ENTER);
-			}
-		  selenium.click("idReferenceInput");
-		  selenium.type("idDescriptionInput", "adf");
-		  selenium.fireEvent("idDescriptionInput", "blur");
-		
-		  selenium.click("idAdvanceInput");
-		  selenium.type("idUrlInput", svnurl + "/" + namereference + "/");// svn
-		  selenium.fireEvent("idUrlInput", "blur");
-		  selenium.type("idLoginInput", user);// svn account
-		  selenium.fireEvent("idLoginInput", "blur");
-		  selenium.type("idPasswordInput", password);// svn password
-		  selenium.fireEvent("idPasswordInput", "blur");
-		  selenium.click("idSvnCommitInput");
-		  selenium.mouseDownAt("//div[@role='listitem'][2]",""+KeyEvent.VK_ENTER);
-		  selenium.click("idSvnLockInput");
-		  selenium.mouseDownAt("//div[@role='listitem'][2]",""+KeyEvent.VK_ENTER);
-		  selenium.click("idSvnUserLogInput");
-		  selenium.setSpeed(MAX_SPEED);
-		  selenium.click("idDescriptionInput");
-//		  selenium.focus("idFormSaveButton");
-//		  selenium.keyDownNative(""+KeyEvent.VK_ENTER);
-//		  selenium.keyUpNative(""+KeyEvent.VK_ENTER);
-		  selenium.click("idFormSaveButton");
-		  Thread.sleep(5000);
-		  Assert.assertTrue(
-		    selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
-		      + namereference + "')]"), "reference project added failed");
-		  selenium.setSpeed(MIN_SPEED);
+			selenium.click("idLanguageInput");
+			selenium.mouseDownAt("//div[@role='listitem'][2]", ""
+					+ KeyEvent.VK_ENTER);
+		}
+		//check reference checkbox
+		selenium.click("idReferenceInput");
+		//check advanced checkbox
+		selenium.click("idAdvanceInput");
+		//type project svn url
+		this.typeString("idUrlInput", svnurl + "/" + namereference + "/");
+		//type svn username
+		this.typeString("idLoginInput",  user);
+		//type svn password
+		this.typeString("idPasswordInput", password);
+		//select svn commit mode 
+		selenium.click("idSvnCommitInput");
+		selenium.mouseDownAt("//div[@role='listitem'][2]", ""
+				+ KeyEvent.VK_ENTER);
+		//select svn lock mode
+		selenium.click("idSvnLockInput");
+		selenium.mouseDownAt("//div[@role='listitem'][2]", ""
+				+ KeyEvent.VK_ENTER);
+		//check svn user log checkbox
+		selenium.click("idSvnUserLogInput");
+
+		selenium.setSpeed(MAX_SPEED);
+		//type project descroption
+		this.typeString("idDescriptionInput", "description_" + namereference);
+		// selenium.focus("idFormSaveButton");
+		// selenium.keyDownNative(""+KeyEvent.VK_ENTER);
+		// selenium.keyUpNative(""+KeyEvent.VK_ENTER);
+		selenium.click("idFormSaveButton");
+		Thread.sleep(5000);
+		Assert.assertTrue(
+				selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
+						+ namereference + "')]"),
+				"reference project added failed");
+		selenium.setSpeed(MIN_SPEED);
 
 	}
 	public void testaddreferencepro(Selenium selenium,String namereference,String language,String type, String svnurl,
