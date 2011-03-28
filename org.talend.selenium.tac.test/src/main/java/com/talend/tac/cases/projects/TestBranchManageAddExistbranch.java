@@ -13,7 +13,7 @@ public class TestBranchManageAddExistbranch extends Login {
 		// first add a branch to a project
 		selenium.setSpeed(MAX_SPEED);
 		selenium.click("!!!menu.project.element!!!");//
-//		System.out.println(selenium.getBodyText());
+		// System.out.println(selenium.getBodyText());
 		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
 				+ project + "')]");// the selected project's id
 		selenium.click("idBranchManagementButton");
@@ -35,14 +35,16 @@ public class TestBranchManageAddExistbranch extends Login {
 					+ other.getString("project.branchmanage.add.conform.ok")
 					+ "']");
 			selenium.setSpeed(MAX_SPEED);
-
-			if (selenium
-					.isElementPresent("//div[@class='ext-mb-icon  ext-mb-warning']")) {
-
-				selenium.click("//button[text()='"
-						+ other.getString("project.branchmanage.add.conform.ok.warning")
-						+ "']");
-			}
+			Assert.assertTrue(selenium
+					.isTextPresent("Failed to create branch: Project already contains a branch 'branches/branch' -- For more information see your log file"));
+			// if (selenium
+			// .isElementPresent("//div[@class='ext-mb-icon  ext-mb-warning']"))
+			// {
+			//
+			// selenium.click("//button[text()='"
+			// + other.getString("project.branchmanage.add.conform.ok.warning")
+			// + "']");
+			// }
 		}
 		// delete the exist branch
 		selenium.setSpeed(MAX_SPEED);
@@ -61,7 +63,7 @@ public class TestBranchManageAddExistbranch extends Login {
 																					// branch
 																					// window
 		selenium.setSpeed(MIN_SPEED);
-		//check the new close button
+		// check the new close button
 		selenium.refresh();
 		closeButton(project, branchname);
 
@@ -72,13 +74,11 @@ public class TestBranchManageAddExistbranch extends Login {
 		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
 				+ project + "')]");// the selected project's id
 		selenium.click("idBranchManagementButton");
-		
-		
-		
+
 		selenium.click("idBranchManagementSourceInput");
 		selenium.mouseDown("//div[text()='trunk']");
 		selenium.fireEvent("idBranchManagementSourceInput", "blur");
-		
+
 		selenium.click("idBranchManagementTargetInput");
 		selenium.type("idBranchManagementTargetInput", branchname);
 		selenium.fireEvent("idBranchManagementTargetInput", "blur");
