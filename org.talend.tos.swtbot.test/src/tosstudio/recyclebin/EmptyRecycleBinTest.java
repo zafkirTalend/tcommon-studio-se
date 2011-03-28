@@ -29,7 +29,7 @@ import org.talend.swtbot.Utilities;
  * DOC Administrator class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class DeleteItemsFromRecycleBinTest extends TalendSwtBotForTos {
+public class EmptyRecycleBinTest extends TalendSwtBotForTos {
 
     private SWTBotView view;
 
@@ -52,11 +52,9 @@ public class DeleteItemsFromRecycleBinTest extends TalendSwtBotForTos {
     }
 
     @Test
-    public void deleteItemsFromRecycleBin() {
+    public void emptyRecycleBin() {
+        Utilities.emptyRecycleBin(gefBot, tree);
         recycleBinNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.RECYCLE_BIN);
-        recycleBinNode.getNode(JOBNAME + " 0.1 ()").contextMenu("Delete forever").click();
-        gefBot.shell("Delete forever").activate();
-        gefBot.button("Yes").click();
         gefBot.waitUntil(new DefaultCondition() {
 
             public boolean test() throws Exception {
@@ -65,7 +63,7 @@ public class DeleteItemsFromRecycleBinTest extends TalendSwtBotForTos {
 
             public String getFailureMessage() {
                 Utilities.emptyRecycleBin(gefBot, tree);
-                return "items did not delete forever";
+                return "recycle bin did not empty";
             }
         });
     }
