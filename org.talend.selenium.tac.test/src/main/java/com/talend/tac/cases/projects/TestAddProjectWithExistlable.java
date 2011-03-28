@@ -9,7 +9,8 @@ import org.testng.annotations.Test;
 import com.talend.tac.cases.Login;
 
 public class TestAddProjectWithExistlable extends Login{
-  @Test(groups = { "AddBranch" }, dependsOnGroups = { "Add" })
+  @Test(dependsOnGroups = { "Add" })
+   //@Test(groups = { "AddBranch" }, dependsOnGroups = { "Add" })
   @Parameters({ "SVNurl", "SVNuserName", "SVNuserPassword",
 		"AddcommonProjectname","Prolanguage","ProjectType"})
 public void testAddpro(String url, String user, String password,
@@ -26,10 +27,15 @@ public void testAddpro(String url, String user, String password,
 	  selenium.setSpeed(MID_SPEED);
 	  selenium.click("!!!menu.project.element!!!");
 	  selenium.click("idSubModuleAddButton");
-	  selenium.click("idLabelInput");
+	  Thread.sleep(5000);
 	  selenium.setSpeed(MIN_SPEED);
-	  selenium.type("idLabelInput", namecommon);
-	  selenium.fireEvent("idLabelInput", "blur");
+	  this.typeString("idLabelInput", namecommon);
+	// add the type select option selenium.setSpeed("2000");
+		if (selenium.isVisible("idProjectTypeComboBox")) {
+			selenium.click("idProjectTypeComboBox");
+			selenium.mouseDown("//div[text()='" + type + "']");
+			selenium.fireEvent("idProjectTypeComboBox", "blur");
+		}
 //	  if ("Java".equals(language) || "".equals(language)) {
 //		} else {
 //			selenium.click("idLanguageInput");
@@ -39,29 +45,25 @@ public void testAddpro(String url, String user, String password,
 		  selenium.click("idLanguageInput");
 		  selenium.mouseDownAt("//div[@role='listitem'][2]",""+KeyEvent.VK_ENTER);
 	  }
-	  selenium.type("idDescriptionInput", "adf");
-	  selenium.fireEvent("idDescriptionInput", "blur");
 	  selenium.click("idAdvanceInput");
-	  selenium.type("idUrlInput", svnurl + "/" + namecommon + "/");// svn
-	  selenium.fireEvent("idUrlInput", "blur");
-	  selenium.type("idLoginInput", user);// svn account
-	  selenium.fireEvent("idLoginInput", "blur");
-	  selenium.type("idPasswordInput", password);// svn password
-	  selenium.fireEvent("idPasswordInput", "blur");
+	  this.typeString("idUrlInput", svnurl + "/" + namecommon + "/");// svn
+	  this.typeString("idLoginInput", user);// svn account
+	  this.typeString("idPasswordInput", password);// svn password
 	  selenium.click("idSvnCommitInput");
 	  selenium.mouseDownAt("//div[@role='listitem'][2]",""+KeyEvent.VK_ENTER);
 	  selenium.click("idSvnLockInput");
 	  selenium.mouseDownAt("//div[@role='listitem'][2]",""+KeyEvent.VK_ENTER);
 	  selenium.click("idSvnUserLogInput");
 	  selenium.setSpeed(MAX_SPEED);
-	  selenium.click("idDescriptionInput");
+	  this.typeString("idDescriptionInput", "adf");
 //	  selenium.focus("idFormSaveButton");
 //	  selenium.keyDownNative(""+KeyEvent.VK_ENTER);
 //	  selenium.keyUpNative(""+KeyEvent.VK_ENTER);
 	  selenium.click("idFormSaveButton");
-		Assert.assertTrue(
+	 
+	  Assert.assertTrue(
 				selenium.isTextPresent("Save failed: A project with this name already exists"));
-		selenium.click("//button[text()='Ok']");
+		
 	selenium.setSpeed(MIN_SPEED);
 	}
 }
