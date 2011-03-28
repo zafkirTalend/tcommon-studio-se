@@ -37,6 +37,7 @@ import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
+import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.Property;
@@ -275,7 +276,8 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
             ITDQRepositoryService tdqRepService = null;
 
             if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
-                tdqRepService = (ITDQRepositoryService) GlobalServiceRegister.getDefault().getService(ITDQRepositoryService.class);
+                tdqRepService = (ITDQRepositoryService) GlobalServiceRegister.getDefault()
+                        .getService(ITDQRepositoryService.class);
             }
 
             try {
@@ -303,9 +305,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
 
                     factory.create(connectionItem, propertiesWizardPage.getDestinationPath());
 
-                    if (tdqRepService != null) {
-                        tdqRepService.fillMetadata(connectionItem);
-                    }
+                    MetadataConnectionUtils.fillConnectionInformation(connectionItem);
                 } else {
                     if (connectionItem.getConnection() instanceof DatabaseConnection) {
                         DatabaseConnection c = (DatabaseConnection) connectionItem.getConnection();
