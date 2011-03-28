@@ -192,7 +192,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         }
         ResultSet schemas = null;
         try {
-            if (EDatabaseTypeName.ACCESS.getProduct().equals(((DatabaseConnection) dbConn).getProductId())) {
+            if (dbConn != null && EDatabaseTypeName.ACCESS.getProduct().equals(((DatabaseConnection) dbConn).getProductId())) {
                 return null;
             }
             schemas = dbJDBCMetadata.getSchemas();
