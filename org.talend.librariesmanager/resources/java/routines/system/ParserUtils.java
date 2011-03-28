@@ -131,6 +131,18 @@ public class ParserUtils {
         return new BigDecimal(s);
     }
 
+    public static routines.system.Document parseTo_Document(String s) throws org.dom4j.DocumentException {
+        if (s == null) {
+            return null;
+        }
+        routines.system.Document theDoc = new routines.system.Document();
+        org.dom4j.io.SAXReader reader = new org.dom4j.io.SAXReader();
+		org.dom4j.Document document = reader.read(new java.io.StringReader(s));
+
+        theDoc.setDocument(document);
+        return theDoc;
+    }
+
     public synchronized static java.util.Date parseTo_Date(String s, String pattern) {
         // check the parameter for supporting " ","2007-09-13"," 2007-09-13 "
         if (s != null) {
