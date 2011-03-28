@@ -266,8 +266,11 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
              */
 
             // MOD by gdbu 2011-3-24 bug 19528
-            String driverClass = ExtractMetaDataUtils.getDriverClassByDbType(connection.getDatabaseType());
-            ((DatabaseConnection) connectionItem.getConnection()).setDriverClass(driverClass);
+            EDatabaseTypeName dbType = EDatabaseTypeName.getTypeFromDbType(connection.getDatabaseType());
+            if (dbType != EDatabaseTypeName.GENERAL_JDBC) {
+                String driverClass = ExtractMetaDataUtils.getDriverClassByDbType(connection.getDatabaseType());
+                ((DatabaseConnection) connectionItem.getConnection()).setDriverClass(driverClass);
+            }
             // ~19528
 
             IMetadataConnection metadataConnection = ConvertionHelper.convert(connection);

@@ -502,7 +502,7 @@ public class DatabaseForm extends AbstractForm {
         browseJarFilesButton.setToolTipText(Messages.getString("DatabaseForm.selectJar")); //$NON-NLS-1$
 
         generalJdbcClassNameText = new LabelledCombo(generalDbCompositeParent,
-                Messages.getString("DatabaseForm.general.classname"), "", null, true); //$NON-NLS-1$
+                Messages.getString("DatabaseForm.general.classname"), "", null, 1, true, SWT.NONE); //$NON-NLS-1$
 
         browseClassButton = new Button(generalDbCompositeParent, SWT.NONE);
         browseClassButton.setText("..."); //$NON-NLS-1$
