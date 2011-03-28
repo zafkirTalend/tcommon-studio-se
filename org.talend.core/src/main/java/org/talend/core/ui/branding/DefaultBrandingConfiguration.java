@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.eclipse.gef.palette.PaletteContainer;
 import org.eclipse.gef.palette.PaletteEntry;
 import org.eclipse.jface.action.ICoolBarManager;
@@ -38,6 +39,8 @@ import org.talend.repository.model.IRepositoryNode;
  * brandingConfigure should subclass of this one.
  */
 public class DefaultBrandingConfiguration implements IBrandingConfiguration {
+
+    private static Logger log = Logger.getLogger(DefaultBrandingConfiguration.class);
 
     protected IActionBarHelper helper;
 
@@ -121,55 +124,58 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
      * @see org.talend.core.ui.branding.IBrandingConfiguration#initPerspective(org.eclipse.ui.IPageLayout)
      */
     public void initPerspective(IPageLayout layout) {
-        String componentSettingViewerId = "org.talend.designer.core.ui.views.properties.ComponentSettingsView";//$NON-NLS-1$
-        //        String navigatorId = "org.eclipse.ui.views.ResourceNavigator"; //$NON-NLS-1$
-        String outlineId = "org.eclipse.ui.views.ContentOutline"; //$NON-NLS-1$
-        String codeId = "org.talend.designer.core.codeView"; //$NON-NLS-1$
-        String repositoryId = "org.talend.repository.views.repository"; //$NON-NLS-1$
+        try {
+            String componentSettingViewerId = "org.talend.designer.core.ui.views.properties.ComponentSettingsView";//$NON-NLS-1$
+            //        String navigatorId = "org.eclipse.ui.views.ResourceNavigator"; //$NON-NLS-1$
+            String outlineId = "org.eclipse.ui.views.ContentOutline"; //$NON-NLS-1$
+            String codeId = "org.talend.designer.core.codeView"; //$NON-NLS-1$
+            String repositoryId = "org.talend.repository.views.repository"; //$NON-NLS-1$
 
-        String runProcessViewId = "org.talend.designer.runprocess.ui.views.processview"; //$NON-NLS-1$
-        //        String problemsViewId = "org.talend.designer.core.ui.views.ProblemsView"; //$NON-NLS-1$
-        String modulesViewId = "org.talend.designer.codegen.perlmodule.ModulesView"; //$NON-NLS-1$
-        String ecosystemViewId = "org.talend.designer.components.ecosystem.ui.views.EcosystemView"; //$NON-NLS-1$
-        //        String schedulerViewId = "org.talend.scheduler.views.Scheduler"; //$NON-NLS-1$
-        String contextsViewId = "org.talend.designer.core.ui.views.ContextsView"; //$NON-NLS-1$
-        String gefPaletteViewId = "org.eclipse.gef.ui.palette_view"; //$NON-NLS-1$
-        String jobSettingsViewId = "org.talend.designer.core.ui.views.jobsettings.JobSettingsView"; //$NON-NLS-1$
-        //        String jobHierarchyViewId = "org.talend.designer.core.ui.hierarchy.JobHierarchyViewPart"; //$NON-NLS-1$
+            String runProcessViewId = "org.talend.designer.runprocess.ui.views.processview"; //$NON-NLS-1$
+            //        String problemsViewId = "org.talend.designer.core.ui.views.ProblemsView"; //$NON-NLS-1$
+            String modulesViewId = "org.talend.designer.codegen.perlmodule.ModulesView"; //$NON-NLS-1$
+            String ecosystemViewId = "org.talend.designer.components.ecosystem.ui.views.EcosystemView"; //$NON-NLS-1$
+            //        String schedulerViewId = "org.talend.scheduler.views.Scheduler"; //$NON-NLS-1$
+            String contextsViewId = "org.talend.designer.core.ui.views.ContextsView"; //$NON-NLS-1$
+            String gefPaletteViewId = "org.eclipse.gef.ui.palette_view"; //$NON-NLS-1$
+            String jobSettingsViewId = "org.talend.designer.core.ui.views.jobsettings.JobSettingsView"; //$NON-NLS-1$
+            //        String jobHierarchyViewId = "org.talend.designer.core.ui.hierarchy.JobHierarchyViewPart"; //$NON-NLS-1$
 
-        // leftTopLayout
-        IFolderLayout leftTopLayout = layout.createFolder("navigatorLayout", IPageLayout.LEFT, new Float(0.3), //$NON-NLS-1$
-                IPageLayout.ID_EDITOR_AREA);
-        leftTopLayout.addView(repositoryId);
-        // leftTopLayout.addView(navigatorId);
+            // leftTopLayout
+            IFolderLayout leftTopLayout = layout.createFolder("navigatorLayout", IPageLayout.LEFT, new Float(0.3), //$NON-NLS-1$
+                    IPageLayout.ID_EDITOR_AREA);
+            leftTopLayout.addView(repositoryId);
+            // leftTopLayout.addView(navigatorId);
 
-        // leftBottomLayout
-        IFolderLayout leftBottomLayout = layout.createFolder("outlineCodeLayout", IPageLayout.BOTTOM, new Float(0.6), //$NON-NLS-1$
-                repositoryId);
-        leftBottomLayout.addView(outlineId);
-        leftBottomLayout.addView(codeId);
-        // leftBottomLayout.addView(jobHierarchyViewId);
+            // leftBottomLayout
+            IFolderLayout leftBottomLayout = layout.createFolder("outlineCodeLayout", IPageLayout.BOTTOM, new Float(0.6), //$NON-NLS-1$
+                    repositoryId);
+            leftBottomLayout.addView(outlineId);
+            leftBottomLayout.addView(codeId);
+            // leftBottomLayout.addView(jobHierarchyViewId);
 
-        IFolderLayout rightTopLayout = layout.createFolder("paletteLayout", IPageLayout.RIGHT, new Float(0.8), //$NON-NLS-1$
-                IPageLayout.ID_EDITOR_AREA);
-        rightTopLayout.addView(gefPaletteViewId);
+            IFolderLayout rightTopLayout = layout.createFolder("paletteLayout", IPageLayout.RIGHT, new Float(0.8), //$NON-NLS-1$
+                    IPageLayout.ID_EDITOR_AREA);
+            rightTopLayout.addView(gefPaletteViewId);
 
-        // bottomLayout
-        IFolderLayout bottomLayout = layout.createFolder("bottomLayout", IPageLayout.BOTTOM, new Float(0.6), //$NON-NLS-1$
-                IPageLayout.ID_EDITOR_AREA);
-        // bottomLayout.addView(propertyId);
-        bottomLayout.addView(jobSettingsViewId);
-        bottomLayout.addView(contextsViewId);
-        bottomLayout.addView(componentSettingViewerId);
+            // bottomLayout
+            IFolderLayout bottomLayout = layout.createFolder("bottomLayout", IPageLayout.BOTTOM, new Float(0.6), //$NON-NLS-1$
+                    IPageLayout.ID_EDITOR_AREA);
+            // bottomLayout.addView(propertyId);
+            bottomLayout.addView(jobSettingsViewId);
+            bottomLayout.addView(contextsViewId);
+            bottomLayout.addView(componentSettingViewerId);
 
-        bottomLayout.addView(runProcessViewId);
-        // bottomLayout.addView(problemsViewId);
-        // bottomLayout.addView(modulesViewId);
-        bottomLayout.addView(ecosystemViewId);
-        // bottomLayout.addView(schedulerViewId);
+            bottomLayout.addView(runProcessViewId);
+            // bottomLayout.addView(problemsViewId);
+            // bottomLayout.addView(modulesViewId);
+            bottomLayout.addView(ecosystemViewId);
+            // bottomLayout.addView(schedulerViewId);
 
-        bottomLayout.addPlaceholder("*");
-
+            bottomLayout.addPlaceholder("*");
+        } catch (Exception e) {
+            log.warn(e, e);
+        }
     }
 
     /*
