@@ -41,8 +41,7 @@ public class CreateMysqlTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() {
-        view = gefBot.viewByTitle("Repository");
-        view.setFocus();
+        view = Utilities.getRepositoryView(gefBot);
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
         treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.DB_CONNECTIONS);
     }

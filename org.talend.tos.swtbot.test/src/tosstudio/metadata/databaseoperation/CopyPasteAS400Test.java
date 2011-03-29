@@ -41,8 +41,7 @@ public class CopyPasteAS400Test extends TalendSwtBotForTos {
 
     @Before
     public void createAS400() {
-        view = gefBot.viewByTitle("Repository");
-        view.setFocus();
+        view = Utilities.getRepositoryView(gefBot);
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
         treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.DB_CONNECTIONS);
         Utilities.createDbConnection(gefBot, treeNode, Utilities.DbConnectionType.AS400, DBNAME);

@@ -26,38 +26,36 @@ import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
 
 /**
- * DOC Administrator class global comment. Detailled comment
+ * DOC fzhong class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class DuplicateAS400Test extends TalendSwtBotForTos {
-
-    private SWTBotTree tree;
+public class CopyPasteMssqlTest extends TalendSwtBotForTos {
 
     private SWTBotView view;
 
+    private SWTBotTree tree;
+
     private SWTBotTreeItem treeNode;
 
-    private static final String DBNAME = "test_as400"; //$NON-NLS-1$
-
-    private static final String NEW_DBNAME = "duplicate_as400"; //$NON-NLS-1$
+    private static final String DBNAME = "test_mssql"; //$NON-NLS-1$
 
     @Before
-    public void createAS400() {
+    public void createMssql() {
         view = Utilities.getRepositoryView(gefBot);
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
         treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.DB_CONNECTIONS);
-        Utilities.createDbConnection(gefBot, treeNode, Utilities.DbConnectionType.AS400, DBNAME);
+        Utilities.createDbConnection(gefBot, treeNode, Utilities.DbConnectionType.MSSQL, DBNAME);
     }
 
     @Test
-    public void duplicateAS400() {
-        Utilities.duplicate(gefBot, treeNode, DBNAME, "0.1", NEW_DBNAME);
+    public void copyPasteMssql() {
+        Utilities.copyAndPaste(treeNode, DBNAME, "0.1");
     }
 
     @After
     public void removePreviouslyCreateItems() {
         Utilities.delete(tree, treeNode, DBNAME, "0.1", null);
-        Utilities.delete(tree, treeNode, NEW_DBNAME, "0.1", null);
+        Utilities.delete(tree, treeNode, "Copy_of_" + DBNAME, "0.1", null);
         Utilities.emptyRecycleBin(gefBot, tree);
     }
 }
