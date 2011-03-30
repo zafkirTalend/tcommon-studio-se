@@ -5,7 +5,7 @@ import static org.testng.Assert.*;
 import com.talend.tac.cases.Login;
 
 public class TestAddInvalidLicense extends Login {
-	@Test
+	@Test(enabled=false,description="this case is out of date since 4.2")
 	public void testAddInvalidLicense() {
 
 		waitForElementPresent("idMenuLicenseElement", 30);

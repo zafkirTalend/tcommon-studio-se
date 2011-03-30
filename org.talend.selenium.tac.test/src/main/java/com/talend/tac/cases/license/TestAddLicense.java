@@ -6,7 +6,7 @@ import static org.testng.Assert.*;
 import com.talend.tac.cases.Login;
 
 public class TestAddLicense extends Login {
-	@Test
+	@Test(enabled=false,description="this case is out of date since 4.2")
 	@Parameters( { "license" })
 	public void testAddLicense(String license) {
 

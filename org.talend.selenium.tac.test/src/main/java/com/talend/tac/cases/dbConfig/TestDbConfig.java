@@ -10,7 +10,7 @@ public class TestDbConfig extends DbConfig {
 
 	@Test(groups = { "initDB" })
 	@Parameters( { "db.url", "db.userName", "db.userPassWd", "db.driver",
-			"license" })
+			"license.file.path" })
 	public void testDbConfig(String url, String userName, String userPassWd,
 			String driver, String license) {
 
@@ -47,12 +47,13 @@ public class TestDbConfig extends DbConfig {
 		}
 
 		if (selenium.isTextPresent("No license set")) {
-			selenium.type(
-					"//label[text()='License:']/following-sibling::div//input",
-					license);
-			selenium.click("//button[text()='Ok']");
+//			selenium.type("//label[text()='License:']/following-sibling::div//input",license);
+//			selenium.click("//button[text()='Ok']");
+			//locate to the File input field,and type the direct-path of license-file.
+			selenium.type("//button[contains(text(),'Browse')]/ancestor::table[1]/preceding-sibling::input[1]", license);
+			selenium.click("//button[text()='Upload']");
 			if (selenium.isTextPresent("New license set"))
-				selenium.click("//button[text()='Ok']");
+				clickWaitForElementPresent("//button[text()='Ok']");
 		}
 		waitForElementPresent("idLoginInput", WAIT_TIME);
 	}
