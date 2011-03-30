@@ -595,7 +595,7 @@ public class RelationshipItemBuilder {
 
                             if (param.getName().startsWith("QUERYSTORE:")) { //$NON-NLS-1$ 
                                 relationType = QUERY_RELATION;
-                            } else if (param.getName().startsWith("SCHEMA:")) { //$NON-NLS-1$ 
+                            } else if (param.getName().startsWith("SCHEMA:") || param.getName().startsWith("SCHEMA_OTHER:")) { //$NON-NLS-1$ 
                                 relationType = SCHEMA_RELATION;
                             } else if (param.getName().startsWith("PROPERTY:")) { //$NON-NLS-1$ 
                                 relationType = PROPERTY_RELATION;
