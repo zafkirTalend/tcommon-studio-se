@@ -30,7 +30,14 @@
          <class name="com.talend.tac.cases.executePlan.AddPlan"/> 
          <class name="com.talend.tac.cases.executePlan.ModifyPlan"/>
          <class name="com.talend.tac.cases.executePlan.DeletePlan"/>
-                               
+         
+    
+         <!--  missing id(label,description)   
+               save failed
+               this is execute failed      
+         <class name="com.talend.tac.cases.executePlan.TestAddTriggerAddSimpleTrigger"/>
+         -->  
+                
       </classes> 
 	</test>
 	
