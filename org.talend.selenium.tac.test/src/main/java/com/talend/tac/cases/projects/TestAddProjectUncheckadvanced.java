@@ -16,7 +16,7 @@ public class TestAddProjectUncheckadvanced extends Login {
 	public void testAddPerlproject(String type, String language)
 			throws InterruptedException {
 		this.waitForElementPresent("!!!menu.project.element!!!", 30);
-		String namecommon = "JavaDefaultPro";
+		String namecommon = "DefaultProUncheck";
 		selenium.setSpeed(MID_SPEED);
 		selenium.click("!!!menu.project.element!!!");
 		selenium.click("idSubModuleAddButton");
