@@ -54,20 +54,20 @@ public class AddPlan extends Login {
 	
 	//add a plan 
 	@Test(dependsOnMethods={"clearplan"})
-	@Parameters({"label","description"})
+	@Parameters({"plan.label","plan.description"})
 	public void testAddPlan(String label,String description) {
 		
 		addPlan(label, description);
 	    
 	    selenium.click("//button[@class='x-btn-text ' and @id='idFormSaveButton']");
 	    selenium.setSpeed(MID_SPEED);
-	    Assert.assertTrue(selenium.isElementPresent("//div[text()='testAddPlan']"));
+	    Assert.assertTrue(selenium.isElementPresent("//div[text()='"+label+"']"));
 	    selenium.setSpeed(MIN_SPEED);
 	}   
 	
 	//add a exist plan 
 	@Test(dependsOnMethods={"testAddPlan"})
-	@Parameters({"label","description"})
+	@Parameters({"plan.label","plan.description"})
 	public void testAddExistPlan(String label,String description) {
 		
 	    addPlan(label, description);
