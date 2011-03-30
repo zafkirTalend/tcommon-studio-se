@@ -360,7 +360,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     // System.out.println("aa");
                     // executeGetSchemas(dbJDBCMetadata);
                     // }
-                    catalogName = schemaRs.getString(MetaDataConstants.TABLE_CATALOG.name());
+                    if (!MetadataConnectionUtils.isPostgresql(dbJDBCMetadata.getConnection())) {
+                        catalogName = schemaRs.getString(MetaDataConstants.TABLE_CATALOG.name());
+                    }
                     // if (catalogName.equals("new_Base")) {
                     // System.out.println("aa");
                     // }

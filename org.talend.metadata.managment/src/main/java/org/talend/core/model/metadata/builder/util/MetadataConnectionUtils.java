@@ -909,4 +909,15 @@ public class MetadataConnectionUtils {
     public static void setMetadataCon(IMetadataConnection metadataCon) {
         metadataCon = metadataCon;
     }
+
+    public static boolean isPostgresql(java.sql.Connection connection) throws SQLException {
+        DatabaseMetaData metaData = connection.getMetaData();
+        if (metaData != null) {
+            String databaseProductName = metaData.getDatabaseProductName();
+            if (databaseProductName != null) {
+                return databaseProductName.toLowerCase().indexOf(DatabaseConstant.POSTGRESQL_PRODUCT_NAME) > -1;
+            }
+        }
+        return false;
+    }
 }

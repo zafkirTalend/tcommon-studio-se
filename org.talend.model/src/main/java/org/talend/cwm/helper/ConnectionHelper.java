@@ -27,6 +27,7 @@ import org.talend.commons.utils.VersionUtils;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
+import org.talend.core.model.metadata.builder.connection.FileConnection;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
@@ -575,23 +576,75 @@ public class ConnectionHelper {
      * 
      * @param retrieveAllMetadata
      * @param element
+     * @deprecated don't use TaggedValue any more
      */
     public static void setRetrieveAllMetadata(boolean retrieveAllMetadata, ModelElement element) {
         TaggedValueHelper.setTaggedValue(element, TaggedValueHelper.RETRIEVE_ALL, String.valueOf(retrieveAllMetadata));
     }
 
     /**
-     * DOC xqliu Comment method "getRetrieveAllMetadata". ADD xqliu 2010-03-03 feature 11412
+     * if the connection has sid return false, else return true (don't need the TaggedValue any more)
      * 
      * @param element
      * @return
      */
     public static boolean getRetrieveAllMetadata(ModelElement element) {
-        TaggedValue taggedValue = TaggedValueHelper.getTaggedValue(TaggedValueHelper.RETRIEVE_ALL, element.getTaggedValue());
-        if (taggedValue == null) {
-            return true;
+        if (element != null && element instanceof Connection) {
+            if (element instanceof DatabaseConnection) {
+                DatabaseConnection dbConn = (DatabaseConnection) element;
+                String sid = dbConn.getSID();
+                if (sid != null && !"".equals(sid.trim())) {
+                    if (isOracle(dbConn) || isPostgresql(dbConn)) {
+                        String uiSchema = dbConn.getUiSchema();
+                        if (uiSchema != null && !"".equals(uiSchema.trim())) {
+                            return false;
+                        } else {
+                            return true;
+                        }
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return true;
+                }
+            } else if (element instanceof MDMConnection) {
+                MDMConnection mdmConn = (MDMConnection) element;
+                String context = mdmConn.getContext();
+                if (context != null && !"".equals(context.trim())) {
+                    return false;
+                } else {
+                    return true;
+                }
+            } else if (element instanceof FileConnection) {
+                // do file connection can filter catalog/schema?
+                return true;
+            }
         }
-        return Boolean.valueOf(taggedValue.getValue());
+        return true;
+        // TaggedValue taggedValue = TaggedValueHelper.getTaggedValue(TaggedValueHelper.RETRIEVE_ALL,
+        // element.getTaggedValue());
+        // if (taggedValue == null) {
+        // return true;
+        // }
+        // return Boolean.valueOf(taggedValue.getValue());
+    }
+
+    public static boolean isOracle(Connection connection) {
+        DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(connection);
+        if (dbConn != null) {
+            String databaseType = dbConn.getDatabaseType() == null ? "" : dbConn.getDatabaseType();
+            return databaseType.toLowerCase().contains("oracle");
+        }
+        return false;
+    }
+
+    public static boolean isPostgresql(Connection connection) {
+        DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(connection);
+        if (dbConn != null) {
+            String databaseType = dbConn.getDatabaseType() == null ? "" : dbConn.getDatabaseType();
+            return databaseType.toLowerCase().contains("postgresql");
+        }
+        return false;
     }
 
     /**
