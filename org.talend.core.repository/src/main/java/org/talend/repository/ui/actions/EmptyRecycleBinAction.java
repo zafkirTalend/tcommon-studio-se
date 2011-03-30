@@ -105,7 +105,7 @@ public class EmptyRecycleBinAction extends AContextualAction {
 
     }
 
-    private Shell getShell() {
+    protected Shell getShell() {
         Shell shell = null;
 
         IWorkbenchWindow activeWorkbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
@@ -152,7 +152,7 @@ public class EmptyRecycleBinAction extends AContextualAction {
         }
     }
 
-    private void deleteElements(IProxyRepositoryFactory factory, RepositoryNode currentNode) throws PersistenceException,
+    protected void deleteElements(IProxyRepositoryFactory factory, RepositoryNode currentNode) throws PersistenceException,
             BusinessException {
         IRepositoryViewObject objToDelete = currentNode.getObject();
         if (objToDelete == null) {
