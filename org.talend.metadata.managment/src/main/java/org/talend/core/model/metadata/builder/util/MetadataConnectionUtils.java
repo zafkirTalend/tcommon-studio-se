@@ -32,10 +32,10 @@ import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.Platform;
-import org.talend.commons.bridge.ReponsitoryContextBridge;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.database.DB2ForZosDataBaseMetadata;
 import org.talend.commons.utils.database.TeradataDataBaseMetadata;
+import org.talend.commons.utils.platform.PluginChecker;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.MetadataConnection;
@@ -466,18 +466,17 @@ public class MetadataConnectionUtils {
 
         IExtension extension = Platform.getExtensionRegistry().getExtension(DRIVER_EXTENSION_POINT_ID, TOP_DRIVER_EXTENSION_ID);
         if (extension != null) {
-            IConfigurationElement[] configurationElement = extension.getConfigurationElements();
-            for (IConfigurationElement ele : configurationElement) {
-                try {
-                    IDriverService driverService = (IDriverService) ele.createExecutableExtension("class");
-                    driver = driverService.getDriver(metadataBean);
-                } catch (Exception e) {
-                    log.error(e, e);
-                }
-            }
             // top
-            if (ReponsitoryContextBridge.isDefautProject()) {
-                // waiting for return
+            if (PluginChecker.isOnlyTopLoaded()) {
+                IConfigurationElement[] configurationElement = extension.getConfigurationElements();
+                for (IConfigurationElement ele : configurationElement) {
+                    try {
+                        IDriverService driverService = (IDriverService) ele.createExecutableExtension("class");
+                        driver = driverService.getDriver(metadataBean);
+                    } catch (Exception e) {
+                        log.error(e, e);
+                    }
+                }
             } else {
                 // tdqee
                 List<?> connList = null;
