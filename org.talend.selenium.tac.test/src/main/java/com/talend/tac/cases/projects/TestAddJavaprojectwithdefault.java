@@ -13,7 +13,7 @@ public class TestAddJavaprojectwithdefault extends Login {
 
 	@Test
 	@Parameters({ "ProjectType", "Prolanguage" })
-	public void testAddPerlproject(String type, String language)
+	public void testAdddefaultproject(String type, String language)
 			throws InterruptedException {
 		this.waitForElementPresent("!!!menu.project.element!!!", 30);
 		String namecommon = "JavaDefaultPro";
