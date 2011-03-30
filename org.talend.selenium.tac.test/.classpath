@@ -6,8 +6,5 @@
 	<classpathentry excluding="**" kind="src" output="target/test-classes" path="src/test/resources"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5"/>
 	<classpathentry kind="con" path="org.maven.ide.eclipse.MAVEN2_CLASSPATH_CONTAINER"/>
-	<classpathentry kind="lib" path="D:/products/testng-5.14.10/testng-5.14.10.jar"/>
-	<classpathentry kind="lib" path="D:/products/selenium/selenium-server-1.0.3/selenium-server.jar"/>
-	<classpathentry kind="lib" path="D:/products/selenium/selenium-java-client-driver-1.0.1/selenium-java-client-driver.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
