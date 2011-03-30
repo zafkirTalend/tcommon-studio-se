@@ -96,6 +96,12 @@ public class TestCreatUsersInAdvance extends Login {
 			selenium.type("//input[@name='authenticationPassword']", SvnPasswd);
 			selenium.fireEvent("//input[@name='authenticationPassword']",
 					"blur");
+			// select type
+			waitForElementPresent("//input[@id='idTypeInput']/following-sibling::div",WAIT_TIME);
+			selenium.click("//input[@id='idTypeInput']/following-sibling::div");
+			waitForElementPresent("//div[@role='listitem' and text()='Data Integration']",WAIT_TIME);
+			selenium.mouseDown("//div[@role='listitem' and text()='Data Integration']");
+			
 			selenium.click("idRoleButton");
 			Assert.assertTrue(selenium.isTextPresent(rb
 					.getString("user.roles.title")));
