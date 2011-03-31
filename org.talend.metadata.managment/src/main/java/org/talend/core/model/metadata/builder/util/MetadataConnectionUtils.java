@@ -43,6 +43,7 @@ import org.talend.core.model.metadata.MetadataFillFactory;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
+import org.talend.core.model.metadata.builder.database.DriverShim;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.metadata.builder.database.IDriverService;
 import org.talend.core.model.metadata.builder.database.dburl.SupportDBUrlType;
@@ -488,10 +489,13 @@ public class MetadataConnectionUtils {
                 } catch (Exception e) {
                     // do nothing
                 }
-                if (connList != null && connList.size() > 1) {
-                    driver = (Driver) connList.get(1);
+                if (connList != null && !connList.isEmpty()) {
+                    for (int i = 0; i < connList.size(); i++) {
+                        if (connList.get(i) instanceof Driver) {
+                            driver = (DriverShim) connList.get(i);
+                        }
+                    }
                 }
-
             }
         } else {
             // tos
@@ -500,8 +504,12 @@ public class MetadataConnectionUtils {
                         metadataBean.getUsername(), metadataBean.getPassword(), metadataBean.getDatabase(),
                         metadataBean.getSchema(), driverClassName, metadataBean.getDriverJarPath(),
                         metadataBean.getDbVersionString(), metadataBean.getAdditionalParams());
-                if (connList.size() > 1) {
-                    driver = (Driver) connList.get(1);
+                if (connList != null && !connList.isEmpty()) {
+                    for (int i = 0; i < connList.size(); i++) {
+                        if (connList.get(i) instanceof Driver) {
+                            driver = (DriverShim) connList.get(i);
+                        }
+                    }
                 }
             } catch (Exception e) {
                 log.error(e, e);
