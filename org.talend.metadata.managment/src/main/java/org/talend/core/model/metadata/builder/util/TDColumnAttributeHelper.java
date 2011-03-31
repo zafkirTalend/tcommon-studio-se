@@ -21,6 +21,7 @@ import java.util.Properties;
 
 import org.apache.log4j.Logger;
 import org.talend.commons.utils.database.DB2ForZosDataBaseMetadata;
+import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.model.metadata.MappingTypeRetriever;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.builder.connection.Connection;
@@ -118,6 +119,13 @@ public class TDColumnAttributeHelper {
     private static TdColumn addColumnAttribute(String label, String columnName, String typeName, int columnSize,
             int decimalDigits, String columnRemark, ResultSet resutSet, TdColumn column, java.sql.Connection conn, boolean isMssql)
             throws SQLException {
+        boolean isIBMDB2ZOS = false;
+        if (databaseconnection != null) {
+            String dbMetaData = databaseconnection.getDatabaseType();
+            if (dbMetaData != null && dbMetaData.equals(EDatabaseTypeName.IBMDB2ZOS.getDisplayName())) {
+                isIBMDB2ZOS = true;
+            }
+        }
         // // --- add columns to table
         // ResultSet columns = getConnectionMetadata(connection).getColumns(catalogName, schemaPattern, tablePattern,
         // columnPattern);
@@ -158,7 +166,11 @@ public class TDColumnAttributeHelper {
         // dataType
         int dataType = 0;
         try {
-            dataType = resutSet.getInt(GetColumn.DATA_TYPE.name());
+            if (isIBMDB2ZOS) {
+                dataType = resutSet.getInt(GetColumn.TYPE_NAME.name());
+            } else {
+                dataType = resutSet.getInt(GetColumn.DATA_TYPE.name());
+            }
             // MOD scorreia 2010-07-24 removed the call to column.getSQLDataType() here because obviously the sql
             // data type it is null and results in a NPE
         } catch (Exception e) {
@@ -212,7 +224,9 @@ public class TDColumnAttributeHelper {
         //
         int numPrecRadix = 0;
         try {
-            numPrecRadix = resutSet.getInt(GetColumn.NUM_PREC_RADIX.name());
+            if (!isIBMDB2ZOS) {
+                numPrecRadix = resutSet.getInt(GetColumn.NUM_PREC_RADIX.name());
+            }
         } catch (Exception e) {
             log.warn(e);
         }
@@ -237,7 +251,11 @@ public class TDColumnAttributeHelper {
         column.setSqlDataType(sqlDataType);
         // column.setType(sqlDataType); // it's only reference to previous sql data type
         try {
-            column.getSqlDataType().setNullable(NullableType.get(resutSet.getInt(GetColumn.NULLABLE.name())));
+            if (isIBMDB2ZOS) {
+                column.getSqlDataType().setNullable(NullableType.get(resutSet.getInt(GetColumn.IS_NULLABLE.name())));
+            } else {
+                column.getSqlDataType().setNullable(NullableType.get(resutSet.getInt(GetColumn.NULLABLE.name())));
+            }
         } catch (Exception e1) {
             log.warn(e1, e1);
         }

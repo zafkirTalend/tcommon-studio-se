@@ -16,6 +16,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.talend.commons.i18n.internal.Messages;
+import org.talend.commons.utils.TalendDBUtils;
 import org.talend.fakejdbc.FakeResultSet;
 
 /**
@@ -76,7 +77,18 @@ public class DB2ForZosResultSet extends FakeResultSet {
     @Override
     public int getInt(String columnLabel) throws SQLException {
         String str = getString(columnLabel);
-        return Integer.parseInt(str);
+        if (columnLabel.equals("TYPE_NAME")) {
+            int index = TalendDBUtils.convertToJDBCType(str);
+            return index;
+        } else if (columnLabel.equals("IS_NULLABLE")) {
+            if (str.equals("N")) {
+                return 1;
+            } else {
+                return 0;
+            }
+        } else {
+            return Integer.parseInt(str);
+        }
     }
 
     /*
@@ -101,7 +113,8 @@ public class DB2ForZosResultSet extends FakeResultSet {
         columnIndex--;
 
         if (columnIndex < 0 || columnIndex > row.length) {
-            throw new SQLException(Messages.getString("DB2ForZosResultSet.parameterIndex") + columnIndex + Messages.getString("DB2ForZosResultSet.outofRange")); //$NON-NLS-1$ //$NON-NLS-2$
+            throw new SQLException(
+                    Messages.getString("DB2ForZosResultSet.parameterIndex") + columnIndex + Messages.getString("DB2ForZosResultSet.outofRange")); //$NON-NLS-1$ //$NON-NLS-2$
         }
         return row[columnIndex];
     }
