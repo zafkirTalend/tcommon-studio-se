@@ -9,9 +9,16 @@ import com.talend.tac.cases.Login;
 
 public class TestCleanProject extends Login{
 	public void okDelete() {
-		this.waitForElementPresent("!!!menu.project.element!!!", 30);
-		selenium.click("!!!menu.project.element!!!");
-		this.waitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label']", 60);
+//		this.waitForElementPresent("!!!menu.project.element!!!", 30);
+//		selenium.click("!!!menu.project.element!!!");
+//		this.waitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label']", 60);
+		selenium.refresh();
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-label']");
 		selenium.chooseOkOnNextConfirmation();
 		
@@ -23,18 +30,18 @@ public class TestCleanProject extends Login{
 
 	}
   @Test(dependsOnGroups={"Second"})
-  @Parameters({ "NumbersOfprojects" })
-  public void deleteAll(String numOfprojectsTodelete) {
+//  @Parameters({ "NumbersOfprojects" })
+  public void deleteAll() {
 	  selenium.setSpeed(MID_SPEED);
-	  int n = 0;
-	  try{
-	  n = Integer.parseInt(numOfprojectsTodelete);
-	  }catch(Exception e){
-		  Assert.fail("the parameter is wrong!");
-	  }
-	  for(int i = 0; i < n; i++){
-		
+	  this.waitForElementPresent("!!!menu.project.element!!!", 30);
+		selenium.click("!!!menu.project.element!!!");
+	  for(int i = 0;; i++){
+		if(selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label']")){
 		okDelete();
+		}
+		else{
+			break;
+		}
 	  }
 	  selenium.setSpeed(MIN_SPEED);
   }
