@@ -1,19 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="Suite" parallel="false">
-	<!-- 
-	<parameter name="server" value="" />
-	<parameter name="port" value="" />
-	<parameter name="browser" value="" />
-	<parameter name="url" value="" />
-	<parameter name="root" value="" />
 
-	<parameter name="language" value="en" />
-	<parameter name="country" value="US" />
-	<parameter name="resourceBundle" value="messages" />
-
-	<parameter name="userName" value="admin@company.com" />
-	<parameter name="userPassword" value="admin" />
-	 -->
 	
 	<!-- Add User -->
 	<parameter name="LoginName" value="jackzhang@gamil.com" />
@@ -46,7 +33,12 @@
     
         <classes>
        
-            <class name="com.talend.tac.cases.users.TestAddUser"/>
+            <class name="com.talend.tac.cases.users.TestAddUser">
+               <methods>
+                  <exclude name="testAddUserAllRoles"></exclude>  
+                  <exclude name="testAddUserMulripleRoles"></exclude>    
+               </methods>
+            </class>
             <class name="com.talend.tac.cases.users.TestDeleteUser"/>
             <class name="com.talend.tac.cases.users.TestDuplicateUser"/>
             <class name="com.talend.tac.cases.users.TestDisplayUser"/>
