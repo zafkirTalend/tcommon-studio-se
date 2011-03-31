@@ -1,3 +1,17 @@
+/*
+ *this test to check the following operation:
+ *step 1:click add button to add a project
+ *step 2:type in project label ,not select language,use default language java.
+ *step 3:check advanced setting: type in wrong svn url,svn username,svn password.
+ *step 4:uncheck advanced setting.
+ *step 5:click save button to check if it can add the project use default settings in configuration
+
+ *results for now:failed
+ *reason:bug exist
+*/
+
+
+
 package com.talend.tac.cases.projects;
 
 import java.awt.event.KeyEvent;

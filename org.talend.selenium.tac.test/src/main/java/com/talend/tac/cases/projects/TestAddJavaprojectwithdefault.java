@@ -1,3 +1,8 @@
+/*
+ * results:failed
+ * reason:project type's value can not be saved
+  
+*/
 package com.talend.tac.cases.projects;
 
 import java.awt.event.KeyEvent;
