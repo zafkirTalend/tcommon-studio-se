@@ -16,7 +16,7 @@
   <parameter  name ="userPassword"	value ="admin"/>
   -->
   
-  <parameter  name ="ProjectType"	value ="type1"/>
+  <parameter  name ="ProjectType"	value ="Data Quality"/>
   <parameter  name ="AddcommonProjectname"	value ="commonpro"/>
   <parameter  name ="AddreferenceProjectname"	value ="referencepro"/>
   <parameter  name ="DeleteProjectname"	value ="referencepro"/>
@@ -29,7 +29,7 @@
   <parameter  name ="SVNProjecturl" value ="https://192.168.0.85/svn/testing/"/>
   <parameter  name ="SVNPerlProjecturl" value ="https://192.168.0.85/svn/perl/"/>
    -->
-  <parameter  name ="WrongSVNProjecturl" value ="sdfsdf"/>
+  <parameter  name ="WrongSVNProjecturl" value ="wrongSvnurl"/>
   
   <!-- 
   <parameter  name ="SVNuserName" value ="test"/>
@@ -75,7 +75,7 @@
 	    <class name="com.talend.tac.cases.projects.TestBranchManageAddExistbranch"/>
 	    <class name="com.talend.tac.cases.projects.TestCleanProject"/>
 	    <class name="com.talend.tac.cases.projects.TestAddJavaprojectwithdefault"/>
-	    
+	    <class name="com.talend.tac.cases.projects.TestAddProjectUncheckadvanced"/>
 	   
     </classes>
   </test>
