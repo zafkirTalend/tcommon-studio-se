@@ -179,6 +179,7 @@ public final class PropertiesLoader {
         FileInputStream is = null;
         try {
             is = new FileInputStream(filename);
+            // FIXME dead code here
             if (is == null) {
                 throw new Exception("ERROR: Could not load file = " + quoted(filename));
             }

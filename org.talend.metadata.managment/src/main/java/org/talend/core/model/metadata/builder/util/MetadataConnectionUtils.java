@@ -498,12 +498,14 @@ public class MetadataConnectionUtils {
                             metadataBean.getSchema(), driverClassName, metadataBean.getDriverJarPath(),
                             metadataBean.getDbVersionString(), metadataBean.getAdditionalParams());
                 } catch (Exception e) {
-                    // do nothing
+                    // do nothing // FIXME scorreia 2011-03-31 why do nothing here. Shouldn't we log something?
                 }
-                if (connList != null && !connList.isEmpty()) {
+                if (connList != null && !connList.isEmpty()) { // FIXME unnecessary check !connList.isEmpty()
+                    // FIXME scorreia 2011-03-31 why do we loop here? Is it possible to have several drivers. If yes,
+                    // what do we do?
                     for (int i = 0; i < connList.size(); i++) {
                         if (connList.get(i) instanceof Driver) {
-                            driver = (DriverShim) connList.get(i);
+                            driver = (DriverShim) connList.get(i); // FIXME scorreia 2011-03-31 strange cast here.
                         }
                     }
                 }
@@ -511,6 +513,7 @@ public class MetadataConnectionUtils {
         } else {
             // tos
             try {
+                // FIXME scorreia 2011-03-31 duplicated code see above: use a method instead
                 List<?> connList = ExtractMetaDataUtils.getConnection(metadataBean.getDbType(), metadataBean.getUrl(),
                         metadataBean.getUsername(), metadataBean.getPassword(), metadataBean.getDatabase(),
                         metadataBean.getSchema(), driverClassName, metadataBean.getDriverJarPath(),
@@ -908,44 +911,27 @@ public class MetadataConnectionUtils {
     }
 
     // /**
-    // * DOC xqliu Comment method "fillMdmConnectionInformation".
+    // * update the RETRIEVE_ALL tagged value of this connection.
     // *
-    // * @param mdmConn
-    // * @return
+    // * @param conn
     // */
-    // public static MDMConnection fillMdmConnectionInformation(MDMConnection mdmConn) {
-    // // fill database structure
-    // Properties properties = new Properties();
-    // properties.put(TaggedValueHelper.USER, mdmConn.getUsername());
-    // properties.put(TaggedValueHelper.PASSWORD, mdmConn.getPassword());
-    // properties.put(TaggedValueHelper.UNIVERSE, mdmConn.getUniverse() == null ? "" : mdmConn.getUniverse());
-    // MdmWebserviceConnection mdmWsConn = new MdmWebserviceConnection(mdmConn.getPathname(), properties);
-    // ConnectionHelper.addXMLDocuments(mdmWsConn.createConnection(mdmConn));
-    // return mdmConn;
+    // private static void updateRetrieveAllFlag(Connection conn) {
+    // if (conn != null && conn instanceof DatabaseConnection) {
+    // String sid = ((DatabaseConnection) conn).getSID();
+    // if (sid != null && sid.trim().length() > 0) {
+    // TaggedValueHelper.setTaggedValue(conn, TaggedValueHelper.RETRIEVE_ALL, "false");
+    // } else {
+    // TaggedValueHelper.setTaggedValue(conn, TaggedValueHelper.RETRIEVE_ALL, "true");
     // }
-
-    /**
-     * update the RETRIEVE_ALL tagged value of this connection.
-     * 
-     * @param conn
-     */
-    private static void updateRetrieveAllFlag(Connection conn) {
-        if (conn != null && conn instanceof DatabaseConnection) {
-            String sid = ((DatabaseConnection) conn).getSID();
-            if (sid != null && sid.trim().length() > 0) {
-                TaggedValueHelper.setTaggedValue(conn, TaggedValueHelper.RETRIEVE_ALL, "false");
-            } else {
-                TaggedValueHelper.setTaggedValue(conn, TaggedValueHelper.RETRIEVE_ALL, "true");
-            }
-        }
-    }
+    // }
+    // }
 
     public static IMetadataConnection getMetadataCon() {
         return metadataCon;
     }
 
     public static void setMetadataCon(IMetadataConnection metadataCon) {
-        metadataCon = metadataCon;
+        metadataCon = metadataCon; // FIXME scorreia 2011-03-31 this code has no effect
     }
 
     public static boolean isPostgresql(java.sql.Connection connection) throws SQLException {

@@ -106,6 +106,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             if (sqlConnection == null || sqlConnection.isClosed()) {
                 this.checkConnection(metadataBean);
             }
+            // FIXME scorreia 2011-03-31 calling this method has no effect
             MetadataConnectionUtils.setMetadataCon(metadataBean);
             // fill some base parameter
             // fillMetadataParams(metadataBean, connection);

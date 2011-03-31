@@ -50,10 +50,15 @@ public class MetadataCatalogRepositoryObject extends MetadataCatalog implements 
     /**
      * DOC klliu MetadataCatalogRepositoryObject constructor comment.
      * 
+     * Arguments must not be null.
+     * 
      * @param repositoryViewObject
      * @param catalog
      */
     public MetadataCatalogRepositoryObject(IRepositoryViewObject repositoryViewObject, Catalog catalog) {
+        assert catalog != null;
+        assert repositoryViewObject != null;
+
         this.viewObject = repositoryViewObject;
         this.catalog = catalog;
     }
@@ -86,6 +91,7 @@ public class MetadataCatalogRepositoryObject extends MetadataCatalog implements 
     }
 
     private void updataCatalog(Property property) {
+        // FIXME empty method ?
     }
 
     public User getAuthor() {
