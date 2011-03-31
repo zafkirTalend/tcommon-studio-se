@@ -13,8 +13,8 @@
 	<parameter name="LastName" value="zhang" />
 	<parameter name="PassWord" value="a" />
 	<parameter name="PassWordww" value="asdf" />
-	<parameter name="SvnLogin" value="fg" />
-	<parameter name="SvnPassWord" value="fg" />
+	<parameter name="SvnLogin" value="test" />
+	<parameter name="SvnPassWord" value="testing" />
 	<!-- Add User -->
 	
     <!--Add  Duplicate Cancel Delete User  Delete User -->
