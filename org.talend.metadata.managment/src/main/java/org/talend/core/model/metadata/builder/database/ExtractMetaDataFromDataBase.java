@@ -371,16 +371,25 @@ public class ExtractMetaDataFromDataBase {
             return metadataColumns;
         }
 
+        DriverShim wapperDriver = null;
+        String dbType = "";
         try {
             // WARNING Schema equals sid or database
             if (needCreateAndClose || ExtractMetaDataUtils.conn == null || ExtractMetaDataUtils.conn.isClosed()) {
-                ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(),
+                List list = ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(),
                         iMetadataConnection.getUsername(), iMetadataConnection.getPassword(), iMetadataConnection.getDatabase(),
                         iMetadataConnection.getSchema(), iMetadataConnection.getDriverClass(),
                         iMetadataConnection.getDriverJarPath(), iMetadataConnection.getDbVersionString(),
                         iMetadataConnection.getAdditionalParams());
+                if (list != null && list.size() > 0) {
+                    for (int i = 0; i < list.size(); i++) {
+                        if (list.get(i) instanceof DriverShim) {
+                            wapperDriver = (DriverShim) list.get(i);
+                        }
+                    }
+                }
             }
-            String dbType = iMetadataConnection.getDbType();
+            dbType = iMetadataConnection.getDbType();
             DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn, dbType);
 
             String tableLabel = tableNode.getValue();
@@ -410,6 +419,20 @@ public class ExtractMetaDataFromDataBase {
             }
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            if (((wapperDriver != null) && (iMetadataConnection.getDriverClass().equals(
+                    EDatabase4DriverClassName.JAVADB_EMBEDED.getDriverClass())
+                    || dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
+                    || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName()) || dbType
+                    .equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName())))
+                    || dbType.equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName())) {
+                try {
+                    wapperDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
+                } catch (SQLException e) {
+                    // exception of shutdown success. no need to catch.
+                }
+            }
+
         }
 
         return metadataColumns;
@@ -429,16 +452,27 @@ public class ExtractMetaDataFromDataBase {
 
         boolean needCreateAndClose = dontCreateClose.length == 0 || !dontCreateClose[0];
 
+        // bug 17980
+        DriverShim wapperDriver = null;
+        String dbType = "";
+
         try {
             // WARNING Schema equals sid or database
             if (needCreateAndClose || ExtractMetaDataUtils.conn == null || ExtractMetaDataUtils.conn.isClosed()) {
-                ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(),
+                List list = ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(),
                         iMetadataConnection.getUsername(), iMetadataConnection.getPassword(), iMetadataConnection.getDatabase(),
                         iMetadataConnection.getSchema(), iMetadataConnection.getDriverClass(),
                         iMetadataConnection.getDriverJarPath(), iMetadataConnection.getDbVersionString(),
                         iMetadataConnection.getAdditionalParams());
+                if (list != null && list.size() > 0) {
+                    for (int i = 0; i < list.size(); i++) {
+                        if (list.get(i) instanceof DriverShim) {
+                            wapperDriver = (DriverShim) list.get(i);
+                        }
+                    }
+                }
             }
-            String dbType = iMetadataConnection.getDbType();
+            dbType = iMetadataConnection.getDbType();
             DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn, dbType);
 
             List<IMetadataTable> metadataTables = ExtractMetaDataFromDataBase
@@ -480,6 +514,20 @@ public class ExtractMetaDataFromDataBase {
         } catch (Exception e) {
             log.error(e.toString());
             throw new RuntimeException(e);
+        } finally {
+            if (((wapperDriver != null) && (iMetadataConnection.getDriverClass().equals(
+                    EDatabase4DriverClassName.JAVADB_EMBEDED.getDriverClass())
+                    || dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
+                    || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName()) || dbType
+                    .equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName())))
+                    || dbType.equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName())) {
+                try {
+                    wapperDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
+                } catch (SQLException e) {
+                    // exception of shutdown success. no need to catch.
+                }
+            }
+
         }
 
         return metadataColumns;
@@ -1219,7 +1267,11 @@ public class ExtractMetaDataFromDataBase {
                 //
             }
             // zli
-            if ((wapperDriver != null) && driverClassName.equals(EDatabase4DriverClassName.JAVADB_EMBEDED.getDriverClass())) {
+            if (((wapperDriver != null) && (driverClassName.equals(EDatabase4DriverClassName.JAVADB_EMBEDED.getDriverClass())
+                    || dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
+                    || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName()) || dbType
+                    .equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName())))
+                    || dbType.equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName())) {
                 try {
                     wapperDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
                 } catch (SQLException e) {
@@ -1323,7 +1375,11 @@ public class ExtractMetaDataFromDataBase {
                 limit);
 
         ExtractMetaDataUtils.closeConnection();
-        if ((dbType.equals("JavaDB Embeded") || dbType.equals(generalJDBCDisplayName)) && (url != null && url.contains("jdbc:derby")) && wapperDriver != null) { //$NON-NLS-1$ //$NON-NLS-2$
+        if ((dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
+                || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
+                || dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName())
+                || dbType.equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()) || dbType.equals(generalJDBCDisplayName))
+                && (url != null && url.contains("jdbc:derby")) && wapperDriver != null) { //$NON-NLS-1$ //$NON-NLS-2$
             try {
                 wapperDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
             } catch (SQLException e) {
@@ -1350,15 +1406,36 @@ public class ExtractMetaDataFromDataBase {
             IMetadataConnection iMetadataConnection) {
         List<org.talend.core.model.metadata.builder.connection.MetadataTable> itemTablesName = new ArrayList<org.talend.core.model.metadata.builder.connection.MetadataTable>();
 
-        ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(),
+        List list = ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(),
                 iMetadataConnection.getUsername(), iMetadataConnection.getPassword(), iMetadataConnection.getDatabase(),
                 iMetadataConnection.getSchema(), iMetadataConnection.getDriverClass(), iMetadataConnection.getDriverJarPath(),
                 iMetadataConnection.getDbVersionString(), iMetadataConnection.getAdditionalParams());
+        DriverShim wapperDriver = null;
+        if (list != null && list.size() > 0) {
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i) instanceof DriverShim) {
+                    wapperDriver = (DriverShim) list.get(i);
+                }
+            }
+        }
         String dbType = iMetadataConnection.getDbType();
         DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn, dbType);
 
         List<IMetadataTable> metadataTables = ExtractMetaDataFromDataBase.extractTablesFromDB(dbMetaData, iMetadataConnection);
         ExtractMetaDataUtils.closeConnection();
+
+        if (((wapperDriver != null) && (iMetadataConnection.getDriverClass().equals(
+                EDatabase4DriverClassName.JAVADB_EMBEDED.getDriverClass())
+                || dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
+                || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName()) || dbType
+                .equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName())))
+                || dbType.equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName())) {
+            try {
+                wapperDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
+            } catch (SQLException e) {
+                // exception of shutdown success. no need to catch.
+            }
+        }
 
         Iterator<IMetadataTable> iterate = metadataTables.iterator();
         while (iterate.hasNext()) {
@@ -1409,6 +1486,8 @@ public class ExtractMetaDataFromDataBase {
         // add by wzhang
         ExtractMetaDataUtils.metadataCon = iMetadataConnection;
         // end
+
+        String dbType = iMetadataConnection.getDbType();
         List connList = ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(),
                 iMetadataConnection.getUsername(), iMetadataConnection.getPassword(), iMetadataConnection.getDatabase(),
                 iMetadataConnection.getSchema(), iMetadataConnection.getDriverClass(), iMetadataConnection.getDriverJarPath(),
@@ -1501,7 +1580,11 @@ public class ExtractMetaDataFromDataBase {
         String driverClassName = iMetadataConnection.getDriverClass();
 
         // added for retrieve schema derby close
-        if (wapperDriver != null && driverClassName.equals(EDatabase4DriverClassName.JAVADB_EMBEDED.getDriverClass())) {
+        if (((wapperDriver != null) && (driverClassName.equals(EDatabase4DriverClassName.JAVADB_EMBEDED.getDriverClass())
+                || dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
+                || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName()) || dbType
+                .equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName())))
+                || dbType.equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName())) {
             try {
                 wapperDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
             } catch (SQLException e) {

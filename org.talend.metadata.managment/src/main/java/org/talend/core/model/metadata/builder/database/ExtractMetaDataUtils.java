@@ -792,21 +792,12 @@ public class ExtractMetaDataUtils {
         return imetadataConnection.getSchema();
     }
 
-    public static Connection getSqlConnection(IMetadataConnection metadataConnection) {
-        Connection connection = null;
+    public static List getConnectionList(IMetadataConnection metadataConnection) {
         List list = getConnection(metadataConnection.getDbType(), metadataConnection.getUrl(), metadataConnection.getUsername(),
                 metadataConnection.getPassword(), metadataConnection.getDatabase(), metadataConnection.getSchema(),
                 metadataConnection.getDriverClass(), metadataConnection.getDriverJarPath(),
                 metadataConnection.getDbVersionString(), metadataConnection.getAdditionalParams());
-        if (list != null && list.size() > 0) {
-            for (int i = 0; i < list.size(); i++) {
-                if (list.get(i) instanceof Connection) {
-                    connection = (Connection) list.get(i);
-                    break;
-                }
-            }
-        }
-        return connection;
+        return list;
     }
 
     public static boolean isOLAPConnection(DatabaseConnection connection) {

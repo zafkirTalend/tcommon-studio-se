@@ -839,6 +839,7 @@ public class DatabaseForm extends AbstractForm {
                             } else if (selection.equals(EDatabaseConnTemplate.JAVADB_EMBEDED.getDBDisplayName())) {
                                 sidOrDatabaseText.setText(s[index]);
                                 getConnection().setSID(s[index]);
+                                getConnection().setURL(getStringConnection());
                             } else if (selection.equals(EDatabaseConnTemplate.HSQLDB_IN_PROGRESS.getDBDisplayName())) {
                                 directoryField.setText(s[index]);
                                 getConnection().setDBRootPath(s[index]);

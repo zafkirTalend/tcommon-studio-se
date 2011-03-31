@@ -36,6 +36,7 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.database.DB2ForZosDataBaseMetadata;
 import org.talend.commons.utils.database.TeradataDataBaseMetadata;
 import org.talend.commons.utils.platform.PluginChecker;
+import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.MetadataConnection;
@@ -857,6 +858,7 @@ public class MetadataConnectionUtils {
         // }
         // ~ 16441
         java.sql.Connection sqlConn = null;
+        Driver driver = null;
         try {
             if (noStructureExists) { // do no override existing catalogs or
                                      // schemas
@@ -871,16 +873,35 @@ public class MetadataConnectionUtils {
                             MetadataConnectionUtils.getPackageFilter(dbConn, sqlConn.getMetaData()));
                     MetadataFillFactory.getDBInstance().fillSchemas(dbConn, sqlConn.getMetaData(),
                             MetadataConnectionUtils.getPackageFilter(dbConn, sqlConn.getMetaData()));
+                    driver = getClassDriver(metaConnection);
                 }
-
             }
         } catch (SQLException e) {
             log.error(e, e);
+        } catch (InstantiationException e) {
+            log.error(e, e);
+        } catch (IllegalAccessException e) {
+            log.error(e, e);
+        } catch (ClassNotFoundException e) {
+            log.error(e, e);
         } finally {
-            if (sqlConn != null) {
-                ConnectionUtils.closeConnection(sqlConn);
+            if (driver != null) {
+                String driverClass = dbConn.getDriverClass();
+                String dbType = dbConn.getDatabaseType();
+                if ((driverClass != null
+                        && driverClass.equals(EDatabase4DriverClassName.JAVADB_EMBEDED.getDriverClass())
+                        || (dbType != null && (dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
+                                || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
+                                || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName()) || dbType
+                                .equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName()))) || dbType
+                        .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
+                    try {
+                        driver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
+                    } catch (SQLException e) {
+                        // exception of shutdown success. no need to catch.
+                    }
+                }
             }
-
         }
         // }
         return dbConn;

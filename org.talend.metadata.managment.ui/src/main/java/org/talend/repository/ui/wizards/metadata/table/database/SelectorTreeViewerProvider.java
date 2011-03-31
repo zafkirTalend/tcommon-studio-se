@@ -14,6 +14,8 @@ package org.talend.repository.ui.wizards.metadata.table.database;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
+import java.sql.Driver;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -25,9 +27,12 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.graphics.Image;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.core.database.EDatabase4DriverClassName;
+import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.MetadataFillFactory;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
+import org.talend.core.model.metadata.builder.database.DriverShim;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase.ETableTypes;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.metadata.builder.database.TableInfoParameters;
@@ -58,9 +63,35 @@ public class SelectorTreeViewerProvider extends LabelProvider implements ITreeCo
 
     public Object[] getChildren(Object parentElement) {
         TableNode tableNode = (TableNode) parentElement;
+        List<TableNode> child = tableNode.getChildren();
+        boolean extended = false;
+        if (!child.isEmpty()) {
+            for (TableNode node : child) {
+                if (node.getType() == TableNode.TABLE) {
+                    extended = true;
+                    break;
+                }
+            }
+        }
+        // if extended is true, means table already got,no need to get again.
+        if (extended) {
+            return child.toArray();
+        }
         IMetadataConnection metadataConn = tableNode.getMetadataConn();
 
-        Connection conn = ExtractMetaDataUtils.getSqlConnection(metadataConn);
+        Connection conn = null;
+        Driver driver = null;
+        List list = ExtractMetaDataUtils.getConnectionList(metadataConn);
+        if (list != null && !list.isEmpty()) {
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i) instanceof Connection) {
+                    conn = (Connection) list.get(i);
+                }
+                if (list.get(i) instanceof DriverShim) {
+                    driver = (DriverShim) list.get(i);
+                }
+            }
+        }
         DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(conn, metadataConn.getDbType());
         int type = tableNode.getType();
         orgomg.cwm.objectmodel.core.Package pack = null;
@@ -88,6 +119,23 @@ public class SelectorTreeViewerProvider extends LabelProvider implements ITreeCo
             }
         } catch (Exception e) {
             ExceptionHandler.process(e);
+        } finally {
+            // for specific db such as derby
+            String driverClass = metadataConn.getDriverClass();
+            String dbType = metadataConn.getDbType();
+            if ((driverClass != null
+                    && driverClass.equals(EDatabase4DriverClassName.JAVADB_EMBEDED.getDriverClass())
+                    || (dbType != null && (dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
+                            || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
+                            || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName()) || dbType
+                            .equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName()))) || dbType
+                    .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
+                try {
+                    driver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
+                } catch (SQLException e) {
+                    // exception of shutdown success. no need to catch.
+                }
+            }
         }
 
         transferToTableNode(tableList, tableNode);
