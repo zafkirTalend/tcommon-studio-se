@@ -35,6 +35,8 @@ public class QueryUtil {
 
     public static final String DEFAULT_TABLE_NAME = "_MyTable_"; //$NON-NLS-1$
 
+    public static final String DEFAULT_SCHEMA_NAME = "NONE"; //$NON-NLS-1$
+
     // public static final String CONTEXT = "context";
 
     private static final String ENTER = "\n"; //$NON-NLS-1$
@@ -357,8 +359,8 @@ public class QueryUtil {
             } else {
                 String schemaStr = quoteStringValue(schema, dbType);
                 if (isOracle) {
-                    boolean isCheck = CorePlugin.getDefault().getPreferenceStore().getBoolean(
-                            ITalendCorePrefConstants.SQL_ADD_QUOTE);
+                    boolean isCheck = CorePlugin.getDefault().getPreferenceStore()
+                            .getBoolean(ITalendCorePrefConstants.SQL_ADD_QUOTE);
                     if (isCheck) {
                         schemaStr = TalendTextUtils.addQuotes(schema);
                     }
