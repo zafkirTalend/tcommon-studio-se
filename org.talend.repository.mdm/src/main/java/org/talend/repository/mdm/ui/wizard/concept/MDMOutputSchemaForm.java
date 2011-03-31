@@ -153,6 +153,8 @@ public class MDMOutputSchemaForm extends AbstractMDMFileStepForm {
 
     private WizardPage wizardPage;
 
+    private List<String> exsitColumnNames = new ArrayList<String>();
+
     /*
      * to solve problem: cancel but metadata is added
      */
@@ -199,9 +201,15 @@ public class MDMOutputSchemaForm extends AbstractMDMFileStepForm {
         if (concept != null) {
             tempMetadataTable.setLabel(concept.getLabel());
         }
-        if (tempMetadataTable.getColumns().isEmpty() && creation) {
+        if (creation) {
             boolean findFirstLoop = false;
             // need to init the schemaViewer,provide "guess" function which mentioned by task17829
+            if (!this.exsitColumnNames.isEmpty()) {
+                this.exsitColumnNames.clear();
+            }
+            if (!tempMetadataTable.getColumns().isEmpty()) {
+                tempMetadataTable.getColumns().clear();
+            }
             for (FOXTreeNode node : treeData) {
                 guessInputSchemaColumns(node, findFirstLoop);
             }
@@ -215,7 +223,15 @@ public class MDMOutputSchemaForm extends AbstractMDMFileStepForm {
         String currentUniqueName = "";
         for (FOXTreeNode current : node.getChildren()) {
             MetadataColumn column = ConnectionFactory.eINSTANCE.createMetadataColumn();
-            column.setLabel(current.getLabel());
+            String label = current.getLabel();
+            if (!exsitColumnNames.contains(label)) {
+                this.exsitColumnNames.add(label);
+                column.setLabel(label);
+            } else {
+                label = getStringIndexed(label);
+                this.exsitColumnNames.add(label);
+                column.setLabel(label);
+            }
             column.setTalendType(CoreRuntimePlugin.getInstance().getCoreService().getPreferenceStore()
                     .getString(MetadataTypeLengthConstants.FIELD_DEFAULT_TYPE));
             tempMetadataTable.getColumns().add(column);
@@ -1160,9 +1176,56 @@ public class MDMOutputSchemaForm extends AbstractMDMFileStepForm {
 
     }
 
+    protected String getStringIndexed(String string) {
+        int indiceIndex = string.length();
+
+        for (int f = 0; f <= string.length() - 1; f++) {
+            try {
+                String s = string.substring(f, string.length());
+                if (String.valueOf(Integer.parseInt(s)).equals(s)) {
+                    indiceIndex = f;
+                    f = string.length();
+                }
+            } catch (Exception e) {
+                // by default : indiceIndex = input.length()
+            }
+        }
+
+        // validate the value is unique and indice then if needed
+        while (!isUniqLabel(string)) {
+            try {
+                String indiceString = string.substring(indiceIndex, string.length());
+                string = string.substring(0, indiceIndex) + (Integer.parseInt(indiceString) + 1);
+            } catch (Exception e) {
+                string = string + "1"; //$NON-NLS-1$
+            }
+        }
+        return string;
+    }
+
+    private boolean isUniqLabel(String label) {
+        // Find the existings columnNode of table
+        String[] existingLabel = getExsitColumnNames().toArray(new String[0]);
+        if (existingLabel == null) {
+            return true;
+        } else {
+            for (int i = 0; i < existingLabel.length; i++) {
+                if (label.equals(existingLabel[i])) {
+                    i = existingLabel.length;
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     @Override
     public TreeViewer getTreeViewer() {
         return this.xmlViewer;
+    }
+
+    public List<String> getExsitColumnNames() {
+        return exsitColumnNames;
     }
 
 }
