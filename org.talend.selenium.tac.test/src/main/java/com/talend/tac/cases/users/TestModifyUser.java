@@ -24,7 +24,6 @@ public class TestModifyUser extends Login {
 		selenium.click("idFormSaveButton");
 		selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.isTextPresent(rb.getString("user.error.lastActiveAdmin")));
-	    selenium.click("//button[text()='" +other.getString("modify.lastUserAdministrator.role.fail")+"']");
 	    selenium.setSpeed(MIN_SPEED);
 	}
 	//modify user'role of last a "administrator" user
@@ -46,10 +45,10 @@ public class TestModifyUser extends Login {
 		selenium.click("idFormSaveButton");
 		selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.isTextPresent(rb.getString("user.error.roleModification.lastAdministrator")));
-	    selenium.click("//button[text()='"+other.getString("modify.lastUserAdministrator.role.fail")+"']");
-	    
 	    selenium.setSpeed(MIN_SPEED);
+	
 	}
+	
 	//modify user(admin@company.com)'role to all roles
 	@Test(dependsOnMethods={"testModifyLastAdministrationUserRole"})
 	@Parameters({"userName", "userPassword"})
