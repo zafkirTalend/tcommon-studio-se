@@ -254,7 +254,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             }
             ResultSet catalogNames = null;
             catalogNames = dbJDBCMetadata.getCatalogs();
-
+            List<String> filterList = null;
             if (catalogNames != null) {
 
                 // else DB support getCatalogs() method
@@ -294,19 +294,22 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                         continue;
                     }
 
-                    List<String> filterList = null;
                     DatabaseConnection dbConnection = (DatabaseConnection) dbConn;
                     if (!StringUtils.isBlank(dbConnection.getUiSchema())) {
                         filterList = new ArrayList<String>();
                         filterList.add(dbConnection.getUiSchema());
                     }
-                    List<Schema> schemaList = fillSchemaToCatalog(dbConn, dbJDBCMetadata, catalog, filterList);
-                    CatalogHelper.addSchemas(schemaList, catalog);
-
                     // ~11412
                 }
                 // --- release the result set.
                 catalogNames.close();
+                for (Catalog catalog : catalogList) {
+                    List<Schema> schemaList = fillSchemaToCatalog(dbConn, dbJDBCMetadata, catalog, filterList);
+                    if (!schemaList.isEmpty() && schemaList.size() > 0) {
+                        CatalogHelper.addSchemas(schemaList, catalog);
+                    }
+                }
+
                 if (this.isLinked() && catalogList.size() > 0) {
                     ConnectionHelper.addCatalogs(catalogList, dbConn);
                 }
@@ -340,6 +343,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
 
         if (schemaRs == null) {
             try {
+                // schemaRs = dbJDBCMetadata.getSchemas(catalog.getName(), null);
                 schemaRs = dbJDBCMetadata.getSchemas();
             } catch (SQLException e) {
                 if (log.isDebugEnabled()) {
@@ -360,30 +364,35 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     // System.out.println("aa");
                     // executeGetSchemas(dbJDBCMetadata);
                     // }
-                    if (!MetadataConnectionUtils.isPostgresql(dbJDBCMetadata.getConnection())) {
-                        catalogName = schemaRs.getString(MetaDataConstants.TABLE_CATALOG.name());
-                    }
+
                     // if (catalogName.equals("new_Base")) {
                     // System.out.println("aa");
                     // }
+
+                    // MOD klliu bug 19004 2011-03-31
+                    java.sql.Connection connection = dbJDBCMetadata.getConnection();
+                    if (!MetadataConnectionUtils.isOdbcConnection(connection)) {
+                        if (!MetadataConnectionUtils.isPostgresql(dbJDBCMetadata.getConnection())) {
+                            catalogName = schemaRs.getString(MetaDataConstants.TABLE_CATALOG.name());
+                        }
+                        // the case for mssql
+                        if (MetadataConnectionUtils.isMssql(dbJDBCMetadata.getConnection())) {
+                            if (catalogName == null) {
+                                continue;
+                            }
+                            schemaName = catalogName;
+                        } else if (schemaName == null || catalogName != null && !catalogName.equals(catalog.getName())) {
+                            // the case for olap
+                            // if (schemaName == null) {
+                            continue;
+                        }
+                    }
                 } catch (Exception e) {
                     log.warn(e.getMessage(), e);
                 }
-                // the case for mssql
-                if (MetadataConnectionUtils.isMssql(dbJDBCMetadata.getConnection())) {
-                    if (catalogName == null) {
-                        continue;
-                    }
-                    schemaName = catalogName;
-                } else if (schemaName == null || catalogName != null && !catalogName.equals(catalog.getName())) {// the
-                                                                                                                 // case
-                                                                                                                 // for
-                                                                                                                 // olap
-                    // if (schemaName == null) {
-                    continue;
-                }
                 // MOD mzhao bug 9606 filter duplicated schemas.
-                if (!schemaNameCacheTmp.contains(schemaName)) {
+
+                if (!schemaNameCacheTmp.contains(schemaName) && !MetadataConnectionUtils.isMysql(dbJDBCMetadata.getConnection())) {
                     schemaNameCacheTmp.add(schemaName);
                     Schema schema = SchemaHelper.createSchema(schemaName);
                     if (!filterMetadaElement(schemaFilter, schemaName)) {

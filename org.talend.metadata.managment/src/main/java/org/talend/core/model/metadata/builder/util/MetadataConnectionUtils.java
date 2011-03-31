@@ -421,6 +421,16 @@ public class MetadataConnectionUtils {
         return false;
     }
 
+    public static boolean isMysql(java.sql.Connection connection) throws SQLException {
+        DatabaseMetaData connectionMetadata = getConnectionMetadata(connection);
+        if (connectionMetadata.getDriverName() != null && connectionMetadata.getDatabaseProductName() != null) {
+            if (EDataBaseType.MySQL.getProductName().equals(connectionMetadata.getDatabaseProductName().trim())) {
+                return true;
+
+            }
+        }
+        return false;
+    }
     /**
      * yyi 2010-08-25 for 14851, Sybase DB has several names with different productions and versions. For example the
      * Sybase IQ with version 12.6 is called 'Sybase' getting by JDBC but the version 15+ it is changed to 'Sybase IQ'.
@@ -468,7 +478,7 @@ public class MetadataConnectionUtils {
         IExtension extension = Platform.getExtensionRegistry().getExtension(DRIVER_EXTENSION_POINT_ID, TOP_DRIVER_EXTENSION_ID);
         if (extension != null) {
             // top
-            if (PluginChecker.isOnlyTopLoaded()) {
+            if (PluginChecker.isOnlyTopLoaded() || PluginChecker.isTDQLoaded()) {
                 IConfigurationElement[] configurationElement = extension.getConfigurationElements();
                 for (IConfigurationElement ele : configurationElement) {
                     try {
@@ -478,8 +488,8 @@ public class MetadataConnectionUtils {
                         log.error(e, e);
                     }
                 }
-            } else {
-                // tdqee
+            }
+            if (driver == null) {
                 List<?> connList = null;
                 try {
                     connList = ExtractMetaDataUtils.getConnection(metadataBean.getDbType(), metadataBean.getUrl(),
