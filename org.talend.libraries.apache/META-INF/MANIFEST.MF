@@ -20,7 +20,8 @@ Bundle-ClassPath: .,
  lib/httpcore-4.0.1.jar,
  lib/httpmime-4.0.1.jar,
  lib/poi-3.6-20091214.jar,
- lib/poi-ooxml-3.6-20091214.jar
+ lib/poi-ooxml-3.6-20091214.jar,
+ lib/xerces-2.6.2.jar
 Bundle-Vendor: .Talend SA.
 Eclipse-BuddyPolicy: dependent
 Require-Bundle: org.apache.log4j;resolution:=optional,
@@ -203,6 +204,7 @@ Export-Package: org.apache.commons.beanutils,
  org.apache.tools.mail,
  org.apache.tools.tar,
  org.apache.tools.zip,
+ org.apache.xerces.xni.parser,
  org.apache.xmlbeans,
  org.apache.xmlbeans.impl.common,
  org.apache.xmlbeans.impl.config,
