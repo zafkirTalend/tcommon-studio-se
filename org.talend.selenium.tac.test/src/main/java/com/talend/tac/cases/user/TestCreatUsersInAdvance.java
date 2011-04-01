@@ -106,12 +106,14 @@ public class TestCreatUsersInAdvance extends Login {
 			Assert.assertTrue(selenium.isTextPresent(rb
 					.getString("user.roles.title")));
 			/*
-			 * The Role columns also contains the text(),but with the attribute:
-			 * style="*;display:none "
+			 * 1. The Role columns also contains the text(),but with the attribute:
+			 * style="*;display:none ".
+			 * 2. using the xpath and mouseDown(),mouseUp() can select more than one roles at the same time. multi-role
 			 */
-			selenium
-					.mouseDown("//td[not(contains(@style,'display: none'))]/div[text()='"
-							+ rb.getString(UserRole) + "']");
+			waitForElementPresent("//td[not(contains(@style,'display: none'))]/div[text()='" + rb.getString(UserRole) + "']/parent::td/preceding-sibling::td//div[@class='x-grid3-row-checker']", WAIT_TIME);
+			selenium.mouseDown("//td[not(contains(@style,'display: none'))]/div[text()='"+ rb.getString(UserRole) + "']/parent::td/preceding-sibling::td//div[@class='x-grid3-row-checker']");
+			selenium.mouseUp("//td[not(contains(@style,'display: none'))]/div[text()='"+ rb.getString(UserRole) + "']/parent::td/preceding-sibling::td//div[@class='x-grid3-row-checker']");
+			
 			selenium.click("idValidateButton");
 			selenium.setSpeed("3000");
 			selenium.click("idFormSaveButton");
