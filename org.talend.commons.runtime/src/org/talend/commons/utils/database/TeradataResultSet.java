@@ -15,6 +15,7 @@ package org.talend.commons.utils.database;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.talend.commons.utils.TalendDBUtils;
 import org.talend.fakejdbc.FakeResultSet;
 
 /**
@@ -75,7 +76,18 @@ public class TeradataResultSet extends FakeResultSet {
     @Override
     public int getInt(String columnLabel) throws SQLException {
         String str = getString(columnLabel);
-        return Integer.parseInt(str);
+        if (columnLabel.equals("TYPE_NAME")) {
+            int index = TalendDBUtils.convertToJDBCType(str);
+            return index;
+        } else if (columnLabel.equals("IS_NULLABLE")) {
+            if (str.equals("N")) {
+                return 1;
+            } else {
+                return 0;
+            }
+        } else {
+            return Integer.parseInt(str);
+        }
     }
 
     /*
