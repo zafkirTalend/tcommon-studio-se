@@ -1101,7 +1101,7 @@ public class Utilities {
 
         SWTBotTreeItem newFolderItem = null;
         try {
-            newFolderItem = treeNode.select(folderName);
+            newFolderItem = treeNode.expand().select(folderName);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
