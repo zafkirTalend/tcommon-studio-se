@@ -79,7 +79,6 @@ import org.talend.core.ui.ISQLBuilderService;
 import org.talend.core.ui.branding.IBrandingConfiguration;
 import org.talend.core.ui.branding.IBrandingService;
 import org.talend.designer.business.diagram.custom.IDiagramModelService;
-import org.talend.designer.core.ui.views.RefreshView;
 import org.talend.rcp.Activator;
 import org.talend.rcp.i18n.Messages;
 import org.talend.rcp.util.ApplicationDeletionUtil;
@@ -226,15 +225,27 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
                 // feature 19053
                 if (null == isfirst || "".equals(isfirst)) {
                     isfirst = perspective.getId();
-                    RefreshView.refreshAll();
+                    refreshAll();
                 } else if (pId.equals(isfirst) && !"".equals(isfirst)) {
                     return;
                 } else if (!pId.equals(isfirst) && !"".equals(isfirst)) {
                     isfirst = perspective.getId();
-                    RefreshView.refreshAll();
+                    refreshAll();
                 }
             }
         });
+    }
+
+    private void refreshAll() {
+        IWorkbenchWindow workBenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+        if (workBenchWindow == null) {
+            return;
+        }
+        IWorkbenchPage workBenchPage = workBenchWindow.getActivePage();
+        if (workBenchPage == null) {
+            return;
+        }
+        workBenchPage.resetPerspective();
     }
 
     private void clearEditorAreaBG(boolean flag) {
