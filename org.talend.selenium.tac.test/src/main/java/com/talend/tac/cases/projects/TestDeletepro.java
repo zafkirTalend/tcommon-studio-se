@@ -8,6 +8,7 @@ import com.talend.tac.cases.Login;
 import com.thoughtworks.selenium.Selenium;
 
 public class TestDeletepro extends Login {
+	TestDuplicateProject duplicater = new TestDuplicateProject();
 
 	public void cancelDelete(String name) {
 		selenium.click("!!!menu.project.element!!!");
@@ -41,6 +42,7 @@ public class TestDeletepro extends Login {
 			throws InterruptedException {
 		// s.click("!!!menu.project.element!!!");
 		selenium.setSpeed(MAX_SPEED);
+		
 		selenium.refresh();
 
 		if (selenium
@@ -63,14 +65,17 @@ public class TestDeletepro extends Login {
 	@Test(groups = { "Second" }, dependsOnGroups = { "Add" })
 	@Parameters({ "DeleteProjectname" })
 	public void testDeletepro(String deleteProname) throws Exception {
-
-		this.waitForElementPresent("!!!menu.project.element!!!", 30);
-		cancelDelete(deleteProname);
-		okDelete(deleteProname);
+		//
+		selenium.setSpeed(MAX_SPEED);
+		selenium.click("!!!menu.project.element!!!");
+		//this.waitForElementPresent("!!!menu.project.element!!!", 30);
+		duplicater.duplicateProject(selenium,deleteProname);
+		cancelDelete("Copy_of_"+deleteProname);
+		okDelete("Copy_of_"+deleteProname);
 		Assert.assertFalse(
 				!selenium
 						.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
-								+ deleteProname + "')]"),
+								+"Copy_of_"+ deleteProname + "')]"),
 				"Project delete failed!");
 	}
 
