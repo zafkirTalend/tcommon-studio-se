@@ -58,7 +58,7 @@ public class DuplicateJobletTest extends TalendSwtBotForTos {
 
     @After
     public void removePreviouslyCreateItems() {
-        gefBot.cTabItem("Joblet " + JOBLETNAME + " 0.1").close();
+        gefBot.editorByTitle("Joblet " + JOBLETNAME + " 0.1").close();
         Utilities.delete(tree, treeNode, JOBLETNAME, "0.1", null);
         Utilities.delete(tree, treeNode, NEW_JOBLETNAME, "0.1", null);
         Utilities.emptyRecycleBin(gefBot, tree);

@@ -50,7 +50,7 @@ public class DeleteJobletTest extends TalendSwtBotForTos {
 
     @Test
     public void deleteJoblet() {
-        gefBot.cTabItem("Joblet " + JOBLETNAME + " 0.1").close();
+        gefBot.editorByTitle("Joblet " + JOBLETNAME + " 0.1").close();
         Utilities.delete(tree, treeNode, JOBLETNAME, "0.1", null);
     }
 
