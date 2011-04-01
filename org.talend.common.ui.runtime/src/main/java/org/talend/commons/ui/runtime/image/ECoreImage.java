@@ -122,6 +122,7 @@ public enum ECoreImage implements IImage {
     METADATA_SALESFORCE_SCHEMA_ICON("/icons1/salesforce_icon.png"), //$NON-NLS-1$
     METADATA_VALIDATION_RULES_ICON("/icons1/metadata.png"), //$NON-NLS-1$
     METADATA_VALIDATION_RULES_WIZ("/icons1/delimited_wiz.png"), //$NON-NLS-1$
+    METADATA_EDIFACT_ICON("/icons1/EDIField.png"),
 
     MODULE_INSTALLED_ICON("/icons1/checked.gif"), //$NON-NLS-1$
     MODULE_ERROR_ICON("/icons1/error.gif"), //$NON-NLS-1$

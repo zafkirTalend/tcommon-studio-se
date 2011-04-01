@@ -150,18 +150,20 @@ public class RepositoryToComponentProperty {
         if (connection == null) {
             return null;
         }
-        if ("FAMILY".equals(value)) {
+        if ("EDI_TYPE".equals(value)) {
             if (isContextMode(connection, connection.getXmlName())) {
                 return connection.getXmlName();
             } else {
                 return TalendQuoteUtils.addQuotes(connection.getXmlName());
             }
-        } else if ("FILE_PATH".equals(value)) {
+        } else if ("EDI_VERSION".equals(value)) {
             if (isContextMode(connection, connection.getFileName())) {
                 return connection.getFileName();
             } else {
-                return TalendQuoteUtils.addQuotes(connection.getFileName());
+                return TalendQuoteUtils.removeQuotes(connection.getFileName());
             }
+        } else if ("XPATH_QUERY".equals(value)) {
+            return TalendQuoteUtils.addQuotes("/unEdifact/interchangeMessage/" + connection.getXmlName());
         }
         return null;
     }
