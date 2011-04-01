@@ -31,6 +31,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.Viewer;
@@ -100,6 +101,7 @@ import org.talend.repository.model.ProjectNodeHelper;
 import org.talend.repository.ui.swt.utils.AbstractForm;
 import org.talend.repository.ui.utils.ManagerConnection;
 import orgomg.cwm.objectmodel.core.CoreFactory;
+import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.resource.relational.Catalog;
 import orgomg.cwm.resource.relational.NamedColumnSet;
 import orgomg.cwm.resource.relational.Schema;
@@ -327,13 +329,12 @@ public class SelectorTableForm extends AbstractForm {
         tree.addListener(SWT.Expand, new Listener() {
 
             public void handleEvent(Event event) {
-                Set<String> checkedItems = getCheckedItem();
                 TreeItem treeItem = (TreeItem) event.item;
                 for (TreeItem item : treeItem.getItems()) {
                     if (item.getData() != null) {
                         TableNode node = (TableNode) item.getData();
                         if (node.getType() == TableNode.TABLE) {
-                            if (checkedItems.contains(node.getValue())) {
+                            if (isExistTable(node)) {
                                 item.setChecked(true);
                             } else {
                                 item.setChecked(false);
@@ -596,11 +597,16 @@ public class SelectorTableForm extends AbstractForm {
                         }
                     } else if (type == TableNode.TABLE) {
                         if (promptNeeded) {
-                            treeItem.setText(2, ""); //$NON-NLS-1$
-                            treeItem.setText(3, Messages.getString("SelectorTableForm.Pending")); //$NON-NLS-1$
-                            countPending++;
-                            parentWizardPage.setPageComplete(false);
-                            refreshTable(treeItem, -1);
+                            MetadataTable existTable = getExistTable(treeItem.getText(0));
+                            if (existTable != null) {
+                                refreshExistItem(existTable, treeItem);
+                            } else {
+                                treeItem.setText(2, ""); //$NON-NLS-1$
+                                treeItem.setText(3, Messages.getString("SelectorTableForm.Pending")); //$NON-NLS-1$
+                                countPending++;
+                                parentWizardPage.setPageComplete(false);
+                                refreshTable(treeItem, -1);
+                            }
                         } else {
                             clearTableItem(treeItem);
                             if (treeItem.getText() != null
@@ -624,7 +630,7 @@ public class SelectorTableForm extends AbstractForm {
      * @param item
      * @param checked
      */
-    private void updateItem(TreeItem item, boolean checked, boolean isEvent) {
+    private void updateItem(final TreeItem item, boolean checked, boolean isEvent) {
         if (item == null) {
             return;
         }
@@ -650,10 +656,15 @@ public class SelectorTableForm extends AbstractForm {
                 }
                 if (checked) {
                     if (!item.getChecked()) {
-                        item.setText(3, Messages.getString("SelectorTableForm.Pending")); //$NON-NLS-1$
-                        countPending++;
-                        parentWizardPage.setPageComplete(false);
-                        refreshTable(item, -1);
+                        MetadataTable existTable = getExistTable(item.getText(0));
+                        if (existTable != null) {
+                            refreshExistItem(existTable, item);
+                        } else {
+                            item.setText(3, Messages.getString("SelectorTableForm.Pending")); //$NON-NLS-1$
+                            countPending++;
+                            parentWizardPage.setPageComplete(false);
+                            refreshTable(item, -1);
+                        }
                     } else {
                         updateStatus(IStatus.OK, null);
                     }
@@ -806,7 +817,7 @@ public class SelectorTableForm extends AbstractForm {
 
             public void run() {
                 viewer.setInput(tableNodeList);
-                restoreCheckItems();
+                // restoreCheckItems();
                 if (displayMessageBox) {
                     String msg = Messages.getString("DatabaseTableForm.connectionIsDone"); //$NON-NLS-1$
                     openInfoDialogInUIThread(getShell(), Messages.getString("DatabaseTableForm.checkConnection"), msg, false); //$NON-NLS-1$
@@ -1330,6 +1341,169 @@ public class SelectorTableForm extends AbstractForm {
         });
     }
 
+    private void refreshItem(TreeItem item) {
+        if (item != null && item.getData() != null) {
+            int type = ((TableNode) item.getData()).getType();
+            if (type == TableNode.TABLE) {
+                item.setChecked(false);
+                if (item.getData() != null) {
+                    TableNode node = (TableNode) item.getData();
+                    if (isExistTable(node)) {
+                        item.setChecked(true);
+                        Integer num = tableColumnNums.get(item.getText(0));
+                        if (num != null) {
+                            // get column num from previous result
+                            item.setText(2, num.toString());
+                            item.setText(3, Messages.getString("SelectorTableForm.Success")); //$NON-NLS-1$   
+                        } else {
+                            // retrieve column num again
+                            refreshTable(item, -1);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private void refreshExistItem(final MetadataTable existTable, final TreeItem item) {
+        Display.getDefault().syncExec(new Runnable() {
+
+            public void run() {
+                orgomg.cwm.objectmodel.core.Package pack = (orgomg.cwm.objectmodel.core.Package) existTable.eContainer();
+                boolean confirm = MessageDialog.openConfirm(Display.getDefault().getActiveShell(), "Confirm", "Another '"
+                        + existTable.getLabel() + "' already exist in \"" + pack.getName() + "\", do you want to cover it?");
+                if (confirm) {
+                    TreeItem existItem = getExistItem(existTable);
+                    clearTableItem(existItem);
+                    existItem.setChecked(false);
+                    item.setText(3, Messages.getString("SelectorTableForm.Pending")); //$NON-NLS-1$
+                    countPending++;
+                    parentWizardPage.setPageComplete(false);
+                    refreshTable(item, -1);
+                } else {
+                    item.setChecked(false);
+                    boolean hasCheckedItem = false;
+                    TreeItem parentItem = item.getParentItem();
+                    if (parentItem != null) {
+                        for (TreeItem i : parentItem.getItems()) {
+                            if (i.getChecked()) {
+                                hasCheckedItem = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (!hasCheckedItem) {
+                        parentItem.setChecked(false);
+                    }
+                }
+            }
+        });
+    }
+
+    private MetadataTable getExistTable(String name) {
+        if (name != null) {
+            for (Object obj : ConnectionHelper.getTables(getConnection())) {
+                if (obj == null) {
+                    continue;
+                }
+                MetadataTable table = (MetadataTable) obj;
+                if (table.getLabel().equals(name)) {
+                    return table;
+                }
+            }
+        }
+        return null;
+    }
+
+    private TreeItem getExistItem(MetadataTable table) {
+        if (!tree.isDisposed() && table != null && table.eContainer() != null) {
+            String name = ((orgomg.cwm.objectmodel.core.Package) table.eContainer()).getName();
+            TreeItem[] items = tree.getItems();
+            for (TreeItem treeItem : items) {
+                if (treeItem.getData() != null) {
+                    int type = ((TableNode) treeItem.getData()).getType();
+                    if (type == TableNode.CATALOG) {
+                        for (TreeItem item : treeItem.getItems()) {
+                            if (item.getData() != null) {
+                                int t = ((TableNode) item.getData()).getType();
+                                if (t == TableNode.SCHEMA) {
+                                    for (TreeItem i : item.getItems()) {
+                                        if (i.getText(0).equals(table.getLabel()) && !item.getText(0).equals(name)
+                                                && i.getChecked()) {
+                                            return i;
+                                        }
+                                    }
+                                } else if (t == TableNode.TABLE) {
+                                    if (item.getText(0).equals(table.getLabel()) && !treeItem.getText(0).equals(name)
+                                            && item.getChecked()) {
+                                        return item;
+                                    }
+                                }
+                            }
+                        }
+                    } else if (type == TableNode.SCHEMA) {
+                        for (TreeItem item : treeItem.getItems()) {
+                            if (item.getText(0).equals(table.getLabel()) && treeItem.getText(0).equals(name) && item.getChecked()) {
+                                return item;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+
+    }
+
+    /**
+     * 
+     * wzhang Comment method "isExistTable".
+     * 
+     * @param tableNode
+     * @return
+     */
+    private boolean isExistTable(TableNode tableNode) {
+        if (tableNode != null && tableNode.getType() == TableNode.TABLE) {
+            TableNode parent = tableNode.getParent();
+            if (parent == null) {
+                for (Object obj : ConnectionHelper.getTables(getConnection())) {
+                    if (obj == null) {
+                        continue;
+                    }
+                    MetadataTable table = (MetadataTable) obj;
+                    if (table.getLabel().equals(tableNode.getValue())) {
+                        return true;
+                    }
+                }
+            } else {
+                int type = parent.getType();
+                EList<ModelElement> ownedElement = null;
+                if (type == TableNode.CATALOG) {
+                    Catalog c = (Catalog) ConnectionHelper.getPackage(parent.getValue(), getConnection(), Catalog.class);
+                    if (c != null) {
+                        ownedElement = c.getOwnedElement();
+                    }
+                } else if (type == TableNode.SCHEMA) {
+                    Schema s = (Schema) ConnectionHelper.getPackage(parent.getValue(), getConnection(), Schema.class);
+                    if (s != null) {
+                        ownedElement = s.getOwnedElement();
+                    }
+                }
+                if (ownedElement != null) {
+                    for (ModelElement m : ownedElement) {
+                        if (m instanceof MetadataTable) {
+                            String label = ((MetadataTable) m).getLabel();
+                            if (label.equals(tableNode.getValue())) {
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
     /**
      * DOC hcw Comment method "restoreCheckItems".
      */
@@ -1342,24 +1516,28 @@ public class SelectorTableForm extends AbstractForm {
             MetadataTable table = (MetadataTable) obj;
             checkedItems.add(table.getLabel());
         }
-        for (TreeItem catalogItem : tree.getItems()) {
-            TreeItem[] schemaItems = catalogItem.getItems();
-            for (TreeItem schemaItem : schemaItems) {
-                TreeItem[] tableItems = schemaItem.getItems();
-                for (TreeItem tableItem : tableItems) {
-                    tableItem.setChecked(false);
-                    if (checkedItems.contains(tableItem.getText(0))) {
-                        tableItem.setChecked(true);
-                        Integer num = tableColumnNums.get(tableItem.getText(0));
-                        if (num != null) {
-                            // get column num from previous result
-                            tableItem.setText(2, num.toString());
-                            tableItem.setText(3, Messages.getString("SelectorTableForm.Success")); //$NON-NLS-1$   
-                        } else {
-                            // retrieve column num again
-                            refreshTable(tableItem, -1);
+        for (TreeItem treeItem : tree.getItems()) {
+            if (treeItem.getData() != null) {
+                int type = ((TableNode) treeItem.getData()).getType();
+                if (type == TableNode.CATALOG) {
+                    for (TreeItem item : treeItem.getItems()) {
+                        if (item.getData() != null) {
+                            int t = ((TableNode) item.getData()).getType();
+                            if (t == TableNode.SCHEMA) {
+                                for (TreeItem i : item.getItems()) {
+                                    refreshItem(i);
+                                }
+                            } else if (t == TableNode.TABLE) {
+                                refreshItem(item);
+                            }
                         }
                     }
+                } else if (type == TableNode.SCHEMA) {
+                    for (TreeItem item : treeItem.getItems()) {
+                        refreshItem(item);
+                    }
+                } else if (type == TableNode.TABLE) {
+                    refreshItem(treeItem);
                 }
             }
         }
