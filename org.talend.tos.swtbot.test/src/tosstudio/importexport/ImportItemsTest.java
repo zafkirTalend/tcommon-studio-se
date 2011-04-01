@@ -20,6 +20,7 @@ import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
@@ -39,6 +40,8 @@ public class ImportItemsTest extends TalendSwtBotForTos {
     private SWTBotView view;
 
     private SWTBotTree tree;
+
+    private SWTBotShell shell;
 
     private static final String SAMPLE_RELATIVE_FILEPATH = "items.zip";
 
@@ -64,7 +67,7 @@ public class ImportItemsTest extends TalendSwtBotForTos {
     public void importItems() throws IOException, URISyntaxException {
         gefBot.toolbarButtonWithTooltip("Import Items").click();
 
-        gefBot.shell("Import items").activate();
+        shell = gefBot.shell("Import items").activate();
         gefBot.radio("Select archive file:").click();
         gefBot.text(1).setText(Utilities.getFileFromCurrentPluginSampleFolder(SAMPLE_RELATIVE_FILEPATH).getAbsolutePath());
         gefBot.tree().setFocus();
@@ -77,17 +80,17 @@ public class ImportItemsTest extends TalendSwtBotForTos {
         for (int i = 0; i < treeNodes.length; i++) {
             if (i >= 0 && i <= 3) {
                 SWTBotTreeItem newTreeItem = tree.expandNode(treeNodes[i]).select(treeItems[i] + " 0.1");
-                Assert.assertNotNull(newTreeItem);
+                Assert.assertNotNull(treeItems[i] + " 0.1 is not exist", newTreeItem);
             } else if (i == 4) {
                 for (int k1 = 0; k1 < codeNodes.length; k1++) {
                     SWTBotTreeItem newCodeItem = tree.expandNode(treeNodes[i], codeNodes[k1]).select(treeItems[i + k1] + " 0.1");
-                    Assert.assertNotNull(newCodeItem);
+                    Assert.assertNotNull(treeItems[i + k1] + " 0.1 is not exist", newCodeItem);
                 }
             } else if (i == 6) {
                 for (int k2 = 0; k2 < metadataNodes.length; k2++) {
                     SWTBotTreeItem newMetadataItem = tree.expandNode(treeNodes[i], metadataNodes[k2]).select(
                             treeItems[i + k2] + " 0.1");
-                    Assert.assertNotNull(newMetadataItem);
+                    Assert.assertNotNull(treeItems[i + k2] + " 0.1 is not exist", newMetadataItem);
                 }
             }
         }
@@ -95,21 +98,8 @@ public class ImportItemsTest extends TalendSwtBotForTos {
 
     @After
     public void removePreviouslyCreateItems() {
-        for (int i = 0; i < treeNodes.length; i++) {
-            if (i >= 0 && i <= 3) {
-                tree.expandNode(treeNodes[i]).getNode(treeItems[i] + " 0.1").contextMenu("Delete").click();
-            } else if (i == 4) {
-                for (int k1 = 0; k1 < codeNodes.length; k1++) {
-                    tree.expandNode(treeNodes[i], codeNodes[k1]).getNode(treeItems[i + k1] + " 0.1").contextMenu("Delete")
-                            .click();
-                }
-            } else if (i == 6) {
-                for (int k2 = 0; k2 < metadataNodes.length; k2++) {
-                    tree.expandNode(treeNodes[i], metadataNodes[k2]).getNode(treeItems[i + k2] + " 0.1").contextMenu("Delete")
-                            .click();
-                }
-            }
-        }
+        shell.close();
+        Utilities.cleanUpRepository(tree);
         Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

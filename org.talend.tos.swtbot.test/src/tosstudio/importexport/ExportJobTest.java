@@ -22,6 +22,7 @@ import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
@@ -40,6 +41,8 @@ public class ExportJobTest extends TalendSwtBotForTos {
     private SWTBotTree tree;
 
     private SWTBotView view;
+
+    private SWTBotShell shell;
 
     private SWTBotTreeItem treeNode;
 
@@ -63,7 +66,7 @@ public class ExportJobTest extends TalendSwtBotForTos {
     @Test
     public void exportJob() throws IOException, URISyntaxException {
         tree.expandNode("Job Designs").getNode(JOBNAME + " 0.1").contextMenu("Export Job").click();
-        gefBot.shell("Export Job").activate();
+        shell = gefBot.shell("Export Job").activate();
         gefBot.comboBoxWithLabel("To &archive file:").setText(
                 Utilities.getFileFromCurrentPluginSampleFolder(SAMPLE_RELATIVE_FILEPATH).getParent() + FILE_SEPARATOR
                         + "output_job.zip");
@@ -76,6 +79,7 @@ public class ExportJobTest extends TalendSwtBotForTos {
 
     @After
     public void removePreviouslyCreateItems() throws IOException, URISyntaxException {
+        shell.close();
         Utilities.getFileFromCurrentPluginSampleFolder("output_job.zip").delete();
         gefBot.cTabItem("Job " + JOBNAME + " 0.1").close();
         Utilities.delete(tree, treeNode, JOBNAME, "0.1", null);

@@ -1161,4 +1161,39 @@ public class Utilities {
     public static void renameJob(SWTGefBot gefBot, SWTBotTreeItem treeNode, String jobName, String newJobName) {
         rename(TalendItemType.JOB_DESIGNS, gefBot, treeNode, jobName, newJobName);
     }
+
+    /**
+     * DOC fzhong Comment method "cleanUpRepository". Delete all items in repository to recycle bin.
+     * 
+     * @param tree tree in repository
+     */
+    public static void cleanUpRepository(SWTBotTree tree) {
+        for (TalendItemType itemType : TalendItemType.values()) {
+            SWTBotTreeItem treeNode = getTalendItemNode(tree, itemType);
+            int i = 0;
+            if (TalendItemType.ROUTINES.equals(itemType))
+                i = 1; // skip system routine
+            if (TalendItemType.SQL_TEMPLATES.equals(itemType))
+                treeNode = treeNode.expandNode("Generic", "UserDefined"); // focus on specific sql template type
+            if (TalendItemType.DOCUMENTATION.equals(itemType) || TalendItemType.RECYCLE_BIN.equals(itemType))
+                continue; // undo with documentation and recycle bin
+            for (; i < treeNode.rowCount(); i++) {
+                treeNode.getNode(i).contextMenu("Delete").click();
+            }
+        }
+    }
+
+    /**
+     * DOC fzhong Comment method "cleanUpRepository". Delete all items under the tree node to recycle bin.
+     * 
+     * @param treeNode treeNode of the tree in repository
+     */
+    public static void cleanUpRepository(SWTBotTreeItem treeNode) {
+        int i = 0;
+        if ("Routines".equals(treeNode.getText()))
+            i = 1;
+        for (; i < treeNode.rowCount(); i++) {
+            treeNode.getNode(i).contextMenu("Delete").click();
+        }
+    }
 }
