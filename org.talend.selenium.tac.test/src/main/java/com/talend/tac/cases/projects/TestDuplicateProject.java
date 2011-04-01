@@ -16,6 +16,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.talend.tac.cases.Login;
+import com.thoughtworks.selenium.Selenium;
 
 public class TestDuplicateProject extends Login {
 	@Test(groups = { "Second" },dependsOnGroups = { "Add" })
@@ -30,7 +31,7 @@ public class TestDuplicateProject extends Login {
 			return ;
 			
 		}
-		selenium.setSpeed(MIN_SPEED);
+		selenium.setSpeed(MID_SPEED);
 		this.waitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
 				+ duplicateproname + "')]",30);
 		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
@@ -56,5 +57,35 @@ public class TestDuplicateProject extends Login {
 						+ "Copy_of_" + duplicateproname + "')]"),
 				"project duplicated failed");
 		selenium.setSpeed(MIN_SPEED);
+	}
+	public void duplicateProject(Selenium selenium,String proname){
+		selenium.setSpeed(MAX_SPEED);
+		selenium.refresh();
+//		this.waitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
+//				+ duplicateproname + "')]",30);
+		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
+				+ proname + "')]");// the selected project's id
+		selenium.setSpeed(MID_SPEED);
+		selenium.click("idSubModuleDuplicateButton");
+		
+/*		// add the type select option
+		// The feature is removed
+		selenium.setSpeed("2000");
+		if(selenium.isElementPresent("idProjectTypeComboBox")){
+		selenium.click("idProjectTypeComboBox");
+		selenium.mouseDown("//div[text()='"+type+"']");
+		selenium.setSpeed("0");
+		}
+*/
+		
+		selenium.click("idDescriptionInput");
+		selenium.click("idFormSaveButton");
+	
+		Assert.assertTrue(
+				selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
+						+ "Copy_of_" + proname + "')]"),
+				"project duplicated failed");
+		selenium.setSpeed(MIN_SPEED);
+		
 	}
 }
