@@ -17,8 +17,10 @@
   -->
   
   <parameter  name ="ProjectType"	value ="Data Quality"/>
+  <!-- 
   <parameter  name ="AddcommonProjectname"	value ="commonpro"/>
   <parameter  name ="AddreferenceProjectname"	value ="referencepro"/>
+   -->
   <parameter  name ="DeleteProjectname"	value ="referencepro"/>
   
   <!-- 
@@ -62,26 +64,9 @@
   <parameter  name ="ServerPassword" value =""/>
   
   
+    
   
-  <test name="projectJava">
-    <classes>
-	    <class name="com.talend.tac.cases.projects.TestAddcommonpro"/>
-	    <class name="com.talend.tac.cases.projects.TestAddProjectWithExistlable"/>
-	    <class name="com.talend.tac.cases.projects.TestCheckConnection"/>
-	    <class name="com.talend.tac.cases.projects.TestDuplicateProject"/>
-	    <class name="com.talend.tac.cases.projects.TestModification"/>
-	    <class name="com.talend.tac.cases.projects.TestDeletepro"/>
-	    <class name="com.talend.tac.cases.projects.TestBranchManageAdd"/>
-	    <class name="com.talend.tac.cases.projects.TestBranchManageAddExistbranch"/>
-	    <class name="com.talend.tac.cases.projects.TestCleanProject"/>
-	    <class name="com.talend.tac.cases.projects.TestAddJavaprojectwithdefault"/>
-	    <class name="com.talend.tac.cases.projects.TestAddProjectUncheckadvanced"/>
-	    <class name="com.talend.tac.cases.projects.TestClean"/>
-    </classes>
-  </test>
-  
-  
-  <test name="projectPerl">
+   <test name="projectPerl">
   	<parameter  name ="Prolanguage" value ="Perl"/>
   	<classes>
 	    <class name="com.talend.tac.cases.projects.TestAddcommonpro"/>
@@ -96,8 +81,31 @@
 	    <class name="com.talend.tac.cases.projects.TestAddPerlproject"/>
   	</classes>
   </test>
+  <test name="projectJava">
+    <classes>
+        <class name="com.talend.tac.cases.projects.TestAddJavaprojectwithdefault"/>
+	    <class name="com.talend.tac.cases.projects.TestAddcommonpro"/>
+	    <class name="com.talend.tac.cases.projects.TestAddProjectWithExistlable"/>
+	    <class name="com.talend.tac.cases.projects.TestCheckConnection"/>
+	    <class name="com.talend.tac.cases.projects.TestDuplicateProject"/>
+	    <class name="com.talend.tac.cases.projects.TestModification"/>
+	    <class name="com.talend.tac.cases.projects.TestDeletepro"/>
+	    <class name="com.talend.tac.cases.projects.TestBranchManageAdd"/>
+	    <class name="com.talend.tac.cases.projects.TestBranchManageAddExistbranch"/>
+	    <class name="com.talend.tac.cases.projects.TestCleanProject"/>
+	    <class name="com.talend.tac.cases.projects.TestAddProjectUncheckadvanced"/>
+	    <class name="com.talend.tac.cases.projects.TestAddprojects"/>
+	   <!--<class name="com.talend.tac.cases.projects.TestClean"/> --> 
+    </classes>
+  </test>
+
   
    <test name = "server">
+   <!-- Environment needed to configured
+   		1.start a job server on localhost
+   		2.start a job server on remote linux
+   		3.start a job server on remote windows
+    -->
   <classes>
     <class name="com.talend.tac.cases.jobconductor.TestAddServer"/>
     <class name="com.talend.tac.cases.jobconductor.TestDeleteServer"/>
@@ -105,6 +113,6 @@
     <class name="com.talend.tac.cases.jobconductor.TestCleanServers"/>
   </classes>
   </test>
-
+  
 </suite>
 
