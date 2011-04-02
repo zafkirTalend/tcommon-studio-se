@@ -20,6 +20,7 @@ import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
@@ -39,6 +40,8 @@ public class ChangeAllItemsToAFixedVersionTest extends TalendSwtBotForTos {
     private SWTBotView view;
 
     private SWTBotTree tree;
+
+    private SWTBotShell shell;
 
     private static final String SAMPLE_RELATIVE_FILEPATH = "items.zip"; //$NON-NLS-1$
 
@@ -62,7 +65,7 @@ public class ChangeAllItemsToAFixedVersionTest extends TalendSwtBotForTos {
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
         gefBot.toolbarButtonWithTooltip("Import Items").click();
 
-        gefBot.shell("Import items").activate();
+        shell = gefBot.shell("Import items").activate();
         gefBot.radio("Select archive file:").click();
         gefBot.text(1).setText(Utilities.getFileFromCurrentPluginSampleFolder(SAMPLE_RELATIVE_FILEPATH).getAbsolutePath());
         gefBot.tree().setFocus();
@@ -94,23 +97,23 @@ public class ChangeAllItemsToAFixedVersionTest extends TalendSwtBotForTos {
         for (int i = 0; i < treeNodes.length; i++) {
             if (i >= 0 && i <= 3) {
                 SWTBotTreeItem newTreeItem = tree.expandNode(treeNodes[i]).select(treeItems[i] + " 0.2");
-                Assert.assertNotNull(treeItems[i] + " not exist", newTreeItem);
+                Assert.assertNotNull(treeItems[i] + " 0.2 is not exist", newTreeItem);
             } else if (i == 4) {
                 for (int k1 = 0; k1 < codeNodes.length; k1++) {
                     SWTBotTreeItem newCodeItem = tree.expandNode(treeNodes[i], codeNodes[k1]).select(treeItems[i + k1] + " 0.2");
-                    Assert.assertNotNull(treeItems[i] + " not exist", newCodeItem);
+                    Assert.assertNotNull(treeItems[i + k1] + " 0.2 is not exist", newCodeItem);
                 }
             } else if (i == 6) {
                 for (int k2 = 0; k2 < metadataNodes.length; k2++) {
                     SWTBotTreeItem newMetadataItem = tree.expandNode(treeNodes[i], metadataNodes[k2]).select(
                             treeItems[i + k2] + " 0.2");
-                    Assert.assertNotNull(treeItems[i] + " not exist", newMetadataItem);
+                    Assert.assertNotNull(treeItems[i + k2] + " 0.2 is not exist", newMetadataItem);
                 }
             } else if (i == 7) {
                 for (int k3 = 0; k3 < documentationNodes.length - 1; k3++) {
                     SWTBotTreeItem newDocItem = tree.expandNode(treeNodes[i], documentationNodes[0], documentationNodes[1 + k3])
                             .select(treeItems[k3 + 1] + " 0.2");
-                    Assert.assertNotNull(treeItems[i] + " not exist", newDocItem);
+                    Assert.assertNotNull(treeItems[k3 + 1] + " 0.2 is not exist", newDocItem);
                 }
             }
         }
@@ -118,21 +121,8 @@ public class ChangeAllItemsToAFixedVersionTest extends TalendSwtBotForTos {
 
     @After
     public void removePreviouslyCreateItems() {
-        for (int i = 0; i < treeNodes.length; i++) {
-            if (i >= 0 && i <= 3) {
-                tree.expandNode(treeNodes[i]).getNode(treeItems[i] + " 0.2").contextMenu("Delete").click();
-            } else if (i == 4) {
-                for (int k1 = 0; k1 < codeNodes.length; k1++) {
-                    tree.expandNode(treeNodes[i], codeNodes[k1]).getNode(treeItems[i + k1] + " 0.2").contextMenu("Delete")
-                            .click();
-                }
-            } else if (i == 6) {
-                for (int k2 = 0; k2 < metadataNodes.length; k2++) {
-                    tree.expandNode(treeNodes[i], metadataNodes[k2]).getNode(treeItems[i + k2] + " 0.2").contextMenu("Delete")
-                            .click();
-                }
-            }
-        }
+        shell.close();
+        Utilities.cleanUpRepository(tree);
         Utilities.emptyRecycleBin(gefBot, tree);
     }
 }
