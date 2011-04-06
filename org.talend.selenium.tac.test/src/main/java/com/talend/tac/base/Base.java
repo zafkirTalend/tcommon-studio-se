@@ -24,7 +24,7 @@ public class Base {
 	public static String MID_SPEED = "3000";
 	public static String MIN_SPEED = "0";
 	public static String MAX_SPEED = "5000";
-	public static int WAIT_TIME = 20;
+	public static int WAIT_TIME = 40;
 	
 	
 	@BeforeClass
