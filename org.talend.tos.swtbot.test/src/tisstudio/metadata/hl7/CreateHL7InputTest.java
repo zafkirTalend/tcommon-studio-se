@@ -22,6 +22,7 @@ import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.waits.Conditions;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
@@ -43,6 +44,8 @@ public class CreateHL7InputTest extends TalendSwtBotForTos {
 
     private SWTBotTreeItem treeNode;
 
+    private SWTBotShell shell;
+
     private static final String HL7NAME = "hl7_1"; //$NON-NLS-1$ 
 
     private static final String SAMPLE_RELATIVE_FILEPATH = "HL7.txt"; //$NON-NLS-1$
@@ -62,14 +65,20 @@ public class CreateHL7InputTest extends TalendSwtBotForTos {
     @Test
     public void createHL7Input() throws IOException, URISyntaxException {
         tree.setFocus();
-        try {
-            tree.expandNode("Metadata").getNode("HL7").contextMenu("Create HL7").click();
-            gefBot.waitUntil(Conditions.shellIsActive("New HL7 File"));
-            gefBot.shell("New HL7 File").activate();
 
+        tree.expandNode("Metadata").getNode("HL7").contextMenu("Create HL7").click();
+        gefBot.waitUntil(Conditions.shellIsActive("New HL7 File"));
+        shell = gefBot.shell("New HL7 File").activate();
+        try {
             /* step 1 of 5 */
             gefBot.textWithLabel("Name").setText(HL7NAME);
-            gefBot.button("Next >").click();
+            boolean nextButtonIsEnabled = gefBot.button("Next >").isEnabled();
+            if (nextButtonIsEnabled) {
+                gefBot.button("Next >").click();
+            } else {
+                shell.close();
+                Assert.assertTrue("next button is not enabled, maybe the item name is exist,", nextButtonIsEnabled);
+            }
 
             /* step 2 of 5 */
             gefBot.button("Next >").click();
@@ -96,9 +105,8 @@ public class CreateHL7InputTest extends TalendSwtBotForTos {
             /* step 5 of 5 */
             gefBot.button("Finish").click();
         } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            gefBot.shell("New HL7 File").close();
+            shell.close();
+            Assert.fail(e.getCause().getMessage());
         }
 
         SWTBotTreeItem newHl7Item = null;
@@ -113,8 +121,6 @@ public class CreateHL7InputTest extends TalendSwtBotForTos {
 
     @After
     public void removePreviouslyCreateItems() throws IOException, URISyntaxException {
-        if (Utilities.getFileFromCurrentPluginSampleFolder("cobocurs.xc2j").exists())
-            Utilities.getFileFromCurrentPluginSampleFolder("cobocurs.xc2j").delete();
         Utilities.delete(tree, treeNode, HL7NAME, "0.1", null);
         Utilities.emptyRecycleBin(gefBot, tree);
     }
