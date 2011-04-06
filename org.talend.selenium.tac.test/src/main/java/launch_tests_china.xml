@@ -21,7 +21,10 @@
   	<parameter  name ="language"	value ="en"/>
   	<parameter  name ="country"	value ="US"/>
   	<parameter  name ="resourceBundle"	value ="messages"/>
-
+  	
+  	<!-- License parameters -->
+  	<parameter  name ="license.file.path"	value ="C:\\Users\\Administrator\\Desktop\\license_42_MDM_TDQ_EE_MPX88"/>
+  	
 	<!-- Login user -->
 	<parameter name="userName" value="admin@company.com" />
 	<parameter name="userPassword" value="admin" />
