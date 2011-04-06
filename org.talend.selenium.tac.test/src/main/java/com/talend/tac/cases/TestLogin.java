@@ -19,6 +19,8 @@ public class TestLogin extends Base {
 		selenium.type("idLoginInput", user);
 		selenium.type("idLoginPasswordInput", password);
 		selenium.keyDown("idLoginPasswordInput", "\\13");
+		selenium.keyUp("idLoginPasswordInput", "\\13");
+		selenium.click("idLoginButton");
 
 		assertTrue(selenium.isTextPresent(this.getString(
 				"login.error.unknownUser", user)));// unknown user
@@ -33,6 +35,8 @@ public class TestLogin extends Base {
 		selenium.type("idLoginInput", user);
 		selenium.type("idLoginPasswordInput", password);
 		selenium.keyDown("idLoginPasswordInput", "\\13");
+		selenium.keyUp("idLoginPasswordInput", "\\13");
+		selenium.click("idLoginButton");
 
 		assertTrue(selenium.isTextPresent(rb
 				.getString("login.error.badPassword")));// Incorrect password
@@ -44,22 +48,25 @@ public class TestLogin extends Base {
 		waitForElementPresent("idLoginInput", 20);
 		waitForElementPresent("idLoginPasswordInput", 20);
 		selenium.windowMaximize();
+		selenium.setSpeed(MID_SPEED);
 		selenium.type("idLoginInput", user);
 		selenium.type("idLoginPasswordInput", password);
 		selenium.keyDown("idLoginPasswordInput", "\\13");
+		selenium.keyUp("idLoginPasswordInput", "\\13");
+		selenium.click("idLoginButton");
 
-		// wait for this HTML page fully loaded
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-
+//		// wait for this HTML page fully loaded
+//		try {
+//			Thread.sleep(3000);
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
 		if (selenium.isTextPresent("Failed to log on: user " + user
 				+ " already logged on to webapp")) {
 			selenium.click("idLoginForceLogoutButton");
-			selenium.keyDown("idLoginPasswordInput", "\\13");
+			selenium.click("idLoginButton");
 		}
+		selenium.setSpeed(MIN_SPEED);
 		// assertTrue(selenium.isElementPresent("idLeftMenuTreeLogoutButton"));
 		this.waitForElementPresent("idLeftMenuTreeLogoutButton", 20);
 		selenium.click("idLeftMenuTreeLogoutButton");
