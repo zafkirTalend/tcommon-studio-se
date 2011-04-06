@@ -84,17 +84,21 @@ public class TestModifyUser extends Login {
 	
 	//modify user(admin@company.com)'name(lastname,firstname) 
 	@Test
-	@Parameters({"userName","FirstName","LastName"})
-	public void testModityAdminLastName(String userName, String FirstName,String LastName) throws Exception {
+	@Parameters({"userName","FirstName","LastName","SvnLogin","SvnPassWord"})
+	public void testModityAdminUserFiled(String userName, String FirstName,String LastName
+			,String SvnLogin,String SvnPassWord) throws Exception {
 		this.clickWaitForElementPresent("idMenuUserElement");
 		selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.isTextPresent(userName));
 		selenium.mouseDown("//div[text()='"+userName+"']");
 		selenium.type("idUserFirstNameInput", FirstName);
 		selenium.fireEvent("idUserFirstNameInput", "blur");
-	
 		selenium.type("idUserLastNameInput", LastName);
 		selenium.fireEvent("idUserLastNameInput", "blur");
+		selenium.type("//input[@name='authenticationLogin']", SvnLogin);
+		selenium.fireEvent("//input[@name='authenticationLogin']", "blur");
+		selenium.type("//input[@name='authenticationPassword']", SvnPassWord);
+		selenium.fireEvent("//input[@name='authenticationPassword']", "blur");
 		
 		selenium.click("idFormSaveButton");
 		Assert.assertEquals(selenium.getText("//div[@class='x-grid3-cell-inner x-grid3-col-lastName']"), LastName);
