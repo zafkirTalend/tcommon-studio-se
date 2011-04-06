@@ -644,6 +644,8 @@ public class ExtractMetaDataFromDataBase {
                     label = ManagementTextUtils.filterSpecialChar(label);
                     String sub = ""; //$NON-NLS-1$
                     String sub2 = ""; //$NON-NLS-1$
+                    String label2 = label;
+                    label = label.replaceAll("[^_a-zA-Z0-9]", "_");
                     if (label != null && label.length() > 0 && label.startsWith("_")) { //$NON-NLS-1$
                         sub = label.substring(1);
                         if (sub != null && sub.length() > 0) {
@@ -655,7 +657,6 @@ public class ExtractMetaDataFromDataBase {
                         b = true;
                     }
                     metadataColumn.setLabel(label); //$NON-NLS-1$
-                    String label2 = metadataColumn.getLabel();
                     if (label2 != null && label2.length() > 0 && label2.startsWith("_")) { //$NON-NLS-1$
                         String substring = label2.substring(1);
                         if (b
@@ -932,6 +933,8 @@ public class ExtractMetaDataFromDataBase {
                     label = ManagementTextUtils.filterSpecialChar(label);
                     String sub = ""; //$NON-NLS-1$
                     String sub2 = ""; //$NON-NLS-1$
+                    String label2 = label;
+                    label = label.replaceAll("[^_a-zA-Z0-9]", "_");
                     if (label != null && label.length() > 0 && label.startsWith("_")) { //$NON-NLS-1$
                         sub = label.substring(1);
                         if (sub != null && sub.length() > 0) {
@@ -942,8 +945,7 @@ public class ExtractMetaDataFromDataBase {
                         label = "_" + label; //$NON-NLS-1$
                         b = true;
                     }
-                    String label2 = label;
-                    label = label.replaceAll("\\$", "_");
+
                     metadataColumn.setLabel(label); //$NON-NLS-1$
                     // String label2 = metadataColumn.getLabel();
                     if (label2 != null && label2.length() > 0 && label2.startsWith("_")) { //$NON-NLS-1$
