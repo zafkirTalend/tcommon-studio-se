@@ -5,12 +5,10 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.talend.tac.cases.Login;
-@Test(groups={"DuplicateUser"},dependsOnGroups={"DeleteUser"})
+
 public class TestDuplicateUser extends Login {
     
-	
-	
-	@Test
+	@Test(groups={"DuplicateUser"},dependsOnGroups={"DeleteUser"})
 	@Parameters({"userName","DulicateUser","PassWord","DulicatedUser"})
 	public void testDuplicateUser(String userName,String DulicateUser,String Password,String DulicatedUser) throws Exception {
 	    

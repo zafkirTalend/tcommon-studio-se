@@ -111,7 +111,7 @@ public class TestModifyUser extends Login {
 	}
     
 	//modify user(aaa@gmail.com)'loginname to 'account@company.com'
-	@Test(dependsOnMethods={"testDuplicateUser"})
+	@Test(dependsOnMethods={"testModityAdminUserFiled"})
 	@Parameters({"userName","ModifiyUserName","DulicateUser"})
 	public void testModifyUser(String userName,String ModifiyUserName,String DulicateUser) throws Exception {
 	    
