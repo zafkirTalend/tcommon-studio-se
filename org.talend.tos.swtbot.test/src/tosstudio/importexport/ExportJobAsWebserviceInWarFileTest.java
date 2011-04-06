@@ -80,9 +80,9 @@ public class ExportJobAsWebserviceInWarFileTest extends TalendSwtBotForTos {
     @After
     public void removePreviouslyCreateItems() throws IOException, URISyntaxException {
         shell.close();
-        Utilities.getFileFromCurrentPluginSampleFolder("output_job.war").delete();
         gefBot.cTabItem("Job " + JOBNAME + " 0.1").close();
         Utilities.delete(tree, treeNode, JOBNAME, "0.1", null);
         Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.getFileFromCurrentPluginSampleFolder("output_job.war").delete();
     }
 }
