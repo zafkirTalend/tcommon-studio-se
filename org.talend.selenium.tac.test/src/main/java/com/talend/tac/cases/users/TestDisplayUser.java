@@ -37,9 +37,9 @@ public class TestDisplayUser extends Login {
 		this.clickWaitForElementPresent("idMenuUserElement");
 		selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.isTextPresent(userName));
-		selenium.setSpeed(MIN_SPEED);
 		selenium.click("//div[@class=' x-grid3-hd-inner x-grid3-hd-login x-component sort-asc ']/a[1] ");
-        selenium.setSpeed(MID_SPEED);
+		selenium.setSpeed(MIN_SPEED);
+		selenium.setSpeed(MID_SPEED);
 		selenium.mouseOver("//a[text()='Columns']");
 	    selenium.setSpeed(MIN_SPEED);
 		modifyDisplayUsersColumns("Login");
@@ -58,7 +58,7 @@ public class TestDisplayUser extends Login {
         
         modifyDisplayUsersColumns("Creation");
         
-        selenium.click("idSubModuleRefreshButton");
+        selenium.click("//span[text()='Svn login']");
 	}
     
     //Modify the user display order  
