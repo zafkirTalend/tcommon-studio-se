@@ -17,17 +17,17 @@ public class Login extends Base {
 		
 		selenium.windowMaximize();
 		selenium.type("idLoginInput", user);
-		selenium.type("idLoginPasswordInput", password);
 		
-		// KeyEvent.VK_ENTER
-		selenium.keyPressNative("9");
-		
-		selenium.keyDown("idLoginPasswordInput", "\\13");
+		String pwValue = selenium.getValue("idLoginPasswordInput");
+		if( pwValue==null || "".equals(pwValue) ) {
+			selenium.typeKeys("idLoginPasswordInput", password);
+		} 
+		selenium.click("idLoginButton");
 		
 		if (selenium
 				.isTextPresent("Failed to log on: user admin@company.com already logged on to webapp")) {
 			selenium.click("idLoginForceLogoutButton");
-			selenium.keyDown("idLoginPasswordInput", "\\13");
+			selenium.click("idLoginButton");
 		}
 		selenium.setSpeed(MIN_SPEED);
 		// selenium.waitForPageToLoad("30000");// no need
