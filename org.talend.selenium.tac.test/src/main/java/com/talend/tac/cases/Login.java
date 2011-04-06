@@ -18,17 +18,11 @@ public class Login extends Base {
 		selenium.windowMaximize();
 		selenium.type("idLoginInput", user);
 		selenium.type("idLoginPasswordInput", password);
-	
-		selenium.keyDown("idLoginPasswordInput", "\\13");
-		selenium.setSpeed(MID_SPEED);
 		
-//		// wait for this HTML page fully loaded
-//		try {
-//			Thread.sleep(2000);
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		}
-
+		// KeyEvent.VK_ENTER
+		selenium.keyPressNative("9");
+		
+		selenium.keyDown("idLoginPasswordInput", "\\13");
 		
 		if (selenium
 				.isTextPresent("Failed to log on: user admin@company.com already logged on to webapp")) {
