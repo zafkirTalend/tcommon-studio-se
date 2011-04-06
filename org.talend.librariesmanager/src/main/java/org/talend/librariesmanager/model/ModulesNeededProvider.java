@@ -222,6 +222,10 @@ public class ModulesNeededProvider {
                 List<IRepositoryViewObject> routines = repositoryFactory.getAll(ERepositoryObjectType.ROUTINES, true);
 
                 for (ProcessItem p : processItems) {
+                    if (p == null || p.getProcess() == null || p.getProcess().getParameters() == null
+                            || p.getProcess().getParameters().getRoutinesParameter() == null) {
+                        continue;
+                    }
                     for (RoutinesParameterType infor : (List<RoutinesParameterType>) p.getProcess().getParameters()
                             .getRoutinesParameter()) {
 
