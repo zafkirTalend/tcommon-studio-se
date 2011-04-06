@@ -122,4 +122,19 @@ public class TestCreatUsersInAdvance extends Login {
 			selenium.setSpeed("0");
 		}
 	}
+	
+	//grant all roles to admin@company.com
+	@Test
+	public void testModifyAdminAccountWithAllRoles() {
+		this.clickWaitForElementPresent("idMenuUserElement");
+		this.waitForElementPresent("//div[text()='admin@company.com']", WAIT_TIME);
+		selenium.mouseDown("//div[text()='admin@company.com']");
+		selenium.click("idRoleButton");
+		selenium.click("//span[text()='Role']/ancestor::td/preceding-sibling::td/div");
+		selenium.click("idValidateButton");
+		selenium.click("idFormSaveButton");
+		this.waitForElementPresent("//*[text()='Save success']", WAIT_TIME);
+		
+	}
+	
 }
