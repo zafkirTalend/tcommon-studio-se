@@ -14,7 +14,8 @@ import com.talend.tac.cases.Login;
 public class TestAddUser extends Login {
     
 	//creat a method of 'add user'
-	public void addUser(String user,String firstname,String lastname,String password,String SvnLogin,String SvnPassWord) throws Exception {
+	public void addUser(String user,String firstname,String lastname,String password,
+			String SvnLogin,String SvnPassWord,int num) throws Exception {
 		
 
 		this.clickWaitForElementPresent("idMenuUserElement");
@@ -36,7 +37,10 @@ public class TestAddUser extends Login {
 		selenium.fireEvent("//input[@name='authenticationLogin']", "blur");
 		selenium.type("//input[@name='authenticationPassword']", SvnPassWord);
 		selenium.fireEvent("//input[@name='authenticationPassword']", "blur");	
-	
+	    
+		selenium.click("idTypeInput");   
+	    selenium.mouseDownAt("//div[@role='listitem']["+num+"]", ""+Event.ENTER); 
+	    Assert.assertEquals(selenium.getValue("idTypeInput"), "Data Integration");
 	}
 	
 	//clear all users---modify firstname and lastname to "admin,admin" ---user'role change to 'administrator'
@@ -92,7 +96,6 @@ public class TestAddUser extends Login {
     	 selenium.setSpeed(MIN_SPEED);
     }
     
-    /***add user choose all roles--->>save failed***/
     //add a user of user'role are all roles
     @Test(dependsOnMethods={"clearAllUsers"})
     @Parameters({"userNameAllRoles","FirstName","LastName","PassWord","SvnLogin","SvnPassWord"})
@@ -101,76 +104,46 @@ public class TestAddUser extends Login {
     	String roles = rb.getString("menu.role.administrator")+"/"+rb.getString("menu.role.viewer")+"/"
 		+rb.getString("menu.role.operationManager")+"/"+rb.getString("menu.role.designer");
     	
-    	addUser(userName, FirstName, LastName, PassWord,SvnLogin,SvnPassWord);
- 	   
-	    System.out.println("************************choose a type");
-	    selenium.mouseDownAt("//div[@role='listitem'][1]", ""+Event.ENTER); 
-	    Assert.assertEquals(selenium.getValue("idTypeInput"), "Data Integration");
+    	addUser(userName, FirstName, LastName, PassWord,SvnLogin,SvnPassWord,1);
         
         selenium.click("idRoleButton");
 	    selenium.setSpeed(MID_SPEED);
 	    Assert.assertTrue(selenium.isTextPresent(rb.getString("user.roles.title")));
+	   
+//	    selenium.mouseDown("//span[text()='Role']/parent::div[not(contains(@style,'display: none'))]/parent::td[not(contains(@style,'display: none'))]/preceding-sibling::td" +
+//	    		"[not(contains(@style,'display: none'))]/div[@class=' x-grid3-hd-inner x-grid3-hd-checker x-component']");
+//	    selenium.mouseUp("//span[text()='Role']/parent::div[not(contains(@style,'display: none'))]/" +
+//	    		"parent::td[not(contains(@style,'display: none'))]/preceding-sibling::td" +
+//	    		"[not(contains(@style,'display: none'))]/div[@class=' x-grid3-hd-inner x-grid3-hd-checker x-component']");
+	    selenium.controlKeyDown();
+	    selenium.mouseDown("//td[not(contains(@style,'display: none'))]/div[text()='"+ rb.getString("menu.role.administrator") + "']" +
+		"/parent::td/preceding-sibling::td//div[@class='x-grid3-row-checker']");
+		selenium.mouseDown("//td[not(contains(@style,'display: none'))]/div[text()='"+ rb.getString("menu.role.viewer") + "']" +
+		"/parent::td/preceding-sibling::td//div[@class='x-grid3-row-checker']");
+		selenium.mouseDown("//td[not(contains(@style,'display: none'))]/div[text()='"+ rb.getString("menu.role.operationManager") + "']" +
+		"/parent::td/preceding-sibling::td//div[@class='x-grid3-row-checker']");
+		selenium.mouseDown("//td[not(contains(@style,'display: none'))]/div[text()='"+ rb.getString("menu.role.designer") + "']" +
+		"/parent::td/preceding-sibling::td//div[@class='x-grid3-row-checker']");
+	    selenium.controlKeyUp();
 	    selenium.setSpeed(MIN_SPEED);
-	    selenium.click("//div[@class=' x-grid3-hd-inner x-grid3-hd-checker x-component']");
-        
 	    selenium.click("idValidateButton");
+	    selenium.setSpeed(MID_SPEED);
         Assert.assertEquals(selenium.getValue("idActiveInput"), roles);
         
         selenium.click("idFormSaveButton");
+        Assert.assertTrue(selenium.isTextPresent(userName));
+        selenium.setSpeed(MIN_SPEED);
 	}
     
-    /***add method(addUserAllRoles) for execution next case assure pass***/
-    //add a user of user'role are all roles
-    @Test(dependsOnMethods={"clearAllUsers"})
-    @Parameters({"userNameAllRoles","FirstName","LastName","PassWord","SvnLogin","SvnPassWord"})
-	public void addUserAllRoles(String userName,String FirstName,String LastName,String PassWord,String SvnLogin,
-			String SvnPassWord) throws Exception {
-    	String roles = rb.getString("menu.role.administrator")+"/"+rb.getString("menu.role.viewer")+"/"
-		+rb.getString("menu.role.operationManager")+"/"+rb.getString("menu.role.designer");
-    	
-    	addUser(userName, FirstName, LastName, PassWord,SvnLogin,SvnPassWord);
- 	   
- 	    selenium.click("idTypeInput");
-	    System.out.println("************************choose a type");
-	    selenium.mouseDownAt("//div[@role='listitem'][1]", ""+Event.ENTER); 
-	    
-	    Assert.assertEquals(selenium.getValue("idTypeInput"), "Data Integration");
-	    
- 	    selenium.click("idRoleButton");
-	    selenium.setSpeed(MID_SPEED);
-	    Assert.assertTrue(selenium.isTextPresent(rb.getString("user.roles.title")));
-	    selenium.setSpeed(MIN_SPEED);
-	    selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-name' and (text()='"+ rb.getString("menu.role.operationManager")+"')]");
-		selenium.click("idValidateButton");
-        selenium.click("idFormSaveButton");
-        selenium.setSpeed(MID_SPEED);
-        selenium.mouseDown("//div[text()='"+userName+"']");
-        selenium.setSpeed(MIN_SPEED);
-        selenium.click("idRoleButton");
-
-	    Assert.assertTrue(selenium.isTextPresent(rb.getString("user.roles.title")));
-	    selenium.click("//div[@class=' x-grid3-hd-inner x-grid3-hd-checker x-component']");
-        
-	    selenium.click("idValidateButton");
-        Assert.assertEquals(selenium.getValue("idActiveInput"), roles);
-        
-        selenium.click("idFormSaveButton");
-	}
-	
+   
     //add a exist user(admin@company.com)
-	@Test(dependsOnMethods={"addUserAllRoles"})
+	@Test(dependsOnMethods={"testAddUserAllRoles"})
 	@Parameters({"userName","FirstName","LastName","PassWord","SvnLogin","SvnPassWord"})
 	public void testAddExistUser(String userName,String FirstName,String LastName,String PassWord,
 			String SvnLogin,String SvnPassWord) throws Exception {
 	
-	    addUser(userName, FirstName, LastName, PassWord, SvnLogin, SvnPassWord);
+	    addUser(userName, FirstName, LastName, PassWord, SvnLogin, SvnPassWord,1);
 		
-	    selenium.click("idTypeInput");
-	    System.out.println("************************choose a type");
-	    selenium.mouseDownAt("//div[@role='listitem'][1]", ""+Event.ENTER); 
-	    
-	    Assert.assertEquals(selenium.getValue("idTypeInput"), "Data Integration");
-	    
 	    selenium.click("idRoleButton");
 		Assert.assertTrue(selenium.isTextPresent(rb.getString("user.roles.title")));
 		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-name' and (text()='"+ rb.getString("menu.role.operationManager")+"')]");
@@ -189,14 +162,8 @@ public class TestAddUser extends Login {
 	@Parameters({"LoginNameChooseAdministratorRole","FirstName","LastName","PassWord","SvnLogin","SvnPassWord"})
 	public void testAddNewUserRoleAdministrator(String LoginNameChooseAdministratorRole,String FirstName,String LastName,
 			String PassWord,String SvnLogin,String SvnPassWord) throws Exception {
-	    addUser(LoginNameChooseAdministratorRole, FirstName, LastName, PassWord, SvnLogin, SvnPassWord);
-
-		selenium.click("idTypeInput");
-	    System.out.println("************************choose a type");
-	    selenium.mouseDownAt("//div[@role='listitem'][1]", ""+Event.ENTER); 
-		    
-	    Assert.assertEquals(selenium.getValue("idTypeInput"), "Data Integration");
-
+	    addUser(LoginNameChooseAdministratorRole, FirstName, LastName, PassWord, SvnLogin, SvnPassWord,1);
+	    
 	    selenium.click("idRoleButton");
 		Assert.assertTrue(selenium.isTextPresent(rb.getString("user.roles.title")));
 		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-name' and (text()='"+rb.getString("menu.role.administrator")+"')]");
@@ -210,103 +177,38 @@ public class TestAddUser extends Login {
 
 	}
 	
-	/***add user choose mulriple roles--->>save failed***/
 	//add a user of choose mulriple roles
 	@Test(dependsOnMethods={"testAddNewUserRoleAdministrator"})
 	@Parameters({"LoginNameChooseMulripleRoles","FirstName","LastName","PassWord","SvnLogin","SvnPassWord"})
 	public void testAddUserMulripleRoles(String LoginNameChooseMulripleRoles,String FirstName,String LastName,
 			String PassWord,String SvnLogin,String SvnPassWord) throws Exception {
-		addUser(LoginNameChooseMulripleRoles, FirstName, LastName, PassWord, SvnLogin, SvnPassWord);
-		
-	    selenium.click("idTypeInput");
-	    System.out.println("************************choose a type");
-	    selenium.mouseDownAt("//div[@role='listitem'][1]", ""+Event.ENTER); 
-		    
-	    Assert.assertEquals(selenium.getValue("idTypeInput"), "Data Integration");
+		addUser(LoginNameChooseMulripleRoles, FirstName, LastName, PassWord, SvnLogin, SvnPassWord,1);
 		
 		selenium.click("idRoleButton");
 		Assert.assertTrue(selenium.isTextPresent(rb.getString("user.roles.title")));
-		selenium.mouseDown("//td[not(contains(@style,'display: none'))]/div[text()='"
-        + rb.getString("menu.role.viewer") + "']");
+		selenium.controlKeyDown();
+		selenium.mouseDown("//td[not(contains(@style,'display: none'))]/div[text()='"+ rb.getString("menu.role.viewer") + "']" +
+				"/parent::td/preceding-sibling::td//div[@class='x-grid3-row-checker']");
+		selenium.mouseDown("//td[not(contains(@style,'display: none'))]/div[text()='"+ rb.getString("menu.role.designer") + "']" +
+		"/parent::td/preceding-sibling::td//div[@class='x-grid3-row-checker']");
+		selenium.controlKeyUp();
 		selenium.click("idValidateButton");
-
+         
 		selenium.click("idFormSaveButton");
+		selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.isElementPresent("//div[text()='"+LoginNameChooseMulripleRoles+"']"));    
-        
-        selenium.mouseDown("//div[text()='"+LoginNameChooseMulripleRoles+"']");
-        
-        selenium.click("idRoleButton");
-		Assert.assertTrue(selenium.isTextPresent(rb.getString("user.roles.title")));
-	
-		selenium.setSpeed(MID_SPEED);
-		selenium.controlKeyDown();
-	    selenium.setSpeed(MIN_SPEED);
-		selenium.click("//td[not(contains(@style,'display: none'))]/div[text()='"
-        + rb.getString("menu.role.designer") + "']");
-		
-		selenium.controlKeyUp();
-		selenium.click("idValidateButton");
-		Assert.assertEquals(selenium.getValue("idActiveInput"), rb.getString("menu.role.viewer")+"/"+rb.getString("menu.role.designer"));
-        
-        selenium.click("idFormSaveButton");
-
-	}
-	
-	/***add method(addUserMulripleRoles) for execution next case assure pass***/
-	//add a user of choose mulriple roles
-	@Test(dependsOnMethods={"testAddNewUserRoleAdministrator"})
-	@Parameters({"LoginNameChooseMulripleRoles","FirstName","LastName","PassWord","SvnLogin","SvnPassWord"})
-	public void addUserMulripleRoles(String LoginNameChooseMulripleRoles,String FirstName,String LastName,
-			String PassWord,String SvnLogin,String SvnPassWord) throws Exception {
-		addUser(LoginNameChooseMulripleRoles, FirstName, LastName, PassWord, SvnLogin, SvnPassWord);
-
-	    selenium.click("idTypeInput");
-	    System.out.println("************************choose a type");
-	    selenium.mouseDownAt("//div[@role='listitem'][1]", ""+Event.ENTER); 
-		    
-	    Assert.assertEquals(selenium.getValue("idTypeInput"), "Data Integration");
-		
-		selenium.click("idRoleButton");
-		Assert.assertTrue(selenium.isTextPresent(rb.getString("user.roles.title")));
-		selenium.mouseDown("//td[not(contains(@style,'display: none'))]/div[text()='"
-        + rb.getString("menu.role.viewer") + "']");
-		selenium.click("idValidateButton");
-
-		selenium.click("idFormSaveButton");
-		selenium.setSpeed(MID_SPEED);
-		Assert.assertTrue(selenium.isElementPresent("//div[text()='"+LoginNameChooseMulripleRoles+"']"));       
         selenium.setSpeed(MIN_SPEED);
-        selenium.mouseDown("//div[text()='"+LoginNameChooseMulripleRoles+"']");
         
-        selenium.click("idRoleButton");
-		Assert.assertTrue(selenium.isTextPresent(rb.getString("user.roles.title")));
-	
-		selenium.setSpeed(MID_SPEED);
-		selenium.controlKeyDown();
-	    selenium.setSpeed(MIN_SPEED);
-		selenium.click("//td[not(contains(@style,'display: none'))]/div[text()='"
-        + rb.getString("menu.role.designer") + "']");
-		
-		selenium.controlKeyUp();
-		selenium.click("idValidateButton");
-		Assert.assertEquals(selenium.getValue("idActiveInput"), rb.getString("menu.role.viewer")+"/"+rb.getString("menu.role.designer"));
-        
-        selenium.click("idFormSaveButton");
-
 	}
+	
 	
 	//add a user of uncheck 'Active'
-	@Test(dependsOnMethods={"addUserMulripleRoles"})
+	@Test(dependsOnMethods={"testAddUserMulripleRoles"})
 	@Parameters({"LoginNameNotChooseActive","FirstName","LastName","PassWord","SvnLogin","SvnPassWord","LoginNameNotChooseActive"})
 	public void testAddUserNotChooseActive(String LoginNameNotChooseActive,String FirstName,String LastName,
 			String PassWord,String SvnLogin,String SvnPassWord,String LoginNameNotChooseActive1) throws Exception {
 	    
-		addUser(LoginNameNotChooseActive, FirstName, LastName, PassWord, SvnLogin, SvnPassWord);
-
-	    selenium.click("idTypeInput");
-	    System.out.println("************************choose a type");
-	    selenium.mouseDownAt("//div[@role='listitem'][1]", ""+Event.ENTER); 
-	    Assert.assertEquals(selenium.getValue("idTypeInput"), "Data Integration");
+		addUser(LoginNameNotChooseActive, FirstName, LastName, PassWord, SvnLogin, SvnPassWord,1);
 		
 		selenium.click("idRoleButton");
 		Assert.assertTrue(selenium.isTextPresent(rb.getString("user.roles.title")));
@@ -329,13 +231,8 @@ public class TestAddUser extends Login {
 	@Parameters({"LoginName","FirstName","LastName","PassWordww","SvnLogin","SvnPassWord","LoginName"})
 	public void testMysqlAddUserActive(String LoginName,String FirstName,String LastName,
 			String PassWordww,String SvnLogin,String SvnPassWord,String LoginName1) throws Exception {
-		addUser(LoginName, FirstName, LastName, PassWordww, SvnLogin, SvnPassWord);
-		
-	    selenium.click("idTypeInput");
-	    System.out.println("************************choose a type");
-	    selenium.mouseDownAt("//div[@role='listitem'][1]", ""+Event.ENTER); 
-	    Assert.assertEquals(selenium.getValue("idTypeInput"), "Data Integration");
-		
+		addUser(LoginName, FirstName, LastName, PassWordww, SvnLogin, SvnPassWord,1);
+
 		selenium.click("idRoleButton");
 		Assert.assertTrue(selenium.isTextPresent(rb.getString("user.roles.title")));
 		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-name' and (text()='"+  rb.getString("menu.role.designer")+"')]");//choose a  role
