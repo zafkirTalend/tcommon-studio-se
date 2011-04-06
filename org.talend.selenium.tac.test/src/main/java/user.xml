@@ -32,18 +32,14 @@
 	<test name="User" preserve-order="flase">
     
         <classes>
-       
-            <class name="com.talend.tac.cases.users.TestAddUser">
-               <methods>
-                  <exclude name="testAddUserAllRoles"></exclude>  
-                  <exclude name="testAddUserMulripleRoles"></exclude>    
-               </methods>
-            </class>
+      
+            <class name="com.talend.tac.cases.users.TestAddUser"/>
             <class name="com.talend.tac.cases.users.TestDeleteUser"/>
             <class name="com.talend.tac.cases.users.TestDuplicateUser"/>
             <class name="com.talend.tac.cases.users.TestDisplayUser"/>
             <class name="com.talend.tac.cases.users.TestModifyUser"/>
             <class name="com.talend.tac.cases.users.ClearUser"/>
+            
         </classes>
 
 	</test>
