@@ -58,7 +58,7 @@ public class ChangeAllTechnicalItemsTest extends TalendSwtBotForTos {
             "File xml", "File Excel", "File ldif", "LDAP", "Salesforce", "Generic schemas", "Copybook", "HL7", "Web Service" };
 
     private String[] metadataContextMenu = { "connection", "SAP connection", "file delimited", "file positional", "file regex",
-            "file xml", "file Excel", "file ldif", "LDAP schema", "Salesforce schema", "generic schema", "EBCDIC", "HL7",
+            "file xml", "file Excel", "file ldif", "LDAP schema", "Salesforce Connection", "generic schema", "EBCDIC", "HL7",
             "WSDL schema" };
 
     private String[] metadataShellTitle = { "Database Connection", "SAP Connection", "Edit an existing Delimited File",
