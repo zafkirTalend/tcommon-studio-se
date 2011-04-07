@@ -15,6 +15,7 @@ import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import com.talend.tac.base.Base;
 import com.talend.tac.cases.Login;
 import com.thoughtworks.selenium.Selenium;
 
@@ -23,7 +24,7 @@ public class TestDuplicateProject extends Login {
 	@Parameters({ "duplicateproname" ,"ProjectType"})
 	public void testDuplicateProject(String duplicateproname,String type) {
 		
-		this.waitForElementPresent("!!!menu.project.element!!!", 30);
+		this.waitForElementPresent("!!!menu.project.element!!!", Base.WAIT_TIME);
 		selenium.click("!!!menu.project.element!!!");//
 		selenium.setSpeed(MAX_SPEED);
 		if(selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
@@ -33,7 +34,7 @@ public class TestDuplicateProject extends Login {
 		}
 		selenium.setSpeed(MID_SPEED);
 		this.waitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
-				+ duplicateproname + "')]",30);
+				+ duplicateproname + "')]",Base.WAIT_TIME);
 		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
 				+ duplicateproname + "')]");// the selected project's id
 		selenium.setSpeed(MID_SPEED);

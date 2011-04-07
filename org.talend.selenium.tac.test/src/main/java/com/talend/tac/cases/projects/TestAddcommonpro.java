@@ -7,6 +7,8 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+
+import com.talend.tac.base.Base;
 import com.talend.tac.cases.Login;
 import com.thoughtworks.selenium.Selenium;
 
@@ -45,7 +47,7 @@ public class TestAddcommonpro extends Login {
 
 	public void testaddcommon(String namecommon,String language,String type, String svnurl, String user,
 			String password) throws Exception {
-		this.waitForElementPresent("!!!menu.project.element!!!", 30);
+		this.waitForElementPresent("!!!menu.project.element!!!", Base.WAIT_TIME);
 		selenium.setSpeed(MID_SPEED);
 		selenium.click("!!!menu.project.element!!!");
 		selenium.click("idSubModuleAddButton");

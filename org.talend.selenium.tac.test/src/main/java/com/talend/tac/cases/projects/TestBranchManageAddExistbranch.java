@@ -4,6 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import com.talend.tac.base.Base;
 import com.talend.tac.cases.Login;
 
 public class TestBranchManageAddExistbranch extends Login {
@@ -12,6 +13,7 @@ public class TestBranchManageAddExistbranch extends Login {
 	public void testAddProjectbranchexist(String project, String branchname) {
 		// first add a branch to a project
 		selenium.setSpeed(MAX_SPEED);
+		this.waitForElementPresent("!!!menu.project.element!!!", Base.WAIT_TIME);
 		selenium.click("!!!menu.project.element!!!");//
 		// System.out.println(selenium.getBodyText());
 		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"

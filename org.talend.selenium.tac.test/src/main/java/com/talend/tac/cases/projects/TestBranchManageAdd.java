@@ -2,6 +2,8 @@ package com.talend.tac.cases.projects;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+
+import com.talend.tac.base.Base;
 import com.talend.tac.cases.Login;
 
 public class TestBranchManageAdd extends Login {
@@ -9,7 +11,7 @@ public class TestBranchManageAdd extends Login {
 	@Parameters({ "BranchProject", "BranchName" })
 	public void testAddProjectbranch(String project, String branchname) {
 		// first add a branch to a project
-	    this.waitForElementPresent("!!!menu.project.element!!!", 30);
+		this.waitForElementPresent("!!!menu.project.element!!!", Base.WAIT_TIME);
 
 		selenium.click("!!!menu.project.element!!!");//
 		this.waitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"

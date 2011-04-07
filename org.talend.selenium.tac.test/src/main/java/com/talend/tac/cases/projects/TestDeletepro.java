@@ -4,6 +4,8 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+
+import com.talend.tac.base.Base;
 import com.talend.tac.cases.Login;
 import com.thoughtworks.selenium.Selenium;
 
@@ -14,7 +16,7 @@ public class TestDeletepro extends Login {
 		selenium.click("!!!menu.project.element!!!");
 		this.waitForElementPresent(
 				"//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
-						+ name + "')]", 60);
+						+ name + "')]", Base.WAIT_TIME);
 		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
 				+ name + "')]");
 		selenium.chooseCancelOnNextConfirmation();
@@ -28,7 +30,7 @@ public class TestDeletepro extends Login {
 		selenium.click("!!!menu.project.element!!!");
 		this.waitForElementPresent(
 				"//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
-						+ name + "')]", 60);
+						+ name + "')]", Base.WAIT_TIME);
 		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
 				+ name + "')]");
 		selenium.chooseOkOnNextConfirmation();
@@ -67,6 +69,7 @@ public class TestDeletepro extends Login {
 	public void testDeletepro(String deleteProname) throws Exception {
 		//
 		selenium.setSpeed(MAX_SPEED);
+		this.waitForElementPresent("!!!menu.project.element!!!", Base.WAIT_TIME);
 		selenium.click("!!!menu.project.element!!!");
 		//this.waitForElementPresent("!!!menu.project.element!!!", 30);
 		duplicater.duplicateProject(selenium,deleteProname);

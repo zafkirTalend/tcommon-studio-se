@@ -13,6 +13,7 @@ import org.testng.annotations.Parameters;
 import com.thoughtworks.selenium.DefaultSelenium;
 import com.thoughtworks.selenium.Selenium;
 
+
 public class Base {
 	public Selenium selenium;
 
@@ -24,7 +25,7 @@ public class Base {
 	public static String MID_SPEED = "3000";
 	public static String MIN_SPEED = "0";
 	public static String MAX_SPEED = "5000";
-	public static int WAIT_TIME = 40;
+	public static int WAIT_TIME = 160;
 	
 	
 	@BeforeClass

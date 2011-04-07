@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import com.talend.tac.base.Base;
 import com.talend.tac.cases.Login;
 
 public class TestCheckConnection extends Login{
@@ -14,7 +15,7 @@ public class TestCheckConnection extends Login{
 	public void testCheckconnection(String rightUrl,String wrongUrl,String user, String password,String language) throws Exception {
 	
 //		selenium.setSpeed("5000");
-		this.waitForElementPresent("!!!menu.project.element!!!",30);
+		this.waitForElementPresent("!!!menu.project.element!!!", Base.WAIT_TIME);
 		String proname = "namepro";
 		selenium.click("!!!menu.project.element!!!");
 		selenium.click("idSubModuleAddButton");

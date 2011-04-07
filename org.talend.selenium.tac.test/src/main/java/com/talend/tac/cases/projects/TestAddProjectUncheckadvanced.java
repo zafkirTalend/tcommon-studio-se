@@ -20,6 +20,7 @@ import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import com.talend.tac.base.Base;
 import com.talend.tac.cases.Login;
 
 public class TestAddProjectUncheckadvanced extends Login {
@@ -29,7 +30,7 @@ public class TestAddProjectUncheckadvanced extends Login {
 	@Parameters({ "ProjectType", "Prolanguage" })
 	public void testAddPerlproject(String type, String language)
 			throws InterruptedException {
-		this.waitForElementPresent("!!!menu.project.element!!!", 30);
+		this.waitForElementPresent("!!!menu.project.element!!!", Base.WAIT_TIME);
 		String namecommon = "DefaultProUncheck";
 		selenium.setSpeed(MID_SPEED);
 		selenium.click("!!!menu.project.element!!!");

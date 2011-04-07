@@ -6,6 +6,7 @@ import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import com.talend.tac.base.Base;
 import com.talend.tac.cases.Login;
 
 public class TestAddProjectWithExistlable extends Login{
@@ -23,7 +24,7 @@ public void testAddpro(String url, String user, String password,
 }
   public void testAddexistproject(String namecommon,String language,String type, String svnurl, String user,
 			String password) throws Exception {
-	  this.waitForElementPresent("!!!menu.project.element!!!", 30);
+	  this.waitForElementPresent("!!!menu.project.element!!!", Base.WAIT_TIME);
 	  selenium.setSpeed(MID_SPEED);
 	  selenium.click("!!!menu.project.element!!!");
 	  selenium.click("idSubModuleAddButton");

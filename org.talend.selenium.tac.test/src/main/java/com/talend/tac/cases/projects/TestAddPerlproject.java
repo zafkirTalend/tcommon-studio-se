@@ -6,6 +6,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 
+import com.talend.tac.base.Base;
 import com.talend.tac.cases.Login;
 import com.thoughtworks.selenium.Selenium;
 
@@ -14,7 +15,7 @@ public class TestAddPerlproject extends Login{
   @Test
   @Parameters({ "SVNPerlProjecturl","ProjectType", "SVNuserName", "SVNuserPassword","Prolanguage" })
   public void testAddPerlproject(String perlUrl,String type,String username,String password,String language) throws InterruptedException {
-	  this.waitForElementPresent("!!!menu.project.element!!!", 30);
+	  this.waitForElementPresent("!!!menu.project.element!!!", Base.WAIT_TIME);
 	  String namecommon = "TestPro";
 	  String svnUrl =perlUrl;
 	  selenium.setSpeed(MID_SPEED);

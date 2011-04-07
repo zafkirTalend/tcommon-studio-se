@@ -5,6 +5,7 @@ import junit.framework.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import com.talend.tac.base.Base;
 import com.talend.tac.cases.Login;
 
 public class TestClean extends Login{
@@ -33,7 +34,7 @@ public class TestClean extends Login{
   //@Parameters({ "NumbersOfprojects" })
   public void deleteAll() {
 	  selenium.setSpeed(MID_SPEED);
-	  this.waitForElementPresent("!!!menu.project.element!!!", 30);
+	  this.waitForElementPresent("!!!menu.project.element!!!", Base.WAIT_TIME);
 		selenium.click("!!!menu.project.element!!!");
 	  for(int i = 0;; i++){
 		if(selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label']")){

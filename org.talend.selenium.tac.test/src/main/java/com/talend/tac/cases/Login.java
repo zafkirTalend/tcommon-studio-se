@@ -22,6 +22,7 @@ public class Login extends Base {
 		if( pwValue==null || "".equals(pwValue) ) {
 			selenium.typeKeys("idLoginPasswordInput", password);
 		} 
+		this.waitForElementPresent("idLoginInput", Base.WAIT_TIME);
 		selenium.click("idLoginButton");
 		
 		if (selenium
