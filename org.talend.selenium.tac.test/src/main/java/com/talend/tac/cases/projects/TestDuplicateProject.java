@@ -22,8 +22,8 @@ import com.thoughtworks.selenium.Selenium;
 public class TestDuplicateProject extends Login {
 	@Test(groups = { "Second" },dependsOnGroups = { "Add" })
 	@Parameters({ "duplicateproname" ,"ProjectType"})
-	public void testDuplicateProject(String duplicateproname,String type) {
-		
+	public void testDuplicateProject(String duplicateproname,String type) throws InterruptedException {
+		Thread.sleep(5000);
 		this.waitForElementPresent("!!!menu.project.element!!!", Base.WAIT_TIME);
 		selenium.click("!!!menu.project.element!!!");//
 		selenium.setSpeed(MAX_SPEED);
@@ -52,14 +52,14 @@ public class TestDuplicateProject extends Login {
 		
 		selenium.click("idDescriptionInput");
 		selenium.click("idFormSaveButton");
-	
+		
 		Assert.assertTrue(
 				selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
 						+ "Copy_of_" + duplicateproname + "')]"),
 				"project duplicated failed");
 		selenium.setSpeed(MIN_SPEED);
 	}
-	public void duplicateProject(Selenium selenium,String proname){
+	public void duplicateProject(Selenium selenium,String proname) throws InterruptedException{
 		selenium.setSpeed(MAX_SPEED);
 		selenium.refresh();
 //		this.waitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
@@ -81,7 +81,7 @@ public class TestDuplicateProject extends Login {
 		
 		selenium.click("idDescriptionInput");
 		selenium.click("idFormSaveButton");
-	
+		Thread.sleep(5000);
 		Assert.assertTrue(
 				selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
 						+ "Copy_of_" + proname + "')]"),
