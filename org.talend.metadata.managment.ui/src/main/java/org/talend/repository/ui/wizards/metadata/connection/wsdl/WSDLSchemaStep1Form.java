@@ -553,6 +553,9 @@ public class WSDLSchemaStep1Form extends AbstractWSDLSchemaStepForm {
             public void mouseUp(MouseEvent e) {
                 String unName = "newLine_"; //$NON-NLS-1$
                 ArrayList hashmap = getConnection().getParameters();
+                if (hashmap == null) {
+                    hashmap = new ArrayList();
+                }
                 hashmap.add(unName + hashmap.size());
                 // for (ColumnValue columnValue : input) {
                 // hashmap.put(columnValue, columnValue.getValue());

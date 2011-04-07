@@ -72,22 +72,21 @@ import orgomg.cwm.resource.relational.Table;
 /**
  * <!-- begin-user-doc --> The <b>Adapter Factory</b> for the model. It provides an adapter <code>createXXX</code>
  * method for each class of the model. <!-- end-user-doc -->
- * 
  * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage
  * @generated
  */
 public class ConnectionAdapterFactory extends AdapterFactoryImpl {
 
     /**
-     * The cached model package. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * The cached model package.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected static ConnectionPackage modelPackage;
 
     /**
-     * Creates an instance of the adapter factory. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Creates an instance of the adapter factory.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public ConnectionAdapterFactory() {
@@ -97,10 +96,10 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Returns whether this factory is applicable for the type of the object. <!-- begin-user-doc --> This
+     * Returns whether this factory is applicable for the type of the object.
+     * <!-- begin-user-doc --> This
      * implementation returns <code>true</code> if the object is either the model's package or is an instance object of
      * the model. <!-- end-user-doc -->
-     * 
      * @return whether this factory is applicable for the type of the object.
      * @generated
      */
@@ -116,8 +115,8 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * The switch that delegates to the <code>createXXX</code> methods. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * The switch that delegates to the <code>createXXX</code> methods.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
 
@@ -465,8 +464,8 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
     };
 
     /**
-     * Creates an adapter for the <code>target</code>. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Creates an adapter for the <code>target</code>.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param target the object to adapt.
      * @return the adapter for the <code>target</code>.
      * @generated
@@ -491,11 +490,10 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '
-     * {@link org.talend.core.model.metadata.builder.connection.Connection <em>Connection</em>}'. <!-- begin-user-doc
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.Connection <em>Connection</em>}'.
+     * <!-- begin-user-doc
      * --> This default implementation returns null so that we can easily ignore cases; it's useful to ignore a case
      * when inheritance will catch all the cases anyway. <!-- end-user-doc -->
-     * 
      * @return the new adapter.
      * @see org.talend.core.model.metadata.builder.connection.Connection
      * @generated
@@ -519,12 +517,10 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '
-     * {@link org.talend.core.model.metadata.builder.connection.AbstractMetadataObject
-     * <em>Abstract Metadata Object</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.AbstractMetadataObject <em>Abstract Metadata Object</em>}'.
+     * <!-- begin-user-doc --> This default implementation returns null so that we
      * can easily ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!--
      * end-user-doc -->
-     * 
      * @return the new adapter.
      * @see org.talend.core.model.metadata.builder.connection.AbstractMetadataObject
      * @generated
@@ -562,12 +558,10 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '
-     * {@link org.talend.core.model.metadata.builder.connection.DelimitedFileConnection
-     * <em>Delimited File Connection</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.DelimitedFileConnection <em>Delimited File Connection</em>}'.
+     * <!-- begin-user-doc --> This default implementation returns null so that we
      * can easily ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!--
      * end-user-doc -->
-     * 
      * @return the new adapter.
      * @see org.talend.core.model.metadata.builder.connection.DelimitedFileConnection
      * @generated
@@ -577,12 +571,10 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '
-     * {@link org.talend.core.model.metadata.builder.connection.PositionalFileConnection
-     * <em>Positional File Connection</em>}'. <!-- begin-user-doc --> This default implementation returns null so that
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.PositionalFileConnection <em>Positional File Connection</em>}'.
+     * <!-- begin-user-doc --> This default implementation returns null so that
      * we can easily ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!--
      * end-user-doc -->
-     * 
      * @return the new adapter.
      * @see org.talend.core.model.metadata.builder.connection.PositionalFileConnection
      * @generated
@@ -676,12 +668,10 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '
-     * {@link org.talend.core.model.metadata.builder.connection.SAPFunctionParameterColumn
-     * <em>SAP Function Parameter Column</em>}'. <!-- begin-user-doc --> This default implementation returns null so
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionParameterColumn <em>SAP Function Parameter Column</em>}'.
+     * <!-- begin-user-doc --> This default implementation returns null so
      * that we can easily ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway.
      * <!-- end-user-doc -->
-     * 
      * @return the new adapter.
      * @see org.talend.core.model.metadata.builder.connection.SAPFunctionParameterColumn
      * @generated
@@ -691,12 +681,10 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '
-     * {@link org.talend.core.model.metadata.builder.connection.SAPFunctionParameterTable
-     * <em>SAP Function Parameter Table</em>}'. <!-- begin-user-doc --> This default implementation returns null so that
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionParameterTable <em>SAP Function Parameter Table</em>}'.
+     * <!-- begin-user-doc --> This default implementation returns null so that
      * we can easily ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!--
      * end-user-doc -->
-     * 
      * @return the new adapter.
      * @see org.talend.core.model.metadata.builder.connection.SAPFunctionParameterTable
      * @generated
@@ -706,12 +694,10 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '
-     * {@link org.talend.core.model.metadata.builder.connection.InputSAPFunctionParameterTable
-     * <em>Input SAP Function Parameter Table</em>}'. <!-- begin-user-doc --> This default implementation returns null
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.InputSAPFunctionParameterTable <em>Input SAP Function Parameter Table</em>}'.
+     * <!-- begin-user-doc --> This default implementation returns null
      * so that we can easily ignore cases; it's useful to ignore a case when inheritance will catch all the cases
      * anyway. <!-- end-user-doc -->
-     * 
      * @return the new adapter.
      * @see org.talend.core.model.metadata.builder.connection.InputSAPFunctionParameterTable
      * @generated
@@ -721,12 +707,10 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '
-     * {@link org.talend.core.model.metadata.builder.connection.OutputSAPFunctionParameterTable
-     * <em>Output SAP Function Parameter Table</em>}'. <!-- begin-user-doc --> This default implementation returns null
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.OutputSAPFunctionParameterTable <em>Output SAP Function Parameter Table</em>}'.
+     * <!-- begin-user-doc --> This default implementation returns null
      * so that we can easily ignore cases; it's useful to ignore a case when inheritance will catch all the cases
      * anyway. <!-- end-user-doc -->
-     * 
      * @return the new adapter.
      * @see org.talend.core.model.metadata.builder.connection.OutputSAPFunctionParameterTable
      * @generated
@@ -736,11 +720,9 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '
-     * {@link org.talend.core.model.metadata.builder.connection.RegexpFileConnection <em>Regexp File Connection</em>}'.
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.RegexpFileConnection <em>Regexp File Connection</em>}'.
      * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful
      * to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
-     * 
      * @return the new adapter.
      * @see org.talend.core.model.metadata.builder.connection.RegexpFileConnection
      * @generated
@@ -792,10 +774,9 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.Query
-     * <em>Query</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.Query <em>Query</em>}'.
+     * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore
      * cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
-     * 
      * @return the new adapter.
      * @see org.talend.core.model.metadata.builder.connection.Query
      * @generated
@@ -819,11 +800,9 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '
-     * {@link org.talend.core.model.metadata.builder.connection.FileExcelConnection <em>File Excel Connection</em>}'.
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.FileExcelConnection <em>File Excel Connection</em>}'.
      * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful
      * to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
-     * 
      * @return the new adapter.
      * @see org.talend.core.model.metadata.builder.connection.FileExcelConnection
      * @generated
@@ -833,12 +812,10 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '
-     * {@link org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor
-     * <em>Xml XPath Loop Descriptor</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor <em>Xml XPath Loop Descriptor</em>}'.
+     * <!-- begin-user-doc --> This default implementation returns null so that we
      * can easily ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!--
      * end-user-doc -->
-     * 
      * @return the new adapter.
      * @see org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor
      * @generated
@@ -848,12 +825,10 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '
-     * {@link org.talend.core.model.metadata.builder.connection.GenericSchemaConnection
-     * <em>Generic Schema Connection</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.GenericSchemaConnection <em>Generic Schema Connection</em>}'.
+     * <!-- begin-user-doc --> This default implementation returns null so that we
      * can easily ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!--
      * end-user-doc -->
-     * 
      * @return the new adapter.
      * @see org.talend.core.model.metadata.builder.connection.GenericSchemaConnection
      * @generated
@@ -863,11 +838,9 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '
-     * {@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection <em>LDAP Schema Connection</em>}'.
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection <em>LDAP Schema Connection</em>}'.
      * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful
      * to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
-     * 
      * @return the new adapter.
      * @see org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection
      * @generated
@@ -877,11 +850,9 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '
-     * {@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection <em>WSDL Schema Connection</em>}'.
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection <em>WSDL Schema Connection</em>}'.
      * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful
      * to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
-     * 
      * @return the new adapter.
      * @see org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection
      * @generated
@@ -891,12 +862,10 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '
-     * {@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection
-     * <em>Salesforce Schema Connection</em>}'. <!-- begin-user-doc --> This default implementation returns null so that
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection <em>Salesforce Schema Connection</em>}'.
+     * <!-- begin-user-doc --> This default implementation returns null so that
      * we can easily ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!--
      * end-user-doc -->
-     * 
      * @return the new adapter.
      * @see org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection
      * @generated
@@ -948,12 +917,10 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '
-     * {@link org.talend.core.model.metadata.builder.connection.SAPTestInputParameterTable
-     * <em>SAP Test Input Parameter Table</em>}'. <!-- begin-user-doc --> This default implementation returns null so
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.SAPTestInputParameterTable <em>SAP Test Input Parameter Table</em>}'.
+     * <!-- begin-user-doc --> This default implementation returns null so
      * that we can easily ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway.
      * <!-- end-user-doc -->
-     * 
      * @return the new adapter.
      * @see org.talend.core.model.metadata.builder.connection.SAPTestInputParameterTable
      * @generated
@@ -963,10 +930,9 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.Concept
-     * <em>Concept</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.Concept <em>Concept</em>}'.
+     * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore
      * cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
-     * 
      * @return the new adapter.
      * @see org.talend.core.model.metadata.builder.connection.Concept
      * @generated
@@ -1004,12 +970,10 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '
-     * {@link org.talend.core.model.metadata.builder.connection.HeaderFooterConnection
-     * <em>Header Footer Connection</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.HeaderFooterConnection <em>Header Footer Connection</em>}'.
+     * <!-- begin-user-doc --> This default implementation returns null so that we
      * can easily ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!--
      * end-user-doc -->
-     * 
      * @return the new adapter.
      * @see org.talend.core.model.metadata.builder.connection.HeaderFooterConnection
      * @generated
@@ -1144,11 +1108,9 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '
-     * {@link org.talend.core.model.metadata.builder.connection.SalesforceModuleUnit <em>Salesforce Module Unit</em>}'.
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.SalesforceModuleUnit <em>Salesforce Module Unit</em>}'.
      * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful
      * to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
-     * 
      * @return the new adapter.
      * @see org.talend.core.model.metadata.builder.connection.SalesforceModuleUnit
      * @generated
@@ -1172,12 +1134,10 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '
-     * {@link org.talend.core.model.metadata.builder.connection.ValidationRulesConnection
-     * <em>Validation Rules Connection</em>}'. <!-- begin-user-doc --> This default implementation returns null so that
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.ValidationRulesConnection <em>Validation Rules Connection</em>}'.
+     * <!-- begin-user-doc --> This default implementation returns null so that
      * we can easily ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!--
      * end-user-doc -->
-     * 
      * @return the new adapter.
      * @see org.talend.core.model.metadata.builder.connection.ValidationRulesConnection
      * @generated
@@ -1217,7 +1177,6 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
      * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.core.Namespace <em>Namespace</em>}'.
      * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful
      * to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
-     * 
      * @return the new adapter.
      * @see orgomg.cwm.objectmodel.core.Namespace
      * @generated
@@ -1240,11 +1199,10 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '{@link orgomg.cwm.foundation.softwaredeployment.DeployedComponent
-     * <em>Deployed Component</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we can
+     * Creates a new adapter for an object of class '{@link orgomg.cwm.foundation.softwaredeployment.DeployedComponent <em>Deployed Component</em>}'.
+     * <!-- begin-user-doc --> This default implementation returns null so that we can
      * easily ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!--
      * end-user-doc -->
-     * 
      * @return the new adapter.
      * @see orgomg.cwm.foundation.softwaredeployment.DeployedComponent
      * @generated
@@ -1295,11 +1253,10 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.core.StructuralFeature
-     * <em>Structural Feature</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we can
+     * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.core.StructuralFeature <em>Structural Feature</em>}'.
+     * <!-- begin-user-doc --> This default implementation returns null so that we can
      * easily ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!--
      * end-user-doc -->
-     * 
      * @return the new adapter.
      * @see orgomg.cwm.objectmodel.core.StructuralFeature
      * @generated
@@ -1312,7 +1269,6 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
      * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.core.Attribute <em>Attribute</em>}'.
      * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful
      * to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
-     * 
      * @return the new adapter.
      * @see orgomg.cwm.objectmodel.core.Attribute
      * @generated
@@ -1335,10 +1291,9 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.core.Classifier <em>Classifier</em>}
-     * '. <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's
+     * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.core.Classifier <em>Classifier</em>}'.
+     * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's
      * useful to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
-     * 
      * @return the new adapter.
      * @see orgomg.cwm.objectmodel.core.Classifier
      * @generated
@@ -1375,11 +1330,10 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '{@link orgomg.cwm.resource.relational.NamedColumnSet
-     * <em>Named Column Set</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we can
+     * Creates a new adapter for an object of class '{@link orgomg.cwm.resource.relational.NamedColumnSet <em>Named Column Set</em>}'.
+     * <!-- begin-user-doc --> This default implementation returns null so that we can
      * easily ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!--
      * end-user-doc -->
-     * 
      * @return the new adapter.
      * @see orgomg.cwm.resource.relational.NamedColumnSet
      * @generated
@@ -1415,9 +1369,9 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for the default case. <!-- begin-user-doc --> This default implementation returns null.
+     * Creates a new adapter for the default case.
+     * <!-- begin-user-doc --> This default implementation returns null.
      * <!-- end-user-doc -->
-     * 
      * @return the new adapter.
      * @generated
      */

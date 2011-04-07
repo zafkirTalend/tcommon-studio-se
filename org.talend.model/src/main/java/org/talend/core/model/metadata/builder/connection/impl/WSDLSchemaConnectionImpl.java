@@ -138,8 +138,7 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
      * @generated
      * @ordered
      */
-    protected static final ArrayList PARAMETERS_EDEFAULT = (ArrayList) ConnectionFactory.eINSTANCE.createFromString(
-            ConnectionPackage.eINSTANCE.getList(), "");
+    protected static final ArrayList PARAMETERS_EDEFAULT = null;
 
     /**
      * The cached value of the '{@link #getParameters() <em>Parameters</em>}' attribute.

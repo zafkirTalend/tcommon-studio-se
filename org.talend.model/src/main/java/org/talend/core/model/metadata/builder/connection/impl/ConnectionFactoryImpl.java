@@ -67,7 +67,6 @@ import org.talend.cwm.helper.ColumnHelper;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!-- end-user-doc -->
- * 
  * @generated
  */
 public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFactory {
@@ -77,8 +76,8 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
     private static final String LIST_DELIMTER = ":w\n"; //$NON-NLS-1$
 
     /**
-     * Creates the default factory implementation. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Creates the default factory implementation.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static ConnectionFactory init() {
@@ -95,8 +94,8 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
     }
 
     /**
-     * Creates an instance of the factory. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Creates an instance of the factory.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public ConnectionFactoryImpl() {
@@ -105,7 +104,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
@@ -214,7 +212,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
@@ -251,7 +248,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
@@ -288,7 +284,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public Metadata createMetadata() {
@@ -298,7 +293,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public Connection createConnection() {
@@ -308,7 +302,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public MetadataColumn createMetadataColumn() {
@@ -328,7 +321,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public DelimitedFileConnection createDelimitedFileConnection() {
@@ -338,7 +330,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public PositionalFileConnection createPositionalFileConnection() {
@@ -348,7 +339,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public EbcdicConnection createEbcdicConnection() {
@@ -358,7 +348,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public MDMConnection createMDMConnection() {
@@ -368,7 +357,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public DatabaseConnection createDatabaseConnection() {
@@ -378,7 +366,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public SAPConnection createSAPConnection() {
@@ -388,7 +375,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public SAPFunctionUnit createSAPFunctionUnit() {
@@ -398,7 +384,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public SAPIDocUnit createSAPIDocUnit() {
@@ -408,7 +393,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public SAPFunctionParameterColumn createSAPFunctionParameterColumn() {
@@ -418,7 +402,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public SAPFunctionParameterTable createSAPFunctionParameterTable() {
@@ -428,7 +411,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public InputSAPFunctionParameterTable createInputSAPFunctionParameterTable() {
@@ -438,7 +420,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public OutputSAPFunctionParameterTable createOutputSAPFunctionParameterTable() {
@@ -448,7 +429,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public RegexpFileConnection createRegexpFileConnection() {
@@ -458,7 +438,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public XmlFileConnection createXmlFileConnection() {
@@ -468,7 +447,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public SchemaTarget createSchemaTarget() {
@@ -478,7 +456,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public QueriesConnection createQueriesConnection() {
@@ -488,7 +465,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public Query createQuery() {
@@ -498,7 +474,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public LdifFileConnection createLdifFileConnection() {
@@ -508,7 +483,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public FileExcelConnection createFileExcelConnection() {
@@ -518,7 +492,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public XmlXPathLoopDescriptor createXmlXPathLoopDescriptor() {
@@ -528,7 +501,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public GenericSchemaConnection createGenericSchemaConnection() {
@@ -538,7 +510,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public LDAPSchemaConnection createLDAPSchemaConnection() {
@@ -548,7 +519,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public WSDLSchemaConnection createWSDLSchemaConnection() {
@@ -558,7 +528,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public SalesforceSchemaConnection createSalesforceSchemaConnection() {
@@ -568,7 +537,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public CDCConnection createCDCConnection() {
@@ -578,7 +546,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public CDCType createCDCType() {
@@ -588,7 +555,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public SubscriberTable createSubscriberTable() {
@@ -598,7 +564,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public SAPTestInputParameterTable createSAPTestInputParameterTable() {
@@ -608,7 +573,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public Concept createConcept() {
@@ -618,7 +582,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public ConceptTarget createConceptTarget() {
@@ -628,7 +591,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public HL7Connection createHL7Connection() {
@@ -638,7 +600,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public HeaderFooterConnection createHeaderFooterConnection() {
@@ -648,7 +609,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public XMLFileNode createXMLFileNode() {
@@ -658,7 +618,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public WSDLParameter createWSDLParameter() {
@@ -668,7 +627,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public GenericPackage createGenericPackage() {
@@ -678,7 +636,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public HL7FileNode createHL7FileNode() {
@@ -688,7 +645,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public FTPConnection createFTPConnection() {
@@ -698,7 +654,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public BRMSConnection createBRMSConnection() {
@@ -708,7 +663,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public ConditionType createConditionType() {
@@ -718,7 +672,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public Map.Entry<String, String> createInnerJoinMap() {
@@ -728,7 +681,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public EDIFACTConnection createEDIFACTConnection() {
@@ -738,7 +690,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public SalesforceModuleUnit createSalesforceModuleUnit() {
@@ -748,7 +699,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public EDIFACTColumn createEDIFACTColumn() {
@@ -758,7 +708,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public ValidationRulesConnection createValidationRulesConnection() {
@@ -768,7 +717,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public FileFormat createFileFormatFromString(EDataType eDataType, String initialValue) {
@@ -781,7 +729,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String convertFileFormatToString(EDataType eDataType, Object instanceValue) {
@@ -790,7 +737,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public FieldSeparator createFieldSeparatorFromString(EDataType eDataType, String initialValue) {
@@ -803,7 +749,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String convertFieldSeparatorToString(EDataType eDataType, Object instanceValue) {
@@ -812,7 +757,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public Escape createEscapeFromString(EDataType eDataType, String initialValue) {
@@ -825,7 +769,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String convertEscapeToString(EDataType eDataType, Object instanceValue) {
@@ -834,7 +777,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public RowSeparator createRowSeparatorFromString(EDataType eDataType, String initialValue) {
@@ -847,7 +789,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String convertRowSeparatorToString(EDataType eDataType, Object instanceValue) {
@@ -856,7 +797,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public MDMConnectionProtocol createMDMConnectionProtocolFromString(EDataType eDataType, String initialValue) {
@@ -869,7 +809,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String convertMDMConnectionProtocolToString(EDataType eDataType, Object instanceValue) {
@@ -878,7 +817,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public MdmConceptType createMdmConceptTypeFromString(EDataType eDataType, String initialValue) {
@@ -891,7 +829,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String convertMdmConceptTypeToString(EDataType eDataType, Object instanceValue) {
@@ -900,7 +837,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public RuleType createRuleTypeFromString(EDataType eDataType, String initialValue) {
@@ -913,7 +849,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String convertRuleTypeToString(EDataType eDataType, Object instanceValue) {
@@ -922,7 +857,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public Function createFunctionFromString(EDataType eDataType, String initialValue) {
@@ -935,7 +869,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String convertFunctionToString(EDataType eDataType, Object instanceValue) {
@@ -944,7 +877,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public Operator createOperatorFromString(EDataType eDataType, String initialValue) {
@@ -957,7 +889,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String convertOperatorToString(EDataType eDataType, Object instanceValue) {
@@ -966,7 +897,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public LogicalOperator createLogicalOperatorFromString(EDataType eDataType, String initialValue) {
@@ -979,7 +909,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String convertLogicalOperatorToString(EDataType eDataType, Object instanceValue) {
@@ -1048,7 +977,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public ConnectionPackage getConnectionPackage() {
@@ -1057,7 +985,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @deprecated
      * @generated
      */
