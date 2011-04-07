@@ -187,6 +187,7 @@ public abstract class FolderHelper {
         } else {
             previousFolder.getChildren().remove(folder);
         }
+        folder.getState().setDeleted(false);
         folder.setParent(null);
         removeFromResource(folder);
     }
