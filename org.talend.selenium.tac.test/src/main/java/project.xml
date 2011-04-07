@@ -16,9 +16,11 @@
   <parameter  name ="userPassword"	value ="admin"/>
   -->
   
-  <parameter  name ="ProjectType"	value ="type1"/>
+  <parameter  name ="ProjectType"	value ="Data Quality"/>
+  <!-- 
   <parameter  name ="AddcommonProjectname"	value ="commonpro"/>
   <parameter  name ="AddreferenceProjectname"	value ="referencepro"/>
+   -->
   <parameter  name ="DeleteProjectname"	value ="referencepro"/>
   
   <!-- 
@@ -29,7 +31,7 @@
   <parameter  name ="SVNProjecturl" value ="https://192.168.0.85/svn/testing/"/>
   <parameter  name ="SVNPerlProjecturl" value ="https://192.168.0.85/svn/perl/"/>
    -->
-  <parameter  name ="WrongSVNProjecturl" value ="sdfsdf"/>
+  <parameter  name ="WrongSVNProjecturl" value ="wrongSvnurl"/>
   
   <!-- 
   <parameter  name ="SVNuserName" value ="test"/>
@@ -59,29 +61,12 @@
   <parameter  name ="ServerMonitorport" value ="8888"/>
   <parameter  name ="ServerTimeout" value ="120"/>
   <parameter  name ="ServerUsername" value =""/>
-  <parameter  name ="ServerPassword" value =""/>
+  <parameter  name ="ServerPassword" value =""/><!--
   
   
+    
   
-  <test name="projectJava">
-    <classes>
-	    <class name="com.talend.tac.cases.projects.TestAddcommonpro"/>
-	    <class name="com.talend.tac.cases.projects.TestAddProjectWithExistlable"/>
-	    <class name="com.talend.tac.cases.projects.TestCheckConnection"/>
-	    <class name="com.talend.tac.cases.projects.TestDuplicateProject"/>
-	    <class name="com.talend.tac.cases.projects.TestModification"/>
-	    <class name="com.talend.tac.cases.projects.TestDeletepro"/>
-	    <class name="com.talend.tac.cases.projects.TestBranchManageAdd"/>
-	    <class name="com.talend.tac.cases.projects.TestBranchManageAddExistbranch"/>
-	    <class name="com.talend.tac.cases.projects.TestCleanProject"/>
-	    <class name="com.talend.tac.cases.projects.TestAddJavaprojectwithdefault"/>
-	    
-	   
-    </classes>
-  </test>
-  
-  
-  <test name="projectPerl">
+   <test name="projectPerl">
   	<parameter  name ="Prolanguage" value ="Perl"/>
   	<classes>
 	    <class name="com.talend.tac.cases.projects.TestAddcommonpro"/>
@@ -96,8 +81,32 @@
 	    <class name="com.talend.tac.cases.projects.TestAddPerlproject"/>
   	</classes>
   </test>
-  <!--
+  --><test name="projectJava">
+    <classes>
+        <class name="com.talend.tac.cases.projects.TestAddJavaprojectwithdefault"/>
+	    <class name="com.talend.tac.cases.projects.TestAddcommonpro"/>
+	    <class name="com.talend.tac.cases.projects.TestAddProjectWithExistlable"/>
+	    <class name="com.talend.tac.cases.projects.TestCheckConnection"/>
+	    <class name="com.talend.tac.cases.projects.TestDuplicateProject"/>
+	    <class name="com.talend.tac.cases.projects.TestModification"/>
+	    <class name="com.talend.tac.cases.projects.TestDeletepro"/>
+	    <class name="com.talend.tac.cases.projects.TestBranchManageAdd"/>
+	    <class name="com.talend.tac.cases.projects.TestBranchManageAddExistbranch"/>
+	    <class name="com.talend.tac.cases.projects.TestCleanProject"/>
+	    <class name="com.talend.tac.cases.projects.TestAddProjectUncheckadvanced"/>
+	    <class name="com.talend.tac.cases.projects.TestAddprojects"/>
+	    <!--<class name="com.talend.tac.cases.projects.TestClean"/>  
+    --></classes>
+  </test>
+
+  
    <test name = "server">
+    
+    <!--Environment needed to configured
+   		1.start a job server on localhost
+   		2.start a job server on remote linux
+   		3.start a job server on remote windows
+     -->
   <classes>
     <class name="com.talend.tac.cases.jobconductor.TestAddServer"/>
     <class name="com.talend.tac.cases.jobconductor.TestDeleteServer"/>
@@ -105,6 +114,30 @@
     <class name="com.talend.tac.cases.jobconductor.TestCleanServers"/>
   </classes>
   </test>
--->
-</suite>
+  
+  
+   <!--<test name = "executionplan">
+  
+      <parameter name = "plan.label" value = "testPlan"/>
+      <parameter name="plan.description" value="testPlan.des" /> 
+      <parameter name="plan.modifyLabel" value="testModifyPlan" /> 
+      <parameter name="plan.modifyDescription" value="testModifyPlan.des" />
+      <parameter name="plan.delete.label" value="testModifyPlan" />
+      <parameter name="plan.simpletrigger.label" value="testSimpleTrigger" />
+      <parameter name="plan.simpletrigger.default.label" value="testDefaulttrigger"/>
+      <parameter name="plan.simpletrigger.outdated.label" value="testOutdatedtrigger"/>
+      <classes>
+            <class name="com.talend.tac.cases.executePlan.AddPlan" /> 
+            <class name="com.talend.tac.cases.executePlan.ModifyPlan" /> 
+            <class name="com.talend.tac.cases.executePlan.TestAddTriggerAddSimpleTrigger"/>
+            <class name="com.talend.tac.cases.executePlan.TestAddSimpleTriggerUseOutdatedtime"/>
+            <class name="com.talend.tac.cases.executePlan.TestAddSimpleTriggerUsedefaulttime"/>
+            <class name="com.talend.tac.cases.executePlan.TestDuplicateSimpleTrigger"/>
+            <class name="com.talend.tac.cases.executePlan.DeletePlan" /> 
+            <class name="com.talend.tac.cases.executePlan.TestAddTriggerAddSimpleTrigger"/>
+    </classes>
+      
+</test>
+ 
+--></suite>
 
