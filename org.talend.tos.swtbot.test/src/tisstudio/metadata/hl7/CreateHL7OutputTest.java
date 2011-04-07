@@ -23,6 +23,7 @@ import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
@@ -44,6 +45,8 @@ public class CreateHL7OutputTest extends TalendSwtBotForTos {
 
     private SWTBotTreeItem treeNode;
 
+    private SWTBotShell shell;
+
     private static final String HL7NAME = "hl7_2"; //$NON-NLS-1$
 
     private static final String SAMPLE_RELATIVE_FILEPATH = "HL7.txt"; //$NON-NLS-1$
@@ -62,11 +65,10 @@ public class CreateHL7OutputTest extends TalendSwtBotForTos {
     public void createHL7Output() throws IOException, URISyntaxException {
         tree.setFocus();
 
+        tree.expandNode("Metadata").getNode("HL7").contextMenu("Create HL7").click();
+        gefBot.waitUntil(Conditions.shellIsActive("New HL7 File"));
+        shell = gefBot.shell("New HL7 File").activate();
         try {
-            tree.expandNode("Metadata").getNode("HL7").contextMenu("Create HL7").click();
-            gefBot.waitUntil(Conditions.shellIsActive("New HL7 File"));
-            gefBot.shell("New HL7 File").activate();
-
             /* step 1 of 5 */
             gefBot.textWithLabel("Name").setText(HL7NAME);
             gefBot.button("Next >").click();
@@ -92,7 +94,7 @@ public class CreateHL7OutputTest extends TalendSwtBotForTos {
                 }
 
                 public String getFailureMessage() {
-                    gefBot.shell("New HL7 File").close();
+                    shell.close();
                     return "next button was never enabled";
                 }
             });
@@ -107,15 +109,14 @@ public class CreateHL7OutputTest extends TalendSwtBotForTos {
                 }
 
                 public String getFailureMessage() {
-                    gefBot.shell("New HL7 File").close();
+                    shell.close();
                     return "finish button was never enabled";
                 }
             });
             gefBot.button("Finish").click();
         } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            gefBot.shell("New HL7 File").close();
+            shell.close();
+            Assert.fail(e.getCause().getMessage());
         }
 
         SWTBotTreeItem newHl7Item = null;
