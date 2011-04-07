@@ -104,7 +104,10 @@ public class LibrariesService implements ILibrariesService {
     }
 
     public String getPerlLibrariesPath() {
-        return this.getPerlLibrariesService().getLibrariesPath();
+        if (this.getPerlLibrariesService() != null) {
+            return this.getPerlLibrariesService().getLibrariesPath();
+        }
+        return null;
     }
 
     public ELibraryInstallStatus getLibraryStatus(String libName) throws BusinessException {

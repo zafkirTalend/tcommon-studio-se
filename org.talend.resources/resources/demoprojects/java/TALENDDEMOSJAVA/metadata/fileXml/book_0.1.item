@@ -1,17 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<TalendMetadata:XmlFileConnection xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:TalendMetadata="http://www.talend.org" XmlFilePath="/home/nfrancisco/Talend/Projets/TalendDemoJava/talend_files_0.1/in/XML/sample.xml" Encoding="ISO-8859-1">
-  <tables id="_doC6wCLkEd-O8r6_89nfnA" label="metadata">
-    <columns label="id" talendType="id_Integer" length="1" precision="0" pattern="&quot;dd-MM-yyyy&quot;"/>
-    <columns label="subtitle" talendType="id_String" length="15" precision="0" pattern="&quot;dd-MM-yyyy&quot;"/>
-    <columns label="author" talendType="id_String" length="7" precision="0" pattern="&quot;dd-MM-yyyy&quot;"/>
-    <columns label="VolumeNo" talendType="id_Integer" length="1" precision="0" pattern="&quot;dd-MM-yyyy&quot;"/>
-    <columns label="nbPages" talendType="id_Integer" length="2" precision="0" pattern="&quot;dd-MM-yyyy&quot;"/>
-  </tables>
-  <schema LimitBoucle="5000" AbsoluteXPathQuery="/root/biblio/book">
-    <schemaTargets RelativeXPathQuery="@id" TagName="id"/>
-    <schemaTargets RelativeXPathQuery="title/@subtitle" TagName="subtitle"/>
-    <schemaTargets RelativeXPathQuery="author" TagName="author"/>
-    <schemaTargets RelativeXPathQuery="volumes/volume/@VolumeNo" TagName="VolumeNo"/>
-    <schemaTargets RelativeXPathQuery="volumes/volume/@nbPages" TagName="nbPages"/>
-  </schema>
-</TalendMetadata:XmlFileConnection>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:TalendMetadata="http://www.talend.org/metadata/connection/2010">
+  <TalendMetadata:XmlFileConnection xmi:id="_xz3RkGD7EeCFQbmPuExx4A" dataPackage="_xz3RkWD7EeCFQbmPuExx4A" XmlFilePath="/home/nfrancisco/Talend/Projets/TalendDemoJava/talend_files_0.1/in/XML/sample.xml" Encoding="ISO-8859-1">
+    <schema xmi:id="_xz34o2D7EeCFQbmPuExx4A" LimitBoucle="5000" AbsoluteXPathQuery="/root/biblio/book">
+      <schemaTargets xmi:id="_xz3RnWD7EeCFQbmPuExx4A" RelativeXPathQuery="@id" TagName="id"/>
+      <schemaTargets xmi:id="_xz3RnmD7EeCFQbmPuExx4A" RelativeXPathQuery="title/@subtitle" TagName="subtitle"/>
+      <schemaTargets xmi:id="_xz34oGD7EeCFQbmPuExx4A" RelativeXPathQuery="author" TagName="author"/>
+      <schemaTargets xmi:id="_xz34oWD7EeCFQbmPuExx4A" RelativeXPathQuery="volumes/volume/@VolumeNo" TagName="VolumeNo"/>
+      <schemaTargets xmi:id="_xz34omD7EeCFQbmPuExx4A" RelativeXPathQuery="volumes/volume/@nbPages" TagName="nbPages"/>
+    </schema>
+  </TalendMetadata:XmlFileConnection>
+  <TalendMetadata:GenericPackage xmi:id="_xz3RkWD7EeCFQbmPuExx4A" dataManager="_xz3RkGD7EeCFQbmPuExx4A">
+    <ownedElement xsi:type="TalendMetadata:MetadataTable" xmi:id="_xz3RnGD7EeCFQbmPuExx4A" id="_doC6wCLkEd-O8r6_89nfnA" label="metadata">
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_xz3RkmD7EeCFQbmPuExx4A" name="" label="id" length="1" talendType="id_Integer" pattern="&quot;dd-MM-yyyy&quot;">
+        <initialValue xmi:id="_xz3Rk2D7EeCFQbmPuExx4A" body=""/>
+      </feature>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_xz3RlGD7EeCFQbmPuExx4A" name="" label="subtitle" length="15" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;">
+        <initialValue xmi:id="_xz3RlWD7EeCFQbmPuExx4A" body=""/>
+      </feature>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_xz3RlmD7EeCFQbmPuExx4A" name="" label="author" length="7" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;">
+        <initialValue xmi:id="_xz3Rl2D7EeCFQbmPuExx4A" body=""/>
+      </feature>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_xz3RmGD7EeCFQbmPuExx4A" name="" label="VolumeNo" length="1" talendType="id_Integer" pattern="&quot;dd-MM-yyyy&quot;">
+        <initialValue xmi:id="_xz3RmWD7EeCFQbmPuExx4A" body=""/>
+      </feature>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_xz3RmmD7EeCFQbmPuExx4A" name="" label="nbPages" length="2" talendType="id_Integer" pattern="&quot;dd-MM-yyyy&quot;">
+        <initialValue xmi:id="_xz3Rm2D7EeCFQbmPuExx4A" body=""/>
+      </feature>
+    </ownedElement>
+  </TalendMetadata:GenericPackage>
+</xmi:XMI>

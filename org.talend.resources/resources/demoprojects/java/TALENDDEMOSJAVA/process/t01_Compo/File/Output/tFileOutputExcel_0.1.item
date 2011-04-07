@@ -76,6 +76,16 @@
     <elementParameter field="CHECK" name="CATCH_USER_ERRORS" value="true"/>
     <elementParameter field="CHECK" name="CATCH_USER_WARNING" value="true"/>
     <elementParameter field="CHECK" name="CATCH_REALTIME_STATS" value="false"/>
+    <routinesParameter id="_BzsnoJWBEd2-2urAiuZBEg" name="DataOperation"/>
+    <routinesParameter id="_B9YvIJWBEd2-2urAiuZBEg" name="Mathematical"/>
+    <routinesParameter id="_B9rqE5WBEd2-2urAiuZBEg" name="Numeric"/>
+    <routinesParameter id="_B9rqF5WBEd2-2urAiuZBEg" name="Relational"/>
+    <routinesParameter id="_B91bE5WBEd2-2urAiuZBEg" name="StringHandling"/>
+    <routinesParameter id="_B91bF5WBEd2-2urAiuZBEg" name="TalendDataGenerator"/>
+    <routinesParameter id="_B9-lAJWBEd2-2urAiuZBEg" name="TalendDate"/>
+    <routinesParameter id="_B9-lBJWBEd2-2urAiuZBEg" name="TalendString"/>
+    <routinesParameter id="_8qwkYFjNEdyj6eiqDt60Og" name="DemoRoutines"/>
+    <routinesParameter id="_HKXfQGIZEd26GZmhFZLTPA" name="GetRandomPhoneNum"/>
   </parameters>
   <node componentName="tRowGenerator" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="64" posY="192">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tRowGenerator_2"/>

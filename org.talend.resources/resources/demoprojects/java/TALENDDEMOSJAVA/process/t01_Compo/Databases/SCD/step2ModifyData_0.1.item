@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<talendfile:ProcessType xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" defaultContext="Default">
+<talendfile:ProcessType xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.talend.org/mapper" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" defaultContext="Default">
   <context confirmationNeeded="false" name="Default"/>
   <parameters>
     <elementParameter field="DIRECTORY" name="COMP_DEFAULT_FILE_DIR" value="/home/nfrancisco/Talend/Logiciels/TOS/4.0.0RC1/Install/TOS-All-r38438-V4.0.0RC1/workspace" contextMode="false"/>
@@ -73,6 +73,16 @@
     <elementParameter field="CHECK" name="CATCH_REALTIME_STATS" value="false" contextMode="false"/>
     <elementParameter field="ENCODING_TYPE" name="ENCODING" value="ISO-8859-15" contextMode="false"/>
     <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15" contextMode="false"/>
+    <routinesParameter id="_BzsnoJWBEd2-2urAiuZBEg" name="DataOperation"/>
+    <routinesParameter id="_B9YvIJWBEd2-2urAiuZBEg" name="Mathematical"/>
+    <routinesParameter id="_B9rqE5WBEd2-2urAiuZBEg" name="Numeric"/>
+    <routinesParameter id="_B9rqF5WBEd2-2urAiuZBEg" name="Relational"/>
+    <routinesParameter id="_B91bE5WBEd2-2urAiuZBEg" name="StringHandling"/>
+    <routinesParameter id="_B91bF5WBEd2-2urAiuZBEg" name="TalendDataGenerator"/>
+    <routinesParameter id="_B9-lAJWBEd2-2urAiuZBEg" name="TalendDate"/>
+    <routinesParameter id="_B9-lBJWBEd2-2urAiuZBEg" name="TalendString"/>
+    <routinesParameter id="_8qwkYFjNEdyj6eiqDt60Og" name="DemoRoutines"/>
+    <routinesParameter id="_HKXfQGIZEd26GZmhFZLTPA" name="GetRandomPhoneNum"/>
   </parameters>
   <node componentName="tRowGenerator" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="128" posY="224">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tRowGenerator_1" contextMode="false"/>
@@ -193,7 +203,7 @@
       <column comment="" key="false" length="14" name="labelstate" nullable="true" pattern="" precision="0" sourceType="VARCHAR" type="id_String"/>
     </metadata>
   </node>
-  <node binaryData="" stringData="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;external-mapper-data>&lt;ui-properties shell-maximized=&quot;true&quot;>&lt;weights-main-sash-form>700&lt;/weights-main-sash-form>&lt;weights-main-sash-form>300&lt;/weights-main-sash-form>&lt;weights-datas-flow-view-sash-form>330&lt;/weights-datas-flow-view-sash-form>&lt;weights-datas-flow-view-sash-form>330&lt;/weights-datas-flow-view-sash-form>&lt;weights-datas-flow-view-sash-form>340&lt;/weights-datas-flow-view-sash-form>&lt;/ui-properties>&lt;vars-tables xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; persistent=&quot;false&quot; minimized=&quot;true&quot; activate-expression-filter=&quot;false&quot; reject-inner-join=&quot;false&quot; inner-join=&quot;false&quot; reject=&quot;false&quot; xsi:type=&quot;java:org.talend.designer.mapper.external.data.ExternalMapperTable&quot;>&lt;name>Var&lt;/name>&lt;size-state>INTERMEDIATE&lt;/size-state>&lt;/vars-tables>&lt;output-tables xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; persistent=&quot;false&quot; minimized=&quot;false&quot; activate-expression-filter=&quot;false&quot; reject-inner-join=&quot;false&quot; inner-join=&quot;false&quot; reject=&quot;false&quot; xsi:type=&quot;java:org.talend.designer.mapper.external.data.ExternalMapperTable&quot;>&lt;name>ToStates&lt;/name>&lt;table-entries nullable=&quot;false&quot; xsi:type=&quot;java:org.talend.designer.mapper.external.data.ExternalMapperTableEntry&quot;>&lt;name>idstate&lt;/name>&lt;type>id_Integer&lt;/type>&lt;expression>FromStates.idstate&lt;/expression>&lt;/table-entries>&lt;table-entries nullable=&quot;true&quot; xsi:type=&quot;java:org.talend.designer.mapper.external.data.ExternalMapperTableEntry&quot;>&lt;name>labelstate&lt;/name>&lt;type>id_String&lt;/type>&lt;expression>StringHandling.UPCASE(FromStates.labelstate) &lt;/expression>&lt;/table-entries>&lt;metadata-table-entries nullable=&quot;false&quot; xsi:type=&quot;java:org.talend.designer.mapper.external.data.ExternalMapperTableEntry&quot;>&lt;name>idstate&lt;/name>&lt;type>id_Integer&lt;/type>&lt;expression>FromStates.idstate&lt;/expression>&lt;/metadata-table-entries>&lt;metadata-table-entries nullable=&quot;true&quot; xsi:type=&quot;java:org.talend.designer.mapper.external.data.ExternalMapperTableEntry&quot;>&lt;name>labelstate&lt;/name>&lt;type>id_String&lt;/type>&lt;expression>StringHandling.UPCASE(FromStates.labelstate) &lt;/expression>&lt;/metadata-table-entries>&lt;size-state>INTERMEDIATE&lt;/size-state>&lt;/output-tables>&lt;input-tables xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; persistent=&quot;false&quot; minimized=&quot;false&quot; activate-expression-filter=&quot;false&quot; reject-inner-join=&quot;false&quot; inner-join=&quot;false&quot; reject=&quot;false&quot; xsi:type=&quot;java:org.talend.designer.mapper.external.data.ExternalMapperTable&quot;>&lt;name>FromStates&lt;/name>&lt;table-entries nullable=&quot;false&quot; xsi:type=&quot;java:org.talend.designer.mapper.external.data.ExternalMapperTableEntry&quot;>&lt;name>idstate&lt;/name>&lt;type>id_Integer&lt;/type>&lt;/table-entries>&lt;table-entries nullable=&quot;true&quot; xsi:type=&quot;java:org.talend.designer.mapper.external.data.ExternalMapperTableEntry&quot;>&lt;name>labelstate&lt;/name>&lt;type>id_String&lt;/type>&lt;/table-entries>&lt;matching-mode>UNIQUE_MATCH&lt;/matching-mode>&lt;metadata-table-entries nullable=&quot;false&quot; xsi:type=&quot;java:org.talend.designer.mapper.external.data.ExternalMapperTableEntry&quot;>&lt;name>idstate&lt;/name>&lt;type>id_Integer&lt;/type>&lt;/metadata-table-entries>&lt;metadata-table-entries nullable=&quot;true&quot; xsi:type=&quot;java:org.talend.designer.mapper.external.data.ExternalMapperTableEntry&quot;>&lt;name>labelstate&lt;/name>&lt;type>id_String&lt;/type>&lt;/metadata-table-entries>&lt;size-state>INTERMEDIATE&lt;/size-state>&lt;/input-tables>&lt;/external-mapper-data>" componentName="tMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="256" posY="352">
+  <node binaryData="" stringData="" componentName="tMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="256" posY="352">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tMap_1" contextMode="false"/>
     <elementParameter field="EXTERNAL" name="MAP" value="" contextMode="false"/>
     <elementParameter field="CLOSED_LIST" name="LINK_STYLE" value="AUTO" contextMode="false"/>
@@ -208,6 +218,18 @@
       <column comment="" defaultValue="0" key="true" length="10" name="idstate" nullable="false" pattern="" precision="0" sourceType="INT" type="id_Integer"/>
       <column comment="" key="false" length="14" name="labelstate" nullable="true" pattern="" precision="0" sourceType="VARCHAR" type="id_String"/>
     </metadata>
+    <nodeData xsi:type="MapperData">
+      <uiProperties shellMaximized="true"/>
+      <varTables sizeState="INTERMEDIATE" name="Var" minimized="true"/>
+      <outputTables sizeState="INTERMEDIATE" name="ToStates">
+        <mapperTableEntries name="idstate" expression="FromStates.idstate" type="id_Integer"/>
+        <mapperTableEntries name="labelstate" expression="StringHandling.UPCASE(FromStates.labelstate) " type="id_String" nullable="true"/>
+      </outputTables>
+      <inputTables sizeState="INTERMEDIATE" name="FromStates" matchingMode="UNIQUE_MATCH">
+        <mapperTableEntries name="idstate" type="id_Integer"/>
+        <mapperTableEntries name="labelstate" type="id_String" nullable="true"/>
+      </inputTables>
+    </nodeData>
   </node>
   <node componentName="tMysqlOutput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="384" posY="352">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tMysqlOutput_2" contextMode="false"/>

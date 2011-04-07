@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<talendfile:ProcessType xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" defaultContext="Default">
+<talendfile:ProcessType xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.talend.org/dbmap" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" defaultContext="Default">
   <context confirmationNeeded="false" name="Default"/>
   <parameters>
     <elementParameter field="DIRECTORY" name="COMP_DEFAULT_FILE_DIR" value="/home/nfrancisco/Talend/Logiciels/TOS/4.0.0RC1/Install/TOS-All-r38438-V4.0.0RC1/workspace" contextMode="false"/>
@@ -73,6 +73,16 @@
     <elementParameter field="CHECK" name="CATCH_REALTIME_STATS" value="false" contextMode="false"/>
     <elementParameter field="ENCODING_TYPE" name="ENCODING" value="ISO-8859-15" contextMode="false"/>
     <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15" contextMode="false"/>
+    <routinesParameter id="_BzsnoJWBEd2-2urAiuZBEg" name="DataOperation"/>
+    <routinesParameter id="_B9YvIJWBEd2-2urAiuZBEg" name="Mathematical"/>
+    <routinesParameter id="_B9rqE5WBEd2-2urAiuZBEg" name="Numeric"/>
+    <routinesParameter id="_B9rqF5WBEd2-2urAiuZBEg" name="Relational"/>
+    <routinesParameter id="_B91bE5WBEd2-2urAiuZBEg" name="StringHandling"/>
+    <routinesParameter id="_B91bF5WBEd2-2urAiuZBEg" name="TalendDataGenerator"/>
+    <routinesParameter id="_B9-lAJWBEd2-2urAiuZBEg" name="TalendDate"/>
+    <routinesParameter id="_B9-lBJWBEd2-2urAiuZBEg" name="TalendString"/>
+    <routinesParameter id="_8qwkYFjNEdyj6eiqDt60Og" name="DemoRoutines"/>
+    <routinesParameter id="_HKXfQGIZEd26GZmhFZLTPA" name="GetRandomPhoneNum"/>
   </parameters>
   <node componentName="tELTMysqlInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="64" posY="352">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tELTMysqlInput_1" contextMode="false"/>
@@ -105,7 +115,7 @@
       <column comment="" defaultValue="" key="false" length="50" name="NAME_MANAGER" nullable="true" pattern="" precision="0" sourceType="VARCHAR" type="int"/>
     </metadata>
   </node>
-  <node binaryData="" stringData="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;external-db-map-data>&lt;ui-properties shell-maximized=&quot;true&quot;>&lt;weights-main-sash-form>700&lt;/weights-main-sash-form>&lt;weights-main-sash-form>300&lt;/weights-main-sash-form>&lt;weights-datas-flow-view-sash-form>450&lt;/weights-datas-flow-view-sash-form>&lt;weights-datas-flow-view-sash-form>100&lt;/weights-datas-flow-view-sash-form>&lt;weights-datas-flow-view-sash-form>450&lt;/weights-datas-flow-view-sash-form>&lt;/ui-properties>&lt;output-tables xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; minimized=&quot;false&quot; xsi:type=&quot;java:org.talend.designer.dbmap.external.data.ExternalDbMapTable&quot;>&lt;table-name>results&lt;/table-name>&lt;name>table2&lt;/name>&lt;metadata-table-entries join=&quot;false&quot; xsi:type=&quot;java:org.talend.designer.dbmap.external.data.ExternalDbMapEntry&quot;>&lt;name>ID&lt;/name>&lt;expression>employees.ID&lt;/expression>&lt;/metadata-table-entries>&lt;metadata-table-entries join=&quot;false&quot; xsi:type=&quot;java:org.talend.designer.dbmap.external.data.ExternalDbMapEntry&quot;>&lt;name>NAME&lt;/name>&lt;expression>employees.NAME&lt;/expression>&lt;/metadata-table-entries>&lt;metadata-table-entries join=&quot;false&quot; xsi:type=&quot;java:org.talend.designer.dbmap.external.data.ExternalDbMapEntry&quot;>&lt;name>ID_MANAGER&lt;/name>&lt;expression>employees.ID_MANAGER&lt;/expression>&lt;/metadata-table-entries>&lt;metadata-table-entries join=&quot;false&quot; xsi:type=&quot;java:org.talend.designer.dbmap.external.data.ExternalDbMapEntry&quot;>&lt;name>NAME_MANAGER&lt;/name>&lt;expression>managers.NAME&lt;/expression>&lt;/metadata-table-entries>&lt;table-entries join=&quot;false&quot; xsi:type=&quot;java:org.talend.designer.dbmap.external.data.ExternalDbMapEntry&quot;>&lt;name>ID&lt;/name>&lt;expression>employees.ID&lt;/expression>&lt;/table-entries>&lt;table-entries join=&quot;false&quot; xsi:type=&quot;java:org.talend.designer.dbmap.external.data.ExternalDbMapEntry&quot;>&lt;name>NAME&lt;/name>&lt;expression>employees.NAME&lt;/expression>&lt;/table-entries>&lt;table-entries join=&quot;false&quot; xsi:type=&quot;java:org.talend.designer.dbmap.external.data.ExternalDbMapEntry&quot;>&lt;name>ID_MANAGER&lt;/name>&lt;expression>employees.ID_MANAGER&lt;/expression>&lt;/table-entries>&lt;table-entries join=&quot;false&quot; xsi:type=&quot;java:org.talend.designer.dbmap.external.data.ExternalDbMapEntry&quot;>&lt;name>NAME_MANAGER&lt;/name>&lt;expression>managers.NAME&lt;/expression>&lt;/table-entries>&lt;/output-tables>&lt;input-tables xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; minimized=&quot;false&quot; xsi:type=&quot;java:org.talend.designer.dbmap.external.data.ExternalDbMapTable&quot;>&lt;table-name>employees&lt;/table-name>&lt;name>employees&lt;/name>&lt;metadata-table-entries join=&quot;false&quot; xsi:type=&quot;java:org.talend.designer.dbmap.external.data.ExternalDbMapEntry&quot;>&lt;name>ID&lt;/name>&lt;/metadata-table-entries>&lt;metadata-table-entries join=&quot;false&quot; xsi:type=&quot;java:org.talend.designer.dbmap.external.data.ExternalDbMapEntry&quot;>&lt;name>NAME&lt;/name>&lt;/metadata-table-entries>&lt;metadata-table-entries join=&quot;false&quot; xsi:type=&quot;java:org.talend.designer.dbmap.external.data.ExternalDbMapEntry&quot;>&lt;name>ID_MANAGER&lt;/name>&lt;/metadata-table-entries>&lt;table-entries join=&quot;false&quot; xsi:type=&quot;java:org.talend.designer.dbmap.external.data.ExternalDbMapEntry&quot;>&lt;name>ID&lt;/name>&lt;/table-entries>&lt;table-entries join=&quot;false&quot; xsi:type=&quot;java:org.talend.designer.dbmap.external.data.ExternalDbMapEntry&quot;>&lt;name>NAME&lt;/name>&lt;/table-entries>&lt;table-entries join=&quot;false&quot; xsi:type=&quot;java:org.talend.designer.dbmap.external.data.ExternalDbMapEntry&quot;>&lt;name>ID_MANAGER&lt;/name>&lt;/table-entries>&lt;join-type>NO_JOIN&lt;/join-type>&lt;/input-tables>&lt;input-tables xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; minimized=&quot;false&quot; xsi:type=&quot;java:org.talend.designer.dbmap.external.data.ExternalDbMapTable&quot;>&lt;table-name>employees&lt;/table-name>&lt;name>managers&lt;/name>&lt;metadata-table-entries join=&quot;true&quot; xsi:type=&quot;java:org.talend.designer.dbmap.external.data.ExternalDbMapEntry&quot;>&lt;operator>=&lt;/operator>&lt;name>ID&lt;/name>&lt;expression>employees.ID_MANAGER&lt;/expression>&lt;/metadata-table-entries>&lt;metadata-table-entries join=&quot;false&quot; xsi:type=&quot;java:org.talend.designer.dbmap.external.data.ExternalDbMapEntry&quot;>&lt;name>NAME&lt;/name>&lt;expression>&lt;/expression>&lt;/metadata-table-entries>&lt;metadata-table-entries join=&quot;false&quot; xsi:type=&quot;java:org.talend.designer.dbmap.external.data.ExternalDbMapEntry&quot;>&lt;operator>&lt;/operator>&lt;name>ID_MANAGER&lt;/name>&lt;expression>&lt;/expression>&lt;/metadata-table-entries>&lt;alias>managers&lt;/alias>&lt;table-entries join=&quot;true&quot; xsi:type=&quot;java:org.talend.designer.dbmap.external.data.ExternalDbMapEntry&quot;>&lt;operator>=&lt;/operator>&lt;name>ID&lt;/name>&lt;expression>employees.ID_MANAGER&lt;/expression>&lt;/table-entries>&lt;table-entries join=&quot;false&quot; xsi:type=&quot;java:org.talend.designer.dbmap.external.data.ExternalDbMapEntry&quot;>&lt;name>NAME&lt;/name>&lt;expression>&lt;/expression>&lt;/table-entries>&lt;table-entries join=&quot;false&quot; xsi:type=&quot;java:org.talend.designer.dbmap.external.data.ExternalDbMapEntry&quot;>&lt;operator>&lt;/operator>&lt;name>ID_MANAGER&lt;/name>&lt;expression>&lt;/expression>&lt;/table-entries>&lt;join-type>LEFT_OUTER_JOIN&lt;/join-type>&lt;/input-tables>&lt;/external-db-map-data>" componentName="tELTMysqlMap" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="352" posY="352">
+  <node binaryData="" stringData="" componentName="tELTMysqlMap" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="352" posY="352">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tELTMysqlMap_1" contextMode="false"/>
     <elementParameter field="CLOSED_LIST" name="DB_VERSION" value="mysql-connector-java-5.1.0-bin.jar" contextMode="false"/>
     <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="false" contextMode="false"/>
@@ -133,6 +143,24 @@
       <column comment="" defaultValue="" key="false" length="11" name="ID_MANAGER" nullable="true" pattern="" precision="0" sourceType="INT" type="int"/>
       <column comment="" defaultValue="" key="false" length="11" name="NAME_MANAGER" nullable="true" pattern="" precision="0" sourceType="INT" type="int"/>
     </metadata>
+    <nodeData xsi:type="DBMapData">
+      <InputTables name="employees" tableName="employees" joinType="NO_JOIN">
+        <DBMapperTableEntries name="ID"/>
+        <DBMapperTableEntries name="NAME"/>
+        <DBMapperTableEntries name="ID_MANAGER"/>
+      </InputTables>
+      <InputTables name="managers" tableName="employees" joinType="LEFT_OUTER_JOIN" alias="managers">
+        <DBMapperTableEntries name="ID" expression="employees.ID_MANAGER" join="true" operator="="/>
+        <DBMapperTableEntries name="NAME" expression=""/>
+        <DBMapperTableEntries name="ID_MANAGER" expression="" operator=""/>
+      </InputTables>
+      <OutputTables name="table2" tableName="results">
+        <DBMapperTableEntries name="ID" expression="employees.ID"/>
+        <DBMapperTableEntries name="NAME" expression="employees.NAME"/>
+        <DBMapperTableEntries name="ID_MANAGER" expression="employees.ID_MANAGER"/>
+        <DBMapperTableEntries name="NAME_MANAGER" expression="managers.NAME"/>
+      </OutputTables>
+    </nodeData>
   </node>
   <node componentName="tRunJob" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="352" posY="224">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tRunJob_1" contextMode="false"/>
