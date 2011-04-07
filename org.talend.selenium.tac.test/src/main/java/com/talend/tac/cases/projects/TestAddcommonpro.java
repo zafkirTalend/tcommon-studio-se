@@ -14,12 +14,12 @@ import com.thoughtworks.selenium.Selenium;
 
 public class TestAddcommonpro extends Login {
 
-	@Test(groups = { "Add" })
+	@Test(groups = { "Add" },dependsOnGroups = { "cleanbefore" })
 	@Parameters({ "SVNurl","ProjectType", "SVNuserName", "SVNuserPassword",
 			"AddcommonProjectname", "AddreferenceProjectname","Prolanguage"  })
 	public void testAddpro(String url,String type, String user, String password,
 			String proname, String name2,String language) throws Exception {
-		selenium.setSpeed(MAX_SPEED);
+//		selenium.setSpeed(MAX_SPEED);
         int existCommon = 0;
         int existReference = 0;
         if(selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
@@ -34,7 +34,7 @@ public class TestAddcommonpro extends Login {
         selenium.setSpeed(MIN_SPEED);
 		if(existCommon == 0){
 			testaddcommon(proname,language,type, url, user, password);
-			selenium.setSpeed(MID_SPEED);
+//			selenium.setSpeed(MID_SPEED);
 			selenium.click("idSubModuleRefreshButton");
 			selenium.setSpeed(MIN_SPEED);
 		
@@ -48,7 +48,8 @@ public class TestAddcommonpro extends Login {
 	public void testaddcommon(String namecommon,String language,String type, String svnurl, String user,
 			String password) throws Exception {
 		this.waitForElementPresent("!!!menu.project.element!!!", Base.WAIT_TIME);
-		selenium.setSpeed(MID_SPEED);
+//		selenium.setSpeed(MID_SPEED);
+		Thread.sleep(5000);
 		selenium.click("!!!menu.project.element!!!");
 		selenium.click("idSubModuleAddButton");
 		Thread.sleep(5000);
@@ -95,7 +96,7 @@ public class TestAddcommonpro extends Login {
 				+ KeyEvent.VK_ENTER);
 		//check svn user log checkbox
 		selenium.click("idSvnUserLogInput");
-		selenium.setSpeed(MAX_SPEED);
+//		selenium.setSpeed(MAX_SPEED);
 		this.typeString("idDescriptionInput", "description_" + namecommon);
 		// selenium.focus("idFormSaveButton");
 		// selenium.keyDownNative(""+KeyEvent.VK_ENTER);
@@ -155,7 +156,7 @@ public class TestAddcommonpro extends Login {
 		//check svn user log checkbox
 		selenium.click("idSvnUserLogInput");
 
-		selenium.setSpeed(MAX_SPEED);
+//		selenium.setSpeed(MAX_SPEED);
 		//type project descroption
 		this.typeString("idDescriptionInput", "description_" + namereference);
 		// selenium.focus("idFormSaveButton");

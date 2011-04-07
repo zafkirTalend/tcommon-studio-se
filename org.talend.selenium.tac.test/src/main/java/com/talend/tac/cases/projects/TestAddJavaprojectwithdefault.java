@@ -23,11 +23,11 @@ public class TestAddJavaprojectwithdefault extends Login {
 			throws InterruptedException {
 		this.waitForElementPresent("!!!menu.project.element!!!", Base.WAIT_TIME);
 		String namecommon = "JavaDefaultPro";
-		selenium.setSpeed(MID_SPEED);
+//		selenium.setSpeed(MID_SPEED);
 		selenium.click("!!!menu.project.element!!!");
 		selenium.click("idSubModuleAddButton");
 		Thread.sleep(5000);
-		selenium.setSpeed(MID_SPEED);
+//		selenium.setSpeed(MID_SPEED);
 		// add the type select option selenium.setSpeed("2000");
 		if (selenium.isVisible("idProjectTypeComboBox")) {
 			selenium.click("idProjectTypeComboBox");
@@ -45,7 +45,7 @@ public class TestAddJavaprojectwithdefault extends Login {
 					+ KeyEvent.VK_ENTER);
 		}
 		
-		selenium.setSpeed(MAX_SPEED);
+//		selenium.setSpeed(MAX_SPEED);
 		this.typeString("idDescriptionInput", "javadefault");
 		// selenium.focus("idFormSaveButton");
 		// selenium.keyDownNative(""+KeyEvent.VK_ENTER);
