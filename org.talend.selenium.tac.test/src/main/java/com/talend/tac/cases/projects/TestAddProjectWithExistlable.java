@@ -18,7 +18,7 @@ public void testAddpro(String url, String user, String password,
 		String proname,String language,String type) throws Exception {
 
 	  testAddexistproject(proname,language,type, url, user, password);
-	selenium.click("idSubModuleRefreshButton");
+//	selenium.click("idSubModuleRefreshButton");
 //	selenium.setSpeed("3000");
 	
 }
