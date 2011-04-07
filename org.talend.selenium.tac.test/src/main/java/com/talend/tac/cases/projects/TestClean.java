@@ -29,7 +29,7 @@ public class TestClean extends Login{
 				.matches(other.getString("delete.project.warning")));
 
 	}
-  @Test//(dependsOnGroups={"Second"})
+  @Test(groups={"cleanbefore"})
   //@Parameters({ "NumbersOfprojects" })
   public void deleteAll() {
 	  selenium.setSpeed(MID_SPEED);
