@@ -645,7 +645,7 @@ public class ExtractMetaDataFromDataBase {
                     String sub = ""; //$NON-NLS-1$
                     String sub2 = ""; //$NON-NLS-1$
                     String label2 = label;
-                    label = label.replaceAll("[^_a-zA-Z0-9]", "_");
+                    // label = label.replaceAll("[^_a-zA-Z0-9]", "_");
                     if (label != null && label.length() > 0 && label.startsWith("_")) { //$NON-NLS-1$
                         sub = label.substring(1);
                         if (sub != null && sub.length() > 0) {
@@ -657,14 +657,15 @@ public class ExtractMetaDataFromDataBase {
                         b = true;
                     }
                     metadataColumn.setLabel(label); //$NON-NLS-1$
-                    if (label2 != null && label2.length() > 0 && label2.startsWith("_")) { //$NON-NLS-1$
-                        String substring = label2.substring(1);
-                        if (b
-                                && label2.startsWith("_") //$NON-NLS-1$
-                                && (coreService.isKeyword(substring) || coreService.isKeyword(sub) || coreService.isKeyword(sub2))) {
-                            label2 = substring;
-                        }
-                    }
+                    //                    if (label2 != null && label2.length() > 0 && label2.startsWith("_")) { //$NON-NLS-1$
+                    // String substring = label2.substring(1);
+                    // if (b
+                    //                                && label2.startsWith("_") //$NON-NLS-1$
+                    // && (coreService.isKeyword(substring) || coreService.isKeyword(sub) ||
+                    // coreService.isKeyword(sub2))) {
+                    // label2 = substring;
+                    // }
+                    // }
                     metadataColumn.setOriginalField(label2);
 
                     // Validate the column if it contains space or illegal
@@ -672,7 +673,8 @@ public class ExtractMetaDataFromDataBase {
                     if (repositoryService != null) {
                         // metadataColumn.setDisplayField(repositoryService.validateColumnName(metadataColumn.getLabel(),
                         // columnIndex));
-                        metadataColumn.setLabel(repositoryService.validateColumnName(label, columnIndex));
+                        label = repositoryService.validateColumnName(label, columnIndex);
+                        metadataColumn.setLabel(label);
                     }
                     columnIndex++;
 
@@ -934,7 +936,7 @@ public class ExtractMetaDataFromDataBase {
                     String sub = ""; //$NON-NLS-1$
                     String sub2 = ""; //$NON-NLS-1$
                     String label2 = label;
-                    label = label.replaceAll("[^_a-zA-Z0-9]", "_");
+                    // label = label.replaceAll("[^_a-zA-Z0-9]", "_");
                     if (label != null && label.length() > 0 && label.startsWith("_")) { //$NON-NLS-1$
                         sub = label.substring(1);
                         if (sub != null && sub.length() > 0) {
@@ -948,14 +950,15 @@ public class ExtractMetaDataFromDataBase {
 
                     metadataColumn.setLabel(label); //$NON-NLS-1$
                     // String label2 = metadataColumn.getLabel();
-                    if (label2 != null && label2.length() > 0 && label2.startsWith("_")) { //$NON-NLS-1$
-                        String substring = label2.substring(1);
-                        if (b
-                                && label2.startsWith("_") //$NON-NLS-1$
-                                && (coreService.isKeyword(substring) || coreService.isKeyword(sub) || coreService.isKeyword(sub2))) {
-                            label2 = substring;
-                        }
-                    }
+                    //                    if (label2 != null && label2.length() > 0 && label2.startsWith("_")) { //$NON-NLS-1$
+                    // String substring = label2.substring(1);
+                    // if (b
+                    //                                && label2.startsWith("_") //$NON-NLS-1$
+                    // && (coreService.isKeyword(substring) || coreService.isKeyword(sub) ||
+                    // coreService.isKeyword(sub2))) {
+                    // label2 = substring;
+                    // }
+                    // }
                     metadataColumn.setOriginalField(label2);
 
                     // Validate the column if it contains space or illegal
@@ -963,7 +966,8 @@ public class ExtractMetaDataFromDataBase {
                     if (repositoryService != null) {
                         // metadataColumn.setDisplayField(repositoryService.validateColumnName(metadataColumn.getLabel(),
                         // columnIndex));
-                        metadataColumn.setLabel(repositoryService.validateColumnName(label, columnIndex));
+                        label = repositoryService.validateColumnName(label, columnIndex);
+                        metadataColumn.setLabel(label);
                     }
                     columnIndex++;
 

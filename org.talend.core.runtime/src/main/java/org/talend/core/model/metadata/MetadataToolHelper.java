@@ -245,6 +245,41 @@ public final class MetadataToolHelper {
     }
 
     /**
+     * 
+     * hwang Comment method "validateTableName".
+     * 
+     * 
+     */
+    public static String validateTableName(String tableName) {
+        String originalTableName = new String(tableName);
+        tableName = "";
+        final String underLine = "_"; //$NON-NLS-1$
+
+        boolean isKeyword = KeywordsValidator.isKeyword(originalTableName);
+
+        // boolean isAllowSpecific = isAllowSpecificCharacters();
+
+        for (int i = 0; i < originalTableName.length(); i++) {
+            Character car = originalTableName.charAt(i);
+            if (car.toString().getBytes().length == 1) {
+                if (((car >= 'a') && (car <= 'z')) || ((car >= 'A') && (car <= 'Z')) || car == '_'
+                        || ((car >= '0') && (car <= '9') && (i != 0))) {
+                    tableName += car;
+                } else {
+                    tableName += underLine;
+                }
+            } else {
+                tableName += car;
+            }
+        }
+        if (isKeyword) {
+            return tableName + "_1";
+        }
+        return tableName;
+
+    }
+
+    /**
      * wzhang Comment method "validataValue".
      */
     public static String validateValue(String columnName) {
@@ -456,6 +491,10 @@ public final class MetadataToolHelper {
         target.getListColumns().addAll(columnsTAdd);
         target.sortCustomColumns();
         target.setLabel(source.getLabel());
+        if (target.isNeedSource()) {
+            target.setTableName(source.getTableName());
+        }
+
     }
 
     /**
