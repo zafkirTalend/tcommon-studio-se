@@ -4,7 +4,7 @@
 <!--     <property name="rcp-app-home" value="E:\java\Talend\TOSTestDistrib\TDQ_EE_MPX-All-r51548-V4.2.0NB\TDQ_EE_MPX-All-r51548-V4.2.0NB" />
 -->
 	<!-- common properties for test one application-->
-    <property name="test-application" value="org.talend.rcp.branding.tos.application"/>
+    <!--property name="test-application" value="org.talend.rcp.branding.tos.application"/-->
     <property name="temp-workspace" value="${rcp-app-home}/workspace" />
 
     <!-- define swt bot properties from file and locally-->
@@ -28,6 +28,7 @@
 	<target name="init">
 		<tstamp />
 		<fail unless="rcp-app-home" message="You must set the rcp-app-home property to specify the path the RCP application to test"/>
+		<fail unless="test-application" message="You must set the test-application property to specify the the application to test"/>
 	</target>
 			
 	<target name="clean.application.config.and.workspace">
@@ -98,7 +99,7 @@
     	    <arg line="-classname ${unit.test-class-name}"/>
     	    <arg line="formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,${unit.junit.results.path}"/>
     	    <arg line="-consoleLog"/>
-    	    <jvmarg line="-Xms128m -Xmx1024m -XX:MaxPermSize=256m -XX:+HeapDumpOnOutOfMemoryError"/> <!-- -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=1716"/>-->
+    	    <jvmarg line="-Xms128m -Xmx1024m -XX:MaxPermSize=256m -XX:+HeapDumpOnOutOfMemoryError"/><!-- -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=1716"/>-->
     	</java>        
     </target>
 
