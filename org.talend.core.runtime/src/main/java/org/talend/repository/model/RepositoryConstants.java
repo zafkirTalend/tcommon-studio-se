@@ -86,12 +86,12 @@ public class RepositoryConstants {
         } else if (type == ERepositoryObjectType.ROUTINES) {
             // for bug 10356
             return ROUTINES_ITEM_PATTERN;
-        } else if (type == ERepositoryObjectType.TDQ_JRXMLTEMPLATE || type == ERepositoryObjectType.TDQ_DATA_PROFILING
-                || type == ERepositoryObjectType.TDQ_ANALYSIS || type == ERepositoryObjectType.TDQ_REPORTS
-                || type == ERepositoryObjectType.TDQ_LIBRARIES || type == ERepositoryObjectType.TDQ_PATTERNS
+        } else if (type == ERepositoryObjectType.TDQ_JRAXML_ELEMENT || type == ERepositoryObjectType.TDQ_DATA_PROFILING
+                || type == ERepositoryObjectType.TDQ_ANALYSIS_ELEMENT || type == ERepositoryObjectType.TDQ_REPORT_ELEMENT
+                || type == ERepositoryObjectType.TDQ_LIBRARIES || type == ERepositoryObjectType.TDQ_PATTERN_ELEMENT
                 || type == ERepositoryObjectType.TDQ_PATTERN_REGEX || type == ERepositoryObjectType.TDQ_PATTERN_SQL
-                || type == ERepositoryObjectType.TDQ_SOURCE_FILES || type == ERepositoryObjectType.TDQ_RULES
-                || type == ERepositoryObjectType.TDQ_RULES_SQL || type == ERepositoryObjectType.TDQ_INDICATORS) {
+                || type == ERepositoryObjectType.TDQ_SOURCE_FILE_ELEMENT || type == ERepositoryObjectType.TDQ_RULES
+                || type == ERepositoryObjectType.TDQ_RULES_SQL || type == ERepositoryObjectType.TDQ_INDICATOR_ELEMENT) {
             return TDQ_PAT_ITEM_PATTERN;
         } else {
             return TDQ_PAT_ITEM_PATTERN;

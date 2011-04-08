@@ -254,8 +254,8 @@ public class RepositoryNode implements IRepositoryNode {
             if (getContentType().equals(ERepositoryObjectType.PROCESS)) {
                 return getProperties(EProperties.LABEL).toString();
             }
-            if (ERepositoryObjectType.TDQ_INDICATORS.equals(getContentType())
-                    || ERepositoryObjectType.TDQ_PATTERNS.equals(getContentType())
+            if (ERepositoryObjectType.TDQ_INDICATOR_ELEMENT.equals(getContentType())
+                    || ERepositoryObjectType.TDQ_PATTERN_ELEMENT.equals(getContentType())
                     || ERepositoryObjectType.TDQ_RULES.equals(getContentType())) {
                 return getObject().getLabel();
             }

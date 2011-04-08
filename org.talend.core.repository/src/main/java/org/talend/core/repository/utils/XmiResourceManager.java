@@ -157,10 +157,10 @@ public class XmiResourceManager {
         ERepositoryObjectType type = repositoryObjectType;
         if (ERepositoryObjectType.TDQ_SYSTEM_INDICATORS.equals(repositoryObjectType)
                 || ERepositoryObjectType.TDQ_USERDEFINE_INDICATORS.equals(repositoryObjectType)) {
-            type = ERepositoryObjectType.TDQ_INDICATORS;
+            type = ERepositoryObjectType.TDQ_INDICATOR_ELEMENT;
         } else if (ERepositoryObjectType.TDQ_PATTERN_REGEX.equals(repositoryObjectType)
                 || ERepositoryObjectType.TDQ_PATTERN_SQL.equals(repositoryObjectType)) {
-            type = ERepositoryObjectType.TDQ_PATTERNS;
+            type = ERepositoryObjectType.TDQ_PATTERN_ELEMENT;
         }
         IFolder folder = project.getFolder(ERepositoryObjectType.getFolderName(type)).getFolder(relativePath);
         return folder.getFullPath();

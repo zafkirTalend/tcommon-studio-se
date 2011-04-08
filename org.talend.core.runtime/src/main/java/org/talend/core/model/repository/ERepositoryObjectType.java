@@ -276,9 +276,6 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     public final static ERepositoryObjectType TDQ_REPORT_ELEMENT = new ERepositoryObjectType(
             "repository.tdqelement.report", "TDQ_Data Profiling/Reports", "TDQ_REPORT_ELEMENT", 64, true, "repository.tdqelement.report.alias", new String[] { "DQ" }); //$NON-NLS-1$ //$NON-NLS-2$
 
-    public final static ERepositoryObjectType TDQ_BUSINESSRULE_ELEMENT = new ERepositoryObjectType(
-            "repository.tdqelement.businessrule", "TDQ_Libraries/Rules/SQL", "TDQ_BUSINESSRULE_ELEMENT", 65, true, "repository.tdqelement.businessrule.alias", new String[] { "DQ" }); //$NON-NLS-1$ //$NON-NLS-2$
-
     public final static ERepositoryObjectType TDQ_INDICATOR_ELEMENT = new ERepositoryObjectType(
             "repository.tdqelement.indicator", "TDQ_Libraries/Indicators", "TDQ_INDICATOR_ELEMENT", 66, true, "repository.tdqelement.indicator.alias", new String[] { "DQ" }); //$NON-NLS-1$ //$NON-NLS-2$
 
@@ -299,17 +296,9 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     public final static ERepositoryObjectType TDQ_DATA_PROFILING = new ERepositoryObjectType(
             "repository.dataprofiling", "TDQ_Data Profiling", "TDQ_DATA_PROFILING", 71, true, "repository.dataprofiling.alias", new String[] { "DQ" }); //$NON-NLS-1$ //$NON-NLS-2$
 
-    public final static ERepositoryObjectType TDQ_ANALYSIS = new ERepositoryObjectType(
-            "repository.analysis", "TDQ_Data Profiling/Analyses", "TDQ_ANALYSIS", 72, true, "repository.analysis.alias", new String[] { "DQ" }); //$NON-NLS-1$ //$NON-NLS-2$
-
-    public final static ERepositoryObjectType TDQ_REPORTS = new ERepositoryObjectType(
-            "repository.reports", "TDQ_Data Profiling/Reports", "TDQ_REPORTS", 73, true, "repository.reports.alias", new String[] { "DQ" }); //$NON-NLS-1$ //$NON-NLS-2$
 
     public final static ERepositoryObjectType TDQ_LIBRARIES = new ERepositoryObjectType(
             "repository.libraries", "TDQ_Libraries", "TDQ_LIBRARIES", 74, true, "repository.libraries.alias", new String[] { "DQ" }); //$NON-NLS-1$ //$NON-NLS-2$
-
-    public final static ERepositoryObjectType TDQ_PATTERNS = new ERepositoryObjectType(
-            "repository.patterns", "TDQ_Libraries/Patterns", "TDQ_PATTERNS", 75, true, "repository.patterns.alias", new String[] { "DQ" }); //$NON-NLS-1$ //$NON-NLS-2$
 
     public final static ERepositoryObjectType TDQ_PATTERN_REGEX = new ERepositoryObjectType(
             "repository.patternRegex", "TDQ_Libraries/Patterns/Regex", "TDQ_PATTERN_REGEX", 76, true, "repository.patternRegex.alias", new String[] { "DQ" }); //$NON-NLS-1$ //$NON-NLS-2$
@@ -317,20 +306,11 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     public final static ERepositoryObjectType TDQ_PATTERN_SQL = new ERepositoryObjectType(
             "repository.patternSql", "TDQ_Libraries/Patterns/SQL", "TDQ_PATTERN_SQL", 77, true, "repository.patternSql.alias", new String[] { "DQ" }); //$NON-NLS-1$ //$NON-NLS-2$
 
-    public final static ERepositoryObjectType TDQ_SOURCE_FILES = new ERepositoryObjectType(
-            "repository.sourceFile", "TDQ_Libraries/Source Files", "TDQ_SOURCE_FILES", 78, true, "repository.sourceFile.alias", new String[] { "DQ" }); //$NON-NLS-1$ //$NON-NLS-2$
-
     public final static ERepositoryObjectType TDQ_RULES = new ERepositoryObjectType(
             "repository.rules", "TDQ_Libraries/Rules", "TDQ_RULES", 79, true, "repository.rules.alias", new String[] { "DQ" }); //$NON-NLS-1$ //$NON-NLS-2$
 
     public final static ERepositoryObjectType TDQ_RULES_SQL = new ERepositoryObjectType(
             "repository.rulesSql", "TDQ_Libraries/Rules/SQL", "TDQ_RULES_SQL", 80, true, "repository.rulesSql.alias", new String[] { "DQ" }); //$NON-NLS-1$ //$NON-NLS-2$
-
-    public final static ERepositoryObjectType TDQ_JRXMLTEMPLATE = new ERepositoryObjectType(
-            "repository.jrxmlTemplate", "TDQ_Libraries/JRXML Template", "TDQ_JRXMLTEMPLATE", 81, true, "repository.jrxmlTemplate.alias", new String[] { "DQ" }); //$NON-NLS-1$ //$NON-NLS-2$
-
-    public final static ERepositoryObjectType TDQ_INDICATORS = new ERepositoryObjectType(
-            "repository.indicators", "TDQ_Libraries/Indicators", "TDQ_INDICATORS", 82, true, "repository.indicators.alias", new String[] { "DQ" }); //$NON-NLS-1$ //$NON-NLS-2$
 
     // MOD klliu 2010-11-26 definition type
     public final static ERepositoryObjectType TDQ_SYSTEM_INDICATORS = new ERepositoryObjectType(
@@ -589,7 +569,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
             return "header_footer";
         } else if (type == TDQ_ANALYSIS_ELEMENT) {
             return "Analyses"; //$NON-NLS-1$
-        } else if (type == TDQ_BUSINESSRULE_ELEMENT) {
+        } else if (type == TDQ_RULES_SQL) {
             return "Rules"; //$NON-NLS-1$
         } else if (type == TDQ_INDICATOR_ELEMENT) {
             return "Indicators"; //$NON-NLS-1$
