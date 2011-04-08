@@ -432,6 +432,7 @@ public class MetadataConnectionUtils {
         }
         return false;
     }
+
     /**
      * yyi 2010-08-25 for 14851, Sybase DB has several names with different productions and versions. For example the
      * Sybase IQ with version 12.6 is called 'Sybase' getting by JDBC but the version 15+ it is changed to 'Sybase IQ'.
@@ -479,7 +480,7 @@ public class MetadataConnectionUtils {
         IExtension extension = Platform.getExtensionRegistry().getExtension(DRIVER_EXTENSION_POINT_ID, TOP_DRIVER_EXTENSION_ID);
         if (extension != null) {
             // top
-            if (PluginChecker.isOnlyTopLoaded() || PluginChecker.isTDQLoaded()) {
+            if (PluginChecker.isOnlyTopLoaded()) {
                 IConfigurationElement[] configurationElement = extension.getConfigurationElements();
                 for (IConfigurationElement ele : configurationElement) {
                     try {
@@ -489,25 +490,25 @@ public class MetadataConnectionUtils {
                         log.error(e, e);
                     }
                 }
-            }
-            if (driver == null) {
-                List<?> connList = null;
+            } else {
+                // tdq
                 try {
-                    connList = ExtractMetaDataUtils.getConnection(metadataBean.getDbType(), metadataBean.getUrl(),
+                    List<?> connList = ExtractMetaDataUtils.getConnection(metadataBean.getDbType(), metadataBean.getUrl(),
                             metadataBean.getUsername(), metadataBean.getPassword(), metadataBean.getDatabase(),
                             metadataBean.getSchema(), driverClassName, metadataBean.getDriverJarPath(),
                             metadataBean.getDbVersionString(), metadataBean.getAdditionalParams());
-                } catch (Exception e) {
-                    // do nothing // FIXME scorreia 2011-03-31 why do nothing here. Shouldn't we log something?
-                }
-                if (connList != null && !connList.isEmpty()) { // FIXME unnecessary check !connList.isEmpty()
-                    // FIXME scorreia 2011-03-31 why do we loop here? Is it possible to have several drivers. If yes,
-                    // what do we do?
-                    for (int i = 0; i < connList.size(); i++) {
-                        if (connList.get(i) instanceof Driver) {
-                            driver = (DriverShim) connList.get(i); // FIXME scorreia 2011-03-31 strange cast here.
+                    if (connList != null && !connList.isEmpty()) { // FIXME unnecessary check !connList.isEmpty()
+                        // FIXME scorreia 2011-03-31 why do we loop here? Is it possible to have several drivers. If
+                        // yes,
+                        // what do we do?
+                        for (int i = 0; i < connList.size(); i++) {
+                            if (connList.get(i) instanceof Driver) {
+                                driver = (DriverShim) connList.get(i); // FIXME scorreia 2011-03-31 strange cast here.
+                            }
                         }
                     }
+                } catch (Exception e) {
+                    log.error(e, e);
                 }
             }
         } else {

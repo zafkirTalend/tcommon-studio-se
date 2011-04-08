@@ -667,9 +667,8 @@ public class ExtractMetaDataUtils {
                     }
                 }
 
-            } else if (dbType != null && isValidJarFile(driverJarPath) || dbType != null
-                    && dbType.equals(EDatabaseTypeName.GODBC.getXmlName())) {
-
+            } else if (dbType != null
+                    && (isValidJarFile(driverJarPath) || dbType.equalsIgnoreCase(EDatabaseTypeName.GODBC.getXmlName()))) {
                 // Load jdbc driver class dynamicly
                 JDBCDriverLoader loader = new JDBCDriverLoader();
                 list = loader.getConnection(driverJarPath, driverClassName, url, username, pwd, dbType, dbVersion,
