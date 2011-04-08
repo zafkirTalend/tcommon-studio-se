@@ -113,8 +113,6 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
     private boolean isTos = false;
 
-    private String isfirst = "";
-
     private StackLayout stackLayout = new StackLayout();
 
     public static final IExtensionPointLimiter GLOBAL_ACTIONS = new ExtensionPointLimiterImpl("org.talend.core.global_actions", //$NON-NLS-1$
@@ -133,8 +131,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
     @Override
     public void preWindowOpen() {
         // feature 19053
-        IPreferenceStore apiStore = PrefUtil.getAPIPreferenceStore();
-        apiStore.setValue(IWorkbenchPreferenceConstants.PERSPECTIVE_BAR_SIZE, 300);
+        PerspectiveReviewUtil.setPerspectiveTabsBarSize();
         IWorkbenchWindowConfigurer configurer = getWindowConfigurer();
         configurer.setInitialSize(new Point(1000, 750));
         configurer.setShowCoolBar(true);
@@ -204,6 +201,8 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         // feature 18752
         setEditorAreaBG();
         regisitPerspectiveListener();
+        // feature 19053
+        PerspectiveReviewUtil.regisitPerspectiveBarSelectListener();
     }
 
     private void regisitPerspectiveListener() {
@@ -222,30 +221,8 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
                     }
                     clearEditorAreaBG(true);
                 }
-                // feature 19053
-                if (null == isfirst || "".equals(isfirst)) {
-                    isfirst = perspective.getId();
-                    refreshAll();
-                } else if (pId.equals(isfirst) && !"".equals(isfirst)) {
-                    return;
-                } else if (!pId.equals(isfirst) && !"".equals(isfirst)) {
-                    isfirst = perspective.getId();
-                    refreshAll();
-                }
             }
         });
-    }
-
-    private void refreshAll() {
-        IWorkbenchWindow workBenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-        if (workBenchWindow == null) {
-            return;
-        }
-        IWorkbenchPage workBenchPage = workBenchWindow.getActivePage();
-        if (workBenchPage == null) {
-            return;
-        }
-        workBenchPage.resetPerspective();
     }
 
     private void clearEditorAreaBG(boolean flag) {

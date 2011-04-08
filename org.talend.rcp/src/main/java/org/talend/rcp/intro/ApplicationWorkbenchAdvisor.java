@@ -50,10 +50,6 @@ public class ApplicationWorkbenchAdvisor extends IDEWorkbenchAdvisor {
 
     private static final String PERSPECTIVE_ID = "org.talend.rcp.perspective"; //$NON-NLS-1$
 
-    private static final String PERSPECTIVE_DQ_ID = "org.talend.dataprofiler.DataProfilingPerspective"; //$NON-NLS-1$
-
-    private static final String PERSPECTIVE_MDM_ID = "org.talend.mdm.perspective"; //$NON-NLS-1$
-
     @Override
     public WorkbenchWindowAdvisor createWorkbenchWindowAdvisor(IWorkbenchWindowConfigurer configurer) {
         return new ApplicationWorkbenchWindowAdvisor(configurer);
@@ -113,51 +109,7 @@ public class ApplicationWorkbenchAdvisor extends IDEWorkbenchAdvisor {
         if (!CommonsPlugin.isHeadless()) {
             CorePlugin.getDefault().getCodeGeneratorService().initializeTemplates();
         }
-
-        // feature 19053 add
-        IWorkbenchWindow activeWorkbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-        PerspectiveBarManager barManager = ((WorkbenchWindow) activeWorkbenchWindow).getPerspectiveBar();
-        if (barManager != null && (barManager instanceof PerspectiveBarManager)) {
-
-            IContributionItem iconItem = barManager.find(PERSPECTIVE_ID);
-            if (null == iconItem) {
-                IPerspectiveDescriptor diMailPerspective = WorkbenchPlugin.getDefault().getPerspectiveRegistry()
-                        .findPerspectiveWithId(PERSPECTIVE_ID);
-                if (null != diMailPerspective && (diMailPerspective instanceof IPerspectiveDescriptor)) {
-                    PerspectiveBarContributionItem diItem = new PerspectiveBarContributionItem(diMailPerspective,
-                            activeWorkbenchWindow.getActivePage());
-                    if (null != diItem && (diItem instanceof PerspectiveBarContributionItem)) {
-                        barManager.addItem(diItem);
-                    }
-                }
-            }
-
-            iconItem = barManager.find(PERSPECTIVE_DQ_ID);
-            if (null == iconItem) {
-                IPerspectiveDescriptor dqMailPerspective = WorkbenchPlugin.getDefault().getPerspectiveRegistry()
-                        .findPerspectiveWithId(PERSPECTIVE_DQ_ID);
-                if (null != dqMailPerspective && (dqMailPerspective instanceof IPerspectiveDescriptor)) {
-                    PerspectiveBarContributionItem dqItem = new PerspectiveBarContributionItem(dqMailPerspective,
-                            activeWorkbenchWindow.getActivePage());
-                    if (null != dqItem && (dqItem instanceof PerspectiveBarContributionItem)) {
-                        barManager.addItem(dqItem);
-                    }
-                }
-            }
-
-            iconItem = barManager.find(PERSPECTIVE_MDM_ID);
-            if (null == iconItem) {
-                IPerspectiveDescriptor mdmMailPerspective = WorkbenchPlugin.getDefault().getPerspectiveRegistry()
-                        .findPerspectiveWithId(PERSPECTIVE_MDM_ID);
-                if (null != mdmMailPerspective && (mdmMailPerspective instanceof IPerspectiveDescriptor)) {
-                    PerspectiveBarContributionItem mdmItem = new PerspectiveBarContributionItem(mdmMailPerspective,
-                            activeWorkbenchWindow.getActivePage());
-                    if (null != mdmItem && (mdmItem instanceof PerspectiveBarContributionItem)) {
-                        barManager.addItem(mdmItem);
-                    }
-                }
-            }
-        }
-
+        // feature 19053
+        PerspectiveReviewUtil.setPerspectiveTabs();
     }
 }
