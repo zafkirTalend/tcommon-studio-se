@@ -55,6 +55,12 @@ public class Utilities {
         ORACLE,
         AS400,
         SYBASE,
+        JDBC_MYSQL,
+        DB2,
+        INFORMIX,
+        ORACLE_OCI,
+        TERADATA,
+        VERTICA
     }
 
     /**
@@ -786,44 +792,69 @@ public class Utilities {
             shell.close();
             Assert.assertTrue("next button is not enabled, maybe the item name is exist,", nextButtonIsEnabled);
         }
+        String dbSelect = null;
+        String dbProperty = null;
         switch (dbType) {
         case MYSQL:
-            gefBot.comboBoxWithLabel("DB Type").setSelection("MySQL");
-            setConnectionInfo(gefBot, System.getProperty("mysql.login"), System.getProperty("mysql.password"),
-                    System.getProperty("mysql.hostname"), System.getProperty("mysql.port"), System.getProperty("mysql.dbname"));
+            dbSelect = "MySQL";
+            dbProperty = "mysql";
             break;
         case POSTGRESQL:
-            gefBot.comboBoxWithLabel("DB Type").setSelection("PostgreSQL");
-            setConnectionInfo(gefBot, System.getProperty("postgre.login"), System.getProperty("postgre.password"),
-                    System.getProperty("postgre.hostname"), System.getProperty("postgre.port"),
-                    System.getProperty("postgre.dbname"));
+            dbSelect = "PostgreSQL";
+            dbProperty = "postgresql";
             break;
         case MSSQL:
-            gefBot.comboBoxWithLabel("DB Type").setSelection("Microsoft SQL Server 2005/2008");
-            setConnectionInfo(gefBot, System.getProperty("mssql.login"), System.getProperty("mssql.password"),
-                    System.getProperty("mssql.hostname"), System.getProperty("mssql.port"), System.getProperty("mssql.dbname"));
+            dbSelect = "Microsoft SQL Server 2005/2008";
+            dbProperty = "mssql";
             break;
         case ORACLE:
-            gefBot.comboBoxWithLabel("DB Type").setSelection("Oracle with SID");
-            gefBot.textWithLabel("Login").setText(System.getProperty("oracle.login"));
-            gefBot.textWithLabel("Password").setText(System.getProperty("oracle.password"));
-            gefBot.textWithLabel("Server").setText(System.getProperty("oracle.hostname"));
-            gefBot.textWithLabel("Port").setText(System.getProperty("oracle.port"));
-            gefBot.textWithLabel("Sid").setText(System.getProperty("oracle.sid"));
+            dbSelect = "Oracle with SID";
+            dbProperty = "oracle";
             break;
         case AS400:
-            gefBot.comboBoxWithLabel("DB Type").setSelection("AS400");
-            setConnectionInfo(gefBot, System.getProperty("as400.login"), System.getProperty("as400.password"),
-                    System.getProperty("as400.hostname"), null, System.getProperty("as400.dbname"));
+            dbSelect = "AS400";
+            dbProperty = "as400";
             break;
         case SYBASE:
-            gefBot.comboBoxWithLabel("DB Type").setSelection("Sybase (ASE and IQ)");
-            setConnectionInfo(gefBot, System.getProperty("sybase.login"), System.getProperty("sybase.password"),
-                    System.getProperty("sybase.hostname"), System.getProperty("sybase.port"), System.getProperty("sybase.dbname"));
+            dbSelect = "Sybase (ASE and IQ)";
+            dbProperty = "sybase";
+            break;
+        case JDBC_MYSQL:
+            dbSelect = "General JDBC";
+            dbProperty = "jdbc.mysql";
+            break;
+        case DB2:
+            dbSelect = "IBM DB2";
+            dbProperty = "db2";
+            break;
+        case INFORMIX:
+            dbSelect = "Informix";
+            dbProperty = "informix";
+            break;
+        case ORACLE_OCI:
+            dbSelect = "Oracle OCI";
+            dbProperty = "oracle.oci";
+            break;
+        case TERADATA:
+            dbSelect = "Teradata";
+            dbProperty = "teradata";
+            break;
+        case VERTICA:
+            dbSelect = "Vertica";
+            dbProperty = "vertica";
             break;
         default:
             break;
         }
+
+        try {
+            setConnectionInfo(gefBot, dbSelect, dbProperty);
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        } catch (URISyntaxException e1) {
+            e1.printStackTrace();
+        }
+
         gefBot.button("Check").click();
         gefBot.waitUntil(new DefaultCondition() {
 
@@ -861,25 +892,45 @@ public class Utilities {
     /**
      * Set connection's informations
      * 
-     * @param gefBot, SWTGefBot
-     * @param login, username for database
-     * @param password
-     * @param hostname
-     * @param port
-     * @param dbname
+     * @param gefBot SWTGefBot
+     * @param dbType db type for widget selection
+     * @param db the prefix of properties about db connection
+     * @throws URISyntaxException
+     * @throws IOException
      */
-    private static void setConnectionInfo(SWTGefBot gefBot, String login, String password, String hostname, String port,
-            String dbname) {
-        if (login != null)
-            gefBot.textWithLabel("Login").setText(login);
-        if (password != null)
-            gefBot.textWithLabel("Password").setText(password);
-        if (hostname != null)
-            gefBot.textWithLabel("Server").setText(hostname);
-        if (port != null)
-            gefBot.textWithLabel("Port").setText(port);
-        if (dbname != null)
-            gefBot.textWithLabel("DataBase").setText(dbname);
+    private static void setConnectionInfo(SWTGefBot gefBot, String dbType, String db) throws IOException, URISyntaxException {
+        gefBot.comboBoxWithLabel("DB Type").setSelection(dbType);
+        if (System.getProperty(db + ".dbVersion") != null)
+            gefBot.comboBoxWithLabel("Db Version").setSelection(System.getProperty(db + ".dbVersion"));
+        if (System.getProperty(db + ".login") != null)
+            gefBot.textWithLabel("Login").setText(System.getProperty(db + ".login"));
+        if (System.getProperty(db + ".password") != null)
+            gefBot.textWithLabel("Password").setText(System.getProperty(db + ".password"));
+        if (System.getProperty(db + ".server") != null)
+            gefBot.textWithLabel("Server").setText(System.getProperty(db + ".server"));
+        if (System.getProperty(db + ".port") != null)
+            gefBot.textWithLabel("Port").setText(System.getProperty(db + ".port"));
+        if (System.getProperty(db + ".dataBase") != null)
+            gefBot.textWithLabel("DataBase").setText(System.getProperty(db + ".dataBase"));
+        if (System.getProperty(db + ".schema") != null)
+            gefBot.textWithLabel("Schema").setText(System.getProperty(db + ".schema"));
+        if (System.getProperty(db + ".serviceName") != null)
+            gefBot.textWithLabel("Local service name").setText(System.getProperty(db + ".serviceName"));
+        if (System.getProperty(db + ".instance") != null)
+            gefBot.textWithLabel("Instance").setText(System.getProperty(db + ".instance"));
+        if (System.getProperty(db + ".url") != null)
+            gefBot.textWithLabel("JDBC URL").setText(System.getProperty(db + ".url"));
+        if (System.getProperty(db + ".driver") != null)
+            gefBot.textWithLabel("Driver jar").setText(
+                    getFileFromCurrentPluginSampleFolder(System.getProperty(db + ".driver")).getAbsolutePath());
+        if (System.getProperty(db + ".className") != null)
+            gefBot.comboBoxWithLabel("Class name").setText(System.getProperty(db + ".className"));
+        if (System.getProperty(db + ".userName") != null)
+            gefBot.textWithLabel("User name ").setText(System.getProperty(db + ".userName"));
+        if (System.getProperty(db + ".sid") != null)
+            gefBot.textWithLabel("Sid").setText(System.getProperty(db + ".sid"));
+        if (System.getProperty(db + ".additionalParameters") != null)
+            gefBot.textWithLabel("Additional parameters").setText(System.getProperty(db + ".additionalParameters"));
     }
 
     /**
