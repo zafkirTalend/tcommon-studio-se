@@ -32,15 +32,15 @@
 			
 	<target name="clean.application.config.and.workspace">
  		<delete includeemptydirs="true" quiet="true">
-    		<fileset dir="${rcp-app-home}/configuration" includes="**/*" excludes="config.ini"/>
-    		<fileset dir="${temp-workspace}" includes="**/*" excludes=".JETEmitters/**/*.*"/>
+    		<fileset dir="${rcp-app-home}/configuration" includes="**/*" excludes="config.ini,*.javacache,*.perlcache"/>
+    		<fileset dir="${temp-workspace}" includes="**/*" excludes=".JETEmitters/**/*"/>
 		</delete>
 	</target>
 
 	<!-- ================================= 
           target: swtbot.test.for.talend.rcp.app               
          ================================= -->
-    <target name="swtbot.test.for.talend.rcp.app" description="launch swt bot test for Talend product defined in ${test-application}, output junit is localted a TOS root and named junit-results.xml, the console output is also located at the root">
+    <target name="swtbot.test.for.talend.rcp.app" description="launch swt bot test for Talend product defined in ${test-application}, output junit is localted a TOS root and named junit-results.xml, the console output is also located at the root" depends="init">
     	<!-- canot use depends because the clean target must be called right before to this target and depends assures it is called once before but may be to early -->
     	<antcall target="clean.application.config.and.workspace"></antcall>
     	<echo>SWTBot test for Product ${test-application} : 
@@ -73,7 +73,7 @@
 	<!-- ================================= 
           target: swtbot.test.for.talend.rcp.app               
          ================================= -->
-    <target name="unit.test.for.talend.rcp.app" description="launch unit test for Talend product defined in ${test-application}, output the unit test result and the application log">
+    <target name="unit.test.for.talend.rcp.app" description="launch unit test for Talend product defined in ${test-application}, output the unit test result and the application log"  depends="init">
     	<!-- canot use depends because the clean target must be called right before to this target and depends assures it is called once before but may be to early -->
     	<antcall target="clean.application.config.and.workspace"></antcall>
     	<echo>Unit test for Product ${test-application} : 
