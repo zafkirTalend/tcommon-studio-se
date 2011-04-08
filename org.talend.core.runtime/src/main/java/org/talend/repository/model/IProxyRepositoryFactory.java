@@ -458,9 +458,6 @@ public interface IProxyRepositoryFactory {
 
     public boolean isLocalConnectionProvider() throws PersistenceException;
 
-    public boolean validProject(Project project) throws PersistenceException;
-
-
     /**
      * 
      * DOC zshen Comment method "getMetadataByFolder".

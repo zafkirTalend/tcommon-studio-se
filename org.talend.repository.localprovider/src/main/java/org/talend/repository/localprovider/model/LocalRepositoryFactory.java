@@ -2493,7 +2493,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
      * @see org.talend.repository.model.IRepositoryFactory#isLocalConnectionProvider()
      */
     public boolean isLocalConnectionProvider() throws PersistenceException {
-        return true;
+        return true; // must be true
     }
 
     /*
@@ -2552,12 +2552,4 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         service.executeProjectTasks(mainProject, beforeLogon, monitorWrap);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.core.repository.model.IRepositoryFactory#validProject(org.talend.core.model.general.Project)
-     */
-    public boolean validProject(Project project) throws PersistenceException {
-        return true; // PTODO must be true
-    }
 }

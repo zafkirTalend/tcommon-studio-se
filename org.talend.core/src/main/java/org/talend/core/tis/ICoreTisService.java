@@ -12,7 +12,9 @@
 // ============================================================================
 package org.talend.core.tis;
 
+import org.talend.commons.exception.PersistenceException;
 import org.talend.core.IService;
+import org.talend.core.model.general.Project;
 
 /**
  * wchen class global comment. Detailled comment
@@ -22,4 +24,6 @@ public interface ICoreTisService extends IService {
     public void drawWelcomeLogo(String version);
 
     public boolean isSupportDynamicType(String componentName);
+
+    public boolean validProject(Project project, boolean flag) throws PersistenceException;
 }

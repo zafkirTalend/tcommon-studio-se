@@ -355,5 +355,4 @@ public interface IRepositoryFactory {
 
     public void executeMigrations(Project mainProject, boolean beforeLogon, SubMonitor monitorWrap);
 
-    public boolean validProject(Project project) throws PersistenceException;
 }

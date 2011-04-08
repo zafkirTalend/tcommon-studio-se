@@ -1767,13 +1767,4 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.repository.model.IProxyRepositoryFactory#validProject(org.talend.core.model.general.Project)
-     */
-    public boolean validProject(Project project) throws PersistenceException {
-        return this.repositoryFactoryFromProvider.validProject(project);
-    }
-
 }
