@@ -9,7 +9,7 @@ import com.talend.tac.cases.Login;
 public class ModifyPlan extends Login {
     
 	//modify a plan
-	@Test(groups={"modifyPlan"},dependsOnGroups={"addPlan"})
+	@Test(groups={"modifyPlan"},dependsOnGroups={"addExist"})
 	@Parameters({"plan.label","plan.modifyLabel","plan.modifyDescription"})
 	public void testModifyPlan(String label,String newlabel,String newdescription) {
 		
