@@ -173,8 +173,8 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
             // bottomLayout.addView(schedulerViewId);
 
             bottomLayout.addPlaceholder("*");
-        } catch (Exception e) {
-            log.warn(e, e);
+        } catch (Throwable t) {
+            log.warn(t, t);
         }
     }
 
