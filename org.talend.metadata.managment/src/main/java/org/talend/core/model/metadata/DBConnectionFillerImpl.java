@@ -371,13 +371,16 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     // }
 
                     // MOD klliu bug 19004 2011-03-31
-                    java.sql.Connection connection = dbJDBCMetadata.getConnection();
-                    if (!MetadataConnectionUtils.isOdbcConnection(connection)) {
+                    // java.sql.Connection connection = dbJDBCMetadata.getConnection();
+                    // if (!MetadataConnectionUtils.isOdbcConnection(connection)) {
                         if (!MetadataConnectionUtils.isPostgresql(dbJDBCMetadata.getConnection())) {
                             catalogName = schemaRs.getString(MetaDataConstants.TABLE_CATALOG.name());
                         }
                         // the case for mssql
-                        if (MetadataConnectionUtils.isMssql(dbJDBCMetadata.getConnection())) {
+                    // dbJDBCMetadata.getDatabaseMajorVersion() > 8 it mean that the column TABLE_CATALOG is exist.
+                    // dbJDBCMetadata.getDriverMajorVersion() > 1 mean that the connection use 2005/2008 driver
+                        if (MetadataConnectionUtils.isMssql(dbJDBCMetadata.getConnection())
+                                && dbJDBCMetadata.getDatabaseMajorVersion() > 8 && dbJDBCMetadata.getDriverMajorVersion() > 1) {
                             if (catalogName == null) {
                                 continue;
                             }
@@ -387,7 +390,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                             // if (schemaName == null) {
                             continue;
                         }
-                    }
+                    // }
                 } catch (Exception e) {
                     log.warn(e.getMessage(), e);
                 }
