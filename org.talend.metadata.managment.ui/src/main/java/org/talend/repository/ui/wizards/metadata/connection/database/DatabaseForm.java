@@ -707,7 +707,7 @@ public class DatabaseForm extends AbstractForm {
         checkButton.setEnabled(false);
         if (connectionItem.getConnection() instanceof DatabaseConnection) {
             DatabaseConnection c = (DatabaseConnection) connectionItem.getConnection();
-            if (c.getProductId().equals(EDatabaseTypeName.ORACLEFORSID.getProduct())) {
+            if (EDatabaseTypeName.ORACLEFORSID.getProduct().equals(c.getProductId())) {
                 if (!isContextMode()) {
                     schemaText.setText(schemaText.getText().toUpperCase());
                 }
