@@ -2085,6 +2085,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         String parentPath = getParentPath(project, item, path);
         FolderHelper folderHelper = getFolderHelper(project.getEmfProject());
         FolderItem parentFolderItem = folderHelper.getFolder(parentPath);
+        if (parentFolderItem == null) {
+            parentFolderItem = folderHelper.createFolder(parentPath);
+        }
         boolean add = parentFolderItem.getChildren().add(item);
 
         if (add) {
