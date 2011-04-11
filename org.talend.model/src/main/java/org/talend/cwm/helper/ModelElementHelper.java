@@ -165,6 +165,33 @@ public final class ModelElementHelper {
         }
     }
 
+    /**
+     * DOC bZhou Comment method "iterateSupplyDependencies".
+     * 
+     * @param element
+     * @param returnElements
+     */
+    public static void iterateSupplyDependencies(ModelElement element, List<ModelElement> returnElements) {
+        if (returnElements != null) {
+            for (Dependency dependency : element.getSupplierDependency()) {
+
+                if (dependency.eIsProxy()) {
+                    returnElements.add(dependency);
+                    continue;
+                }
+
+                EList<ModelElement> clientList = dependency.getClient();
+                if (clientList != null) {
+                    for (ModelElement subElement : clientList) {
+                        iterateSupplyDependencies(subElement, returnElements);
+                    }
+
+                    returnElements.addAll(clientList);
+                }
+            }
+        }
+    }
+
     public static boolean isFromSameConnection(List<ModelElement> elements) {
         assert elements != null;
 
