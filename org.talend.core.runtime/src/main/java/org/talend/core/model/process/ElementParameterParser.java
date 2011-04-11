@@ -39,7 +39,6 @@ import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.runprocess.ItemCacheManager;
-import org.talend.repository.model.IProxyRepositoryFactory;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
@@ -84,6 +83,17 @@ public final class ElementParameterParser {
         }
 
         return newText;
+    }
+
+    public static String getStringElementParameterValue(IElementParameter parameter) {
+        return getDisplayValue(parameter);
+    }
+
+    public static List<Map<String, String>> getTableElementParameterValue(IElementParameter parameter) {
+        if (parameter.getFieldType() == EParameterFieldType.TABLE) {
+            return createTableValues((List<Map<String, Object>>) parameter.getValue(), parameter);
+        }
+        return null;
     }
 
     /**
@@ -189,7 +199,6 @@ public final class ElementParameterParser {
 
     private static Map<String, String> copyLine(Map<String, Object> currentLine, IElementParameter param) {
         Map<String, String> newLine = new HashMap<String, String>();
-        IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
         String[] items = param.getListItemsDisplayCodeName();
         for (int i = 0; i < items.length; i++) {
             Object o = currentLine.get(items[i]);
