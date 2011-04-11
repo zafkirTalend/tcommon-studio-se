@@ -660,7 +660,7 @@ public class ConnectionHelper {
             SalesforceSchemaConnection salesforceConnection = (SalesforceSchemaConnection) connection;
             List<SalesforceModuleUnit> units = salesforceConnection.getModules();
             for (SalesforceModuleUnit unit : units) {
-                for (MetadataTable table : unit.getTables()) {
+                for (MetadataTable table : new ArrayList<MetadataTable>(unit.getTables())) {
                     result.add(table);
                 }
             }
