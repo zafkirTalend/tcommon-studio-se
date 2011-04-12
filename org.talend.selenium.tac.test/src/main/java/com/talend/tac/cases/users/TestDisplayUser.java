@@ -11,8 +11,7 @@ public class TestDisplayUser extends Login {
 
 	    
 	//modify the users--->>according to role display
-	@Test(groups={"DisplayUser"})
-//	,dependsOnGroups={"DuplicateUser"})
+	@Test(groups={"DisplayUser"},dependsOnGroups={"DuplicateUser"})
 	@Parameters({"userName"})
 	public void testDidplayUsers(String userName) throws Exception {
 	
