@@ -38,7 +38,7 @@ import org.talend.core.ui.metadata.celleditor.SchemaXPathQuerysCellEditor;
  */
 public class SchemaXPathQuerysDialog extends Dialog {
 
-    private static final String COMMA = ";"; //$NON-NLS-1$
+    private static final String COMMA = ","; //$NON-NLS-1$
 
     private static final String MAPPING = "MAPPING"; //$NON-NLS-1$
 
