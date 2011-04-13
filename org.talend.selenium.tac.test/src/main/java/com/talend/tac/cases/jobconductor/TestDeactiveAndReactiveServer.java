@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 import com.talend.tac.cases.Login;
 
 public class TestDeactiveAndReactiveServer extends Login{
-	@Test(groups = { "DeleteServer" },dependsOnGroups = { "AddServer" })
+	@Test(groups = { "DeactiveReactive" },dependsOnGroups = { "AddServer" })
 	@Parameters({ "DeactiveServerlable" })
 	public void serverDeactiveAndReactive(String deactiveServername) {
 		selenium.setSpeed(MAX_SPEED);
