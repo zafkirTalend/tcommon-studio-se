@@ -12,6 +12,9 @@
 // ============================================================================
 package tisstudio.metadata.hl7;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
@@ -29,7 +32,7 @@ import org.talend.swtbot.Utilities;
  * DOC Administrator class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class CreateHL7OutputTest extends TalendSwtBotForTos {
+public class CopyPasteHL7Test extends TalendSwtBotForTos {
 
     private SWTBotView view;
 
@@ -37,25 +40,27 @@ public class CreateHL7OutputTest extends TalendSwtBotForTos {
 
     private SWTBotTreeItem treeNode;
 
-    private static final String HL7NAME = "hl7_2"; //$NON-NLS-1$
+    private static final String HL7NAME = "hl7_1"; //$NON-NLS-1$ 
 
-    private static final String TYPE = "output"; //$NON-NLS-1$
+    private static final String TYPE = "input"; //$NON-NLS-1$
 
     @Before
     public void initialisePrivateFields() {
         view = Utilities.getRepositoryView(gefBot);
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
         treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.HL7);
-    }
-
-    @Test
-    public void createHL7Output() {
         Utilities.createHL7(TYPE, gefBot, treeNode, HL7NAME);
     }
 
+    @Test
+    public void copyAndPasteHL7() {
+        Utilities.copyAndPaste(treeNode, HL7NAME, "0.1");
+    }
+
     @After
-    public void removePreviouslyCreateItems() {
+    public void removePreviouslyCreateItems() throws IOException, URISyntaxException {
         Utilities.delete(tree, treeNode, HL7NAME, "0.1", null);
+        Utilities.delete(tree, treeNode, "Copy_of_" + HL7NAME, "0.1", null);
         Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

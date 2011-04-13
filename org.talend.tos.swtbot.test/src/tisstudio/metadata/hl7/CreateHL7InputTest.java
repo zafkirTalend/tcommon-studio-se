@@ -15,14 +15,10 @@ package tisstudio.metadata.hl7;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import junit.framework.Assert;
-
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
-import org.eclipse.swtbot.swt.finder.waits.Conditions;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
@@ -44,79 +40,20 @@ public class CreateHL7InputTest extends TalendSwtBotForTos {
 
     private SWTBotTreeItem treeNode;
 
-    private SWTBotShell shell;
-
     private static final String HL7NAME = "hl7_1"; //$NON-NLS-1$ 
 
-    private static final String SAMPLE_RELATIVE_FILEPATH = "HL7.txt"; //$NON-NLS-1$
-
-    private static final String[] COLUMN_MSH = { "MSH-1(1)-1-1[ST]", "MSH-2(1)-1-1[ST]", "MSH-3(1)-1-1[IS]" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-
-    private static final String[] COLUMN_EVN = { "EVN-1(1)-1-1[ID]", "EVN-2(1)-1-1[TSComponentOne]" }; //$NON-NLS-1$ //$NON-NLS-2$
+    private static final String TYPE = "input"; //$NON-NLS-1$
 
     @Before
     public void initialisePrivateFields() {
         view = Utilities.getRepositoryView(gefBot);
-        view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
         treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.HL7);
     }
 
     @Test
-    public void createHL7Input() throws IOException, URISyntaxException {
-        tree.setFocus();
-
-        tree.expandNode("Metadata").getNode("HL7").contextMenu("Create HL7").click();
-        gefBot.waitUntil(Conditions.shellIsActive("New HL7 File"));
-        shell = gefBot.shell("New HL7 File").activate();
-        try {
-            /* step 1 of 5 */
-            gefBot.textWithLabel("Name").setText(HL7NAME);
-            boolean nextButtonIsEnabled = gefBot.button("Next >").isEnabled();
-            if (nextButtonIsEnabled) {
-                gefBot.button("Next >").click();
-            } else {
-                shell.close();
-                Assert.assertTrue("next button is not enabled, maybe the item name is exist,", nextButtonIsEnabled);
-            }
-
-            /* step 2 of 5 */
-            gefBot.button("Next >").click();
-
-            /* step 3 of 5 */
-            gefBot.textWithLabel("HL7 File path:").setText(
-                    Utilities.getFileFromCurrentPluginSampleFolder(SAMPLE_RELATIVE_FILEPATH).getAbsolutePath());
-            gefBot.button("Next >").click();
-
-            /* step 4 of 5 */
-            for (int i = 0; i < 3; i++) {
-                gefBot.buttonWithTooltip("Add").click();
-                gefBot.tableInGroup("Schema View").click(i, 3);
-                gefBot.text().setText(COLUMN_MSH[i]);
-            }
-            gefBot.comboBoxWithLabel("Segment(As Schema)").setSelection("EVN");
-            for (int j = 0; j < 2; j++) {
-                gefBot.buttonWithTooltip("Add").click();
-                gefBot.tableInGroup("Schema View").click(j, 3);
-                gefBot.text().setText(COLUMN_EVN[j]);
-            }
-            gefBot.button("Next >").click();
-
-            /* step 5 of 5 */
-            gefBot.button("Finish").click();
-        } catch (Exception e) {
-            shell.close();
-            Assert.fail(e.getCause().getMessage());
-        }
-
-        SWTBotTreeItem newHl7Item = null;
-        try {
-            newHl7Item = tree.expandNode("Metadata", "HL7").select(HL7NAME + " 0.1");
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            Assert.assertNotNull("hl7 item is not created", newHl7Item);
-        }
+    public void createHL7Input() {
+        Utilities.createHL7(TYPE, gefBot, treeNode, HL7NAME);
     }
 
     @After

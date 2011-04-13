@@ -25,6 +25,7 @@ import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.URIUtil;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
+import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
@@ -140,8 +141,8 @@ public class Utilities {
      * Empty Recycle bin
      * 
      * @author fzhong
-     * @param gefBot, SWTGefBot
-     * @param tree, tree from repository
+     * @param gefBot SWTGefBot
+     * @param tree tree from repository
      * @return void
      */
     public static void emptyRecycleBin(SWTGefBot gefBot, SWTBotTree tree) {
@@ -154,11 +155,11 @@ public class Utilities {
      * Create item in repository
      * 
      * @author fzhong
-     * @param itemType, item type
-     * @param itemName, item name
-     * @param tree, tree in repository
-     * @param gefBot, SWTGefBot
-     * @param shell, creating wizard shell
+     * @param itemType item type
+     * @param itemName item name
+     * @param tree tree in repository
+     * @param gefBot SWTGefBot
+     * @param shell creating wizard shell
      */
     private static void create(String itemType, String itemName, SWTBotTreeItem treeNode, SWTGefBot gefBot) {
         treeNode.contextMenu("Create " + itemType).click();
@@ -611,6 +612,13 @@ public class Utilities {
         }
     }
 
+    /**
+     * DOC fzhong Comment method "createContext".
+     * 
+     * @param contextName
+     * @param treeNode
+     * @param gefBot
+     */
     public static void createContext(String contextName, SWTBotTreeItem treeNode, SWTGefBot gefBot) {
         treeNode.contextMenu("Create context group").click();
 
@@ -660,6 +668,14 @@ public class Utilities {
         }
     }
 
+    /**
+     * DOC fzhong Comment method "createWebService".
+     * 
+     * @param type 'simple' or 'advanced'
+     * @param webServiceName
+     * @param treeNode
+     * @param gefBot
+     */
     public static void createWebService(String type, String webServiceName, SWTBotTreeItem treeNode, final SWTGefBot gefBot) {
         treeNode.contextMenu("Create WSDL schema").click();
         gefBot.waitUntil(Conditions.shellIsActive("Create new WSDL schema"));
@@ -773,12 +789,93 @@ public class Utilities {
     }
 
     /**
+     * DOC fzhong Comment method "createHL7".
+     * 
+     * @param type HL7 type, 'input' or 'output'
+     * @param gefBot
+     * @param treeNode
+     * @param hl7Name
+     */
+    public static void createHL7(String type, SWTGefBot gefBot, SWTBotTreeItem treeNode, String hl7Name) {
+        treeNode.contextMenu("Create HL7").click();
+        shell = gefBot.shell("New HL7 File").activate();
+        try {
+            /* step 1 of 5 */
+            gefBot.textWithLabel("Name").setText(hl7Name);
+            boolean nextButtonIsEnabled = gefBot.button("Next >").isEnabled();
+            if (nextButtonIsEnabled) {
+                gefBot.button("Next >").click();
+            } else {
+                shell.close();
+                Assert.assertTrue("next button is not enabled, maybe the item name is exist,", nextButtonIsEnabled);
+            }
+
+            if ("input".equals(type)) {
+                /* step 2 of 5 */
+                gefBot.button("Next >").click();
+
+                /* step 3 of 5 */
+                gefBot.textWithLabel("HL7 File path:").setText(
+                        getFileFromCurrentPluginSampleFolder(System.getProperty("hl7.filepath")).getAbsolutePath());
+                gefBot.button("Next >").click();
+
+                /* step 4 of 5 */
+                for (int i = 0; i < 3; i++) {
+                    gefBot.buttonWithTooltip("Add").click();
+                    gefBot.tableInGroup("Schema View").click(i, 3);
+                    gefBot.text().setText(System.getProperty("hl7.column.MSH" + i));
+                }
+                gefBot.comboBoxWithLabel("Segment(As Schema)").setSelection("EVN");
+                for (int j = 0; j < 2; j++) {
+                    gefBot.buttonWithTooltip("Add").click();
+                    gefBot.tableInGroup("Schema View").click(j, 3);
+                    gefBot.text().setText(System.getProperty("hl7.column.SVN" + j));
+                }
+                gefBot.button("Next >").click();
+            } else if ("output".equals(type)) {
+                /* step 2 of 5 */
+                gefBot.radio("HL7OutPut").click();
+                gefBot.button("Next >").click();
+
+                /* step 3 of 5 */
+                gefBot.radio("Create from a file").click();
+                gefBot.textWithLabel("HL7 File path:").setText(
+                        getFileFromCurrentPluginSampleFolder(System.getProperty("hl7.filepath")).getAbsolutePath());
+                gefBot.textWithLabel("Output File Path").setText(
+                        getFileFromCurrentPluginSampleFolder(System.getProperty("hl7.outputFile")).getAbsolutePath());
+                gefBot.button("Next >").click();
+
+                /* step 4 of 5 */
+                gefBot.button("Next >").click();
+            }
+
+            /* step 5 of 5 */
+            gefBot.button("Finish").click();
+        } catch (WidgetNotFoundException wnfe) {
+            shell.close();
+            Assert.fail(wnfe.getCause().getMessage());
+        } catch (Exception e) {
+            shell.close();
+            Assert.fail(e.getMessage());
+        }
+
+        SWTBotTreeItem newHl7Item = null;
+        try {
+            newHl7Item = treeNode.expand().select(hl7Name + " 0.1");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Assert.assertNotNull("hl7 item is not created", newHl7Item);
+        }
+    }
+
+    /**
      * Create db connection
      * 
-     * @param gefBot, SWTGefBot
-     * @param tree, SWTBotTree
+     * @param gefBot SWTGefBot
+     * @param tree SWTBotTree
      * @param dbType
-     * @param dbName, the name defined by user for db connection
+     * @param dbName the name defined by user for db connection
      */
     public static void createDbConnection(final SWTGefBot gefBot, SWTBotTreeItem treeNode, DbConnectionType dbType, String dbName) {
         treeNode.contextMenu("Create connection").click();
@@ -937,9 +1034,9 @@ public class Utilities {
      * DOC fzhong Comment method "copyAndPaste". Copy and paste the item(itemName + itemVersion) under tree node
      * (treeNode)
      * 
-     * @param treeNode, tree item node
-     * @param itemName, item name
-     * @param itemVersion, item version
+     * @param treeNode tree item node
+     * @param itemName item name
+     * @param itemVersion item version
      */
     public static void copyAndPaste(SWTBotTreeItem treeNode, String itemName, String itemVersion) {
         treeNode.getNode(itemName + " " + itemVersion).contextMenu("Copy").click();
@@ -959,11 +1056,11 @@ public class Utilities {
      * DOC fzhong Comment method "delete". Delete the item(itemName + itemVersion) under tree node(treeNode) of
      * tree(tree)
      * 
-     * @param tree, tree in repository
-     * @param treeNode, tree item node
-     * @param itemName, item name
-     * @param itemVersion, item version(if it is a folder, it doen't have version, set it as "null")
-     * @param folderPath, if no folder set it as "null", otherwise give the folder path(e.g. "a","a/b","a/b/c")
+     * @param tree tree in repository
+     * @param treeNode tree item node
+     * @param itemName item name
+     * @param itemVersion item version(if it is a folder, it doen't have version, set it as "null")
+     * @param folderPath if no folder set it as "null", otherwise give the folder path(e.g. "a","a/b","a/b/c")
      */
     public static void delete(SWTBotTree tree, SWTBotTreeItem treeNode, String itemName, String itemVersion, String folderPath) {
         String nodeName = itemName;
@@ -987,11 +1084,11 @@ public class Utilities {
      * DOC fzhong Comment method "duplicate". Duplicate the item(itemName + itemVersion) under tree node(treeNode) with
      * new name(newItemName)
      * 
-     * @param gefBot, SWTGefBot
-     * @param treeNode, tree item node
-     * @param itemName, item name
-     * @param itemVersion, item version
-     * @param newItemName, new item name
+     * @param gefBot SWTGefBot
+     * @param treeNode tree item node
+     * @param itemName item name
+     * @param itemVersion item version
+     * @param newItemName new item name
      */
     public static void duplicate(SWTGefBot gefBot, SWTBotTreeItem treeNode, String itemName, String itemVersion,
             String newItemName) {
@@ -1139,7 +1236,7 @@ public class Utilities {
     /**
      * DOC fzhong Comment method "rename".
      * 
-     * @param itemType, TalendItemType
+     * @param itemType TalendItemType
      * @param gefBot
      * @param treeNode
      * @param itemName
