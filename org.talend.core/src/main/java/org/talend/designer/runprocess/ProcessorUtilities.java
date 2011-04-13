@@ -1051,47 +1051,35 @@ public class ProcessorUtilities {
             int tracePort, String... codeOptions) throws ProcessorException {
         IProcess currentProcess = null;
         ProcessItem selectedProcessItem = null;
-
-        // feature 19312
-        if (StringUtils.isNotEmpty(processName)) {
-            String[] childJobs = processName.split(ProcessorUtilities.COMMA);
-            for (String jobId : childJobs) {
-                if (StringUtils.isNotEmpty(jobId)) {
-
-                    selectedProcessItem = ItemCacheManager.getProcessItem(jobId, processVersion);
-                    if (selectedProcessItem != null) {
-                        IDesignerCoreService service = CorePlugin.getDefault().getDesignerCoreService();
-                        currentProcess = service.getProcessFromProcessItem(selectedProcessItem);
-                    }
-                    if (currentProcess == null) {
-                        return new String[] {};
-                    }
-                    IContext currentContext = getContext(currentProcess, contextName);
-                    IProcessor processor = getProcessor(currentProcess, selectedProcessItem.getProperty(), currentContext);
-                    String[] cmd = new String[] { processor.getCodePath().removeFirstSegments(1).toString().replace("/", ".") }; //$NON-NLS-1$ //$NON-NLS-2$
-                    if (codeOptions != null) {
-                        for (int i = 0; i < codeOptions.length; i++) {
-                            String string = codeOptions[i];
-                            if (string != null) {
-                                cmd = (String[]) ArrayUtils.add(cmd, string);
-                            }
-                        }
-                    }
-                    if (contextName != null && !contextName.equals("")) {
-                        cmd = (String[]) ArrayUtils.add(cmd, "--context=" + contextName); //$NON-NLS-1$
-                    }
-                    if (statisticPort != -1) {
-                        cmd = (String[]) ArrayUtils.add(cmd, "--stat_port=" + statisticPort); //$NON-NLS-1$
-                    }
-                    if (tracePort != -1) {
-                        cmd = (String[]) ArrayUtils.add(cmd, "--trace_port=" + tracePort); //$NON-NLS-1$
-                    }
-                    return cmd;
-
+        selectedProcessItem = ItemCacheManager.getProcessItem(processName, processVersion);
+        if (selectedProcessItem != null) {
+            IDesignerCoreService service = CorePlugin.getDefault().getDesignerCoreService();
+            currentProcess = service.getProcessFromProcessItem(selectedProcessItem);
+        }
+        if (currentProcess == null) {
+            return new String[] {};
+        }
+        IContext currentContext = getContext(currentProcess, contextName);
+        IProcessor processor = getProcessor(currentProcess, selectedProcessItem.getProperty(), currentContext);
+        String[] cmd = new String[] { processor.getCodePath().removeFirstSegments(1).toString().replace("/", ".") }; //$NON-NLS-1$ //$NON-NLS-2$
+        if (codeOptions != null) {
+            for (int i = 0; i < codeOptions.length; i++) {
+                String string = codeOptions[i];
+                if (string != null) {
+                    cmd = (String[]) ArrayUtils.add(cmd, string);
                 }
             }
         }
-        return null;
+        if (contextName != null && !contextName.equals("")) {
+            cmd = (String[]) ArrayUtils.add(cmd, "--context=" + contextName); //$NON-NLS-1$
+        }
+        if (statisticPort != -1) {
+            cmd = (String[]) ArrayUtils.add(cmd, "--stat_port=" + statisticPort); //$NON-NLS-1$
+        }
+        if (tracePort != -1) {
+            cmd = (String[]) ArrayUtils.add(cmd, "--trace_port=" + tracePort); //$NON-NLS-1$
+        }
+        return cmd;
     }
 
     /**
