@@ -81,6 +81,7 @@ import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBa
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.metadata.builder.database.TableInfoParameters;
 import org.talend.core.model.metadata.builder.database.TableNode;
+import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.core.model.metadata.editor.MetadataEmfTableEditor;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.model.metadata.types.PerlTypesManager;
@@ -762,7 +763,11 @@ public class SelectorTableForm extends AbstractForm {
                     monitor.beginTask(Messages.getString("CreateTableAction.action.createTitle"), IProgressMonitor.UNKNOWN); //$NON-NLS-1$
                     // add
                     managerConnection.check(iMetadataConnection);
-
+                    /*
+                     * 1.need to fill content when retrieve schema for the connections imported and without any catalogs
+                     * 2.see bug 00020479
+                     */
+                    MetadataConnectionUtils.fillConnectionInformation(connectionItem);
                     if (managerConnection.getIsValide()) {
                         // need to enhance later
                         if (ExtractMetaDataUtils.isUseAllSynonyms()
