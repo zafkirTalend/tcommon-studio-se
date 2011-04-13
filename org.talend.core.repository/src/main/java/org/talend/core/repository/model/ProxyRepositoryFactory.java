@@ -1767,4 +1767,28 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         return null;
     }
 
+    public List<RootContainer<String, IRepositoryViewObject>> getAllItems() {
+        final ERepositoryObjectType[] REPOSITORY_OBJECT_TYPE_LIST = new ERepositoryObjectType[] {
+                ERepositoryObjectType.BUSINESS_PROCESS, ERepositoryObjectType.PROCESS, ERepositoryObjectType.JOBLET,
+                ERepositoryObjectType.CONTEXT, ERepositoryObjectType.ROUTINES, ERepositoryObjectType.JOB_SCRIPT,
+                ERepositoryObjectType.SQLPATTERNS, ERepositoryObjectType.METADATA_CONNECTIONS,
+                ERepositoryObjectType.METADATA_SAPCONNECTIONS, ERepositoryObjectType.METADATA_FILE_DELIMITED,
+                ERepositoryObjectType.METADATA_FILE_POSITIONAL, ERepositoryObjectType.METADATA_FILE_REGEXP,
+                ERepositoryObjectType.METADATA_FILE_XML, ERepositoryObjectType.METADATA_FILE_EXCEL,
+                ERepositoryObjectType.METADATA_FILE_LDIF, ERepositoryObjectType.METADATA_LDAP_SCHEMA,
+                ERepositoryObjectType.METADATA_GENERIC_SCHEMA, ERepositoryObjectType.METADATA_WSDL_SCHEMA,
+                ERepositoryObjectType.METADATA_SALESFORCE_SCHEMA, ERepositoryObjectType.METADATA_FILE_EBCDIC,
+                ERepositoryObjectType.METADATA_FILE_RULES, ERepositoryObjectType.METADATA_FILE_BRMS,
+                ERepositoryObjectType.METADATA_VALIDATION_RULES, ERepositoryObjectType.METADATA_MDMCONNECTION,
+                ERepositoryObjectType.METADATA_FILE_FTP, ERepositoryObjectType.METADATA_FILE_HL7,
+                ERepositoryObjectType.DOCUMENTATION };
+        Project project = ProjectManager.getInstance().getCurrentProject();
+        List<RootContainer<String, IRepositoryViewObject>> rootContainer = new ArrayList<RootContainer<String, IRepositoryViewObject>>();
+        for (int i = 0; i < REPOSITORY_OBJECT_TYPE_LIST.length; i++) {
+            ERepositoryObjectType type = REPOSITORY_OBJECT_TYPE_LIST[i];
+            rootContainer.add(repositoryFactoryFromProvider.getRootContainerFromType(project, type));
+        }
+        return rootContainer;
+    }
+
 }

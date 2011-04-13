@@ -355,4 +355,6 @@ public interface IRepositoryFactory {
 
     public void executeMigrations(Project mainProject, boolean beforeLogon, SubMonitor monitorWrap);
 
+
+    public RootContainer<String, IRepositoryViewObject> getRootContainerFromType(Project project, ERepositoryObjectType type);
 }

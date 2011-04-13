@@ -47,7 +47,7 @@ public class DynaEnum<E extends DynaEnum<E>> {
         return type;
     }
 
-    protected DynaEnum(String key, boolean isStaticNode, int ordinal) {
+    protected DynaEnum(String key, String type, boolean isStaticNode, int ordinal) {
         this.key = key;
         this.isStaticNode = isStaticNode;
         this.ordinal = ordinal;
@@ -56,11 +56,7 @@ public class DynaEnum<E extends DynaEnum<E>> {
             typeElements = new LinkedHashMap<String, DynaEnum<?>>();
             elements.put(getDynaEnumClass(), typeElements);
         }
-        typeElements.put(key, this);
-    }
-
-    protected DynaEnum(String key, String type, boolean isStaticNode, int ordinal) {
-        this(key, isStaticNode, ordinal);
+        typeElements.put(type, this);
         this.type = type;
     }
 

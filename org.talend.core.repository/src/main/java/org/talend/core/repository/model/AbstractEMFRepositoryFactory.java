@@ -32,6 +32,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.data.container.Container;
 import org.talend.commons.utils.data.container.RootContainer;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
@@ -902,5 +903,17 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
 
     public boolean canUnlock(Item item) throws PersistenceException {
         return true;
+    }
+
+    public RootContainer<String, IRepositoryViewObject> getRootContainerFromType(Project project, ERepositoryObjectType type) {
+        if (project == null || type == null) {
+            return null;
+        }
+        try {
+            return getObjectFromFolder(project, type, true);
+        } catch (PersistenceException e) {
+            ExceptionHandler.process(e);
+        }
+        return null;
     }
 }
