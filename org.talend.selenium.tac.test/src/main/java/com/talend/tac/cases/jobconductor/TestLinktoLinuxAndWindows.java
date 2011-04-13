@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 import com.talend.tac.cases.Login;
 
 public class TestLinktoLinuxAndWindows extends Login {
-  @Test(groups = { "AddServer" })
+  @Test(groups = { "else" })
   @Parameters({ "RemoteLinuxServerIp", "RemoteWindowServerIp"})
   public void linktoLinuxAndWindows(String linuxIp,String windowsIp) {
 	    selenium.setSpeed(MAX_SPEED);

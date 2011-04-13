@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 import com.talend.tac.cases.Login;
 
 public class TestDeleteServer extends Login{
-	@Test(groups = { "DeleteServer" },dependsOnGroups = { "AddServer" })
+	@Test(groups = { "DeleteServer" },dependsOnGroups = { "Duplicate"})
 	@Parameters({ "ServerUnused"})
 	public void deleteServerUnused(String unusedServername) {
 		selenium.setSpeed(MID_SPEED);
