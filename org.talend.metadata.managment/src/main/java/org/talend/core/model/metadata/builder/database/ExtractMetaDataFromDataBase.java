@@ -420,12 +420,12 @@ public class ExtractMetaDataFromDataBase {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (((wapperDriver != null) && (iMetadataConnection.getDriverClass().equals(
-                    EDatabase4DriverClassName.JAVADB_EMBEDED.getDriverClass())
-                    || dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
-                    || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName()) || dbType
-                    .equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName())))
-                    || dbType.equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName())) {
+            if (wapperDriver != null
+                    && (iMetadataConnection.getDriverClass().equals(EDatabase4DriverClassName.JAVADB_EMBEDED.getDriverClass())
+                            || dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
+                            || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
+                            || dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName()) || dbType
+                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
                 try {
                     wapperDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
                 } catch (SQLException e) {
@@ -515,12 +515,12 @@ public class ExtractMetaDataFromDataBase {
             log.error(e.toString());
             throw new RuntimeException(e);
         } finally {
-            if (((wapperDriver != null) && (iMetadataConnection.getDriverClass().equals(
-                    EDatabase4DriverClassName.JAVADB_EMBEDED.getDriverClass())
-                    || dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
-                    || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName()) || dbType
-                    .equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName())))
-                    || dbType.equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName())) {
+            if (wapperDriver != null
+                    && (iMetadataConnection.getDriverClass().equals(EDatabase4DriverClassName.JAVADB_EMBEDED.getDriverClass())
+                            || dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
+                            || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
+                            || dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName()) || dbType
+                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
                 try {
                     wapperDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
                 } catch (SQLException e) {
@@ -1273,11 +1273,12 @@ public class ExtractMetaDataFromDataBase {
                 //
             }
             // zli
-            if (((wapperDriver != null) && (driverClassName.equals(EDatabase4DriverClassName.JAVADB_EMBEDED.getDriverClass())
-                    || dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
-                    || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName()) || dbType
-                    .equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName())))
-                    || dbType.equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName())) {
+            if (wapperDriver != null
+                    && (driverClassName.equals(EDatabase4DriverClassName.JAVADB_EMBEDED.getDriverClass())
+                            || dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
+                            || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
+                            || dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName()) || dbType
+                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
                 try {
                     wapperDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
                 } catch (SQLException e) {
@@ -1430,12 +1431,12 @@ public class ExtractMetaDataFromDataBase {
         List<IMetadataTable> metadataTables = ExtractMetaDataFromDataBase.extractTablesFromDB(dbMetaData, iMetadataConnection);
         ExtractMetaDataUtils.closeConnection();
 
-        if (((wapperDriver != null) && (iMetadataConnection.getDriverClass().equals(
-                EDatabase4DriverClassName.JAVADB_EMBEDED.getDriverClass())
-                || dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
-                || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName()) || dbType
-                .equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName())))
-                || dbType.equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName())) {
+        if (wapperDriver != null
+                && (iMetadataConnection.getDriverClass().equals(EDatabase4DriverClassName.JAVADB_EMBEDED.getDriverClass())
+                        || dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
+                        || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
+                        || dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName()) || dbType
+                        .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
             try {
                 wapperDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
             } catch (SQLException e) {
@@ -1586,11 +1587,12 @@ public class ExtractMetaDataFromDataBase {
         String driverClassName = iMetadataConnection.getDriverClass();
 
         // added for retrieve schema derby close
-        if (((wapperDriver != null) && (driverClassName.equals(EDatabase4DriverClassName.JAVADB_EMBEDED.getDriverClass())
-                || dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
-                || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName()) || dbType
-                .equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName())))
-                || dbType.equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName())) {
+        if (wapperDriver != null
+                && (driverClassName.equals(EDatabase4DriverClassName.JAVADB_EMBEDED.getDriverClass())
+                        || dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
+                        || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
+                        || dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName()) || dbType
+                        .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
             try {
                 wapperDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
             } catch (SQLException e) {

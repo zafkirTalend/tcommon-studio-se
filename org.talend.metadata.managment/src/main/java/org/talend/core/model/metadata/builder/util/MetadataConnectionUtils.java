@@ -153,7 +153,7 @@ public class MetadataConnectionUtils {
             rc.setMessage("connection information can not be null");
             return rc;
         }
-        String driver = metadataBean.getDriverClass();
+        String driverClass = metadataBean.getDriverClass();
         String dbUrl = metadataBean.getUrl();
         String password = metadataBean.getPassword();
         String userName = metadataBean.getUsername();
@@ -162,11 +162,23 @@ public class MetadataConnectionUtils {
         props.setProperty(TaggedValueHelper.PASSWORD, password == null ? "" : password);
         props.setProperty(TaggedValueHelper.USER, userName == null ? "" : userName);
 
-        if (StringUtils.isNotBlank(dbUrl) && StringUtils.isNotBlank(driver)) {
+        if (StringUtils.isNotBlank(dbUrl) && StringUtils.isNotBlank(driverClass)) {
             java.sql.Connection sqlConn = null;
+            Driver driver = null;
             try {
                 // if (StringUtils.isEmpty(metadataBean.getDriverJarPath())) {
-                sqlConn = ConnectionUtils.createConnection(dbUrl, getClassDriver(metadataBean), props);
+                List list = getConnection(metadataBean);
+                for (int i = 0; i < list.size(); i++) {
+                    if (list.get(i) instanceof Driver) {
+                        driver = (Driver) list.get(i);
+                    }
+                    if (list.get(i) instanceof java.sql.Connection) {
+                        sqlConn = (java.sql.Connection) list.get(i);
+                    }
+                }
+                if (sqlConn == null) {
+                    sqlConn = ConnectionUtils.createConnection(dbUrl, driver, props);
+                }
                 // } else {
                 // sqlConn = ConnectionUtils.createConnection(dbUrl, metadataBean.getDriverClass(), props);
                 // }
@@ -451,6 +463,68 @@ public class MetadataConnectionUtils {
             sybaseDBProductsNames.add("Adaptive Server Enterprise | Sybase Adaptive Server IQ");
         }
         return sybaseDBProductsNames.toArray(new String[sybaseDBProductsNames.size()]);
+    }
+
+    public static List getConnection(IMetadataConnection metadataBean) throws InstantiationException, IllegalAccessException,
+            ClassNotFoundException {
+        List list = new ArrayList();
+        String driverClassName = metadataBean.getDriverClass();
+        // MOD mzhao 2009-06-05,Bug 7571 Get driver from catch first, if not
+        // exist then get a new instance.
+        Driver driver = DRIVER_CACHE.get(driverClassName);
+        // The case for generalJDBC
+        String driverPath = metadataBean.getDriverJarPath();
+
+        if (StringUtils.isEmpty(driverPath)) {
+            if (driver != null) {
+                list.add(driver);
+                return list;
+            }
+        }
+
+        IExtension extension = Platform.getExtensionRegistry().getExtension(DRIVER_EXTENSION_POINT_ID, TOP_DRIVER_EXTENSION_ID);
+        if (extension != null) {
+            // top
+            if (PluginChecker.isOnlyTopLoaded()) {
+                IConfigurationElement[] configurationElement = extension.getConfigurationElements();
+                for (IConfigurationElement ele : configurationElement) {
+                    try {
+                        IDriverService driverService = (IDriverService) ele.createExecutableExtension("class");
+                        driver = driverService.getDriver(metadataBean);
+                        list.add(driver);
+                    } catch (Exception e) {
+                        log.error(e, e);
+                    }
+                }
+            } else {
+                // tdq
+                try {
+                    list = ExtractMetaDataUtils.getConnection(metadataBean.getDbType(), metadataBean.getUrl(),
+                            metadataBean.getUsername(), metadataBean.getPassword(), metadataBean.getDatabase(),
+                            metadataBean.getSchema(), driverClassName, metadataBean.getDriverJarPath(),
+                            metadataBean.getDbVersionString(), metadataBean.getAdditionalParams());
+                } catch (Exception e) {
+                    log.error(e, e);
+                }
+            }
+        } else {
+            // tos
+            try {
+                list = ExtractMetaDataUtils.getConnection(metadataBean.getDbType(), metadataBean.getUrl(),
+                        metadataBean.getUsername(), metadataBean.getPassword(), metadataBean.getDatabase(),
+                        metadataBean.getSchema(), driverClassName, metadataBean.getDriverJarPath(),
+                        metadataBean.getDbVersionString(), metadataBean.getAdditionalParams());
+            } catch (Exception e) {
+                log.error(e, e);
+            }
+        }
+        // MOD mzhao 2009-06-05,Bug 7571 Get driver from catch first, if not
+        // exist then get a new instance.
+        if (driver != null) {
+            DRIVER_CACHE.put(driverClassName, driver);
+        }
+
+        return list;
     }
 
     /**
@@ -892,13 +966,12 @@ public class MetadataConnectionUtils {
             if (driver != null) {
                 String driverClass = dbConn.getDriverClass();
                 String dbType = dbConn.getDatabaseType();
-                if ((driverClass != null
-                        && driverClass.equals(EDatabase4DriverClassName.JAVADB_EMBEDED.getDriverClass())
+                if ((driverClass != null && driverClass.equals(EDatabase4DriverClassName.JAVADB_EMBEDED.getDriverClass()))
                         || (dbType != null && (dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
                                 || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
-                                || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName()) || dbType
-                                .equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName()))) || dbType
-                        .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
+                                || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
+                                || dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName()) || dbType
+                                .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName())))) {
                     try {
                         driver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
                     } catch (SQLException e) {

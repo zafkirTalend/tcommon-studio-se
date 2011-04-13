@@ -121,19 +121,19 @@ public class SelectorTreeViewerProvider extends LabelProvider implements ITreeCo
             ExceptionHandler.process(e);
         } finally {
             // for specific db such as derby
-            String driverClass = metadataConn.getDriverClass();
-            String dbType = metadataConn.getDbType();
-            if ((driverClass != null
-                    && driverClass.equals(EDatabase4DriverClassName.JAVADB_EMBEDED.getDriverClass())
-                    || (dbType != null && (dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
-                            || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
-                            || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName()) || dbType
-                            .equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName()))) || dbType
-                    .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
-                try {
-                    driver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
-                } catch (SQLException e) {
-                    // exception of shutdown success. no need to catch.
+            if (driver != null) {
+                String driverClass = metadataConn.getDriverClass();
+                String dbType = metadataConn.getDbType();
+                if ((driverClass != null && driverClass.equals(EDatabase4DriverClassName.JAVADB_EMBEDED.getDriverClass()))
+                        || (dbType != null && (dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
+                                || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
+                                || dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName()) || dbType
+                                .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName())))) {
+                    try {
+                        driver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
+                    } catch (SQLException e) {
+                        // exception of shutdown success. no need to catch.
+                    }
                 }
             }
         }
