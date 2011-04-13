@@ -59,7 +59,7 @@
                </appinfo>
             </annotation>
          </attribute>
-         <attribute name="parentLabel" type="string">
+         <attribute name="parentNodeType" type="string">
             <annotation>
                <documentation>
                   specific the node&apos;s parent.
