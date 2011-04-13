@@ -226,13 +226,17 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 }
                 schemas.close();
                 // handle case of SQLite (no schema no catalog)
-                ResultSet catalogs = dbJDBCMetadata.getCatalogs();
+                // MOD gdbu 2011-4-12 bug : 18975
+                // ResultSet catalogs = dbJDBCMetadata.getCatalogs();
+                // ~18975
                 if (!hasSchema) {
                     // create a fake schema with an empty name (otherwise queries will use the name and will fail)
                     Schema schema = SchemaHelper.createSchema(" "); //$NON-NLS-1$
                     returnSchemas.add(schema);
                 }
-                catalogs.close();
+                // MOD gdbu 2011-4-12 bug : 18975
+                // catalogs.close();
+                // ~18975
                 if (isLinked() && returnSchemas.size() > 0) {
                     ConnectionHelper.addSchemas(returnSchemas, dbConn);
                 }
