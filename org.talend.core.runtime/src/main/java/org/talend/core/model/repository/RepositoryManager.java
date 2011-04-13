@@ -30,6 +30,7 @@ import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.VersionUtils;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
+import org.talend.core.model.components.IComponentsService;
 import org.talend.core.model.properties.BusinessProcessItem;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.utils.RepositoryManagerHelper;
@@ -252,6 +253,17 @@ public final class RepositoryManager {
                 }
             }
         }
+    }
+
+    public static void syncUserComponents() {
+        if (PluginChecker.isSVNProviderPluginLoaded()) {
+            IComponentsService codeGenService = (IComponentsService) GlobalServiceRegister.getDefault().getService(
+                    IComponentsService.class);
+            if (codeGenService != null) {
+                codeGenService.getComponentsFactory().loadUserComponentsFromComponentsProviderExtension();
+            }
+        }
+
     }
 
     /**
