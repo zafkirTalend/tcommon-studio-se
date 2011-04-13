@@ -85,7 +85,10 @@ public class Application implements IApplication {
             boolean logUserOnProject = logUserOnProject(display.getActiveShell(), inuse);
             try {
                 if (!logUserOnProject) {
-                    Platform.endSplash();
+                    // MOD qiongli 2010-11-1,bug 16723: Code Cleansing
+                    // Platform.endSplash();
+                    context.applicationRunning();
+                    // ~
                     return EXIT_OK;
                 }
             } finally {

@@ -17,6 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.core.commands.IHandler;
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.commands.ActionHandler;
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -47,7 +48,6 @@ import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IViewReference;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.IWorkbenchPreferenceConstants;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PerspectiveAdapter;
 import org.eclipse.ui.PlatformUI;
@@ -62,17 +62,19 @@ import org.eclipse.ui.internal.ide.EditorAreaDropAdapter;
 import org.eclipse.ui.internal.ide.IDEInternalPreferences;
 import org.eclipse.ui.internal.ide.IDEWorkbenchMessages;
 import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;
-import org.eclipse.ui.internal.util.PrefUtil;
+import org.osgi.service.prefs.BackingStoreException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.workbench.extensions.ExtensionImplementationProvider;
 import org.talend.commons.utils.workbench.extensions.ExtensionPointLimiterImpl;
 import org.talend.commons.utils.workbench.extensions.IExtensionPointLimiter;
 import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ITDQRepositoryService;
 import org.talend.core.PluginChecker;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.general.Project;
+import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.prefs.PreferenceManipulator;
 import org.talend.core.ui.ISQLBuilderService;
@@ -104,6 +106,10 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
     private static String repositoryViewId = "org.talend.repository.views.repository";
 
     private static String processViewId = "org.talend.designer.runprocess.ui.views.processview";
+
+    private static final String TOS_PERSPECTIVE_ID = "org.talend.rcp.perspective"; //$NON-NLS-N$
+
+    private static final String TOP_PERSPECTIVE_ID = "org.talend.dataprofiler.DataProfilingPerspective"; //$NON-NLS-N$
 
     private Composite foreGroundComposite;
 
@@ -163,6 +169,15 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         // if (brandingConfiguration instanceof DefaultBrandingConfiguration) {
         // ((DefaultBrandingConfiguration) brandingConfiguration).generateWelcomeHeaderImage();
         // }
+
+        //
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
+            ITDQRepositoryService tdqRepositoryService = (ITDQRepositoryService) GlobalServiceRegister.getDefault().getService(
+                    ITDQRepositoryService.class);
+            if (tdqRepositoryService != null) {
+                tdqRepositoryService.initProxyRepository();
+            }
+        }
     }
 
     /*
@@ -197,7 +212,14 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
             String[] prefsId = { "org.talend.designer.core.ui.preferences.RepositoryPreferencePage" }; //$NON-NLS-1$
             ApplicationDeletionUtil.removePreferencePages(this.getWindowConfigurer().getWindow(), Arrays.asList(prefsId));
         }
-
+        // MOD mzhao feature 9207. 2009-09-21 ,Add part listener.
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
+            ITDQRepositoryService tdqRepositoryService = (ITDQRepositoryService) GlobalServiceRegister.getDefault().getService(
+                    ITDQRepositoryService.class);
+            if (tdqRepositoryService != null) {
+                tdqRepositoryService.addPartListener();
+            }
+        }
         // feature 18752
         setEditorAreaBG();
         regisitPerspectiveListener();
@@ -212,15 +234,31 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
             public void perspectiveActivated(IWorkbenchPage page, IPerspectiveDescriptor perspective) {
                 // MOD xqliu 2010-10-14 bug 15756
                 String pId = perspective.getId();
-                if (!pId.equals("org.talend.rcp.perspective")) {
-                    clearEditorAreaBG(false);
-                } else {
-                    if (isTos == true) {
-                        isTos = false;
-                        setEditorAreaBG();
+                IRepositoryView view = RepositoryManager.getRepositoryView();
+                if (view != null) {
+                    if (TOS_PERSPECTIVE_ID.equals(pId)) {
+                        /* 0016610 need to refresh not only databaseconnection but only trash bin */
+                        view.refresh();
+                        if (isTos == true) {
+                            isTos = false;
+                            setEditorAreaBG();
+                        }
+                        clearEditorAreaBG(true);
+                    } else if (TOP_PERSPECTIVE_ID.equals(pId)) {
+                        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
+                            ITDQRepositoryService tdqRepositoryService = (ITDQRepositoryService) GlobalServiceRegister
+                                    .getDefault().getService(ITDQRepositoryService.class);
+                            if (tdqRepositoryService != null) {
+                                tdqRepositoryService.refresh();
+                            }
+                        }
+                        page.hideView(page.findViewReference("org.talend.repository.views.repository"));
+                        clearEditorAreaBG(false);
+                    } else {
+                        clearEditorAreaBG(false);
                     }
-                    clearEditorAreaBG(true);
                 }
+                // ~ 15756
             }
         });
     }
@@ -510,7 +548,13 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
             }
             if (dlg.getToggleState()) {
                 store.setValue(IDEInternalPreferences.EXIT_PROMPT_ON_CLOSE_LAST_WINDOW, false);
-                IDEWorkbenchPlugin.getDefault().savePluginPreferences();
+                // MOD qiongli 2010-11-1,bug 16723: Code Cleansing
+                // IDEWorkbenchPlugin.getDefault().savePluginPreferences();
+                try {// FIXME, need check it for tdq
+                    new InstanceScope().getNode(Activator.PLUGIN_ID).flush();
+                } catch (BackingStoreException e) {
+                    e.printStackTrace();
+                }
             }
         }
 

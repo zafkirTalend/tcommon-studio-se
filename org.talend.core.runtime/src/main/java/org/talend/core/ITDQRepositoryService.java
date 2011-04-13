@@ -31,4 +31,8 @@ public interface ITDQRepositoryService extends IService {
 
     public void refresh();
 
+    public void initProxyRepository();
+
+    public void addPartListener();
+
 }

@@ -13,7 +13,6 @@
 package org.talend.rcp.intro;
 
 import org.eclipse.jface.action.Action;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IViewReference;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
@@ -22,7 +21,6 @@ import org.talend.core.GlobalServiceRegister;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.designer.business.diagram.custom.IDiagramModelService;
 import org.talend.rcp.i18n.Messages;
-import org.talend.repository.ui.login.LoginDialog;
 import org.talend.repository.ui.views.IRepositoryView;
 
 /**
@@ -97,12 +95,13 @@ public class SwitchProjectAction extends Action {
         // }
     }
 
-    private boolean logUserOnProject(Shell shell) {
-        boolean logged = false;
-        LoginDialog loginDialog = new LoginDialog(shell);
-        logged = loginDialog.open() == LoginDialog.OK;
-        return logged;
-    }
+    //
+    // private boolean logUserOnProject(Shell shell) {
+    // boolean logged = false;
+    // LoginDialog loginDialog = new LoginDialog(shell);
+    // logged = loginDialog.open() == LoginDialog.OK;
+    // return logged;
+    // }
 
     /*
      * (non-Javadoc)

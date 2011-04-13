@@ -55,7 +55,6 @@ import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.workbench.extensions.ExtensionPointLimiterImpl;
 import org.talend.commons.utils.workbench.extensions.IExtensionPointLimiter;
-import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
 import org.talend.core.i18n.Messages;
@@ -313,8 +312,11 @@ public class ActionBarBuildHelper implements IActionBarHelper {
         fileMenu.add(openLocalFileAction);
 
         if (PluginChecker.isMetalanguagePluginLoaded()) {
-            IOpenJobScriptActionService openJobScriptActionService = CorePlugin.getDefault().getOpenJobScriptActionService();
-            fileMenu.add(openJobScriptActionService.getOpenJobScriptAction(window));
+            IOpenJobScriptActionService openJobScriptActionService = (IOpenJobScriptActionService) GlobalServiceRegister
+                    .getDefault().getService(IOpenJobScriptActionService.class);
+            if (openJobScriptActionService != null) {
+                fileMenu.add(openJobScriptActionService.getOpenJobScriptAction(window));
+            }
         }
 
         editMenu = new MenuManager(
@@ -362,7 +364,10 @@ public class ActionBarBuildHelper implements IActionBarHelper {
         windowMenu.add(ActionFactory.MAXIMIZE.create(window));
 
         windowMenu.add(ActionFactory.PREFERENCES.create(window));
-
+        // MOD mzhao 2009-06-24 feature 7673
+        windowMenu.add(ActionFactory.RESET_PERSPECTIVE.create(window));
+        // MOD qiongli 2011-2-17 feature 17168
+        windowMenu.add(ActionFactory.SAVE_PERSPECTIVE.create(window));
         helpMenu = new MenuManager(
                 Messages.getString("ApplicationActionBarAdvisor.menuHelpLabel"), IWorkbenchActionConstants.M_HELP); //$NON-NLS-1$
         menuBar.add(helpMenu);

@@ -68,7 +68,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         helper.setWindow(window);
         introAction = ActionFactory.INTRO.create(myWindow);
         register(introAction);
-        CloseIntroAction  action= new CloseIntroAction();
+        CloseIntroAction action = new CloseIntroAction();
         register(action);
         registerGlobalActions();
     }
@@ -83,13 +83,15 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         actionBarConfigurer.registerGlobalAction(ActionFactory.DELETE.create(window));
         actionBarConfigurer.registerGlobalAction(ActionFactory.SELECT_ALL.create(window));
         actionBarConfigurer.registerGlobalAction(ActionFactory.REFRESH.create(window));
+        // MOD mzhao 2009-06-24 feature 7673
+        actionBarConfigurer.registerGlobalAction(ActionFactory.RESET_PERSPECTIVE.create(window));
     }
 
-    private static final String[] ACTIONSETID = new String[] {
-            "org.eclipse.ui.edit.text.actionSet.convertLineDelimitersTo", //$NON-NLS-1$
-            "org.eclipse.ui.edit.text.actionSet.annotationNavigation", "org.eclipse.ui.NavigateActionSet", //$NON-NLS-1$ //$NON-NLS-2$
-            "org.eclipse.ui.WorkingSetActionSet", "org.eclipse.ui.edit.text.actionSet.navigation", //$NON-NLS-1$ //$NON-NLS-2$
-            "org.eclipse.search.searchActionSet", "org.eclipse.ui.externaltools.ExternalToolsSet", "org.talend.repository.bootTalendActionSet" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    // private static final String[] ACTIONSETID = new String[] {
+    //            "org.eclipse.ui.edit.text.actionSet.convertLineDelimitersTo", //$NON-NLS-1$
+    //            "org.eclipse.ui.edit.text.actionSet.annotationNavigation", "org.eclipse.ui.NavigateActionSet", //$NON-NLS-1$ //$NON-NLS-2$
+    //            "org.eclipse.ui.WorkingSetActionSet", "org.eclipse.ui.edit.text.actionSet.navigation", //$NON-NLS-1$ //$NON-NLS-2$
+    //            "org.eclipse.search.searchActionSet", "org.eclipse.ui.externaltools.ExternalToolsSet", "org.talend.repository.bootTalendActionSet" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
     @Override
     protected void fillMenuBar(final IMenuManager menuBar) {
