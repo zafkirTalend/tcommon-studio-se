@@ -18,9 +18,11 @@ import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
@@ -200,21 +202,24 @@ public class JavaLibrariesService extends AbstractLibrariesService {
             FilesUtils.copyFolder(talendLibraries, target, false, FilesUtils.getExcludeSystemFilesFilter(),
                     FilesUtils.getAcceptJARFilesFilter(), true, monitorWrap);
 
-            // 2. Components libraries
-            IComponentsService service = (IComponentsService) GlobalServiceRegister.getDefault().getService(
-                    IComponentsService.class);
-            File componentsLibraries = new File(service.getComponentsFactory().getComponentPath().getFile());
+            // Add a new system file, if exists, means all components libs are already setup, so no need to do again.
+            // if clean the component cache, it will automatically recheck all libs still.
+            File componentsLibsSetupDone = new File(getLibrariesPath() + "/.componentsSetupDone");
 
-            FilesUtils.copyFolder(componentsLibraries, target, false, FilesUtils.getExcludeSystemFilesFilter(),
-                    FilesUtils.getAcceptJARFilesFilter(), false, monitorWrap);
+            if (!componentsLibsSetupDone.exists()
+                    || ArrayUtils.contains(Platform.getApplicationArgs(), "--clean_component_cache")) {
+                // 2. Components libraries
+                IComponentsService service = (IComponentsService) GlobalServiceRegister.getDefault().getService(
+                        IComponentsService.class);
+                File componentsLibraries = new File(service.getComponentsFactory().getComponentPath().getFile());
 
-            // // 3.Add resource libraires.
-            // IResourceService resourceService = CorePlugin.getDefault().getResourceService();
-            // File resourceLibraries = new File(resourceService.getJavaLibraryPath());
-            // FilesUtils.copyFolder(resourceLibraries, target, false, FilesUtils.getExcludeSystemFilesFilter(),
-            // FilesUtils.getAcceptJARFilesFilter(), false, monitorWrap);
+                FilesUtils.copyFolder(componentsLibraries, target, false, FilesUtils.getExcludeSystemFilesFilter(),
+                        FilesUtils.getAcceptJARFilesFilter(), false, monitorWrap);
+                componentsLibsSetupDone.createNewFile();
+                componentsLibsSetupDone.setLastModified((new Date()).getTime());
+            }
 
-            // 4. system routien libraries
+            // 3. system routine libraries
             Map<String, List<URI>> routineAndJars = RoutineLibraryMananger.getInstance().getRoutineAndJars();
             for (String key : routineAndJars.keySet()) {
                 List<URI> jarList = routineAndJars.get(key);
@@ -229,7 +234,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
                 }
             }
 
-            // 5. check in the libs directory of the project and add the jar with other ones.
+            // 4. check in the libs directory of the project and add the jar with other ones.
             syncLibrariesFromLibs(monitorWrap);
 
             checkInstalledLibraries();

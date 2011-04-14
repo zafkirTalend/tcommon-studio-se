@@ -315,7 +315,7 @@ public class ModulesNeededProvider {
             List<IRepositoryViewObject> routines = repositoryFactory.getAll(ERepositoryObjectType.ROUTINES, true);
             getRefRoutines(routines, ProjectManager.getInstance().getCurrentProject().getEmfProject());
             for (IRepositoryViewObject current : routines) {
-                if (repositoryFactory.getStatus(current) != ERepositoryStatus.DELETED) {
+                if (!current.isDeleted()) {
                     Item item = current.getProperty().getItem();
                     RoutineItem routine = (RoutineItem) item;
                     importNeedsList.addAll(createModuleNeededFromRoutine(routine));
