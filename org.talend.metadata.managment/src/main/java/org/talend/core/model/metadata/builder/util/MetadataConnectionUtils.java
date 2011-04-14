@@ -166,22 +166,20 @@ public class MetadataConnectionUtils {
             java.sql.Connection sqlConn = null;
             Driver driver = null;
             try {
-                // if (StringUtils.isEmpty(metadataBean.getDriverJarPath())) {
-                List list = getConnection(metadataBean);
-                for (int i = 0; i < list.size(); i++) {
-                    if (list.get(i) instanceof Driver) {
-                        driver = (Driver) list.get(i);
+                if (isHsqlInprocess(metadataBean)) {
+                    List list = getConnection(metadataBean);
+                    for (int i = 0; i < list.size(); i++) {
+                        if (list.get(i) instanceof Driver) {
+                            driver = (Driver) list.get(i);
+                        }
+                        if (list.get(i) instanceof java.sql.Connection) {
+                            sqlConn = (java.sql.Connection) list.get(i);
+                        }
                     }
-                    if (list.get(i) instanceof java.sql.Connection) {
-                        sqlConn = (java.sql.Connection) list.get(i);
-                    }
-                }
-                if (sqlConn == null) {
+                } else {
+                    driver = getClassDriver(metadataBean);
                     sqlConn = ConnectionUtils.createConnection(dbUrl, driver, props);
                 }
-                // } else {
-                // sqlConn = ConnectionUtils.createConnection(dbUrl, metadataBean.getDriverClass(), props);
-                // }
 
                 ReturnCode varc = ConnectionUtils.isValid(sqlConn);
                 if (varc.isOk()) {
@@ -465,68 +463,6 @@ public class MetadataConnectionUtils {
         return sybaseDBProductsNames.toArray(new String[sybaseDBProductsNames.size()]);
     }
 
-    public static List getConnection(IMetadataConnection metadataBean) throws InstantiationException, IllegalAccessException,
-            ClassNotFoundException {
-        List list = new ArrayList();
-        String driverClassName = metadataBean.getDriverClass();
-        // MOD mzhao 2009-06-05,Bug 7571 Get driver from catch first, if not
-        // exist then get a new instance.
-        Driver driver = DRIVER_CACHE.get(driverClassName);
-        // The case for generalJDBC
-        String driverPath = metadataBean.getDriverJarPath();
-
-        if (StringUtils.isEmpty(driverPath)) {
-            if (driver != null) {
-                list.add(driver);
-                return list;
-            }
-        }
-
-        IExtension extension = Platform.getExtensionRegistry().getExtension(DRIVER_EXTENSION_POINT_ID, TOP_DRIVER_EXTENSION_ID);
-        if (extension != null) {
-            // top
-            if (PluginChecker.isOnlyTopLoaded()) {
-                IConfigurationElement[] configurationElement = extension.getConfigurationElements();
-                for (IConfigurationElement ele : configurationElement) {
-                    try {
-                        IDriverService driverService = (IDriverService) ele.createExecutableExtension("class");
-                        driver = driverService.getDriver(metadataBean);
-                        list.add(driver);
-                    } catch (Exception e) {
-                        log.error(e, e);
-                    }
-                }
-            } else {
-                // tdq
-                try {
-                    list = ExtractMetaDataUtils.getConnection(metadataBean.getDbType(), metadataBean.getUrl(),
-                            metadataBean.getUsername(), metadataBean.getPassword(), metadataBean.getDatabase(),
-                            metadataBean.getSchema(), driverClassName, metadataBean.getDriverJarPath(),
-                            metadataBean.getDbVersionString(), metadataBean.getAdditionalParams());
-                } catch (Exception e) {
-                    log.error(e, e);
-                }
-            }
-        } else {
-            // tos
-            try {
-                list = ExtractMetaDataUtils.getConnection(metadataBean.getDbType(), metadataBean.getUrl(),
-                        metadataBean.getUsername(), metadataBean.getPassword(), metadataBean.getDatabase(),
-                        metadataBean.getSchema(), driverClassName, metadataBean.getDriverJarPath(),
-                        metadataBean.getDbVersionString(), metadataBean.getAdditionalParams());
-            } catch (Exception e) {
-                log.error(e, e);
-            }
-        }
-        // MOD mzhao 2009-06-05,Bug 7571 Get driver from catch first, if not
-        // exist then get a new instance.
-        if (driver != null) {
-            DRIVER_CACHE.put(driverClassName, driver);
-        }
-
-        return list;
-    }
-
     /**
      * DOC qzhang Comment method "getClassDriver".
      * 
@@ -567,10 +503,7 @@ public class MetadataConnectionUtils {
             } else {
                 // tdq
                 try {
-                    List<?> connList = ExtractMetaDataUtils.getConnection(metadataBean.getDbType(), metadataBean.getUrl(),
-                            metadataBean.getUsername(), metadataBean.getPassword(), metadataBean.getDatabase(),
-                            metadataBean.getSchema(), driverClassName, metadataBean.getDriverJarPath(),
-                            metadataBean.getDbVersionString(), metadataBean.getAdditionalParams());
+                    List<?> connList = getConnection(metadataBean);
                     if (connList != null && !connList.isEmpty()) { // FIXME unnecessary check !connList.isEmpty()
                         // FIXME scorreia 2011-03-31 why do we loop here? Is it possible to have several drivers. If
                         // yes,
@@ -588,11 +521,7 @@ public class MetadataConnectionUtils {
         } else {
             // tos
             try {
-                // FIXME scorreia 2011-03-31 duplicated code see above: use a method instead
-                List<?> connList = ExtractMetaDataUtils.getConnection(metadataBean.getDbType(), metadataBean.getUrl(),
-                        metadataBean.getUsername(), metadataBean.getPassword(), metadataBean.getDatabase(),
-                        metadataBean.getSchema(), driverClassName, metadataBean.getDriverJarPath(),
-                        metadataBean.getDbVersionString(), metadataBean.getAdditionalParams());
+                List<?> connList = getConnection(metadataBean);
                 if (connList != null && !connList.isEmpty()) {
                     for (int i = 0; i < connList.size(); i++) {
                         if (connList.get(i) instanceof Driver) {
@@ -963,20 +892,11 @@ public class MetadataConnectionUtils {
         } catch (ClassNotFoundException e) {
             log.error(e, e);
         } finally {
-            if (driver != null) {
-                String driverClass = dbConn.getDriverClass();
-                String dbType = dbConn.getDatabaseType();
-                if ((driverClass != null && driverClass.equals(EDatabase4DriverClassName.JAVADB_EMBEDED.getDriverClass()))
-                        || (dbType != null && (dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
-                                || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
-                                || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
-                                || dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName()) || dbType
-                                .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName())))) {
-                    try {
-                        driver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
-                    } catch (SQLException e) {
-                        // exception of shutdown success. no need to catch.
-                    }
+            if (driver != null && MetadataConnectionUtils.isDerbyRelatedDb(dbConn.getDriverClass(), dbConn.getDatabaseType())) {
+                try {
+                    driver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
+                } catch (SQLException e) {
+                    // exception of shutdown success. no need to catch.
                 }
             }
         }
@@ -1004,8 +924,8 @@ public class MetadataConnectionUtils {
         return metadataCon;
     }
 
-    public static void setMetadataCon(IMetadataConnection metadataCon) {
-        metadataCon = metadataCon; // FIXME scorreia 2011-03-31 this code has no effect
+    public static void setMetadataCon(IMetadataConnection metadataConnection) {
+        metadataCon = metadataConnection; // FIXME scorreia 2011-03-31 this code has no effect
     }
 
     public static boolean isPostgresql(java.sql.Connection connection) throws SQLException {
@@ -1017,5 +937,30 @@ public class MetadataConnectionUtils {
             }
         }
         return false;
+    }
+
+    public static boolean isDerbyRelatedDb(String driverClassname, String dbType) {
+        return (driverClassname != null && driverClassname.equals(EDatabase4DriverClassName.JAVADB_EMBEDED.getDriverClass()))
+                || (dbType != null && dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
+                        || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
+                        || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
+                        || dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName()) || dbType
+                        .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()));
+    }
+
+    public static boolean isHsqlInprocess(IMetadataConnection metadataConnection) {
+        if (metadataConnection != null) {
+            String dbType = metadataConnection.getDbType();
+            if (dbType != null && dbType.equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static List getConnection(IMetadataConnection metadataBean) {
+        return ExtractMetaDataUtils.getConnection(metadataBean.getDbType(), metadataBean.getUrl(), metadataBean.getUsername(),
+                metadataBean.getPassword(), metadataBean.getDatabase(), metadataBean.getSchema(), metadataBean.getDriverClass(),
+                metadataBean.getDriverJarPath(), metadataBean.getDbVersionString(), metadataBean.getAdditionalParams());
     }
 }
