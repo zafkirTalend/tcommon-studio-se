@@ -22,7 +22,7 @@ public class TestSoaManager extends Login {
 		selenium.click("idFormSaveButton");
 	}
 
-	@Test(description = "Add a operation with the defined project",dependsOnMethods = { "testAddSoaManagerService" })
+	@Test(enabled = false,description = "Add a operation with the defined project",dependsOnMethods = { "testAddSoaManagerService" })
 	@Parameters ({"AddcommonProjectname"})
 	public void testAddOperationToService(String projectName) {
 		// selenium.mouseDown("//")
