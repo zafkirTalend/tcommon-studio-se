@@ -364,10 +364,6 @@ public class ActionBarBuildHelper implements IActionBarHelper {
         windowMenu.add(ActionFactory.MAXIMIZE.create(window));
 
         windowMenu.add(ActionFactory.PREFERENCES.create(window));
-        // MOD mzhao 2009-06-24 feature 7673
-        windowMenu.add(ActionFactory.RESET_PERSPECTIVE.create(window));
-        // MOD qiongli 2011-2-17 feature 17168
-        windowMenu.add(ActionFactory.SAVE_PERSPECTIVE.create(window));
         helpMenu = new MenuManager(
                 Messages.getString("ApplicationActionBarAdvisor.menuHelpLabel"), IWorkbenchActionConstants.M_HELP); //$NON-NLS-1$
         menuBar.add(helpMenu);
