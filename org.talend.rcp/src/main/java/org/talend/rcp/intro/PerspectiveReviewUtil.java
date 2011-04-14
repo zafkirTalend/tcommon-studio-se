@@ -12,9 +12,13 @@
 // ============================================================================
 package org.talend.rcp.intro;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.IPerspectiveDescriptor;
+import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPreferenceConstants;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -25,7 +29,6 @@ import org.eclipse.ui.internal.PerspectiveBarManager;
 import org.eclipse.ui.internal.WorkbenchPlugin;
 import org.eclipse.ui.internal.WorkbenchWindow;
 import org.eclipse.ui.internal.util.PrefUtil;
-import org.talend.designer.core.ui.views.RefreshView;
 
 /**
  * DOC yhch class global comment. Detailled comment
@@ -39,6 +42,74 @@ public final class PerspectiveReviewUtil {
     private static final String PERSPECTIVE_MDM_ID = "org.talend.mdm.perspective"; //$NON-NLS-1$
 
     private static String isfirst = "";
+
+    static List<String> diViewList = new ArrayList<String>();
+
+    static List<String> dqViewList = new ArrayList<String>();
+
+    static List<String> mdmViewList = new ArrayList<String>();
+
+    // DI View
+    static String componentSettingViewerId = "org.talend.designer.core.ui.views.properties.ComponentSettingsView";//$NON-NLS-1$
+
+    static String navigatorId = "org.eclipse.ui.views.ResourceNavigator"; //$NON-NLS-1$
+
+    static String outlineId = "org.eclipse.ui.views.ContentOutline"; //$NON-NLS-1$
+
+    static String codeId = "org.talend.designer.core.codeView"; //$NON-NLS-1$
+
+    static String repositoryId = "org.talend.repository.views.repository"; //$NON-NLS-1$
+
+    static String runProcessViewId = "org.talend.designer.runprocess.ui.views.processview"; //$NON-NLS-1$
+
+    static String problemsViewId = "org.talend.designer.core.ui.views.ProblemsView"; //$NON-NLS-1$
+
+    static String modulesViewId = "org.talend.designer.codegen.perlmodule.ModulesView"; //$NON-NLS-1$
+
+    static String ecosystemViewId = "org.talend.designer.components.ecosystem.ui.views.EcosystemView"; //$NON-NLS-1$
+
+    static String schedulerViewId = "org.talend.scheduler.views.Scheduler"; //$NON-NLS-1$
+
+    static String contextsViewId = "org.talend.designer.core.ui.views.ContextsView"; //$NON-NLS-1$
+
+    static String gefPaletteViewId = "org.eclipse.gef.ui.palette_view"; //$NON-NLS-1$
+
+    static String jobSettingsViewId = "org.talend.designer.core.ui.views.jobsettings.JobSettingsView"; //$NON-NLS-1$
+
+    static String jobHierarchyViewId = "org.talend.designer.core.ui.hierarchy.JobHierarchyViewPart"; //$NON-NLS-1$
+
+    // DQ View
+    static String dqRepositoryViewId = "org.talend.dataprofiler.core.ui.views.DQRespositoryView";//$NON-NLS-1$
+
+    static String dqRepositoryDetailViewId = "org.talend.dataprofiler.core.ui.views.RespositoryDetailView";
+
+    // MDM View
+    static String mdmServerViewId = "org.talend.mdm.workbench.views.ServerView";
+
+    public static void setPerspectiveReviewUtil() {
+        // DI
+        diViewList.add(componentSettingViewerId);
+        diViewList.add(navigatorId);
+        diViewList.add(outlineId);
+        diViewList.add(codeId);
+        diViewList.add(repositoryId);
+        diViewList.add(runProcessViewId);
+        diViewList.add(problemsViewId);
+        diViewList.add(modulesViewId);
+        diViewList.add(ecosystemViewId);
+        diViewList.add(schedulerViewId);
+        diViewList.add(contextsViewId);
+        diViewList.add(gefPaletteViewId);
+        diViewList.add(jobSettingsViewId);
+        diViewList.add(jobHierarchyViewId);
+
+        // DQ
+        dqViewList.add(dqRepositoryViewId);
+        dqViewList.add(dqRepositoryDetailViewId);
+
+        // MDM
+        mdmViewList.add(mdmServerViewId);
+    }
 
     /**
      * 
@@ -128,15 +199,60 @@ public final class PerspectiveReviewUtil {
      * DOC Comment method "refreshAll".
      */
     private static void refreshAll() {
+        diViewList.clear();
+        dqViewList.clear();
+        mdmViewList.clear();
+        setPerspectiveReviewUtil();
         IWorkbenchWindow workBenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-        if (workBenchWindow == null) {
-            return;
-        }
-        IWorkbenchPage workBenchPage = workBenchWindow.getActivePage();
-        if (workBenchPage == null) {
-            return;
-        }
-        workBenchPage.resetPerspective();
-    }
+        if (workBenchWindow != null) {
+            IWorkbenchPage page = workBenchWindow.getActivePage();
+            if (page != null) {
+                String perId = page.getPerspective().getId();
+                if ((!"".equals(perId) && null != perId)) {
+                    // eg : use DI, then switch to DQ : All view from DI must be hidden when switch
+                    if (perId.equalsIgnoreCase(PERSPECTIVE_DI_ID)) {
+                        for (String strId : dqViewList) {
+                            IViewPart viewPart = page.findView(strId);
+                            if (viewPart != null) {
+                                page.hideView(viewPart);
+                            }
+                        }
+                        for (String strId : mdmViewList) {
+                            IViewPart viewPart = page.findView(strId);
+                            if (viewPart != null) {
+                                page.hideView(viewPart);
+                            }
+                        }
+                    } else if (perId.equalsIgnoreCase(PERSPECTIVE_DQ_ID)) {
+                        for (String strId : diViewList) {
+                            IViewPart viewPart = page.findView(strId);
+                            if (viewPart != null) {
+                                page.hideView(viewPart);
+                            }
+                        }
+                        for (String strId : mdmViewList) {
+                            IViewPart viewPart = page.findView(strId);
+                            if (viewPart != null) {
+                                page.hideView(viewPart);
+                            }
+                        }
 
+                    } else if (perId.equalsIgnoreCase(PERSPECTIVE_MDM_ID)) {
+                        for (String strId : diViewList) {
+                            IViewPart viewPart = page.findView(strId);
+                            if (viewPart != null) {
+                                page.hideView(viewPart);
+                            }
+                        }
+                        for (String strId : dqViewList) {
+                            IViewPart viewPart = page.findView(strId);
+                            if (viewPart != null) {
+                                page.hideView(viewPart);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
