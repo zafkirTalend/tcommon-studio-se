@@ -331,6 +331,8 @@ public class DuplicateAction extends AContextualAction {
                     item = PropertiesFactory.eINSTANCE.createSQLPatternItem();
                 } else if (repositoryType == ERepositoryObjectType.SVG_BUSINESS_PROCESS) {
                     item = PropertiesFactory.eINSTANCE.createSVGBusinessProcessItem();
+                } else if (repositoryType == ERepositoryObjectType.METADATA_EDIFACT) {
+                    item = PropertiesFactory.eINSTANCE.createEDIFACTConnectionItem();
                 }
             }
         }
