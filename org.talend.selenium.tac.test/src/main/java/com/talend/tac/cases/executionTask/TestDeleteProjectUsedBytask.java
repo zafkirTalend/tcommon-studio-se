@@ -11,7 +11,7 @@ import com.thoughtworks.selenium.Selenium;
 
 public class TestDeleteProjectUsedBytask extends Login {
 
-	public void okDelete(Selenium selenium, String name)
+	public void okDelete(Selenium selenium, String name,String warningmessage)
 			throws InterruptedException {
 		// s.click("!!!menu.project.element!!!");
 		selenium.setSpeed(MID_SPEED);
@@ -27,7 +27,7 @@ public class TestDeleteProjectUsedBytask extends Login {
 			selenium.click("idSubModuleDeleteButton");
 			selenium.getConfirmation();
 //			Thread.sleep(5000);
-			Assert.assertTrue(selenium.isTextPresent("Delete Faild: This project is currently used in Execution Tasks. Delete them before deleting this project. -- For more information see your log file"), "project used by task delete failed!");
+			Assert.assertTrue(selenium.isTextPresent(warningmessage), "project used by task delete failed!");
 			Assert.assertTrue(
 					selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
 							+ name + "')]"), "delete project " + name
@@ -45,7 +45,8 @@ public class TestDeleteProjectUsedBytask extends Login {
 		selenium.click("!!!menu.project.element!!!");
 		//this.waitForElementPresent("!!!menu.project.element!!!", 30);
 		//try to delete project used by task.
-		okDelete(selenium,deleteProname);
+		String warning = other.getString("warningmessage.delete.project.usedbytask");
+		okDelete(selenium,deleteProname,warning);
 	
 	}
 
