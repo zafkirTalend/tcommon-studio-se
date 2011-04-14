@@ -46,6 +46,7 @@ import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.update.RepositoryUpdateManager;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.metadata.managment.ui.i18n.Messages;
 import org.talend.repository.ProjectManager;
@@ -307,6 +308,9 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                     this.connection.setLabel(connectionProperty.getLabel());
 
                     factory.create(connectionItem, propertiesWizardPage.getDestinationPath());
+
+                    // MOD yyi 2011-04-14:20362 reload connection
+                    ConnectionHelper.setUsingURL(connection, connection.getURL());
 
                     MetadataConnectionUtils.fillConnectionInformation(connectionItem);
                 } else {
