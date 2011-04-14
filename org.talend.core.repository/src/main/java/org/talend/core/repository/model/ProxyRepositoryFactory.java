@@ -48,6 +48,7 @@ import org.talend.commons.exception.SystemException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.exception.MessageBoxExceptionHandler;
 import org.talend.commons.utils.data.container.RootContainer;
+import org.talend.commons.utils.time.TimeMeasure;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.AbstractDQModelService;
 import org.talend.core.GlobalServiceRegister;
@@ -1450,6 +1451,11 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      */
     public void logOnProject(Project project, IProgressMonitor monitor) throws LoginException, PersistenceException {
         try {
+            TimeMeasure.display = CommonsPlugin.isDebugMode();
+            TimeMeasure.displaySteps = CommonsPlugin.isDebugMode();
+            TimeMeasure.measureActive = CommonsPlugin.isDebugMode();
+
+            TimeMeasure.begin("logOnProject");
             fullLogonFinished = false;
             SubMonitor subMonitor = SubMonitor.convert(monitor, MAX_TASKS);
             SubMonitor currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
@@ -1462,16 +1468,19 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
             currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.initializeProjectConnection"), 1); //$NON-NLS-1$
             this.repositoryFactoryFromProvider.beforeLogon(project);
             // monitorWrap.worked(1);
+            TimeMeasure.step("logOnProject", "beforeLogon");
 
             currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
             currentMonitor.beginTask("Execute before logon migrations tasks", 1); //$NON-NLS-1$
             executeMigrations(project, true, currentMonitor);
             // monitorWrap.worked(1);
+            TimeMeasure.step("logOnProject", "executeMigrations(beforeLogonTasks)");
 
             currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
             currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.logonInProgress"), 1); //$NON-NLS-1$
             this.repositoryFactoryFromProvider.logOnProject(project);
             // monitorWrap.worked(1);
+            TimeMeasure.step("logOnProject", "logOnProject");
 
             emptyTempFolder(project);
 
@@ -1480,10 +1489,12 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
             coreService.componentsReset();
             coreService.initializeComponents(currentMonitor);
             // monitorWrap.worked(1);
+            TimeMeasure.step("logOnProject", "initializeComponents");
 
             currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
             currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.exec.migration.tasks"), 1); //$NON-NLS-1$
             executeMigrations(project, false, currentMonitor);
+            TimeMeasure.step("logOnProject", "executeMigrations(afterLogonTasks)");
 
             // clean workspace
             coreService.deleteAllJobs(false);
@@ -1507,9 +1518,12 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
             if (PluginChecker.isRulesPluginLoaded()) {
                 coreService.syncAllRules();
             }
+            TimeMeasure.step("logOnProject", "sync repository (routines/rules/beans)");
+
             currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
             currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.synchronizeLibraries"), 1); //$NON-NLS-1$
             coreService.syncLibraries(currentMonitor);
+            TimeMeasure.step("logOnProject", "sync components libraries");
 
             // sap
             if (PluginChecker.isSAPWizardPluginLoaded()) {
@@ -1521,6 +1535,8 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
             }
 
             coreService.resetUniservLibraries();
+            TimeMeasure.step("logOnProject", "sync specific libraries");
+
             // remove the auto-build to enhance the build speed and application's use
             IWorkspace workspace = ResourcesPlugin.getWorkspace();
             IWorkspaceDescription description = workspace.getDescription();
@@ -1535,6 +1551,11 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
             coreService.synchronizeMapptingXML();
 
             fullLogonFinished = true;
+
+            TimeMeasure.end("logOnProject");
+            TimeMeasure.display = false;
+            TimeMeasure.displaySteps = false;
+            TimeMeasure.measureActive = false;
 
             String str[] = new String[] { getRepositoryContext().getUser() + "", projectManager.getCurrentProject() + "" }; //$NON-NLS-1$ //$NON-NLS-2$        
             log.info(Messages.getString("ProxyRepositoryFactory.log.loggedOn", str)); //$NON-NLS-1$

@@ -68,7 +68,6 @@ import org.talend.designer.core.model.utils.emf.component.ComponentFactory;
 import org.talend.designer.core.model.utils.emf.component.IMPORTType;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
-import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryConstants;
 
@@ -663,7 +662,7 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
                 .getProxyRepositoryFactory();
         List<IRepositoryViewObject> jobs = repositoryFactory.getAll(ERepositoryObjectType.PROCESS, true);
         for (IRepositoryViewObject cur : jobs) {
-            if (repositoryFactory.getStatus(cur) != ERepositoryStatus.DELETED) {
+            if (!cur.isDeleted()) {
                 ProcessItem item = (ProcessItem) cur.getProperty().getItem();
                 if (item == null || item.getProcess() == null) {
                     continue;
