@@ -153,10 +153,10 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
             "repository.xmlElementType", "MDM_ELEMENT_TYPE", 25, true, true, new String[] { "DI" }, false);//$NON-NLS-1$
 
     public final static ERepositoryObjectType RECYCLE_BIN = new ERepositoryObjectType("repository.recyclebin", "", "RECYCLE_BIN",
-            true, 26, new String[] { "DI" });
+            true, 26, new String[] { "DI" }, false);
 
     public final static ERepositoryObjectType METADATA_COLUMN = new ERepositoryObjectType("repository.column", "",
-            "METADATA_COLUMN", true, 27, new String[] { "DI" });
+            "METADATA_COLUMN", true, 27, new String[] { "DI" }, false);
 
     // feature 0006484 add
     public final static ERepositoryObjectType METADATA_FILE_RULES = new ERepositoryObjectType(
@@ -166,7 +166,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
             "repository.metadataLinkFileRules", "metadata/rules", "METADATA_FILE_LINKRULES", 29, true, "repository.metadataLinkFileRules.alias", new String[] { "DI" }); //$NON-NLS-1$ //$NON-NLS-2$
 
     public final static ERepositoryObjectType METADATA_RULES_MANAGEMENT = new ERepositoryObjectType(
-            "repository.metadataRulesManagement", "", "METADATA_RULES_MANAGEMENT", 30, true, "repository.metadataRulesManagement.alias", new String[] { "DI" }); //$NON-NLS-1$ //$NON-NLS-2$
+            "repository.metadataRulesManagement", "", "METADATA_RULES_MANAGEMENT", 30, true, "repository.metadataRulesManagement.alias", new String[] { "DI" }, false); //$NON-NLS-1$ //$NON-NLS-2$
 
     public final static ERepositoryObjectType METADATA_CONNECTIONS = new ERepositoryObjectType(
             "repository.metadataConnections", "metadata/connections", "METADATA_CONNECTIONS", 31, true, "repository.metadataConnections.alias", new String[] { "DI", "DQ" }); //$NON-NLS-1$ //$NON-NLS-2$
@@ -227,7 +227,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
             "repository.metadataValidationRules", "metadata/validationRules", "METADATA_VALIDATION_RULES", 48, true, "repository.metadataValidationRules.alias", new String[] { "DI" }); //$NON-NLS-1$ //$NON-NLS-2$
 
     public final static ERepositoryObjectType METADATA_VALIDATIONS_RULES_FOLDER = new ERepositoryObjectType(
-            "repository.metadataValidationRulesFolder", "", "METADATA_VALIDATIONS_RULES_FOLDER", 49, true, "repository.metadataValidationRulesFolder.alias", new String[] { "DI" }); //$NON-NLS-1$ //$NON-NLS-2$
+            "repository.metadataValidationRulesFolder", "", "METADATA_VALIDATIONS_RULES_FOLDER", 49, true, "repository.metadataValidationRulesFolder.alias", new String[] { "DI" }, false); //$NON-NLS-1$ //$NON-NLS-2$
 
     public final static ERepositoryObjectType FOLDER = new ERepositoryObjectType(
             "repository.folder", "", "FOLDER", true, 50, new String[] { "DI" }, false); //$NON-NLS-1$
@@ -295,7 +295,6 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     // MOD klliu feature 15750
     public final static ERepositoryObjectType TDQ_DATA_PROFILING = new ERepositoryObjectType(
             "repository.dataprofiling", "TDQ_Data Profiling", "TDQ_DATA_PROFILING", 71, true, "repository.dataprofiling.alias", new String[] { "DQ" }); //$NON-NLS-1$ //$NON-NLS-2$
-
 
     public final static ERepositoryObjectType TDQ_LIBRARIES = new ERepositoryObjectType(
             "repository.libraries", "TDQ_Libraries", "TDQ_LIBRARIES", 74, true, "repository.libraries.alias", new String[] { "DQ" }); //$NON-NLS-1$ //$NON-NLS-2$
