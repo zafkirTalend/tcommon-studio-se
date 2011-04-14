@@ -49,8 +49,8 @@
   <parameter  name ="NumbersOfprojects" value ="2"/>
   
   <parameter  name ="ServerLablename" value ="serverTest"/>
-  <parameter  name ="DeactiveServerlable" value ="Copy_of_serverTest"/>
-  <parameter  name ="PortInvalidServer" value ="Portinvalid"/> 
+  <parameter  name ="DeactiveServerlable" value ="serverTest"/>
+  <parameter  name ="PortInvalidServer" value ="PortInvalidserver"/> 
   <parameter  name ="RemoteWindowServerIp" value ="windowsip"/>
   <parameter  name ="RemoteLinuxServerIp" value ="linuxip"/> 
   <parameter  name ="ServerUnused" value ="serverTest"/>
@@ -84,9 +84,6 @@
   --><test name="projectJava">
     <classes>
         <class name="com.talend.tac.cases.projects.TestClean"/> 
-        <!-- 
-        <class name="com.talend.tac.cases.projects.TestAddJavaprojectwithdefault"/>
-         -->
 	    <class name="com.talend.tac.cases.projects.TestAddcommonpro"/>
 	    <class name="com.talend.tac.cases.projects.TestAddProjectWithExistlable"/>
 	    <class name="com.talend.tac.cases.projects.TestCheckConnection"/>
@@ -96,7 +93,8 @@
 	    <class name="com.talend.tac.cases.projects.TestBranchManageAdd"/>
 	    <class name="com.talend.tac.cases.projects.TestBranchManageAddExistbranch"/>
 	    <class name="com.talend.tac.cases.projects.TestCleanProject"/>
-	    <class name="com.talend.tac.cases.projects.TestAddProjectUncheckadvanced"/>
+	    <!--<class name="com.talend.tac.cases.projects.TestAddJavaprojectwithdefault"/>
+	    --><class name="com.talend.tac.cases.projects.TestAddProjectUncheckadvanced"/>
 	    <class name="com.talend.tac.cases.projects.TestAddprojects"/>
 	     
     </classes>
@@ -112,9 +110,12 @@
      -->
   <classes>
     <class name="com.talend.tac.cases.jobconductor.TestAddServer"/>
-    <class name="com.talend.tac.cases.jobconductor.TestDeleteServer"/>
+    <class name="com.talend.tac.cases.jobconductor.TestDeactiveAndReactiveServer"/>
+    <class name="com.talend.tac.cases.jobconductor.TestDuplicateServer"/>
+     <class name="com.talend.tac.cases.jobconductor.TestDeleteServer"/>
     <class name="com.talend.tac.cases.jobconductor.TestLinktoLinuxAndWindows"/>
     <class name="com.talend.tac.cases.jobconductor.TestCleanServers"/>
+    <class name="com.talend.tac.cases.jobconductor.TestAddServerWithInvalidports"/>
   </classes>
   </test>
   
