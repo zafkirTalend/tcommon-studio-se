@@ -84,7 +84,9 @@
   --><test name="projectJava">
     <classes>
         <class name="com.talend.tac.cases.projects.TestClean"/> 
+        <!-- 
         <class name="com.talend.tac.cases.projects.TestAddJavaprojectwithdefault"/>
+         -->
 	    <class name="com.talend.tac.cases.projects.TestAddcommonpro"/>
 	    <class name="com.talend.tac.cases.projects.TestAddProjectWithExistlable"/>
 	    <class name="com.talend.tac.cases.projects.TestCheckConnection"/>
