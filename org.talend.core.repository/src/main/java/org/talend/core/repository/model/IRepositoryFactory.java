@@ -33,6 +33,7 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.Folder;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.IRepositoryWorkUnitListener;
+import org.talend.core.model.repository.LockInfo;
 import org.talend.core.repository.utils.XmiResourceManager;
 import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.model.ERepositoryStatus;
@@ -355,6 +356,14 @@ public interface IRepositoryFactory {
 
     public void executeMigrations(Project mainProject, boolean beforeLogon, SubMonitor monitorWrap);
 
-
     public RootContainer<String, IRepositoryViewObject> getRootContainerFromType(Project project, ERepositoryObjectType type);
+
+    /**
+     * Item will be considered as locked, won't check if item is locked here.
+     * 
+     * @param item
+     * 
+     * @return
+     */
+    public LockInfo getLockInfo(Item item);
 }

@@ -357,11 +357,11 @@ public class RepositoryViewObject implements IRepositoryViewObject {
                 newItem = PropertiesFactory.eINSTANCE.createDatabaseConnectionItem();
                 newItem.setProperty(connectionProperty);
                 ItemState state = PropertiesFactory.eINSTANCE.createItemState();
-                state.setCommitDate(oldItem.getState().getCommitDate());
-                state.setDeleted(oldItem.getState().isDeleted());
-                state.setLockDate(oldItem.getState().getLockDate());
-                state.setLocked(oldItem.getState().isLocked());
-                state.setLocker(oldItem.getState().getLocker());
+                // state.setCommitDate(oldItem.getState().getCommitDate());
+                // state.setDeleted(oldItem.getState().isDeleted());
+                // state.setLockDate(oldItem.getState().getLockDate());
+                // state.setLocked(oldItem.getState().isLocked());
+                // state.setLocker(oldItem.getState().getLocker());
                 state.setPath(oldItem.getState().getPath());
                 newItem.setState(state);
 

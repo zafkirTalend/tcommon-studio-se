@@ -81,6 +81,7 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.Folder;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.IRepositoryWorkUnitListener;
+import org.talend.core.model.repository.LockInfo;
 import org.talend.core.model.repository.RepositoryObject;
 import org.talend.core.model.repository.RepositoryViewObject;
 import org.talend.core.repository.constants.FileConstants;
@@ -1788,4 +1789,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         return null;
     }
 
+    public LockInfo getLockInfo(Item item) {
+        return repositoryFactoryFromProvider.getLockInfo(item);
+    }
 }

@@ -36,6 +36,7 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.Folder;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.IRepositoryWorkUnitListener;
+import org.talend.core.model.repository.LockInfo;
 import org.talend.repository.RepositoryWorkUnit;
 
 /**
@@ -471,4 +472,5 @@ public interface IProxyRepositoryFactory {
 
     public List<IRepositoryViewObject> getMetadataByFolder(ERepositoryObjectType itemType, IPath path);
 
+    public LockInfo getLockInfo(Item item);
 }

@@ -59,6 +59,7 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.Folder;
 import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.core.model.repository.LockInfo;
 import org.talend.core.model.repository.RepositoryViewObject;
 import org.talend.core.repository.CoreRepositoryPlugin;
 import org.talend.core.repository.i18n.Messages;
@@ -914,5 +915,9 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
             ExceptionHandler.process(e);
         }
         return null;
+    }
+
+    public LockInfo getLockInfo(Item item) {
+        return new LockInfo(item.getState().getLocker().getLogin(), "studio", item.getState().getLockDate());//$NON-NLS-1$
     }
 }
