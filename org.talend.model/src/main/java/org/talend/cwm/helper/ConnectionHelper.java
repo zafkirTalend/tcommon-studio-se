@@ -1044,4 +1044,28 @@ public class ConnectionHelper {
         return getTdDataProvider(thePackage);
     }
 
+    public static String getUsingURL(Connection conn) {
+        TaggedValue value = TaggedValueHelper.getTaggedValue(TaggedValueHelper.USING_URL, conn.getTaggedValue());
+        return null == value ? null : value.getValue();
+    }
+
+    public static boolean setUsingURL(Connection conn, String url) {
+        return TaggedValueHelper.setTaggedValue(conn, TaggedValueHelper.USING_URL, url);
+    }
+
+    /**
+     * Compares this Using URL tagged value to the specified connection. The result is true if and only if the url is
+     * not equal with the tagged value. yyi 2011-04-14
+     * 
+     * @param conn
+     * @return <code>true</code> if the <code>Url </code>are not equal; <code>false</code> otherwise.
+     */
+    public static boolean isUrlChanged(Connection conn) {
+
+        DatabaseConnection connection1 = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
+        if (connection1 != null) {
+            return !connection1.getURL().equals(getUsingURL(conn));
+        }
+        return false;
+    }
 }

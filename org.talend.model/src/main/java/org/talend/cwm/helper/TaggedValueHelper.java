@@ -131,6 +131,8 @@ public final class TaggedValueHelper {
 
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+    public static final String USING_URL = "Using URL";//$NON-NLS-1$
+
     private TaggedValueHelper() {
     }
 
