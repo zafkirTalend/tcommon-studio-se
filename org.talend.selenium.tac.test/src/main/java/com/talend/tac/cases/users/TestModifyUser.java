@@ -90,6 +90,7 @@ public class TestModifyUser extends Login {
 		this.clickWaitForElementPresent("idMenuUserElement");
 		selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.isTextPresent(userName));
+		selenium.setSpeed(MIN_SPEED);
 		selenium.mouseDown("//div[text()='"+userName+"']");
 		selenium.type("idUserFirstNameInput", FirstName);
 		selenium.fireEvent("idUserFirstNameInput", "blur");
@@ -101,6 +102,7 @@ public class TestModifyUser extends Login {
 		selenium.fireEvent("//input[@name='authenticationPassword']", "blur");
 		
 		selenium.click("idFormSaveButton");
+		selenium.setSpeed(MID_SPEED);
 		Assert.assertEquals(selenium.getText("//div[@class='x-grid3-cell-inner x-grid3-col-lastName']"), LastName);
 		selenium.setSpeed(MIN_SPEED);
 		
