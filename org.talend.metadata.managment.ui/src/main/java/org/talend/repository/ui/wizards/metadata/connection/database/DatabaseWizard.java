@@ -310,9 +310,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                     factory.create(connectionItem, propertiesWizardPage.getDestinationPath());
 
                     // MOD yyi 2011-04-14:20362 reload connection
-
-                    // FIXME : Seems the class ConnectionHelper has been forgot in the commit
-                    // ConnectionHelper.setUsingURL(connection, connection.getURL());
+                    ConnectionHelper.setUsingURL(connection, connection.getURL());
 
                     MetadataConnectionUtils.fillConnectionInformation(connectionItem);
                 } else {
