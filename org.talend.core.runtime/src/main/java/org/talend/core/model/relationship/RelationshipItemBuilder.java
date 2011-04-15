@@ -51,10 +51,8 @@ import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementValueType;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
-import org.talend.designer.core.model.utils.emf.talendfile.ParametersType;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 import org.talend.designer.core.model.utils.emf.talendfile.RoutinesParameterType;
-import org.talend.designer.core.model.utils.emf.talendfile.TalendFileFactory;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryService;
@@ -284,7 +282,6 @@ public class RelationshipItemBuilder {
                 emfRelatedItem.setId(relatedItem.getId());
                 emfRelatedItem.setType(relatedItem.getType());
                 emfRelatedItem.setVersion(relatedItem.getVersion());
-
                 itemRelations.getRelatedItems().add(emfRelatedItem);
             }
             currentProject.getEmfProject().getItemsRelations().add(itemRelations);
@@ -328,10 +325,6 @@ public class RelationshipItemBuilder {
     }
 
     private void addRelationShip(Item baseItem, String relatedId, String relatedVersion, String type) {
-        addRelationShip(baseItem, relatedId, relatedVersion, type, "");
-    }
-
-    private void addRelationShip(Item baseItem, String relatedId, String relatedVersion, String type, String relatedInSystem) {
         Relation relation = new Relation();
         relation.setId(baseItem.getProperty().getId());
         relation.setType(getTypeFromItem(baseItem));
@@ -341,7 +334,6 @@ public class RelationshipItemBuilder {
         addedRelation.setId(relatedId);
         addedRelation.setType(type);
         addedRelation.setVersion(relatedVersion);
-        addedRelation.setName(relatedInSystem);
         Map<Relation, Set<Relation>> itemRelations = getRelatedRelations(baseItem);
 
         if (!itemRelations.containsKey(relation)) {
@@ -499,7 +491,7 @@ public class RelationshipItemBuilder {
             processType = ((JobletProcessItem) item).getJobletProcess();
         }
         if (processType != null) {
-            modified = true;
+            boolean relationsModified = true;
             Relation relation = new Relation();
             relation.setId(item.getProperty().getId());
             relation.setType(getTypeFromItem(item));
@@ -528,18 +520,14 @@ public class RelationshipItemBuilder {
                 }
             }
 
-            // routine dependencies
-            if (processType.getParameters() == null || processType.getParameters().getRoutinesParameter() == null) {
-                ParametersType parameterType = TalendFileFactory.eINSTANCE.createParametersType();
-                processType.setParameters(parameterType);
-            }
-
-            for (Object o : processType.getParameters().getRoutinesParameter()) {
-                RoutinesParameterType itemInfor = (RoutinesParameterType) o;
-                addRelationShip(item, itemInfor.getId(), LATEST_VERSION, ROUTINE_RELATION, itemInfor.getName());
-            }
             // jobsetting parameters
             if (processType.getParameters() != null) {
+                if (processType.getParameters().getRoutinesParameter() != null) {
+                    for (Object o : processType.getParameters().getRoutinesParameter()) {
+                        RoutinesParameterType itemInfor = (RoutinesParameterType) o;
+                        addRelationShip(item, itemInfor.getName(), LATEST_VERSION, ROUTINE_RELATION);
+                    }
+                }
                 for (Object o : processType.getParameters().getElementParameter()) {
                     if (o instanceof ElementParameterType) {
                         ElementParameterType param = (ElementParameterType) o;
@@ -704,13 +692,17 @@ public class RelationshipItemBuilder {
                 // check if there is any changes on the relations.
                 Set<Relation> newProjectRelations = currentProjectItemsRelations.get(relation);
                 if (oldProjectRelations.size() == newProjectRelations.size()) {
-                    modified = false;
+                    relationsModified = false;
                     for (Relation newRelation : newProjectRelations) {
                         if (!oldProjectRelations.contains(newRelation)) {
-                            modified = true;
+                            relationsModified = true;
+                            break;
                         }
                     }
                 }
+            }
+            if (relationsModified && !modified) {
+                modified = true;
             }
             if (!fromMigration && modified) {
                 saveRelations();
@@ -760,8 +752,6 @@ public class RelationshipItemBuilder {
 
         private String version;
 
-        private String name;
-
         public String getType() {
             return type;
         }
@@ -785,7 +775,6 @@ public class RelationshipItemBuilder {
             result = prime * result + ((id == null) ? 0 : id.hashCode());
             result = prime * result + ((type == null) ? 0 : type.hashCode());
             result = prime * result + ((version == null) ? 0 : version.hashCode());
-            result = prime * result + ((name == null) ? 0 : name.hashCode());
             return result;
         }
 
@@ -829,15 +818,6 @@ public class RelationshipItemBuilder {
         public void setVersion(String version) {
             this.version = version;
         }
-
-        public String getName() {
-            return this.name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
     }
 
 }
