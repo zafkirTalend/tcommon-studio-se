@@ -1320,4 +1320,69 @@ public class Utilities {
             treeNode.getNode(i).contextMenu("Delete").click();
         }
     }
+
+    public static void createFTP(String ftpName, SWTGefBot gefBot, SWTBotTreeItem treeNode) {
+        treeNode.contextMenu("Create FTP").click();
+
+        gefBot.textWithLabel("Name").setText(ftpName);
+        boolean isNextButonEnable = gefBot.button("Next >").isEnabled();
+        if (!isNextButonEnable) {
+            gefBot.button("Cancel").click();
+            Assert.assertTrue("next button is not enable, maybe the item name already exist", isNextButonEnable);
+        }
+        gefBot.button("Next >").click();
+
+        gefBot.textWithLabel("Username").setText(System.getProperty("ftp.username"));
+        gefBot.textWithLabel("Password").setText(System.getProperty("ftp.password"));
+        gefBot.textWithLabel("Host").setText(System.getProperty("ftp.host"));
+        gefBot.textWithLabel("Port").setText(System.getProperty("ftp.port"));
+        gefBot.button("Finish").click();
+
+        SWTBotTreeItem newFTPItem = null;
+        try {
+            newFTPItem = treeNode.expand().select(ftpName + " 0.1");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Assert.assertNotNull("ftp item is not created", newFTPItem);
+        }
+    }
+
+    public static void createTalendMDM(SWTGefBot gefBot, SWTBotTreeItem treeNode, String mdmName) {
+        treeNode.contextMenu("Create MDM Connection").click();
+
+        gefBot.textWithLabel("Name").setText(mdmName);
+        boolean isNextButtonEnable = gefBot.button("Next >").isEnabled();
+        if (!isNextButtonEnable) {
+            gefBot.button("Cancel").click();
+            Assert.assertTrue("mdm item is not created, maybe the item name already exist", isNextButtonEnable);
+        }
+        gefBot.button("Next >").click();
+
+        gefBot.textWithLabel("Username").setText(System.getProperty("mdm.username"));
+        gefBot.textWithLabel("password").setText(System.getProperty("mdm.password"));
+        gefBot.textWithLabel("Server").setText(System.getProperty("mdm.server"));
+        gefBot.textWithLabel("Port").setText(System.getProperty("mdm.port"));
+        gefBot.button("Check").click();
+        // gefBot.button("OK").click();
+        if (!gefBot.button("Next >").isEnabled()) {
+            gefBot.button("Cancel").click();
+            Assert.fail("connection unsuccessful");
+        }
+        gefBot.button("Next >").click();
+
+        gefBot.comboBoxWithLabel("Version").setSelection(System.getProperty("mdm.version"));
+        gefBot.comboBoxWithLabel("Data-model").setSelection(System.getProperty("mdm.dataModel"));
+        gefBot.comboBoxWithLabel("Data-Container").setSelection(System.getProperty("mdm.dataContainer"));
+        gefBot.button("Finish").click();
+
+        SWTBotTreeItem newMDMItem = null;
+        try {
+            newMDMItem = treeNode.expand().select(mdmName + " 0.1");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Assert.assertNotNull("mdm item is not created", newMDMItem);
+        }
+    }
 }
