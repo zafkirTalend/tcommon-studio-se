@@ -73,6 +73,8 @@ public enum EDatabase4DriverClassName {
 
     VERTICA(EDatabaseTypeName.VERTICA, "com.vertica.Driver"), //$NON-NLS-1$
 
+    HIVE(EDatabaseTypeName.HIVE, "org.apache.hadoop.hive.jdbc.HiveDriver"), //$NON-NLS-1$
+
     //
     ;
 

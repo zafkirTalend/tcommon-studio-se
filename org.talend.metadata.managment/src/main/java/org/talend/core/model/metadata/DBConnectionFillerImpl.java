@@ -27,6 +27,7 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.talend.commons.utils.data.list.ListUtils;
+import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 import org.talend.core.model.metadata.builder.connection.Connection;
@@ -106,39 +107,44 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             if (sqlConnection == null || sqlConnection.isClosed()) {
                 this.checkConnection(metadataBean);
             }
-            // FIXME scorreia 2011-03-31 calling this method has no effect
             MetadataConnectionUtils.setMetadataCon(metadataBean);
             // fill some base parameter
             // fillMetadataParams(metadataBean, connection);
             // software
             DatabaseMetaData dbMetadata = MetadataConnectionUtils.getConnectionMetadata(sqlConnection);
-            TdSoftwareSystem softwareSystem = MetadataConnectionUtils.getSoftwareSystem(sqlConnection);
-            if (softwareSystem != null) {
-                ConnectionHelper.setSoftwareSystem(dbconn, softwareSystem);
-            }
-            // identifierQuote
-            String identifierQuote = dbMetadata.getIdentifierQuoteString();
-            ConnectionHelper.setIdentifierQuoteString(identifierQuote == null ? "" : identifierQuote, dbconn);
-            // dbversion
-            int versionNum = 0;
-            try {
-                versionNum = sqlConnection.getMetaData().getDatabaseMajorVersion();
-            } catch (RuntimeException e) {
-                // happens for Sybase for example
-                if (log.isDebugEnabled()) {
-                    log.debug(e, e);
-                }
-            }
             String connectionDbType = metadataBean.getDbType();
             List<EDatabaseVersion4Drivers> dbTypeList = EDatabaseVersion4Drivers.indexOfByDbType(connectionDbType);
-            if (dbTypeList.size() == 1) {
-                dbconn.setDbVersionString(dbTypeList.get(0).getVersionValue());
-            } else if (dbTypeList.size() > 1) {
-                for (EDatabaseVersion4Drivers eDatabaseVersion : dbTypeList) {
-                    String[] strArray = eDatabaseVersion.getVersionValue().split("_");
-                    if (strArray.length > 1 && strArray[1].startsWith(Integer.toString(versionNum))) {
-                        dbconn.setDbVersionString(eDatabaseVersion.getVersionValue());
-                        break;
+            boolean isHive = dbconn.getDatabaseType().equals(EDatabaseTypeName.HIVE.getDisplayName());
+            boolean isHiveJdbc = dbconn.getDatabaseType().equals(EDatabaseTypeName.GENERAL_JDBC.getDisplayName())
+                    && dbconn.getDriverClass() != null
+                    && dbconn.getDriverClass().equals(EDatabase4DriverClassName.HIVE.getDriverClass());
+            if (!isHive && !isHiveJdbc) {
+                TdSoftwareSystem softwareSystem = MetadataConnectionUtils.getSoftwareSystem(sqlConnection);
+                if (softwareSystem != null) {
+                    ConnectionHelper.setSoftwareSystem(dbconn, softwareSystem);
+                }
+                // identifierQuote
+                String identifierQuote = dbMetadata.getIdentifierQuoteString();
+                ConnectionHelper.setIdentifierQuoteString(identifierQuote == null ? "" : identifierQuote, dbconn);
+                // dbversion
+                int versionNum = 0;
+                try {
+                    versionNum = sqlConnection.getMetaData().getDatabaseMajorVersion();
+                } catch (RuntimeException e) {
+                    // happens for Sybase for example
+                    if (log.isDebugEnabled()) {
+                        log.debug(e, e);
+                    }
+                }
+                if (dbTypeList.size() == 1) {
+                    dbconn.setDbVersionString(dbTypeList.get(0).getVersionValue());
+                } else if (dbTypeList.size() > 1) {
+                    for (EDatabaseVersion4Drivers eDatabaseVersion : dbTypeList) {
+                        String[] strArray = eDatabaseVersion.getVersionValue().split("_");
+                        if (strArray.length > 1 && strArray[1].startsWith(Integer.toString(versionNum))) {
+                            dbconn.setDbVersionString(eDatabaseVersion.getVersionValue());
+                            break;
+                        }
                     }
                 }
             }
@@ -262,16 +268,23 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             List<String> filterList = null;
             if (catalogNames != null) {
 
+                boolean isHive = MetadataConnectionUtils.isHive(dbJDBCMetadata);
                 // else DB support getCatalogs() method
                 while (catalogNames.next()) {
                     // MOD xqliu 2009-11-03 bug 9841
                     String catalogName = null;
                     try {
-                        String temp = MetadataConnectionUtils.isOdbcPostgresql(dbJDBCMetadata.getConnection()) ? DatabaseConstant.ODBC_POSTGRESQL_CATALOG_NAME
-                                : MetaDataConstants.TABLE_CAT.name();
+                        String temp = null;
+                        // since hive don't support some methods
+                        if (isHive) {
+                            temp = MetaDataConstants.TABLE_CAT.name();
+                        } else {
+                            temp = MetadataConnectionUtils.isOdbcPostgresql(dbJDBCMetadata.getConnection()) ? DatabaseConstant.ODBC_POSTGRESQL_CATALOG_NAME
+                                    : MetaDataConstants.TABLE_CAT.name();
+                        }
                         catalogName = catalogNames.getString(temp);
                         // MOD zshen filter ODBC catalog
-                        if (!MetadataConnectionUtils.isODBCCatalog(catalogName, dbJDBCMetadata.getConnection())) {
+                        if (!isHive && !MetadataConnectionUtils.isODBCCatalog(catalogName, dbJDBCMetadata.getConnection())) {
                             continue;
                         }
                     } catch (Exception e) {
@@ -283,7 +296,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                         }
                     }
                     // ~
-                    assert catalogName != null : Messages.getString("CatalogBuilder.CatalogNameNull",//$NON-NLS-1$
+                    assert catalogName != null && !isHive : Messages.getString("CatalogBuilder.CatalogNameNull",//$NON-NLS-1$
                             dbJDBCMetadata.getConnection().toString()); // FIXME assertion string must not be
                                                                         // externalized
                     // MOD xqliu 2010-03-03 feature 11412
@@ -308,10 +321,12 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 }
                 // --- release the result set.
                 catalogNames.close();
-                for (Catalog catalog : catalogList) {
-                    List<Schema> schemaList = fillSchemaToCatalog(dbConn, dbJDBCMetadata, catalog, filterList);
-                    if (!schemaList.isEmpty() && schemaList.size() > 0) {
-                        CatalogHelper.addSchemas(schemaList, catalog);
+                if (!isHive) {
+                    for (Catalog catalog : catalogList) {
+                        List<Schema> schemaList = fillSchemaToCatalog(dbConn, dbJDBCMetadata, catalog, filterList);
+                        if (!schemaList.isEmpty() && schemaList.size() > 0) {
+                            CatalogHelper.addSchemas(schemaList, catalog);
+                        }
                     }
                 }
 
@@ -377,23 +392,23 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     // MOD klliu bug 19004 2011-03-31
                     // java.sql.Connection connection = dbJDBCMetadata.getConnection();
                     // if (!MetadataConnectionUtils.isOdbcConnection(connection)) {
-                        if (!MetadataConnectionUtils.isPostgresql(dbJDBCMetadata.getConnection())) {
-                            catalogName = schemaRs.getString(MetaDataConstants.TABLE_CATALOG.name());
-                        }
-                        // the case for mssql
+                    if (!MetadataConnectionUtils.isPostgresql(dbJDBCMetadata.getConnection())) {
+                        catalogName = schemaRs.getString(MetaDataConstants.TABLE_CATALOG.name());
+                    }
+                    // the case for mssql
                     // dbJDBCMetadata.getDatabaseMajorVersion() > 8 it mean that the column TABLE_CATALOG is exist.
                     // dbJDBCMetadata.getDriverMajorVersion() > 1 mean that the connection use 2005/2008 driver
-                        if (MetadataConnectionUtils.isMssql(dbJDBCMetadata.getConnection())
-                                && dbJDBCMetadata.getDatabaseMajorVersion() > 8 && dbJDBCMetadata.getDriverMajorVersion() > 1) {
-                            if (catalogName == null) {
-                                continue;
-                            }
-                            schemaName = catalogName;
-                        } else if (schemaName == null || catalogName != null && !catalogName.equals(catalog.getName())) {
-                            // the case for olap
-                            // if (schemaName == null) {
+                    if (MetadataConnectionUtils.isMssql(dbJDBCMetadata.getConnection())
+                            && dbJDBCMetadata.getDatabaseMajorVersion() > 8 && dbJDBCMetadata.getDriverMajorVersion() > 1) {
+                        if (catalogName == null) {
                             continue;
                         }
+                        schemaName = catalogName;
+                    } else if (schemaName == null || catalogName != null && !catalogName.equals(catalog.getName())) {
+                        // the case for olap
+                        // if (schemaName == null) {
+                        continue;
+                    }
                     // }
                 } catch (Exception e) {
                     log.warn(e.getMessage(), e);
@@ -443,6 +458,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         try {
             ResultSet tables = dbJDBCMetadata.getTables(catalogName, schemaPattern, tablePattern, tableType);
             String productName = dbJDBCMetadata.getDatabaseProductName();
+
+            boolean isHive = MetadataConnectionUtils.isHive(dbJDBCMetadata);
             while (tables.next()) {
                 // tableCatalog never called and will cause problem for specific db.
                 // String tableCatalog = tables.getString(GetTable.TABLE_CAT.name());
@@ -467,7 +484,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     continue;
                 }
                 String tableOwner = null;
-                if (MetadataConnectionUtils.isSybase(dbJDBCMetadata.getConnection())) {
+                if (!isHive && MetadataConnectionUtils.isSybase(dbJDBCMetadata.getConnection())) {
                     tableOwner = tableSchema;
                 }
                 // common

@@ -33,6 +33,7 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.Platform;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.database.DB2ForZosDataBaseMetadata;
 import org.talend.commons.utils.database.TeradataDataBaseMetadata;
 import org.talend.commons.utils.platform.PluginChecker;
@@ -925,7 +926,7 @@ public class MetadataConnectionUtils {
     }
 
     public static void setMetadataCon(IMetadataConnection metadataConnection) {
-        metadataCon = metadataConnection; // FIXME scorreia 2011-03-31 this code has no effect
+        metadataCon = metadataConnection;
     }
 
     public static boolean isPostgresql(java.sql.Connection connection) throws SQLException {
@@ -953,6 +954,20 @@ public class MetadataConnectionUtils {
             String dbType = metadataConnection.getDbType();
             if (dbType != null && dbType.equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName())) {
                 return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean isHive(DatabaseMetaData metadata) {
+        if (metadata != null) {
+            try {
+                String name = metadata.getDatabaseProductName();
+                if (name != null && name.equals(EDatabaseTypeName.HIVE.getDisplayName())) {
+                    return true;
+                }
+            } catch (SQLException e) {
+                ExceptionHandler.process(e);
             }
         }
         return false;

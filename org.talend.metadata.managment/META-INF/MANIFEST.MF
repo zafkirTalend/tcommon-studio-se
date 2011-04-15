@@ -27,7 +27,8 @@ Require-Bundle: org.eclipse.ui,
  org.talend.libraries.jdbc.postgresql;resolution:=optional,
  org.talend.libraries.jdbc.sqlite3;resolution:=optional,
  org.talend.libraries.jdbc.sybase;resolution:=optional,
- org.talend.libraries.jdbc.teradata;resolution:=optional
+ org.talend.libraries.jdbc.teradata;resolution:=optional,
+ org.talend.libraries.apache.hive;resolution:=optional
 Bundle-ActivationPolicy: lazy
 Export-Package: org.apache.axis.client,
  org.talend.core.database.utils,

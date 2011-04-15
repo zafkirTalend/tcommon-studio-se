@@ -161,7 +161,9 @@ public enum EDatabaseConnTemplate {
     GENERAL_JDBC(new DbConnStrForGeneralJDBC(EDatabaseTypeName.GENERAL_JDBC, //
             "jdbc:xxx://<xxx>:<xxx>", //$NON-NLS-1$
             "xxxx")), //$NON-NLS-1$
-    ;
+
+    HIVE(new DbConnStr(EDatabaseTypeName.HIVE, "jdbc:hive://<host>:<port>/<sid>", //$NON-NLS-1$
+            "10000"));
 
     private DbConnStr connStr;
 
@@ -265,6 +267,7 @@ public enum EDatabaseConnTemplate {
             databaseType.remove(getDBTypeName(EDatabaseConnTemplate.HSQLDB_SERVER, display));
             databaseType.remove(getDBTypeName(EDatabaseConnTemplate.HSQLDB_WEBSERVER, display));
             databaseType.remove(getDBTypeName(EDatabaseConnTemplate.VERTICA, display));
+            databaseType.remove(getDBTypeName(EDatabaseConnTemplate.HIVE, display));
         }
         if (sort) {
             String[] sortedArray = databaseType.toArray(new String[0]);

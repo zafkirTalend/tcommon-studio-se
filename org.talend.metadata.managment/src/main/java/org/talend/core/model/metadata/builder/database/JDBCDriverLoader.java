@@ -78,6 +78,9 @@ public class JDBCDriverLoader {
             wapperDriver = new DriverShim((Driver) (driver.newInstance()));
 
             Properties info = new Properties();
+            // to avoid NPE
+            username = username != null ? username : "";
+            password = password != null ? password : "";
             info.put("user", username); //$NON-NLS-1$
             info.put("password", password); //$NON-NLS-1$
 

@@ -82,7 +82,11 @@ public enum EDatabaseVersion4Drivers {
     VECTORWISE(new DbVersion4Drivers(EDatabaseTypeName.VECTORWISE, "iijdbc.jar")), //$NON-NLS-1$
 
     EXASOL(new DbVersion4Drivers(EDatabaseTypeName.EXASOL, "jdbc14.jar")), //$NON-NLS-1$ 
-    MAXDB(new DbVersion4Drivers(EDatabaseTypeName.MAXDB, "sapdbc.jar")); //$NON-NLS-1$
+    MAXDB(new DbVersion4Drivers(EDatabaseTypeName.MAXDB, "sapdbc.jar")), //$NON-NLS-1$
+
+    HIVE(new DbVersion4Drivers(EDatabaseTypeName.HIVE, new String[] { "hive-jdbc-0.7.0.jar", "hive-metastore-0.7.0.jar",
+            "hive-exec-0.7.0.jar", "hive-service-0.7.0.jar", "libfb303.jar", "hadoop-0.20.2-core.jar",
+            "commons-logging-1.0.4.jar", "log4j-1.2.15.jar", "slf4j-api-1.6.1.jar", "slf4j-log4j12-1.6.1.jar" }));
 
     private DbVersion4Drivers dbVersionBean;
 

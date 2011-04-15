@@ -50,6 +50,7 @@ import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
+import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.core.model.metadata.builder.util.TDColumnAttributeHelper;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.runtime.CoreRuntimePlugin;
@@ -592,26 +593,28 @@ public class ExtractMetaDataFromDataBase {
                 }
             }
             boolean isAccess = EDatabaseTypeName.ACCESS.getDisplayName().equals(metadataConnection.getDbType());
-
-            try {
-                ResultSet keys;
-                if (!isAccess) {
-                    keys = dbMetaData.getPrimaryKeys(catalogName, schemaName, tableNode.getValue());
-                } else {
-                    keys = dbMetaData.getIndexInfo(catalogName, schemaName, tableNode.getValue(), true, true);
+            boolean isHive = MetadataConnectionUtils.isHive(dbMetaData);
+            if (!isHive) {
+                try {
+                    ResultSet keys;
+                    if (!isAccess) {
+                        keys = dbMetaData.getPrimaryKeys(catalogName, schemaName, tableNode.getValue());
+                    } else {
+                        keys = dbMetaData.getIndexInfo(catalogName, schemaName, tableNode.getValue(), true, true);
+                    }
+                    primaryKeys.clear();
+                    while (keys.next()) {
+                        primaryKeys.put(keys.getString("COLUMN_NAME"), "PRIMARY KEY"); //$NON-NLS-1$ //$NON-NLS-2$
+                    }
+                    keys.close();
+                } catch (Exception e) {
+                    log.error(e.toString());
                 }
-                primaryKeys.clear();
-                while (keys.next()) {
-                    primaryKeys.put(keys.getString("COLUMN_NAME"), "PRIMARY KEY"); //$NON-NLS-1$ //$NON-NLS-2$
-                }
-                keys.close();
-            } catch (Exception e) {
-                log.error(e.toString());
+                // PTODO ftang: should to support all kinds of databases not only for Mysql.
+                Connection connection = dbMetaData.getConnection();
+                checkUniqueKeyConstraint(tableNode.getValue(), primaryKeys, connection);
             }
 
-            // PTODO ftang: should to support all kinds of databases not only for Mysql.
-            Connection connection = dbMetaData.getConnection();
-            checkUniqueKeyConstraint(tableNode.getValue(), primaryKeys, connection);
             String tableName = tableNode.getValue();
             ResultSet columns;
 
