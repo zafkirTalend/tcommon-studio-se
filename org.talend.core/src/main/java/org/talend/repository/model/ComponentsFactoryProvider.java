@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.repository.model;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 import org.eclipse.emf.common.util.EList;
@@ -107,7 +108,7 @@ public class ComponentsFactoryProvider {
             }
         }
 
-        for (IComponent component : components) {
+        for (IComponent component : new ArrayList<IComponent>(components)) {
             String[] families = component.getOriginalFamilyName().split(FAMILY_SEPARATOR_REGEX);
             String componentName = component.getName();
             for (String family : families) {

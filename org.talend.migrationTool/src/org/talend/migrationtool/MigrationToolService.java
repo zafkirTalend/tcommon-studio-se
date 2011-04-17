@@ -13,6 +13,7 @@
 package org.talend.migrationtool;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -28,7 +29,13 @@ import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ICoreService;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.migration.IMigrationToolService;
+import org.talend.core.model.properties.Item;
+import org.talend.core.model.relationship.RelationshipItemBuilder;
+import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.core.model.repository.RepositoryObject;
 import org.talend.migration.IProjectMigrationTask;
+import org.talend.migration.IProjectMigrationTask.ExecutionResult;
 import org.talend.migration.IWorkspaceMigrationTask;
 import org.talend.migrationtool.i18n.Messages;
 import org.talend.migrationtool.model.GetTasksHelper;
@@ -49,8 +56,10 @@ public class MigrationToolService implements IMigrationToolService {
 
     private static Logger log = Logger.getLogger(MigrationToolService.class);
 
+    private static final String RELATION_TASK = "org.talend.repository.model.migration.AutoUpdateRelationsMigrationTask"; //$NON-NLS-1$ 
+
     // FIXME SML Change that
-    public List<IProjectMigrationTask> doneThisSession;
+    private List<IProjectMigrationTask> doneThisSession;
 
     public MigrationToolService() {
         doneThisSession = new ArrayList<IProjectMigrationTask>();
@@ -63,7 +72,7 @@ public class MigrationToolService implements IMigrationToolService {
      * org.talend.core.model.migration.IMigrationToolService#executeProjectTasks(org.talend.core.model.general.Project,
      * boolean, org.eclipse.core.runtime.IProgressMonitor)
      */
-    public void executeProjectTasks(final Project project, boolean beforeLogon, final IProgressMonitor monitorWrap) {
+    public void executeProjectTasks(final Project project, final boolean beforeLogon, final IProgressMonitor monitorWrap) {
 
         String taskDesc = "Migration tool: project [" + project.getLabel() + "] tasks"; //$NON-NLS-1$ //$NON-NLS-2$
         log.trace(taskDesc); //$NON-NLS-1$ //$NON-NLS-2$ 
@@ -77,25 +86,115 @@ public class MigrationToolService implements IMigrationToolService {
                 return o1.getOrder().compareTo(o2.getOrder());
             }
         });
-        // force to redo this migration task, even if already did before.
-        done.remove("org.talend.repository.model.migration.AutoUpdateRelationsMigrationTask");
+
+        int nbMigrationsToDo = 0;
+        for (IProjectMigrationTask task : toExecute) {
+            if (!done.contains(task.getId()) && !task.isDeprecated()) {
+                nbMigrationsToDo++;
+            }
+        }
+
+        // force to redo the migration task for the relations only if user ask for "clean" or if relations is empty
+        // or if there is at least another migration to do.
+        if (!beforeLogon
+                && (!RelationshipItemBuilder.INDEX_VERSION.equals(project.getEmfProject().getItemsRelationVersion())
+                        || project.getEmfProject().getItemsRelations() == null
+                        || project.getEmfProject().getItemsRelations().isEmpty() || nbMigrationsToDo > 0)) {
+            // force to redo this migration task, to make sure the relationship is done correctly
+            done.remove(RELATION_TASK);
+        }
 
         final SubProgressMonitor subProgressMonitor = new SubProgressMonitor(monitorWrap, toExecute.size());
+        IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
+        final IProxyRepositoryFactory repFactory = service.getProxyRepositoryFactory();
 
         RepositoryWorkUnit repositoryWorkUnit = new RepositoryWorkUnit(project, taskDesc) {
 
             public void run() throws PersistenceException {
                 boolean needSave = false;
-                for (IProjectMigrationTask task : toExecute) {
-                    if (monitorWrap.isCanceled()) {
-                        throw new OperationCanceledException(Messages.getString(
-                                "MigrationToolService.migrationCancel", task.getName())); //$NON-NLS-1$
+                if (!beforeLogon) {
+                    ERepositoryObjectType[] types = (ERepositoryObjectType[]) ERepositoryObjectType.values();
+                    Arrays.sort(types, new Comparator<ERepositoryObjectType>() {
+
+                        public int compare(ERepositoryObjectType arg0, ERepositoryObjectType arg1) {
+                            if (arg0 == ERepositoryObjectType.PROCESS) {
+                                return 1;
+                            }
+                            if (arg0 == ERepositoryObjectType.JOBLET) {
+                                return 1;
+                            }
+                            return 0;
+                        }
+                    });
+
+                    for (ERepositoryObjectType type : types) {
+                        if (!type.isResourceItem()) {
+                            continue;
+                        }
+                        List<IRepositoryViewObject> objects = repFactory.getAll(project, type, true, true);
+
+                        for (IRepositoryViewObject object : objects) {
+                            Item item = object.getProperty().getItem();
+                            monitorWrap.subTask("Migrate... " + item.getProperty().getLabel()); //$NON-NLS-1$
+
+                            subProgressMonitor.worked(1);
+                            for (IProjectMigrationTask task : toExecute) {
+                                if (monitorWrap.isCanceled()) {
+                                    throw new OperationCanceledException(Messages.getString(
+                                            "MigrationToolService.migrationCancel", task.getName())); //$NON-NLS-1$
+                                }
+                                if (!done.contains(task.getId()) && !task.isDeprecated()) {
+                                    ExecutionResult status = task.execute(project, item);
+                                    switch (status) {
+                                    case SUCCESS_WITH_ALERT:
+                                        if (task.getStatus() != ExecutionResult.FAILURE) {
+                                            task.setStatus(status);
+                                        }
+                                    case SUCCESS_NO_ALERT:
+                                        if (task.getStatus() != ExecutionResult.FAILURE) {
+                                            task.setStatus(status);
+                                        }
+                                    case NOTHING_TO_DO:
+                                        if (task.getStatus() != ExecutionResult.SUCCESS_WITH_ALERT
+                                                && task.getStatus() != ExecutionResult.SUCCESS_NO_ALERT
+                                                && task.getStatus() != ExecutionResult.FAILURE) {
+                                            task.setStatus(status);
+                                        }
+                                        break;
+                                    case SKIPPED:
+                                        if (task.getStatus() != ExecutionResult.SUCCESS_WITH_ALERT
+                                                && task.getStatus() != ExecutionResult.SUCCESS_NO_ALERT
+                                                && task.getStatus() != ExecutionResult.FAILURE) {
+                                            task.setStatus(status);
+                                        }
+                                        break;
+                                    case FAILURE:
+                                        task.setStatus(status);
+                                    default:
+                                        task.setStatus(status);
+                                        break;
+                                    }
+                                    // monitorWrap.setTaskName("");
+                                }
+                            }
+
+                            if (object instanceof RepositoryObject) {
+                                ((RepositoryObject) object).unload();
+                            }
+                        }
+                        monitorWrap.subTask(""); //$NON-NLS-1$
                     }
+                }
+                for (IProjectMigrationTask task : toExecute) {
                     if (!done.contains(task.getId()) && !task.isDeprecated()) {
-                        monitorWrap.setTaskName(Messages.getString("MigrationToolService.taskInProgress", task.getName())); //$NON-NLS-1$
-                        subProgressMonitor.worked(1);
                         try {
-                            switch (task.execute(project)) {
+                            ExecutionResult status;
+                            if (beforeLogon) {
+                                status = task.execute(project);
+                            } else {
+                                status = task.getStatus();
+                            }
+                            switch (status) {
                             case SUCCESS_WITH_ALERT:
                                 doneThisSession.add(task);
                             case SUCCESS_NO_ALERT:
@@ -116,22 +215,21 @@ public class MigrationToolService implements IMigrationToolService {
                             ExceptionHandler.process(e);
                             log.debug("Task \"" + task.getName() + "\" failed"); //$NON-NLS-1$ //$NON-NLS-2$
                         }
-                        monitorWrap.setTaskName("");
-                    } else if (task.isDeprecated()) {
+                    } else if (task.isDeprecated() && !done.contains(task.getId())) {
                         done.add(task.getId());
                         needSave = true;
                     }
                 }
-
                 if (needSave) {
                     saveProjectMigrationTasksDone(project, done);
                 }
-
+                RelationshipItemBuilder.getInstance().saveRelations();
+                if (!RelationshipItemBuilder.INDEX_VERSION.equals(project.getEmfProject().getItemsRelationVersion())) {
+                    project.getEmfProject().setItemsRelationVersion(RelationshipItemBuilder.INDEX_VERSION);
+                }
             }
         };
         repositoryWorkUnit.setAvoidUnloadResources(true);
-        IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
-        IProxyRepositoryFactory repFactory = service.getProxyRepositoryFactory();
         repFactory.executeRepositoryWorkUnit(repositoryWorkUnit);
         // repositoryWorkUnit.throwPersistenceExceptionIfAny();
     }

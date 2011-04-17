@@ -22,6 +22,8 @@ import org.talend.migration.IProjectMigrationTask;
  */
 public abstract class AbstractProjectMigrationTask extends AbstractMigrationTask implements IProjectMigrationTask {
 
+    private ExecutionResult status;
+
     public final ExecutionResult execute(Project project, Item item) {
         return ExecutionResult.NOTHING_TO_DO;
     }
@@ -32,6 +34,14 @@ public abstract class AbstractProjectMigrationTask extends AbstractMigrationTask
 
     public boolean isDeprecated() {
         return false;
+    }
+
+    public void setStatus(ExecutionResult status) {
+        this.status = status;
+    }
+
+    public ExecutionResult getStatus() {
+        return status;
     }
 
 }

@@ -72,6 +72,7 @@ import org.talend.core.model.properties.UserProjectAuthorization;
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getCustomComponentSettings <em>Custom Component Settings</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getDeletedFolders <em>Deleted Folders</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getType <em>Type</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getItemsRelationVersion <em>Items Relation Version</em>}</li>
  * </ul>
  * </p>
  *
@@ -535,6 +536,26 @@ public class ProjectImpl extends EObjectImpl implements Project {
      * @ordered
      */
     protected String type = TYPE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getItemsRelationVersion() <em>Items Relation Version</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getItemsRelationVersion()
+     * @generated
+     * @ordered
+     */
+    protected static final String ITEMS_RELATION_VERSION_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getItemsRelationVersion() <em>Items Relation Version</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getItemsRelationVersion()
+     * @generated
+     * @ordered
+     */
+    protected String itemsRelationVersion = ITEMS_RELATION_VERSION_EDEFAULT;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1010,6 +1031,27 @@ public class ProjectImpl extends EObjectImpl implements Project {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getItemsRelationVersion() {
+        return itemsRelationVersion;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setItemsRelationVersion(String newItemsRelationVersion) {
+        String oldItemsRelationVersion = itemsRelationVersion;
+        itemsRelationVersion = newItemsRelationVersion;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.PROJECT__ITEMS_RELATION_VERSION, oldItemsRelationVersion, itemsRelationVersion));
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1236,6 +1278,8 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return getDeletedFolders();
             case PropertiesPackage.PROJECT__TYPE:
                 return getType();
+            case PropertiesPackage.PROJECT__ITEMS_RELATION_VERSION:
+                return getItemsRelationVersion();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -1352,6 +1396,9 @@ public class ProjectImpl extends EObjectImpl implements Project {
             case PropertiesPackage.PROJECT__TYPE:
                 setType((String)newValue);
                 return;
+            case PropertiesPackage.PROJECT__ITEMS_RELATION_VERSION:
+                setItemsRelationVersion((String)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -1455,6 +1502,9 @@ public class ProjectImpl extends EObjectImpl implements Project {
             case PropertiesPackage.PROJECT__TYPE:
                 setType(TYPE_EDEFAULT);
                 return;
+            case PropertiesPackage.PROJECT__ITEMS_RELATION_VERSION:
+                setItemsRelationVersion(ITEMS_RELATION_VERSION_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -1527,6 +1577,8 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return deletedFolders != null && !deletedFolders.isEmpty();
             case PropertiesPackage.PROJECT__TYPE:
                 return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
+            case PropertiesPackage.PROJECT__ITEMS_RELATION_VERSION:
+                return ITEMS_RELATION_VERSION_EDEFAULT == null ? itemsRelationVersion != null : !ITEMS_RELATION_VERSION_EDEFAULT.equals(itemsRelationVersion);
         }
         return super.eIsSet(featureID);
     }
@@ -1573,6 +1625,8 @@ public class ProjectImpl extends EObjectImpl implements Project {
         result.append(deletedFolders);
         result.append(", type: ");
         result.append(type);
+        result.append(", itemsRelationVersion: ");
+        result.append(itemsRelationVersion);
         result.append(')');
         return result.toString();
     }

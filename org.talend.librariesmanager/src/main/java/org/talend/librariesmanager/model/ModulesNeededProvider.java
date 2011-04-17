@@ -28,7 +28,6 @@ import org.talend.core.CorePlugin;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.language.ECodeLanguage;
-import org.talend.core.language.LanguageManager;
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.components.IComponentsFactory;
 import org.talend.core.model.general.ModuleNeeded;
@@ -91,9 +90,9 @@ public class ModulesNeededProvider {
             //            TimeMeasure.step("ModulesNeededProvider.getAllMoudlesNeeded", "ModulesNeededProvider.getModulesNeededForApplication"); //$NON-NLS-1$ //$NON-NLS-2$
 
             // TimeMeasure.resume("ModulesNeededProvider.getModulesNeededForJobs");
-            if (LanguageManager.getCurrentLanguage().equals(ECodeLanguage.JAVA)) {
-                componentImportNeedsList.addAll(getModulesNeededForJobs());
-            }
+            // if (LanguageManager.getCurrentLanguage().equals(ECodeLanguage.JAVA)) {
+            // componentImportNeedsList.addAll(getModulesNeededForJobs());
+            // }
             //            TimeMeasure.step("ModulesNeededProvider.getAllMoudlesNeeded", "ModulesNeededProvider.getModulesNeededForJobs"); //$NON-NLS-1$ //$NON-NLS-2$
 
             // TimeMeasure.resume("ModulesNeededProvider.getModulesNeededForComponents");

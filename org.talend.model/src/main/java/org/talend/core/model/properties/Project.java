@@ -50,6 +50,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
  *   <li>{@link org.talend.core.model.properties.Project#getCustomComponentSettings <em>Custom Component Settings</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Project#getDeletedFolders <em>Deleted Folders</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Project#getType <em>Type</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.Project#getItemsRelationVersion <em>Items Relation Version</em>}</li>
  * </ul>
  * </p>
  *
@@ -593,6 +594,32 @@ public interface Project extends EObject {
      * @generated
      */
     void setType(String value);
+
+    /**
+     * Returns the value of the '<em><b>Items Relation Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Items Relation Version</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Items Relation Version</em>' attribute.
+     * @see #setItemsRelationVersion(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getProject_ItemsRelationVersion()
+     * @model
+     * @generated
+     */
+    String getItemsRelationVersion();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.Project#getItemsRelationVersion <em>Items Relation Version</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Items Relation Version</em>' attribute.
+     * @see #getItemsRelationVersion()
+     * @generated
+     */
+    void setItemsRelationVersion(String value);
 
     /**
      * Returns the value of the '<em><b>Technical Label</b></em>' attribute.

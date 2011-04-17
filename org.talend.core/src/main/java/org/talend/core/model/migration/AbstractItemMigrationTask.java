@@ -40,6 +40,8 @@ public abstract class AbstractItemMigrationTask extends AbstractMigrationTask im
 
     private Project project;
 
+    private ExecutionResult status;
+
     public ExecutionResult execute(Project project) {
         setProject(project);
         IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
@@ -128,6 +130,14 @@ public abstract class AbstractItemMigrationTask extends AbstractMigrationTask im
 
     public boolean isDeprecated() {
         return false;
+    }
+
+    public void setStatus(ExecutionResult status) {
+        this.status = status;
+    }
+
+    public ExecutionResult getStatus() {
+        return status;
     }
 
 }
