@@ -380,6 +380,21 @@ public class XmiResourceManager {
     }
 
     public void propagateFileName(Property lastVersionProperty, Property resourceProperty) throws PersistenceException {
+        // test first from the resource of the property
+        // this test will avoid to load all other resources linked, since by default it will load all resources, big or
+        // not.
+        // this should save quite lots of memory when call this function.
+        ResourceFilenameHelper.FileName fileNameTest = ResourceFilenameHelper.create(resourceProperty.eResource(),
+                resourceProperty, lastVersionProperty);
+
+        if (!ResourceFilenameHelper.mustChangeVersion(fileNameTest) && !ResourceFilenameHelper.mustChangeLabel(fileNameTest)) {
+            return;
+        }
+
+        // now we now we need all the resources to change the file, we can load them, and execute all code of this
+        // function.
+        // note: at the end of the function, it will try to unload everything but not the .properties
+
         List<Resource> affectedResources = getAffectedResources(resourceProperty);
         List<Resource> resourcesToSave = new ArrayList<Resource>();
         Property previousVersionProperty = null;
@@ -443,6 +458,15 @@ public class XmiResourceManager {
 
         for (Resource resource : resourcesToSave) {
             saveResource(resource);
+        }
+        if (!resourceProperty.equals(lastVersionProperty)) {
+            // this version was only used to rename the file.
+            // we can directly unload the resource to free the memory.
+            Item item = resourceProperty.getItem();
+            if (item.getParent() != null && item.getParent() instanceof FolderItem) {
+                ((FolderItem) item.getParent()).getChildren().remove(item);
+                item.setParent(null);
+            }
         }
     }
 

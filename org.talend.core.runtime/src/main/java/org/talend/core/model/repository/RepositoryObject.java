@@ -42,6 +42,7 @@ import org.talend.core.model.properties.EDIFACTConnectionItem;
 import org.talend.core.model.properties.EbcdicConnectionItem;
 import org.talend.core.model.properties.ExcelFileConnectionItem;
 import org.talend.core.model.properties.FTPConnectionItem;
+import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.GenericSchemaConnectionItem;
 import org.talend.core.model.properties.HL7ConnectionItem;
 import org.talend.core.model.properties.HeaderFooterConnectionItem;
@@ -621,5 +622,14 @@ public class RepositoryObject implements IRepositoryObject {
             return label;
         }
         return super.toString();
+    }
+
+    public void unload() {
+        Item item = property.getItem();
+        if (item.getParent() != null && item.getParent() instanceof FolderItem) {
+            ((FolderItem) item.getParent()).getChildren().remove(item);
+            item.setParent(null);
+        }
+        property = null;
     }
 }

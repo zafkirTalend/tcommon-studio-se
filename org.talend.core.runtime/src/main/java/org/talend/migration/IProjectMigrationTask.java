@@ -51,6 +51,10 @@ public interface IProjectMigrationTask {
     // already migrated
     public boolean isDeprecated();
 
+    public void setStatus(ExecutionResult status);
+
+    public ExecutionResult getStatus();
+
     /**
      * Represents the execution status of this task.
      */

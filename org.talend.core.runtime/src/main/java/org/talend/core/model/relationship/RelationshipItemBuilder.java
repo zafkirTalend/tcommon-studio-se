@@ -58,7 +58,8 @@ import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryService;
 
 /**
- * This class store all relationships between jobs/joblets and other items from the repository.
+ * This class store all relationships between jobs/joblets and other items from the repository. Be sure to update the
+ * INDEX_VERSION when change this class. This will force to run the migration task on the next logon on this project.
  * 
  * This actually can deal with: <br>
  * - Context (id = context id) <br>
@@ -70,6 +71,10 @@ import org.talend.repository.model.IRepositoryService;
  * - SQL Templates (id = SQLPattern id + "--" + SQLPattern name) <br>
  */
 public class RelationshipItemBuilder {
+
+    // upgrade of version must be done each time there is any change in this class.
+    // this will force next time the project to upgrade to be sure to be up to date when logon.
+    public static final String INDEX_VERSION = "1.1"; //$NON-NLS-1$
 
     public static final String LATEST_VERSION = "Latest"; //$NON-NLS-1$
 
@@ -500,6 +505,7 @@ public class RelationshipItemBuilder {
             Set<Relation> oldProjectRelations = null;
             if (currentProjectItemsRelations.containsKey(relation)) {
                 oldProjectRelations = new HashSet<Relation>(currentProjectItemsRelations.get(relation));
+                currentProjectItemsRelations.get(relation).clear();
             }
 
             clearItemsRelations(item);
@@ -699,6 +705,9 @@ public class RelationshipItemBuilder {
                             break;
                         }
                     }
+                }
+                if (!relationsModified) {
+                    currentProjectItemsRelations.get(relation).addAll(oldProjectRelations);
                 }
             }
             if (relationsModified && !modified) {
