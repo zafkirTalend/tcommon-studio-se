@@ -1,9 +1,9 @@
-package com.talend.tac.cases.executionTask;
+ package com.talend.tac.cases.executionTask;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import com.talend.tac.cases.Login;
-@Test(dependsOnGroups={"two"})
+@Test(groups={"DeleteTask"},dependsOnGroups={"DuplicateTask"})
 public class TestDeteleTask  extends Login {
     
 	
@@ -13,13 +13,13 @@ public class TestDeteleTask  extends Login {
 		selenium.setSpeed(MID_SPEED);
 	    Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
 		selenium.click("idSubModuleRefreshButton");//click "Refresh"
-		selenium.mouseDown("//div[text()='test_task']");//select first plan
+		selenium.mouseDown("//span[text()='testTaskNotChooseActive']");//select a exist task
 		selenium.chooseCancelOnNextConfirmation();
 		selenium.click("idSubModuleDeleteButton");//clcik "Delete"
 		selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.getConfirmation().matches(other.getString("delete.plan.warning")));
 		selenium.click("idFormSaveButton");
-		Assert.assertTrue(selenium.isElementPresent("//div[text()='test_task']"));
+		Assert.assertTrue(selenium.isElementPresent("//span[text()='testTaskNotChooseActive']"));
 		selenium.setSpeed(MIN_SPEED);
 		
 	}
@@ -30,14 +30,14 @@ public class TestDeteleTask  extends Login {
 		selenium.setSpeed(MID_SPEED);
 	    Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
 		selenium.click("idSubModuleRefreshButton"); //click "Refresh"
-		selenium.mouseDown("//div[text()='test_task']");//select first plan
+		selenium.mouseDown("//span[text()='testTaskNotChooseActive']");//select a exist task
 		selenium.chooseOkOnNextConfirmation();
 		selenium.click("idSubModuleDeleteButton");//clcik "Delete"
 		selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.getConfirmation().matches(other.getString("delete.plan.warning")));
 		selenium.click("idFormSaveButton");
 		selenium.setSpeed(MID_SPEED);
-		Assert.assertFalse(selenium.isElementPresent("//div[text()='test_task']"));//the plan cannot present
+		Assert.assertFalse(selenium.isElementPresent("//span[text()='testTaskNotChooseActive']"));//the plan cannot appear
 		selenium.setSpeed(MIN_SPEED);
 		
 	}
