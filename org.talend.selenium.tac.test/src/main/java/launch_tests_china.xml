@@ -23,7 +23,10 @@
   	<parameter  name ="resourceBundle"	value ="messages"/>
   	
   	<!-- License parameters -->
-  	<parameter  name ="license.file.path"	value ="C:\\Users\\Administrator\\Desktop\\license_42_MDM_TDQ_EE_MPX88"/>
+  	<parameter  name ="license.file.path"	value ="/home/automation/Automation/license"/>
+  	
+  	<parameter name="db.url"
+		value="jdbc:h2:/home/automation/databases/database/talend_administrator;AUTO_SERVER=TRUE;MVCC=TRUE" />
   	
 	<!-- Login user -->
 	<parameter name="userName" value="admin@company.com" />
@@ -35,9 +38,9 @@
   	<parameter  name ="AddreferenceProjectname"	value ="referencepro"/>
 	<suite-files>
 		
-		 <suite-file path="license_china.xml"/>	
-		 <suite-file path="user_china.xml"/>
-		 <suite-file path="project_china.xml"/>
+		 <suite-file path="license.xml"/>	
+		 <suite-file path="user.xml"/>
+		 <suite-file path="project.xml"/>
 		 
 		 <!-- Need configuration
 		 <suite-file path="dashboard.xml"/>
