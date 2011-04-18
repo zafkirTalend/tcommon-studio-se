@@ -120,23 +120,47 @@ public enum EConnectionType implements IConnectionCategory, IDraw2dGraphics {
                 new Integer(LINE_DASH),
                 new RGB(0, 50, 150)),
     ROUTE(14, "ROUTE", //$NON-NLS-1$
-          EConnectionCategory.MAIN,
-          CAMEL,
-          "Route", "Route", //$NON-NLS-1$ //$NON-NLS-2$
-          new Integer(LINE_SOLID),
-          new RGB(230, 100, 0)),
+                EConnectionCategory.MAIN,
+                CAMEL,
+                "Route", "Route", //$NON-NLS-1$ //$NON-NLS-2$
+                new Integer(LINE_SOLID),
+                new RGB(230, 100, 0)),
     ROUTE_WHEN(15, "ROUTE_WHEN", //$NON-NLS-1$
-               EConnectionCategory.MAIN,
-               CONDITION | CAMEL,
-               "When", "When", //$NON-NLS-1$ //$NON-NLS-2$
-               new Integer(LINE_SOLID),
-               new RGB(230, 100, 0)),
+                EConnectionCategory.MAIN,
+                CONDITION | CAMEL,
+                "When", "When", //$NON-NLS-1$ //$NON-NLS-2$
+                new Integer(LINE_SOLID),
+                new RGB(230, 100, 0)),
     ROUTE_OTHER(16, "ROUTE_OTHER", //$NON-NLS-1$
                 EConnectionCategory.MAIN,
                 CAMEL,
                 "Otherwise", "Otherwise", //$NON-NLS-1$ //$NON-NLS-2$
                 new Integer(LINE_SOLID),
-                new RGB(230, 100, 0));
+                new RGB(230, 100, 0)),
+    ROUTE_TRY(17, "ROUTE_TRY", //$NON-NLS-1$
+            EConnectionCategory.MAIN,
+            CAMEL,
+            "Try", "Try", //$NON-NLS-1$ //$NON-NLS-2$
+            new Integer(LINE_SOLID),
+            new RGB(0, 100, 0)),
+    ROUTE_CATCH(18, "ROUTE_CATCH", //$NON-NLS-1$
+            EConnectionCategory.MAIN,
+            CONDITION | CAMEL,
+            "Catch", "Catch", //$NON-NLS-1$ //$NON-NLS-2$
+            new Integer(LINE_SOLID),
+            new RGB(128, 0, 0)),
+    ROUTE_FINALLY(19, "ROUTE_FINALLY", //$NON-NLS-1$
+            EConnectionCategory.MAIN,
+            CAMEL,
+            "Finally", "Finally", //$NON-NLS-1$ //$NON-NLS-2$
+            new Integer(LINE_SOLID),
+            new RGB(0, 0, 160)),
+    ROUTE_ENDBLOCK(20, "ROUTE_ENDBLOCK", //$NON-NLS-1$
+            EConnectionCategory.MAIN,
+            CAMEL,
+            "Route", "Route", //$NON-NLS-1$ //$NON-NLS-2$
+            new Integer(LINE_SOLID),
+            new RGB(230, 100, 0));
 
     private String name;
 
