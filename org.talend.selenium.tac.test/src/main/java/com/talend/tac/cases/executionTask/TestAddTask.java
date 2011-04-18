@@ -1,99 +1,89 @@
 package com.talend.tac.cases.executionTask;
 
 import java.awt.Event;
-
 import org.testng.Assert;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.talend.tac.cases.Login;
-@Test(groups={"one"})
+
 public class TestAddTask  extends Login {
     
-	@Test
-	public void testAddTask() {
+	//creat a method of add task
+	public void addTask(String label, String description, int projectNum, 
+			int statisticNum, int jobNum, int serverNum) {
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
         selenium.setSpeed(MID_SPEED);
 	    Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
 		selenium.click("idSubModuleAddButton");
-		selenium.type("//input[@name='label']", "test_task");//plan name /Label
+		selenium.type("//input[@name='label']", label);//plan name /Label
 		selenium.fireEvent("//input[@name='label']", "blur");
+		selenium.type("//span[text()='Execution task']/parent::legend/" +
+				"parent::fieldset/div/div[2]//input", description);//plan name /Label
+		selenium.fireEvent("//span[text()='Execution task']/parent::legend/" +
+				"parent::fieldset/div/div[2]//input", "blur");
 		selenium.click("idCommonProjectListBox");//select a project 
-		selenium.mouseDownAt("//div[@role='listitem'][1]",""+Event.ENTER); 
-		selenium.click("idCommonBranchListBox()");  //select a Branch
-		selenium.mouseDownAt("//div[@role='listitem'][1]",""+Event.ENTER); 
-		selenium.click("idCommonJobListBox()");   //select a job
-		selenium.setSpeed(MID_SPEED);
-		selenium.mouseDownAt("//div[@role='listitem'][1]",""+Event.ENTER); 
-		selenium.click("idCommonContextListBox()");  
-		selenium.mouseDownAt("//div[@role='listitem'][1]",""+Event.ENTER); 
- 
-		selenium.click("idJobConductorExecutionServerListBox()"); //select a server
-		selenium.mouseDownAt("//div[@role='listitem'][1]",""+Event.ENTER); 
-		selenium.click("idJobConductorExecutionServerListBox()");
-		selenium.mouseDownAt("//div[@role='listitem'][1]",""+Event.ENTER); 
-		selenium.click("idFormSaveButton");
-		waitForElementPresent("//div[text()='test_task']", 10);
-		Assert.assertTrue(selenium.isElementPresent("//div[text()='test_task']"));
-		selenium.setSpeed(MIN_SPEED);
+		selenium.mouseDownAt("//div[@role='listitem']["+projectNum+"]",""+Event.ENTER); 
 		
-	}
-
-
-	@Test(dependsOnMethods={"testAddTask"})
-	public void testAddExistTask() {
-		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
-		selenium.setSpeed(MID_SPEED);
-	    Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
-		selenium.click("idSubModuleAddButton");
-		selenium.type("//input[@name='label']", "test_task");//plan name /Label
-		selenium.fireEvent("//input[@name='label']", "blur");
-		selenium.click("idCommonProjectListBox");//select a project 
-		selenium.mouseDownAt("//div[@role='listitem'][1]",""+Event.ENTER); 
-		selenium.click("idCommonBranchListBox()");  //select a Branch
-		selenium.mouseDownAt("//div[@role='listitem'][1]",""+Event.ENTER); 
-		selenium.click("idCommonJobListBox()");   //select a job
-		selenium.mouseDownAt("//div[@role='listitem'][1]",""+Event.ENTER); 
-		selenium.click("idCommonContextListBox()");
-		selenium.setSpeed(MID_SPEED);
-		selenium.mouseDownAt("//div[@role='listitem'][1]",""+Event.ENTER); 
-		selenium.click("idJobConductorExecutionServerListBox()"); //select a server
-		selenium.mouseDownAt("//div[@role='listitem'][1]",""+Event.ENTER); 
+		selenium.click("idCommonJobListBox()");
+		selenium.mouseDownAt("//div[@role='listitem']["+jobNum+"]",""+Event.ENTER);
 		selenium.click("idJobConductorExecutionServerListBox()");
-		selenium.setSpeed(MID_SPEED);
-		selenium.mouseDownAt("//div[@role='listitem'][1]",""+Event.ENTER); 
-		selenium.click("idFormSaveButton");
-		Assert.assertTrue(selenium.isTextPresent(rb.getString("executionTask.error.uniqueLabel")));
-		selenium.click("//button[text()='"+rb.getString("executionPlan.errorStatus.ok")+"']");
+		selenium.mouseDownAt("//div[@role='listitem']["+serverNum+"]",""+Event.ENTER);
+		selenium.click("//label[text()='Statistic:']/parent::div/div/div/div");
+		selenium.mouseDownAt("//div[@role='listitem']["+statisticNum+"]",""+Event.ENTER);
 		selenium.setSpeed(MIN_SPEED);
 		
 	}
 	
-	@Test(dependsOnMethods={"testAddExistTask"})
-	public void testAddNotChooseActiveTask() {
-		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
-		selenium.setSpeed(MID_SPEED);
-	    Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
-		selenium.click("idSubModuleAddButton");
-		selenium.type("//input[@name='label']", "test_task_notChooseActive");//plan name /Label
-		selenium.fireEvent("//input[@name='label']", "blur");
-		selenium.click("//input[@class=' x-form-checkbox' and @type='checkbox' and @name='active']");//uncheck "Active"
-		Assert.assertFalse(selenium.isChecked("//input[@class=' x-form-checkbox' and @type='checkbox' and @name='active']"));
-		selenium.click("idCommonProjectListBox");//select a project 
-		selenium.mouseDownAt("//div[@role='listitem'][1]",""+Event.ENTER); 
-		selenium.click("idCommonBranchListBox()");  //select a Branch
-		selenium.mouseDownAt("//div[@role='listitem'][1]",""+Event.ENTER); 
-		selenium.click("idCommonJobListBox()");   //select a job
-		selenium.mouseDownAt("//div[@role='listitem'][1]",""+Event.ENTER); 
-		selenium.click("idCommonContextListBox()");  
-		selenium.mouseDownAt("//div[@role='listitem'][1]",""+Event.ENTER); 
-		selenium.click("idJobConductorExecutionServerListBox()"); //select a server
-		selenium.mouseDownAt("//div[@role='listitem'][1]",""+Event.ENTER); 
-		selenium.click("idJobConductorExecutionServerListBox()");
-		selenium.mouseDownAt("//div[@role='listitem'][1]",""+Event.ENTER); 
+	//add a task
+	@Test(groups={"AddTask"})
+	@Parameters({"label","labelDescription"})
+	public void testAddTask(String label, String labelDescription) {
+		
+		if(!selenium.isElementPresent("//span[text()='"+label+"']")) {
+			
+			addTask(label, labelDescription, 1, 1, 1, 1);
+			
+			selenium.click("idFormSaveButton");
+	        selenium.setSpeed(MID_SPEED);
+			Assert.assertTrue(selenium.isElementPresent("//span[text()='testTask']"));
+			selenium.setSpeed(MIN_SPEED);
+			
+		}		
+				
+	}
+    
+	//add a exist task
+	@Test(dependsOnMethods={"testAddTask"})
+	@Parameters({"label","existLabelDescription"})
+	public void testAddExistTask(String label, String labelDescription) {
+		
+		addTask(label, labelDescription, 1, 1, 1, 1);
+		
 		selenium.click("idFormSaveButton");
-		selenium.setSpeed(MID_SPEED);
-		Assert.assertTrue(selenium.isElementPresent("//div[text()='test_task_notChooseActive']"));
+		Assert.assertTrue(selenium.isTextPresent(rb.getString("executionTask.error.uniqueLabel")));
 		selenium.setSpeed(MIN_SPEED);
 		
+	}
+	
+	//add a task of uncheck active 
+	@Test(dependsOnMethods={"testAddExistTask"})
+	@Parameters({"labelNotChooseActive","notChooseLabelDescription"})
+	public void testAddNotChooseActiveTask(String label, String labelDescription) {
+		
+		if(!selenium.isElementPresent("//span[text()='"+label+"']")) {
+			
+		
+			addTask(label, labelDescription, 1, 1, 1, 1);
+			
+			selenium.click("//input[@class=' x-form-checkbox' and @type='checkbox' and @name='active']");//uncheck "Active"
+			Assert.assertFalse(selenium.isChecked("//input[@class=' x-form-checkbox' and @type='checkbox' and @name='active']"));
+			
+			selenium.click("idFormSaveButton");
+			selenium.setSpeed(MID_SPEED);
+			Assert.assertTrue(selenium.isElementPresent("//span[text()='testTaskNotChooseActive']"));
+			selenium.setSpeed(MIN_SPEED);
+		
+		}
 	}
 }
