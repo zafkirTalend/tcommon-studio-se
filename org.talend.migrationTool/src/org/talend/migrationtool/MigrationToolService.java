@@ -59,7 +59,7 @@ public class MigrationToolService implements IMigrationToolService {
     private static final String RELATION_TASK = "org.talend.repository.model.migration.AutoUpdateRelationsMigrationTask"; //$NON-NLS-1$ 
 
     // FIXME SML Change that
-    private List<IProjectMigrationTask> doneThisSession;
+    public List<IProjectMigrationTask> doneThisSession;
 
     public MigrationToolService() {
         doneThisSession = new ArrayList<IProjectMigrationTask>();
