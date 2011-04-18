@@ -17,10 +17,8 @@ public class DbConfig extends Base {
 	public void DbConfigProcess(String url, String userName, String userPassWd,
 			String driver) {
 		selenium.windowMaximize();
-		waitForPageReactivity();// wait to judge "no license" popup or not
-
-		if (selenium.isTextPresent("No license set")) {
-			selenium.click("idLoginOpenDbConfigButton");
+		waitForPageReactivity();// wait and judge: if no license set,tac will load directly to dbConfig page
+		if (selenium.isElementPresent("idDbConfigLoginPasswordInput")) {
 		} else {
 			waitForElementPresent("idLoginOpenDbConfigButton", WAIT_TIME);
 			selenium.click("idLoginOpenDbConfigButton");
@@ -38,12 +36,12 @@ public class DbConfig extends Base {
 
 	/**
 	 * The first time to open TAC ,there may be a delay. wait and judge this two
-	 * condition: 1.license not set ,there will be an popup.click to go to
-	 * dbConfig 2.license is already set, the go to dbConfig button will be
-	 * seen,just click it.
+	 * condition: 
+	 * 1.No license ever set to the current db ,Tac will directly load to dbConfig page
+	 * 2.If license has already been set, loginPage will be seen.
 	 */
 	public void waitForPageReactivity() {
-		boolean flag = selenium.isTextPresent("No license set")
+		boolean flag = selenium.isElementPresent("idDbConfigLoginPasswordInput")
 				|| selenium.isElementPresent("idLoginOpenDbConfigButton");
 		while (flag == false) {
 			try {
@@ -51,7 +49,7 @@ public class DbConfig extends Base {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			flag = selenium.isTextPresent("No license set")
+			flag = selenium.isElementPresent("idDbConfigLoginPasswordInput")
 					|| selenium.isElementPresent("idLoginOpenDbConfigButton");
 		}
 	}
@@ -59,7 +57,7 @@ public class DbConfig extends Base {
 	/**
 	 * wait and check the db Connection status
 	 */
-	public void waitForCheckConnectionStatus() {
+	public void waitForCheckConnectionStatus( int OK_Num) {
 		boolean flag = false;
 		int seconds_Counter = 0;
 		while (flag == false) {
@@ -69,10 +67,11 @@ public class DbConfig extends Base {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			flag = selenium.getXpathCount("//div[text()='OK']").intValue() == 3;
+//			flag = selenium.getXpathCount("//td[@align='LEFT']/div").intValue()==5;
+			flag = selenium.getXpathCount("//div[text()='OK']").intValue() >= OK_Num;
 			seconds_Counter++;
 			if(seconds_Counter >= WAIT_TIME)
-				assertTrue(selenium.getXpathCount("//div[text()='OK']").intValue() == 3);
+				assertTrue(selenium.getXpathCount("//div[text()='OK']").intValue() >= OK_Num);
 		}
 
 	}

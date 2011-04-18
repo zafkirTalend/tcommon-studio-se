@@ -15,7 +15,7 @@ public class TestDbConfig extends DbConfig {
 			String driver, String license) {
 
 		this.DbConfigProcess(url, userName, userPassWd, driver);
-		waitForCheckConnectionStatus();
+		waitForCheckConnectionStatus(4);
 		// simulate clicking ENTER to make button enabled.
 		selenium.keyDown("idDbConfigDriverInput", "\\13");
 		selenium.keyUp("idDbConfigDriverInput", "\\13");
@@ -27,34 +27,18 @@ public class TestDbConfig extends DbConfig {
 				.waitForCondition(
 						"selenium.isElementPresent(\"//table[contains(@class,'disabled')]//button[@id='idDbConfigSaveButton']\")",
 						"30000");
-		waitForCheckConnectionStatus();
-		selenium.click("idDbConfigLogoutButton");
-
-		// license popup should be shown after clicking "go to login Page"
-		// wait and judge the license popup
-		// ->define the flag=false to avoid
-		// "Couldn't access document.body.  Is this HTML page fully loaded?"
-		boolean flag = false;
-		while (flag == false) {
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			flag = selenium.isTextPresent("No license set")
-					|| selenium.isElementPresent("idLoginInput");
-		}
-
-		if (selenium.isTextPresent("No license set")) {
-//			selenium.type("//label[text()='License:']/following-sibling::div//input",license);
-//			selenium.click("//button[text()='Ok']");
-			//locate to the File input field,and type the direct-path of license-file.
+		waitForCheckConnectionStatus(4);
+		//if no license, load the license from a file.
+		System.out.println(selenium.isElementPresent("//div[text()='License Expired']") || selenium.isElementPresent("//div[text()='No license yet']"));
+//		if(selenium.isElementPresent("//div[text()='License Expired']") || selenium.isElementPresent("//div[text()='No license yet']")){
+			selenium.click("//button[text()='set new license']");
 			selenium.type("//button[contains(text(),'Browse')]/ancestor::table[1]/preceding-sibling::input[1]", license);
 			selenium.click("//button[text()='Upload']");
 			if (selenium.isTextPresent("New license set"))
 				clickWaitForElementPresent("//button[text()='Ok']");
-		}
+			waitForCheckConnectionStatus(5);
+//		}
+		selenium.click("idDbConfigLogoutButton");
 		waitForElementPresent("idLoginInput", WAIT_TIME);
 	}
 
