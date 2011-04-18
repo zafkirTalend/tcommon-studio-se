@@ -31,7 +31,7 @@ public class TestDbConfig extends DbConfig {
 		//if no license, load the license from a file.
 		System.out.println(selenium.isElementPresent("//div[text()='License Expired']") || selenium.isElementPresent("//div[text()='No license yet']"));
 //		if(selenium.isElementPresent("//div[text()='License Expired']") || selenium.isElementPresent("//div[text()='No license yet']")){
-			selenium.click("//button[text()='set new license']");
+			selenium.click("//button[text()='Set new license']");
 			selenium.type("//button[contains(text(),'Browse')]/ancestor::table[1]/preceding-sibling::input[1]", license);
 			selenium.click("//button[text()='Upload']");
 			if (selenium.isTextPresent("New license set"))
