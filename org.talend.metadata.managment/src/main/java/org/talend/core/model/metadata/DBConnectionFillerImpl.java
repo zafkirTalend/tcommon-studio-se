@@ -852,7 +852,6 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
     private void fillPkandFk(ColumnSet colSet, Map<String, TdColumn> columnMap, DatabaseMetaData dbJDBCMetadata,
             String catalogName, String schemaName, String tableName) throws Exception {
         if (columnMap.size() > 0) {
-
             Map<String, ForeignKey> foreignKeysMap = new HashMap<String, ForeignKey>();
             if (orgomg.cwm.resource.relational.RelationalPackage.eINSTANCE.getTable().isSuperTypeOf(colSet.eClass())) {
                 try {
@@ -884,22 +883,29 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     pkResult.close();
                     // foreign key
                     ForeignKey foreignKey = null;
-                    ResultSet fkResult = dbJDBCMetadata.getImportedKeys(catalogName, schemaName, tableName);
-                    while (fkResult.next()) {
-                        String fkname = fkResult.getString(GetForeignKey.FK_NAME.name());
-                        String colName = fkResult.getString(GetForeignKey.FKCOLUMN_NAME.name());
-                        if (foreignKey == null || foreignKeysMap.get(fkname) == null) {
-                            foreignKey = orgomg.cwm.resource.relational.RelationalFactory.eINSTANCE.createForeignKey();
-                            foreignKey.setName(fkname);
-                            foreignKeysMap.put(fkname, foreignKey);
-                        }
-                        columnMap.get(colName).getKeyRelationship().add(foreignKey);
-                        columnMap.get(colName).setKey(true);
-
+                    ResultSet fkResult = null;
+                    try {
+                        // some databases (eg. sqlite) jave not yet implemented this method
+                        fkResult = dbJDBCMetadata.getImportedKeys(catalogName, schemaName, tableName);
+                    } catch (Exception e) {
+                        log.warn(e, e);
                     }
-                    fkResult.close();
-                    TableHelper.addForeignKeys((TdTable) colSet,
-                            Arrays.asList(foreignKeysMap.values().toArray(new ForeignKey[foreignKeysMap.values().size()])));
+                    if (fkResult != null) {
+                        while (fkResult.next()) {
+                            String fkname = fkResult.getString(GetForeignKey.FK_NAME.name());
+                            String colName = fkResult.getString(GetForeignKey.FKCOLUMN_NAME.name());
+                            if (foreignKey == null || foreignKeysMap.get(fkname) == null) {
+                                foreignKey = orgomg.cwm.resource.relational.RelationalFactory.eINSTANCE.createForeignKey();
+                                foreignKey.setName(fkname);
+                                foreignKeysMap.put(fkname, foreignKey);
+                            }
+                            columnMap.get(colName).getKeyRelationship().add(foreignKey);
+                            columnMap.get(colName).setKey(true);
+                        }
+                        fkResult.close();
+                        TableHelper.addForeignKeys((TdTable) colSet,
+                                Arrays.asList(foreignKeysMap.values().toArray(new ForeignKey[foreignKeysMap.values().size()])));
+                    }
                 } catch (SQLException e) {
                     log.error(e, e);
                 }
