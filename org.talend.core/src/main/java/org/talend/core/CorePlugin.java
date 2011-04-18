@@ -15,6 +15,7 @@ package org.talend.core;
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.ui.internal.editors.text.EditorsPlugin;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 import org.talend.core.context.Context;
@@ -79,8 +80,10 @@ public class CorePlugin extends AbstractUIPlugin {
     @Override
     public void stop(BundleContext contextP) throws Exception {
         try {
-            ECodeLanguage lan = LanguageManager.getCurrentLanguage();
-            getPluginPreferences().setValue(PROJECT_LANGUAGE_TYPE, lan.getName());
+            if (EditorsPlugin.getDefault() != null) {
+                ECodeLanguage lan = LanguageManager.getCurrentLanguage();
+                getPluginPreferences().setValue(PROJECT_LANGUAGE_TYPE, lan.getName());
+            }
             plugin = null;
         } catch (RuntimeException e) {
             logger.log(Priority.DEBUG, e.getMessage(), e);
