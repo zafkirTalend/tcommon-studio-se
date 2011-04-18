@@ -2,41 +2,54 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Test_task" parallel="false">
 
-
-	<parameter name="server" value="" />
-	<parameter name="port" value="" />
-	<parameter name="browser" value="" />
-	<parameter name="url" value="" />
-	<parameter name="root" value="" />
-
-	<parameter name="language" value="en" />
-	<parameter name="country" value="US" />
-	<parameter name="resourceBundle" value="messages" />
-
-
-	<parameter name="userName" value="admin@company.com" />
-	<parameter name="userPassword" value="admin" />
-      <test  name="test_task"  annotations="JDK">
-  <!--
-        <packages>
-      
-            <package name="com.talend.tac.cases.execution_task.*"/>
-            
-        </packages>
-     -->
+    <!-- add task -->
+	<parameter name="label" value="testTask" />
+	<parameter name="labelDescription" value="test add a task" />
+	<parameter name="existLabelDescription" value="test add a exist task" />
+	<parameter name="labelNotChooseActive" value="testTaskNotChooseActive"/>
+	<parameter name="notChooseLabelDescription" value="test add a task of not choose active" />
+    <!-- add task -->
+           
+    <!-- duplicate modify task -->
+    <parameter name="modifyTask" value="testModifyTask" />
+    <parameter name="duplicateTask" value="Copy_of_testTaskNotChooseActive" />
+    <!-- modify task -->
+    
+    <!-- add trigger -->
+    <parameter name="addSimpleTriggerLabel" value="TestSimpleTrigger" />
+    <parameter name="addSimpleTriggerDescription" value="test add a SimpleTrigger" />
+   
+    <parameter name="addSimpleTriggerExistTriggerDescription" value="test add a exist SimpleTrigger" />
+    
+    <parameter name="addSimpleTriggerWrongFormTimeIntervalLabel" value="TestSimpleTriggerAddWrongFormTimeInterval" />
+    <parameter name="addSimpleTriggerWrongFormTimeIntervalDescription" value="test add a simpleTrigger of wrong form time interval" />
+    
+    <parameter name="addSimpleTriggerOverdueStartDataLabel" value="TestSimpleTriggerOverdueStartData" />
+    <parameter name="addSimpleTriggerOverdueStartDataDescription" value="test add a overdue(startDate) simpleTrigger" />
+    
+    <parameter name="addSimpleTriggerOverdueEndDatalabel" value="TestSimpleTriggerOverdueEndData" />
+    <parameter name="addSimpleTriggerOverdueEndDataDescription" value="test add a overdue(endDate) simpleTrigger" />
+    <!-- add trigger -->
+    
+    <!-- duplicate trigger -->
+    <parameter name="duplicateTriggerLabel" value="Copy_of_TestSimpleTrigger"/>
+    <!-- duplicate trigger -->
+    
+    <test  name="test_task"  annotations="JDK">
         <classes>  
-        
+            <!-- these execution are need configurations(project/SVN/job) -->      
             <class name="com.talend.tac.cases.executionTask.TestAddTask"/>
             <class name="com.talend.tac.cases.executionTask.TestDuplicateTask"/>
             <class name="com.talend.tac.cases.executionTask.TestDeteleTask"/>
             <class name="com.talend.tac.cases.executionTask.TestModifyTask"/>
-          <!--
+     
             <class name="com.talend.tac.cases.executionTask.TestAddTriggerAddSimpleTrigger"/>
+             <!-- 
             <class name="com.talend.tac.cases.executionTask.TestAddTriggerAddCronTrigger"/>
-            <class name="com.talend.tac.cases.executionTask.TestAddTriggerAddFileTrigger"/>
+            <class name="com.talend.tac.cases.executionTask.TestAddTriggerAddFileTrigger"/>--> 
             <class name="com.talend.tac.cases.executionTask.TestDuplicateTrigger"/>
             <class name="com.talend.tac.cases.executionTask.TestDeleteTrigger"/>
-            -->   
+
         </classes> 
 	</test>
 	
