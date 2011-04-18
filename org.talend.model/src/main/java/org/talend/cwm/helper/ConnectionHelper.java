@@ -1063,7 +1063,7 @@ public class ConnectionHelper {
     public static boolean isUrlChanged(Connection conn) {
 
         DatabaseConnection connection1 = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
-        if (connection1 != null) {
+        if (connection1 != null && getUsingURL(conn) != null) {
             return !connection1.getURL().equals(getUsingURL(conn));
         }
         return false;
