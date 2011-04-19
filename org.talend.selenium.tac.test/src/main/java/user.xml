@@ -11,6 +11,7 @@
 	<parameter name="LoginNameChooseTypeDataQuality" value="testChooseTypeDataQuality@126.com"/>
 	<parameter name="LoginNameWrongForm" value="testWrongUserNameForm@"/>
 	<parameter name="userNameAllRoles" value="talend@company.com"/>
+	<parameter name="LoginNameUnderMySql" value="testUnderMySql@company.com"/>
 	<parameter name="FirstName" value="jack" />
 	<parameter name="LastName" value="zhang" />
 	<parameter name="PassWord" value="a" />
@@ -35,7 +36,11 @@
     
         <classes>
       
-            <class name="com.talend.tac.cases.users.TestAddUser"/>
+            <class name="com.talend.tac.cases.users.TestAddUser">]
+               <methods>
+                    <exclude name="testUnderMysqlAddUser"></exclude>
+               </methods>
+            </class>
             <class name="com.talend.tac.cases.users.TestDeleteUser"/>
             <class name="com.talend.tac.cases.users.TestDuplicateUser"/>
             <class name="com.talend.tac.cases.users.TestDisplayUser"/>
