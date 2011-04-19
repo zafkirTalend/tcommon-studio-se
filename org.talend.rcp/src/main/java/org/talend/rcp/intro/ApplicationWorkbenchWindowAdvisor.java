@@ -235,15 +235,19 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
                 // MOD xqliu 2010-10-14 bug 15756
                 String pId = perspective.getId();
                 IRepositoryView view = RepositoryManager.getRepositoryView();
+                if (TOS_PERSPECTIVE_ID.equals(pId)) {
+                    if (isTos == true) {
+                        isTos = false;
+                        setEditorAreaBG();
+                    }
+                    clearEditorAreaBG(true);
+                } else {
+                    clearEditorAreaBG(false);
+                }
                 if (view != null) {
                     if (TOS_PERSPECTIVE_ID.equals(pId)) {
                         /* 0016610 need to refresh not only databaseconnection but only trash bin */
                         view.refresh();
-                        if (isTos == true) {
-                            isTos = false;
-                            setEditorAreaBG();
-                        }
-                        clearEditorAreaBG(true);
                     } else if (TOP_PERSPECTIVE_ID.equals(pId)) {
                         if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
                             ITDQRepositoryService tdqRepositoryService = (ITDQRepositoryService) GlobalServiceRegister
@@ -253,9 +257,6 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
                             }
                         }
                         page.hideView(page.findViewReference("org.talend.repository.views.repository"));
-                        clearEditorAreaBG(false);
-                    } else {
-                        clearEditorAreaBG(false);
                     }
                 }
                 // ~ 15756
