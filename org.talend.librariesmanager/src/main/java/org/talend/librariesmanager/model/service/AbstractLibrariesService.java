@@ -14,6 +14,8 @@ package org.talend.librariesmanager.model.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -82,48 +84,58 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
 
     public void deployLibrary(URL source) throws IOException {
         // TODO SML Allow perl module to be deploy in a folder structure in "lib/perl/..."
-        final File sourceFile = new File(source.getFile());
-        final File targetFile = new File(getLibrariesPath() + File.separatorChar + sourceFile.getName());
+        /* fix for bug 0020350,if URL contains a space character it will cause problem */
+        try {
+            URI sourceURI = new URI(source.toString().replace(' ', '\0'));//$NON-NLS-0$ //$NON-NLS-1$
+            final File sourceFile = new File(sourceURI);
+            final File targetFile = new File(getLibrariesPath() + File.separatorChar + sourceFile.getName());
 
-        FilesUtils.copyFile(sourceFile, targetFile);
-        ModulesNeededProvider.userAddImportModules(targetFile.getPath(), sourceFile.getName(), ELibraryInstallStatus.INSTALLED);
-        if (LanguageManager.getCurrentLanguage().equals(ECodeLanguage.JAVA)) {
-            addResolvedClasspathPath(targetFile);
-        }
-        fireLibrariesChanges();
+            if (sourceFile != null && sourceFile.exists()) {
+                FilesUtils.copyFile(sourceFile, targetFile);
+            }
+            ModulesNeededProvider.userAddImportModules(targetFile.getPath(), sourceFile.getName(),
+                    ELibraryInstallStatus.INSTALLED);
+            if (LanguageManager.getCurrentLanguage().equals(ECodeLanguage.JAVA)) {
+                addResolvedClasspathPath(targetFile);
+            }
+            fireLibrariesChanges();
 
-        // for feature 12877
-        Project currentProject = ProjectManager.getInstance().getCurrentProject();
-        final String projectLabel = currentProject.getTechnicalLabel();
+            // for feature 12877
+            Project currentProject = ProjectManager.getInstance().getCurrentProject();
+            final String projectLabel = currentProject.getTechnicalLabel();
 
-        IWorkspace workspace = ResourcesPlugin.getWorkspace();
-        final IProject eclipseProject = workspace.getRoot().getProject(projectLabel);
+            IWorkspace workspace = ResourcesPlugin.getWorkspace();
+            final IProject eclipseProject = workspace.getRoot().getProject(projectLabel);
 
-        if (PluginChecker.isSVNProviderPluginLoaded()) {
-            RepositoryWorkUnit repositoryWorkUnit = new RepositoryWorkUnit(currentProject, "") {
+            if (PluginChecker.isSVNProviderPluginLoaded()) {
+                RepositoryWorkUnit repositoryWorkUnit = new RepositoryWorkUnit(currentProject, "") {
 
-                public void run() throws PersistenceException {
+                    public void run() throws PersistenceException {
 
-                    String path = new Path(Platform.getInstanceLocation().getURL().getPath()).toFile().getPath();
-                    path = path + File.separatorChar + projectLabel + File.separatorChar
-                            + ERepositoryObjectType.getFolderName(ERepositoryObjectType.LIBS) + File.separatorChar
-                            + sourceFile.getName();
-                    File libsTargetFile = new File(path);
+                        String path = new Path(Platform.getInstanceLocation().getURL().getPath()).toFile().getPath();
+                        path = path + File.separatorChar + projectLabel + File.separatorChar
+                                + ERepositoryObjectType.getFolderName(ERepositoryObjectType.LIBS) + File.separatorChar
+                                + sourceFile.getName();
+                        File libsTargetFile = new File(path);
 
-                    try {
-                        FilesUtils.copyFile(sourceFile, libsTargetFile);
-                        eclipseProject.refreshLocal(IResource.DEPTH_INFINITE, new NullProgressMonitor());
-                    } catch (CoreException e1) {
-                        ExceptionHandler.process(e1);
-                    } catch (IOException e) {
-                        ExceptionHandler.process(e);
+                        try {
+                            FilesUtils.copyFile(sourceFile, libsTargetFile);
+                            eclipseProject.refreshLocal(IResource.DEPTH_INFINITE, new NullProgressMonitor());
+                        } catch (CoreException e1) {
+                            ExceptionHandler.process(e1);
+                        } catch (IOException e) {
+                            ExceptionHandler.process(e);
+                        }
                     }
-                }
-            };
-            repositoryWorkUnit.setAvoidUnloadResources(true);
-            CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory()
-                    .executeRepositoryWorkUnit(repositoryWorkUnit);
+                };
+                repositoryWorkUnit.setAvoidUnloadResources(true);
+                CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory()
+                        .executeRepositoryWorkUnit(repositoryWorkUnit);
+            }
+        } catch (URISyntaxException e) {
+            ExceptionHandler.process(e);
         }
+
     }
 
     protected void addResolvedClasspathPath(File targetFile) {
