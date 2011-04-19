@@ -39,6 +39,7 @@ public enum ERepositoryCategoryType {
     HEADERFOOTER,
     WEBSERVICE,
     VALIDATIONRULES,
+    EDIFACT,
     //
     ;
 
