@@ -1359,22 +1359,30 @@ public class Utilities {
         }
         gefBot.button("Next >").click();
 
-        gefBot.textWithLabel("Username").setText(System.getProperty("mdm.username"));
-        gefBot.textWithLabel("password").setText(System.getProperty("mdm.password"));
-        gefBot.textWithLabel("Server").setText(System.getProperty("mdm.server"));
-        gefBot.textWithLabel("Port").setText(System.getProperty("mdm.port"));
-        gefBot.button("Check").click();
-        // gefBot.button("OK").click();
-        if (!gefBot.button("Next >").isEnabled()) {
-            gefBot.button("Cancel").click();
-            Assert.fail("connection unsuccessful");
-        }
-        gefBot.button("Next >").click();
+        try {
+            gefBot.textWithLabel("Username").setText(System.getProperty("mdm.username"));
+            gefBot.textWithLabel("password").setText(System.getProperty("mdm.password"));
+            gefBot.textWithLabel("Server").setText(System.getProperty("mdm.server"));
+            gefBot.textWithLabel("Port").setText(System.getProperty("mdm.port"));
+            gefBot.button("Check").click();
+            // gefBot.button("OK").click();
+            if (!gefBot.button("Next >").isEnabled()) {
+                gefBot.button("Cancel").click();
+                Assert.fail("connection unsuccessful");
+            }
+            gefBot.button("Next >").click();
 
-        gefBot.comboBoxWithLabel("Version").setSelection(System.getProperty("mdm.version"));
-        gefBot.comboBoxWithLabel("Data-model").setSelection(System.getProperty("mdm.dataModel"));
-        gefBot.comboBoxWithLabel("Data-Container").setSelection(System.getProperty("mdm.dataContainer"));
-        gefBot.button("Finish").click();
+            gefBot.comboBoxWithLabel("Version").setSelection(System.getProperty("mdm.version"));
+            gefBot.comboBoxWithLabel("Data-model").setSelection(System.getProperty("mdm.dataModel"));
+            gefBot.comboBoxWithLabel("Data-Container").setSelection(System.getProperty("mdm.dataContainer"));
+            gefBot.button("Finish").click();
+        } catch (WidgetNotFoundException wnfe) {
+            shell.close();
+            Assert.fail(wnfe.getCause().getMessage());
+        } catch (Exception e) {
+            shell.close();
+            Assert.fail(e.getMessage());
+        }
 
         SWTBotTreeItem newMDMItem = null;
         try {
@@ -1383,6 +1391,133 @@ public class Utilities {
             e.printStackTrace();
         } finally {
             Assert.assertNotNull("mdm item is not created", newMDMItem);
+        }
+    }
+
+    /**
+     * DOC fzhong Comment method "createEmbeddedRules".
+     * 
+     * @param resourceType 'XLS' or 'DRL'
+     * @param rulesName
+     * @param gefBot
+     * @param treeNode
+     * @param rulesName
+     * @throws URISyntaxException
+     * @throws IOException
+     */
+    public static void createEmbeddedRules(String resourceType, String ruleName, SWTGefBot gefBot, SWTBotTreeItem treeNode)
+            throws IOException, URISyntaxException {
+        treeNode.contextMenu("Create Rules").click();
+        shell = gefBot.shell("New Rule ...").activate();
+        gefBot.textWithLabel("Name").setText(ruleName);
+        boolean isNextButtonEnable = gefBot.button("Next >").isEnabled();
+        if (!isNextButtonEnable) {
+            shell.close();
+            Assert.assertTrue("rule item is not created, maybe the item name already exist", isNextButtonEnable);
+        }
+        gefBot.button("Next >").click();
+
+        try {
+            if ("XLS".equals(resourceType)) {
+                gefBot.radio("select").click();
+                gefBot.comboBoxWithLabel("Type of rule resource:").setSelection("New XLS (Excel)");
+                gefBot.textWithLabel("DRL/XLS").setText(
+                        getFileFromCurrentPluginSampleFolder("ExcelRulesTest.xls").getAbsolutePath());
+                gefBot.button("Finish").click();
+                // can't get download shell at this step
+            } else if ("DRL".equals(resourceType)) {
+                gefBot.radio("create").click();
+                gefBot.comboBoxWithLabel("Type of rule resource:").setSelection("New DRL (rule package)");
+                gefBot.button("Finish").click();
+            }
+        } catch (WidgetNotFoundException wnfe) {
+            shell.close();
+            Assert.fail(wnfe.getCause().getMessage());
+        } catch (Exception e) {
+            shell.close();
+            Assert.fail(e.getMessage());
+        }
+
+        SWTBotTreeItem newRuleItem = null;
+        try {
+            newRuleItem = treeNode.expand().select(ruleName + " 0.1");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Assert.assertNotNull("embedded rule item is not created", newRuleItem);
+        }
+    }
+
+    /**
+     * DOC fzhong Comment method "createValidationRules".
+     * 
+     * @param ruleType "Reference Check" or "Basic Value Check" or "Custom Check"
+     * @param itemType metadata type
+     * @param metadataName
+     * @param ruleName
+     * @param gefBot
+     * @param treeNode
+     */
+    public static void createValidationRules(String ruleType, TalendItemType metadataType, String metadataName, String ruleName,
+            SWTGefBot gefBot, SWTBotTreeItem treeNode) {
+        treeNode.contextMenu("Create validation rule").click();
+        shell = gefBot.shell("New Validation Rule").activate();
+        gefBot.textWithLabel("Name").setText(ruleName);
+        boolean isNextButtonEnable = gefBot.button("Next >").isEnabled();
+        if (!isNextButtonEnable) {
+            shell.close();
+            Assert.assertTrue("rule item is not created, maybe the item name already exist", isNextButtonEnable);
+        }
+        gefBot.button("Next >").click();
+
+        try {
+            SWTBotTree tree = gefBot.tree();
+            SWTBotTreeItem metadataNode = getTalendItemNode(tree, metadataType);
+            if (TalendItemType.DB_CONNECTIONS.equals(metadataType)) {
+                metadataNode.expandNode(metadataName + " 0.1", "Table schemas").select("test");
+            }
+            metadataNode.expandNode(metadataName + " 0.1").select("metadata");
+            gefBot.button("Select All").click();
+            gefBot.button("Next >").click();
+
+            if ("Reference Check".equals(ruleType)) {
+                gefBot.radio(0).click();
+                gefBot.button("Next >").click();
+                // problem - how to drag columns with SWTBot, wait...
+            } else if ("Basic Value Check".equals(ruleType)) {
+                gefBot.radio(1).click();
+                gefBot.button("Next >").click();
+                gefBot.buttonWithTooltip("Add").click();
+                gefBot.tableWithLabel("Conditions").click(0, 2);
+                gefBot.ccomboBox().setSelection("Column0");
+                gefBot.tableWithLabel("Conditions").click(0, 3);
+                gefBot.ccomboBox().setSelection("Empty");
+                gefBot.tableWithLabel("Conditions").click(0, 4);
+                gefBot.ccomboBox().setSelection("Greater");
+                gefBot.tableWithLabel("Conditions").click(0, 5);
+                gefBot.text().setText("50");
+            } else if ("Custom Check".equals(ruleType)) {
+                gefBot.radio(2).click();
+                gefBot.button("Next >").click();
+                gefBot.styledText().setText("true");
+            }
+            gefBot.button("Next >").click();
+            gefBot.button("Finish").click();
+        } catch (WidgetNotFoundException wnfe) {
+            shell.close();
+            Assert.fail(wnfe.getCause().getMessage());
+        } catch (Exception e) {
+            shell.close();
+            Assert.fail(e.getMessage());
+        }
+
+        SWTBotTreeItem newRuleItem = null;
+        try {
+            newRuleItem = treeNode.expand().select(ruleName + " 0.1");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Assert.assertNotNull("validation rule item is not created", newRuleItem);
         }
     }
 }
