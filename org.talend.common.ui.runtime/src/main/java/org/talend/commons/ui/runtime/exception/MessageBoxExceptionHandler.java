@@ -17,6 +17,7 @@ import org.apache.log4j.Priority;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.talend.commons.CommonsPlugin;
+import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.ui.runtime.i18n.Messages;
 
 /**
@@ -78,7 +79,7 @@ public final class MessageBoxExceptionHandler {
         // TODO smallet use ErrorDialogWidthDetailArea ?
         String title = Messages.getString("commons.error"); //$NON-NLS-1$
         String msg = Messages.getString("exception.errorOccured", ex.getMessage()); //$NON-NLS-1$
-        Priority priority = ExceptionHandler.getPriority(ex);
+        Priority priority = CommonExceptionHandler.getPriority(ex);
 
         if (priority == Level.FATAL || priority == Level.ERROR) {
             ExceptionMessageDialog.openError(shell, title, msg, ex);

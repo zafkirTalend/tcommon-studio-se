@@ -50,13 +50,17 @@ public final class CommonExceptionHandler {
 
     }
 
+    public static void log(String message) {
+        log.log(Level.INFO, message);
+    }
+
     /**
      * Return priority corresponding to the exception implementation.
      * 
      * @param ex - the exception to evaluate priority
      * @return the priority corresponding to the exception implementation
      */
-    protected static Priority getPriority(Throwable ex) {
+    public static Priority getPriority(Throwable ex) {
         if (ex == null) {
             throw new IllegalArgumentException(Messages.getString("ExceptionHandler.Parameter.BeNull")); //$NON-NLS-1$
         }

@@ -13,13 +13,9 @@
 package org.talend.commons.ui.runtime.exception;
 
 import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
 import org.eclipse.swt.widgets.Shell;
-import org.talend.commons.exception.BusinessException;
-import org.talend.commons.exception.FatalException;
-import org.talend.commons.exception.SystemException;
-import org.talend.commons.ui.runtime.i18n.Messages;
+import org.talend.commons.exception.CommonExceptionHandler;
 
 /**
  * Implementation of exception handling strategy.<br/>
@@ -28,8 +24,6 @@ import org.talend.commons.ui.runtime.i18n.Messages;
  * 
  */
 public final class ExceptionHandler {
-
-    private static Logger log = Logger.getLogger(ExceptionHandler.class);
 
     /**
      * Empty constructor.
@@ -43,43 +37,19 @@ public final class ExceptionHandler {
      * @param ex - exception to log
      */
     public static void process(Throwable ex) {
-        Priority priority = getPriority(ex);
+        Priority priority = CommonExceptionHandler.getPriority(ex);
         process(ex, priority);
     }
 
     public static void log(String message) {
-        log.log(Level.INFO, message);
+        CommonExceptionHandler.log(message);
     }
 
     public static void process(Throwable ex, Priority priority) {
-        String message = ex.getMessage();
-
-        log.log(priority, message, ex);
+        CommonExceptionHandler.process(ex, priority);
 
         if (priority == Level.FATAL) {
             MessageBoxExceptionHandler.showMessage(ex, new Shell());
-        }
-    }
-
-    /**
-     * Return priority corresponding to the exception implementation.
-     * 
-     * @param ex - the exception to evaluate priority
-     * @return the priority corresponding to the exception implementation
-     */
-    protected static Priority getPriority(Throwable ex) {
-        if (ex == null) {
-            throw new IllegalArgumentException(Messages.getString("ExceptionHandler.Parameter.BeNull")); //$NON-NLS-1$
-        }
-
-        if (ex instanceof BusinessException) {
-            return Level.INFO;
-        } else if (ex instanceof FatalException) {
-            return Level.FATAL;
-        } else if (ex instanceof SystemException) {
-            return Level.WARN;
-        } else {
-            return Level.ERROR;
         }
     }
 
