@@ -42,6 +42,8 @@ public abstract class AbstractConnection implements IConnection {
     private String condition;
     
     private String routeConnectionType;
+    
+    private String exceptionList;
 
     private boolean readOnly;
 
@@ -116,10 +118,17 @@ public abstract class AbstractConnection implements IConnection {
         return this.routeConnectionType;
     }
     
+    public String getExceptionList() {
+        return this.exceptionList;
+    }
+    
     public void setRouteConnectionType(String routeConnectionType) {
         this.routeConnectionType = routeConnectionType;
     }
-
+    
+    public void setExceptionList(String exceptionList) {
+        this.exceptionList = exceptionList;
+    }
 
     public void setCondition(String condition) {
         this.condition = condition;
