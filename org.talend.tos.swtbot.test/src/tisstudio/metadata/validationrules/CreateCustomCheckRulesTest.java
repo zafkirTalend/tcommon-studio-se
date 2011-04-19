@@ -58,7 +58,7 @@ public class CreateCustomCheckRulesTest extends TalendSwtBotForTos {
     }
 
     @Test
-    public void createReferenceCheckRules() {
+    public void createCustomCheckRules() {
         Utilities.createValidationRules(RULE_TYPE, Utilities.TalendItemType.FILE_DELIMITED, METADATA_NAME, VALIDATION_RULES_NAME,
                 gefBot, treeNode);
     }

@@ -32,7 +32,7 @@ import org.talend.swtbot.Utilities;
  * DOC fzhong class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class CreateReferenceCheckRulesTest extends TalendSwtBotForTos {
+public class CreateBasicValueCheckRulesTest extends TalendSwtBotForTos {
 
     private SWTBotView view;
 
@@ -58,7 +58,7 @@ public class CreateReferenceCheckRulesTest extends TalendSwtBotForTos {
     }
 
     @Test
-    public void createReferenceCheckRules() {
+    public void createBasicValueCheckRules() {
         Utilities.createValidationRules(RULE_TYPE, Utilities.TalendItemType.FILE_DELIMITED, METADATA_NAME, VALIDATION_RULES_NAME,
                 gefBot, treeNode);
     }
