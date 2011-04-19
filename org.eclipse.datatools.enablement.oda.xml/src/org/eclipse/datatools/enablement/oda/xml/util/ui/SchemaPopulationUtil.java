@@ -600,13 +600,16 @@ final class XSDFileSchemaTreePopulator {
 
             if (((XSParticleDecl) list.item(j)).getTerm() instanceof XSElementDecl) {
                 XSElementDecl element = ((XSElementDecl) ((XSParticleDecl) list.item(j)).getTerm());
-                String dataType = element.getTypeDefinition().getBaseType().getName();
-                if (dataType.equals("anyType")) {
-                    dataType = ((XSElementDecl) ((XSParticleDecl) list.item(j)).getTerm()).getTypeDefinition().getName();
+                if (element.getTypeDefinition() != null && element.getTypeDefinition().getBaseType() != null) {
+                    String dataType = element.getTypeDefinition().getBaseType().getName();
+                    if (dataType.equals("anyType")) {
+                        dataType = ((XSElementDecl) ((XSParticleDecl) list.item(j)).getTerm()).getTypeDefinition().getName();
+                    }
+                    if (dataType != null && dataType.length() > 0) {
+                        childNode.setDataType(dataType);
+                    }
                 }
-                if (dataType != null && dataType.length() > 0) {
-                    childNode.setDataType(dataType);
-                }
+
                 childNode.setType(ATreeNode.ELEMENT_TYPE);
                 node.addChild(childNode);
 
