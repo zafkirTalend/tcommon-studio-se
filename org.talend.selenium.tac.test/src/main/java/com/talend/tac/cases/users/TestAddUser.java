@@ -118,6 +118,7 @@ public class TestAddUser extends Login {
 //	    selenium.click("//div[@class=' x-grid3-hd-inner x-grid3-hd-checker x-component']");
 //	    selenium.mouseMove("idValidateButton");
 //	    selenium.mouseUp("//div[@class=' x-grid3-hd-inner x-grid3-hd-checker x-component']");
+//	    selenium.mouseDown("//div[@class=' x-grid3-hd-inner x-grid3-hd-checker x-component']");
 //	    selenium.click("//span[text()='Role']/parent::div[not(contains(@style,'display: none'))]/" +
 //	    		"parent::td[not(contains(@style,'display: none'))]/preceding-sibling::td" +
 //	    		"[not(contains(@style,'display: none'))]/div[@class=' x-grid3-hd-inner x-grid3-hd-checker x-component']");
@@ -233,10 +234,10 @@ public class TestAddUser extends Login {
 
     }
 	
-	//add a user under of type choose "Data Integration"
+	//add a user of type choose "Data Integration"
 	@Test(dependsOnMethods={"testAddUserNotChooseActive"})
 	@Parameters({"LoginName","FirstName","LastName","PassWordww","SvnLogin","SvnPassWord"})
-	public void testMysqlAddUserRoleDesignerTypeDataIntegration(String LoginName,String FirstName,String LastName,
+	public void testAddUserRoleDesignerTypeDataIntegration(String LoginName,String FirstName,String LastName,
 			String PassWordww,String SvnLogin,String SvnPassWord) throws Exception {
 		addUser(LoginName, FirstName, LastName, PassWordww, SvnLogin, SvnPassWord,1,"Data Integration");
 
@@ -254,7 +255,7 @@ public class TestAddUser extends Login {
 	}
 	
 	//add a user of type choose "Data Quality"
-	@Test(dependsOnMethods={"testMysqlAddUserRoleDesignerTypeDataIntegration"})
+	@Test(dependsOnMethods={"testAddUserRoleDesignerTypeDataIntegration"})
 	@Parameters({"LoginNameChooseTypeDataQuality","FirstName","LastName",
 		"PassWordww","SvnLogin","SvnPassWord"})
 	public void testAddUserTypeChooseDataQuality(String LoginName,String FirstName,String LastName,
@@ -294,6 +295,26 @@ public class TestAddUser extends Login {
         Assert.assertTrue(selenium.isElementPresent("//img[@class='gwt-Image x-component ']"));
 	    selenium.setSpeed(MIN_SPEED);
         
+	}
+	
+	//add a user under MySql setting
+	@Test
+	@Parameters({"LoginNameUnderMySql","FirstName","LastName","PassWordww","SvnLogin","SvnPassWord"})
+	public void testUnderMysqlAddUser(String LoginName,String FirstName,String LastName,
+			String PassWordww,String SvnLogin,String SvnPassWord) throws Exception {
+		addUser(LoginName, FirstName, LastName, PassWordww, SvnLogin, SvnPassWord,1,"Data Integration");
+
+		selenium.click("idRoleButton");
+		Assert.assertTrue(selenium.isTextPresent(rb.getString("user.roles.title")));
+		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-name' and (text()='"+  rb.getString("menu.role.designer")+"')]");//choose a  role
+		selenium.click("idValidateButton");
+		Assert.assertEquals(selenium.getValue("idActiveInput"), rb.getString("menu.role.designer"));
+		selenium.click("idFormSaveButton");
+		selenium.setSpeed(MID_SPEED);
+		Assert.assertTrue(selenium.isElementPresent("//div[text()='"+LoginName+"']"));
+		Assert.assertTrue(selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-userType']" +
+		"/img[@alt='Data Integration']"));
+		selenium.setSpeed(MIN_SPEED);
 	}
 	
 }
