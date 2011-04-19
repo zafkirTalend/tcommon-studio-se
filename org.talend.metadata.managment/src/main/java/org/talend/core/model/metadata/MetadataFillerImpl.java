@@ -222,10 +222,8 @@ public abstract class MetadataFillerImpl implements IMetadataFiller {
             }
         }
         // set dbVersionString
-        List<EDatabaseVersion4Drivers> dbTypeList = EDatabaseVersion4Drivers.indexOfByDbType(conn.getDatabaseType());
-        if (dbTypeList.size() == 1) {
-            metadataConnection.setDbVersionString(dbTypeList.get(0).getVersionValue());
-        }
+        metadataConnection.setDbVersionString(conn.getDbVersionString());
+
         // filePath
         metadataConnection.setFileFieldName(conn.getFileFieldName());
         // jdbcUrl

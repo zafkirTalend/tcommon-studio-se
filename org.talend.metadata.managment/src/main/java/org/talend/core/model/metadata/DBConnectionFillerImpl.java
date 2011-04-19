@@ -313,9 +313,22 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     }
 
                     DatabaseConnection dbConnection = (DatabaseConnection) dbConn;
-                    if (!StringUtils.isBlank(dbConnection.getUiSchema())) {
-                        filterList = new ArrayList<String>();
-                        filterList.add(dbConnection.getUiSchema());
+
+                    filterList = new ArrayList<String>();
+                    if (dbConnection.getDatabaseType() != null
+                            && dbConnection.getDatabaseType().equals(EDatabaseTypeName.AS400.getDisplayName())) {// AS400
+                        String pattern = ExtractMetaDataUtils.retrieveSchemaPatternForAS400(dbConnection.getURL());
+                        String[] multiSchems = ExtractMetaDataUtils.getMultiSchems(pattern);
+                        for (String s : multiSchems) {
+                            if (!StringUtils.isEmpty(s) && !filterList.contains(s)) {
+                                filterList.add(s);
+                            }
+                        }
+                    } else {
+                        String uiSchema = dbConnection.getUiSchema();
+                        if (!StringUtils.isBlank(uiSchema) && !filterList.contains(uiSchema)) {
+                            filterList.add(uiSchema);
+                        }
                     }
                     // ~11412
                 }

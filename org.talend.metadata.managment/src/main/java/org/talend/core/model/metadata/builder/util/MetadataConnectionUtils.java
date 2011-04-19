@@ -48,7 +48,6 @@ import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.metadata.builder.database.DriverShim;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.metadata.builder.database.IDriverService;
-import org.talend.core.model.metadata.builder.database.dburl.SupportDBUrlType;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.cwm.constants.SoftwareSystemConstants;
@@ -707,38 +706,32 @@ public class MetadataConnectionUtils {
         return techname;
     }
 
-    public static List<String> getPackageFilter(Connection connection, DatabaseMetaData dbMetaData) {
+    public static List<String> getPackageFilter(Connection connection, DatabaseMetaData dbMetaData, boolean isCatalog) {
         List<String> packageFilter = new ArrayList<String>();
-
-        if (isMdmConnection(connection)) {
-            // MDMConnection mdmConnection = (MDMConnection) connection;
-        } else {
-            DatabaseConnection dbConnection = (DatabaseConnection) connection;
-            String databaseType = dbConnection.getDatabaseType();
-
-            if (SupportDBUrlType.isOracle(databaseType)) {
-                String uiSchema = dbConnection.getUiSchema();
-                if (!StringUtils.isEmpty(uiSchema)) {
-                    packageFilter.add(uiSchema);
-                }
-            } else
-                try {
+        try {
+            if (isMdmConnection(connection)) {
+                // MDMConnection mdmConnection = (MDMConnection) connection;
+            } else {
+                DatabaseConnection dbConnection = (DatabaseConnection) connection;
+                if (isCatalog) {
                     if (dbMetaData.supportsCatalogsInIndexDefinitions()) {
                         String sid = dbConnection.getSID();
-                        if (!StringUtils.isEmpty(sid)) {
+                        if (!StringUtils.isEmpty(sid) && !packageFilter.contains(sid)) {
                             packageFilter.add(sid);
                         }
-                    } else if (dbMetaData.supportsSchemasInIndexDefinitions()) {
+                    }
+                } else {
+                    if (dbMetaData.supportsSchemasInIndexDefinitions()) {
                         String uiSchema = dbConnection.getUiSchema();
-                        if (!StringUtils.isEmpty(uiSchema)) {
+                        if (!StringUtils.isEmpty(uiSchema) && !packageFilter.contains(uiSchema)) {
                             packageFilter.add(uiSchema);
                         }
                     }
-                } catch (SQLException e) {
-                    log.error(e, e);
                 }
+            }
+        } catch (SQLException e) {
+            log.error(e, e);
         }
-
         return packageFilter;
     }
 
@@ -878,9 +871,9 @@ public class MetadataConnectionUtils {
 
                 if (sqlConn != null) {
                     MetadataFillFactory.getDBInstance().fillCatalogs(dbConn, sqlConn.getMetaData(),
-                            MetadataConnectionUtils.getPackageFilter(dbConn, sqlConn.getMetaData()));
+                            MetadataConnectionUtils.getPackageFilter(dbConn, sqlConn.getMetaData(), true));
                     MetadataFillFactory.getDBInstance().fillSchemas(dbConn, sqlConn.getMetaData(),
-                            MetadataConnectionUtils.getPackageFilter(dbConn, sqlConn.getMetaData()));
+                            MetadataConnectionUtils.getPackageFilter(dbConn, sqlConn.getMetaData(), false));
                     driver = getClassDriver(metaConnection);
                 }
             }

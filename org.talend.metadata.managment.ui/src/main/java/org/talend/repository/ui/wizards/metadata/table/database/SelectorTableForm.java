@@ -772,8 +772,7 @@ public class SelectorTableForm extends AbstractForm {
                         // need to enhance later
                         if (ExtractMetaDataUtils.isUseAllSynonyms()
                                 && EDatabaseTypeName.ORACLEFORSID.getDisplayName().equals(iMetadataConnection.getDbType())
-                                || EDatabaseTypeName.ACCESS.getDisplayName().equals(iMetadataConnection.getDbType())
-                                || EDatabaseTypeName.AS400.getDisplayName().equals(iMetadataConnection.getDbType())) {
+                                || EDatabaseTypeName.ACCESS.getDisplayName().equals(iMetadataConnection.getDbType())) {
                             List<String> itemTableName = ExtractMetaDataFromDataBase.returnTablesFormConnection(
                                     iMetadataConnection, getTableInfoParameters());
                             if (ExtractMetaDataUtils.isUseAllSynonyms()) {
@@ -1100,8 +1099,7 @@ public class SelectorTableForm extends AbstractForm {
                 // only for oracle use all synonyms
                 boolean useAllSynonyms = ExtractMetaDataUtils.useAllSynonyms;
                 if (useAllSynonyms && EDatabaseTypeName.ORACLEFORSID.getDisplayName().equals(iMetadataConnection.getDbType())
-                        || EDatabaseTypeName.ACCESS.getDisplayName().equals(iMetadataConnection.getDbType())
-                        || EDatabaseTypeName.AS400.getDisplayName().equals(iMetadataConnection.getDbType())) {
+                        || EDatabaseTypeName.ACCESS.getDisplayName().equals(iMetadataConnection.getDbType())) {
                     metadataColumns = ExtractMetaDataFromDataBase.returnMetadataColumnsFormTable(iMetadataConnection,
                             tableString, true);
                     if (ExtractMetaDataFromDataBase.getTableTypeByTableName(tableString).equals(
@@ -1173,8 +1171,7 @@ public class SelectorTableForm extends AbstractForm {
                     String catalog = "";
                     String schema = "";
                     if (useAllSynonyms && EDatabaseTypeName.ORACLEFORSID.getDisplayName().equals(iMetadataConnection.getDbType())
-                            || EDatabaseTypeName.ACCESS.getDisplayName().equals(iMetadataConnection.getDbType())
-                            || EDatabaseTypeName.AS400.getDisplayName().equals(iMetadataConnection.getDbType())) {
+                            || EDatabaseTypeName.ACCESS.getDisplayName().equals(iMetadataConnection.getDbType())) {
                         schema = iMetadataConnection.getSchema();
                         catalog = iMetadataConnection.getDatabase();
                         String databaseType = iMetadataConnection.getDbType();
