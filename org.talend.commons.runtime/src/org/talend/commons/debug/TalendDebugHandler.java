@@ -14,12 +14,13 @@ package org.talend.commons.debug;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.eclipse.core.runtime.Platform;
+import org.talend.commons.CommonsPlugin;
 import org.talend.commons.exception.CommonExceptionHandler;
 
 /**
  * ggu class global comment. Detailled comment
  * 
- * add the function for debug "--debugTalend"
+ * add the function for debug "--talendDebug"
  */
 public final class TalendDebugHandler {
 
@@ -34,7 +35,7 @@ public final class TalendDebugHandler {
     }
 
     public static void debug(Throwable e, boolean console, boolean log) {
-        if (!isInTalendDebug() || e == null) {
+        if (!CommonsPlugin.isDebugMode() || e == null) {
             return;
         }
         if (console && isEclipseDebug()) {
@@ -57,7 +58,7 @@ public final class TalendDebugHandler {
     }
 
     public static void debug(String messages, boolean console, boolean log) {
-        if (!isInTalendDebug()) {
+        if (!CommonsPlugin.isDebugMode()) {
             return;
         }
         if (console && isEclipseDebug()) {
@@ -66,10 +67,6 @@ public final class TalendDebugHandler {
         if (log) {
             CommonExceptionHandler.log(messages);
         }
-    }
-
-    public static boolean isInTalendDebug() {
-        return ArrayUtils.contains(Platform.getApplicationArgs(), "--debugTalend"); //$NON-NLS-1$
     }
 
     public static boolean isEclipseDebug() {
