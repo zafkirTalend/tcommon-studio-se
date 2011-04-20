@@ -16,7 +16,7 @@ public class TestAddTriggerAddCronTrigger extends Login{
 	@Test
 	@Parameters({ "plan.toaddcrontrigger.label", "plan.crontrigger.label"})
 	public void testAddCronTrigger(String planlabel,String crongtriggerlabel) throws InterruptedException{
-	    TriggerDate date = new TriggerDate();
+	    TriggerDate date = new TriggerDate().getFuture(24);
 		//open to execution plan add trigger page
 		this.clickWaitForElementPresent("!!!menu.executionPlan.element!!!");
     	selenium.setSpeed(MID_SPEED);
@@ -48,37 +48,8 @@ public class TestAddTriggerAddCronTrigger extends Login{
 	    Assert.assertTrue(selenium.isElementPresent("//span[text()='"+crongtriggerlabel+"']"), "Crontrigger added failed!");
 	    selenium.setSpeed(MIN_SPEED);
 	}
-	private class TriggerDate{
-		public String minutes = "";
-		public String hours = "";
-		public String days = "";
-		public String months = "";
-		public String years = "";
-		public TriggerDate(){
-			Date date = new Date();
-			DateFormat   df   =   new   SimpleDateFormat( "yyyy-MM-dd hh:MM:ss"); 
-			date.setHours(date.getHours()+24);
-			String s = df.format(date);//system date 
-			s.replaceAll(" ", "-");
-			s.replaceAll(":", "-");
-//			System.out.println(s);
-			String after = (s.replaceAll(" ", "-").replaceAll(":", "-"));
-			System.out.println(after);
-			String dates[]=after.split("-");
-			
-			this.years +=dates[0] ;
-			System.out.println("years is: "+years);
-			this.months +=dates[1];
-			System.out.println("months is: "+months);
-			this.days += dates[2];
-			System.out.println("days is: "+days);
-			this.hours += dates[3];
-			System.out.println("hours is: "+hours);
-			this.minutes += dates[4];
-			System.out.println("minutes is: "+minutes);
-			
-		}
+
 		
-	}
+	
 
 }
