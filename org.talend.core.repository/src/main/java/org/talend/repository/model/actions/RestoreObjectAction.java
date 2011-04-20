@@ -17,8 +17,8 @@ import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
-import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
+import org.talend.repository.model.RepositoryNode;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -36,7 +36,7 @@ public class RestoreObjectAction {
 
     public boolean validateAction(RepositoryNode sourceNode, RepositoryNode targetNode) {
         MoveObjectAction moveObjectAction = MoveObjectAction.getInstance();
-        if (!moveObjectAction.validateAction(sourceNode, targetNode)) {
+        if (!moveObjectAction.validateAction(sourceNode, targetNode, false)) {
             return false;
         }
 
@@ -54,6 +54,6 @@ public class RestoreObjectAction {
             return;
         }
         MoveObjectAction moveObjectAction = MoveObjectAction.getInstance();
-        moveObjectAction.execute(sourceNode, targetNode, folderPath);
+        moveObjectAction.execute(sourceNode, targetNode, folderPath, false);
     }
 }

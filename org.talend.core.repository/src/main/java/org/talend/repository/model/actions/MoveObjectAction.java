@@ -68,7 +68,7 @@ public class MoveObjectAction {
      * @param targetNode
      * @return
      */
-    public boolean validateAction(RepositoryNode sourceNode, RepositoryNode targetNode) {
+    public boolean validateAction(RepositoryNode sourceNode, RepositoryNode targetNode, boolean isDnd) {
         if (sourceNode == null) {
             return false;
         }
@@ -110,7 +110,7 @@ public class MoveObjectAction {
         }
 
         // can't drag mdm connection
-        if (sourceNode.getObjectType() == ERepositoryObjectType.METADATA_MDMCONNECTION) {
+        if (isDnd && sourceNode.getObjectType() == ERepositoryObjectType.METADATA_MDMCONNECTION) {
             return false;
         }
 
@@ -201,14 +201,14 @@ public class MoveObjectAction {
         }
     }
 
-    public void execute(RepositoryNode sourceNode, RepositoryNode targetNode) throws Exception {
-        execute(sourceNode, targetNode, null);
+    public void execute(RepositoryNode sourceNode, RepositoryNode targetNode, boolean isDnd) throws Exception {
+        execute(sourceNode, targetNode, null, isDnd);
     }
 
     // folderPath is used for restore item to original folder. see bug 0005465: Restore from Recycle Bin lose the
     // directories.
-    public void execute(RepositoryNode sourceNode, RepositoryNode targetNode, IPath folderPath) throws Exception {
-        if (!validateAction(sourceNode, targetNode)) {
+    public void execute(RepositoryNode sourceNode, RepositoryNode targetNode, IPath folderPath, boolean isDnd) throws Exception {
+        if (!validateAction(sourceNode, targetNode, isDnd)) {
             // i18n
             // log.debug("Cannot move [" + sourceNode + "] to " + targetNode);
             String str[] = new String[] { sourceNode.toString(), targetNode.toString() };
