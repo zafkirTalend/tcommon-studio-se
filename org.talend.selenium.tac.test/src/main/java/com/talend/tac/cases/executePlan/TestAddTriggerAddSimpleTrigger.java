@@ -6,183 +6,48 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.testng.Assert;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.talend.tac.cases.Login;
 @SuppressWarnings("deprecation")
 public class TestAddTriggerAddSimpleTrigger extends Login{
     	
-    Date date = new Date();
-    Date date1 = new Date();
-    DateFormat   df   =   new   SimpleDateFormat( "yyyy-MM-dd hh:MM:ss"); 
-   
+	TriggerDate date = new TriggerDate();
 	// add a simpleTrigger
-	@Test
-	public void testAddTriggerAddSimpleTrigger() {
+	@Test(groups={"plan.addtrigger"})
+	@Parameters({ "plan.toaddsimpletrigger.label", "plan.simpletrigger.label"})
+	public void testAddTriggerAddSimpleTrigger(String plantoaddsimletrigger,String simpletriggerlabel) throws InterruptedException {
     	this.clickWaitForElementPresent("!!!menu.executionPlan.element!!!");
     	selenium.setSpeed(MID_SPEED);
     	Assert.assertTrue(selenium.isElementPresent("//div[@class='header-title' and text()='Execution plan']"));
     	selenium.setSpeed(MIN_SPEED);
     	selenium.click("idSubModuleRefreshButton");
-    	selenium.mouseDown("//div[text()='testAddPlan']");//select a exist task
+    	selenium.mouseDown("//div[text()='"+plantoaddsimletrigger+"']");//select a exist task
 		selenium.click("//button[text()='Add trigger...']");//add a trigger
 		selenium.click("//a[text()='Add SimpleTrigger']");//add a SimpleTrigger
-		
         Assert.assertTrue(selenium.isElementPresent("//span[text()='"+rb.getString("trigger.action.addSimpleTrigger")+"']"));
         selenium.setSpeed(MID_SPEED);
-        selenium.type("//input[@name='label']", "TestSimpleTrigger");//label
-		selenium.fireEvent("//input[@name='label']","blur");
-		selenium.type("//input[@class=' x-form-field x-form-text' and @name='description']", "test add a SimpleTrigger");//description
-		selenium.fireEvent("//input[@name='description']","blur");
-	
-	    date.setHours(date.getHours()+24);
-	    date1.setHours(date.getHours()+48);
-	    String s = df.format(date);//system date 
-	    String s1 =  df.format(date1);
-	    
-		selenium.type("//input[@name='startTime']", s);
-		selenium.fireEvent("//input[@name='startTime']", "blur");
-		selenium.type("//input[@name='endTime']", s1);
-		selenium.fireEvent("//input[@name='endTime']", "blur");
-	    selenium.type("//input[@name='repeatCount']", "3");//Number of triggerings
-	    selenium.fireEvent("//input[@name='repeatCount']", "blur");
-        selenium.type("//input[@name='repeatInterval']", "3");//Time interval (s)
-	    selenium.fireEvent("//input[@name='repeatInterval']", "blur");
-	    selenium.click("//button[@id='idFormSaveButton' and  @class='x-btn-text ']");
+        //type simple trigger label
+        this.typeString("//div[@class=' x-panel x-component ']/div[@class='x-panel-bwrap']/div[@class='x-panel-body x-panel-body-noheader']/div[@class=' x-panel-noborder x-panel x-component']/div[@class='x-panel-bwrap']/div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder']/form[@class=' x-form-label-left']/fieldset[@class=' x-fieldset x-component']/div[@class=' x-form-label-left']/div[@class='x-form-item ']/div/div[@class=' x-form-field-wrap  x-component ']/input[@name='label']",simpletriggerlabel );//label
+		//type simple trigger description
+        this.typeString("//div[@class=' x-panel x-component ']/div[@class='x-panel-bwrap']/div[@class='x-panel-body x-panel-body-noheader']/div[@class=' x-panel-noborder x-panel x-component']/div[@class='x-panel-bwrap']/div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder']/form[@class=' x-form-label-left']/fieldset[@class=' x-fieldset x-component']/div[@class=' x-form-label-left']/div[@class='x-form-item ']/div/div[@class=' x-form-field-wrap  x-component ']/input[@name='description']", "SimpleTrigger");//description
+        //type simple trigger start time
+        this.typeString("//input[@name='startTime']", date.getFuture("24"));
+//        this.typeString("//div[@class=' x-panel x-component ']/div[@class='x-panel-bwrap']/div[@class='x-panel-body x-panel-body-noheader']/div[@class=' x-panel-noborder x-panel x-component']/div[@class='x-panel-bwrap']/div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder']/form[@class=' x-form-label-left']/fieldset[@class=' x-fieldset x-component']/div[@class=' x-form-label-left']/div[@class='x-form-item ']/div/div[@class=' x-form-field-wrap  x-component ']/input[@name='startTime']", date.getFuture("24"));//description
+        //type simple trigger end time
+        this.typeString("//input[@name='endTime']", date.getFuture("48"));
+//        this.typeString("//div[@class=' x-panel x-component ']/div[@class='x-panel-bwrap']/div[@class='x-panel-body x-panel-body-noheader']/div[@class=' x-panel-noborder x-panel x-component']/div[@class='x-panel-bwrap']/div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder']/form[@class=' x-form-label-left']/fieldset[@class=' x-fieldset x-component']/div[@class=' x-form-label-left']/div[@class='x-form-item ']/div/div[@class=' x-form-field-wrap  x-component ']/input[@name='endTime']", date.getFuture("48"));//description
+        //type simple trigger repeat count
+        this.typeString("//div[@class=' x-panel x-component ']/div[@class='x-panel-bwrap']/div[@class='x-panel-body x-panel-body-noheader']/div[@class=' x-panel-noborder x-panel x-component']/div[@class='x-panel-bwrap']/div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder']/form[@class=' x-form-label-left']/fieldset[@class=' x-fieldset x-component']/div[@class=' x-form-label-left']/div[@class='x-form-item ']/div/div[@class=' x-form-field-wrap  x-component ']/input[@name='repeatCount']", "40");//description
+	    //type simple trigger repeat interval
+        this.typeString("//div[@class=' x-panel x-component ']/div[@class='x-panel-bwrap']/div[@class='x-panel-body x-panel-body-noheader']/div[@class=' x-panel-noborder x-panel x-component']/div[@class='x-panel-bwrap']/div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder']/form[@class=' x-form-label-left']/fieldset[@class=' x-fieldset x-component']/div[@class=' x-form-label-left']/div[@class='x-form-item ']/div/div[@class=' x-form-field-wrap  x-component ']/input[@name='repeatInterval']", "15");//Number of triggerings
+//	    selenium.click("//span[text()='Add simple trigger']/parent::legend/parent::fieldset/parent::form/parent::div/parent::div/parent::div/parent::div/parent::div//button[@id='idFormSaveButton']");
+	    selenium.click("//div[@class=' x-panel x-component ']/div[@class='x-panel-bwrap']/div[@class='x-panel-footer']/div[@class=' x-panel-btns']/div[@class=' x-small-editor x-panel-btns-center x-panel-fbar x-component x-toolbar-layout-ct']/table[@class='x-toolbar-ct']/tbody/tr/td[@class='x-toolbar-left']/table/tbody/tr[@class='x-toolbar-left-row']/td[@class='x-toolbar-cell']/table[@class=' x-btn x-component x-btn-text-icon ']/tbody[@class='x-btn-small x-btn-icon-small-left']/tr/td[@class='x-btn-mc']/em/button[@class='x-btn-text ' and text()='Save']");
 	    selenium.setSpeed(MID_SPEED); 
-	    Assert.assertTrue(selenium.isElementPresent("//div[text()='TestSimpleTrigger']"));
+//	    Thread.sleep(5000);
+	    Assert.assertTrue(selenium.isElementPresent("//span[text()='"+simpletriggerlabel+"']"));
 	    selenium.setSpeed(MIN_SPEED);
 	}
-//	//add a exist simpleTrigger
-//	@Test(dependsOnMethods={"testAddTriggerAddSimpleTrigger()"})
-//    public void testAddTriggerAddSimpleTriggerAddExist() {
-//    	this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
-//    	selenium.setSpeed(MID_SPEED);
-//    	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
-//    	selenium.mouseDown("//div[text()='Copy_of_test_task']");//select a exist task
-//		selenium.click("//button[text()='Add trigger...']");//add a trigger
-//		selenium.click("//a[text()='Add SimpleTrigger']");//add a SimpleTrigger
-//        Assert.assertTrue(selenium.isElementPresent("//span[text()='"+rb.getString("trigger.action.addSimpleTrigger")+"']"));
-//       
-//        selenium.type("//input[@class=' x-form-field x-form-text x-form-invalid']", "TestSimpleTrigger");//label
-//		selenium.fireEvent("//input[@class=' x-form-field x-form-text x-form-invalid']","blur");
-//		selenium.type("//input[@name='description']", "test add a exist SimpleTrigger");//description
-//		selenium.fireEvent("//input[@name='description']","blur");
-//		selenium.click("//div[@class='x-form-trigger x-form-date-trigger']");//start date
-//	    
-//		selenium.click("//a[(span/text()='12')]");
-//	    selenium.click("//div[@class=' x-form-label-left']/div[4]/div/div/div[@class='x-form-trigger x-form-date-trigger']");//end date
-//	    selenium.click("//a[(span/text()='13')]");
-//	    selenium.type("//input[@name='triggeredCount']", "3");//Number of triggerings
-//	    selenium.fireEvent("//input[@name='triggeredCount']", "blur");
-//        selenium.type("//input[@name='repeatInterval']", "3");//Time interval (s)
-//	    selenium.fireEvent("//input[@name='repeatInterval']", "blur");
-//	    selenium.click("//div[@class=' x-panel x-component ']/div[2]/div[2]/div/div/table/tbody/tr/td/table/tbody/tr/td/table/tbody/tr[2]/td[2]/em/button[@id='idFormSaveButton']");
-//	    selenium.setSpeed(MID_SPEED); 
-//		Assert.assertTrue(selenium.isTextPresent(rb.getString("trigger.error.uniqueLabel")));
-//		selenium.setSpeed(MIN_SPEED);
-//	   
-//	}
-//	
-////	add a simpleTrigger of wrong form time interval 
-//	@Test
-//    public void testAddTriggerAddSimpleTriggerAddWrongFormTimeInterval() {
-//    	this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
-//    	selenium.setSpeed(MID_SPEED);
-//    	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
-//    	selenium.mouseDown("//div[text()='Copy_of_test_task']");//select a exist task
-//		selenium.click("//button[text()='Add trigger...']");//add a trigger
-//		selenium.click("//a[text()='Add SimpleTrigger']");//add a SimpleTrigger
-//        Assert.assertTrue(selenium.isElementPresent("//span[text()='"+rb.getString("trigger.action.addSimpleTrigger")+"']"));
-//        
-//        selenium.type("//input[@class=' x-form-field x-form-text x-form-invalid']", "TestSimpleTriggerAddWrongFormTimeInterval");//label
-//		selenium.fireEvent("//input[@class=' x-form-field x-form-text x-form-invalid']","blur");
-//		selenium.type("//input[@name='description']", "test add a simpleTrigger of wrong form time interval");//description
-//		selenium.fireEvent("//input[@name='description']","blur");
-//		
-//		selenium.click("//div[@class='x-form-trigger x-form-date-trigger']");//start date
-//	    selenium.click("//a[(span/text()='12')]");
-//	    selenium.click("//div[@class=' x-form-label-left']/div[4]/div/div/div[@class='x-form-trigger x-form-date-trigger']");//end date
-//	    selenium.click("//a[(span/text()='13')]");
-//	    selenium.type("//input[@name='triggeredCount']", "3");//Number of triggerings
-//	    selenium.fireEvent("//input[@name='triggeredCount']", "blur");
-//        selenium.type("//input[@name='repeatInterval']", "aa");//Time interval (s)
-//	    selenium.fireEvent("//input[@name='repeatInterval']", "blur");
-//	    selenium.click("//div[@class=' x-panel x-component ']/div[2]/div[2]/div/div/table/tbody/tr/td/table/tbody/tr/td/table/tbody/tr[2]/td[2]/em/button[@id='idFormSaveButton']");
-//	    selenium.setSpeed(MID_SPEED); 
-//		Assert.assertTrue(selenium.isTextPresent("Save failed: The field 'Time interval' has to be set with an integer greater than 0"));
-//		selenium.click("//button[text()='"+rb.getString("executionPlan.errorStatus.ok")+"']");
-//		selenium.setSpeed(MIN_SPEED);
-//	   
-//	 }
-//	
-//	//add a overdue(start date) simpleTrigger
-//	@Test
-//    public void testAddTriggerAddSimpleTriggerAddOverdueStartData() {
-//    	this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
-//    	selenium.setSpeed(MID_SPEED);
-//    	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
-//    	selenium.mouseDown("//div[text()='Copy_of_test_task']");//select a exist task
-//		selenium.click("//button[text()='Add trigger...']");//add a trigger
-//		selenium.click("//a[text()='Add SimpleTrigger']");//add a SimpleTrigger
-//        Assert.assertTrue(selenium.isElementPresent("//span[text()='"+rb.getString("trigger.action.addSimpleTrigger")+"']"));
-//       
-//        selenium.type("//input[@class=' x-form-field x-form-text x-form-invalid']", "TestSimpleTriggerOverdueStartData");//label
-//		selenium.fireEvent("//input[@class=' x-form-field x-form-text x-form-invalid']","blur");
-//		selenium.type("//input[@name='description']", "test add a overdue(startDate) simpleTrigger");//description
-//		selenium.fireEvent("//input[@name='description']","blur");
-//		
-//		selenium.click("//div[@class='x-form-trigger x-form-date-trigger']");//start date
-//	    selenium.click("//a[(span/text()='12')]");
-//	    selenium.click("//div[@class=' x-form-label-left']/div[4]/div/div/div[@class='x-form-trigger x-form-date-trigger']");//end date
-//	    selenium.click("//a[(span/text()='13')]");
-//	    selenium.type("//input[@name='triggeredCount']", "3");//Number of triggerings
-//	    selenium.fireEvent("//input[@name='triggeredCount']", "blur");
-//        selenium.type("//input[@name='repeatInterval']", "aa");//Time interval (s)
-//	    selenium.fireEvent("//input[@name='repeatInterval']", "blur");
-//	    selenium.click("//div[@class=' x-panel x-component ']/div[2]/div[2]/div/div/table/tbody/tr/td/table/tbody/tr/td/table/tbody/tr[2]/td[2]/em/button[@id='idFormSaveButton']");
-//	    selenium.setSpeed(MID_SPEED); 
-//		Assert.assertTrue(selenium.isTextPresent("Save failed: Start time has to be set with a date greater than server time (2011-03-14 16h45)"));
-//		selenium.click("//button[text()='"+rb.getString("executionPlan.errorStatus.ok")+"']");
-//		selenium.setSpeed(MIN_SPEED);
-//	   
-//	}
-//	//add a overdue(start date) simpleTrigger
-//	@Test
-//    public void testAddTriggerAddSimpleTriggerAddOverdueEndData() {
-//    	this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
-//    	selenium.setSpeed(MID_SPEED);
-//    	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
-//    	selenium.mouseDown("//div[text()='Copy_of_test_task']");//select a exist task
-//		selenium.click("//button[text()='Add trigger...']");//add a trigger
-//		selenium.click("//a[text()='Add SimpleTrigger']");//add a SimpleTrigger
-//        Assert.assertTrue(selenium.isElementPresent("//span[text()='"+rb.getString("trigger.action.addSimpleTrigger")+"']"));
-//       
-//        selenium.type("//input[@class=' x-form-field x-form-text x-form-invalid']", "TestSimpleTriggerOverdueEndData");//label
-//		selenium.fireEvent("//input[@class=' x-form-field x-form-text x-form-invalid']","blur");
-//		selenium.type("//input[@name='description']", "test add a overdue(endDate) simpleTrigger");//description
-//		selenium.fireEvent("//input[@name='description']","blur");
-//
-//	    date.setHours(date.getHours()+24);
-//	    String s = df.format(date);//system date 
-//	    System.out.println(s);
-//	    date1.setHours(date.getHours()-24);
-//	    String s1 = df.format(date1);//system date 
-//	    System.out.println(s1);
-//	    
-//		selenium.type("//input[@name='startTime']", s);
-//		selenium.fireEvent("//input[@name='startTime']", "blur");
-//		selenium.type("//input[@name='endTime']", s1);
-//		selenium.fireEvent("//input[@name='endTime']", "blur");
-//	    selenium.type("//input[@name='triggeredCount']", "3");//Number of triggerings
-//	    selenium.fireEvent("//input[@name='triggeredCount']", "blur");
-//        selenium.type("//input[@name='repeatInterval']", "5");//Time interval (s)
-//	    selenium.fireEvent("//input[@name='repeatInterval']", "blur");
-//	    selenium.click("//div[@class=' x-panel x-component ']/div[2]/div[2]/div/div/table/tbody/tr/td/table/tbody/tr/td/table/tbody/tr[2]/td[2]/em/button[@id='idFormSaveButton']");
-//	    selenium.setSpeed(MID_SPEED); 
-//		Assert.assertTrue(selenium.isTextPresent("Save failed: End time cannot be before start time"));
-//		selenium.click("//button[text()='"+rb.getString("executionPlan.errorStatus.ok")+"']");
-//		selenium.setSpeed(MIN_SPEED);
-//	   
-//	}
+
 }
