@@ -61,6 +61,8 @@ import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.MetadataTool;
 import org.talend.core.model.metadata.QueryUtil;
+import org.talend.core.model.metadata.builder.ConvertionHelper;
+import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.designerproperties.SapJcoVersion;
 import org.talend.core.model.process.ElementParameterParser;
 import org.talend.core.model.properties.Item;
@@ -527,5 +529,9 @@ public class CoreService implements ICoreService {
 
     public void updatePalette() {
         ComponentUtilities.updatePalette();
+    }
+
+    public IMetadataTable convert(MetadataTable originalTable) {
+        return ConvertionHelper.convert(originalTable);
     }
 }
