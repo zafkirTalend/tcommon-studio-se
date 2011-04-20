@@ -33,6 +33,9 @@ public abstract class AbstractUpdateManager implements IUpdateManager {
     // for repository schema rename
     private Map<String, String> schemaRenamedMap = new HashMap<String, String>();
 
+    /* for table deleted and reselect on database wizard table */
+    private Map<String, EUpdateResult> deletedOrReselectTablesMap = new HashMap<String, EUpdateResult>();
+
     private boolean fromRepository = false;
 
     /**
@@ -139,6 +142,14 @@ public abstract class AbstractUpdateManager implements IUpdateManager {
      */
     public boolean executeUpdates() {
         return executeUpdates(getUpdatesNeeded());
+    }
+
+    public Map<String, EUpdateResult> getDeletedOrReselectTablesMap() {
+        return deletedOrReselectTablesMap;
+    }
+
+    public void setDeletedOrReselectTablesMap(Map<String, EUpdateResult> deletedOrReselectTablesMap) {
+        this.deletedOrReselectTablesMap = deletedOrReselectTablesMap;
     }
 
 }

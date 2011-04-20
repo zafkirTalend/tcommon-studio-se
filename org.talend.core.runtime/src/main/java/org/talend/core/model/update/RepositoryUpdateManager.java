@@ -36,11 +36,13 @@ import org.eclipse.ui.internal.progress.ProgressMonitorJobsDialog;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ICoreService;
 import org.talend.core.model.context.JobContext;
 import org.talend.core.model.context.JobContextManager;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.builder.connection.Connection;
+import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.QueriesConnection;
 import org.talend.core.model.metadata.builder.connection.Query;
@@ -68,8 +70,10 @@ import org.talend.core.runtime.i18n.Messages;
 import org.talend.core.service.IMetadataManagmentService;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.designer.core.IDesignerCoreService;
+import org.talend.designer.runprocess.ItemCacheManager;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
+import org.talend.repository.model.IRepositoryService;
 import org.talend.repository.model.RepositoryNode;
 
 /**
@@ -95,6 +99,9 @@ public abstract class RepositoryUpdateManager {
 
     private Map<IContext, String> renameContextGroup = new HashMap<IContext, String>();
 
+    /* for table deleted and reselect on database wizard table */
+    private Map<String, EUpdateResult> deletedOrReselectTablesMap = new HashMap<String, EUpdateResult>();
+
     /**
      * used for filter result.
      */
@@ -105,6 +112,11 @@ public abstract class RepositoryUpdateManager {
     private boolean onlyOpeningJob = false;
 
     private List<IRepositoryViewObject> updateObjList;
+
+    private static IRepositoryService repistoryService = (IRepositoryService) GlobalServiceRegister.getDefault().getService(
+            IRepositoryService.class);
+
+    private static ICoreService coreService = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
 
     public RepositoryUpdateManager(Object parameter) {
         super();
@@ -465,6 +477,14 @@ public abstract class RepositoryUpdateManager {
             }
 
         }
+        /* table delete or reload */
+        Object parameter2 = result.getParameter();
+        if (object instanceof String && parameter2 instanceof List) {
+            List listParameter = (List) parameter2;
+            if (listParameter.get(1) instanceof EUpdateResult) {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -742,11 +762,16 @@ public abstract class RepositoryUpdateManager {
                 jobContextManager.setRenameGroupContext(getRenameContextGroup());
                 jobContextManager.setRenameContextGroupMap(repositoryRenameGroupContext);
             }
-            // schema rename
+            // schema
             IUpdateManager updateManager = process2.getUpdateManager();
             if (updateManager instanceof AbstractUpdateManager) {
                 AbstractUpdateManager manager = (AbstractUpdateManager) updateManager;
-                manager.setSchemaRenamedMap(getSchemaRenamedMap());
+                if (!getSchemaRenamedMap().isEmpty()) {
+                    manager.setSchemaRenamedMap(getSchemaRenamedMap());
+                }
+                if (!getDeletedOrReselectTablesMap().isEmpty()) {
+                    manager.setDeletedOrReselectTablesMap(getDeletedOrReselectTablesMap());
+                }
                 manager.setFromRepository(true);
             }
             //
@@ -1115,7 +1140,10 @@ public abstract class RepositoryUpdateManager {
             return false;
         }
         Map<String, String> schemaRenamedMap = RepositoryUpdateManager.getSchemaRenamedMap(connItem, oldTableMap);
+        Map<String, EUpdateResult> deletedOrReselectTablesMap = null;
         boolean update = !schemaRenamedMap.isEmpty();
+        boolean isDeleteOrReselect = false;
+        Connection connection = connItem.getConnection();
 
         if (!update) {
             if (oldMetadataTable != null) {
@@ -1124,12 +1152,117 @@ public abstract class RepositoryUpdateManager {
                 update = !RepositoryUpdateManager.sameAsMetadatTable(newMetadataTable, oldMetadataTable, oldTableMap);
             }
         }
+        /* if table has been deselect and select again,should propgate the update dialog */
+        if (!update) {
+            deletedOrReselectTablesMap = new HashMap<String, EUpdateResult>();
+
+            List<IMetadataTable> newMetadataTable = new ArrayList<IMetadataTable>();
+            if (repistoryService != null && coreService != null && connection instanceof DatabaseConnection) {
+                Set<org.talend.core.model.metadata.builder.connection.MetadataTable> newTables = repistoryService
+                        .getTablesFromSpecifiedDataPackage((DatabaseConnection) connection);
+                if (newTables != null) {
+                    for (org.talend.core.model.metadata.builder.connection.MetadataTable originalTable : newTables) {
+                        IMetadataTable conversionTable = coreService.convert(originalTable);
+                        newMetadataTable.add(conversionTable);
+                    }
+                }
+            }
+            isDeleteOrReselect = isDeleteOrReselectMap(connItem, newMetadataTable, oldMetadataTable, deletedOrReselectTablesMap);
+        }
         // update
         if (update) {
             return updateSchema(connItem, connItem, schemaRenamedMap, true, false);
+        } else if (isDeleteOrReselect) {
+            return updateDeleteOrReselectSchema(connItem, connItem, deletedOrReselectTablesMap, true, false);
         }
         return false;
 
+    }
+
+    /**
+     * DOC hywang Comment method "updateDeleteOrReselectSchema".
+     */
+    private static boolean updateDeleteOrReselectSchema(Object table, ConnectionItem connItem,
+            Map<String, EUpdateResult> deletedOrReselectTablesMap, boolean show, boolean onlySimpleShow) {
+
+        IProxyRepositoryFactory factory = repistoryService.getProxyRepositoryFactory();
+        List<IRepositoryViewObject> updateList = new ArrayList<IRepositoryViewObject>();
+        List<RelationshipItemBuilder.Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(
+                ((ConnectionItem) connItem).getProperty().getId(), ItemCacheManager.LATEST_VERSION,
+                RelationshipItemBuilder.PROPERTY_RELATION);
+
+        /*
+         * the id for schema which stored in .project file is like "_dlkjfhjkdfioi - metadata",not only indicate by a
+         * single id but also table name,so if only find the relations by id and
+         * RelationshipItemBuilder.PROPERTY_RELATION,it can't find
+         */
+        if (connItem instanceof GenericSchemaConnectionItem) {
+            String id = ((ConnectionItem) connItem).getProperty().getId();
+            if (table instanceof MetadataTable) {
+                id = id + " - " + ((MetadataTable) table).getLabel(); //$NON-NLS-N$ 
+            }
+            List<RelationshipItemBuilder.Relation> schemaRelations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(id,
+                    ItemCacheManager.LATEST_VERSION, RelationshipItemBuilder.SCHEMA_RELATION);
+            if (!schemaRelations.isEmpty()) {
+                relations.addAll(schemaRelations);
+            }
+        }
+
+        for (RelationshipItemBuilder.Relation relation : relations) {
+            try {
+                IRepositoryViewObject obj = factory.getLastVersion(relation.getId());
+                if (obj != null) {
+                    updateList.add(obj);
+                }
+            } catch (PersistenceException e) {
+                ExceptionHandler.process(e);
+            }
+        }
+        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(table, updateList) {
+
+            @Override
+            public Set<EUpdateItemType> getTypes() {
+                Set<EUpdateItemType> types = new HashSet<EUpdateItemType>();
+                types.add(EUpdateItemType.NODE_SCHEMA);
+                return types;
+            }
+
+        };
+
+        // set renamed schema
+        repositoryUpdateManager.setDeletedOrReselectTablesMap(deletedOrReselectTablesMap);
+
+        return repositoryUpdateManager.doWork(show, onlySimpleShow);
+
+    }
+
+    /* hywang for bug 20024 */
+    public static boolean isDeleteOrReselectMap(ConnectionItem connItem, List<IMetadataTable> newTables,
+            List<IMetadataTable> oldTables, Map<String, EUpdateResult> deletedOrReselectTables) {
+        for (IMetadataTable oldTable : oldTables) {
+            String prefix;
+            boolean isDeleted = true;
+            String oldtableName = oldTable.getTableName();
+            String oldtableId = oldTable.getId();
+            for (IMetadataTable newTable : newTables) {
+                String tableLabel = newTable.getLabel();
+                String tableId = newTable.getId();
+                if (tableLabel.equals(oldtableName)) {
+                    isDeleted = false;
+                    /* if table name is same but tableId is not same,means table has been deselect and reselect */
+                    if (!tableId.equals(oldtableId)) {
+                        prefix = connItem.getProperty().getId() + UpdatesConstants.SEGMENT_LINE;
+                        deletedOrReselectTables.put(prefix + tableLabel, EUpdateResult.RELOAD);
+                    }
+                }
+            }
+            /* if can't find the name when looping the new tables,means the table has been removed */
+            if (isDeleted) {
+                prefix = connItem.getProperty().getId() + UpdatesConstants.SEGMENT_LINE;
+                deletedOrReselectTables.put(prefix + oldtableName, EUpdateResult.DELETE);
+            }
+        }
+        return !deletedOrReselectTables.isEmpty();
     }
 
     public static boolean updateWSDLConnection(ConnectionItem connectionItem, boolean show, final boolean onlySimpleShow) {
@@ -1660,5 +1793,13 @@ public abstract class RepositoryUpdateManager {
         // IPreferenceStore preferenceStore = designerCoreService.getDesignerCorePreferenceStore();
         // return preferenceStore.getBoolean(ITalendCorePrefConstants.ITEM_INDEX);
         return true;
+    }
+
+    public Map<String, EUpdateResult> getDeletedOrReselectTablesMap() {
+        return deletedOrReselectTablesMap;
+    }
+
+    public void setDeletedOrReselectTablesMap(Map<String, EUpdateResult> deletedOrReselectTablesMap) {
+        this.deletedOrReselectTablesMap = deletedOrReselectTablesMap;
     }
 }

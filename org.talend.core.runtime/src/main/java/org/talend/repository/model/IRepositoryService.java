@@ -14,6 +14,7 @@ package org.talend.repository.model;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.action.Action;
@@ -133,5 +134,8 @@ public interface IRepositoryService extends IService {
     public void setInternalNodeHTMLMap(INode node, Map<String, Object> internalNodeHTMLMap);
 
     public IDialogSettings getDialogSettings();
+
+    public Set<org.talend.core.model.metadata.builder.connection.MetadataTable> getTablesFromSpecifiedDataPackage(
+            DatabaseConnection dbconn);
 
 }
