@@ -1333,23 +1333,6 @@ public abstract class RepositoryUpdateManager {
                 ((ConnectionItem) connItem).getProperty().getId(), RelationshipItemBuilder.LATEST_VERSION,
                 RelationshipItemBuilder.PROPERTY_RELATION);
 
-        /*
-         * the id for schema which stored in .project file is like "_dlkjfhjkdfioi - metadata",not only indicate by a
-         * single id but also table name,so if only find the relations by id and
-         * RelationshipItemBuilder.PROPERTY_RELATION,it can't find
-         */
-        if (connItem instanceof GenericSchemaConnectionItem) {
-            String id = ((ConnectionItem) connItem).getProperty().getId();
-            if (table instanceof MetadataTable) {
-                id = id + " - " + ((MetadataTable) table).getLabel(); //$NON-NLS-N$
-            }
-            List<RelationshipItemBuilder.Relation> schemaRelations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(id,
-                    RelationshipItemBuilder.LATEST_VERSION, RelationshipItemBuilder.SCHEMA_RELATION);
-            if (!schemaRelations.isEmpty()) {
-                relations.addAll(schemaRelations);
-            }
-        }
-
         for (RelationshipItemBuilder.Relation relation : relations) {
             try {
                 IRepositoryViewObject obj = factory.getLastVersion(relation.getId());

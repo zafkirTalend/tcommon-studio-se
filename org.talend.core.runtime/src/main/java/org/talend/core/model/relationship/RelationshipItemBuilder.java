@@ -151,9 +151,24 @@ public class RelationshipItemBuilder {
 
         for (Relation baseItem : itemsRelations.keySet()) {
             for (Relation relatedItem : itemsRelations.get(baseItem)) {
-                if (relatedItem.equals(itemToTest)) {
-                    relations.add(baseItem);
-                    break;
+                String id = relatedItem.getId();
+                if (id != null) {
+                    Relation tmpRelatedItem = null;
+                    if (id.indexOf(" - ") != -1) { //$NON-NLS-1$
+                        try {
+                            tmpRelatedItem = (Relation) relatedItem.clone();
+                            tmpRelatedItem.setId(id.split(" - ")[0]); //$NON-NLS-1$
+                            tmpRelatedItem.setType(relationType);
+                        } catch (CloneNotSupportedException e) {
+                            log.error(e);
+                        }
+                    } else {
+                        tmpRelatedItem = relatedItem;
+                    }
+                    if (tmpRelatedItem != null && tmpRelatedItem.equals(itemToTest)) {
+                        relations.add(baseItem);
+                        break;
+                    }
                 }
             }
         }
@@ -753,7 +768,7 @@ public class RelationshipItemBuilder {
      * 
      * Relation class global comment. Detailled comment.
      */
-    public class Relation {
+    public class Relation implements Cloneable {
 
         private String type;
 
@@ -826,6 +841,10 @@ public class RelationshipItemBuilder {
 
         public void setVersion(String version) {
             this.version = version;
+        }
+
+        protected Object clone() throws CloneNotSupportedException {
+            return super.clone();
         }
     }
 
