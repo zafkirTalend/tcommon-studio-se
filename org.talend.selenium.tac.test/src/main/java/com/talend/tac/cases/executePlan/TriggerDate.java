@@ -10,11 +10,11 @@ public class TriggerDate{
 	public String days = "";
 	public String months = "";
 	public String years = "";
-	public TriggerDate getFuture(){
+	public TriggerDate getFuture(int hour){
 		TriggerDate time = new TriggerDate();
 		Date date = new Date();
 		DateFormat   df   =   new   SimpleDateFormat( "yyyy-MM-dd hh:MM:ss"); 
-		date.setHours(date.getHours()+24);
+		date.setHours(date.getHours()+hour);
 		String s = df.format(date);//system date 
 		s.replaceAll(" ", "-");
 		s.replaceAll(":", "-");
@@ -45,9 +45,24 @@ public class TriggerDate{
 		time.minutes += dates[4];
 		return time;
 	}
+	public String getFuture(String num){
+		Date date = new Date();
+		DateFormat   df   =   new   SimpleDateFormat( "yyyy-MM-dd hh:MM:ss"); 
+		date.setHours(date.getHours()+Integer.parseInt(num));
+		String s = df.format(date);//system date 
+		return s;
+	}
+	public String getPast(String num){
+		Date date = new Date();
+		DateFormat   df   =   new   SimpleDateFormat( "yyyy-MM-dd hh:MM:ss"); 
+		date.setHours(date.getHours()-Integer.parseInt(num));
+		String s = df.format(date);//system date 
+		return s;
+	}
 	public  static void main(String args[]){
 		TriggerDate a = new TriggerDate();
-		System.out.println(a.getFuture().days);
+		System.out.println(a.getFuture(24).days);
+		System.out.println(a.getFuture(48).days);
 		System.out.println(a.getPast().days);
 	}
 	}
