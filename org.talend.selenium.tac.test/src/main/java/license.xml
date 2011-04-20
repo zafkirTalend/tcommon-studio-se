@@ -25,7 +25,7 @@
 
 	<!-- ############### DB Configuration ################-->
 	<parameter name="db.url"
-		value="jdbc:h2:/home/automation/Automation/database/talend_administrator;AUTO_SERVER=TRUE;MVCC=TRUE" />
+		value="jdbc:h2:C:/home/automation212/Automation/database/talend_administrator;AUTO_SERVER=TRUE;MVCC=TRUE" />
 	<parameter name="db.userName" value="tisadmin" />
 	<parameter name="db.userPassWd" value="tisadmin" />
 	<parameter name="db.driver" value="org.h2.Driver" />
@@ -75,7 +75,15 @@
 			<class name="com.talend.tac.cases.dbConfig.TestDbConfig" />
 		</classes>
 	</test>
-
+	<!--
+		<test name="TestDbConfigMysql"> <classes> <parameter name="db.url"
+		value="jdbc:mysql://localhost:3306/tacauto" /> <parameter
+		name="db.userName" value="admin" /> <parameter name="db.userPassWd"
+		value="admin" /> <parameter name="db.driver"
+		value="org.gjt.mm.mysql.Driver" /> <class
+		name="com.talend.tac.cases.dbConfig.TestDbConfig" /> </classes>
+		</test>
+	-->
 	<test name="TestWrongDbConfig">
 		<classes>
 			<class name="com.talend.tac.cases.dbConfig.TestWrongDbConfig">
@@ -191,6 +199,19 @@
 		</classes>
 	</test>
 
+	<!-- test forgetPasswd using user created maunully -->
+	<test name="TestForgetPassword">
+		<classes>
+			<class name="com.talend.tac.cases.TestForgetPassword" />
+		</classes>
+	</test>
+<!-- 
+	<test name="TestCreateProject">
+		<classes>
+			<class name="com.talend.tac.cases.projects.TestAddcommonpro" />
+		</classes>
+	</test>
+ -->
 	<test name="TestSoaManger">
 		<classes>
 			<class name="com.talend.tac.cases.SoaManager.TestSoaManager" />
