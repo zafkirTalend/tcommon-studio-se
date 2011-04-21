@@ -33,8 +33,8 @@
             <class name="com.talend.tac.cases.notification.TestAddUsersNotification"/> 
             <class name="com.talend.tac.cases.notification.TestAddTasksNotification">
                 <methods>
-                    <exclude name="testAddTasksTaskFailedNotification"></exclude>
-                    <exclude name="testAddTasksNotificationUncheckActive"></exclude>
+                    <exclude name="testAddTaskFailedNotification"></exclude>
+                    <exclude name="testAddTaskNotificationUncheckActive"></exclude>
                 </methods>
             </class>
             <class name="com.talend.tac.cases.notification.TestAddJobserverNotification"/>
