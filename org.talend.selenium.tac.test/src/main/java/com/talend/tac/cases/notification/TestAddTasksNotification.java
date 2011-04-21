@@ -2,6 +2,7 @@ package com.talend.tac.cases.notification;
 
 import java.awt.event.KeyEvent;
 import org.testng.Assert;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.talend.tac.cases.Login;
@@ -9,25 +10,34 @@ import com.talend.tac.cases.Login;
 public class TestAddTasksNotification extends Login {
     
     //add a task'notification(TaskFailedNotification)
-	@Test(groups={"AddTasksNotification"},dependsOnGroups={"AddUsersNotification"})
-	public void testAddTasksTaskFailedNotification() {
+	@Test(groups={"AddTaskNotification"}, dependsOnGroups={"AddUserNotification"})
+	@Parameters({"categoryTask","eventTaskFailed","descriptionTaskFailed"})
+	public void testAddTaskFailedNotification(String categoryTask, String eventTaskFailed, String descriptionTaskFailed) {
 		
-		addNotification(1, "Tasks", 1, "TaskFailedNotification", "Suscribe to receive a mail when a user is created");
-		selenium.setSpeed(MAX_SPEED);
+		addNotification(1, categoryTask, 1, eventTaskFailed, descriptionTaskFailed);	
+		addNotification(1, "Tasks", 1, "TaskFailedNotification", "Suscribe to receive a mail when specified tasks failed");
 
 		selenium.click("idFormSaveButton");
+		selenium.setSpeed(MID_SPEED);
+		Assert.assertTrue(selenium.isElementPresent("//div[text()='"+eventTaskFailed+"']/" +
+		"parent::td/parent::tr//img[@class='gwt-Image' and @title='true']"));
 		selenium.setSpeed(MIN_SPEED);
 	}
+
 	//add a task'notification(Uncheck Active)
 	@Test(dependsOnMethods={"testAddTasksTaskFailedNotification"})
-	public void testAddTasksNotificationUncheckActive() {
+	@Parameters({"categoryTask","eventTaskFailed","descriptionTaskFailed"})
+	public void testAddTaskNotificationUncheckActive(String categoryTask, String eventTaskFailed, String descriptionTaskFailed) {
 		
-		addNotification(1, "Tasks", 1, "TaskFailedNotification", "Suscribe to receive a mail when a user is created");
-
+		addNotification(1, categoryTask, 1, eventTaskFailed, descriptionTaskFailed);
 		selenium.click("idActiveInput");
+		selenium.setSpeed(MID_SPEED);
 		Assert.assertFalse(selenium.isChecked("idActiveInput"));
-		selenium.setSpeed(MAX_SPEED);
+		selenium.setSpeed(MIN_SPEED);
 		selenium.click("idFormSaveButton");
+		selenium.setSpeed(MID_SPEED);
+		Assert.assertTrue(selenium.isElementPresent("//div[text()='"+eventTaskFailed+"']/" +
+		"parent::td/parent::tr//img[@class='gwt-Image' and @title='false']"));
 		selenium.setSpeed(MIN_SPEED);
 	}
 	
@@ -51,16 +61,15 @@ public class TestAddTasksNotification extends Login {
 		selenium.setSpeed(MID_SPEED);
 		Assert.assertEquals(description , DescriptionInputValue);
 		Assert.assertTrue(selenium.isTextPresent(notificationInformation));
-		selenium.setSpeed(MIN_SPEED);
-		selenium.click("idLabelInput");
-		selenium.mouseDownAt("//div[@role='listitem']["+LabelInput+"]", ""+KeyEvent.VK_ENTER);
-
-		selenium.setSpeed(MAX_SPEED);
-		selenium.click("//table[@class=' x-btn x-component x-btn-icon']");
+	
+		selenium.click("//i[text()='Suscribe to receive a mail when specified tasks failed']/parent::div/parent::td/parent::tr/" +
+				"parent::tbody//div[text()='Recipients: ']/parent::td/parent::tr//button");
 		selenium.click("//div[@class=' x-grid3-hd-inner x-grid3-hd-checker x-component']");//choose event trigger users
 		selenium.click("//button[text()='Apply']");
-//		selenium.click("//tr[2]/td[2]/table/tbody/tr/td/table[@class=' x-btn x-component x-btn-icon ']/tbody/tr[2]/td[2]/em/button");
-//		selenium.click("//div[@class=' x-grid3-hd-inner x-grid3-hd-checker x-component']");
-//		selenium.click("//button[text()='Apply']");	
+		selenium.click("//div[text()='Tasks: ']/parent::td/parent::tr//button");
+		selenium.click("//span[text()='Tasks selection']/parent::div/parent::div/parent::div/parent::div/parent::div" +
+				"//div[@class=' x-grid3-hd-inner x-grid3-hd-checker x-component']");
+		selenium.click("//button[text()='Apply']");	
+		
 	}
 }
