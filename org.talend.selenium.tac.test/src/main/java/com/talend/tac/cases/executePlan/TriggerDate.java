@@ -3,6 +3,7 @@ package com.talend.tac.cases.executePlan;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 
 public class TriggerDate{
 	public String minutes = "";
@@ -26,6 +27,23 @@ public class TriggerDate{
 		time.hours += dates[3];
 		time.minutes += dates[4];
 		return time;
+		
+	}
+	public HashMap<String, String> getMonthmap(){
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("01", "January");
+		map.put("02", "February");
+		map.put("03", "March");
+		map.put("04", "April");
+		map.put("05", "May");
+		map.put("06", "June");
+		map.put("07", "July");
+		map.put("08", "August");
+		map.put("09", "September");
+		map.put("10", "October");
+		map.put("11", "November");
+		map.put("12", "December");
+		return map;
 		
 	}
 	public TriggerDate getPast(int hour){
