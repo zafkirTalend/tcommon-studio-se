@@ -25,6 +25,7 @@ import org.eclipse.swt.widgets.Link;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
+import org.talend.core.PluginChecker;
 import org.talend.rcp.Activator;
 import org.talend.rcp.i18n.Messages;
 
@@ -102,43 +103,27 @@ public class LinksToolbarItem extends ContributionItem {
             }
         });
 
-        // blank label
-        new Label(composite, SWT.NONE).setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+        if (!PluginChecker.isTIS()) {
+            // blank label
+            new Label(composite, SWT.NONE).setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 
-        // 3.share
-//        Label shareLabel = new Label(composite, SWT.NONE);
-//
-//        shareLabel.setImage(Activator.getImageDescriptor("icons/Globe2.png").createImage()); //$NON-NLS-1$
-//
-//        Link share = new Link(composite, SWT.NONE);
-//        share.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false, false));
-//        share.setText(SHARE_URL);
-//        share.setToolTipText(Messages.getString("LinksToolbarItem_9"));
-//
-//        share.addListener(SWT.Selection, new Listener() {
-//
-//            public void handleEvent(Event event) {
-//                openBrower(event.text);
-//            }
-//        });
-//
-//        // blank label
-//        new Label(composite, SWT.NONE).setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+            new Label(composite, SWT.NONE).setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 
-        // 4.upgrade
-        Label upgradeLabel = new Label(composite, SWT.NONE);
-        upgradeLabel.setImage(Activator.getImageDescriptor("icons/wizard.png").createImage()); //$NON-NLS-1$
-        Link upgrade = new Link(composite, SWT.NONE);
-        upgrade.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false, false));
-        upgrade.setText(UPGRADE_URL);
-        upgrade.setToolTipText(Messages.getString("LinksToolbarItem_11"));
+            // 4.upgrade
+            Label upgradeLabel = new Label(composite, SWT.NONE);
+            upgradeLabel.setImage(Activator.getImageDescriptor("icons/wizard.png").createImage()); //$NON-NLS-1$
+            Link upgrade = new Link(composite, SWT.NONE);
+            upgrade.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false, false));
+            upgrade.setText(UPGRADE_URL);
+            upgrade.setToolTipText(Messages.getString("LinksToolbarItem_11"));
 
-        upgrade.addListener(SWT.Selection, new Listener() {
+            upgrade.addListener(SWT.Selection, new Listener() {
 
-            public void handleEvent(Event event) {
-                openBrower(event.text);
-            }
-        });
+                public void handleEvent(Event event) {
+                    openBrower(event.text);
+                }
+            });
+        }
 
         return composite;
     }
