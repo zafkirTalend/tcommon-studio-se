@@ -2,13 +2,14 @@ package com.talend.tac.cases.notification;
 
 import java.awt.event.KeyEvent;
 import org.testng.Assert;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.talend.tac.cases.Login;
 
 public class TestAddUsersNotification extends Login {
     
-	 @Test(groups={"AddUsersNotification"})
+	 @Test(groups={"AddUserNotification"})
 	 public void clearAllNotifications() {
     	 
          this.clickWaitForElementPresent("!!!menu.notification.element!!!");	
@@ -18,7 +19,7 @@ public class TestAddUsersNotification extends Login {
     		    	selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-category']");
       				selenium.chooseOkOnNextConfirmation();
       				selenium.click("idSubModuleDeleteButton");
-      				selenium.setSpeed(MAX_SPEED);
+      				selenium.setSpeed(MID_SPEED);
       			    Assert.assertTrue(selenium.getConfirmation().matches("^Are you sure you want to remove the selected notification [\\s\\S]$"));
         		    selenium.setSpeed(MIN_SPEED);
         		 
@@ -30,47 +31,77 @@ public class TestAddUsersNotification extends Login {
     			
     	 }
     }
+	 
 	//add a user notification(MailNewUserNotification)
 	@Test(dependsOnMethods={"clearAllNotifications"})
-	public void testAddUsersMailNewUserNotification() {
+	@Parameters({"categoryUser","eventNewUser","descriptionNewUser"})
+	public void testAddUsersMailNewUserNotification(String categoryUser, String eventNewUser, 
+			String descriptionNewUser) {
 		
-		addNotification(2, "Users", 1, "MailNewUserNotification", "Send a mail when to a new user at creation");
+		addNotification(2, categoryUser, 1, eventNewUser, descriptionNewUser);
 		selenium.click("idFormSaveButton");
+		selenium.setSpeed(MID_SPEED);
+        Assert.assertTrue(selenium.isElementPresent("//div[text()='"+eventNewUser+"']/" +
+        		"parent::td/parent::tr//img[@class='gwt-Image' and @title='true']"));		
+ 		selenium.setSpeed(MIN_SPEED);
 	}
 	//add a user notification(UserCreationNotification)
 	@Test(dependsOnMethods={"testAddUsersMailNewUserNotification"})
-	public void testAddUsersUserCreationNotification() {
+	@Parameters({"categoryUser","eventUserCreation","descriptionUserCreation"})
+	public void testAddUsersUserCreationNotification(String categoryUser, String eventUserCreation,
+			String descriptionUserCreation) {
 		
-		addNotification(2, "Users", 2, "UserCreationNotification", "Suscribe to receive a mail when a user is created");
-		selenium.setSpeed(MAX_SPEED);
-		selenium.click("//table[@class=' x-btn x-component x-btn-icon']");
+		addNotification(2, categoryUser, 2,  eventUserCreation, descriptionUserCreation);
+		selenium.setSpeed(MID_SPEED);
+		selenium.click("//i[text()='Suscribe to receive a mail when a user is created']/parent::div/parent::td/parent::tr/parent::tbody" +
+				"//div[text()='Recipients: ']/parent::td/parent::tr//button");
 		selenium.click("//div[@class=' x-grid3-hd-inner x-grid3-hd-checker x-component']");//choose event trigger users
 		selenium.click("//button[text()='Apply']");
-		selenium.click("idFormSaveButton");
 		selenium.setSpeed(MIN_SPEED);
+		selenium.click("idFormSaveButton");
+		selenium.setSpeed(MID_SPEED);
+        Assert.assertTrue(selenium.isElementPresent("//div[text()='"+eventUserCreation+"']/" +
+        		"parent::td/parent::tr//img[@class='gwt-Image' and @title='true']"));		
+ 		selenium.setSpeed(MIN_SPEED);
+ 		
 	}
 	//add a user notification(UserDeletionNotification)
 	@Test(dependsOnMethods={"testAddUsersUserCreationNotification"})
-	public void testAddUsersUserDeletionNotification() {
+	@Parameters({"categoryUser","eventUserDeletion","descriptionUserDeletion"})
+	public void testAddUsersUserDeletionNotification(String categoryUser, String eventUserDeletion,
+			String descriptionUserDeletion) {
 		
-		addNotification(2, "Users", 3, "UserDeletionNotification", "Subscribe to receive a mail when a user is deleted");
-		selenium.setSpeed(MAX_SPEED);
-		selenium.click("//table[@class=' x-btn x-component x-btn-icon']");
+		addNotification(2, categoryUser, 3, eventUserDeletion, descriptionUserDeletion);
+		selenium.setSpeed(MID_SPEED);
+		selenium.click("//i[text()='Subscribe to receive a mail when a user is deleted']/parent::div/parent::td/parent::tr" +
+				"/parent::tbody//button");
 		selenium.click("//div[@class=' x-grid3-hd-inner x-grid3-hd-checker x-component']");//choose event trigger users
 		selenium.click("//button[text()='Apply']");
-		selenium.click("idFormSaveButton");
 		selenium.setSpeed(MIN_SPEED);
+		selenium.click("idFormSaveButton");
+		selenium.setSpeed(MID_SPEED);
+        Assert.assertTrue(selenium.isElementPresent("//div[text()='"+eventUserDeletion+"']/" +
+        		"parent::td/parent::tr//img[@class='gwt-Image' and @title='true']"));		
+ 		selenium.setSpeed(MIN_SPEED);
+ 		
 	}
 	//add a user notification(Uncheck Active)
 	@Test(dependsOnMethods={"testAddUsersUserDeletionNotification"})
-	public void testAddUsersNotificationUncheckActive() {
+	@Parameters({"categoryUser","eventNewUser","descriptionNewUser"})
+	public void testAddUsersNotificationUncheckActive(String categoryUser, String eventNewUser, 
+			String descriptionNewUser) {
 		
-		addNotification(2, "Users", 1, "MailNewUserNotification", "Send a mail when to a new user at creation");
+		addNotification(2, categoryUser, 1, eventNewUser, descriptionNewUser);
 		selenium.click("idActiveInput");
+		selenium.setSpeed(MID_SPEED);
 		Assert.assertFalse(selenium.isChecked("idActiveInput"));
-		selenium.setSpeed(MAX_SPEED);
-		selenium.click("idFormSaveButton");
 		selenium.setSpeed(MIN_SPEED);
+		selenium.click("idFormSaveButton");
+		selenium.setSpeed(MID_SPEED);
+        Assert.assertTrue(selenium.isElementPresent("//div[text()='"+eventNewUser+"']/" +
+        		"parent::td/parent::tr//img[@class='gwt-Image' and @title='false']"));		
+ 		selenium.setSpeed(MIN_SPEED);
+		
 	}
 	
 	public void addNotification(int LabelInput,String LabelInputValue,int DescriptionInput,
@@ -78,7 +109,7 @@ public class TestAddUsersNotification extends Login {
 		
 		this.clickWaitForElementPresent("!!!menu.notification.element!!!");//into notification
 		selenium.click("idSubModuleAddButton");
-		selenium.setSpeed(MAX_SPEED);
+		selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.isElementPresent("//img[@class='gwt-Image x-component ']"));
 		selenium.setSpeed(MIN_SPEED);
 		selenium.click("idLabelInput");//choose a notification type
@@ -88,9 +119,10 @@ public class TestAddUsersNotification extends Login {
 		selenium.mouseDownAt("//div[@role='listitem']["+DescriptionInput+"]", ""+KeyEvent.VK_ENTER);
 		String description = selenium.getValue("idDescriptionInput");
 		System.out.println(description);
+		selenium.setSpeed(MID_SPEED);
 		Assert.assertEquals(description , DescriptionInputValue);
 		Assert.assertTrue(selenium.isTextPresent(notificationInformation));
-
+        selenium.setSpeed(MIN_SPEED);
 		selenium.click("idLabelInput");
 		selenium.mouseDownAt("//div[@role='listitem']["+LabelInput+"]", ""+KeyEvent.VK_ENTER);
 
