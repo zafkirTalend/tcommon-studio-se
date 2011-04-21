@@ -16,7 +16,7 @@ public class TestAddTriggerAddCronTriggerUsePasttime extends Login{
 	@Test
 	@Parameters({ "plan.toaddcrontrigger.label", "plan.crontrigger.past.label"})
 	public void testAddCronTriggerOverdated(String planlabel,String crongtriggerpast) throws InterruptedException{
-	    TriggerDate date = new TriggerDate().getPast();
+	    TriggerDate date = new TriggerDate().getPast(48);
 		//open to execution plan add trigger page
 		this.clickWaitForElementPresent("!!!menu.executionPlan.element!!!");
     	selenium.setSpeed(MID_SPEED);
