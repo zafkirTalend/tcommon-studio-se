@@ -21,9 +21,8 @@ public class TestLogin extends Base {
 		selenium.keyDown("idLoginPasswordInput", "\\13");
 		selenium.keyUp("idLoginPasswordInput", "\\13");
 		selenium.click("idLoginButton");
-
-		assertTrue(selenium.isTextPresent(this.getString(
-				"login.error.unknownUser", user)));// unknown user
+//		assertTrue(selenium.isTextPresent(this.getString("login.error.unknownUser", user)));// unknown user
+this.waitForElementPresent("//div[text()=\"Unknown user '" + user +"'\"]", WAIT_TIME);
 	}
 
 	@Test
@@ -37,10 +36,9 @@ public class TestLogin extends Base {
 		selenium.keyDown("idLoginPasswordInput", "\\13");
 		selenium.keyUp("idLoginPasswordInput", "\\13");
 		selenium.click("idLoginButton");
-
-		assertTrue(selenium.isTextPresent(rb
-				.getString("login.error.badPassword")));// Incorrect password
-	}
+//		assertTrue(selenium.isTextPresent(rb.getString("login.error.badPassword")));// Incorrect password
+this.waitForElementPresent("//div[text()='" + rb.getString("login.error.badPassword") + "']", WAIT_TIME);
+	} 
 
 	@Test
 	@Parameters( { "userName", "userPassword" })

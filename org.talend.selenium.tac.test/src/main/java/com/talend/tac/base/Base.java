@@ -83,7 +83,8 @@ System.out.println("language: " + language + ", country: " + country);
 	public void waitForElementPresent(String locator, int seconds) {
 		for (int second = 0;; second++) {
 			if (second >= seconds)
-				org.testng.Assert.fail("wait for element "+ locator + " to be present,time out");
+//				org.testng.Assert.fail("wait for element "+ locator + " to be present,time out");
+				org.testng.Assert.assertTrue(selenium.isElementPresent(locator)) ;
 			try {
 				if (selenium.isElementPresent(locator))
 					break;
