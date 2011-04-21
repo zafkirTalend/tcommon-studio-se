@@ -28,11 +28,11 @@ public class TriggerDate{
 		return time;
 		
 	}
-	public TriggerDate getPast(){
+	public TriggerDate getPast(int hour){
 		TriggerDate time = new TriggerDate();
 		Date date = new Date();
 		DateFormat   df   =   new   SimpleDateFormat( "yyyy-MM-dd hh:MM:ss"); 
-		date.setHours(date.getHours()-24);
+		date.setHours(date.getHours()-hour);
 		String s = df.format(date);//system date 
 		s.replaceAll(" ", "-");
 		s.replaceAll(":", "-");
@@ -63,6 +63,6 @@ public class TriggerDate{
 		TriggerDate a = new TriggerDate();
 		System.out.println(a.getFuture(24).days);
 		System.out.println(a.getFuture(48).days);
-		System.out.println(a.getPast().days);
+		System.out.println(a.getPast(48).days);
 	}
 	}
