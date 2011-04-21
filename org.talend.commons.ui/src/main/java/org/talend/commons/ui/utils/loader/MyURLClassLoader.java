@@ -24,12 +24,15 @@ import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+import org.apache.log4j.Logger;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 
 /**
  * ggu class global comment. Detailled comment
  */
 public class MyURLClassLoader extends URLClassLoader {
+
+    private static Logger log = Logger.getLogger(MyURLClassLoader.class);
 
     private Map pclasses = new HashMap();
 
@@ -69,7 +72,7 @@ public class MyURLClassLoader extends URLClassLoader {
                         try {
                             cls = loadClass(className);
                         } catch (Throwable th) {
-                            ExceptionHandler.process(th);
+                            log.warn(th);
                         }
                         if (cls != null) {
                             if (type.isAssignableFrom(cls)) {

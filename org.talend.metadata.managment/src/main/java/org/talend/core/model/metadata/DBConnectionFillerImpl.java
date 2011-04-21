@@ -15,6 +15,7 @@ package org.talend.core.model.metadata;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.sql.DatabaseMetaData;
+import java.sql.Driver;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -81,6 +82,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
     private static Logger log = Logger.getLogger(DBConnectionFillerImpl.class);
 
     private java.sql.Connection sqlConnection = null;
+
+    private static Driver driver = null;
 
     @Override
     public Connection fillUIConnParams(IMetadataConnection metadataBean, Connection connection) {
@@ -177,6 +180,15 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             log.error(e, e);
         } finally {
             ConnectionUtils.closeConnection(sqlConnection);
+            if (driver != null
+                    && MetadataConnectionUtils.isDerbyRelatedDb(metadataBean.getDriverClass(), metadataBean.getDbType())) {
+                try {
+                    driver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
+                } catch (SQLException e) {
+                    // exception of shutdown success. no need to catch.
+                }
+            }
+
         }
         return connection;
     }
@@ -939,6 +951,10 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         expression.setBody(body);
         expression.setLanguage(language);
         return expression;
+    }
+
+    public static void setDriver(Driver d) {
+        driver = d;
     }
 
     // public static void executeGetSchemas(DatabaseMetaData dbmd) {

@@ -39,6 +39,7 @@ import org.talend.commons.utils.database.TeradataDataBaseMetadata;
 import org.talend.commons.utils.platform.PluginChecker;
 import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
+import org.talend.core.model.metadata.DBConnectionFillerImpl;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.MetadataConnection;
 import org.talend.core.model.metadata.MetadataFillFactory;
@@ -93,6 +94,8 @@ public class MetadataConnectionUtils {
     private static List<String> sybaseDBProductsNames;
 
     private static IMetadataConnection metadataCon;
+
+    private static Driver derbyDriver;
 
     /**
      * DOC xqliu Comment method "getConnectionMetadata". 2009-07-13 bug 7888.
@@ -157,6 +160,7 @@ public class MetadataConnectionUtils {
         String dbUrl = metadataBean.getUrl();
         String password = metadataBean.getPassword();
         String userName = metadataBean.getUsername();
+        String dbType = metadataBean.getDbType();
 
         Properties props = new Properties();
         props.setProperty(TaggedValueHelper.PASSWORD, password == null ? "" : password);
@@ -183,6 +187,10 @@ public class MetadataConnectionUtils {
 
                 ReturnCode varc = ConnectionUtils.isValid(sqlConn);
                 if (varc.isOk()) {
+                    if (driver != null && isDerbyRelatedDb(driverClass, dbType)) {
+                        DBConnectionFillerImpl.setDriver(driver);
+                        derbyDriver = driver;
+                    }
                     rc.setObject(sqlConn);
                     rc.setMessage(varc.getMessage());
                     rc.setOk(true);
@@ -859,7 +867,7 @@ public class MetadataConnectionUtils {
         // }
         // ~ 16441
         java.sql.Connection sqlConn = null;
-        Driver driver = null;
+        // only for derby related driver
         try {
             if (noStructureExists) { // do no override existing catalogs or
                                      // schemas
@@ -874,27 +882,19 @@ public class MetadataConnectionUtils {
                             MetadataConnectionUtils.getPackageFilter(dbConn, sqlConn.getMetaData(), true));
                     MetadataFillFactory.getDBInstance().fillSchemas(dbConn, sqlConn.getMetaData(),
                             MetadataConnectionUtils.getPackageFilter(dbConn, sqlConn.getMetaData(), false));
-                    driver = getClassDriver(metaConnection);
                 }
             }
         } catch (SQLException e) {
             log.error(e, e);
-        } catch (InstantiationException e) {
-            log.error(e, e);
-        } catch (IllegalAccessException e) {
-            log.error(e, e);
-        } catch (ClassNotFoundException e) {
-            log.error(e, e);
         } finally {
-            if (driver != null && MetadataConnectionUtils.isDerbyRelatedDb(dbConn.getDriverClass(), dbConn.getDatabaseType())) {
+            if (derbyDriver != null) {
                 try {
-                    driver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
+                    derbyDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
                 } catch (SQLException e) {
                     // exception of shutdown success. no need to catch.
                 }
             }
         }
-        // }
         return dbConn;
     }
 
