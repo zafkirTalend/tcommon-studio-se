@@ -101,7 +101,7 @@ public enum EDatabaseTypeName {
                  "General JDBC", "General JDBC", Boolean.FALSE, "JDBC", EDatabaseSchemaOrCatalogMapping.Sid, EDatabaseSchemaOrCatalogMapping.None), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     EXASOL("Exasol", "Exasol", Boolean.TRUE, "Exasol", EDatabaseSchemaOrCatalogMapping.Sid, EDatabaseSchemaOrCatalogMapping.None), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
-    HIVE("Hive", "Hive", Boolean.FALSE, "Hive", EDatabaseSchemaOrCatalogMapping.Sid, EDatabaseSchemaOrCatalogMapping.None);//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    HIVE("Hive", "Hive", Boolean.FALSE, "HIVE", EDatabaseSchemaOrCatalogMapping.Sid, EDatabaseSchemaOrCatalogMapping.None);//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
     // displayName is used in Java code.
     private String displayName;
