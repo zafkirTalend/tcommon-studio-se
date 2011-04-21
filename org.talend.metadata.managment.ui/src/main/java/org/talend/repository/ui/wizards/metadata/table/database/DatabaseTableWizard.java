@@ -20,6 +20,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.XMLResource;
@@ -229,12 +230,12 @@ public class DatabaseTableWizard extends CheckLastVersionRepositoryWizard implem
                 if (mol instanceof MetadataTable) {
                     MetadataTable table = (MetadataTable) mol;
                     String oldTableUuid = ResourceHelper.getUUID(table);
-                    originalTablesMap.put(table.getLabel(), oldTableUuid);
+                    originalTablesMap.put(generateKey(table), oldTableUuid);
                     for (ModelElement col : table.getFeature()) {
                         if (col instanceof MetadataColumn) {
                             MetadataColumn column = (MetadataColumn) col;
                             String oldColumnUuid = ResourceHelper.getUUID(column);
-                            originalColumnsMap.put(column.getLabel(), oldColumnUuid);
+                            originalColumnsMap.put(generateKey(column), oldColumnUuid);
                         }
                     }
                 }
@@ -255,22 +256,18 @@ public class DatabaseTableWizard extends CheckLastVersionRepositoryWizard implem
             for (ModelElement mol : pkg.getOwnedElement()) {
                 if (mol instanceof MetadataTable) {
                     MetadataTable table = (MetadataTable) mol;
-                    if (originalTablesMap.keySet().contains(table.getLabel())) {
-                        Resource resource = table.eResource();
-                        if (resource != null && resource instanceof XMLResource) {
-                            XMLResource xmlResource = (XMLResource) resource;
-                            xmlResource.setID(table, originalTablesMap.get(table.getLabel()));
-                        }
+                    String tableKey = generateKey(table);
+                    String oldTableID = originalTablesMap.get(tableKey);
+                    if (oldTableID != null) {
+                        setUUid(table, oldTableID);
                     }
                     for (ModelElement col : table.getFeature()) {
                         if (col instanceof MetadataColumn) {
                             MetadataColumn column = (MetadataColumn) col;
-                            if (originalColumnsMap.keySet().contains(column.getLabel())) {
-                                Resource resource = column.eResource();
-                                if (resource != null && resource instanceof XMLResource) {
-                                    XMLResource xmlResource = (XMLResource) resource;
-                                    xmlResource.setID(column, originalColumnsMap.get(column.getLabel()));
-                                }
+                            String columnKey = generateKey(column);
+                            String oldColumnID = originalColumnsMap.get(columnKey);
+                            if (oldColumnID != null) {
+                                setUUid(column, oldColumnID);
                             }
                         }
                     }
@@ -285,6 +282,42 @@ public class DatabaseTableWizard extends CheckLastVersionRepositoryWizard implem
             }
 
         }
+    }
+
+    /**
+     * DOC bZhou Comment method "setUUid".
+     * 
+     * @param object
+     * @param uuid
+     */
+    private void setUUid(EObject object, String uuid) {
+        Resource resource = object.eResource();
+        if (resource != null && resource instanceof XMLResource) {
+            XMLResource xmlResource = (XMLResource) resource;
+            xmlResource.setID(object, uuid);
+        }
+    }
+
+    /**
+     * DOC bZhou Comment method "generateKey".
+     * 
+     * FIXME if possible, we should not generate a key each time, it's inefficient.
+     * 
+     * @param element
+     * @return
+     */
+    private String generateKey(ModelElement element) {
+
+        StringBuilder buider = new StringBuilder();
+
+        EObject eContainer = element.eContainer();
+        if (eContainer != null && eContainer instanceof ModelElement) {
+            buider.append(generateKey((ModelElement) eContainer));
+        }
+
+        buider.append(element.getName() + "_");
+
+        return buider.toString();
     }
 
     /**
