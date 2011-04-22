@@ -327,12 +327,12 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
                                 gc.drawText(Messages.getString("tips.viewResults"), 435, 340, true);
                                 gc.dispose();
 
-                                parentComposite = new Composite(parent, SWT.CENTER);
+                                parentComposite = new Composite(parent, SWT.NONE);
                                 parentComposite.setLayout(stackLayout);
                                 parentComposite.setSize(850, 450);
-                                backGroundComposite = new Composite(parentComposite, SWT.CENTER);
+                                backGroundComposite = new Composite(parentComposite, SWT.NONE);
                                 backGroundComposite.setSize(850, 450);
-                                foreGroundComposite = new Composite(parentComposite, SWT.CENTER);
+                                foreGroundComposite = new Composite(parentComposite, SWT.NONE);
 
                                 foreGroundComposite.setLayout(new FormLayout());
 
