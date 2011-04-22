@@ -25,6 +25,7 @@ import org.talend.core.IStatusPreferenceInitService;
 import org.talend.core.context.Context;
 import org.talend.core.model.general.ILibrariesService;
 import org.talend.core.service.IWebService;
+import org.talend.core.service.IWebServiceTos;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IProxyRepositoryService;
@@ -36,7 +37,7 @@ import org.talend.repository.model.IRepositoryService;
 public class CoreRuntimePlugin extends Plugin {
 
     public static final String PLUGIN_ID = "org.talend.core.runtime"; //$NON-NLS-1$
-    
+
     // The data profiling perspective id.
     protected static final String DATA_PROFILING_PERSPECTIVE_ID = "org.talend.dataprofiler.DataProfilingPerspective";
 
@@ -74,7 +75,8 @@ public class CoreRuntimePlugin extends Plugin {
 
     public IProxyRepositoryFactory getProxyRepositoryFactory() {
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IProxyRepositoryService.class)) {
-            IProxyRepositoryService service = (IProxyRepositoryService) GlobalServiceRegister.getDefault().getService(IProxyRepositoryService.class);
+            IProxyRepositoryService service = (IProxyRepositoryService) GlobalServiceRegister.getDefault().getService(
+                    IProxyRepositoryService.class);
             return service.getProxyRepositoryFactory();
         }
 
@@ -96,6 +98,7 @@ public class CoreRuntimePlugin extends Plugin {
         }
         return null;
     }
+
     public IDesignerCoreService getDesignerCoreService() {
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerCoreService.class)) {
             IService service = GlobalServiceRegister.getDefault().getService(IDesignerCoreService.class);
@@ -111,6 +114,7 @@ public class CoreRuntimePlugin extends Plugin {
         }
         return null;
     }
+
     public ILibrariesService getLibrariesService() {
         return (ILibrariesService) GlobalServiceRegister.getDefault().getService(ILibrariesService.class);
     }
@@ -131,13 +135,21 @@ public class CoreRuntimePlugin extends Plugin {
         return null;
     }
 
+    public IWebServiceTos getWebServiceTos() {
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IWebServiceTos.class)) {
+            return (IWebServiceTos) GlobalServiceRegister.getDefault().getService(IWebServiceTos.class);
+        }
+        return null;
+    }
+
     /**
      * DOC bZhou Comment method "isDataProfilePerspectiveSelected".
      * 
      * @return
      */
     public boolean isDataProfilePerspectiveSelected() {
-        IPerspectiveDescriptor curPerspective = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getPerspective();
+        IPerspectiveDescriptor curPerspective = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
+                .getPerspective();
         return curPerspective.getId().equals(DATA_PROFILING_PERSPECTIVE_ID);
     }
 }

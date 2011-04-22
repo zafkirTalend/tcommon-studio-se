@@ -26,6 +26,7 @@ import org.talend.core.model.migration.IMigrationToolService;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.service.IDesignerMapperService;
 import org.talend.core.service.IWebService;
+import org.talend.core.service.IWebServiceTos;
 import org.talend.core.ui.ICreateXtextProcessService;
 import org.talend.core.ui.IOpenJobScriptActionService;
 import org.talend.designer.business.diagram.custom.IDiagramModelService;
@@ -185,6 +186,10 @@ public class CorePlugin extends AbstractUIPlugin {
 
     public IWebService getWebService() {
         return (IWebService) GlobalServiceRegister.getDefault().getService(IWebService.class);
+    }
+
+    public IWebServiceTos getWebServiceTos() {
+        return (IWebServiceTos) GlobalServiceRegister.getDefault().getService(IWebServiceTos.class);
     }
 
     public ICreateXtextProcessService getCreateXtextProcessService() {

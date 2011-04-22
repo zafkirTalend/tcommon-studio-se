@@ -28,7 +28,7 @@ import org.talend.core.model.metadata.IMetadataContextModeManager;
 import org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.runtime.CoreRuntimePlugin;
-import org.talend.core.service.IWebService;
+import org.talend.core.service.IWebServiceTos;
 import org.talend.metadata.managment.ui.i18n.Messages;
 
 /**
@@ -56,7 +56,7 @@ public class WSDLSchemaSelectWizardPage extends WSDLSchemaWizardPage {
 
     private WebServiceSchemaWizardPage webServiceStepPage3;
 
-    private IWebService webService = CoreRuntimePlugin.getInstance().getWebService();;
+    private IWebServiceTos webService = CoreRuntimePlugin.getInstance().getWebServiceTos();;
 
     private boolean isSinglePageOnly;
 

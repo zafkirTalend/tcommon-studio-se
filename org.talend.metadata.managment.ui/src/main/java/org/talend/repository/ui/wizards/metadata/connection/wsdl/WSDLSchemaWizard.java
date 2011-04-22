@@ -49,7 +49,7 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.update.RepositoryUpdateManager;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
-import org.talend.core.ui.webService.WebServiceSaveManager;
+import org.talend.core.ui.webService.WebServiceTosSaveManager;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.PackageHelper;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
@@ -108,7 +108,7 @@ public class WSDLSchemaWizard extends CheckLastVersionRepositoryWizard implement
 
     private String originalStatus;
 
-    private WebServiceSaveManager manager = WebServiceSaveManager.getInstance();
+    private WebServiceTosSaveManager manager = WebServiceTosSaveManager.getInstance();
 
     /**
      * Sets the isToolbar.

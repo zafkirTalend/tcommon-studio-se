@@ -24,7 +24,7 @@ import org.talend.core.model.metadata.IMetadataContextModeManager;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection;
 import org.talend.core.model.properties.ConnectionItem;
-import org.talend.core.service.IWebService;
+import org.talend.core.service.IWebServiceTos;
 import org.talend.repository.ui.swt.utils.AbstractWSDLSchemaStepForm;
 
 /**
@@ -32,7 +32,7 @@ import org.talend.repository.ui.swt.utils.AbstractWSDLSchemaStepForm;
  */
 public class WebServiceStep1Form extends AbstractWSDLSchemaStepForm {
 
-    private IWebService webService;
+    private IWebServiceTos webService;
 
     private ConnectionItem connectionItem;
 
@@ -101,8 +101,9 @@ public class WebServiceStep1Form extends AbstractWSDLSchemaStepForm {
         layout.horizontalSpacing = 4;
         panel.setLayout(layout);
         panel.setLayoutData(new GridData(GridData.FILL_BOTH));
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(IWebService.class)) {
-            webService = (IWebService) GlobalServiceRegister.getDefault().getService(IWebService.class);
+
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IWebServiceTos.class)) {
+            webService = (IWebServiceTos) GlobalServiceRegister.getDefault().getService(IWebServiceTos.class);
             webService.getWebServiceUI(panel, connectionItem);
             webService.getTable().addSelectionListener(new SelectionAdapter() {
 
