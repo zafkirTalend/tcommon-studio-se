@@ -39,7 +39,22 @@ this.waitForElementPresent("//div[text()=\"Unknown user '" + user +"'\"]", WAIT_
 //		assertTrue(selenium.isTextPresent(rb.getString("login.error.badPassword")));// Incorrect password
 this.waitForElementPresent("//div[text()='" + rb.getString("login.error.badPassword") + "']", WAIT_TIME);
 	} 
-
+	
+	//login with a deactivated user
+	@Test
+	@Parameters( { "userName", "userPassword" })
+	public void testDeactivatedUserLogin(String user, String password) {
+		waitForElementPresent("idLoginInput", 20);
+		waitForElementPresent("idLoginPasswordInput", 20);
+		selenium.windowMaximize();
+		selenium.type("idLoginInput", user);
+		selenium.type("idLoginPasswordInput", password);
+		selenium.keyDown("idLoginPasswordInput", "\\13");
+		selenium.keyUp("idLoginPasswordInput", "\\13");
+		selenium.click("idLoginButton");
+		this.waitForElementPresent("//div[text()=\"User '" + user +"' is disabled\"]", WAIT_TIME);
+}
+	
 	@Test
 	@Parameters( { "userName", "userPassword" })
 	public void testLogin(String user, String password) {
