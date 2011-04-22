@@ -1125,6 +1125,18 @@ public class ProcessorUtilities {
         // trunjob component
         EList<NodeType> nodes = ptype.getNode();
         for (NodeType node : nodes) {
+            boolean activate = true;
+            // check if node is active at least.
+            for (Object o : node.getElementParameter()) {
+                ElementParameterType param = (ElementParameterType) o;
+                if ("ACTIVATE".equals(param.getName())) {
+                    activate = "true".equals(param.getValue());
+                    break;
+                }
+            }
+            if (!activate) {
+                continue;
+            }
             if ("tRunJob".equalsIgnoreCase(node.getComponentName())) { //$NON-NLS-1$
                 String jobIds = getParameterValue(node.getElementParameter(), "PROCESS:PROCESS_TYPE_PROCESS"); //$NON-NLS-1$
                 String jobContext = getParameterValue(node.getElementParameter(), "PROCESS:PROCESS_TYPE_CONTEXT"); //$NON-NLS-1$
