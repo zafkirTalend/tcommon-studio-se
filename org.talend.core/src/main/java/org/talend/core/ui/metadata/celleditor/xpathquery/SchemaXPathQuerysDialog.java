@@ -32,13 +32,18 @@ import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess2;
 import org.talend.core.ui.metadata.celleditor.SchemaXPathQuerysCellEditor;
+import org.talend.core.utils.TalendQuoteUtils;
 
 /**
  * cli class global comment. Detailled comment
  */
 public class SchemaXPathQuerysDialog extends Dialog {
 
-    private static final String COMMA = ","; //$NON-NLS-1$
+    private static final char COMMA = ','; //$NON-NLS-1$
+
+    private static final char LEFT_BRACKET = '['; //$NON-NLS-1$
+
+    private static final char RIGHT_BRACKET = ']'; //$NON-NLS-1$
 
     private static final String MAPPING = "MAPPING"; //$NON-NLS-1$
 
@@ -101,7 +106,37 @@ public class SchemaXPathQuerysDialog extends Dialog {
             String[] mapValue = { "" }; //$NON-NLS-1$
             return mapValue;
         }
-        return mappingValues.split(COMMA);
+        mappingValues = TalendQuoteUtils.addQuotesIfNotExist(mappingValues);
+        List<String> valsList = new ArrayList<String>();
+        char[] charValues = mappingValues.toCharArray();
+        int inx = -1;
+        int beginInx = 0;
+        int leftInx = -1;
+        int rightInx = -1;
+        for (int i = 0; i < charValues.length; i++) {
+            char ch = charValues[i];
+            if (LEFT_BRACKET == ch) {
+                leftInx = i;
+            } else if (RIGHT_BRACKET == ch) {
+                rightInx = i;
+            } else if (COMMA == ch) {
+                inx = i;
+                if ((leftInx != -1 && rightInx != -1 && inx > leftInx && inx > rightInx) || leftInx == -1) {
+                    valsList.add(TalendQuoteUtils.addQuotesIfNotExist(mappingValues.substring(beginInx, inx)));
+                    beginInx = inx + 1;
+                    leftInx = -1;
+                    rightInx = -1;
+                }
+            }
+        }
+        if (beginInx != 0) {
+            valsList.add(TalendQuoteUtils.addQuotesIfNotExist(mappingValues.substring(beginInx)));
+        }
+        if (valsList.size() > 0) {
+            return valsList.toArray(new String[0]);
+        } else {
+            return new String[] { mappingValues };
+        }
     }
 
     public Control createDialogArea(Composite parent) {
@@ -154,7 +189,7 @@ public class SchemaXPathQuerysDialog extends Dialog {
     }
 
     private String removeEndComma(String value) {
-        if (value.endsWith(COMMA)) {
+        if (value.endsWith(String.valueOf(COMMA))) {
             value = value.substring(0, value.length() - 1);
             value = removeEndComma(value);
         }

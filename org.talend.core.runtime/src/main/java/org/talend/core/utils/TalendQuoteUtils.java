@@ -96,6 +96,25 @@ public final class TalendQuoteUtils {
 
     }
 
+    /**
+     * DOC ycbai Comment method "addQuotesIfNotExist".
+     * 
+     * @param text
+     * @return
+     */
+    public static String addQuotesIfNotExist(String text) {
+        if (text == null) {
+            return null;
+        }
+        if (!text.startsWith(QUOTATION_MARK)) {
+            text = QUOTATION_MARK + text;
+        }
+        if (!text.endsWith(QUOTATION_MARK)) {
+            text = text + QUOTATION_MARK;
+        }
+        return text;
+    }
+
     public static String addQuotes(String text, String quoteStyle) {
         String newString;
 
