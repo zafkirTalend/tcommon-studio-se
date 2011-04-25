@@ -133,8 +133,10 @@ public class TestCreatUsersInAdvance extends Login {
 		selenium.click("//span[text()='Role']/ancestor::td/preceding-sibling::td/div");
 		selenium.click("idValidateButton");
 		selenium.click("idFormSaveButton");
-		this.waitForElementPresent("//*[text()='Save success']", WAIT_TIME);
-		
+		selenium.setSpeed(MAX_SPEED);
+		selenium.refresh();
+		selenium.setSpeed(MIN_SPEED);
+		this.waitForElementPresent("!!!menu.jobConductor.element!!!", WAIT_TIME);
 	}
 	
 }

@@ -10,9 +10,9 @@ public class TestDbConfig extends DbConfig {
 
 	@Test(groups = { "initDB" })
 	@Parameters( { "db.url", "db.userName", "db.userPassWd", "db.driver",
-			"license.file.path" })
+			"license.file.path","license.fileInvalid.path"})
 	public void testDbConfig(String url, String userName, String userPassWd,
-			String driver, String license) {
+			String driver, String license,String invalidLicense) {
 
 		this.DbConfigProcess(url, userName, userPassWd, driver);
 		waitForCheckConnectionStatus(4);
@@ -29,15 +29,30 @@ public class TestDbConfig extends DbConfig {
 						"30000");
 		waitForCheckConnectionStatus(4);
 		//if no license, load the license from a file.
-		System.out.println(selenium.isElementPresent("//div[text()='License Expired']") || selenium.isElementPresent("//div[text()='No license yet']"));
-//		if(selenium.isElementPresent("//div[text()='License Expired']") || selenium.isElementPresent("//div[text()='No license yet']")){
-			selenium.click("//button[text()='Set new license']");
-			selenium.type("//button[contains(text(),'Browse')]/ancestor::table[1]/preceding-sibling::input[1]", license);
-			selenium.click("//button[text()='Upload']");
-			if (selenium.isTextPresent("New license set"))
-				clickWaitForElementPresent("//button[text()='Ok']");
-			waitForCheckConnectionStatus(5);
-//		}
+	
+		//No license	
+		selenium.click("//button[text()='Set new license']");
+		selenium.click("//button[text()='Upload']");
+		selenium.waitForCondition("selenium.isTextPresent(\"Invalid license key\")", WAIT_TIME*1000+"");
+		clickWaitForElementPresent("//button[text()='Ok']");
+		this.clickWaitForElementPresent("//span[text()='New license set']/preceding-sibling::div//div");//close window
+			
+		//incorrect licence
+		selenium.click("//button[text()='Set new license']");
+		selenium.type("//button[contains(text(),'Browse')]/ancestor::table[1]/preceding-sibling::input[1]", invalidLicense);
+		selenium.click("//button[text()='Upload']");
+		selenium.waitForCondition("selenium.isTextPresent(\"Invalid license key\")", WAIT_TIME*1000+"");
+		clickWaitForElementPresent("//button[text()='Ok']");
+		this.clickWaitForElementPresent("//span[text()='New license set']/preceding-sibling::div//div");//close window
+			
+		//correct licnese
+		selenium.click("//button[text()='Set new license']");
+		selenium.type("//button[contains(text(),'Browse')]/ancestor::table[1]/preceding-sibling::input[1]", license);
+		selenium.click("//button[text()='Upload']");
+		selenium.waitForCondition("selenium.isTextPresent(\"New license set\")", WAIT_TIME*1000+"");
+		clickWaitForElementPresent("//button[text()='Ok']");
+		waitForCheckConnectionStatus(5);
+
 		selenium.click("idDbConfigLogoutButton");
 		waitForElementPresent("idLoginInput", WAIT_TIME);
 	}

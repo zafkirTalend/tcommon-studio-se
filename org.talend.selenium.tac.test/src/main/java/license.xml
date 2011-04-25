@@ -25,7 +25,7 @@
 
 	<!-- ############### DB Configuration ################-->
 	<parameter name="db.url"
-		value="jdbc:h2:C:/home/automation/Automation/database/talend_administrator;AUTO_SERVER=TRUE;MVCC=TRUE" />
+		value="jdbc:h2:/home/automation/Automation/database/talend_administrator;AUTO_SERVER=TRUE;MVCC=TRUE" />
 	<parameter name="db.userName" value="tisadmin" />
 	<parameter name="db.userPassWd" value="tisadmin" />
 	<parameter name="db.driver" value="org.h2.Driver" />
