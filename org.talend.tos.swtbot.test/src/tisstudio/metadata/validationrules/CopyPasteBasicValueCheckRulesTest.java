@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package tisstudio.metadata.embeddedrules;
+package tisstudio.metadata.validationrules;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -32,7 +32,7 @@ import org.talend.swtbot.Utilities;
  * DOC fzhong class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class CreateDrlEmbeddedRulesTest extends TalendSwtBotForTos {
+public class CopyPasteBasicValueCheckRulesTest extends TalendSwtBotForTos {
 
     private SWTBotView view;
 
@@ -40,26 +40,33 @@ public class CreateDrlEmbeddedRulesTest extends TalendSwtBotForTos {
 
     private SWTBotTreeItem treeNode;
 
-    private static final String EMBEDDED_RULES_NAME = "rulesTest";
+    private SWTBotTreeItem metadataNode;
 
-    private static final String TYPE_OF_RULE_RESOURCE = "DRL";
+    private static final String VALIDATION_RULES_NAME = "rulesTest";
+
+    private static final String METADATA_NAME = "metadata";
+
+    private static final String RULE_TYPE = "Basic Value Check";
 
     @Before
-    public void initialisePrivateFields() {
+    public void createBasicValueCheckRules() throws IOException, URISyntaxException {
         view = Utilities.getRepositoryView(gefBot);
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.EMBEDDED_RULES);
+        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.VALIDATION_RULES);
+        metadataNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.FILE_DELIMITED);
+        Utilities.createFileDelimited(METADATA_NAME, metadataNode, gefBot);
+        Utilities.createValidationRules(RULE_TYPE, Utilities.TalendItemType.FILE_DELIMITED, METADATA_NAME, VALIDATION_RULES_NAME,
+                gefBot, treeNode);
     }
 
     @Test
-    public void creatDrlEmbeddedRules() throws IOException, URISyntaxException {
-        Utilities.createEmbeddedRules(TYPE_OF_RULE_RESOURCE, EMBEDDED_RULES_NAME, gefBot, treeNode);
-        gefBot.cTabItem(EMBEDDED_RULES_NAME + " 0.1").close();
+    public void copyPasteBasicValueCheckRules() {
+        Utilities.copyAndPaste(treeNode, VALIDATION_RULES_NAME, "0.1");
     }
 
     @After
     public void removePreviouslyCreateItems() {
-        Utilities.delete(tree, treeNode, EMBEDDED_RULES_NAME, "0.1", null);
+        Utilities.cleanUpRepository(tree);
         Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

@@ -94,6 +94,7 @@ public class Utilities {
         VALIDATION_RULES,
         FTP,
         HL7,
+        EDI,
         DOCUMENTATION,
         RECYCLE_BIN
     }
@@ -1168,6 +1169,8 @@ public class Utilities {
             return tree.expandNode("Metadata", "FTP");
         case HL7:
             return tree.expandNode("Metadata", "HL7");
+        case EDI:
+            return tree.expandNode("Metadata", "UN/EDIFACT");
         case DOCUMENTATION:
             return tree.expandNode("Documentation");
         case RECYCLE_BIN:
@@ -1438,6 +1441,19 @@ public class Utilities {
             Assert.fail(e.getMessage());
         }
 
+        SWTBotShell errorShell = null;
+        try {
+            errorShell = gefBot.shell("Problem Executing Operation").activate();
+            if (errorShell.isActive()) {
+                gefBot.button("OK").click();
+                gefBot.cTabItem(ruleName + " 0.1").close();
+            }
+        } catch (WidgetNotFoundException wnfe) {
+            // ignor this exception, shell did not open means item create successfully.
+        } finally {
+            Assert.assertNull("bug for cannot create or restore resource because it already exist.", errorShell);
+        }
+
         SWTBotTreeItem newRuleItem = null;
         try {
             newRuleItem = treeNode.expand().select(ruleName + " 0.1");
@@ -1520,4 +1536,45 @@ public class Utilities {
             Assert.assertNotNull("validation rule item is not created", newRuleItem);
         }
     }
+
+    // public static void createEDI(EDIItem ediItem, SWTGefBot gefBot, SWTBotTreeItem treeNode) {
+    // treeNode.contextMenu("Create EDI").click();
+    // shell = gefBot.shell("Create new EDI schema").activate();
+    // gefBot.textWithLabel("Name").setText(ediItem.getItemName());
+    // boolean isNextButtonEnable = gefBot.button("Next >").isEnabled();
+    // if (!isNextButtonEnable) {
+    // shell.close();
+    // Assert.assertTrue("edi item is not created, maybe the item name already exist", isNextButtonEnable);
+    // }
+    // gefBot.button("Next >").click();
+    //
+    // try {
+    // gefBot.tree().expandNode(ediItem.getStandard()).getNode(ediItem.getRelease()).click();
+    // gefBot.button("Next >").click();
+    //
+    // String[] schemas = ediItem.getSchema();
+    // for (int i = 0; i < schemas.length; i++) {
+    // gefBot.buttonWithTooltip("Add").click();
+    // gefBot.tableInGroup("Schema").click(i, 2);
+    // gefBot.text().setText(schemas[i]);
+    // }
+    // gefBot.button("Next >").click();
+    // gefBot.button("Finish").click();
+    // } catch (WidgetNotFoundException wnfe) {
+    // shell.close();
+    // Assert.fail(wnfe.getCause().getMessage());
+    // } catch (Exception e) {
+    // shell.close();
+    // Assert.fail(e.getMessage());
+    // }
+    //
+    // SWTBotTreeItem newEDIItem = null;
+    // try {
+    // newEDIItem = treeNode.expand().select(ediItem.getItemName() + " 0.1");
+    // } catch (Exception e) {
+    // e.printStackTrace();
+    // } finally {
+    // Assert.assertNotNull("validation EDI item is not created", newEDIItem);
+    // }
+    // }
 }

@@ -32,7 +32,7 @@ import org.talend.swtbot.Utilities;
  * DOC fzhong class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class CreateDrlEmbeddedRulesTest extends TalendSwtBotForTos {
+public class CopyPasteEmbeddedRulesTest extends TalendSwtBotForTos {
 
     private SWTBotView view;
 
@@ -45,21 +45,23 @@ public class CreateDrlEmbeddedRulesTest extends TalendSwtBotForTos {
     private static final String TYPE_OF_RULE_RESOURCE = "DRL";
 
     @Before
-    public void initialisePrivateFields() {
+    public void createDrlEmbeddedRules() throws IOException, URISyntaxException {
         view = Utilities.getRepositoryView(gefBot);
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
         treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.EMBEDDED_RULES);
-    }
-
-    @Test
-    public void creatDrlEmbeddedRules() throws IOException, URISyntaxException {
         Utilities.createEmbeddedRules(TYPE_OF_RULE_RESOURCE, EMBEDDED_RULES_NAME, gefBot, treeNode);
         gefBot.cTabItem(EMBEDDED_RULES_NAME + " 0.1").close();
     }
 
+    @Test
+    public void copyPasteEmbeddedRules() {
+        Utilities.copyAndPaste(treeNode, EMBEDDED_RULES_NAME, "0.1");
+    }
+
     @After
     public void removePreviouslyCreateItems() {
-        Utilities.delete(tree, treeNode, EMBEDDED_RULES_NAME, "0.1", null);
+
+        Utilities.cleanUpRepository(treeNode);
         Utilities.emptyRecycleBin(gefBot, tree);
     }
 }
