@@ -345,16 +345,15 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                                 ExceptionHandler.process(e);
                             }
                             if (property != null) {
+                                if (currentFolderItem != null && !currentFolderItem.getChildren().contains(property.getItem())) {
+                                    currentFolderItem.getChildren().add(property.getItem());
+                                    property.getItem().setParent(currentFolderItem);
+                                }
                                 if (options.length > 0 && options[0] == true) {
                                     // called from repository view
                                     currentObject = new RepositoryViewObject(property);
                                 } else {
                                     currentObject = new RepositoryObject(property);
-                                }
-                                if (currentFolderItem != null && !currentFolderItem.getChildren().contains(property.getItem())) {
-                                    currentFolderItem.getChildren().add(property.getItem());
-                                    property.getItem().setParent(currentFolderItem);
-                                    projectModified = true;
                                 }
                             } else {
                                 log.error(Messages.getString("LocalRepositoryFactory.CannotLoadProperty") + current); //$NON-NLS-1$
