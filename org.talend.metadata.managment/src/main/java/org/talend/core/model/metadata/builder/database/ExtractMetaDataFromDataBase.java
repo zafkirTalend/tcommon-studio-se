@@ -922,7 +922,7 @@ public class ExtractMetaDataFromDataBase {
             ResultSetMetaData resultMetadata = null;
             if (isMYSQL) {
                 Statement statement = connection.createStatement();
-                String query = "SELECT * FROM " + tableName + " limit 1";
+                String query = "SELECT * FROM `" + tableName + "` limit 1"; //$NON-NLS-1$ //$NON-NLS-2$
                 ResultSet resultSet = statement.executeQuery(query);
                 resultMetadata = resultSet.getMetaData();
             }

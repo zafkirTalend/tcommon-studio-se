@@ -306,7 +306,7 @@ public class TalendTextUtils {
         }
 
         if (!b) {
-            if (!isCheck && isPSQLSimilar(name)) {
+            if (!isCheck && isPSQLSimilar(name) && !EDatabaseTypeName.MYSQL.equals(name)) {
                 return fieldName;
             }
         }
