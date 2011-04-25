@@ -24,9 +24,9 @@ public class TestAddAddSimpleTriggerUseDefaulttime extends Login{
     	selenium.click("idSubModuleRefreshButton");
     	selenium.mouseDown("//div[text()='"+addsimpletriggerplan+"']");//select a exist task
 		selenium.click("//button[text()='Add trigger...']");//add a trigger
-		selenium.click("//a[text()='Add SimpleTrigger']");//add a SimpleTrigger
+		selenium.click("//a[text()='Add simple trigger']");//add a SimpleTrigger
         Assert.assertTrue(selenium.isElementPresent("//span[text()='"+rb.getString("trigger.action.addSimpleTrigger")+"']"));
-        selenium.setSpeed(MID_SPEED);
+        selenium.setSpeed(MIN_SPEED);
         //type simple trigger label
         this.typeString("//div[@class=' x-panel x-component ']/div[@class='x-panel-bwrap']/div[@class='x-panel-body x-panel-body-noheader']/div[@class=' x-panel-noborder x-panel x-component']/div[@class='x-panel-bwrap']/div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder']/form[@class=' x-form-label-left']/fieldset[@class=' x-fieldset x-component']/div[@class=' x-form-label-left']/div[@class='x-form-item ']/div/div[@class=' x-form-field-wrap  x-component ']/input[@name='label']",defaulttimeSimpletrigger );//label
 		//type simple trigger description

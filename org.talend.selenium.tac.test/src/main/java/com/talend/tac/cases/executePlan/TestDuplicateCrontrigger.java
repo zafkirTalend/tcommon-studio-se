@@ -13,8 +13,8 @@ public class TestDuplicateCrontrigger extends Login {
 	@Parameters({ "plan.toaddcrontrigger.label",
 			"plan.crontrigger.duplicate.label" })
 	public void testAddTriggerAddSimpleTrigger(String plan,
-			String triggertoduplicate) {
-		TriggerDate date = new TriggerDate().getFuture(24);
+			String triggertoduplicate) throws InterruptedException {
+		TriggerDate date = new TriggerDate().getFuture(48);
 		this.clickWaitForElementPresent("!!!menu.executionPlan.element!!!");
 		selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium
@@ -25,8 +25,10 @@ public class TestDuplicateCrontrigger extends Login {
 		// select trigger to duplicate
 		selenium.mouseDown("//span[text()='" + triggertoduplicate + "']");//
 		// click duplicate trigger button
-		selenium.click("//table[@class=' x-btn x-component x-btn-text-icon x-btn-focus ']/tbody[@class='x-btn-small x-btn-icon-small-left']/tr/td[@class='x-btn-mc']/em/button[text()='Duplicate']");
+		selenium.click("idSubModuleDuplicateButton");
 		// configure trigger information about time
+		Thread.sleep(5000);
+		selenium.setSpeed(MIN_SPEED);
 		// type minutes
 		this.typeString(
 				"//div[@class=' x-panel x-component ']/div[@class='x-panel-bwrap']/div[@class='x-panel-body x-panel-body-noheader']/div[@class=' x-panel-noborder x-panel x-component']/div[@class='x-panel-bwrap']/div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder']/form[@class=' x-form-label-left']/fieldset[@class=' x-fieldset x-component']/div[@class=' x-form-label-left']/div[@class='x-form-item ']/div/div[@class=' x-form-field-wrap  x-component ']/input[@name='minutes']",
@@ -51,6 +53,7 @@ public class TestDuplicateCrontrigger extends Login {
 		// click save button to save trigger
 		selenium.click("//div[@class=' x-panel x-component ']/div[@class='x-panel-bwrap']/div[@class='x-panel-footer']/div[@class=' x-panel-btns']/div[@class=' x-small-editor x-panel-btns-center x-panel-fbar x-component x-toolbar-layout-ct']/table[@class='x-toolbar-ct']/tbody/tr/td[@class='x-toolbar-left']/table/tbody/tr[@class='x-toolbar-left-row']/td[@class='x-toolbar-cell']/table[@class=' x-btn x-component x-btn-text-icon ']/tbody[@class='x-btn-small x-btn-icon-small-left']/tr/td[@class='x-btn-mc']/em/button[@class='x-btn-text ' and text()='Save']");
 		selenium.setSpeed(MID_SPEED);
+		Thread.sleep(5000);
 		Assert.assertTrue(selenium.isElementPresent("//span[text()='"
 				+ "Copy_of_" + triggertoduplicate + "']"));
 		selenium.setSpeed(MIN_SPEED);

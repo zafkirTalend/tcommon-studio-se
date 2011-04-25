@@ -20,8 +20,10 @@ public class TestAddTriggerAddCronTrigger extends Login{
     	selenium.click("idSubModuleRefreshButton");
     	selenium.mouseDown("//div[text()='"+planlabel+"']");
 		selenium.click("//button[text()='Add trigger...']");
-		selenium.click("//a[text()='Add CronTrigger']");
+		selenium.click("//a[text()='Add CRON trigger']");
 //		selenium.setSpeed(MID_SPEED);
+		Thread.sleep(5000);
+		selenium.setSpeed(MIN_SPEED);
 		//type  label
 		this.typeString("//div[@class=' x-panel x-component ']/div[@class='x-panel-bwrap']/div[@class='x-panel-body x-panel-body-noheader']/div[@class=' x-panel-noborder x-panel x-component']/div[@class='x-panel-bwrap']/div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder']/form[@class=' x-form-label-left']/fieldset[@class=' x-fieldset x-component']/div[@class=' x-form-label-left']/div[@class='x-form-item ']/div/div[@class=' x-form-field-wrap  x-component ']/input[@name='label']",crongtriggerlabel);
 		//type  description
