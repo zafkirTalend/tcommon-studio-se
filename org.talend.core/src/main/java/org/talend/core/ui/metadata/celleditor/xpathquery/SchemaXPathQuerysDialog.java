@@ -121,7 +121,8 @@ public class SchemaXPathQuerysDialog extends Dialog {
                 rightInx = i;
             } else if (COMMA == ch) {
                 inx = i;
-                if ((leftInx != -1 && rightInx != -1 && inx > leftInx && inx > rightInx) || leftInx == -1) {
+                if ((leftInx != -1 && rightInx != -1 && inx > leftInx && inx > rightInx) || leftInx == -1
+                        || (leftInx != -1 && mappingValues.indexOf(RIGHT_BRACKET) == -1)) {
                     valsList.add(TalendQuoteUtils.addQuotesIfNotExist(mappingValues.substring(beginInx, inx)));
                     beginInx = inx + 1;
                     leftInx = -1;
