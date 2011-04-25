@@ -14,6 +14,7 @@ package org.talend.core.model.metadata.query.generator;
 
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.model.metadata.query.AbstractQueryGenerator;
+import org.talend.core.model.process.IElement;
 
 /**
  * ggu class global comment. Detailled comment
@@ -30,4 +31,11 @@ public class PostgreQueryGenerator extends AbstractQueryGenerator {
         return true; // always quote
     }
 
+    protected String getSchema(IElement elem) {
+        // bug 20365
+        if (schema != null) {
+            return schema;
+        }
+        return super.getSchema(elem);
+    }
 }

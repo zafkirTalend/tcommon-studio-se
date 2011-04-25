@@ -398,10 +398,7 @@ public abstract class AbstractQueryGenerator implements IQueryGenerator {
                 tableName = realTableName;
                 schemaName = schema;
             }
-            // bug 20365
-            if (getElement() != null && dbType.getDisplayName().equals(EDatabaseTypeName.PSQL.getDisplayName())) {
-                schemaName = schema;
-            }
+
             final String tableNameWithDBAndSchema = getTableNameWithDBAndSchema(dbName, schemaName, tableName);
 
             StringBuffer sql = new StringBuffer(100);
