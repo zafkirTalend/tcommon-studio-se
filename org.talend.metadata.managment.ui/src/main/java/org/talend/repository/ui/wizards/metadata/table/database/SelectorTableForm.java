@@ -937,13 +937,15 @@ public class SelectorTableForm extends AbstractForm {
         TableNode parent = tableNode.getParent();
         String catalog = "";
         String schema = "";
-        if (parent.getType() == TableNode.CATALOG) {
-            catalog = parent.getValue();
-        } else if (parent.getType() == TableNode.SCHEMA) {
-            schema = parent.getValue();
-            TableNode catalogNode = parent.getParent();
-            if (catalogNode != null) {
-                catalog = catalogNode.getValue();
+        if (parent != null) {
+            if (parent.getType() == TableNode.CATALOG) {
+                catalog = parent.getValue();
+            } else if (parent.getType() == TableNode.SCHEMA) {
+                schema = parent.getValue();
+                TableNode catalogNode = parent.getParent();
+                if (catalogNode != null) {
+                    catalog = catalogNode.getValue();
+                }
             }
         }
 
