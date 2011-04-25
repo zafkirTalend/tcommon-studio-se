@@ -22,8 +22,8 @@
   	<parameter  name ="resourceBundle"	value ="messages"/>
   	
   	<!-- License parameters -->
-  	<parameter  name ="license.file.path"	value ="C:\\Users\\Administrator\\Desktop\\license_42_MDM_TDQ_EE_MPX88"/>
-  	<parameter  name ="license.fileInvalid.path" value ="C:\\Users\\Administrator\\Desktop\\license_Invalid"/>
+  	<parameter  name ="license.file.path"	value ="\\license"/>
+  	<parameter  name ="license.fileInvalid.path" value ="\\license_Invalid"/>
   	
   	
 	<suite-files>
