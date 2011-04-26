@@ -331,9 +331,11 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                             && dbConnection.getDatabaseType().equals(EDatabaseTypeName.AS400.getDisplayName())) {// AS400
                         String pattern = ExtractMetaDataUtils.retrieveSchemaPatternForAS400(dbConnection.getURL());
                         String[] multiSchems = ExtractMetaDataUtils.getMultiSchems(pattern);
-                        for (String s : multiSchems) {
-                            if (!StringUtils.isEmpty(s) && !filterList.contains(s)) {
-                                filterList.add(s);
+                        if (multiSchems != null) {
+                            for (String s : multiSchems) {
+                                if (!StringUtils.isEmpty(s) && !filterList.contains(s)) {
+                                    filterList.add(s);
+                                }
                             }
                         }
                     } else {
@@ -572,6 +574,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             // catalog
             if (catalogOrSchema instanceof Catalog) {
                 catalogName = catalogOrSchema.getName();
+                if (MetadataConnectionUtils.isAS400(catalogOrSchema)) {
+                    return tableList;
+                }
             } else {// schema
                 Package parentCatalog = PackageHelper.getParentPackage(catalogOrSchema);
                 schemaPattern = catalogOrSchema.getName();
@@ -655,6 +660,10 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             // catalog
             if (catalogOrSchema instanceof Catalog) {
                 catalogName = catalogOrSchema.getName();
+
+                if (MetadataConnectionUtils.isAS400(catalogOrSchema)) {
+                    return viewList;
+                }
             } else {// schema
                 Package parentCatalog = PackageHelper.getParentPackage(catalogOrSchema);
                 schemaPattern = catalogOrSchema.getName();

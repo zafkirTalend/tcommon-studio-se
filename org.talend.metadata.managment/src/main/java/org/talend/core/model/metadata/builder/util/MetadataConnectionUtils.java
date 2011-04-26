@@ -68,6 +68,7 @@ import org.talend.utils.sugars.ReturnCode;
 import org.talend.utils.sugars.TypedReturnCode;
 import orgomg.cwm.foundation.softwaredeployment.Component;
 import orgomg.cwm.foundation.softwaredeployment.DataProvider;
+import orgomg.cwm.objectmodel.core.Package;
 import orgomg.cwm.resource.relational.Catalog;
 import orgomg.cwm.resource.relational.Schema;
 
@@ -963,6 +964,22 @@ public class MetadataConnectionUtils {
                 ExceptionHandler.process(e);
             }
         }
+        return false;
+    }
+
+    /**
+     * Check a package is the one of AS400. return false if it's not.
+     * 
+     * @param packge
+     * @return
+     */
+    public static boolean isAS400(Package packge) {
+        Connection connection = ConnectionHelper.getConnection(packge);
+        if (connection instanceof DatabaseConnection) {
+            DatabaseConnection dbConnection = (DatabaseConnection) connection;
+            return StringUtils.equalsIgnoreCase(dbConnection.getDatabaseType(), EDatabaseTypeName.AS400.getDisplayName());
+        }
+
         return false;
     }
 
