@@ -6,7 +6,7 @@ import com.talend.tac.cases.Login;
 
 public class TestWelcomePage extends Login {
 	@Test
-	public void f() {
+	public void testAccessFromWelcomePage() {
 		AccessProcessInWelcomePage("Accounts");
 		AccessProcessInWelcomePage("Projects");
 		AccessProcessInWelcomePage("Projects authorizations");
@@ -14,7 +14,7 @@ public class TestWelcomePage extends Login {
 		AccessProcessInWelcomePage("License");
 		AccessProcessInWelcomePage("Configuration");
 		AccessProcessInWelcomePage("Accounts");
-		AccessProcessInWelcomePage_Group("User settings: Change your password and svn account");
+		AccessProcessInWelcomePage_Group("User settings");
 
 	}
 
@@ -26,9 +26,9 @@ public class TestWelcomePage extends Login {
 	}
 
 	public void AccessProcessInWelcomePage_Group(String locatorText) {
-		this.waitForElementPresent("//span[text()='" + locatorText + "']",WAIT_TIME);
-		selenium.click("//span[text()='" + locatorText + "']");
-		assertTrue(selenium.getXpathCount("//span[text()='" + locatorText + "']").intValue() == 2);
-		this.clickWaitForElementPresent("//span[text()='"+locatorText +"']//ancestor::a/preceding-sibling::a");
+		this.waitForElementPresent("//span[contains(text(),'"+ locatorText + "')]",WAIT_TIME);
+		selenium.click("//span[contains(text(),'"+ locatorText + "')]");
+		assertTrue(selenium.getXpathCount("//span[contains(text(),'"+ locatorText + "')]").intValue() == 3);
+		this.clickWaitForElementPresent("//span[contains(text(),'" +locatorText +"')]//ancestor::a/preceding-sibling::a");
 	}
 }
