@@ -13,6 +13,9 @@
 package org.talend.repository.ui.wizards.metadata.table.database;
 
 import java.lang.reflect.InvocationTargetException;
+import java.sql.Connection;
+import java.sql.Driver;
+import java.sql.SQLException;
 import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,6 +35,8 @@ import java.util.concurrent.ThreadPoolExecutor;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.Viewer;
@@ -71,6 +76,7 @@ import org.talend.commons.utils.data.text.IndiceHelper;
 import org.talend.commons.utils.threading.TalendCustomThreadPoolExecutor;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.model.metadata.IMetadataConnection;
+import org.talend.core.model.metadata.MetadataFillFactory;
 import org.talend.core.model.metadata.MetadataToolHelper;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
@@ -103,6 +109,7 @@ import org.talend.repository.ui.swt.utils.AbstractForm;
 import org.talend.repository.ui.utils.ManagerConnection;
 import orgomg.cwm.objectmodel.core.CoreFactory;
 import orgomg.cwm.objectmodel.core.ModelElement;
+import orgomg.cwm.objectmodel.core.Package;
 import orgomg.cwm.resource.relational.Catalog;
 import orgomg.cwm.resource.relational.NamedColumnSet;
 import orgomg.cwm.resource.relational.Schema;
@@ -747,6 +754,131 @@ public class SelectorTableForm extends AbstractForm {
         return tableNodes;
     }
 
+    private void updatePackage(IMetadataConnection metadataConnection) {
+        if (metadataConnection == null) {
+            return;
+        }
+        Driver derbyDriver = null;
+        Connection sqlConn = null;
+        DatabaseConnection dbConn = (DatabaseConnection) iMetadataConnection.getCurrentConnection();
+        List list = MetadataConnectionUtils.getConnection(iMetadataConnection);
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i) instanceof Driver) {
+                String driverClass = iMetadataConnection.getDriverClass();
+                String dbType = iMetadataConnection.getDbType();
+                if (MetadataConnectionUtils.isDerbyRelatedDb(driverClass, dbType)) {
+                    derbyDriver = (Driver) list.get(i);
+                }
+            }
+            if (list.get(i) instanceof java.sql.Connection) {
+                sqlConn = (java.sql.Connection) list.get(i);
+            }
+        }
+        try {
+            if (sqlConn != null) {
+                MetadataFillFactory.getDBInstance().fillCatalogs(dbConn, sqlConn.getMetaData(),
+                        MetadataConnectionUtils.getPackageFilter(dbConn, sqlConn.getMetaData(), true));
+                MetadataFillFactory.getDBInstance().fillSchemas(dbConn, sqlConn.getMetaData(),
+                        MetadataConnectionUtils.getPackageFilter(dbConn, sqlConn.getMetaData(), false));
+                // compare with current connection
+                Set<MetadataTable> tables = ConnectionHelper.getTables(getConnection());
+                EList<Package> dataPackage = dbConn.getDataPackage();
+                for (MetadataTable table : tables) {
+                    if (table != null) {
+                        MetadataTable newTable = EcoreUtil.copy(table);
+                        EObject eContainer = table.eContainer();
+                        if (eContainer != null) {
+                            if (eContainer instanceof Catalog) {
+                                String name = ((Catalog) eContainer).getName();
+                                Catalog c = (Catalog) ConnectionHelper.getPackage(name, dbConn, Catalog.class);
+                                if (c != null) {
+                                    PackageHelper.addMetadataTable(newTable, c);
+                                } else {
+                                    for (Package p : dataPackage) {
+                                        if (p instanceof Catalog) {
+                                            EList<ModelElement> ownedElement = p.getOwnedElement();
+                                            if (ownedElement == null) {
+                                                PackageHelper.addMetadataTable(newTable, p);
+                                            } else if (!ownedElement.isEmpty()) {
+                                                PackageHelper.addMetadataTable(newTable, (Package) ownedElement.get(0));
+                                            }
+                                        }
+                                    }
+                                }
+                            } else if (eContainer instanceof Schema) {
+                                String name = ((Schema) eContainer).getName();
+                                Schema s = (Schema) ConnectionHelper.getPackage(name, dbConn, Schema.class);
+                                if (s != null) {
+                                    PackageHelper.addMetadataTable(newTable, s);
+                                } else {
+                                    EObject parent = eContainer.eContainer();
+                                    if (parent != null) {
+                                        if (parent instanceof Catalog) {
+                                            String pName = ((Catalog) parent).getName();
+                                            Catalog c = (Catalog) ConnectionHelper.getPackage(pName, dbConn, Catalog.class);
+                                            if (c != null) {
+                                                EList<ModelElement> ownedElement = c.getOwnedElement();
+                                                if (ownedElement == null) {
+                                                    PackageHelper.addMetadataTable(newTable, c);
+                                                } else if (!ownedElement.isEmpty()) {
+                                                    List<Schema> schemas = CatalogHelper.getSchemas(c);
+                                                    boolean exist = false;
+                                                    for (Schema schema : schemas) {
+                                                        if (schema.getName().equals(name)) {
+                                                            exist = true;
+                                                            PackageHelper.addMetadataTable(newTable, schema);
+                                                            break;
+                                                        }
+                                                    }
+                                                    if (!exist) {
+                                                        PackageHelper.addMetadataTable(newTable, (Package) ownedElement.get(0));
+                                                    }
+                                                }
+                                            } else {
+                                                Package pk = null;
+                                                boolean exist = false;
+                                                for (Package p : dataPackage) {
+                                                    if (p instanceof Catalog) {
+                                                        List<Schema> schemas = CatalogHelper.getSchemas((Catalog) p);
+                                                        for (Schema schema : schemas) {
+                                                            if (pk == null) {
+                                                                pk = schema;
+                                                            }
+                                                            if (schema.getName().equals(name)) {
+                                                                exist = true;
+                                                                PackageHelper.addMetadataTable(newTable, schema);
+                                                                break;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                if (!exist) {
+                                                    PackageHelper.addMetadataTable(newTable, pk);
+                                                }
+                                            }
+                                        }
+                                    } else {
+                                        PackageHelper.addMetadataTable(newTable, dataPackage.get(0));
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            ExceptionHandler.process(e);
+        } finally {
+            if (derbyDriver != null) {
+                try {
+                    derbyDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
+                } catch (SQLException e) {
+                    // exception of shutdown success. no need to catch.
+                }
+            }
+        }
+    }
+
     /**
      * checkConnection.
      * 
@@ -763,12 +895,14 @@ public class SelectorTableForm extends AbstractForm {
                     monitor.beginTask(Messages.getString("CreateTableAction.action.createTitle"), IProgressMonitor.UNKNOWN); //$NON-NLS-1$
                     // add
                     managerConnection.check(iMetadataConnection);
-                    /*
-                     * 1.need to fill content when retrieve schema for the connections imported and without any catalogs
-                     * 2.see bug 00020479
-                     */
-                    MetadataConnectionUtils.fillConnectionInformation(connectionItem);
                     if (managerConnection.getIsValide()) {
+                        // need to check catalog/schema if import a old db connection
+                        updatePackage(iMetadataConnection);
+                        // update the connection
+                        EList<Package> dp = ((DatabaseConnection) iMetadataConnection.getCurrentConnection()).getDataPackage();
+                        Collection<Package> newDataPackage = EcoreUtil.copyAll(dp);
+                        ConnectionHelper.addPackages(newDataPackage, getConnection());
+
                         // need to enhance later
                         if (ExtractMetaDataUtils.isUseAllSynonyms()
                                 && EDatabaseTypeName.ORACLEFORSID.getDisplayName().equals(iMetadataConnection.getDbType())
@@ -1488,7 +1622,22 @@ public class SelectorTableForm extends AbstractForm {
                         ownedElement = c.getOwnedElement();
                     }
                 } else if (type == TableNode.SCHEMA) {
-                    Schema s = (Schema) ConnectionHelper.getPackage(parent.getValue(), getConnection(), Schema.class);
+                    TableNode p = parent.getParent();
+                    Schema s = null;
+                    if (p == null) {
+                        s = (Schema) ConnectionHelper.getPackage(parent.getValue(), getConnection(), Schema.class);
+                    } else {
+                        Catalog c = (Catalog) ConnectionHelper.getPackage(p.getValue(), getConnection(), Catalog.class);
+                        if (c != null) {
+                            List<Schema> schemas = CatalogHelper.getSchemas(c);
+                            for (Schema schema : schemas) {
+                                if (schema.getName().equals(parent.getValue())) {
+                                    s = schema;
+                                    break;
+                                }
+                            }
+                        }
+                    }
                     if (s != null) {
                         ownedElement = s.getOwnedElement();
                     }
