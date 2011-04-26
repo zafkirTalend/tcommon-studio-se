@@ -145,6 +145,7 @@ public class UniverseForm extends AbstractForm {
                     if (DEFAULT_UNIVERS.equals(universeValue)) { //$NON-NLS-1$
                         modelText.setText("");//$NON-NLS-1$
                         clusterText.setText("");//$NON-NLS-1$
+                        checkFieldsValue();
                         return;
                     }
                     if (universeValue == null || universeValue.trim().length() == 0) {
