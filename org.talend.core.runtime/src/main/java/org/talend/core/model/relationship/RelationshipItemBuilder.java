@@ -112,6 +112,10 @@ public class RelationshipItemBuilder {
 
     private static final String COMMA = ";";
 
+    private RelationshipItemBuilder() {
+
+    }
+
     public static RelationshipItemBuilder getInstance() {
         if (instance == null) {
             instance = new RelationshipItemBuilder();
