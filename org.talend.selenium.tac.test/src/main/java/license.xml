@@ -75,6 +75,14 @@
 			<class name="com.talend.tac.cases.dbConfig.TestDbConfig" />
 		</classes>
 	</test>
+	<test name="TestDbConfigReload" preserve-order="true">
+		<classes>
+		<parameter name="db.url" value="wrongURL" />
+		<parameter name="db.userName" value="wrong userName" />
+		<parameter name="db.driver" value="wrong driver" />
+			<class name="com.talend.tac.cases.dbConfig.TestDbConfigReload" />
+		</classes>
+	</test>
 	<!--
 		<test name="TestDbConfigMysql"> <classes> <parameter name="db.url"
 		value="jdbc:mysql://localhost:3306/tacauto" /> <parameter
@@ -174,9 +182,15 @@
 		name="com.talend.tac.cases.license.TestAddInvalidTokenForLicense" />
 		</classes> </test>
 	-->
-	<test name="TestUploadLicense">
+		<test name="TestUploadLicense" preserve-order="true">
 		<classes>
-			<class name="com.talend.tac.cases.license.TestUploadLicense" />
+			<class name="com.talend.tac.cases.license.TestUploadLicense" >
+				<methods>
+				    <include name="testAddNoLicense" />
+			        <include name="testAddInvalidLicense" />
+			        <include name="testAddValidLicense" />
+      			</methods>
+			</class>
 		</classes>
 	</test>
 	<test name="testCreateAllRolesInAdvance" preserve-order="true">

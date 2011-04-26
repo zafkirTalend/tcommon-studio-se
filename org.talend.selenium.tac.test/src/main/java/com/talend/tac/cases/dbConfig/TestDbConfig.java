@@ -15,7 +15,7 @@ public class TestDbConfig extends DbConfig {
 			String driver, String license,String invalidLicense) {
 
 		this.DbConfigProcess(url, userName, userPassWd, driver);
-		waitForCheckConnectionStatus(4);
+		waitForCheckConnectionStatus("//div[text()='OK']",4);
 		// simulate clicking ENTER to make button enabled.
 		selenium.keyDown("idDbConfigDriverInput", "\\13");
 		selenium.keyUp("idDbConfigDriverInput", "\\13");
@@ -27,7 +27,7 @@ public class TestDbConfig extends DbConfig {
 				.waitForCondition(
 						"selenium.isElementPresent(\"//table[contains(@class,'disabled')]//button[@id='idDbConfigSaveButton']\")",
 						"30000");
-		waitForCheckConnectionStatus(4);
+		waitForCheckConnectionStatus("//div[text()='OK']",4);
 		//if no license, load the license from a file.
 	
 		//No license	
@@ -51,7 +51,7 @@ public class TestDbConfig extends DbConfig {
 		selenium.click("//button[text()='Upload']");
 		selenium.waitForCondition("selenium.isTextPresent(\"New license set\")", WAIT_TIME*1000+"");
 		clickWaitForElementPresent("//button[text()='Ok']");
-		waitForCheckConnectionStatus(5);
+		waitForCheckConnectionStatus("//div[text()='OK']",5);
 
 		selenium.click("idDbConfigLogoutButton");
 		waitForElementPresent("idLoginInput", WAIT_TIME);

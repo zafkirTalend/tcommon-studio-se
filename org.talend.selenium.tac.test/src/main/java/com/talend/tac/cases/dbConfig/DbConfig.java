@@ -57,7 +57,7 @@ public class DbConfig extends Base {
 	/**
 	 * wait and check the db Connection status
 	 */
-	public void waitForCheckConnectionStatus( int OK_Num) {
+	public void waitForCheckConnectionStatus(String locator, int OK_Num) {
 		boolean flag = false;
 		int seconds_Counter = 0;
 		while (flag == false) {
@@ -68,7 +68,7 @@ public class DbConfig extends Base {
 				e.printStackTrace();
 			}
 //			flag = selenium.getXpathCount("//td[@align='LEFT']/div").intValue()==5;
-			flag = selenium.getXpathCount("//div[text()='OK']").intValue() >= OK_Num;
+			flag = selenium.getXpathCount(locator).intValue() >= OK_Num;
 			seconds_Counter++;
 			if(seconds_Counter >= WAIT_TIME)
 				assertTrue(selenium.getXpathCount("//div[text()='OK']").intValue() >= OK_Num);
