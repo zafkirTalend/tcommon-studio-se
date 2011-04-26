@@ -139,11 +139,13 @@ public class SetNameForm extends AbstractMDMFileStepForm {
                     updateStatus(IStatus.ERROR, Messages.getString("SetNameForm_entity_illegal")); //$NON-NLS-1$
                 }
                 if (canContinue) {
-                    for (int i = 0; i < existingNames.length; i++) {
-                        if (nameText.getText().equals(existingNames[i])) {
-                            updateStatus(IStatus.ERROR, Messages.getString("SetNameForm_entity_exist")); //$NON-NLS-1$
-                            canContinue = false;
-                            break;
+                    if (existingNames != null) {
+                        for (int i = 0; i < existingNames.length; i++) {
+                            if (nameText.getText().equals(existingNames[i])) {
+                                updateStatus(IStatus.ERROR, Messages.getString("SetNameForm_entity_exist")); //$NON-NLS-1$
+                                canContinue = false;
+                                break;
+                            }
                         }
                     }
                 }
@@ -207,6 +209,9 @@ public class SetNameForm extends AbstractMDMFileStepForm {
     }
 
     private boolean isValidName(String name) {
+        if (existingNames == null) {
+            return true;
+        }
         for (int i = 0; i < existingNames.length; i++) {
             if (name.equals(existingNames[i])) {
                 return false;
