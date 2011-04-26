@@ -10,16 +10,18 @@ import com.talend.tac.cases.Login;
 public class TestBranchManageAddExistbranch extends Login {
 	@Test(dependsOnGroups = { "AddBranch" })
 	@Parameters({ "BranchProject", "BranchName" })
-	public void testAddProjectbranchexist(String project, String branchname) {
+	public void testAddProjectbranchexist(String project, String branchname) throws InterruptedException {
 		// first add a branch to a project
-		selenium.setSpeed(MAX_SPEED);
+		Thread.sleep(5000);
+		
 		this.waitForElementPresent("!!!menu.project.element!!!", Base.WAIT_TIME);
+		selenium.setSpeed(MID_SPEED);
 		selenium.click("!!!menu.project.element!!!");//
 		// System.out.println(selenium.getBodyText());
 		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
 				+ project + "')]");// the selected project's id
 		selenium.click("idBranchManagementButton");
-		selenium.setSpeed(MAX_SPEED);
+		selenium.setSpeed(MID_SPEED);
 		selenium.click("idBranchManagementSourceInput");
 		selenium.mouseDown("//div[text()='trunk']");
 		selenium.fireEvent("idBranchManagementSourceInput", "blur");
@@ -72,7 +74,7 @@ public class TestBranchManageAddExistbranch extends Login {
 	}
 
 	public void closeButton(String project, String branchname) {
-		selenium.setSpeed(MAX_SPEED);
+		selenium.setSpeed(MID_SPEED);
 		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
 				+ project + "')]");// the selected project's id
 		selenium.click("idBranchManagementButton");
@@ -80,11 +82,12 @@ public class TestBranchManageAddExistbranch extends Login {
 		selenium.click("idBranchManagementSourceInput");
 		selenium.mouseDown("//div[text()='trunk']");
 		selenium.fireEvent("idBranchManagementSourceInput", "blur");
-
+		selenium.setSpeed(MIN_SPEED);
 		selenium.click("idBranchManagementTargetInput");
 		selenium.type("idBranchManagementTargetInput", branchname);
 		selenium.fireEvent("idBranchManagementTargetInput", "blur");
 		selenium.click("idBranchManagementCloseButton");
+		selenium.setSpeed(MID_SPEED);
 		Assert.assertFalse(
 				selenium.isElementPresent("idBranchManagementCloseButton"),
 				"Button idBranchManagementCloseButton have no effect!");

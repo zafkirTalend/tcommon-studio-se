@@ -5,6 +5,7 @@ import junit.framework.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import com.talend.tac.base.Base;
 import com.talend.tac.cases.Login;
 
 public class TestCleanProject extends Login{
@@ -31,11 +32,14 @@ public class TestCleanProject extends Login{
 	}
   @Test(dependsOnGroups={"Second"})
 //  @Parameters({ "NumbersOfprojects" })
-  public void deleteAll() {
-	  selenium.setSpeed(MID_SPEED);
+  public void deleteAll() throws InterruptedException {
+//	  selenium.setSpeed(MID_SPEED);
 	  this.waitForElementPresent("!!!menu.project.element!!!", 30);
 		selenium.click("!!!menu.project.element!!!");
+//		selenium.setSpeed(MID_SPEED);
 	  for(int i = 0;; i++){
+		  Thread.sleep(3000);
+//		  this.waitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label']", Base.WAIT_TIME);
 		if(selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label']")){
 		okDelete();
 		}

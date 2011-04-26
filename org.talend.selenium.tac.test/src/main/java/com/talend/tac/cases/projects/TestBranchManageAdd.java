@@ -19,7 +19,7 @@ public class TestBranchManageAdd extends Login {
 		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
 				+ project + "')]");// the selected project's id
 		selenium.click("idBranchManagementButton");
-		selenium.setSpeed("9000");
+		selenium.setSpeed(MID_SPEED);
 		selenium.click("idBranchManagementSourceInput");
 		selenium.mouseDown("//div[text()='trunk']");
 		selenium.fireEvent("idBranchManagementSourceInput", "blur");
@@ -36,7 +36,6 @@ public class TestBranchManageAdd extends Login {
 			selenium.click("//button[text()='"
 					+ other.getString("project.branchmanage.add.conform.ok")
 					+ "']");
-			selenium.setSpeed(MAX_SPEED);
 			if (selenium
 					.isElementPresent("//span[text()='" + branchname + "']")) {
 				selenium.click("//div[@class=' x-nodrag x-tool-close x-tool x-component']");

@@ -32,7 +32,7 @@ public class TestDuplicateProject extends Login {
 			return ;
 			
 		}
-		selenium.setSpeed(MID_SPEED);
+//		selenium.setSpeed(MID_SPEED);
 		this.waitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
 				+ duplicateproname + "')]",Base.WAIT_TIME);
 		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
@@ -49,10 +49,11 @@ public class TestDuplicateProject extends Login {
 		selenium.setSpeed("0");
 		}
 */
-		
+		selenium.setSpeed(MIN_SPEED);
+		this.waitForElementPresent("idDescriptionInput", Base.WAIT_TIME);
 		selenium.click("idDescriptionInput");
 		selenium.click("idFormSaveButton");
-		
+		selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(
 				selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
 						+ "Copy_of_" + duplicateproname + "')]"),

@@ -44,6 +44,7 @@ public class TestAddProjectUncheckadvanced extends Login {
 //			selenium.fireEvent("idProjectTypeComboBox", "blur");
 			
 		}
+		selenium.setSpeed(MIN_SPEED);
 		// type project label
 		this.typeString("idLabelInput", namecommon);
 	
@@ -77,12 +78,13 @@ public class TestAddProjectUncheckadvanced extends Login {
 		//then cancel advanced check box
 		selenium.click("idAdvanceInput");
 		//**************************************************************
-		selenium.setSpeed(MAX_SPEED);
+		
 		this.typeString("idDescriptionInput", "javadefault");
 		// selenium.focus("idFormSaveButton");
 		// selenium.keyDownNative(""+KeyEvent.VK_ENTER);
 		// selenium.keyUpNative(""+KeyEvent.VK_ENTER);
 		System.out.println("before click "+selenium.getValue("idProjectTypeComboBox"));
+		selenium.setSpeed(MAX_SPEED);
 		selenium.click("idFormSaveButton");
 		Thread.sleep(5000);
 		Assert.assertTrue(

@@ -40,7 +40,7 @@ public class TestCheckConnection extends Login{
 		selenium.keyUpNative("" + KeyEvent.VK_ENTER);
 		selenium.click("idSvnUserLogInput");
 		selenium.click("idCheckUrlButton");
-		selenium.setSpeed(MAX_SPEED);
+		selenium.setSpeed(MID_SPEED);
 		if(selenium.isElementPresent("//div[@class='ext-mb-icon  ext-mb-warning']")){//check connection fail,click ok button
 			assert true;
 			selenium.click("//button[@class='x-btn-text ' and (text()='"+other.getString("add.project.checkconnection.fail")+"')]");
@@ -53,7 +53,7 @@ public class TestCheckConnection extends Login{
 		selenium.type("idUrlInput", rightUrl);// svn project url
 		selenium.fireEvent("idUrlInput", "blur");
 		selenium.click("idCheckUrlButton");
-		selenium.setSpeed(MAX_SPEED);
+		selenium.setSpeed(MID_SPEED);
 		if(selenium.isElementPresent("//div[@class='ext-mb-icon  ext-mb-info']")){
 			assert true;
 			selenium.click("//button[text()='"+other.getString("add.project.checkconnection.ok")+"']");

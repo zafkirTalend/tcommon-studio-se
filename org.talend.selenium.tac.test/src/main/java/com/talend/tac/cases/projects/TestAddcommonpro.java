@@ -56,6 +56,7 @@ public class TestAddcommonpro extends Login {
 		selenium.setSpeed(MIN_SPEED);
 		//type project label
 		this.typeString("idLabelInput", namecommon);
+		selenium.setSpeed(MID_SPEED);
 		// add the type select option selenium.setSpeed("2000");
 		if (selenium.isVisible("idProjectTypeComboBox")) {
 			selenium.click("idProjectTypeComboBox");
@@ -63,6 +64,7 @@ public class TestAddcommonpro extends Login {
 			selenium.fireEvent("idProjectTypeComboBox", "blur");
 			
 		}
+		selenium.setSpeed(MIN_SPEED);
 		//select project language
 		if ("Java".equals(language) || "".equals(language)) {
 			selenium.click("idLanguageInput");
@@ -119,11 +121,13 @@ public class TestAddcommonpro extends Login {
 		//type project label
 		this.typeString("idLabelInput", namereference);
 		// add the type select option selenium.setSpeed("2000");
+		selenium.setSpeed(MID_SPEED);
 		if (selenium.isVisible("idProjectTypeComboBox")) {
 			selenium.click("idProjectTypeComboBox");
 			selenium.mouseDown("//div[text()='" + type + "']");
 			selenium.fireEvent("idProjectTypeComboBox", "blur");
 		}
+		selenium.setSpeed(MIN_SPEED);
 		//select project language
 		if ("Java".equals(language) || "".equals(language)) {
 			selenium.click("idLanguageInput");

@@ -73,7 +73,8 @@ public class TestAddServer extends Login {
 			selenium.click("idFormSaveButton");
 			// refresh
 			selenium.click("idSubModuleRefreshButton");
-			if (selenium.isElementPresent("//div[text()='" + lable + "']")) {
+			if ((selenium.isElementPresent("//div[text()='" + lable + "']"))&&(selenium
+					.isElementPresent("//span[@class='serv-value' and (text()='UP')]"))) {
 
 			} else {
 				Assert.fail("Server added failed !");

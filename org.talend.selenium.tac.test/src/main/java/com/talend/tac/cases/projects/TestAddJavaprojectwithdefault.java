@@ -29,12 +29,15 @@ public class TestAddJavaprojectwithdefault extends Login {
 		Thread.sleep(5000);
 //		selenium.setSpeed(MID_SPEED);
 		// add the type select option selenium.setSpeed("2000");
-		if (selenium.isVisible("idProjectTypeComboBox")) {
-			selenium.click("idProjectTypeComboBox");
-			selenium.mouseDownAt(("//div[text()='" + type + "']"),""+KeyEvent.VK_ENTER);
+		selenium.setSpeed(MID_SPEED);
+		if (selenium.isVisible("//input[@name='projectType']")) {
+//			selenium.click("//input[@name='projectType']");
+//			selenium.mouseDownAt(("//div[text()='" + type + "']"),""+KeyEvent.VK_ENTER);
 //			selenium.fireEvent("idProjectTypeComboBox", "blur");
+			selenium.typeKeys("//input[@name='projectType']", type);
 			
 		}
+		selenium.setSpeed(MID_SPEED);
 		// type project label
 		this.typeString("idLabelInput", namecommon);
 	

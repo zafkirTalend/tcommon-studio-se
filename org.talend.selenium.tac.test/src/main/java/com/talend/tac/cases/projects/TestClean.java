@@ -32,11 +32,12 @@ public class TestClean extends Login{
 	}
   @Test(groups={"cleanbefore"})
   //@Parameters({ "NumbersOfprojects" })
-  public void deleteAll() {
-	  selenium.setSpeed(MID_SPEED);
+  public void deleteAll() throws InterruptedException {
+//	  selenium.setSpeed(MID_SPEED);
 	  this.waitForElementPresent("!!!menu.project.element!!!", Base.WAIT_TIME);
 		selenium.click("!!!menu.project.element!!!");
 	  for(int i = 0;; i++){
+		  Thread.sleep(3000);
 		if(selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label']")){
 		okDelete();
 		}

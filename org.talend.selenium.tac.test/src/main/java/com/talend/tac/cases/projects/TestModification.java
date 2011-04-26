@@ -12,8 +12,9 @@ public class TestModification extends Login {
 		
 		this.waitForElementPresent("!!!menu.project.element!!!", Base.WAIT_TIME);
 		selenium.click("!!!menu.project.element!!!");
-		selenium.setSpeed(MID_SPEED);
+		this.waitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label']", Base.WAIT_TIME);
 		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-label']");
+		selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue((!selenium.isEditable("idLabelInput"))
 				&& (!selenium.isEditable("idLanguageInput")), "idLableInput or idLanguageInput is editable!");
 		selenium.setSpeed(MIN_SPEED);
