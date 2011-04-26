@@ -428,6 +428,12 @@ public class XmlFileOutputStep1Form extends AbstractXmlFileStepForm {
                             connectionItem.getConnection(), true);
                     text = TalendQuoteUtils.removeQuotes(ConnectionContextHelper.getOriginalValue(contextType, text));
                 }
+
+                if (getConnection().getXmlFilePath() != null && !getConnection().getXmlFilePath().equals(text)) {
+                    getConnection().getLoop().clear();
+                    getConnection().getRoot().clear();
+                    getConnection().getGroup().clear();
+                }
                 getConnection().setXmlFilePath(PathUtils.getPortablePath(xmlXsdFilePath.getText()));
                 // updateConnection(text);
 
