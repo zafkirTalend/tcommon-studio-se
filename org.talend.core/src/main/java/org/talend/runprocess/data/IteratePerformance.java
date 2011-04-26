@@ -24,8 +24,16 @@ import org.talend.designer.runprocess.IPerformanceData;
  */
 public class IteratePerformance extends CommonPerformance {
 
+    private boolean webData;
+
     public IteratePerformance(EConnectionType eConnectionType) {
         super(eConnectionType);
+    }
+
+    public IteratePerformance(EConnectionType eConnectionType, boolean fromWeb) {
+        super(eConnectionType);
+        // tac data like this: iterate2|exec10|stop, so this stopped size 10 need to be getted from this string.
+        webData = fromWeb;
     }
 
     private static final String COLOR_FINISHED = "#229922"; //$NON-NLS-1$
@@ -58,35 +66,44 @@ public class IteratePerformance extends CommonPerformance {
                 runningExecutionId.remove(part[1]);
             }
 
-            return createHtmlText();
+            return createHtmlText(parseSize(part[1]));
 
         } else if (part != null && part.length == 2) { // iterate1.0|exec0, it means running.
             runningExecutionId.add(part[1]);
 
-            return createHtmlText();
+            return createHtmlText(parseSize(part[1]));
         }
         return null;
     }
 
-    public String createHtmlText() {
+    private int parseSize(String numStr) {
+        return new Integer(numStr.substring(4)).intValue();
+    }
+
+    public String createHtmlText(int size) {
         StringBuilder html = new StringBuilder(150);
 
         String pattern = "<font color='%1$s'>%2$s %3$s</font><br>"; //$NON-NLS-1$
+
         if (runningExecutionId.size() > 0) {
-            if (runningExecutionId.size() == 1) {
-                html.append(String.format(pattern, COLOR_RUNNING, runningExecutionId.size(), "exec running")); //$NON-NLS-1$
+            int runningSize = webData ? size : runningExecutionId.size();
+
+            if (runningSize == 1) {
+                html.append(String.format(pattern, COLOR_RUNNING, runningSize, "exec running")); //$NON-NLS-1$
             } else {
                 // plural forms
-                html.append(String.format(pattern, COLOR_RUNNING, runningExecutionId.size(), "execs running")); //$NON-NLS-1$
+                html.append(String.format(pattern, COLOR_RUNNING, runningSize, "execs running")); //$NON-NLS-1$
             }
         }
 
         if (stoppeddExecutionId.size() > 0) {
-            if (stoppeddExecutionId.size() == 1) {
-                html.append(String.format(pattern, COLOR_FINISHED, stoppeddExecutionId.size(), "exec finished")); //$NON-NLS-1$
+            int stoppedSize = webData ? size : stoppeddExecutionId.size();
+
+            if (stoppedSize == 1) {
+                html.append(String.format(pattern, COLOR_FINISHED, stoppedSize, "exec finished")); //$NON-NLS-1$
             } else {
                 // plural forms
-                html.append(String.format(pattern, COLOR_FINISHED, stoppeddExecutionId.size(), "execs finished")); //$NON-NLS-1$
+                html.append(String.format(pattern, COLOR_FINISHED, stoppedSize, "execs finished")); //$NON-NLS-1$
             }
         }
 
@@ -97,4 +114,5 @@ public class IteratePerformance extends CommonPerformance {
         stoppeddExecutionId.clear();
         runningExecutionId.clear();
     }
+
 }
