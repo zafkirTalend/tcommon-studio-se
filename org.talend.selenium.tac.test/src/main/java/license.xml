@@ -165,7 +165,14 @@
 			</class>
 		</classes>
 	</test>
-	<!--########### test DeactivedUser login ###########-->
+	
+	<test name="TestWelcomePage">
+		<classes>
+			<class name="com.talend.tac.cases.welcomePage.TestWelcomePage" />
+		</classes>
+	</test>
+	
+	<!--########### test DeactivedUser login(Finished,depend on a deactived user) ###########-->
 	<!--
 		<test name="TestLogin"> <classes> <parameter name="userName"
 		value="a@aa.com" /> <class name="com.talend.tac.cases.TestLogin">
