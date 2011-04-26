@@ -56,12 +56,14 @@ public class TestAddprojects extends Login {
 		//type project label
 		this.typeString("idLabelInput", namecommon);
 		// add the type select option selenium.setSpeed("2000");
+		selenium.setSpeed(MID_SPEED);
 		if (selenium.isVisible("idProjectTypeComboBox")) {
 			selenium.click("idProjectTypeComboBox");
 			selenium.mouseDown("//div[text()='" + type + "']");
 			selenium.fireEvent("idProjectTypeComboBox", "blur");
 			
 		}
+		selenium.setSpeed(MIN_SPEED);
 		//select project language
 		if ("Java".equals(language) || "".equals(language)) {
 			selenium.click("idLanguageInput");
@@ -118,11 +120,13 @@ public class TestAddprojects extends Login {
 		//type project label
 		this.typeString("idLabelInput", namereference);
 		// add the type select option selenium.setSpeed("2000");
+		selenium.setSpeed(MID_SPEED);
 		if (selenium.isVisible("idProjectTypeComboBox")) {
 			selenium.click("idProjectTypeComboBox");
 			selenium.mouseDown("//div[text()='" + type + "']");
 			selenium.fireEvent("idProjectTypeComboBox", "blur");
 		}
+		selenium.setSpeed(MIN_SPEED);
 		//select project language
 		if ("Java".equals(language) || "".equals(language)) {
 			selenium.click("idLanguageInput");
