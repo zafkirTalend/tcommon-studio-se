@@ -14,18 +14,12 @@ package org.talend.rcp.intro;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.ui.IPerspectiveDescriptor;
 import org.eclipse.ui.IWorkbenchPreferenceConstants;
-import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.application.IWorkbenchConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
-import org.eclipse.ui.internal.PerspectiveBarContributionItem;
-import org.eclipse.ui.internal.PerspectiveBarManager;
-import org.eclipse.ui.internal.WorkbenchPlugin;
-import org.eclipse.ui.internal.WorkbenchWindow;
 import org.eclipse.ui.internal.ide.application.IDEWorkbenchAdvisor;
 import org.talend.commons.CommonsPlugin;
 import org.talend.core.CorePlugin;
@@ -97,6 +91,7 @@ public class ApplicationWorkbenchAdvisor extends IDEWorkbenchAdvisor {
         CodeGeneratorActivator.getDefault();
         // FIXME SML Remove that
         // PerlModuleActivator.getDefault();
+        PerspectiveReviewUtil.resetPerspective();
     }
 
     @Override

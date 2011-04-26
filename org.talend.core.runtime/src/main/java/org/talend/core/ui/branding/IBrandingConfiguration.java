@@ -24,6 +24,12 @@ import org.talend.repository.model.IRepositoryNode;
  */
 public interface IBrandingConfiguration extends IActionBarHelper {
 
+    public static final String PERSPECTIVE_DI_ID = "org.talend.rcp.perspective"; //$NON-NLS-1$
+
+    public static final String PERSPECTIVE_DQ_ID = "org.talend.dataprofiler.DataProfilingPerspective"; //$NON-NLS-1$
+
+    public static final String PERSPECTIVE_MDM_ID = "org.talend.mdm.perspective"; //$NON-NLS-1$
+
     public static final String DISPLAY_CODE_VIEW = "DISPLAY_CODE_VIEW"; //$NON-NLS-1$
 
     /**

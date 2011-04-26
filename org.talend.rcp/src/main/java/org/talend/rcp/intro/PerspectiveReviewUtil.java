@@ -12,34 +12,49 @@
 // ============================================================================
 package org.talend.rcp.intro;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.action.IContributionItem;
+import org.eclipse.jface.preference.IPersistentPreferenceStore;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.resource.StringConverter;
+import org.eclipse.ui.IMemento;
 import org.eclipse.ui.IPerspectiveDescriptor;
+import org.eclipse.ui.IPerspectiveRegistry;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPreferenceConstants;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PerspectiveAdapter;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.WorkbenchException;
+import org.eclipse.ui.XMLMemento;
+import org.eclipse.ui.internal.IPreferenceConstants;
+import org.eclipse.ui.internal.IWorkbenchConstants;
 import org.eclipse.ui.internal.PerspectiveBarContributionItem;
 import org.eclipse.ui.internal.PerspectiveBarManager;
 import org.eclipse.ui.internal.WorkbenchPlugin;
 import org.eclipse.ui.internal.WorkbenchWindow;
+import org.eclipse.ui.internal.registry.PerspectiveDescriptor;
 import org.eclipse.ui.internal.util.PrefUtil;
+import org.talend.core.ui.branding.IBrandingConfiguration;
 
 /**
  * DOC yhch class global comment. Detailled comment
+ * 
+ * 
  */
+@SuppressWarnings("restriction")
 public final class PerspectiveReviewUtil {
-
-    private static final String PERSPECTIVE_DI_ID = "org.talend.rcp.perspective"; //$NON-NLS-1$
-
-    private static final String PERSPECTIVE_DQ_ID = "org.talend.dataprofiler.DataProfilingPerspective"; //$NON-NLS-1$
-
-    private static final String PERSPECTIVE_MDM_ID = "org.talend.mdm.perspective"; //$NON-NLS-1$
 
     private static String isfirst = "";
 
@@ -115,48 +130,90 @@ public final class PerspectiveReviewUtil {
      * 
      * DOC Comment method "setPerspectiveTabs".
      */
+
     public static void setPerspectiveTabs() {
         // feature 19053 add
         IWorkbenchWindow activeWorkbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
         PerspectiveBarManager barManager = ((WorkbenchWindow) activeWorkbenchWindow).getPerspectiveBar();
-        if (barManager != null && (barManager instanceof PerspectiveBarManager)) {
 
-            IContributionItem iconItem = barManager.find(PERSPECTIVE_DI_ID);
-            if (null == iconItem) {
+        if (barManager != null && (barManager instanceof PerspectiveBarManager)) {
+            cleanPerspectiveBar();
+            // DI
+            IContributionItem diCItem = barManager.find(IBrandingConfiguration.PERSPECTIVE_DI_ID);
+            if (null == diCItem) {
                 IPerspectiveDescriptor diMailPerspective = WorkbenchPlugin.getDefault().getPerspectiveRegistry()
-                        .findPerspectiveWithId(PERSPECTIVE_DI_ID);
+                        .findPerspectiveWithId(IBrandingConfiguration.PERSPECTIVE_DI_ID);
                 if (null != diMailPerspective && (diMailPerspective instanceof IPerspectiveDescriptor)) {
                     PerspectiveBarContributionItem diItem = new PerspectiveBarContributionItem(diMailPerspective,
                             activeWorkbenchWindow.getActivePage());
                     if (null != diItem && (diItem instanceof PerspectiveBarContributionItem)) {
                         barManager.addItem(diItem);
+                        diCItem = diItem;
                     }
                 }
             }
 
-            iconItem = barManager.find(PERSPECTIVE_DQ_ID);
-            if (null == iconItem) {
+            // DQ
+            IContributionItem dqCItem = barManager.find(IBrandingConfiguration.PERSPECTIVE_DQ_ID);
+            if (null == dqCItem) {
                 IPerspectiveDescriptor dqMailPerspective = WorkbenchPlugin.getDefault().getPerspectiveRegistry()
-                        .findPerspectiveWithId(PERSPECTIVE_DQ_ID);
+                        .findPerspectiveWithId(IBrandingConfiguration.PERSPECTIVE_DQ_ID);
                 if (null != dqMailPerspective && (dqMailPerspective instanceof IPerspectiveDescriptor)) {
                     PerspectiveBarContributionItem dqItem = new PerspectiveBarContributionItem(dqMailPerspective,
                             activeWorkbenchWindow.getActivePage());
                     if (null != dqItem && (dqItem instanceof PerspectiveBarContributionItem)) {
-                        barManager.addItem(dqItem);
+                        if (diCItem != null) {
+                            barManager.insertAfter(diCItem.getId(), dqItem);
+                        } else {
+                            barManager.addItem(dqItem);
+                        }
+                        dqCItem = dqItem;
                     }
                 }
             }
-
-            iconItem = barManager.find(PERSPECTIVE_MDM_ID);
-            if (null == iconItem) {
+            // MDM
+            IContributionItem mdmCItem = barManager.find(IBrandingConfiguration.PERSPECTIVE_MDM_ID);
+            if (null == mdmCItem) {
                 IPerspectiveDescriptor mdmMailPerspective = WorkbenchPlugin.getDefault().getPerspectiveRegistry()
-                        .findPerspectiveWithId(PERSPECTIVE_MDM_ID);
+                        .findPerspectiveWithId(IBrandingConfiguration.PERSPECTIVE_MDM_ID);
                 if (null != mdmMailPerspective && (mdmMailPerspective instanceof IPerspectiveDescriptor)) {
                     PerspectiveBarContributionItem mdmItem = new PerspectiveBarContributionItem(mdmMailPerspective,
                             activeWorkbenchWindow.getActivePage());
                     if (null != mdmItem && (mdmItem instanceof PerspectiveBarContributionItem)) {
-                        barManager.addItem(mdmItem);
+                        if (dqCItem != null) {
+                            barManager.insertAfter(dqCItem.getId(), mdmItem);
+                        } else if (diCItem != null) {
+                            barManager.insertAfter(diCItem.getId(), mdmItem);
+                        } else {
+                            barManager.addItem(mdmItem);
+                        }
+                        mdmCItem = mdmItem;
                     }
+                }
+            }
+
+            barManager.update(false);
+        }
+    }
+
+    private static void cleanPerspectiveBar() {
+        IWorkbenchWindow activeWorkbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+        if (activeWorkbenchWindow == null) {
+            return;
+        }
+        PerspectiveBarManager barManager = ((WorkbenchWindow) activeWorkbenchWindow).getPerspectiveBar();
+        if (barManager == null) {
+            return;
+        }
+
+        for (IContributionItem item : barManager.getItems()) {
+            if (item instanceof PerspectiveBarContributionItem) {
+                PerspectiveBarContributionItem perspectiveItem = (PerspectiveBarContributionItem) item;
+                String pId = perspectiveItem.getId();
+                IPerspectiveDescriptor pPerspective = WorkbenchPlugin.getDefault().getPerspectiveRegistry()
+                        .findPerspectiveWithId(pId);
+                if (pPerspective == null) {
+                    barManager.removeItem(perspectiveItem);
                 }
             }
         }
@@ -210,7 +267,7 @@ public final class PerspectiveReviewUtil {
                 String perId = page.getPerspective().getId();
                 if ((!"".equals(perId) && null != perId)) {
                     // eg : use DI, then switch to DQ : All view from DI must be hidden when switch
-                    if (perId.equalsIgnoreCase(PERSPECTIVE_DI_ID)) {
+                    if (perId.equalsIgnoreCase(IBrandingConfiguration.PERSPECTIVE_DI_ID)) {
                         for (String strId : dqViewList) {
                             IViewPart viewPart = page.findView(strId);
                             if (viewPart != null) {
@@ -223,7 +280,7 @@ public final class PerspectiveReviewUtil {
                                 page.hideView(viewPart);
                             }
                         }
-                    } else if (perId.equalsIgnoreCase(PERSPECTIVE_DQ_ID)) {
+                    } else if (perId.equalsIgnoreCase(IBrandingConfiguration.PERSPECTIVE_DQ_ID)) {
                         for (String strId : diViewList) {
                             IViewPart viewPart = page.findView(strId);
                             if (viewPart != null) {
@@ -237,7 +294,7 @@ public final class PerspectiveReviewUtil {
                             }
                         }
 
-                    } else if (perId.equalsIgnoreCase(PERSPECTIVE_MDM_ID)) {
+                    } else if (perId.equalsIgnoreCase(IBrandingConfiguration.PERSPECTIVE_MDM_ID)) {
                         for (String strId : diViewList) {
                             IViewPart viewPart = page.findView(strId);
                             if (viewPart != null) {
@@ -255,4 +312,113 @@ public final class PerspectiveReviewUtil {
             }
         }
     }
+
+    public static void resetPerspective() {
+        boolean reset = false;
+
+        IPath path = WorkbenchPlugin.getDefault().getDataLocation();
+        if (path == null) {
+            return;
+        }
+        final File stateFile = path.append("workbench.xml").toFile(); //$NON-NLS-1$
+        final boolean stateExist = stateFile.exists();
+        if (stateFile == null || !stateExist) {
+            reset = true;
+        }
+        FileInputStream input = null;
+        final IPerspectiveRegistry perspectiveRegistry = WorkbenchPlugin.getDefault().getPerspectiveRegistry();
+        if (stateFile != null && stateExist) {
+            try {
+                input = new FileInputStream(stateFile);
+                BufferedReader reader = new BufferedReader(new InputStreamReader(input, "utf-8")); //$NON-NLS-1$
+                IMemento memento = XMLMemento.createReadRoot(reader);
+
+                IMemento[] windowArray = memento.getChildren(IWorkbenchConstants.TAG_WINDOW);
+                for (int cw = 0; windowArray != null && cw < windowArray.length; cw++) {
+                    final IMemento windowMem = windowArray[cw];
+                    IMemento[] pageArray = windowMem.getChildren(IWorkbenchConstants.TAG_PAGE);
+                    for (int i = 0; pageArray != null && i < pageArray.length; i++) {
+                        final IMemento pageMem = pageArray[i];
+                        IMemento pespectiveMem = pageMem.getChild(IWorkbenchConstants.TAG_PERSPECTIVES);
+                        if (pespectiveMem != null) {
+                            String activePerspectiveID = pespectiveMem.getString(IWorkbenchConstants.TAG_ACTIVE_PERSPECTIVE);
+                            IPerspectiveDescriptor perspectiveDesc = perspectiveRegistry
+                                    .findPerspectiveWithId(activePerspectiveID);
+                            // find from original id
+                            if (perspectiveDesc != null && perspectiveDesc instanceof PerspectiveDescriptor) {
+                                String originalId = ((PerspectiveDescriptor) perspectiveDesc).getOriginalId();
+                                perspectiveDesc = perspectiveRegistry.findPerspectiveWithId(originalId);
+                            }
+                            if (perspectiveDesc == null) { // not found, reset the workbench
+                                stateFile.delete(); // if delete, will recreate a default new one
+                                reset = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+            } catch (FileNotFoundException e) {
+                //
+            } catch (UnsupportedEncodingException e) {
+                //
+            } catch (WorkbenchException e) {
+                //
+            } finally {
+                if (input != null) {
+                    try {
+                        input.close();
+                    } catch (IOException e) {
+                        //
+                    }
+                }
+            }
+        }
+        // delete the custom
+        for (IPerspectiveDescriptor pd : perspectiveRegistry.getPerspectives()) {
+            if (pd instanceof PerspectiveDescriptor) {
+                PerspectiveDescriptor descriptor = (PerspectiveDescriptor) pd;
+                // if custom, the OriginalId will have value
+                if (descriptor.getOriginalId() != null) {
+                    IPerspectiveDescriptor findPerspective = perspectiveRegistry
+                            .findPerspectiveWithId(descriptor.getOriginalId());
+                    if (findPerspective == null) { // not found
+                        perspectiveRegistry.deletePerspective(pd);
+                    }
+                }
+            }
+        }
+
+        if (reset) {
+
+            // clear the preference
+            IPreferenceStore store = WorkbenchPlugin.getDefault().getPreferenceStore();
+            String customPerspectives = store.getString(IPreferenceConstants.PERSPECTIVES);
+            String[] perspectivesList = StringConverter.asArray(customPerspectives);
+
+            for (int i = 0; i < perspectivesList.length; i++) {
+                store.setValue(perspectivesList[i] + "_persp", ""); //$NON-NLS-1$
+            }
+            store.setValue(IPreferenceConstants.PERSPECTIVES, ""); //$NON-NLS-1$
+            if (store.needsSaving() && store instanceof IPersistentPreferenceStore) {
+                try {
+                    ((IPersistentPreferenceStore) store).save();
+                } catch (IOException e) {
+                    //
+                }
+            }
+
+            // delete the custom
+            File folder = path.toFile();
+            if (folder.isDirectory()) {
+                File[] fileList = folder.listFiles();
+                for (int nX = 0; nX < fileList.length; nX++) {
+                    File file = fileList[nX];
+                    if (file.getName().endsWith("_persp.xml")) { //$NON-NLS-1$
+                        file.delete();
+                    }
+                }
+            }
+        }
+    }
+
 }
