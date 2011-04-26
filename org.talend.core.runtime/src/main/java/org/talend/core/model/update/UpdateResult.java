@@ -31,13 +31,27 @@ public abstract class UpdateResult {
 
     private String remark = null;
 
-    private Object job = null;
-
     private boolean readOnlyProcess = false;
 
     private ConnectionItem connItem;
 
     private boolean needReloadJoblet = true;
+
+    protected String jobInfor;
+
+    protected boolean isJoblet;
+
+    /**
+     * closed process only save ID and VERSION in UpdateResult
+     */
+    protected String objectId;
+
+    protected String objectVersion;
+
+    /**
+     * For opened process job is an instance of Process, For closed process job must be null to save some memory
+     */
+    private Object job = null;
 
     /**
      * Getter for readOnlyProcess.
@@ -112,6 +126,7 @@ public abstract class UpdateResult {
 
     public void setJob(Object job) {
         this.job = job;
+        updateJobInfor();
     }
 
     public Object getJob() {
@@ -209,4 +224,31 @@ public abstract class UpdateResult {
     public void setNeedReloadJoblet(boolean needReloadJoblet) {
         this.needReloadJoblet = needReloadJoblet;
     }
+
+    protected abstract void updateJobInfor();
+
+    public String getObjectId() {
+        return objectId;
+    }
+
+    public void setObjectId(String objectId) {
+        this.objectId = objectId;
+    }
+
+    public String getObjectVersion() {
+        return objectVersion;
+    }
+
+    public void setObjectVersion(String objectVersion) {
+        this.objectVersion = objectVersion;
+    }
+
+    public boolean isJoblet() {
+        return isJoblet;
+    }
+
+    public void setUpdateObject(Object object) {
+        this.object = object;
+    }
+
 }

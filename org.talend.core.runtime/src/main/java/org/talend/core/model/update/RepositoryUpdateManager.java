@@ -63,6 +63,7 @@ import org.talend.core.model.properties.Property;
 import org.talend.core.model.relationship.RelationshipItemBuilder;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.core.model.repository.RepositoryObject;
 import org.talend.core.model.utils.UpdateRepositoryHelper;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.runtime.CoreRuntimePlugin;
@@ -111,7 +112,7 @@ public abstract class RepositoryUpdateManager {
 
     private boolean onlyOpeningJob = false;
 
-    private List<IRepositoryViewObject> updateObjList;
+    private List<RelationshipItemBuilder.Relation> relations;
 
     private static IRepositoryService repistoryService = (IRepositoryService) GlobalServiceRegister.getDefault().getService(
             IRepositoryService.class);
@@ -123,10 +124,10 @@ public abstract class RepositoryUpdateManager {
         this.parameter = parameter;
     }
 
-    public RepositoryUpdateManager(Object parameter, List<IRepositoryViewObject> updateObjList) {
+    public RepositoryUpdateManager(Object parameter, List<RelationshipItemBuilder.Relation> relations) {
         super();
         this.parameter = parameter;
-        this.updateObjList = updateObjList;
+        this.relations = relations;
     }
 
     public void setOnlyOpeningJob(boolean onlyOpeningJob) {
@@ -530,82 +531,86 @@ public abstract class RepositoryUpdateManager {
                 .getOpenedProcess(getEditors());
 
         try {
+
             List<UpdateResult> resultList = new ArrayList<UpdateResult>();
             int size = openedProcessList.size();
-            List<IRepositoryViewObject> allVersionList = new ArrayList<IRepositoryViewObject>();
-            //
-            if (!onlyOpeningJob) {
-                IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
-                List<IRepositoryViewObject> updateList = new ArrayList<IRepositoryViewObject>();
-                if (isItemIndexChecked() && parameter != null) {
-                    updateList.addAll(updateObjList);
-                } else {
-                    List<IRepositoryViewObject> processList = factory.getAll(ERepositoryObjectType.PROCESS, true);
-                    if (processList == null) {
-                        processList = new ArrayList<IRepositoryViewObject>();
-                    }
-                    updateList.addAll(processList);
-                    List<IRepositoryViewObject> jobletList = factory.getAll(ERepositoryObjectType.JOBLET, true);
-                    if (jobletList != null) {
-                        if (!processList.isEmpty()) {
-                            processList.clear();
-                        }
-                        processList.addAll(jobletList);
-                    }
-                    updateList.addAll(processList);
-                }
+            IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
 
-                // must match TalendDesignerPrefConstants.CHECK_ONLY_LAST_VERSION
-                boolean checkOnlyLastVersion = Boolean.parseBoolean(CoreRuntimePlugin.getInstance().getDesignerCoreService()
-                        .getPreferenceStore("checkOnlyLastVersion")); //$NON-NLS-1$
-                // get all version
-                allVersionList = new ArrayList<IRepositoryViewObject>((int) (updateList.size() * 1.1));
-                for (IRepositoryViewObject repositoryObj : updateList) {
-                    if (!checkOnlyLastVersion) {
-                        List<IRepositoryViewObject> allVersion = factory.getAllVersion(repositoryObj.getId());
-                        for (IRepositoryViewObject object : allVersion) {
-                            if (factory.getStatus(object) != ERepositoryStatus.LOCK_BY_OTHER
-                                    && factory.getStatus(object) != ERepositoryStatus.LOCK_BY_USER) {
-                                allVersionList.add(object);
-                            }
-                        }
-                    } else {
-                        // assume that repositoryObj is the last version, otherwise we should call
-                        // factory.getLastVersion(repositoryObj.getId());
-                        IRepositoryViewObject lastVersion = repositoryObj; // factory.getLastVersion(repositoryObj.getId());
-                        ERepositoryStatus status = factory.getStatus(lastVersion);
-                        if (status != ERepositoryStatus.LOCK_BY_OTHER && status != ERepositoryStatus.LOCK_BY_USER) {
-                            allVersionList.add(lastVersion);
-                        }
-                    }
-                    size = allVersionList.size() + openedProcessList.size();
-                }
+            MultiKeyMap openProcessMap = createOpenProcessMap(openedProcessList);
+            if (isItemIndexChecked() && parameter != null && relations != null) {
+                size = size + relations.size();
+                parentMonitor.beginTask(Messages.getString("RepositoryUpdateManager.Check"), size); //$NON-NLS-1$
+                parentMonitor.setTaskName(Messages.getString("RepositoryUpdateManager.ItemsToUpdate")); //$NON-NLS-1$
 
-            }
-            //
-            parentMonitor.beginTask(Messages.getString("RepositoryUpdateManager.Check"), size); //$NON-NLS-1$
-            parentMonitor.setTaskName(Messages.getString("RepositoryUpdateManager.ItemsToUpdate")); //$NON-NLS-1$
-            checkMonitorCanceled(parentMonitor);
+                for (int i = 0; i < relations.size(); i++) {
+                    RelationshipItemBuilder.Relation relation = relations.get(i);
+                    IRepositoryViewObject relatedObj = factory.getLastVersion(relation.getId());
 
-            if (!onlyOpeningJob) {// && !isItemIndexChecked()
-                MultiKeyMap openProcessMap = createOpenProcessMap(openedProcessList);
-                int index = 0;
-                for (IRepositoryViewObject repositoryObj : allVersionList) {
-                    checkMonitorCanceled(parentMonitor);
-                    Item item = repositoryObj.getProperty().getItem();
-                    // avoid the opened job
-                    if (isOpenedItem(item, openProcessMap)) {
+                    if (relatedObj == null) {
                         continue;
                     }
-                    parentMonitor.subTask(getUpdateJobInfor(repositoryObj.getProperty()));
-                    List<UpdateResult> updatesNeededFromItems = getUpdatesNeededFromItems(parentMonitor, item, types,
-                            onlySimpleShow);
-                    if (updatesNeededFromItems != null && !updatesNeededFromItems.isEmpty()) {
-                        resultList.addAll(updatesNeededFromItems);
+                    List<IRepositoryViewObject> allVersionList = new ArrayList<IRepositoryViewObject>();
+                    //
+                    if (!onlyOpeningJob) {
+
+                        // must match TalendDesignerPrefConstants.CHECK_ONLY_LAST_VERSION
+                        boolean checkOnlyLastVersion = Boolean.parseBoolean(CoreRuntimePlugin.getInstance()
+                                .getDesignerCoreService().getPreferenceStore("checkOnlyLastVersion")); //$NON-NLS-1$
+                        // get all version
+                        allVersionList = new ArrayList<IRepositoryViewObject>();
+                        if (!checkOnlyLastVersion) {
+                            List<IRepositoryViewObject> allVersion = factory.getAllVersion(relatedObj.getId());
+                            for (IRepositoryViewObject object : allVersion) {
+                                if (factory.getStatus(object) != ERepositoryStatus.LOCK_BY_OTHER
+                                        && factory.getStatus(object) != ERepositoryStatus.LOCK_BY_USER) {
+                                    allVersionList.add(object);
+                                }
+                            }
+                        } else {
+                            // assume that repositoryObj is the last version, otherwise we should call
+                            // factory.getLastVersion(repositoryObj.getId());
+                            IRepositoryViewObject lastVersion = relatedObj; // factory.getLastVersion(repositoryObj.getId());
+                            ERepositoryStatus status = factory.getStatus(lastVersion);
+                            if (status != ERepositoryStatus.LOCK_BY_OTHER && status != ERepositoryStatus.LOCK_BY_USER) {
+                                allVersionList.add(lastVersion);
+                            }
+                        }
+
+                        //
+
+                        checkMonitorCanceled(parentMonitor);
+
+                        int index = 0;
+                        for (IRepositoryViewObject repositoryObj : allVersionList) {
+                            checkMonitorCanceled(parentMonitor);
+                            Item item = repositoryObj.getProperty().getItem();
+                            // avoid the opened job
+                            if (isOpenedItem(item, openProcessMap)) {
+                                continue;
+                            }
+                            parentMonitor.subTask(getUpdateJobInfor(repositoryObj.getProperty()));
+                            List<UpdateResult> updatesNeededFromItems = getUpdatesNeededFromItems(parentMonitor, item, types,
+                                    onlySimpleShow);
+                            if (updatesNeededFromItems != null && !updatesNeededFromItems.isEmpty()) {
+                                resultList.addAll(updatesNeededFromItems);
+                            }
+                            index++;
+
+                            if (!ERepositoryStatus.LOCK_BY_USER.equals(factory.getStatus(item))) {
+                                if (repositoryObj instanceof RepositoryObject) {
+                                    ((RepositoryObject) repositoryObj).unload();
+                                }
+                            }
+
+                        }
+                        parentMonitor.worked(1);
                     }
-                    index++;
-                    parentMonitor.worked(1);
+
                 }
+            } else {
+                parentMonitor.beginTask(Messages.getString("RepositoryUpdateManager.Check"), size); //$NON-NLS-1$
+                parentMonitor.setTaskName(Messages.getString("RepositoryUpdateManager.ItemsToUpdate")); //$NON-NLS-1$
+
             }
             // opened job
             for (IProcess2 process : openedProcessList) {
@@ -810,22 +815,23 @@ public abstract class RepositoryUpdateManager {
             IProcess2 process2 = (IProcess2) process;
             // for save item
             List<UpdateResult> resultFromProcess = getResultFromProcess(process2, types, onlySimpleShow);
-            // set
-            addItemForResult(process2, resultFromProcess);
+
+            IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
+            if (!ERepositoryStatus.LOCK_BY_USER.equals(factory.getStatus(item))) {
+
+                for (UpdateResult result : resultFromProcess) {
+                    if (result.getJob() != null) {
+                        result.setJob(null);
+                    }
+                    result.setObjectId(item.getProperty().getId());
+                }
+            }
+
             process2.dispose();
             return resultFromProcess;
 
         }
         return null;
-    }
-
-    private void addItemForResult(IProcess2 process2, List<UpdateResult> updatesNeededFromItems) {
-        if (process2 == null || updatesNeededFromItems == null) {
-            return;
-        }
-        for (UpdateResult result : updatesNeededFromItems) {
-            result.setItemProcess(process2);
-        }
     }
 
     public static ERepositoryObjectType getTypeFromSource(String source) {
@@ -888,17 +894,8 @@ public abstract class RepositoryUpdateManager {
         List<RelationshipItemBuilder.Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(
                 connectionItem.getProperty().getId(), RelationshipItemBuilder.LATEST_VERSION,
                 RelationshipItemBuilder.PROPERTY_RELATION);
-        for (RelationshipItemBuilder.Relation relation : relations) {
-            try {
-                IRepositoryViewObject obj = factory.getLastVersion(relation.getId());
-                if (obj != null) {
-                    updateList.add(obj);
-                }
-            } catch (PersistenceException e) {
-                ExceptionHandler.process(e);
-            }
-        }
-        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(connectionItem.getConnection(), updateList) {
+
+        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(connectionItem.getConnection(), relations) {
 
             @Override
             public Set<EUpdateItemType> getTypes() {
@@ -937,17 +934,8 @@ public abstract class RepositoryUpdateManager {
         List<RelationshipItemBuilder.Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(
                 connectionItem.getProperty().getId(), RelationshipItemBuilder.LATEST_VERSION,
                 RelationshipItemBuilder.PROPERTY_RELATION);
-        for (RelationshipItemBuilder.Relation relation : relations) {
-            try {
-                IRepositoryViewObject obj = factory.getLastVersion(relation.getId());
-                if (obj != null) {
-                    updateList.add(obj);
-                }
-            } catch (PersistenceException e) {
-                ExceptionHandler.process(e);
-            }
-        }
-        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(connectionItem.getConnection(), updateList) {
+
+        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(connectionItem.getConnection(), relations) {
 
             @Override
             public Set<EUpdateItemType> getTypes() {
@@ -987,17 +975,8 @@ public abstract class RepositoryUpdateManager {
         List<RelationshipItemBuilder.Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(
                 connectionItem.getProperty().getId(), RelationshipItemBuilder.LATEST_VERSION,
                 RelationshipItemBuilder.VALIDATION_RULE_RELATION);
-        for (RelationshipItemBuilder.Relation relation : relations) {
-            try {
-                IRepositoryViewObject obj = factory.getLastVersion(relation.getId());
-                if (obj != null) {
-                    updateList.add(obj);
-                }
-            } catch (PersistenceException e) {
-                ExceptionHandler.process(e);
-            }
-        }
-        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(connectionItem.getConnection(), updateList) {
+
+        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(connectionItem.getConnection(), relations) {
 
             @Override
             public Set<EUpdateItemType> getTypes() {
@@ -1208,17 +1187,7 @@ public abstract class RepositoryUpdateManager {
             }
         }
 
-        for (RelationshipItemBuilder.Relation relation : relations) {
-            try {
-                IRepositoryViewObject obj = factory.getLastVersion(relation.getId());
-                if (obj != null) {
-                    updateList.add(obj);
-                }
-            } catch (PersistenceException e) {
-                ExceptionHandler.process(e);
-            }
-        }
-        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(table, updateList) {
+        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(table, relations) {
 
             @Override
             public Set<EUpdateItemType> getTypes() {
@@ -1271,17 +1240,8 @@ public abstract class RepositoryUpdateManager {
         List<RelationshipItemBuilder.Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(
                 connectionItem.getProperty().getId(), RelationshipItemBuilder.LATEST_VERSION,
                 RelationshipItemBuilder.PROPERTY_RELATION);
-        for (RelationshipItemBuilder.Relation relation : relations) {
-            try {
-                IRepositoryViewObject obj = factory.getLastVersion(relation.getId());
-                if (obj != null) {
-                    updateList.add(obj);
-                }
-            } catch (PersistenceException e) {
-                ExceptionHandler.process(e);
-            }
-        }
-        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(connectionItem.getConnection(), updateList) {
+
+        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(connectionItem.getConnection(), relations) {
 
             @Override
             public Set<EUpdateItemType> getTypes() {
@@ -1357,17 +1317,8 @@ public abstract class RepositoryUpdateManager {
         List<IRepositoryViewObject> updateList = new ArrayList<IRepositoryViewObject>();
         List<RelationshipItemBuilder.Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(
                 sapFunction.getId(), RelationshipItemBuilder.LATEST_VERSION, RelationshipItemBuilder.PROPERTY_RELATION);
-        for (RelationshipItemBuilder.Relation relation : relations) {
-            try {
-                IRepositoryViewObject obj = factory.getLastVersion(relation.getId());
-                if (obj != null) {
-                    updateList.add(obj);
-                }
-            } catch (PersistenceException e) {
-                ExceptionHandler.process(e);
-            }
-        }
-        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(sapFunction, updateList) {
+
+        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(sapFunction, relations) {
 
             @Override
             public Set<EUpdateItemType> getTypes() {
@@ -1395,17 +1346,8 @@ public abstract class RepositoryUpdateManager {
         List<IRepositoryViewObject> updateList = new ArrayList<IRepositoryViewObject>();
         List<RelationshipItemBuilder.Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(
                 sapIDoc.getId(), RelationshipItemBuilder.LATEST_VERSION, RelationshipItemBuilder.PROPERTY_RELATION);
-        for (RelationshipItemBuilder.Relation relation : relations) {
-            try {
-                IRepositoryViewObject obj = factory.getLastVersion(relation.getId());
-                if (obj != null) {
-                    updateList.add(obj);
-                }
-            } catch (PersistenceException e) {
-                ExceptionHandler.process(e);
-            }
-        }
-        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(sapIDoc, updateList) {
+
+        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(sapIDoc, relations) {
 
             @Override
             public Set<EUpdateItemType> getTypes() {
@@ -1466,17 +1408,7 @@ public abstract class RepositoryUpdateManager {
                 ((ConnectionItem) connItem).getProperty().getId(), RelationshipItemBuilder.LATEST_VERSION,
                 RelationshipItemBuilder.PROPERTY_RELATION);
 
-        for (RelationshipItemBuilder.Relation relation : relations) {
-            try {
-                IRepositoryViewObject obj = factory.getLastVersion(relation.getId());
-                if (obj != null) {
-                    updateList.add(obj);
-                }
-            } catch (PersistenceException e) {
-                ExceptionHandler.process(e);
-            }
-        }
-        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(table, updateList) {
+        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(table, relations) {
 
             @Override
             public Set<EUpdateItemType> getTypes() {
@@ -1534,17 +1466,8 @@ public abstract class RepositoryUpdateManager {
                     ((QueriesConnection) parameter).getConnection().getId(), RelationshipItemBuilder.LATEST_VERSION,
                     RelationshipItemBuilder.QUERY_RELATION);
         }
-        for (RelationshipItemBuilder.Relation relation : relations) {
-            try {
-                IRepositoryViewObject obj = factory.getLastVersion(relation.getId());
-                if (obj != null) {
-                    updateList.add(obj);
-                }
-            } catch (PersistenceException e) {
-                ExceptionHandler.process(e);
-            }
-        }
-        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(parameter, updateList) {
+
+        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(parameter, relations) {
 
             @Override
             public Set<EUpdateItemType> getTypes() {
@@ -1567,17 +1490,8 @@ public abstract class RepositoryUpdateManager {
             relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(id, RelationshipItemBuilder.LATEST_VERSION,
                     RelationshipItemBuilder.QUERY_RELATION);
         }
-        for (RelationshipItemBuilder.Relation relation : relations) {
-            try {
-                IRepositoryViewObject obj = factory.getLastVersion(relation.getId());
-                if (obj != null) {
-                    updateList.add(obj);
-                }
-            } catch (PersistenceException e) {
-                ExceptionHandler.process(e);
-            }
-        }
-        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(parameter, updateList) {
+
+        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(parameter, relations) {
 
             @Override
             public Set<EUpdateItemType> getTypes() {
@@ -1621,18 +1535,8 @@ public abstract class RepositoryUpdateManager {
         List<IRepositoryViewObject> updateList = new ArrayList<IRepositoryViewObject>();
         List<RelationshipItemBuilder.Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(
                 item.getProperty().getId(), RelationshipItemBuilder.LATEST_VERSION, RelationshipItemBuilder.CONTEXT_RELATION);
-        for (RelationshipItemBuilder.Relation relation : relations) {
-            try {
-                IRepositoryViewObject obj = factory.getLastVersion(relation.getId());
-                if (obj != null) {
-                    updateList.add(obj);
-                }
-            } catch (PersistenceException e) {
-                ExceptionHandler.process(e);
-            }
-        }
 
-        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(item, updateList) {
+        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(item, relations) {
 
             @Override
             public Set<EUpdateItemType> getTypes() {
@@ -1763,17 +1667,8 @@ public abstract class RepositoryUpdateManager {
         List<IRepositoryViewObject> updateList = new ArrayList<IRepositoryViewObject>();
         List<RelationshipItemBuilder.Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(
                 item.getProperty().getId(), RelationshipItemBuilder.LATEST_VERSION, RelationshipItemBuilder.JOBLET_RELATION);
-        for (RelationshipItemBuilder.Relation relation : relations) {
-            try {
-                IRepositoryViewObject obj = factory.getLastVersion(relation.getId());
-                if (obj != null) {
-                    updateList.add(obj);
-                }
-            } catch (PersistenceException e) {
-                ExceptionHandler.process(e);
-            }
-        }
-        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(item, updateList) {
+
+        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(item, relations) {
 
             @Override
             public Set<EUpdateItemType> getTypes() {

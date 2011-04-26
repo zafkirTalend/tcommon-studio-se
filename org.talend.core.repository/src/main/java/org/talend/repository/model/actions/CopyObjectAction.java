@@ -27,6 +27,7 @@ import org.talend.core.PluginChecker;
 import org.talend.core.model.properties.BeanItem;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RoutineItem;
@@ -209,7 +210,7 @@ public class CopyObjectAction {
                     if (newItem instanceof BeanItem) {
                         synDuplicatedBean((BeanItem) newItem);
                     }
-                    if (newItem instanceof ProcessItem) {
+                    if (newItem instanceof ProcessItem || newItem instanceof JobletProcessItem) {
                         RelationshipItemBuilder.getInstance().addOrUpdateItem((ProcessItem) newItem);
                     }
                     if (newItem instanceof ConnectionItem) {
