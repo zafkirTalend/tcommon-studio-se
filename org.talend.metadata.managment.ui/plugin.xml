@@ -5,7 +5,7 @@
          point="org.talend.core.runtime.service">
       <Service
             class="org.talend.metadata.managment.ui.MetadataManagmentUiService"
-            serviceId=" IMetadataManagementUiService">
+            serviceId="IMetadataManagmentUiService">
       </Service>
    </extension>
 
