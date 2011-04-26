@@ -366,6 +366,9 @@ public class XmlFileStep1Form extends AbstractXmlFileStepForm {
                             connectionItem.getConnection(), true);
                     text = TalendQuoteUtils.removeQuotes(ConnectionContextHelper.getOriginalValue(contextType, text));
                 }
+                if (!getConnection().getXmlFilePath().equals(text)) {
+                    getConnection().getLoop().clear();
+                }
                 getConnection().setXmlFilePath(PathUtils.getPortablePath(fileFieldXml.getText()));
                 BufferedReader in = null;
 
