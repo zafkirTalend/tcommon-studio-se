@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -232,17 +233,18 @@ public class UniverseForm extends AbstractForm {
      */
     @Override
     protected void initialize() {
+        String universeValue = getConnection().getUniverse();
+        boolean isUniverseNull = StringUtils.trimToNull(universeValue) == null;
+
         if (universeCombo != null) {
-            if (getConnection().getUniverse() != null) {
+            if (!isUniverseNull) {
                 universeCombo.setText(getConnection().getUniverse());
             } else {
                 universeCombo.setText(DEFAULT_UNIVERS);
             }
         }
 
-        String universeValue = getConnection().getUniverse();
-
-        if (universeValue == null || universeValue.trim().length() == 0) {
+        if (isUniverseNull) {
             stub.setUsername(username);
         } else {
             stub.setUsername(universeValue + "/" + username);//$NON-NLS-1$
