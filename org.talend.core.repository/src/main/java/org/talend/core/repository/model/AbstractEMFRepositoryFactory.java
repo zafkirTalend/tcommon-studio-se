@@ -38,6 +38,7 @@ import org.talend.commons.utils.data.container.RootContainer;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ICoreService;
+import org.talend.core.IStatusPreferenceInitService;
 import org.talend.core.model.general.ILibrariesService;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.Project;
@@ -636,14 +637,16 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
 
         // TODO: review the prefs
         // new StatusPreferenceInitializer().initializeDefaultPreferences();
-        CoreRuntimePlugin.getInstance().getStatusPreferenceInitService().initStatusPreference();
+        IStatusPreferenceInitService statusPreferenceInitService = CoreRuntimePlugin.getInstance()
+                .getStatusPreferenceInitService();
+        if (statusPreferenceInitService != null) {
+            statusPreferenceInitService.initStatusPreference();
+        }
         String productVersion = CoreRepositoryPlugin.getDefault().getBundle().getHeaders()
                 .get(org.osgi.framework.Constants.BUNDLE_VERSION).toString();
         IBrandingService brandingService = null;
-        try {
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IBrandingService.class)) {
             brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(IBrandingService.class);
-        } catch (Exception e) {
-            // nothing to do.
         }
         if (brandingService != null) {
             String version = brandingService.getFullProductName() + "-" + productVersion; //$NON-NLS-1$

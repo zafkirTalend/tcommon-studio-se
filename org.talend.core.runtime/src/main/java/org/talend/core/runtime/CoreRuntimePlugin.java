@@ -125,7 +125,11 @@ public class CoreRuntimePlugin extends Plugin {
     }
 
     public IStatusPreferenceInitService getStatusPreferenceInitService() {
-        return (IStatusPreferenceInitService) GlobalServiceRegister.getDefault().getService(IStatusPreferenceInitService.class);
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IStatusPreferenceInitService.class)) {
+            return (IStatusPreferenceInitService) GlobalServiceRegister.getDefault().getService(
+                    IStatusPreferenceInitService.class);
+        }
+        return null;
     }
 
     public IWebService getWebService() {
