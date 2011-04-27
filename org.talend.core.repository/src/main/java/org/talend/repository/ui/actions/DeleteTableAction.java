@@ -37,6 +37,7 @@ import org.talend.core.model.metadata.builder.connection.SubscriberTable;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.SalesforceSchemaConnectionItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.RepositoryManager;
@@ -223,6 +224,11 @@ public class DeleteTableAction extends AContextualAction {
                                     boolean is = RepositoryConstants.TABLE.equals(tableType);
                                     canWork = is && !table.isAttachedCDC();
                                 }
+                            }
+                        } else if (item2 instanceof SalesforceSchemaConnectionItem) {
+                            IRepositoryViewObject parent = node.getParent().getObject();
+                            if (parent != null && parent.getLabel().equals(repositoryObject.getLabel())) {
+                                canWork = false;
                             }
                         }
                     }
