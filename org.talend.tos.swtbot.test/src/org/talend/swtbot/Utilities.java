@@ -1297,15 +1297,13 @@ public class Utilities {
     public static void cleanUpRepository(SWTBotTree tree) {
         for (TalendItemType itemType : TalendItemType.values()) {
             SWTBotTreeItem treeNode = getTalendItemNode(tree, itemType);
-            int i = 0;
-            if (TalendItemType.ROUTINES.equals(itemType))
-                i = 1; // skip system routine
             if (TalendItemType.SQL_TEMPLATES.equals(itemType))
                 treeNode = treeNode.expandNode("Generic", "UserDefined"); // focus on specific sql template type
             if (TalendItemType.DOCUMENTATION.equals(itemType) || TalendItemType.RECYCLE_BIN.equals(itemType))
                 continue; // undo with documentation and recycle bin
-            for (; i < treeNode.rowCount(); i++) {
-                treeNode.getNode(i).contextMenu("Delete").click();
+            for (String itemName : treeNode.getNodes()) {
+                if (!"system".equals(itemName))
+                    treeNode.getNode(itemName).contextMenu("Delete").click();
             }
         }
     }
@@ -1316,11 +1314,9 @@ public class Utilities {
      * @param treeNode treeNode of the tree in repository
      */
     public static void cleanUpRepository(SWTBotTreeItem treeNode) {
-        int i = 0;
-        if ("Routines".equals(treeNode.getText()))
-            i = 1;
-        for (; i < treeNode.rowCount(); i++) {
-            treeNode.getNode(i).contextMenu("Delete").click();
+        for (String itemName : treeNode.getNodes()) {
+            if (!"system".equals(itemName))
+                treeNode.getNode(itemName).contextMenu("Delete").click();
         }
     }
 
@@ -1537,44 +1533,25 @@ public class Utilities {
         }
     }
 
-    // public static void createEDI(EDIItem ediItem, SWTGefBot gefBot, SWTBotTreeItem treeNode) {
-    // treeNode.contextMenu("Create EDI").click();
-    // shell = gefBot.shell("Create new EDI schema").activate();
-    // gefBot.textWithLabel("Name").setText(ediItem.getItemName());
-    // boolean isNextButtonEnable = gefBot.button("Next >").isEnabled();
-    // if (!isNextButtonEnable) {
-    // shell.close();
-    // Assert.assertTrue("edi item is not created, maybe the item name already exist", isNextButtonEnable);
-    // }
-    // gefBot.button("Next >").click();
-    //
-    // try {
-    // gefBot.tree().expandNode(ediItem.getStandard()).getNode(ediItem.getRelease()).click();
-    // gefBot.button("Next >").click();
-    //
-    // String[] schemas = ediItem.getSchema();
-    // for (int i = 0; i < schemas.length; i++) {
-    // gefBot.buttonWithTooltip("Add").click();
-    // gefBot.tableInGroup("Schema").click(i, 2);
-    // gefBot.text().setText(schemas[i]);
-    // }
-    // gefBot.button("Next >").click();
-    // gefBot.button("Finish").click();
-    // } catch (WidgetNotFoundException wnfe) {
-    // shell.close();
-    // Assert.fail(wnfe.getCause().getMessage());
-    // } catch (Exception e) {
-    // shell.close();
-    // Assert.fail(e.getMessage());
-    // }
-    //
-    // SWTBotTreeItem newEDIItem = null;
-    // try {
-    // newEDIItem = treeNode.expand().select(ediItem.getItemName() + " 0.1");
-    // } catch (Exception e) {
-    // e.printStackTrace();
-    // } finally {
-    // Assert.assertNotNull("validation EDI item is not created", newEDIItem);
-    // }
-    // }
+    public static void renameFolder(SWTGefBot gefBot, SWTBotTreeItem treeNode, String folderName, String newFolderName) {
+        treeNode.getNode(folderName).contextMenu("Rename folder").click();
+        shell = gefBot.shell("New folder").activate();
+        gefBot.textWithLabel("Label").setText(newFolderName);
+        boolean isFinishButtonEnable = gefBot.button("Finish").isEnabled();
+        if (!isFinishButtonEnable) {
+            shell.close();
+            Assert.assertTrue("folder name already exist", isFinishButtonEnable);
+        }
+        gefBot.button("Finish").click();
+
+        SWTBotTreeItem newFolderItem = null;
+        try {
+            newFolderItem = treeNode.expand().select(newFolderName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Assert.assertNotNull("folder is renamed", newFolderItem);
+        }
+    }
+
 }
