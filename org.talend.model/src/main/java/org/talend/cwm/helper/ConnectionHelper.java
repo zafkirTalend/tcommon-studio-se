@@ -435,6 +435,10 @@ public class ConnectionHelper {
     public static boolean addPackage(Package pack, Connection connection) {
         boolean added = false;
         if ((connection != null) && (pack != null)) {
+            for (Package oldPack : connection.getDataPackage()) {
+                if (oldPack.getName().equals(pack.getName()))
+                    return added;
+            }
             added = connection.getDataPackage().add(pack);
         }
         return added;
