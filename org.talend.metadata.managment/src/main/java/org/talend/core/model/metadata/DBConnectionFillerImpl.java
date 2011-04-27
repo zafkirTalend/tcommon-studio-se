@@ -255,8 +255,10 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 // MOD gdbu 2011-4-12 bug : 18975
                 // catalogs.close();
                 // ~18975
-                if (isLinked() && returnSchemas.size() > 0) {
+                if (isLinked() && returnSchemas.size() > 1) {
                     ConnectionHelper.addSchemas(returnSchemas, dbConn);
+                } else if (isLinked() && returnSchemas.size() == 1) {
+                    ConnectionHelper.addSchema(returnSchemas.get(0), dbConn);
                 }
             }
         } catch (SQLException e) {
@@ -356,9 +358,11 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                         }
                     }
                 }
-
-                if (this.isLinked() && catalogList.size() > 0) {
-                    ConnectionHelper.addCatalogs(catalogList, dbConn);
+                int catSize = catalogList.size();
+                if (this.isLinked() && catSize > 1) {
+                        ConnectionHelper.addCatalogs(catalogList, dbConn);
+                } else if (this.isLinked() && catSize == 1) {
+                        ConnectionHelper.addCatalog(catalogList.get(0), dbConn);
                 }
             }
         } catch (SQLException e) {
