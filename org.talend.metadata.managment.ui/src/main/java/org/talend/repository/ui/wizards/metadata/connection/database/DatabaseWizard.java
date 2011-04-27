@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.repository.ui.wizards.metadata.connection.database;
 
+import java.sql.Driver;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +35,9 @@ import org.talend.core.context.RepositoryContext;
 import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.model.metadata.IMetadataConnection;
+import org.talend.core.model.metadata.MetadataFillFactory;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
+import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
@@ -47,6 +51,7 @@ import org.talend.core.model.update.RepositoryUpdateManager;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.cwm.helper.ConnectionHelper;
+import org.talend.cwm.helper.SwitchHelpers;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.metadata.managment.ui.i18n.Messages;
 import org.talend.repository.ProjectManager;
@@ -326,6 +331,15 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                         }
                         // update
                         RepositoryUpdateManager.updateDBConnection(connectionItem);
+
+                        // bug 20700
+                        Connection conn = connectionItem.getConnection();
+                        if (conn != null) {
+                            DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
+                            if (dbConn != null && dbConn instanceof DatabaseConnection) {
+                                updateConnectionInformation(dbConn);
+                            }
+                        }
                     }
                     this.connection.setName(connectionProperty.getLabel());
                     factory.save(connectionItem);
@@ -403,4 +417,53 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
         return this.connectionItem;
     }
 
+    /**
+     * 
+     * DOC Comment method "updateConnectionInformation".
+     * 
+     * @param dbConn
+     */
+    private void updateConnectionInformation(DatabaseConnection dbConn) {
+        Driver driver = null;
+        java.sql.Connection sqlConn = null;
+        try {
+            IMetadataConnection metaConnection = MetadataFillFactory.getDBInstance().fillUIParams(dbConn);
+            dbConn = (DatabaseConnection) MetadataFillFactory.getDBInstance().fillUIConnParams(metaConnection, dbConn);
+            sqlConn = (java.sql.Connection) MetadataConnectionUtils.checkConnection(metaConnection).getObject();
+
+            if (sqlConn != null) {
+                MetadataFillFactory.getDBInstance().fillCatalogs(dbConn, sqlConn.getMetaData(),
+                        MetadataConnectionUtils.getPackageFilter(dbConn, sqlConn.getMetaData()));
+                MetadataFillFactory.getDBInstance().fillSchemas(dbConn, sqlConn.getMetaData(),
+                        MetadataConnectionUtils.getPackageFilter(dbConn, sqlConn.getMetaData()));
+                driver = MetadataConnectionUtils.getClassDriver(metaConnection);
+            }
+        } catch (SQLException e) {
+            log.error(e, e);
+        } catch (InstantiationException e) {
+            log.error(e, e);
+        } catch (IllegalAccessException e) {
+            log.error(e, e);
+        } catch (ClassNotFoundException e) {
+            log.error(e, e);
+        } finally {
+            if (driver != null) {
+                String driverClass = dbConn.getDriverClass();
+                String dbType = dbConn.getDatabaseType();
+                if ((driverClass != null
+                        && driverClass.equals(EDatabase4DriverClassName.JAVADB_EMBEDED.getDriverClass())
+                        || (dbType != null && (dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
+                                || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
+                                || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName()) || dbType
+                                .equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName()))) || dbType
+                        .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
+                    try {
+                        driver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
+                    } catch (SQLException e) {
+                        // exception of shutdown success. no need to catch.
+                    }
+                }
+            }
+        }
+    }
 }
