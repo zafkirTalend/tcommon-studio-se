@@ -13,7 +13,6 @@
 package org.talend.repository.ui.wizards.metadata.connection.files.salesforce;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -206,7 +205,7 @@ public class SalesforceStep2Form extends AbstractSalesforceStepForm {
      */
     private void addTreeNavigator(Composite parent, int width, int height) {
         // Group
-        Group group = Form.createGroup(parent, 1, Messages.getString("DatabaseTableForm.navigatorTree"), height); //$NON-NLS-1$
+        Group group = Form.createGroup(parent, 1, Messages.getString("SalesforceStep2Form.module"), height); //$NON-NLS-1$
 
         // ScrolledComposite
         ScrolledComposite scrolledCompositeFileViewer = new ScrolledComposite(group, SWT.H_SCROLL | SWT.V_SCROLL | SWT.NONE);
