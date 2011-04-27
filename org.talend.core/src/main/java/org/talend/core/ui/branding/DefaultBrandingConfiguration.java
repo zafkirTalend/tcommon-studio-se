@@ -12,12 +12,17 @@
 // ============================================================================
 package org.talend.core.ui.branding;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import org.apache.log4j.Logger;
+import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.gef.palette.PaletteContainer;
 import org.eclipse.gef.palette.PaletteEntry;
 import org.eclipse.jface.action.ICoolBarManager;
@@ -25,6 +30,8 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.ui.IFolderLayout;
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.application.IActionBarConfigurer;
+import org.osgi.framework.Bundle;
+import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
@@ -226,7 +233,25 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
      */
     public String[] getAvailableLanguages() {
         String[] languages;
+
+        String enablePerl = "false";
         if (GlobalServiceRegister.getDefault().isServiceRegistered(ICorePerlService.class)) {
+            Properties properties = new Properties();
+            Bundle b = Platform.getBundle("org.talend.resources.perl"); //$NON-NLS-1$ 
+
+            try {
+                File setupFile = new File(FileLocator.resolve(b.getEntry("resources/config.properties")).getFile());
+                FileInputStream fileReader = new FileInputStream(setupFile);
+                properties.load(fileReader);
+                fileReader.close();
+            } catch (Exception e) {
+                ExceptionHandler.process(new Exception("Perl setup file not found !"));
+            }
+
+            enablePerl = properties.getProperty("enablePerl");
+        }
+
+        if ("true".equals(enablePerl)) {
             languages = new String[] { ECodeLanguage.JAVA.getName(), ECodeLanguage.PERL.getName() };
         } else {
             languages = new String[] { ECodeLanguage.JAVA.getName() };
