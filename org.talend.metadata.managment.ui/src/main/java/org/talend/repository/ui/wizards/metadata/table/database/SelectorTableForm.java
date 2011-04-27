@@ -784,7 +784,7 @@ public class SelectorTableForm extends AbstractForm {
                 Set<MetadataTable> tables = ConnectionHelper.getTables(getConnection());
                 EList<Package> dataPackage = dbConn.getDataPackage();
                 for (MetadataTable table : tables) {
-                    if (table != null) {
+                    if (table != null && dataPackage != null) {
                         MetadataTable newTable = EcoreUtil.copy(table);
                         EObject eContainer = table.eContainer();
                         if (eContainer != null) {
@@ -792,7 +792,12 @@ public class SelectorTableForm extends AbstractForm {
                                 String name = ((Catalog) eContainer).getName();
                                 Catalog c = (Catalog) ConnectionHelper.getPackage(name, dbConn, Catalog.class);
                                 if (c != null) {
-                                    PackageHelper.addMetadataTable(newTable, c);
+                                    EList<ModelElement> ownedElement = c.getOwnedElement();
+                                    if (ownedElement == null) {
+                                        PackageHelper.addMetadataTable(newTable, c);
+                                    } else if (!ownedElement.isEmpty()) {
+                                        PackageHelper.addMetadataTable(newTable, (Package) ownedElement.get(0));
+                                    }
                                 } else {
                                     for (Package p : dataPackage) {
                                         if (p instanceof Catalog) {
@@ -802,6 +807,8 @@ public class SelectorTableForm extends AbstractForm {
                                             } else if (!ownedElement.isEmpty()) {
                                                 PackageHelper.addMetadataTable(newTable, (Package) ownedElement.get(0));
                                             }
+                                        } else if (p instanceof Schema) {
+                                            PackageHelper.addMetadataTable(newTable, p);
                                         }
                                     }
                                 }
