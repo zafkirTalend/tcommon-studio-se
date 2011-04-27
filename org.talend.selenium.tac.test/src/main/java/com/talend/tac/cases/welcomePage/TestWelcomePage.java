@@ -22,6 +22,7 @@ public class TestWelcomePage extends Login {
 		this.waitForElementPresent("//div[text()='" + locatorText + "']",WAIT_TIME);
 		selenium.click("//div[text()='" + locatorText + "']");
 		assertTrue(selenium.getXpathCount("//div[text()='" + locatorText + "']").intValue() == 2);
+		selenium.click("//span[text()='Welcome']");
 		this.clickWaitForElementPresent("//span[text()='"+locatorText +"']//ancestor::a/preceding-sibling::a");
 	}
 
@@ -29,6 +30,15 @@ public class TestWelcomePage extends Login {
 		this.waitForElementPresent("//span[contains(text(),'"+ locatorText + "')]",WAIT_TIME);
 		selenium.click("//span[contains(text(),'"+ locatorText + "')]");
 		assertTrue(selenium.getXpathCount("//span[contains(text(),'"+ locatorText + "')]").intValue() == 3);
+		selenium.click("//span[text()='Welcome']");
 		this.clickWaitForElementPresent("//span[contains(text(),'" +locatorText +"')]//ancestor::a/preceding-sibling::a");
+	}
+	//Francais 
+	@Test
+	public void testInternationalization() {
+		this.clickWaitForElementPresent("idLeftMenuTreeLangButton");
+		this.clickWaitForElementPresent("//a[text()='Francais']");
+		this.waitForElementPresent("//span[text()='Utilisateurs']", WAIT_TIME);
+		//......
 	}
 }
