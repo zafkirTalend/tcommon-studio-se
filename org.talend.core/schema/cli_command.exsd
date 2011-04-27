@@ -164,6 +164,13 @@
                </restriction>
             </simpleType>
          </attribute>
+         <attribute name="required" type="boolean">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
       </complexType>
    </element>
 
