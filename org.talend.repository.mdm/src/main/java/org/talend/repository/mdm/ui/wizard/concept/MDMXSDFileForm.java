@@ -186,7 +186,7 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
         this.wizardPage = wizardPage;
         this.concept = concept;
         this.creation = creation;
-        setupForm(true);
+        setupForm();
 
     }
 

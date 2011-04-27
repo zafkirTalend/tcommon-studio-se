@@ -189,7 +189,7 @@ public class MdmReceiveForm extends AbstractMDMFileStepForm implements IRefresha
         this.wizardPage = wizardPage;
         this.concept = concept;
         this.creation = creation;
-        setupForm(true);
+        setupForm();
 
     }
 
