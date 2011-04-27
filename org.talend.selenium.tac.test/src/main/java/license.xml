@@ -200,6 +200,11 @@
 			</class>
 		</classes>
 	</test>
+	<test name="testLicenseAccountsCount">
+	<classes>
+	<class name="com.talend.tac.cases.license.TestLicenseAccountsCount"/>
+	</classes>
+	</test>
 	<test name="testCreateAllRolesInAdvance" preserve-order="true">
 		<classes>
 			<class name="com.talend.tac.cases.user.TestCreatUsersInAdvance" />
