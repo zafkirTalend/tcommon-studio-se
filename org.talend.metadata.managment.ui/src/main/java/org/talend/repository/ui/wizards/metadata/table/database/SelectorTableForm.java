@@ -793,19 +793,29 @@ public class SelectorTableForm extends AbstractForm {
                                 Catalog c = (Catalog) ConnectionHelper.getPackage(name, dbConn, Catalog.class);
                                 if (c != null) {
                                     EList<ModelElement> ownedElement = c.getOwnedElement();
-                                    if (ownedElement == null) {
+                                    if (ownedElement == null || ownedElement.isEmpty()) {
                                         PackageHelper.addMetadataTable(newTable, c);
-                                    } else if (!ownedElement.isEmpty()) {
-                                        PackageHelper.addMetadataTable(newTable, (Package) ownedElement.get(0));
+                                    } else {
+                                        List<Schema> schemas = CatalogHelper.getSchemas(c);
+                                        if (!schemas.isEmpty()) {
+                                            PackageHelper.addMetadataTable(newTable, schemas.get(0));
+                                        } else {
+                                            PackageHelper.addMetadataTable(newTable, c);
+                                        }
                                     }
                                 } else {
                                     for (Package p : dataPackage) {
                                         if (p instanceof Catalog) {
                                             EList<ModelElement> ownedElement = p.getOwnedElement();
-                                            if (ownedElement == null) {
+                                            if (ownedElement == null || ownedElement.isEmpty()) {
                                                 PackageHelper.addMetadataTable(newTable, p);
-                                            } else if (!ownedElement.isEmpty()) {
-                                                PackageHelper.addMetadataTable(newTable, (Package) ownedElement.get(0));
+                                            } else {
+                                                List<Schema> schemas = CatalogHelper.getSchemas((Catalog) p);
+                                                if (!schemas.isEmpty()) {
+                                                    PackageHelper.addMetadataTable(newTable, schemas.get(0));
+                                                } else {
+                                                    PackageHelper.addMetadataTable(newTable, p);
+                                                }
                                             }
                                         } else if (p instanceof Schema) {
                                             PackageHelper.addMetadataTable(newTable, p);
@@ -825,20 +835,23 @@ public class SelectorTableForm extends AbstractForm {
                                             Catalog c = (Catalog) ConnectionHelper.getPackage(pName, dbConn, Catalog.class);
                                             if (c != null) {
                                                 EList<ModelElement> ownedElement = c.getOwnedElement();
-                                                if (ownedElement == null) {
+                                                if (ownedElement == null || ownedElement.isEmpty()) {
                                                     PackageHelper.addMetadataTable(newTable, c);
-                                                } else if (!ownedElement.isEmpty()) {
-                                                    List<Schema> schemas = CatalogHelper.getSchemas(c);
+                                                } else {
+                                                    boolean isSchema = false;
                                                     boolean exist = false;
+                                                    List<Schema> schemas = CatalogHelper.getSchemas(c);
                                                     for (Schema schema : schemas) {
+                                                        isSchema = true;
                                                         if (schema.getName().equals(name)) {
                                                             exist = true;
                                                             PackageHelper.addMetadataTable(newTable, schema);
-                                                            break;
+                                                        } else {
+                                                            PackageHelper.addMetadataTable(newTable, c);
                                                         }
                                                     }
-                                                    if (!exist) {
-                                                        PackageHelper.addMetadataTable(newTable, (Package) ownedElement.get(0));
+                                                    if (isSchema && !exist) {
+                                                        PackageHelper.addMetadataTable(newTable, schemas.get(0));
                                                     }
                                                 }
                                             } else {
