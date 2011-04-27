@@ -41,8 +41,7 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
     }    
     
     //add a method of remove all triggers
-    @Test
-//    (groups={"AddSimpleTrigger"},dependsOnGroups={"ModifyTask"})
+    @Test(groups={"AddSimpleTrigger"},dependsOnGroups={"ModifyTask"})
     public void clearTriggers() {
     	
     	this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
@@ -109,7 +108,7 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
 	    selenium.setSpeed(MIN_SPEED);
 	}
 	
-	// add a simpleTrigger
+	// add a simpleTrigger use default date
 	@Test(dependsOnMethods={"testAddTriggerAddSimpleTrigger"})
 	@Parameters({"modifyTask", "addSimpleTriggerLabelNotChooseDate","addSimpleTriggerNotChooseDateDescription"})
 	public void testAddTriggerAddSimpleTriggerNotChooseDate(String taskLabel, String label, String description) {
