@@ -424,7 +424,6 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
      * @param dbConn
      */
     private void updateConnectionInformation(DatabaseConnection dbConn) {
-        Driver driver = null;
         java.sql.Connection sqlConn = null;
         try {
             IMetadataConnection metaConnection = MetadataFillFactory.getDBInstance().fillUIParams(dbConn);
@@ -433,35 +432,19 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
 
             if (sqlConn != null) {
                 MetadataFillFactory.getDBInstance().fillCatalogs(dbConn, sqlConn.getMetaData(),
-                        MetadataConnectionUtils.getPackageFilter(dbConn, sqlConn.getMetaData()));
+                        MetadataConnectionUtils.getPackageFilter(dbConn, sqlConn.getMetaData(), true));
                 MetadataFillFactory.getDBInstance().fillSchemas(dbConn, sqlConn.getMetaData(),
-                        MetadataConnectionUtils.getPackageFilter(dbConn, sqlConn.getMetaData()));
-                driver = MetadataConnectionUtils.getClassDriver(metaConnection);
+                        MetadataConnectionUtils.getPackageFilter(dbConn, sqlConn.getMetaData(), false));
             }
         } catch (SQLException e) {
             log.error(e, e);
-        } catch (InstantiationException e) {
-            log.error(e, e);
-        } catch (IllegalAccessException e) {
-            log.error(e, e);
-        } catch (ClassNotFoundException e) {
-            log.error(e, e);
         } finally {
+            Driver driver = MetadataConnectionUtils.getDerbyDriver();
             if (driver != null) {
-                String driverClass = dbConn.getDriverClass();
-                String dbType = dbConn.getDatabaseType();
-                if ((driverClass != null
-                        && driverClass.equals(EDatabase4DriverClassName.JAVADB_EMBEDED.getDriverClass())
-                        || (dbType != null && (dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
-                                || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
-                                || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName()) || dbType
-                                .equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName()))) || dbType
-                        .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
-                    try {
-                        driver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
-                    } catch (SQLException e) {
-                        // exception of shutdown success. no need to catch.
-                    }
+                try {
+                    driver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
+                } catch (SQLException e) {
+                    // exception of shutdown success. no need to catch.
                 }
             }
         }

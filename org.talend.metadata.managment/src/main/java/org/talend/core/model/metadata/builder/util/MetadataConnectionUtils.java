@@ -188,6 +188,7 @@ public class MetadataConnectionUtils {
 
                 ReturnCode varc = ConnectionUtils.isValid(sqlConn);
                 if (varc.isOk()) {
+                    derbyDriver = null;
                     if (driver != null && isDerbyRelatedDb(driverClass, dbType)) {
                         DBConnectionFillerImpl.setDriver(driver);
                         derbyDriver = driver;
@@ -965,6 +966,10 @@ public class MetadataConnectionUtils {
             }
         }
         return false;
+    }
+
+    public static Driver getDerbyDriver() {
+        return derbyDriver;
     }
 
     /**
