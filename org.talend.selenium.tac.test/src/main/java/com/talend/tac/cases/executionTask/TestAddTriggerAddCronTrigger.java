@@ -5,6 +5,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.talend.tac.cases.Login;
+import com.talend.tac.cases.executePlan.TriggerDate;
 
 public class TestAddTriggerAddCronTrigger extends Login{
     
@@ -16,7 +17,7 @@ public class TestAddTriggerAddCronTrigger extends Login{
     	selenium.setSpeed(MIN_SPEED);
     	selenium.mouseDown("//span[text()='testModifyTask']");//select a exist task
 		selenium.click("//button[text()='Add trigger...']");//add a trigger
-		selenium.click("//a[text()='Add CronTrigger']");//add a  CronTrigger
+		selenium.click("//a[text()='Add CRON trigger']");//add a  CronTrigger
 		selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.isElementPresent("//span[text()='"+rb.getString("trigger.action.addCronTrigger")+"']"));
 		selenium.setSpeed(MIN_SPEED);
@@ -56,8 +57,8 @@ public class TestAddTriggerAddCronTrigger extends Login{
 		
 	}
 	
-	//add a cron triiger
-	@Test
+	//add a cron triiger, set date is by UI
+	@Test(dependsOnGroups={"DeleteTrigger"})
 	@Parameters({"addCronTriggerLabel","addCronTriggerDescription"})
     public void testAddTriggerAddCronTrigger(String cronTriggerLabel,String description) {
 		
@@ -66,14 +67,13 @@ public class TestAddTriggerAddCronTrigger extends Login{
     			
 		selenium.click("//span[text()='Add Cron trigger']/parent::legend/parent::fieldset/parent::form/" +
     			"parent::div/parent::div/parent::div/parent::div/parent::div//button[@id='idFormSaveButton']");
-		selenium.click("//span[text()='Triggers']/parent::span/parent::em/parent::a/parent::li/parent::ul/parent::div/" +
-		"parent::div/parent::div//button[text()='Refresh']");
+		
 		selenium.setSpeed(MID_SPEED);
-		Assert.assertTrue(selenium.isElementPresent("//span[text()='TestCronTrigger']"));
+		Assert.assertTrue(selenium.isElementPresent("//span[text()='"+cronTriggerLabel+"']"));
 		selenium.setSpeed(MIN_SPEED);
     }
 	
-	//add a exist cron triiger
+	//add a exist cron triiger, set date is by UI
 	@Test(dependsOnMethods={"testAddTriggerAddCronTrigger"})
 	@Parameters({"addCronTriggerLabel","addCronTriggerExistTriggerDescription"})
     public void testAddExistTriggerAddCronTrigger(String cronTriggerLabel, String description) {
@@ -89,20 +89,66 @@ public class TestAddTriggerAddCronTrigger extends Login{
 		
     }
 	
-	//add a cron triiger of data is overdue
+	//add a cron triiger of date is overdue, set date is by UI
 	@Test(dependsOnMethods={"testAddExistTriggerAddCronTrigger"})
 	@Parameters({"addCronTriggerOverdue","addCronTriggerOverdueDescription"})
     public void testAddOverdueTriggerAddCronTrigger(String cronTriggerLabel, String description) {
 		
 		addTriggerAddCronTrigger(cronTriggerLabel, description, "2010", 
 				"Sunday", "Saturday", "January", "December");
-    			
+    	selenium.setSpeed(MID_SPEED);		
 		selenium.click("//span[text()='Add Cron trigger']/parent::legend/parent::fieldset/parent::form/" +
     			"parent::div/parent::div/parent::div/parent::div/parent::div//button[@id='idFormSaveButton']");
-		selenium.setSpeed("1000");
-     	Assert.assertTrue(selenium.isTextPresent(rb.getString("trigger.error.trigger_will_never_fire")));
-		selenium.setSpeed(MIN_SPEED);	
-     	
+		selenium.setSpeed(MIN_SPEED);
+		selenium.setSpeed(MID_SPEED);
+	   	Assert.assertTrue(selenium.isTextPresent(rb.getString("trigger.error.trigger_will_never_fire")));
+	    selenium.setSpeed(MIN_SPEED); 	
     }
+	
+	//add a CronTrigger
+	@Test(dependsOnMethods={"testAddOverdueTriggerAddCronTrigger"})
+	@Parameters({ "addCronTriggerByHandInputDateLabel", "addCronTriggerByHandInputDateDescription"})
+	public void testAddCronByHandInputDateTrigger(String addCronTrigger,String addCronTriggerDescription) throws InterruptedException{
+	    TriggerDate date = new TriggerDate().getFuture(24);
+		//open to execution task add trigger page
+		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
+    	selenium.setSpeed(MID_SPEED);
+    	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
+    	selenium.setSpeed(MIN_SPEED);
+       	selenium.mouseDown("//span[text()='testModifyTask']");
+		selenium.click("//button[text()='Add trigger...']");
+		selenium.click("//a[text()='Add CRON trigger']");
+//		selenium.setSpeed(MID_SPEED);
+		Thread.sleep(5000);
+		selenium.setSpeed(MIN_SPEED);
+		//type  label
+		this.typeString("//div[text()='Job Conductor']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']" +
+				"//span[text()='Add Cron trigger']//ancestor::fieldset//input[@name='label']",addCronTrigger);
+		//type  description
+		this.typeString("//div[text()='Job Conductor']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']" +
+				"//span[text()='Add Cron trigger']//ancestor::fieldset//input[@name='description']", addCronTriggerDescription);
+    	//type minutes
+		this.typeString("//div[text()='Job Conductor']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']" +
+				"//span[text()='Add Cron trigger']//ancestor::fieldset//input[@name='minutes']", date.minutes);
+		//type hours
+		this.typeString("//div[text()='Job Conductor']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']" +
+				"//span[text()='Add Cron trigger']//ancestor::fieldset//input[@name='hours']", date.hours);
+		//type days
+		this.typeString("//div[text()='Job Conductor']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']" +
+				"//span[text()='Add Cron trigger']//ancestor::fieldset//input[@name='daysOfMonth']", date.days);
+		//type months
+		this.typeString("//div[text()='Job Conductor']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']" +
+				"//span[text()='Add Cron trigger']//ancestor::fieldset//input[@name='months']", date.months);
+		//type years
+		this.typeString("//div[text()='Job Conductor']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']" +
+				"//span[text()='Add Cron trigger']//ancestor::fieldset//input[@name='years']", date.years);	
+		//click save button
+		selenium.setSpeed(MID_SPEED);
+		selenium.click("//span[text()='Add Cron trigger']/parent::legend/parent::fieldset/parent::form/" +
+    			"parent::div/parent::div/parent::div/parent::div/parent::div//button[@id='idFormSaveButton']");
+		selenium.setSpeed(MID_SPEED);
+	    Assert.assertTrue(selenium.isElementPresent("//span[text()='"+addCronTrigger+"']"));
+	    selenium.setSpeed(MIN_SPEED);
+	}
 	
 }
