@@ -104,6 +104,50 @@ public class TestAddUsersNotification extends Login {
 		
 	}
 	
+/**add a  user notificaton of user 'jackzhang@gmail.com', then into user page and 
+	delete 'jackzhang@gmail.com', return notification page and check corresponding
+	 notification is deleted **/
+	@Test(dependsOnMethods={"testAddUsersNotificationUncheckActive"})
+	@Parameters({"categoryUser","eventUserCreation","descriptionUserCreation","LoginName"})
+	public void testAaddUserNotificationOfLoginUser(String categoryUser, String eventUserCreation, 
+			String descriptionUserCreation, String loginName) {
+		
+		addNotification(2, categoryUser, 2, eventUserCreation, descriptionUserCreation);
+		selenium.click("idActiveInput");
+		selenium.setSpeed(MID_SPEED);
+		Assert.assertFalse(selenium.isChecked("idActiveInput"));
+		selenium.setSpeed(MID_SPEED);
+		selenium.click("//i[text()='Suscribe to receive a mail when a user is created']/parent::div/parent::td/parent::tr" +
+				"/parent::tbody//button");
+		selenium.setSpeed(MID_SPEED);
+		selenium.mouseDown("//div[text()='jackzhang@gamil.com']/parent::td/preceding-sibling::td");//choose event trigger users
+		selenium.setSpeed(MIN_SPEED);
+		selenium.click("//button[text()='Apply']");
+		Assert.assertTrue(selenium.isElementPresent("//i[text()=' - jackzhang@gamil.com']"));
+		selenium.setSpeed(MIN_SPEED);
+		selenium.click("idFormSaveButton");
+		selenium.setSpeed(MID_SPEED);
+        Assert.assertTrue(selenium.isElementPresent("//div[text()='"+eventUserCreation+"']/" +
+        		"parent::td/parent::tr//img[@class='gwt-Image' and @title='false']"));		
+ 		selenium.setSpeed(MIN_SPEED);
+ 		this.clickWaitForElementPresent("idMenuUserElement");
+ 		selenium.setSpeed(MID_SPEED);
+		selenium.mouseDown("//div[text()='"+loginName+"']");//Select an existing user
+		selenium.setSpeed(MIN_SPEED);
+		selenium.chooseOkOnNextConfirmation();
+		selenium.click("//div[text()='Accounts']/ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder" +
+				" x-border-layout-ct']//button[@id='idSubModuleDeleteButton']");//delete a user 
+		selenium.setSpeed(MID_SPEED);
+	    Assert.assertTrue(selenium.getConfirmation().matches("^"+other.getString("delete.User.confirmation")+" [\\s\\S]$"));
+	    selenium.setSpeed(MIN_SPEED);
+	    this.clickWaitForElementPresent("!!!menu.notification.element!!!");//into notification
+ 		selenium.setSpeed(MID_SPEED);
+	    Assert.assertTrue(!selenium.isElementPresent("//div[text()='"+eventUserCreation+"']/" +
+		"parent::td/parent::tr//img[@class='gwt-Image' and @title='false']"));
+	    selenium.setSpeed(MIN_SPEED);
+	    
+	}
+	
 	public void addNotification(int LabelInput,String LabelInputValue,int DescriptionInput,
 			String DescriptionInputValue,String notificationInformation) {
 		
