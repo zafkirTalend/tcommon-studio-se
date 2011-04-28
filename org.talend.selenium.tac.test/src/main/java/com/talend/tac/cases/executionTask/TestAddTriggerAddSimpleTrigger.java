@@ -40,6 +40,7 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
 	    
     }    
     
+	
     //add a method of remove all triggers
     @Test(groups={"AddSimpleTrigger"},dependsOnGroups={"ModifyTask"})
     public void clearTriggers() {
@@ -89,8 +90,51 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
 
     }
     
+  //add a overdue(start date) simpleTrigger
+    @Test(dependsOnMethods={"clearTriggers"})
+	@Parameters({"modifyTask","addSimpleTriggerNumberOfTriggeringsRunnedAutoStopLabel",
+		"addSimpleTriggerNumberOfTriggeringsRunnedAutoStopDescription"})
+    public void testAddSimpleTriggerNumberOfTriggeringsRunnedAutoStop(String taskLabel, String label, String description) {
+   
+		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
+    	selenium.setSpeed(MID_SPEED);
+    	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
+    	selenium.setSpeed(MIN_SPEED);
+    	selenium.mouseDown("//span[text()='"+taskLabel+"']");//select a exist task
+		selenium.click("//button[text()='Add trigger...']");//add a trigger
+		selenium.click("//a[text()='Add simple trigger']");//add a SimpleTrigger
+        Assert.assertTrue(selenium.isElementPresent("//span[text()='"+rb.getString("trigger.action.addSimpleTrigger")+"']"));
+        
+        this.typeString("//span[text()='Add simple trigger']/parent::legend/parent::fieldset" +
+        		"//input[@name='label']", label);//label
+		
+        this.typeString("//span[text()='Add simple trigger']/parent::legend/parent::fieldset" +
+				"//input[@name='description']", description);//description
+
+        this.typeString("//span[text()='Add simple trigger']/parent::legend/parent::fieldset" +
+	    		"//input[@name='repeatCount']", "3");//Number of triggerings
+	   
+        this.typeString("//span[text()='Add simple trigger']/parent::legend/parent::fieldset" +
+        		"//input[@name='repeatInterval']", "5");//Time interval (s)
+	       
+				
+	   
+	    selenium.setSpeed(MID_SPEED);
+	    selenium.click("//span[text()='Add simple trigger']/parent::legend/parent::fieldset/parent::form/" +
+		"parent::div/parent::div/parent::div/parent::div/parent::div//button[@id='idFormSaveButton']");
+		selenium.setSpeed(MIN_SPEED);
+		waitForElementPresent("//span[text()='4 / 4']",30);
+	  			
+		selenium.setSpeed(MID_SPEED);
+		Assert.assertTrue(selenium.isElementPresent("//span[@title='All triggers completed']/img"));
+		selenium.setSpeed(MIN_SPEED);
+			
+		
+	} 
+    
+    
 	// add a simpleTrigger
-	@Test(dependsOnMethods={"clearTriggers"})
+	@Test(dependsOnMethods={"testAddSimpleTriggerNumberOfTriggeringsRunnedAutoStop"})
 	@Parameters({"modifyTask", "addSimpleTriggerLabel","addSimpleTriggerDescription"})
 	public void testAddTriggerAddSimpleTrigger(String taskLable, String label, String description) {
 	
@@ -117,7 +161,7 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
     	selenium.setSpeed(MID_SPEED);
     	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
-    	
+    	selenium.setSpeed(MIN_SPEED);
     	selenium.mouseDown("//span[text()='"+taskLabel+"']");//select a exist task
 		selenium.click("//button[text()='Add trigger...']");//add a trigger
 		selenium.click("//a[text()='Add simple trigger']");//add a SimpleTrigger
@@ -134,8 +178,7 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
 	   
         this.typeString("//span[text()='Add simple trigger']/parent::legend/parent::fieldset" +
         		"//input[@name='repeatInterval']", "20");//Time interval (s)
-	    
-	    selenium.setSpeed(MIN_SPEED);
+	       
 				
     	selenium.click("//span[text()='Add simple trigger']/parent::legend/parent::fieldset/parent::form/" +
     			"parent::div/parent::div/parent::div/parent::div/parent::div//button[@id='idFormSaveButton']");
@@ -213,4 +256,6 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
 	    selenium.setSpeed(MIN_SPEED);          
 	   
 	}
+	
+ 	
 }
