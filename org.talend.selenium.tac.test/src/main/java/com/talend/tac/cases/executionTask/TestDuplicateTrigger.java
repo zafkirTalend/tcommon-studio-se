@@ -1,26 +1,34 @@
 package com.talend.tac.cases.executionTask;
 
 import org.testng.Assert;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.talend.tac.cases.Login;
 
 public class TestDuplicateTrigger extends Login {
     
-	@Test(groups={"DuplicateTrigger"},dependsOnGroups={"addFileTrigger"})
-	public void testDuplicateTrigger() {
+	@Test(groups={"DuplicateTrigger"},dependsOnGroups={"AddSimpleTrigger"})
+	@Parameters({"modifyTask","addSimpleTriggerLabel","duplicateTriggerLabel"})
+	public void testDuplicateTrigger(String task, String trigger, String duplicateTrigger) {
 	   
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
     	selenium.setSpeed(MID_SPEED);
     	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
-    	selenium.mouseDown("//div[text()='Copy_of_testTask']");//select a exist task
-//    	selenium.mouseDown("//div[text()='a']");//select a exist task
-    	selenium.mouseDown("//div[text()='TestSimpleTrigger']");//select a exist task
+    	selenium.setSpeed(MIN_SPEED);
+    	selenium.mouseDown("//span[text()='"+task+"']");//select a exist task
     	
-    	selenium.click("idSubModuleDuplicateButton");
-    	selenium.click("//input[@name='repeatInterval']");
-    	selenium.click("//div[@class=' x-panel x-component ']/div[2]/div[2]/div/div/table/tbody/tr/td/table/tbody/tr/td/table/tbody/tr[2]/td[2]/em/button[@id='idFormSaveButton']");
-    	Assert.assertTrue(selenium.isElementPresent("//div[text()='Copy_of_TestSimpleTrigger']"));
+    	selenium.mouseDown("//span[text()='"+trigger+"']");//select a exist task
+    	
+    	selenium.click("//span[text()='Triggers']/parent::span/parent::em/parent::a/parent::li/parent::ul/parent::" +
+    			"div/parent::div/parent::div/parent::div//button[@id='idSubModuleDuplicateButton']");
+    	
+    
+    	selenium.click("//span[text()='Add simple trigger']/parent::legend/parent::fieldset/parent::form/" +
+    			"parent::div/parent::div/parent::div/parent::div/parent::div//button[@id='idFormSaveButton']");
+    	selenium.setSpeed(MID_SPEED);
+    	Assert.assertTrue(selenium.isElementPresent("//span[text()='"+duplicateTrigger+"']"));
+    	selenium.setSpeed(MIN_SPEED);
     	
 	}
 }
