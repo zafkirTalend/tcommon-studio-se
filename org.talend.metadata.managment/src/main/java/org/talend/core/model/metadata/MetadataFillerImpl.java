@@ -25,11 +25,13 @@ import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.util.EDataBaseType;
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
+import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.relational.TdView;
 import org.talend.mdm.webservice.WSPing;
 import org.talend.mdm.webservice.XtentisBindingStub;
+import org.talend.repository.model.IRepositoryService;
 import org.talend.utils.sugars.ReturnCode;
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.Package;
@@ -55,18 +57,20 @@ public abstract class MetadataFillerImpl implements IMetadataFiller {
         if (metadataBean == null || connection == null) {
             return;
         }
-        // set Url
-        ConnectionHelper.setURL(connection, metadataBean.getUrl());
-        // set Password
-        ConnectionHelper.setPassword(connection, metadataBean.getPassword());
-        // set userName
-        ConnectionHelper.setUsername(connection, metadataBean.getUsername());
-        // set serverName
-        ConnectionHelper.setServerName(connection, metadataBean.getServerName());
-        // set port
-        ConnectionHelper.setPort(connection, metadataBean.getPort());
-        // set sid
-        ConnectionHelper.setSID(connection, metadataBean.getDatabase());
+        if (!connection.isContextMode()) {
+            // set Url
+            ConnectionHelper.setURL(connection, metadataBean.getUrl());
+            // set Password
+            ConnectionHelper.setPassword(connection, metadataBean.getPassword());
+            // set userName
+            ConnectionHelper.setUsername(connection, metadataBean.getUsername());
+            // set serverName
+            ConnectionHelper.setServerName(connection, metadataBean.getServerName());
+            // set port
+            ConnectionHelper.setPort(connection, metadataBean.getPort());
+            // set sid
+            ConnectionHelper.setSID(connection, metadataBean.getDatabase());
+        }
         // status
         String status = metadataBean.getStatus();
         ConnectionHelper.setDevStatus(status, connection);
@@ -87,8 +91,8 @@ public abstract class MetadataFillerImpl implements IMetadataFiller {
         String otherParameter = metadataBean.getOtherParameter();
         ConnectionHelper.setOtherParameter(otherParameter, connection);
         // retrieveAllMetadata
-        boolean retrieveAllMetadata = metadataBean.isRetrieveAllMetadata();
-        ConnectionHelper.setRetrieveAllMetadata(retrieveAllMetadata, connection);
+        // boolean retrieveAllMetadata = metadataBean.isRetrieveAllMetadata();
+        // ConnectionHelper.setRetrieveAllMetadata(retrieveAllMetadata, connection);
 
     }
 
@@ -203,45 +207,61 @@ public abstract class MetadataFillerImpl implements IMetadataFiller {
             return null;
         }
         IMetadataConnection metadataConnection = new MetadataConnection();
+        IRepositoryService repositoryService = CoreRuntimePlugin.getInstance().getRepositoryService();
+        if (repositoryService != null) {
+            repositoryService.setMetadataConnectionParameter(conn, metadataConnection);
+        } else {
+            // driverPath
+            metadataConnection.setDriverJarPath(conn.getDriverJarPath());
 
-        // driverPath
-        metadataConnection.setDriverJarPath(conn.getDriverJarPath());
+            // set dbType
+            metadataConnection.setDbType(conn.getDatabaseType());
+            // set product(ProductId) and Schema(UISchema)
+            EDatabaseTypeName edatabasetypeInstance = EDatabaseTypeName.getTypeFromDisplayName(conn.getDatabaseType());
+            String product = edatabasetypeInstance.getProduct();
+            metadataConnection.setProduct(product);
+            // set mapping(DbmsId)
+            if (!ReponsitoryContextBridge.isDefautProject()) {
+                Dbms defaultDbmsFromProduct = MetadataTalendType.getDefaultDbmsFromProduct(product);
+                if (defaultDbmsFromProduct != null) {
+                    String mapping = defaultDbmsFromProduct.getId();
+                    metadataConnection.setMapping(mapping);
+                }
+            }
+            // set dbVersionString
+            metadataConnection.setDbVersionString(conn.getDbVersionString());
 
-        // set dbType
-        metadataConnection.setDbType(conn.getDatabaseType());
-        // set product(ProductId) and Schema(UISchema)
-        EDatabaseTypeName edatabasetypeInstance = EDatabaseTypeName.getTypeFromDisplayName(conn.getDatabaseType());
-        String product = edatabasetypeInstance.getProduct();
-        metadataConnection.setProduct(product);
-        // set mapping(DbmsId)
-        if (!ReponsitoryContextBridge.isDefautProject()) {
-            Dbms defaultDbmsFromProduct = MetadataTalendType.getDefaultDbmsFromProduct(product);
-            if (defaultDbmsFromProduct != null) {
-                String mapping = defaultDbmsFromProduct.getId();
-                metadataConnection.setMapping(mapping);
+            // filePath
+            metadataConnection.setFileFieldName(conn.getFileFieldName());
+            // jdbcUrl
+            metadataConnection.setUrl(conn.getURL());
+            // aDDParameter
+            metadataConnection.setAdditionalParams(conn.getAdditionalParams());
+            // driverClassName
+            metadataConnection.setDriverClass(conn.getDriverClass());
+            // host
+            metadataConnection.setServerName(conn.getServerName());
+            // port
+            metadataConnection.setPort(conn.getPort());
+            // dbName
+            metadataConnection.setDatabase(conn.getSID());
+            // otherParameter
+            metadataConnection.setOtherParameter(ConnectionHelper.getOtherParameter(conn));
+            // password
+            metadataConnection.setPassword(ConnectionHelper.getPassword(conn));
+            // user
+            metadataConnection.setUsername(conn.getUsername());
+            // dbName
+            metadataConnection.setDataSourceName(conn.getDatasourceName());
+            // schema
+            metadataConnection.setSchema(conn.getUiSchema());
+            // dbmsId
+            if (metadataConnection.getMapping() == null) {
+                metadataConnection.setMapping(conn.getDbmsId());
             }
         }
-        // set dbVersionString
-        metadataConnection.setDbVersionString(conn.getDbVersionString());
-
-        // filePath
-        metadataConnection.setFileFieldName(conn.getFileFieldName());
-        // jdbcUrl
-        metadataConnection.setUrl(conn.getURL());
-        // aDDParameter
-        metadataConnection.setAdditionalParams(conn.getAdditionalParams());
-        // driverClassName
-        metadataConnection.setDriverClass(conn.getDriverClass());
-        // host
-        metadataConnection.setServerName(conn.getServerName());
-        // port
-        metadataConnection.setPort(conn.getPort());
-        // dbName
-        metadataConnection.setDatabase(conn.getSID());
-        // otherParameter
-        metadataConnection.setOtherParameter(ConnectionHelper.getOtherParameter(conn));
         // retrieveAllMetadata
-        metadataConnection.setRetrieveAllMetadata(ConnectionHelper.getRetrieveAllMetadata(conn));
+        // metadataConnection.setRetrieveAllMetadata(ConnectionHelper.getRetrieveAllMetadata(conn));
         // name
         metadataConnection.setLabel(conn.getLabel());
         // purpose
@@ -254,20 +274,9 @@ public abstract class MetadataFillerImpl implements IMetadataFiller {
         metadataConnection.setStatus(ConnectionHelper.getDevStatus(conn));
         // version
         metadataConnection.setVersion(ConnectionHelper.getVersion(conn));
-        // password
-        metadataConnection.setPassword(ConnectionHelper.getPassword(conn));
-        // user
-        metadataConnection.setUsername(conn.getUsername());
         // universe
         metadataConnection.setUniverse(ConnectionHelper.getUniverse(conn));
-        // dbName
-        metadataConnection.setDataSourceName(conn.getDatasourceName());
-        // schema
-        metadataConnection.setSchema(conn.getUiSchema());
-        // dbmsId
-        if (metadataConnection.getMapping() == null) {
-            metadataConnection.setMapping(conn.getDbmsId());
-        }
+
         return metadataConnection;
 
     }

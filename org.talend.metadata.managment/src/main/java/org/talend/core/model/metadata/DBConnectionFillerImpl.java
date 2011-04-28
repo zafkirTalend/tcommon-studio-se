@@ -45,7 +45,6 @@ import org.talend.cwm.helper.ColumnSetHelper;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.PackageHelper;
 import org.talend.cwm.helper.SchemaHelper;
-import org.talend.cwm.helper.SwitchHelpers;
 import org.talend.cwm.helper.TableHelper;
 import org.talend.cwm.i18n.Messages;
 import org.talend.cwm.relational.RelationalFactory;
@@ -71,7 +70,6 @@ import orgomg.cwm.resource.relational.ForeignKey;
 import orgomg.cwm.resource.relational.PrimaryKey;
 import orgomg.cwm.resource.relational.Schema;
 import orgomg.cwm.resource.relational.enumerations.NullableType;
-import orgomg.cwm.resource.relational.impl.CatalogImpl;
 
 /**
  * @author zshen
@@ -95,16 +93,16 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         }
 
         DatabaseConnection dbconn = (DatabaseConnection) connection;
-        dbconn.setDriverJarPath(metadataBean.getDriverJarPath());
-        dbconn.setProductId(metadataBean.getProduct());
-        dbconn.setDbmsId(metadataBean.getMapping());
-        dbconn.setAdditionalParams(metadataBean.getAdditionalParams());
-        dbconn.setDriverClass(metadataBean.getDriverClass());
-        dbconn.setDatabaseType(metadataBean.getDbType());
-        dbconn.setName(metadataBean.getLabel());
-        dbconn.setLabel(metadataBean.getLabel());
-        dbconn.setVersion(metadataBean.getVersion());
-        dbconn.setUiSchema(metadataBean.getSchema());
+        // dbconn.setDriverJarPath(metadataBean.getDriverJarPath());
+        // dbconn.setProductId(metadataBean.getProduct());
+        // dbconn.setDbmsId(metadataBean.getMapping());
+        // dbconn.setAdditionalParams(metadataBean.getAdditionalParams());
+        // dbconn.setDriverClass(metadataBean.getDriverClass());
+        // dbconn.setDatabaseType(metadataBean.getDbType());
+        // dbconn.setName(metadataBean.getLabel());
+        // dbconn.setLabel(metadataBean.getLabel());
+        // dbconn.setVersion(metadataBean.getVersion());
+        // dbconn.setUiSchema(metadataBean.getSchema());
 
         try {
             if (sqlConnection == null || sqlConnection.isClosed()) {
@@ -152,30 +150,30 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 }
             }
             // uiSchema
-            EDatabaseTypeName edatabasetypeInstance = EDatabaseTypeName.getTypeFromDisplayName(connectionDbType);
-            if (edatabasetypeInstance.isNeedSchema() && StringUtils.isEmpty(dbconn.getUiSchema())) {
-                this.setLinked(false);
-                List<Schema> schemata = ListUtils.castList(Schema.class,
-                        this.fillSchemas(connection, sqlConnection.getMetaData(), null));
-                List<Catalog> catalogs = this.fillCatalogs(connection, sqlConnection.getMetaData(), null);
-                this.setLinked(true);
-                if (schemata.size() == 0 && catalogs.size() > 0) {
-                    schemata = CatalogHelper
-                            .getSchemas(SwitchHelpers.CATALOG_SWITCH.doSwitch((CatalogImpl) catalogs.toArray()[0]));
-                }
-
-                // FIXME Bzhou why here need to add a default schema?
-                // if (edatabasetypeInstance.getSchemaMappingField() == EDatabaseSchemaOrCatalogMapping.Schema
-                // && schemata.size() > 0) {
-                // Iterator<Schema> iter = schemata.iterator();
-                // while (iter.hasNext()) {
-                // String uischema = iter.next().getName();
-                // dbconn.setUiSchema(uischema);
-                // break;
-                // }
-                //
-                // }
-            }
+            // EDatabaseTypeName edatabasetypeInstance = EDatabaseTypeName.getTypeFromDisplayName(connectionDbType);
+            // if (edatabasetypeInstance.isNeedSchema() && StringUtils.isEmpty(dbconn.getUiSchema())) {
+            // this.setLinked(false);
+            // List<Schema> schemata = ListUtils.castList(Schema.class,
+            // this.fillSchemas(connection, sqlConnection.getMetaData(), null));
+            // List<Catalog> catalogs = this.fillCatalogs(connection, sqlConnection.getMetaData(), null);
+            // this.setLinked(true);
+            // if (schemata.size() == 0 && catalogs.size() > 0) {
+            // schemata = CatalogHelper
+            // .getSchemas(SwitchHelpers.CATALOG_SWITCH.doSwitch((CatalogImpl) catalogs.toArray()[0]));
+            // }
+            //
+            // // FIXME Bzhou why here need to add a default schema?
+            // // if (edatabasetypeInstance.getSchemaMappingField() == EDatabaseSchemaOrCatalogMapping.Schema
+            // // && schemata.size() > 0) {
+            // // Iterator<Schema> iter = schemata.iterator();
+            // // while (iter.hasNext()) {
+            // // String uischema = iter.next().getName();
+            // // dbconn.setUiSchema(uischema);
+            // // break;
+            // // }
+            // //
+            // // }
+            // }
         } catch (SQLException e) {
             log.error(e, e);
         } finally {
