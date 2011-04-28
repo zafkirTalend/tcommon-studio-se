@@ -382,6 +382,13 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
         if (folderItem == null) {
             folderItem = folderHelper.createFolder(systemRoutinePath.toString());
         }
+        IPath systemRoutineApiPath = new Path(ERepositoryObjectType.getFolderName(ERepositoryObjectType.ROUTINES));
+        systemRoutineApiPath = systemRoutinePath.append(RepositoryConstants.SYSTEM_DIRECTORY).append("api");
+        FolderItem folderItemApi = folderHelper.getFolder(systemRoutineApiPath);
+        if (folderItemApi == null) {
+            folderItemApi = folderHelper.createFolder(systemRoutineApiPath.toString());
+        }
+
         List<IRepositoryViewObject> repositoryObjects = getAll(project, ERepositoryObjectType.ROUTINES, false, false);
         Map<String, List<URI>> routineAndJars = coreSerivce.getRoutineAndJars();
         for (URL url : routines) {
