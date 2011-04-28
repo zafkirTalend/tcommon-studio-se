@@ -3,7 +3,7 @@
 // %GENERATED_LICENSE%
 //
 // ============================================================================
-package routines.system;
+package routines.system.api;
 
 /**
  * Interface describing Job behaviors.

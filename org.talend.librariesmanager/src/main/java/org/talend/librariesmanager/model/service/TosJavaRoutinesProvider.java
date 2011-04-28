@@ -49,7 +49,10 @@ public class TosJavaRoutinesProvider implements IRoutinesProvider {
     }
 
     public List<URL> getTalendRoutines() {
-        List<URL> toReturn = FilesUtils.getFilesFromFolder(Activator.BUNDLE, "resources/java/routines/system", ".java"); //$NON-NLS-1$ //$NON-NLS-2$
+        List<URL> toReturn = FilesUtils.getFilesFromFolder(Activator.BUNDLE,
+                "resources/java/routines/system", ".java", true, true); //$NON-NLS-1$ //$NON-NLS-2$
+        //
+        //        toReturn.addAll(FilesUtils.getFilesFromFolder(Activator.BUNDLE, "resources/java/routines/system/api", ".java")); //$NON-NLS-1$ //$NON-NLS-2$
         return toReturn;
     }
 }
