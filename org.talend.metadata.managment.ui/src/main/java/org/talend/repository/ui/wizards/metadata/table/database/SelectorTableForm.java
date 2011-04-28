@@ -790,95 +790,83 @@ public class SelectorTableForm extends AbstractForm {
                         if (eContainer != null) {
                             if (eContainer instanceof Catalog) {
                                 String name = ((Catalog) eContainer).getName();
-                                Catalog c = (Catalog) ConnectionHelper.getPackage(name, dbConn, Catalog.class);
-                                if (c != null) {
-                                    EList<ModelElement> ownedElement = c.getOwnedElement();
-                                    if (ownedElement == null || ownedElement.isEmpty()) {
-                                        PackageHelper.addMetadataTable(newTable, c);
-                                    } else {
-                                        List<Schema> schemas = CatalogHelper.getSchemas(c);
-                                        if (!schemas.isEmpty()) {
-                                            PackageHelper.addMetadataTable(newTable, schemas.get(0));
+                                for (Package p : dataPackage) {
+                                    if (p instanceof Catalog) {
+                                        Catalog c = (Catalog) ConnectionHelper.getPackage(name, dbConn, Catalog.class);
+                                        if (c != null) {
+                                            EList<ModelElement> ownedElement = c.getOwnedElement();
+                                            if (ownedElement == null || ownedElement.isEmpty()) {
+                                                PackageHelper.addMetadataTable(newTable, c);
+                                                break;
+                                            } else {
+                                                List<Schema> schemas = CatalogHelper.getSchemas(c);
+                                                if (!schemas.isEmpty()) {
+                                                    PackageHelper.addMetadataTable(newTable, schemas.get(0));
+                                                    break;
+                                                } else {
+                                                    PackageHelper.addMetadataTable(newTable, c);
+                                                    break;
+                                                }
+                                            }
                                         } else {
-                                            PackageHelper.addMetadataTable(newTable, c);
-                                        }
-                                    }
-                                } else {
-                                    for (Package p : dataPackage) {
-                                        if (p instanceof Catalog) {
                                             EList<ModelElement> ownedElement = p.getOwnedElement();
                                             if (ownedElement == null || ownedElement.isEmpty()) {
                                                 PackageHelper.addMetadataTable(newTable, p);
+                                                break;
                                             } else {
                                                 List<Schema> schemas = CatalogHelper.getSchemas((Catalog) p);
                                                 if (!schemas.isEmpty()) {
                                                     PackageHelper.addMetadataTable(newTable, schemas.get(0));
+                                                    break;
                                                 } else {
                                                     PackageHelper.addMetadataTable(newTable, p);
+                                                    break;
                                                 }
                                             }
-                                        } else if (p instanceof Schema) {
-                                            PackageHelper.addMetadataTable(newTable, p);
                                         }
+                                    } else if (p instanceof Schema) {
+                                        PackageHelper.addMetadataTable(newTable, p);
+                                        break;
                                     }
                                 }
                             } else if (eContainer instanceof Schema) {
                                 String name = ((Schema) eContainer).getName();
-                                Schema s = (Schema) ConnectionHelper.getPackage(name, dbConn, Schema.class);
-                                if (s != null) {
-                                    PackageHelper.addMetadataTable(newTable, s);
-                                } else {
-                                    EObject parent = eContainer.eContainer();
-                                    if (parent != null) {
-                                        if (parent instanceof Catalog) {
-                                            String pName = ((Catalog) parent).getName();
-                                            Catalog c = (Catalog) ConnectionHelper.getPackage(pName, dbConn, Catalog.class);
-                                            if (c != null) {
-                                                EList<ModelElement> ownedElement = c.getOwnedElement();
-                                                if (ownedElement == null || ownedElement.isEmpty()) {
-                                                    PackageHelper.addMetadataTable(newTable, c);
-                                                } else {
-                                                    boolean isSchema = false;
-                                                    boolean exist = false;
-                                                    List<Schema> schemas = CatalogHelper.getSchemas(c);
-                                                    for (Schema schema : schemas) {
-                                                        isSchema = true;
-                                                        if (schema.getName().equals(name)) {
-                                                            exist = true;
-                                                            PackageHelper.addMetadataTable(newTable, schema);
-                                                        } else {
-                                                            PackageHelper.addMetadataTable(newTable, c);
-                                                        }
+                                for (Package p : dataPackage) {
+                                    if (p instanceof Catalog) {
+                                        EList<ModelElement> ownedElement = p.getOwnedElement();
+                                        if (ownedElement == null || ownedElement.isEmpty()) {
+                                            PackageHelper.addMetadataTable(newTable, p);
+                                            break;
+                                        } else {
+                                            List<Schema> schemas = CatalogHelper.getSchemas((Catalog) p);
+                                            boolean isSchema = false;
+                                            boolean exist = false;
+                                            if (!schemas.isEmpty()) {
+                                                isSchema = true;
+                                                for (Schema schema : schemas) {
+                                                    if (schema.getName().equals(name)) {
+                                                        exist = true;
+                                                        PackageHelper.addMetadataTable(newTable, schema);
+                                                        break;
                                                     }
-                                                    if (isSchema && !exist) {
-                                                        PackageHelper.addMetadataTable(newTable, schemas.get(0));
-                                                    }
-                                                }
-                                            } else {
-                                                Package pk = null;
-                                                boolean exist = false;
-                                                for (Package p : dataPackage) {
-                                                    if (p instanceof Catalog) {
-                                                        List<Schema> schemas = CatalogHelper.getSchemas((Catalog) p);
-                                                        for (Schema schema : schemas) {
-                                                            if (pk == null) {
-                                                                pk = schema;
-                                                            }
-                                                            if (schema.getName().equals(name)) {
-                                                                exist = true;
-                                                                PackageHelper.addMetadataTable(newTable, schema);
-                                                                break;
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                                if (!exist) {
-                                                    PackageHelper.addMetadataTable(newTable, pk);
                                                 }
                                             }
+                                            if (!isSchema) {
+                                                PackageHelper.addMetadataTable(newTable, p);
+                                                break;
+                                            } else if (!exist) {
+                                                PackageHelper.addMetadataTable(newTable, schemas.get(0));
+                                                break;
+                                            }
                                         }
-                                    } else {
-                                        PackageHelper.addMetadataTable(newTable, dataPackage.get(0));
+                                    } else if (p instanceof Schema) {
+                                        Schema s = (Schema) ConnectionHelper.getPackage(name, dbConn, Schema.class);
+                                        if (s != null) {
+                                            PackageHelper.addMetadataTable(newTable, s);
+                                            break;
+                                        } else {
+                                            PackageHelper.addMetadataTable(newTable, p);
+                                        }
                                     }
                                 }
                             }

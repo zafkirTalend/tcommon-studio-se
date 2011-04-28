@@ -17,6 +17,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+import org.talend.commons.bridge.ReponsitoryContextBridge;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.PasswordEncryptUtil;
 import org.talend.core.database.EDatabaseTypeName;
@@ -24,6 +25,9 @@ import org.talend.core.database.conn.DatabaseConnStrUtil;
 import org.talend.core.database.conn.template.EDatabaseConnTemplate;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
+import org.talend.core.model.metadata.Dbms;
+import org.talend.core.model.metadata.IMetadataConnection;
+import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.types.JavaTypesManager;
@@ -31,6 +35,7 @@ import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.utils.TalendQuoteUtils;
+import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.repository.model.IConnParamName;
 
@@ -453,6 +458,65 @@ public final class DBConnectionContextUtils {
         conn.setDriverJarPath(driverJar);
         conn.setDriverClass(className);
         conn.setDbmsId(mappingFile);
+
+    }
+
+    public static void setMetadataConnectionParameter(DatabaseConnection conn, IMetadataConnection metadataConnection) {
+        if (conn == null || metadataConnection == null) {
+            return;
+        }
+        ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(conn);
+
+        // driverPath
+        metadataConnection.setDriverJarPath(ConnectionContextHelper.getOriginalValue(contextType, conn.getDriverJarPath()));
+
+        // set dbType
+        metadataConnection.setDbType(ConnectionContextHelper.getOriginalValue(contextType, conn.getDatabaseType()));
+        // set product(ProductId) and Schema(UISchema)
+        EDatabaseTypeName edatabasetypeInstance = EDatabaseTypeName.getTypeFromDisplayName(ConnectionContextHelper
+                .getOriginalValue(contextType, conn.getDatabaseType()));
+        String product = edatabasetypeInstance.getProduct();
+        metadataConnection.setProduct(product);
+        // set mapping(DbmsId)
+        if (!ReponsitoryContextBridge.isDefautProject()) {
+            Dbms defaultDbmsFromProduct = MetadataTalendType.getDefaultDbmsFromProduct(product);
+            if (defaultDbmsFromProduct != null) {
+                String mapping = defaultDbmsFromProduct.getId();
+                metadataConnection.setMapping(mapping);
+            }
+        }
+        // set dbVersionString
+        metadataConnection.setDbVersionString(ConnectionContextHelper.getOriginalValue(contextType, conn.getDbVersionString()));
+
+        // filePath
+        metadataConnection.setFileFieldName(ConnectionContextHelper.getOriginalValue(contextType, conn.getFileFieldName()));
+        // jdbcUrl
+        metadataConnection.setUrl(ConnectionContextHelper.getOriginalValue(contextType, conn.getURL()));
+        // aDDParameter
+        metadataConnection.setAdditionalParams(ConnectionContextHelper.getOriginalValue(contextType, conn.getAdditionalParams()));
+        // driverClassName
+        metadataConnection.setDriverClass(ConnectionContextHelper.getOriginalValue(contextType, conn.getDriverClass()));
+        // host
+        metadataConnection.setServerName(ConnectionContextHelper.getOriginalValue(contextType, conn.getServerName()));
+        // port
+        metadataConnection.setPort(ConnectionContextHelper.getOriginalValue(contextType, conn.getPort()));
+        // dbName
+        metadataConnection.setDatabase(ConnectionContextHelper.getOriginalValue(contextType, conn.getSID()));
+        // otherParameter
+        metadataConnection.setOtherParameter(ConnectionContextHelper.getOriginalValue(contextType,
+                ConnectionHelper.getOtherParameter(conn)));
+        // password
+        metadataConnection.setPassword(ConnectionContextHelper.getOriginalValue(contextType, ConnectionHelper.getPassword(conn)));
+        // user
+        metadataConnection.setUsername(ConnectionContextHelper.getOriginalValue(contextType, conn.getUsername()));
+        // dbName
+        metadataConnection.setDataSourceName(ConnectionContextHelper.getOriginalValue(contextType, conn.getDatasourceName()));
+        // schema
+        metadataConnection.setSchema(conn.getUiSchema());
+        // dbmsId
+        if (metadataConnection.getMapping() == null) {
+            metadataConnection.setMapping(ConnectionContextHelper.getOriginalValue(contextType, conn.getDbmsId()));
+        }
 
     }
 }
