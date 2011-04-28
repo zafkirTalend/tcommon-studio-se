@@ -29,6 +29,7 @@
 		<tstamp />
 		<fail unless="rcp-app-home" message="You must set the rcp-app-home property to specify the path the RCP application to test"/>
 		<fail unless="test-application" message="You must set the test-application property to specify the the application to test"/>
+		<fail unless="talend.licence.path" message="You must set the talend.licence.path property to specify where to find the licence"/>
 	</target>
 			
 	<target name="clean.application.config.and.workspace">
@@ -56,6 +57,7 @@
     	<java dir="${rcp-app-home}" fork="true" output="${swtbot.log.path}" logError="true"
     	classname="org.eclipse.core.launcher.Main" failonerror="false">
     		<syspropertyset refid="swtbot.test.class.collector.properties"/>
+    		<sysproperty key="talend.licence.path" value="${talend.licence.path}"/>
     	    <classpath>
     	        <fileset dir="${rcp-app-home}/plugins">
     	            <include name="org.eclipse.equinox.launcher_*.jar"/>
@@ -67,7 +69,7 @@
     	    <arg line="-className ${swtbot.test-class-name}"/>
     	    <arg line="formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,${swtbot.junit.results.path}"/>
     	    <arg line="-consoleLog"/>
-    	    <jvmarg line="-Xms128m -Xmx1024m -XX:MaxPermSize=256m -XX:+HeapDumpOnOutOfMemoryError" /> <!-- -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=1716"/>-->
+    	    <jvmarg line="-Xms128m -Xmx1024m -XX:MaxPermSize=256m -XX:+HeapDumpOnOutOfMemoryError -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=1716"/>
     	</java>        
     </target>
 
@@ -88,6 +90,7 @@
     	<java dir="${rcp-app-home}" fork="true" output="${unit.log.path}" logError="true"
     	classname="org.eclipse.core.launcher.Main" failonerror="false">
     		<syspropertyset refid="unit.test.class.collector.properties"/>
+    		<sysproperty key="talend.licence.path" value="${talend.licence.path}"/>
     	    <classpath>
     	        <fileset dir="${rcp-app-home}/plugins">
     	            <include name="org.eclipse.equinox.launcher_*.jar"/>
@@ -98,8 +101,8 @@
     	    <arg line="-testApplication ${test-application} -clean -nl ta --disableLoginDialog -project TEST_NOLOGIN --deleteProjectIfExist -language java -login a@b.c"/>
     	    <arg line="-classname ${unit.test-class-name}"/>
     	    <arg line="formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,${unit.junit.results.path}"/>
-    	    <arg line="-consoleLog"/>
-    	    <jvmarg line="-Xms128m -Xmx1024m -XX:MaxPermSize=256m -XX:+HeapDumpOnOutOfMemoryError"/><!-- -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=1716"/>-->
+    	    <arg line="-consoleLog -console 23 -noExit"/>
+    	    <jvmarg line="-Xms128m -Xmx1024m -XX:MaxPermSize=256m -XX:+HeapDumpOnOutOfMemoryError"/><!-- -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=1716"/>-->
     	</java>        
     </target>
 
