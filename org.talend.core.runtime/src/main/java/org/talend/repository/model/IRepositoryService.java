@@ -29,6 +29,7 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbench;
 import org.talend.core.IService;
 import org.talend.core.model.components.IComponentsFactory;
+import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
@@ -109,6 +110,8 @@ public interface IRepositoryService extends IService {
 
     public DatabaseConnection cloneOriginalValueConnection(DatabaseConnection dbConn, boolean defaultContext,
             String selectedContext);
+
+    public void setMetadataConnectionParameter(DatabaseConnection dbConn, IMetadataConnection metaConn);
 
     public IEditorPart openSQLPatternEditor(SQLPatternItem item, boolean readOnly);
 
