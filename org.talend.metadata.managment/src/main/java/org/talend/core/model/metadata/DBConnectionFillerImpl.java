@@ -85,32 +85,42 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
 
     @Override
     public Connection fillUIConnParams(IMetadataConnection metadataBean, Connection connection) {
+        Connection newConnection = null;
         if (connection == null) {
-            connection = ConnectionFactory.eINSTANCE.createDatabaseConnection();
+            newConnection = ConnectionFactory.eINSTANCE.createDatabaseConnection();
         }
-        if (super.fillUIConnParams(metadataBean, connection) == null) {
+        if (super.fillUIConnParams(metadataBean, newConnection == null ? connection : newConnection) == null) {
             return null;
         }
+        DatabaseConnection dbconn = null;
+        if (newConnection != null) {
 
-        DatabaseConnection dbconn = (DatabaseConnection) connection;
-        // dbconn.setDriverJarPath(metadataBean.getDriverJarPath());
-        // dbconn.setProductId(metadataBean.getProduct());
-        // dbconn.setDbmsId(metadataBean.getMapping());
-        // dbconn.setAdditionalParams(metadataBean.getAdditionalParams());
-        // dbconn.setDriverClass(metadataBean.getDriverClass());
-        // dbconn.setDatabaseType(metadataBean.getDbType());
-        // dbconn.setName(metadataBean.getLabel());
-        // dbconn.setLabel(metadataBean.getLabel());
-        // dbconn.setVersion(metadataBean.getVersion());
-        // dbconn.setUiSchema(metadataBean.getSchema());
+            dbconn = (DatabaseConnection) newConnection;
+        } else {
+            dbconn = (DatabaseConnection) connection;
 
+        }
+        if (newConnection != null) {
+            dbconn.setDriverJarPath(metadataBean.getDriverJarPath());
+            dbconn.setProductId(metadataBean.getProduct());
+            dbconn.setDbmsId(metadataBean.getMapping());
+            dbconn.setAdditionalParams(metadataBean.getAdditionalParams());
+            dbconn.setDriverClass(metadataBean.getDriverClass());
+            dbconn.setDatabaseType(metadataBean.getDbType());
+            dbconn.setName(metadataBean.getLabel());
+            dbconn.setLabel(metadataBean.getLabel());
+            dbconn.setVersion(metadataBean.getVersion());
+            dbconn.setUiSchema(metadataBean.getSchema());
+        }
         try {
             if (sqlConnection == null || sqlConnection.isClosed()) {
                 this.checkConnection(metadataBean);
             }
             MetadataConnectionUtils.setMetadataCon(metadataBean);
             // fill some base parameter
-            // fillMetadataParams(metadataBean, connection);
+            if (newConnection != null) {
+                fillMetadataParams(metadataBean, newConnection);
+            }
             // software
             DatabaseMetaData dbMetadata = MetadataConnectionUtils.getConnectionMetadata(sqlConnection);
             String connectionDbType = metadataBean.getDbType();
@@ -188,7 +198,12 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             }
 
         }
-        return connection;
+        if (newConnection != null) {
+            return newConnection;
+        } else {
+            return connection;
+        }
+
     }
 
     @Override
