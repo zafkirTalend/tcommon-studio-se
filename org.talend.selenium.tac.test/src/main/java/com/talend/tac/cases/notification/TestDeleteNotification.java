@@ -9,7 +9,7 @@ import com.talend.tac.cases.Login;
 public class TestDeleteNotification extends Login {
     
 	//delete a notification(cancel Delete Notification)
-	@Test(dependsOnGroups={"AddJobserverNotification"})
+	@Test(groups={"DeleteNotification"},dependsOnGroups={"AddJobserverNotification"})
 	@Parameters({"eventNewUser"})
 	public void testCancelDeleteNotification(String eventNewUser) {
 		
