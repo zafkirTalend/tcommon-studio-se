@@ -18,38 +18,65 @@
     <!-- add trigger -->
     <parameter name="addSimpleTriggerLabel" value="TestSimpleTrigger" />
     <parameter name="addSimpleTriggerDescription" value="test add a SimpleTrigger" />
-   
+    
+    <parameter name="addSimpleTriggerLabelNotChooseDate" value="TestSimpleTriggerNotChooseDate" />
+    <parameter name="addSimpleTriggerNotChooseDateDescription" value="test add a SimpleTrigger of not choose date" />
+    
     <parameter name="addSimpleTriggerExistTriggerDescription" value="test add a exist SimpleTrigger" />
     
-    <parameter name="addSimpleTriggerWrongFormTimeIntervalLabel" value="TestSimpleTriggerAddWrongFormTimeInterval" />
-    <parameter name="addSimpleTriggerWrongFormTimeIntervalDescription" value="test add a simpleTrigger of wrong form time interval" />
-    
+    <parameter name="addSimpleTriggerWrongFormLabel" value="a@#$$%^%" />
+    <parameter name="addSimpleTriggerWrongFormDescription" value="test add a simpleTrigger of wrong form time interval" />
+    <parameter name="addSimpleTriggerWrongFormStartTime" value="2010256487" />
+    <parameter name="addSimpleTriggerWrongFormEndTime" value="2154879157" />
+    <parameter name="addSimpleTriggerWrongFormNumberOfTriggers" value="r$%$#" />
+    <parameter name="addSimpleTriggerWrongFormTimeInterval" value="a@$" />
+        
     <parameter name="addSimpleTriggerOverdueStartDataLabel" value="TestSimpleTriggerOverdueStartData" />
     <parameter name="addSimpleTriggerOverdueStartDataDescription" value="test add a overdue(startDate) simpleTrigger" />
     
     <parameter name="addSimpleTriggerOverdueEndDatalabel" value="TestSimpleTriggerOverdueEndData" />
     <parameter name="addSimpleTriggerOverdueEndDataDescription" value="test add a overdue(endDate) simpleTrigger" />
+    
+    <parameter name="addSimpleTriggerNumberOfTriggeringsRunnedAutoStopLabel" value="testAddSimpleTriggerNumberOfTriggeringsRunnedAutoStopLabel" />
+    <parameter name="addSimpleTriggerNumberOfTriggeringsRunnedAutoStopDescription" value="test add a simpleTrigger of 'Number Of Triggerings' run finish auto stop" />
+    
+    <parameter name="addCronTriggerLabel" value="TestCronTriggerByUI" />
+    <parameter name="addCronTriggerDescription" value="test add a cronTrigger of by UI " />
+
+    <parameter name="addCronTriggerExistTriggerDescription" value="test add a exist cronTrigger of by UI" />
+    
+    <parameter name="addCronTriggerOverdue" value="TestcronTriggerOverdue" />
+    <parameter name="addCronTriggerOverdueDescription" value="test add a overdue cronTrigger of by UI" />
+    
+    <parameter name="addCronTriggerByHandInputDateLabel" value="TestAddByHandCronTrigger" />
+    <parameter name="addCronTriggerByHandInputDateDescription" value="test add a cronTrigger" />
     <!-- add trigger -->
     
     <!-- duplicate trigger -->
     <parameter name="duplicateTriggerLabel" value="Copy_of_TestSimpleTrigger"/>
     <!-- duplicate trigger -->
     
+    
     <test  name="test_task"  annotations="JDK">
-        <classes>  
-            <!-- these execution are need configurations(project/SVN/job) -->      
+        <classes>
+        <!--
+             these execution are need configurations(project/SVN/job)      
+            -->
             <class name="com.talend.tac.cases.executionTask.TestAddTask"/>
             <class name="com.talend.tac.cases.executionTask.TestDuplicateTask"/>
             <class name="com.talend.tac.cases.executionTask.TestDeteleTask"/>
-            <class name="com.talend.tac.cases.executionTask.TestModifyTask"/>
+            <class name="com.talend.tac.cases.executionTask.TestModifyTask"/> 
      
-            <class name="com.talend.tac.cases.executionTask.TestAddTriggerAddSimpleTrigger"/>
-             <!-- 
-            <class name="com.talend.tac.cases.executionTask.TestAddTriggerAddCronTrigger"/>
-            <class name="com.talend.tac.cases.executionTask.TestAddTriggerAddFileTrigger"/>--> 
+            <class name="com.talend.tac.cases.executionTask.TestAddTriggerAddSimpleTrigger"/><!--
+              
+            <class name="com.talend.tac.cases.executionTask.TestAddTriggerAddFileTrigger"/>
+            -->
+           
             <class name="com.talend.tac.cases.executionTask.TestDuplicateTrigger"/>
             <class name="com.talend.tac.cases.executionTask.TestDeleteTrigger"/>
-
+            <class name="com.talend.tac.cases.executionTask.TestAddTriggerAddCronTrigger"/>
+            
+            <class name="com.talend.tac.cases.executionTask.TestTriggerBarPauseResume"/> 
         </classes> 
 	</test>
 	
