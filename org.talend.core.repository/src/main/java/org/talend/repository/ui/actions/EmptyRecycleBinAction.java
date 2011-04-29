@@ -30,6 +30,7 @@ import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.utils.platform.PluginChecker;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ITDQRepositoryService;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
@@ -85,8 +86,24 @@ public class EmptyRecycleBinAction extends AContextualAction {
         }
 
         IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
+
         for (IRepositoryNode child : node.getChildren()) {
+            //MOD klliu 2011-04-28 bug 20204 removing connection is synced to the connection view of SQL explore 
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
+                ITDQRepositoryService tdqRepService = (ITDQRepositoryService) GlobalServiceRegister.getDefault()
+                        .getService(ITDQRepositoryService.class);
+                if (!tdqRepService.removeAliasInSQLExplorer(child)) {
+                    MessageDialog.openWarning(shell, title, Messages.getString("EmptyRecycleBinAction.dialog.allDependencies"));
+                    try {
+                        factory.saveProject(ProjectManager.getInstance().getCurrentProject());
+                    } catch (PersistenceException e) {
+                        ExceptionHandler.process(e);
+                    }
+                    return;
+                }
+            }
             try {
+
                 deleteElements(factory, (RepositoryNode) child);
             } catch (Exception e) {
                 MessageBoxExceptionHandler.process(e);

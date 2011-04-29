@@ -44,6 +44,7 @@ import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ICoreService;
+import org.talend.core.ITDQRepositoryService;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.general.Project;
@@ -753,6 +754,12 @@ public class DeleteAction extends AContextualAction {
             if (resChangeService != null) {
                 if (!resChangeService.handleResourceChange(((ConnectionItem) item).getConnection())) {
                     return true;
+                }
+                //MOD klliu 2011-04-28 bug 20204 removing connection is synced to the connection view of SQL explore 
+                if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
+                    ITDQRepositoryService tdqRepService = (ITDQRepositoryService) GlobalServiceRegister.getDefault().getService(
+                            ITDQRepositoryService.class);
+                    tdqRepService.removeAliasInSQLExplorer(currentJobNode);
                 }
             }
         }

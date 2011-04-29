@@ -15,6 +15,7 @@ package org.talend.core;
 import org.eclipse.ui.IViewPart;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
+import org.talend.repository.model.IRepositoryNode;
 
 /**
  * DOC bZhou class global comment. Detailled comment
@@ -34,5 +35,7 @@ public interface ITDQRepositoryService extends IService {
     public void initProxyRepository();
 
     public void addPartListener();
+    //MOD klliu 2011-04-28 bug 20204 removing connection is synced to the connection view of SQL explore 
+    public boolean removeAliasInSQLExplorer(IRepositoryNode children);
 
 }
