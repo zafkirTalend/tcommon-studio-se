@@ -58,7 +58,7 @@ public class TestAddTriggerAddCronTrigger extends Login{
 	}
 	
 	//add a cron triiger, set date is by UI
-	@Test(dependsOnGroups={"DeleteTrigger"})
+	@Test(groups={"AddCronTrigger"},dependsOnGroups={"DeleteTrigger"})
 	@Parameters({"addCronTriggerLabel","addCronTriggerDescription"})
     public void testAddTriggerAddCronTrigger(String cronTriggerLabel,String description) {
 		
