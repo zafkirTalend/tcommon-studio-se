@@ -780,9 +780,54 @@ public class SelectorTableForm extends AbstractForm {
                         MetadataConnectionUtils.getPackageFilter(dbConn, sqlConn.getMetaData(), true));
                 MetadataFillFactory.getDBInstance().fillSchemas(dbConn, sqlConn.getMetaData(),
                         MetadataConnectionUtils.getPackageFilter(dbConn, sqlConn.getMetaData(), false));
+
+                EList<Package> nps = dbConn.getDataPackage();
+                EList<Package> ops = getConnection().getDataPackage();
+                if (ops != null && !ops.isEmpty()) {
+                    for (Package op : ops) {
+                        if (op instanceof Catalog) {
+                            Catalog c = (Catalog) ConnectionHelper.getPackage(((Catalog) op).getName(), dbConn, Catalog.class);
+                            if (nps != null && !nps.isEmpty()) {
+                                Package p = nps.get(0);
+                                if (p instanceof Catalog && c == null) {
+                                    // EList<ModelElement> ownedElement = op.getOwnedElement();
+                                    // if (ownedElement != null && !ownedElement.isEmpty()) {
+                                    // Iterator<ModelElement> iterator = ownedElement.iterator();
+                                    // while (iterator.hasNext()) {
+                                    // ModelElement o = iterator.next();
+                                    // if (o instanceof Schema) {
+                                    // Iterator<ModelElement> i = ((Schema) o).getOwnedElement().iterator();
+                                    // while (i.hasNext()) {
+                                    // i.remove();
+                                    // }
+                                    // } else if (o instanceof MetadataTable) {
+                                    // iterator.remove();
+                                    // }
+                                    // }
+                                    // }
+                                    ConnectionHelper.addCatalog((Catalog) op, dbConn);
+                                }
+                            }
+                        } else if (op instanceof Schema) {
+                            Schema s = (Schema) ConnectionHelper.getPackage(((Schema) op).getName(), dbConn, Schema.class);
+                            if (nps != null && !nps.isEmpty()) {
+                                Package p = nps.get(0);
+                                if (p instanceof Schema && s == null) {
+                                    // Iterator<ModelElement> iterator = op.getOwnedElement().iterator();
+                                    // while (iterator.hasNext()) {
+                                    // iterator.remove();
+                                    // }
+                                    ConnectionHelper.addSchema((Schema) op, dbConn);
+                                }
+                            }
+                        }
+                    }
+                }
+
                 // compare with current connection
                 Set<MetadataTable> tables = ConnectionHelper.getTables(getConnection());
                 EList<Package> dataPackage = dbConn.getDataPackage();
+
                 for (MetadataTable table : tables) {
                     if (table != null && dataPackage != null) {
                         MetadataTable newTable = EcoreUtil.copy(table);
@@ -801,11 +846,42 @@ public class SelectorTableForm extends AbstractForm {
                                             } else {
                                                 List<Schema> schemas = CatalogHelper.getSchemas(c);
                                                 if (!schemas.isEmpty()) {
-                                                    PackageHelper.addMetadataTable(newTable, schemas.get(0));
-                                                    break;
+                                                    boolean added = false;
+                                                    for (Schema s : schemas) {
+                                                        EList<ModelElement> model = s.getOwnedElement();
+                                                        if (model == null || model.isEmpty()) {
+                                                            PackageHelper.addMetadataTable(newTable, s);
+                                                            added = true;
+                                                            break;
+                                                        } else {
+                                                            for (ModelElement m : model) {
+                                                                if (m != null && m instanceof MetadataTable) {
+                                                                    if (!((MetadataTable) m).getLabel().equals(table.getLabel())) {
+                                                                        PackageHelper.addMetadataTable(newTable, s);
+                                                                        added = true;
+                                                                        break;
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                    if (added) {
+                                                        break;
+                                                    }
                                                 } else {
-                                                    PackageHelper.addMetadataTable(newTable, c);
-                                                    break;
+                                                    boolean added = false;
+                                                    for (ModelElement m : ownedElement) {
+                                                        if (m != null && m instanceof MetadataTable) {
+                                                            if (!((MetadataTable) m).getLabel().equals(table.getLabel())) {
+                                                                PackageHelper.addMetadataTable(newTable, c);
+                                                                added = true;
+                                                                break;
+                                                            }
+                                                        }
+                                                    }
+                                                    if (added) {
+                                                        break;
+                                                    }
                                                 }
                                             }
                                         } else {
@@ -862,8 +938,25 @@ public class SelectorTableForm extends AbstractForm {
                                     } else if (p instanceof Schema) {
                                         Schema s = (Schema) ConnectionHelper.getPackage(name, dbConn, Schema.class);
                                         if (s != null) {
-                                            PackageHelper.addMetadataTable(newTable, s);
-                                            break;
+                                            EList<ModelElement> ownedElement = s.getOwnedElement();
+                                            if (ownedElement == null || ownedElement.isEmpty()) {
+                                                PackageHelper.addMetadataTable(newTable, s);
+                                                break;
+                                            } else {
+                                                boolean added = false;
+                                                for (ModelElement m : ownedElement) {
+                                                    if (m != null && m instanceof MetadataTable) {
+                                                        if (!((MetadataTable) m).getLabel().equals(table.getLabel())) {
+                                                            PackageHelper.addMetadataTable(newTable, s);
+                                                            added = true;
+                                                            break;
+                                                        }
+                                                    }
+                                                }
+                                                if (added) {
+                                                    break;
+                                                }
+                                            }
                                         } else {
                                             PackageHelper.addMetadataTable(newTable, p);
                                         }
@@ -1443,16 +1536,22 @@ public class SelectorTableForm extends AbstractForm {
     }
 
     private void clearTableItem(TreeItem item, boolean deleteFromConnection) {
-        TableNode node = (TableNode) item.getData();
-        if (node.getType() == TableNode.TABLE) {
-            if (deleteFromConnection) {
-                deleteTable(item);
-            }
-            item.setText(2, ""); //$NON-NLS-1$
-            item.setText(3, ""); //$NON-NLS-1$
-            RetrieveColumnRunnable runnable = threadExecutor.getRunnable(item);
-            if (runnable != null) {
-                runnable.setCanceled(true);
+        if (item == null) {
+            return;
+        }
+        Object data = item.getData();
+        if (data != null && data instanceof TableNode) {
+            TableNode node = (TableNode) data;
+            if (node.getType() == TableNode.TABLE) {
+                if (deleteFromConnection) {
+                    deleteTable(item);
+                }
+                item.setText(2, ""); //$NON-NLS-1$
+                item.setText(3, ""); //$NON-NLS-1$
+                RetrieveColumnRunnable runnable = threadExecutor.getRunnable(item);
+                if (runnable != null) {
+                    runnable.setCanceled(true);
+                }
             }
         }
     }
@@ -1520,6 +1619,9 @@ public class SelectorTableForm extends AbstractForm {
                         + existTable.getLabel() + "' already exist in \"" + pack.getName() + "\", do you want to cover it?");
                 if (confirm) {
                     TreeItem existItem = getExistItem(existTable);
+                    if (existItem == null) {
+                        return;
+                    }
                     clearTableItem(existItem);
                     existItem.setChecked(false);
                     item.setText(3, Messages.getString("SelectorTableForm.Pending")); //$NON-NLS-1$
