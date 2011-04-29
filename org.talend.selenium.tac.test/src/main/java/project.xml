@@ -16,12 +16,12 @@
   <parameter  name ="userPassword"	value ="admin"/>
   -->
   
-  <parameter  name ="ProjectType"	value ="Data Quality"/>
+  <parameter  name ="ProjectType"	value ="Data Integration"/>
   <!-- 
   <parameter  name ="AddcommonProjectname"	value ="commonpro"/>
   <parameter  name ="AddreferenceProjectname"	value ="referencepro"/>
    -->
-  <parameter  name ="DeleteProjectname"	value ="referencepro"/>
+  
   
   <!-- 
   <parameter  name ="SVNurl" value ="https://192.168.0.85/svn/test"/>
@@ -38,16 +38,21 @@
   <parameter  name ="SVNuserPassword" value ="testing"/>
    -->
    
-  <parameter  name ="ProlableName" value ="testPro"/>
+  <parameter  name ="ProlableName" value ="test@Pro"/>
+  <parameter  name ="NullLabelProject" value=""/>
+  <parameter  name ="uncheckAdvancedProject" value="test@DefaultUncheckAdvanced"/>
+  <parameter  name ="AddcommontestProjectname" value ="test@common"/>
+  <parameter  name ="AddreferencetestProjectname" value="test@reference"/>
   <parameter  name ="Prolanguage" value =""/>
-  <parameter  name ="duplicateproname" value ="commonpro"/>
-  <parameter  name ="DeleteProjectname" value ="referencepro"/>
-  <parameter  name ="BranchProject" value ="commonpro"/>
+  <parameter  name ="duplicateproname" value ="test@common"/>
+  <parameter  name ="DeleteProjectname" value ="test@reference"/>
+  <parameter  name ="BranchProject" value ="test@common"/>
   <parameter  name ="BranchName" value ="branch"/>
-  <parameter  name ="DeleteBranchProject" value ="commonpro"/>
+  <parameter  name ="DeleteBranchProject" value ="test@common"/>
   <parameter  name ="DeleteBranchName" value ="branch"/>
   <parameter  name ="NumbersOfprojects" value ="2"/>
   
+  <parameter  name ="ChangeServerLablename" value="ServerChangeports"/>
   <parameter  name ="ServerLablename" value ="serverTest"/>
   <parameter  name ="DeactiveServerlable" value ="serverTest"/>
   <parameter  name ="PortInvalidServer" value ="PortInvalidserver"/> 
