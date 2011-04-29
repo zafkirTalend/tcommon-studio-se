@@ -14,7 +14,7 @@ public class TestAddProjectWithExistlable extends Login {
 	@Test(dependsOnGroups = { "Add" })
 	// @Test(groups = { "AddBranch" }, dependsOnGroups = { "Add" })
 	@Parameters({ "SVNurl", "SVNuserName", "SVNuserPassword",
-			"AddcommonProjectname", "Prolanguage", "ProjectType" })
+			"AddcommontestProjectname", "Prolanguage", "ProjectType" })
 	public void testAddpro(String url, String user, String password,
 			String proname, String language, String type) throws Exception {
 

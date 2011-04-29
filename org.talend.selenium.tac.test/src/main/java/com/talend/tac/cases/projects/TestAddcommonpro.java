@@ -16,7 +16,7 @@ public class TestAddcommonpro extends Login {
 
 	@Test(groups = { "Add" },dependsOnGroups = { "cleanbefore" })
 	@Parameters({ "SVNurl","ProjectType", "SVNuserName", "SVNuserPassword",
-			"AddcommonProjectname", "AddreferenceProjectname","Prolanguage"  })
+			"AddcommontestProjectname", "AddreferencetestProjectname","Prolanguage"  })
 	public void testAddpro(String url,String type, String user, String password,
 			String proname, String name2,String language) throws Exception {
 //		selenium.setSpeed(MAX_SPEED);
@@ -114,9 +114,10 @@ public class TestAddcommonpro extends Login {
 
 	public void testaddreference(String namereference,String language,String type, String svnurl,
 			String user, String password) throws Exception {
-
+		selenium.refresh();
+		this.waitForElementPresent("idSubModuleAddButton", WAIT_TIME);
 		selenium.click("idSubModuleAddButton");
-		Thread.sleep(5000);
+		Thread.sleep(2000);
 		selenium.setSpeed(MIN_SPEED);
 		//type project label
 		this.typeString("idLabelInput", namereference);
@@ -124,6 +125,7 @@ public class TestAddcommonpro extends Login {
 		selenium.setSpeed(MID_SPEED);
 		if (selenium.isVisible("idProjectTypeComboBox")) {
 			selenium.click("idProjectTypeComboBox");
+			this.waitForElementPresent("//div[text()='" + type + "']", WAIT_TIME);
 			selenium.mouseDown("//div[text()='" + type + "']");
 			selenium.fireEvent("idProjectTypeComboBox", "blur");
 		}

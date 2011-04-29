@@ -27,11 +27,11 @@ public class TestAddProjectUncheckadvanced extends Login {
 	TestDeletepro delete = new TestDeletepro();
 
 	@Test
-	@Parameters({ "ProjectType", "Prolanguage" })
-	public void testAddPerlproject(String type, String language)
+	@Parameters({"uncheckAdvancedProject" ,"ProjectType", "Prolanguage" })
+	public void testAddPerlproject(String namecommon,String type, String language)
 			throws InterruptedException {
 		this.waitForElementPresent("!!!menu.project.element!!!", Base.WAIT_TIME);
-		String namecommon = "DefaultProUncheck";
+//		String namecommon = "DefaultProUncheck";
 		selenium.setSpeed(MID_SPEED);
 		selenium.click("!!!menu.project.element!!!");
 		selenium.click("idSubModuleAddButton");

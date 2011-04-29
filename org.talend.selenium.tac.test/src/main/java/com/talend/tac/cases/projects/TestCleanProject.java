@@ -30,7 +30,7 @@ public class TestCleanProject extends Login{
 				.matches(other.getString("delete.project.warning")));
 
 	}
-  @Test(dependsOnGroups={"Second"})
+//  @Test(dependsOnGroups={"Second"})
 //  @Parameters({ "NumbersOfprojects" })
   public void deleteAll() throws InterruptedException {
 //	  selenium.setSpeed(MID_SPEED);
@@ -48,5 +48,10 @@ public class TestCleanProject extends Login{
 		}
 	  }
 	  selenium.setSpeed(MIN_SPEED);
+  }
+  @Test(dependsOnGroups={"Second"})
+  public void testCleanprojects() throws InterruptedException{
+	  new TacCleaner().cleanProjectsNotused(this.selenium);
+	  
   }
 }

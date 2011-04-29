@@ -99,6 +99,7 @@ public class TestAddprojects extends Login {
 		selenium.click("idSvnUserLogInput");
 //		selenium.setSpeed(MAX_SPEED);
 		this.typeString("idDescriptionInput", "description_" + namecommon);
+		selenium.click("idAdvanceInput");
 		// selenium.focus("idFormSaveButton");
 		// selenium.keyDownNative(""+KeyEvent.VK_ENTER);
 		// selenium.keyUpNative(""+KeyEvent.VK_ENTER);
@@ -113,9 +114,10 @@ public class TestAddprojects extends Login {
 
 	public void testaddreference(String namereference,String language,String type, String svnurl,
 			String user, String password) throws Exception {
-
+        selenium.refresh();
+        this.waitForElementPresent("idSubModuleAddButton", WAIT_TIME);
 		selenium.click("idSubModuleAddButton");
-		Thread.sleep(5000);
+		Thread.sleep(3000);
 //		selenium.setSpeed(MIN_SPEED);
 		//type project label
 		this.typeString("idLabelInput", namereference);
@@ -123,6 +125,7 @@ public class TestAddprojects extends Login {
 		selenium.setSpeed(MID_SPEED);
 		if (selenium.isVisible("idProjectTypeComboBox")) {
 			selenium.click("idProjectTypeComboBox");
+			this.waitForElementPresent("//div[text()='" + type + "']", WAIT_TIME);
 			selenium.mouseDown("//div[text()='" + type + "']");
 			selenium.fireEvent("idProjectTypeComboBox", "blur");
 		}
@@ -162,6 +165,7 @@ public class TestAddprojects extends Login {
 //		selenium.setSpeed(MAX_SPEED);
 		//type project descroption
 		this.typeString("idDescriptionInput", "description_" + namereference);
+		selenium.click("idAdvanceInput");
 		// selenium.focus("idFormSaveButton");
 		// selenium.keyDownNative(""+KeyEvent.VK_ENTER);
 		// selenium.keyUpNative(""+KeyEvent.VK_ENTER);
