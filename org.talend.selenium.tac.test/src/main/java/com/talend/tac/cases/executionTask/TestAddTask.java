@@ -61,6 +61,7 @@ public class TestAddTask  extends Login {
 		addTask(label, labelDescription, 1, 1, 1, 1);
 		
 		selenium.click("idFormSaveButton");
+		selenium.setSpeed("1000");
 		Assert.assertTrue(selenium.isTextPresent(rb.getString("executionTask.error.uniqueLabel")));
 		selenium.setSpeed(MIN_SPEED);
 		
