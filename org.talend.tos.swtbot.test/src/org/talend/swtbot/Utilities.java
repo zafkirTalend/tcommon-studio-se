@@ -18,6 +18,8 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import junit.framework.Assert;
 
@@ -1293,9 +1295,16 @@ public class Utilities {
      * DOC fzhong Comment method "cleanUpRepository". Delete all items in repository to recycle bin.
      * 
      * @param tree tree in repository
+     * @param buildType "TOS" or "TIS"
      */
-    public static void cleanUpRepository(SWTBotTree tree) {
+    public static void cleanUpRepository(SWTBotTree tree, String buildType) {
+        List<TalendItemType> itemList = null;
         for (TalendItemType itemType : TalendItemType.values()) {
+            if ("TOS".equals(buildType)) {
+                itemList = getTISItemTypes(); // if TOS, get TIS items and pass next step
+            }
+            if (itemList != null && itemList.contains(itemType))
+                continue; // if TOS, pass TIS items
             SWTBotTreeItem treeNode = getTalendItemNode(tree, itemType);
             if (TalendItemType.SQL_TEMPLATES.equals(itemType))
                 treeNode = treeNode.expandNode("Generic", "UserDefined"); // focus on specific sql template type
@@ -1306,6 +1315,20 @@ public class Utilities {
                     treeNode.getNode(itemName).contextMenu("Delete").click();
             }
         }
+    }
+
+    public static List<TalendItemType> getTISItemTypes() {
+        List<TalendItemType> itemList = new ArrayList<TalendItemType>();
+        itemList.add(TalendItemType.JOBLET_DESIGNS);
+        itemList.add(TalendItemType.JOBSCRIPTS);
+        itemList.add(TalendItemType.SAP_CONNECTIONS);
+        itemList.add(TalendItemType.BRMS);
+        itemList.add(TalendItemType.EMBEDDED_RULES);
+        itemList.add(TalendItemType.COPYBOOK);
+        itemList.add(TalendItemType.VALIDATION_RULES);
+        itemList.add(TalendItemType.HL7);
+        itemList.add(TalendItemType.EDI);
+        return itemList;
     }
 
     /**

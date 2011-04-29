@@ -10,18 +10,17 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package tosstudio.metadata.copybook;
-
-import java.io.IOException;
-import java.net.URISyntaxException;
+package tisstudio.jobdesigns;
 
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotCTabItem;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,7 +31,7 @@ import org.talend.swtbot.Utilities;
  * DOC Administrator class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class CopyPasteCopybookTest extends TalendSwtBotForTos {
+public class ViewDocumentationTest extends TalendSwtBotForTos {
 
     private SWTBotTree tree;
 
@@ -40,26 +39,30 @@ public class CopyPasteCopybookTest extends TalendSwtBotForTos {
 
     private SWTBotTreeItem treeNode;
 
-    private static final String COPYBOOKNAME = "copybook1"; //$NON-NLS-1$
+    private static final String JOBNAME = "test01"; //$NON-NLS-1$
 
     @Before
-    public void createCopybook() throws IOException, URISyntaxException {
+    public void createAJob() {
         view = Utilities.getRepositoryView(gefBot);
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.COPYBOOK);
-        Utilities.createCopybook(COPYBOOKNAME, treeNode, gefBot);
+        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.JOB_DESIGNS);
+        Utilities.createJob(JOBNAME, treeNode, gefBot);
     }
 
     @Test
-    public void copyPasteCopybookTest() {
-        Utilities.copyAndPaste(treeNode, COPYBOOKNAME, "0.1");
+    public void viewDocumentation() {
+        treeNode.getNode(JOBNAME + " 0.1").contextMenu("View documentation").click();
+
+        SWTBotCTabItem newDocumentTabItem = gefBot.cTabItem(JOBNAME + "_0.1.html");
+        Assert.assertNotNull("document tab is not opened", newDocumentTabItem);
     }
 
     @After
-    public void removePreviousCreateItems() {
-        Utilities.delete(tree, treeNode, COPYBOOKNAME, "0.1", null);
-        Utilities.delete(tree, treeNode, "Copy_of_" + COPYBOOKNAME, "0.1", null);
+    public void removePreviouslyCreateItems() {
+        gefBot.cTabItem("Job " + JOBNAME + " 0.1").close();
+        gefBot.cTabItem(JOBNAME + "_0.1.html").close();
+        Utilities.delete(tree, treeNode, JOBNAME, "0.1", null);
         Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

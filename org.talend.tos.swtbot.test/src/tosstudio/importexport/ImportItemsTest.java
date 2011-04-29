@@ -30,6 +30,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
+import org.talend.swtbot.Utilities.TalendItemType;
 
 /**
  * DOC Administrator class global comment. Detailled comment
@@ -44,18 +45,6 @@ public class ImportItemsTest extends TalendSwtBotForTos {
     private SWTBotShell shell;
 
     private static final String SAMPLE_RELATIVE_FILEPATH = "items.zip";
-
-    private String[] treeNodes = { "Business Models", "Job Designs", "Joblet Designs", "Contexts", "Code", "SQL Templates",
-            "Metadata", "Documentation" };
-
-    private String[] treeItems = { "businessTest", "jobTest", "jobletTest", "contextTest", "routineTest", "jobscriptsTest",
-            "mysqlTest", "sapTest", "delimitedFileTest", "positionalFileTest", "regexFileTest", "xmlFileTest", "excelFileTest",
-            "ldifTest", "ldapTest", "salesforceTest", "genericSchemaTest", "copybookTest", "HL7Test", "webserviceTest" };
-
-    private String[] codeNodes = { "Routines", "Job Scripts" };
-
-    private String[] metadataNodes = { "Db Connections", "SAP Connections", "File delimited", "File positional", "File regex",
-            "File xml", "File Excel", "File ldif", "LDAP", "Salesforce", "Generic schemas", "Copybook", "HL7", "Web Service" };
 
     @Before
     public void initialisePrivateFields() {
@@ -77,21 +66,17 @@ public class ImportItemsTest extends TalendSwtBotForTos {
 
         view.setFocus();
         tree.setFocus();
-        for (int i = 0; i < treeNodes.length; i++) {
-            if (i >= 0 && i <= 3) {
-                SWTBotTreeItem newTreeItem = tree.expandNode(treeNodes[i]).select(treeItems[i] + " 0.1");
-                Assert.assertNotNull(treeItems[i] + " 0.1 is not exist", newTreeItem);
-            } else if (i == 4) {
-                for (int k1 = 0; k1 < codeNodes.length; k1++) {
-                    SWTBotTreeItem newCodeItem = tree.expandNode(treeNodes[i], codeNodes[k1]).select(treeItems[i + k1] + " 0.1");
-                    Assert.assertNotNull(treeItems[i + k1] + " 0.1 is not exist", newCodeItem);
-                }
-            } else if (i == 6) {
-                for (int k2 = 0; k2 < metadataNodes.length; k2++) {
-                    SWTBotTreeItem newMetadataItem = tree.expandNode(treeNodes[i], metadataNodes[k2]).select(
-                            treeItems[i + k2] + " 0.1");
-                    Assert.assertNotNull(treeItems[i + k2] + " 0.1 is not exist", newMetadataItem);
-                }
+        for (TalendItemType itemType : TalendItemType.values()) {
+            if (Utilities.getTISItemTypes().contains(itemType))
+                continue;
+            SWTBotTreeItem treeNode = Utilities.getTalendItemNode(tree, itemType);
+            if (TalendItemType.SQL_TEMPLATES.equals(itemType))
+                treeNode = treeNode.expandNode("Generic", "UserDefined"); // focus on specific sql template type
+            if (TalendItemType.DOCUMENTATION.equals(itemType) || TalendItemType.RECYCLE_BIN.equals(itemType))
+                continue; // undo with documentation and recycle bin
+            if (treeNode.rowCount() != 0) {
+                SWTBotTreeItem newTreeItem = treeNode.select(itemType.toString() + " 0.1");
+                Assert.assertNotNull(itemType.toString() + " item not exist", newTreeItem);
             }
         }
     }
@@ -99,7 +84,7 @@ public class ImportItemsTest extends TalendSwtBotForTos {
     @After
     public void removePreviouslyCreateItems() {
         shell.close();
-        Utilities.cleanUpRepository(tree);
+        Utilities.cleanUpRepository(tree, "TOS");
         Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

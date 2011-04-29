@@ -30,6 +30,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
+import org.talend.swtbot.Utilities.TalendItemType;
 
 /**
  * DOC Administrator class global comment. Detailled comment
@@ -45,19 +46,18 @@ public class ChangeAllItemsToAFixedVersionTest extends TalendSwtBotForTos {
 
     private static final String SAMPLE_RELATIVE_FILEPATH = "items.zip"; //$NON-NLS-1$
 
-    private String[] treeNodes = { "Business Models", "Job Designs", "Joblet Designs", "Contexts", "Code", "SQL Templates",
-            "Metadata", "Documentation" };
+    private String[] treeNodes = { "Business Models", "Job Designs", "Contexts", "Code", "SQL Templates", "Metadata" };
 
-    private String[] treeItems = { "businessTest", "jobTest", "jobletTest", "contextTest", "routineTest", "jobscriptsTest",
-            "mysqlTest", "sapTest", "delimitedFileTest", "positionalFileTest", "regexFileTest", "xmlFileTest", "excelFileTest",
-            "ldifTest", "ldapTest", "salesforceTest", "genericSchemaTest", "copybookTest", "HL7Test", "webserviceTest" };
+    private String[] treeItems = { "BUSINESS_MODEL", "JOB_DESIGNS", "CONTEXTS", "ROUTINES", "SQL_TEMPLATES", "DB_CONNECTIONS",
+            "FILE_DELIMITED", "FILE_POSITIONAL", "FILE_REGEX", "FILE_XML", "FILE_EXCEL", "FILE_LDIF", "LDAP", "SALESFORCE",
+            "GENERIC_SCHEMAS", "WEB_SERVICE", "FTP" };
 
-    private String[] codeNodes = { "Routines", "Job Scripts" };
+    private String[] codeNodes = { "Routines" };
 
-    private String[] documentationNodes = { "generated", "jobs", "joblets" };
+    private String[] sqlTemplatePath = { "Generic", "UserDefined" };
 
-    private String[] metadataNodes = { "Db Connections", "SAP Connections", "File delimited", "File positional", "File regex",
-            "File xml", "File Excel", "File ldif", "LDAP", "Salesforce", "Generic schemas", "Copybook", "HL7", "Web Service" };
+    private String[] metadataNodes = { "Db Connections", "File delimited", "File positional", "File regex", "File xml",
+            "File Excel", "File ldif", "LDAP", "Salesforce", "Generic schemas", "Web Service", "FTP" };
 
     @Before
     public void initialisePrivateFields() throws IOException, URISyntaxException {
@@ -72,13 +72,6 @@ public class ChangeAllItemsToAFixedVersionTest extends TalendSwtBotForTos {
         gefBot.button("Select All").click();
         gefBot.button("Finish").click();
         gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Progress Information")));
-
-        // Generate all documentation
-        tree.expandNode("Documentation").getNode("generated").contextMenu("Generate all projects documentation").click();
-        gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Progress Information")), 30000);
-        gefBot.waitUntil(Conditions.shellIsActive("Talend Open Studio"), 30000);
-        gefBot.shell("Talend Open Studio").activate();
-        gefBot.button("OK").click();
     }
 
     @Test
@@ -86,8 +79,11 @@ public class ChangeAllItemsToAFixedVersionTest extends TalendSwtBotForTos {
         gefBot.toolbarButtonWithTooltip("Project settings").click();
         gefBot.shell("Project Settings").activate();
         gefBot.tree().expandNode("General").select("Version Management").click();
-        for (int i = 0; i < treeNodes.length; i++) {
-            gefBot.tree(1).getTreeItem(treeNodes[i]).check();
+        for (TalendItemType itemType : TalendItemType.values()) {
+            if (Utilities.getTISItemTypes().contains(itemType) || Utilities.TalendItemType.RECYCLE_BIN.equals(itemType))
+                continue;
+            SWTBotTreeItem treeNode = Utilities.getTalendItemNode(gefBot.tree(1), itemType);
+            treeNode.check();
         }
         gefBot.button("m").click();
         gefBot.button("OK").click();
@@ -95,25 +91,15 @@ public class ChangeAllItemsToAFixedVersionTest extends TalendSwtBotForTos {
         gefBot.button("OK").click();
 
         for (int i = 0; i < treeNodes.length; i++) {
-            if (i >= 0 && i <= 3) {
-                SWTBotTreeItem newTreeItem = tree.expandNode(treeNodes[i]).select(treeItems[i] + " 0.2");
-                Assert.assertNotNull(treeItems[i] + " 0.2 is not exist", newTreeItem);
+            if (i >= 0 && i <= 2) {
+                assertItemVersion(treeItems[i] + " 0.2", treeNodes[i]);
+            } else if (i == 3) {
+                assertItemVersion(treeItems[i] + " 0.2", treeNodes[i], codeNodes[0]);
             } else if (i == 4) {
-                for (int k1 = 0; k1 < codeNodes.length; k1++) {
-                    SWTBotTreeItem newCodeItem = tree.expandNode(treeNodes[i], codeNodes[k1]).select(treeItems[i + k1] + " 0.2");
-                    Assert.assertNotNull(treeItems[i + k1] + " 0.2 is not exist", newCodeItem);
-                }
-            } else if (i == 6) {
-                for (int k2 = 0; k2 < metadataNodes.length; k2++) {
-                    SWTBotTreeItem newMetadataItem = tree.expandNode(treeNodes[i], metadataNodes[k2]).select(
-                            treeItems[i + k2] + " 0.2");
-                    Assert.assertNotNull(treeItems[i + k2] + " 0.2 is not exist", newMetadataItem);
-                }
-            } else if (i == 7) {
-                for (int k3 = 0; k3 < documentationNodes.length - 1; k3++) {
-                    SWTBotTreeItem newDocItem = tree.expandNode(treeNodes[i], documentationNodes[0], documentationNodes[1 + k3])
-                            .select(treeItems[k3 + 1] + " 0.2");
-                    Assert.assertNotNull(treeItems[k3 + 1] + " 0.2 is not exist", newDocItem);
+                assertItemVersion(treeItems[i] + " 0.2", treeNodes[i], sqlTemplatePath[0], sqlTemplatePath[1]);
+            } else if (i == 5) {
+                for (int j = 0; j < metadataNodes.length; j++) {
+                    assertItemVersion(treeItems[i + j] + " 0.2", treeNodes[i], metadataNodes[j]);
                 }
             }
         }
@@ -122,7 +108,17 @@ public class ChangeAllItemsToAFixedVersionTest extends TalendSwtBotForTos {
     @After
     public void removePreviouslyCreateItems() {
         shell.close();
-        Utilities.cleanUpRepository(tree);
+        Utilities.cleanUpRepository(tree, "TOS");
         Utilities.emptyRecycleBin(gefBot, tree);
+    }
+
+    private void assertItemVersion(String itemName, String... nodes) {
+        SWTBotTreeItem newTreeItem = null;
+        try {
+            newTreeItem = tree.expandNode(nodes).select(itemName);
+        } finally {
+            Assert.assertNotNull(itemName + " does not exist", newTreeItem);
+            newTreeItem = null;
+        }
     }
 }

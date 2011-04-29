@@ -66,7 +66,8 @@ public class DeleteBasicValueCheckRulesTest extends TalendSwtBotForTos {
 
     @After
     public void removePreviouslyCreateItems() {
-        Utilities.cleanUpRepository(tree);
+        Utilities.cleanUpRepository(treeNode);
+        Utilities.cleanUpRepository(metadataNode);
         Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

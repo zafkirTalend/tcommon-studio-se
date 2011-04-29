@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package tosstudio.metadata.copybook;
+package tisstudio.metadata.copybook;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -32,7 +32,7 @@ import org.talend.swtbot.Utilities;
  * DOC Administrator class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class DeleteCopybookTest extends TalendSwtBotForTos {
+public class CopyPasteCopybookTest extends TalendSwtBotForTos {
 
     private SWTBotTree tree;
 
@@ -52,12 +52,14 @@ public class DeleteCopybookTest extends TalendSwtBotForTos {
     }
 
     @Test
-    public void deleteCopybookTest() {
-        Utilities.delete(tree, treeNode, COPYBOOKNAME, "0.1", null);
+    public void copyPasteCopybookTest() {
+        Utilities.copyAndPaste(treeNode, COPYBOOKNAME, "0.1");
     }
 
     @After
     public void removePreviousCreateItems() {
+        Utilities.delete(tree, treeNode, COPYBOOKNAME, "0.1", null);
+        Utilities.delete(tree, treeNode, "Copy_of_" + COPYBOOKNAME, "0.1", null);
         Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

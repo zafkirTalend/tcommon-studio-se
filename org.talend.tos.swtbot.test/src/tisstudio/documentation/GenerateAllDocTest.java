@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package tosstudio.documentation;
+package tisstudio.documentation;
 
 import junit.framework.Assert;
 
