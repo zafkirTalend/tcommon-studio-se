@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="Suite" parallel="false">
-
+	
+	<!-- 
 	<parameter name="server" value="localhost" />
 	<parameter name="port" value="4444" />
 	<parameter name="browser" value="*firefox" />
@@ -14,6 +15,7 @@
 	<parameter name="userName" value="admin@company.com" />
 	<parameter name="userPassword" value="admin" />
 
+	 -->
 	<!-- ################ TAC LICENSE ################### -->
 	<!--
 		<parameter name="license"
@@ -24,8 +26,10 @@
 	-->
 
 	<!-- ############### DB Configuration ################-->
+	<!-- 
 	<parameter name="db.url"
 		value="jdbc:h2:/home/automation/Automation/database/talend_administrator;AUTO_SERVER=TRUE;MVCC=TRUE" />
+	 -->
 	<parameter name="db.userName" value="tisadmin" />
 	<parameter name="db.userPassWd" value="tisadmin" />
 	<parameter name="db.driver" value="org.h2.Driver" />
@@ -268,7 +272,7 @@
 		</classes>
 	</test>
 
-	<!-- under developing ,blocked-->
+	<!-- under developing ,blocked -->
 	<!--
 		<test name="TestGrantAuthorization"> <classes> <class
 		name="com.talend.tac.cases.authorization.TestGrantAuthorization">
