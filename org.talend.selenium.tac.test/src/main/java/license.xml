@@ -133,12 +133,14 @@
 		<classes>
 			<class name="com.talend.tac.cases.dbConfig.TestWrongDbConfig">
 				<parameter name="db.userName" value="wrong userName" />
+				<parameter name="db.userPassWd" value="wrong Userpasswd" />
 				<methods>
 					<include name="testWrongAccountDbConfig" />
 				</methods>
 			</class>
 		</classes>
 	</test>
+
 
 	<test name="TestLogin">
 		<classes>
