@@ -9,6 +9,7 @@ import org.testng.annotations.Test;
 import com.talend.tac.cases.Login;
 
 public class TestLicenseAccountsCount extends Login {
+
 	
 	@Test
 	public void testAddDIChangeToDQ() throws InterruptedException{
@@ -111,6 +112,154 @@ public class TestLicenseAccountsCount extends Login {
 		Assert.assertEquals(selenium.getValue("idTypeInput"),
 		"Data Integration");
 		cleanAllExceptAdmin();
+	}
+	@Test
+	public void testAddDQChangeToDI() throws InterruptedException{
+		cleanAllExceptAdmin();
+		int n = getDQcounts();
+		this.waitForElementPresent("idMenuUserElement", WAIT_TIME);
+		selenium.setSpeed(MIN_SPEED);
+		selenium.click("idMenuUserElement");
+		this.waitForElementPresent(
+				"//div[@class='x-grid3-cell-inner x-grid3-col-login' and text()='admin@company.com']",
+				WAIT_TIME);
+		String username = "";
+		String name = "";
+		for (int i = 0; i < n - 1; i++) {
+			username = "DQ_" + i + "@talend.com";
+			// System.out.println("ดÞ"+username);
+			name = "DQ_" + i;
+			//
+			selenium.refresh();
+			Thread.sleep(3000);
+			selenium.click("idSubModuleAddButton");
+			selenium.type("idUserLoginInput", username);
+			selenium.fireEvent("idUserLoginInput", "blur");
+			selenium.type("idUserFirstNameInput", name);
+			selenium.fireEvent("idUserFirstNameInput", "blur");
+			selenium.type("idUserLastNameInput", name);
+			selenium.fireEvent("idUserLastNameInput", "blur");
+			selenium.type("idUserPasswordInput", name);
+			selenium.fireEvent("idUserPasswordInput", "blur");
+			selenium.type("//input[@name='authenticationLogin']", "admin");
+			selenium.fireEvent("//input[@name='authenticationLogin']", "blur");
+			selenium.type("//input[@name='authenticationPassword']", "admin");
+			selenium.fireEvent("//input[@name='authenticationPassword']",
+					"blur");
+			selenium.click("idTypeInput");
+			selenium.mouseDownAt("//div[@role='listitem'][2]", "" + Event.ENTER);
+			Assert.assertEquals(selenium.getValue("idTypeInput"),
+					"Data Quality");
+			String roles = rb.getString("menu.role.administrator") + "/"
+					+ rb.getString("menu.role.viewer") + "/"
+					+ rb.getString("menu.role.operationManager") + "/"
+					+ rb.getString("menu.role.designer");
+			selenium.click("idRoleButton");
+			selenium.setSpeed(MID_SPEED);
+			Assert.assertTrue(selenium.isTextPresent(rb
+					.getString("user.roles.title")));
+			selenium.setSpeed(MIN_SPEED);
+			selenium.controlKeyDown();
+			selenium.mouseDown("//td[not(contains(@style,'display: none'))]/div[text()='"
+					+ rb.getString("menu.role.administrator")
+					+ "']"
+					+ "/parent::td/preceding-sibling::td//div[@class='x-grid3-row-checker']");
+			selenium.mouseDown("//td[not(contains(@style,'display: none'))]/div[text()='"
+					+ rb.getString("menu.role.viewer")
+					+ "']"
+					+ "/parent::td/preceding-sibling::td//div[@class='x-grid3-row-checker']");
+			selenium.mouseDown("//td[not(contains(@style,'display: none'))]/div[text()='"
+					+ rb.getString("menu.role.operationManager")
+					+ "']"
+					+ "/parent::td/preceding-sibling::td//div[@class='x-grid3-row-checker']");
+			selenium.mouseDown("//td[not(contains(@style,'display: none'))]/div[text()='"
+					+ rb.getString("menu.role.designer")
+					+ "']"
+					+ "/parent::td/preceding-sibling::td//div[@class='x-grid3-row-checker']");
+			selenium.controlKeyUp();
+			selenium.click("idValidateButton");
+//			selenium.setSpeed(MAX_SPEED);
+			Assert.assertEquals(selenium.getValue("idActiveInput"), roles);
+			//
+			selenium.click("idFormSaveButton");
+			Thread.sleep(5000);
+			// System.out.println("ีย"+username);
+			Assert.assertTrue(selenium.isTextPresent(username),
+					"testAddMaxAmountsDQUsersAllowed  failed!");
+			selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-login' and text()='"
+					+ username + "']");
+			Thread.sleep(3000);
+			Assert.assertTrue(selenium.getValue("//input[@name='active']")
+					.equals("on"));
+			selenium.setSpeed(MIN_SPEED);
+		}
+		//change DQ users added type from DI to DQ
+		for (int i = 0; i < n-1; i++) {
+			username = "DQ_" + i + "@talend.com";
+			selenium.refresh();
+			Thread.sleep(3000);
+			selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-login' and text()='"
+					+ username + "']");
+			Thread.sleep(2000);
+			Assert.assertEquals(selenium.getValue("idTypeInput"),
+			"Data Quality");
+			String valuebefore =selenium.getValue("idTypeInput");
+			Assert.assertTrue(valuebefore.equals("Data Quality"));
+			selenium.setSpeed(MID_SPEED);
+			selenium.click("idTypeInput");
+			selenium.mouseDownAt("//div[@role='listitem'][1]", "" + Event.ENTER);
+			selenium.fireEvent("idTypeInput", "blur");
+			System.out.println("นþนþ"+selenium.getValue("idTypeInput"));
+			Assert.assertEquals(selenium.getValue("idTypeInput"),
+					"Data Integration");
+			
+			
+			selenium.click("idRoleButton");
+			selenium.setSpeed(MID_SPEED);
+			Assert.assertTrue(selenium.isTextPresent(rb
+					.getString("user.roles.title")));
+			selenium.setSpeed(MIN_SPEED);
+			selenium.controlKeyDown();
+			selenium.mouseDown("//td[not(contains(@style,'display: none'))]/div[text()='"
+					+ rb.getString("menu.role.administrator")
+					+ "']"
+					+ "/parent::td/preceding-sibling::td//div[@class='x-grid3-row-checker']");
+			selenium.mouseDown("//td[not(contains(@style,'display: none'))]/div[text()='"
+					+ rb.getString("menu.role.viewer")
+					+ "']"
+					+ "/parent::td/preceding-sibling::td//div[@class='x-grid3-row-checker']");
+			selenium.mouseDown("//td[not(contains(@style,'display: none'))]/div[text()='"
+					+ rb.getString("menu.role.operationManager")
+					+ "']"
+					+ "/parent::td/preceding-sibling::td//div[@class='x-grid3-row-checker']");
+//			selenium.mouseDown("//td[not(contains(@style,'display: none'))]/div[text()='"
+//					+ rb.getString("menu.role.designer")
+//					+ "']"
+//					+ "/parent::td/preceding-sibling::td//div[@class='x-grid3-row-checker']");
+			selenium.controlKeyUp();
+			selenium.click("idValidateButton");
+			
+			
+			selenium.click("idFormSaveButton");
+			Thread.sleep(3000);
+			selenium.refresh();
+			Thread.sleep(3000);
+			selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-login' and text()='"
+					+ username + "']");
+			Thread.sleep(3000);
+			String valueafter = selenium.getValue("idTypeInput");
+			System.out.println("nishi :"+valueafter);
+			if (i == n - 2) {
+				// Assert.assertTrue(selenium.isTextPresent("Save failed: You are using "+(n-1)+" DQ users, but your license allows only "+(n-1)+", please contact your talend account manager -- For more information see your log file"),
+				// "test failed!");
+				Assert.assertFalse(valueafter.equals("Data Integration"));
+			} else {
+				Assert.assertTrue(valueafter.equals("Data Integration"));
+			}
+			selenium.setSpeed(MIN_SPEED);
+		}
+		cleanAllExceptAdmin();
+		
 	}
 	@Test
 	public void testAddMaxAmountsDIUsersAllowed() throws InterruptedException {
@@ -397,6 +546,8 @@ public class TestLicenseAccountsCount extends Login {
 			username = "DQ_" + i + "@talend.com";
 			name = "DQ_" + i;
 			//
+			selenium.refresh();
+			this.waitForElementPresent("idSubModuleAddButton", WAIT_TIME);
 			selenium.click("idSubModuleAddButton");
 			selenium.type("idUserLoginInput", username);
 			selenium.fireEvent("idUserLoginInput", "blur");
@@ -485,6 +636,8 @@ public class TestLicenseAccountsCount extends Login {
 			username = "DQ_" + i + "@talend.com";
 			name = "DQ_" + i;
 			//
+			selenium.refresh();
+			this.waitForElementPresent("idSubModuleAddButton", WAIT_TIME);
 			selenium.click("idSubModuleAddButton");
 			selenium.type("idUserLoginInput", username);
 			selenium.fireEvent("idUserLoginInput", "blur");
@@ -561,6 +714,8 @@ public class TestLicenseAccountsCount extends Login {
 			username = "DQ_" + i + "@talend.com";
 			name = "DQ_" + i;
 			//
+			selenium.refresh();
+			this.waitForElementPresent("idSubModuleAddButton", WAIT_TIME);
 			selenium.click("idSubModuleAddButton");
 			selenium.type("idUserLoginInput", username);
 			selenium.fireEvent("idUserLoginInput", "blur");
@@ -619,6 +774,8 @@ public class TestLicenseAccountsCount extends Login {
 		}
 		for (int i = 0; i < n; i++) {
 			username = "DQ_" + i + "@talend.com";
+			selenium.refresh();
+			Thread.sleep(3000);
 			selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-login' and text()='"
 					+ username + "']");
 			Thread.sleep(2000);
