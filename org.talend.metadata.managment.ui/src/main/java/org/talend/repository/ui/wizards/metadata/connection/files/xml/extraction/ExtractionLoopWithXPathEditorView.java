@@ -198,7 +198,11 @@ public class ExtractionLoopWithXPathEditorView extends AbstractDataTableEditorVi
             }
 
             public void set(XmlXPathLoopDescriptor bean, Integer value) {
-                bean.setLimitBoucle(value.intValue());
+                if (value != null) {
+                    bean.setLimitBoucle(value.intValue());
+                } else {
+                    bean.setLimitBoucle(0);
+                }
             }
 
         });
