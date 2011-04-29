@@ -69,12 +69,12 @@
     	    <arg line="-className ${swtbot.test-class-name}"/>
     	    <arg line="formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,${swtbot.junit.results.path}"/>
     	    <arg line="-consoleLog"/>
-    	    <jvmarg line="-Xms128m -Xmx1024m -XX:MaxPermSize=256m -XX:+HeapDumpOnOutOfMemoryError -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=1716"/>
+    	    <jvmarg line="-Xms128m -Xmx1024m -XX:MaxPermSize=256m -XX:+HeapDumpOnOutOfMemoryError"/><!-- -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=1716"/>-->
     	</java>        
     </target>
 
 	<!-- ================================= 
-          target: swtbot.test.for.talend.rcp.app               
+          target: to launch all unit tests               
          ================================= -->
     <target name="unit.test.for.talend.rcp.app" description="launch unit test for Talend product defined in ${test-application}, output the unit test result and the application log"  depends="init">
     	<!-- canot use depends because the clean target must be called right before to this target and depends assures it is called once before but may be to early -->
@@ -101,7 +101,7 @@
     	    <arg line="-testApplication ${test-application} -clean -nl ta --disableLoginDialog -project TEST_NOLOGIN --deleteProjectIfExist -language java -login a@b.c"/>
     	    <arg line="-classname ${unit.test-class-name}"/>
     	    <arg line="formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,${unit.junit.results.path}"/>
-    	    <arg line="-consoleLog -console 23 -noExit"/>
+    	    <arg line="-consoleLog"/>
     	    <jvmarg line="-Xms128m -Xmx1024m -XX:MaxPermSize=256m -XX:+HeapDumpOnOutOfMemoryError"/><!-- -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=1716"/>-->
     	</java>        
     </target>
