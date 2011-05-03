@@ -44,7 +44,7 @@ public class TestDuplicateServer extends Login {
 		selenium.click("idFormSaveButton");
 		selenium.click("idSubModuleRefreshButton");
 		Assert.assertTrue(
-				selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='Copy_of_serverTest')]"),
+				selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='Copy_of_"+duplicatedServername+"')]"),
 				"server  duplicated failed!");
 		selenium.setSpeed(MIN_SPEED);
 
