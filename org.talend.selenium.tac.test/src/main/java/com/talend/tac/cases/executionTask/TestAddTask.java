@@ -38,12 +38,13 @@ public class TestAddTask  extends Login {
 	
 	//add a task
 	@Test(groups={"AddTask"})
-	@Parameters({"label","labelDescription"})
-	public void testAddTask(String label, String labelDescription) {
+	@Parameters({"label","labelDescription", "project", "job", "jobServer"})
+	public void testAddTask(String label, String labelDescription, String project, String job, String server) {
 		
 		if(!selenium.isElementPresent("//span[text()='"+label+"']")) {
-			
-			addTask(label, labelDescription, "commonpro", 1, "tjava", "server");
+//			addTask(label, labelDescription, "commonpro", 1, "commonproject", "serverTest");
+			addTask(label, labelDescription, project, 1, job, server);
+			System.out.println("parameters");
 			
 			selenium.click("idFormSaveButton");
 	        selenium.setSpeed(MID_SPEED);
@@ -57,9 +58,10 @@ public class TestAddTask  extends Login {
 	//add a exist task
 	@Test(dependsOnMethods={"testAddTask"})
 	@Parameters({"label","existLabelDescription"})
-	public void testAddExistTask(String label, String labelDescription) {
+	public void testAddExistTask(String label, String labelDescription, String project, String job, String server) {
 		
-		addTask(label, labelDescription, "commonpro", 1, "tjava", "server");
+//		addTask(label, labelDescription, "commonpro", 1, "commonproject", "serverTest");
+		addTask(label, labelDescription, project, 1, job, server);
 		
 		selenium.click("idFormSaveButton");
 		selenium.setSpeed("1000");
@@ -71,12 +73,12 @@ public class TestAddTask  extends Login {
 	//add a task of uncheck active 
 	@Test(dependsOnMethods={"testAddExistTask"})
 	@Parameters({"labelNotChooseActive","notChooseLabelDescription"})
-	public void testAddNotChooseActiveTask(String label, String labelDescription) {
+	public void testAddNotChooseActiveTask(String label, String labelDescription, String project, String job, String server) {
 		
 		if(!selenium.isElementPresent("//span[text()='"+label+"']")) {
 			
-		
-			addTask(label, labelDescription, "commonpro", 1, "tjava", "server");
+//			addTask(label, labelDescription, "commonpro", 1, "commonproject", "serverTest");
+			addTask(label, labelDescription, project, 1, job, server);
 			
 			selenium.click("//input[@class=' x-form-checkbox' and @type='checkbox' and @name='active']");//uncheck "Active"
 			Assert.assertFalse(selenium.isChecked("//input[@class=' x-form-checkbox' and @type='checkbox' and @name='active']"));
