@@ -43,6 +43,40 @@ public class TacCleaner {
 		}
 	 
  }
+  public void cleanServersNotused(Selenium selenium) throws InterruptedException{
+	  List<String> servers = new ArrayList<String>();
+	  selenium.click("!!!menu.executionServers.element!!!");
+	  Thread.sleep(5000);
+		servers = this.findSpecialMachedStrings(selenium,".*test_[a-zA-Z]*[0-9]*");
+		for (int i = 0; i < servers.size(); i++) {
+			if (servers.get(i).startsWith("test")) {
+				selenium.refresh();
+				Thread.sleep(5000);
+				selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-label' and text()='"+servers.get(i)+"']");
+				Thread.sleep(3000);
+				selenium.chooseOkOnNextConfirmation();
+				selenium.click("idSubModuleDeleteButton");
+				  selenium.getConfirmation();
+//			System.out.println(servers.get(i));
+			}
+
+		}
+		
+		servers = this.findSpecialMachedStrings(selenium,".*Copy_of_[a-zA-Z]*[0-9]*");
+		for (int i = 0; i < servers.size(); i++) {
+			if (servers.get(i).startsWith("Copy_of_")) {
+				selenium.refresh();
+				Thread.sleep(5000);
+				selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-label' and text()='"+servers.get(i)+"']");
+				Thread.sleep(3000);
+				selenium.chooseOkOnNextConfirmation();
+				selenium.click("idSubModuleDeleteButton");
+				  selenium.getConfirmation();
+//			System.out.println(servers.get(i));
+			}
+
+		}
+  }
  public void cleanProjectsForce(Selenium selenium) throws InterruptedException{
 
  }
