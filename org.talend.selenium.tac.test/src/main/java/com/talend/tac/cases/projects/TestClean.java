@@ -49,6 +49,7 @@ public class TestClean extends Login{
   }
   @Test(groups={"cleanbefore"})
   public void testDeleteAllNotUsed() throws InterruptedException{
+	  this.waitForElementPresent("!!!menu.project.element!!!", WAIT_TIME);
 	  new TacCleaner().cleanProjectsNotused(this.selenium);
 	  
   }
