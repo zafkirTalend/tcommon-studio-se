@@ -206,11 +206,13 @@
 			</class>
 		</classes>
 	</test>
+	<!--  
 	<test name="testLicenseAccountsCount">
 	<classes>
 	<class name="com.talend.tac.cases.license.TestLicenseAccountsCount"/>
 	</classes>
 	</test>
+	-->
 	<test name="testCreateAllRolesInAdvance" preserve-order="true">
 		<classes>
 			<class name="com.talend.tac.cases.user.TestCreatUsersInAdvance" />
@@ -272,6 +274,13 @@
 			<parameter name="userSetting.newPasswd" value="pass" />
 			<class name="org.talend.tac.cases.userSettings.TestUserSettings" />
 		</classes>
+	</test>
+	
+	<test name="TestAudit">
+	<classes>
+		<class name="com.talend.tac.cases.audit.TestAudit">
+		</class>
+	</classes>
 	</test>
 
 	<!-- under developing ,blocked -->
