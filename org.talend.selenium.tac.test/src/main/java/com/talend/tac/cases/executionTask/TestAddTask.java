@@ -57,7 +57,7 @@ public class TestAddTask  extends Login {
     
 	//add a exist task
 	@Test(dependsOnMethods={"testAddTask"})
-	@Parameters({"label","existLabelDescription"})
+	@Parameters({"label","existLabelDescription", "project", "job", "jobServer"})
 	public void testAddExistTask(String label, String labelDescription, String project, String job, String server) {
 		
 //		addTask(label, labelDescription, "commonpro", 1, "commonproject", "serverTest");
@@ -72,7 +72,7 @@ public class TestAddTask  extends Login {
 	
 	//add a task of uncheck active 
 	@Test(dependsOnMethods={"testAddExistTask"})
-	@Parameters({"labelNotChooseActive","notChooseLabelDescription"})
+	@Parameters({"labelNotChooseActive","notChooseLabelDescription", "project", "job", "jobServer"})
 	public void testAddNotChooseActiveTask(String label, String labelDescription, String project, String job, String server) {
 		
 		if(!selenium.isElementPresent("//span[text()='"+label+"']")) {
