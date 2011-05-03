@@ -70,7 +70,8 @@
 		<class name="com.talend.tac.cases.projects.TestBranchManageAddExistbranch"/> 
 		<class name="com.talend.tac.cases.projects.TestCleanProject"/> <class name="com.talend.tac.cases.projects.TestAddPerlproject"/> 
 		</classes> 
-		</test> --><!--
+		</test> -->
+		
 		<test name="projectJava"> 
 		<classes> 
 		<class name="com.talend.tac.cases.projects.TestClean"/> 
@@ -89,7 +90,8 @@
 		<class name="com.talend.tac.cases.projects.TestAddProjectUncheckadvanced"/> 
 		<class name="com.talend.tac.cases.projects.TestAddprojects"/> </classes> 
 		</test> 
-	--><test name="server">
+		
+	<test name="server">
 
 		<!--Environment needed to configured 1.start a job server on localhost 
 			2.start a job server on remote linux 3.start a job server on remote windows -->
