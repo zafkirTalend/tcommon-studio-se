@@ -1,7 +1,5 @@
 package com.talend.tac.cases.executionTask;
 
-import java.awt.event.KeyEvent;
-import java.text.SimpleDateFormat;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -12,12 +10,10 @@ import com.talend.tac.cases.executePlan.TriggerDate;
 public class TestAddTriggerAddSimpleTrigger extends Login{
     	   
     TriggerDate date = new TriggerDate();
-    
-    SimpleDateFormat sdf = new SimpleDateFormat("MM");
-    
+ 
     //creat a add trigger method(addSimpleTrigger)
-    public void addSimpleTrigger(String taskLabel, String triggerlabel, String triggerdescription, String startDate
-    		, String endDate, String triggerCount, String repeatInterval) {
+    public void addSimpleTrigger(String taskLabel, String triggerlabel, String triggerdescription, TriggerDate startDate
+    		, TriggerDate endDate, String triggerCount, String repeatInterval, String type) {
     	this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
     	selenium.setSpeed(MID_SPEED);
     	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
@@ -32,38 +28,102 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
 		
         this.typeString("//span[text()='Add simple trigger']/parent::legend/parent::fieldset" +
 				"//input[@name='description']", triggerdescription);//description
-    
-        if(date.getFuture(28).months.equals(date.getCurrentMonth()) && date.getFuture(48).months.equals(date.getCurrentMonth())) {
-        	
-        	System.out.println("StarTimr and end time in current month");
-        	selenium.click("//label[text()='Start time:']/parent::div//div/div/div");//start date
-    	    selenium.click("//td[@class='x-date-active']/a/span[text()='"+startDate+"']");
-    	    selenium.click("//label[text()='End time:']/parent::div//div/div/div");//end date
-    	    selenium.click("//td[@class='x-date-active']/a/span[text()='"+endDate+"']"); 
-    	    
-        } else if(date.getFuture(28).months.equals(date.getCurrentMonth())){
-        	
-        	System.out.println("start time in current month");
-        	selenium.click("//label[text()='Start time:']/parent::div//div/div/div");//start date
-    	    selenium.click("//td[@class='x-date-active']/a/span[text()='"+startDate+"']");
-        	
-    	    if(!date.getFuture(48).months.equals(date.getCurrentMonth())) {
-            	
-    	    	System.out.println("end time into next month");
-    	    	
-    	    	selenium.setSpeed(MID_SPEED);
-            	selenium.click("//label[text()='End time:']/parent::div//div/div/div");//end date
-            	selenium.keyPressNative(""+KeyEvent.VK_CONTROL);
-            	selenium.keyPressNative(""+KeyEvent.VK_RIGHT);
-            	selenium.keyUpNative(""+KeyEvent.VK_RIGHT);
-
-            	
-               	selenium.click("//td[@class='x-date-active']/a/span[text()='"+endDate+"']"); 
+   
+       
+    	
+        //######################################################################################3
+        System.out.println("+++----"+endDate.days);
+        System.out.println("+++----"+date.getCurrent().days); 	
+    	if("future".equals(type)) {
+    		selenium.click("//label[text()='Start time:']/parent::div//div/div/div");//start date
+    		if(date.isClickFutureMonthButton(startDate)) {//type in start time
+    			
+            	selenium.setSpeed(MID_SPEED);
+            	selenium.click("//div[@class=' x-icon-btn x-nodrag x-date-right-icon x-component']");
+            	selenium.click("//td[@class='x-date-active']/a/span[text()='"+startDate.days+"']");
             	selenium.setSpeed(MIN_SPEED);
+            	
             }
-        
-        }  
             
+        	else{//click tianshu}  
+            	selenium.setSpeed(MID_SPEED);
+            	selenium.click("//td[@class='x-date-active']/a/span[text()='"+startDate.days+"']");
+            	selenium.setSpeed(MIN_SPEED);
+            	
+            }
+    		selenium.click("//label[text()='End time:']/parent::div//div/div/div");//start date
+    		if(date.isClickFutureMonthButton(endDate)) {//type in start time
+    			
+            	selenium.setSpeed(MID_SPEED);
+            	selenium.click("//div[@class=' x-icon-btn x-nodrag x-date-right-icon x-component']");
+            	selenium.click("//td[@class='x-date-active']/a/span[text()='"+endDate.days+"']");
+            	selenium.setSpeed(MIN_SPEED);
+            	
+            }
+            
+        	else{//click tianshu}  
+            	selenium.setSpeed(MID_SPEED);
+            	selenium.click("//td[@class='x-date-active']/a/span[text()='"+endDate.days+"']");
+            	selenium.setSpeed(MIN_SPEED);
+            	
+            }  
+    		
+    	} 
+    	
+    	
+    	else {
+    	
+    		selenium.click("//label[text()='Start time:']/parent::div//div/div/div");//start date
+    	
+    	    if(date.isClickPastMonthButton(startDate)) {//type in start time
+    			
+            	selenium.setSpeed(MID_SPEED);
+            	selenium.click("//div[@class=' x-icon-btn x-nodrag x-date-right-icon x-component']");
+            	selenium.click("//td[@class='x-date-active']/a/span[text()='"+startDate.days+"']");
+            	selenium.setSpeed(MIN_SPEED);
+            	
+            } else{//click tianshu}  
+            	selenium.setSpeed(MID_SPEED);
+            	
+            	if((startDate.days).equals(date.getCurrent().days)) {
+            		
+            		selenium.click("//td[contains(@class,'x-date-today')]//span[text()='"+startDate.days+"']");
+            		
+            	} else {
+            		
+            		selenium.click("//td[@class='x-date-active']/a/span[text()='"+startDate.days+"']");
+            	
+            	}
+            	
+            	selenium.setSpeed(MIN_SPEED);
+            	
+            } 
+    		selenium.click("//label[text()='End time:']/parent::div//div/div/div");//start date
+    		if(date.isClickPastMonthButton(endDate)) {//type in start time
+    			
+            	selenium.setSpeed(MID_SPEED);
+            	selenium.click("//div[@class=' x-icon-btn x-nodrag x-date-right-icon x-component']");
+            	selenium.click("//td[@class='x-date-active']/a/span[text()='"+endDate.days+"']");
+            	selenium.setSpeed(MIN_SPEED);
+            	
+            }  else{//click tianshu}  
+            	selenium.setSpeed(MID_SPEED);
+                        	
+            	if((endDate.days).equals(date.getCurrent().days)) {
+            		
+            		selenium.click("//td[contains(@class,'x-date-today')]//span[text()='"+endDate.days+"']");
+            		            	
+            	} else {
+            		
+            		selenium.click("//td[@class='x-date-active']/a/span[text()='"+endDate.days+"']");
+            	
+            	}
+            	
+            	selenium.setSpeed(MIN_SPEED);
+    		
+    	   }
+    	
+    	}
         this.typeString("//span[text()='Add simple trigger']/parent::legend/parent::fieldset" +
 	    		"//input[@name='repeatCount']", triggerCount);//Number of triggerings
 	   
@@ -74,8 +134,7 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
     
 	
     //add a method of remove all triggers
-    @Test(groups={"AddSimpleTrigger"})
-//    ,dependsOnGroups={"ModifyTask"})
+    @Test(groups={"AddSimpleTrigger"},dependsOnGroups={"ModifyTask"})
     public void clearTriggers() {
     	
     	this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
@@ -124,7 +183,7 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
     }
     
   //add a overdue(start date) simpleTrigger
-//    @Test(dependsOnMethods={"clearTriggers"})
+    @Test(dependsOnMethods={"clearTriggers"})
 	@Parameters({"modifyTask","addSimpleTriggerNumberOfTriggeringsRunnedAutoStopLabel",
 		"addSimpleTriggerNumberOfTriggeringsRunnedAutoStopDescription"})
     public void testAddSimpleTriggerNumberOfTriggeringsRunnedAutoStop(String taskLabel, String label, String description) {
@@ -145,7 +204,7 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
 				"//input[@name='description']", description);//description
 
         this.typeString("//span[text()='Add simple trigger']/parent::legend/parent::fieldset" +
-	    		"//input[@name='repeatCount']", "3");//Number of triggerings
+	    		"//input[@name='repeatCount']", "1");//Number of triggerings
 	   
         this.typeString("//span[text()='Add simple trigger']/parent::legend/parent::fieldset" +
         		"//input[@name='repeatInterval']", "5");//Time interval (s)
@@ -156,7 +215,7 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
 	    selenium.click("//span[text()='Add simple trigger']/parent::legend/parent::fieldset/parent::form/" +
 		"parent::div/parent::div/parent::div/parent::div/parent::div//button[@id='idFormSaveButton']");
 		selenium.setSpeed(MIN_SPEED);
-		waitForElementPresent("//span[text()='4 / 4']",30);
+		waitForElementPresent("//span[text()='2 / 2']",WAIT_TIME);
 	  			
 		selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.isElementPresent("//span[@title='All triggers completed']/img"));
@@ -167,14 +226,11 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
     
     
 	// add a simpleTrigger
-	@Test
-//	(dependsOnMethods={"clearTriggers"})
+	@Test(dependsOnMethods={"clearTriggers"})
 	@Parameters({"modifyTask", "addSimpleTriggerLabel","addSimpleTriggerDescription"})
 	public void testAddTriggerAddSimpleTrigger(String taskLable, String label, String description) {
-	
-	   	int startDate = Integer.parseInt(date.getFuture(24).days);   
-	   	int endDate = Integer.parseInt(date.getFuture(48).days);
-		addSimpleTrigger(taskLable, label, description, ""+startDate, ""+endDate, "5", "20");
+	  
+		addSimpleTrigger(taskLable, label, description, date.getFuture(24), date.getFuture(48), "5", "20","future"  );
 		
 		selenium.setSpeed(MID_SPEED);
     	selenium.click("//span[text()='Add simple trigger']/parent::legend/parent::fieldset/parent::form/" +
@@ -232,7 +288,7 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
 	@Parameters({"modifyTask", "addSimpleTriggerLabel","addSimpleTriggerExistTriggerDescription"})
     public void testAddTriggerAddSimpleTriggerAddExist(String taskLabel, String label, String description) {
     	
-		addSimpleTrigger(taskLabel, label, description, "12", "13", "5", "20");
+		addSimpleTrigger(taskLabel, label, description, date.getFuture(24), date.getFuture(24), "5", "20", "future");
 		
 	    selenium.setSpeed(MID_SPEED);
 	    selenium.click("//span[text()='Add simple trigger']/parent::legend/parent::fieldset/parent::form/" +
@@ -266,17 +322,7 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
 		selenium.setSpeed(MIN_SPEED);
         this.typeString("//span[text()='Add simple trigger']/parent::legend/parent::fieldset" +
 				"//input[@name='description']", description);//description
-        
-        selenium.click("//label[text()='Start time:']/parent::div//div/div/div");//start date
-	    selenium.click("//td[@class='x-date-active']/a/span[text()='"+startTime+"']");
-		selenium.setSpeed(MID_SPEED);
-		Assert.assertTrue(selenium.isElementPresent("//span[text()='Add simple trigger']//ancestor::fieldset//label[text()='Start time:']/parent::div//img"));
-		selenium.setSpeed(MIN_SPEED);
-	    selenium.click("//label[text()='End time:']/parent::div//div/div/div");//end date
-	    selenium.click("//td[@class='x-date-active']/a/span[text()='"+endTime+"']");
-		selenium.setSpeed(MID_SPEED);
-		Assert.assertTrue(selenium.isElementPresent("//span[text()='Add simple trigger']//ancestor::fieldset//label[text()='End time:']/parent::div//img"));
-		selenium.setSpeed(MIN_SPEED);
+      
         this.typeString("//span[text()='Add simple trigger']/parent::legend/parent::fieldset" +
 	    		"//input[@name='repeatCount']", numberOfTriggering);//Number of triggerings
     	selenium.setSpeed(MID_SPEED);
@@ -295,13 +341,13 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
 	@Parameters({"modifyTask", "addSimpleTriggerOverdueStartDataLabel","addSimpleTriggerOverdueStartDataDescription"})
     public void testAddTriggerAddSimpleTriggerAddOverdueStartData(String taskLabel, String label, String description) {
     	
-		addSimpleTrigger(taskLabel, label, description, "12", date.getFuture(24).days, "5", "20");
+		addSimpleTrigger(taskLabel, label, description, date.getPast(24), date.getCurrent(), "5", "20", "past");
 	
 	    selenium.setSpeed(MID_SPEED);
 	    selenium.click("//span[text()='Add simple trigger']/parent::legend/parent::fieldset/parent::form/" +
 		"parent::div/parent::div/parent::div/parent::div/parent::div//button[@id='idFormSaveButton']");
 		selenium.setSpeed(MIN_SPEED);
-		selenium.setSpeed("1000"); 
+		selenium.setSpeed(MID_SPEED); 
 	    Assert.assertTrue(selenium.isTextPresent(rb.getString("trigger.simpleTrigger.error.startTimeLessThenServerTime")));
 	    selenium.setSpeed(MIN_SPEED); 		
 	    
@@ -311,9 +357,9 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
 	@Test(dependsOnMethods={"testAddTriggerAddSimpleTriggerAddOverdueStartData"})
 	@Parameters({"modifyTask","addSimpleTriggerOverdueEndDatalabel","addSimpleTriggerOverdueEndDataDescription"})
     public void testAddTriggerAddSimpleTriggerAddOverdueEndData(String taskLabel, String label, String description) {
-   
-	    addSimpleTrigger(taskLabel, label, description, date.getFuture(24).days, date.getPast(24).days, "5", "20");
-	   
+		System.out.println(date.getPast(24).months+"/-/-/-/-/");    
+	    addSimpleTrigger(taskLabel, label, description, date.getCurrent(), date.getPast(24), "5", "20", "past");
+	    System.out.println(date.getPast(24).months+"/-/-/-/-");
 	    selenium.setSpeed(MID_SPEED);
 	    selenium.click("//span[text()='Add simple trigger']/parent::legend/parent::fieldset/parent::form/" +
 		"parent::div/parent::div/parent::div/parent::div/parent::div//button[@id='idFormSaveButton']");
