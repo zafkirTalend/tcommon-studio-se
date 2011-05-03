@@ -10,8 +10,8 @@ import com.talend.tac.cases.Login;
 public class TestAddTask  extends Login {
     
 	//creat a method of add task
-	public void addTask(String label, String description, int projectNum, 
-			int statisticNum, int jobNum, int serverNum) {
+	public void addTask(String label, String description, String projectName, 
+			int statisticNum, String jobName, String serverName) {
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
         selenium.setSpeed(MID_SPEED);
 	    Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
@@ -23,12 +23,13 @@ public class TestAddTask  extends Login {
 		selenium.fireEvent("//span[text()='Execution task']/parent::legend/" +
 				"parent::fieldset/div/div[2]//input", "blur");
 		selenium.click("idCommonProjectListBox");//select a project 
-		selenium.mouseDownAt("//div[@role='listitem']["+projectNum+"]",""+Event.ENTER); 
+		selenium.mouseDownAt("//div[text()='"+projectName+"']",""+Event.ENTER); 
 		
 		selenium.click("idCommonJobListBox()");
-		selenium.mouseDownAt("//div[@role='listitem']["+jobNum+"]",""+Event.ENTER);
+		this.waitForElementPresent("//div[text()='"+jobName+"']", WAIT_TIME);
+		selenium.mouseDownAt("//div[text()='"+jobName+"']",""+Event.ENTER);
 		selenium.click("idJobConductorExecutionServerListBox()");
-		selenium.mouseDownAt("//div[@role='listitem']["+serverNum+"]",""+Event.ENTER);
+		selenium.mouseDownAt("//div[text()='"+serverName+"']",""+Event.ENTER);
 		selenium.click("//label[text()='Statistic:']/parent::div/div/div/div");
 		selenium.mouseDownAt("//div[@role='listitem']["+statisticNum+"]",""+Event.ENTER);
 		selenium.setSpeed(MIN_SPEED);
@@ -42,7 +43,7 @@ public class TestAddTask  extends Login {
 		
 		if(!selenium.isElementPresent("//span[text()='"+label+"']")) {
 			
-			addTask(label, labelDescription, 1, 1, 1, 1);
+			addTask(label, labelDescription, "commonpro", 1, "tjava", "server");
 			
 			selenium.click("idFormSaveButton");
 	        selenium.setSpeed(MID_SPEED);
@@ -58,7 +59,7 @@ public class TestAddTask  extends Login {
 	@Parameters({"label","existLabelDescription"})
 	public void testAddExistTask(String label, String labelDescription) {
 		
-		addTask(label, labelDescription, 1, 1, 1, 1);
+		addTask(label, labelDescription, "commonpro", 1, "tjava", "server");
 		
 		selenium.click("idFormSaveButton");
 		selenium.setSpeed("1000");
@@ -75,7 +76,7 @@ public class TestAddTask  extends Login {
 		if(!selenium.isElementPresent("//span[text()='"+label+"']")) {
 			
 		
-			addTask(label, labelDescription, 1, 1, 1, 1);
+			addTask(label, labelDescription, "commonpro", 1, "tjava", "server");
 			
 			selenium.click("//input[@class=' x-form-checkbox' and @type='checkbox' and @name='active']");//uncheck "Active"
 			Assert.assertFalse(selenium.isChecked("//input[@class=' x-form-checkbox' and @type='checkbox' and @name='active']"));
