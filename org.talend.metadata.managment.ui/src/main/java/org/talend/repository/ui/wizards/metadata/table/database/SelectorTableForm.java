@@ -854,14 +854,19 @@ public class SelectorTableForm extends AbstractForm {
                                                             added = true;
                                                             break;
                                                         } else {
+                                                            boolean exist = false;
                                                             for (ModelElement m : model) {
                                                                 if (m != null && m instanceof MetadataTable) {
-                                                                    if (!((MetadataTable) m).getLabel().equals(table.getLabel())) {
-                                                                        PackageHelper.addMetadataTable(newTable, s);
-                                                                        added = true;
+                                                                    if (((MetadataTable) m).getLabel().equals(table.getLabel())) {
+                                                                        exist = true;
                                                                         break;
                                                                     }
                                                                 }
+                                                            }
+                                                            if (!exist) {
+                                                                PackageHelper.addMetadataTable(newTable, s);
+                                                                added = true;
+                                                                break;
                                                             }
                                                         }
                                                     }
@@ -869,17 +874,17 @@ public class SelectorTableForm extends AbstractForm {
                                                         break;
                                                     }
                                                 } else {
-                                                    boolean added = false;
+                                                    boolean exist = false;
                                                     for (ModelElement m : ownedElement) {
                                                         if (m != null && m instanceof MetadataTable) {
-                                                            if (!((MetadataTable) m).getLabel().equals(table.getLabel())) {
-                                                                PackageHelper.addMetadataTable(newTable, c);
-                                                                added = true;
+                                                            if (((MetadataTable) m).getLabel().equals(table.getLabel())) {
+                                                                exist = true;
                                                                 break;
                                                             }
                                                         }
                                                     }
-                                                    if (added) {
+                                                    if (!exist) {
+                                                        PackageHelper.addMetadataTable(newTable, c);
                                                         break;
                                                     }
                                                 }
@@ -943,17 +948,17 @@ public class SelectorTableForm extends AbstractForm {
                                                 PackageHelper.addMetadataTable(newTable, s);
                                                 break;
                                             } else {
-                                                boolean added = false;
+                                                boolean exist = false;
                                                 for (ModelElement m : ownedElement) {
                                                     if (m != null && m instanceof MetadataTable) {
-                                                        if (!((MetadataTable) m).getLabel().equals(table.getLabel())) {
-                                                            PackageHelper.addMetadataTable(newTable, s);
-                                                            added = true;
+                                                        if (((MetadataTable) m).getLabel().equals(table.getLabel())) {
+                                                            exist = true;
                                                             break;
                                                         }
                                                     }
                                                 }
-                                                if (added) {
+                                                if (!exist) {
+                                                    PackageHelper.addMetadataTable(newTable, s);
                                                     break;
                                                 }
                                             }
