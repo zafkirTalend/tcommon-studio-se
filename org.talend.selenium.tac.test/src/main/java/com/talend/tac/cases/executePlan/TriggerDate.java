@@ -24,7 +24,7 @@ public class TriggerDate {
 		String dates[] = after.split("-");
 		time.years += dates[0];
 		time.months += dates[1];
-		time.days += dates[2];
+		time.days += Integer.parseInt(dates[2]);
 		time.hours += dates[3];
 		time.minutes += dates[4];
 		return time;
@@ -43,7 +43,7 @@ public class TriggerDate {
 		String dates[] = after.split("-");
 		time.years += dates[0];
 		time.months += dates[1];
-		time.days += dates[2];
+		time.days += Integer.parseInt(dates[2]);
 		time.hours += dates[3];
 		time.minutes += dates[4];
 		return time;
@@ -97,7 +97,7 @@ public class TriggerDate {
 		String dates[] = after.split("-");
 		time.years += dates[0];
 		time.months += dates[1];
-		time.days += dates[2];
+		time.days += Integer.parseInt(dates[2]);
 		time.hours += dates[3];
 		time.minutes += dates[4];
 		return time;
