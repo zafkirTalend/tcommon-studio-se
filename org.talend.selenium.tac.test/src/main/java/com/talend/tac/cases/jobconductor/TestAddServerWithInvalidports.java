@@ -9,11 +9,11 @@ import com.talend.tac.cases.Login;
 
 public class TestAddServerWithInvalidports extends Login {
 	@Test(groups = { "else" })
-	@Parameters({ "ServerLablename", "PortInvalidServer", "ServerDescription",
+	@Parameters({ "PortInvalidServer", "ServerDescription",
 			"ServerHost", "ServerCommondport", "ServerFiletransfortport",
 			"ServerMonitorport", "ServerTimeout", "ServerUsername",
 			"ServerPassword" })
-	public void addServerInvalid(String lable, String invalidLable,
+	public void addServerInvalid(String invalidLable,
 			String description, String host, String commondport,
 			String transfortport, String monitorport, String time,
 			String username, String password) {
@@ -43,7 +43,7 @@ public class TestAddServerWithInvalidports extends Login {
 //			} else {
 //				Assert.fail("Server added failed !");
 //			}
-			Assert.assertFalse(selenium.isElementPresent("//div[text()='" + lable + "']"),"Test add server with invalid ports failed!");
+			Assert.assertFalse(selenium.isElementPresent("//div[text()='" + invalidLable + "']"),"Test add server with invalid ports failed!");
 		} else {
 			Assert.fail("add button can not be seen !");
 
