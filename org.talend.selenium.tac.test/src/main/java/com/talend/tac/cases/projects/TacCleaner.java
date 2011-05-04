@@ -47,7 +47,7 @@ public class TacCleaner {
 	  List<String> servers = new ArrayList<String>();
 	  selenium.click("!!!menu.executionServers.element!!!");
 	  Thread.sleep(5000);
-		servers = this.findSpecialMachedStrings(selenium,".*test_[a-zA-Z]*[0-9]*");
+		servers = this.findSpecialMachedStrings(selenium,".*test_[a-zA-Z0-9]*");
 		for (int i = 0; i < servers.size(); i++) {
 			if (servers.get(i).startsWith("test")) {
 				selenium.refresh();
@@ -57,12 +57,11 @@ public class TacCleaner {
 				selenium.chooseOkOnNextConfirmation();
 				selenium.click("idSubModuleDeleteButton");
 				  selenium.getConfirmation();
-//			System.out.println(servers.get(i));
 			}
 
 		}
-		
-		servers = this.findSpecialMachedStrings(selenium,".*Copy_of_[a-zA-Z]*[0-9]*");
+		servers = null;
+		servers = this.findSpecialMachedStrings(selenium,"^Copy_of_[a-zA-Z0-9_]*");
 		for (int i = 0; i < servers.size(); i++) {
 			if (servers.get(i).startsWith("Copy_of_")) {
 				selenium.refresh();
@@ -72,7 +71,6 @@ public class TacCleaner {
 				selenium.chooseOkOnNextConfirmation();
 				selenium.click("idSubModuleDeleteButton");
 				  selenium.getConfirmation();
-//			System.out.println(servers.get(i));
 			}
 
 		}
