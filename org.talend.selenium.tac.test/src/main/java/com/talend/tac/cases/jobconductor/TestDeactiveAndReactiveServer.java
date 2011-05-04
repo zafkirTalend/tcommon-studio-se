@@ -9,25 +9,19 @@ import com.talend.tac.cases.Login;
 public class TestDeactiveAndReactiveServer extends Login{
 	@Test(groups = { "DeactiveReactive" },dependsOnGroups = { "AddServer" })
 	@Parameters({ "DeactiveServerlable" })
-	public void serverDeactiveAndReactive(String deactiveServername) {
-		selenium.setSpeed(MAX_SPEED);
-		if (selenium.isVisible("!!!menu.executionServers.element!!!")) {
-			selenium.click("!!!menu.executionServers.element!!!");
-			waitForElementPresent("idSubModuleAddButton", 30000);
-
-		} else {
-			selenium.click("!!!menu.jobConductor.element!!!");
-			selenium.setSpeed(MID_SPEED);
-			selenium.click("!!!menu.executionServers.element!!!");
-			waitForElementPresent("idSubModuleAddButton", 30000);
-
-		}
-		selenium.setSpeed(MAX_SPEED);
-		if (selenium.isElementPresent("idSubModuleAddButton")) {
+	public void serverDeactiveAndReactive(String deactiveServername) throws InterruptedException {
+		Thread.sleep(5000);
+		this.waitForElementPresent("!!!menu.executionServers.element!!!", WAIT_TIME);
+		selenium.click("!!!menu.executionServers.element!!!");
+		Thread.sleep(5000);
+		this.waitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"+deactiveServername+"')]", WAIT_TIME);
+		
 			selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"+deactiveServername+"')]");
 			// uncheck the active optioon
+			Thread.sleep(3000);
 			selenium.click("//input[@class=' x-form-checkbox' and @type='checkbox' and @name='active']");
 			// click the save button
+			selenium.setSpeed(MID_SPEED);
 			selenium.click("idFormSaveButton");
 			// refresh
 			selenium.click("idSubModuleRefreshButton");
@@ -35,12 +29,16 @@ public class TestDeactiveAndReactiveServer extends Login{
 					(selenium
 							.isElementPresent("//span[@class='serv-value' and (text()='INACTIVE')]")),
 					"Server deactive failed!");
+			selenium.setSpeed(MIN_SPEED);
 			//reactive the server
 			selenium.refresh();
+			this.waitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"+deactiveServername+"')]", WAIT_TIME);
 			selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"+deactiveServername+"')]");
 			// checked the active optioon
+			Thread.sleep(3000);
 			selenium.click("//input[@class=' x-form-checkbox' and @type='checkbox' and @name='active']");
 			// click the save button
+			selenium.setSpeed(MID_SPEED);
 			selenium.click("idFormSaveButton");
 			// refresh
 			selenium.click("idSubModuleRefreshButton");
@@ -48,10 +46,7 @@ public class TestDeactiveAndReactiveServer extends Login{
 					(selenium
 							.isElementPresent("//span[@class='serv-value' and (text()='UP')]")),
 					"Server reactive failed!");
-		} else {
-			Assert.fail("Server named" + deactiveServername
-					+ "can not be found!");
-		}
+		
 		selenium.setSpeed(MIN_SPEED);
 	}
 }

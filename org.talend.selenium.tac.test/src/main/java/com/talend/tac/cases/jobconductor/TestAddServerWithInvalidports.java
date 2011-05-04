@@ -8,7 +8,7 @@ import org.testng.Assert;
 import com.talend.tac.cases.Login;
 
 public class TestAddServerWithInvalidports extends Login {
-	@Test(groups = { "else" })
+	@Test(groups = { "AddServer" })
 	@Parameters({ "PortInvalidServer", "ServerDescription",
 			"ServerHost", "ServerCommondport", "ServerFiletransfortport",
 			"ServerMonitorport", "ServerTimeout", "ServerUsername",

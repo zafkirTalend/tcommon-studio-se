@@ -9,7 +9,7 @@ import com.talend.tac.cases.Login;
 import com.talend.tac.cases.projects.TacCleaner;
 
 public class TestAddServerForUse extends Login {
-	@Test(groups = { "left" },dependsOnGroups={"else"})
+	@Test(groups = { "left" },dependsOnGroups={"CleanServer"})
 	@Parameters({ "ServerForUseAvailable", "ServerForUseUnavailable","ServeravailableHost"})
 	public void addServerForuse(String lableavailable,String labelunavailable,String availablehost) throws InterruptedException {
 	this.waitForElementPresent("!!!menu.executionServers.element!!!", WAIT_TIME);
@@ -32,6 +32,7 @@ public class TestAddServerForUse extends Login {
 					host);
 			
 			// save
+			selenium.setSpeed(MAX_SPEED);
 			selenium.setSpeed(MAX_SPEED);
 			selenium.click("idFormSaveButton");
 			Thread.sleep(3000);

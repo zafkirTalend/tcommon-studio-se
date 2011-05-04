@@ -9,30 +9,21 @@ import com.talend.tac.cases.Login;
 
 public class TestAddServer extends Login {
 	@Test(groups = { "AddServer" })
-	@Parameters({ "ServerLablename", "PortInvalidServer", "ServerDescription",
+	@Parameters({ "ServerLablename","ServerDescription",
 			"ServerHost", "ServerCommondport", "ServerFiletransfortport",
 			"ServerMonitorport", "ServerTimeout", "ServerUsername",
 			"ServerPassword" })
-	public void addServer(String lable, String invalidLable,
+	public void addServer(String lable,
 			String description, String host, String commondport,
 			String transfortport, String monitorport, String time,
-			String username, String password) {
-		selenium.setSpeed(MAX_SPEED);
-		if (selenium.isVisible("!!!menu.executionServers.element!!!")) {
+			String username, String password) throws InterruptedException {
+		Thread.sleep(5000);
+		this.waitForElementPresent("!!!menu.executionServers.element!!!", WAIT_TIME);
+		
 			selenium.click("!!!menu.executionServers.element!!!");
 			waitForElementPresent("idSubModuleAddButton", 30000);
-
-		} else {
-			selenium.click("!!!menu.jobConductor.element!!!");
-			selenium.setSpeed(MID_SPEED);
-			selenium.click("!!!menu.executionServers.element!!!");
-			waitForElementPresent("idSubModuleAddButton", 30000);
-
-		}
-		selenium.setSpeed(MAX_SPEED);
-		// System.out.println("click add before !");
-		if (selenium.isElementPresent("idSubModuleAddButton")) {
-			selenium.click("idSubModuleAddButton");
+		selenium.click("idSubModuleAddButton");
+		Thread.sleep(3000);
 			// lable
 			selenium.setSpeed(MIN_SPEED);
 			this.typeString(other.getString("inputname.id.server.add.label"),
@@ -73,16 +64,8 @@ public class TestAddServer extends Login {
 			selenium.click("idFormSaveButton");
 			// refresh
 			selenium.click("idSubModuleRefreshButton");
-			if ((selenium.isElementPresent("//div[text()='" + lable + "']"))&&(selenium
-					.isElementPresent("//span[@class='serv-value' and (text()='UP')]"))) {
-
-			} else {
-				Assert.fail("Server added failed !");
-			}
-		} else {
-			Assert.fail("add button can not be seen !");
-
-		}
+			Assert.assertTrue(((selenium.isElementPresent("//div[text()='" + lable + "']"))&&(selenium
+					.isElementPresent("//span[@class='serv-value' and (text()='UP')]"))),"") ;
 		selenium.setSpeed(MIN_SPEED);
 
 	}
