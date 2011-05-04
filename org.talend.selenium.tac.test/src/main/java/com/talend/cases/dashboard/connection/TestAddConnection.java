@@ -3,7 +3,8 @@ package com.talend.cases.dashboard.connection;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.annotations.Parameters;
-import org.testng.annotations.Test;
+
+import java.awt.Event;
 
 import com.talend.tac.cases.Login;
 
@@ -53,7 +54,7 @@ public class TestAddConnection extends Login {
 		this.waitForElementPresent("idSubModuleAddButton", 30);
 		selenium.click("idSubModuleAddButton");
 		this.waitForElementPresent("//span[text()='Database connection']", 30);
-		selenium.setSpeed(MIN_SPEED);
+		
 		// configure database parameters
 		// DB label
 		selenium.type(other.getString("inputname.id.connection.add.label"),
@@ -109,28 +110,26 @@ public class TestAddConnection extends Login {
 		selenium.type(other.getString("inputname.id.connection.add.logTable"),
 				logs);
 		selenium.fireEvent(
-				other.getString("inputname.id.connection.add.logTable"), "blur");
-		// check connection
-/*		selenium.click("idCheckUrlButton");
-		this.waitForElementPresent("//button[text()='Check']", 30);
-		Assert.assertTrue(
-				(((Integer) selenium.getXpathCount("div[text()='OK']")) != 4),
-				"check connection failed!");
-		selenium.click("div[@class=' x-nodrag x-tool-close x-tool x-component ']");*/
+				other.getString("inputname.id.connection.add.logTable"), "blur");		
+		
+		selenium.setSpeed(MID_SPEED);
 		// select db type 
 		selenium.click(other.getString("inputname.id.connection.add.dbtype"));
 		
 		selenium.mouseDown("//div[@role='listitem']["+dbtype+"]");
+		
 		selenium.fireEvent(
 				other.getString("inputname.id.connection.add.dbtype"), "blur");
 		selenium.click(other.getString("inputname.id.connection.add.logTable"));
+		
 		// save button
-		selenium.setSpeed(MID_SPEED);
-		selenium.click("idFormSaveButton");
+		selenium.mouseDown("idFormSaveButton");
+		
+		selenium.keyPressNative(Event.ENTER+"");
+		selenium.keyUpNative(Event.ENTER+"");
+		
 		//check whether add success
 		Assert.assertTrue(selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"+label+"')]"), "DBConnection type: "+dbtype+" added failed!");
-		selenium.setSpeed(MIN_SPEED);
-
 	}
 
 }
