@@ -119,7 +119,7 @@ System.out.println("language: " + language + ", country: " + country);
 
 		String text = selenium.getBodyText();
 		texts = text.split("\n");
-		for (int i = 0; i < texts.length - 1; i++) {
+		for (int i = 0; i < texts.length; i++) {
 // System.out.println("text " + i +": " + texts[i]);
 			matcher = pattern.matcher(texts[i].trim());
 			if (matcher.matches()) {
@@ -132,7 +132,7 @@ System.out.println("language: " + language + ", country: " + country);
 	}
 	
 	/**
-	 * find the first String which match regex
+	 * find the Strings which match regex
 	 * 
 	 * @param regex
 	 * @return
@@ -148,11 +148,45 @@ System.out.println("language: " + language + ", country: " + country);
 		String text = selenium.getBodyText();
 //System.out.println(text);
 		texts = text.split("\n");
-		for (int i = 0; i < texts.length - 1; i++) {
+		for (int i = 0; i < texts.length; i++) {
 // System.out.println("text " + i +": " + texts[i]);
 			matcher = pattern.matcher(texts[i].trim());
 			if (matcher.matches()) {
 				findedString = texts[i].trim();
+				strs.add(findedString);
+//System.out.println(texts[i].trim());
+				continue;
+			}
+		}
+		return strs;
+	}
+	
+	/**
+	 * find the Strings which match regex, except the strings match exceptRegex
+	 * 
+	 * @param regex
+	 * @return
+	 */
+	public List<String> findSpecialMachedStrings(String regex, String exceptRegex) 
+	{
+		List<String> strs = new ArrayList<String>();
+		String findedString = "";
+		String[] texts;
+		Pattern pattern = Pattern.compile(regex);
+		Pattern exceptPattern = Pattern.compile(exceptRegex);
+		Matcher matcher;
+		Matcher exceptMatcher;
+
+		String text = selenium.getBodyText();
+		texts = text.split("\n");
+		
+		for (int i = 0; i < texts.length; i++) {
+			findedString = texts[i].trim();
+// System.out.println("text " + i +": " + texts[i]);
+			matcher = pattern.matcher(findedString);
+			exceptMatcher = exceptPattern.matcher(findedString);
+			
+			if (matcher.matches() && !exceptMatcher.matches()) {
 				strs.add(findedString);
 //System.out.println(texts[i].trim());
 				continue;
@@ -166,4 +200,5 @@ System.out.println("language: " + language + ", country: " + country);
 		selenium.type(xpath, value);
 		selenium.fireEvent(xpath, "blur");
 	}
+	
 }
