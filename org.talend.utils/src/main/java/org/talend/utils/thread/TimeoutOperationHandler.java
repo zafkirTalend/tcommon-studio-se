@@ -17,12 +17,13 @@ import org.apache.log4j.Logger;
 /**
  * 
  * Handler for an operation which processes with a timeout.
+ * 
  * @param <R> type of result
  */
 public abstract class TimeoutOperationHandler<R> {
 
     private static Logger log = Logger.getLogger(TimeoutOperationHandler.class);
-    
+
     private R result;
 
     private boolean timeoutReached;
@@ -33,8 +34,6 @@ public abstract class TimeoutOperationHandler<R> {
 
     private Throwable operationError;
 
-    private R defaultResult;
-    
     public TimeoutOperationHandler(long timeout) {
         super();
         this.timeout = timeout;
@@ -47,13 +46,14 @@ public abstract class TimeoutOperationHandler<R> {
     }
 
     public void start() {
-        
+
         internalStart();
 
     }
 
     protected void internalStart() {
         Runnable runnable = new Runnable() {
+
             public void run() {
                 try {
                     result = TimeoutOperationHandler.this.internalRun();
@@ -66,65 +66,54 @@ public abstract class TimeoutOperationHandler<R> {
             }
 
         };
-        
-        if(labelOperation != null) {
-            new Thread(runnable, labelOperation).start();
+
+        Thread thread = null;
+        if (labelOperation != null) {
+            thread = new Thread(runnable, labelOperation);
         } else {
-            new Thread(runnable).start();
+            thread = new Thread(runnable);
         }
+        thread.start();
 
         long timeStart = System.currentTimeMillis();
 
         while (true) {
-            
-            if(System.currentTimeMillis() - timeStart > timeout) {
+
+            if (System.currentTimeMillis() - timeStart > timeout) {
                 timeoutReached = true;
             }
-            
-            if (timeoutReached || hasValidResultOperation()) {
+
+            if (timeoutReached || !thread.isAlive()) {
                 break;
             }
-            ThreadUtils.waitTimeBool(100);
+            ThreadUtils.waitTimeBool(50);
         }
     }
-    
+
     protected R internalRun() {
         return run();
     }
 
-    public boolean hasValidResultOperation() {
+    public boolean hasValidResultOperation(R result) {
         return result != null;
     }
-    
+
     public abstract R run();
 
     public R getResult() {
-        if(hasValidResultOperation()) {
-            return result;
-        } else {
-            return getDefaultResult();
-        }
+        return result;
     }
-    
+
     public Throwable getOperationError() {
         return operationError;
     }
-    
+
     public void finalizeOperation() {
-        
-    }
-    
-    public R getDefaultResult() {
-        return defaultResult;
+
     }
 
-    public void setDefaultResult(R defaultResult) {
-        this.defaultResult = defaultResult;
-    }
-
-    
     public void setLabelOperation(String labelOperation) {
         this.labelOperation = labelOperation;
     }
-    
+
 }
