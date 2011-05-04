@@ -436,7 +436,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
                                 textThirdTitle.setBackground(new Color(null, 255, 255, 204));
                                 textThirdTitle.setText(Messages.getString("tips.getStart"));
 
-                                String jobDesignText = Messages.getString("tips.createJobText");
+                                String jobDesignText = Messages.getString("tips.createJob");
                                 int jobDesignWidth = 0;
                                 for (int l = 0; l < jobDesignText.length(); l++) {
                                     jobDesignWidth += gc.getCharWidth(jobDesignText.charAt(l)) + 1;
@@ -476,7 +476,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
                                 palette.setBackground(new Color(null, 255, 255, 204));
                                 palette.setFont(new Font(parent.getDisplay(), "Arial", 10, SWT.NONE));
                                 palette.setForeground(new Color(null, 0, 0, 0));
-                                palette.setText(Messages.getString("tips.addDataSourceText"));
+                                palette.setText(Messages.getString("tips.addDataSource"));
                                 palette.addListener(SWT.Selection, new Listener() {
 
                                     public void handleEvent(Event event) {
@@ -489,7 +489,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
                                         page.findView(gefViewId).setFocus();
                                     }
                                 });
-                                String componentText = Messages.getString("tips.ComponentText");
+                                String componentText = Messages.getString("tips.Component");
                                 int componentWidth = 0;
                                 for (int l = 0; l < componentText.length(); l++) {
                                     componentWidth += gc.getCharWidth(componentText.charAt(l)) + 1;
@@ -527,7 +527,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
                                 runJob.setBackground(new Color(null, 255, 255, 204));
                                 runJob.setFont(new Font(parent.getDisplay(), "Arial", 10, SWT.NONE));
                                 runJob.setForeground(new Color(null, 0, 0, 0));
-                                runJob.setText(Messages.getString("tips.finallyRunText"));
+                                runJob.setText(Messages.getString("tips.finallyText"));
                                 runJob.addListener(SWT.Selection, new Listener() {
 
                                     public void handleEvent(Event event) {
