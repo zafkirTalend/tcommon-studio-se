@@ -450,6 +450,26 @@ public class Utilities {
     }
 
     public static void createSalesforce(String salesforceName, SWTBotTreeItem treeNode, final SWTGefBot gefBot) {
+        createSalesforce(null, salesforceName, treeNode, gefBot);
+    }
+
+    public static void createSalesforceWithHttpProxy(String salesforceName, SWTBotTreeItem treeNode, final SWTGefBot gefBot) {
+        createSalesforce("HTTP", salesforceName, treeNode, gefBot);
+    }
+
+    public static void createSalesforceWithSocksProxy(String salesforceName, SWTBotTreeItem treeNode, final SWTGefBot gefBot) {
+        createSalesforce("SOCKS", salesforceName, treeNode, gefBot);
+    }
+
+    /**
+     * DOC fzhong Comment method "createSalesforce".
+     * 
+     * @param proxyType if use proxy set "HTTP" or "SOCKS", if not set null
+     * @param salesforceName
+     * @param treeNode
+     * @param gefBot
+     */
+    private static void createSalesforce(String proxyType, String salesforceName, SWTBotTreeItem treeNode, final SWTGefBot gefBot) {
         treeNode.contextMenu("Create Salesforce Connection").click();
         shell = gefBot.shell("New Salesforce ").activate();
         gefBot.waitUntil(Conditions.shellIsActive("New Salesforce "));
@@ -467,6 +487,20 @@ public class Utilities {
         /* step 2 of 4 */
         gefBot.textWithLabel("User name").setText(System.getProperty("salesforce.username"));
         gefBot.textWithLabel("Password ").setText(System.getProperty("salesforce.password"));
+
+        if ("HTTP".equals(proxyType)) {
+            gefBot.checkBox("Enable Http proxy").click();
+            gefBot.button("OK").click();
+        } else if ("SOCKS".equals(proxyType)) {
+            gefBot.checkBox("Enable Socks proxy").click();
+        }
+        if (proxyType != null) {
+            gefBot.textWithLabel("Host").setText(System.getProperty("salesforce.proxy.host"));
+            gefBot.textWithLabel("Port").setText(System.getProperty("salesforce.proxy.port"));
+            gefBot.textWithLabel("Username").setText(System.getProperty("salesforce.proxy.username"));
+            gefBot.textWithLabel("Password").setText(System.getProperty("salesforce.proxy.password"));
+        }
+
         gefBot.button("Check login").click();
 
         gefBot.waitUntil(new DefaultCondition() {
