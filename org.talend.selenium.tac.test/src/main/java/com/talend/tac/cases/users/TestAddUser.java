@@ -38,7 +38,9 @@ public class TestAddUser extends Login {
 		selenium.type("//input[@name='authenticationPassword']", SvnPassWord);
 		selenium.fireEvent("//input[@name='authenticationPassword']", "blur");	
 	    
-		selenium.click("idTypeInput");   
+		selenium.click("//label[text()='Type:']/parent::div//div[@class='x-form-trigger x-form-trigger-arrow']");
+		this.waitForElementPresent("//div[contains(@class, 'x-combo-list')]/" +
+				"descendant::div[contains(@class, 'x-combo-list-item')][text()='"+typeName+"']", WAIT_TIME);
 		if(selenium.isElementPresent("//div[contains(@class, 'x-combo-list')]/" +
 				"descendant::div[contains(@class, 'x-combo-list-item')][text()='"+typeName+"']")) {
 			selenium.mouseDownAt("//div[@role='listitem']["+num+"]", ""+Event.ENTER); 
@@ -48,7 +50,7 @@ public class TestAddUser extends Login {
 	}
 	
 	//clear all users---modify firstname and lastname to "admin,admin" ---user'role change to 'administrator'
-    @Test(groups={"AddUser"})
+//    @Test(groups={"AddUser"})
     @Parameters({"userName"})
     public void clearAllUsers(String userName) {
     	 List<String> users = new ArrayList<String>(); 
@@ -101,7 +103,8 @@ public class TestAddUser extends Login {
     }
     
     //add a user of user'role are all roles
-    @Test(dependsOnMethods={"clearAllUsers"})
+//    @Test(dependsOnMethods={"clearAllUsers"})
+    @Test(groups={"AddUser"})
     @Parameters({"userNameAllRoles","FirstName","LastName","PassWord","SvnLogin","SvnPassWord"})
 	public void testAddUserAllRoles(String userName,String FirstName,String LastName,String PassWord,String SvnLogin,
 			String SvnPassWord) throws Exception {
