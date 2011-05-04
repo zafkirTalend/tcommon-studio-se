@@ -786,8 +786,6 @@ public class ExtractMetaDataFromDataBase {
 
                         metadataColumn.setLength(ident1);
                         metadataColumn.setPrecision(ident2);
-                        // bug 0020128
-                        metadataColumn.setSourceType("INT");
                     } else {
                         metadataColumn.setPrecision(intMetaDataInfo);
                     }
@@ -1089,8 +1087,6 @@ public class ExtractMetaDataFromDataBase {
 
                         metadataColumn.setLength(ident1);
                         metadataColumn.setPrecision(ident2);
-                        // bug 0020128
-                        metadataColumn.setSourceType("INT");
                     } else {
                         metadataColumn.setPrecision(intMetaDataInfo);
                     }
