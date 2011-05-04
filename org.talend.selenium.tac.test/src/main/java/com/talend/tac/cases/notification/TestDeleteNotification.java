@@ -9,7 +9,8 @@ import com.talend.tac.cases.Login;
 public class TestDeleteNotification extends Login {
     
 	//delete a notification(cancel Delete Notification)
-	@Test(groups={"DeleteNotification"},dependsOnGroups={"AddJobserverNotification"})
+	@Test(groups={"DeleteNotification"})
+//	,dependsOnGroups={"AddJobserverNotification"})
 	@Parameters({"eventNewUser"})
 	public void testCancelDeleteNotification(String eventNewUser) {
 		
@@ -43,7 +44,7 @@ public class TestDeleteNotification extends Login {
         selenium.setSpeed(MIN_SPEED);
 	 
         selenium.setSpeed(MID_SPEED);
-        Assert.assertTrue(!selenium.isElementPresent("//div[text()='"+eventNewUser+"']/" +
+        Assert.assertFalse(selenium.isElementPresent("//div[text()='"+eventNewUser+"']/" +
 		"parent::td/parent::tr//img[@class='gwt-Image' and @title='true']"));		
 		selenium.setSpeed(MIN_SPEED);
 		
