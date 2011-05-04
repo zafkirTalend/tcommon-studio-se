@@ -9,6 +9,8 @@ import com.talend.tac.cases.executePlan.TriggerDate;
 
 public class TestAddTriggerAddCronTrigger extends Login{
     
+    TriggerDate date = new TriggerDate().getFuture(24);
+	
 	public void addTriggerAddCronTrigger(String labelCronTrigger, String descriptionSronTrigger,String years,
 			String weeksStart, String weeksEnd, String monthsStart, String monthsEnd) {
     	this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
@@ -21,16 +23,12 @@ public class TestAddTriggerAddCronTrigger extends Login{
 		selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.isElementPresent("//span[text()='"+rb.getString("trigger.action.addCronTrigger")+"']"));
 		selenium.setSpeed(MIN_SPEED);
-		selenium.type("//span[text()='Add Cron trigger']/parent::legend/parent::fieldset" +
+		this.typeString("//span[text()='Add Cron trigger']/parent::legend/parent::fieldset" +
 				"//input[@name='label']", labelCronTrigger);//label
-		selenium.fireEvent("//span[text()='Add Cron trigger']/parent::legend/parent::fieldset" +
-				"//input[@name='label']","blur");
-//			                                                                      " x-form-field x-form-text x-form-invalid"
-		selenium.type("//span[text()='Add Cron trigger']/parent::legend/parent::fieldset" +
+		//			                                                                      " x-form-field x-form-text x-form-invalid"
+		this.typeString("//span[text()='Add Cron trigger']/parent::legend/parent::fieldset" +
 				"//input[@name='description']", descriptionSronTrigger);//description
-		selenium.fireEvent("//span[text()='Add Cron trigger']/parent::legend/parent::fieldset" +
-				"//input[@name='description']","blur");
-		
+			
 		selenium.click("idSchedulingUiConfigButton");//choose data
 		
 		selenium.mouseDown("//div[text()='"+years+"']");//choose years
@@ -80,12 +78,40 @@ public class TestAddTriggerAddCronTrigger extends Login{
 	@Parameters({"addCronTriggerLabel","addCronTriggerExistTriggerDescription"})
     public void testAddExistTriggerAddCronTrigger(String cronTriggerLabel, String description) {
 		
-		addTriggerAddCronTrigger(cronTriggerLabel, description, "2011", 
-				"Sunday", "Saturday", "January", "December");
-    			
+		//open to execution task add trigger page
+		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
+    	selenium.setSpeed(MID_SPEED);
+    	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
+    	selenium.setSpeed(MIN_SPEED);
+       	selenium.mouseDown("//span[text()='testModifyTask']");
+		selenium.click("//button[text()='Add trigger...']");
+		selenium.click("//a[text()='Add CRON trigger']");
+
+		this.typeString("//div[text()='Job Conductor']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']" +
+				"//span[text()='Add Cron trigger']//ancestor::fieldset//input[@name='label']",cronTriggerLabel);
+		//type  description
+		this.typeString("//div[text()='Job Conductor']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']" +
+				"//span[text()='Add Cron trigger']//ancestor::fieldset//input[@name='description']", description);
+    	//type minutes
+		this.typeString("//div[text()='Job Conductor']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']" +
+				"//span[text()='Add Cron trigger']//ancestor::fieldset//input[@name='minutes']", date.minutes);
+		//type hours
+		this.typeString("//div[text()='Job Conductor']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']" +
+				"//span[text()='Add Cron trigger']//ancestor::fieldset//input[@name='hours']", date.hours);
+		//type days
+		this.typeString("//div[text()='Job Conductor']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']" +
+				"//span[text()='Add Cron trigger']//ancestor::fieldset//input[@name='daysOfMonth']", date.days);
+		//type months
+		this.typeString("//div[text()='Job Conductor']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']" +
+				"//span[text()='Add Cron trigger']//ancestor::fieldset//input[@name='months']", date.months);
+		//type years
+		this.typeString("//div[text()='Job Conductor']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']" +
+				"//span[text()='Add Cron trigger']//ancestor::fieldset//input[@name='years']", date.years);	
+		//click save button
+		selenium.setSpeed(MID_SPEED);
 		selenium.click("//span[text()='Add Cron trigger']/parent::legend/parent::fieldset/parent::form/" +
     			"parent::div/parent::div/parent::div/parent::div/parent::div//button[@id='idFormSaveButton']");
-        selenium.setSpeed("1000");
+        selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.isTextPresent("Save failed: An execution trigger with this name already exists -- For more information see your log file"));
 		selenium.setSpeed(MIN_SPEED);
 		
@@ -95,6 +121,8 @@ public class TestAddTriggerAddCronTrigger extends Login{
 	@Test(dependsOnMethods={"testAddExistTriggerAddCronTrigger"})
 	@Parameters({"addCronTriggerOverdue","addCronTriggerOverdueDescription"})
     public void testAddOverdueTriggerAddCronTrigger(String cronTriggerLabel, String description) {
+		
+		selenium.refresh();
 		
 		addTriggerAddCronTrigger(cronTriggerLabel, description, "2010", 
 				"Sunday", "Saturday", "January", "December");
@@ -111,7 +139,7 @@ public class TestAddTriggerAddCronTrigger extends Login{
 	@Test(dependsOnMethods={"testAddOverdueTriggerAddCronTrigger"})
 	@Parameters({ "addCronTriggerByHandInputDateLabel", "addCronTriggerByHandInputDateDescription"})
 	public void testAddCronByHandInputDateTrigger(String addCronTrigger,String addCronTriggerDescription) throws InterruptedException{
-	    TriggerDate date = new TriggerDate().getFuture(24);
+	
 		//open to execution task add trigger page
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
     	selenium.setSpeed(MID_SPEED);
