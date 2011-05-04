@@ -10,8 +10,8 @@ import com.talend.tac.cases.Login;
 public class TestModifyTask extends Login {
     
 	@Test(groups={"ModifyTask"},dependsOnGroups={"DeleteTask"})
-	@Parameters({"label","modifyTask"})
-	public void testModifyTask(String label,String modifyLabel) {
+	@Parameters({"label","modifyTask","AddcommonProjectname","jobName"})
+	public void testModifyTask(String label,String modifyLabel,String projectName,String jobName) {
 		
 		if(!selenium.isElementPresent("//span[text()='"+modifyLabel+"']")) {
 			
@@ -22,22 +22,14 @@ public class TestModifyTask extends Login {
 			selenium.mouseDown("//span[text()='"+label+"']");//select a exist task
 
 			
-			selenium.type("//input[@name='label']", modifyLabel);//task name /Label
-			selenium.fireEvent("//input[@name='label']", "blur");
+			this.typeString("//input[@name='label']", modifyLabel);//task name /Label
 			selenium.click("idCommonProjectListBox");//select a project 
-			selenium.mouseDownAt("//div[@role='listitem'][1]",""+Event.ENTER); 
-			selenium.click("idCommonBranchListBox()");  //select a Branch
-			selenium.mouseDownAt("//div[@role='listitem'][1]",""+Event.ENTER); 
-			selenium.click("idCommonJobListBox()");   //select a job
-			selenium.setSpeed(MID_SPEED);
-			selenium.mouseDownAt("//div[@role='listitem'][1]",""+Event.ENTER); 
-			selenium.click("idCommonContextListBox()");  
-			selenium.mouseDownAt("//div[@role='listitem'][1]",""+Event.ENTER); 
-	 
-			selenium.click("idJobConductorExecutionServerListBox()"); //select a server
-			selenium.mouseDownAt("//div[@role='listitem'][1]",""+Event.ENTER); 
-			selenium.click("idJobConductorExecutionServerListBox()");
-			selenium.mouseDownAt("//div[@role='listitem'][1]",""+Event.ENTER); 
+			selenium.mouseDownAt("//div[text()='"+projectName+"']",""+Event.ENTER); 
+			
+			selenium.click("idCommonJobListBox()");
+			this.waitForElementPresent("//div[text()='"+jobName+"']", WAIT_TIME);
+			selenium.mouseDownAt("//div[text()='"+jobName+"']",""+Event.ENTER);
+			
 			selenium.click("idFormSaveButton");
 			Assert.assertTrue(selenium.isElementPresent("//span[text()='"+modifyLabel+"']"));
 			selenium.setSpeed(MIN_SPEED);
